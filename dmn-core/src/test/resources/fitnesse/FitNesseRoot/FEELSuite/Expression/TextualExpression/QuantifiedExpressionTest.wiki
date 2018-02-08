@@ -1,0 +1,10 @@
+# Choose Slim protocol
+!define TEST_SYSTEM {slim}
+
+!1 Quantified Expressions
+!|FEEL Expression Fixture                                       |
+|expression                                       |scope|output?|
+|some i in [1..2] j in [2..3] satisfies i + j > 1 |     |true   |
+|every i in [1..2] j in [2..3] satisfies i + j > 1|     |true   |
+|some i in [1, 2] j in [2, 3] satisfies i + j > 1 |     |true   |
+|every i in [1, 2] j in [2, 3] satisfies i + j > 1|     |true   |

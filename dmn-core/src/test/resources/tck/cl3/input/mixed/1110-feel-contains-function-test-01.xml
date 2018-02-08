@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by ACTICO GmbH https://actico.com -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="">
+    <modelName>1110-feel-contains-function.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Data Type: String</label>
+        <label>Literal Expression</label>
+        <label>FEEL Functions: strings</label>
+    </labels>
+    <testCase id="001_2a4d7448c6">
+        <resultNode errorResult="true" name="feel-contains-function_ErrorCase_001_2a4d7448c6" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="002_d2a1831b5c">
+        <resultNode errorResult="true" name="feel-contains-function_ErrorCase_002_d2a1831b5c" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="003_df56e0a1ad">
+        <resultNode errorResult="true" name="feel-contains-function_ErrorCase_003_df56e0a1ad" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="004_805503b274">
+        <resultNode name="feel-contains-function_004_805503b274" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="005_5c1269db16">
+        <resultNode name="feel-contains-function_005_5c1269db16" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="006_babdaf4f36">
+        <resultNode name="feel-contains-function_006_babdaf4f36" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="007_d24a599180">
+        <resultNode name="feel-contains-function_007_d24a599180" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="008_cf1311586a">
+        <resultNode name="feel-contains-function_008_cf1311586a" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="009_c4b50ad623">
+        <resultNode name="feel-contains-function_009_c4b50ad623" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="010_9ae03e0e59">
+        <resultNode name="feel-contains-function_010_9ae03e0e59" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+</testCases>

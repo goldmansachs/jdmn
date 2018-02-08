@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelName>0033-for-loops.dmn</modelName>
+	<labels>
+		<label>Compliance Level 3</label>
+		<label>Literal Expression</label>
+		<label>Business Knowledge Model</label>
+		<label>FEEL Arithmetic</label>
+		<label>FEEL Iteration</label>
+		<label>FEEL Functions: numeric</label>
+		<label>FEEL List Operator</label>
+		<label>FEEL Special-character Names</label>
+		<label>Literal Function Invocation</label>
+		<label>Item Definition</label>
+		<label>Data Type: Number</label>
+		<label>Data Type: Boolean</label>
+		<label>Data Type: Collection</label>
+	</labels>
+	<testCase id="001">
+	    <description>Tests single variable iteration</description>
+		<inputNode name="heights">
+			<list>
+				<item>
+					<value>10</value>
+				</item>
+				<item>
+					<value>20</value>
+				</item>
+				<item>
+					<value>30</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="increase1" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>11</value>
+					</item>
+					<item>
+						<value>21</value>
+					</item>
+					<item>
+						<value>31</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="002">
+		<description>Tests multi variable iteration</description>
+		<inputNode name="heights">
+			<list>
+				<item>
+					<value>10</value>
+				</item>
+				<item>
+					<value>20</value>
+				</item>
+				<item>
+					<value>30</value>
+				</item>
+			</list>
+		</inputNode>
+		<inputNode name="widths">
+			<list>
+				<item>
+					<value>2</value>
+				</item>
+				<item>
+					<value>3</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="areas" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>20</value>
+					</item>
+					<item>
+						<value>30</value>
+					</item>
+					<item>
+						<value>40</value>
+					</item>
+					<item>
+						<value>60</value>
+					</item>
+					<item>
+						<value>60</value>
+					</item>
+					<item>
+						<value>90</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="003">
+		<description>Tests single variable iteration with BKM call</description>
+		<inputNode name="value">
+			<value>35</value>
+		</inputNode>
+		<inputNode name="factors">
+			<list>
+				<item>
+					<value>2</value>
+				</item>
+				<item>
+					<value>3</value>
+				</item>
+				<item>
+					<value>5</value>
+				</item>
+				<item>
+					<value>7</value>
+				</item>
+				<item>
+					<value>11</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="check factors" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>false</value>
+					</item>
+					<item>
+						<value>false</value>
+					</item>
+					<item>
+						<value>true</value>
+					</item>
+					<item>
+						<value>true</value>
+					</item>
+					<item>
+						<value>false</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="004">
+		<description>Tests single variable iteration with inline list</description>
+		<inputNode name="value">
+			<value>10</value>
+		</inputNode>
+		<resultNode name="multiples" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>20</value>
+					</item>
+					<item>
+						<value>30</value>
+					</item>
+					<item>
+						<value>40</value>
+					</item>
+					<item>
+						<value>50</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>

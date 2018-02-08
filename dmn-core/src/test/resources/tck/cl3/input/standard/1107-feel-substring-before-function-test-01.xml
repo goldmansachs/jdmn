@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by ACTICO GmbH https://actico.com -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="">
+    <modelName>1107-feel-substring-before-function.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Data Type: String</label>
+        <label>Literal Expression</label>
+        <label>FEEL Functions: strings</label>
+    </labels>
+    <testCase id="001_2e948ccdc7">
+        <resultNode name="feel-substring-before-function_001_2e948ccdc7" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="002_f4de663db7">
+        <resultNode name="feel-substring-before-function_002_f4de663db7" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">f</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="003_60bc15bade">
+        <resultNode name="feel-substring-before-function_003_60bc15bade" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="004_6f93aa7654">
+        <resultNode name="feel-substring-before-function_004_6f93aa7654" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="005_c8e030633c">
+        <resultNode name="feel-substring-before-function_005_c8e030633c" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="006_1c3d39811d">
+        <resultNode name="feel-substring-before-function_006_1c3d39811d" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="007_ea4e4a38b0">
+        <resultNode name="feel-substring-before-function_007_ea4e4a38b0" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">ab</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="008_501b0a5990">
+        <resultNode name="feel-substring-before-function_008_501b0a5990" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="009_a79c5a4111">
+        <resultNode name="feel-substring-before-function_009_a79c5a4111" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+</testCases>

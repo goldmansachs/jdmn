@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelName>0016-some-every.dmn</modelName>
+	<labels>
+		<label>Compliance Level 3</label>
+		<label>Literal Expression</label>
+		<label>Item Definition</label>
+		<label>Relation</label>
+		<label>FEEL Quantifiers</label>
+		<label>Business Knowledge Model</label>
+		<label>Data Type: String</label>
+		<label>Data Type: Number</label>
+		<label>Data Type: Boolean</label>
+		<label>Data Type: Structure</label>
+		<label>Data Type: Collection</label>
+	</labels>
+	<testCase id="001">
+		<inputNode name="priceTable2">
+			<list>
+				<item>
+					<component name="itemName">
+						<value>widget</value>
+					</component>
+					<component name="price">
+						<value>25</value>
+					</component>
+				</item>
+				<item>
+					<component name="itemName">
+						<value>sprocket</value>
+					</component>
+					<component name="price">
+						<value>15</value>
+					</component>
+				</item>
+				<item>
+					<component name="itemName">
+						<value>trinket</value>
+					</component>
+					<component name="price">
+						<value>1.5</value>
+					</component>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="priceTable1" type="decision">
+			<expected>
+				<list>
+					<item>
+						<component name="itemName">
+							<value>widget</value>
+						</component>
+						<component name="price">
+							<value>25</value>
+						</component>
+					</item>
+					<item>
+						<component name="itemName">
+							<value>sprocket</value>
+						</component>
+						<component name="price">
+							<value>15</value>
+						</component>
+					</item>
+					<item>
+						<component name="itemName">
+							<value>trinket</value>
+						</component>
+						<component name="price">
+							<value>1.5</value>
+						</component>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+		<resultNode name="everyGtTen1" type="decision">
+			<expected>
+				<value>false</value>
+			</expected>
+		</resultNode>
+		<resultNode name="everyGtTen2" type="decision">
+			<expected>
+				<value>false</value>
+			</expected>
+		</resultNode>
+		<resultNode name="someGtTen1" type="decision">
+			<expected>
+				<value>true</value>
+			</expected>
+		</resultNode>
+		<resultNode name="someGtTen2" type="decision">
+			<expected>
+				<value>true</value>
+			</expected>
+		</resultNode>
+		<resultNode name="everyGtTen3" type="decision">
+			<expected>
+				<value>false</value>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>

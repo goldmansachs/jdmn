@@ -1,0 +1,24 @@
+jDMN
+Copyright 2017 Goldman Sachs
+Licensed under Apache 2.0 license
+
+This product includes software developed at
+The Apache Software Foundation (http://www.apache.org/).
+
+Each module in this project has a NOTICE.txt file denoting the module's own dependencies.
+
+This product depends on (links to) the following software:
+	ANTLR 3 Runtime under BSD licence
+	ANTLR 4 Runtime under The BSD License
+	ANTLR 4 Tool under The BSD License
+	Commons IO under The Apache Software License, Version 2.0
+	Commons Lang under The Apache Software License, Version 2.0
+	FreeMarker under Apache License, Version 2.0
+	Google Java Format under The Apache Software License, Version 2.0
+	Jackson datatype: JSR310 under The Apache Software License, Version 2.0
+	Jackson-annotations under The Apache Software License, Version 2.0
+	Jackson-core under The Apache Software License, Version 2.0
+	Javassist under Apache License 2.0
+	Reflections under The New BSD License
+	SLF4J API Module under MIT License
+	Saxon-HE under Mozilla Public License Version 2.0

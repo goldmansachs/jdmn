@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelName>0101-feel-constants.dmn</modelName>
+	<labels>
+		<label>Compliance Level 2</label>
+		<label>Literal Expression</label>
+		<label>FEEL Constants</label>
+		<label>Data Type: Number</label>
+	</labels>
+	<testCase id="001">
+		<description>Tests FEEL decimal number constant</description>
+		<resultNode name="Decision1" type="decision">
+			<expected>
+				<value>0.872</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="002">
+	    <description>Tests FEEL negative decimal number constant</description>
+	    <resultNode name="Decision2" type="decision">
+	        <expected>
+	            <value>-0.872</value>
+	        </expected>
+	    </resultNode>
+	</testCase>
+	<testCase id="004">
+	    <description>Tests FEEL number constant</description>
+	    <resultNode name="Decision4" type="decision">
+	        <expected>
+	            <value>50</value>
+	        </expected>
+	    </resultNode>
+	</testCase>
+	<testCase id="005">
+	    <description>Tests FEEL negative number constant</description>
+	    <resultNode name="Decision5" type="decision">
+	        <expected>
+	            <value>-50</value>
+	        </expected>
+	    </resultNode>
+	</testCase>
+	<testCase id="007">
+	    <description>Tests FEEL decimal number constant</description>
+	    <resultNode name="Decision7" type="decision">
+	        <expected>
+	            <value>125.4321987654</value>
+	        </expected>
+	    </resultNode>
+	</testCase>
+	<testCase id="008">
+	    <description>Tests FEEL negative decimal number constant</description>
+	    <resultNode name="Decision8" type="decision">
+	        <expected>
+	            <value>-125.4321987654</value>
+	        </expected>
+	    </resultNode>
+	</testCase>
+</testCases>

@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelName>0008-listGen.dmn</modelName>
+	<labels>
+		<label>Compliance Level 3</label>
+		<label>Literal Expression</label>
+		<label>Item Definition</label>
+		<label>Decision Table: Single Output</label>
+		<label>Hit Policy: COLLECT</label>
+		<label>FEEL List</label>
+		<label>FEEL Functions: list</label>
+		<label>Data Type: String</label>
+		<label>Data Type: Collection</label>
+	</labels>
+	<testCase id="001">
+		<resultNode name="listGen1" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>a</value>
+					</item>
+					<item>
+						<value>b</value>
+					</item>
+					<item>
+						<value>c</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="002">
+		<inputNode name="a">
+			<value>a</value>
+		</inputNode>
+		<inputNode name="b">
+			<value>b</value>
+		</inputNode>
+		<inputNode name="c">
+			<value>c</value>
+		</inputNode>
+		<resultNode name="listGen2" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>a</value>
+					</item>
+					<item>
+						<value>b</value>
+					</item>
+					<item>
+						<value>c</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="003">
+		<inputNode name="b">
+			<value>b</value>
+		</inputNode>
+		<inputNode name="c">
+			<value>c</value>
+		</inputNode>
+		<resultNode name="listGen3" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>a</value>
+					</item>
+					<item>
+						<value>b</value>
+					</item>
+					<item>
+						<value>c</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="004">
+		<inputNode name="c">
+			<value>c</value>
+		</inputNode>
+		<resultNode name="listGen4" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>a</value>
+					</item>
+					<item>
+						<value>b</value>
+					</item>
+					<item>
+						<value>c</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="005">
+		<inputNode name="a">
+			<value>a</value>
+		</inputNode>
+		<inputNode name="b">
+			<value>b</value>
+		</inputNode>
+		<inputNode name="c">
+			<value>c</value>
+		</inputNode>
+		<resultNode name="listGen5" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>a</value>
+					</item>
+					<item>
+						<value>b</value>
+					</item>
+					<item>
+						<value>c</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="006">
+		<resultNode name="listGen6" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>w</value>
+					</item>
+					<item>
+						<value>x</value>
+					</item>
+					<item>
+						<value>y</value>
+					</item>
+					<item>
+						<value>z</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="007">
+		<inputNode name="wx">
+			<list>
+				<item>
+					<value>w</value>
+				</item>
+				<item>
+					<value>x</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="listGen7" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>w</value>
+					</item>
+					<item>
+						<value>x</value>
+					</item>
+					<item>
+						<value>y</value>
+					</item>
+					<item>
+						<value>z</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="008">
+		<inputNode name="a">
+			<value>a</value>
+		</inputNode>
+		<inputNode name="b">
+			<value>b</value>
+		</inputNode>
+		<resultNode name="listGen8" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>a</value>
+					</item>
+					<item>
+						<value>b</value>
+					</item>
+					<item>
+						<value>w</value>
+					</item>
+					<item>
+						<value>x</value>
+					</item>
+					<item>
+						<value>y</value>
+					</item>
+					<item>
+						<value>z</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="009">
+		<inputNode name="a">
+			<value>a</value>
+		</inputNode>
+		<inputNode name="b">
+			<value>b</value>
+		</inputNode>
+		<inputNode name="wx">
+			<list>
+				<item>
+					<value>w</value>
+				</item>
+				<item>
+					<value>x</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="listGen9" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>a</value>
+					</item>
+					<item>
+						<value>b</value>
+					</item>
+					<item>
+						<value>w</value>
+					</item>
+					<item>
+						<value>x</value>
+					</item>
+					<item>
+						<value>y</value>
+					</item>
+					<item>
+						<value>z</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="010">
+		<inputNode name="c">
+			<value>c</value>
+		</inputNode>
+		<inputNode name="wx">
+			<list>
+				<item>
+					<value>w</value>
+				</item>
+				<item>
+					<value>x</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="listGen10" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>a</value>
+					</item>
+					<item>
+						<value>b</value>
+					</item>
+					<item>
+						<value>c</value>
+					</item>
+					<item>
+						<value>w</value>
+					</item>
+					<item>
+						<value>x</value>
+					</item>
+					<item>
+						<value>y</value>
+					</item>
+					<item>
+						<value>z</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>

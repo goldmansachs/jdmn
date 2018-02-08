@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by ACTICO GmbH https://actico.com -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="">
+    <modelName>1106-feel-lower-case-function.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Data Type: String</label>
+        <label>Literal Expression</label>
+        <label>FEEL Functions: strings</label>
+    </labels>
+    <testCase id="001_f6ff05bcfa">
+        <resultNode name="feel-lower-case-function_001_f6ff05bcfa" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">a</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="002_0ecb21e1d8">
+        <resultNode name="feel-lower-case-function_002_0ecb21e1d8" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">abc</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="003_af9f3a8dab">
+        <resultNode name="feel-lower-case-function_003_af9f3a8dab" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">abc</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="004_2dbf99e8c0">
+        <resultNode name="feel-lower-case-function_004_2dbf99e8c0" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">abc4</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="005_ad33325968">
+        <resultNode name="feel-lower-case-function_005_ad33325968" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="006_d8257b3b92">
+        <resultNode name="feel-lower-case-function_006_d8257b3b92" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">?@{</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="007_a2ce59499a">
+        <resultNode name="feel-lower-case-function_007_a2ce59499a" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">abdcf</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="008_9913ad454f">
+        <resultNode name="feel-lower-case-function_008_9913ad454f" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">xyz </value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="009_78e6b2969b">
+        <resultNode name="feel-lower-case-function_009_78e6b2969b" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">123abc</value>
+            </expected>
+        </resultNode>
+    </testCase>
+</testCases>

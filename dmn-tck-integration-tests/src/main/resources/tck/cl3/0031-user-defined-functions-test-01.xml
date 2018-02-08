@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelName>0031-user-defined-functions.dmn</modelName>
+	<labels>
+		<label>Compliance Level 3</label>
+		<label>Literal Expression</label>
+		<label>FEEL Arithmetic</label>
+		<label>Function Invocation</label>
+	    <label>Function Definition</label>
+		<label>FEEL Function Literals</label>
+	    <label>Data Type: Number</label>
+	    <label>Context</label>
+	    <label>FEEL Special-character Names</label>
+	</labels>
+	<testCase id="001">
+		<description>Tests user defined function invocation with positional
+			parameters
+		</description>
+		<inputNode name="inputA">
+			<value>10</value>
+		</inputNode>
+		<inputNode name="inputB">
+			<value>5</value>
+		</inputNode>
+		<resultNode name="fn invocation positional parameters"
+			type="decision">
+			<expected>
+				<component name="sumResult">
+					<value>15</value>
+				</component>
+				<component name="divisionResultPositional">
+					<value>2</value>
+				</component>
+				<component name="multiplicationResultPositional">
+					<value>50</value>
+				</component>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="002">
+		<description>Tests user defined function invocation with named
+			parameters
+		</description>
+		<inputNode name="inputA">
+			<value>10</value>
+		</inputNode>
+		<inputNode name="inputB">
+			<value>5</value>
+		</inputNode>
+		<resultNode name="fn invocation named parameters" type="decision">
+			<expected>
+				<component name="subResult">
+					<value>5</value>
+				</component>
+				<component name="subResultMixed">
+					<value>-5</value>
+				</component>
+				<component name="divisionResultNamed">
+					<value>2</value>
+				</component>
+				<component name="multiplicationResultNamed">
+					<value>50</value>
+				</component>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="003">
+		<description>Tests user defined function invocation with complex
+			parameters
+		</description>
+		<inputNode name="inputA">
+			<value>10</value>
+		</inputNode>
+		<inputNode name="inputB">
+			<value>5</value>
+		</inputNode>
+		<resultNode name="fn invocation complex parameters" type="decision">
+			<expected>
+				<component name="functionInvocationLiteralExpressionInParameter">
+					<value>500</value>
+				</component>
+				<component name="functionInvocationInParameter">
+					<value>200</value>
+				</component>
+				<component name="circumference">
+					<value>94.247760</value>
+				</component>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>

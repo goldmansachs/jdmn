@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelName>0020-vacation-days.dmn</modelName>
+	<labels>
+		<label>Compliance Level 3</label>
+		<label>Literal Expression</label>
+		<label>Item Definition</label>
+		<label>Decision Table: Single Output</label>
+		<label>Hit Policy: COLLECT</label>
+		<label>FEEL Arithmetic</label>
+		<label>FEEL Functions: list</label>
+		<label>FEEL Special-character Names</label>
+		<label>Data Type: Number</label>
+	</labels>
+	<testCase id="001">
+		<inputNode name="Age">
+			<value>16</value>
+		</inputNode>
+		<inputNode name="Years of Service">
+			<value>1</value>
+		</inputNode>
+		<resultNode name="Total Vacation Days">
+			<expected>
+				<value>27</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="002">
+		<inputNode name="Age">
+			<value>25</value>
+		</inputNode>
+		<inputNode name="Years of Service">
+			<value>5</value>
+		</inputNode>
+		<resultNode name="Total Vacation Days">
+			<expected>
+				<value>22</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="003">
+		<inputNode name="Age">
+			<value>25</value>
+		</inputNode>
+		<inputNode name="Years of Service">
+			<value>20</value>
+		</inputNode>
+		<resultNode name="Total Vacation Days">
+			<expected>
+				<value>24</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="004">
+		<inputNode name="Age">
+			<value>44</value>
+		</inputNode>
+		<inputNode name="Years of Service">
+			<value>30</value>
+		</inputNode>
+		<resultNode name="Total Vacation Days">
+			<expected>
+				<value>30</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="005">
+		<inputNode name="Age">
+			<value>50</value>
+		</inputNode>
+		<inputNode name="Years of Service">
+			<value>20</value>
+		</inputNode>
+		<resultNode name="Total Vacation Days">
+			<expected>
+				<value>24</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="006">
+		<inputNode name="Age">
+			<value>50</value>
+		</inputNode>
+		<inputNode name="Years of Service">
+			<value>30</value>
+		</inputNode>
+		<resultNode name="Total Vacation Days">
+			<expected>
+				<value>30</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="007">
+		<inputNode name="Age">
+			<value>60</value>
+		</inputNode>
+		<inputNode name="Years of Service">
+			<value>20</value>
+		</inputNode>
+		<resultNode name="Total Vacation Days">
+			<expected>
+				<value>30</value>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>

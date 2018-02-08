@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelName>0105-feel-math.dmn</modelName>
+	<labels>
+		<label>Compliance Level 2</label>
+		<label>Literal Expression</label>
+		<label>FEEL Constants</label>
+		<label>Data Type: Number</label>
+		<label>FEEL Arithmetic</label>
+	</labels>
+	<testCase id="001">
+		<description>Tests FEEL addition of number literals</description>
+		<resultNode name="Decision1" type="decision">
+			<expected>
+				<value>15</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="002">
+		<description>Tests FEEL addition of negative number literals</description>
+		<resultNode name="Decision2" type="decision">
+			<expected>
+				<value>-15</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="003">
+		<description>Tests FEEL addition of negative number literals with brakets</description>
+		<resultNode name="Decision3" type="decision">
+			<expected>
+				<value>-15</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="004">
+		<description>Tests FEEL subtraction of number literals</description>
+		<resultNode name="Decision4" type="decision">
+			<expected>
+				<value>5</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="005">
+		<description>Tests FEEL subtraction of negative number literals</description>
+		<resultNode name="Decision5" type="decision">
+			<expected>
+				<value>-5</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="006">
+		<description>Tests FEEL subtraction of negative number literals with brakets</description>
+		<resultNode name="Decision6" type="decision">
+			<expected>
+				<value>-5</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="007">
+		<description>Tests FEEL addition and subtraction of number literals with brakets</description>
+		<resultNode name="Decision7" type="decision">
+			<expected>
+				<value>32</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="008">
+		<description>Tests FEEL multiplication of number literals</description>
+		<resultNode name="Decision8" type="decision">
+			<expected>
+				<value>50</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="009">
+		<description>Tests FEEL multiplication of negative number literals</description>
+		<resultNode name="Decision9" type="decision">
+			<expected>
+				<value>50</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="010">
+		<description>Tests FEEL multiplication of negative number literals with brakets</description>
+		<resultNode name="Decision10" type="decision">
+			<expected>
+				<value>50</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="011">
+		<description>Tests FEEL addition and multiplication of number literals with brakets</description>
+		<resultNode name="Decision11" type="decision">
+			<expected>
+				<value>-225</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="012">
+		<description>Tests FEEL division of number literals</description>
+		<resultNode name="Decision12" type="decision">
+			<expected>
+				<value>2</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="013">
+		<description>Tests FEEL division of negative number literals</description>
+		<resultNode name="Decision13" type="decision">
+			<expected>
+				<value>2</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="014">
+		<description>Tests FEEL division of negative number literals with brakets</description>
+		<resultNode name="Decision14" type="decision">
+			<expected>
+				<value>2</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="015">
+		<description>Tests FEEL addition and division of number literals with brakets</description>
+		<resultNode name="Decision15" type="decision">
+			<expected>
+				<value>-2</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="016">
+		<description>Tests FEEL division by zero</description>
+		<resultNode name="Decision16" type="decision">
+			<expected>
+				<!-- null -->
+				<value xsi:nil="true"/>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="017">
+		<description>Tests FEEL potency of number literal</description>
+		<resultNode name="Decision17" type="decision">
+			<expected>
+				<value>100000</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="018">
+		<description>Tests FEEL negative potency of number literal</description>
+		<resultNode name="Decision18" type="decision">
+			<expected>
+				<value>0.00001</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="019">
+		<description>Tests FEEL potency of number literal with brakets</description>
+		<resultNode name="Decision19" type="decision">
+			<expected>
+				<value>16807</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="020">
+		<description>Tests FEEL addition and potency of number literals</description>
+		<resultNode name="Decision20" type="decision">
+			<expected>
+				<value>37</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="021">
+		<description>Tests FEEL addition and potency of number literals</description>
+		<resultNode name="Decision21" type="decision">
+			<expected>
+				<value>40</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="022">
+		<description>Tests FEEL addition and potency of number literals with brakets</description>
+		<resultNode name="Decision22" type="decision">
+			<expected>
+				<value>261</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="023">
+		<description>Tests FEEL addition with null</description>
+		<resultNode name="Decision23" type="decision">
+			<expected>
+				<!-- null -->
+			    <value xsi:nil="true"/>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="024">
+		<description>Tests FEEL addition with null</description>
+		<resultNode name="Decision24" type="decision">
+			<expected>
+				<!-- null -->
+			    <value xsi:nil="true"/>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="025">
+		<description>Tests FEEL subtraction with null</description>
+		<resultNode name="Decision25" type="decision">
+			<expected>
+				<!-- null -->
+			    <value xsi:nil="true"/>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="026">
+		<description>Tests FEEL subtraction with null</description>
+		<resultNode name="Decision26" type="decision">
+			<expected>
+				<!-- null -->
+			    <value xsi:nil="true"/>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="027">
+		<description>Tests FEEL multiplication with null</description>
+		<resultNode name="Decision27" type="decision">
+			<expected>
+				<!-- null -->
+			    <value xsi:nil="true"/>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="028">
+		<description>Tests FEEL multiplication with null</description>
+		<resultNode name="Decision28" type="decision">
+			<expected>
+				<!-- null -->
+			    <value xsi:nil="true"/>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="029">
+		<description>Tests FEEL division with null</description>
+		<resultNode name="Decision29" type="decision">
+			<expected>
+				<!-- null -->
+			    <value xsi:nil="true"/>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="030">
+		<description>Tests FEEL division with null</description>
+		<resultNode name="Decision30" type="decision">
+			<expected>
+				<!-- null -->
+			    <value xsi:nil="true"/>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="031">
+		<description>Tests FEEL arithmetics with spaces between number literals</description>
+		<resultNode name="Decision31" type="decision">
+			<expected>
+				<value>3</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="032">
+		<description>Tests FEEL arithmetics with spaces between number literals and brakets</description>
+		<resultNode name="Decision32" type="decision">
+			<expected>
+				<value>7.5</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="033">
+		<description>Tests FEEL arithmetics with decimal number literals</description>
+		<resultNode name="Decision33" type="decision">
+			<expected>
+				<value>1200</value>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>

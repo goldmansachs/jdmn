@@ -1,0 +1,8 @@
+# Choose Slim protocol
+!define TEST_SYSTEM {slim}
+
+!1 Simple Unary Tests
+!|FEEL Simple Unary Tests Fixture                                                                                                                  |
+|inputExpression|inputEntry                              |scope                                                                     |output?|
+|input          |1, 2                                    |[{"name":"input", "type":"number", "value":1}]                            |true   |
+|input          |"e1", "e2"                              |[{"name":"input", "type":"string", "value":"e1"}]                        |true   |
