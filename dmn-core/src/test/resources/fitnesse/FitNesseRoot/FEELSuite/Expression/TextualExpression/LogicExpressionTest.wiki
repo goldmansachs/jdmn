@@ -1,0 +1,30 @@
+# Choose Slim protocol
+!define TEST_SYSTEM {slim}
+
+!1 Conjunction
+!|FEEL Expression Fixture                                            |
+|expression   |scope                                         |output?|
+|x and true   |[{"name":"x", "type":"boolean", "value":true}]|true   |
+|x and false  |[{"name":"x", "type":"boolean", "value":true}]|false  |
+|x and null   |[{"name":"x", "type":"boolean", "value":true}]|null   |
+|null and null|[{"name":"x", "type":"boolean", "value":true}]|null   |
+
+!1 Disjunction
+!|FEEL Expression Fixture                                           |
+|expression  |scope                                         |output?|
+|x or true   |[{"name":"x", "type":"boolean", "value":true}]|true   |
+|x or false  |[{"name":"x", "type":"boolean", "value":true}]|true   |
+|x or null   |[{"name":"x", "type":"boolean", "value":true}]|true   |
+|null or null|[{"name":"x", "type":"boolean", "value":true}]|null   |
+
+!1 Negation
+!|FEEL Expression Fixture                                         |
+|expression|scope                                         |output?|
+|not x     |[{"name":"x", "type":"boolean", "value":true}]|false  |
+|not null  |[{"name":"x", "type":"boolean", "value":true}]|null   |
+
+!1 Mixed
+!|FEEL Expression Fixture                                                    |
+|expression           |scope                                         |output?|
+|x or true and false  |[{"name":"x", "type":"boolean", "value":true}]|true   |
+|(x or true) and false|[{"name":"x", "type":"boolean", "value":true}]|false  |

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions id="_feel-logic" name="feel-logic"
+	namespace="https://github.com/dmn-tck/tck"
+	xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+	xmlns:feel="http://www.omg.org/spec/FEEL/20140401">
+    <inputData name="A" id="i_a">
+        <variable name="A" typeRef="feel:boolean"/>
+    </inputData>
+    <inputData name="B" id="i_b">
+        <variable name="B" typeRef="feel:boolean"/>
+    </inputData>
+    <decision name="DecisionAnd" id="d_1">
+        <variable name="DecisionAnd" typeRef="feel:boolean"/>
+        <informationRequirement>
+            <requiredInput href="#i_a"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#i_b"/>
+        </informationRequirement>
+        <literalExpression>
+			<text>A and B</text>
+		</literalExpression>
+	</decision>
+    <decision name="DecisionOr" id="d_2">
+        <variable name="DecisionOr" typeRef="feel:boolean"/>
+        <informationRequirement>
+            <requiredInput href="#i_a"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#i_b"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>A or B</text>
+        </literalExpression>
+    </decision>
+</definitions>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" 
+    xmlns:feel="http://www.omg.org/spec/FEEL/20140401" 
+    xmlns:tns="http://www.trisotech.com/definitions/_54863c52-2fa7-4a3d-b383-d4eb2eb88771" 
+    xmlns:triso="http://www.trisotech.com/2015/triso/modeling" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="_54863c52-2fa7-4a3d-b383-d4eb2eb88771"
+    namespace="http://www.trisotech.com/definitions/_54863c52-2fa7-4a3d-b383-d4eb2eb88771" 
+    exporter="DMN Modeler; Method and Style trisofix.xslt" exporterVersion="5.0.32.2; 1.0" 
+    name="conditionals" triso:logoChoice="Default" 
+    xsi:schemaLocation="http://www.omg.org/spec/DMN/20151101/dmn.xsd ../../dmn.xsd" 
+    expressionLanguage="http://www.omg.org/spec/FEEL/20140401" 
+    typeLanguage="http://www.omg.org/spec/FEEL/20140401">
+    <decision id="d_cond1" name="simpleIf">
+        <variable name="simpleIf" typeRef="feel:number" />
+        <informationRequirement>
+            <requiredInput href="#i_bool" />
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#i_num" />
+        </informationRequirement>
+        <literalExpression>
+            <text>if bool then num+10 else num-10</text>
+        </literalExpression>
+    </decision>
+    <decision id="d_cond2" name="conditionWithFunctions">
+        <variable name="conditionWithFunctions" typeRef="feel:string" />
+        <informationRequirement>
+            <requiredInput href="#i_date" />
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#i_string" />
+        </informationRequirement>
+        <literalExpression>
+            <text>if aDate > date("2017-01-01") then substring before(aString, " ") else substring after(aString, " ")</text>
+        </literalExpression>
+    </decision>
+    <inputData id="i_bool" name="bool">
+        <variable name="bool" typeRef="feel:boolean" />
+    </inputData>
+    <inputData id="i_num" name="num">
+        <variable name="num" typeRef="feel:number" />
+    </inputData>
+    <inputData id="i_date" name="aDate">
+        <variable name="aDate" typeRef="feel:date" />
+    </inputData>
+    <inputData id="i_string" name="aString">
+        <variable name="aString" typeRef="feel:string" />
+    </inputData>
+    
+</definitions>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by ACTICO GmbH https://actico.com -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="">
+    <modelName>1104-feel-string-length-function.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Data Type : String</label>
+        <label>Literal Expression</label>
+        <label>FEEL Functions: strings</label>
+    </labels>
+    <testCase id="001_1afe6930d1">
+        <resultNode name="feel-string-length-function_001_1afe6930d1" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">0</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="002_249c23050d">
+        <resultNode name="feel-string-length-function_002_249c23050d" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="003_e1df507dee">
+        <resultNode name="feel-string-length-function_003_e1df507dee" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">3</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="004_f4c02fac3d">
+        <resultNode name="feel-string-length-function_004_f4c02fac3d" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">6</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="005_ca834dabac">
+        <resultNode name="feel-string-length-function_005_ca834dabac" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="006_6c4930a0eb">
+        <resultNode name="feel-string-length-function_006_6c4930a0eb" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">11</value>
+            </expected>
+        </resultNode>
+    </testCase>
+</testCases>

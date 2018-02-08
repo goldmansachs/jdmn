@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelName>0107-feel-ternary-logic-not.dmn</modelName>
+	<labels>
+		<label>Compliance Level 2</label>
+		<label>Literal Expression</label>
+		<label>Data Type: Boolean</label>
+	</labels>
+	<testCase id="001">
+		<description>Tests ternary logic for true</description>
+	    <inputNode name="A">
+	        <value>true</value>
+	    </inputNode>
+	    <resultNode name="DecisionNot" type="decision">
+	        <expected>
+	            <value>false</value>
+	        </expected>
+	    </resultNode>
+	</testCase>
+    <testCase id="002">
+        <description>Tests ternary logic for false</description>
+        <inputNode name="A">
+            <value>false</value>
+        </inputNode>
+        <resultNode name="DecisionNot" type="decision">
+            <expected>
+                <value>true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="003">
+        <description>Tests ternary logic for null</description>
+        <inputNode name="A">
+            <value xsi:nil="true"/>
+        </inputNode>
+        <resultNode name="DecisionNot" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+</testCases>

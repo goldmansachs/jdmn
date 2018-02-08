@@ -1,0 +1,15 @@
+# Choose Slim protocol
+!define TEST_SYSTEM {slim}
+
+!1 Conversion Functions
+!|FEEL Expression Fixture                                        |
+|expression                           |scope|output?             |
+|date("2016-03-01")                   |     |2016-03-01          |
+|date("2016-03-01T12:00:00Z")         |     |null                |
+|time("12:00:00Z")                    |     |12:00:00Z           |
+|time("2016-03-01T12:00:00Z")         |     |null                |
+|date and time("2016-03-01T12:00:00Z")|     |2016-03-01T12:00:00Z|
+|duration("P1Y1M")                    |     |P1Y1M               |
+|duration("P1DT1H")                   |     |P1DT1H              |
+|number("1 000", " ", ".")            |     |1E+3                |
+|string(1.1)                          |     |1.1                 |

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by ACTICO GmbH https://actico.com -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="">
+    <modelName>1101-feel-floor-function.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Data Type: Number</label>
+        <label>Data Type: Function</label>
+        <label>FEEL Functions: number</label>
+        <label>FEEL Arithmetic</label>
+    </labels>
+    <testCase id="001_75592d0dee">
+        <resultNode name="feel-floor-function_001_75592d0dee" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="002_6fea586853">
+        <resultNode name="feel-floor-function_002_6fea586853" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">-2</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="003_cbae05445d">
+        <resultNode name="feel-floor-function_003_cbae05445d" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="004_30f6d26798">
+        <resultNode name="feel-floor-function_004_30f6d26798" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">-11</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="005_dd970ad275">
+        <resultNode name="feel-floor-function_005_dd970ad275" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">5</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="006_1223620d9c">
+        <resultNode name="feel-floor-function_006_1223620d9c" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">-1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+</testCases>

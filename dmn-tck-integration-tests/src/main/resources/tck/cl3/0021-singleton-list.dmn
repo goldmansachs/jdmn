@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:tns="http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" id="_f52ca843-504b-4c3b-a6bc-4d377bffef7a" namespace="http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a" exporter="DMN Modeler; Method and Style trisofix.xslt" exporterVersion="5.0.32.2; 1.0" name="filter01" triso:logoChoice="Default">
+	<itemDefinition id="tStringList" name="tStringList" isCollection="true">
+		<typeRef>feel:string</typeRef>
+	</itemDefinition>
+    <inputData id="_Employees" name="Employees">
+        <variable name="Employees" typeRef="tns:tStringList"/>
+    </inputData>
+	<decision id="decision1" name="decision1">
+		<variable name="decision1" typeRef="tns:tStringList"/>
+		<informationRequirement>
+			<requiredInput href="#_Employees"/>
+		</informationRequirement>
+		<literalExpression>
+			<text>sublist(Employees, 2, 1)</text>
+		</literalExpression>
+	</decision>
+    <decision id="decision2" name="decision2">
+        <variable name="decision2" typeRef="feel:string"/>
+        <informationRequirement>
+            <requiredInput href="#_Employees"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>sublist(Employees, 2, 1)</text>
+        </literalExpression>
+    </decision>
+    <decision id="decision3" name="decision3">
+        <variable name="decision3" typeRef="tns:tStringList"/>
+        <informationRequirement>
+            <requiredInput href="#_Employees"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>Employees[item = "Bob"]</text>
+        </literalExpression>
+    </decision>
+    <decision id="decision4" name="decision4">
+        <variable name="decision4" typeRef="feel:string"/>
+        <informationRequirement>
+            <requiredInput href="#_Employees"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>Employees[item = "Bob"]</text>
+        </literalExpression>
+    </decision>
+    <decision id="decision5" name="decision5">
+        <variable name="decision5" typeRef="feel:string"/>
+        <informationRequirement>
+            <requiredInput href="#_Employees"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>upper case( Employees[item = "Bob"] )</text>
+        </literalExpression>
+    </decision>
+</definitions>

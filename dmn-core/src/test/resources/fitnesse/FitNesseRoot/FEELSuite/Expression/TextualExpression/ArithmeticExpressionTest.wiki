@@ -1,0 +1,46 @@
+# Choose Slim protocol
+!define TEST_SYSTEM {slim}
+
+!1 Addition
+!|FEEL Expression Fixture                                       |
+|expression|scope                                       |output?|
+|x + 1     |[{"name":"x", "type":"number", "value":123}]|124    |
+|1 + x     |[{"name":"x", "type":"number", "value":123}]|124    |
+
+!1 Subtraction
+!|FEEL Expression Fixture                                       |
+|expression|scope                                       |output?|
+|x - 1     |[{"name":"x", "type":"number", "value":123}]|122    |
+|1 - x     |[{"name":"x", "type":"number", "value":123}]|-122   |
+
+!1 Multiplication
+!|FEEL Expression Fixture                                       |
+|expression|scope                                       |output?|
+|x * 2     |[{"name":"x", "type":"number", "value":123}]|246    |
+|2 * x     |[{"name":"x", "type":"number", "value":123}]|246    |
+
+!1 Division
+!|FEEL Expression Fixture                                       |
+|expression|scope                                       |output?|
+|x/2       |[{"name":"x", "type":"number", "value":123}]|61.5   |
+|2/2       |[{"name":"x", "type":"number", "value":123}]|1      |
+
+!1 Exponentiation
+!|FEEL Expression Fixture                                      |
+|expression|scope                                      |output?|
+|x ** 2    |[{"name":"x", "type":"number", "value":12}]|144    |
+|2 ** 3    |[{"name":"x", "type":"number", "value":12}]|8      |
+
+!1 Unary minus
+!|FEEL Expression Fixture                                       |
+|expression|scope                                       |output?|
+|-x        |[{"name":"x", "type":"number", "value":123}]|-123   |
+|-2        |[{"name":"x", "type":"number", "value":123}]|-2     |
+
+!1 Mixed
+!|FEEL Expression Fixture                                       |
+|expression|scope                                       |output?|
+|x+1-3     |[{"name":"x", "type":"number", "value":123}]|121    |
+|x+1*2     |[{"name":"x", "type":"number", "value":123}]|125    |
+|(x+1)*2   |[{"name":"x", "type":"number", "value":123}]|248    |
+|-(x+1)*2  |[{"name":"x", "type":"number", "value":123}]|-248   |
