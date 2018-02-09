@@ -1,0 +1,1495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelName>0014-loan-comparison.dmn</modelName>
+	<labels>
+		<label>Compliance Level 3</label>
+		<label>Literal Expression</label>
+		<label>Item Definition</label>
+		<label>Business Knowledge Model</label>
+		<label>Context</label>
+		<label>Relation</label>
+		<label>FEEL Arithmetic</label>
+		<label>FEEL Conditionals</label>
+		<label>FEEL Function Literals</label>
+		<label>FEEL Iteration</label>
+		<label>Data Type: String</label>
+		<label>Data Type: Number</label>
+		<label>Data Type: Structure</label>
+		<label>Data Type: Collection</label>
+	</labels>
+	<testCase id="001">
+		<inputNode name="RequestedAmt">
+			<value>330000</value>
+		</inputNode>
+		<resultNode name="Bankrates" type="decision">
+			<expected>
+				<list>
+					<item>
+						<component name="lenderName">
+							<value>Oceans Capital</value>
+						</component>
+						<component name="rate">
+							<value>.03500</value>
+						</component>
+						<component name="points">
+							<value>0</value>
+						</component>
+						<component name="fee">
+							<value>0</value>
+						</component>
+					</item>
+					<item>
+						<component name="lenderName">
+							<value>eClick Lending</value>
+						</component>
+						<component name="rate">
+							<value>.03200</value>
+						</component>
+						<component name="points">
+							<value>1.1</value>
+						</component>
+						<component name="fee">
+							<value>2700</value>
+						</component>
+					</item>
+					<item>
+						<component name="lenderName">
+							<value>eClickLending</value>
+						</component>
+						<component name="rate">
+							<value>.03375</value>
+						</component>
+						<component name="points">
+							<value>0.1</value>
+						</component>
+						<component name="fee">
+							<value>1200</value>
+						</component>
+					</item>
+					<item>
+						<component name="lenderName">
+							<value>AimLoan</value>
+						</component>
+						<component name="rate">
+							<value>.03000</value>
+						</component>
+						<component name="points">
+							<value>1.1</value>
+						</component>
+						<component name="fee">
+							<value>3966</value>
+						</component>
+					</item>
+					<item>
+						<component name="lenderName">
+							<value>Home Loans Today</value>
+						</component>
+						<component name="rate">
+							<value>.03125</value>
+						</component>
+						<component name="points">
+							<value>1.1</value>
+						</component>
+						<component name="fee">
+							<value>285</value>
+						</component>
+					</item>
+					<item>
+						<component name="lenderName">
+							<value>Sebonic</value>
+						</component>
+						<component name="rate">
+							<value>.03125</value>
+						</component>
+						<component name="points">
+							<value>0.1</value>
+						</component>
+						<component name="fee">
+							<value>4028</value>
+						</component>
+					</item>
+					<item>
+						<component name="lenderName">
+							<value>AimLoan</value>
+						</component>
+						<component name="rate">
+							<value>.03125</value>
+						</component>
+						<component name="points">
+							<value>0.1</value>
+						</component>
+						<component name="fee">
+							<value>4317</value>
+						</component>
+					</item>
+					<item>
+						<component name="lenderName">
+							<value>eRates Mortgage</value>
+						</component>
+						<component name="rate">
+							<value>.03125</value>
+						</component>
+						<component name="points">
+							<value>1.1</value>
+						</component>
+						<component name="fee">
+							<value>2518</value>
+						</component>
+					</item>
+					<item>
+						<component name="lenderName">
+							<value>Home Loans Today</value>
+						</component>
+						<component name="rate">
+							<value>.03250</value>
+						</component>
+						<component name="points">
+							<value>0.1</value>
+						</component>
+						<component name="fee">
+							<value>822</value>
+						</component>
+					</item>
+					<item>
+						<component name="lenderName">
+							<value>AimLoan</value>
+						</component>
+						<component name="rate">
+							<value>.03250</value>
+						</component>
+						<component name="points">
+							<value>0</value>
+						</component>
+						<component name="fee">
+							<value>1995</value>
+						</component>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+		<resultNode name="RankedProducts" type="decision">
+			<expected>
+				<component name="metricsTable">
+					<list>
+						<item>
+							<component name="lenderName">
+								<value>Oceans Capital</value>
+							</component>
+							<component name="rate">
+								<value>.03500</value>
+							</component>
+							<component name="points">
+								<value>0</value>
+							</component>
+							<component name="fee">
+								<value>0</value>
+							</component>
+							<component name="loanAmt">
+								<value>330000</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66000</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1481.847469769075</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1229130806675829</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>eClick Lending</value>
+							</component>
+							<component name="rate">
+								<value>.03200</value>
+							</component>
+							<component name="points">
+								<value>1.1</value>
+							</component>
+							<component name="fee">
+								<value>2700</value>
+							</component>
+							<component name="loanAmt">
+								<value>336330</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>67266</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1454.51580776472</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1137029731874643</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>eClickLending</value>
+							</component>
+							<component name="rate">
+								<value>.03375</value>
+							</component>
+							<component name="points">
+								<value>0.1</value>
+							</component>
+							<component name="fee">
+								<value>1200</value>
+							</component>
+							<component name="loanAmt">
+								<value>331530</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66306</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1465.681565899816</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1219807467513794</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>AimLoan</value>
+							</component>
+							<component name="rate">
+								<value>.03000</value>
+							</component>
+							<component name="points">
+								<value>1.1</value>
+							</component>
+							<component name="fee">
+								<value>3966</value>
+							</component>
+							<component name="loanAmt">
+								<value>337596</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>67519.2</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1423.318353709273</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1154298007315222</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>Home Loans Today</value>
+							</component>
+							<component name="rate">
+								<value>.03125</value>
+							</component>
+							<component name="points">
+								<value>1.1</value>
+							</component>
+							<component name="fee">
+								<value>285</value>
+							</component>
+							<component name="loanAmt">
+								<value>333915</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66783</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1430.409890005697</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1219478687825963</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>Sebonic</value>
+							</component>
+							<component name="rate">
+								<value>.03125</value>
+							</component>
+							<component name="points">
+								<value>0.1</value>
+							</component>
+							<component name="fee">
+								<value>4028</value>
+							</component>
+							<component name="loanAmt">
+								<value>334358</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66871.6</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1432.307593257341</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1207829702481527</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>AimLoan</value>
+							</component>
+							<component name="rate">
+								<value>.03125</value>
+							</component>
+							<component name="points">
+								<value>0.1</value>
+							</component>
+							<component name="fee">
+								<value>4317</value>
+							</component>
+							<component name="loanAmt">
+								<value>334647</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66929.4</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1433.545598313153</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1200230251545745</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>eRates Mortgage</value>
+							</component>
+							<component name="rate">
+								<value>.03125</value>
+							</component>
+							<component name="points">
+								<value>1.1</value>
+							</component>
+							<component name="fee">
+								<value>2518</value>
+							</component>
+							<component name="loanAmt">
+								<value>336148</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>67229.6</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1439.975513845245</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1160760438900096</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>Home Loans Today</value>
+							</component>
+							<component name="rate">
+								<value>.03250</value>
+							</component>
+							<component name="points">
+								<value>0.1</value>
+							</component>
+							<component name="fee">
+								<value>822</value>
+							</component>
+							<component name="loanAmt">
+								<value>331152</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66230.4</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1441.194429734607</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1261025270361139</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>AimLoan</value>
+							</component>
+							<component name="rate">
+								<value>.03250</value>
+							</component>
+							<component name="points">
+								<value>0</value>
+							</component>
+							<component name="fee">
+								<value>1995</value>
+							</component>
+							<component name="loanAmt">
+								<value>331995</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66399</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1444.863219004387</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1238778822515175</value>
+							</component>
+						</item>
+					</list>
+				</component>
+				<component name="rankByRate">
+					<list>
+						<item>
+							<component name="lenderName">
+								<value>AimLoan</value>
+							</component>
+							<component name="rate">
+								<value>.03000</value>
+							</component>
+							<component name="points">
+								<value>1.1</value>
+							</component>
+							<component name="fee">
+								<value>3966</value>
+							</component>
+							<component name="loanAmt">
+								<value>337596</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>67519.2</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1423.318353709273</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1154298007315222</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>Home Loans Today</value>
+							</component>
+							<component name="rate">
+								<value>.03125</value>
+							</component>
+							<component name="points">
+								<value>1.1</value>
+							</component>
+							<component name="fee">
+								<value>285</value>
+							</component>
+							<component name="loanAmt">
+								<value>333915</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66783</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1430.409890005697</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1219478687825963</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>Sebonic</value>
+							</component>
+							<component name="rate">
+								<value>.03125</value>
+							</component>
+							<component name="points">
+								<value>0.1</value>
+							</component>
+							<component name="fee">
+								<value>4028</value>
+							</component>
+							<component name="loanAmt">
+								<value>334358</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66871.6</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1432.307593257341</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1207829702481527</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>AimLoan</value>
+							</component>
+							<component name="rate">
+								<value>.03125</value>
+							</component>
+							<component name="points">
+								<value>0.1</value>
+							</component>
+							<component name="fee">
+								<value>4317</value>
+							</component>
+							<component name="loanAmt">
+								<value>334647</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66929.4</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1433.545598313153</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1200230251545745</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>eRates Mortgage</value>
+							</component>
+							<component name="rate">
+								<value>.03125</value>
+							</component>
+							<component name="points">
+								<value>1.1</value>
+							</component>
+							<component name="fee">
+								<value>2518</value>
+							</component>
+							<component name="loanAmt">
+								<value>336148</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>67229.6</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1439.975513845245</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1160760438900096</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>eClick Lending</value>
+							</component>
+							<component name="rate">
+								<value>.03200</value>
+							</component>
+							<component name="points">
+								<value>1.1</value>
+							</component>
+							<component name="fee">
+								<value>2700</value>
+							</component>
+							<component name="loanAmt">
+								<value>336330</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>67266</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1454.51580776472</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1137029731874643</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>Home Loans Today</value>
+							</component>
+							<component name="rate">
+								<value>.03250</value>
+							</component>
+							<component name="points">
+								<value>0.1</value>
+							</component>
+							<component name="fee">
+								<value>822</value>
+							</component>
+							<component name="loanAmt">
+								<value>331152</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66230.4</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1441.194429734607</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1261025270361139</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>AimLoan</value>
+							</component>
+							<component name="rate">
+								<value>.03250</value>
+							</component>
+							<component name="points">
+								<value>0</value>
+							</component>
+							<component name="fee">
+								<value>1995</value>
+							</component>
+							<component name="loanAmt">
+								<value>331995</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66399</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1444.863219004387</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1238778822515175</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>eClickLending</value>
+							</component>
+							<component name="rate">
+								<value>.03375</value>
+							</component>
+							<component name="points">
+								<value>0.1</value>
+							</component>
+							<component name="fee">
+								<value>1200</value>
+							</component>
+							<component name="loanAmt">
+								<value>331530</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66306</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1465.681565899816</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1219807467513794</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>Oceans Capital</value>
+							</component>
+							<component name="rate">
+								<value>.03500</value>
+							</component>
+							<component name="points">
+								<value>0</value>
+							</component>
+							<component name="fee">
+								<value>0</value>
+							</component>
+							<component name="loanAmt">
+								<value>330000</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66000</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1481.847469769075</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1229130806675829</value>
+							</component>
+						</item>
+					</list>
+				</component>
+				<component name="rankByDownPmt">
+					<list>
+						<item>
+							<component name="lenderName">
+								<value>Oceans Capital</value>
+							</component>
+							<component name="rate">
+								<value>.03500</value>
+							</component>
+							<component name="points">
+								<value>0</value>
+							</component>
+							<component name="fee">
+								<value>0</value>
+							</component>
+							<component name="loanAmt">
+								<value>330000</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66000</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1481.847469769075</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1229130806675829</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>Home Loans Today</value>
+							</component>
+							<component name="rate">
+								<value>.03250</value>
+							</component>
+							<component name="points">
+								<value>0.1</value>
+							</component>
+							<component name="fee">
+								<value>822</value>
+							</component>
+							<component name="loanAmt">
+								<value>331152</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66230.4</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1441.194429734607</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1261025270361139</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>eClickLending</value>
+							</component>
+							<component name="rate">
+								<value>.03375</value>
+							</component>
+							<component name="points">
+								<value>0.1</value>
+							</component>
+							<component name="fee">
+								<value>1200</value>
+							</component>
+							<component name="loanAmt">
+								<value>331530</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66306</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1465.681565899816</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1219807467513794</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>AimLoan</value>
+							</component>
+							<component name="rate">
+								<value>.03250</value>
+							</component>
+							<component name="points">
+								<value>0</value>
+							</component>
+							<component name="fee">
+								<value>1995</value>
+							</component>
+							<component name="loanAmt">
+								<value>331995</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66399</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1444.863219004387</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1238778822515175</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>Home Loans Today</value>
+							</component>
+							<component name="rate">
+								<value>.03125</value>
+							</component>
+							<component name="points">
+								<value>1.1</value>
+							</component>
+							<component name="fee">
+								<value>285</value>
+							</component>
+							<component name="loanAmt">
+								<value>333915</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66783</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1430.409890005697</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1219478687825963</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>Sebonic</value>
+							</component>
+							<component name="rate">
+								<value>.03125</value>
+							</component>
+							<component name="points">
+								<value>0.1</value>
+							</component>
+							<component name="fee">
+								<value>4028</value>
+							</component>
+							<component name="loanAmt">
+								<value>334358</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66871.6</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1432.307593257341</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1207829702481527</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>AimLoan</value>
+							</component>
+							<component name="rate">
+								<value>.03125</value>
+							</component>
+							<component name="points">
+								<value>0.1</value>
+							</component>
+							<component name="fee">
+								<value>4317</value>
+							</component>
+							<component name="loanAmt">
+								<value>334647</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66929.4</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1433.545598313153</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1200230251545745</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>eRates Mortgage</value>
+							</component>
+							<component name="rate">
+								<value>.03125</value>
+							</component>
+							<component name="points">
+								<value>1.1</value>
+							</component>
+							<component name="fee">
+								<value>2518</value>
+							</component>
+							<component name="loanAmt">
+								<value>336148</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>67229.6</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1439.975513845245</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1160760438900096</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>eClick Lending</value>
+							</component>
+							<component name="rate">
+								<value>.03200</value>
+							</component>
+							<component name="points">
+								<value>1.1</value>
+							</component>
+							<component name="fee">
+								<value>2700</value>
+							</component>
+							<component name="loanAmt">
+								<value>336330</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>67266</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1454.51580776472</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1137029731874643</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>AimLoan</value>
+							</component>
+							<component name="rate">
+								<value>.03000</value>
+							</component>
+							<component name="points">
+								<value>1.1</value>
+							</component>
+							<component name="fee">
+								<value>3966</value>
+							</component>
+							<component name="loanAmt">
+								<value>337596</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>67519.2</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1423.318353709273</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1154298007315222</value>
+							</component>
+						</item>
+					</list>
+				</component>
+				<component name="rankByMonthlyPmt">
+					<list>
+						<item>
+							<component name="lenderName">
+								<value>AimLoan</value>
+							</component>
+							<component name="rate">
+								<value>.03000</value>
+							</component>
+							<component name="points">
+								<value>1.1</value>
+							</component>
+							<component name="fee">
+								<value>3966</value>
+							</component>
+							<component name="loanAmt">
+								<value>337596</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>67519.2</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1423.318353709273</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1154298007315222</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>Home Loans Today</value>
+							</component>
+							<component name="rate">
+								<value>.03125</value>
+							</component>
+							<component name="points">
+								<value>1.1</value>
+							</component>
+							<component name="fee">
+								<value>285</value>
+							</component>
+							<component name="loanAmt">
+								<value>333915</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66783</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1430.409890005697</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1219478687825963</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>Sebonic</value>
+							</component>
+							<component name="rate">
+								<value>.03125</value>
+							</component>
+							<component name="points">
+								<value>0.1</value>
+							</component>
+							<component name="fee">
+								<value>4028</value>
+							</component>
+							<component name="loanAmt">
+								<value>334358</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66871.6</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1432.307593257341</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1207829702481527</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>AimLoan</value>
+							</component>
+							<component name="rate">
+								<value>.03125</value>
+							</component>
+							<component name="points">
+								<value>0.1</value>
+							</component>
+							<component name="fee">
+								<value>4317</value>
+							</component>
+							<component name="loanAmt">
+								<value>334647</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66929.4</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1433.545598313153</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1200230251545745</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>eRates Mortgage</value>
+							</component>
+							<component name="rate">
+								<value>.03125</value>
+							</component>
+							<component name="points">
+								<value>1.1</value>
+							</component>
+							<component name="fee">
+								<value>2518</value>
+							</component>
+							<component name="loanAmt">
+								<value>336148</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>67229.6</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1439.975513845245</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1160760438900096</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>Home Loans Today</value>
+							</component>
+							<component name="rate">
+								<value>.03250</value>
+							</component>
+							<component name="points">
+								<value>0.1</value>
+							</component>
+							<component name="fee">
+								<value>822</value>
+							</component>
+							<component name="loanAmt">
+								<value>331152</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66230.4</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1441.194429734607</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1261025270361139</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>AimLoan</value>
+							</component>
+							<component name="rate">
+								<value>.03250</value>
+							</component>
+							<component name="points">
+								<value>0</value>
+							</component>
+							<component name="fee">
+								<value>1995</value>
+							</component>
+							<component name="loanAmt">
+								<value>331995</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66399</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1444.863219004387</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1238778822515175</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>eClick Lending</value>
+							</component>
+							<component name="rate">
+								<value>.03200</value>
+							</component>
+							<component name="points">
+								<value>1.1</value>
+							</component>
+							<component name="fee">
+								<value>2700</value>
+							</component>
+							<component name="loanAmt">
+								<value>336330</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>67266</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1454.51580776472</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1137029731874643</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>eClickLending</value>
+							</component>
+							<component name="rate">
+								<value>.03375</value>
+							</component>
+							<component name="points">
+								<value>0.1</value>
+							</component>
+							<component name="fee">
+								<value>1200</value>
+							</component>
+							<component name="loanAmt">
+								<value>331530</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66306</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1465.681565899816</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1219807467513794</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>Oceans Capital</value>
+							</component>
+							<component name="rate">
+								<value>.03500</value>
+							</component>
+							<component name="points">
+								<value>0</value>
+							</component>
+							<component name="fee">
+								<value>0</value>
+							</component>
+							<component name="loanAmt">
+								<value>330000</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66000</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1481.847469769075</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1229130806675829</value>
+							</component>
+						</item>
+					</list>
+				</component>
+				<component name="rankByEquityPct">
+					<list>
+						<item>
+							<component name="lenderName">
+								<value>Home Loans Today</value>
+							</component>
+							<component name="rate">
+								<value>.03250</value>
+							</component>
+							<component name="points">
+								<value>0.1</value>
+							</component>
+							<component name="fee">
+								<value>822</value>
+							</component>
+							<component name="loanAmt">
+								<value>331152</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66230.4</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1441.194429734607</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1261025270361139</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>AimLoan</value>
+							</component>
+							<component name="rate">
+								<value>.03250</value>
+							</component>
+							<component name="points">
+								<value>0</value>
+							</component>
+							<component name="fee">
+								<value>1995</value>
+							</component>
+							<component name="loanAmt">
+								<value>331995</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66399</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1444.863219004387</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1238778822515175</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>Oceans Capital</value>
+							</component>
+							<component name="rate">
+								<value>.03500</value>
+							</component>
+							<component name="points">
+								<value>0</value>
+							</component>
+							<component name="fee">
+								<value>0</value>
+							</component>
+							<component name="loanAmt">
+								<value>330000</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66000</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1481.847469769075</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1229130806675829</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>eClickLending</value>
+							</component>
+							<component name="rate">
+								<value>.03375</value>
+							</component>
+							<component name="points">
+								<value>0.1</value>
+							</component>
+							<component name="fee">
+								<value>1200</value>
+							</component>
+							<component name="loanAmt">
+								<value>331530</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66306</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1465.681565899816</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1219807467513794</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>Home Loans Today</value>
+							</component>
+							<component name="rate">
+								<value>.03125</value>
+							</component>
+							<component name="points">
+								<value>1.1</value>
+							</component>
+							<component name="fee">
+								<value>285</value>
+							</component>
+							<component name="loanAmt">
+								<value>333915</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66783</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1430.409890005697</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1219478687825963</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>Sebonic</value>
+							</component>
+							<component name="rate">
+								<value>.03125</value>
+							</component>
+							<component name="points">
+								<value>0.1</value>
+							</component>
+							<component name="fee">
+								<value>4028</value>
+							</component>
+							<component name="loanAmt">
+								<value>334358</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66871.6</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1432.307593257341</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1207829702481527</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>AimLoan</value>
+							</component>
+							<component name="rate">
+								<value>.03125</value>
+							</component>
+							<component name="points">
+								<value>0.1</value>
+							</component>
+							<component name="fee">
+								<value>4317</value>
+							</component>
+							<component name="loanAmt">
+								<value>334647</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>66929.4</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1433.545598313153</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1200230251545745</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>eRates Mortgage</value>
+							</component>
+							<component name="rate">
+								<value>.03125</value>
+							</component>
+							<component name="points">
+								<value>1.1</value>
+							</component>
+							<component name="fee">
+								<value>2518</value>
+							</component>
+							<component name="loanAmt">
+								<value>336148</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>67229.6</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1439.975513845245</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1160760438900096</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>AimLoan</value>
+							</component>
+							<component name="rate">
+								<value>.03000</value>
+							</component>
+							<component name="points">
+								<value>1.1</value>
+							</component>
+							<component name="fee">
+								<value>3966</value>
+							</component>
+							<component name="loanAmt">
+								<value>337596</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>67519.2</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1423.318353709273</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1154298007315222</value>
+							</component>
+						</item>
+						<item>
+							<component name="lenderName">
+								<value>eClick Lending</value>
+							</component>
+							<component name="rate">
+								<value>.03200</value>
+							</component>
+							<component name="points">
+								<value>1.1</value>
+							</component>
+							<component name="fee">
+								<value>2700</value>
+							</component>
+							<component name="loanAmt">
+								<value>336330</value>
+							</component>
+							<component name="downPmtAmt">
+								<value>67266</value>
+							</component>
+							<component name="paymentAmt">
+								<value>1454.51580776472</value>
+							</component>
+							<component name="equity36moPct">
+								<value>0.1137029731874643</value>
+							</component>
+						</item>
+					</list>
+				</component>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>

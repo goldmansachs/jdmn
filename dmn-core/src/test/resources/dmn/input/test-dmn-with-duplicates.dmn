@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" id="definitions" name="definitions"
+             namespace="http://camunda.org/schema/1.0/dmn">
+    <decision id="cip-assessments" name="CIP Assessments">
+        <decisionTable id="decisionTable">
+            <input id="input1" label="Gender">
+                <inputExpression id="inputExpression1" typeRef="string">
+                    <text>gender</text>
+                </inputExpression>
+            </input>
+            <input id="InputClause_1szr045" label="Marital Status">
+                <inputExpression id="LiteralExpression_0xv8t8j" typeRef="string">
+                    <text>maritalStatus</text>
+                </inputExpression>
+            </input>
+            <input id="InputClause_1ykgpxy" label="Organization Detail - Legal Name">
+                <inputExpression id="LiteralExpression_19vzu6u" typeRef="string">
+                    <text>organizationDetail.legalName</text>
+                </inputExpression>
+            </input>
+            <input id="InputClause_1io1f6n" label="OD - Date of Formation">
+                <inputExpression id="LiteralExpression_1dd8ao2" typeRef="date">
+                    <text>organizationDetail.dateOfFormationOrEstablishment</text>
+                </inputExpression>
+            </input>
+            <input id="InputClause_1eayjts" label="Registration - registeredWith">
+                <inputExpression id="LiteralExpression_1m52w10" typeRef="string">
+                    <text>registration.registeredWith</text>
+                </inputExpression>
+            </input>
+            <output id="output1" label="" name="" typeRef="string"/>
+            <rule id="row-168857152-1">
+                <inputEntry id="UnaryTests_0793v4j">
+                    <text><![CDATA[= "Female"]]></text>
+                </inputEntry>
+                <inputEntry id="UnaryTests_11h9jt8">
+                    <text></text>
+                </inputEntry>
+                <inputEntry id="UnaryTests_1oudzn9">
+                    <text></text>
+                </inputEntry>
+                <inputEntry id="UnaryTests_0lujdme">
+                    <text></text>
+                </inputEntry>
+                <inputEntry id="UnaryTests_1dt0ujl">
+                    <text></text>
+                </inputEntry>
+                <outputEntry id="LiteralExpression_0eot1u3">
+                    <text>O1</text>
+                </outputEntry>
+            </rule>
+            <rule id="row-168857152-2">
+                <inputEntry id="UnaryTests_0z8g5ay">
+                    <text></text>
+                </inputEntry>
+                <inputEntry id="UnaryTests_0hgmxbd">
+                    <text><![CDATA[= "Married"]]></text>
+                </inputEntry>
+                <inputEntry id="UnaryTests_0kj7afx">
+                    <text></text>
+                </inputEntry>
+                <inputEntry id="UnaryTests_10duijr">
+                    <text></text>
+                </inputEntry>
+                <inputEntry id="UnaryTests_0wmifyx">
+                    <text></text>
+                </inputEntry>
+                <outputEntry id="LiteralExpression_1jqtn61">
+                    <text>O2</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision id="cip-assessments1" name="CIP Assessments">
+        <decisionTable id="decisionTable">
+            <input id="input1" label="Gender">
+                <inputExpression id="inputExpression1" typeRef="string">
+                    <text>gender</text>
+                </inputExpression>
+            </input>
+            <input id="InputClause_1szr045" label="Marital Status">
+                <inputExpression id="LiteralExpression_0xv8t8j" typeRef="string">
+                    <text>maritalStatus</text>
+                </inputExpression>
+            </input>
+            <input id="InputClause_1ykgpxy" label="Organization Detail - Legal Name">
+                <inputExpression id="LiteralExpression_19vzu6u" typeRef="string">
+                    <text>organizationDetail.legalName</text>
+                </inputExpression>
+            </input>
+            <input id="InputClause_1io1f6n" label="OD - Date of Formation">
+                <inputExpression id="LiteralExpression_1dd8ao2" typeRef="date">
+                    <text>organizationDetail.dateOfFormationOrEstablishment</text>
+                </inputExpression>
+            </input>
+            <input id="InputClause_1eayjts" label="Registration - registeredWith">
+                <inputExpression id="LiteralExpression_1m52w10" typeRef="string">
+                    <text>registration.registeredWith</text>
+                </inputExpression>
+            </input>
+            <output id="output1" label="" name="" typeRef="string"/>
+            <rule id="row-168857152-1">
+                <inputEntry id="UnaryTests_0793v4j">
+                    <text><![CDATA[= "Female"]]></text>
+                </inputEntry>
+                <inputEntry id="UnaryTests_11h9jt8">
+                    <text></text>
+                </inputEntry>
+                <inputEntry id="UnaryTests_1oudzn9">
+                    <text></text>
+                </inputEntry>
+                <inputEntry id="UnaryTests_0lujdme">
+                    <text></text>
+                </inputEntry>
+                <inputEntry id="UnaryTests_1dt0ujl">
+                    <text></text>
+                </inputEntry>
+                <outputEntry id="LiteralExpression_0eot1u3">
+                    <text>O1</text>
+                </outputEntry>
+            </rule>
+            <rule id="row-168857152-2">
+                <inputEntry id="UnaryTests_0z8g5ay">
+                    <text></text>
+                </inputEntry>
+                <inputEntry id="UnaryTests_0hgmxbd">
+                    <text><![CDATA[= "Married"]]></text>
+                </inputEntry>
+                <inputEntry id="UnaryTests_0kj7afx">
+                    <text></text>
+                </inputEntry>
+                <inputEntry id="UnaryTests_10duijr">
+                    <text></text>
+                </inputEntry>
+                <inputEntry id="UnaryTests_0wmifyx">
+                    <text></text>
+                </inputEntry>
+                <outputEntry id="LiteralExpression_1jqtn61">
+                    <text>O2</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+</definitions>

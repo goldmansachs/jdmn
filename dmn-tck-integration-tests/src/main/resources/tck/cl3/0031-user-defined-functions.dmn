@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions" id="_pKGjoH6LEeePe9Zmt-encA" name="0030-user-defined-functions" namespace="http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions">
+  <dmn:itemDefinition id="_fKdL0IDJEee-MeWXoLgrYg" name="tFnLibrary">
+    <dmn:itemComponent id="_gtkkYIDJEee-MeWXoLgrYg" name="sumFn"/>
+    <dmn:itemComponent id="_pRj-sIDJEee-MeWXoLgrYg" name="subFn"/>
+    <dmn:itemComponent id="_l_GGYIDfEee-MeWXoLgrYg" name="multiplyFn"/>
+    <dmn:itemComponent id="_pOrn0IDfEee-MeWXoLgrYg" name="divideFn"/>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_xuQ0YIJtEee4zOLdFxCBaA" name="tFnInvocationPositionalResult">
+    <dmn:itemComponent id="_GDzKIIJuEee4zOLdFxCBaA" name="sumResult">
+      <dmn:typeRef>feel:number</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_IpHmkIJuEee4zOLdFxCBaA" name="divisionResultPositional">
+      <dmn:typeRef>feel:number</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_OmarcIJuEee4zOLdFxCBaA" name="multiplicationResultPositional">
+      <dmn:typeRef>feel:number</dmn:typeRef>
+    </dmn:itemComponent>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_0BpzUIJtEee4zOLdFxCBaA" name="tFnInvocationNamedResult">
+    <dmn:itemComponent id="_Ua9c8IJuEee4zOLdFxCBaA" name="subResult">
+      <dmn:typeRef>feel:number</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_XCUgwIJuEee4zOLdFxCBaA" name="subResultMixed">
+      <dmn:typeRef>feel:number</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_XKOfkIJuEee4zOLdFxCBaA" name="divisionResultNamed">
+      <dmn:typeRef>feel:number</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_afyGIIJuEee4zOLdFxCBaA" name="multiplicationResultNamed">
+      <dmn:typeRef>feel:number</dmn:typeRef>
+    </dmn:itemComponent>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_1O2mQIJtEee4zOLdFxCBaA" name="tFnInvocationComplexParamsResult">
+    <dmn:itemComponent id="_fTiwEIJuEee4zOLdFxCBaA" name="functionInvocationLiteralExpressionInParameter">
+      <dmn:typeRef>feel:number</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_fb73EIJuEee4zOLdFxCBaA" name="functionInvocationInParameter">
+      <dmn:typeRef>feel:number</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_fdbr4IJuEee4zOLdFxCBaA" name="circumference">
+      <dmn:typeRef>feel:number</dmn:typeRef>
+    </dmn:itemComponent>
+  </dmn:itemDefinition>
+  <dmn:decision id="_q2qzIH6LEeePe9Zmt-encA" name="fn library">
+    <dmn:variable id="_mRL98YDJEee-MeWXoLgrYg" name="fn library" typeRef="ns1:tFnLibrary"/>
+    <dmn:context id="_zl1isH6LEeePe9Zmt-encA">
+      <dmn:contextEntry>
+        <dmn:variable id="_tc5HIH6OEeePe9Zmt-encA" name="sumFn"/>
+        <dmn:literalExpression id="_tc5HIX6OEeePe9Zmt-encA">
+          <dmn:text>function(a:number,b:number) a+b</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+      <dmn:contextEntry>
+        <dmn:variable id="_2WC5IH6OEeePe9Zmt-encA" name="subFn"/>
+        <dmn:literalExpression id="_oUtvYIDeEee-MeWXoLgrYg">
+          <dmn:text>function(a:number,b:number) a-b</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+      <dmn:contextEntry>
+        <dmn:variable id="_8_UCEIDREee-MeWXoLgrYg" name="multiplyFn"/>
+        <dmn:functionDefinition id="_vB1ssID0Eeehqsf_bU54Lw">
+          <dmn:formalParameter id="_vqaIkID0Eeehqsf_bU54Lw" name="a" typeRef="feel:number"/>
+          <dmn:formalParameter id="_vqaIkYD0Eeehqsf_bU54Lw" name="b" typeRef="feel:number"/>
+          <dmn:literalExpression id="_vHGAJYD0Eeehqsf_bU54Lw">
+            <dmn:text>a*b</dmn:text>
+          </dmn:literalExpression>
+        </dmn:functionDefinition>
+      </dmn:contextEntry>
+      <dmn:contextEntry>
+        <dmn:variable id="_SgHREIDSEee-MeWXoLgrYg" name="divideFn"/>
+        <dmn:literalExpression id="_kG65QIDeEee-MeWXoLgrYg">
+          <dmn:text>function(a:number,b:number) if b = 0 then null else a/b</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+    </dmn:context>
+  </dmn:decision>
+  <dmn:decision id="_AfhOEH6QEeePe9Zmt-encA" name="fn invocation positional parameters">
+    <dmn:variable id="_rwrh8YDIEee-MeWXoLgrYg" name="fn invocation positional parameters" typeRef="ns1:tFnInvocationPositionalResult"/>
+    <dmn:informationRequirement>
+      <dmn:requiredDecision href="#_q2qzIH6LEeePe9Zmt-encA"/>
+    </dmn:informationRequirement>
+    <dmn:informationRequirement>
+      <dmn:requiredInput href="#_48BAYH6PEeePe9Zmt-encA"/>
+    </dmn:informationRequirement>
+    <dmn:informationRequirement>
+      <dmn:requiredInput href="#_5eBhQH6PEeePe9Zmt-encA"/>
+    </dmn:informationRequirement>
+    <dmn:context id="_JvSJQX6QEeePe9Zmt-encA" typeRef="ns1:tFnInvocationResult">
+      <dmn:contextEntry>
+        <dmn:variable id="_TEHYYH6VEeePe9Zmt-encA" name="sumResult"/>
+        <dmn:literalExpression id="_TEHYYX6VEeePe9Zmt-encA">
+          <dmn:text>fn library.sumFn(inputA,inputB)</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+      <dmn:contextEntry>
+        <dmn:variable id="_6AipMIDkEee-MeWXoLgrYg" name="multiplicationResultPositional"/>
+        <dmn:literalExpression id="_6AipMYDkEee-MeWXoLgrYg">
+          <dmn:text>fn library.multiplyFn(inputA,inputB)</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+      <dmn:contextEntry>
+        <dmn:variable id="_ML3Y4IDfEee-MeWXoLgrYg" name="divisionResultPositional"/>
+        <dmn:literalExpression id="_ML3Y4YDfEee-MeWXoLgrYg">
+          <dmn:text>fn library.divideFn(inputA, inputB)</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+    </dmn:context>
+  </dmn:decision>
+  <dmn:decision id="_yHl3UIDhEee-MeWXoLgrYg" name="fn invocation named parameters">
+    <dmn:variable id="_eApsUYDjEee-MeWXoLgrYg" name="fn invocation named parameters" typeRef="ns1:tFnInvocationNamedResult"/>
+    <dmn:informationRequirement>
+      <dmn:requiredInput href="#_5eBhQH6PEeePe9Zmt-encA"/>
+    </dmn:informationRequirement>
+    <dmn:informationRequirement>
+      <dmn:requiredInput href="#_48BAYH6PEeePe9Zmt-encA"/>
+    </dmn:informationRequirement>
+    <dmn:informationRequirement>
+      <dmn:requiredDecision href="#_q2qzIH6LEeePe9Zmt-encA"/>
+    </dmn:informationRequirement>
+    <dmn:context id="_zq6EMYDhEee-MeWXoLgrYg">
+      <dmn:contextEntry>
+        <dmn:variable id="_zq6rRYDhEee-MeWXoLgrYg" name="subResult"/>
+        <dmn:literalExpression id="_zq6rR4DhEee-MeWXoLgrYg">
+          <dmn:text>fn library.subFn(a:inputA,b:inputB)</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+      <dmn:contextEntry>
+        <dmn:variable id="_zq6rTYDhEee-MeWXoLgrYg" name="multiplicationResultNamed"/>
+        <dmn:literalExpression id="_zq6rT4DhEee-MeWXoLgrYg">
+          <dmn:text>fn library.multiplyFn(a:inputA,b:inputB)</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+      <dmn:contextEntry>
+        <dmn:variable id="_zq6rUYDhEee-MeWXoLgrYg" name="subResultMixed"/>
+        <dmn:literalExpression id="_zq6rU4DhEee-MeWXoLgrYg">
+          <dmn:text>fn library.subFn(a:inputB, b:inputA)</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+      <dmn:contextEntry>
+        <dmn:variable id="_zq6rWYDhEee-MeWXoLgrYg" name="divisionResultNamed"/>
+        <dmn:literalExpression id="_zq6rW4DhEee-MeWXoLgrYg">
+          <dmn:text>fn library.divideFn(a:inputA, b:inputB)</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+    </dmn:context>
+  </dmn:decision>
+  <dmn:decision id="_b-gD0IDiEee-MeWXoLgrYg" name="fn invocation complex parameters">
+    <dmn:variable id="_vU2_EYDjEee-MeWXoLgrYg" name="fn invocation complex parameters" typeRef="ns1:tFnInvocationComplexParamsResult"/>
+    <dmn:informationRequirement>
+      <dmn:requiredInput href="#_48BAYH6PEeePe9Zmt-encA"/>
+    </dmn:informationRequirement>
+    <dmn:informationRequirement>
+      <dmn:requiredInput href="#_5eBhQH6PEeePe9Zmt-encA"/>
+    </dmn:informationRequirement>
+    <dmn:informationRequirement>
+      <dmn:requiredDecision href="#_q2qzIH6LEeePe9Zmt-encA"/>
+    </dmn:informationRequirement>
+    <dmn:knowledgeRequirement>
+      <dmn:requiredKnowledge href="#_8xmTAIDNEee-MeWXoLgrYg"/>
+    </dmn:knowledgeRequirement>
+    <dmn:context id="_eA6AcYDiEee-MeWXoLgrYg" typeRef="ns1:tFnInvocationResult">
+      <dmn:contextEntry>
+        <dmn:variable id="_eA6Aj4DiEee-MeWXoLgrYg" name="functionInvocationInParameter"/>
+        <dmn:literalExpression id="_eA6AkYDiEee-MeWXoLgrYg">
+          <dmn:text>fn library.multiplyFn(fn library.sumFn(inputA,inputA), fn library.sumFn(a:inputB, b:inputB))</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+      <dmn:contextEntry>
+        <dmn:variable id="_eA6Ak4DiEee-MeWXoLgrYg" name="functionInvocationLiteralExpressionInParameter"/>
+        <dmn:literalExpression id="_eA6AlYDiEee-MeWXoLgrYg">
+          <dmn:text>fn library.multiplyFn(inputA * inputA, if fn library.subFn(inputA,inputB)  in [0..10] then 5 else 10 )</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+      <dmn:contextEntry>
+        <dmn:variable id="_MrFpgID1Eeehqsf_bU54Lw" name="circumference"/>
+        <dmn:literalExpression id="_MrFpgYD1Eeehqsf_bU54Lw">
+          <dmn:text>Circumference(inputA+inputB)</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+    </dmn:context>
+  </dmn:decision>
+  <dmn:businessKnowledgeModel id="_8xmTAIDNEee-MeWXoLgrYg" name="Circumference">
+    <dmn:encapsulatedLogic id="_92KuYIDNEee-MeWXoLgrYg">
+      <dmn:formalParameter id="_3xWKkIDgEee-MeWXoLgrYg" name="radius" typeRef="feel:number"/>
+      <dmn:literalExpression id="_92KuYYDNEee-MeWXoLgrYg" typeRef="feel:number">
+        <dmn:text>(2*3.141592) * radius</dmn:text>
+      </dmn:literalExpression>
+    </dmn:encapsulatedLogic>
+    <dmn:variable name="Circumference" typeRef="feel:number"/>
+  </dmn:businessKnowledgeModel>
+  <dmn:inputData id="_48BAYH6PEeePe9Zmt-encA" name="inputA">
+    <dmn:variable id="_XMnoAIDIEee-MeWXoLgrYg" name="inputA" typeRef="feel:number"/>
+  </dmn:inputData>
+  <dmn:inputData id="_5eBhQH6PEeePe9Zmt-encA" name="inputB">
+    <dmn:variable id="_Y5qYoYDIEee-MeWXoLgrYg" name="inputB" typeRef="feel:number"/>
+  </dmn:inputData>
+</dmn:definitions>

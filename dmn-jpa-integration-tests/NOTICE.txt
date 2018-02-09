@@ -1,0 +1,18 @@
+jDMN
+Copyright 2017 Goldman Sachs
+Licensed under Apache 2.0 license
+
+This product includes software developed at
+The Apache Software Foundation (http://www.apache.org/).
+
+Each module in this project has a NOTICE.txt file denoting the module's own dependencies.
+
+This product depends on (links to) the following software:
+	jDMN: Core under The Apache License, Version 2.0
+	EclipseLink ANTLR under Eclipse Distribution License v. 1.0
+	EclipseLink ASM under Eclipse Distribution License v. 1.0
+	EclipseLink Core under Eclipse Distribution License v. 1.0
+	EclipseLink Hermes JPQL Parser under Eclipse Distribution License v. 1.0
+	EclipseLink JPA under Eclipse Distribution License v. 1.0
+	Javax Persistence under Eclipse Distribution License v. 1.0
+	SLF4J API Module under MIT License

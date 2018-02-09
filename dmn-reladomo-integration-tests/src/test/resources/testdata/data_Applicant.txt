@@ -1,0 +1,5 @@
+class com.gs.reladomo.example_credit_decision.Applicant
+id, name, age, creditScore
+0, "Amy", 38, 100
+1, "Bill", 18, 65
+2, "Charlie", 65, 80

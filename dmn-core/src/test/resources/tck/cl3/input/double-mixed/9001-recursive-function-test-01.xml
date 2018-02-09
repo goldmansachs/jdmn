@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="">
+    <modelName>9001-recursive-function.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Data Type: Number</label>
+    </labels>
+    <testCase id="001">
+        <inputNode name="n">
+            <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">0</value>
+        </inputNode>
+        <resultNode name="main" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="002">
+        <inputNode name="n">
+            <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">1</value>
+        </inputNode>
+        <resultNode name="main" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="003">
+        <inputNode name="n">
+            <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">3</value>
+        </inputNode>
+        <resultNode name="main" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">6</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="004">
+        <inputNode name="n">
+            <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">-1</value>
+        </inputNode>
+        <resultNode name="main" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+</testCases>

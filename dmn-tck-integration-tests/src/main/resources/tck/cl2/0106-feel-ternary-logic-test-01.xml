@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelName>0106-feel-ternary-logic.dmn</modelName>
+	<labels>
+		<label>Compliance Level 2</label>
+		<label>Literal Expression</label>
+		<label>Data Type: Boolean</label>
+	</labels>
+	<testCase id="001">
+		<description>Tests ternary logic for true, true</description>
+	    <inputNode name="A">
+	        <value>true</value>
+	    </inputNode>
+	    <inputNode name="B">
+	        <value>true</value>
+	    </inputNode>
+	    <resultNode name="DecisionAnd" type="decision">
+			<expected>
+				<value>true</value>
+			</expected>
+		</resultNode>
+	    <resultNode name="DecisionOr" type="decision">
+	        <expected>
+	            <value>true</value>
+	        </expected>
+	    </resultNode>
+	</testCase>
+    <testCase id="002">
+        <description>Tests ternary logic for false, true</description>
+        <inputNode name="A">
+            <value>false</value>
+        </inputNode>
+        <inputNode name="B">
+            <value>true</value>
+        </inputNode>
+        <resultNode name="DecisionAnd" type="decision">
+            <expected>
+                <value>false</value>
+            </expected>
+        </resultNode>
+        <resultNode name="DecisionOr" type="decision">
+            <expected>
+                <value>true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="003">
+        <description>Tests ternary logic for null, true </description>
+        <inputNode name="A">
+            <value xsi:nil="true"/>
+        </inputNode>
+        <inputNode name="B">
+            <value>true</value>
+        </inputNode>
+        <resultNode name="DecisionAnd" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+        <resultNode name="DecisionOr" type="decision">
+            <expected>
+                <value>true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="004">
+        <description>Tests ternary logic for true, false</description>
+        <inputNode name="A">
+            <value>true</value>
+        </inputNode>
+        <inputNode name="B">
+            <value>false</value>
+        </inputNode>
+        <resultNode name="DecisionAnd" type="decision">
+            <expected>
+                <value>false</value>
+            </expected>
+        </resultNode>
+        <resultNode name="DecisionOr" type="decision">
+            <expected>
+                <value>true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="005">
+        <description>Tests ternary logic for false, false</description>
+        <inputNode name="A">
+            <value>false</value>
+        </inputNode>
+        <inputNode name="B">
+            <value>false</value>
+        </inputNode>
+        <resultNode name="DecisionAnd" type="decision">
+            <expected>
+                <value>false</value>
+            </expected>
+        </resultNode>
+        <resultNode name="DecisionOr" type="decision">
+            <expected>
+                <value>false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="006">
+        <description>Tests ternary logic for null, false </description>
+        <inputNode name="A">
+            <value xsi:nil="true"/>
+        </inputNode>
+        <inputNode name="B">
+            <value>false</value>
+        </inputNode>
+        <resultNode name="DecisionAnd" type="decision">
+            <expected>
+                <value>false</value>
+            </expected>
+        </resultNode>
+        <resultNode name="DecisionOr" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="007">
+        <description>Tests ternary logic for true, null</description>
+        <inputNode name="A">
+            <value>true</value>
+        </inputNode>
+        <inputNode name="B">
+            <value xsi:nil="true"/>
+        </inputNode>
+        <resultNode name="DecisionAnd" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+        <resultNode name="DecisionOr" type="decision">
+            <expected>
+                <value>true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="008">
+        <description>Tests ternary logic for false, null</description>
+        <inputNode name="A">
+            <value>false</value>
+        </inputNode>
+        <inputNode name="B">
+            <value xsi:nil="true"/>
+        </inputNode>
+        <resultNode name="DecisionAnd" type="decision">
+            <expected>
+                <value>false</value>
+            </expected>
+        </resultNode>
+        <resultNode name="DecisionOr" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="009">
+        <description>Tests ternary logic for null, null </description>
+        <inputNode name="A">
+            <value xsi:nil="true"/>
+        </inputNode>
+        <inputNode name="B">
+            <value xsi:nil="true"/>
+        </inputNode>
+        <resultNode name="DecisionAnd" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+        <resultNode name="DecisionOr" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+</testCases>

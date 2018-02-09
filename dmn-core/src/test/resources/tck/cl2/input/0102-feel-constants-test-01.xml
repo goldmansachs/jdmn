@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelName>0102-feel-constants.dmn</modelName>
+	<labels>
+		<label>Compliance Level 2</label>
+		<label>Literal Expression</label>
+		<label>FEEL Constants</label>
+		<label>Data Type: String</label>
+		<label>FEEL Special-character Names</label>
+	</labels>
+	<testCase id="001">
+		<description>Tests FEEL string constants</description>
+		<resultNode name="Decision1" type="decision">
+			<expected>
+				<value>foo bar</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="002">
+		<description>Tests FEEL unicode string constant</description>
+		<resultNode name="Decision2" type="decision">
+			<expected>
+				<value>šomeÚnicodeŠtriňg</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="003">
+		<description>Tests FEEL unicode string constant</description>
+		<resultNode name="Decision3" type="decision">
+			<expected>
+				<value>横綱</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="004">
+		<description>Tests FEEL long string constant</description>
+		<resultNode name="Decision4" type="decision">
+			<expected>
+				<value>thisIsSomeLongStringThatMustBeProcessedSoHopefullyThisTestPassWithItAndIMustWriteSomethingMoreSoItIsLongerAndLongerAndLongerAndLongerAndLongerTillItIsReallyLong</value>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.omg.org/spec/DMN/20160719/testcase ../../testCases.xsd">
+	<modelName>0015-all-any.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Literal Expression</label>
+        <label>Item Definition</label>
+        <label>FEEL List</label>
+        <label>FEEL Functions: lists</label>
+    </labels>
+    <testCase id="001">
+		<inputNode name="a">
+			<value>10</value>
+		</inputNode>
+		<inputNode name="b">
+			<value>9</value>
+		</inputNode>
+		<inputNode name="c">
+			<value>1</value>
+		</inputNode>
+		<resultNode name="and1" type="decision">
+			<expected>
+				<value>true</value>
+			</expected>
+		</resultNode>
+		<resultNode name="or1" type="decision">
+			<expected>
+				<value>true</value>
+			</expected>
+		</resultNode>
+		<resultNode name="literalList" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>true</value>
+					</item>
+					<item>
+						<value>true</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+		<resultNode name="and2" type="decision">
+			<expected>
+				<value>true</value>
+			</expected>
+		</resultNode>
+		<resultNode name="or2" type="decision">
+			<expected>
+				<value>true</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="002">
+		<inputNode name="a">
+			<value>10</value>
+		</inputNode>
+		<inputNode name="b">
+			<value>11</value>
+		</inputNode>
+		<inputNode name="c">
+			<value>1</value>
+		</inputNode>
+		<resultNode name="and1" type="decision">
+			<expected>
+				<value>false</value>
+			</expected>
+		</resultNode>
+		<resultNode name="or1" type="decision">
+			<expected>
+				<value>true</value>
+			</expected>
+		</resultNode>
+		<resultNode name="literalList" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>false</value>
+					</item>
+					<item>
+						<value>true</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+		<resultNode name="and2" type="decision">
+			<expected>
+				<value>false</value>
+			</expected>
+		</resultNode>
+		<resultNode name="or2" type="decision">
+			<expected>
+				<value>true</value>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>

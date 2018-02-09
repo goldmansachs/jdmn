@@ -1,0 +1,56 @@
+# Choose Slim protocol
+!define TEST_SYSTEM {slim}
+
+!1 Unary Tests
+!|FEEL Unary Tests Fixture                                                        |
+|inputExpression|inputEntry|scope                                         |output?|
+|input          |1, 2      |[{"name":"input", "type":"number", "value":1}]|true   |
+|input          |not(-1)   |[{"name":"input", "type":"number", "value":1}]|true   |
+|input          |not(1, 2) |[{"name":"input", "type":"number", "value":1}]|false  |
+|input          |-         |[{"name":"input", "type":"number", "value":1}]|true   |
+
+!1 Positive Unary Test
+!|FEEL Unary Tests Fixture                                                                                                                  |
+|inputExpression|inputEntry                              |scope                                                                     |output?|
+|input          |1                                       |[{"name":"input", "type":"number", "value":1}]                            |true   |
+|input          |-1                                      |[{"name":"input", "type":"number", "value":1}]                            |false  |
+|input          |< 1                                     |[{"name":"input", "type":"number", "value":1}]                            |false  |
+|input          |<= 1                                    |[{"name":"input", "type":"number", "value":1}]                            |true   |
+|input          |> 1                                     |[{"name":"input", "type":"number", "value":1}]                            |false  |
+|input          |>= 1                                    |[{"name":"input", "type":"number", "value":1}]                            |true   |
+|input          |(1..2)                                  |[{"name":"input", "type":"number", "value":1}]                            |false  |
+|input          |]1..2[                                  |[{"name":"input", "type":"number", "value":1}]                            |false  |
+|input          |[1..2]                                  |[{"name":"input", "type":"number", "value":1}]                            |true   |
+|input          |null                                    |[{"name":"input", "type":"number", "value":1}]                            |false  |
+|input          |date("2016-08-01")                      |[{"name":"input", "type":"date", "value":"2017-01-03"}]                   |false  |
+|input          |< date("2016-08-01")                    |[{"name":"input", "type":"date", "value":"2017-01-03"}]                   |false  |
+|input          |<= date("2016-08-01")                   |[{"name":"input", "type":"date", "value":"2017-01-03"}]                   |false  |
+|input          |> date("2016-08-01")                    |[{"name":"input", "type":"date", "value":"2017-01-03"}]                   |true   |
+|input          |>= date("2016-08-01")                   |[{"name":"input", "type":"date", "value":"2017-01-03"}]                   |true   |
+|input          |< time("12:00:00Z")                     |[{"name":"input", "type":"time", "value":"12:00:00Z"}]                    |false  |
+|input          |time("12:00:00Z")                       |[{"name":"input", "type":"time", "value":"12:00:00Z"}]                    |true   |
+|input          |<= time("12:00:00Z")                    |[{"name":"input", "type":"time", "value":"12:00:00Z"}]                    |true   |
+|input          |> time("12:00:00Z")                     |[{"name":"input", "type":"time", "value":"12:00:00Z"}]                    |false  |
+|input          |>= time("12:00:00Z")                    |[{"name":"input", "type":"time", "value":"12:00:00Z"}]                    |true   |
+|input          |date and time("2016-08-01T11:00:00Z")   |[{"name":"input", "type":"date and time", "value":"2017-01-03T12:00:00Z"}]|false  |
+|input          |< date and time("2016-08-01T11:00:00Z") |[{"name":"input", "type":"date and time", "value":"2017-01-03T12:00:00Z"}]|false  |
+|input          |<= date and time("2016-08-01T11:00:00Z")|[{"name":"input", "type":"date and time", "value":"2017-01-03T12:00:00Z"}]|false  |
+|input          |> date and time("2016-08-01T11:00:00Z") |[{"name":"input", "type":"date and time", "value":"2017-01-03T12:00:00Z"}]|true   |
+|input          |>= date and time("2016-08-01T11:00:00Z")|[{"name":"input", "type":"date and time", "value":"2017-01-03T12:00:00Z"}]|true   |
+|input          |duration("P1Y1M")                       |[{"name":"input", "type":"years and months duration", "value":"P1Y1M"}]   |true   |
+|input          |< duration("P1Y1M")                     |[{"name":"input", "type":"years and months duration", "value":"P1Y1M"}]   |false  |
+|input          |<= duration("P1Y1M")                    |[{"name":"input", "type":"years and months duration", "value":"P1Y1M"}]   |true   |
+|input          |> duration("P1Y1M")                     |[{"name":"input", "type":"years and months duration", "value":"P1Y1M"}]   |false  |
+|input          |>= duration("P1Y1M")                    |[{"name":"input", "type":"years and months duration", "value":"P1Y1M"}]   |true   |
+|input          |duration("PT1H1M")                      |[{"name":"input", "type":"days and time duration", "value":"PT1H1M"}]     |true   |
+|input          |< duration("PT1H1M")                    |[{"name":"input", "type":"days and time duration", "value":"PT1H1M"}]     |false  |
+|input          |<= duration("PT1H1M")                   |[{"name":"input", "type":"days and time duration", "value":"PT1H1M"}]     |true   |
+|input          |> duration("PT1H1M")                    |[{"name":"input", "type":"days and time duration", "value":"PT1H1M"}]     |false  |
+|input          |>= duration("PT1H1M")                   |[{"name":"input", "type":"days and time duration", "value":"PT1H1M"}]     |true   |
+|input          |"abc"                                   |[{"name":"input", "type":"string", "value":"abc"}]                        |true   |
+|input          |true                                    |[{"name":"input", "type":"boolean", "value":false}]                       |false  |
+
+!1 Function Call Test
+!|FEEL Unary Tests Fixture                                                                     |
+|inputExpression|inputEntry        |scope                                              |output?|
+|input          |contains(?, "abc")|[{"name":"input", "type":"string", "value":"abcd"}]|true   |

@@ -1,0 +1,121 @@
+# Choose Slim protocol
+!define TEST_SYSTEM {slim}
+
+!1 Numeric Comparison
+!|FEEL Expression Fixture|
+|expression|scope|output?|
+|1 = 2     |     |false  |
+|1 != 2    |     |true   |
+|1 < 2     |     |true   |
+|1 <= 2    |     |true   |
+|1 > 2     |     |false  |
+|1 >= 2    |     |false  |
+
+!1 Date Comparison
+!|FEEL Expression Fixture                              |
+|expression                              |scope|output?|
+|date("2015-08-01") = date("2015-08-02") |     |false  |
+|date("2015-08-01") != date("2015-08-02")|     |true   |
+|date("2015-08-01") < date("2015-08-02") |     |true   |
+|date("2015-08-01") <= date("2015-08-02")|     |true   |
+|date("2015-08-01") > date("2015-08-02") |     |false  |
+|date("2015-08-01") >= date("2015-08-02")|     |false  |
+
+!1 Time Comparison
+!|FEEL Expression Fixture                            |
+|expression                            |scope|output?|
+|time("12:00:00Z") = time("13:00:00Z") |     |false  |
+|time("12:00:00Z") != time("13:00:00Z")|     |true   |
+|time("12:00:00Z") < time("13:00:00Z") |     |true   |
+|time("12:00:00Z") <= time("13:00:00Z")|     |true   |
+|time("12:00:00Z") > time("13:00:00Z") |     |false  |
+|time("12:00:00Z") >= time("13:00:00Z")|     |false  |
+
+!1 Date and Time Comparison
+!|FEEL Expression Fixture                                                                    |
+|expression                                                                    |scope|output?|
+|date and time("2015-08-01T12:00:00Z") = date and time("2015-08-01T13:00:00Z") |     |false  |
+|date and time("2015-08-01T12:00:00Z") != date and time("2015-08-01T13:00:00Z")|     |true   |
+|date and time("2015-08-01T12:00:00Z") < date and time("2015-08-01T13:00:00Z") |     |true   |
+|date and time("2015-08-01T12:00:00Z") <= date and time("2015-08-01T13:00:00Z")|     |true   |
+|date and time("2015-08-01T12:00:00Z") > date and time("2015-08-01T13:00:00Z") |     |false  |
+|date and time("2015-08-01T12:00:00Z") >= date and time("2015-08-01T13:00:00Z")|     |false  |
+
+!1 Duration Comparison
+!|FEEL Expression Fixture                              |
+|expression                              |scope|output?|
+|duration("P1Y1M") = duration("P1Y2M")   |     |false  |
+|duration("P1Y1M") != duration("P1Y2M")  |     |true   |
+|duration("P1Y1M") < duration("P1Y2M")   |     |true   |
+|duration("P1Y1M") <= duration("P1Y2M")  |     |true   |
+|duration("P1Y1M") > duration("P1Y2M")   |     |false  |
+|duration("P1Y1M") >= duration("P1Y2M")  |     |false  |
+|duration("PT1H1M") = duration("PT1H2M") |     |false  |
+|duration("PT1H1M") != duration("PT1H2M")|     |true   |
+|duration("PT1H1M") < duration("PT1H2M") |     |true   |
+|duration("PT1H1M") <= duration("PT1H2M")|     |true   |
+|duration("PT1H1M") > duration("PT1H2M") |     |false  |
+|duration("PT1H1M") >= duration("PT1H2M")|     |false  |
+
+!1 Null Comparison
+!|FEEL Expression Fixture                                   |
+|expression                                   |scope|output?|
+|1 = null                                     |     |false  |
+|null = 1                                     |     |false  |
+|1 != null                                    |     |true   |
+|null != 1                                    |     |true   |
+|"abc" = null                                 |     |false  |
+|null = "abc"                                 |     |false  |
+|"abc" != null                                |     |true   |
+|null != "abc"                                |     |true   |
+|true = null                                  |     |false  |
+|null = true                                  |     |false  |
+|true != null                                 |     |true   |
+|null != true                                 |     |true   |
+|date("2016-03-01") = null                    |     |false  |
+|null == date("2016-03-01")                   |     |false  |
+|date("2016-03-01") != null                   |     |true   |
+|null != date("2016-03-01")                   |     |true   |
+|time("12:00:00Z") = null                     |     |false  |
+|null = time("12:00:00Z")                     |     |false  |
+|time("12:00:00Z") != null                    |     |true   |
+|null != time("12:00:00Z")                    |     |true   |
+|date and time("2016-03-01T12:00:00Z") = null |     |false  |
+|null == date and time("2016-03-01T12:00:00Z")|     |false  |
+|date and time("2016-03-01T12:00:00Z") != null|     |true   |
+|null != date and time("2016-03-01T12:00:00Z")|     |true   |
+|duration("P1Y1M") = null                     |     |false  |
+|null = duration("P1Y1M")                     |     |false  |
+|duration("P1Y1M") != null                    |     |true   |
+|null != duration("P1Y1M")                    |     |true   |
+|duration("PT1H") = null                      |     |false  |
+|null = duration("PT1H")                      |     |false  |
+|duration("PT1H") != null                     |     |true   |
+|null != duration("PT1H")                     |     |true   |
+|null = null                                  |     |true   |
+|null != null                                 |     |false  |
+
+!1 Between Expressions
+!|FEEL Expression Fixture                                                                                                                                      |
+|expression             |scope                                                                                                                         |output?|
+|3 between 1 and 4      |                                                                                                                              |true   |
+|(i) between (a) and (b)|[{"name":"i", "type":"number", "value":2}, {"name":"a", "type":"number", "value":1}, {"name":"b", "type":"number", "value":3}]|true   |
+|(i) between 1 and 2    |[{"name":"i", "type":"number", "value":1.5}]                                                                                  |true   |
+
+!1 In Expressions
+!|FEEL Expression Fixture               |
+|expression               |scope|output?|
+|1 in 1                   |     |true   |
+|1 in <1                  |     |false  |
+|1 in <=1                 |     |true   |
+|1 in >1                  |     |false  |
+|1 in >=1                 |     |true   |
+|1 in (1..2)              |     |false  |
+|1 in (1..2]              |     |false  |
+|1 in [1..2)              |     |true   |
+|1 in [1..2]              |     |true   |
+|1 in [1, 2]              |     |true   |
+|1 in (1)                 |     |true   |
+|1 in (1, 2)              |     |true   |
+|1 in (<1, [1..2], [1, 2])|     |true   |
+|1 in (<1, [1..2], 3)     |     |true   |

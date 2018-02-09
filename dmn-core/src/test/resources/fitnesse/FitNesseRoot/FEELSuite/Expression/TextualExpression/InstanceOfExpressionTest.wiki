@@ -1,0 +1,14 @@
+# Choose Slim protocol
+!define TEST_SYSTEM {slim}
+
+!1 For Expressions
+!|FEEL Expression Fixture                                                     |
+|expression                                                     |scope|output?|
+|3 instance of number                                           |     |true   |
+|"abc" instance of string                                       |     |true   |
+|true instance of boolean                                       |     |true   |
+|date("2011-01-03") instance of date                            |     |true   |
+|time("12:00:00Z") instance of time                             |     |true   |
+|date and time("2016-03-01T12:00:00Z") instance of date and time|     |true   |
+|duration("P1Y1M") instance of years and months duration        |     |true   |
+|duration("P1DT1H") instance of days and time duration          |     |true   |

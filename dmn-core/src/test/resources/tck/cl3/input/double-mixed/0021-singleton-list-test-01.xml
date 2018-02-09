@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelName>0021-singleton-list.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Literal Expression</label>
+        <label>Item Definition</label>
+        <label>FEEL Filter (10.3.2.5)</label>
+		<label>Data Type: String</label>
+		<label>Data Type: Collection</label>
+	</labels>
+	<testCase id="001">
+	    <description>The purpose of this test is to check that the engine is properly coercing singleton lists into single elements (i.e., [a]=a)</description>
+		<inputNode name="Employees">
+			<list>
+				<item>
+				    <value>Jack</value>
+				</item>
+			    <item>
+			        <value>John</value>
+			    </item>
+			    <item>
+			        <value>Bob</value>
+			    </item>
+			    <item>
+			        <value>Zack</value>
+			    </item>
+			</list>
+		</inputNode>
+		<resultNode name="decision1" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>John</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	    <resultNode name="decision2" type="decision">
+	        <expected>
+	            <value>John</value>
+	        </expected>
+	    </resultNode>
+	    <resultNode name="decision3" type="decision">
+	        <expected>
+	            <list>
+	                <item>
+	                    <value>Bob</value>
+	                </item>
+	            </list>
+	        </expected>
+	    </resultNode>
+	    <resultNode name="decision4" type="decision">
+	        <expected>
+	            <value>Bob</value>
+	        </expected>
+	    </resultNode>
+	    <resultNode name="decision5" type="decision">
+	        <expected>
+	            <value>BOB</value>
+	        </expected>
+	    </resultNode>
+	</testCase>
+</testCases>

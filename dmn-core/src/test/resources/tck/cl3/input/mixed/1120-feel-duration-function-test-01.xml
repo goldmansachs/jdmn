@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by ACTICO GmbH https://actico.com -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="">
+    <modelName>1120-feel-duration-function.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Literal Expression</label>
+        <label>FEEL Functions: date and time</label>
+    </labels>
+    <testCase id="001_f2c6cd6866">
+        <resultNode errorResult="true" name="feel-duration-function_ErrorCase_001_f2c6cd6866" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="002_ddca5756ca">
+        <resultNode errorResult="true" name="feel-duration-function_ErrorCase_002_ddca5756ca" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="003_951e1d1c31">
+        <resultNode name="feel-duration-function_003_951e1d1c31" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P1D</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="004_6b31e7cde7">
+        <resultNode name="feel-duration-function_004_6b31e7cde7" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">PT2H</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="005_202d863d07">
+        <resultNode name="feel-duration-function_005_202d863d07" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">PT3M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="006_a885f926d9">
+        <resultNode name="feel-duration-function_006_a885f926d9" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">PT4S</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="007_2f0ad399f3">
+        <resultNode name="feel-duration-function_007_2f0ad399f3" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">PT0.999S</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="008_747f56743d">
+        <resultNode name="feel-duration-function_008_747f56743d" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P1DT2H3M4.123456789S</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="009_cef3c1ed26">
+        <resultNode name="feel-duration-function_009_cef3c1ed26" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">PT0S</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="010_5b452a4975">
+        <resultNode name="feel-duration-function_010_5b452a4975" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">PT0S</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="011_2169615b94">
+        <resultNode name="feel-duration-function_011_2169615b94" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">PT0S</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="012_2affe6d169">
+        <resultNode name="feel-duration-function_012_2affe6d169" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">PT0S</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="013_0e8e26513c">
+        <resultNode name="feel-duration-function_013_0e8e26513c" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">PT0S</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="014_598ba6fabd">
+        <resultNode name="feel-duration-function_014_598ba6fabd" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">PT0S</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="015_ce2cb09830">
+        <resultNode name="feel-duration-function_015_ce2cb09830" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">-PT1H2M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="016_af3e37fdbd">
+        <resultNode name="feel-duration-function_016_af3e37fdbd" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">PT16H40M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="017_4f4549fda4">
+        <resultNode name="feel-duration-function_017_4f4549fda4" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">PT16H40M0.999999999S</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="018_f5ec776811">
+        <resultNode name="feel-duration-function_018_f5ec776811" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">PT9H15M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="019_2e6885755a">
+        <resultNode name="feel-duration-function_019_2e6885755a" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">PT1H1M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="020_af58b3766e">
+        <resultNode name="feel-duration-function_020_af58b3766e" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P1D</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="021_e48e70ad4e">
+        <resultNode name="feel-duration-function_021_e48e70ad4e" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P10D</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="022_668f24bed7">
+        <resultNode name="feel-duration-function_022_668f24bed7" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P2DT1H40M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="023_6fc32087db">
+        <resultNode name="feel-duration-function_023_6fc32087db" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">PT1H</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="024_fd7000d72f">
+        <resultNode name="feel-duration-function_024_fd7000d72f" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P2DT4H34M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="025_f8ffbd8658">
+        <resultNode name="feel-duration-function_025_f8ffbd8658" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P1Y2M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="026_e6c47f0cae">
+        <resultNode name="feel-duration-function_026_e6c47f0cae" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P1Y</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="027_33b7fb8704">
+        <resultNode name="feel-duration-function_027_33b7fb8704" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P0M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="028_971b94f16d">
+        <resultNode name="feel-duration-function_028_971b94f16d" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P0M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="029_1a12a226cc">
+        <resultNode name="feel-duration-function_029_1a12a226cc" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">-P1Y</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="030_afac0f2062">
+        <resultNode name="feel-duration-function_030_afac0f2062" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P2Y2M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="031_1ddad718b9">
+        <resultNode name="feel-duration-function_031_1ddad718b9" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P3Y3M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="032_72c46a9ec9">
+        <resultNode name="feel-duration-function_032_72c46a9ec9" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P8Y4M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="033_5d1540abaf">
+        <resultNode name="feel-duration-function_033_5d1540abaf" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">-P8Y4M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="034_aa9cbb21a6">
+        <resultNode name="feel-duration-function_034_aa9cbb21a6" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P83333333Y3M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="035_93eef01ae7">
+        <resultNode name="feel-duration-function_035_93eef01ae7" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">-P83333333Y3M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="036_5f2775875e">
+        <resultNode name="feel-duration-function_036_5f2775875e" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P99999999Y</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="037_8c9ea9c0e6">
+        <resultNode name="feel-duration-function_037_8c9ea9c0e6" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">-P99999999Y</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="038_67dc4c254c">
+        <resultNode name="feel-duration-function_038_67dc4c254c" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P1Y</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="039_4aa0b67804">
+        <resultNode name="feel-duration-function_039_4aa0b67804" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P1D</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="040_7d8eae461f">
+        <resultNode name="feel-duration-function_040_7d8eae461f" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:duration">P2Y2M</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="041_264bc9d682">
+        <resultNode errorResult="true" name="feel-duration-function_ErrorCase_041_264bc9d682" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="042_59a0000245">
+        <resultNode errorResult="true" name="feel-duration-function_ErrorCase_042_59a0000245" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="043_253815dc6c">
+        <resultNode errorResult="true" name="feel-duration-function_ErrorCase_043_253815dc6c" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="044_f3b338d877">
+        <resultNode errorResult="true" name="feel-duration-function_ErrorCase_044_f3b338d877" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="045_2ffcc37801">
+        <resultNode errorResult="true" name="feel-duration-function_ErrorCase_045_2ffcc37801" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="046_eb637de5f6">
+        <resultNode errorResult="true" name="feel-duration-function_ErrorCase_046_eb637de5f6" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="047_3210c46a5a">
+        <resultNode errorResult="true" name="feel-duration-function_ErrorCase_047_3210c46a5a" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="048_ab6244f767">
+        <resultNode errorResult="true" name="feel-duration-function_ErrorCase_048_ab6244f767" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="049_2225b503a0">
+        <resultNode errorResult="true" name="feel-duration-function_ErrorCase_049_2225b503a0" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="050_dd2ef33bbd">
+        <resultNode errorResult="true" name="feel-duration-function_ErrorCase_050_dd2ef33bbd" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+</testCases>

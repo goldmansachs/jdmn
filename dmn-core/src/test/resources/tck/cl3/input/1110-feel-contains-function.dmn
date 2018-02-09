@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmn:definitions xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/1110-feel-contains-function" id="_jCpBYPUUEeesLuP4RHs4vA" name="1110-feel-contains-function" namespace="http://www.actico.com/spec/DMN/1110-feel-contains-function">
+  <dmn:description>FEEL built-in function 'contains(string, match)' in category string functions</dmn:description>
+  <dmn:itemDefinition id="_jCpBYvUUEeesLuP4RHs4vA" name="tfeel-contains-function_001_2a4d7448c6_Result">
+    <dmn:typeRef>feel:boolean</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_jCpBZvUUEeesLuP4RHs4vA" name="tfeel-contains-function_002_d2a1831b5c_Result">
+    <dmn:typeRef>feel:boolean</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_jCpBavUUEeesLuP4RHs4vA" name="tfeel-contains-function_003_df56e0a1ad_Result">
+    <dmn:typeRef>feel:boolean</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_jCpBbvUUEeesLuP4RHs4vA" name="tfeel-contains-function_004_805503b274_Result">
+    <dmn:typeRef>feel:boolean</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_jCpBcvUUEeesLuP4RHs4vA" name="tfeel-contains-function_005_5c1269db16_Result">
+    <dmn:typeRef>feel:boolean</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_jCpBdvUUEeesLuP4RHs4vA" name="tfeel-contains-function_006_babdaf4f36_Result">
+    <dmn:typeRef>feel:boolean</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_jCpBevUUEeesLuP4RHs4vA" name="tfeel-contains-function_007_d24a599180_Result">
+    <dmn:typeRef>feel:boolean</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_jCpBfvUUEeesLuP4RHs4vA" name="tfeel-contains-function_008_cf1311586a_Result">
+    <dmn:typeRef>feel:boolean</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_jCpBgvUUEeesLuP4RHs4vA" name="tfeel-contains-function_009_c4b50ad623_Result">
+    <dmn:typeRef>feel:boolean</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_jCpBhvUUEeesLuP4RHs4vA" name="tfeel-contains-function_010_9ae03e0e59_Result">
+    <dmn:typeRef>feel:boolean</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:decision id="_jCpBZPUUEeesLuP4RHs4vA" name="feel-contains-function_ErrorCase_001_2a4d7448c6">
+    <dmn:description>Tests FEEL expression: 'contains(null,null)' and expects result: 'null (boolean)'</dmn:description>
+    <dmn:question>Result of FEEL expression 'contains(null,null)'?</dmn:question>
+    <dmn:allowedAnswers>null (boolean)</dmn:allowedAnswers>
+    <dmn:variable id="_jCpBZfUUEeesLuP4RHs4vA" name="feel-contains-function_ErrorCase_001_2a4d7448c6" typeRef="ns1:tfeel-contains-function_001_2a4d7448c6_Result"/>
+    <dmn:literalExpression id="_jCpBY_UUEeesLuP4RHs4vA">
+      <dmn:text>contains(null,null)</dmn:text>
+    </dmn:literalExpression>
+  </dmn:decision>
+  <dmn:decision id="_jCpBaPUUEeesLuP4RHs4vA" name="feel-contains-function_ErrorCase_002_d2a1831b5c">
+    <dmn:description>Tests FEEL expression: 'contains(null,&quot;bar&quot;)' and expects result: 'null (boolean)'</dmn:description>
+    <dmn:question>Result of FEEL expression 'contains(null,&quot;bar&quot;)'?</dmn:question>
+    <dmn:allowedAnswers>null (boolean)</dmn:allowedAnswers>
+    <dmn:variable id="_jCpBafUUEeesLuP4RHs4vA" name="feel-contains-function_ErrorCase_002_d2a1831b5c" typeRef="ns1:tfeel-contains-function_002_d2a1831b5c_Result"/>
+    <dmn:literalExpression id="_jCpBZ_UUEeesLuP4RHs4vA">
+      <dmn:text>contains(null,&quot;bar&quot;)</dmn:text>
+    </dmn:literalExpression>
+  </dmn:decision>
+  <dmn:decision id="_jCpBbPUUEeesLuP4RHs4vA" name="feel-contains-function_ErrorCase_003_df56e0a1ad">
+    <dmn:description>Tests FEEL expression: 'contains(&quot;bar&quot;,null)' and expects result: 'null (boolean)'</dmn:description>
+    <dmn:question>Result of FEEL expression 'contains(&quot;bar&quot;,null)'?</dmn:question>
+    <dmn:allowedAnswers>null (boolean)</dmn:allowedAnswers>
+    <dmn:variable id="_jCpBbfUUEeesLuP4RHs4vA" name="feel-contains-function_ErrorCase_003_df56e0a1ad" typeRef="ns1:tfeel-contains-function_003_df56e0a1ad_Result"/>
+    <dmn:literalExpression id="_jCpBa_UUEeesLuP4RHs4vA">
+      <dmn:text>contains(&quot;bar&quot;,null)</dmn:text>
+    </dmn:literalExpression>
+  </dmn:decision>
+  <dmn:decision id="_jCpBcPUUEeesLuP4RHs4vA" name="feel-contains-function_004_805503b274">
+    <dmn:description>Tests FEEL expression: 'contains(&quot;foobar&quot;,&quot;bar&quot;)' and expects result: 'true (boolean)'</dmn:description>
+    <dmn:question>Result of FEEL expression 'contains(&quot;foobar&quot;,&quot;bar&quot;)'?</dmn:question>
+    <dmn:allowedAnswers>true (boolean)</dmn:allowedAnswers>
+    <dmn:variable id="_jCpBcfUUEeesLuP4RHs4vA" name="feel-contains-function_004_805503b274" typeRef="ns1:tfeel-contains-function_004_805503b274_Result"/>
+    <dmn:literalExpression id="_jCpBb_UUEeesLuP4RHs4vA">
+      <dmn:text>contains(&quot;foobar&quot;,&quot;bar&quot;)</dmn:text>
+    </dmn:literalExpression>
+  </dmn:decision>
+  <dmn:decision id="_jCpBdPUUEeesLuP4RHs4vA" name="feel-contains-function_005_5c1269db16">
+    <dmn:description>Tests FEEL expression: 'contains(&quot;foobar&quot;,&quot;o&quot;)' and expects result: 'true (boolean)'</dmn:description>
+    <dmn:question>Result of FEEL expression 'contains(&quot;foobar&quot;,&quot;o&quot;)'?</dmn:question>
+    <dmn:allowedAnswers>true (boolean)</dmn:allowedAnswers>
+    <dmn:variable id="_jCpBdfUUEeesLuP4RHs4vA" name="feel-contains-function_005_5c1269db16" typeRef="ns1:tfeel-contains-function_005_5c1269db16_Result"/>
+    <dmn:literalExpression id="_jCpBc_UUEeesLuP4RHs4vA">
+      <dmn:text>contains(&quot;foobar&quot;,&quot;o&quot;)</dmn:text>
+    </dmn:literalExpression>
+  </dmn:decision>
+  <dmn:decision id="_jCpBePUUEeesLuP4RHs4vA" name="feel-contains-function_006_babdaf4f36">
+    <dmn:description>Tests FEEL expression: 'contains(&quot;abc&quot;,&quot;&quot;)' and expects result: 'true (boolean)'</dmn:description>
+    <dmn:question>Result of FEEL expression 'contains(&quot;abc&quot;,&quot;&quot;)'?</dmn:question>
+    <dmn:allowedAnswers>true (boolean)</dmn:allowedAnswers>
+    <dmn:variable id="_jCpBefUUEeesLuP4RHs4vA" name="feel-contains-function_006_babdaf4f36" typeRef="ns1:tfeel-contains-function_006_babdaf4f36_Result"/>
+    <dmn:literalExpression id="_jCpBd_UUEeesLuP4RHs4vA">
+      <dmn:text>contains(&quot;abc&quot;,&quot;&quot;)</dmn:text>
+    </dmn:literalExpression>
+  </dmn:decision>
+  <dmn:decision id="_jCpBfPUUEeesLuP4RHs4vA" name="feel-contains-function_007_d24a599180">
+    <dmn:description>Tests FEEL expression: 'contains(&quot;&quot;,&quot;ab&quot;)' and expects result: 'false (boolean)'</dmn:description>
+    <dmn:question>Result of FEEL expression 'contains(&quot;&quot;,&quot;ab&quot;)'?</dmn:question>
+    <dmn:allowedAnswers>false (boolean)</dmn:allowedAnswers>
+    <dmn:variable id="_jCpBffUUEeesLuP4RHs4vA" name="feel-contains-function_007_d24a599180" typeRef="ns1:tfeel-contains-function_007_d24a599180_Result"/>
+    <dmn:literalExpression id="_jCpBe_UUEeesLuP4RHs4vA">
+      <dmn:text>contains(&quot;&quot;,&quot;ab&quot;)</dmn:text>
+    </dmn:literalExpression>
+  </dmn:decision>
+  <dmn:decision id="_jCpBgPUUEeesLuP4RHs4vA" name="feel-contains-function_008_cf1311586a">
+    <dmn:description>Tests FEEL expression: 'contains(&quot;&quot;,&quot;&quot;)' and expects result: 'true (boolean)'</dmn:description>
+    <dmn:question>Result of FEEL expression 'contains(&quot;&quot;,&quot;&quot;)'?</dmn:question>
+    <dmn:allowedAnswers>true (boolean)</dmn:allowedAnswers>
+    <dmn:variable id="_jCpBgfUUEeesLuP4RHs4vA" name="feel-contains-function_008_cf1311586a" typeRef="ns1:tfeel-contains-function_008_cf1311586a_Result"/>
+    <dmn:literalExpression id="_jCpBf_UUEeesLuP4RHs4vA">
+      <dmn:text>contains(&quot;&quot;,&quot;&quot;)</dmn:text>
+    </dmn:literalExpression>
+  </dmn:decision>
+  <dmn:decision id="_jCpBhPUUEeesLuP4RHs4vA" name="feel-contains-function_009_c4b50ad623">
+    <dmn:description>Tests FEEL expression: 'contains(string:&quot;foobar&quot;,match:&quot;bar&quot;)' and expects result: 'true (boolean)'</dmn:description>
+    <dmn:question>Result of FEEL expression 'contains(string:&quot;foobar&quot;,match:&quot;bar&quot;)'?</dmn:question>
+    <dmn:allowedAnswers>true (boolean)</dmn:allowedAnswers>
+    <dmn:variable id="_jCpBhfUUEeesLuP4RHs4vA" name="feel-contains-function_009_c4b50ad623" typeRef="ns1:tfeel-contains-function_009_c4b50ad623_Result"/>
+    <dmn:literalExpression id="_jCpBg_UUEeesLuP4RHs4vA">
+      <dmn:text>contains(string:&quot;foobar&quot;,match:&quot;bar&quot;)</dmn:text>
+    </dmn:literalExpression>
+  </dmn:decision>
+  <dmn:decision id="_jCpBiPUUEeesLuP4RHs4vA" name="feel-contains-function_010_9ae03e0e59">
+    <dmn:description>Tests FEEL expression: 'contains(string:&quot;foobar&quot;,match:&quot;b&quot;)' and expects result: 'true (boolean)'</dmn:description>
+    <dmn:question>Result of FEEL expression 'contains(string:&quot;foobar&quot;,match:&quot;b&quot;)'?</dmn:question>
+    <dmn:allowedAnswers>true (boolean)</dmn:allowedAnswers>
+    <dmn:variable id="_jCpBifUUEeesLuP4RHs4vA" name="feel-contains-function_010_9ae03e0e59" typeRef="ns1:tfeel-contains-function_010_9ae03e0e59_Result"/>
+    <dmn:literalExpression id="_jCpBh_UUEeesLuP4RHs4vA">
+      <dmn:text>contains(string:&quot;foobar&quot;,match:&quot;b&quot;)</dmn:text>
+    </dmn:literalExpression>
+  </dmn:decision>
+  <dmn:knowledgeSource id="_jCpBYfUUEeesLuP4RHs4vA" name="DMN 1.1 - 10.3.4.3 Table 60"/>
+</dmn:definitions>

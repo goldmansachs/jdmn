@@ -1,0 +1,23 @@
+# Choose Slim protocol
+!define TEST_SYSTEM {slim}
+
+!1 Boolean Filter Expressions
+!|FEEL Expression Fixture            |
+|expression            |scope|output?|
+|[1, 2][true]          |     |[1, 2] |
+|1[true]               |     |[1]    |
+|[1, 2, 3, 4][item > 2]|     |[3, 4] |
+
+!1 Numeric Filter Expressions
+!|FEEL Expression Fixture|
+|expression|scope|output?|
+|[1, 2][0] |     |null   |
+|[1, 2][-1]|     |2      |
+|[1, 2][-2]|     |1      |
+|1[1]      |     |1      |
+
+!1 Context Filter Expressions
+!|FEEL Expression Fixture                                   |
+|expression                           |scope|output?        |
+|[{x:1, y:2}, {x:2, y:3}] [item.x = 1]|     |[{"x":1,"y":2}]|
+

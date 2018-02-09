@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmn:definitions xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.gs.com/spec/DMN/9001-recursive-function" id="_0034-recursive-function" name="9001-recursive-function" namespace="http://www.gs.com/spec/DMN/9001-recursive-function">
+  <dmn:description>FEEL recursive function</dmn:description>
+  <dmn:businessKnowledgeModel id="b_FACT" name="FACT">
+    <dmn:encapsulatedLogic>
+      <dmn:formalParameter name="n" typeRef="feel:number"/>
+      <dmn:literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401" typeRef="feel:number">
+        <dmn:text>if (n &lt; 0) then null else if (n = 0) then 1 else n * FACT(n - 1)</dmn:text>
+      </dmn:literalExpression>
+    </dmn:encapsulatedLogic>
+    <dmn:variable name="FACT" typeRef="feel:number"/>
+  </dmn:businessKnowledgeModel>
+  <dmn:inputData id="i_n" name="n">
+    <dmn:variable name="n" typeRef="feel:number"/>
+  </dmn:inputData>
+  <dmn:decision id="d_main" name="main">
+    <dmn:variable id="v_main" name="main" typeRef="feel:number"/>
+    <dmn:informationRequirement>
+      <dmn:requiredInput href="#i_n"/>
+    </dmn:informationRequirement>
+    <dmn:knowledgeRequirement>
+      <dmn:requiredKnowledge href="#b_FACT"/>
+    </dmn:knowledgeRequirement>
+    <dmn:literalExpression id="main">
+      <dmn:text>FACT(n)</dmn:text>
+    </dmn:literalExpression>
+  </dmn:decision>
+</dmn:definitions>

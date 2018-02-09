@@ -1,0 +1,6 @@
+class com.gs.reladomo.example_credit_decision.CreditIssueType
+id, name
+0, "Late payment"
+1, "Card rejection"
+2, "Default on obligations"
+3, "Bankruptcy"
