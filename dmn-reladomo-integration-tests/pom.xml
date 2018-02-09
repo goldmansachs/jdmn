@@ -1,0 +1,295 @@
+<!--
+
+    Copyright 2016 Goldman Sachs.
+
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+
+    You may obtain a copy of the License at
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations under the License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.goldmansachs.jdmn</groupId>
+        <artifactId>jdmn-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>jdmn-reladomo-integration-tests</artifactId>
+    <name>jDMN: Reladomo Integration Tests</name>
+    <packaging>jar</packaging>
+
+    <properties>
+        <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>  <!-- not deploying this module to Maven central -->
+        <maven.deploy.skip>true</maven.deploy.skip>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <dmn.version>1.1</dmn.version>
+        <model.version>1.0</model.version>
+        <platform.version>${project.parent.version}</platform.version>
+
+        <dmn.diagram.folder>${project.basedir}/src/main/resources/dmn</dmn.diagram.folder>
+
+        <generated.dmn.diagram.folder>${project.build.directory}/generated-resources/dmn</generated.dmn.diagram.folder>
+        <generated.java.folder>${project.build.directory}/generated-sources/dmn</generated.java.folder>
+        <tck.java.folder>${project.build.directory}/generated-test-sources/tck</tck.java.folder>
+
+        <reladomo.version>16.6.1</reladomo.version>
+        <reladomo.resources.folder>${project.basedir}/src/main/resources/reladomoxml</reladomo.resources.folder>
+        <reladomono.generated.java.folder>${project.build.directory}/generated-sources/reladomo</reladomono.generated.java.folder>
+        <reladomono.generated.resources.folder>${project.build.directory}/generated-resources/db</reladomono.generated.resources.folder>
+
+        <line.coverage.minimum>0.05</line.coverage.minimum>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.goldmansachs.jdmn</groupId>
+            <artifactId>jdmn-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.goldmansachs.reladomo</groupId>
+            <artifactId>reladomo</artifactId>
+            <version>${reladomo.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.goldmansachs.reladomo</groupId>
+            <artifactId>reladomogen</artifactId>
+            <version>${reladomo.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.goldmansachs.reladomo</groupId>
+            <artifactId>reladomo-gen-util</artifactId>
+            <version>${reladomo.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.goldmansachs.reladomo</groupId>
+            <artifactId>reladomo-test-util</artifactId>
+            <version>${reladomo.version}</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <id>generateReladomo</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <property name="plugin_classpath" refid="maven.plugin.classpath"/>
+                                <taskdef name="gen-reladomo" classpath="plugin_classpath"
+                                         classname="com.gs.fw.common.mithra.generator.MithraGenerator"/>
+                                <gen-reladomo xml="${reladomo.resources.folder}/MithraTestAppClassList.xml"
+                                              generateGscListMethod="true"
+                                              generatedDir="${reladomono.generated.java.folder}"
+                                              nonGeneratedDir="${project.basedir}/src/main/java"
+                                />
+                            </tasks>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generateDatabase</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <property name="plugin_classpath" refid="maven.plugin.classpath"/>
+                                <taskdef name="gen-reladomo-db" classpath="plugin_classpath"
+                                         classname="com.gs.fw.common.mithra.generator.dbgenerator.MithraDbDefinitionGenerator"/>
+                                <gen-reladomo-db
+                                        xml="${reladomo.resources.folder}/MithraTestAppClassList.xml"
+                                        generatedDir="${reladomono.generated.resources.folder}"
+                                        databaseType="UDB82"/>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.goldmansachs.reladomo</groupId>
+                        <artifactId>reladomo</artifactId>
+                        <version>${reladomo.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.goldmansachs.reladomo</groupId>
+                        <artifactId>reladomogen</artifactId>
+                        <version>${reladomo.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.goldmansachs.reladomo</groupId>
+                        <artifactId>reladomo-gen-util</artifactId>
+                        <version>${reladomo.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>com.goldmansachs.jdmn</groupId>
+                <artifactId>jdmn-maven-plugin</artifactId>
+                <version>${platform.version}</version>
+                <configuration>
+                    <dmnDialect>com.gs.dmn.dialect.MixedJavaTimeDMNDialectDefinition</dmnDialect>
+                    <inputParameters>
+                        <dmnVersion>${dmn.version}</dmnVersion>
+                        <modelVersion>${model.version}</modelVersion>
+                        <platformVersion>${platform.version}</platformVersion>
+                        <xsdValidation>false</xsdValidation>
+                        <semanticValidation>false</semanticValidation>
+                    </inputParameters>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>example-credit-decision</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${dmn.diagram.folder}/example-credit-decision.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>com.gs.dmn.example_credit_decision</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-example-credit-decision</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/example-credit-decision-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/example-credit-decision.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>com.gs.dmn.example_credit_decision</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-generated-classes-to-classpath</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${reladomono.generated.java.folder}</source>
+                                <source>${generated.java.folder}</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-generated-resources-to-classpath</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${generated.java.folder}</directory>
+                                    <excludes>
+                                        <exclude>**/*.java</exclude>
+                                    </excludes>
+                                </resource>
+                                <resource>
+                                    <directory>${reladomono.generated.resources.folder}</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-generated-test-classes-to-classpath</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-test-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${tck.java.folder}</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-generated-test-resources-to-classpath</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-test-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${tck.java.folder}</directory>
+                                    <excludes>
+                                        <exclude>**/*.java</exclude>
+                                    </excludes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <index>true</index>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                        <manifestEntries>
+                            <dmnVersion>${dmn.version}</dmnVersion>
+                            <modelVersion>${model.version}</modelVersion>
+                            <platformVersion>${platform.version}</platformVersion>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>

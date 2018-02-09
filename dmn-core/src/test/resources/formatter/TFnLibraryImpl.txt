@@ -1,0 +1,76 @@
+package type;
+
+import java.util.*;
+
+@javax.annotation.Generated(value={"itemDefinition.ftl", "tFnLibrary"})
+@com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
+public class TFnLibraryImpl extends com.gs.dmn.runtime.DefaultDMNType implements TFnLibrary {
+    public TFnLibraryImpl() {
+    }
+
+    public TFnLibraryImpl(Object divideFn, Object multiplyFn, Object subFn, Object sumFn) {
+        this.setDivideFn(divideFn);
+        this.setMultiplyFn(multiplyFn);
+        this.setSubFn(subFn);
+        this.setSumFn(sumFn);
+    }
+
+    private TFnLibraryImpl(com.gs.dmn.runtime.Context context) {
+        this.context = context;
+    }
+
+    @com.fasterxml.jackson.annotation.JsonGetter("divideFn")
+    public Object getDivideFn() {
+        return (Object)this.context.get("divideFn");
+    }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("divideFn")
+    public void setDivideFn(Object divideFn) {
+        this.context.put("divideFn", divideFn);
+    }
+
+    @com.fasterxml.jackson.annotation.JsonGetter("multiplyFn")
+    public Object getMultiplyFn() {
+        return (Object)this.context.get("multiplyFn");
+    }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("multiplyFn")
+    public void setMultiplyFn(Object multiplyFn) {
+        this.context.put("multiplyFn", multiplyFn);
+    }
+
+    @com.fasterxml.jackson.annotation.JsonGetter("subFn")
+    public Object getSubFn() {
+        return (Object)this.context.get("subFn");
+    }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("subFn")
+    public void setSubFn(Object subFn) {
+        this.context.put("subFn", subFn);
+    }
+
+    @com.fasterxml.jackson.annotation.JsonGetter("sumFn")
+    public Object getSumFn() {
+        return (Object)this.context.get("sumFn");
+    }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("sumFn")
+    public void setSumFn(Object sumFn) {
+        this.context.put("sumFn", sumFn);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return equalTo(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return hash();
+    }
+
+    @Override
+    public String toString() {
+        return asString();
+    }
+}

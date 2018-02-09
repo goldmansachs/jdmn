@@ -1,0 +1,46 @@
+# Choose Slim protocol
+!define TEST_SYSTEM {slim}
+
+!1 Numeric literal
+!|SFEEL Expression Fixture|
+|expression|scope|output?|
+|123       |     |123    |
+|123.45    |     |123.45 |
+|.45       |     |0.45   |
+
+!1 String literal
+!|SFEEL Expression Fixture|
+|expression|scope|output?|
+|"a"       |     |a      |
+|"123"     |     |123    |
+
+!1 Boolean literal
+!|SFEEL Expression Fixture|
+|expression|scope|output?|
+|true      |     |true   |
+|false     |     |false  |
+
+!1 Date and time literal
+!|SFEEL Expression Fixture                                        |
+|expression                           |scope|output?             |
+|date("2016-08-01")                   |     |2016-08-01          |
+|time("12:00:00Z")                    |     |12:00:00Z           |
+|date and time("2016-08-01T12:00:00Z")|     |2016-08-01T12:00:00Z|
+
+!1 Duration literal
+!|SFEEL Expression Fixture           |
+|expression        |scope|output?   |
+|duration("P1Y2M") |     |!-P1Y2M-! |
+|duration("PT1H2M")|     |!-PT1H2M-!|
+
+!1 Simple Name
+!|SFEEL Expression Fixture                                                                              |
+|expression|scope                                                                 |output?             |
+|x         |[{"name":"x", "type":"number", "value":123}]                          |123                 |
+|x         |[{"name":"x", "type":"string", "value":"123"}]                        |123                 |
+|x         |[{"name":"x", "type":"boolean", "value":true}]                        |true                |
+|x         |[{"name":"x", "type":"date", "value":"2015-08-01"}]                   |2015-08-01          |
+|x         |[{"name":"x", "type":"time", "value":"12:00:00Z"}]                    |12:00:00Z           |
+|x         |[{"name":"x", "type":"date and time", "value":"2015-08-01T12:00:00Z"}]|2015-08-01T12:00:00Z|
+|x         |[{"name":"x", "type":"years and months duration", "value":"P1Y2M"}]   |P1Y2M               |
+|x         |[{"name":"x", "type":"days and hours duration", "value":"PT1D2H"}]    |PT1D2H              |

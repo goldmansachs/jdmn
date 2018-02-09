@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<semantic:definitions xmlns:semantic="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="http://www.trisotech.com/definitions/_d458efc5-4a93-43f6-96d6-4e7d8c955259" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:tc="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" xmlns:trisofeed="http://trisotech.com/feed" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exporter="DMN Modeler" exporterVersion="5.2.4.2" id="_d458efc5-4a93-43f6-96d6-4e7d8c955259" name="for loops" namespace="http://www.trisotech.com/definitions/_d458efc5-4a93-43f6-96d6-4e7d8c955259" triso:logoChoice="Default">
+  <semantic:extensionElements/>
+  <semantic:itemDefinition isCollection="true" label="ListOfNumbers" name="ListOfNumbers">
+    <semantic:typeRef>feel:number</semantic:typeRef>
+  </semantic:itemDefinition>
+  <semantic:itemDefinition isCollection="true" label="ListOfBooleans" name="ListOfBooleans">
+    <semantic:typeRef>feel:boolean</semantic:typeRef>
+  </semantic:itemDefinition>
+  <semantic:decision id="d_loop1" name="areas" triso:displayName="areas">
+    <semantic:variable id="_64701e47-39c0-409e-aae4-21bd09a90f5d" name="areas" typeRef="ListOfNumbers"/>
+    <semantic:informationRequirement>
+      <semantic:requiredInput href="#_42037ab2-6e42-4b75-bf93-27be458ce561"/>
+    </semantic:informationRequirement>
+    <semantic:informationRequirement>
+      <semantic:requiredInput href="#_a98fbf74-c0d9-4edd-97ce-dee8b0357620"/>
+    </semantic:informationRequirement>
+    <semantic:literalExpression id="_d9800430-e5da-4612-8dce-fc53264fa805">
+      <semantic:text>for h in heights, w in widths return h * w</semantic:text>
+    </semantic:literalExpression>
+  </semantic:decision>
+  <semantic:inputData id="_42037ab2-6e42-4b75-bf93-27be458ce561" name="heights" triso:displayName="heights">
+    <semantic:variable id="_90f4fca4-cf9d-4518-bdd4-d1881a071eaa" name="heights" typeRef="ListOfNumbers"/>
+  </semantic:inputData>
+  <semantic:inputData id="_a98fbf74-c0d9-4edd-97ce-dee8b0357620" name="widths" triso:displayName="widths">
+    <semantic:variable id="_0bc23d35-dd1d-4a7f-81e5-bf51cd1caa9c" name="widths" typeRef="ListOfNumbers"/>
+  </semantic:inputData>
+  <semantic:decision id="_374e6945-f32c-46b2-8f14-7ca89da32275" name="increase1" triso:displayName="increase1">
+    <semantic:variable id="_2fca42fe-8bfd-4a28-996d-f7cda56091cc" name="increase1" typeRef="ListOfNumbers"/>
+    <semantic:informationRequirement>
+      <semantic:requiredInput href="#_42037ab2-6e42-4b75-bf93-27be458ce561"/>
+    </semantic:informationRequirement>
+    <semantic:literalExpression id="_452a3e4b-f414-4b99-be85-b3256cd6492c">
+      <semantic:text>for h in heights return h + 1</semantic:text>
+    </semantic:literalExpression>
+  </semantic:decision>
+  <semantic:inputData id="_bb8f8539-4837-49e6-87a9-0304bdcdc1d6" name="value" triso:displayName="value">
+    <semantic:variable id="_b0214126-8b39-4875-8760-b8c0868bad06" name="value" typeRef="feel:number"/>
+  </semantic:inputData>
+  <semantic:decision id="_133307f9-7ed4-429b-9f78-bf1a2022a384" name="check factors" triso:displayName="check factors">
+    <semantic:variable id="_d1bd762b-94fb-483b-ae8f-6bd780de073d" name="check factors" typeRef="ListOfBooleans"/>
+    <semantic:informationRequirement>
+      <semantic:requiredInput href="#_bb8f8539-4837-49e6-87a9-0304bdcdc1d6"/>
+    </semantic:informationRequirement>
+    <semantic:informationRequirement>
+      <semantic:requiredInput href="#_ab75f366-280d-45df-a68d-087b274a5100"/>
+    </semantic:informationRequirement>
+    <semantic:knowledgeRequirement>
+      <semantic:requiredKnowledge href="#_535d64c3-0da4-4641-8d7b-42ca46ab8999"/>
+    </semantic:knowledgeRequirement>
+    <semantic:literalExpression id="_3b6664ac-63e5-43f7-b787-5f80da5d8767">
+      <semantic:text>for f in factors return is factor( value, f )</semantic:text>
+    </semantic:literalExpression>
+  </semantic:decision>
+  <semantic:inputData id="_ab75f366-280d-45df-a68d-087b274a5100" name="factors" triso:displayName="factors">
+    <semantic:variable id="_45b58215-01cf-4ad8-ab03-4c67276c24fc" name="factors" typeRef="ListOfNumbers"/>
+  </semantic:inputData>
+  <semantic:businessKnowledgeModel id="_535d64c3-0da4-4641-8d7b-42ca46ab8999" name="is factor" triso:displayName="is factor">
+    <semantic:encapsulatedLogic xmlns:drools="http://www.drools.org/kie-dmn/1.1" drools:kind="F" id="_464a8b80-14ac-4497-a08a-5cab91462042">
+      <semantic:formalParameter id="_5a030771-2848-487f-a8f8-69772120267b" name="value" typeRef="feel:number"/>
+      <semantic:formalParameter id="_d2e427a9-5a80-4d8f-a876-590bdf8d060d" name="factor" typeRef="feel:number"/>
+      <semantic:literalExpression id="_13e4291c-5ce7-4c08-bc12-5ab31d78a40a">
+        <semantic:text>value / factor = decimal( value / factor, 0 )</semantic:text>
+      </semantic:literalExpression>
+    </semantic:encapsulatedLogic>
+    <semantic:variable id="_c6bd1e76-8294-4dca-93be-73f82bbb0a49" name="is factor" typeRef="feel:boolean"/>
+  </semantic:businessKnowledgeModel>
+  <semantic:decision id="_4453511f-6eff-43ab-bed6-1424af36a10c" name="multiples" triso:displayName="multiples">
+    <semantic:variable id="_9efb708a-a7ba-4746-b6d2-58f96c03385e" name="multiples" typeRef="ListOfNumbers"/>
+    <semantic:informationRequirement>
+      <semantic:requiredInput href="#_bb8f8539-4837-49e6-87a9-0304bdcdc1d6"/>
+    </semantic:informationRequirement>
+    <semantic:literalExpression id="_2a9c8faa-7900-4997-bde6-52e02a1df47b">
+      <semantic:text>for x in [2, 3, 4, 5] return x * value</semantic:text>
+    </semantic:literalExpression>
+  </semantic:decision>
+</semantic:definitions>

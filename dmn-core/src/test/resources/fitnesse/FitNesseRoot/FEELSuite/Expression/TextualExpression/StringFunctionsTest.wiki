@@ -1,0 +1,19 @@
+# Choose Slim protocol
+!define TEST_SYSTEM {slim}
+
+!1 Numeric Functions
+!|FEEL Expression Fixture                   |
+|expression                   |scope|output?|
+|substring("abc", 3)          |     |c      |
+|string length("abc")         |     |3      |
+|upper case("abc")            |     |ABC    |
+|lower case("abc")            |     |abc    |
+|substring before("abc", "b") |     |a      |
+|substring after("abc", "b")  |     |c      |
+|replace("abc", "b", "d", "i")|     |adc    |
+|replace("abc", "b", "d")     |     |adc    |
+|contains("abc", "a")         |     |true   |
+|starts with("abc", "a")      |     |true   |
+|ends with("abc", "c")        |     |true   |
+|matches("abc", "abc", "i")   |     |true   |
+|matches("abc", "abc")        |     |true   |

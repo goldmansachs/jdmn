@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.omg.org/spec/DMN/20160719/testcase ../../testCases.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>example-credit-decision.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Literal Expression</label>
+    </labels>
+    <testCase id="001">
+        <inputNode name="applicant">
+            <component name="name">
+                <value>Amy</value>
+            </component>
+            <component name="age">
+                <value>38</value>
+            </component>
+            <component name="creditScore">
+                <value>100</value>
+            </component>
+            <component name="priorIssues">
+                <list>
+                    <item>
+                        <value>Late payment</value>
+                    </item>
+                </list>
+            </component>
+        </inputNode>
+        <inputNode name="currentRiskAppetite">
+            <value>50</value>
+        </inputNode>
+        <inputNode name="lendingThreshold">
+            <value>25</value>
+        </inputNode>
+        <resultNode name="generateOutputData" type="decision">
+            <expected>
+                <component name="decision">
+                    <value>Accept</value>
+                </component>
+                <component name="assessment">
+                    <value>27.5</value>
+                </component>
+                <component name="issue">
+                    <value>-7.5</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="002">
+        <inputNode name="applicant">
+            <component name="name">
+                <value>Bill</value>
+            </component>
+            <component name="age">
+                <value>18</value>
+            </component>
+            <component name="creditScore">
+                <value>65</value>
+            </component>
+            <component name="priorIssues">
+                <list>
+                    <item>
+                        <value>Card rejection</value>
+                    </item>
+                    <item>
+                        <value>Default on obligations</value>
+                    </item>
+                </list>
+            </component>
+        </inputNode>
+        <inputNode name="currentRiskAppetite">
+            <value>50</value>
+        </inputNode>
+        <inputNode name="lendingThreshold">
+            <value>25</value>
+        </inputNode>
+        <resultNode name="generateOutputData" type="decision">
+            <expected>
+                <component name="decision">
+                    <value>Reject</value>
+                </component>
+                <component name="assessment">
+                    <value>-10</value>
+                </component>
+                <component name="issue">
+                    <value>-25</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="003">
+        <inputNode name="applicant">
+            <component name="name">
+                <value>Charlie</value>
+            </component>
+            <component name="age">
+                <value>65</value>
+            </component>
+            <component name="creditScore">
+                <value>80</value>
+            </component>
+            <component name="priorIssues">
+                <list>
+                    <item>
+                        <value>Late payment</value>
+                    </item>
+                    <item>
+                        <value>Default on obligations</value>
+                    </item>
+                    <item>
+                        <value>Bankruptcy</value>
+                    </item>
+                </list>
+            </component>
+        </inputNode>
+        <inputNode name="currentRiskAppetite">
+            <value>50</value>
+        </inputNode>
+        <inputNode name="lendingThreshold">
+            <value>25</value>
+        </inputNode>
+        <resultNode name="generateOutputData" type="decision">
+            <expected>
+                <component name="decision">
+                    <value>Reject</value>
+                </component>
+                <component name="assessment">
+                    <value>-42.5</value>
+                </component>
+                <component name="issue">
+                    <value>-77.5</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+</testCases>

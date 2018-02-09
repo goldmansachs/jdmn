@@ -1,0 +1,12 @@
+# Choose Slim protocol
+!define TEST_SYSTEM {slim}
+
+!1 For Expressions
+!|FEEL Expression Fixture                                                |
+|expression                                       |scope|output?         |
+|for i in [1..2] return i                         |     |[1, 2]          |
+|for i in [1..2], j in [2..3] return i+j          |     |[3, 4, 4, 5]    |
+|for i in [1..2] return for j in [2..3] return i+j|     |[[3, 4], [4, 5]]|
+|for i in [1, 2] return i                         |     |[1, 2]          |
+|for i in [1, 2], j in [2, 3] return i+j          |     |[3, 4, 4, 5]    |
+|for i in [1, 2] return for j in [2, 3] return i+j|     |[[3, 4], [4, 5]]|

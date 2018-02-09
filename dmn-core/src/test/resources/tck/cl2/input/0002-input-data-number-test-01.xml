@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelName>0002-input-data-number.dmn</modelName>
+	<labels>
+		<label>Compliance Level 2</label>
+		<label>Literal Expression</label>
+		<label>FEEL Arithmetic</label>
+		<label>FEEL Special-character Names</label>
+		<label>Data Type: Number</label>
+	</labels>
+	<testCase id="001">
+		<description>Testing valid input</description>
+		<inputNode name="Monthly Salary">
+			<value>10000</value>
+		</inputNode>
+		<resultNode name="Yearly Salary" type="decision">
+			<expected>
+				<value>120000</value>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>

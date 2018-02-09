@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by ACTICO GmbH https://actico.com -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="">
+    <modelName>1108-feel-substring-after-function.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Data Type: String</label>
+        <label>Literal Expression</label>
+        <label>FEEL Functions: strings</label>
+    </labels>
+    <testCase id="001_f532be66f2">
+        <resultNode name="feel-substring-after-function_001_f532be66f2" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">ar</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="002_f20d66fc1e">
+        <resultNode name="feel-substring-after-function_002_f20d66fc1e" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">obar</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="003_367612fc8b">
+        <resultNode name="feel-substring-after-function_003_367612fc8b" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="004_e448ee2dad">
+        <resultNode name="feel-substring-after-function_004_e448ee2dad" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="005_429efdafd0">
+        <resultNode name="feel-substring-after-function_005_429efdafd0" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="006_bf89d6b618">
+        <resultNode name="feel-substring-after-function_006_bf89d6b618" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">abc</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="007_529baaeb0b">
+        <resultNode name="feel-substring-after-function_007_529baaeb0b" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="008_1e611924ea">
+        <resultNode name="feel-substring-after-function_008_1e611924ea" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">bc</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="009_712fe2842f">
+        <resultNode name="feel-substring-after-function_009_712fe2842f" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">ar</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="010_40e159d07a">
+        <resultNode name="feel-substring-after-function_010_40e159d07a" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">ar</value>
+            </expected>
+        </resultNode>
+    </testCase>
+</testCases>

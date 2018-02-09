@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions id="_feel-logic-not" name="feel-logic-not"
+	namespace="https://github.com/dmn-tck/tck"
+	xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+	xmlns:feel="http://www.omg.org/spec/FEEL/20140401">
+    <inputData name="A" id="i_a">
+        <variable name="A" typeRef="feel:boolean"/>
+    </inputData>
+    <decision name="DecisionNot" id="d_not">
+        <variable name="DecisionNot" typeRef="feel:boolean"/>
+        <informationRequirement>
+            <requiredInput href="#i_a"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>not(A)</text>
+        </literalExpression>
+    </decision>
+</definitions>

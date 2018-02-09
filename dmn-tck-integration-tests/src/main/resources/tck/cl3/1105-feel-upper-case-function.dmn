@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmn:definitions xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/1105-feel-upper-case-function" id="_i_zv0PUUEeesLuP4RHs4vA" name="1105-feel-upper-case-function" namespace="http://www.actico.com/spec/DMN/1105-feel-upper-case-function">
+  <dmn:description>FEEL built-in function 'upper case(string) in category string functions</dmn:description>
+  <dmn:itemDefinition id="_i_zv0vUUEeesLuP4RHs4vA" name="tfeel-upper-case-function_001_2395aaad55_Result">
+    <dmn:typeRef>feel:string</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_i_zv1vUUEeesLuP4RHs4vA" name="tfeel-upper-case-function_002_991789dded_Result">
+    <dmn:typeRef>feel:string</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_i_zv2vUUEeesLuP4RHs4vA" name="tfeel-upper-case-function_003_d8306d8d00_Result">
+    <dmn:typeRef>feel:string</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_i_zv3vUUEeesLuP4RHs4vA" name="tfeel-upper-case-function_004_310caf7262_Result">
+    <dmn:typeRef>feel:string</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_i_zv4vUUEeesLuP4RHs4vA" name="tfeel-upper-case-function_005_b316d773ac_Result">
+    <dmn:typeRef>feel:string</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_i_zv5vUUEeesLuP4RHs4vA" name="tfeel-upper-case-function_006_d9bd3c14bc_Result">
+    <dmn:typeRef>feel:string</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_i_zv6vUUEeesLuP4RHs4vA" name="tfeel-upper-case-function_007_31fc6c1967_Result">
+    <dmn:typeRef>feel:string</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_i_zv7vUUEeesLuP4RHs4vA" name="tfeel-upper-case-function_008_26e369a9d9_Result">
+    <dmn:typeRef>feel:string</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:decision id="_i_zv1PUUEeesLuP4RHs4vA" name="feel-upper-case-function_001_2395aaad55">
+    <dmn:description>Tests FEEL expression: 'upper case(&quot;a&quot;)' and expects result: '&quot;A&quot; (string)'</dmn:description>
+    <dmn:question>Result of FEEL expression 'upper case(&quot;a&quot;)'?</dmn:question>
+    <dmn:allowedAnswers>&quot;A&quot; (string)</dmn:allowedAnswers>
+    <dmn:variable id="_i_zv1fUUEeesLuP4RHs4vA" name="feel-upper-case-function_001_2395aaad55" typeRef="ns1:tfeel-upper-case-function_001_2395aaad55_Result"/>
+    <dmn:literalExpression id="_i_zv0_UUEeesLuP4RHs4vA">
+      <dmn:text>upper case(&quot;a&quot;)</dmn:text>
+    </dmn:literalExpression>
+  </dmn:decision>
+  <dmn:decision id="_i_zv2PUUEeesLuP4RHs4vA" name="feel-upper-case-function_002_991789dded">
+    <dmn:description>Tests FEEL expression: 'upper case(&quot;abc&quot;)' and expects result: '&quot;ABC&quot; (string)'</dmn:description>
+    <dmn:question>Result of FEEL expression 'upper case(&quot;abc&quot;)'?</dmn:question>
+    <dmn:allowedAnswers>&quot;ABC&quot; (string)</dmn:allowedAnswers>
+    <dmn:variable id="_i_zv2fUUEeesLuP4RHs4vA" name="feel-upper-case-function_002_991789dded" typeRef="ns1:tfeel-upper-case-function_002_991789dded_Result"/>
+    <dmn:literalExpression id="_i_zv1_UUEeesLuP4RHs4vA">
+      <dmn:text>upper case(&quot;abc&quot;)</dmn:text>
+    </dmn:literalExpression>
+  </dmn:decision>
+  <dmn:decision id="_i_zv3PUUEeesLuP4RHs4vA" name="feel-upper-case-function_003_d8306d8d00">
+    <dmn:description>Tests FEEL expression: 'upper case(&quot;&quot;)' and expects result: '&quot;&quot; (string)'</dmn:description>
+    <dmn:question>Result of FEEL expression 'upper case(&quot;&quot;)'?</dmn:question>
+    <dmn:allowedAnswers>&quot;&quot; (string)</dmn:allowedAnswers>
+    <dmn:variable id="_i_zv3fUUEeesLuP4RHs4vA" name="feel-upper-case-function_003_d8306d8d00" typeRef="ns1:tfeel-upper-case-function_003_d8306d8d00_Result"/>
+    <dmn:literalExpression id="_i_zv2_UUEeesLuP4RHs4vA">
+      <dmn:text>upper case(&quot;&quot;)</dmn:text>
+    </dmn:literalExpression>
+  </dmn:decision>
+  <dmn:decision id="_i_zv4PUUEeesLuP4RHs4vA" name="feel-upper-case-function_004_310caf7262">
+    <dmn:description>Tests FEEL expression: 'upper case(&quot;1&quot;)' and expects result: '&quot;1&quot; (string)'</dmn:description>
+    <dmn:question>Result of FEEL expression 'upper case(&quot;1&quot;)'?</dmn:question>
+    <dmn:allowedAnswers>&quot;1&quot; (string)</dmn:allowedAnswers>
+    <dmn:variable id="_i_zv4fUUEeesLuP4RHs4vA" name="feel-upper-case-function_004_310caf7262" typeRef="ns1:tfeel-upper-case-function_004_310caf7262_Result"/>
+    <dmn:literalExpression id="_i_zv3_UUEeesLuP4RHs4vA">
+      <dmn:text>upper case(&quot;1&quot;)</dmn:text>
+    </dmn:literalExpression>
+  </dmn:decision>
+  <dmn:decision id="_i_zv5PUUEeesLuP4RHs4vA" name="feel-upper-case-function_005_b316d773ac">
+    <dmn:description>Tests FEEL expression: 'upper case(&quot;?@{&quot;)' and expects result: '&quot;?@{&quot; (string)'</dmn:description>
+    <dmn:question>Result of FEEL expression 'upper case(&quot;?@{&quot;)'?</dmn:question>
+    <dmn:allowedAnswers>&quot;?@{&quot; (string)</dmn:allowedAnswers>
+    <dmn:variable id="_i_zv5fUUEeesLuP4RHs4vA" name="feel-upper-case-function_005_b316d773ac" typeRef="ns1:tfeel-upper-case-function_005_b316d773ac_Result"/>
+    <dmn:literalExpression id="_i_zv4_UUEeesLuP4RHs4vA">
+      <dmn:text>upper case(&quot;?@{&quot;)</dmn:text>
+    </dmn:literalExpression>
+  </dmn:decision>
+  <dmn:decision id="_i_zv6PUUEeesLuP4RHs4vA" name="feel-upper-case-function_006_d9bd3c14bc">
+    <dmn:description>Tests FEEL expression: 'upper case(string:&quot;AbDcF&quot;)' and expects result: '&quot;ABDCF&quot; (string)'</dmn:description>
+    <dmn:question>Result of FEEL expression 'upper case(string:&quot;AbDcF&quot;)'?</dmn:question>
+    <dmn:allowedAnswers>&quot;ABDCF&quot; (string)</dmn:allowedAnswers>
+    <dmn:variable id="_i_zv6fUUEeesLuP4RHs4vA" name="feel-upper-case-function_006_d9bd3c14bc" typeRef="ns1:tfeel-upper-case-function_006_d9bd3c14bc_Result"/>
+    <dmn:literalExpression id="_i_zv5_UUEeesLuP4RHs4vA">
+      <dmn:text>upper case(string:&quot;AbDcF&quot;)</dmn:text>
+    </dmn:literalExpression>
+  </dmn:decision>
+  <dmn:decision id="_i_zv7PUUEeesLuP4RHs4vA" name="feel-upper-case-function_007_31fc6c1967">
+    <dmn:description>Tests FEEL expression: 'upper case(string:&quot;xyZ &quot;)' and expects result: '&quot;XYZ &quot; (string)'</dmn:description>
+    <dmn:question>Result of FEEL expression 'upper case(string:&quot;xyZ &quot;)'?</dmn:question>
+    <dmn:allowedAnswers>&quot;XYZ &quot; (string)</dmn:allowedAnswers>
+    <dmn:variable id="_i_zv7fUUEeesLuP4RHs4vA" name="feel-upper-case-function_007_31fc6c1967" typeRef="ns1:tfeel-upper-case-function_007_31fc6c1967_Result"/>
+    <dmn:literalExpression id="_i_zv6_UUEeesLuP4RHs4vA">
+      <dmn:text>upper case(string:&quot;xyZ &quot;)</dmn:text>
+    </dmn:literalExpression>
+  </dmn:decision>
+  <dmn:decision id="_i_zv8PUUEeesLuP4RHs4vA" name="feel-upper-case-function_008_26e369a9d9">
+    <dmn:description>Tests FEEL expression: 'upper case(string:&quot;123ABC&quot;)' and expects result: '&quot;123ABC&quot; (string)'</dmn:description>
+    <dmn:question>Result of FEEL expression 'upper case(string:&quot;123ABC&quot;)'?</dmn:question>
+    <dmn:allowedAnswers>&quot;123ABC&quot; (string)</dmn:allowedAnswers>
+    <dmn:variable id="_i_9g0PUUEeesLuP4RHs4vA" name="feel-upper-case-function_008_26e369a9d9" typeRef="ns1:tfeel-upper-case-function_008_26e369a9d9_Result"/>
+    <dmn:literalExpression id="_i_zv7_UUEeesLuP4RHs4vA">
+      <dmn:text>upper case(string:&quot;123ABC&quot;)</dmn:text>
+    </dmn:literalExpression>
+  </dmn:decision>
+  <dmn:knowledgeSource id="_i_zv0fUUEeesLuP4RHs4vA" name="DMN 1.1 - 10.3.4.3 Table 60"/>
+</dmn:definitions>

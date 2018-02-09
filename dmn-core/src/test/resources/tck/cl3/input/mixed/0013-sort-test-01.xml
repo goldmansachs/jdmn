@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.omg.org/spec/DMN/20160719/testcase ../../testCases.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<modelName>0013-sort.dmn</modelName>
+	<labels>
+		<label>Compliance Level 3</label>
+		<label>Literal Expression</label>
+		<label>Item Definition</label>
+		<label>FEEL List</label>
+		<label>FEEL Functions: lists</label>
+		<label>FEEL Function Literals</label>
+		<label>Data Type: String</label>
+		<label>Data Type: Number</label>
+		<label>Data Type: Structure</label>
+		<label>Data Type: Collection</label>
+	</labels>
+	<testCase id="001">
+		<inputNode name="listA">
+			<list>
+				<item>
+					<value>3</value>
+				</item>
+				<item>
+					<value>1</value>
+				</item>
+				<item>
+					<value>5</value>
+				</item>
+				<item>
+					<value>4</value>
+				</item>
+			</list>
+		</inputNode>
+		<inputNode name="stringList">
+			<list>
+				<item>
+					<value xsi:type="xs:string">a</value>
+				</item>
+				<item>
+					<value xsi:type="xs:string">8</value>
+				</item>
+				<item>
+					<value xsi:type="xs:string">Aa</value>
+				</item>
+				<item>
+					<value xsi:type="xs:string">A</value>
+				</item>
+				<item>
+					<value xsi:type="xs:string">10</value>
+				</item>
+				<item>
+					<value xsi:type="xs:string">9</value>
+				</item>
+			</list>
+		</inputNode>
+		<inputNode name="tableB">
+			<list>
+				<item>
+					<component name="col1">
+						<value>16</value>
+					</component>
+					<component name="col2">
+						<value>4</value>
+					</component>
+					<component name="col3">
+						<value>25</value>
+					</component>
+					<component name="col4">
+						<value>1</value>
+					</component>
+				</item>
+				<item>
+					<component name="col1">
+						<value>16</value>
+					</component>
+					<component name="col2">
+						<value>43</value>
+					</component>
+					<component name="col3">
+						<value>2</value>
+					</component>
+					<component name="col4">
+						<value>10</value>
+					</component>
+				</item>
+				<item>
+					<component name="col1">
+						<value>1</value>
+					</component>
+					<component name="col2">
+						<value>0</value>
+					</component>
+					<component name="col3">
+						<value>1</value>
+					</component>
+					<component name="col4">
+						<value>1</value>
+					</component>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="sort1" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>5</value>
+					</item>
+					<item>
+						<value>4</value>
+					</item>
+					<item>
+						<value>3</value>
+					</item>
+					<item>
+						<value>1</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+		<resultNode name="sort2" type="decision">
+			<expected>
+				<list>
+					<item>
+						<component name="col1">
+							<value>1</value>
+						</component>
+						<component name="col2">
+							<value>0</value>
+						</component>
+						<component name="col3">
+							<value>1</value>
+						</component>
+						<component name="col4">
+							<value>1</value>
+						</component>
+					</item>
+					<item>
+						<component name="col1">
+							<value>16</value>
+						</component>
+						<component name="col2">
+							<value>4</value>
+						</component>
+						<component name="col3">
+							<value>25</value>
+						</component>
+						<component name="col4">
+							<value>1</value>
+						</component>
+					</item>
+					<item>
+						<component name="col1">
+							<value>16</value>
+						</component>
+						<component name="col2">
+							<value>43</value>
+						</component>
+						<component name="col3">
+							<value>2</value>
+						</component>
+						<component name="col4">
+							<value>10</value>
+						</component>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+		<resultNode name="sort3" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value xsi:type="xs:string">10</value>
+					</item>
+					<item>
+						<value xsi:type="xs:string">8</value>
+					</item>
+					<item>
+						<value xsi:type="xs:string">9</value>
+					</item>
+					<item>
+						<value xsi:type="xs:string">A</value>
+					</item>
+					<item>
+						<value xsi:type="xs:string">Aa</value>
+					</item>
+					<item>
+						<value xsi:type="xs:string">a</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>

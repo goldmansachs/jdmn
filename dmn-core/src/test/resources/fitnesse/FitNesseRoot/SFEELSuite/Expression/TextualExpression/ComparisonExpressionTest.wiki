@@ -1,0 +1,58 @@
+# Choose Slim protocol
+!define TEST_SYSTEM {slim}
+
+!1 Numeric Comparison
+!|SFEEL Expression Fixture|
+|expression|scope|output?|
+|1 = 2     |     |false  |
+|1 != 2    |     |true   |
+|1 < 2     |     |true   |
+|1 <= 2    |     |true   |
+|1 > 2     |     |false  |
+|1 >= 2    |     |false  |
+
+!1 Date Comparison
+!|SFEEL Expression Fixture                              |
+|expression                              |scope|output?|
+|date("2015-08-01") = date("2015-08-02") |     |false  |
+|date("2015-08-01") != date("2015-08-02")|     |true   |
+|date("2015-08-01") < date("2015-08-02") |     |true   |
+|date("2015-08-01") <= date("2015-08-02")|     |true   |
+|date("2015-08-01") > date("2015-08-02") |     |false  |
+|date("2015-08-01") >= date("2015-08-02")|     |false  |
+
+!1 Time Comparison
+!|SFEEL Expression Fixture                            |
+|expression                            |scope|output?|
+|time("12:00:00Z") = time("13:00:00Z") |     |false  |
+|time("12:00:00Z") != time("13:00:00Z")|     |true   |
+|time("12:00:00Z") < time("13:00:00Z") |     |true   |
+|time("12:00:00Z") <= time("13:00:00Z")|     |true   |
+|time("12:00:00Z") > time("13:00:00Z") |     |false  |
+|time("12:00:00Z") >= time("13:00:00Z")|     |false  |
+
+!1 Date and Time Comparison
+!|SFEEL Expression Fixture                                                                    |
+|expression                                                                    |scope|output?|
+|date and time("2015-08-01T12:00:00Z") = date and time("2015-08-01T13:00:00Z") |     |false  |
+|date and time("2015-08-01T12:00:00Z") != date and time("2015-08-01T13:00:00Z")|     |true   |
+|date and time("2015-08-01T12:00:00Z") < date and time("2015-08-01T13:00:00Z") |     |true   |
+|date and time("2015-08-01T12:00:00Z") <= date and time("2015-08-01T13:00:00Z")|     |true   |
+|date and time("2015-08-01T12:00:00Z") > date and time("2015-08-01T13:00:00Z") |     |false  |
+|date and time("2015-08-01T12:00:00Z") >= date and time("2015-08-01T13:00:00Z")|     |false  |
+
+!1 Duration Comparison
+!|SFEEL Expression Fixture                              |
+|expression                              |scope|output?|
+|duration("P1Y1M") = duration("P1Y2M")   |     |false  |
+|duration("P1Y1M") != duration("P1Y2M")  |     |true   |
+|duration("P1Y1M") < duration("P1Y2M")   |     |true   |
+|duration("P1Y1M") <= duration("P1Y2M")  |     |true   |
+|duration("P1Y1M") > duration("P1Y2M")   |     |false  |
+|duration("P1Y1M") >= duration("P1Y2M")  |     |false  |
+|duration("PT1H1M") = duration("PT1H2M") |     |false  |
+|duration("PT1H1M") != duration("PT1H2M")|     |true   |
+|duration("PT1H1M") < duration("PT1H2M") |     |true   |
+|duration("PT1H1M") <= duration("PT1H2M")|     |true   |
+|duration("PT1H1M") > duration("PT1H2M") |     |false  |
+|duration("PT1H1M") >= duration("PT1H2M")|     |false  |

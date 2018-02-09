@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:userExt="http://www.dmn.com/schema/dmn/1.1/" namespace="http://www.dmn.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml" exporterVersion="1.0" name="Example credit decision" id="id-84bc037e246b42bab52261b4fc2836f0">
+    <itemDefinition isCollection="false" name="applicant" id="id-5bf135bcd0f2d1d6dabfb49f463ee763" label="Applicant">
+        <itemComponent isCollection="false" name="name" id="id-5bf135bcd0f2d1d6dabfb49f463ee763-relation-0" label="Name">
+            <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:string</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="age" id="id-5bf135bcd0f2d1d6dabfb49f463ee763-relation-1" label="Age">
+            <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:number</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="creditScore" id="id-5bf135bcd0f2d1d6dabfb49f463ee763-relation-2" label="Credit score">
+            <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:number</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="true" name="priorIssues" id="id-5bf135bcd0f2d1d6dabfb49f463ee763-relation-4" label="Prior issues">
+            <typeRef xmlns:user="http://www.dmn.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml">user:creditIssueType</typeRef>
+        </itemComponent>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="assessApplicantAge" id="id-747970848a049f329dae6329a0601f86" label="Assess applicant age">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="assessIssue" id="id-bb09635d62df507f5a1c18a6b6dbe4c2" label="Assess issue">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="assessIssueRisk" id="id-886f8868546e44421c28582adfb5d720" label="Assess issue risk">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="compareAgainstLendingThreshold" id="id-51fbdbe450548506ab83bc067833e138" label="Compare against lending threshold">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="creditIssueType" id="id-e5d4d4757df0b46fe82633187641f999" label="Credit issue type">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:string</typeRef>
+        <allowedValues>
+            <text>"Card rejection","Late payment","Default on obligations","Bankruptcy"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="currentRiskAppetite" id="id-f6f0d0a33cba7ca489f16f640f6bcb3b" label="Current risk appetite">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:number</typeRef>
+        <allowedValues>
+            <text>[0.0..100.0]</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="generateOutputData" id="id-7eeb80d6a1c17ddd2de72e9c2419fa8b" label="Generate output data">
+        <itemComponent isCollection="false" name="decision" id="id-7eeb80d6a1c17ddd2de72e9c2419fa8b-relation-Decision" label="Decision">
+            <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:string</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="assessment" id="id-7eeb80d6a1c17ddd2de72e9c2419fa8b-relation-Assessment" label="Assessment">
+            <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:number</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="issue" id="id-7eeb80d6a1c17ddd2de72e9c2419fa8b-relation-Issue" label="Issue">
+            <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:number</typeRef>
+        </itemComponent>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="lendingThreshold" id="id-4cb80be6fb604151f1e9edf9c3cbe2e7" label="Lending threshold">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="makeCreditDecision" id="id-d7e2b287eb5a59fdfd07067ee95b115b" label="Make credit decision">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:string</typeRef>
+        <allowedValues>
+            <text>"Accept","Recommend further assessment","Reject"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="priorIssue" id="id-6cf70bdf6bd2e4c75faf286e36bd6caf" label="Prior issue">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="true" name="processPriorIssues" id="id-8a4fb941ebc03bbe6df3c7615cb14852" label="Process prior issues">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:number</typeRef>
+    </itemDefinition>
+    <inputData name="lendingThreshold" id="id-5a7daa825c6a7542e30184a94034b435" label="Lending threshold">
+        <variable xmlns:user="http://www.dmn.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml" typeRef="user:lendingThreshold" name="lendingThreshold" id="id-5a7daa825c6a7542e30184a94034b435_variable"/>
+    </inputData>
+    <inputData name="currentRiskAppetite" id="id-5dc69eb6de3b736e08d2029ca5ae436c" label="Current risk appetite">
+        <variable xmlns:user="http://www.dmn.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml" typeRef="user:currentRiskAppetite" name="currentRiskAppetite" id="id-5dc69eb6de3b736e08d2029ca5ae436c_variable"/>
+    </inputData>
+    <inputData name="applicant" id="id-d2376567fde3c9400ee327ecec21e36d" label="Applicant">
+        <variable xmlns:user="http://www.dmn.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml" typeRef="user:applicant" name="applicant" id="id-d2376567fde3c9400ee327ecec21e36d_variable"/>
+    </inputData>
+    <decision name="processPriorIssues" id="id-bdfc5bfa4ce80fd221463ee66b277220" label="Process prior issues">
+        <variable xmlns:user="http://www.dmn.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml" typeRef="user:processPriorIssues" name="processPriorIssues" id="id-bdfc5bfa4ce80fd221463ee66b277220_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-d2376567fde3c9400ee327ecec21e36d"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="COLLECT">
+            <input id="id-5487c4a92acd1de6a80aff5f69a573df" label="Credit issue type">
+                <inputExpression>
+                    <text>applicant.priorIssues</text>
+                </inputExpression>
+            </input>
+            <output xmlns:feel="http://www.omg.org/spec/FEEL/20140401" name="processPriorIssues" typeRef="feel:number" id="id-96865ad6994adedd010841f6fee16856" label="Process prior issues"/>
+            <rule id="id-e9e18cb693d2e95d7b152b5b041702a2-1">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>list contains(?, "Card rejection")</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>-10</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-e9e18cb693d2e95d7b152b5b041702a2">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>list contains(?, "Late payment")</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>-10</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-22c17a268efdcf4c184ce881f6e22889">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>list contains(?, "Default on obligations")</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>-30</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-041d7efc1527d70f2d887fad11fea4bb">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>list contains(?, "Bankruptcy")</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>-100</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-cb24e3412d9d1dd5bc8bcfbcbd38416b">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>not(list contains(?, "Card rejection"), list contains(?, "Late payment"), list contains(?, "Default on obligations"), list contains(?, "Bankruptcy"))</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>50</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-118d86d4a0797c2c5b4f818fdaa115d8">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>(count(applicant.priorIssues)*(-5))</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="makeCreditDecision" id="id-5b83918d6fc820d73123e7ca0e6d3ca6" label="Make credit decision">
+        <variable xmlns:user="http://www.dmn.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml" typeRef="user:makeCreditDecision" name="makeCreditDecision" id="id-5b83918d6fc820d73123e7ca0e6d3ca6_variable"/>
+        <informationRequirement>
+            <requiredDecision href="#id-8369770df890b566296308a9deebec47"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="UNIQUE">
+            <input id="id-d51c59f1e255a0e15800e3049e4ed904" label="Compare against lending threshold">
+                <inputExpression>
+                    <text>compareAgainstLendingThreshold</text>
+                </inputExpression>
+            </input>
+            <output xmlns:feel="http://www.omg.org/spec/FEEL/20140401" name="makeCreditDecision" typeRef="feel:string" id="id-10cb91a4518a14e3677dec31e54a5314" label="Make credit decision"/>
+            <rule id="id-bddde61ea0caf3cab3bc8c342e9cd321">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>&lt; -0.1</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Reject"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-7c6ed6048d099e3bf1fe2ad82738deba">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>[-0.1..0.1]</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Recommend further assessment"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-d1ae2043bdcbc2b7443ac15b59488262">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>&gt; 0.1</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Accept"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="generateOutputData" id="id-f3dfdd3ac42c255265e190eaf50dd65d" label="Generate output data">
+        <variable xmlns:user="http://www.dmn.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml" typeRef="user:generateOutputData" name="generateOutputData" id="id-f3dfdd3ac42c255265e190eaf50dd65d_variable"/>
+        <informationRequirement>
+            <requiredDecision href="#id-5b83918d6fc820d73123e7ca0e6d3ca6"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#id-8369770df890b566296308a9deebec47"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#id-90d13f677a4e3f0f8230a12f15301f00"/>
+        </informationRequirement>
+        <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+            <text>{decision : makeCreditDecision, assessment : compareAgainstLendingThreshold, issue : assessIssueRisk}</text>
+        </literalExpression>
+    </decision>
+    <!--
+        <decision name="assessIssue" id="id-0f2f9823e96f0599d2739fda4c5b3c79" label="Assess issue">
+            <variable xmlns:user="http://www.dmn.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml" typeRef="user:assessIssue" name="Assess issue" id="id-0f2f9823e96f0599d2739fda4c5b3c79_variable"/>
+            <informationRequirement>
+                <requiredInput href="#id-5dc69eb6de3b736e08d2029ca5ae436c"/>
+            </informationRequirement>
+            <informationRequirement>
+                <requiredInput href="#id-78d6a4b25e15dc5d22fe0cce65554804"/>
+            </informationRequirement>
+            <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+                <text>(priorIssue_iterator*(max([0, (100-currentRiskAppetite)])*0.01))</text>
+            </literalExpression>
+        </decision>
+    -->
+    <decision name="assessApplicantAge" id="id-98f1b72e74edaaae8d7fd9043f7e1bc4" label="Assess applicant age">
+        <variable xmlns:user="http://www.dmn.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml" typeRef="user:assessApplicantAge" name="assessApplicantAge" id="id-98f1b72e74edaaae8d7fd9043f7e1bc4_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-d2376567fde3c9400ee327ecec21e36d"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="UNIQUE">
+            <input id="id-5ba0d6b67c89c27abd0820b02f61d666" label="Age">
+                <inputExpression>
+                    <text>applicant.age</text>
+                </inputExpression>
+            </input>
+            <output xmlns:feel="http://www.omg.org/spec/FEEL/20140401" name="assessApplicantAge" typeRef="feel:number" id="id-c23c8ccc2e159b5ac59f044549b3d867" label="Assess applicant age"/>
+            <rule id="id-8b5fd55713957581c8c1e2bf6d132c9b">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>&lt; 18</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>-10</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-1359d488afe539149cebb9d2dce9e56f">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>[18..25]</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>40</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-f2f2944867227f661a9a1f57098a28fd">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>&gt; 25</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>60</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="compareAgainstLendingThreshold" id="id-8369770df890b566296308a9deebec47" label="Compare against lending threshold">
+        <variable xmlns:user="http://www.dmn.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml" typeRef="user:compareAgainstLendingThreshold" name="compareAgainstLendingThreshold" id="id-8369770df890b566296308a9deebec47_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-5a7daa825c6a7542e30184a94034b435"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#id-98f1b72e74edaaae8d7fd9043f7e1bc4"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#id-90d13f677a4e3f0f8230a12f15301f00"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="ANY">
+            <input id="id-23debfef8b601093b4b3f16c14f478d6" label="Lending threshold">
+                <inputExpression>
+                    <text>lendingThreshold</text>
+                </inputExpression>
+            </input>
+            <output xmlns:feel="http://www.omg.org/spec/FEEL/20140401" name="compareAgainstLendingThreshold" typeRef="feel:number" id="id-277cf2c1c696bd448823dc55264801fc" label="Compare against lending threshold"/>
+            <rule id="id-c6714ce91f6cb26281b8085e1c75e4ae">
+                <description>string("Raw issue score is ") + string(assessIssueRisk) + string(", Age-weighted score is ") + string(assessApplicantAge) + string(", Acceptance threshold is ") + string(lendingThreshold)</description>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>((assessIssueRisk+assessApplicantAge)-lendingThreshold)</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-b88bc6d04125bf0232b20fa7ef9a6f37">
+                <description>string("Error: threshold undefined")</description>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>0</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="assessIssueRisk" id="id-90d13f677a4e3f0f8230a12f15301f00" label="Assess issue risk">
+        <variable xmlns:user="http://www.dmn.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml" typeRef="user:assessIssueRisk" name="assessIssueRisk" id="id-90d13f677a4e3f0f8230a12f15301f00_variable"/>
+        <informationRequirement>
+            <requiredDecision href="#id-bdfc5bfa4ce80fd221463ee66b277220"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-5dc69eb6de3b736e08d2029ca5ae436c"/>
+        </informationRequirement>
+        <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+            <text>sum(for priorIssue in processPriorIssues return (priorIssue*(max([0, (100-currentRiskAppetite)])*0.01)))</text>
+        </literalExpression>
+    </decision>
+</definitions>

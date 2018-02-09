@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelName>0001-input-data-string.dmn</modelName>
+	<labels>
+		<label>Compliance Level 2</label>
+		<label>Literal Expression</label>
+		<label>FEEL Special-character Names</label>
+		<label>Data Type: String</label>
+	</labels>
+	<testCase id="001">
+		<description>Testing valid input</description>
+		<inputNode name="Full Name">
+			<value>John Doe</value>
+		</inputNode>
+		<resultNode name="Greeting Message" type="decision">
+			<expected>
+				<value>Hello John Doe</value>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>
