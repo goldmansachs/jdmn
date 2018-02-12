@@ -163,16 +163,6 @@ specific language governing permissions and limitations under the License.]]></i
                                 <exclude>**/LICENSE.txt</exclude>
                                 <exclude>**/NOTICE.txt</exclude>
 
-                                <!-- GS specific files -->
-                                <exclude>**/Application Security Testing Plan Template - DMN.docx</exclude>
-                                <exclude>**/gradle/**</exclude>
-                                <exclude>**/AREA.xml</exclude>
-                                <exclude>**/build.gradle</exclude>
-                                <exclude>**/gradlew</exclude>
-                                <exclude>**/gradlew.bat</exclude>
-                                <exclude>**/settings.gradle</exclude>
-                                <exclude>**/settings.xml</exclude>
-
                                 <!-- Excluding the resources  -->
                                 <exclude>**/test/resources/**</exclude>
                                 <exclude>**/main/resources/**</exclude>
