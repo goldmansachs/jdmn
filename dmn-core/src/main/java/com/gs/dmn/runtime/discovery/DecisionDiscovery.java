@@ -20,9 +20,6 @@ import org.reflections.util.FilterBuilder;
 
 import java.util.Set;
 
-/**
- * Created by Octavian Patrascoiu on 09/02/2017.
- */
 public class DecisionDiscovery {
     public Set<Class<?>> discover(String packagePrefix) {
         Reflections reflections = new Reflections(new ConfigurationBuilder()

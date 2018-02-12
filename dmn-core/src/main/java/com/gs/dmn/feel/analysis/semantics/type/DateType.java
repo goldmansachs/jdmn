@@ -15,9 +15,6 @@ package com.gs.dmn.feel.analysis.semantics.type;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * Created by Octavian Patrascoiu on 06/09/2016.
- */
 public class DateType extends DataType {
     public static final DateType DATE = new DateType();
 

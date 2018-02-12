@@ -22,9 +22,6 @@ import org.omg.spec.dmn._20151101.dmn.*;
 
 import javax.xml.bind.JAXBElement;
 
-/**
- * Created by Octavian Patrascoiu on 13/06/2017.
- */
 public class ContextToJavaTransformer {
     private final BasicDMN2JavaTransformer dmnTransformer;
     private final EnvironmentFactory environmentFactory;

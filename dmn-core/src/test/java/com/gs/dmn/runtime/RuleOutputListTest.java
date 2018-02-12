@@ -23,9 +23,6 @@ import java.util.function.Consumer;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by Octavian Patrascoiu on 15/11/2016.
- */
 public class RuleOutputListTest {
     public static final DefaultSimpleOutput STRING_1 = new DefaultSimpleOutput("value1", 2);
     public static final DefaultSimpleOutput STRING_2 = new DefaultSimpleOutput("value2", 1);

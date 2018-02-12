@@ -15,9 +15,6 @@ package com.gs.dmn.runtime.interpreter;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 
-/**
- * Created by Octavian Patrascoiu on 26/05/2017.
- */
 public class StandardCL3DMNInterpreterTest extends CL3DMNInterpreterTest {
     @Override
     protected DMNDialectDefinition getDialectDefinition() {

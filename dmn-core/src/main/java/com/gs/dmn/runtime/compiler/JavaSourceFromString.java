@@ -15,9 +15,6 @@ package com.gs.dmn.runtime.compiler;
 import javax.tools.SimpleJavaFileObject;
 import java.net.URI;
 
-/**
- * Created by Octavian Patrascoiu on 28/06/2017.
- */
 class JavaSourceFromString extends SimpleJavaFileObject {
     final String code;
 

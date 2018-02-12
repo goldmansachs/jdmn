@@ -17,9 +17,6 @@ import java.util.Map;
 
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 
-/**
- * Created by Octavian Patrascoiu on 06/09/2016.
- */
 public class TimeType extends DataType {
     public static final TimeType TIME = new TimeType();
 

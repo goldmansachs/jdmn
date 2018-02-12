@@ -28,9 +28,6 @@ import java.util.Arrays;
 
 import static org.junit.Assert.assertNotNull;
 
-/**
- * Created by Octavian Patrascoiu on 02/11/2017.
- */
 public abstract class AbstractCompilerTest {
     private final DMNDialectDefinition dialectDefinition = new StandardDMNDialectDefinition();
 

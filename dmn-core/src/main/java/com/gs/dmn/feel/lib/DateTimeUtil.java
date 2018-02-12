@@ -27,9 +27,6 @@ import java.util.Locale;
 
 import static java.time.temporal.ChronoField.*;
 
-/**
- * Created by Octavian Patrascoiu on 30/10/2017.
- */
 public class DateTimeUtil {
     public static final LocalDate EPOCH = LocalDate.of(1970, 1, 1);
     public static final ZoneId UTC = ZoneId.of("UTC");

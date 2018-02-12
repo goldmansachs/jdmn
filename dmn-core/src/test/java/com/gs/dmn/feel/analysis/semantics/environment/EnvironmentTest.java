@@ -20,9 +20,6 @@ import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by Octavian Patrascoiu on 11/11/2016.
- */
 public class EnvironmentTest {
     private EnvironmentFactory environmentFactory = DefaultDMNEnvironmentFactory.instance();
 

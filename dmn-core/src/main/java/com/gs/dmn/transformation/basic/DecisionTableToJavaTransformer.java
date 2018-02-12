@@ -36,9 +36,6 @@ import java.util.stream.Collectors;
 
 import static com.gs.dmn.transformation.DMNToJavaTransformer.DECISION_RULE_OUTPUT_CLASS_SUFFIX;
 
-/**
- * Created by Octavian Patrascoiu on 12/06/2017.
- */
 public class DecisionTableToJavaTransformer {
     private final BasicDMN2JavaTransformer dmnTransformer;
     private final DMNModelRepository dmnModelRepository;

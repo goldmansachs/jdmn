@@ -14,9 +14,6 @@ package com.gs.dmn.runtime.listener;
 
 import org.slf4j.Logger;
 
-/**
- * Created by Octavian Patrascoiu on 31/01/2017.
- */
 public class LoggingEventListener implements SimpleEventListener {
     private final Logger logger;
 

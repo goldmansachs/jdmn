@@ -19,9 +19,6 @@ import com.gs.dmn.runtime.RuleOutput;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Octavian Patrascoiu on 15/02/2017.
- */
 public class InterpretedRuleOutput extends RuleOutput {
     private final Object result;
 

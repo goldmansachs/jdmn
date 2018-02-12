@@ -22,9 +22,6 @@ import com.gs.dmn.transformation.java.ExpressionStatement;
 import com.gs.dmn.transformation.java.Statement;
 import org.omg.spec.dmn._20151101.dmn.TDRGElement;
 
-/**
- * Created by Octavian Patrascoiu on 12/06/2017.
- */
 public class LiteralExpressionToJavaTransformer {
     private final BasicDMN2JavaTransformer dmnTransformer;
     private final FEELTranslator feelTranslator;

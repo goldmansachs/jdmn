@@ -18,9 +18,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 
-/**
- * Created by Octavian Patrascoiu on 06/09/2016.
- */
 abstract class AbstractFEELAnalyzer implements FEELAnalyzer {
     private BasicDMN2JavaTransformer dmnTransformer;
 

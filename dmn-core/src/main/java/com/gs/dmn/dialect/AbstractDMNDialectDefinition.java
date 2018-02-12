@@ -21,9 +21,6 @@ import com.gs.dmn.feel.synthesis.SFEELTranslatorImpl;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import org.omg.spec.dmn._20151101.dmn.TDefinitions;
 
-/**
- * Created by Octavian Patrascoiu on 24/05/2017.
- */
 public abstract class AbstractDMNDialectDefinition implements DMNDialectDefinition {
     //
     // FEEL Processors

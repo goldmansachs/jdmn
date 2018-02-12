@@ -18,9 +18,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertNull;
 
-/**
- * Created by Octavian Patrascoiu on 30/10/2017.
- */
 public class UniformJavaTimeDMNBaseDecisionTest {
     private final UniformJavaTimeDMNBaseDecision baseDecision = new UniformJavaTimeDMNBaseDecision();
 

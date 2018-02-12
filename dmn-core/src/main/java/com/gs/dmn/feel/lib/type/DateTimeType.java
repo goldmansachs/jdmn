@@ -12,9 +12,6 @@
  */
 package com.gs.dmn.feel.lib.type;
 
-/**
- * Created by Octavian Patrascoiu on 05/09/2016.
- */
 public interface DateTimeType<DATE_TIME, DURATION> {
     Boolean dateTimeEqual(DATE_TIME first, DATE_TIME second);
 

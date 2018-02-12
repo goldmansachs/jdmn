@@ -22,9 +22,6 @@ import org.omg.spec.dmn._20151101.dmn.TDefinitions;
 import java.io.File;
 import java.util.Map;
 
-/**
- * Created by Octavian Patrascoiu on 09/05/2017.
- */
 public abstract class AbstractDMNTransformer extends AbstractTemplateBasedTransformer {
     protected final DMNReader dmnReader;
     protected final DMNValidator dmnValidator;

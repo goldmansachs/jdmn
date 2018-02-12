@@ -18,9 +18,6 @@ import org.slf4j.Logger;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
-/**
- * Created by Octavian Patrascoiu on 19/10/2017.
- */
 public class JavaTimeType extends BaseType{
 
     public JavaTimeType(Logger logger) {

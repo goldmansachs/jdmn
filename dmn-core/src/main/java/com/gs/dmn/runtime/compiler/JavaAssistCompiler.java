@@ -21,9 +21,6 @@ import com.gs.dmn.runtime.LambdaExpression;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import javassist.*;
 
-/**
- * Created by Octavian Patrascoiu on 28/06/2017.
- */
 public class JavaAssistCompiler extends JavaCompilerImpl {
     @Override
     public ClassData makeClassData(FunctionDefinition element, FEELContext context, BasicDMN2JavaTransformer dmnTransformer, FEELTranslator feelTranslator, String libClassName) {

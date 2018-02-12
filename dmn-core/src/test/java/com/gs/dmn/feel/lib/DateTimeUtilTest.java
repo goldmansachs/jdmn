@@ -18,9 +18,6 @@ import java.time.format.DateTimeParseException;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by Octavian Patrascoiu on 30/10/2017.
- */
 public class DateTimeUtilTest {
     @Test
     public void testFixDateTimeFormat() throws Exception {

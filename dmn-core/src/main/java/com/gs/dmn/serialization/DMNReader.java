@@ -26,9 +26,6 @@ import java.io.Reader;
 import java.net.URI;
 import java.net.URL;
 
-/**
- * Created by Octavian Patrascoiu on 27/06/2016.
- */
 public class DMNReader {
     public static final String DMN_FILE_EXTENSION = ".dmn";
     static final String CONTEXT_PATH = "org.omg.spec.dmn._20151101.dmn";

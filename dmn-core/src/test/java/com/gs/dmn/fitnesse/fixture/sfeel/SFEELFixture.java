@@ -17,9 +17,6 @@ import com.gs.dmn.feel.interpreter.SFEELInterpreterImpl;
 import com.gs.dmn.fitnesse.fixture.AbstractFixture;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 
-/**
- * Created by Octavian Patrascoiu on 27/03/2017.
- */
 public class SFEELFixture extends AbstractFixture {
     protected final FEELInterpreter feelInterpreter;
 

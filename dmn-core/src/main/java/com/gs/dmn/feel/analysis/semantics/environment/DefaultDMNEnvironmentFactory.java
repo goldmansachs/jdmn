@@ -25,9 +25,6 @@ import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
-/**
- * Created by Octavian Patrascoiu on 10/05/2017.
- */
 public class DefaultDMNEnvironmentFactory extends EnvironmentFactory {
     private static final EnvironmentFactory INSTANCE = new DefaultDMNEnvironmentFactory();
     private static final Environment ROOT_ENVIRONMENT;

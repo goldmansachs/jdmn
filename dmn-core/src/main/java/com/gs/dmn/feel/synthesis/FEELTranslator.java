@@ -12,8 +12,5 @@
  */
 package com.gs.dmn.feel.synthesis;
 
-/**
- * Created by Octavian Patrascoiu on 18/05/2017.
- */
 public interface FEELTranslator extends FEELTestsTranslator, FEELExpressionsTranslator {
 }

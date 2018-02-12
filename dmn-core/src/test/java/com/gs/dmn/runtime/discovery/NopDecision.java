@@ -17,9 +17,6 @@ import com.gs.dmn.runtime.annotation.DRGElementKind;
 import com.gs.dmn.runtime.annotation.ExpressionKind;
 import com.gs.dmn.runtime.annotation.HitPolicy;
 
-/**
- * Created by Octavian Patrascoiu on 09/02/2017.
- */
 @DRGElement(
         namespace = "com.gs", name = "NopDecision", label="Nop Decision",
         elementKind = DRGElementKind.DECISION,

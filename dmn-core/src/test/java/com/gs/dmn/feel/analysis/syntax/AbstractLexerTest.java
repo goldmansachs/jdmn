@@ -18,9 +18,6 @@ import org.antlr.v4.runtime.Token;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by Octavian Patrascoiu on 23/08/2016.
- */
 public abstract class AbstractLexerTest {
     protected void checkPosition(Token token, int beginLine, int beginColumn, int endLine, int endColumn, int beginOffset, int endOffset) {
         assertEquals(beginLine, getBeginLine(token));

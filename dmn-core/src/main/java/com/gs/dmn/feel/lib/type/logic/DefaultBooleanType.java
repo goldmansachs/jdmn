@@ -21,9 +21,6 @@ import java.util.List;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
-/**
- * Created by Octavian Patrascoiu on 05/09/2016.
- */
 public class DefaultBooleanType extends BaseType implements BooleanType {
 
     public DefaultBooleanType(Logger logger) {

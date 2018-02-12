@@ -12,9 +12,6 @@
  */
 package com.gs.dmn.runtime.annotation;
 
-/**
- * Created by Octavian Patrascoiu on 01/06/2017.
- */
 public interface AnnotationTarget {
     DRGElement getDRGElementAnnotation();
 

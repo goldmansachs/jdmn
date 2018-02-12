@@ -14,8 +14,5 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.comparison;
 
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
-/**
- * Created by Octavian Patrascoiu on 07/10/2016.
- */
 public abstract class Comparison extends Expression {
 }

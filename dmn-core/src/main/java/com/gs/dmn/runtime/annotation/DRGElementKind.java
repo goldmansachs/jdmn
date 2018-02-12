@@ -14,9 +14,6 @@ package com.gs.dmn.runtime.annotation;
 
 import org.omg.spec.dmn._20151101.dmn.*;
 
-/**
- * Created by Octavian Patrascoiu on 06/02/2017.
- */
 public enum DRGElementKind {
     DECISION,
     BUSINESS_KNOWLEDGE_MODEL,

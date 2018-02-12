@@ -14,9 +14,6 @@ package com.gs.dmn.feel;
 
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 
-/**
- * Created by Octavian Patrascoiu on 08/09/2016.
- */
 class OperatorTableInputEntry {
     private final String operator;
     private final Type leftOperandType;

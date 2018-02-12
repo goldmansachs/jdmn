@@ -19,9 +19,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 
-/**
- * Created by Octavian Patrascoiu on 06/10/2016.
- */
 public class LogicNegation extends LogicExpression {
     public LogicNegation(Expression operand) {
         super("not", operand, null);

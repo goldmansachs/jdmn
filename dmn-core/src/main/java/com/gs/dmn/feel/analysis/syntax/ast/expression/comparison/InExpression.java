@@ -25,9 +25,6 @@ import java.util.stream.Collectors;
 
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 
-/**
- * Created by Octavian Patrascoiu on 06/10/2016.
- */
 public class InExpression extends Comparison {
     private final Expression value;
     private final List<PositiveUnaryTest> tests = new ArrayList<>();

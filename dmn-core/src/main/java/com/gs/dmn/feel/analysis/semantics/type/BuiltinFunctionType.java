@@ -25,9 +25,6 @@ import java.util.stream.Collectors;
 
 import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 
-/**
- * Created by Octavian Patrascoiu on 22/08/2017.
- */
 public class BuiltinFunctionType extends FunctionType {
     private final int totalParamsCount;
     private final int mandatoryParamsCount;

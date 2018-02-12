@@ -19,9 +19,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 
-/**
- * Created by Octavian Patrascoiu on 28/03/2017.
- */
 public class ScopeConverter implements Converter<Scope> {
     private static final ObjectMapper MAPPER = new ObjectMapper();
 

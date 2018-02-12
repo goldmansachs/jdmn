@@ -20,9 +20,6 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-/**
- * Created by Octavian Patrascoiu on 19/10/2017.
- */
 public abstract class DefaultXMLCalendarType extends BaseType {
     protected DatatypeFactory datatypeFactory;
 

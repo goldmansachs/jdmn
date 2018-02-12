@@ -14,9 +14,6 @@ package com.gs.dmn.feel;
 
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 
-/**
- * Created by Octavian Patrascoiu on 01/03/2017.
- */
 public class EnvironmentEntry {
     private final String name;
     private final Type type;

@@ -29,9 +29,6 @@ import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by Octavian Patrascoiu on 02/11/2017.
- */
 public class JavaAssistCompilerTest extends AbstractCompilerTest {
     private final JavaCompiler compiler = new JavaAssistCompiler();
 

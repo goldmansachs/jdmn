@@ -17,9 +17,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinitio
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 
-/**
- * Created by Octavian Patrascoiu on 29/06/2017.
- */
 public interface JavaCompiler {
     ClassData makeClassData(FunctionDefinition element, FEELContext context, BasicDMN2JavaTransformer dmnTransformer, FEELTranslator feelTranslator, String libClassName);
 

@@ -12,9 +12,6 @@
  */
 package com.gs.dmn.runtime.annotation;
 
-/**
- * Created by Octavian Patrascoiu on 31/01/2017.
- */
 public class Annotation {
     private String decisionName;
     private int ruleIndex;

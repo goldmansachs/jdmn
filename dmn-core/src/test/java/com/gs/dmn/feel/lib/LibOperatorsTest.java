@@ -26,9 +26,6 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by Octavian Patrascoiu on 23/11/2016.
- */
 public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     protected abstract FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> getLib();
 

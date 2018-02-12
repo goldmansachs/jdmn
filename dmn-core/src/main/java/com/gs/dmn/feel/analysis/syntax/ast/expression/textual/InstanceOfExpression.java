@@ -20,9 +20,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.QualifiedName;
 
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 
-/**
- * Created by Octavian Patrascoiu on 06/10/2016.
- */
 public class InstanceOfExpression extends Expression {
     private final Expression value;
     private final QualifiedName qTypeName;

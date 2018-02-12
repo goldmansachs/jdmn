@@ -19,9 +19,6 @@ import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
 import com.gs.dmn.feel.analysis.semantics.type.NullType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 
-/**
- * Created by Octavian Patrascoiu on 07/10/2016.
- */
 public abstract class NamedExpression extends Expression {
     @Override
     public void deriveType(Environment environment) {

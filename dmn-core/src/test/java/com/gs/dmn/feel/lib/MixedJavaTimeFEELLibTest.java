@@ -23,9 +23,6 @@ import java.time.format.DateTimeFormatter;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by Octavian Patrascoiu on 23/11/2016.
- */
 public class MixedJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     @Override
     protected MixedJavaTimeFEELLib getLib() {

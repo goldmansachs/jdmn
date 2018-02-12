@@ -23,9 +23,6 @@ import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by Octavian Patrascoiu on 30/03/2017.
- */
 public class TypeDeserializerTest {
     private TypeDeserializer resolver = new TypeDeserializer();
 

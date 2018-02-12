@@ -17,9 +17,6 @@ import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 
-/**
- * Created by Octavian Patrascoiu on 16/08/2016.
- */
 public class NullTest extends PositiveUnaryTest {
     @Override
     public void deriveType(Environment environment) {

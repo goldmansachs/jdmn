@@ -20,9 +20,6 @@ import org.slf4j.Logger;
 
 import java.util.List;
 
-/**
- * Created by Octavian Patrascoiu on 23/09/2016.
- */
 public class DefaultListType extends BaseType implements ListType {
     private final BooleanType booleanType;
 

@@ -12,9 +12,6 @@
  */
 package com.gs.dmn.transformation.formatter;
 
-/**
- * Created by Octavian Patrascoiu on 31/08/2017.
- */
 public interface JavaFormatter {
     String formatSource(String code);
 }

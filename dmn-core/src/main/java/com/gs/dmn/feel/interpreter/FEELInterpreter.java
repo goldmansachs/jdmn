@@ -12,8 +12,5 @@
  */
 package com.gs.dmn.feel.interpreter;
 
-/**
- * Created by Octavian Patrascoiu on 18/05/2017.
- */
 public interface FEELInterpreter extends FEELTestsInterpreter, FEELExpressionsInterpreter {
 }

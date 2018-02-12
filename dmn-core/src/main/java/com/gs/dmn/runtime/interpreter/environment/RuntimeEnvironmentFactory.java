@@ -17,9 +17,6 @@ import com.gs.dmn.transformation.DMNToJavaTransformer;
 
 import java.util.List;
 
-/**
- * Created by Octavian Patrascoiu on 22/02/2017.
- */
 public class RuntimeEnvironmentFactory {
     private static final RuntimeEnvironmentFactory INSTANCE = new RuntimeEnvironmentFactory();
 

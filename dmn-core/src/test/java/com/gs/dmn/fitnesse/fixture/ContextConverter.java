@@ -17,9 +17,6 @@ import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import fitnesse.slim.Converter;
 
-/**
- * Created by Octavian Patrascoiu on 28/03/2017.
- */
 public class ContextConverter implements Converter<Context> {
     private static final ObjectMapper MAPPER = new ObjectMapper();
 

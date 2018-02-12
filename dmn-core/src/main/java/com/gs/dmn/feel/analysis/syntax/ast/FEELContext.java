@@ -16,9 +16,6 @@ import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 
-/**
- * Created by Octavian Patrascoiu on 10/02/2017.
- */
 public class FEELContext {
     private final Environment environment;
     private final RuntimeEnvironment runtimeEnvironment;

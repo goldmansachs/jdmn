@@ -31,9 +31,6 @@ import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by Octavian Patrascoiu on 21/03/2017.
- */
 public class TypeConformanceTest {
     public Map<Pair<Type, Type>, Boolean> dataTypesTable = new LinkedHashMap() {{
         put(new Pair(NUMBER, NUMBER), true);

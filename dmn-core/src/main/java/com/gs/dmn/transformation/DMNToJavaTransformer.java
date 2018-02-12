@@ -29,9 +29,6 @@ import java.io.File;
 import java.nio.file.Path;
 import java.util.*;
 
-/**
- * Created by Octavian Patrascoiu on 12/08/2016.
- */
 public class DMNToJavaTransformer extends AbstractDMNTransformer {
     public static final String DMN_METADATA_FILE_NAME = "DMNMetadata";
 
