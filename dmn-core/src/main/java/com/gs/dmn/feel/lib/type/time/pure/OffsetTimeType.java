@@ -21,9 +21,6 @@ import org.slf4j.Logger;
 import java.time.OffsetTime;
 import java.time.temporal.TemporalAmount;
 
-/**
- * Created by Octavian Patrascoiu on 19/10/2017.
- */
 public class OffsetTimeType extends JavaTimeType implements TimeType<OffsetTime, TemporalAmount> {
     private final BooleanType booleanType;
 

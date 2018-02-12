@@ -14,9 +14,6 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 import java.util.List;
 
-/**
- * Created by Octavian Patrascoiu on 24/08/2017.
- */
 public abstract class Signature {
     public abstract int size();
 

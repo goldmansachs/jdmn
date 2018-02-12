@@ -14,9 +14,6 @@ package com.gs.dmn.feel.analysis.semantics.environment;
 
 import java.util.List;
 
-/**
- * Created by Octavian Patrascoiu on 18/08/2017.
- */
 public class DeclarationMatch {
     private final Declaration declaration;
     private final List<Conversion> parameterConversions;

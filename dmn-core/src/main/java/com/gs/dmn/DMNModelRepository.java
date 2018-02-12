@@ -22,9 +22,6 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 import java.util.*;
 
-/**
- * Created by Octavian Patrascoiu on 09/05/2017.
- */
 public class DMNModelRepository {
     public static final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
 

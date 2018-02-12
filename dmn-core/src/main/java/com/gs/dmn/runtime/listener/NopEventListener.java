@@ -12,9 +12,6 @@
  */
 package com.gs.dmn.runtime.listener;
 
-/**
- * Created by Octavian Patrascoiu on 31/01/2017.
- */
 public class NopEventListener implements SimpleEventListener {
     @Override
     public void startDRGElement(DRGElement element, Arguments arguments) {

@@ -48,9 +48,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * Created by Octavian Patrascoiu on 16/08/2016.
- */
 public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     private static final int INITIAL_VALUE = -1;
     private int filterCount = INITIAL_VALUE;

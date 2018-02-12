@@ -15,9 +15,6 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 
-/**
- * Created by Octavian Patrascoiu on 16/08/2016.
- */
 public class Name extends NamedExpression {
     private String name;
 

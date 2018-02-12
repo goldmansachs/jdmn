@@ -16,9 +16,6 @@ import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
-/**
- * Created by Octavian Patrascoiu on 20/09/2016.
- */
 public class Parameter extends FormalParameter {
     private final boolean optional;
     private final boolean varArg;

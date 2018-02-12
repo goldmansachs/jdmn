@@ -14,9 +14,6 @@ package com.gs.dmn.runtime.interpreter;
 
 import org.junit.Test;
 
-/**
- * Created by Octavian Patrascoiu on 26/05/2017.
- */
 public abstract class CL3DMNInterpreterTest extends AbstractDMNInterpreterTest {
     @Override
     protected String getDMNInputPath() {

@@ -26,9 +26,6 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by Octavian Patrascoiu on 12/08/2016.
- */
 public abstract class AbstractTransformerTest extends AbstractFileTransformerTest {
     protected URI resource(String path) {
         try {

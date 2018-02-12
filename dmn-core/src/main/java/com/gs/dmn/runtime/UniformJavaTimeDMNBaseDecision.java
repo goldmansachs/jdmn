@@ -19,9 +19,6 @@ import com.gs.dmn.runtime.annotation.Rule;
 
 import java.lang.reflect.Method;
 
-/**
- * Created by Octavian Patrascoiu on 17/08/2016.
- */
 public class UniformJavaTimeDMNBaseDecision extends UniformJavaTimeFEELLib implements AnnotationTarget {
     @Override
     public DRGElement getDRGElementAnnotation() {

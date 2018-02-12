@@ -46,9 +46,6 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-/**
- * Created by Octavian Patrascoiu on 17/08/2016.
- */
 public class UniformJavaTimeFEELLib extends FEELOperators<BigDecimal, ZonedDateTime, ZonedDateTime, ZonedDateTime, Duration> implements FEELLib<BigDecimal, ZonedDateTime, ZonedDateTime, ZonedDateTime, Duration> {
     protected static final Logger LOGGER = LoggerFactory.getLogger(UniformJavaTimeFEELLib.class);
 

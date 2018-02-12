@@ -12,8 +12,5 @@
  */
 package com.gs.dmn.runtime.listener;
 
-/**
- * Created by Octavian Patrascoiu on 31/01/2017.
- */
 public interface SimpleEventListener extends EventListener {
 }

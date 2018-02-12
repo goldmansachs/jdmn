@@ -18,9 +18,6 @@ import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
 import com.gs.dmn.feel.synthesis.type.MixedJavaTimeFEELTypeTranslator;
 import com.gs.dmn.runtime.MixedJavaTimeDMNBaseDecision;
 
-/**
- * Created by Octavian Patrascoiu on 23/05/2017.
- */
 public class MixedJavaTimeDMNDialectDefinition extends StandardDMNDialectDefinition {
     //
     // DMN execution

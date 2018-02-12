@@ -12,8 +12,5 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast;
 
-/**
- * Created by Octavian Patrascoiu on 07/10/2016.
- */
 public abstract class AbstractVisitor implements Visitor {
 }

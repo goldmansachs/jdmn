@@ -16,9 +16,6 @@ import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.StringType;
 import org.slf4j.Logger;
 
-/**
- * Created by Octavian Patrascoiu on 05/09/2016.
- */
 public class DefaultStringType extends BaseType implements StringType {
     public DefaultStringType(Logger logger) {
         super(logger);

@@ -16,9 +16,6 @@ import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
-/**
- * Created by Octavian Patrascoiu on 22/02/2017.
- */
 public abstract class EnvironmentFactory {
     public Environment emptyEnvironment() {
         return new Environment();

@@ -16,9 +16,6 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.DoubleMixedJavaTimeDMNDialectDefinition;
 import org.junit.Ignore;
 
-/**
- * Created by Octavian Patrascoiu on 26/05/2017.
- */
 public class DoubleMixedCL3DMNInterpreterTest extends CL3DMNInterpreterTest {
     @Override
     protected DMNDialectDefinition getDialectDefinition() {

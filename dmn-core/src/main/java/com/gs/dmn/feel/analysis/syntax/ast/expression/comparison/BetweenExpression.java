@@ -18,9 +18,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
-/**
- * Created by Octavian Patrascoiu on 06/10/2016.
- */
 public class BetweenExpression extends Comparison {
     private final Expression value;
     private final Expression leftEndpoint;

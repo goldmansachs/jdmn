@@ -24,9 +24,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.NumericLiteral;
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 
-/**
- * Created by Octavian Patrascoiu on 06/10/2016.
- */
 public class FilterExpression extends Expression {
     public static final String FILTER_PARAMETER_NAME = "item";
 

@@ -15,9 +15,6 @@ package com.gs.dmn.runtime.listener;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Octavian Patrascoiu on 31/01/2017.
- */
 public class CompositeListener implements EventListener {
     private final List<EventListener> eventListeners = new ArrayList<>();
 

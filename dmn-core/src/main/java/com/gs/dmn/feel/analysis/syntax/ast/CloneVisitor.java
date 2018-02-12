@@ -33,9 +33,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * Created by Octavian Patrascoiu on 04/04/2017.
- */
 public class CloneVisitor extends AbstractVisitor {
     private ASTFactory astFactory = new ASTFactory();
 

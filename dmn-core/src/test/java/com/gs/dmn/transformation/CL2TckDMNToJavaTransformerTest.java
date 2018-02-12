@@ -14,9 +14,6 @@ package com.gs.dmn.transformation;
 
 import org.junit.Test;
 
-/**
- * Created by Octavian Patrascoiu on 26/05/2017.
- */
 public class CL2TckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransformerTest {
     @Override
     protected String getInputPath() {

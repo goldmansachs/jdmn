@@ -23,9 +23,6 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/**
- * Created by Octavian Patrascoiu on 16/08/2016.
- */
 public class Context extends Expression {
     private final List<ContextEntry> entries = new ArrayList<>();
 

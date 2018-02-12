@@ -15,9 +15,6 @@ package com.gs.dmn.transformation.java;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Octavian Patrascoiu on 26/06/2017.
- */
 public class CompoundStatement extends Statement {
     private final List<Statement> statements = new ArrayList<>();
 

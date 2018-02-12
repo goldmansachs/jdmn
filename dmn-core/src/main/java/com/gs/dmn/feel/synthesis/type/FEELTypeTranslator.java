@@ -12,9 +12,6 @@
  */
 package com.gs.dmn.feel.synthesis.type;
 
-/**
- * Created by Octavian Patrascoiu on 26/10/2017.
- */
 public interface FEELTypeTranslator {
     String toJavaType(String feelType);
 

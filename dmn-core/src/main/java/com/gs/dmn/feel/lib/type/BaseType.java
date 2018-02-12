@@ -14,9 +14,6 @@ package com.gs.dmn.feel.lib.type;
 
 import org.slf4j.Logger;
 
-/**
- * Created by Octavian Patrascoiu on 19/10/2017.
- */
 public abstract class BaseType {
     private final Logger logger;
 

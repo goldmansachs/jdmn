@@ -12,8 +12,5 @@
  */
 package com.gs.dmn.runtime;
 
-/**
- * Created by Octavian Patrascoiu on 17/08/2016.
- */
 public interface DMNDecision<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 }

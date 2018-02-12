@@ -16,9 +16,6 @@ import com.gs.dmn.feel.analysis.FEELExpressionsAnalyzer;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
-/**
- * Created by Octavian Patrascoiu on 18/05/2017.
- */
 interface FEELExpressionsTranslator extends FEELExpressionsAnalyzer {
     String expressionToJava(String text, FEELContext context);
 

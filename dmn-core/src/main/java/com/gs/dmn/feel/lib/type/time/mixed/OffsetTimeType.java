@@ -23,9 +23,6 @@ import javax.xml.datatype.Duration;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
-/**
- * Created by Octavian Patrascoiu on 19/10/2017.
- */
 public class OffsetTimeType extends JavaTimeCalendarType implements TimeType<OffsetTime, Duration> {
     private final BooleanType booleanType;
 

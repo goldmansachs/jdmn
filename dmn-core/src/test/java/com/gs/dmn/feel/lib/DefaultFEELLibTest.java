@@ -20,9 +20,6 @@ import java.math.BigDecimal;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by Octavian Patrascoiu on 23/11/2016.
- */
 public class DefaultFEELLibTest extends BaseFEELLibTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     @Override
     protected FEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> getLib() {

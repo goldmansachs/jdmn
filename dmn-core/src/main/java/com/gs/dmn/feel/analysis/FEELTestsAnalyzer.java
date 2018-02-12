@@ -15,9 +15,6 @@ package com.gs.dmn.feel.analysis;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 
-/**
- * Created by Octavian Patrascoiu on 18/05/2017.
- */
 public interface FEELTestsAnalyzer {
     UnaryTests parseUnaryTests(String text);
 

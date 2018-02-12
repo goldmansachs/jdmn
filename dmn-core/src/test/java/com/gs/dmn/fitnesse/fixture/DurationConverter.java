@@ -17,9 +17,6 @@ import fitnesse.slim.Converter;
 
 import javax.xml.datatype.Duration;
 
-/**
- * Created by Octavian Patrascoiu on 28/03/2017.
- */
 public class DurationConverter implements Converter<Duration> {
     @Override
     public String toString(Duration o) {

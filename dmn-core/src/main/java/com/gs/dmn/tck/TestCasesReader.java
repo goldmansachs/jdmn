@@ -22,9 +22,6 @@ import javax.xml.namespace.QName;
 import java.io.File;
 import java.net.URL;
 
-/**
- * Created by Octavian Patrascoiu on 25/05/2017.
- */
 public class TestCasesReader {
     public static String TEST_FILE_EXTENSION = ".xml";
 

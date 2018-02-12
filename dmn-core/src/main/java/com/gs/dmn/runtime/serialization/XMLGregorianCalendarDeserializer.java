@@ -24,9 +24,6 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.IOException;
 
-/**
- * Created by Octavian Patrascoiu on 01/03/2017.
- */
 public class XMLGregorianCalendarDeserializer extends JsonDeserializer<XMLGregorianCalendar> {
     private final DatatypeFactory datatypeFactory = XMLDatataypeFactory.newInstance();
 

@@ -15,9 +15,6 @@ package com.gs.dmn.transformation;
 import java.io.File;
 import java.util.Comparator;
 
-/**
- * Created by Octavian Patrascoiu on 12/08/2016.
- */
 public class FileComparator implements Comparator<File> {
     @Override
     public int compare(File o1, File o2) {

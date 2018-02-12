@@ -17,9 +17,6 @@ import com.gs.dmn.runtime.LambdaExpression;
 
 import java.util.List;
 
-/**
- * Created by Octavian Patrascoiu on 22/11/2016.
- */
 public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
         NumericType<NUMBER>, StringType, BooleanType, ListType,
         DateType<DATE, DURATION>, TimeType<TIME, DURATION>, DateTimeType<DATE_TIME, DURATION>, DurationType<DURATION, NUMBER> {

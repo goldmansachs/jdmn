@@ -14,9 +14,6 @@ package com.gs.dmn.feel.analysis.semantics.type;
 
 import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 
-/**
- * Created by Octavian Patrascoiu on 06/09/2016.
- */
 public class ListType extends Type {
     public static final Type ANY_LIST = new ListType(ANY);
     public static final Type NUMBER_LIST = new ListType(NumberType.NUMBER);

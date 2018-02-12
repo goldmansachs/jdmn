@@ -22,9 +22,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Octavian Patrascoiu on 19/09/2016.
- */
 public class Environment {
     private final Environment parent;
     private final Map<String, Declaration> membersTable = new LinkedHashMap<>();

@@ -22,9 +22,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 
-/**
- * Created by Octavian Patrascoiu on 16/08/2016.
- */
 public class IfExpression extends Expression {
     private final Expression condition;
     private final Expression thenExpression;

@@ -12,8 +12,5 @@
  */
 package com.gs.dmn.transformation.java;
 
-/**
- * Created by Octavian Patrascoiu on 26/06/2017.
- */
 public abstract class Statement {
 }

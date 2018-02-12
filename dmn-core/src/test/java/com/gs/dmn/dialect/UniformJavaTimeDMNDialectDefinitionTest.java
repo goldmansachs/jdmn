@@ -31,9 +31,6 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by Octavian Patrascoiu on 30/10/2017.
- */
 public class UniformJavaTimeDMNDialectDefinitionTest {
     private DMNDialectDefinition dialect = new UniformJavaTimeDMNDialectDefinition();
     private static final TDefinitions definitions = new TDefinitions();

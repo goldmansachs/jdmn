@@ -18,9 +18,6 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Octavian Patrascoiu on 12/08/2016.
- */
 public class DMNNamespacePrefixMapper extends NamespacePrefixMapper {
     public static final String DMN_NS = "http://www.omg.org/spec/DMN/20151101/dmn.xsd";
     public static final String TCK_NS = "http://www.omg.org/spec/DMN/20160719/testcase";

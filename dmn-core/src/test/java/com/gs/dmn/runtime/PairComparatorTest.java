@@ -19,9 +19,6 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by Octavian Patrascoiu on 15/11/2016.
- */
 public class PairComparatorTest {
     @Test
     public void testSort() throws Exception {

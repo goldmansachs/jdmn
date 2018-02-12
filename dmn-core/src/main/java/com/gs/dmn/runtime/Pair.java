@@ -12,9 +12,6 @@
  */
 package com.gs.dmn.runtime;
 
-/**
- * Created by Octavian Patrascoiu on 18/11/2016.
- */
 public class Pair<L, R> {
     private final L left;
     private final R right;

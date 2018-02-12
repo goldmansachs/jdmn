@@ -21,9 +21,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by Octavian Patrascoiu on 16/08/2016.
- */
 public class FunctionDefinition extends Expression {
     private final boolean external;
     private final List<FormalParameter> formalParameters;

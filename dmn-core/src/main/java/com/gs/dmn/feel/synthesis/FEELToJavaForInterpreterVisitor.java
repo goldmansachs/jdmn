@@ -17,9 +17,6 @@ import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
-/**
- * Created by Octavian Patrascoiu on 16/08/2016.
- */
 public class FEELToJavaForInterpreterVisitor extends FEELToJavaVisitor {
     public FEELToJavaForInterpreterVisitor(BasicDMN2JavaTransformer dmnTransformer) {
         super(dmnTransformer);

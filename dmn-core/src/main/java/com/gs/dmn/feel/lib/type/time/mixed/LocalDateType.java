@@ -22,9 +22,6 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import java.time.LocalDate;
 
-/**
- * Created by Octavian Patrascoiu on 19/10/2017.
- */
 public class LocalDateType extends JavaTimeCalendarType implements DateType<LocalDate, Duration> {
     private final BooleanType booleanType;
 

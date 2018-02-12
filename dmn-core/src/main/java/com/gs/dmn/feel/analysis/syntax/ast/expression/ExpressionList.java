@@ -21,9 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by Octavian Patrascoiu on 16/08/2016.
- */
 public class ExpressionList extends Expression {
     private List<Expression> expressionList = new ArrayList<>();
 

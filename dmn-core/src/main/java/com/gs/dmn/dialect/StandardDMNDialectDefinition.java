@@ -32,9 +32,6 @@ import org.omg.spec.dmn._20151101.dmn.TDefinitions;
 
 import java.util.Map;
 
-/**
- * Created by Octavian Patrascoiu on 23/05/2017.
- */
 public class StandardDMNDialectDefinition extends AbstractDMNDialectDefinition {
     //
     // DMN Processors

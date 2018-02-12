@@ -21,9 +21,6 @@ import java.net.URL;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by Octavian Patrascoiu on 31/10/2017.
- */
 public abstract class JavaFormatterTest {
     protected void doTest() throws IOException {
         doTest("TFnLibrary.txt");

@@ -16,9 +16,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 
-/**
- * Created by Octavian Patrascoiu on 22/08/2016.
- */
 public class ContextEntryKey extends Element {
     private final String key;
 

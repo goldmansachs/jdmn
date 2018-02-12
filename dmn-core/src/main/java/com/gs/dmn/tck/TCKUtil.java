@@ -40,9 +40,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
-/**
- * Created by Octavian Patrascoiu on 07/11/2016.
- */
 public class TCKUtil {
     private final BasicDMN2JavaTransformer dmnTransformer;
     private final FEELLib feelLib;

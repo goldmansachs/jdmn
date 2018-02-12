@@ -12,9 +12,6 @@
  */
 package com.gs.dmn.serialization;
 
-/**
- * Created by Octavian Patrascoiu on 30/05/2017.
- */
 public class StandardDMNValidator extends DMNValidator {
     public StandardDMNValidator(boolean semanticValidation) {
         super(semanticValidation);

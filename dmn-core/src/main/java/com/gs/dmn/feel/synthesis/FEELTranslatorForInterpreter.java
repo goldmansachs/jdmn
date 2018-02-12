@@ -16,9 +16,6 @@ import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.feel.analysis.FEELAnalyzer;
 import com.gs.dmn.feel.analysis.FEELAnalyzerImpl;
 
-/**
- * Created by Octavian Patrascoiu on 18/05/2017.
- */
 public class FEELTranslatorForInterpreter extends AbstractFEELTranslator {
     public FEELTranslatorForInterpreter(FEELAnalyzer feelAnalyzer, FEELToJavaVisitor expressionVisitor, SimpleExpressionsToJavaVisitor simpleExpressionsVisitor) {
         super(feelAnalyzer, expressionVisitor, simpleExpressionsVisitor);

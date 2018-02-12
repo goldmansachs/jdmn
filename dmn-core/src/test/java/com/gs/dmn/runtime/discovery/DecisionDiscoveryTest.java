@@ -18,9 +18,6 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by Octavian Patrascoiu on 09/02/2017.
- */
 public class DecisionDiscoveryTest {
     private final DecisionDiscovery decisionDiscovery = new DecisionDiscovery();
 

@@ -26,9 +26,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by Octavian Patrascoiu on 19/09/2016.
- */
 public class FunctionInvocation extends Expression {
     private final Expression function;
     private final Parameters parameters;

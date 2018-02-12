@@ -12,9 +12,6 @@
  */
 package com.gs.dmn.fitnesse.fixture.feel;
 
-/**
- * Created by Octavian Patrascoiu on 27/03/2017.
- */
 public class FEELExpressionFixture extends FEELFixture {
     private String expression;
 

@@ -20,9 +20,6 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
-/**
- * Created by Octavian Patrascoiu on 31/08/2017.
- */
 public class GoogleJavaFormatter implements JavaFormatter {
     private static Formatter FORMATTER;
 

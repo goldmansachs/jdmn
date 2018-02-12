@@ -22,9 +22,6 @@ import java.time.format.DateTimeFormatter;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by Octavian Patrascoiu on 23/11/2016.
- */
 public class DoubleMixedJavaTimeFEELLibTest extends BaseFEELLibTest<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     @Override
     protected DoubleMixedJavaTimeFEELLib getLib() {

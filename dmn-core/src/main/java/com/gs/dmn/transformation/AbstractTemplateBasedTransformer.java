@@ -28,9 +28,6 @@ import java.nio.file.Path;
 import java.util.Locale;
 import java.util.Map;
 
-/**
- * Created by Octavian Patrascoiu on 23/08/2016.
- */
 public abstract class AbstractTemplateBasedTransformer extends AbstractFileTransformer {
     private static final Version VERSION = new Version("2.3.23");
     private static final JavaFormatter FORMATTER = new NopJavaFormatter();

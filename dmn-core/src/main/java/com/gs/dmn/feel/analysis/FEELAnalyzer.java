@@ -12,8 +12,5 @@
  */
 package com.gs.dmn.feel.analysis;
 
-/**
- * Created by Octavian Patrascoiu on 18/05/2017.
- */
 public interface FEELAnalyzer extends FEELTestsAnalyzer, FEELExpressionsAnalyzer {
 }

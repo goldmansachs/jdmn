@@ -33,9 +33,6 @@ import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by Octavian Patrascoiu on 05/09/2016.
- */
 public class FEELProcessorTest extends AbstractFEELProcessorTest {
     @Before
     public void setUp() {

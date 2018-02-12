@@ -14,9 +14,6 @@ package com.gs.dmn.feel.analysis.semantics.environment;
 
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 
-/**
- * Created by Octavian Patrascoiu on 19/09/2016.
- */
 public class VariableDeclaration extends Declaration {
     private final Type type;
 

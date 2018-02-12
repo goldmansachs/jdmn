@@ -17,9 +17,6 @@ import java.util.Map;
 
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 
-/**
- * Created by Octavian Patrascoiu on 06/09/2016.
- */
 public class DateTimeType extends DataType {
     // Main type
     public static final DateTimeType DATE_AND_TIME = new DateTimeType("date and time");

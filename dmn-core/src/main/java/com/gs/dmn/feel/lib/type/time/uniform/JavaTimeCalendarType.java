@@ -20,9 +20,6 @@ import javax.xml.datatype.DatatypeFactory;
 import java.time.ZonedDateTime;
 
 
-/**
- * Created by Octavian Patrascoiu on 19/10/2017.
- */
 public abstract class JavaTimeCalendarType extends JavaTimeType {
     protected final DatatypeFactory datatypeFactory;
 

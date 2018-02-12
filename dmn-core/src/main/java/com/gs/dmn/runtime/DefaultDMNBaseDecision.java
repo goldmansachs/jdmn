@@ -19,9 +19,6 @@ import com.gs.dmn.runtime.annotation.Rule;
 
 import java.lang.reflect.Method;
 
-/**
- * Created by Octavian Patrascoiu on 17/08/2016.
- */
 public class DefaultDMNBaseDecision extends DefaultFEELLib implements AnnotationTarget {
     @Override
     public DRGElement getDRGElementAnnotation() {

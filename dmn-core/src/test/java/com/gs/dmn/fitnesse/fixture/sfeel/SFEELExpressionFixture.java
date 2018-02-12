@@ -12,9 +12,6 @@
  */
 package com.gs.dmn.fitnesse.fixture.sfeel;
 
-/**
- * Created by Octavian Patrascoiu on 27/03/2017.
- */
 public class SFEELExpressionFixture extends SFEELFixture {
     private String expression;
 

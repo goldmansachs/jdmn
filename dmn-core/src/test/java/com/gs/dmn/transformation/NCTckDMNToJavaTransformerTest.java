@@ -14,9 +14,6 @@ package com.gs.dmn.transformation;
 
 import org.junit.Test;
 
-/**
- * Created by Octavian Patrascoiu on 26/05/2017.
- */
 public class NCTckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransformerTest {
     @Test
     public void testCL3() throws Exception {

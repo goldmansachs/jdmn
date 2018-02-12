@@ -12,9 +12,6 @@
  */
 package com.gs.dmn.runtime.annotation;
 
-/**
- * Created by Octavian Patrascoiu on 06/02/2017.
- */
 public enum HitPolicy {
     UNIQUE("UNIQUE"),
     FIRST("FIRST"),

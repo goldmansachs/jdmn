@@ -17,9 +17,6 @@ import java.util.stream.Collectors;
 
 import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 
-/**
- * Created by Octavian Patrascoiu on 16/09/2016.
- */
 public class ItemDefinitionType extends NamedType implements CompositeDataType {
     private Map<String, Type> members = new LinkedHashMap<>();
     private Map<String, List<String>> aliases = new LinkedHashMap<>();
