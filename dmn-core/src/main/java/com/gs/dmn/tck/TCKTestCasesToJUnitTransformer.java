@@ -30,9 +30,6 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Octavian Patrascoiu on 03/11/2016.
- */
 public class TCKTestCasesToJUnitTransformer extends AbstractDMNTransformer {
     protected final BasicDMN2JavaTransformer basicTransformer;
 

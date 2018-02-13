@@ -14,9 +14,6 @@ package com.gs.dmn.tck;
 
 import org.junit.Test;
 
-/**
- * Created by Octavian Patrascoiu on 09/06/2017.
- */
 public class NCTestCasesToJUnitTransformerTest extends AbstractTCKTestCasesToJUnitTransformerTest {
     @Override
     protected String getDMNInputPath() {

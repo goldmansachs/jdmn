@@ -18,9 +18,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 
-/**
- * Created by Octavian Patrascoiu on 18/05/2017.
- */
 abstract class AbstractFEELInterpreter implements FEELInterpreter {
     private final FEELAnalyzer feelAnalyzer;
     private final FEELInterpreterVisitor visitor;

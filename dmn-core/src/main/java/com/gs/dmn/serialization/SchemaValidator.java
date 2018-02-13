@@ -22,9 +22,6 @@ import javax.xml.validation.SchemaFactory;
 import java.io.File;
 import java.net.URI;
 
-/**
- * Created by Octavian Patrascoiu on 10/04/2017.
- */
 public class SchemaValidator {
     private final File schemaLocation;
     private final String context;

@@ -28,9 +28,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 
-/**
- * Created by Octavian Patrascoiu on 04/04/2017.
- */
 public class NopVisitor extends AbstractVisitor {
     private ASTFactory astFactory = new ASTFactory();
 

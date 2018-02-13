@@ -29,9 +29,6 @@ import java.io.File;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-/**
- * Created by Octavian Patrascoiu on 24/08/2016.
- */
 public class BasicDMN2JavaTransformerTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(BasicDMN2JavaTransformerTest.class));
 

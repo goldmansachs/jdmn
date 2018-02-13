@@ -24,9 +24,6 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by Octavian Patrascoiu on 27/06/2016.
- */
 public class DMNReaderTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(DMNReaderTest.class));
 

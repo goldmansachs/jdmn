@@ -21,9 +21,6 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-/**
- * Created by Octavian Patrascoiu on 19/10/2017.
- */
 public class DefaultTimeType extends DefaultXMLCalendarType implements TimeType<XMLGregorianCalendar, Duration> {
     private final BooleanType booleanType;
 

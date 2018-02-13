@@ -23,9 +23,6 @@ import javax.xml.datatype.Duration;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
-/**
- * Created by Octavian Patrascoiu on 19/10/2017.
- */
 public class ZonedDateType extends JavaTimeCalendarType implements DateType<ZonedDateTime, Duration> {
     private final BooleanType booleanType;
 

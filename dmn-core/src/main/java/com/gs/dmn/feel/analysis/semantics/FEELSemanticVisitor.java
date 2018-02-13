@@ -40,9 +40,6 @@ import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import java.util.List;
 import java.util.function.Consumer;
 
-/**
- * Created by Octavian Patrascoiu on 06/09/2016.
- */
 public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
     public FEELSemanticVisitor(BasicDMN2JavaTransformer dmnTransformer) {
         super(dmnTransformer);

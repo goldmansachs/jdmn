@@ -23,9 +23,6 @@ import org.omg.spec.dmn._20151101.dmn.TDRGElement;
 import org.omg.spec.dmn._20151101.dmn.TExpression;
 import org.omg.spec.dmn._20151101.dmn.TFunctionDefinition;
 
-/**
- * Created by Octavian Patrascoiu on 13/06/2017.
- */
 public class FunctionDefinitionToJavaTransformer {
     private final BasicDMN2JavaTransformer dmnTransformer;
     private final DMNModelRepository modelRepository;

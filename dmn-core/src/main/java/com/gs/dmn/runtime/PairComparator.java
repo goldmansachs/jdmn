@@ -14,9 +14,6 @@ package com.gs.dmn.runtime;
 
 import java.util.Comparator;
 
-/**
- * Created by Octavian Patrascoiu on 15/11/2016.
- */
 public class PairComparator<T> implements Comparator<Pair<T, Integer>> {
     @Override
     public int compare(Pair<T, Integer> o1, Pair<T, Integer> o2) {

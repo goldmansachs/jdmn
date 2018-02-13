@@ -12,9 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.semantics.environment;
 
-/**
- * Created by Octavian Patrascoiu on 19/09/2016.
- */
 public abstract class Declaration {
     protected final String inputExpression;
 

@@ -12,9 +12,6 @@
  */
 package com.gs.dmn.feel.synthesis;
 
-/**
- * Created by Octavian Patrascoiu on 03/03/2017.
- */
 public class JavaOperator {
     public enum Associativity {
         LEFT_RIGHT, RIGHT_LEFT

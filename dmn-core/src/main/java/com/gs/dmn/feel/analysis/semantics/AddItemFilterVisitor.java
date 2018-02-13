@@ -22,9 +22,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.PathExpression;
 
-/**
- * Created by Octavian Patrascoiu on 04/04/2017.
- */
 public class AddItemFilterVisitor extends CloneVisitor {
     private ASTFactory astFactory = new ASTFactory();
 

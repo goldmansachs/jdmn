@@ -14,9 +14,6 @@ package com.gs.dmn.runtime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-/**
- * Created by Octavian Patrascoiu on 06/06/2017.
- */
 public interface DMNType {
     @JsonIgnore
     Context toContext();

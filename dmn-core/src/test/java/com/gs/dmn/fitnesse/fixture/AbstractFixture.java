@@ -28,9 +28,6 @@ import fit.ColumnFixture;
 
 import javax.xml.datatype.Duration;
 
-/**
- * Created by Octavian Patrascoiu on 30/03/2017.
- */
 public class AbstractFixture extends ColumnFixture {
     protected final DMNDialectDefinition dialectDefinition = new StandardDMNDialectDefinition();
     protected final FEELLib lib;

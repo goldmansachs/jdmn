@@ -14,9 +14,6 @@ package com.gs.dmn.transformation.java;
 
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 
-/**
- * Created by Octavian Patrascoiu on 26/06/2017.
- */
 public class ExpressionStatement extends Statement {
     private final String expression;
     private final Type expressionType;

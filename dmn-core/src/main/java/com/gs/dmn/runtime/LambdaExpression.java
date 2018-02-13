@@ -12,9 +12,6 @@
  */
 package com.gs.dmn.runtime;
 
-/**
- * Created by Octavian Patrascoiu on 22/06/2017.
- */
 @FunctionalInterface
 public interface LambdaExpression<R> {
     R apply(Object... args);

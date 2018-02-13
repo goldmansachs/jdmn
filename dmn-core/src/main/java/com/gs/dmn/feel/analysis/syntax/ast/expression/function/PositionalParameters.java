@@ -20,9 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by Octavian Patrascoiu on 22/08/2016.
- */
 public class PositionalParameters extends Parameters {
     private final List<Expression> parameters = new ArrayList<>();
 

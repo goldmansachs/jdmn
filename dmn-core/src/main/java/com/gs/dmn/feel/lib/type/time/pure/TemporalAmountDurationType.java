@@ -24,9 +24,6 @@ import java.time.Duration;
 import java.time.Period;
 import java.time.temporal.TemporalAmount;
 
-/**
- * Created by Octavian Patrascoiu on 19/10/2017.
- */
 public class TemporalAmountDurationType extends BaseType implements DurationType<TemporalAmount, BigDecimal> {
     private final BooleanType booleanType;
 

@@ -23,9 +23,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by Octavian Patrascoiu on 16/08/2016.
- */
 public class ForExpression extends Expression {
     private final List<Iterator> iterators;
     private final Expression body;

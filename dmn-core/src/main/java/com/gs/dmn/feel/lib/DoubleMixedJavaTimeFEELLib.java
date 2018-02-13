@@ -47,9 +47,6 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-/**
- * Created by Octavian Patrascoiu on 17/08/2016.
- */
 public class DoubleMixedJavaTimeFEELLib extends FEELOperators<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> implements FEELLib<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(DoubleMixedJavaTimeFEELLib.class);

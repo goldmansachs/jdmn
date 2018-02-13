@@ -14,9 +14,6 @@ package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
-/**
- * Created by Octavian Patrascoiu on 15/02/2017.
- */
 public class InputClausePair {
     private final Expression expression;
     private final Object value;

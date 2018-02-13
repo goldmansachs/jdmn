@@ -18,9 +18,6 @@ import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
 import com.gs.dmn.feel.synthesis.type.UniformJavaTimeFEELTypeTranslator;
 import com.gs.dmn.runtime.UniformJavaTimeDMNBaseDecision;
 
-/**
- * Created by Octavian Patrascoiu on 23/05/2017.
- */
 public class UniformJavaTimeDMNDialectDefinition extends StandardDMNDialectDefinition {
     //
     // DMN execution

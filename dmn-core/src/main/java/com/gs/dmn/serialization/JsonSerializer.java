@@ -22,9 +22,6 @@ import com.gs.dmn.runtime.serialization.XMLGregorianCalendarSerializer;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
-/**
- * Created by Octavian Patrascoiu on 15/08/2017.
- */
 public class JsonSerializer {
     public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 

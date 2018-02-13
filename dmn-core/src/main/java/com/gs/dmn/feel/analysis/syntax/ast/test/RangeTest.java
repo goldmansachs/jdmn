@@ -19,9 +19,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
-/**
- * Created by Octavian Patrascoiu on 16/08/2016.
- */
 public class RangeTest extends SimplePositiveUnaryTest {
     private final boolean openStart;
     private final Expression start;

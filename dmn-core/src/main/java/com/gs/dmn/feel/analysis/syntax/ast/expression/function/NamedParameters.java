@@ -21,9 +21,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * Created by Octavian Patrascoiu on 22/08/2016.
- */
 public class NamedParameters extends Parameters {
     private final Map<String, Expression> parameters;
 

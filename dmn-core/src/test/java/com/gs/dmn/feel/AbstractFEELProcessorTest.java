@@ -42,9 +42,6 @@ import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by Octavian Patrascoiu on 06/09/2016.
- */
 public abstract class AbstractFEELProcessorTest {
     private final DMNDialectDefinition dialectDefinition = new StandardDMNDialectDefinition();
 

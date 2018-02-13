@@ -12,9 +12,6 @@
  */
 package com.gs.dmn.fitnesse.fixture;
 
-/**
- * Created by Octavian Patrascoiu on 28/03/2017.
- */
 public class ScopeEntry {
     private String name;
     private String type;

@@ -21,9 +21,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by Octavian Patrascoiu on 06/10/2016.
- */
 public class QuantifiedExpression extends Expression {
     private final String predicate;
     private final List<Iterator> iterators;

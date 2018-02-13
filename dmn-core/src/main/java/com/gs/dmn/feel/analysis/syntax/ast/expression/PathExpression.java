@@ -17,9 +17,6 @@ import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 
-/**
- * Created by Octavian Patrascoiu on 22/09/2016.
- */
 public class PathExpression extends Expression {
     private final Expression source;
     private final String member;

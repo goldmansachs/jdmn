@@ -26,9 +26,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * Created by Octavian Patrascoiu on 13/06/2017.
- */
 public class InvocationToJavaTransformer {
     private final BasicDMN2JavaTransformer dmnTransformer;
     private final DMNModelRepository dmnModelRepository;

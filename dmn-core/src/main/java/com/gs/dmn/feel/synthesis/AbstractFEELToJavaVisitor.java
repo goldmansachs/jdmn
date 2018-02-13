@@ -38,9 +38,6 @@ import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DAYS_AND_TIME
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.YEARS_AND_MONTHS_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
-/**
- * Created by Octavian Patrascoiu on 01/11/2016.
- */
 public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor {
     private static final Map<String, String> FEEL_2_JAVA_FUNCTION = new LinkedHashMap() {{
         put("date and time", "dateAndTime");

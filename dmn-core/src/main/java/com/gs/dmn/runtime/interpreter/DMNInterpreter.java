@@ -40,9 +40,6 @@ import javax.xml.namespace.QName;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/**
- * Created by Octavian Patrascoiu on 10/02/2017.
- */
 public class DMNInterpreter {
     private static final Logger LOGGER = LoggerFactory.getLogger(DMNInterpreter.class);
     protected static EventListener EVENT_LISTENER = new LoggingEventListener(LOGGER);

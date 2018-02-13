@@ -20,9 +20,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * Created by Octavian Patrascoiu on 24/08/2017.
- */
 public class NamedSignature extends Signature {
     private final Map<String, Type> namedTypes;
 

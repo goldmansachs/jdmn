@@ -20,9 +20,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-/**
- * Created by Octavian Patrascoiu on 31/01/2017.
- */
 public class AnnotationSet extends LinkedList<Annotation> {
     public void addAnnotation(String decisionName, int ruleIndex, List<String> annotationList) {
         if (annotationList != null && !annotationList.isEmpty()) {

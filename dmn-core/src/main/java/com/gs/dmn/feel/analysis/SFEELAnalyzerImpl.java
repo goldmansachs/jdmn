@@ -23,9 +23,6 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
-/**
- * Created by Octavian Patrascoiu on 06/09/2016.
- */
 public class SFEELAnalyzerImpl extends AbstractFEELAnalyzer {
     public SFEELAnalyzerImpl(BasicDMN2JavaTransformer dmnTransformer) {
         super(dmnTransformer);

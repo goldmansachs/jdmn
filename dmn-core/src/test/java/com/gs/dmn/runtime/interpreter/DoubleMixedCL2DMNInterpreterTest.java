@@ -15,9 +15,6 @@ package com.gs.dmn.runtime.interpreter;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.DoubleMixedJavaTimeDMNDialectDefinition;
 
-/**
- * Created by Octavian Patrascoiu on 26/05/2017.
- */
 public class DoubleMixedCL2DMNInterpreterTest extends CL2SDMNInterpreterTest {
     @Override
     protected DMNDialectDefinition getDialectDefinition() {

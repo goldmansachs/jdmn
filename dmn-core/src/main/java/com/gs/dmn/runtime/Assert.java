@@ -25,9 +25,6 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Octavian Patrascoiu on 20/06/2017.
- */
 public class Assert {
     public static void assertEquals(Object expected, Object actual) {
         assertEquals(null, expected, actual);

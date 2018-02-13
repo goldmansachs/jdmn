@@ -18,9 +18,6 @@ import com.gs.dmn.feel.lib.type.NumericType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import org.slf4j.Logger;
 
-/**
- * Created by Octavian Patrascoiu on 05/09/2016.
- */
 public class DoubleNumericType extends BaseType implements NumericType<Double> {
     private final BooleanType booleanType;
 

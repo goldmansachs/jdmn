@@ -19,9 +19,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 
-/**
- * Created by Octavian Patrascoiu on 15/06/2017.
- */
 public class FormalParameter extends Element {
     protected String name;
     private String typeName;

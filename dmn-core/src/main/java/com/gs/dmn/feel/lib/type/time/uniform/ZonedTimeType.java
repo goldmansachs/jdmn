@@ -21,9 +21,6 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import java.time.ZonedDateTime;
 
-/**
- * Created by Octavian Patrascoiu on 19/10/2017.
- */
 public class ZonedTimeType extends JavaTimeCalendarType implements TimeType<ZonedDateTime, Duration> {
     private final BooleanType booleanType;
 

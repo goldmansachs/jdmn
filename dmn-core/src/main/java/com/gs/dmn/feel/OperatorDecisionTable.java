@@ -39,9 +39,6 @@ import static com.gs.dmn.feel.synthesis.JavaOperator.Associativity.RIGHT_LEFT;
 import static com.gs.dmn.feel.synthesis.JavaOperator.Notation.FUNCTIONAL;
 import static com.gs.dmn.feel.synthesis.JavaOperator.Notation.INFIX;
 
-/**
- * Created by Octavian Patrascoiu on 03/03/2017.
- */
 public class OperatorDecisionTable {
     private static final Map<OperatorTableInputEntry, Pair<Type, JavaOperator>> MAPPINGS = new LinkedHashMap() {{
         // boolean

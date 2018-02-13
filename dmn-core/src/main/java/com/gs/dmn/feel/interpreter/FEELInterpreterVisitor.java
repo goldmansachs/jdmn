@@ -64,9 +64,6 @@ import java.lang.reflect.Method;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/**
- * Created by Octavian Patrascoiu on 10/02/2017.
- */
 class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     private static final RuntimeEnvironmentFactory runtimeEnvironmentFactory = RuntimeEnvironmentFactory.instance();
     private static final Logger LOGGER = LoggerFactory.getLogger(FEELInterpreterVisitor.class);

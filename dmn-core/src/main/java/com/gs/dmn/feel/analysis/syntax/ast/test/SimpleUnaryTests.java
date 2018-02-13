@@ -12,8 +12,5 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.test;
 
-/**
- * Created by Octavian Patrascoiu on 16/08/2016.
- */
 public abstract class SimpleUnaryTests extends UnaryTests {
 }

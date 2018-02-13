@@ -16,9 +16,6 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import org.omg.spec.dmn._20151101.dmn.TNamedElement;
 
-/**
- * Created by Octavian Patrascoiu on 26/05/2017.
- */
 public class ToQuotedNameTransformer extends NameTransformer {
     public ToQuotedNameTransformer() {
         super(new Slf4jBuildLogger(LOGGER));

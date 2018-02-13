@@ -16,9 +16,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.CloneVisitor;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
 
-/**
- * Created by Octavian Patrascoiu on 04/04/2017.
- */
 public class ReplaceItemFilterVisitor extends CloneVisitor {
     private final String oldLambdaParameterName;
     private final String newLambdaParameterName;

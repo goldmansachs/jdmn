@@ -15,9 +15,6 @@ package com.gs.dmn.feel.analysis.semantics.type;
 import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 
-/**
- * Created by Octavian Patrascoiu on 06/09/2016.
- */
 public class RangeType extends Type {
     public static final Type NUMBER_RANGE_TYPE = new RangeType(NUMBER);
 

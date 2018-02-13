@@ -16,9 +16,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 
 import java.util.*;
 
-/**
- * Created by Octavian Patrascoiu on 30/03/2017.
- */
 public class TypeDeserializer {
     private final static TypeDeserializer INSTANCE = new TypeDeserializer();
 

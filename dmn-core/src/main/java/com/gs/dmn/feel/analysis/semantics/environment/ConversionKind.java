@@ -12,9 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.semantics.environment;
 
-/**
- * Created by Octavian Patrascoiu on 18/08/2017.
- */
 public enum ConversionKind {
     NONE, ELEMENT_TO_LIST,LIST_TO_ELEMENT
 }

@@ -24,9 +24,6 @@ import org.omg.spec.dmn._20151101.dmn.TNamedElement;
 
 import java.io.File;
 
-/**
- * Created by Octavian Patrascoiu on 26/05/2017.
- */
 public class ToJavaNameTransformer extends NameTransformer {
     private int counter = 0;
 
