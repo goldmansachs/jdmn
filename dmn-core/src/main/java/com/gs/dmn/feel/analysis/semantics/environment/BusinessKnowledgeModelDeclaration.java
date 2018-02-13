@@ -14,9 +14,6 @@ package com.gs.dmn.feel.analysis.semantics.environment;
 
 import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
 
-/**
- * Created by Octavian Patrascoiu on 19/09/2016.
- */
 public class BusinessKnowledgeModelDeclaration extends FunctionDeclaration {
     public BusinessKnowledgeModelDeclaration(String functionName, FunctionType type) {
         super(functionName, type);

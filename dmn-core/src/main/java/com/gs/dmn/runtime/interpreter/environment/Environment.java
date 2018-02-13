@@ -15,9 +15,6 @@ package com.gs.dmn.runtime.interpreter.environment;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * Created by Octavian Patrascoiu on 22/02/2017.
- */
 public class Environment<K, V> {
     private Map<K, V> bindings = new LinkedHashMap<>();
 

@@ -19,9 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by Octavian Patrascoiu on 24/08/2017.
- */
 public class PositionalSignature extends Signature {
     private final List<Type> types = new ArrayList<>();
 

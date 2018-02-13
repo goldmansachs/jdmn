@@ -25,9 +25,6 @@ import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
-/**
- * Created by Octavian Patrascoiu on 26/10/2017.
- */
 public class DoubleMixedJavaTimeFEELTypeTranslator implements FEELTypeTranslator {
     private static final Map<String, String> TIME_FEEL_TO_JAVA_TYPE = new HashMap() {{
         put(NUMBER.getName(), java.lang.Double.class.getName());

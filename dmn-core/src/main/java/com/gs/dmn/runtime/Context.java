@@ -14,9 +14,6 @@ package com.gs.dmn.runtime;
 
 import java.util.*;
 
-/**
- * Created by Octavian Patrascoiu on 14/12/2016.
- */
 public class Context {
     private String name;
     private Map map = new LinkedHashMap<>();

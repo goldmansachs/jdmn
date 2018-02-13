@@ -21,9 +21,6 @@ import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * Created by Octavian Patrascoiu on 12/08/2016.
- */
 public abstract class AbstractDMNToJavaTest extends AbstractTransformerTest {
     protected void doTestFolder() throws Exception {
         String inputPath = getInputPath();

@@ -30,9 +30,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by Octavian Patrascoiu on 13/06/2017.
- */
 public class RelationToJavaTransformer {
     private final BasicDMN2JavaTransformer dmnTransformer;
     private final DMNModelRepository modelRepository;

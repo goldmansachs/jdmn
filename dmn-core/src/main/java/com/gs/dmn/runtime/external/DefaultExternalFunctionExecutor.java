@@ -18,9 +18,6 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-/**
- * Created by Octavian Patrascoiu on 15/06/2017.
- */
 public class DefaultExternalFunctionExecutor implements ExternalFunctionExecutor {
     @Override
     public Object execute(String className, String methodName, Object[] args) {

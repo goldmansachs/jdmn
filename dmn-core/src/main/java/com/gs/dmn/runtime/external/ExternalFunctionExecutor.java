@@ -12,9 +12,6 @@
  */
 package com.gs.dmn.runtime.external;
 
-/**
- * Created by Octavian Patrascoiu on 15/06/2017.
- */
 public interface ExternalFunctionExecutor {
     Object execute(String className, String methodName, Object[] args);
 }

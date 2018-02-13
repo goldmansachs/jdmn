@@ -19,9 +19,6 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by Octavian Patrascoiu on 23/11/2016.
- */
 public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     //
     // Numeric functions

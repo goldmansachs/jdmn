@@ -16,9 +16,6 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
 
-/**
- * Created by Octavian Patrascoiu on 12/08/2016.
- */
 public abstract class AbstractTckDMNToJavaTransformerTest extends AbstractDMNToJavaTest {
     @Override
     protected DMNDialectDefinition getDialectDefinition() {

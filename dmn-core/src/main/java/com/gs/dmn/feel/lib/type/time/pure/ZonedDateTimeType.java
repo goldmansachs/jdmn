@@ -23,9 +23,6 @@ import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.time.temporal.TemporalAmount;
 
-/**
- * Created by Octavian Patrascoiu on 19/10/2017.
- */
 public class ZonedDateTimeType extends JavaTimeType implements DateTimeType<ZonedDateTime, TemporalAmount> {
     private final BooleanType booleanType;
 

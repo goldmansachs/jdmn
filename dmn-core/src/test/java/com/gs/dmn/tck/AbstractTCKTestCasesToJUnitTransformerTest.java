@@ -28,9 +28,6 @@ import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * Created by Octavian Patrascoiu on 25/05/2017.
- */
 public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends AbstractTestTransformerTest {
     public void doTest(String dmnFileName, String testFileName) throws Exception {
         String dmnPath = getDMNInputPath() + "/";

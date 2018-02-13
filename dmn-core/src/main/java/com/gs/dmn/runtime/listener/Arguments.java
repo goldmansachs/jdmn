@@ -14,9 +14,6 @@ package com.gs.dmn.runtime.listener;
 
 import java.util.LinkedHashMap;
 
-/**
- * Created by Octavian Patrascoiu on 31/01/2017.
- */
 public class Arguments extends LinkedHashMap<String, Object> {
     @Override
     public String toString() {

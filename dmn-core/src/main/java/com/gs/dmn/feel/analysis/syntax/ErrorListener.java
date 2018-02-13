@@ -22,9 +22,6 @@ import org.antlr.v4.runtime.dfa.DFA;
 
 import java.util.BitSet;
 
-/**
- * Created by Octavian Patrascoiu on 20/09/2016.
- */
 public class ErrorListener extends ConsoleErrorListener implements org.antlr.v4.runtime.ANTLRErrorListener {
     @Override
     public void syntaxError(Recognizer<?, ?> recognizer,

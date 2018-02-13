@@ -12,9 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
-/**
- * Created by Octavian Patrascoiu on 06/09/2016.
- */
 public class StringType extends DataType {
     public static final StringType STRING = new StringType();
 

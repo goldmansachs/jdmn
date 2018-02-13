@@ -25,9 +25,6 @@ import java.io.File;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by Octavian Patrascoiu on 08/02/2017.
- */
 public class DMNValidatorTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(DMNValidatorTest.class));
 

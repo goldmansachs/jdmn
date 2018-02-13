@@ -56,9 +56,6 @@ import java.util.stream.Collectors;
 
 import static com.gs.dmn.serialization.DMNNamespacePrefixMapper.FEEL_NS;
 
-/**
- * Created by Octavian Patrascoiu on 15/08/2016.
- */
 public class BasicDMN2JavaTransformer {
     protected static final Logger LOGGER = LoggerFactory.getLogger(BasicDMN2JavaTransformer.class);
 

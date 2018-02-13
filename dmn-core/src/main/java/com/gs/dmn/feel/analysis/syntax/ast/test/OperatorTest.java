@@ -21,9 +21,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionInvocation;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
-/**
- * Created by Octavian Patrascoiu on 17/08/2016.
- */
 public class OperatorTest extends SimplePositiveUnaryTest {
     private final String operator;
     private final Expression endpoint;

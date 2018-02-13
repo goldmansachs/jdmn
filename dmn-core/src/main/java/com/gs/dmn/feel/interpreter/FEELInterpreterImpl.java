@@ -15,9 +15,6 @@ package com.gs.dmn.feel.interpreter;
 import com.gs.dmn.feel.analysis.FEELAnalyzerImpl;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 
-/**
- * Created by Octavian Patrascoiu on 06/09/2016.
- */
 public class FEELInterpreterImpl extends AbstractFEELInterpreter {
     public FEELInterpreterImpl(DMNInterpreter dmnInterpreter) {
         super(dmnInterpreter, new FEELAnalyzerImpl(dmnInterpreter.getBasicDMNTransformer()));

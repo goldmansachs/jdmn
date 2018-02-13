@@ -14,9 +14,6 @@ package com.gs.dmn.transformation.formatter;
 
 import org.junit.Test;
 
-/**
- * Created by Octavian Patrascoiu on 31/10/2017.
- */
 public class GoogleJavaFormatterTest extends JavaFormatterTest {
     @Test
     public void testFormatSource() throws Exception {

@@ -21,9 +21,6 @@ import org.slf4j.Logger;
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
 
-/**
- * Created by Octavian Patrascoiu on 19/10/2017.
- */
 public class DoubleDefaultDurationType extends BaseType implements DurationType<Duration, Double> {
     private final BooleanType booleanType;
 

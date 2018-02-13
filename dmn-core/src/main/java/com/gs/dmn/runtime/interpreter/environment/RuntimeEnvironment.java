@@ -12,9 +12,6 @@
  */
 package com.gs.dmn.runtime.interpreter.environment;
 
-/**
- * Created by Octavian Patrascoiu on 22/02/2017.
- */
 public class RuntimeEnvironment extends Environment<String, Object> {
     RuntimeEnvironment(Environment<String, Object> parent) {
         super(parent);

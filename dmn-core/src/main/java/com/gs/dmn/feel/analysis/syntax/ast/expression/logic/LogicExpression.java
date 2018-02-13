@@ -16,9 +16,6 @@ import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
-/**
- * Created by Octavian Patrascoiu on 06/09/2016.
- */
 public abstract class LogicExpression extends Expression {
     private final String operator;
     private final Expression leftOperand;

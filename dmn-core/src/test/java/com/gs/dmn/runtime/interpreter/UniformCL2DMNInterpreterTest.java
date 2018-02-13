@@ -15,9 +15,6 @@ package com.gs.dmn.runtime.interpreter;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.UniformJavaTimeDMNDialectDefinition;
 
-/**
- * Created by Octavian Patrascoiu on 26/05/2017.
- */
 public class UniformCL2DMNInterpreterTest extends CL2SDMNInterpreterTest {
     @Override
     protected DMNDialectDefinition getDialectDefinition() {

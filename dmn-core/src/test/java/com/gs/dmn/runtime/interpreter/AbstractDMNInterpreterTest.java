@@ -39,9 +39,6 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by Octavian Patrascoiu on 26/05/2017.
- */
 public abstract class AbstractDMNInterpreterTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractDMNInterpreterTest.class));
 

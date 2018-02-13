@@ -17,9 +17,6 @@ import java.util.Map;
 
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 
-/**
- * Created by Octavian Patrascoiu on 06/09/2016.
- */
 public class DurationType extends DataType {
     // Main types
     public static final DurationType DAYS_AND_TIME_DURATION = new DurationType("days and time duration");

@@ -48,9 +48,6 @@ import java.math.RoundingMode;
 import java.time.*;
 import java.util.*;
 
-/**
- * Created by Octavian Patrascoiu on 17/08/2016.
- */
 public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> implements FEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     protected static final Logger LOGGER = LoggerFactory.getLogger(DefaultFEELLib.class);
 

@@ -23,9 +23,6 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by Octavian Patrascoiu on 05/09/2016.
- */
 public class SFEELProcessorTest extends AbstractFEELProcessorTest {
     @Before
     public void setUp() {

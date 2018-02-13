@@ -47,9 +47,6 @@ import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAmount;
 import java.util.*;
 
-/**
- * Created by Octavian Patrascoiu on 17/08/2016.
- */
 public class PureJavaTimeFEELLib extends FEELOperators<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, TemporalAmount> implements FEELLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, TemporalAmount> {
     protected static final Logger LOGGER = LoggerFactory.getLogger(PureJavaTimeFEELLib.class);
 

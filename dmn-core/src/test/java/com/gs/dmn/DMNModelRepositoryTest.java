@@ -26,9 +26,6 @@ import java.io.File;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by Octavian Patrascoiu on 24/08/2016.
- */
 public class DMNModelRepositoryTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(DMNModelRepositoryTest.class));
 

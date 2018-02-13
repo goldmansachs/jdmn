@@ -14,9 +14,6 @@ package com.gs.dmn.feel.lib.type;
 
 import java.util.List;
 
-/**
- * Created by Octavian Patrascoiu on 05/09/2016.
- */
 public interface BooleanType {
     Boolean booleanNot(Boolean operand);
 

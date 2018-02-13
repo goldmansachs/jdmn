@@ -14,9 +14,6 @@ package com.gs.dmn.transformation;
 
 import java.nio.file.Path;
 
-/**
- * Created by Octavian Patrascoiu on 12/08/2016.
- */
 public interface FileTransformer {
     void transform(Path inputPath, Path outputPath);
 }

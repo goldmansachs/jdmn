@@ -14,9 +14,6 @@ package com.gs.dmn.runtime;
 
 import java.util.List;
 
-/**
- * Created by Octavian Patrascoiu on 23/08/2016.
- */
 public abstract class RuleOutput {
     private boolean matched;
 

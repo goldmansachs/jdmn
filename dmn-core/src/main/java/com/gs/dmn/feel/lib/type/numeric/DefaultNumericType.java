@@ -21,9 +21,6 @@ import org.slf4j.Logger;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-/**
- * Created by Octavian Patrascoiu on 05/09/2016.
- */
 public class DefaultNumericType extends BaseType implements NumericType<BigDecimal> {
     public static final MathContext MATH_CONTEXT = MathContext.DECIMAL128;
 

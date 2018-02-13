@@ -18,9 +18,6 @@ import java.util.stream.Collectors;
 
 import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 
-/**
- * Created by Octavian Patrascoiu on 06/09/2016.
- */
 public class TupleType extends Type {
     private final List<Type> types = new ArrayList<>();
 

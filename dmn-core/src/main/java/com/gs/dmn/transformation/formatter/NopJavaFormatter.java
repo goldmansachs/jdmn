@@ -12,9 +12,6 @@
  */
 package com.gs.dmn.transformation.formatter;
 
-/**
- * Created by Octavian Patrascoiu on 31/10/2017.
- */
 public class NopJavaFormatter  implements JavaFormatter {
     @Override
     public String formatSource(String code) {

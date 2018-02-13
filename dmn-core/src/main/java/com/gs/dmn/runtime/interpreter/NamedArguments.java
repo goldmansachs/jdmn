@@ -20,9 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Octavian Patrascoiu on 24/08/2017.
- */
 public class NamedArguments extends Arguments {
     private Map<String, Object> arguments;
 

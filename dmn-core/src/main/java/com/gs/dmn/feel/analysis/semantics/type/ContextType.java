@@ -17,9 +17,6 @@ import java.util.stream.Collectors;
 
 import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 
-/**
- * Created by Octavian Patrascoiu on 10/10/2016.
- */
 public class ContextType extends Type implements CompositeDataType {
     private final Map<String, Type> members = new LinkedHashMap();
 

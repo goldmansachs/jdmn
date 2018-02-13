@@ -22,9 +22,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.temporal.TemporalAmount;
 
-/**
- * Created by Octavian Patrascoiu on 19/10/2017.
- */
 public class LocalDateType extends JavaTimeType implements DateType<LocalDate, TemporalAmount> {
     private final BooleanType booleanType;
 

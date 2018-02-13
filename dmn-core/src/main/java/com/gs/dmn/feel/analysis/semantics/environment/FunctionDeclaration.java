@@ -15,9 +15,6 @@ package com.gs.dmn.feel.analysis.semantics.environment;
 import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Signature;
 
-/**
- * Created by Octavian Patrascoiu on 19/09/2016.
- */
 public class FunctionDeclaration extends Declaration {
     private final FunctionType type;
 

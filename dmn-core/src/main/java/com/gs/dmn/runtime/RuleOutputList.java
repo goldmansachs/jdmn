@@ -20,9 +20,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by Octavian Patrascoiu on 23/08/2016.
- */
 public class RuleOutputList {
     private final List<RuleOutput> matchedRuleResults = new ArrayList<>();
 

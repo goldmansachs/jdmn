@@ -12,9 +12,6 @@
  */
 package com.gs.dmn.runtime.compiler;
 
-/**
- * Created by Octavian Patrascoiu on 29/06/2017.
- */
 public class JavaxToolsClassData extends ClassDataImpl implements ClassData {
     private String classText;
 

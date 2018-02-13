@@ -14,8 +14,5 @@ package com.gs.dmn.feel.analysis.syntax.ast.test;
 
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
-/**
- * Created by Octavian Patrascoiu on 17/08/2016.
- */
 public abstract class PositiveUnaryTest extends Expression implements Test {
 }

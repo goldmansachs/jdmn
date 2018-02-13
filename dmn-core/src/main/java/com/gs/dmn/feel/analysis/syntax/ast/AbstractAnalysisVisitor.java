@@ -21,9 +21,6 @@ import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 
 import java.util.Set;
 
-/**
- * Created by Octavian Patrascoiu on 07/10/2016.
- */
 public abstract class AbstractAnalysisVisitor extends AbstractVisitor {
     protected final BasicDMN2JavaTransformer dmnTransformer;
     protected final EnvironmentFactory environmentFactory;

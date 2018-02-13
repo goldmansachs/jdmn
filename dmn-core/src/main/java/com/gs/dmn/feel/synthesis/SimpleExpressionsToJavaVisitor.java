@@ -37,9 +37,6 @@ import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by Octavian Patrascoiu on 16/08/2016.
- */
 class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
     public SimpleExpressionsToJavaVisitor(BasicDMN2JavaTransformer dmnTransformer) {
         super(dmnTransformer);

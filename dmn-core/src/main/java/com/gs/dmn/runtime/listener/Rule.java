@@ -12,9 +12,6 @@
  */
 package com.gs.dmn.runtime.listener;
 
-/**
- * Created by Octavian Patrascoiu on 16/10/2017.
- */
 public class Rule {
     private final int index;
     private final String annotation;

@@ -21,9 +21,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Map;
 
-/**
- * Created by Octavian Patrascoiu on 23/08/2016.
- */
 public abstract class AbstractFileTransformer implements FileTransformer {
     protected final Map<String, String> inputParameters;
     protected final BuildLogger logger;

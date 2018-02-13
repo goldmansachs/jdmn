@@ -19,9 +19,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 
-/**
- * Created by Octavian Patrascoiu on 27/03/2017.
- */
 public class FEELUnaryTestsFixture extends FEELFixture {
     private String inputExpression;
     private String inputEntry;

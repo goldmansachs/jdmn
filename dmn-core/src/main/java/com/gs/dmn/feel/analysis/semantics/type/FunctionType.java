@@ -19,9 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by Octavian Patrascoiu on 22/08/2017.
- */
 public abstract class FunctionType extends Type {
     protected final List<FormalParameter> parameters = new ArrayList<>();
     protected final List<Type> parameterTypes = new ArrayList<>();

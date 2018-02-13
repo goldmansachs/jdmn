@@ -17,9 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Octavian Patrascoiu on 30/08/2016.
- */
 public class FEELTypes {
     public static final Map<String, Type> FEEL_NAME_TO_FEEL_TYPE = new HashMap<String, Type>() {{
         put(NumberType.NUMBER.getName(), NumberType.NUMBER);

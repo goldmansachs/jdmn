@@ -14,8 +14,5 @@ package com.gs.dmn.fitnesse.fixture;
 
 import java.util.ArrayList;
 
-/**
- * Created by Octavian Patrascoiu on 28/03/2017.
- */
 public class Scope extends ArrayList<ScopeEntry> {
 }

@@ -14,9 +14,6 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 
-/**
- * Created by Octavian Patrascoiu on 22/08/2016.
- */
 public abstract class Parameters extends Element {
     public abstract boolean isEmpty();
 

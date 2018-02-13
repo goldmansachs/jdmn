@@ -19,9 +19,6 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.IOException;
 
-/**
- * Created by Octavian Patrascoiu on 01/03/2017.
- */
 public class XMLGregorianCalendarSerializer extends JsonSerializer<XMLGregorianCalendar> {
     @Override
     public void serialize(XMLGregorianCalendar value, JsonGenerator gen, SerializerProvider serializers) throws IOException {

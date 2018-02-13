@@ -29,9 +29,6 @@ import java.util.Arrays;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-/**
- * Created by Octavian Patrascoiu on 02/11/2017.
- */
 public class JavaToolsCompilerTest extends AbstractCompilerTest {
     @Test
     public void testMakeClassData() throws Exception {

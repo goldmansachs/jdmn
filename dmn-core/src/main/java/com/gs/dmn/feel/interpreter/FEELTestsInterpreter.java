@@ -16,9 +16,6 @@ import com.gs.dmn.feel.analysis.FEELTestsAnalyzer;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 
-/**
- * Created by Octavian Patrascoiu on 18/05/2017.
- */
 interface FEELTestsInterpreter extends FEELTestsAnalyzer {
     Object evaluateUnaryTests(String text, FEELContext context);
 

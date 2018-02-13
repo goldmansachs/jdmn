@@ -18,9 +18,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Signature;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by Octavian Patrascoiu on 07/09/2016.
- */
 public class DMNFunctionType extends FunctionType {
     public DMNFunctionType(List<FormalParameter> parameters, Type returnType) {
         super(parameters, returnType);

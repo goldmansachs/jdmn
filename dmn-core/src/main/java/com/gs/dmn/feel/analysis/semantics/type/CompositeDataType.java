@@ -15,9 +15,6 @@ package com.gs.dmn.feel.analysis.semantics.type;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by Octavian Patrascoiu on 07/06/2017.
- */
 public interface CompositeDataType {
     CompositeDataType addMember(String name, List<String> aliases, Type type);
 

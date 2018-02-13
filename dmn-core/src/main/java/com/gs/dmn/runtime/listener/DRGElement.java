@@ -16,9 +16,6 @@ import com.gs.dmn.runtime.annotation.DRGElementKind;
 import com.gs.dmn.runtime.annotation.ExpressionKind;
 import com.gs.dmn.runtime.annotation.HitPolicy;
 
-/**
- * Created by Octavian Patrascoiu on 16/10/2017.
- */
 public class DRGElement {
     private final String namespace;
     private final String name;
