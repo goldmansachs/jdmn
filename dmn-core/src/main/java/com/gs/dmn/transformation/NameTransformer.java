@@ -12,11 +12,13 @@
  */
 package com.gs.dmn.transformation;
 
+import com.gs.dmn.feel.analysis.scanner.LexicalContext;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
+import org.omg.dmn.tck.marshaller._20160719.ValueType;
 import org.omg.spec.dmn._20151101.dmn.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,10 +27,12 @@ import javax.xml.bind.JAXBElement;
 import java.lang.reflect.Field;
 import java.util.*;
 
+import static com.gs.dmn.feel.analysis.scanner.ContextDependentFEELLexer.*;
+
 public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(ToJavaNameTransformer.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(NameTransformer.class);
     protected final BuildLogger logger;
-    private NameMappings namesMapping;
+    private boolean transformDefinition = true;
 
     protected NameTransformer(BuildLogger logger) {
         this.logger = logger;
@@ -36,14 +40,14 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
 
     @Override
     public TDefinitions transform(TDefinitions definitions) {
-        this.namesMapping = new NameMappings();
-        transform(definitions, namesMapping);
+        transformDefinitions(definitions);
+        this.transformDefinition = false;
         return definitions;
     }
 
     @Override
     public Pair<TDefinitions, TestCases> transform(TDefinitions definitions, TestCases testCases) {
-        if (namesMapping == null) {
+        if (transformDefinition) {
             transform(definitions);
         }
 
@@ -59,112 +63,316 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     private void transform(TestCases.TestCase testCase) {
         // Rename
         for (TestCases.TestCase.InputNode n : testCase.getInputNode()) {
-            String newName = namesMapping.get(n.getName());
+            String newName = transformName(n.getName());
             n.setName(newName);
         }
         for (TestCases.TestCase.ResultNode n : testCase.getResultNode()) {
-            String newName = namesMapping.get(n.getName());
+            String newName = transformName(n.getName());
             n.setName(newName);
+            rename(n.getExpected());
         }
     }
 
-    private void transform(TDefinitions definitions, NameMappings namesMapping) {
-        // Rename
-        for (JAXBElement<? extends TDRGElement> element : definitions.getDrgElement()) {
-            TDRGElement value = element.getValue();
-            if (value instanceof TInputData) {
-                addNameMapping(value, namesMapping);
-                renameElement(value, namesMapping);
-                renameElement(((TInputData) value).getVariable(), namesMapping);
-            } else if (value instanceof TBusinessKnowledgeModel) {
-                addNameMapping(value, namesMapping);
-                renameElement(value, namesMapping);
-                renameElement(((TBusinessKnowledgeModel) value).getVariable(), namesMapping);
-            } else if (value instanceof TDecision) {
-                addNameMapping(value, namesMapping);
-                renameElement(value, namesMapping);
-                renameElement(((TDecision) value).getVariable(), namesMapping);
+    private void rename(ValueType valueType) {
+        if (valueType instanceof ValueType.Component) {
+            String newName = transformName(((ValueType.Component) valueType).getName());
+            ((ValueType.Component) valueType).setName(newName);
+        }
+        JAXBElement<ValueType.List> jaxbList = valueType.getList();
+        if (jaxbList != null) {
+            ValueType.List list = jaxbList.getValue();
+            for(ValueType vt: list.getItem()) {
+                rename(vt);
             }
         }
+        List<ValueType.Component> componentList = valueType.getComponent();
+        if (componentList != null) {
+            for(ValueType.Component component: componentList) {
+                rename(component);
+            }
+        }
+    }
 
-        // Replace references
-        for (JAXBElement<? extends TDRGElement> element : definitions.getDrgElement()) {
-            TDRGElement value = element.getValue();
-            if (value instanceof TInputData) {
-            } else if (value instanceof TBusinessKnowledgeModel) {
-                TFunctionDefinition encapsulatedLogic = ((TBusinessKnowledgeModel) value).getEncapsulatedLogic();
-                List<TInformationItem> formalParameterList = encapsulatedLogic.getFormalParameter();
-                for(TInformationItem param: formalParameterList) {
-                    addNameMapping(param, namesMapping);
-                    renameElement(param, namesMapping);
-                }
-                replaceNames(encapsulatedLogic.getExpression().getValue(), namesMapping);
-            } else if (value instanceof TDecision) {
-                replaceNames(((TDecision) value).getExpression().getValue(), namesMapping);
+    private void transformDefinitions(TDefinitions definitions) {
+        replace(definitions);
+        rename(definitions);
+    }
+
+    // Replace old names with new names in expressions
+    private void replace(TDefinitions definitions) {
+        for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
+            TDRGElement element = jaxbElement.getValue();
+            if (element instanceof TInputData) {
+            } else if (element instanceof TBusinessKnowledgeModel) {
+                // Replace old names with new names in body
+                LexicalContext lexicalContext = makeLexicalContext(element, definitions);
+                TFunctionDefinition encapsulatedLogic = ((TBusinessKnowledgeModel) element).getEncapsulatedLogic();
+                replace(encapsulatedLogic.getExpression().getValue(), lexicalContext);
+            } else if (element instanceof TDecision) {
+                // Replace old names with new names in body
+                LexicalContext lexicalContext = makeLexicalContext(element, definitions);
+                replace(((TDecision) element).getExpression().getValue(), lexicalContext);
             } else {
             }
         }
     }
 
-    private void replaceNames(TExpression value, NameMappings namesMapping) {
-        if (value instanceof TLiteralExpression) {
-            replaceNamesInText((TLiteralExpression) value, namesMapping);
-        } else if (value instanceof TDecisionTable) {
-            for (TInputClause input : ((TDecisionTable) value).getInput()) {
+    // Replace old names with new names in expressions
+    private void replace(TExpression expression, LexicalContext lexicalContext) {
+        if (expression instanceof TLiteralExpression) {
+            replaceNamesInText((TLiteralExpression) expression, lexicalContext);
+        } else if (expression instanceof TDecisionTable) {
+            for (TInputClause input : ((TDecisionTable) expression).getInput()) {
                 TLiteralExpression inputExpression = input.getInputExpression();
-                replaceNamesInText(inputExpression, namesMapping);
+                replaceNamesInText(inputExpression, lexicalContext);
             }
-        } else if (value instanceof TFunctionDefinition) {
-            for(TInformationItem parameter: ((TFunctionDefinition) value).getFormalParameter()) {
-                addNameMapping(parameter, namesMapping);
-                renameElement(parameter, namesMapping);
+            for (TOutputClause output : ((TDecisionTable) expression).getOutput()) {
+                TLiteralExpression defaultOutputEntry = output.getDefaultOutputEntry();
+                replaceNamesInText(defaultOutputEntry, lexicalContext);
             }
-        } else if (value instanceof TInvocation) {
-            JAXBElement<? extends TExpression> expression = ((TInvocation) value).getExpression();
-            if (expression != null && expression.getValue() != null) {
-                replaceNames(expression.getValue(), namesMapping);
+        } else if (expression instanceof TFunctionDefinition) {
+            JAXBElement<? extends TExpression> jaxbElement = ((TFunctionDefinition) expression).getExpression();
+            TExpression body = jaxbElement.getValue();
+            LexicalContext bodyContext = new LexicalContext(lexicalContext);
+            for(TInformationItem parameter: ((TFunctionDefinition) expression).getFormalParameter()) {
+                bodyContext.addName(parameter.getName());
             }
-            List<TBinding> bindingList = ((TInvocation) value).getBinding();
+            replace(body, lexicalContext);
+        } else if (expression instanceof TInvocation) {
+            JAXBElement<? extends TExpression> jaxbElement = ((TInvocation) expression).getExpression();
+            if (jaxbElement != null && jaxbElement.getValue() != null) {
+                replace(jaxbElement.getValue(), lexicalContext);
+            }
+            List<TBinding> bindingList = ((TInvocation) expression).getBinding();
             for(TBinding binding: bindingList) {
-                addNameMapping(binding.getParameter(), namesMapping);
-                renameElement(binding.getParameter(), namesMapping);
+                replace(binding.getExpression().getValue(), lexicalContext);
             }
-            for(TBinding binding: bindingList) {
-                replaceNames(binding.getExpression().getValue(), namesMapping);
-            }
-        } else if (value instanceof TContext) {
-            List<TContextEntry> contextEntry = ((TContext) value).getContextEntry();
+        } else if (expression instanceof TContext) {
+            List<TContextEntry> contextEntry = ((TContext) expression).getContextEntry();
+            LexicalContext entryContext = new LexicalContext(lexicalContext);
             for(TContextEntry ce: contextEntry) {
-                JAXBElement<? extends TExpression> expression = ce.getExpression();
-                if (expression != null && expression.getValue() != null) {
-                    replaceNames(expression.getValue(), namesMapping);
+                TInformationItem variable = ce.getVariable();
+                if (variable != null) {
+                    entryContext.addName(variable.getName());
+                }
+                JAXBElement<? extends TExpression> jaxbElement = ce.getExpression();
+                if (jaxbElement != null && jaxbElement.getValue() != null) {
+                    replace(jaxbElement.getValue(), entryContext);
                 }
             }
-        } else if (value instanceof TRelation) {
-            for(TInformationItem ii: ((TRelation) value).getColumn()) {
-                addNameMapping(ii, namesMapping);
-                renameElement(ii, namesMapping);
+        } else if (expression instanceof TRelation) {
+            List<TList> lists = ((TRelation) expression).getRow();
+            LexicalContext relationContext = new LexicalContext(lexicalContext);
+            for(TInformationItem ii: ((TRelation) expression).getColumn()) {
+                relationContext.addName(ii.getName());
+            }
+            for(TList list: lists) {
+                replace(list, relationContext);
+            }
+        } else if (expression instanceof TList) {
+            List<JAXBElement<? extends TExpression>> jaxbElements = ((TList) expression).getExpression();
+            for(JAXBElement<? extends TExpression> jaxbElement: jaxbElements) {
+                TExpression subExpression = jaxbElement.getValue();
+                replace(subExpression, lexicalContext);
             }
         } else {
-            throw new UnsupportedOperationException("Not supported yet " + value.getClass().getSimpleName());
+            throw new UnsupportedOperationException("Not supported yet " + expression.getClass().getSimpleName());
         }
     }
 
-    private void replaceNamesInText(TLiteralExpression value, NameMappings namesMapping) {
-        String text = value.getText();
-
-        for (String oldName: namesMapping.orderedKeys()) {
-            String newName = namesMapping.get(oldName);
-            text = text.replaceAll(oldName, newName);
+    private void rename(TDefinitions definitions) {
+        for(TItemDefinition itemDefinition: definitions.getItemDefinition()) {
+            renameItemDefinitionMembers(itemDefinition);
         }
+        for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
+            TDRGElement element = jaxbElement.getValue();
+            if (element instanceof TInputData) {
+                // Rename element and variable
+                renameElement(element);
+                renameElement(((TInputData) element).getVariable());
+            } else if (element instanceof TBusinessKnowledgeModel) {
+                // Rename element and variable
+                renameElement(element);
+                renameElement(((TBusinessKnowledgeModel) element).getVariable());
 
-        setField(value, "text", text);
+                // Rename in body
+                TFunctionDefinition encapsulatedLogic = ((TBusinessKnowledgeModel) element).getEncapsulatedLogic();
+                List<TInformationItem> formalParameterList = encapsulatedLogic.getFormalParameter();
+                for(TInformationItem param: formalParameterList) {
+                    renameElement(param);
+                }
+            } else if (element instanceof TDecision) {
+                // Rename element and variable
+                renameElement(element);
+                renameElement(((TDecision) element).getVariable());
+
+                // Rename in body
+                rename(((TDecision) element).getExpression().getValue());
+            } else {
+            }
+        }
     }
 
-    private void renameElement(TNamedElement element, NameMappings namesMapping) {
+    private void rename(TExpression expression) {
+        if (expression instanceof TLiteralExpression) {
+        } else if (expression instanceof TDecisionTable) {
+        } else if (expression instanceof TFunctionDefinition) {
+            for(TInformationItem parameter: ((TFunctionDefinition) expression).getFormalParameter()) {
+                renameElement(parameter);
+            }
+        } else if (expression instanceof TInvocation) {
+            List<TBinding> bindingList = ((TInvocation) expression).getBinding();
+            for(TBinding binding: bindingList) {
+                renameElement(binding.getParameter());
+            }
+        } else if (expression instanceof TContext) {
+            List<TContextEntry> contextEntry = ((TContext) expression).getContextEntry();
+            for(TContextEntry ce: contextEntry) {
+                TInformationItem variable = ce.getVariable();
+                if (variable != null) {
+                    renameElement(variable);
+                }
+            }
+        } else if (expression instanceof TRelation) {
+            for(TInformationItem ii: ((TRelation) expression).getColumn()) {
+                renameElement(ii);
+            }
+        } else if (expression instanceof TList) {
+        } else {
+            throw new UnsupportedOperationException("Not supported yet " + expression.getClass().getSimpleName());
+        }
+    }
+
+    private LexicalContext makeLexicalContext(TDRGElement element, TDefinitions definitions) {
+        List<String> names = new ArrayList<>();
+
+        List<TInformationRequirement> informationRequirement = null;
+        List<TKnowledgeRequirement> knowledgeRequirement = null;
+        if (element instanceof TDecision) {
+            informationRequirement = ((TDecision) element).getInformationRequirement();
+            knowledgeRequirement = ((TDecision) element).getKnowledgeRequirement();
+        } else if (element instanceof TBusinessKnowledgeModel) {
+            knowledgeRequirement = ((TBusinessKnowledgeModel) element).getKnowledgeRequirement();
+
+            TFunctionDefinition encapsulatedLogic = ((TBusinessKnowledgeModel) element).getEncapsulatedLogic();
+            List<TInformationItem> formalParameterList = encapsulatedLogic.getFormalParameter();
+            for(TInformationItem param: formalParameterList) {
+                names.add(param.getName());
+            }
+        }
+        if (informationRequirement != null) {
+            for(TInformationRequirement tir: informationRequirement) {
+                TDMNElementReference requiredInput = tir.getRequiredInput();
+                TDMNElementReference requiredDecision = tir.getRequiredDecision();
+                if (requiredInput != null) {
+                    String href = requiredInput.getHref();
+                    addName(definitions, names, href);
+                }
+                if (requiredDecision != null) {
+                    String href = requiredDecision.getHref();
+                    addName(definitions, names, href);
+                }
+            }
+        }
+        if (knowledgeRequirement != null) {
+            for(TKnowledgeRequirement tkr: knowledgeRequirement) {
+                TDMNElementReference requiredKnowledge = tkr.getRequiredKnowledge();
+                addName(definitions, names, requiredKnowledge.getHref());
+            }
+        }
+
+        return new LexicalContext(names);
+    }
+
+    private void addName(TDefinitions definitions, List<String> names, String href) {
+        TDRGElement requiredDRG = findDRGElement(definitions, href);
+        if (requiredDRG != null) {
+            names.add(requiredDRG.getName());
+        }
+    }
+
+    private TDRGElement findDRGElement(TDefinitions definitions, String href) {
+        if (href.startsWith("#")) {
+            href = href.substring(1);
+        }
+
+        for(JAXBElement<? extends TDRGElement> jaxbElement: definitions.getDrgElement()) {
+            TDRGElement element = jaxbElement.getValue();
+            if (element.getId().equals(href)) {
+                return element;
+            }
+        }
+        return null;
+    }
+
+    private void replaceNamesInText(TLiteralExpression literalExpression, LexicalContext lexicalContext) {
+        if (literalExpression == null) {
+            return;
+        }
+
+        String text = literalExpression.getText();
+        StringBuilder newText = new StringBuilder();
+
+        int i = 0;
+        while (i < text.length()) {
+            char ch = text.charAt(i);
+            if (isNameStartChar(ch)) {
+                // Check keywords
+                boolean foundKeyword = false;
+                for(String keyword: KEYWORDS.keySet()) {
+                    if (text.startsWith(keyword, i)) {
+                        newText.append(keyword);
+                        i += keyword.length();
+                        foundKeyword = true;
+                        break;
+                    }
+                }
+                if (!foundKeyword) {
+                    // Check names
+                    boolean foundName = false;
+                    for(String name: lexicalContext.orderedNames()) {
+                        if (text.startsWith(name, i)) {
+                            newText.append(transformName(name));
+                            i += name.length();
+                            foundName = true;
+                            break;
+                        }
+                    }
+                    if (!foundName) {
+                        do {
+                            newText.append(ch);
+                            i++;
+                            if (i < text.length()) {
+                                ch = text.charAt(i);
+                            } else {
+                                break;
+                            }
+                        } while (isNamePartChar(ch));
+                    }
+                }
+            } else {
+                newText.append(ch);
+                i++;
+            }
+        }
+
+        setField(literalExpression, "text", newText.toString());
+    }
+
+    private void renameItemDefinitionMembers(TItemDefinition itemDefinition) {
+        List<TItemDefinition> itemComponent = itemDefinition.getItemComponent();
+        if (itemComponent != null) {
+            for(TItemDefinition member: itemComponent) {
+                renameElement(member);
+                renameItemDefinitionMembers(member);
+            }
+        }
+    }
+
+    private void renameElement(TNamedElement element) {
         if (element != null) {
             String fieldName = "name";
-            String newValue = namesMapping.get(element.getName());
+            String newValue = transformName(element.getName());
             setField(element, fieldName, newValue);
         }
     }
@@ -179,35 +387,4 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     }
 
     public abstract String transformName(String name);
-
-    protected abstract void addNameMapping(TNamedElement element, NameMappings namesMapping);
-}
-
-class NameMappings {
-    private final Map<String, String> mappings = new LinkedHashMap<>();
-    private List<String> orderedKeys;
-
-    public String get(String name) {
-        return mappings.get(name);
-    }
-
-    public void put(String key, String value) {
-        this.mappings.put(key, value);
-    }
-
-    public List<String> orderedKeys() {
-        if (orderedKeys == null) {
-            orderedKeys = new ArrayList<>(mappings.keySet());
-            Collections.sort(orderedKeys, (o1, o2) -> o2.length() - o1.length());
-        }
-        return orderedKeys;
-    }
-
-    public List<String> keys() {
-        return new ArrayList<>(mappings.keySet());
-    }
-
-    public List<String> values() {
-        return new ArrayList<>(mappings.values());
-    }
 }
