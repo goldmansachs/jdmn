@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.scanner;
 
-import com.gs.dmn.feel.analysis.syntax.antlrv4.FEELLexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.IntStream;
@@ -27,10 +26,11 @@ import java.util.stream.Collectors;
 
 import static com.gs.dmn.feel.analysis.syntax.antlrv4.FEELLexer.*;
 
-public class FEELScanner {
+public class ContextDependentFEELLexer {
     public static final int BAD = 0;
-    private static final Map<String, Integer> KEYWORDS = new LinkedHashMap<>();
+    public static final Map<String, Integer> KEYWORDS = new LinkedHashMap<>();
     static {
+        KEYWORDS.put("instance of", INSTANCE_OF);
         KEYWORDS.put("not", NOT);
         KEYWORDS.put("true", TRUE);
         KEYWORDS.put("false", FALSE);
@@ -49,20 +49,19 @@ public class FEELScanner {
         KEYWORDS.put("and", AND);
         KEYWORDS.put("or", OR);
         KEYWORDS.put("between", BETWEEN);
-        KEYWORDS.put("instance of", INSTANCE_OF);
     }
 
     private final CharStream inputTape;
 
-    public FEELScanner(CharStream inputTape) {
+    public ContextDependentFEELLexer(CharStream inputTape) {
         this.inputTape = inputTape;
     }
 
-    public Token nextToken() {
+    public Token nextToken(LexicalContext lexicalContext) {
         int code = BAD;
         StringBuilder lexeme = new StringBuilder();
 
-        int ch = nextChar(inputTape);
+        int ch = currentChar(inputTape);
         if (ch == IntStream.EOF) {
             code = EOF;
         }
@@ -90,34 +89,55 @@ public class FEELScanner {
         if (isNameStartChar(ch)) {
             List<String> nameSegments = new ArrayList<>();
 
-            while (true) {
-                // Scan one name segment
-                StringBuilder nameSegment = new StringBuilder();
-                do {
+            // Scan name start
+            StringBuilder nameSegment = new StringBuilder();
+            do {
+                nameSegment.append((char) ch);
+                ch = nextChar(inputTape);
+            } while (isNamePartChar(ch) || isAdditionalNameSymbols(ch));
+            nameSegments.add(nameSegment.toString());
+
+            while (isWhiteSpace(ch)) {
+                // Scan white spaces
+                nameSegment = new StringBuilder();
+                while (isWhiteSpace(ch)) {
                     nameSegment.append((char) ch);
                     ch = nextChar(inputTape);
-                } while (isNamePartChar(ch) || isAdditionalNameSymbols(ch));
+                }
 
-                Integer keywordCode = KEYWORDS.get(nameSegment.toString().trim());
-                if (keywordCode == null) {
+                if (isNamePartChar(ch) || isAdditionalNameSymbols(ch)) {
                     nameSegments.add(nameSegment.toString());
-                    if (ch == ' ' && isNamePartChar(currentChar(inputTape))) {
-                    } else {
-                        String nameLexeme = makeLexeme(nameSegments);
-                        code = makeCode(nameLexeme);
-                        return new CommonToken(code, nameLexeme);
-                    }
-                } else {
-                    if (nameSegments.size() == 0) {
-                        return new CommonToken(keywordCode, nameSegment.toString());
-                    } else {
-                        rewind(inputTape, nameSegment.length());
-                        String nameLexeme = makeLexeme(nameSegments);
-                        code = makeCode(nameLexeme);
-                        return new CommonToken(code, nameLexeme);
-                    }
+
+                    // Scan name part
+                    nameSegment = new StringBuilder();
+                    do {
+                        nameSegment.append((char) ch);
+                        ch = nextChar(inputTape);
+                    } while (isNamePartChar(ch) || isAdditionalNameSymbols(ch));
+                    nameSegments.add(nameSegment.toString());
                 }
             }
+
+            // Possible name
+            String nameLexeme = makeLexeme(nameSegments);
+
+            // Check if it starts with a keyword
+            for(String keyword: KEYWORDS.keySet()) {
+                if (nameLexeme.startsWith(keyword)) {
+                    rewind(inputTape, nameLexeme.length() - keyword.length());
+                    return new CommonToken(KEYWORDS.get(keyword), keyword);
+                }
+            }
+
+            // Lookup for the longest name
+            for(String name: lexicalContext.orderedNames()) {
+                if (nameLexeme.startsWith(name)) {
+                    rewind(inputTape, nameLexeme.length() - name.length());
+                    return new CommonToken(NAME, name);
+                }
+            }
+
+            return new CommonToken(NAME, nameLexeme);
         }
 
         // Numbers
@@ -151,6 +171,7 @@ public class FEELScanner {
             } while (ch != '"' && ch != '\r' && ch != '\n' && ch != -1);
             if (ch == '"') {
                 lexeme.append((char) ch);
+                ch = nextChar(inputTape);
             } else {
                 code = BAD;
             }
@@ -161,58 +182,66 @@ public class FEELScanner {
         if (ch == '+') {
             code = PLUS;
             lexeme.append((char) ch);
+            ch = nextChar(inputTape);
         } else if (ch == '-') {
             code = MINUS;
             lexeme.append((char) ch);
+            ch = nextChar(inputTape);
         } else if (ch == '*') {
             code = STAR;
             lexeme.append((char) ch);
-            if (currentChar(inputTape) == '*') {
+            ch = nextChar(inputTape);
+            if (ch == '*') {
                 code = STAR_STAR;
-                ch = nextChar(inputTape);
                 lexeme.append((char) ch);
+                ch = nextChar(inputTape);
             }
         } else if (ch == '/') {
             code = FORWARD_SLASH;
             lexeme.append((char) ch);
+            ch = nextChar(inputTape);
         } else if (ch == '=') {
             code = EQ;
             lexeme.append((char) ch);
+            ch = nextChar(inputTape);
         } else if (ch == '!') {
             code = EQ;
             lexeme.append((char) ch);
-            if (currentChar(inputTape) == '=') {
+            ch = nextChar(inputTape);
+            if (ch == '=') {
                 code = NE;
-                ch = nextChar(inputTape);
                 lexeme.append((char) ch);
+                ch = nextChar(inputTape);
             }
         } else if (ch == '<') {
             code = LT;
             lexeme.append((char) ch);
+            ch = nextChar(inputTape);
             if (currentChar(inputTape) == '=') {
                 code = LE;
-                ch = nextChar(inputTape);
                 lexeme.append((char) ch);
+                ch = nextChar(inputTape);
             }
         } else if (ch == '>') {
             code = GT;
             lexeme.append((char) ch);
+            ch = nextChar(inputTape);
             if (currentChar(inputTape) == '=') {
                 code = GE;
-                ch = nextChar(inputTape);
                 lexeme.append((char) ch);
+                ch = nextChar(inputTape);
             }
         // Punctuation
         } else if (ch == '.') {
             code = DOT;
             lexeme.append((char) ch);
-            if (currentChar(inputTape) == '.') {
+            ch = nextChar(inputTape);
+            if (ch == '.') {
                 code = DOT_DOT;
-                ch = nextChar(inputTape);
                 lexeme.append((char) ch);
-            } else if (isDigit(currentChar(inputTape))) {
-                // Number
                 ch = nextChar(inputTape);
+            } else if (isDigit(ch)) {
+                // Number
                 code = NUMBER;
                 do {
                     lexeme.append((char) ch);
@@ -222,24 +251,31 @@ public class FEELScanner {
         } else if (ch == '(') {
             code = PAREN_OPEN;
             lexeme.append((char) ch);
+            ch = nextChar(inputTape);
         } else if (ch == ')') {
             code = PAREN_CLOSE;
             lexeme.append((char) ch);
+            ch = nextChar(inputTape);
         } else if (ch == '[') {
             code = BRACKET_OPEN;
             lexeme.append((char) ch);
+            ch = nextChar(inputTape);
         } else if (ch == ']') {
             code = BRACKET_CLOSE;
             lexeme.append((char) ch);
+            ch = nextChar(inputTape);
         } else if (ch == '{') {
             code = BRACE_OPEN;
             lexeme.append((char) ch);
+            ch = nextChar(inputTape);
         } else if (ch == '}') {
             code = BRACE_CLOSE;
             lexeme.append((char) ch);
+            ch = nextChar(inputTape);
         } else if (ch == ':') {
             code = COLON;
             lexeme.append((char) ch);
+            ch = nextChar(inputTape);
         }
 
         return new CommonToken(code, lexeme.toString());
@@ -260,16 +296,18 @@ public class FEELScanner {
         int ch = currentChar(inputTape);
         if (ch != IntStream.EOF) {
             inputTape.consume();
+            ch = currentChar(inputTape);
         }
         return ch;
     }
 
     private void rewind(CharStream inputTape, int offset) {
-        int rewindIndex = inputTape.index() - offset;
-        if (rewindIndex > 0) {
-            inputTape.seek(rewindIndex);
+        if (offset < 0) {
+            throw new IllegalArgumentException(String.format("Offset should be positive. Got %d", offset));
+        } else if (offset == 0) {
         } else {
-            inputTape.seek(0);
+            int rewindIndex = inputTape.index() - offset;
+            inputTape.seek(rewindIndex);
         }
     }
 
@@ -286,7 +324,7 @@ public class FEELScanner {
     }
 
     private boolean isBeginLineComment(int ch) {
-        return ch == '/' && currentChar(inputTape) == '/';
+        return ch == '/' && inputTape.LA(+2) == '/';
     }
 
     private boolean isEndLineComment(int ch) {
@@ -295,11 +333,11 @@ public class FEELScanner {
     }
 
     private boolean isBeginBlockComment(int ch) {
-        return ch == '/' && currentChar(inputTape) == '*';
+        return ch == '/' && inputTape.LA(+2) == '*';
     }
 
     private boolean isEndBlockComment(int ch) {
-        return ch == '*' && currentChar(inputTape) == '/'
+        return ch == '*' && inputTape.LA(+2) == '/'
                 || ch == IntStream.EOF;
     }
 
@@ -319,7 +357,7 @@ public class FEELScanner {
     //      [\u2070-\u218F] | [\u2C00-\u2FEF] |
     //      [\u3001-\uD7FF] | [\uF900-\uFDCF] |
     //      [\uFDF0-\uFFFD] | [\u10000-\uEFFFF] ;
-    private boolean isNameStartChar(int ch) {
+    public static boolean isNameStartChar(int ch) {
         return
                 ch == '?' || in(ch, 'A', 'Z') || ch == '_' || in(ch, 'a', 'z') ||
                         in(ch, '\u00C0', '\u00D6') || in(ch, '\u00D8', '\u00F6') ||
@@ -333,17 +371,17 @@ public class FEELScanner {
     // name part char =
     //      name start char | digit | \u00B7 |
     //      [\u0300-\u036F] | [\u203F-\u2040]
-    private boolean isNamePartChar(int ch) {
+    public static boolean isNamePartChar(int ch) {
         return isNameStartChar(ch) || in(ch, '0', '9') || ch == '\u00b7' ||
                 in(ch,'\u0300', '\u036F') || in(ch, '\u203F', '\u2040');
     }
 
     // additional name symbols = "." | "/" | "-" | "’" | "+" | "*"
-    private boolean isAdditionalNameSymbols(int ch) {
+    private static boolean isAdditionalNameSymbols(int ch) {
         return ch == '.' || ch == '/' || ch == '-' || ch == '\'' || ch == '+' || ch == '*';
     }
 
-    private boolean in(int ch, int left, int right) {
+    private static boolean in(int ch, int left, int right) {
         return left <= ch && ch <= right;
     }
 }
