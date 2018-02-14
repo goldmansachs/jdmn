@@ -728,20 +728,17 @@ specific language governing permissions and limitations under the License.]]></i
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <sourceFileExcludes>
-                        <sourceFileExclude>**/target/**/*.java</sourceFileExclude>
+                        <sourceFileExclude>target/**/*.java</sourceFileExclude>
                     </sourceFileExcludes>
-
-                    <doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
-
-                    <!-- <docletPath>/path/to/UmlGraph.jar</docletPath> -->
-                    <docletArtifact>
-                        <groupId>org.umlgraph</groupId>
-                        <artifactId>doclet</artifactId>
-                        <version>5.1</version>
-                    </docletArtifact>
-                    <additionalparam>-views</additionalparam>
-                    <useStandardDocletOptions>true</useStandardDocletOptions>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
