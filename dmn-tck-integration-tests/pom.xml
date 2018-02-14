@@ -59,7 +59,7 @@
             <plugin>
                 <groupId>com.goldmansachs.jdmn</groupId>
                 <artifactId>jdmn-maven-plugin</artifactId>
-                <version>${platform.version}</version>
+                <version>${project.parent.version}</version>
                 <configuration>
                     <dmnDialect>com.gs.dmn.dialect.StandardDMNDialectDefinition</dmnDialect>
                     <dmnTransformer>com.gs.dmn.transformation.ToQuotedNameTransformer</dmnTransformer>
