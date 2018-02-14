@@ -24,6 +24,6 @@ public abstract class AbstractTckDMNToJavaTransformerTest extends AbstractDMNToJ
 
     @Override
     protected DMNTransformer makeDMNTransformer(BuildLogger logger) {
-        return new ToJavaNameTransformer(logger);
+        return new ToSimpleNameTransformer(logger);
     }
 }

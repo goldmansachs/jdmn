@@ -21,7 +21,7 @@ import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.transformation.AbstractTestTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.FileTransformer;
-import com.gs.dmn.transformation.ToJavaNameTransformer;
+import com.gs.dmn.transformation.ToSimpleNameTransformer;
 
 import java.net.URLDecoder;
 import java.nio.file.Path;
@@ -47,7 +47,7 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends Abstrac
 
     @Override
     protected DMNTransformer makeDMNTransformer(BuildLogger logger) {
-        return new ToJavaNameTransformer(logger);
+        return new ToSimpleNameTransformer(logger);
     }
 
     @Override

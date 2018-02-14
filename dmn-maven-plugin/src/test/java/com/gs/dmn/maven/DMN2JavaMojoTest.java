@@ -13,9 +13,7 @@
 package com.gs.dmn.maven;
 
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
-import com.gs.dmn.runtime.DefaultDMNBaseDecision;
-import com.gs.dmn.transformation.NopDMNTransformer;
-import com.gs.dmn.transformation.ToJavaNameTransformer;
+import com.gs.dmn.transformation.ToSimpleNameTransformer;
 import org.apache.maven.project.MavenProject;
 import org.junit.Test;
 
@@ -39,7 +37,7 @@ public class DMN2JavaMojoTest extends AbstractMojoTest {
         String input = this.getClass().getClassLoader().getResource("input/0004-lending.dmn").getFile();
         mojo.project = project;
         mojo.dmnDialect = StandardDMNDialectDefinition.class.getName();
-        mojo.dmnTransformer = ToJavaNameTransformer.class.getName();
+        mojo.dmnTransformer = ToSimpleNameTransformer.class.getName();
         mojo.inputFileDirectory = new File(input);
         mojo.outputFileDirectory = new File("target/output");
         mojo.inputParameters = makeParams();
