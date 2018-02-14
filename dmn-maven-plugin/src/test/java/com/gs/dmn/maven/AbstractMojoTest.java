@@ -18,9 +18,6 @@ import com.gs.dmn.runtime.DefaultDMNBaseDecision;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * Created by Octavian Patrascoiu on 10/05/2017.
- */
 public class AbstractMojoTest {
     protected Map<String, String> makeParams() {
         Map<String, String> map = new LinkedHashMap<>();
