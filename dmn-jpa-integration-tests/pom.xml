@@ -32,6 +32,8 @@
         <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>  <!-- not deploying this module to Maven central -->
         <maven.deploy.skip>true</maven.deploy.skip>
 
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
