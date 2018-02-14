@@ -164,6 +164,6 @@ FEEL type |	number | string	| boolean | date |	time | date and time | duration
 ```UniformJavaTimeDMNDialectDefinition``` | ```java.math.BigDecimal``` | ```java.lang.String``` | ```java.lang.Boolean``` | ```java.time.ZonedDateTime``` | ```java.time.ZonedDateTime``` | ```java.time.ZonedDateTime``` | ```javax.xml.datatype.Duration```
 ```MixedJavaTimeDMNDialectDefinition``` | ```java.math.BigDecimal``` | ```java.lang.String``` | ```java.lang.Boolean``` | ```java.time.LocalDate``` | ```java.time.OffsetTime``` | ```java.time.ZonedDateTime``` | ```javax.xml.datatype.Duration```
 
-The recommended dialect is MixedJavaTimeDMNDialectDefinition. It's a bit more faster that the others and more user friendly.
+The recommended dialect is MixedJavaTimeDMNDialectDefinition. It's a bit more faster than the others and more user friendly.
 
 
