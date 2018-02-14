@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0034-drg-scopes.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Business Knowledge Model</label>
+        <label>Literal Expression</label>
+        <label>Literal Function Invocation</label>
+        <label>Function Definition</label>
+        <label>Function Invocation</label>
+        <label>FEEL Function Literals</label>
+        <label>Context</label>
+        <label>Data Type: String</label>
+    </labels>
+    <testCase id="001">
+        <description>Tests information requirements of decisions and knowledge requirements of business knowledge models
+        </description>
+        <inputNode name="A">
+            <value>A</value>
+        </inputNode>
+        <inputNode name="B">
+            <value>B</value>
+        </inputNode>
+        <inputNode name="C">
+            <value>C</value>
+        </inputNode>
+        <resultNode name="decisionA1" type="decision">
+            <expected>
+                <component name="resolveA">
+                    <value>A</value>
+                </component>
+            </expected>
+        </resultNode>
+        <resultNode name="decisionA21" type="decision">
+            <expected>
+                <component name="resolveA1">
+                    <component name="resolveA">
+                        <value>A</value>
+                    </component>
+                </component>
+            </expected>
+        </resultNode>
+        <resultNode name="decisionA22" type="decision">
+            <expected>
+                <component name="resolveA1">
+                    <component name="resolveA">
+                        <value>A</value>
+                    </component>
+                </component>
+            </expected>
+        </resultNode>
+        <resultNode name="decisionA3" type="decision">
+            <expected>
+                <component name="resolveA21">
+                    <component name="resolveA1">
+                        <component name="resolveA">
+                            <value>A</value>
+                        </component>
+                    </component>
+                </component>
+                <component name="resolveA22">
+                    <component name="resolveA1">
+                        <component name="resolveA">
+                            <value>A</value>
+                        </component>
+                    </component>
+                </component>
+            </expected>
+        </resultNode>
+        <resultNode name="decisionB1" type="decision">
+            <expected>
+                <component name="resolveB">
+                    <value>B</value>
+                </component>
+                <component name="resolveA">
+                    <value>A</value>
+                </component>
+            </expected>
+        </resultNode>
+        <resultNode name="decisionB21" type="decision">
+            <expected>
+                <component name="resolveB1">
+                    <component name="resolveB">
+                        <value>B</value>
+                    </component>
+                    <component name="resolveA">
+                        <value>A</value>
+                    </component>
+                </component>
+            </expected>
+        </resultNode>
+        <resultNode name="decisionB22" type="decision">
+            <expected>
+                <component name="resolveB1">
+                    <component name="resolveB">
+                        <value>B</value>
+                    </component>
+                    <component name="resolveA">
+                        <value>A</value>
+                    </component>
+                </component>
+            </expected>
+        </resultNode>
+        <resultNode name="decisionB3" type="decision">
+            <expected>
+                <component name="resolveB21">
+                    <component name="resolveB1">
+                        <component name="resolveB">
+                            <value>B</value>
+                        </component>
+                        <component name="resolveA">
+                            <value>A</value>
+                        </component>
+                    </component>
+                </component>
+                <component name="resolveB22">
+                    <component name="resolveB1">
+                        <component name="resolveB">
+                            <value>B</value>
+                        </component>
+                        <component name="resolveA">
+                            <value>A</value>
+                        </component>
+                    </component>
+                </component>
+                <component name="resolveA3">
+                    <component name="resolveA21">
+                        <component name="resolveA1">
+                            <component name="resolveA">
+<value>A</value>
+                            </component>
+                        </component>
+                    </component>
+                    <component name="resolveA22">
+                        <component name="resolveA1">
+                            <component name="resolveA">
+<value>A</value>
+                            </component>
+                        </component>
+                    </component>
+                </component>
+            </expected>
+        </resultNode>
+        <resultNode name="decisionC1" type="decision">
+            <expected>
+                <component name="resolveC">
+                    <value>C</value>
+                </component>
+                <component name="resolveA3">
+                    <component name="resolveA21">
+                        <component name="resolveA1">
+                            <component name="resolveA">
+<value>A</value>
+                            </component>
+                        </component>
+                    </component>
+                    <component name="resolveA22">
+                        <component name="resolveA1">
+                            <component name="resolveA">
+<value>A</value>
+                            </component>
+                        </component>
+                    </component>
+                </component>
+                <component name="resolveB3">
+                    <component name="resolveB21">
+                        <component name="resolveB1">
+                            <component name="resolveB">
+<value>B</value>
+                            </component>
+                            <component name="resolveA">
+<value>A</value>
+                            </component>
+                        </component>
+                    </component>
+                    <component name="resolveB22">
+                        <component name="resolveB1">
+                            <component name="resolveB">
+<value>B</value>
+                            </component>
+                            <component name="resolveA">
+<value>A</value>
+                            </component>
+                        </component>
+                    </component>
+                    <component name="resolveA3">
+                        <component name="resolveA21">
+                            <component name="resolveA1">
+<component name="resolveA">
+    <value>A</value>
+</component>
+                            </component>
+                        </component>
+                        <component name="resolveA22">
+                            <component name="resolveA1">
+<component name="resolveA">
+    <value>A</value>
+</component>
+                            </component>
+                        </component>
+                    </component>
+                </component>
+            </expected>
+        </resultNode>
+        <resultNode name="decisionC2" type="decision">
+            <expected>
+                <value>BKM I # BKM II # BKM III # decision C 2 # BKM IV # BKM III # decision C 2</value>
+            </expected>
+        </resultNode>
+        <resultNode name="decisionC3" type="decision">
+            <expected>
+                <value>BKM II # BKM III # decision C 3 # BKM IV # BKM III # decision C 3</value>
+            </expected>
+        </resultNode>
+        <resultNode name="decisionC4" type="decision">
+            <expected>
+                <component name="resolveC3">
+                    <value>BKM II # BKM III # decision C 3 # BKM IV # BKM III # decision C 3</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+</testCases>

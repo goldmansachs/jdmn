@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xsi:schemaLocation="http://www.omg.org/spec/DMN/20151101/dmn.xsd http://www.omg.org/spec/DMN/20151101/dmn.xsd" id="_7X638PQIEeecaNY7kk20yA" name="0034-drg-scopes" namespace="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes">
+    <dmn:extensionElements>
+        <layout:container id="_7ZtAoPQIEeecaNY7kk20yA" name="0034-drg-scopes" type="Dmn" href="#_7X638PQIEeecaNY7kk20yA">
+            <layout:node id="_9020cPQIEeecaNY7kk20yA" type="2003" href="#_9z0SoPQIEeecaNY7kk20yA">
+                <layout:location x="90" y="20"/>
+            </layout:node>
+            <layout:node id="_AV-tYfQJEeecaNY7kk20yA" type="2003" href="#_AV-tYPQJEeecaNY7kk20yA">
+                <layout:location x="408" y="18"/>
+            </layout:node>
+            <layout:node id="_DMwGMfQJEeecaNY7kk20yA" type="2009" href="#_DMwGMPQJEeecaNY7kk20yA">
+                <layout:location x="96" y="90"/>
+            </layout:node>
+            <layout:node id="_EL7rQfQJEeecaNY7kk20yA" type="2009" href="#_EL7rQPQJEeecaNY7kk20yA">
+                <layout:location x="420" y="90"/>
+            </layout:node>
+            <layout:node id="_HQXsoPQJEeecaNY7kk20yA" type="2009" href="#_HQN7oPQJEeecaNY7kk20yA">
+                <layout:location x="6" y="192"/>
+            </layout:node>
+            <layout:node id="_HrMAYfQJEeecaNY7kk20yA" type="2009" href="#_HrMAYPQJEeecaNY7kk20yA">
+                <layout:location x="168" y="192"/>
+            </layout:node>
+            <layout:node id="_I_HtcfQJEeecaNY7kk20yA" type="2009" href="#_I_HtcPQJEeecaNY7kk20yA">
+                <layout:location x="336" y="192"/>
+            </layout:node>
+            <layout:node id="_JhYtAfQJEeecaNY7kk20yA" type="2009" href="#_JhYtAPQJEeecaNY7kk20yA">
+                <layout:location x="504" y="192"/>
+            </layout:node>
+            <layout:node id="_LGaxIPQJEeecaNY7kk20yA" type="2009" href="#_LGRAIPQJEeecaNY7kk20yA">
+                <layout:location x="96" y="300"/>
+            </layout:node>
+            <layout:node id="_Mk9LsfQJEeecaNY7kk20yA" type="2009" href="#_Mk9LsPQJEeecaNY7kk20yA">
+                <layout:location x="414" y="300"/>
+            </layout:node>
+            <layout:node id="_OWzj0fQJEeecaNY7kk20yA" type="2009" href="#_OWzj0PQJEeecaNY7kk20yA">
+                <layout:location x="252" y="395"/>
+            </layout:node>
+            <layout:node id="_TCzY4fQJEeecaNY7kk20yA" type="2010" href="#_TCzY4PQJEeecaNY7kk20yA">
+                <layout:location x="480" y="480"/>
+            </layout:node>
+            <layout:node id="_UL_1kfQJEeecaNY7kk20yA" type="2010" href="#_UL_1kPQJEeecaNY7kk20yA">
+                <layout:location x="480" y="564"/>
+            </layout:node>
+            <layout:node id="_UgthUfQJEeecaNY7kk20yA" type="2010" href="#_UgthUPQJEeecaNY7kk20yA">
+                <layout:location x="744" y="576"/>
+            </layout:node>
+            <layout:node id="_U6fTQfQJEeecaNY7kk20yA" type="2010" href="#_U6fTQPQJEeecaNY7kk20yA">
+                <layout:location x="744" y="480"/>
+            </layout:node>
+            <layout:node id="_XsZaMfQJEeecaNY7kk20yA" type="2009" href="#_XsZaMPQJEeecaNY7kk20yA">
+                <layout:location x="252" y="564"/>
+            </layout:node>
+            <layout:node id="_ZgB7APQJEeecaNY7kk20yA" type="2009" href="#_Zf4KAPQJEeecaNY7kk20yA">
+                <layout:location x="252" y="486"/>
+            </layout:node>
+            <layout:node id="_3kDvUfQJEeecaNY7kk20yA" type="2003" href="#_3kDvUPQJEeecaNY7kk20yA">
+                <layout:location x="474" y="396"/>
+            </layout:node>
+            <layout:node id="_tX_ckPQMEeecaNY7kk20yA" type="2009" href="#_tX2SoPQMEeecaNY7kk20yA">
+                <layout:location x="252" y="648"/>
+            </layout:node>
+            <layout:edge id="_FTAoEPQJEeecaNY7kk20yA" type="4001" href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_DMwGMPQJEeecaNY7kk20yA$_9z0SoPQIEeecaNY7kk20yA" source="#_9020cPQIEeecaNY7kk20yA" target="#_DMwGMfQJEeecaNY7kk20yA">
+                <layout:bendpoints points="[-10, 13, 69, -94]$[-91, 96, -12, -11]"/>
+                <layout:targetAnchor id="(0.392,0.2222222222222222)"/>
+            </layout:edge>
+            <layout:edge id="_FwjfsPQJEeecaNY7kk20yA" type="4001" href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_EL7rQPQJEeecaNY7kk20yA$_9z0SoPQIEeecaNY7kk20yA" source="#_9020cPQIEeecaNY7kk20yA" target="#_EL7rQfQJEeecaNY7kk20yA">
+                <layout:bendpoints points="[30, 13, -240, -100]$[273, 134, 3, 21]"/>
+            </layout:edge>
+            <layout:edge id="_GLXzcPQJEeecaNY7kk20yA" type="4001" href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_EL7rQPQJEeecaNY7kk20yA$_AV-tYPQJEeecaNY7kk20yA" source="#_AV-tYfQJEeecaNY7kk20yA" target="#_EL7rQfQJEeecaNY7kk20yA">
+                <layout:bendpoints points="[0, 13, -12, -84]$[0, 69, -12, -28]$[2, 74, -10, -23]"/>
+                <layout:sourceAnchor id="(0.576,0.8666666666666667)"/>
+            </layout:edge>
+            <layout:edge id="_IA8N8PQJEeecaNY7kk20yA" type="4001" href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_HQN7oPQJEeecaNY7kk20yA$_DMwGMPQJEeecaNY7kk20yA" source="#_DMwGMfQJEeecaNY7kk20yA" target="#_HQXsoPQJEeecaNY7kk20yA">
+                <layout:bendpoints points="[-16, 21, 64, -89]$[-85, 101, -5, -9]"/>
+                <layout:targetAnchor id="(0.44,0.17777777777777778)"/>
+            </layout:edge>
+            <layout:edge id="_IXvkYPQJEeecaNY7kk20yA" type="4001" href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_HrMAYPQJEeecaNY7kk20yA$_DMwGMPQJEeecaNY7kk20yA" source="#_DMwGMfQJEeecaNY7kk20yA" target="#_HrMAYfQJEeecaNY7kk20yA">
+                <layout:bendpoints points="[19, 21, -96, -104]$[99, 122, -16, -3]"/>
+                <layout:targetAnchor id="(0.128,0.3111111111111111)"/>
+            </layout:edge>
+            <layout:edge id="_KQxikPQJEeecaNY7kk20yA" type="4001" href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_I_HtcPQJEeecaNY7kk20yA$_EL7rQPQJEeecaNY7kk20yA" source="#_EL7rQfQJEeecaNY7kk20yA" target="#_I_HtcfQJEeecaNY7kk20yA">
+                <layout:bendpoints points="[6, 21, -30, -93]$[37, 135, 1, 21]"/>
+            </layout:edge>
+            <layout:edge id="_Kn3z8PQJEeecaNY7kk20yA" type="4001" href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_JhYtAPQJEeecaNY7kk20yA$_EL7rQPQJEeecaNY7kk20yA" source="#_EL7rQfQJEeecaNY7kk20yA" target="#_JhYtAfQJEeecaNY7kk20yA">
+                <layout:bendpoints points="[31, 21, -179, -93]$[148, 120, -62, 6]"/>
+            </layout:edge>
+            <layout:edge id="_LiIcwPQJEeecaNY7kk20yA" type="4001" href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_LGRAIPQJEeecaNY7kk20yA$_HQN7oPQJEeecaNY7kk20yA" source="#_HQXsoPQJEeecaNY7kk20yA" target="#_LGaxIPQJEeecaNY7kk20yA">
+                <layout:bendpoints points="[23, 21, -89, -76]$[103, 86, -9, -11]"/>
+                <layout:targetAnchor id="(0.424,0.2222222222222222)"/>
+            </layout:edge>
+            <layout:edge id="_L9BpAPQJEeecaNY7kk20yA" type="4001" href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_LGRAIPQJEeecaNY7kk20yA$_HrMAYPQJEeecaNY7kk20yA" source="#_HrMAYfQJEeecaNY7kk20yA" target="#_LGaxIPQJEeecaNY7kk20yA">
+                <layout:bendpoints points="[-10, 21, 44, -92]$[-52, 90, 2, -23]"/>
+            </layout:edge>
+            <layout:edge id="_M_VakPQJEeecaNY7kk20yA" type="4001" href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_Mk9LsPQJEeecaNY7kk20yA$_I_HtcPQJEeecaNY7kk20yA" source="#_I_HtcfQJEeecaNY7kk20yA" target="#_Mk9LsfQJEeecaNY7kk20yA">
+                <layout:bendpoints points="[19, 21, -82, -87]$[73, 97, -28, -11]"/>
+                <layout:targetAnchor id="(0.28,0.24444444444444444)"/>
+            </layout:edge>
+            <layout:edge id="_NUytMPQJEeecaNY7kk20yA" type="4001" href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_Mk9LsPQJEeecaNY7kk20yA$_JhYtAPQJEeecaNY7kk20yA" source="#_JhYtAfQJEeecaNY7kk20yA" target="#_Mk9LsfQJEeecaNY7kk20yA">
+                <layout:bendpoints points="[-4, 14, 17, -87]$[-38, 89, -17, -12]"/>
+                <layout:sourceAnchor id="(0.176,0.6444444444444445)"/>
+                <layout:targetAnchor id="(0.376,0.24444444444444444)"/>
+            </layout:edge>
+            <layout:edge id="_Oviz8PQJEeecaNY7kk20yA" type="4001" href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_OWzj0PQJEeecaNY7kk20yA$_LGRAIPQJEeecaNY7kk20yA" source="#_LGaxIPQJEeecaNY7kk20yA" target="#_OWzj0fQJEeecaNY7kk20yA">
+                <layout:bendpoints points="[38, 21, -180, -92]$[156, 104, -62, -9]"/>
+            </layout:edge>
+            <layout:edge id="_PHFxQPQJEeecaNY7kk20yA" type="4001" href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_OWzj0PQJEeecaNY7kk20yA$_Mk9LsPQJEeecaNY7kk20yA" source="#_Mk9LsfQJEeecaNY7kk20yA" target="#_OWzj0fQJEeecaNY7kk20yA">
+                <layout:bendpoints points="[-23, 21, 85, -79]$[-119, 90, -11, -10]"/>
+                <layout:targetAnchor id="(0.384,0.2)"/>
+            </layout:edge>
+            <layout:edge id="_VZVycPQJEeecaNY7kk20yA" type="4002" href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:KnowledgeRequirement$_UL_1kPQJEeecaNY7kk20yA$_U6fTQPQJEeecaNY7kk20yA" source="#_U6fTQfQJEeecaNY7kk20yA" target="#_UL_1kfQJEeecaNY7kk20yA">
+                <layout:bendpoints points="[-61, 19, 189, -56]$[-188, 70, 62, -5]"/>
+            </layout:edge>
+            <layout:edge id="_V6uBMPQJEeecaNY7kk20yA" type="4002" href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:KnowledgeRequirement$_UL_1kPQJEeecaNY7kk20yA$_UgthUPQJEeecaNY7kk20yA" source="#_UgthUfQJEeecaNY7kk20yA" target="#_UL_1kfQJEeecaNY7kk20yA">
+                <layout:bendpoints points="[-23, -4, 181, 27]$[-196, -54, 8, -23]"/>
+                <layout:sourceAnchor id="(0.184,0.7333333333333333)"/>
+            </layout:edge>
+            <layout:edge id="_WXHpUPQJEeecaNY7kk20yA" type="4002" href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:KnowledgeRequirement$_UgthUPQJEeecaNY7kk20yA$_U6fTQPQJEeecaNY7kk20yA" source="#_U6fTQfQJEeecaNY7kk20yA" target="#_UgthUfQJEeecaNY7kk20yA">
+                <layout:bendpoints points="[-3, 21, 4, -74]$[-11, 72, -4, -23]"/>
+            </layout:edge>
+            <layout:edge id="_YmDmEPQJEeecaNY7kk20yA" type="4002" href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:KnowledgeRequirement$_XsZaMPQJEeecaNY7kk20yA$_UL_1kPQJEeecaNY7kk20yA" source="#_UL_1kfQJEeecaNY7kk20yA" target="#_XsZaMfQJEeecaNY7kk20yA">
+                <layout:bendpoints points="[-54, -21, 107, 42]$[-131, -73, 30, -10]"/>
+                <layout:targetAnchor id="(0.752,0.28888888888888886)"/>
+            </layout:edge>
+            <layout:edge id="_Z4KuMPQJEeecaNY7kk20yA" type="4002" href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:KnowledgeRequirement$_Zf4KAPQJEeecaNY7kk20yA$_TCzY4PQJEeecaNY7kk20yA" source="#_TCzY4fQJEeecaNY7kk20yA" target="#_ZgB7APQJEeecaNY7kk20yA">
+                <layout:bendpoints points="[-47, -12, 69, 13]$[-54, -25, 62, 0]"/>
+                <layout:sourceAnchor id="(0.376,0.8222222222222222)"/>
+            </layout:edge>
+            <layout:edge id="_1rN-YPQJEeecaNY7kk20yA" type="4001" href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_Zf4KAPQJEeecaNY7kk20yA$_OWzj0PQJEeecaNY7kk20yA" source="#_OWzj0fQJEeecaNY7kk20yA" target="#_ZgB7APQJEeecaNY7kk20yA">
+                <layout:bendpoints points="[-4, 21, -4, -75]$[-4, 117, -4, 21]"/>
+            </layout:edge>
+            <layout:edge id="_188nkPQJEeecaNY7kk20yA" type="4001" href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_XsZaMPQJEeecaNY7kk20yA$_Zf4KAPQJEeecaNY7kk20yA" source="#_ZgB7APQJEeecaNY7kk20yA" target="#_XsZaMfQJEeecaNY7kk20yA">
+                <layout:bendpoints points="[0, 21, 0, -71]$[-1, 99, -1, 7]"/>
+                <layout:targetAnchor id="(0.496,0.8)"/>
+            </layout:edge>
+            <layout:edge id="_5XD-APQJEeecaNY7kk20yA" type="4001" href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_OWzj0PQJEeecaNY7kk20yA$_3kDvUPQJEeecaNY7kk20yA" source="#_3kDvUfQJEeecaNY7kk20yA" target="#_OWzj0fQJEeecaNY7kk20yA">
+                <layout:bendpoints points="[-21, 5, 335, -78]$[-360, 60, -4, -23]"/>
+                <layout:sourceAnchor id="(0.416,0.7666666666666667)"/>
+            </layout:edge>
+            <layout:edge id="_wqUwAPQMEeecaNY7kk20yA" type="4001" href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_tX2SoPQMEeecaNY7kk20yA$_XsZaMPQJEeecaNY7kk20yA" source="#_XsZaMfQJEeecaNY7kk20yA" target="#_tX_ckPQMEeecaNY7kk20yA">
+                <layout:bendpoints points="[5, 23, 5, -61]$[5, 107, 5, 23]"/>
+            </layout:edge>
+            <layout:edge id="_VbTSkPQPEeecaNY7kk20yA" type="4002" href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:KnowledgeRequirement$_TCzY4PQJEeecaNY7kk20yA$_UL_1kPQJEeecaNY7kk20yA" source="#_UL_1kfQJEeecaNY7kk20yA" target="#_TCzY4fQJEeecaNY7kk20yA">
+                <layout:bendpoints points="[8, -6, 4, 58]$[8, -90, 4, -26]"/>
+                <layout:sourceAnchor id="(0.464,0.1)"/>
+            </layout:edge>
+            <layout:edge id="_iZgOYPQPEeecaNY7kk20yA" type="4001" href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_Mk9LsPQJEeecaNY7kk20yA$_LGRAIPQJEeecaNY7kk20yA" source="#_LGaxIPQJEeecaNY7kk20yA" target="#_Mk9LsfQJEeecaNY7kk20yA">
+                <layout:bendpoints points="[62, -3, -256, -3]$[309, -26, -9, -26]"/>
+            </layout:edge>
+        </layout:container>
+    </dmn:extensionElements>
+    <dmn:itemDefinition id="_Vvl3APRQEeeUEfOdtC13fQ" name="TypeDecisionA1">
+        <dmn:itemComponent id="_fMLGMPRQEeeUEfOdtC13fQ" name="resolve A">
+            <dmn:typeRef>feel:string</dmn:typeRef>
+        </dmn:itemComponent>
+    </dmn:itemDefinition>
+    <dmn:itemDefinition id="_Zp-B4PRQEeeUEfOdtC13fQ" name="TypeDecisionA2.x">
+        <dmn:itemComponent id="_HRrmgPRREeeUEfOdtC13fQ" name="resolve A 1">
+            <dmn:typeRef>TypeDecisionA1</dmn:typeRef>
+        </dmn:itemComponent>
+    </dmn:itemDefinition>
+    <dmn:itemDefinition id="_cErw0PRQEeeUEfOdtC13fQ" name="TypeDecisionA3">
+        <dmn:itemComponent id="_X6vqgPRREeeUEfOdtC13fQ" name="resolve A 2.1">
+            <dmn:typeRef>TypeDecisionA2.x</dmn:typeRef>
+        </dmn:itemComponent>
+        <dmn:itemComponent id="_YDCq4PRREeeUEfOdtC13fQ" name="resolve A 2.2">
+            <dmn:typeRef>TypeDecisionA2.x</dmn:typeRef>
+        </dmn:itemComponent>
+    </dmn:itemDefinition>
+    <dmn:itemDefinition id="_dGucoPRQEeeUEfOdtC13fQ" name="TypeDecisionB1">
+        <dmn:itemComponent id="_CJ7pkPRREeeUEfOdtC13fQ" name="resolve B">
+            <dmn:typeRef>feel:string</dmn:typeRef>
+        </dmn:itemComponent>
+        <dmn:itemComponent id="_Rv7fUPRXEeeUEfOdtC13fQ" name="resolve A">
+            <dmn:typeRef>feel:string</dmn:typeRef>
+        </dmn:itemComponent>
+    </dmn:itemDefinition>
+    <dmn:itemDefinition id="_xac0gPRQEeeUEfOdtC13fQ" name="TypeDecisionB2.x">
+        <dmn:itemComponent id="_jeTNQPRREeeUEfOdtC13fQ" name="resolve B 1">
+            <dmn:typeRef>TypeDecisionB1</dmn:typeRef>
+        </dmn:itemComponent>
+    </dmn:itemDefinition>
+    <dmn:itemDefinition id="_0XWDcPRQEeeUEfOdtC13fQ" name="TypeDecisionB3">
+        <dmn:itemComponent id="_slUcIPRREeeUEfOdtC13fQ" name="resolve B 2.1">
+            <dmn:typeRef>TypeDecisionB2.x</dmn:typeRef>
+        </dmn:itemComponent>
+        <dmn:itemComponent id="_ssyWEPRREeeUEfOdtC13fQ" name="resolve B 2.2">
+            <dmn:typeRef>TypeDecisionB2.x</dmn:typeRef>
+        </dmn:itemComponent>
+        <dmn:itemComponent id="_s0jK8PRREeeUEfOdtC13fQ" name="resolve A 3">
+            <dmn:typeRef>TypeDecisionA3</dmn:typeRef>
+        </dmn:itemComponent>
+    </dmn:itemDefinition>
+    <dmn:itemDefinition id="_11IQEPRQEeeUEfOdtC13fQ" name="TypeDecisionC1">
+        <dmn:itemComponent id="_8-PyYPRREeeUEfOdtC13fQ" name="resolve C">
+            <dmn:typeRef>feel:string</dmn:typeRef>
+        </dmn:itemComponent>
+        <dmn:itemComponent id="_9kn14PRREeeUEfOdtC13fQ" name="resolve A 3">
+            <dmn:typeRef>TypeDecisionA3</dmn:typeRef>
+        </dmn:itemComponent>
+        <dmn:itemComponent id="_9u4lIPRREeeUEfOdtC13fQ" name="resolve B 3">
+            <dmn:typeRef>TypeDecisionB3</dmn:typeRef>
+        </dmn:itemComponent>
+    </dmn:itemDefinition>
+    <dmn:itemDefinition id="_5G3GkPRQEeeUEfOdtC13fQ" name="TypeDecisionC4">
+        <dmn:itemComponent id="_WmQuYPRSEeeUEfOdtC13fQ" name="resolve C 3">
+            <dmn:typeRef>feel:string</dmn:typeRef>
+        </dmn:itemComponent>
+    </dmn:itemDefinition>
+    <dmn:decision id="_DMwGMPQJEeecaNY7kk20yA" name="decision A 1">
+        <dmn:extensionElements>
+            <layout:container id="_ZsYfgPQKEeecaNY7kk20yA" name="" type="DMN_Expression" href="#_DMwGMPQJEeecaNY7kk20yA"/>
+        </dmn:extensionElements>
+        <dmn:variable id="_iX6XgfRSEeeUEfOdtC13fQ" name="decision A 1" typeRef="TypeDecisionA1"/>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#_9z0SoPQIEeecaNY7kk20yA"/>
+        </dmn:informationRequirement>
+        <dmn:context id="_a-zwsPQKEeecaNY7kk20yA">
+            <dmn:contextEntry>
+                <dmn:variable id="_bAS-d_QKEeecaNY7kk20yA" name="resolve A" typeRef="feel:string"/>
+                <dmn:literalExpression id="_bAS-ePQKEeecaNY7kk20yA">
+                    <dmn:text>A</dmn:text>
+                </dmn:literalExpression>
+            </dmn:contextEntry>
+        </dmn:context>
+    </dmn:decision>
+    <dmn:decision id="_EL7rQPQJEeecaNY7kk20yA" name="decision B 1">
+        <dmn:extensionElements>
+            <layout:container id="_3WFvUPQKEeecaNY7kk20yA" name="" type="DMN_Expression" href="#_EL7rQPQJEeecaNY7kk20yA"/>
+        </dmn:extensionElements>
+        <dmn:variable id="_Lnbz4fRTEeeUEfOdtC13fQ" name="decision B 1" typeRef="TypeDecisionB1"/>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#_9z0SoPQIEeecaNY7kk20yA"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#_AV-tYPQJEeecaNY7kk20yA"/>
+        </dmn:informationRequirement>
+        <dmn:context id="_31avoPQKEeecaNY7kk20yA">
+            <dmn:contextEntry>
+                <dmn:variable id="_3259Z_QKEeecaNY7kk20yA" name="resolve B" typeRef="feel:string"/>
+                <dmn:literalExpression id="_3259aPQKEeecaNY7kk20yA">
+                    <dmn:text>B</dmn:text>
+                </dmn:literalExpression>
+            </dmn:contextEntry>
+            <dmn:contextEntry>
+                <dmn:variable id="_OjGW8PRXEeeUEfOdtC13fQ" name="resolve A" typeRef="feel:string"/>
+                <dmn:literalExpression id="_OjGW8fRXEeeUEfOdtC13fQ">
+                    <dmn:text>A</dmn:text>
+                </dmn:literalExpression>
+            </dmn:contextEntry>
+        </dmn:context>
+    </dmn:decision>
+    <dmn:decision id="_HQN7oPQJEeecaNY7kk20yA" name="decision A 2.1">
+        <dmn:extensionElements>
+            <layout:container id="_eyKtkPQKEeecaNY7kk20yA" name="" type="DMN_Expression" href="#_HQN7oPQJEeecaNY7kk20yA"/>
+        </dmn:extensionElements>
+        <dmn:variable id="_2VW6MfROEeeUEfOdtC13fQ" name="decision A 2.1" typeRef="TypeDecisionA2.x"/>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#_DMwGMPQJEeecaNY7kk20yA"/>
+        </dmn:informationRequirement>
+        <dmn:context id="_fHePMPQKEeecaNY7kk20yA">
+            <dmn:contextEntry>
+                <dmn:variable id="_fgqLQPQKEeecaNY7kk20yA" name="resolve A 1" typeRef="TypeDecisionA1"/>
+                <dmn:literalExpression id="_fgqLQfQKEeecaNY7kk20yA">
+                    <dmn:text>decision A 1</dmn:text>
+                </dmn:literalExpression>
+            </dmn:contextEntry>
+        </dmn:context>
+    </dmn:decision>
+    <dmn:decision id="_HrMAYPQJEeecaNY7kk20yA" name="decision A 2.2">
+        <dmn:extensionElements>
+            <layout:container id="_nOMesPQKEeecaNY7kk20yA" name="" type="DMN_Expression" href="#_HrMAYPQJEeecaNY7kk20yA"/>
+        </dmn:extensionElements>
+        <dmn:variable id="_r7oJcfRSEeeUEfOdtC13fQ" name="decision A 2.2" typeRef="TypeDecisionA2.x"/>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#_DMwGMPQJEeecaNY7kk20yA"/>
+        </dmn:informationRequirement>
+        <dmn:context id="_nk2rMPQKEeecaNY7kk20yA">
+            <dmn:contextEntry>
+                <dmn:variable id="_pel0APQKEeecaNY7kk20yA" name="resolve A 1" typeRef="TypeDecisionA1"/>
+                <dmn:literalExpression id="_pel0AfQKEeecaNY7kk20yA">
+                    <dmn:text>decision A 1</dmn:text>
+                </dmn:literalExpression>
+            </dmn:contextEntry>
+        </dmn:context>
+    </dmn:decision>
+    <dmn:decision id="_I_HtcPQJEeecaNY7kk20yA" name="decision B 2.1">
+        <dmn:extensionElements>
+            <layout:container id="_51714PQKEeecaNY7kk20yA" name="" type="DMN_Expression" href="#_I_HtcPQJEeecaNY7kk20yA"/>
+        </dmn:extensionElements>
+        <dmn:variable id="_QZqMwfRTEeeUEfOdtC13fQ" name="decision B 2.1" typeRef="TypeDecisionB2.x"/>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#_EL7rQPQJEeecaNY7kk20yA"/>
+        </dmn:informationRequirement>
+        <dmn:context id="_6LkusPQKEeecaNY7kk20yA">
+            <dmn:contextEntry>
+                <dmn:variable id="_6ijrUPQKEeecaNY7kk20yA" name="resolve B 1" typeRef="TypeDecisionB1"/>
+                <dmn:literalExpression id="_6ijrUfQKEeecaNY7kk20yA">
+                    <dmn:text>decision B 1</dmn:text>
+                </dmn:literalExpression>
+            </dmn:contextEntry>
+        </dmn:context>
+    </dmn:decision>
+    <dmn:decision id="_JhYtAPQJEeecaNY7kk20yA" name="decision B 2.2">
+        <dmn:extensionElements>
+            <layout:container id="_-iazIPQKEeecaNY7kk20yA" name="" type="DMN_Expression" href="#_JhYtAPQJEeecaNY7kk20yA"/>
+        </dmn:extensionElements>
+        <dmn:variable id="_XAogwfRTEeeUEfOdtC13fQ" name="decision B 2.2" typeRef="TypeDecisionB2.x"/>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#_EL7rQPQJEeecaNY7kk20yA"/>
+        </dmn:informationRequirement>
+        <dmn:context id="_-2Y4APQKEeecaNY7kk20yA">
+            <dmn:contextEntry>
+                <dmn:variable id="__NOqsPQKEeecaNY7kk20yA" name="resolve B 1" typeRef="TypeDecisionB1"/>
+                <dmn:literalExpression id="__NOqsfQKEeecaNY7kk20yA">
+                    <dmn:text>decision B 1</dmn:text>
+                </dmn:literalExpression>
+            </dmn:contextEntry>
+        </dmn:context>
+    </dmn:decision>
+    <dmn:decision id="_LGRAIPQJEeecaNY7kk20yA" name="decision A 3">
+        <dmn:extensionElements>
+            <layout:container id="_tooykPQKEeecaNY7kk20yA" name="" type="DMN_Expression" href="#_LGRAIPQJEeecaNY7kk20yA"/>
+        </dmn:extensionElements>
+        <dmn:variable id="_42grgfRSEeeUEfOdtC13fQ" name="decision A 3" typeRef="TypeDecisionA3"/>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#_HQN7oPQJEeecaNY7kk20yA"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#_HrMAYPQJEeecaNY7kk20yA"/>
+        </dmn:informationRequirement>
+        <dmn:context id="_t-lNYPQKEeecaNY7kk20yA">
+            <dmn:contextEntry>
+                <dmn:variable id="_uV0ox_QKEeecaNY7kk20yA" name="resolve A 2.1" typeRef="TypeDecisionA2.x"/>
+                <dmn:literalExpression id="_uV0oyfQKEeecaNY7kk20yA">
+                    <dmn:text>decision A 2.1</dmn:text>
+                </dmn:literalExpression>
+            </dmn:contextEntry>
+            <dmn:contextEntry>
+                <dmn:variable id="_uUCgAPQKEeecaNY7kk20yA" name="resolve A 2.2" typeRef="TypeDecisionA2.x"/>
+                <dmn:literalExpression id="_uUCgAfQKEeecaNY7kk20yA">
+                    <dmn:text>decision A 2.2</dmn:text>
+                </dmn:literalExpression>
+            </dmn:contextEntry>
+        </dmn:context>
+    </dmn:decision>
+    <dmn:decision id="_Mk9LsPQJEeecaNY7kk20yA" name="decision B 3">
+        <dmn:extensionElements>
+            <layout:container id="_DB-usPQLEeecaNY7kk20yA" name="" type="DMN_Expression" href="#_Mk9LsPQJEeecaNY7kk20yA"/>
+        </dmn:extensionElements>
+        <dmn:variable id="_cNLeIfRTEeeUEfOdtC13fQ" name="decision B 3" typeRef="TypeDecisionB3"/>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#_I_HtcPQJEeecaNY7kk20yA"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#_JhYtAPQJEeecaNY7kk20yA"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#_LGRAIPQJEeecaNY7kk20yA"/>
+        </dmn:informationRequirement>
+        <dmn:context id="_DaII8PQLEeecaNY7kk20yA">
+            <dmn:contextEntry>
+                <dmn:variable id="_DuFmwPQLEeecaNY7kk20yA" name="resolve B 2.1" typeRef="TypeDecisionB2.x"/>
+                <dmn:literalExpression id="_DuFmwfQLEeecaNY7kk20yA">
+                    <dmn:text>decision B 2.1</dmn:text>
+                </dmn:literalExpression>
+            </dmn:contextEntry>
+            <dmn:contextEntry>
+                <dmn:variable id="_DsTeEPQLEeecaNY7kk20yA" name="resolve B 2.2" typeRef="TypeDecisionB2.x"/>
+                <dmn:literalExpression id="_DsTeEfQLEeecaNY7kk20yA">
+                    <dmn:text>decision B 2.2</dmn:text>
+                </dmn:literalExpression>
+            </dmn:contextEntry>
+            <dmn:contextEntry>
+                <dmn:variable id="_jrA5kPQPEeecaNY7kk20yA" name="resolve A 3" typeRef="TypeDecisionA3"/>
+                <dmn:literalExpression id="_jrA5kfQPEeecaNY7kk20yA">
+                    <dmn:text>decision A 3</dmn:text>
+                </dmn:literalExpression>
+            </dmn:contextEntry>
+        </dmn:context>
+    </dmn:decision>
+    <dmn:decision id="_OWzj0PQJEeecaNY7kk20yA" name="decision C 1">
+        <dmn:extensionElements>
+            <layout:container id="_LZBSIPQLEeecaNY7kk20yA" name="" type="DMN_Expression" href="#_OWzj0PQJEeecaNY7kk20yA"/>
+        </dmn:extensionElements>
+        <dmn:variable id="_tu_IAfRTEeeUEfOdtC13fQ" name="decision C 1" typeRef="TypeDecisionC1"/>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#_LGRAIPQJEeecaNY7kk20yA"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#_Mk9LsPQJEeecaNY7kk20yA"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#_3kDvUPQJEeecaNY7kk20yA"/>
+        </dmn:informationRequirement>
+        <dmn:context id="_L3HjYPQLEeecaNY7kk20yA">
+            <dmn:contextEntry>
+                <dmn:variable id="_L4mxIfQLEeecaNY7kk20yA" name="resolve C" typeRef="feel:string"/>
+                <dmn:literalExpression id="_L4mxIvQLEeecaNY7kk20yA">
+                    <dmn:text>C</dmn:text>
+                </dmn:literalExpression>
+            </dmn:contextEntry>
+            <dmn:contextEntry>
+                <dmn:variable id="_N3kYMPQLEeecaNY7kk20yA" name="resolve A 3" typeRef="TypeDecisionA3"/>
+                <dmn:literalExpression id="_N3kYMfQLEeecaNY7kk20yA">
+                    <dmn:text>decision A 3</dmn:text>
+                </dmn:literalExpression>
+            </dmn:contextEntry>
+            <dmn:contextEntry>
+                <dmn:variable id="_N1oegPQLEeecaNY7kk20yA" name="resolve B 3" typeRef="TypeDecisionB3"/>
+                <dmn:literalExpression id="_N1oegfQLEeecaNY7kk20yA">
+                    <dmn:text>decision B 3</dmn:text>
+                </dmn:literalExpression>
+            </dmn:contextEntry>
+        </dmn:context>
+    </dmn:decision>
+    <dmn:decision id="_XsZaMPQJEeecaNY7kk20yA" name="decision C 3">
+        <dmn:extensionElements>
+            <layout:container id="_s3udkPQLEeecaNY7kk20yA" name="" type="DMN_Expression" href="#_XsZaMPQJEeecaNY7kk20yA"/>
+        </dmn:extensionElements>
+        <dmn:variable id="_9uAJcfRTEeeUEfOdtC13fQ" name="decision C 3" typeRef="feel:string"/>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#_Zf4KAPQJEeecaNY7kk20yA"/>
+        </dmn:informationRequirement>
+        <dmn:knowledgeRequirement>
+            <dmn:requiredKnowledge href="#_UL_1kPQJEeecaNY7kk20yA"/>
+        </dmn:knowledgeRequirement>
+        <dmn:invocation id="_tjkP4PQLEeecaNY7kk20yA">
+            <dmn:literalExpression id="_tlgJpfQLEeecaNY7kk20yA">
+                <dmn:text>BKM II</dmn:text>
+            </dmn:literalExpression>
+            <dmn:binding>
+                <dmn:parameter id="_tlgJpvQLEeecaNY7kk20yA" name="param" typeRef="feel:string"/>
+                <dmn:literalExpression id="_tlgJp_QLEeecaNY7kk20yA">
+                    <dmn:text>&quot;decision C 3&quot;</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+        </dmn:invocation>
+    </dmn:decision>
+    <dmn:decision id="_Zf4KAPQJEeecaNY7kk20yA" name="decision C 2">
+        <dmn:extensionElements>
+            <layout:container id="_hzhwUPQLEeecaNY7kk20yA" name="" type="DMN_Expression" href="#_Zf4KAPQJEeecaNY7kk20yA"/>
+        </dmn:extensionElements>
+        <dmn:variable id="_7jmHYfRTEeeUEfOdtC13fQ" name="decision C 2" typeRef="feel:string"/>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#_OWzj0PQJEeecaNY7kk20yA"/>
+        </dmn:informationRequirement>
+        <dmn:knowledgeRequirement>
+            <dmn:requiredKnowledge href="#_TCzY4PQJEeecaNY7kk20yA"/>
+        </dmn:knowledgeRequirement>
+        <dmn:invocation id="_lUEe4PQLEeecaNY7kk20yA">
+            <dmn:literalExpression id="_lWdEifQLEeecaNY7kk20yA">
+                <dmn:text>BKM I</dmn:text>
+            </dmn:literalExpression>
+            <dmn:binding>
+                <dmn:parameter id="_lWdEivQLEeecaNY7kk20yA" name="param" typeRef="feel:string"/>
+                <dmn:literalExpression id="_lWdEi_QLEeecaNY7kk20yA">
+                    <dmn:text>&quot;decision C 2&quot;</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+        </dmn:invocation>
+    </dmn:decision>
+    <dmn:decision id="_tX2SoPQMEeecaNY7kk20yA" name="decision C 4">
+        <dmn:extensionElements>
+            <layout:container id="_1LM6MPQMEeecaNY7kk20yA" name="" type="DMN_Expression" href="#_tX2SoPQMEeecaNY7kk20yA"/>
+        </dmn:extensionElements>
+        <dmn:variable id="_B1nfEfRUEeeUEfOdtC13fQ" name="decision C 4" typeRef="TypeDecisionC4"/>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#_XsZaMPQJEeecaNY7kk20yA"/>
+        </dmn:informationRequirement>
+        <dmn:context id="_1pWOwPQMEeecaNY7kk20yA">
+            <dmn:contextEntry>
+                <dmn:variable id="_4nGZbPQMEeecaNY7kk20yA" name="resolve C 3" typeRef="feel:string"/>
+                <dmn:literalExpression id="_4nGZbvQMEeecaNY7kk20yA">
+                    <dmn:text>decision C 3</dmn:text>
+                </dmn:literalExpression>
+            </dmn:contextEntry>
+        </dmn:context>
+    </dmn:decision>
+    <dmn:businessKnowledgeModel id="_TCzY4PQJEeecaNY7kk20yA" name="BKM I">
+        <dmn:extensionElements>
+            <layout:container id="_3_-kYPQLEeecaNY7kk20yA" name="" type="DMN_Expression" href="#_TCzY4PQJEeecaNY7kk20yA"/>
+        </dmn:extensionElements>
+        <dmn:encapsulatedLogic id="_3_-kYfQLEeecaNY7kk20yA">
+            <dmn:formalParameter id="_5F-jIPQLEeecaNY7kk20yA" name="param" typeRef="feel:string"/>
+            <dmn:literalExpression id="_3_-kYvQLEeecaNY7kk20yA" typeRef="feel:string">
+                <dmn:text>&quot;BKM I&quot; + &quot; # &quot; + BKM II(param)</dmn:text>
+            </dmn:literalExpression>
+        </dmn:encapsulatedLogic>
+        <dmn:knowledgeRequirement>
+            <dmn:requiredKnowledge href="#_UL_1kPQJEeecaNY7kk20yA"/>
+        </dmn:knowledgeRequirement>
+    </dmn:businessKnowledgeModel>
+    <dmn:businessKnowledgeModel id="_UL_1kPQJEeecaNY7kk20yA" name="BKM II">
+        <dmn:extensionElements>
+            <layout:container id="_68UZsPQLEeecaNY7kk20yA" name="" type="DMN_Expression" href="#_UL_1kPQJEeecaNY7kk20yA"/>
+        </dmn:extensionElements>
+        <dmn:encapsulatedLogic id="_68UZsfQLEeecaNY7kk20yA">
+            <dmn:formalParameter id="_7lAxYPQLEeecaNY7kk20yA" name="param" typeRef="feel:string"/>
+            <dmn:literalExpression id="_68UZsvQLEeecaNY7kk20yA" typeRef="feel:string">
+                <dmn:text>&quot;BKM II&quot; + &quot; # &quot; + BKM III(param) + &quot; # &quot; + BKM IV(param)</dmn:text>
+            </dmn:literalExpression>
+        </dmn:encapsulatedLogic>
+        <dmn:knowledgeRequirement>
+            <dmn:requiredKnowledge href="#_U6fTQPQJEeecaNY7kk20yA"/>
+        </dmn:knowledgeRequirement>
+        <dmn:knowledgeRequirement>
+            <dmn:requiredKnowledge href="#_UgthUPQJEeecaNY7kk20yA"/>
+        </dmn:knowledgeRequirement>
+    </dmn:businessKnowledgeModel>
+    <dmn:businessKnowledgeModel id="_UgthUPQJEeecaNY7kk20yA" name="BKM IV">
+        <dmn:extensionElements>
+            <layout:container id="_MvwmIPQMEeecaNY7kk20yA" name="" type="DMN_Expression" href="#_UgthUPQJEeecaNY7kk20yA"/>
+        </dmn:extensionElements>
+        <dmn:encapsulatedLogic id="_MvwmIfQMEeecaNY7kk20yA">
+            <dmn:formalParameter id="_N8gGEPQMEeecaNY7kk20yA" name="param" typeRef="feel:string"/>
+            <dmn:literalExpression id="_MvwmIvQMEeecaNY7kk20yA" typeRef="feel:string">
+                <dmn:text>&quot;BKM IV&quot; + &quot; # &quot; + BKM III(param)</dmn:text>
+            </dmn:literalExpression>
+        </dmn:encapsulatedLogic>
+        <dmn:knowledgeRequirement>
+            <dmn:requiredKnowledge href="#_U6fTQPQJEeecaNY7kk20yA"/>
+        </dmn:knowledgeRequirement>
+    </dmn:businessKnowledgeModel>
+    <dmn:businessKnowledgeModel id="_U6fTQPQJEeecaNY7kk20yA" name="BKM III">
+        <dmn:extensionElements>
+            <layout:container id="_HJ1fcPQMEeecaNY7kk20yA" name="" type="DMN_Expression" href="#_U6fTQPQJEeecaNY7kk20yA"/>
+        </dmn:extensionElements>
+        <dmn:encapsulatedLogic id="_HJ1fcfQMEeecaNY7kk20yA">
+            <dmn:formalParameter id="_H52AEPQMEeecaNY7kk20yA" name="param" typeRef="feel:string"/>
+            <dmn:literalExpression id="_HJ1fcvQMEeecaNY7kk20yA" typeRef="feel:string">
+                <dmn:text>&quot;BKM III&quot; + &quot; # &quot; + param</dmn:text>
+            </dmn:literalExpression>
+        </dmn:encapsulatedLogic>
+    </dmn:businessKnowledgeModel>
+    <dmn:inputData id="_9z0SoPQIEeecaNY7kk20yA" name="A">
+        <dmn:variable id="_twf9MPROEeeUEfOdtC13fQ" name="A" typeRef="feel:string"/>
+    </dmn:inputData>
+    <dmn:inputData id="_AV-tYPQJEeecaNY7kk20yA" name="B">
+        <dmn:variable id="_vFQJofROEeeUEfOdtC13fQ" name="B" typeRef="feel:string"/>
+    </dmn:inputData>
+    <dmn:inputData id="_3kDvUPQJEeecaNY7kk20yA" name="C">
+        <dmn:variable id="_fPmDEfRPEeeUEfOdtC13fQ" name="C" typeRef="feel:string"/>
+    </dmn:inputData>
+</dmn:definitions>

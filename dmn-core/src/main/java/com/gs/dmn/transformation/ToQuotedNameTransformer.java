@@ -38,16 +38,6 @@ public class ToQuotedNameTransformer extends NameTransformer {
         }
     }
 
-    @Override
-    protected void addNameMapping(TNamedElement element, NameMappings namesMapping) {
-        if (element == null) {
-            return;
-        }
-
-        String newValue = transformName(element.getName());
-        namesMapping.put(element.getName(), newValue);
-    }
-
     private boolean isSimpleName(String name) {
         for(int i=0; i<name.length(); i++) {
             char ch = name.charAt(i);

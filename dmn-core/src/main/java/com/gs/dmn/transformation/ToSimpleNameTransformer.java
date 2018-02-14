@@ -20,23 +20,45 @@ import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.tck.TestCasesReader;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.spec.dmn._20151101.dmn.TDefinitions;
-import org.omg.spec.dmn._20151101.dmn.TNamedElement;
 
 import java.io.File;
+import java.util.*;
 
-public class ToJavaNameTransformer extends NameTransformer {
+public class ToSimpleNameTransformer extends NameTransformer {
     private int counter = 0;
+    private final NameMappings namesMapping = new NameMappings();
 
-    public ToJavaNameTransformer() {
+    public ToSimpleNameTransformer() {
         super(new Slf4jBuildLogger(LOGGER));
     }
 
-    public ToJavaNameTransformer(BuildLogger logger) {
+    public ToSimpleNameTransformer(BuildLogger logger) {
         super(logger);
     }
 
     @Override
-    public String transformName(String name) {
+    public String transformName(String oldName) {
+        String newName = namesMapping.get(oldName);
+        if (newName == null) {
+            newName = toSimpleName(oldName);
+            // Check for duplicates
+            boolean isDuplicate = false;
+            for(String key: namesMapping.keys()) {
+                if (!key.equals(oldName) && newName.equals(namesMapping.get(key))) {
+                    isDuplicate = true;
+                    break;
+                }
+            }
+            if (isDuplicate) {
+                newName = newName + "_" + ++counter;
+            }
+            namesMapping.put(oldName, newName);
+        }
+
+        return newName;
+    }
+
+    private String toSimpleName(String name) {
         if (name == null) {
             return null;
         }
@@ -57,27 +79,6 @@ public class ToJavaNameTransformer extends NameTransformer {
         return result.toString();
     }
 
-    @Override
-    protected void addNameMapping(TNamedElement element, NameMappings namesMapping) {
-        if (element == null) {
-            return;
-        }
-        String oldName = element.getName();
-        String newValue = transformName(oldName);
-        // Check for duplicates
-        boolean isDuplicate = false;
-        for(String key: namesMapping.keys()) {
-            if (!key.equals(oldName) && newValue.equals(namesMapping.get(key))) {
-                isDuplicate = true;
-                break;
-            }
-        }
-        if (isDuplicate) {
-            newValue = newValue + "_" + ++counter;
-        }
-        namesMapping.put(oldName, newValue);
-    }
-
     public static void main(String[] args) throws Exception {
         NopBuildLogger logger = new NopBuildLogger();
 
@@ -86,7 +87,7 @@ public class ToJavaNameTransformer extends NameTransformer {
 
         for(File child: inputFolder.listFiles()) {
             if (child.getName().endsWith(".dmn")) {
-                ToJavaNameTransformer cleaner = new ToJavaNameTransformer(new NopBuildLogger());
+                ToSimpleNameTransformer cleaner = new ToSimpleNameTransformer(new NopBuildLogger());
 
                 // Clean DMN
                 String dmnFileName = child.getName();
@@ -105,7 +106,7 @@ public class ToJavaNameTransformer extends NameTransformer {
         }
     }
 
-    private static TDefinitions transformDefinitions(ToJavaNameTransformer transformer, File inputFile, File outputFile, BuildLogger logger) {
+    private static TDefinitions transformDefinitions(ToSimpleNameTransformer transformer, File inputFile, File outputFile, BuildLogger logger) {
         // Read
         DMNReader reader = new DMNReader(logger, false);
         TDefinitions definitions = reader.read(inputFile);
@@ -119,7 +120,7 @@ public class ToJavaNameTransformer extends NameTransformer {
         return definitions;
     }
 
-    private static void transformTestCases(ToJavaNameTransformer transformer, TDefinitions definitions, File inputFile, File outputFile, BuildLogger logger) throws Exception {
+    private static void transformTestCases(ToSimpleNameTransformer transformer, TDefinitions definitions, File inputFile, File outputFile, BuildLogger logger) throws Exception {
         // Read
         TestCasesReader reader = new TestCasesReader(logger);
 
@@ -132,4 +133,25 @@ public class ToJavaNameTransformer extends NameTransformer {
         reader.write(testCases, outputFile, new DMNNamespacePrefixMapper());
     }
 
+}
+
+class NameMappings {
+    private final Map<String, String> mappings = new LinkedHashMap<>();
+    private List<String> orderedKeys;
+
+    public String get(String name) {
+        return mappings.get(name);
+    }
+
+    public void put(String key, String value) {
+        this.mappings.put(key, value);
+    }
+
+    public List<String> keys() {
+        return new ArrayList<>(mappings.keySet());
+    }
+
+    public List<String> values() {
+        return new ArrayList<>(mappings.values());
+    }
 }

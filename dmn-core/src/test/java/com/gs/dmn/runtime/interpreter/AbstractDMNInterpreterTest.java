@@ -24,7 +24,7 @@ import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.tck.TCKUtil;
 import com.gs.dmn.tck.TestCasesReader;
 import com.gs.dmn.transformation.DMNTransformer;
-import com.gs.dmn.transformation.ToJavaNameTransformer;
+import com.gs.dmn.transformation.ToSimpleNameTransformer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase;
@@ -59,7 +59,7 @@ public abstract class AbstractDMNInterpreterTest {
             TDefinitions definitions = reader.read(dmnFileURL);
 
             // Clean definitions
-            dmnTransformer = new ToJavaNameTransformer(LOGGER);
+            dmnTransformer = new ToSimpleNameTransformer(LOGGER);
             definitions = dmnTransformer.transform(definitions);
 
             // Set-up execution
