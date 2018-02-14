@@ -1,6 +1,20 @@
-.idea
+# Intellij files
+.idea/
 *.iml
 
+# Maven target folders
 target
 
+# Log files
 *.log
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Binary files
+*.class
