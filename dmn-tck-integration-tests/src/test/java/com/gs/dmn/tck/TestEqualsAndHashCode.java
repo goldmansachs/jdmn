@@ -21,9 +21,6 @@ import java.math.BigDecimal;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-/**
- * Created by Octavian Patrascoiu on 01/06/2017.
- */
 public class TestEqualsAndHashCode {
     @Test
     public void testEquals() {
