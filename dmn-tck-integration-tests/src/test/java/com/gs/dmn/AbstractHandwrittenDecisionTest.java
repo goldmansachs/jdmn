@@ -25,9 +25,6 @@ import java.net.URL;
 
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by Octavian Patrascoiu on 10/01/2017.
- */
 public abstract class AbstractHandwrittenDecisionTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractHandwrittenDecisionTest.class));
 

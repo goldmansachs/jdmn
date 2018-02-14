@@ -30,9 +30,6 @@ import java.math.BigDecimal;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by Octavian Patrascoiu on 16/11/2016.
- */
 public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
     private final DMNDialectDefinition dialectDefinition = new StandardDMNDialectDefinition();
     private final TotalVacationDays decision = new TotalVacationDays();

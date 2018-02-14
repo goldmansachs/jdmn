@@ -22,9 +22,6 @@ import java.math.RoundingMode;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by Octavian Patrascoiu on 24/05/2017.
- */
 public class HandwrittenMonthlyPaymentTest extends AbstractHandwrittenDecisionTest {
     private final MonthlyPayment decision = new MonthlyPayment();
 

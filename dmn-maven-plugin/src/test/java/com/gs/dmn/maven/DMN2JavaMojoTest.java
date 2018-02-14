@@ -23,9 +23,6 @@ import java.io.File;
 
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by Octavian Patrascoiu on 04/01/2017.
- */
 public class DMN2JavaMojoTest extends AbstractMojoTest {
     private final DMNToJavaMojo mojo = new DMNToJavaMojo();
     private final MavenProject project = new MavenProject();

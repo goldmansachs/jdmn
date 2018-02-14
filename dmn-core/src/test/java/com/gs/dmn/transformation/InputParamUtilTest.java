@@ -19,9 +19,6 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by braita on 26/02/2016.
- */
 public class InputParamUtilTest {
     @Test
     public void testGetRequiredParamWherePresent() {
