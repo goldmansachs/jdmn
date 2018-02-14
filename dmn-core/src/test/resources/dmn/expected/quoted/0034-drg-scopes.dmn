@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" namespace="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" name="0034-drg-scopes" id="_7X638PQIEeecaNY7kk20yA">
+    <extensionElements>
+        <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_7X638PQIEeecaNY7kk20yA" id="_7ZtAoPQIEeecaNY7kk20yA" name="0034-drg-scopes" type="Dmn">
+            <layout:node href="#_9z0SoPQIEeecaNY7kk20yA" id="_9020cPQIEeecaNY7kk20yA" type="2003">
+                <layout:location x="90" y="20"/>
+            </layout:node>
+            <layout:node href="#_AV-tYPQJEeecaNY7kk20yA" id="_AV-tYfQJEeecaNY7kk20yA" type="2003">
+                <layout:location x="408" y="18"/>
+            </layout:node>
+            <layout:node href="#_DMwGMPQJEeecaNY7kk20yA" id="_DMwGMfQJEeecaNY7kk20yA" type="2009">
+                <layout:location x="96" y="90"/>
+            </layout:node>
+            <layout:node href="#_EL7rQPQJEeecaNY7kk20yA" id="_EL7rQfQJEeecaNY7kk20yA" type="2009">
+                <layout:location x="420" y="90"/>
+            </layout:node>
+            <layout:node href="#_HQN7oPQJEeecaNY7kk20yA" id="_HQXsoPQJEeecaNY7kk20yA" type="2009">
+                <layout:location x="6" y="192"/>
+            </layout:node>
+            <layout:node href="#_HrMAYPQJEeecaNY7kk20yA" id="_HrMAYfQJEeecaNY7kk20yA" type="2009">
+                <layout:location x="168" y="192"/>
+            </layout:node>
+            <layout:node href="#_I_HtcPQJEeecaNY7kk20yA" id="_I_HtcfQJEeecaNY7kk20yA" type="2009">
+                <layout:location x="336" y="192"/>
+            </layout:node>
+            <layout:node href="#_JhYtAPQJEeecaNY7kk20yA" id="_JhYtAfQJEeecaNY7kk20yA" type="2009">
+                <layout:location x="504" y="192"/>
+            </layout:node>
+            <layout:node href="#_LGRAIPQJEeecaNY7kk20yA" id="_LGaxIPQJEeecaNY7kk20yA" type="2009">
+                <layout:location x="96" y="300"/>
+            </layout:node>
+            <layout:node href="#_Mk9LsPQJEeecaNY7kk20yA" id="_Mk9LsfQJEeecaNY7kk20yA" type="2009">
+                <layout:location x="414" y="300"/>
+            </layout:node>
+            <layout:node href="#_OWzj0PQJEeecaNY7kk20yA" id="_OWzj0fQJEeecaNY7kk20yA" type="2009">
+                <layout:location x="252" y="395"/>
+            </layout:node>
+            <layout:node href="#_TCzY4PQJEeecaNY7kk20yA" id="_TCzY4fQJEeecaNY7kk20yA" type="2010">
+                <layout:location x="480" y="480"/>
+            </layout:node>
+            <layout:node href="#_UL_1kPQJEeecaNY7kk20yA" id="_UL_1kfQJEeecaNY7kk20yA" type="2010">
+                <layout:location x="480" y="564"/>
+            </layout:node>
+            <layout:node href="#_UgthUPQJEeecaNY7kk20yA" id="_UgthUfQJEeecaNY7kk20yA" type="2010">
+                <layout:location x="744" y="576"/>
+            </layout:node>
+            <layout:node href="#_U6fTQPQJEeecaNY7kk20yA" id="_U6fTQfQJEeecaNY7kk20yA" type="2010">
+                <layout:location x="744" y="480"/>
+            </layout:node>
+            <layout:node href="#_XsZaMPQJEeecaNY7kk20yA" id="_XsZaMfQJEeecaNY7kk20yA" type="2009">
+                <layout:location x="252" y="564"/>
+            </layout:node>
+            <layout:node href="#_Zf4KAPQJEeecaNY7kk20yA" id="_ZgB7APQJEeecaNY7kk20yA" type="2009">
+                <layout:location x="252" y="486"/>
+            </layout:node>
+            <layout:node href="#_3kDvUPQJEeecaNY7kk20yA" id="_3kDvUfQJEeecaNY7kk20yA" type="2003">
+                <layout:location x="474" y="396"/>
+            </layout:node>
+            <layout:node href="#_tX2SoPQMEeecaNY7kk20yA" id="_tX_ckPQMEeecaNY7kk20yA" type="2009">
+                <layout:location x="252" y="648"/>
+            </layout:node>
+            <layout:edge href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_DMwGMPQJEeecaNY7kk20yA$_9z0SoPQIEeecaNY7kk20yA" id="_FTAoEPQJEeecaNY7kk20yA" source="#_9020cPQIEeecaNY7kk20yA" target="#_DMwGMfQJEeecaNY7kk20yA" type="4001">
+                <layout:bendpoints points="[-10, 13, 69, -94]$[-91, 96, -12, -11]"/>
+                <layout:targetAnchor id="(0.392,0.2222222222222222)"/>
+            </layout:edge>
+            <layout:edge href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_EL7rQPQJEeecaNY7kk20yA$_9z0SoPQIEeecaNY7kk20yA" id="_FwjfsPQJEeecaNY7kk20yA" source="#_9020cPQIEeecaNY7kk20yA" target="#_EL7rQfQJEeecaNY7kk20yA" type="4001">
+                <layout:bendpoints points="[30, 13, -240, -100]$[273, 134, 3, 21]"/>
+            </layout:edge>
+            <layout:edge href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_EL7rQPQJEeecaNY7kk20yA$_AV-tYPQJEeecaNY7kk20yA" id="_GLXzcPQJEeecaNY7kk20yA" source="#_AV-tYfQJEeecaNY7kk20yA" target="#_EL7rQfQJEeecaNY7kk20yA" type="4001">
+                <layout:bendpoints points="[0, 13, -12, -84]$[0, 69, -12, -28]$[2, 74, -10, -23]"/>
+                <layout:sourceAnchor id="(0.576,0.8666666666666667)"/>
+            </layout:edge>
+            <layout:edge href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_HQN7oPQJEeecaNY7kk20yA$_DMwGMPQJEeecaNY7kk20yA" id="_IA8N8PQJEeecaNY7kk20yA" source="#_DMwGMfQJEeecaNY7kk20yA" target="#_HQXsoPQJEeecaNY7kk20yA" type="4001">
+                <layout:bendpoints points="[-16, 21, 64, -89]$[-85, 101, -5, -9]"/>
+                <layout:targetAnchor id="(0.44,0.17777777777777778)"/>
+            </layout:edge>
+            <layout:edge href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_HrMAYPQJEeecaNY7kk20yA$_DMwGMPQJEeecaNY7kk20yA" id="_IXvkYPQJEeecaNY7kk20yA" source="#_DMwGMfQJEeecaNY7kk20yA" target="#_HrMAYfQJEeecaNY7kk20yA" type="4001">
+                <layout:bendpoints points="[19, 21, -96, -104]$[99, 122, -16, -3]"/>
+                <layout:targetAnchor id="(0.128,0.3111111111111111)"/>
+            </layout:edge>
+            <layout:edge href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_I_HtcPQJEeecaNY7kk20yA$_EL7rQPQJEeecaNY7kk20yA" id="_KQxikPQJEeecaNY7kk20yA" source="#_EL7rQfQJEeecaNY7kk20yA" target="#_I_HtcfQJEeecaNY7kk20yA" type="4001">
+                <layout:bendpoints points="[6, 21, -30, -93]$[37, 135, 1, 21]"/>
+            </layout:edge>
+            <layout:edge href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_JhYtAPQJEeecaNY7kk20yA$_EL7rQPQJEeecaNY7kk20yA" id="_Kn3z8PQJEeecaNY7kk20yA" source="#_EL7rQfQJEeecaNY7kk20yA" target="#_JhYtAfQJEeecaNY7kk20yA" type="4001">
+                <layout:bendpoints points="[31, 21, -179, -93]$[148, 120, -62, 6]"/>
+            </layout:edge>
+            <layout:edge href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_LGRAIPQJEeecaNY7kk20yA$_HQN7oPQJEeecaNY7kk20yA" id="_LiIcwPQJEeecaNY7kk20yA" source="#_HQXsoPQJEeecaNY7kk20yA" target="#_LGaxIPQJEeecaNY7kk20yA" type="4001">
+                <layout:bendpoints points="[23, 21, -89, -76]$[103, 86, -9, -11]"/>
+                <layout:targetAnchor id="(0.424,0.2222222222222222)"/>
+            </layout:edge>
+            <layout:edge href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_LGRAIPQJEeecaNY7kk20yA$_HrMAYPQJEeecaNY7kk20yA" id="_L9BpAPQJEeecaNY7kk20yA" source="#_HrMAYfQJEeecaNY7kk20yA" target="#_LGaxIPQJEeecaNY7kk20yA" type="4001">
+                <layout:bendpoints points="[-10, 21, 44, -92]$[-52, 90, 2, -23]"/>
+            </layout:edge>
+            <layout:edge href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_Mk9LsPQJEeecaNY7kk20yA$_I_HtcPQJEeecaNY7kk20yA" id="_M_VakPQJEeecaNY7kk20yA" source="#_I_HtcfQJEeecaNY7kk20yA" target="#_Mk9LsfQJEeecaNY7kk20yA" type="4001">
+                <layout:bendpoints points="[19, 21, -82, -87]$[73, 97, -28, -11]"/>
+                <layout:targetAnchor id="(0.28,0.24444444444444444)"/>
+            </layout:edge>
+            <layout:edge href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_Mk9LsPQJEeecaNY7kk20yA$_JhYtAPQJEeecaNY7kk20yA" id="_NUytMPQJEeecaNY7kk20yA" source="#_JhYtAfQJEeecaNY7kk20yA" target="#_Mk9LsfQJEeecaNY7kk20yA" type="4001">
+                <layout:bendpoints points="[-4, 14, 17, -87]$[-38, 89, -17, -12]"/>
+                <layout:sourceAnchor id="(0.176,0.6444444444444445)"/>
+                <layout:targetAnchor id="(0.376,0.24444444444444444)"/>
+            </layout:edge>
+            <layout:edge href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_OWzj0PQJEeecaNY7kk20yA$_LGRAIPQJEeecaNY7kk20yA" id="_Oviz8PQJEeecaNY7kk20yA" source="#_LGaxIPQJEeecaNY7kk20yA" target="#_OWzj0fQJEeecaNY7kk20yA" type="4001">
+                <layout:bendpoints points="[38, 21, -180, -92]$[156, 104, -62, -9]"/>
+            </layout:edge>
+            <layout:edge href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_OWzj0PQJEeecaNY7kk20yA$_Mk9LsPQJEeecaNY7kk20yA" id="_PHFxQPQJEeecaNY7kk20yA" source="#_Mk9LsfQJEeecaNY7kk20yA" target="#_OWzj0fQJEeecaNY7kk20yA" type="4001">
+                <layout:bendpoints points="[-23, 21, 85, -79]$[-119, 90, -11, -10]"/>
+                <layout:targetAnchor id="(0.384,0.2)"/>
+            </layout:edge>
+            <layout:edge href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:KnowledgeRequirement$_UL_1kPQJEeecaNY7kk20yA$_U6fTQPQJEeecaNY7kk20yA" id="_VZVycPQJEeecaNY7kk20yA" source="#_U6fTQfQJEeecaNY7kk20yA" target="#_UL_1kfQJEeecaNY7kk20yA" type="4002">
+                <layout:bendpoints points="[-61, 19, 189, -56]$[-188, 70, 62, -5]"/>
+            </layout:edge>
+            <layout:edge href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:KnowledgeRequirement$_UL_1kPQJEeecaNY7kk20yA$_UgthUPQJEeecaNY7kk20yA" id="_V6uBMPQJEeecaNY7kk20yA" source="#_UgthUfQJEeecaNY7kk20yA" target="#_UL_1kfQJEeecaNY7kk20yA" type="4002">
+                <layout:bendpoints points="[-23, -4, 181, 27]$[-196, -54, 8, -23]"/>
+                <layout:sourceAnchor id="(0.184,0.7333333333333333)"/>
+            </layout:edge>
+            <layout:edge href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:KnowledgeRequirement$_UgthUPQJEeecaNY7kk20yA$_U6fTQPQJEeecaNY7kk20yA" id="_WXHpUPQJEeecaNY7kk20yA" source="#_U6fTQfQJEeecaNY7kk20yA" target="#_UgthUfQJEeecaNY7kk20yA" type="4002">
+                <layout:bendpoints points="[-3, 21, 4, -74]$[-11, 72, -4, -23]"/>
+            </layout:edge>
+            <layout:edge href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:KnowledgeRequirement$_XsZaMPQJEeecaNY7kk20yA$_UL_1kPQJEeecaNY7kk20yA" id="_YmDmEPQJEeecaNY7kk20yA" source="#_UL_1kfQJEeecaNY7kk20yA" target="#_XsZaMfQJEeecaNY7kk20yA" type="4002">
+                <layout:bendpoints points="[-54, -21, 107, 42]$[-131, -73, 30, -10]"/>
+                <layout:targetAnchor id="(0.752,0.28888888888888886)"/>
+            </layout:edge>
+            <layout:edge href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:KnowledgeRequirement$_Zf4KAPQJEeecaNY7kk20yA$_TCzY4PQJEeecaNY7kk20yA" id="_Z4KuMPQJEeecaNY7kk20yA" source="#_TCzY4fQJEeecaNY7kk20yA" target="#_ZgB7APQJEeecaNY7kk20yA" type="4002">
+                <layout:bendpoints points="[-47, -12, 69, 13]$[-54, -25, 62, 0]"/>
+                <layout:sourceAnchor id="(0.376,0.8222222222222222)"/>
+            </layout:edge>
+            <layout:edge href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_Zf4KAPQJEeecaNY7kk20yA$_OWzj0PQJEeecaNY7kk20yA" id="_1rN-YPQJEeecaNY7kk20yA" source="#_OWzj0fQJEeecaNY7kk20yA" target="#_ZgB7APQJEeecaNY7kk20yA" type="4001">
+                <layout:bendpoints points="[-4, 21, -4, -75]$[-4, 117, -4, 21]"/>
+            </layout:edge>
+            <layout:edge href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_XsZaMPQJEeecaNY7kk20yA$_Zf4KAPQJEeecaNY7kk20yA" id="_188nkPQJEeecaNY7kk20yA" source="#_ZgB7APQJEeecaNY7kk20yA" target="#_XsZaMfQJEeecaNY7kk20yA" type="4001">
+                <layout:bendpoints points="[0, 21, 0, -71]$[-1, 99, -1, 7]"/>
+                <layout:targetAnchor id="(0.496,0.8)"/>
+            </layout:edge>
+            <layout:edge href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_OWzj0PQJEeecaNY7kk20yA$_3kDvUPQJEeecaNY7kk20yA" id="_5XD-APQJEeecaNY7kk20yA" source="#_3kDvUfQJEeecaNY7kk20yA" target="#_OWzj0fQJEeecaNY7kk20yA" type="4001">
+                <layout:bendpoints points="[-21, 5, 335, -78]$[-360, 60, -4, -23]"/>
+                <layout:sourceAnchor id="(0.416,0.7666666666666667)"/>
+            </layout:edge>
+            <layout:edge href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_tX2SoPQMEeecaNY7kk20yA$_XsZaMPQJEeecaNY7kk20yA" id="_wqUwAPQMEeecaNY7kk20yA" source="#_XsZaMfQJEeecaNY7kk20yA" target="#_tX_ckPQMEeecaNY7kk20yA" type="4001">
+                <layout:bendpoints points="[5, 23, 5, -61]$[5, 107, 5, 23]"/>
+            </layout:edge>
+            <layout:edge href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:KnowledgeRequirement$_TCzY4PQJEeecaNY7kk20yA$_UL_1kPQJEeecaNY7kk20yA" id="_VbTSkPQPEeecaNY7kk20yA" source="#_UL_1kfQJEeecaNY7kk20yA" target="#_TCzY4fQJEeecaNY7kk20yA" type="4002">
+                <layout:bendpoints points="[8, -6, 4, 58]$[8, -90, 4, -26]"/>
+                <layout:sourceAnchor id="(0.464,0.1)"/>
+            </layout:edge>
+            <layout:edge href="#http://www.omg.org/spec/DMN/20151101/dmn.xsd:InformationRequirement$_Mk9LsPQJEeecaNY7kk20yA$_LGRAIPQJEeecaNY7kk20yA" id="_iZgOYPQPEeecaNY7kk20yA" source="#_LGaxIPQJEeecaNY7kk20yA" target="#_Mk9LsfQJEeecaNY7kk20yA" type="4001">
+                <layout:bendpoints points="[62, -3, -256, -3]$[309, -26, -9, -26]"/>
+            </layout:edge>
+        </layout:container>
+    </extensionElements>
+    <itemDefinition name="TypeDecisionA1" id="_Vvl3APRQEeeUEfOdtC13fQ">
+        <itemComponent name="'resolve A'" id="_fMLGMPRQEeeUEfOdtC13fQ">
+            <typeRef>feel:string</typeRef>
+        </itemComponent>
+    </itemDefinition>
+    <itemDefinition name="TypeDecisionA2.x" id="_Zp-B4PRQEeeUEfOdtC13fQ">
+        <itemComponent name="'resolve A 1'" id="_HRrmgPRREeeUEfOdtC13fQ">
+            <ns5:edge xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="">TypeDecisionA1</ns5:edge>
+        </itemComponent>
+    </itemDefinition>
+    <itemDefinition name="TypeDecisionA3" id="_cErw0PRQEeeUEfOdtC13fQ">
+        <itemComponent name="'resolve A 2.1'" id="_X6vqgPRREeeUEfOdtC13fQ">
+            <ns5:edge xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="">TypeDecisionA2.x</ns5:edge>
+        </itemComponent>
+        <itemComponent name="'resolve A 2.2'" id="_YDCq4PRREeeUEfOdtC13fQ">
+            <ns5:edge xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="">TypeDecisionA2.x</ns5:edge>
+        </itemComponent>
+    </itemDefinition>
+    <itemDefinition name="TypeDecisionB1" id="_dGucoPRQEeeUEfOdtC13fQ">
+        <itemComponent name="'resolve B'" id="_CJ7pkPRREeeUEfOdtC13fQ">
+            <typeRef>feel:string</typeRef>
+        </itemComponent>
+        <itemComponent name="'resolve A'" id="_Rv7fUPRXEeeUEfOdtC13fQ">
+            <typeRef>feel:string</typeRef>
+        </itemComponent>
+    </itemDefinition>
+    <itemDefinition name="TypeDecisionB2.x" id="_xac0gPRQEeeUEfOdtC13fQ">
+        <itemComponent name="'resolve B 1'" id="_jeTNQPRREeeUEfOdtC13fQ">
+            <ns5:edge xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="">TypeDecisionB1</ns5:edge>
+        </itemComponent>
+    </itemDefinition>
+    <itemDefinition name="TypeDecisionB3" id="_0XWDcPRQEeeUEfOdtC13fQ">
+        <itemComponent name="'resolve B 2.1'" id="_slUcIPRREeeUEfOdtC13fQ">
+            <ns5:edge xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="">TypeDecisionB2.x</ns5:edge>
+        </itemComponent>
+        <itemComponent name="'resolve B 2.2'" id="_ssyWEPRREeeUEfOdtC13fQ">
+            <ns5:edge xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="">TypeDecisionB2.x</ns5:edge>
+        </itemComponent>
+        <itemComponent name="'resolve A 3'" id="_s0jK8PRREeeUEfOdtC13fQ">
+            <ns5:edge xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="">TypeDecisionA3</ns5:edge>
+        </itemComponent>
+    </itemDefinition>
+    <itemDefinition name="TypeDecisionC1" id="_11IQEPRQEeeUEfOdtC13fQ">
+        <itemComponent name="'resolve C'" id="_8-PyYPRREeeUEfOdtC13fQ">
+            <typeRef>feel:string</typeRef>
+        </itemComponent>
+        <itemComponent name="'resolve A 3'" id="_9kn14PRREeeUEfOdtC13fQ">
+            <ns5:edge xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="">TypeDecisionA3</ns5:edge>
+        </itemComponent>
+        <itemComponent name="'resolve B 3'" id="_9u4lIPRREeeUEfOdtC13fQ">
+            <ns5:edge xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="">TypeDecisionB3</ns5:edge>
+        </itemComponent>
+    </itemDefinition>
+    <itemDefinition name="TypeDecisionC4" id="_5G3GkPRQEeeUEfOdtC13fQ">
+        <itemComponent name="'resolve C 3'" id="_WmQuYPRSEeeUEfOdtC13fQ">
+            <typeRef>feel:string</typeRef>
+        </itemComponent>
+    </itemDefinition>
+    <decision name="'decision A 1'" id="_DMwGMPQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_DMwGMPQJEeecaNY7kk20yA" id="_ZsYfgPQKEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <ns5:container xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="" typeRef="TypeDecisionA1" name="'decision A 1'" id="_iX6XgfRSEeeUEfOdtC13fQ"/>
+        <informationRequirement>
+            <requiredInput href="#_9z0SoPQIEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <context id="_a-zwsPQKEeecaNY7kk20yA">
+            <contextEntry>
+                <variable typeRef="feel:string" name="'resolve A'" id="_bAS-d_QKEeecaNY7kk20yA"/>
+                <literalExpression id="_bAS-ePQKEeecaNY7kk20yA">
+                    <text>A</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+    <decision name="'decision B 1'" id="_EL7rQPQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_EL7rQPQJEeecaNY7kk20yA" id="_3WFvUPQKEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <ns5:container xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="" typeRef="TypeDecisionB1" name="'decision B 1'" id="_Lnbz4fRTEeeUEfOdtC13fQ"/>
+        <informationRequirement>
+            <requiredInput href="#_9z0SoPQIEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#_AV-tYPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <context id="_31avoPQKEeecaNY7kk20yA">
+            <contextEntry>
+                <variable typeRef="feel:string" name="'resolve B'" id="_3259Z_QKEeecaNY7kk20yA"/>
+                <literalExpression id="_3259aPQKEeecaNY7kk20yA">
+                    <text>B</text>
+                </literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable typeRef="feel:string" name="'resolve A'" id="_OjGW8PRXEeeUEfOdtC13fQ"/>
+                <literalExpression id="_OjGW8fRXEeeUEfOdtC13fQ">
+                    <text>A</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+    <decision name="'decision A 2.1'" id="_HQN7oPQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_HQN7oPQJEeecaNY7kk20yA" id="_eyKtkPQKEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <ns5:container xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="" typeRef="TypeDecisionA2.x" name="'decision A 2.1'" id="_2VW6MfROEeeUEfOdtC13fQ"/>
+        <informationRequirement>
+            <requiredDecision href="#_DMwGMPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <context id="_fHePMPQKEeecaNY7kk20yA">
+            <contextEntry>
+                <ns5:bendpoints xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="" typeRef="TypeDecisionA1" name="'resolve A 1'" id="_fgqLQPQKEeecaNY7kk20yA"/>
+                <literalExpression id="_fgqLQfQKEeecaNY7kk20yA">
+                    <text>'decision A 1'</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+    <decision name="'decision A 2.2'" id="_HrMAYPQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_HrMAYPQJEeecaNY7kk20yA" id="_nOMesPQKEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <ns5:container xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="" typeRef="TypeDecisionA2.x" name="'decision A 2.2'" id="_r7oJcfRSEeeUEfOdtC13fQ"/>
+        <informationRequirement>
+            <requiredDecision href="#_DMwGMPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <context id="_nk2rMPQKEeecaNY7kk20yA">
+            <contextEntry>
+                <ns5:bendpoints xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="" typeRef="TypeDecisionA1" name="'resolve A 1'" id="_pel0APQKEeecaNY7kk20yA"/>
+                <literalExpression id="_pel0AfQKEeecaNY7kk20yA">
+                    <text>'decision A 1'</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+    <decision name="'decision B 2.1'" id="_I_HtcPQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_I_HtcPQJEeecaNY7kk20yA" id="_51714PQKEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <ns5:container xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="" typeRef="TypeDecisionB2.x" name="'decision B 2.1'" id="_QZqMwfRTEeeUEfOdtC13fQ"/>
+        <informationRequirement>
+            <requiredDecision href="#_EL7rQPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <context id="_6LkusPQKEeecaNY7kk20yA">
+            <contextEntry>
+                <ns5:bendpoints xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="" typeRef="TypeDecisionB1" name="'resolve B 1'" id="_6ijrUPQKEeecaNY7kk20yA"/>
+                <literalExpression id="_6ijrUfQKEeecaNY7kk20yA">
+                    <text>'decision B 1'</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+    <decision name="'decision B 2.2'" id="_JhYtAPQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_JhYtAPQJEeecaNY7kk20yA" id="_-iazIPQKEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <ns5:container xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="" typeRef="TypeDecisionB2.x" name="'decision B 2.2'" id="_XAogwfRTEeeUEfOdtC13fQ"/>
+        <informationRequirement>
+            <requiredDecision href="#_EL7rQPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <context id="_-2Y4APQKEeecaNY7kk20yA">
+            <contextEntry>
+                <ns5:bendpoints xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="" typeRef="TypeDecisionB1" name="'resolve B 1'" id="__NOqsPQKEeecaNY7kk20yA"/>
+                <literalExpression id="__NOqsfQKEeecaNY7kk20yA">
+                    <text>'decision B 1'</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+    <decision name="'decision A 3'" id="_LGRAIPQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_LGRAIPQJEeecaNY7kk20yA" id="_tooykPQKEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <ns5:container xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="" typeRef="TypeDecisionA3" name="'decision A 3'" id="_42grgfRSEeeUEfOdtC13fQ"/>
+        <informationRequirement>
+            <requiredDecision href="#_HQN7oPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#_HrMAYPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <context id="_t-lNYPQKEeecaNY7kk20yA">
+            <contextEntry>
+                <ns5:bendpoints xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="" typeRef="TypeDecisionA2.x" name="'resolve A 2.1'" id="_uV0ox_QKEeecaNY7kk20yA"/>
+                <literalExpression id="_uV0oyfQKEeecaNY7kk20yA">
+                    <text>'decision A 2.1'</text>
+                </literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <ns5:bendpoints xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="" typeRef="TypeDecisionA2.x" name="'resolve A 2.2'" id="_uUCgAPQKEeecaNY7kk20yA"/>
+                <literalExpression id="_uUCgAfQKEeecaNY7kk20yA">
+                    <text>'decision A 2.2'</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+    <decision name="'decision B 3'" id="_Mk9LsPQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_Mk9LsPQJEeecaNY7kk20yA" id="_DB-usPQLEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <ns5:container xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="" typeRef="TypeDecisionB3" name="'decision B 3'" id="_cNLeIfRTEeeUEfOdtC13fQ"/>
+        <informationRequirement>
+            <requiredDecision href="#_I_HtcPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#_JhYtAPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#_LGRAIPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <context id="_DaII8PQLEeecaNY7kk20yA">
+            <contextEntry>
+                <ns5:bendpoints xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="" typeRef="TypeDecisionB2.x" name="'resolve B 2.1'" id="_DuFmwPQLEeecaNY7kk20yA"/>
+                <literalExpression id="_DuFmwfQLEeecaNY7kk20yA">
+                    <text>'decision B 2.1'</text>
+                </literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <ns5:bendpoints xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="" typeRef="TypeDecisionB2.x" name="'resolve B 2.2'" id="_DsTeEPQLEeecaNY7kk20yA"/>
+                <literalExpression id="_DsTeEfQLEeecaNY7kk20yA">
+                    <text>'decision B 2.2'</text>
+                </literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <ns5:bendpoints xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="" typeRef="TypeDecisionA3" name="'resolve A 3'" id="_jrA5kPQPEeecaNY7kk20yA"/>
+                <literalExpression id="_jrA5kfQPEeecaNY7kk20yA">
+                    <text>'decision A 3'</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+    <decision name="'decision C 1'" id="_OWzj0PQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_OWzj0PQJEeecaNY7kk20yA" id="_LZBSIPQLEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <ns5:container xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="" typeRef="TypeDecisionC1" name="'decision C 1'" id="_tu_IAfRTEeeUEfOdtC13fQ"/>
+        <informationRequirement>
+            <requiredDecision href="#_LGRAIPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#_Mk9LsPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#_3kDvUPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <context id="_L3HjYPQLEeecaNY7kk20yA">
+            <contextEntry>
+                <variable typeRef="feel:string" name="'resolve C'" id="_L4mxIfQLEeecaNY7kk20yA"/>
+                <literalExpression id="_L4mxIvQLEeecaNY7kk20yA">
+                    <text>C</text>
+                </literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <ns5:bendpoints xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="" typeRef="TypeDecisionA3" name="'resolve A 3'" id="_N3kYMPQLEeecaNY7kk20yA"/>
+                <literalExpression id="_N3kYMfQLEeecaNY7kk20yA">
+                    <text>'decision A 3'</text>
+                </literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <ns5:bendpoints xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="" typeRef="TypeDecisionB3" name="'resolve B 3'" id="_N1oegPQLEeecaNY7kk20yA"/>
+                <literalExpression id="_N1oegfQLEeecaNY7kk20yA">
+                    <text>'decision B 3'</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+    <decision name="'decision C 3'" id="_XsZaMPQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_XsZaMPQJEeecaNY7kk20yA" id="_s3udkPQLEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <variable typeRef="feel:string" name="'decision C 3'" id="_9uAJcfRTEeeUEfOdtC13fQ"/>
+        <informationRequirement>
+            <requiredDecision href="#_Zf4KAPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_UL_1kPQJEeecaNY7kk20yA"/>
+        </knowledgeRequirement>
+        <invocation id="_tjkP4PQLEeecaNY7kk20yA">
+            <literalExpression id="_tlgJpfQLEeecaNY7kk20yA">
+                <text>'BKM II'</text>
+            </literalExpression>
+            <binding>
+                <parameter typeRef="feel:string" name="param" id="_tlgJpvQLEeecaNY7kk20yA"/>
+                <literalExpression id="_tlgJp_QLEeecaNY7kk20yA">
+                    <text>"decision C 3"</text>
+                </literalExpression>
+            </binding>
+        </invocation>
+    </decision>
+    <decision name="'decision C 2'" id="_Zf4KAPQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_Zf4KAPQJEeecaNY7kk20yA" id="_hzhwUPQLEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <variable typeRef="feel:string" name="'decision C 2'" id="_7jmHYfRTEeeUEfOdtC13fQ"/>
+        <informationRequirement>
+            <requiredDecision href="#_OWzj0PQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_TCzY4PQJEeecaNY7kk20yA"/>
+        </knowledgeRequirement>
+        <invocation id="_lUEe4PQLEeecaNY7kk20yA">
+            <literalExpression id="_lWdEifQLEeecaNY7kk20yA">
+                <text>'BKM I'</text>
+            </literalExpression>
+            <binding>
+                <parameter typeRef="feel:string" name="param" id="_lWdEivQLEeecaNY7kk20yA"/>
+                <literalExpression id="_lWdEi_QLEeecaNY7kk20yA">
+                    <text>"decision C 2"</text>
+                </literalExpression>
+            </binding>
+        </invocation>
+    </decision>
+    <decision name="'decision C 4'" id="_tX2SoPQMEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_tX2SoPQMEeecaNY7kk20yA" id="_1LM6MPQMEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <ns5:container xmlns:ns5="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns="" typeRef="TypeDecisionC4" name="'decision C 4'" id="_B1nfEfRUEeeUEfOdtC13fQ"/>
+        <informationRequirement>
+            <requiredDecision href="#_XsZaMPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <context id="_1pWOwPQMEeecaNY7kk20yA">
+            <contextEntry>
+                <variable typeRef="feel:string" name="'resolve C 3'" id="_4nGZbPQMEeecaNY7kk20yA"/>
+                <literalExpression id="_4nGZbvQMEeecaNY7kk20yA">
+                    <text>'decision C 3'</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+    <businessKnowledgeModel name="'BKM I'" id="_TCzY4PQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_TCzY4PQJEeecaNY7kk20yA" id="_3_-kYPQLEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <encapsulatedLogic id="_3_-kYfQLEeecaNY7kk20yA">
+            <formalParameter typeRef="feel:string" name="param" id="_5F-jIPQLEeecaNY7kk20yA"/>
+            <literalExpression typeRef="feel:string" id="_3_-kYvQLEeecaNY7kk20yA">
+                <text>"BKM I" + " # " + 'BKM II'(param)</text>
+            </literalExpression>
+        </encapsulatedLogic>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_UL_1kPQJEeecaNY7kk20yA"/>
+        </knowledgeRequirement>
+    </businessKnowledgeModel>
+    <businessKnowledgeModel name="'BKM II'" id="_UL_1kPQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_UL_1kPQJEeecaNY7kk20yA" id="_68UZsPQLEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <encapsulatedLogic id="_68UZsfQLEeecaNY7kk20yA">
+            <formalParameter typeRef="feel:string" name="param" id="_7lAxYPQLEeecaNY7kk20yA"/>
+            <literalExpression typeRef="feel:string" id="_68UZsvQLEeecaNY7kk20yA">
+                <text>"BKM II" + " # " + 'BKM III'(param) + " # " + 'BKM IV'(param)</text>
+            </literalExpression>
+        </encapsulatedLogic>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_U6fTQPQJEeecaNY7kk20yA"/>
+        </knowledgeRequirement>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_UgthUPQJEeecaNY7kk20yA"/>
+        </knowledgeRequirement>
+    </businessKnowledgeModel>
+    <businessKnowledgeModel name="'BKM IV'" id="_UgthUPQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_UgthUPQJEeecaNY7kk20yA" id="_MvwmIPQMEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <encapsulatedLogic id="_MvwmIfQMEeecaNY7kk20yA">
+            <formalParameter typeRef="feel:string" name="param" id="_N8gGEPQMEeecaNY7kk20yA"/>
+            <literalExpression typeRef="feel:string" id="_MvwmIvQMEeecaNY7kk20yA">
+                <text>"BKM IV" + " # " + 'BKM III'(param)</text>
+            </literalExpression>
+        </encapsulatedLogic>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_U6fTQPQJEeecaNY7kk20yA"/>
+        </knowledgeRequirement>
+    </businessKnowledgeModel>
+    <businessKnowledgeModel name="'BKM III'" id="_U6fTQPQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_U6fTQPQJEeecaNY7kk20yA" id="_HJ1fcPQMEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <encapsulatedLogic id="_HJ1fcfQMEeecaNY7kk20yA">
+            <formalParameter typeRef="feel:string" name="param" id="_H52AEPQMEeecaNY7kk20yA"/>
+            <literalExpression typeRef="feel:string" id="_HJ1fcvQMEeecaNY7kk20yA">
+                <text>"BKM III" + " # " + param</text>
+            </literalExpression>
+        </encapsulatedLogic>
+    </businessKnowledgeModel>
+    <inputData name="A" id="_9z0SoPQIEeecaNY7kk20yA">
+        <variable typeRef="feel:string" name="A" id="_twf9MPROEeeUEfOdtC13fQ"/>
+    </inputData>
+    <inputData name="B" id="_AV-tYPQJEeecaNY7kk20yA">
+        <variable typeRef="feel:string" name="B" id="_vFQJofROEeeUEfOdtC13fQ"/>
+    </inputData>
+    <inputData name="C" id="_3kDvUPQJEeecaNY7kk20yA">
+        <variable typeRef="feel:string" name="C" id="_fPmDEfRPEeeUEfOdtC13fQ"/>
+    </inputData>
+</definitions>

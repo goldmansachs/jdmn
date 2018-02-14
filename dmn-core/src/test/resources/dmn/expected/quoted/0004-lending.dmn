@@ -233,7 +233,7 @@
         </knowledgeRequirement>
         <invocation>
             <literalExpression>
-                <text>''Pre-bureauRiskCategory'Table'</text>
+                <text>'Pre-bureauRiskCategoryTable'</text>
             </literalExpression>
             <binding>
                 <parameter name="ExistingCustomer" id="_a4ffd56c-aca1-4cf0-84e0-44fefecb5f48"/>
@@ -265,7 +265,7 @@
         </knowledgeRequirement>
         <invocation>
             <literalExpression>
-                <text>''Post-bureauRiskCategory'Table'</text>
+                <text>'Post-bureauRiskCategoryTable'</text>
             </literalExpression>
             <binding>
                 <parameter name="ExistingCustomer" id="_a5eee7ca-e12f-49fe-80cb-54a7a5a7912e"/>

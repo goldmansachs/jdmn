@@ -17,30 +17,32 @@ import org.junit.Test;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.spec.dmn._20151101.dmn.*;
 
-import java.util.Arrays;
-
 import static com.gs.dmn.runtime.Assert.assertEquals;
 
-public class ToJavaNameTransformerTest extends NameTransformerTest {
+public class ToSimpleNameTransformerTest extends NameTransformerTest {
     @Test
     public void testDMNTransform() throws Exception {
         doTest("0004-lending.dmn", new Pair<>("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b", "tns"),
                 "0004-lending-test-01.xml", new Pair<>("http://www.w3.org/2001/XMLSchema-instance", "xsi"));
+        doTest("0007-date-time.dmn", new Pair<>("http://www.trisotech.com/definitions/_69430b3e-17b8-430d-b760-c505bf6469f9", "tns"),
+                "0007-date-time-test-01.xml", new Pair<>("http://www.w3.org/2001/XMLSchema-instance", "xsi"));
+        doTest("0034-drg-scopes.dmn", new Pair<>("http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes", "tns"),
+                "0034-drg-scopes-test-01.xml", new Pair<>("http://www.w3.org/2001/XMLSchema-instance", "xsi"));
     }
 
     @Test
     public void testQuotedNames() {
-        ToJavaNameTransformer transformer = (ToJavaNameTransformer) getTransformer();
+        ToSimpleNameTransformer transformer = (ToSimpleNameTransformer) getTransformer();
         TDRGElement tNamedElement = makeElement("abc ? x");
         NameMappings nameMappings = new NameMappings();
 
         // Transform first name
-        transformer.addNameMapping(tNamedElement, nameMappings);
-        assertEquals(Arrays.asList("abcX"), nameMappings.values());
+        String firstName = transformer.transformName("abc ? x");
+        assertEquals("abcX", firstName);
 
         // Transform second name
-        transformer.addNameMapping(makeElement("abc?x"), nameMappings);
-        assertEquals(Arrays.asList("abcX", "abcX_1"), nameMappings.values());
+        String secondName = transformer.transformName("abc?x");
+        assertEquals("abcX_1", secondName);
 
     }
 
@@ -52,7 +54,7 @@ public class ToJavaNameTransformerTest extends NameTransformerTest {
 
     @Override
     protected DMNTransformer<TestCases> getTransformer() {
-        return new ToJavaNameTransformer(LOGGER);
+        return new ToSimpleNameTransformer(LOGGER);
     }
 
     @Override
