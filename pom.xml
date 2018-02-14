@@ -725,6 +725,9 @@ specific language governing permissions and limitations under the License.]]></i
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
+                <sourceFileExcludes>
+                    <sourceFileExclude>**/target/**/*.java</sourceFileExclude>
+                </sourceFileExcludes>
             </plugin>
 
             <plugin>
