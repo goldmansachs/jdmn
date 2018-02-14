@@ -81,6 +81,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
         <java.version>1.8</java.version>
 
         <jackson.core.version>2.8.7</jackson.core.version>
@@ -727,9 +728,15 @@ specific language governing permissions and limitations under the License.]]></i
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
-                    <sourceFileExcludes>
-                        <sourceFileExclude>target/**/*.java</sourceFileExclude>
-                    </sourceFileExcludes>
+                    <doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
+
+                    <docletArtifact>
+                        <groupId>org.umlgraph</groupId>
+                        <artifactId>doclet</artifactId>
+                        <version>5.1</version>
+                    </docletArtifact>
+                    <additionalparam>-views</additionalparam>
+                    <useStandardDocletOptions>true</useStandardDocletOptions>
                 </configuration>
                 <executions>
                     <execution>
