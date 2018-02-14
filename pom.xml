@@ -33,7 +33,7 @@
     </organization>
 
     <!--
-    Note on acceptable licenses to Apache products: https://www.apache.org/legal/resolved.html
+         Note on acceptable licenses to Apache products: https://www.apache.org/legal/resolved.html
     -->
     <licenses>
         <license>
@@ -49,6 +49,35 @@
             <organization>Goldman Sachs</organization>
         </developer>
     </developers>
+
+    <scm>
+        <url>https://github.com/goldmansachs/jdmn/</url>
+        <connection>scm:git:https://github.com/goldmansachs/jdmn.git</connection>
+        <developerConnection>scm:git:https://github.com/goldmansachs/jdmn.git</developerConnection>
+    </scm>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/goldmansachs/jdmn/issues</url>
+    </issueManagement>
+
+    <ciManagement>
+        <system>Travis CI</system>
+        <url>https://travis-ci.org/goldmansachs/jdmn</url>
+    </ciManagement>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <!--
+                <repository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+        -->
+    </distributionManagement>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -553,7 +582,6 @@ specific language governing permissions and limitations under the License.]]></i
                     <version>3.5.1</version>
                 </plugin>
 
-                <!-- Important: cbk-maven requires deploy plugin >= 2.5 (due to http://jira.codehaus.org/browse/MDEPLOY-50) -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
@@ -564,6 +592,11 @@ specific language governing permissions and limitations under the License.]]></i
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-install-plugin</artifactId>
                     <version>2.5.2</version>
+                </plugin>
+
+                <plugin>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.5.3</version>
                 </plugin>
 
                 <plugin>
@@ -636,10 +669,20 @@ specific language governing permissions and limitations under the License.]]></i
                 <artifactId>maven-jar-plugin</artifactId>
             </plugin>
 
-            <!-- Important: cbk-maven requires deploy plugin >= 2.5 (due to http://jira.codehaus.org/browse/MDEPLOY-50) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-release-plugin</artifactId>
+                <configuration>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <releaseProfiles>release</releaseProfiles>
+                    <tagNameFormat>@{project.version}</tagNameFormat>
+                    <goals>deploy</goals>
+                </configuration>
             </plugin>
 
             <plugin>
