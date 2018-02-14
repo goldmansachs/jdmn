@@ -17,9 +17,12 @@ import com.gs.dmn.runtime.annotation.AnnotationTarget;
 import com.gs.dmn.runtime.annotation.DRGElement;
 import com.gs.dmn.runtime.annotation.Rule;
 
+import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 
-public class DefaultDMNBaseDecision extends DefaultFEELLib implements AnnotationTarget {
+public class DefaultDMNBaseDecision extends DefaultFEELLib implements DMNDecision<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration>, AnnotationTarget {
     @Override
     public DRGElement getDRGElementAnnotation() {
         return this.getClass().getAnnotation(DRGElement.class);

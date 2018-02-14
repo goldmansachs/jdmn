@@ -17,9 +17,14 @@ import com.gs.dmn.runtime.annotation.AnnotationTarget;
 import com.gs.dmn.runtime.annotation.DRGElement;
 import com.gs.dmn.runtime.annotation.Rule;
 
+import javax.xml.datatype.Duration;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.OffsetTime;
+import java.time.ZonedDateTime;
 
-public class MixedJavaTimeDMNBaseDecision extends MixedJavaTimeFEELLib implements AnnotationTarget{
+public class MixedJavaTimeDMNBaseDecision extends MixedJavaTimeFEELLib implements DMNDecision<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration>, AnnotationTarget{
     @Override
     public DRGElement getDRGElementAnnotation() {
         return this.getClass().getAnnotation(DRGElement.class);

@@ -17,9 +17,13 @@ import com.gs.dmn.runtime.annotation.AnnotationTarget;
 import com.gs.dmn.runtime.annotation.DRGElement;
 import com.gs.dmn.runtime.annotation.Rule;
 
+import javax.xml.datatype.Duration;
 import java.lang.reflect.Method;
+import java.time.LocalDate;
+import java.time.OffsetTime;
+import java.time.ZonedDateTime;
 
-public class DoubleMixedJavaTimeDMNBaseDecision extends DoubleMixedJavaTimeFEELLib implements AnnotationTarget{
+public class DoubleMixedJavaTimeDMNBaseDecision extends DoubleMixedJavaTimeFEELLib implements DMNDecision<Double, LocalDate, OffsetTime, ZonedDateTime, Duration>, AnnotationTarget{
     @Override
     public DRGElement getDRGElementAnnotation() {
         return this.getClass().getAnnotation(DRGElement.class);
