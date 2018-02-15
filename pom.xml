@@ -102,9 +102,10 @@
     <modules>
         <module>dmn-core</module>
         <module>dmn-maven-plugin</module>
+
         <module>dmn-tck-integration-tests</module>
-        <module>dmn-jpa-integration-tests</module>
         <module>dmn-reladomo-integration-tests</module>
+        <module>dmn-jpa-integration-tests</module>
     </modules>
 
     <profiles>
