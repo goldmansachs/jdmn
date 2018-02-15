@@ -25,6 +25,7 @@
 
     <name>jDMN: Parent</name>
     <description>jDMN is a framework to provide support for DMN execution</description>
+    <url>https://github.com/goldmansachs/jdmn/</url>
     <inceptionYear>2016</inceptionYear>
 
     <organization>
