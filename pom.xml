@@ -71,12 +71,10 @@
             <id>ossrh</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
-        <!--
-                <repository>
-                    <id>ossrh</id>
-                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-                </repository>
-        -->
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
     </distributionManagement>
 
     <properties>
@@ -435,11 +433,11 @@ specific language governing permissions and limitations under the License.]]></i
             </dependency>
 
             <dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>4.12</version>
-				<scope>test</scope>
-			</dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+                <scope>test</scope>
+            </dependency>
 
             <dependency>
                 <groupId>org.skyscreamer</groupId>
@@ -650,6 +648,7 @@ specific language governing permissions and limitations under the License.]]></i
                 </plugin>
 
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
                     <version>2.5.3</version>
                 </plugin>
@@ -779,6 +778,6 @@ specific language governing permissions and limitations under the License.]]></i
                 <artifactId>apache-rat-plugin</artifactId>
                 <version>0.12</version>
             </plugin>
-       </plugins>
+        </plugins>
     </reporting>
 </project>
