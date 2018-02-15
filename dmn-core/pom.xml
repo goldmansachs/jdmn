@@ -184,6 +184,7 @@
                             <clearOutputDir>false</clearOutputDir>
                             <noPackageLevelAnnotations>false</noPackageLevelAnnotations>
                             <packageName>org.omg.spec.dmn._20151101.dmn</packageName>
+                            <encoding>UTF-8</encoding>
                         </configuration>
                         <goals>
                             <goal>xjc</goal>
