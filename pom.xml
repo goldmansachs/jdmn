@@ -192,7 +192,8 @@ specific language governing permissions and limitations under the License.]]></i
                                 <exclude>**/*.md</exclude>
                                 <exclude>**/LICENSE.txt</exclude>
                                 <exclude>**/NOTICE.txt</exclude>
-
+                                <exclude>**/.travis.yml</exclude>
+                                
                                 <!-- Excluding the resources  -->
                                 <exclude>**/test/resources/**</exclude>
                                 <exclude>**/main/resources/**</exclude>
