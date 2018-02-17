@@ -10,6 +10,13 @@ jDMN provides support for execution of decision specified in DMN. The decisions 
 
 ## FAQs
 
+#### 
+
+## Acquiring Obevo
+
+* [Releases](https://github.com/goldmansachs/jdmn/releases)
+* [Maven Central](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.goldmansachs.jdmn%22)
+
 #### How to generate Java code DMN?
 1. Edit the diagram using a DMN editor 
 2. Create a Maven project
@@ -21,7 +28,7 @@ jDMN provides support for execution of decision specified in DMN. The decisions 
         <artifactId>dmn-maven-plugin</artifactId>
         <version>VERSION</version>
         <executions>
-     <execution>
+            <execution>
                 <id>DIAGRAM_NAME</id>
                 <phase>generate-sources</phase>
                 <goals>
