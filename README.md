@@ -8,7 +8,7 @@ jDMN provides support for execution of decision specified in DMN. The decisions 
 * CL3 compliance.
 * DMN / FEEL interpreter and translator to Java.
 
-## Acquiring Obevo
+## Acquiring jDMN
 * [Releases](https://github.com/goldmansachs/jdmn/releases)
 * [Maven Central](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.goldmansachs.jdmn%22)
 
