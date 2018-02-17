@@ -21,7 +21,7 @@
     <parent>
         <groupId>com.goldmansachs.jdmn</groupId>
         <artifactId>jdmn-parent</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>jdmn-tck-integration-tests</artifactId>
