@@ -14,9 +14,9 @@
 
 ## Conferences
 
-[DecisionCAMP 2018](https://decisioncamp2018.wordpress.com/)
-[DecisionCAMP 2017](http://2017.ruleml-rr.org/decisioncamp-2017/)
-[DecisionCAMP 2016](http://2016.ruleml.org/decisioncamp)
+* [DecisionCAMP 2018](https://decisioncamp2018.wordpress.com/)
+* [DecisionCAMP 2017](http://2017.ruleml-rr.org/decisioncamp-2017/)
+* [DecisionCAMP 2016](http://2016.ruleml.org/decisioncamp)
 
 ## Resources
 
