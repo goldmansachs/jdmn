@@ -20,7 +20,7 @@
 		<label>Data Type: Structure</label>
 	</labels>
 	<testCase id="001">
-		<inputNode name="ApplicantData" type="inputData">
+		<inputNode name="ApplicantData">
 			<component name="Monthly">
 				<component name="Income">
 					<value>6000</value>
@@ -45,7 +45,7 @@
 				<value>EMPLOYED</value>
 			</component>
 		</inputNode>
-		<inputNode name="RequestedProduct" type="inputData">
+		<inputNode name="RequestedProduct">
 			<component name="ProductType">
 				<value>STANDARD LOAN</value>
 			</component>
@@ -59,7 +59,7 @@
 				<value>360</value>
 			</component>
 		</inputNode>
-		<inputNode name="BureauData" type="inputData">
+		<inputNode name="BureauData">
 			<component name="CreditScore">
 				<value>649</value>
 			</component>
@@ -67,7 +67,7 @@
 				<value>false</value>
 			</component>
 		</inputNode>
-		<inputNode name="SupportingDocuments" type="inputData">
+		<inputNode name="SupportingDocuments">
 			<value>YES</value>
 		</inputNode>
         <resultNode name="Adjudication" type="decision">

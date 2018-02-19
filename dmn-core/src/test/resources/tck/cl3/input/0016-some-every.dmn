@@ -96,10 +96,10 @@
 	<businessKnowledgeModel id="_d59cc17d-7f21-4706-8d10-47f7ee297b15" name="gtTen">
 		<encapsulatedLogic>
 			<formalParameter name="theNumber" typeRef="feel:number"/>
-			<literalExpression>
+			<literalExpression typeRef="feel:boolean">
 				<text>theNumber &gt; 10</text>
 			</literalExpression>
 		</encapsulatedLogic>
-		<variable name="gtTen" typeRef="feel:boolean"/>
+		<variable name="gtTen" />
 	</businessKnowledgeModel>
 </definitions>

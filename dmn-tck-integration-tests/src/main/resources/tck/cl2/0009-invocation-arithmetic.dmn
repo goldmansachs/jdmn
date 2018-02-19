@@ -31,11 +31,11 @@
 			<formalParameter name="p" typeRef="feel:number"/>
 			<formalParameter name="r" typeRef="feel:number"/>
 			<formalParameter name="n" typeRef="feel:number"/>
-			<literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+			<literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401" typeRef="feel:number">
 				<text>(p*r/12)/(1-(1+r/12)**-n)</text>
 			</literalExpression>
 		</encapsulatedLogic>
-		<variable name="PMT" typeRef="feel:number"/>
+		<variable name="PMT" />
 	</businessKnowledgeModel>
 	<inputData id="i_Loan" name="Loan">
 		<variable name="Loan" typeRef="tns:tLoan"/>

@@ -64,7 +64,7 @@
 			<contextEntry>
 				<variable name="fromDateTime" typeRef="feel:date"/>
 				<literalExpression>
-					<text>date(DateTime)</text>
+					<text>date(Date-Time)</text>
 				</literalExpression>
 			</contextEntry>
 			<contextEntry>
@@ -75,8 +75,8 @@
 			</contextEntry>
 		</context>
 	</decision>
-	<decision id="_dfbb843a-bd34-4099-b700-0d9ca5b38d6a" name="DateTime">
-		<variable name="DateTime" typeRef="feel:dateTime"/>
+	<decision id="_dfbb843a-bd34-4099-b700-0d9ca5b38d6a" name="Date-Time">
+		<variable name="Date-Time" typeRef="feel:dateTime"/>
 		<informationRequirement>
 			<requiredInput href="#_c796f29d-d800-4239-b9f6-d4d72f77b183"/>
 		</informationRequirement>
@@ -102,8 +102,8 @@
 	<inputData id="_ec0d9542-257d-401b-ac6b-ce927014cf25" name="Day">
 		<variable name="Day" typeRef="feel:number"/>
 	</inputData>
-	<decision id="_7df22028-4b5b-4594-89c7-a80b8aec526f" name="DateTime2">
-		<variable name="DateTime2" typeRef="feel:dateTime"/>
+	<decision id="_7df22028-4b5b-4594-89c7-a80b8aec526f" name="Date-Time2">
+		<variable name="Date-Time2" typeRef="feel:dateTime"/>
 		<informationRequirement>
 			<requiredDecision href="#_bd547a08-c157-47ca-84d4-ac6f3d5bdeda"/>
 		</informationRequirement>
@@ -120,7 +120,7 @@
 			<requiredDecision href="#_7df22028-4b5b-4594-89c7-a80b8aec526f"/>
 		</informationRequirement>
 		<literalExpression>
-			<text>time(DateTime2)</text>
+			<text>time(Date-Time2)</text>
 		</literalExpression>
 	</decision>
 	<inputData id="_c796f29d-d800-4239-b9f6-d4d72f77b183" name="dateTimeString">
@@ -177,7 +177,7 @@
 			<requiredDecision href="#_dfbb843a-bd34-4099-b700-0d9ca5b38d6a"/>
 		</informationRequirement>
 		<literalExpression>
-			<text>DateTime - DateTime2</text>
+			<text>Date-Time - Date-Time2</text>
 		</literalExpression>
 	</decision>
 	<inputData id="_d96a8f03-5cee-42ca-8646-4383ad5ecee2" name="oneHour">
@@ -204,7 +204,7 @@
 			<requiredDecision href="#_dfbb843a-bd34-4099-b700-0d9ca5b38d6a"/>
 		</informationRequirement>
 		<literalExpression>
-			<text>years and months duration(DateTime2,DateTime)</text>
+			<text>years and months duration(Date-Time2,Date-Time)</text>
 		</literalExpression>
 	</decision>
 	<decision id="_04c6bedc-bc63-464f-8e61-c039d24a47bf" name="cDay">
@@ -240,7 +240,7 @@
 			<requiredDecision href="#_7df22028-4b5b-4594-89c7-a80b8aec526f"/>
 		</informationRequirement>
 		<literalExpression>
-			<text>DateTime2.hour</text>
+			<text>Date-Time2.hour</text>
 		</literalExpression>
 	</decision>
 	<decision id="_6836a944-7f7b-4c98-8a7a-a573494110fd" name="cMinute">
@@ -249,7 +249,7 @@
 			<requiredDecision href="#_7df22028-4b5b-4594-89c7-a80b8aec526f"/>
 		</informationRequirement>
 		<literalExpression>
-			<text>DateTime2.minute</text>
+			<text>Date-Time2.minute</text>
 		</literalExpression>
 	</decision>
 	<decision id="_4af88a8f-92e4-4f2d-bde1-e8a36b27e5bf" name="cSecond">
@@ -258,7 +258,7 @@
 			<requiredDecision href="#_7df22028-4b5b-4594-89c7-a80b8aec526f"/>
 		</informationRequirement>
 		<literalExpression>
-			<text>DateTime2.second</text>
+			<text>Date-Time2.second</text>
 		</literalExpression>
 	</decision>
 	<decision id="_81f97dd0-29ea-4bab-9540-b70a2fdf8ff3" name="cOffset">
@@ -267,7 +267,7 @@
 			<requiredDecision href="#_7df22028-4b5b-4594-89c7-a80b8aec526f"/>
 		</informationRequirement>
 		<literalExpression>
-			<text>DateTime2.time offset</text>
+			<text>Date-Time2.time offset</text>
 		</literalExpression>
 	</decision>
 	<decision id="_91fb395d-8173-4ed3-95f7-f790bd3967ab" name="years">

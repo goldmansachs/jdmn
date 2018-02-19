@@ -32,11 +32,11 @@
     <businessKnowledgeModel id="b_PMT2" name="PMT2">
         <encapsulatedLogic>
             <formalParameter name="loan" typeRef="tns:tLoan" />
-            <literalExpression>
+            <literalExpression typeRef="feel:number" >
                 <text>(loan.amount * loan.rate/12)/(1-(1+loan.rate/12)**-loan.term)</text>
             </literalExpression>
         </encapsulatedLogic>
-        <variable name="PMT2" typeRef="feel:number" />
+        <variable name="PMT2" />
     </businessKnowledgeModel>
     <inputData id="i_Loans" name="Loans">
         <variable name="Loans" typeRef="tns:tLoanList" />

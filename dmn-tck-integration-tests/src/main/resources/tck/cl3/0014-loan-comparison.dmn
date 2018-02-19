@@ -264,7 +264,7 @@
 		<encapsulatedLogic>
 			<formalParameter name="product" typeRef="tns:tLoanProduct"/>
 			<formalParameter name="requestedAmt" typeRef="feel:number"/>
-			<context>
+			<context typeRef="tns:tMetric">
 				<contextEntry>
 					<variable name="lenderName" typeRef="feel:string"/>
 					<literalExpression>
@@ -315,7 +315,7 @@
 				</contextEntry>
 			</context>
 		</encapsulatedLogic>
-		<variable name="FinancialMetrics" typeRef="tns:tMetric"/>
+		<variable name="FinancialMetrics" />
 		<knowledgeRequirement>
 			<requiredKnowledge href="#_8702e1b6-213b-4f75-bf56-99ac3835cde7"/>
 		</knowledgeRequirement>
@@ -328,11 +328,11 @@
 			<formalParameter name="p" typeRef="feel:number"/>
 			<formalParameter name="r" typeRef="feel:number"/>
 			<formalParameter name="n" typeRef="feel:number"/>
-			<literalExpression>
+			<literalExpression typeRef="feel:number">
 				<text>p*r/12/(1-(1+r/12)**-n)</text>
 			</literalExpression>
 		</encapsulatedLogic>
-		<variable name="monthlyPayment" typeRef="feel:number"/>
+		<variable name="monthlyPayment" />
 	</businessKnowledgeModel>
 	<businessKnowledgeModel id="_daec318a-135b-4d54-9e7f-85af3aa662f7" name="equity36Mo">
 		<encapsulatedLogic>
@@ -340,10 +340,10 @@
 			<formalParameter name="r" typeRef="feel:number"/>
 			<formalParameter name="n" typeRef="feel:number"/>
 			<formalParameter name="pmt" typeRef="feel:number"/>
-			<literalExpression>
+			<literalExpression typeRef="feel:number">
 				<text>p*(1+r/12)**n - pmt*(-1+(1+r/12)**n)/r</text>
 			</literalExpression>
 		</encapsulatedLogic>
-		<variable name="equity36Mo" typeRef="feel:number"/>
+		<variable name="equity36Mo" />
 	</businessKnowledgeModel>
 </definitions>
