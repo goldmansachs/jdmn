@@ -443,15 +443,45 @@ public class DMNModelRepository {
             typeRef = ((TInformationItem) element).getTypeRef();
         }
         if (typeRef == null) {
+            // Derive from variable
             TInformationItem variable = variable(element);
             if (variable != null) {
                 typeRef = variable.getTypeRef();
             }
         }
         if (typeRef == null) {
+            // Derive from expression
             TExpression expression = expression(element);
             if (expression != null) {
                 typeRef = expression.getTypeRef();
+                if (typeRef == null) {
+                    if (expression instanceof TContext) {
+                        // Derive from return entry
+                        List<TContextEntry> contextEntryList = ((TContext) expression).getContextEntry();
+                        for(TContextEntry ce: contextEntryList) {
+                            if (ce.getVariable() == null) {
+                                JAXBElement<? extends TExpression> returnElement = ce.getExpression();
+                                if (returnElement != null) {
+                                    typeRef = returnElement.getValue().getTypeRef();
+                                }
+                            }
+                        }
+                    } else if (expression instanceof TDecisionTable) {
+                        // Derive from output clause
+                        List<TOutputClause> outputList = ((TDecisionTable) expression).getOutput();
+                        if (outputList.size() == 1) {
+                            typeRef = outputList.get(0).getTypeRef();
+                            if (typeRef == null) {
+                                // Derive from rules
+                                if (typeRef == null) {
+                                    List<TDecisionRule> ruleList = ((TDecisionTable) expression).getRule();
+                                    List<TLiteralExpression> outputEntry = ruleList.get(0).getOutputEntry();
+                                    typeRef = outputEntry.get(0).getTypeRef();
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
         if (typeRef == null) {
