@@ -98,7 +98,7 @@
 	<decision id="d_BureauCallType" name="BureauCallType">
 		<variable name="BureauCallType" typeRef="tns:tBureauCallType"/>
 		<informationRequirement>
-			<requiredDecision href="#d_PreBureauRiskCategory"/>
+			<requiredDecision href="#d_Pre-bureauRiskCategory"/>
 		</informationRequirement>
 		<knowledgeRequirement>
 			<requiredKnowledge href="#b_BureauCallTypeTable"/>
@@ -108,9 +108,9 @@
 				<text>BureauCallTypeTable</text>
 			</literalExpression>
 			<binding>
-				<parameter id="_65deeb90-626c-4cce-9485-eae9455b2194" name="PreBureauRiskCategory"/>
+				<parameter id="_65deeb90-626c-4cce-9485-eae9455b2194" name="Pre-bureauRiskCategory"/>
 				<literalExpression>
-					<text>PreBureauRiskCategory</text>
+					<text>Pre-bureauRiskCategory</text>
 				</literalExpression>
 			</binding>
 		</invocation>
@@ -185,10 +185,10 @@
 	<decision id="d_Eligibility" name="Eligibility">
 		<variable name="Eligibility" typeRef="tns:tEligibility"/>
 		<informationRequirement>
-			<requiredDecision href="#d_PreBureauAffordability"/>
+			<requiredDecision href="#d_Pre-bureauAffordability"/>
 		</informationRequirement>
 		<informationRequirement>
-			<requiredDecision href="#d_PreBureauRiskCategory"/>
+			<requiredDecision href="#d_Pre-bureauRiskCategory"/>
 		</informationRequirement>
 		<informationRequirement>
 			<requiredInput href="#i_ApplicantData"/>
@@ -201,15 +201,15 @@
 				<text>EligibilityRules</text>
 			</literalExpression>
 			<binding>
-				<parameter id="_83d27025-44c2-4bb2-8747-ae3d40e97f25" name="PreBureauAffordability"/>
+				<parameter id="_83d27025-44c2-4bb2-8747-ae3d40e97f25" name="Pre-bureauAffordability"/>
 				<literalExpression>
-					<text>PreBureauAffordability</text>
+					<text>Pre-bureauAffordability</text>
 				</literalExpression>
 			</binding>
 			<binding>
-				<parameter id="_b5fe2d0c-1d71-4c98-b0c6-a821b854ffc4" name="PreBureauRiskCategory"/>
+				<parameter id="_b5fe2d0c-1d71-4c98-b0c6-a821b854ffc4" name="Pre-bureauRiskCategory"/>
 				<literalExpression>
-					<text>PreBureauRiskCategory</text>
+					<text>Pre-bureauRiskCategory</text>
 				</literalExpression>
 			</binding>
 			<binding>
@@ -220,8 +220,8 @@
 			</binding>
 		</invocation>
 	</decision>
-	<decision id="d_PreBureauRiskCategory" name="PreBureauRiskCategory">
-		<variable name="PreBureauRiskCategory" typeRef="tns:tRiskCategory"/>
+	<decision id="d_Pre-bureauRiskCategory" name="Pre-bureauRiskCategory">
+		<variable name="Pre-bureauRiskCategory" typeRef="tns:tRiskCategory"/>
 		<informationRequirement>
 			<requiredDecision href="#d_ApplicationRiskScore"/>
 		</informationRequirement>
@@ -229,11 +229,11 @@
 			<requiredInput href="#i_ApplicantData"/>
 		</informationRequirement>
 		<knowledgeRequirement>
-			<requiredKnowledge href="#b_PreBureauRiskCategoryTable"/>
+			<requiredKnowledge href="#b_Pre-bureauRiskCategoryTable"/>
 		</knowledgeRequirement>
 		<invocation>
 			<literalExpression>
-				<text>PreBureauRiskCategoryTable</text>
+				<text>Pre-bureauRiskCategoryTable</text>
 			</literalExpression>
 			<binding>
 				<parameter id="_a4ffd56c-aca1-4cf0-84e0-44fefecb5f48" name="ExistingCustomer"/>
@@ -249,8 +249,8 @@
 			</binding>
 		</invocation>
 	</decision>
-	<decision id="d_PostBureauRiskCategory" name="PostBureauRiskCategory">
-		<variable name="PostBureauRiskCategory" typeRef="tns:tRiskCategory"/>
+	<decision id="d_Post-bureauRiskCategory" name="Post-bureauRiskCategory">
+		<variable name="Post-bureauRiskCategory" typeRef="tns:tRiskCategory"/>
 		<informationRequirement>
 			<requiredDecision href="#d_ApplicationRiskScore"/>
 		</informationRequirement>
@@ -261,11 +261,11 @@
 			<requiredInput href="#i_ApplicantData"/>
 		</informationRequirement>
 		<knowledgeRequirement>
-			<requiredKnowledge href="#b_PostBureauRiskCategoryTable"/>
+			<requiredKnowledge href="#b_Post-bureauRiskCategoryTable"/>
 		</knowledgeRequirement>
 		<invocation>
 			<literalExpression>
-				<text>PostBureauRiskCategoryTable</text>
+				<text>Post-bureauRiskCategoryTable</text>
 			</literalExpression>
 			<binding>
 				<parameter id="_a5eee7ca-e12f-49fe-80cb-54a7a5a7912e" name="ExistingCustomer"/>
@@ -319,13 +319,13 @@
 			</binding>
 		</invocation>
 	</decision>
-	<decision id="d_PreBureauAffordability" name="PreBureauAffordability">
-		<variable name="PreBureauAffordability" typeRef="feel:boolean"/>
+	<decision id="d_Pre-bureauAffordability" name="Pre-bureauAffordability">
+		<variable name="Pre-bureauAffordability" typeRef="feel:boolean"/>
 		<informationRequirement>
 			<requiredDecision href="#d_RequiredMonthlyInstallment"/>
 		</informationRequirement>
 		<informationRequirement>
-			<requiredDecision href="#d_PreBureauRiskCategory"/>
+			<requiredDecision href="#d_Pre-bureauRiskCategory"/>
 		</informationRequirement>
 		<informationRequirement>
 			<requiredInput href="#i_ApplicantData"/>
@@ -358,7 +358,7 @@
 			<binding>
 				<parameter id="_05524e98-e76d-4109-ac99-f5090cd7bb48" name="RiskCategory"/>
 				<literalExpression>
-					<text>PreBureauRiskCategory</text>
+					<text>Pre-bureauRiskCategory</text>
 				</literalExpression>
 			</binding>
 			<binding>
@@ -369,13 +369,13 @@
 			</binding>
 		</invocation>
 	</decision>
-	<decision id="d_PostBureauAffordability" name="PostBureauAffordability">
-		<variable name="PostBureauAffordability" typeRef="feel:boolean"/>
+	<decision id="d_Post-bureauAffordability" name="Post-bureauAffordability">
+		<variable name="Post-bureauAffordability" typeRef="feel:boolean"/>
 		<informationRequirement>
 			<requiredDecision href="#d_RequiredMonthlyInstallment"/>
 		</informationRequirement>
 		<informationRequirement>
-			<requiredDecision href="#d_PostBureauRiskCategory"/>
+			<requiredDecision href="#d_Post-bureauRiskCategory"/>
 		</informationRequirement>
 		<informationRequirement>
 			<requiredInput href="#i_ApplicantData"/>
@@ -408,7 +408,7 @@
 			<binding>
 				<parameter id="_f75ffcc3-cb93-46cc-82ae-bad3a7202e99" name="RiskCategory"/>
 				<literalExpression>
-					<text>PostBureauRiskCategory</text>
+					<text>Post-bureauRiskCategory</text>
 				</literalExpression>
 			</binding>
 			<binding>
@@ -460,10 +460,10 @@
 	<decision id="d_Routing" name="Routing">
 		<variable name="Routing" typeRef="tns:tRouting"/>
 		<informationRequirement>
-			<requiredDecision href="#d_PostBureauAffordability"/>
+			<requiredDecision href="#d_Post-bureauAffordability"/>
 		</informationRequirement>
 		<informationRequirement>
-			<requiredDecision href="#d_PostBureauRiskCategory"/>
+			<requiredDecision href="#d_Post-bureauRiskCategory"/>
 		</informationRequirement>
 		<informationRequirement>
 			<requiredInput href="#i_BureauData"/>
@@ -488,15 +488,15 @@
 				</literalExpression>
 			</binding>
 			<binding>
-				<parameter id="_4b461288-5d18-44ab-b102-835a91946890" name="PostBureauRiskCategory"/>
+				<parameter id="_4b461288-5d18-44ab-b102-835a91946890" name="Post-bureauRiskCategory"/>
 				<literalExpression>
-					<text>PostBureauRiskCategory</text>
+					<text>Post-bureauRiskCategory</text>
 				</literalExpression>
 			</binding>
 			<binding>
-				<parameter id="_8846c6e3-65ff-4d46-87b9-7c7cad86ee67" name="PostBureauAffordability"/>
+				<parameter id="_8846c6e3-65ff-4d46-87b9-7c7cad86ee67" name="Post-bureauAffordability"/>
 				<literalExpression>
-					<text>PostBureauAffordability</text>
+					<text>Post-bureauAffordability</text>
 				</literalExpression>
 			</binding>
 		</invocation>
@@ -551,13 +551,13 @@
 					</literalExpression>
 				</contextEntry>
 				<contextEntry>
-					<literalExpression>
+					<literalExpression typeRef="feel:boolean">
 						<text>Affordability</text>
 					</literalExpression>
 				</contextEntry>
 			</context>
 		</encapsulatedLogic>
-		<variable name="AffordabilityCalculation" typeRef="feel:boolean"/>
+		<variable name="AffordabilityCalculation" />
 		<knowledgeRequirement>
 			<requiredKnowledge href="#b_CreditContingencyFactorTable"/>
 		</knowledgeRequirement>
@@ -579,7 +579,7 @@
 					<inputEntry id="_0fc85427-04a2-4796-8771-a391170b9c13-0">
 						<text>"HIGH", "DECLINE"</text>
 					</inputEntry>
-					<outputEntry id="_0fc85427-04a2-4796-8771-a391170b9c13-1">
+					<outputEntry id="_0fc85427-04a2-4796-8771-a391170b9c13-1" typeRef="feel:number">
 						<text>0.6</text>
 					</outputEntry>
 				</rule>
@@ -587,7 +587,7 @@
 					<inputEntry id="_22972ab6-af35-4be0-9bce-965e39f0c7d7-0">
 						<text>"MEDIUM"</text>
 					</inputEntry>
-					<outputEntry id="_22972ab6-af35-4be0-9bce-965e39f0c7d7-1">
+					<outputEntry id="_22972ab6-af35-4be0-9bce-965e39f0c7d7-1" typeRef="feel:number">
 						<text>0.7</text>
 					</outputEntry>
 				</rule>
@@ -595,28 +595,28 @@
 					<inputEntry id="_2d46a208-d471-48eb-9ea3-02cfa105fd69-0">
 						<text>"LOW", "VERY LOW"</text>
 					</inputEntry>
-					<outputEntry id="_2d46a208-d471-48eb-9ea3-02cfa105fd69-1">
+					<outputEntry id="_2d46a208-d471-48eb-9ea3-02cfa105fd69-1" typeRef="feel:number">
 						<text>0.8</text>
 					</outputEntry>
 				</rule>
 			</decisionTable>
 		</encapsulatedLogic>
-		<variable name="CreditContingencyFactorTable" typeRef="feel:number"/>
+		<variable name="CreditContingencyFactorTable" />
 	</businessKnowledgeModel>
 	<businessKnowledgeModel id="b_EligibilityRules" name="EligibilityRules">
 		<encapsulatedLogic>
-			<formalParameter name="PreBureauRiskCategory" typeRef="tns:tRiskCategory"/>
-			<formalParameter name="PreBureauAffordability" typeRef="feel:boolean"/>
+			<formalParameter name="Pre-bureauRiskCategory" typeRef="tns:tRiskCategory"/>
+			<formalParameter name="Pre-bureauAffordability" typeRef="feel:boolean"/>
 			<formalParameter name="Age" typeRef="feel:number"/>
 			<decisionTable hitPolicy="PRIORITY" outputLabel="EligibilityRules" preferredOrientation="Rule-as-Row">
-				<input id="_2bc2f208-6c1d-4411-8a19-c5b424fb8fa9" label="PreBureauRiskCategory">
+				<input id="_2bc2f208-6c1d-4411-8a19-c5b424fb8fa9" label="Pre-bureauRiskCategory">
 					<inputExpression typeRef="feel:string">
-						<text>PreBureauRiskCategory</text>
+						<text>Pre-bureauRiskCategory</text>
 					</inputExpression>
 				</input>
-				<input id="_1d794320-6e6c-46bf-b86d-de073822d6f6" label="PreBureauAffordability">
+				<input id="_1d794320-6e6c-46bf-b86d-de073822d6f6" label="Pre-bureauAffordability">
 					<inputExpression typeRef="feel:string">
-						<text>PreBureauAffordability</text>
+						<text>Pre-bureauAffordability</text>
 					</inputExpression>
 				</input>
 				<input id="_876096bc-7329-444a-830b-7bd2a06a7982" label="Age">
@@ -639,7 +639,7 @@
 					<inputEntry id="_3e475ba3-f5a5-407e-95e9-c4081a6d1479-2">
 						<text>-</text>
 					</inputEntry>
-					<outputEntry id="_3e475ba3-f5a5-407e-95e9-c4081a6d1479-3">
+					<outputEntry id="_3e475ba3-f5a5-407e-95e9-c4081a6d1479-3" typeRef="feel:string">
 						<text>"INELIGIBLE"</text>
 					</outputEntry>
 				</rule>
@@ -653,7 +653,7 @@
 					<inputEntry id="_a3e0609d-0176-4920-9fd5-9cd0e51d6335-2">
 						<text>-</text>
 					</inputEntry>
-					<outputEntry id="_a3e0609d-0176-4920-9fd5-9cd0e51d6335-3">
+					<outputEntry id="_a3e0609d-0176-4920-9fd5-9cd0e51d6335-3" typeRef="feel:string">
 						<text>"INELIGIBLE"</text>
 					</outputEntry>
 				</rule>
@@ -667,7 +667,7 @@
 					<inputEntry id="_20ed95e5-71f3-4b61-9bf0-b5f47a2ed3ec-2">
 						<text>&lt;18</text>
 					</inputEntry>
-					<outputEntry id="_20ed95e5-71f3-4b61-9bf0-b5f47a2ed3ec-3">
+					<outputEntry id="_20ed95e5-71f3-4b61-9bf0-b5f47a2ed3ec-3" typeRef="feel:string">
 						<text>"INELIGIBLE"</text>
 					</outputEntry>
 				</rule>
@@ -681,21 +681,21 @@
 					<inputEntry id="_23369b13-bf65-47ed-b0af-9f2c2c118e52-2">
 						<text>-</text>
 					</inputEntry>
-					<outputEntry id="_23369b13-bf65-47ed-b0af-9f2c2c118e52-3">
+					<outputEntry id="_23369b13-bf65-47ed-b0af-9f2c2c118e52-3" typeRef="feel:string">
 						<text>"ELIGIBLE"</text>
 					</outputEntry>
 				</rule>
 			</decisionTable>
 		</encapsulatedLogic>
-		<variable name="EligibilityRules" typeRef="feel:string"/>
+		<variable name="EligibilityRules" />
 	</businessKnowledgeModel>
 	<businessKnowledgeModel id="b_BureauCallTypeTable" name="BureauCallTypeTable">
 		<encapsulatedLogic>
-			<formalParameter name="PreBureauRiskCategory" typeRef="tns:tRiskCategory"/>
+			<formalParameter name="Pre-bureauRiskCategory" typeRef="tns:tRiskCategory"/>
 			<decisionTable hitPolicy="UNIQUE" outputLabel="BureauCallTypeTable" preferredOrientation="Rule-as-Row">
-				<input id="_fcd1287d-7572-4523-ab27-33eff68d965b" label="PreBureauRiskCategory">
+				<input id="_fcd1287d-7572-4523-ab27-33eff68d965b" label="Pre-bureauRiskCategory">
 					<inputExpression typeRef="feel:string">
-						<text>PreBureauRiskCategory</text>
+						<text>Pre-bureauRiskCategory</text>
 					</inputExpression>
 				</input>
 				<output id="_89b655a2-2e07-4aec-afb4-c1a3b595da6e"/>
@@ -703,7 +703,7 @@
 					<inputEntry id="_4d8928da-71c6-4d9b-b304-a2dbdf27ad88-0">
 						<text>"HIGH","MEDIUM"</text>
 					</inputEntry>
-					<outputEntry id="_4d8928da-71c6-4d9b-b304-a2dbdf27ad88-1">
+					<outputEntry id="_4d8928da-71c6-4d9b-b304-a2dbdf27ad88-1" typeRef="feel:string">
 						<text>"FULL"</text>
 					</outputEntry>
 				</rule>
@@ -711,7 +711,7 @@
 					<inputEntry id="_0a9819a4-9cf0-4390-9ae5-af156c678c59-0">
 						<text>"LOW"</text>
 					</inputEntry>
-					<outputEntry id="_0a9819a4-9cf0-4390-9ae5-af156c678c59-1">
+					<outputEntry id="_0a9819a4-9cf0-4390-9ae5-af156c678c59-1" typeRef="feel:string">
 						<text>"MINI"</text>
 					</outputEntry>
 				</rule>
@@ -719,19 +719,19 @@
 					<inputEntry id="_80dc65d3-b61d-401e-b8ec-bd236c47404b-0">
 						<text>"VERY LOW","DECLINE"</text>
 					</inputEntry>
-					<outputEntry id="_80dc65d3-b61d-401e-b8ec-bd236c47404b-1">
+					<outputEntry id="_80dc65d3-b61d-401e-b8ec-bd236c47404b-1" typeRef="feel:string">
 						<text>"NONE"</text>
 					</outputEntry>
 				</rule>
 			</decisionTable>
 		</encapsulatedLogic>
-		<variable name="BureauCallTypeTable" typeRef="feel:string"/>
+		<variable name="BureauCallTypeTable" />
 	</businessKnowledgeModel>
-	<businessKnowledgeModel id="b_PreBureauRiskCategoryTable" name="PreBureauRiskCategoryTable">
+	<businessKnowledgeModel id="b_Pre-bureauRiskCategoryTable" name="Pre-bureauRiskCategoryTable">
 		<encapsulatedLogic>
 			<formalParameter name="ExistingCustomer" typeRef="feel:boolean"/>
 			<formalParameter name="ApplicationRiskScore" typeRef="feel:number"/>
-			<decisionTable hitPolicy="UNIQUE" outputLabel="PreBureauRiskCategoryTable" preferredOrientation="Rule-as-Row">
+			<decisionTable hitPolicy="UNIQUE" outputLabel="Pre-bureauRiskCategoryTable" preferredOrientation="Rule-as-Row">
 				<input id="_6f7fbf13-3fa6-44f5-afe4-7c1e688e76a9" label="ExistingCustomer">
 					<inputExpression typeRef="feel:string">
 						<text>ExistingCustomer</text>
@@ -750,7 +750,7 @@
 					<inputEntry id="_e0082937-feb0-48f9-bbf4-0611cdb620c8-1">
 						<text>&lt;100</text>
 					</inputEntry>
-					<outputEntry id="_e0082937-feb0-48f9-bbf4-0611cdb620c8-2">
+					<outputEntry id="_e0082937-feb0-48f9-bbf4-0611cdb620c8-2" typeRef="feel:string">
 						<text>"HIGH"</text>
 					</outputEntry>
 				</rule>
@@ -761,7 +761,7 @@
 					<inputEntry id="_d2ecd3bd-aa41-4f52-a09e-af12156d93f4-1">
 						<text>[100..120)</text>
 					</inputEntry>
-					<outputEntry id="_d2ecd3bd-aa41-4f52-a09e-af12156d93f4-2">
+					<outputEntry id="_d2ecd3bd-aa41-4f52-a09e-af12156d93f4-2" typeRef="feel:string">
 						<text>"MEDIUM"</text>
 					</outputEntry>
 				</rule>
@@ -772,7 +772,7 @@
 					<inputEntry id="_f683499b-2beb-476d-ae18-90caf9eb929a-1">
 						<text>[120..130)</text>
 					</inputEntry>
-					<outputEntry id="_f683499b-2beb-476d-ae18-90caf9eb929a-2">
+					<outputEntry id="_f683499b-2beb-476d-ae18-90caf9eb929a-2" typeRef="feel:string">
 						<text>"LOW"</text>
 					</outputEntry>
 				</rule>
@@ -783,7 +783,7 @@
 					<inputEntry id="_606eca29-2fb8-42c8-8eda-e3bc15c7cdf0-1">
 						<text>&gt;130</text>
 					</inputEntry>
-					<outputEntry id="_606eca29-2fb8-42c8-8eda-e3bc15c7cdf0-2">
+					<outputEntry id="_606eca29-2fb8-42c8-8eda-e3bc15c7cdf0-2" typeRef="feel:string">
 						<text>"VERY LOW"</text>
 					</outputEntry>
 				</rule>
@@ -794,7 +794,7 @@
 					<inputEntry id="_ff97cf45-e2a7-43c1-9b06-1a4caadf519c-1">
 						<text>&lt;80</text>
 					</inputEntry>
-					<outputEntry id="_ff97cf45-e2a7-43c1-9b06-1a4caadf519c-2">
+					<outputEntry id="_ff97cf45-e2a7-43c1-9b06-1a4caadf519c-2" typeRef="feel:string">
 						<text>"DECLINE"</text>
 					</outputEntry>
 				</rule>
@@ -805,7 +805,7 @@
 					<inputEntry id="_3457a501-8de9-49a5-ac44-9521aa94f332-1">
 						<text>[80..90)</text>
 					</inputEntry>
-					<outputEntry id="_3457a501-8de9-49a5-ac44-9521aa94f332-2">
+					<outputEntry id="_3457a501-8de9-49a5-ac44-9521aa94f332-2" typeRef="feel:string">
 						<text>"HIGH"</text>
 					</outputEntry>
 				</rule>
@@ -816,7 +816,7 @@
 					<inputEntry id="_e093dbcb-d26b-4124-9a1f-77bf4db3ee0e-1">
 						<text>[90..110]</text>
 					</inputEntry>
-					<outputEntry id="_e093dbcb-d26b-4124-9a1f-77bf4db3ee0e-2">
+					<outputEntry id="_e093dbcb-d26b-4124-9a1f-77bf4db3ee0e-2" typeRef="feel:string">
 						<text>"MEDIUM"</text>
 					</outputEntry>
 				</rule>
@@ -827,20 +827,20 @@
 					<inputEntry id="_f1f6c928-57b4-4bed-be7e-eebec9e0400a-1">
 						<text>&gt;110</text>
 					</inputEntry>
-					<outputEntry id="_f1f6c928-57b4-4bed-be7e-eebec9e0400a-2">
+					<outputEntry id="_f1f6c928-57b4-4bed-be7e-eebec9e0400a-2" typeRef="feel:string">
 						<text>"LOW"</text>
 					</outputEntry>
 				</rule>
 			</decisionTable>
 		</encapsulatedLogic>
-		<variable name="PreBureauRiskCategoryTable" typeRef="feel:string"/>
+		<variable name="Pre-bureauRiskCategoryTable" />
 	</businessKnowledgeModel>
-	<businessKnowledgeModel id="b_PostBureauRiskCategoryTable" name="PostBureauRiskCategoryTable">
+	<businessKnowledgeModel id="b_Post-bureauRiskCategoryTable" name="Post-bureauRiskCategoryTable">
 		<encapsulatedLogic>
 			<formalParameter name="ExistingCustomer" typeRef="feel:boolean"/>
 			<formalParameter name="ApplicationRiskScore" typeRef="feel:number"/>
 			<formalParameter name="CreditScore" typeRef="feel:number"/>
-			<decisionTable hitPolicy="UNIQUE" outputLabel="PostBureauRiskCategoryTable" preferredOrientation="Rule-as-Row">
+			<decisionTable hitPolicy="UNIQUE" outputLabel="Post-bureauRiskCategoryTable" preferredOrientation="Rule-as-Row">
 				<input id="_0859d2fc-bb13-4eaa-bebf-4bf8f0866c49" label="ExistingCustomer">
 					<inputExpression typeRef="feel:string">
 						<text>ExistingCustomer</text>
@@ -867,7 +867,7 @@
 					<inputEntry id="_cc9cbf6c-40b2-4fae-9e93-c38718aa4c15-2">
 						<text>&lt;590</text>
 					</inputEntry>
-					<outputEntry id="_cc9cbf6c-40b2-4fae-9e93-c38718aa4c15-3">
+					<outputEntry id="_cc9cbf6c-40b2-4fae-9e93-c38718aa4c15-3" typeRef="feel:string">
 						<text>"HIGH"</text>
 					</outputEntry>
 				</rule>
@@ -881,7 +881,7 @@
 					<inputEntry id="_0d6ad398-440b-4a9a-b5e7-d8331ba9e4d2-2">
 						<text>[590..610]</text>
 					</inputEntry>
-					<outputEntry id="_0d6ad398-440b-4a9a-b5e7-d8331ba9e4d2-3">
+					<outputEntry id="_0d6ad398-440b-4a9a-b5e7-d8331ba9e4d2-3" typeRef="feel:string">
 						<text>"MEDIUM"</text>
 					</outputEntry>
 				</rule>
@@ -895,7 +895,7 @@
 					<inputEntry id="_481b8823-7ab7-4e4e-9b70-d318096dd61d-2">
 						<text>&gt;610</text>
 					</inputEntry>
-					<outputEntry id="_481b8823-7ab7-4e4e-9b70-d318096dd61d-3">
+					<outputEntry id="_481b8823-7ab7-4e4e-9b70-d318096dd61d-3" typeRef="feel:string">
 						<text>"LOW"</text>
 					</outputEntry>
 				</rule>
@@ -909,7 +909,7 @@
 					<inputEntry id="_9b1faa6a-3036-48f6-9dc3-c9dd5730f279-2">
 						<text>&lt;600</text>
 					</inputEntry>
-					<outputEntry id="_9b1faa6a-3036-48f6-9dc3-c9dd5730f279-3">
+					<outputEntry id="_9b1faa6a-3036-48f6-9dc3-c9dd5730f279-3" typeRef="feel:string">
 						<text>"HIGH"</text>
 					</outputEntry>
 				</rule>
@@ -923,7 +923,7 @@
 					<inputEntry id="_578c86e3-e237-4dd3-bdb2-f22bc2fc748f-2">
 						<text>[600..625]</text>
 					</inputEntry>
-					<outputEntry id="_578c86e3-e237-4dd3-bdb2-f22bc2fc748f-3">
+					<outputEntry id="_578c86e3-e237-4dd3-bdb2-f22bc2fc748f-3" typeRef="feel:string">
 						<text>"MEDIUM"</text>
 					</outputEntry>
 				</rule>
@@ -937,7 +937,7 @@
 					<inputEntry id="_2c381fb4-ba8c-42b5-9e2a-8e7afdaa1488-2">
 						<text>&gt;625</text>
 					</inputEntry>
-					<outputEntry id="_2c381fb4-ba8c-42b5-9e2a-8e7afdaa1488-3">
+					<outputEntry id="_2c381fb4-ba8c-42b5-9e2a-8e7afdaa1488-3" typeRef="feel:string">
 						<text>"LOW"</text>
 					</outputEntry>
 				</rule>
@@ -951,7 +951,7 @@
 					<inputEntry id="_181968ef-d435-456b-a0cd-38223ef291dc-2">
 						<text>-</text>
 					</inputEntry>
-					<outputEntry id="_181968ef-d435-456b-a0cd-38223ef291dc-3">
+					<outputEntry id="_181968ef-d435-456b-a0cd-38223ef291dc-3" typeRef="feel:string">
 						<text>"VERY LOW"</text>
 					</outputEntry>
 				</rule>
@@ -965,7 +965,7 @@
 					<inputEntry id="_08c84023-da86-42d4-ba49-b3e741dacbdb-2">
 						<text>&lt;580</text>
 					</inputEntry>
-					<outputEntry id="_08c84023-da86-42d4-ba49-b3e741dacbdb-3">
+					<outputEntry id="_08c84023-da86-42d4-ba49-b3e741dacbdb-3" typeRef="feel:string">
 						<text>"HIGH"</text>
 					</outputEntry>
 				</rule>
@@ -979,7 +979,7 @@
 					<inputEntry id="_a670400b-bded-45d4-b8b9-f9870fda8817-2">
 						<text>[580..600]</text>
 					</inputEntry>
-					<outputEntry id="_a670400b-bded-45d4-b8b9-f9870fda8817-3">
+					<outputEntry id="_a670400b-bded-45d4-b8b9-f9870fda8817-3" typeRef="feel:string">
 						<text>"MEDIUM"</text>
 					</outputEntry>
 				</rule>
@@ -993,7 +993,7 @@
 					<inputEntry id="_f0f466a3-0b6a-41fe-b109-d655eba844e7-2">
 						<text>&gt;600</text>
 					</inputEntry>
-					<outputEntry id="_f0f466a3-0b6a-41fe-b109-d655eba844e7-3">
+					<outputEntry id="_f0f466a3-0b6a-41fe-b109-d655eba844e7-3" typeRef="feel:string">
 						<text>"LOW"</text>
 					</outputEntry>
 				</rule>
@@ -1007,7 +1007,7 @@
 					<inputEntry id="_b8742c40-6ec2-4848-81a8-337e8ce7c5e1-2">
 						<text>&lt;590</text>
 					</inputEntry>
-					<outputEntry id="_b8742c40-6ec2-4848-81a8-337e8ce7c5e1-3">
+					<outputEntry id="_b8742c40-6ec2-4848-81a8-337e8ce7c5e1-3" typeRef="feel:string">
 						<text>"HIGH"</text>
 					</outputEntry>
 				</rule>
@@ -1021,7 +1021,7 @@
 					<inputEntry id="_2eba5777-6ff9-46b8-a445-a41afb2cdcf9-2">
 						<text>[590..615]</text>
 					</inputEntry>
-					<outputEntry id="_2eba5777-6ff9-46b8-a445-a41afb2cdcf9-3">
+					<outputEntry id="_2eba5777-6ff9-46b8-a445-a41afb2cdcf9-3" typeRef="feel:string">
 						<text>"MEDIUM"</text>
 					</outputEntry>
 				</rule>
@@ -1035,13 +1035,13 @@
 					<inputEntry id="_ba0ef1af-02b0-4a89-b75b-901d5044bbe4-2">
 						<text>&gt;615</text>
 					</inputEntry>
-					<outputEntry id="_ba0ef1af-02b0-4a89-b75b-901d5044bbe4-3">
+					<outputEntry id="_ba0ef1af-02b0-4a89-b75b-901d5044bbe4-3" typeRef="feel:string">
 						<text>"LOW"</text>
 					</outputEntry>
 				</rule>
 			</decisionTable>
 		</encapsulatedLogic>
-		<variable name="PostBureauRiskCategoryTable" typeRef="feel:string"/>
+		<variable name="Post-bureauRiskCategoryTable" />
 	</businessKnowledgeModel>
 	<businessKnowledgeModel id="b_ApplicationRiskScoreModel" name="ApplicationRiskScoreModel">
 		<encapsulatedLogic>
@@ -1084,7 +1084,7 @@
 					<inputEntry id="_a3bbf3c8-5315-4fd9-862c-810518b2ab6d-2">
 						<text>-</text>
 					</inputEntry>
-					<outputEntry id="_a3bbf3c8-5315-4fd9-862c-810518b2ab6d-3">
+					<outputEntry id="_a3bbf3c8-5315-4fd9-862c-810518b2ab6d-3" typeRef="feel:number">
 						<text>32</text>
 					</outputEntry>
 				</rule>
@@ -1098,7 +1098,7 @@
 					<inputEntry id="_cacdc480-72be-4225-b053-f066c28dbe47-2">
 						<text>-</text>
 					</inputEntry>
-					<outputEntry id="_cacdc480-72be-4225-b053-f066c28dbe47-3">
+					<outputEntry id="_cacdc480-72be-4225-b053-f066c28dbe47-3" typeRef="feel:number">
 						<text>35</text>
 					</outputEntry>
 				</rule>
@@ -1112,7 +1112,7 @@
 					<inputEntry id="_eade01fe-857d-4d41-ae69-d355b94e06bc-2">
 						<text>-</text>
 					</inputEntry>
-					<outputEntry id="_eade01fe-857d-4d41-ae69-d355b94e06bc-3">
+					<outputEntry id="_eade01fe-857d-4d41-ae69-d355b94e06bc-3" typeRef="feel:number">
 						<text>40</text>
 					</outputEntry>
 				</rule>
@@ -1126,7 +1126,7 @@
 					<inputEntry id="_31f5ffb6-d991-4f62-a050-6cd80a4b8d82-2">
 						<text>-</text>
 					</inputEntry>
-					<outputEntry id="_31f5ffb6-d991-4f62-a050-6cd80a4b8d82-3">
+					<outputEntry id="_31f5ffb6-d991-4f62-a050-6cd80a4b8d82-3" typeRef="feel:number">
 						<text>43</text>
 					</outputEntry>
 				</rule>
@@ -1140,7 +1140,7 @@
 					<inputEntry id="_b5245861-10b9-4db1-a2e6-7fbdae837a67-2">
 						<text>-</text>
 					</inputEntry>
-					<outputEntry id="_b5245861-10b9-4db1-a2e6-7fbdae837a67-3">
+					<outputEntry id="_b5245861-10b9-4db1-a2e6-7fbdae837a67-3" typeRef="feel:number">
 						<text>48</text>
 					</outputEntry>
 				</rule>
@@ -1154,7 +1154,7 @@
 					<inputEntry id="_4caf7dc6-aa7d-4f5a-9eec-4c403083b4c5-2">
 						<text>-</text>
 					</inputEntry>
-					<outputEntry id="_4caf7dc6-aa7d-4f5a-9eec-4c403083b4c5-3">
+					<outputEntry id="_4caf7dc6-aa7d-4f5a-9eec-4c403083b4c5-3" typeRef="feel:number">
 						<text>25</text>
 					</outputEntry>
 				</rule>
@@ -1168,7 +1168,7 @@
 					<inputEntry id="_4034dd3e-0366-455f-bcba-1d7a7c59ba7f-2">
 						<text>-</text>
 					</inputEntry>
-					<outputEntry id="_4034dd3e-0366-455f-bcba-1d7a7c59ba7f-3">
+					<outputEntry id="_4034dd3e-0366-455f-bcba-1d7a7c59ba7f-3" typeRef="feel:number">
 						<text>45</text>
 					</outputEntry>
 				</rule>
@@ -1182,7 +1182,7 @@
 					<inputEntry id="_51933974-5c70-44be-892d-20fbb6af66a9-2">
 						<text>"UNEMPLOYED"</text>
 					</inputEntry>
-					<outputEntry id="_51933974-5c70-44be-892d-20fbb6af66a9-3">
+					<outputEntry id="_51933974-5c70-44be-892d-20fbb6af66a9-3" typeRef="feel:number">
 						<text>15</text>
 					</outputEntry>
 				</rule>
@@ -1196,7 +1196,7 @@
 					<inputEntry id="_3d3a596f-6e83-483b-96e6-715b33ba7af5-2">
 						<text>"EMPLOYED"</text>
 					</inputEntry>
-					<outputEntry id="_3d3a596f-6e83-483b-96e6-715b33ba7af5-3">
+					<outputEntry id="_3d3a596f-6e83-483b-96e6-715b33ba7af5-3" typeRef="feel:number">
 						<text>45</text>
 					</outputEntry>
 				</rule>
@@ -1210,7 +1210,7 @@
 					<inputEntry id="_732fd2fe-c312-4be5-8fb4-fd6699a28ec0-2">
 						<text>"SELF-EMPLOYED"</text>
 					</inputEntry>
-					<outputEntry id="_732fd2fe-c312-4be5-8fb4-fd6699a28ec0-3">
+					<outputEntry id="_732fd2fe-c312-4be5-8fb4-fd6699a28ec0-3" typeRef="feel:number">
 						<text>36</text>
 					</outputEntry>
 				</rule>
@@ -1224,13 +1224,13 @@
 					<inputEntry id="_cea5e26e-43e0-4457-9ae8-c8c1fcbc22f1-2">
 						<text>"STUDENT"</text>
 					</inputEntry>
-					<outputEntry id="_cea5e26e-43e0-4457-9ae8-c8c1fcbc22f1-3">
+					<outputEntry id="_cea5e26e-43e0-4457-9ae8-c8c1fcbc22f1-3" typeRef="feel:number">
 						<text>18</text>
 					</outputEntry>
 				</rule>
 			</decisionTable>
 		</encapsulatedLogic>
-		<variable name="ApplicationRiskScoreModel" typeRef="feel:number"/>
+		<variable name="ApplicationRiskScoreModel" />
 	</businessKnowledgeModel>
 	<businessKnowledgeModel id="b_InstallmentCalculation" name="InstallmentCalculation">
 		<encapsulatedLogic>
@@ -1252,29 +1252,29 @@
 					</literalExpression>
 				</contextEntry>
 				<contextEntry>
-					<literalExpression>
+					<literalExpression typeRef="feel:number">
 						<text>MonthlyRepayment+MonthlyFee</text>
 					</literalExpression>
 				</contextEntry>
 			</context>
 		</encapsulatedLogic>
-		<variable name="InstallmentCalculation" typeRef="feel:number"/>
+		<variable name="InstallmentCalculation" />
 	</businessKnowledgeModel>
 	<businessKnowledgeModel id="b_RoutingRules" name="RoutingRules">
 		<encapsulatedLogic>
-			<formalParameter name="PostBureauRiskCategory" typeRef="tns:tRiskCategory"/>
-			<formalParameter name="PostBureauAffordability" typeRef="feel:boolean"/>
+			<formalParameter name="Post-bureauRiskCategory" typeRef="tns:tRiskCategory"/>
+			<formalParameter name="Post-bureauAffordability" typeRef="feel:boolean"/>
 			<formalParameter name="Bankrupt" typeRef="feel:boolean"/>
 			<formalParameter name="CreditScore" typeRef="feel:number"/>
 			<decisionTable hitPolicy="PRIORITY" outputLabel="RoutingRules" preferredOrientation="Rule-as-Row">
-				<input id="_e4d34fbe-9d83-4126-a268-6ff44d6d33c0" label="PostBureauRiskCategory">
+				<input id="_e4d34fbe-9d83-4126-a268-6ff44d6d33c0" label="Post-bureauRiskCategory">
 					<inputExpression typeRef="feel:string">
-						<text>PostBureauRiskCategory</text>
+						<text>Post-bureauRiskCategory</text>
 					</inputExpression>
 				</input>
-				<input id="_fc1055cf-ab08-44a0-91bc-2d6539df00c5" label="PostBureauAffordability">
+				<input id="_fc1055cf-ab08-44a0-91bc-2d6539df00c5" label="Post-bureauAffordability">
 					<inputExpression typeRef="feel:string">
-						<text>PostBureauAffordability</text>
+						<text>Post-bureauAffordability</text>
 					</inputExpression>
 				</input>
 				<input id="_17cf72a2-81db-4ee3-a599-aaa70699fdf7" label="Bankrupt">
@@ -1305,7 +1305,7 @@
 					<inputEntry id="_e7e1be73-1250-49ca-ac8c-0163f4df4eaf-3">
 						<text>-</text>
 					</inputEntry>
-					<outputEntry id="_e7e1be73-1250-49ca-ac8c-0163f4df4eaf-4">
+					<outputEntry id="_e7e1be73-1250-49ca-ac8c-0163f4df4eaf-4" typeRef="feel:string">
 						<text>"DECLINE"</text>
 					</outputEntry>
 				</rule>
@@ -1322,7 +1322,7 @@
 					<inputEntry id="_a905d88e-eb62-4f5f-8447-32f541ebd31a-3">
 						<text>-</text>
 					</inputEntry>
-					<outputEntry id="_a905d88e-eb62-4f5f-8447-32f541ebd31a-4">
+					<outputEntry id="_a905d88e-eb62-4f5f-8447-32f541ebd31a-4" typeRef="feel:string">
 						<text>"DECLINE"</text>
 					</outputEntry>
 				</rule>
@@ -1339,7 +1339,7 @@
 					<inputEntry id="_36d8f903-d158-4d18-970a-9a53d4a8c69e-3">
 						<text>-</text>
 					</inputEntry>
-					<outputEntry id="_36d8f903-d158-4d18-970a-9a53d4a8c69e-4">
+					<outputEntry id="_36d8f903-d158-4d18-970a-9a53d4a8c69e-4" typeRef="feel:string">
 						<text>"REFER"</text>
 					</outputEntry>
 				</rule>
@@ -1356,7 +1356,7 @@
 					<inputEntry id="_c51cff41-6161-435b-af3b-17dcbd4591b9-3">
 						<text>&lt;580</text>
 					</inputEntry>
-					<outputEntry id="_c51cff41-6161-435b-af3b-17dcbd4591b9-4">
+					<outputEntry id="_c51cff41-6161-435b-af3b-17dcbd4591b9-4" typeRef="feel:string">
 						<text>"REFER"</text>
 					</outputEntry>
 				</rule>
@@ -1373,13 +1373,13 @@
 					<inputEntry id="_1bb571e8-b791-4967-9c70-77c402982e3b-3">
 						<text>-</text>
 					</inputEntry>
-					<outputEntry id="_1bb571e8-b791-4967-9c70-77c402982e3b-4">
+					<outputEntry id="_1bb571e8-b791-4967-9c70-77c402982e3b-4" typeRef="feel:string">
 						<text>"ACCEPT"</text>
 					</outputEntry>
 				</rule>
 			</decisionTable>
 		</encapsulatedLogic>
-		<variable name="RoutingRules" typeRef="feel:string"/>
+		<variable name="RoutingRules" />
 	</businessKnowledgeModel>
 	<inputData id="i_ApplicantData" name="ApplicantData">
 		<variable name="ApplicantData" typeRef="tns:tApplicantData"/>
