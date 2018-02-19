@@ -59,11 +59,11 @@
     <semantic:encapsulatedLogic xmlns:drools="http://www.drools.org/kie-dmn/1.1" drools:kind="F" id="_464a8b80-14ac-4497-a08a-5cab91462042">
       <semantic:formalParameter id="_5a030771-2848-487f-a8f8-69772120267b" name="value" typeRef="feel:number"/>
       <semantic:formalParameter id="_d2e427a9-5a80-4d8f-a876-590bdf8d060d" name="factor" typeRef="feel:number"/>
-      <semantic:literalExpression id="_13e4291c-5ce7-4c08-bc12-5ab31d78a40a">
+      <semantic:literalExpression id="_13e4291c-5ce7-4c08-bc12-5ab31d78a40a" typeRef="feel:boolean">
         <semantic:text>value / factor = decimal( value / factor, 0 )</semantic:text>
       </semantic:literalExpression>
     </semantic:encapsulatedLogic>
-    <semantic:variable id="_c6bd1e76-8294-4dca-93be-73f82bbb0a49" name="is factor" typeRef="feel:boolean"/>
+    <semantic:variable id="_c6bd1e76-8294-4dca-93be-73f82bbb0a49" name="is factor" />
   </semantic:businessKnowledgeModel>
   <semantic:decision id="_4453511f-6eff-43ab-bed6-1424af36a10c" name="multiples" triso:displayName="multiples">
     <semantic:variable id="_9efb708a-a7ba-4746-b6d2-58f96c03385e" name="multiples" typeRef="ListOfNumbers"/>
