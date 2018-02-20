@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.transformation.template;
 
-public class POJOTemplateProvider implements TemplateProvider {
+public class TreeTemplateProvider implements TemplateProvider {
     @Override
     public String baseTemplatePath() {
         return "/templates/dmn2java";
@@ -20,27 +20,27 @@ public class POJOTemplateProvider implements TemplateProvider {
 
     @Override
     public String itemDefinitionInterfaceTemplate() {
-        return "itemDefinitionInterface.ftl";
+        return "common/itemDefinitionInterface.ftl";
     }
 
     @Override
     public String itemDefinitionClassTemplate() {
-        return "itemDefinitionClass.ftl";
+        return "common/itemDefinitionClass.ftl";
     }
 
     @Override
     public String bkmTemplateName() {
-        return "bkm.ftl";
+        return "tree/bkm.ftl";
     }
 
     @Override
     public String decisionTemplateName() {
-        return "decision.ftl";
+        return "tree/decision.ftl";
     }
 
     @Override
     public String decisionTableRuleOutputTemplate() {
-        return "decisionTableRuleOutput.ftl";
+        return "tree/decisionTableRuleOutput.ftl";
     }
 
     @Override
@@ -49,6 +49,6 @@ public class POJOTemplateProvider implements TemplateProvider {
     }
 
     public String testTemplateName() {
-        return "junit.ftl";
+        return "common/junit.ftl";
     }
 }
