@@ -113,7 +113,6 @@ public class BasicDMN2JavaTransformerTest {
         assertEquals("ab\\\"abc", dmnTransformer.escapeInString("ab\"abc"));
         assertEquals("“£%$&3332", dmnTransformer.escapeInString("“£%$&3332"));
         assertEquals("ab\\\\dc", dmnTransformer.escapeInString("ab\\dc"));
-        assertEquals("Previous Quarter Activity Flag is \\\"False\\\" |", dmnTransformer.escapeInString("Previous Quarter Activity Flag is \"False\" |"));
     }
 
     private TDefinitions readDMN(String pathName) throws Exception {
