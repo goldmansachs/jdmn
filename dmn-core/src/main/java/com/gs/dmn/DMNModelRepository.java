@@ -240,6 +240,27 @@ public class DMNModelRepository {
         }
     }
 
+    public List<TDecision> topologicalSort(TDRGElement decision) {
+        List<TDecision> decisions = new ArrayList<>();
+        topologicalSort((TDecision)decision, decisions);
+        return decisions;
+    }
+
+    private void topologicalSort(TDecision parent, List<TDecision> decisions) {
+        if (!decisions.contains(parent)) {
+            for(TInformationRequirement ir: parent.getInformationRequirement()) {
+                TDMNElementReference requiredDecision = ir.getRequiredDecision();
+                if (requiredDecision != null) {
+                    TDecision child = findDecisionById(requiredDecision.getHref());
+                    if (child != null) {
+                        topologicalSort(child, decisions);
+                    }
+                }
+            }
+            decisions.add(parent);
+        }
+    }
+
     public List<TInputData> directInputDatas(TDRGElement element) {
         if (element instanceof TDRGElement) {
             List<TInformationRequirement> informationRequirement = ((TDecision) element).getInformationRequirement();

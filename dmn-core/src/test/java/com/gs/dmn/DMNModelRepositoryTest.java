@@ -23,6 +23,9 @@ import org.omg.spec.dmn._20151101.dmn.TDefinitions;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
@@ -45,6 +48,17 @@ public class DMNModelRepositoryTest {
         TDecision decision = dmnModelRepository.findDecisionById(id);
         assertEquals(id, decision.getId());
         assertEquals("BureauCallType", decision.getName());
+    }
+
+    @Test
+    public void testTopologicalSort() {
+        TDMNElement root = dmnModelRepository.findDRGElementByName("Strategy");
+
+        List<TDecision> decisions = dmnModelRepository.topologicalSort((TDecision)root);
+
+        List<String> actualNames = decisions.stream().map(d -> d.getName()).collect(Collectors.toList());
+        List<String> expectedNames = Arrays.asList("ApplicationRiskScore", "Pre-bureauRiskCategory", "BureauCallType", "RequiredMonthlyInstallment", "Pre-bureauAffordability", "Eligibility", "Strategy");
+        assertEquals(expectedNames, actualNames);
     }
 
     private TDMNElement readDMN(String pathName) throws Exception {
