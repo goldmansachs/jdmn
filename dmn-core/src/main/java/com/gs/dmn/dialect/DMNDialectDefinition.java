@@ -22,6 +22,7 @@ import com.gs.dmn.serialization.DMNValidator;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.template.TemplateProvider;
 import org.omg.spec.dmn._20151101.dmn.TDefinitions;
 
 import java.util.Map;
@@ -53,6 +54,8 @@ public interface DMNDialectDefinition {
     FEELTypeTranslator createTypeTranslator();
 
     FEELLib createFEELLib();
+
+    TemplateProvider createTemplateProvider();
 
     String getDecisionBaseClass();
 

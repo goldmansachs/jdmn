@@ -243,6 +243,7 @@ public class DMNModelRepository {
     public List<TDecision> topologicalSort(TDRGElement decision) {
         List<TDecision> decisions = new ArrayList<>();
         topologicalSort((TDecision)decision, decisions);
+        decisions.remove(decision);
         return decisions;
     }
 

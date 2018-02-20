@@ -50,7 +50,6 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -384,6 +383,23 @@ public class BasicDMN2JavaTransformer {
 
     public String decisionConstructorNewArgumentList(TDecision decision) {
         List<TDecision> subDecisions = dmnModelRepository.directSubDecisions(decision);
+        subDecisions.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
+        String arguments = subDecisions
+                .stream()
+                .map(d -> String.format("%s", defaultConstructor(qualifiedName(javaRootPackage, drgElementClassName(d)))))
+                .collect(Collectors.joining(", "));
+        return arguments;
+    }
+
+    public String decisionTopologicalConstructorSignature(TDecision decision) {
+        List<TDecision> subDecisions = dmnModelRepository.topologicalSort(decision);
+        subDecisions.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
+        String signature = subDecisions.stream().map(d -> String.format("%s %s", qualifiedName(javaRootPackage, drgElementClassName(d)), drgElementVariableName(d))).collect(Collectors.joining(", "));
+        return signature;
+    }
+
+    public String decisionTopologicalConstructorNewArgumentList(TDecision decision) {
+        List<TDecision> subDecisions = dmnModelRepository.topologicalSort(decision);
         subDecisions.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
         String arguments = subDecisions
                 .stream()

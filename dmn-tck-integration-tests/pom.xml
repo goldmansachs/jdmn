@@ -653,6 +653,7 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
+                            <dmnDialect>com.gs.dmn.dialect.StandardDagDMNDialectDefinition</dmnDialect>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
@@ -667,6 +668,7 @@
                             <goal>tck-to-java</goal>
                         </goals>
                         <configuration>
+                            <dmnDialect>com.gs.dmn.dialect.StandardDagDMNDialectDefinition</dmnDialect>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/0004-lending-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
