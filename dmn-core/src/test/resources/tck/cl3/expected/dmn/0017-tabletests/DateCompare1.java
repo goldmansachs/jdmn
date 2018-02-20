@@ -56,20 +56,8 @@ public class DateCompare1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             arguments.put("dateD", dateD);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments);
 
-            // Apply rules and collect results
-            com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-            ruleOutputList_.add(rule0(dateD, annotationSet_, eventListener_, externalExecutor_));
-            ruleOutputList_.add(rule1(dateD, annotationSet_, eventListener_, externalExecutor_));
-
-            // Return results based on hit policy
-            Boolean output_;
-            if (ruleOutputList_.noMatchedRules()) {
-                // Default value
-                output_ = null;
-            } else {
-                com.gs.dmn.runtime.RuleOutput ruleOutput_ = ruleOutputList_.applySingle(com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE);
-                output_ = ruleOutput_ == null ? null : ((DateCompare1RuleOutput)ruleOutput_).getDateCompare1();
-            }
+            // Evaluate expression
+            Boolean output_ = evaluate(dateD, annotationSet_, eventListener_, externalExecutor_);
 
             // Decision end
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments, output_, (System.currentTimeMillis() - startTime_));
@@ -79,6 +67,25 @@ public class DateCompare1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             logError("Exception caught in 'dateCompare1' evaluation", e);
             return null;
         }
+    }
+
+    private Boolean evaluate(javax.xml.datatype.XMLGregorianCalendar dateD, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+        // Apply rules and collect results
+        com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
+        ruleOutputList_.add(rule0(dateD, annotationSet_, eventListener_, externalExecutor_));
+        ruleOutputList_.add(rule1(dateD, annotationSet_, eventListener_, externalExecutor_));
+
+        // Return results based on hit policy
+        Boolean output_;
+        if (ruleOutputList_.noMatchedRules()) {
+            // Default value
+            output_ = null;
+        } else {
+            com.gs.dmn.runtime.RuleOutput ruleOutput_ = ruleOutputList_.applySingle(com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE);
+            output_ = ruleOutput_ == null ? null : ((DateCompare1RuleOutput)ruleOutput_).getDateCompare1();
+        }
+
+        return output_;
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")

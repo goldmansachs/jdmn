@@ -6,7 +6,7 @@
         <@startDRGElement />
 
         <#if modelRepository.isDecisionTableExpression(drgElement)>
-            <@decisionTableApplyBody drgElement />
+            <@expressionApplyBody drgElement />
         <#elseif modelRepository.isLiteralExpression(drgElement)>
             <@expressionApplyBody drgElement/>
         <#elseif modelRepository.isInvocationExpression(drgElement)>
@@ -31,6 +31,7 @@
 <#macro evaluateExpressionMethod drgElement>
     <#if modelRepository.isDecisionTableExpression(drgElement)>
 
+        <@addEvaluateDecisionTableMethod drgElement/>
         <@addRuleMethods drgElement/>
         <@addConversionMethod drgElement/>
     <#elseif modelRepository.isLiteralExpression(drgElement)>
@@ -82,53 +83,55 @@ import static ${transformer.qualifiedName(javaPackageName, transformer.drgElemen
 <#--
     Decision table
 -->
-<#macro decisionTableApplyBody drgElement>
-        <@applySubDecisions drgElement />
-        <#assign expression = modelRepository.expression(drgElement)>
+<#macro addEvaluateDecisionTableMethod drgElement>
+    private ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementSignatureExtra(transformer.drgElementDirectSignature(drgElement))}) {
+    <#assign expression = modelRepository.expression(drgElement)>
         <@collectRuleResults drgElement expression />
 
-            // Return results based on hit policy
-            ${transformer.drgElementOutputType(drgElement)} output_;
-        <#if modelRepository.isSingleHit(expression.hitPolicy)>
-            if (ruleOutputList_.noMatchedRules()) {
-                // Default value
-                output_ = ${transformer.defaultValue(drgElement)};
-            } else {
-                ${transformer.abstractRuleOutputClassName()} ruleOutput_ = ruleOutputList_.applySingle(${transformer.hitPolicyAnnotationClassName()}.${transformer.hitPolicy(drgElement)});
-                <#if modelRepository.isCompoundDecisionTable(drgElement)>
-                output_ = toDecisionOutput((${transformer.ruleOutputClassName(drgElement)})ruleOutput_);
-                <#else>
-                output_ = ruleOutput_ == null ? null : ((${transformer.ruleOutputClassName(drgElement)})ruleOutput_).${transformer.getter(drgElement, expression.output[0])};
-                </#if>
-            }
-
-            <@endDRGElementAndReturn drgElement "output_" />
-        <#elseif modelRepository.isMultipleHit(expression.hitPolicy)>
-            if (ruleOutputList_.noMatchedRules()) {
-                // Default value
-                output_ = ${transformer.defaultValue(drgElement)};
-            } else {
-                List<? extends ${transformer.abstractRuleOutputClassName()}> ruleOutputs_ = ruleOutputList_.applyMultiple(${transformer.hitPolicyAnnotationClassName()}.${transformer.hitPolicy(drgElement)});
+        // Return results based on hit policy
+        ${transformer.drgElementOutputType(drgElement)} output_;
+    <#if modelRepository.isSingleHit(expression.hitPolicy)>
+        if (ruleOutputList_.noMatchedRules()) {
+            // Default value
+            output_ = ${transformer.defaultValue(drgElement)};
+        } else {
+            ${transformer.abstractRuleOutputClassName()} ruleOutput_ = ruleOutputList_.applySingle(${transformer.hitPolicyAnnotationClassName()}.${transformer.hitPolicy(drgElement)});
             <#if modelRepository.isCompoundDecisionTable(drgElement)>
-                <#if modelRepository.hasAggregator(expression)>
-                output_ = null;
-                <#else>
-                output_ = ruleOutputs_.stream().map(o -> toDecisionOutput(((${transformer.ruleOutputClassName(drgElement)})o))).collect(Collectors.toList());
-                </#if>
-            <#else >
-                <#if modelRepository.hasAggregator(expression)>
-                output_ = ${transformer.aggregator(drgElement, expression, expression.output[0], "ruleOutputs_")};
-                <#else>
-                output_ = ruleOutputs_.stream().map(o -> ((${transformer.ruleOutputClassName(drgElement)})o).${transformer.getter(drgElement, expression.output[0])}).collect(Collectors.toList());
-                </#if>
+            output_ = toDecisionOutput((${transformer.ruleOutputClassName(drgElement)})ruleOutput_);
+            <#else>
+            output_ = ruleOutput_ == null ? null : ((${transformer.ruleOutputClassName(drgElement)})ruleOutput_).${transformer.getter(drgElement, expression.output[0])};
             </#if>
-            }
+        }
 
-            <@endDRGElementAndReturn drgElement "output_" />
-        <#else>
-            logError("Unknown hit policy '" + ${expression.hitPolicy} + "'"));
-            return output_;
+        return output_;
+    <#elseif modelRepository.isMultipleHit(expression.hitPolicy)>
+        if (ruleOutputList_.noMatchedRules()) {
+            // Default value
+            output_ = ${transformer.defaultValue(drgElement)};
+        } else {
+            List<? extends ${transformer.abstractRuleOutputClassName()}> ruleOutputs_ = ruleOutputList_.applyMultiple(${transformer.hitPolicyAnnotationClassName()}.${transformer.hitPolicy(drgElement)});
+        <#if modelRepository.isCompoundDecisionTable(drgElement)>
+            <#if modelRepository.hasAggregator(expression)>
+            output_ = null;
+            <#else>
+            output_ = ruleOutputs_.stream().map(o -> toDecisionOutput(((${transformer.ruleOutputClassName(drgElement)})o))).collect(Collectors.toList());
+            </#if>
+        <#else >
+            <#if modelRepository.hasAggregator(expression)>
+            output_ = ${transformer.aggregator(drgElement, expression, expression.output[0], "ruleOutputs_")};
+            <#else>
+            output_ = ruleOutputs_.stream().map(o -> ((${transformer.ruleOutputClassName(drgElement)})o).${transformer.getter(drgElement, expression.output[0])}).collect(Collectors.toList());
+            </#if>
         </#if>
+        }
+
+        return output_;
+    <#else>
+        logError("Unknown hit policy '" + ${expression.hitPolicy} + "'"));
+        return output_;
+    </#if>
+    }
+
 </#macro>
 
 <#macro addRuleMethods drgElement>
@@ -169,28 +172,28 @@ import static ${transformer.qualifiedName(javaPackageName, transformer.drgElemen
 </#macro>
 
 <#macro collectRuleResults drgElement expression>
-            // Apply rules and collect results
-            ${transformer.ruleOutputListClassName()} ruleOutputList_ = new ${transformer.ruleOutputListClassName()}();
-        <#assign expression = modelRepository.expression(drgElement)>
-        <#list expression.rule>
-            <#items as rule>
-            <#if modelRepository.isFirstSingleHit(expression.hitPolicy) && modelRepository.atLeastTwoRules(expression)>
-            <#if rule?is_first>
-            ${transformer.abstractRuleOutputClassName()} tempRuleOutput_ = rule${rule_index}(${transformer.drgElementArgumentsExtra(transformer.ruleArgumentList(drgElement))});
+        // Apply rules and collect results
+        ${transformer.ruleOutputListClassName()} ruleOutputList_ = new ${transformer.ruleOutputListClassName()}();
+    <#assign expression = modelRepository.expression(drgElement)>
+    <#list expression.rule>
+        <#items as rule>
+        <#if modelRepository.isFirstSingleHit(expression.hitPolicy) && modelRepository.atLeastTwoRules(expression)>
+        <#if rule?is_first>
+        ${transformer.abstractRuleOutputClassName()} tempRuleOutput_ = rule${rule_index}(${transformer.drgElementArgumentsExtra(transformer.ruleArgumentList(drgElement))});
+        ruleOutputList_.add(tempRuleOutput_);
+        boolean matched_ = tempRuleOutput_.isMatched();
+        <#else >
+        if (!matched_) {
+            tempRuleOutput_ = rule${rule_index}(${transformer.drgElementArgumentsExtra(transformer.ruleArgumentList(drgElement))});
             ruleOutputList_.add(tempRuleOutput_);
-            boolean matched_ = tempRuleOutput_.isMatched();
-            <#else >
-            if (!matched_) {
-                tempRuleOutput_ = rule${rule_index}(${transformer.drgElementArgumentsExtra(transformer.ruleArgumentList(drgElement))});
-                ruleOutputList_.add(tempRuleOutput_);
-                matched_ = tempRuleOutput_.isMatched();
-            }
-            </#if>
-            <#else >
-            ruleOutputList_.add(rule${rule_index}(${transformer.drgElementArgumentsExtra(transformer.ruleArgumentList(drgElement))}));
-            </#if>
-            </#items>
-        </#list>
+            matched_ = tempRuleOutput_.isMatched();
+        }
+        </#if>
+        <#else >
+        ruleOutputList_.add(rule${rule_index}(${transformer.drgElementArgumentsExtra(transformer.ruleArgumentList(drgElement))}));
+        </#if>
+        </#items>
+    </#list>
 </#macro>
 
 <#macro addConversionMethod drgElement>

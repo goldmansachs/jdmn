@@ -327,7 +327,7 @@ public class DecisionTableToJavaTransformer {
         if (element instanceof TInputData) {
             return dmnTransformer.inputDataVariableName((TInputData) element);
         } else if (element instanceof TDecision) {
-            return dmnTransformer.drgElementOutputVariableName(((TDecision) element));
+            return dmnTransformer.drgElementVariableName(((TDecision) element));
         } else if (element instanceof TInformationItem) {
             return dmnTransformer.parameterVariableName(((TInformationItem) element));
         }
