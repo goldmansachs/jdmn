@@ -42,29 +42,8 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
             arguments.put("employmentStatus", employmentStatus);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments);
 
-            // Apply rules and collect results
-            com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-            ruleOutputList_.add(rule0(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_));
-            ruleOutputList_.add(rule1(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_));
-            ruleOutputList_.add(rule2(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_));
-            ruleOutputList_.add(rule3(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_));
-            ruleOutputList_.add(rule4(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_));
-            ruleOutputList_.add(rule5(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_));
-            ruleOutputList_.add(rule6(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_));
-            ruleOutputList_.add(rule7(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_));
-            ruleOutputList_.add(rule8(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_));
-            ruleOutputList_.add(rule9(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_));
-            ruleOutputList_.add(rule10(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_));
-
-            // Return results based on hit policy
-            java.math.BigDecimal output_;
-            if (ruleOutputList_.noMatchedRules()) {
-                // Default value
-                output_ = null;
-            } else {
-                List<? extends com.gs.dmn.runtime.RuleOutput> ruleOutputs_ = ruleOutputList_.applyMultiple(com.gs.dmn.runtime.annotation.HitPolicy.COLLECT);
-                output_ = sum(ruleOutputs_.stream().map(o -> ((ApplicationRiskScoreModelRuleOutput)o).getApplicationRiskScoreModel()).collect(Collectors.toList()));
-            }
+            // Evaluate expression
+            java.math.BigDecimal output_ = evaluate(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_);
 
             // BKM end
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments, output_, (System.currentTimeMillis() - startTime_));
@@ -74,6 +53,34 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
             logError("Exception caught in 'ApplicationRiskScoreModel' evaluation", e);
             return null;
         }
+    }
+
+    private java.math.BigDecimal evaluate(java.math.BigDecimal age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+        // Apply rules and collect results
+        com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
+        ruleOutputList_.add(rule0(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_));
+        ruleOutputList_.add(rule1(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_));
+        ruleOutputList_.add(rule2(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_));
+        ruleOutputList_.add(rule3(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_));
+        ruleOutputList_.add(rule4(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_));
+        ruleOutputList_.add(rule5(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_));
+        ruleOutputList_.add(rule6(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_));
+        ruleOutputList_.add(rule7(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_));
+        ruleOutputList_.add(rule8(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_));
+        ruleOutputList_.add(rule9(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_));
+        ruleOutputList_.add(rule10(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_));
+
+        // Return results based on hit policy
+        java.math.BigDecimal output_;
+        if (ruleOutputList_.noMatchedRules()) {
+            // Default value
+            output_ = null;
+        } else {
+            List<? extends com.gs.dmn.runtime.RuleOutput> ruleOutputs_ = ruleOutputList_.applyMultiple(com.gs.dmn.runtime.annotation.HitPolicy.COLLECT);
+            output_ = sum(ruleOutputs_.stream().map(o -> ((ApplicationRiskScoreModelRuleOutput)o).getApplicationRiskScoreModel()).collect(Collectors.toList()));
+        }
+
+        return output_;
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")

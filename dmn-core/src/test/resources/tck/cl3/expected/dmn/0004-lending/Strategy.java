@@ -69,21 +69,8 @@ public class Strategy extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             String bureauCallTypeOutput = bureauCallType.apply(applicantData, annotationSet_, eventListener_, externalExecutor_);
             String eligibilityOutput = eligibility.apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_);
 
-            // Apply rules and collect results
-            com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-            ruleOutputList_.add(rule0(bureauCallTypeOutput, eligibilityOutput, annotationSet_, eventListener_, externalExecutor_));
-            ruleOutputList_.add(rule1(bureauCallTypeOutput, eligibilityOutput, annotationSet_, eventListener_, externalExecutor_));
-            ruleOutputList_.add(rule2(bureauCallTypeOutput, eligibilityOutput, annotationSet_, eventListener_, externalExecutor_));
-
-            // Return results based on hit policy
-            String output_;
-            if (ruleOutputList_.noMatchedRules()) {
-                // Default value
-                output_ = null;
-            } else {
-                com.gs.dmn.runtime.RuleOutput ruleOutput_ = ruleOutputList_.applySingle(com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE);
-                output_ = ruleOutput_ == null ? null : ((StrategyRuleOutput)ruleOutput_).getStrategy();
-            }
+            // Evaluate expression
+            String output_ = evaluate(bureauCallTypeOutput, eligibilityOutput, annotationSet_, eventListener_, externalExecutor_);
 
             // Decision end
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments, output_, (System.currentTimeMillis() - startTime_));
@@ -93,6 +80,26 @@ public class Strategy extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             logError("Exception caught in 'Strategy' evaluation", e);
             return null;
         }
+    }
+
+    private String evaluate(String bureauCallType, String eligibility, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+        // Apply rules and collect results
+        com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
+        ruleOutputList_.add(rule0(bureauCallType, eligibility, annotationSet_, eventListener_, externalExecutor_));
+        ruleOutputList_.add(rule1(bureauCallType, eligibility, annotationSet_, eventListener_, externalExecutor_));
+        ruleOutputList_.add(rule2(bureauCallType, eligibility, annotationSet_, eventListener_, externalExecutor_));
+
+        // Return results based on hit policy
+        String output_;
+        if (ruleOutputList_.noMatchedRules()) {
+            // Default value
+            output_ = null;
+        } else {
+            com.gs.dmn.runtime.RuleOutput ruleOutput_ = ruleOutputList_.applySingle(com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE);
+            output_ = ruleOutput_ == null ? null : ((StrategyRuleOutput)ruleOutput_).getStrategy();
+        }
+
+        return output_;
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")

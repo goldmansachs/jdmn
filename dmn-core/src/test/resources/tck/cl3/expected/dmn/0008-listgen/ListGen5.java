@@ -40,21 +40,8 @@ public class ListGen5 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             arguments.put("c", c);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments);
 
-            // Apply rules and collect results
-            com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-            ruleOutputList_.add(rule0(a, b, c, annotationSet_, eventListener_, externalExecutor_));
-            ruleOutputList_.add(rule1(a, b, c, annotationSet_, eventListener_, externalExecutor_));
-            ruleOutputList_.add(rule2(a, b, c, annotationSet_, eventListener_, externalExecutor_));
-
-            // Return results based on hit policy
-            List<String> output_;
-            if (ruleOutputList_.noMatchedRules()) {
-                // Default value
-                output_ = null;
-            } else {
-                List<? extends com.gs.dmn.runtime.RuleOutput> ruleOutputs_ = ruleOutputList_.applyMultiple(com.gs.dmn.runtime.annotation.HitPolicy.COLLECT);
-                output_ = ruleOutputs_.stream().map(o -> ((ListGen5RuleOutput)o).getListGen5()).collect(Collectors.toList());
-            }
+            // Evaluate expression
+            List<String> output_ = evaluate(a, b, c, annotationSet_, eventListener_, externalExecutor_);
 
             // Decision end
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments, output_, (System.currentTimeMillis() - startTime_));
@@ -64,6 +51,26 @@ public class ListGen5 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             logError("Exception caught in 'listGen5' evaluation", e);
             return null;
         }
+    }
+
+    private List<String> evaluate(String a, String b, String c, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+        // Apply rules and collect results
+        com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
+        ruleOutputList_.add(rule0(a, b, c, annotationSet_, eventListener_, externalExecutor_));
+        ruleOutputList_.add(rule1(a, b, c, annotationSet_, eventListener_, externalExecutor_));
+        ruleOutputList_.add(rule2(a, b, c, annotationSet_, eventListener_, externalExecutor_));
+
+        // Return results based on hit policy
+        List<String> output_;
+        if (ruleOutputList_.noMatchedRules()) {
+            // Default value
+            output_ = null;
+        } else {
+            List<? extends com.gs.dmn.runtime.RuleOutput> ruleOutputs_ = ruleOutputList_.applyMultiple(com.gs.dmn.runtime.annotation.HitPolicy.COLLECT);
+            output_ = ruleOutputs_.stream().map(o -> ((ListGen5RuleOutput)o).getListGen5()).collect(Collectors.toList());
+        }
+
+        return output_;
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")

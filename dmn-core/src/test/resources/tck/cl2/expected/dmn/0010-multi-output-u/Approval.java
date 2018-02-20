@@ -58,23 +58,8 @@ public class Approval extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             arguments.put("isAffordable", isAffordable);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments);
 
-            // Apply rules and collect results
-            com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
-            ruleOutputList_.add(rule0(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_));
-            ruleOutputList_.add(rule1(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_));
-            ruleOutputList_.add(rule2(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_));
-            ruleOutputList_.add(rule3(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_));
-            ruleOutputList_.add(rule4(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_));
-
-            // Return results based on hit policy
-            type.TApproval output_;
-            if (ruleOutputList_.noMatchedRules()) {
-                // Default value
-                output_ = new type.TApprovalImpl("Standard", "Declined");
-            } else {
-                com.gs.dmn.runtime.RuleOutput ruleOutput_ = ruleOutputList_.applySingle(com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE);
-                output_ = toDecisionOutput((ApprovalRuleOutput)ruleOutput_);
-            }
+            // Evaluate expression
+            type.TApproval output_ = evaluate(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_);
 
             // Decision end
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments, output_, (System.currentTimeMillis() - startTime_));
@@ -84,6 +69,28 @@ public class Approval extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             logError("Exception caught in 'Approval' evaluation", e);
             return null;
         }
+    }
+
+    private type.TApproval evaluate(java.math.BigDecimal age, String riskCategory, Boolean isAffordable, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+        // Apply rules and collect results
+        com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
+        ruleOutputList_.add(rule0(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_));
+        ruleOutputList_.add(rule1(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_));
+        ruleOutputList_.add(rule2(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_));
+        ruleOutputList_.add(rule3(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_));
+        ruleOutputList_.add(rule4(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_));
+
+        // Return results based on hit policy
+        type.TApproval output_;
+        if (ruleOutputList_.noMatchedRules()) {
+            // Default value
+            output_ = new type.TApprovalImpl("Standard", "Declined");
+        } else {
+            com.gs.dmn.runtime.RuleOutput ruleOutput_ = ruleOutputList_.applySingle(com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE);
+            output_ = toDecisionOutput((ApprovalRuleOutput)ruleOutput_);
+        }
+
+        return output_;
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
