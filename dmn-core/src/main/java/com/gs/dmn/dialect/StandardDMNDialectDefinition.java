@@ -27,7 +27,7 @@ import com.gs.dmn.serialization.StandardDMNValidator;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
-import com.gs.dmn.transformation.template.POJOTemplateProvider;
+import com.gs.dmn.transformation.template.TreeTemplateProvider;
 import org.omg.spec.dmn._20151101.dmn.TDefinitions;
 
 import java.util.Map;
@@ -43,7 +43,7 @@ public class StandardDMNDialectDefinition extends AbstractDMNDialectDefinition {
 
     @Override
     public DMNToJavaTransformer createDMNToJavaTransformer(DMNTransformer dmnTransformer, Map<String, String> inputParameters, BuildLogger logger) {
-        return new DMNToJavaTransformer(this, dmnTransformer, inputParameters, logger, new POJOTemplateProvider());
+        return new DMNToJavaTransformer(this, dmnTransformer, inputParameters, logger, new TreeTemplateProvider());
     }
 
     @Override
