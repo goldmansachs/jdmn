@@ -62,10 +62,10 @@ public class PreBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDec
         try {
             // Decision start
             long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments = new com.gs.dmn.runtime.listener.Arguments();
-            arguments.put("applicantData", applicantData);
-            arguments.put("requestedProduct", requestedProduct);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments);
+            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            arguments_.put("applicantData", applicantData);
+            arguments_.put("requestedProduct", requestedProduct);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
 
             // Apply child decisions
             String preBureauRiskCategoryOutput = preBureauRiskCategory.apply(applicantData, annotationSet_, eventListener_, externalExecutor_);
@@ -75,7 +75,7 @@ public class PreBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDec
             Boolean output_ = evaluate(applicantData, preBureauRiskCategoryOutput, requiredMonthlyInstallmentOutput, annotationSet_, eventListener_, externalExecutor_);
 
             // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments, output_, (System.currentTimeMillis() - startTime_));
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
 
             return output_;
         } catch (Exception e) {

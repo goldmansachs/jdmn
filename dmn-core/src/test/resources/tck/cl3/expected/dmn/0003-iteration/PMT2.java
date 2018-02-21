@@ -23,7 +23,7 @@ public class PMT2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         -1
     );
 
-    public static PMT2 INSTANCE = new PMT2();
+    public static final PMT2 INSTANCE = new PMT2();
 
     private PMT2() {
     }
@@ -36,15 +36,15 @@ public class PMT2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         try {
             // BKM start
             long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments = new com.gs.dmn.runtime.listener.Arguments();
-            arguments.put("loan", loan);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments);
+            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            arguments_.put("loan", loan);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
 
             // Evaluate expression
             java.math.BigDecimal output_ = evaluate(loan, annotationSet_, eventListener_, externalExecutor_);
 
             // BKM end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments, output_, (System.currentTimeMillis() - startTime_));
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
 
             return output_;
         } catch (Exception e) {

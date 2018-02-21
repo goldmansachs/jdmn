@@ -23,7 +23,7 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
         11
     );
 
-    public static ApplicationRiskScoreModel INSTANCE = new ApplicationRiskScoreModel();
+    public static final ApplicationRiskScoreModel INSTANCE = new ApplicationRiskScoreModel();
 
     private ApplicationRiskScoreModel() {
     }
@@ -36,17 +36,17 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
         try {
             // BKM start
             long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments = new com.gs.dmn.runtime.listener.Arguments();
-            arguments.put("age", age);
-            arguments.put("maritalStatus", maritalStatus);
-            arguments.put("employmentStatus", employmentStatus);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments);
+            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            arguments_.put("age", age);
+            arguments_.put("maritalStatus", maritalStatus);
+            arguments_.put("employmentStatus", employmentStatus);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
 
             // Evaluate expression
             java.math.BigDecimal output_ = evaluate(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_);
 
             // BKM end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments, output_, (System.currentTimeMillis() - startTime_));
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
 
             return output_;
         } catch (Exception e) {

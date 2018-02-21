@@ -23,7 +23,7 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
         13
     );
 
-    public static PostBureauRiskCategoryTable INSTANCE = new PostBureauRiskCategoryTable();
+    public static final PostBureauRiskCategoryTable INSTANCE = new PostBureauRiskCategoryTable();
 
     private PostBureauRiskCategoryTable() {
     }
@@ -36,17 +36,17 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
         try {
             // BKM start
             long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments = new com.gs.dmn.runtime.listener.Arguments();
-            arguments.put("existingCustomer", existingCustomer);
-            arguments.put("applicationRiskScore", applicationRiskScore);
-            arguments.put("creditScore", creditScore);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments);
+            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            arguments_.put("existingCustomer", existingCustomer);
+            arguments_.put("applicationRiskScore", applicationRiskScore);
+            arguments_.put("creditScore", creditScore);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
 
             // Evaluate expression
             String output_ = evaluate(existingCustomer, applicationRiskScore, creditScore, annotationSet_, eventListener_, externalExecutor_);
 
             // BKM end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments, output_, (System.currentTimeMillis() - startTime_));
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
 
             return output_;
         } catch (Exception e) {

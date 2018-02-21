@@ -34,14 +34,14 @@ public class FeelContainsFunction_ErrorCase_001_2a4d7448c6 extends com.gs.dmn.ru
         try {
             // Decision start
             long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments = new com.gs.dmn.runtime.listener.Arguments();
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments);
+            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
 
             // Evaluate expression
             Boolean output_ = evaluate(annotationSet_, eventListener_, externalExecutor_);
 
             // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments, output_, (System.currentTimeMillis() - startTime_));
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
 
             return output_;
         } catch (Exception e) {

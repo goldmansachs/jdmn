@@ -23,7 +23,7 @@ public class InstallmentCalculation extends com.gs.dmn.runtime.DefaultDMNBaseDec
         -1
     );
 
-    public static InstallmentCalculation INSTANCE = new InstallmentCalculation();
+    public static final InstallmentCalculation INSTANCE = new InstallmentCalculation();
 
     private InstallmentCalculation() {
     }
@@ -36,18 +36,18 @@ public class InstallmentCalculation extends com.gs.dmn.runtime.DefaultDMNBaseDec
         try {
             // BKM start
             long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments = new com.gs.dmn.runtime.listener.Arguments();
-            arguments.put("productType", productType);
-            arguments.put("rate", rate);
-            arguments.put("term", term);
-            arguments.put("amount", amount);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments);
+            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            arguments_.put("productType", productType);
+            arguments_.put("rate", rate);
+            arguments_.put("term", term);
+            arguments_.put("amount", amount);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
 
             // Evaluate expression
             java.math.BigDecimal output_ = evaluate(productType, rate, term, amount, annotationSet_, eventListener_, externalExecutor_);
 
             // BKM end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments, output_, (System.currentTimeMillis() - startTime_));
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
 
             return output_;
         } catch (Exception e) {

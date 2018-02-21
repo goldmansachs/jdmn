@@ -25,7 +25,7 @@ public class AffordabilityCalculation extends com.gs.dmn.runtime.DefaultDMNBaseD
         -1
     );
 
-    public static AffordabilityCalculation INSTANCE = new AffordabilityCalculation();
+    public static final AffordabilityCalculation INSTANCE = new AffordabilityCalculation();
 
     private AffordabilityCalculation() {
     }
@@ -38,19 +38,19 @@ public class AffordabilityCalculation extends com.gs.dmn.runtime.DefaultDMNBaseD
         try {
             // BKM start
             long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments = new com.gs.dmn.runtime.listener.Arguments();
-            arguments.put("monthlyIncome", monthlyIncome);
-            arguments.put("monthlyRepayments", monthlyRepayments);
-            arguments.put("monthlyExpenses", monthlyExpenses);
-            arguments.put("riskCategory", riskCategory);
-            arguments.put("requiredMonthlyInstallment", requiredMonthlyInstallment);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments);
+            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            arguments_.put("monthlyIncome", monthlyIncome);
+            arguments_.put("monthlyRepayments", monthlyRepayments);
+            arguments_.put("monthlyExpenses", monthlyExpenses);
+            arguments_.put("riskCategory", riskCategory);
+            arguments_.put("requiredMonthlyInstallment", requiredMonthlyInstallment);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
 
             // Evaluate expression
             Boolean output_ = evaluate(monthlyIncome, monthlyRepayments, monthlyExpenses, riskCategory, requiredMonthlyInstallment, annotationSet_, eventListener_, externalExecutor_);
 
             // BKM end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments, output_, (System.currentTimeMillis() - startTime_));
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
 
             return output_;
         } catch (Exception e) {

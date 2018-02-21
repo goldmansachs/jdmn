@@ -60,15 +60,15 @@ public class SumDurations extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         try {
             // Decision start
             long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments = new com.gs.dmn.runtime.listener.Arguments();
-            arguments.put("day", day);
-            arguments.put("month", month);
-            arguments.put("year", year);
-            arguments.put("dateString", dateString);
-            arguments.put("dateTimeString", dateTimeString);
-            arguments.put("durationString", durationString);
-            arguments.put("timeString", timeString);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments);
+            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            arguments_.put("day", day);
+            arguments_.put("month", month);
+            arguments_.put("year", year);
+            arguments_.put("dateString", dateString);
+            arguments_.put("dateTimeString", dateTimeString);
+            arguments_.put("durationString", durationString);
+            arguments_.put("timeString", timeString);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
 
             // Apply child decisions
             javax.xml.datatype.Duration dtDuration1Output = dtDuration1.apply(durationString, annotationSet_, eventListener_, externalExecutor_);
@@ -78,7 +78,7 @@ public class SumDurations extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             javax.xml.datatype.Duration output_ = evaluate(dtDuration1Output, dtDuration2Output, annotationSet_, eventListener_, externalExecutor_);
 
             // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments, output_, (System.currentTimeMillis() - startTime_));
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
 
             return output_;
         } catch (Exception e) {

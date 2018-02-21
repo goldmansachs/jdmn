@@ -23,7 +23,7 @@ public class EligibilityRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
         4
     );
 
-    public static EligibilityRules INSTANCE = new EligibilityRules();
+    public static final EligibilityRules INSTANCE = new EligibilityRules();
 
     private EligibilityRules() {
     }
@@ -36,17 +36,17 @@ public class EligibilityRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
         try {
             // BKM start
             long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments = new com.gs.dmn.runtime.listener.Arguments();
-            arguments.put("preBureauRiskCategory", preBureauRiskCategory);
-            arguments.put("preBureauAffordability", preBureauAffordability);
-            arguments.put("age", age);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments);
+            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            arguments_.put("preBureauRiskCategory", preBureauRiskCategory);
+            arguments_.put("preBureauAffordability", preBureauAffordability);
+            arguments_.put("age", age);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
 
             // Evaluate expression
             String output_ = evaluate(preBureauRiskCategory, preBureauAffordability, age, annotationSet_, eventListener_, externalExecutor_);
 
             // BKM end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments, output_, (System.currentTimeMillis() - startTime_));
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
 
             return output_;
         } catch (Exception e) {
