@@ -28,7 +28,7 @@ public class ${javaClassName} extends ${decisionBaseClass} {
         ${modelRepository.rulesCount(drgElement)}
     );
 
-    public static ${javaClassName} INSTANCE = new ${javaClassName}();
+    public static final ${javaClassName} INSTANCE = new ${javaClassName}();
 
     private ${javaClassName}() {
     }

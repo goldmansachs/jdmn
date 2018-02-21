@@ -23,7 +23,7 @@ public class RoutingRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         5
     );
 
-    public static RoutingRules INSTANCE = new RoutingRules();
+    public static final RoutingRules INSTANCE = new RoutingRules();
 
     private RoutingRules() {
     }
@@ -36,18 +36,18 @@ public class RoutingRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         try {
             // BKM start
             long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments = new com.gs.dmn.runtime.listener.Arguments();
-            arguments.put("postBureauRiskCategory", postBureauRiskCategory);
-            arguments.put("postBureauAffordability", postBureauAffordability);
-            arguments.put("bankrupt", bankrupt);
-            arguments.put("creditScore", creditScore);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments);
+            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            arguments_.put("postBureauRiskCategory", postBureauRiskCategory);
+            arguments_.put("postBureauAffordability", postBureauAffordability);
+            arguments_.put("bankrupt", bankrupt);
+            arguments_.put("creditScore", creditScore);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
 
             // Evaluate expression
             String output_ = evaluate(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, annotationSet_, eventListener_, externalExecutor_);
 
             // BKM end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments, output_, (System.currentTimeMillis() - startTime_));
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
 
             return output_;
         } catch (Exception e) {

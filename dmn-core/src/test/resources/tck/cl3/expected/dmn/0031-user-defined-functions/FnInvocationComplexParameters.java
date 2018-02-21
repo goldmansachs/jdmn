@@ -60,10 +60,10 @@ public class FnInvocationComplexParameters extends com.gs.dmn.runtime.DefaultDMN
         try {
             // Decision start
             long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments = new com.gs.dmn.runtime.listener.Arguments();
-            arguments.put("inputA", inputA);
-            arguments.put("inputB", inputB);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments);
+            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            arguments_.put("inputA", inputA);
+            arguments_.put("inputB", inputB);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
 
             // Apply child decisions
             type.TFnLibrary fnLibraryOutput = fnLibrary.apply(annotationSet_, eventListener_, externalExecutor_);
@@ -72,7 +72,7 @@ public class FnInvocationComplexParameters extends com.gs.dmn.runtime.DefaultDMN
             type.TFnInvocationComplexParamsResult output_ = evaluate(fnLibraryOutput, inputA, inputB, annotationSet_, eventListener_, externalExecutor_);
 
             // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments, output_, (System.currentTimeMillis() - startTime_));
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
 
             return output_;
         } catch (Exception e) {

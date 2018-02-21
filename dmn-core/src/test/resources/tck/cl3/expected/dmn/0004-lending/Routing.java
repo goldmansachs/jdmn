@@ -62,11 +62,11 @@ public class Routing extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         try {
             // Decision start
             long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments = new com.gs.dmn.runtime.listener.Arguments();
-            arguments.put("applicantData", applicantData);
-            arguments.put("bureauData", bureauData);
-            arguments.put("requestedProduct", requestedProduct);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments);
+            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            arguments_.put("applicantData", applicantData);
+            arguments_.put("bureauData", bureauData);
+            arguments_.put("requestedProduct", requestedProduct);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
 
             // Apply child decisions
             Boolean postBureauAffordabilityOutput = postBureauAffordability.apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_);
@@ -76,7 +76,7 @@ public class Routing extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             String output_ = evaluate(bureauData, postBureauAffordabilityOutput, postBureauRiskCategoryOutput, annotationSet_, eventListener_, externalExecutor_);
 
             // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments, output_, (System.currentTimeMillis() - startTime_));
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
 
             return output_;
         } catch (Exception e) {

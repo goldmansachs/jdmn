@@ -23,7 +23,7 @@ public class IsFactor extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         -1
     );
 
-    public static IsFactor INSTANCE = new IsFactor();
+    public static final IsFactor INSTANCE = new IsFactor();
 
     private IsFactor() {
     }
@@ -36,16 +36,16 @@ public class IsFactor extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         try {
             // BKM start
             long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments = new com.gs.dmn.runtime.listener.Arguments();
-            arguments.put("value", value);
-            arguments.put("factor", factor);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments);
+            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            arguments_.put("value", value);
+            arguments_.put("factor", factor);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
 
             // Evaluate expression
             Boolean output_ = evaluate(value, factor, annotationSet_, eventListener_, externalExecutor_);
 
             // BKM end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments, output_, (System.currentTimeMillis() - startTime_));
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
 
             return output_;
         } catch (Exception e) {

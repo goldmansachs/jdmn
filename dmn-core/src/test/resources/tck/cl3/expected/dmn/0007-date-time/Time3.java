@@ -52,18 +52,18 @@ public class Time3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         try {
             // Decision start
             long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments = new com.gs.dmn.runtime.listener.Arguments();
-            arguments.put("hours", hours);
-            arguments.put("minutes", minutes);
-            arguments.put("seconds", seconds);
-            arguments.put("timezone", timezone);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments);
+            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            arguments_.put("hours", hours);
+            arguments_.put("minutes", minutes);
+            arguments_.put("seconds", seconds);
+            arguments_.put("timezone", timezone);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
 
             // Evaluate expression
             javax.xml.datatype.XMLGregorianCalendar output_ = evaluate(hours, minutes, seconds, timezone, annotationSet_, eventListener_, externalExecutor_);
 
             // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments, output_, (System.currentTimeMillis() - startTime_));
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
 
             return output_;
         } catch (Exception e) {

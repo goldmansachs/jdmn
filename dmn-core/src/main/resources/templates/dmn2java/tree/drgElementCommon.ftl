@@ -3,7 +3,7 @@
 -->
 <#macro applyMethodBody drgElement>
         try {
-        <@startDRGElement />
+        <@startDRGElement drgElement/>
 
         <#if modelRepository.isDecisionTableExpression(drgElement)>
             <@expressionApplyBody drgElement />
@@ -249,41 +249,41 @@ import static ${transformer.qualifiedName(javaPackageName, transformer.drgElemen
 <#--
     Events
 -->
-<#macro startDRGElement>
+<#macro startDRGElement drgElement>
             // ${transformer.startCommentText(drgElement)}
             long startTime_ = System.currentTimeMillis();
-            ${transformer.argumentsClassName()} arguments = new ${transformer.argumentsClassName()}();
+            ${transformer.argumentsClassName()} arguments_ = new ${transformer.argumentsClassName()}();
             <#list transformer.drgElementArgumentNameList(drgElement)>
             <#items as arg>
-            arguments.put("${arg}", ${arg});
+            arguments_.put("${arg}", ${arg});
             </#items>
             </#list>
-            ${transformer.eventListenerVariableName()}.startDRGElement(<@drgElementAnnotation/>, arguments);
+            ${transformer.eventListenerVariableName()}.startDRGElement(<@drgElementAnnotation drgElement/>, arguments_);
 </#macro>
 
 <#macro endDRGElementAndReturn drgElement output>
             // ${transformer.endCommentText(drgElement)}
-            ${transformer.eventListenerVariableName()}.endDRGElement(<@drgElementAnnotation/>, arguments, ${output}, (System.currentTimeMillis() - startTime_));
+            ${transformer.eventListenerVariableName()}.endDRGElement(<@drgElementAnnotation drgElement/>, arguments_, ${output}, (System.currentTimeMillis() - startTime_));
 
             return ${output};
 </#macro>
 
 <#macro startRule drgElement rule_index>
         // Rule start
-        ${transformer.eventListenerVariableName()}.startRule(<@drgElementAnnotation/>, <@ruleAnnotation/>);
+        ${transformer.eventListenerVariableName()}.startRule(<@drgElementAnnotation drgElement/>, <@ruleAnnotation/>);
 </#macro>
 
 <#macro matchRule drgElement rule_index>
             // Rule match
-            ${transformer.eventListenerVariableName()}.matchRule(<@drgElementAnnotation/>, <@ruleAnnotation/>);
+            ${transformer.eventListenerVariableName()}.matchRule(<@drgElementAnnotation drgElement/>, <@ruleAnnotation/>);
 </#macro>
 
 <#macro endRule drgElement rule_index output>
         // Rule end
-        ${transformer.eventListenerVariableName()}.endRule(<@drgElementAnnotation/>, <@ruleAnnotation/>, ${output});
+        ${transformer.eventListenerVariableName()}.endRule(<@drgElementAnnotation drgElement/>, <@ruleAnnotation/>, ${output});
 </#macro>
 
-<#macro drgElementAnnotation>${transformer.drgElementMetadataFieldName()}</#macro>
+<#macro drgElementAnnotation drgElement>${transformer.drgElementMetadataFieldName()}</#macro>
 
 <#macro ruleAnnotation>${transformer.drgRuleMetadataFieldName()}</#macro>
 
