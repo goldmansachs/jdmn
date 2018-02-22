@@ -15,6 +15,7 @@ package com.gs.dmn.transformation;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.transformation.template.TemplateProvider;
 import org.junit.Test;
 
 import java.io.File;
@@ -57,9 +58,12 @@ public abstract class AbstractTransformerTest extends AbstractFileTransformerTes
         return result.toString().toLowerCase();
     }
 
-    protected abstract DMNDialectDefinition getDialectDefinition();
+    protected abstract DMNDialectDefinition makeDialectDefinition();
 
     protected abstract DMNTransformer makeDMNTransformer(BuildLogger logger);
+
+    protected abstract TemplateProvider makeTemplateProvider();
+
     protected abstract Map<String, String> makeInputParameters();
 
     @Test

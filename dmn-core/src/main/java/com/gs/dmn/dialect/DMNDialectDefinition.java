@@ -44,7 +44,7 @@ public interface DMNDialectDefinition {
     //
     DMNInterpreter createDMNInterpreter(TDefinitions definitions);
 
-    DMNToJavaTransformer createDMNToJavaTransformer(DMNTransformer dmnTransformer, Map<String, String> inputParameters, BuildLogger logger);
+    DMNToJavaTransformer createDMNToJavaTransformer(DMNTransformer dmnTransformer, TemplateProvider templateProvider, Map<String, String> inputParameters, BuildLogger logger);
 
     BasicDMN2JavaTransformer createBasicTransformer(TDefinitions definitions, String javaRootPackage);
 
@@ -54,8 +54,6 @@ public interface DMNDialectDefinition {
     FEELTypeTranslator createTypeTranslator();
 
     FEELLib createFEELLib();
-
-    TemplateProvider createTemplateProvider();
 
     String getDecisionBaseClass();
 

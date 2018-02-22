@@ -22,6 +22,8 @@ import com.gs.dmn.transformation.AbstractTestTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.FileTransformer;
 import com.gs.dmn.transformation.ToSimpleNameTransformer;
+import com.gs.dmn.transformation.template.TemplateProvider;
+import com.gs.dmn.transformation.template.TreeTemplateProvider;
 
 import java.net.URLDecoder;
 import java.nio.file.Path;
@@ -41,7 +43,7 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends Abstrac
     }
 
     @Override
-    protected DMNDialectDefinition getDialectDefinition() {
+    protected DMNDialectDefinition makeDialectDefinition() {
         return new StandardDMNDialectDefinition();
     }
 
@@ -51,8 +53,13 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends Abstrac
     }
 
     @Override
+    protected TemplateProvider makeTemplateProvider(){
+        return new TreeTemplateProvider();
+    }
+
+    @Override
     protected FileTransformer makeTransformer(Path inputModelPath, Map<String, String> inputParameters, BuildLogger logger) {
-        return new TCKTestCasesToJUnitTransformer(getDialectDefinition(), makeDMNTransformer(logger), inputModelPath, inputParameters, logger);
+        return new TCKTestCasesToJUnitTransformer(makeDialectDefinition(), makeDMNTransformer(logger), makeTemplateProvider(), inputModelPath, inputParameters, logger);
     }
 
     @Override
