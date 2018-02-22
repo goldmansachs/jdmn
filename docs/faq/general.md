@@ -31,3 +31,15 @@ FEEL type |	number | string	| boolean | date |	time | date and time | duration
 ```MixedJavaTimeDMNDialectDefinition``` | ```java.math.BigDecimal``` | ```java.lang.String``` | ```java.lang.Boolean``` | ```java.time.LocalDate``` | ```java.time.OffsetTime``` | ```java.time.ZonedDateTime``` | ```javax.xml.datatype.Duration```
 
 The recommended dialect is MixedJavaTimeDMNDialectDefinition. It's a bit more faster than the others and more user friendly.
+
+## What is a template provider?
+
+A template provider is a jDMN abstraction introduced to support variations of the layout of the generated Java code, depending on the layout of the decision model. For example, 
+* tree structure
+* DAG structure
+
+## How many template providers are supported?
+
+The supported template providers are the following:
+1. TreeTemplateProvider
+2. DagTemplateProvider

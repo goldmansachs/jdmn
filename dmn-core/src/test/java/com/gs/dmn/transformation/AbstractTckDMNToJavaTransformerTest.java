@@ -15,15 +15,22 @@ package com.gs.dmn.transformation;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.transformation.template.TemplateProvider;
+import com.gs.dmn.transformation.template.TreeTemplateProvider;
 
 public abstract class AbstractTckDMNToJavaTransformerTest extends AbstractDMNToJavaTest {
     @Override
-    protected DMNDialectDefinition getDialectDefinition() {
+    protected DMNDialectDefinition makeDialectDefinition() {
         return new StandardDMNDialectDefinition();
     }
 
     @Override
     protected DMNTransformer makeDMNTransformer(BuildLogger logger) {
         return new ToSimpleNameTransformer(logger);
+    }
+
+    @Override
+    protected TemplateProvider makeTemplateProvider() {
+        return new TreeTemplateProvider();
     }
 }
