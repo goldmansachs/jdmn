@@ -31,8 +31,8 @@ public abstract class AbstractDMNTransformer extends AbstractTemplateBasedTransf
     protected final String decisionBaseClass;
     protected final String javaRootPackage;
 
-    public AbstractDMNTransformer(DMNDialectDefinition dialectDefinition, DMNTransformer dmnTransformer, Map<String, String> inputParameters, BuildLogger logger, TemplateProvider templateProvider) {
-        super(inputParameters, logger, templateProvider);
+    public AbstractDMNTransformer(DMNDialectDefinition dialectDefinition, DMNTransformer dmnTransformer, TemplateProvider templateProvider, Map<String, String> inputParameters, BuildLogger logger) {
+        super(templateProvider, inputParameters, logger);
         this.dialectDefinition = dialectDefinition;
         this.dmnTransformer = dmnTransformer;
         boolean xsdValidation = InputParamUtil.getOptionalBooleanParam(inputParameters, "xsdValidation");

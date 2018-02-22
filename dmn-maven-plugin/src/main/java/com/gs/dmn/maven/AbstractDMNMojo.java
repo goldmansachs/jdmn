@@ -14,6 +14,7 @@ package com.gs.dmn.maven;
 
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.transformation.DMNTransformer;
+import com.gs.dmn.transformation.template.TemplateProvider;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
@@ -34,6 +35,15 @@ public abstract class AbstractDMNMojo extends AbstractMojo {
             return (DMNTransformer) dmnTransformerClass.getConstructor(new Class[]{BuildLogger.class}).newInstance(new Object[]{logger});
         } catch (Exception e) {
             return (DMNTransformer) dmnTransformerClass.newInstance();
+        }
+    }
+
+    protected TemplateProvider makeTemplateProvider(String templateProviderClassName, BuildLogger logger) throws Exception {
+        Class<?> templateProviderClass = Class.forName(templateProviderClassName);
+        try {
+            return (TemplateProvider) templateProviderClass.newInstance();
+        } catch (Exception e) {
+            throw new IllegalArgumentException(String.format("Cannot build template provider '%s'", templateProviderClass));
         }
     }
 }

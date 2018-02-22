@@ -104,6 +104,7 @@ Sample:
         <version>${platform.version}</version>
         <configuration>
             <dmnDialect>com.gs.dmn.dialect.MixedJavaTimeDMNDialectDefinition</dmnDialect>
+            <templateProvider>com.gs.dmn.transformation.template.TreeTemplateProvider</templateProvider>
             <inputParameters>
                 <dmnVersion>${dmn.version}</dmnVersion>
                 <modelVersion>${model.version}</modelVersion>

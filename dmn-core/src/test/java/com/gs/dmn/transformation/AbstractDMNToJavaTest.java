@@ -59,7 +59,7 @@ public abstract class AbstractDMNToJavaTest extends AbstractTransformerTest {
     }
 
     private FileTransformer makeTransformer(Map<String, String> inputParameters, BuildLogger logger) {
-        return getDialectDefinition().createDMNToJavaTransformer(makeDMNTransformer(logger), inputParameters, logger);
+        return makeDialectDefinition().createDMNToJavaTransformer(makeDMNTransformer(logger), makeTemplateProvider(), inputParameters, logger);
     }
 
     @Override
@@ -81,5 +81,4 @@ public abstract class AbstractDMNToJavaTest extends AbstractTransformerTest {
     protected abstract String getInputPath();
 
     protected abstract String getExpectedPath();
-
 }

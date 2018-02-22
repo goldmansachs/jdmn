@@ -34,7 +34,7 @@ public abstract class AbstractTemplateBasedTransformer extends AbstractFileTrans
 
     protected final TemplateProvider templateProvider;
 
-    public AbstractTemplateBasedTransformer(Map<String, String> inputParameters, BuildLogger logger, TemplateProvider templateProvider) {
+    public AbstractTemplateBasedTransformer(TemplateProvider templateProvider, Map<String, String> inputParameters, BuildLogger logger) {
         super(inputParameters, logger);
         this.templateProvider = templateProvider;
     }
