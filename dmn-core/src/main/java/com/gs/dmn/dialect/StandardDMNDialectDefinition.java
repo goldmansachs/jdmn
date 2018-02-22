@@ -28,7 +28,6 @@ import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.template.TemplateProvider;
-import com.gs.dmn.transformation.template.TreeTemplateProvider;
 import org.omg.spec.dmn._20151101.dmn.TDefinitions;
 
 import java.util.Map;
@@ -43,8 +42,8 @@ public class StandardDMNDialectDefinition extends AbstractDMNDialectDefinition {
     }
 
     @Override
-    public DMNToJavaTransformer createDMNToJavaTransformer(DMNTransformer dmnTransformer, Map<String, String> inputParameters, BuildLogger logger) {
-        return new DMNToJavaTransformer(this, dmnTransformer, inputParameters, logger, createTemplateProvider());
+    public DMNToJavaTransformer createDMNToJavaTransformer(DMNTransformer dmnTransformer, TemplateProvider templateProvider, Map<String, String> inputParameters, BuildLogger logger) {
+        return new DMNToJavaTransformer(this, dmnTransformer, templateProvider, inputParameters, logger);
     }
 
     @Override
@@ -61,6 +60,10 @@ public class StandardDMNDialectDefinition extends AbstractDMNDialectDefinition {
         }
     }
 
+    private EnvironmentFactory createEnvironmentFactory() {
+        return DefaultDMNEnvironmentFactory.instance();
+    }
+
     //
     // DMN execution
     //
@@ -75,11 +78,6 @@ public class StandardDMNDialectDefinition extends AbstractDMNDialectDefinition {
     }
 
     @Override
-    public TemplateProvider createTemplateProvider() {
-        return new TreeTemplateProvider();
-    }
-
-    @Override
     public String getDecisionBaseClass() {
         return DefaultDMNBaseDecision.class.getName();
     }
@@ -87,9 +85,5 @@ public class StandardDMNDialectDefinition extends AbstractDMNDialectDefinition {
     @Override
     public DMNValidator createValidator(boolean semanticValidation) {
         return new StandardDMNValidator(semanticValidation);
-    }
-
-    private EnvironmentFactory createEnvironmentFactory() {
-        return DefaultDMNEnvironmentFactory.instance();
     }
 }

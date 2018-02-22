@@ -23,7 +23,7 @@ import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
-public class DoubleMixedJavaTimeDMNBaseDecision extends DoubleMixedJavaTimeFEELLib implements DMNDecision<Double, LocalDate, OffsetTime, ZonedDateTime, Duration>, AnnotationTarget{
+public class DoubleMixedJavaTimeDMNBaseDecision extends DoubleMixedJavaTimeFEELLib implements DMNDecision<Double, LocalDate, OffsetTime, ZonedDateTime, Duration>, AnnotationTarget {
     @Override
     public DRGElement getDRGElementAnnotation() {
         return this.getClass().getAnnotation(DRGElement.class);

@@ -52,8 +52,8 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
     protected final String modelVersion;
     protected final String platformVersion;
 
-    public DMNToJavaTransformer(DMNDialectDefinition dialectDefinition, DMNTransformer dmnTransformer, Map<String, String> inputParameters, BuildLogger logger, TemplateProvider templateProvider) {
-        super(dialectDefinition, dmnTransformer, inputParameters, logger, templateProvider);
+    public DMNToJavaTransformer(DMNDialectDefinition dialectDefinition, DMNTransformer dmnTransformer, TemplateProvider templateProvider, Map<String, String> inputParameters, BuildLogger logger) {
+        super(dialectDefinition, dmnTransformer, templateProvider, inputParameters, logger);
 
         this.dmnVersion = InputParamUtil.getRequiredParam(inputParameters, "dmnVersion");
         this.modelVersion = InputParamUtil.getRequiredParam(inputParameters, "modelVersion");

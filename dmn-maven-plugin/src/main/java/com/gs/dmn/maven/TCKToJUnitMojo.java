@@ -16,6 +16,7 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.tck.TCKTestCasesToJUnitTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.FileTransformer;
+import com.gs.dmn.transformation.template.TemplateProvider;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -33,6 +34,9 @@ public class TCKToJUnitMojo extends AbstractDMNMojo {
 
     @Parameter(required = true, defaultValue = "com.gs.dmn.transformation.NopDMNTransformer")
     public String dmnTransformer;
+
+    @Parameter(required = true, defaultValue = "com.gs.dmn.transformation.template.TreeTemplateProvider")
+    public String templateProvider;
 
     @Parameter(required = false)
     public Map<String, String> inputParameters;
@@ -59,8 +63,9 @@ public class TCKToJUnitMojo extends AbstractDMNMojo {
             Class<?> dialectClass = Class.forName(dmnDialect);
             DMNDialectDefinition dmnDialect = (DMNDialectDefinition) dialectClass.newInstance();
             DMNTransformer dmnTransformer = makeDMNTransformer(this.dmnTransformer, logger);
+            TemplateProvider templateProvider = makeTemplateProvider(this.templateProvider, logger);
             FileTransformer transformer = new TCKTestCasesToJUnitTransformer(
-                    dmnDialect, dmnTransformer,
+                    dmnDialect, dmnTransformer, templateProvider,
                     inputModelFileDirectory.toPath(), inputParameters,
                     logger
             );
