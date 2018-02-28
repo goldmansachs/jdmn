@@ -38,6 +38,7 @@ import com.gs.dmn.runtime.listener.LoggingEventListener;
 import com.gs.dmn.runtime.listener.NopEventListener;
 import com.gs.dmn.serialization.JsonSerializer;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
+import com.gs.dmn.transformation.InputParamUtil;
 import com.gs.dmn.transformation.java.CompoundStatement;
 import com.gs.dmn.transformation.java.ExpressionStatement;
 import com.gs.dmn.transformation.java.Statement;
@@ -51,6 +52,7 @@ import javax.xml.namespace.QName;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.gs.dmn.serialization.DMNNamespacePrefixMapper.FEEL_NS;
@@ -71,11 +73,11 @@ public class BasicDMN2JavaTransformer {
     private final InvocationToJavaTransformer invocationToJavaTransformer;
     private final RelationToJavaTransformer relationToJavaTransformer;
 
-    public BasicDMN2JavaTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, FEELTypeTranslator feelTypeTranslator, String javaRootPackage) {
+    public BasicDMN2JavaTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, FEELTypeTranslator feelTypeTranslator, Map<String, String> inputParameters) {
         this.dmnModelRepository = dmnModelRepository;
         this.environmentFactory = environmentFactory;
         this.feelTypeTranslator = feelTypeTranslator;
-        this.javaRootPackage = javaRootPackage;
+        this.javaRootPackage = InputParamUtil.getOptionalParam(inputParameters, "javaRootPackage");
         this.feelTranslator = new FEELTranslatorImpl(this);
 
         this.contextToJavaTransformer = new ContextToJavaTransformer(this);

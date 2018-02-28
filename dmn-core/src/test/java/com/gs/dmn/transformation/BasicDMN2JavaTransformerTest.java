@@ -25,6 +25,7 @@ import org.omg.spec.dmn._20151101.dmn.TDefinitions;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.LinkedHashMap;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -41,7 +42,7 @@ public class BasicDMN2JavaTransformerTest {
     public void setUp() throws Exception {
         String pathName = "dmn/input/0004-lending.dmn";
         TDefinitions definitions = readDMN(pathName);
-        this.dmnTransformer = dialectDefinition.createBasicTransformer(definitions, null);
+        this.dmnTransformer = dialectDefinition.createBasicTransformer(definitions, new LinkedHashMap<>());
     }
 
     @Test

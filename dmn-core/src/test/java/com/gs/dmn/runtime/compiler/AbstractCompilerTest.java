@@ -25,6 +25,7 @@ import org.junit.Test;
 import org.omg.spec.dmn._20151101.dmn.TDefinitions;
 
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -38,8 +39,8 @@ public abstract class AbstractCompilerTest {
         element.setType(new BuiltinFunctionType(Arrays.asList(), NumberType.NUMBER));
         FEELContext context = null;
         TDefinitions definitions = new TDefinitions();
-        BasicDMN2JavaTransformer dmnTransformer = dialectDefinition.createBasicTransformer(definitions, null);
-        FEELTranslator feelTranslator = dialectDefinition.createFEELTranslator(definitions, null);
+        BasicDMN2JavaTransformer dmnTransformer = dialectDefinition.createBasicTransformer(definitions, new LinkedHashMap<>());
+        FEELTranslator feelTranslator = dialectDefinition.createFEELTranslator(definitions, new LinkedHashMap<>());
         return getCompiler().makeClassData(element, context, dmnTransformer, feelTranslator, dialectDefinition.createFEELLib().getClass().getName());
     }
 
