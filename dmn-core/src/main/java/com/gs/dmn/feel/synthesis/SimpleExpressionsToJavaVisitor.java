@@ -294,7 +294,9 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
 
     @Override
     public Object visit(Name element, FEELContext context) {
-        return javaFriendlyVariableName(element.getName());
+        String name = element.getName();
+        String javaName = javaFriendlyVariableName(name);
+        return lazyEvaluation && dmnTransformer.isDecision(name) ? javaName + ".getOrCompute()" : javaName;
     }
 
     private String makeNavigationPath(Expression element, String sourceName, String memberName, FEELContext params) {

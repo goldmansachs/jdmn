@@ -17,11 +17,11 @@ import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 
 interface FEELTestsTranslator extends FEELTestsAnalyzer {
-    String unaryTestsToJava(String text, FEELContext context);
+    String unaryTestsToJava(String text, FEELContext context, boolean lazyEvaluation);
 
-    String simpleUnaryTestsToJava(String text, FEELContext context);
+    String simpleUnaryTestsToJava(String text, FEELContext context, boolean lazyEvaluation);
 
-    String unaryTestsToJava(UnaryTests expression, FEELContext context);
+    String unaryTestsToJava(UnaryTests expression, FEELContext context, boolean lazyEvaluation);
 
-    String simpleUnaryTestsToJava(UnaryTests expression, FEELContext context);
+    String simpleUnaryTestsToJava(UnaryTests expression, FEELContext context, boolean lazyEvaluation);
 }

@@ -237,6 +237,15 @@ import static ${transformer.qualifiedName(javaPackageName, transformer.drgElemen
     Apply sub-decisions
 -->
 <#macro applySubDecisions drgElement>
+    <#if transformer.isLazyEval(drgElement)>
+        <#list modelRepository.directSubDecisions(drgElement)>
+            // Apply child decisions
+            <#items as subDecision>
+            ${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> ${transformer.drgElementOutputVariableName(subDecision)} = new ${transformer.lazyEvalClassName()}<>(() -> ${transformer.drgElementVariableName(subDecision)}.apply(${transformer.drgElementArgumentsExtra(transformer.drgElementArgumentList(subDecision))}));
+            </#items>
+
+        </#list>
+    <#else>
         <#list modelRepository.directSubDecisions(drgElement)>
             // Apply child decisions
             <#items as subDecision>
@@ -244,6 +253,7 @@ import static ${transformer.qualifiedName(javaPackageName, transformer.drgElemen
             </#items>
 
         </#list>
+    </#if>
 </#macro>
 
 <#--

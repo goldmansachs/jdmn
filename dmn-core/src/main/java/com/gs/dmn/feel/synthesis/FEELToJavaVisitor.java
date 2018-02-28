@@ -50,14 +50,16 @@ import java.util.stream.Collectors;
 
 public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     private static final int INITIAL_VALUE = -1;
+    protected boolean lazyEvaluation = false;
     private int filterCount = INITIAL_VALUE;
 
     public FEELToJavaVisitor(BasicDMN2JavaTransformer dmnTransformer) {
         super(dmnTransformer);
     }
 
-    public void reset() {
-        filterCount = INITIAL_VALUE;
+    public void init(boolean lazyEvaluation) {
+        this.filterCount = INITIAL_VALUE;
+        this.lazyEvaluation = lazyEvaluation;
     }
 
     //
@@ -545,11 +547,12 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         return nameToJava(name, context);
     }
 
-    private Object nameToJava(String name, FEELContext context) {
+    protected Object nameToJava(String name, FEELContext context) {
         if (name.equals(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER)) {
             return inputExpressionToJava(context);
         } else {
-            return javaFriendlyVariableName(name);
+            String javaName = javaFriendlyVariableName(name);
+            return lazyEvaluation && dmnTransformer.isDecision(name) ? javaName + ".getOrCompute()" : javaName;
         }
     }
 
@@ -561,6 +564,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
             throw new DMNRuntimeException("Missing inputExpression");
         } else {
             SimpleExpressionsToJavaVisitor visitor = new SimpleExpressionsToJavaVisitor(dmnTransformer);
+            visitor.init(lazyEvaluation);
             return (String) inputExpression.accept(visitor, context);
         }
     }
