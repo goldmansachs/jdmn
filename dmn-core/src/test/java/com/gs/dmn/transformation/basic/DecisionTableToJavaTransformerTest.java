@@ -15,10 +15,12 @@ package com.gs.dmn.transformation.basic;
 import org.junit.Test;
 import org.omg.spec.dmn._20151101.dmn.TDecisionRule;
 
-import static org.junit.Assert.*;
+import java.util.LinkedHashMap;
+
+import static org.junit.Assert.assertEquals;
 
 public class DecisionTableToJavaTransformerTest {
-    DecisionTableToJavaTransformer transformer = new DecisionTableToJavaTransformer(new BasicDMN2JavaTransformer(null, null, null, null));
+    DecisionTableToJavaTransformer transformer = new DecisionTableToJavaTransformer(new BasicDMN2JavaTransformer(null, null, null, new LinkedHashMap<>()));
 
     @Test
     public void testAnnotationEscapedText() {
