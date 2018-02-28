@@ -33,11 +33,11 @@ public interface DMNDialectDefinition {
     //
     FEELInterpreter createFEELInterpreter(TDefinitions definitions);
 
-    FEELTranslator createFEELTranslator(TDefinitions definitions, String javaRootPackage);
+    FEELTranslator createFEELTranslator(TDefinitions definitions, Map<String, String> inputParameters);
 
     FEELInterpreter createSFEELInterpreter(TDefinitions definitions);
 
-    FEELTranslator createSFEELTranslator(TDefinitions definitions, String javaRootPackage);
+    FEELTranslator createSFEELTranslator(TDefinitions definitions, Map<String, String> inputParameters);
 
     //
     // DMN Processors
@@ -46,7 +46,7 @@ public interface DMNDialectDefinition {
 
     DMNToJavaTransformer createDMNToJavaTransformer(DMNTransformer dmnTransformer, TemplateProvider templateProvider, Map<String, String> inputParameters, BuildLogger logger);
 
-    BasicDMN2JavaTransformer createBasicTransformer(TDefinitions definitions, String javaRootPackage);
+    BasicDMN2JavaTransformer createBasicTransformer(TDefinitions definitions, Map<String, String> inputParameters);
 
     //
     // Execution engine
