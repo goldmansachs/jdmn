@@ -43,7 +43,8 @@ public class LiteralExpressionToJavaTransformer {
         Expression expression = feelTranslator.analyzeExpression(expressionText, context);
         Type expressionType = expression.getType();
 
-        String javaExpression = feelTranslator.expressionToJava(expression, context);
+        boolean lazyEvaluation = dmnTransformer.isLazyEval(element);
+        String javaExpression = feelTranslator.expressionToJava(expression, context, lazyEvaluation);
         ExpressionStatement javaStatement = new ExpressionStatement(javaExpression, expressionType);
         return javaStatement;
     }

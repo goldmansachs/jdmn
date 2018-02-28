@@ -10,16 +10,18 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.synthesis;
+package com.gs.dmn;
 
-import com.gs.dmn.feel.analysis.FEELExpressionsAnalyzer;
-import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import org.omg.spec.dmn._20151101.dmn.TDecision;
 
-interface FEELExpressionsTranslator extends FEELExpressionsAnalyzer {
-    String expressionToJava(String text, FEELContext context, boolean lazyEvaluation);
+public class StartMarker {
+    private final TDecision decision;
 
-    String expressionToJava(Expression expression, FEELContext context, boolean lazyEvaluation);
+    public StartMarker(TDecision decision) {
+        this.decision = decision;
+    }
 
-    String simpleExpressionsToJava(Expression simpleExpressions, FEELContext context, boolean lazyEvaluation);
+    public TDecision getDecision() {
+        return decision;
+    }
 }
