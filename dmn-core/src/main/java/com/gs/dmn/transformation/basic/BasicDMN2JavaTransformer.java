@@ -65,6 +65,7 @@ public class BasicDMN2JavaTransformer {
     protected final FEELTypeTranslator feelTypeTranslator;
     protected final FEELTranslator feelTranslator;
     private final String javaRootPackage;
+    private final boolean lazyEvaluation;
 
     private final ContextToJavaTransformer contextToJavaTransformer;
     private final DecisionTableToJavaTransformer decisionTableToJavaTransformer;
@@ -78,6 +79,7 @@ public class BasicDMN2JavaTransformer {
         this.environmentFactory = environmentFactory;
         this.feelTypeTranslator = feelTypeTranslator;
         this.javaRootPackage = InputParamUtil.getOptionalParam(inputParameters, "javaRootPackage");
+        this.lazyEvaluation = InputParamUtil.getOptionalBooleanParam(inputParameters, "lazyEvaluation");
         this.feelTranslator = new FEELTranslatorImpl(this);
 
         this.contextToJavaTransformer = new ContextToJavaTransformer(this);
@@ -434,7 +436,7 @@ public class BasicDMN2JavaTransformer {
                     parameterName = drgElementVariableName(subDecision);
                 }
                 String parameterJavaType = drgElementOutputType(subDecision);
-                parameters.add(new Pair<>(parameterName, parameterJavaType));
+                parameters.add(new Pair<>(parameterName, lazyEvaluationType(element, input, parameterJavaType)));
             } else {
                 throw new UnsupportedOperationException(String.format("'%s' is not supported yet", input.getClass().getSimpleName()));
             }
@@ -465,6 +467,36 @@ public class BasicDMN2JavaTransformer {
             return "Decision end";
         } else if (element instanceof TBusinessKnowledgeModel) {
             return "BKM end";
+        } else {
+            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
+        }
+    }
+
+    public String startElementCommentText(TDRGElement element) {
+        if (element instanceof TDecision) {
+            return String.format("Start decision '%s'", element.getName());
+        } else if (element instanceof TBusinessKnowledgeModel) {
+            return String.format("Start BKM '%s'", element.getName());
+        } else {
+            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
+        }
+    }
+
+    public String endElementCommentText(TDRGElement element) {
+        if (element instanceof TDecision) {
+            return String.format("End decision '%s'", element.getName());
+        } else if (element instanceof TBusinessKnowledgeModel) {
+            return String.format("End BKM '%s'", element.getName());
+        } else {
+            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
+        }
+    }
+
+    public String evaluateElementCommentText(TDRGElement element) {
+        if (element instanceof TDecision) {
+            return String.format("Evaluate decision '%s'", element.getName());
+        } else if (element instanceof TBusinessKnowledgeModel) {
+            return String.format("Evaluate BKM '%s'", element.getName());
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
         }
@@ -710,6 +742,29 @@ public class BasicDMN2JavaTransformer {
 
     public String dmnRuntimeExceptionClassName() {
         return DMNRuntimeException.class.getName();
+    }
+
+    public boolean isLazyEval(TDRGElement element) {
+        if (!this.lazyEvaluation) {
+            return false;
+        }
+        return element instanceof TDecision;
+    }
+
+    public boolean isDecision(String name) {
+        try {
+            return dmnModelRepository.findDRGElementByName(name) instanceof TDecision;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    String lazyEvaluationType(TDRGElement parent, TDRGElement input, String inputJavaType) {
+        return isLazyEval(parent) && input instanceof TDecision ? String.format("%s<%s>", lazyEvalClassName(), inputJavaType) : inputJavaType;
+    }
+
+    public String lazyEvalClassName() {
+        return LazyEval.class.getName();
     }
 
     public String contextClassName() {

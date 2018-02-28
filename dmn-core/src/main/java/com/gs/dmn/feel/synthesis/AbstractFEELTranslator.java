@@ -89,41 +89,42 @@ class AbstractFEELTranslator implements FEELTranslator {
     }
 
     @Override
-    public String unaryTestsToJava(String text, FEELContext context) {
+    public String unaryTestsToJava(String text, FEELContext context, boolean lazyEvaluation) {
         UnaryTests unaryTests = analyzeUnaryTests(text, context);
-        return unaryTestsToJava(unaryTests, context);
+        return unaryTestsToJava(unaryTests, context, lazyEvaluation);
     }
 
     @Override
-    public String simpleUnaryTestsToJava(String text, FEELContext context) {
+    public String simpleUnaryTestsToJava(String text, FEELContext context, boolean lazyEvaluation) {
         UnaryTests unaryTests = analyzeSimpleUnaryTests(text, context);
-        return simpleUnaryTestsToJava(unaryTests, context);
+        return simpleUnaryTestsToJava(unaryTests, context, lazyEvaluation);
     }
 
     @Override
-    public String unaryTestsToJava(UnaryTests expression, FEELContext context) {
+    public String unaryTestsToJava(UnaryTests expression, FEELContext context, boolean lazyEvaluation) {
+        this.expressionVisitor.init(lazyEvaluation);
         return (String) expression.accept(expressionVisitor, context);
     }
 
     @Override
-    public String simpleUnaryTestsToJava(UnaryTests expression, FEELContext context) {
-        return unaryTestsToJava(expression, context);
+    public String simpleUnaryTestsToJava(UnaryTests expression, FEELContext context, boolean lazyEvaluation) {
+        return unaryTestsToJava(expression, context, lazyEvaluation);
     }
 
     @Override
-    public String expressionToJava(String text, FEELContext context) {
+    public String expressionToJava(String text, FEELContext context, boolean lazyEvaluation) {
         Expression expression = analyzeExpression(text, context);
-        return expressionToJava(expression, context);
+        return expressionToJava(expression, context, lazyEvaluation);
     }
 
     @Override
-    public String expressionToJava(Expression expression, FEELContext context) {
-        this.expressionVisitor.reset();
+    public String expressionToJava(Expression expression, FEELContext context, boolean lazyEvaluation) {
+        this.expressionVisitor.init(lazyEvaluation);
         return (String) expression.accept(expressionVisitor, context);
     }
 
     @Override
-    public String simpleExpressionsToJava(Expression simpleExpressions, FEELContext context) {
+    public String simpleExpressionsToJava(Expression simpleExpressions, FEELContext context, boolean lazyEvaluation) {
         String javaOutputEntryText = (String) simpleExpressions.accept(simpleExpressionsVisitor, context);
         return "-".equals(javaOutputEntryText) ? "null" : javaOutputEntryText;
     }

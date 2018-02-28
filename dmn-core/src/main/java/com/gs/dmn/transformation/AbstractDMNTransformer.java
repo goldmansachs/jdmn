@@ -30,6 +30,7 @@ public abstract class AbstractDMNTransformer extends AbstractTemplateBasedTransf
     protected final DMNDialectDefinition dialectDefinition;
     protected final String decisionBaseClass;
     protected final String javaRootPackage;
+    protected final boolean lazyEvaluation;
 
     public AbstractDMNTransformer(DMNDialectDefinition dialectDefinition, DMNTransformer dmnTransformer, TemplateProvider templateProvider, Map<String, String> inputParameters, BuildLogger logger) {
         super(templateProvider, inputParameters, logger);
@@ -42,6 +43,7 @@ public abstract class AbstractDMNTransformer extends AbstractTemplateBasedTransf
 
         this.javaRootPackage = InputParamUtil.getOptionalParam(inputParameters, "javaRootPackage");
         this.decisionBaseClass = dialectDefinition.getDecisionBaseClass();
+        this.lazyEvaluation = InputParamUtil.getOptionalBooleanParam(inputParameters, "lazyEvaluation");
     }
 
     protected TDefinitions readDMN(File file) {
