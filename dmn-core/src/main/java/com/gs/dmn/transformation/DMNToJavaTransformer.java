@@ -77,7 +77,7 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
         // Read and validate DMN
         TDefinitions definitions = readDMN(file);
         definitions = dmnTransformer.transform(definitions);
-        BasicDMN2JavaTransformer dmnTransformer = dialectDefinition.createBasicTransformer(definitions, javaRootPackage);
+        BasicDMN2JavaTransformer dmnTransformer = dialectDefinition.createBasicTransformer(definitions, inputParameters);
         DMNModelRepository dmnModelRepository = dmnTransformer.getDMNModelRepository();
         this.dmnValidator.validateDefinitions(dmnModelRepository);
 
