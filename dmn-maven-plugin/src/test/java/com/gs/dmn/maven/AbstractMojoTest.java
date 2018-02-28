@@ -12,17 +12,12 @@
  */
 package com.gs.dmn.maven;
 
-import com.gs.dmn.feel.analysis.semantics.environment.DefaultDMNEnvironmentFactory;
-import com.gs.dmn.runtime.DefaultDMNBaseDecision;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class AbstractMojoTest {
     protected Map<String, String> makeParams() {
         Map<String, String> map = new LinkedHashMap<>();
-        map.put("environmentFactoryClass", DefaultDMNEnvironmentFactory.class.getName());
-        map.put("decisionBaseClass", DefaultDMNBaseDecision.class.getName());
 
         map.put("dmnVersion", "1.1");
         map.put("modelVersion", "2.0");

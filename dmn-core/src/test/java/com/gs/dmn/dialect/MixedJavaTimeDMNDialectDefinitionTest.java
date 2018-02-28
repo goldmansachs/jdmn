@@ -54,7 +54,7 @@ public class MixedJavaTimeDMNDialectDefinitionTest {
 
     @Test
     public void testCreateBasicTransformer() throws Exception {
-        BasicDMN2JavaTransformer basicTransformer = dialect.createBasicTransformer(definitions, null);
+        BasicDMN2JavaTransformer basicTransformer = dialect.createBasicTransformer(definitions, new LinkedHashMap<>());
         assertEquals(BasicDMN2JavaTransformer.class.getName(), basicTransformer.getClass().getName());
     }
 

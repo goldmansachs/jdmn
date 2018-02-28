@@ -30,6 +30,7 @@ import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import org.omg.spec.dmn._20151101.dmn.TDefinitions;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class StandardDMNDialectDefinition extends AbstractDMNDialectDefinition {
@@ -38,7 +39,7 @@ public class StandardDMNDialectDefinition extends AbstractDMNDialectDefinition {
     //
     @Override
     public DMNInterpreter createDMNInterpreter(TDefinitions definitions) {
-        return new DMNInterpreter(createBasicTransformer(definitions, null), createFEELLib());
+        return new DMNInterpreter(createBasicTransformer(definitions, new LinkedHashMap<>()), createFEELLib());
     }
 
     @Override
@@ -47,9 +48,9 @@ public class StandardDMNDialectDefinition extends AbstractDMNDialectDefinition {
     }
 
     @Override
-    public BasicDMN2JavaTransformer createBasicTransformer(TDefinitions definitions, String javaRootPackage) {
+    public BasicDMN2JavaTransformer createBasicTransformer(TDefinitions definitions, Map<String, String> inputParameters) {
         EnvironmentFactory environmentFactory = createEnvironmentFactory();
-        return new BasicDMN2JavaTransformer(createModelRepository(definitions), environmentFactory, createTypeTranslator(), javaRootPackage);
+        return new BasicDMN2JavaTransformer(createModelRepository(definitions), environmentFactory, createTypeTranslator(), inputParameters);
     }
 
     private DMNModelRepository createModelRepository(TDefinitions definitions) {
