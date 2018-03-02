@@ -66,10 +66,10 @@ public class FnInvocationComplexParameters extends com.gs.dmn.runtime.DefaultDMN
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnInvocationComplexParametersArguments_);
 
             // Apply child decisions
-            type.TFnLibrary fnLibraryOutput = fnLibrary.apply(annotationSet_, eventListener_, externalExecutor_);
+            type.TFnLibrary fnLibrary = this.fnLibrary.apply(annotationSet_, eventListener_, externalExecutor_);
 
             // Evaluate decision 'fnInvocationComplexParameters'
-            type.TFnInvocationComplexParamsResult output_ = evaluate(fnLibraryOutput, inputA, inputB, annotationSet_, eventListener_, externalExecutor_);
+            type.TFnInvocationComplexParamsResult output_ = evaluate(fnLibrary, inputA, inputB, annotationSet_, eventListener_, externalExecutor_);
 
             // End decision 'fnInvocationComplexParameters'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fnInvocationComplexParametersArguments_, output_, (System.currentTimeMillis() - fnInvocationComplexParametersStartTime_));

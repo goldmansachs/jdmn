@@ -42,8 +42,7 @@ public class ${testClassName} extends ${decisionBaseClass} {
     <#list testCase.resultNode>
         <#items as result>
         // Check ${result.name}
-        ${tckUtil.drgElementOutputType(result)} ${tckUtil.drgElementOutputVariableName(result)} = new ${tckUtil.qualifiedName(packageName, tckUtil.drgElementClassName(result))}().apply(${tckUtil.drgElementArgumentsExtra(tckUtil.drgElementArgumentList(result))});
-        checkValues(${tckUtil.toJavaExpression(testCases, result)}, ${tckUtil.drgElementOutputVariableName(result)});
+        checkValues(${tckUtil.toJavaExpression(testCases, result)}, new ${tckUtil.qualifiedName(packageName, tckUtil.drgElementClassName(result))}().apply(${tckUtil.drgElementArgumentsExtra(tckUtil.drgElementArgumentList(result))}));
         </#items>
     </#list>
 </#macro>

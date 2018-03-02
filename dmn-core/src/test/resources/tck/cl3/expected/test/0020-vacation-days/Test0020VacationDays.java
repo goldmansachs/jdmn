@@ -14,8 +14,7 @@ public class Test0020VacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         java.math.BigDecimal yearsOfService = number("1");
 
         // Check TotalVacationDays
-        java.math.BigDecimal totalVacationDaysOutput = new TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(number("27"), totalVacationDaysOutput);
+        checkValues(number("27"), new TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_));
     }
 
     @org.junit.Test
@@ -28,8 +27,7 @@ public class Test0020VacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         java.math.BigDecimal yearsOfService = number("5");
 
         // Check TotalVacationDays
-        java.math.BigDecimal totalVacationDaysOutput = new TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(number("22"), totalVacationDaysOutput);
+        checkValues(number("22"), new TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_));
     }
 
     @org.junit.Test
@@ -42,8 +40,7 @@ public class Test0020VacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         java.math.BigDecimal yearsOfService = number("20");
 
         // Check TotalVacationDays
-        java.math.BigDecimal totalVacationDaysOutput = new TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(number("24"), totalVacationDaysOutput);
+        checkValues(number("24"), new TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_));
     }
 
     @org.junit.Test
@@ -56,8 +53,7 @@ public class Test0020VacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         java.math.BigDecimal yearsOfService = number("30");
 
         // Check TotalVacationDays
-        java.math.BigDecimal totalVacationDaysOutput = new TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(number("30"), totalVacationDaysOutput);
+        checkValues(number("30"), new TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_));
     }
 
     @org.junit.Test
@@ -70,8 +66,7 @@ public class Test0020VacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         java.math.BigDecimal yearsOfService = number("20");
 
         // Check TotalVacationDays
-        java.math.BigDecimal totalVacationDaysOutput = new TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(number("24"), totalVacationDaysOutput);
+        checkValues(number("24"), new TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_));
     }
 
     @org.junit.Test
@@ -84,8 +79,7 @@ public class Test0020VacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         java.math.BigDecimal yearsOfService = number("30");
 
         // Check TotalVacationDays
-        java.math.BigDecimal totalVacationDaysOutput = new TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(number("30"), totalVacationDaysOutput);
+        checkValues(number("30"), new TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_));
     }
 
     @org.junit.Test
@@ -98,8 +92,7 @@ public class Test0020VacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         java.math.BigDecimal yearsOfService = number("20");
 
         // Check TotalVacationDays
-        java.math.BigDecimal totalVacationDaysOutput = new TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(number("30"), totalVacationDaysOutput);
+        checkValues(number("30"), new TotalVacationDays().apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_));
     }
 
     private void checkValues(Object expected, Object actual) {

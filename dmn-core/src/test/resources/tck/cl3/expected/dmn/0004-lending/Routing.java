@@ -69,11 +69,11 @@ public class Routing extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, routingArguments_);
 
             // Apply child decisions
-            Boolean postBureauAffordabilityOutput = postBureauAffordability.apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_);
-            String postBureauRiskCategoryOutput = postBureauRiskCategory.apply(applicantData, bureauData, annotationSet_, eventListener_, externalExecutor_);
+            Boolean postBureauAffordability = this.postBureauAffordability.apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_);
+            String postBureauRiskCategory = this.postBureauRiskCategory.apply(applicantData, bureauData, annotationSet_, eventListener_, externalExecutor_);
 
             // Evaluate decision 'Routing'
-            String output_ = evaluate(bureauData, postBureauAffordabilityOutput, postBureauRiskCategoryOutput, annotationSet_, eventListener_, externalExecutor_);
+            String output_ = evaluate(bureauData, postBureauAffordability, postBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_);
 
             // End decision 'Routing'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, routingArguments_, output_, (System.currentTimeMillis() - routingStartTime_));

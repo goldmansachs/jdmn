@@ -69,11 +69,11 @@ public class PostBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDe
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, postBureauAffordabilityArguments_);
 
             // Apply child decisions
-            String postBureauRiskCategoryOutput = postBureauRiskCategory.apply(applicantData, bureauData, annotationSet_, eventListener_, externalExecutor_);
-            java.math.BigDecimal requiredMonthlyInstallmentOutput = requiredMonthlyInstallment.apply(requestedProduct, annotationSet_, eventListener_, externalExecutor_);
+            String postBureauRiskCategory = this.postBureauRiskCategory.apply(applicantData, bureauData, annotationSet_, eventListener_, externalExecutor_);
+            java.math.BigDecimal requiredMonthlyInstallment = this.requiredMonthlyInstallment.apply(requestedProduct, annotationSet_, eventListener_, externalExecutor_);
 
             // Evaluate decision 'PostBureauAffordability'
-            Boolean output_ = evaluate(applicantData, postBureauRiskCategoryOutput, requiredMonthlyInstallmentOutput, annotationSet_, eventListener_, externalExecutor_);
+            Boolean output_ = evaluate(applicantData, postBureauRiskCategory, requiredMonthlyInstallment, annotationSet_, eventListener_, externalExecutor_);
 
             // End decision 'PostBureauAffordability'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, postBureauAffordabilityArguments_, output_, (System.currentTimeMillis() - postBureauAffordabilityStartTime_));

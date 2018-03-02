@@ -14,8 +14,7 @@ public class Test0031UserDefinedFunctions extends com.gs.dmn.runtime.DefaultDMNB
         java.math.BigDecimal inputB = number("5");
 
         // Check fnInvocationPositionalParameters
-        type.TFnInvocationPositionalResult fnInvocationPositionalParametersOutput = new FnInvocationPositionalParameters().apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(new type.TFnInvocationPositionalResultImpl(number("2"), number("50"), number("15")), fnInvocationPositionalParametersOutput);
+        checkValues(new type.TFnInvocationPositionalResultImpl(number("2"), number("50"), number("15")), new FnInvocationPositionalParameters().apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_));
     }
 
     @org.junit.Test
@@ -28,8 +27,7 @@ public class Test0031UserDefinedFunctions extends com.gs.dmn.runtime.DefaultDMNB
         java.math.BigDecimal inputB = number("5");
 
         // Check fnInvocationNamedParameters
-        type.TFnInvocationNamedResult fnInvocationNamedParametersOutput = new FnInvocationNamedParameters().apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(new type.TFnInvocationNamedResultImpl(number("2"), number("50"), number("5"), number("-5")), fnInvocationNamedParametersOutput);
+        checkValues(new type.TFnInvocationNamedResultImpl(number("2"), number("50"), number("5"), number("-5")), new FnInvocationNamedParameters().apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_));
     }
 
     @org.junit.Test
@@ -42,8 +40,7 @@ public class Test0031UserDefinedFunctions extends com.gs.dmn.runtime.DefaultDMNB
         java.math.BigDecimal inputB = number("5");
 
         // Check fnInvocationComplexParameters
-        type.TFnInvocationComplexParamsResult fnInvocationComplexParametersOutput = new FnInvocationComplexParameters().apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(new type.TFnInvocationComplexParamsResultImpl(number("94.247760"), number("200"), number("500")), fnInvocationComplexParametersOutput);
+        checkValues(new type.TFnInvocationComplexParamsResultImpl(number("94.247760"), number("200"), number("500")), new FnInvocationComplexParameters().apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_));
     }
 
     private void checkValues(Object expected, Object actual) {

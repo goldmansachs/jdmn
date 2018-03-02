@@ -65,10 +65,10 @@ public class RankedProducts extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, rankedProductsArguments_);
 
             // Apply child decisions
-            List<type.TLoanProduct> bankratesOutput = bankrates.apply(annotationSet_, eventListener_, externalExecutor_);
+            List<type.TLoanProduct> bankrates = this.bankrates.apply(annotationSet_, eventListener_, externalExecutor_);
 
             // Evaluate decision 'RankedProducts'
-            type.TRankedProducts output_ = evaluate(bankratesOutput, requestedAmt, annotationSet_, eventListener_, externalExecutor_);
+            type.TRankedProducts output_ = evaluate(bankrates, requestedAmt, annotationSet_, eventListener_, externalExecutor_);
 
             // End decision 'RankedProducts'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, rankedProductsArguments_, output_, (System.currentTimeMillis() - rankedProductsStartTime_));

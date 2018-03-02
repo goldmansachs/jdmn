@@ -64,10 +64,10 @@ public class FnInvocationNamedParameters extends com.gs.dmn.runtime.DefaultDMNBa
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnInvocationNamedParametersArguments_);
 
             // Apply child decisions
-            type.TFnLibrary fnLibraryOutput = fnLibrary.apply(annotationSet_, eventListener_, externalExecutor_);
+            type.TFnLibrary fnLibrary = this.fnLibrary.apply(annotationSet_, eventListener_, externalExecutor_);
 
             // Evaluate decision 'fnInvocationNamedParameters'
-            type.TFnInvocationNamedResult output_ = evaluate(fnLibraryOutput, inputA, inputB, annotationSet_, eventListener_, externalExecutor_);
+            type.TFnInvocationNamedResult output_ = evaluate(fnLibrary, inputA, inputB, annotationSet_, eventListener_, externalExecutor_);
 
             // End decision 'fnInvocationNamedParameters'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fnInvocationNamedParametersArguments_, output_, (System.currentTimeMillis() - fnInvocationNamedParametersStartTime_));

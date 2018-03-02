@@ -15,8 +15,7 @@ public class Test0006Join extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         String lastName = "Clark";
 
         // Check Join
-        String joinOutput = new Join().apply(deptTable, employeeTable, lastName, annotationSet_, eventListener_, externalExecutor_);
-        checkValues("Smith", joinOutput);
+        checkValues("Smith", new Join().apply(deptTable, employeeTable, lastName, annotationSet_, eventListener_, externalExecutor_));
     }
 
     private void checkValues(Object expected, Object actual) {

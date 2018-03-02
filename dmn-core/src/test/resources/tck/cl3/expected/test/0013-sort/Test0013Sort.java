@@ -15,14 +15,11 @@ public class Test0013Sort extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         List<type.TRow> tableB = asList(new type.TRowImpl(number("16"), number("4"), number("25"), number("1")), new type.TRowImpl(number("16"), number("43"), number("2"), number("10")), new type.TRowImpl(number("1"), number("0"), number("1"), number("1")));
 
         // Check sort1
-        List<java.math.BigDecimal> sort1Output = new Sort1().apply(listA, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(asList(number("5"), number("4"), number("3"), number("1")), sort1Output);
+        checkValues(asList(number("5"), number("4"), number("3"), number("1")), new Sort1().apply(listA, annotationSet_, eventListener_, externalExecutor_));
         // Check sort2
-        List<type.TRow> sort2Output = new Sort2().apply(tableB, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(asList(new type.TRowImpl(number("1"), number("0"), number("1"), number("1")), new type.TRowImpl(number("16"), number("4"), number("25"), number("1")), new type.TRowImpl(number("16"), number("43"), number("2"), number("10"))), sort2Output);
+        checkValues(asList(new type.TRowImpl(number("1"), number("0"), number("1"), number("1")), new type.TRowImpl(number("16"), number("4"), number("25"), number("1")), new type.TRowImpl(number("16"), number("43"), number("2"), number("10"))), new Sort2().apply(tableB, annotationSet_, eventListener_, externalExecutor_));
         // Check sort3
-        List<String> sort3Output = new Sort3().apply(stringList, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(asList("10", "8", "9", "A", "Aa", "a"), sort3Output);
+        checkValues(asList("10", "8", "9", "A", "Aa", "a"), new Sort3().apply(stringList, annotationSet_, eventListener_, externalExecutor_));
     }
 
     private void checkValues(Object expected, Object actual) {

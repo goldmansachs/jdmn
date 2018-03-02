@@ -66,10 +66,10 @@ public class PostBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDec
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, postBureauRiskCategoryArguments_);
 
             // Apply child decisions
-            java.math.BigDecimal applicationRiskScoreOutput = applicationRiskScore.apply(applicantData, annotationSet_, eventListener_, externalExecutor_);
+            java.math.BigDecimal applicationRiskScore = this.applicationRiskScore.apply(applicantData, annotationSet_, eventListener_, externalExecutor_);
 
             // Evaluate decision 'PostBureauRiskCategory'
-            String output_ = evaluate(applicantData, applicationRiskScoreOutput, bureauData, annotationSet_, eventListener_, externalExecutor_);
+            String output_ = evaluate(applicantData, applicationRiskScore, bureauData, annotationSet_, eventListener_, externalExecutor_);
 
             // End decision 'PostBureauRiskCategory'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, postBureauRiskCategoryArguments_, output_, (System.currentTimeMillis() - postBureauRiskCategoryStartTime_));

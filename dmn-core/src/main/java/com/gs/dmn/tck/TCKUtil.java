@@ -67,11 +67,6 @@ public class TCKUtil {
         return dmnTransformer.drgElementOutputType(decision);
     }
 
-    public String drgElementOutputVariableName(ResultNode resultNode) {
-        TDecision decision = (TDecision) findDRGElementByName(resultNode.getName());
-        return dmnTransformer.drgElementOutputVariableName(decision);
-    }
-
     public String drgElementArgumentsExtra(String arguments) {
         return dmnTransformer.drgElementArgumentsExtra(arguments);
     }

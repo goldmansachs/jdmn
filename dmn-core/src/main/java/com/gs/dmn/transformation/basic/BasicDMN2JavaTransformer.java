@@ -238,22 +238,6 @@ public class BasicDMN2JavaTransformer {
         return toFEELType(typeRef);
     }
 
-    public String drgElementOutputVariableName(TDRGElement element) {
-        return lowerCaseFirst(element.getName()) +  DMNToJavaTransformer.DECISION_OUTPUT_SUFFIX;
-    }
-
-    public String drgElementOutputFieldName(TDRGElement element, int outputIndex) {
-        if (this.dmnModelRepository.isDecisionTableExpression(element)) {
-            TDecisionTable decisionTable = (TDecisionTable) dmnModelRepository.expression(element);
-            return javaFriendlyVariableName(this.dmnModelRepository.outputClauseName(element, decisionTable.getOutput().get(outputIndex)));
-        } else if (this.dmnModelRepository.isLiteralExpression(element)) {
-            return DMNToJavaTransformer.DECISION_OUTPUT_FIELD_NAME;
-        } else {
-            TExpression value = dmnModelRepository.expression(element);
-            throw new UnsupportedOperationException(String.format("'%s' is not supported yet ", value.getClass().getSimpleName()));
-        }
-    }
-
     public String annotation(TDRGElement element, String description) {
         if (StringUtils.isBlank(description)) {
             return "\"\"";
@@ -356,7 +340,7 @@ public class BasicDMN2JavaTransformer {
 
     public String drgElementDirectSignature(TDRGElement element) {
         if (element instanceof TDecision) {
-            List<Pair<String, String>> parameters = directInformationRequirementParameters(element, false);
+            List<Pair<String, String>> parameters = directInformationRequirementParameters(element);
             String javaParameters = parameters.stream().map(p -> String.format("%s %s", p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
             return augmentSignature(javaParameters);
         } else if (element instanceof TBusinessKnowledgeModel) {
@@ -368,7 +352,7 @@ public class BasicDMN2JavaTransformer {
 
     public String drgElementDirectArgumentList(TDRGElement element) {
         if (element instanceof TDecision) {
-            List<Pair<String, String>> parameters = directInformationRequirementParameters(element, true);
+            List<Pair<String, String>> parameters = directInformationRequirementParameters(element);
             String argumentList = parameters.stream().map(p -> String.format("%s", p.getLeft())).collect(Collectors.joining(", "));
             return augmentArgumentList(argumentList);
         } else if (element instanceof TBusinessKnowledgeModel) {
@@ -416,7 +400,7 @@ public class BasicDMN2JavaTransformer {
         return !this.dmnModelRepository.directSubDecisions(decision).isEmpty();
     }
 
-    private List<Pair<String, String>> directInformationRequirementParameters(TDRGElement element, boolean outputNames) {
+    private List<Pair<String, String>> directInformationRequirementParameters(TDRGElement element) {
         List<TDRGElement> inputs = directInformationRequirements(element);
         this.dmnModelRepository.sortNamedElements(inputs);
 
@@ -429,12 +413,7 @@ public class BasicDMN2JavaTransformer {
                 parameters.add(new Pair<>(parameterName, parameterJavaType));
             } else if (input instanceof TDecision) {
                 TDecision subDecision = (TDecision) input;
-                String parameterName;
-                if (outputNames) {
-                    parameterName = drgElementOutputVariableName(subDecision);
-                } else {
-                    parameterName = drgElementVariableName(subDecision);
-                }
+                String parameterName = drgElementVariableName(subDecision);
                 String parameterJavaType = drgElementOutputType(subDecision);
                 parameters.add(new Pair<>(parameterName, lazyEvaluationType(element, input, parameterJavaType)));
             } else {

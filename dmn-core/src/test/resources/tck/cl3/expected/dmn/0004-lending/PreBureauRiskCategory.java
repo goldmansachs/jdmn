@@ -65,10 +65,10 @@ public class PreBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDeci
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, preBureauRiskCategoryArguments_);
 
             // Apply child decisions
-            java.math.BigDecimal applicationRiskScoreOutput = applicationRiskScore.apply(applicantData, annotationSet_, eventListener_, externalExecutor_);
+            java.math.BigDecimal applicationRiskScore = this.applicationRiskScore.apply(applicantData, annotationSet_, eventListener_, externalExecutor_);
 
             // Evaluate decision 'PreBureauRiskCategory'
-            String output_ = evaluate(applicantData, applicationRiskScoreOutput, annotationSet_, eventListener_, externalExecutor_);
+            String output_ = evaluate(applicantData, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_);
 
             // End decision 'PreBureauRiskCategory'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, preBureauRiskCategoryArguments_, output_, (System.currentTimeMillis() - preBureauRiskCategoryStartTime_));

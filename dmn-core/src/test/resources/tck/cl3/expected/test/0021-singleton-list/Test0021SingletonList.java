@@ -13,20 +13,15 @@ public class Test0021SingletonList extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         List<String> employees = asList("Jack", "John", "Bob", "Zack");
 
         // Check decision1
-        List<String> decision1Output = new Decision1().apply(employees, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(asList("John"), decision1Output);
+        checkValues(asList("John"), new Decision1().apply(employees, annotationSet_, eventListener_, externalExecutor_));
         // Check decision2
-        String decision2Output = new Decision2().apply(employees, annotationSet_, eventListener_, externalExecutor_);
-        checkValues("John", decision2Output);
+        checkValues("John", new Decision2().apply(employees, annotationSet_, eventListener_, externalExecutor_));
         // Check decision3
-        List<String> decision3Output = new Decision3().apply(employees, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(asList("Bob"), decision3Output);
+        checkValues(asList("Bob"), new Decision3().apply(employees, annotationSet_, eventListener_, externalExecutor_));
         // Check decision4
-        String decision4Output = new Decision4().apply(employees, annotationSet_, eventListener_, externalExecutor_);
-        checkValues("Bob", decision4Output);
+        checkValues("Bob", new Decision4().apply(employees, annotationSet_, eventListener_, externalExecutor_));
         // Check decision5
-        String decision5Output = new Decision5().apply(employees, annotationSet_, eventListener_, externalExecutor_);
-        checkValues("BOB", decision5Output);
+        checkValues("BOB", new Decision5().apply(employees, annotationSet_, eventListener_, externalExecutor_));
     }
 
     private void checkValues(Object expected, Object actual) {
