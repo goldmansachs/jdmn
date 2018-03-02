@@ -34,19 +34,19 @@ public class PMT extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     private java.math.BigDecimal apply(java.math.BigDecimal p, java.math.BigDecimal r, java.math.BigDecimal n, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // BKM start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("p", p);
-            arguments_.put("r", r);
-            arguments_.put("n", n);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start BKM 'PMT'
+            long pMTStartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments pMTArguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            pMTArguments_.put("p", p);
+            pMTArguments_.put("r", r);
+            pMTArguments_.put("n", n);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, pMTArguments_);
 
-            // Evaluate expression
+            // Evaluate BKM 'PMT'
             java.math.BigDecimal output_ = evaluate(p, r, n, annotationSet_, eventListener_, externalExecutor_);
 
-            // BKM end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End BKM 'PMT'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, pMTArguments_, output_, (System.currentTimeMillis() - pMTStartTime_));
 
             return output_;
         } catch (Exception e) {

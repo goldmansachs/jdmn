@@ -34,19 +34,19 @@ public class EligibilityRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
 
     private String apply(String preBureauRiskCategory, Boolean preBureauAffordability, java.math.BigDecimal age, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // BKM start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("preBureauRiskCategory", preBureauRiskCategory);
-            arguments_.put("preBureauAffordability", preBureauAffordability);
-            arguments_.put("age", age);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start BKM 'EligibilityRules'
+            long eligibilityRulesStartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments eligibilityRulesArguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            eligibilityRulesArguments_.put("preBureauRiskCategory", preBureauRiskCategory);
+            eligibilityRulesArguments_.put("preBureauAffordability", preBureauAffordability);
+            eligibilityRulesArguments_.put("age", age);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, eligibilityRulesArguments_);
 
-            // Evaluate expression
+            // Evaluate BKM 'EligibilityRules'
             String output_ = evaluate(preBureauRiskCategory, preBureauAffordability, age, annotationSet_, eventListener_, externalExecutor_);
 
-            // BKM end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End BKM 'EligibilityRules'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, eligibilityRulesArguments_, output_, (System.currentTimeMillis() - eligibilityRulesStartTime_));
 
             return output_;
         } catch (Exception e) {

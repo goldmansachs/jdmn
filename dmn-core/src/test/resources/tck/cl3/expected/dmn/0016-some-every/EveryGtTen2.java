@@ -50,17 +50,17 @@ public class EveryGtTen2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public Boolean apply(List<type.TItemPrice> priceTable2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // Decision start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("priceTable2", priceTable2);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start decision 'everyGtTen2'
+            long everyGtTen2StartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments everyGtTen2Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            everyGtTen2Arguments_.put("priceTable2", priceTable2);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, everyGtTen2Arguments_);
 
-            // Evaluate expression
+            // Evaluate decision 'everyGtTen2'
             Boolean output_ = evaluate(priceTable2, annotationSet_, eventListener_, externalExecutor_);
 
-            // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End decision 'everyGtTen2'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, everyGtTen2Arguments_, output_, (System.currentTimeMillis() - everyGtTen2StartTime_));
 
             return output_;
         } catch (Exception e) {

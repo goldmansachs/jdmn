@@ -60,23 +60,23 @@ public class Routing extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public String apply(type.TApplicantData applicantData, type.TBureauData bureauData, type.TRequestedProduct requestedProduct, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // Decision start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("applicantData", applicantData);
-            arguments_.put("bureauData", bureauData);
-            arguments_.put("requestedProduct", requestedProduct);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start decision 'Routing'
+            long routingStartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments routingArguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            routingArguments_.put("applicantData", applicantData);
+            routingArguments_.put("bureauData", bureauData);
+            routingArguments_.put("requestedProduct", requestedProduct);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, routingArguments_);
 
             // Apply child decisions
             Boolean postBureauAffordabilityOutput = postBureauAffordability.apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_);
             String postBureauRiskCategoryOutput = postBureauRiskCategory.apply(applicantData, bureauData, annotationSet_, eventListener_, externalExecutor_);
 
-            // Evaluate expression
+            // Evaluate decision 'Routing'
             String output_ = evaluate(bureauData, postBureauAffordabilityOutput, postBureauRiskCategoryOutput, annotationSet_, eventListener_, externalExecutor_);
 
-            // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End decision 'Routing'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, routingArguments_, output_, (System.currentTimeMillis() - routingStartTime_));
 
             return output_;
         } catch (Exception e) {

@@ -34,17 +34,17 @@ public class GtTen extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     private Boolean apply(java.math.BigDecimal theNumber, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // BKM start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("theNumber", theNumber);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start BKM 'gtTen'
+            long gtTenStartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments gtTenArguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            gtTenArguments_.put("theNumber", theNumber);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, gtTenArguments_);
 
-            // Evaluate expression
+            // Evaluate BKM 'gtTen'
             Boolean output_ = evaluate(theNumber, annotationSet_, eventListener_, externalExecutor_);
 
-            // BKM end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End BKM 'gtTen'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, gtTenArguments_, output_, (System.currentTimeMillis() - gtTenStartTime_));
 
             return output_;
         } catch (Exception e) {

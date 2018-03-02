@@ -32,16 +32,16 @@ public class Bankrates extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public List<type.TLoanProduct> apply(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // Decision start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start decision 'Bankrates'
+            long bankratesStartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments bankratesArguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bankratesArguments_);
 
-            // Evaluate expression
+            // Evaluate decision 'Bankrates'
             List<type.TLoanProduct> output_ = evaluate(annotationSet_, eventListener_, externalExecutor_);
 
-            // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End decision 'Bankrates'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, bankratesArguments_, output_, (System.currentTimeMillis() - bankratesStartTime_));
 
             return output_;
         } catch (Exception e) {

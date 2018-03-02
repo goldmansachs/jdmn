@@ -58,21 +58,21 @@ public class PostBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDec
 
     public String apply(type.TApplicantData applicantData, type.TBureauData bureauData, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // Decision start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("applicantData", applicantData);
-            arguments_.put("bureauData", bureauData);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start decision 'PostBureauRiskCategory'
+            long postBureauRiskCategoryStartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments postBureauRiskCategoryArguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            postBureauRiskCategoryArguments_.put("applicantData", applicantData);
+            postBureauRiskCategoryArguments_.put("bureauData", bureauData);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, postBureauRiskCategoryArguments_);
 
             // Apply child decisions
             java.math.BigDecimal applicationRiskScoreOutput = applicationRiskScore.apply(applicantData, annotationSet_, eventListener_, externalExecutor_);
 
-            // Evaluate expression
+            // Evaluate decision 'PostBureauRiskCategory'
             String output_ = evaluate(applicantData, applicationRiskScoreOutput, bureauData, annotationSet_, eventListener_, externalExecutor_);
 
-            // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End decision 'PostBureauRiskCategory'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, postBureauRiskCategoryArguments_, output_, (System.currentTimeMillis() - postBureauRiskCategoryStartTime_));
 
             return output_;
         } catch (Exception e) {

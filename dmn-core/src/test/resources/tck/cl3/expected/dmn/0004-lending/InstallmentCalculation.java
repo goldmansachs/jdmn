@@ -34,20 +34,20 @@ public class InstallmentCalculation extends com.gs.dmn.runtime.DefaultDMNBaseDec
 
     private java.math.BigDecimal apply(String productType, java.math.BigDecimal rate, java.math.BigDecimal term, java.math.BigDecimal amount, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // BKM start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("productType", productType);
-            arguments_.put("rate", rate);
-            arguments_.put("term", term);
-            arguments_.put("amount", amount);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start BKM 'InstallmentCalculation'
+            long installmentCalculationStartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments installmentCalculationArguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            installmentCalculationArguments_.put("productType", productType);
+            installmentCalculationArguments_.put("rate", rate);
+            installmentCalculationArguments_.put("term", term);
+            installmentCalculationArguments_.put("amount", amount);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, installmentCalculationArguments_);
 
-            // Evaluate expression
+            // Evaluate BKM 'InstallmentCalculation'
             java.math.BigDecimal output_ = evaluate(productType, rate, term, amount, annotationSet_, eventListener_, externalExecutor_);
 
-            // BKM end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End BKM 'InstallmentCalculation'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, installmentCalculationArguments_, output_, (System.currentTimeMillis() - installmentCalculationStartTime_));
 
             return output_;
         } catch (Exception e) {

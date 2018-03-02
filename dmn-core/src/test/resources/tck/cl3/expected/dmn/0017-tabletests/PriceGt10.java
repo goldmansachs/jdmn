@@ -50,17 +50,17 @@ public class PriceGt10 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public Boolean apply(type.TA structA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // Decision start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("structA", structA);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start decision 'priceGt10'
+            long priceGt10StartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments priceGt10Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            priceGt10Arguments_.put("structA", structA);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, priceGt10Arguments_);
 
-            // Evaluate expression
+            // Evaluate decision 'priceGt10'
             Boolean output_ = evaluate(structA, annotationSet_, eventListener_, externalExecutor_);
 
-            // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End decision 'priceGt10'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, priceGt10Arguments_, output_, (System.currentTimeMillis() - priceGt10StartTime_));
 
             return output_;
         } catch (Exception e) {

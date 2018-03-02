@@ -34,17 +34,17 @@ public class CreditContingencyFactorTable extends com.gs.dmn.runtime.DefaultDMNB
 
     private java.math.BigDecimal apply(String riskCategory, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // BKM start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("riskCategory", riskCategory);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start BKM 'CreditContingencyFactorTable'
+            long creditContingencyFactorTableStartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments creditContingencyFactorTableArguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            creditContingencyFactorTableArguments_.put("riskCategory", riskCategory);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, creditContingencyFactorTableArguments_);
 
-            // Evaluate expression
+            // Evaluate BKM 'CreditContingencyFactorTable'
             java.math.BigDecimal output_ = evaluate(riskCategory, annotationSet_, eventListener_, externalExecutor_);
 
-            // BKM end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End BKM 'CreditContingencyFactorTable'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, creditContingencyFactorTableArguments_, output_, (System.currentTimeMillis() - creditContingencyFactorTableStartTime_));
 
             return output_;
         } catch (Exception e) {

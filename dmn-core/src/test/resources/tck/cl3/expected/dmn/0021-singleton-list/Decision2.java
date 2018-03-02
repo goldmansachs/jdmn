@@ -50,17 +50,17 @@ public class Decision2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public String apply(List<String> employees, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // Decision start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("employees", employees);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start decision 'decision2'
+            long decision2StartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments decision2Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            decision2Arguments_.put("employees", employees);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decision2Arguments_);
 
-            // Evaluate expression
+            // Evaluate decision 'decision2'
             String output_ = evaluate(employees, annotationSet_, eventListener_, externalExecutor_);
 
-            // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End decision 'decision2'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, decision2Arguments_, output_, (System.currentTimeMillis() - decision2StartTime_));
 
             return output_;
         } catch (Exception e) {

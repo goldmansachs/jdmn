@@ -62,12 +62,12 @@ public class TotalVacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecision
 
     public java.math.BigDecimal apply(java.math.BigDecimal age, java.math.BigDecimal yearsOfService, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // Decision start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("age", age);
-            arguments_.put("yearsOfService", yearsOfService);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start decision 'TotalVacationDays'
+            long totalVacationDaysStartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments totalVacationDaysArguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            totalVacationDaysArguments_.put("age", age);
+            totalVacationDaysArguments_.put("yearsOfService", yearsOfService);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, totalVacationDaysArguments_);
 
             // Apply child decisions
             java.math.BigDecimal baseVacationDaysOutput = baseVacationDays.apply(annotationSet_, eventListener_, externalExecutor_);
@@ -75,11 +75,11 @@ public class TotalVacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecision
             java.math.BigDecimal extraDaysCase2Output = extraDaysCase2.apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_);
             java.math.BigDecimal extraDaysCase3Output = extraDaysCase3.apply(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_);
 
-            // Evaluate expression
+            // Evaluate decision 'TotalVacationDays'
             java.math.BigDecimal output_ = evaluate(baseVacationDaysOutput, extraDaysCase1Output, extraDaysCase2Output, extraDaysCase3Output, annotationSet_, eventListener_, externalExecutor_);
 
-            // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End decision 'TotalVacationDays'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, totalVacationDaysArguments_, output_, (System.currentTimeMillis() - totalVacationDaysStartTime_));
 
             return output_;
         } catch (Exception e) {

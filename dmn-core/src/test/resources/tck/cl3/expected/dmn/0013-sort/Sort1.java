@@ -50,17 +50,17 @@ public class Sort1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public List<java.math.BigDecimal> apply(List<java.math.BigDecimal> listA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // Decision start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("listA", listA);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start decision 'sort1'
+            long sort1StartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments sort1Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            sort1Arguments_.put("listA", listA);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, sort1Arguments_);
 
-            // Evaluate expression
+            // Evaluate decision 'sort1'
             List<java.math.BigDecimal> output_ = evaluate(listA, annotationSet_, eventListener_, externalExecutor_);
 
-            // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End decision 'sort1'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, sort1Arguments_, output_, (System.currentTimeMillis() - sort1StartTime_));
 
             return output_;
         } catch (Exception e) {

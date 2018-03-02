@@ -34,19 +34,19 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
 
     private java.math.BigDecimal apply(java.math.BigDecimal age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // BKM start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("age", age);
-            arguments_.put("maritalStatus", maritalStatus);
-            arguments_.put("employmentStatus", employmentStatus);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start BKM 'ApplicationRiskScoreModel'
+            long applicationRiskScoreModelStartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments applicationRiskScoreModelArguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            applicationRiskScoreModelArguments_.put("age", age);
+            applicationRiskScoreModelArguments_.put("maritalStatus", maritalStatus);
+            applicationRiskScoreModelArguments_.put("employmentStatus", employmentStatus);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, applicationRiskScoreModelArguments_);
 
-            // Evaluate expression
+            // Evaluate BKM 'ApplicationRiskScoreModel'
             java.math.BigDecimal output_ = evaluate(age, maritalStatus, employmentStatus, annotationSet_, eventListener_, externalExecutor_);
 
-            // BKM end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End BKM 'ApplicationRiskScoreModel'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, applicationRiskScoreModelArguments_, output_, (System.currentTimeMillis() - applicationRiskScoreModelStartTime_));
 
             return output_;
         } catch (Exception e) {

@@ -50,17 +50,17 @@ public class DateCompare1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public Boolean apply(javax.xml.datatype.XMLGregorianCalendar dateD, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // Decision start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("dateD", dateD);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start decision 'dateCompare1'
+            long dateCompare1StartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments dateCompare1Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            dateCompare1Arguments_.put("dateD", dateD);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, dateCompare1Arguments_);
 
-            // Evaluate expression
+            // Evaluate decision 'dateCompare1'
             Boolean output_ = evaluate(dateD, annotationSet_, eventListener_, externalExecutor_);
 
-            // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End decision 'dateCompare1'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, dateCompare1Arguments_, output_, (System.currentTimeMillis() - dateCompare1StartTime_));
 
             return output_;
         } catch (Exception e) {

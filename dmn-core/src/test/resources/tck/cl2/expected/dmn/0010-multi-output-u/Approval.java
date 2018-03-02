@@ -50,19 +50,19 @@ public class Approval extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public type.TApproval apply(java.math.BigDecimal age, String riskCategory, Boolean isAffordable, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // Decision start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("age", age);
-            arguments_.put("riskCategory", riskCategory);
-            arguments_.put("isAffordable", isAffordable);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start decision 'Approval'
+            long approvalStartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments approvalArguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            approvalArguments_.put("age", age);
+            approvalArguments_.put("riskCategory", riskCategory);
+            approvalArguments_.put("isAffordable", isAffordable);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, approvalArguments_);
 
-            // Evaluate expression
+            // Evaluate decision 'Approval'
             type.TApproval output_ = evaluate(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_);
 
-            // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End decision 'Approval'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, approvalArguments_, output_, (System.currentTimeMillis() - approvalStartTime_));
 
             return output_;
         } catch (Exception e) {

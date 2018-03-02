@@ -37,18 +37,18 @@ public class FinancialMetrics extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
 
     private type.TMetric apply(type.TLoanProduct product, java.math.BigDecimal requestedAmt, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // BKM start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("product", product);
-            arguments_.put("requestedAmt", requestedAmt);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start BKM 'FinancialMetrics'
+            long financialMetricsStartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments financialMetricsArguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            financialMetricsArguments_.put("product", product);
+            financialMetricsArguments_.put("requestedAmt", requestedAmt);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, financialMetricsArguments_);
 
-            // Evaluate expression
+            // Evaluate BKM 'FinancialMetrics'
             type.TMetric output_ = evaluate(product, requestedAmt, annotationSet_, eventListener_, externalExecutor_);
 
-            // BKM end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End BKM 'FinancialMetrics'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, financialMetricsArguments_, output_, (System.currentTimeMillis() - financialMetricsStartTime_));
 
             return output_;
         } catch (Exception e) {

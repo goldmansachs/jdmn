@@ -40,19 +40,19 @@ public class EveryGtTen3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public Boolean apply(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // Decision start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start decision 'everyGtTen3'
+            long everyGtTen3StartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments everyGtTen3Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, everyGtTen3Arguments_);
 
             // Apply child decisions
             List<type.TItemPrice> priceTable1Output = priceTable1.apply(annotationSet_, eventListener_, externalExecutor_);
 
-            // Evaluate expression
+            // Evaluate decision 'everyGtTen3'
             Boolean output_ = evaluate(priceTable1Output, annotationSet_, eventListener_, externalExecutor_);
 
-            // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End decision 'everyGtTen3'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, everyGtTen3Arguments_, output_, (System.currentTimeMillis() - everyGtTen3StartTime_));
 
             return output_;
         } catch (Exception e) {
