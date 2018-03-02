@@ -10,20 +10,19 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.interpreter;
+package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.dialect.MixedJavaTimeDMNDialectDefinition;
-import org.junit.Ignore;
+import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 
-public class MixedCL3DMNInterpreterTest extends CL3DMNInterpreterTest {
+public class StandardCL3DMNInterpreterTest extends CL3DMNInterpreterTest {
     @Override
     protected DMNDialectDefinition getDialectDefinition() {
-        return new MixedJavaTimeDMNDialectDefinition();
+        return new StandardDMNDialectDefinition();
     }
 
     @Override
     protected String getTestCasesInputPath() {
-        return getDMNInputPath() + "/mixed";
+        return getDMNInputPath() + "/standard";
     }
 }

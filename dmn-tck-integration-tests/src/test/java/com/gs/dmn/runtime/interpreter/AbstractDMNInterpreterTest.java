@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.interpreter;
+package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
@@ -19,7 +19,6 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.tck.TCKUtil;

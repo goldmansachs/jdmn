@@ -10,14 +10,14 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.interpreter;
+package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.dialect.StandardDMNDialectDefinition;
+import com.gs.dmn.dialect.UniformJavaTimeDMNDialectDefinition;
 
-public class StandardCL2DMNInterpreterTest extends CL2SDMNInterpreterTest {
+public class UniformCL2DMNInterpreterTest extends CL2SDMNInterpreterTest {
     @Override
     protected DMNDialectDefinition getDialectDefinition() {
-        return new StandardDMNDialectDefinition();
+        return new UniformJavaTimeDMNDialectDefinition();
     }
 }
