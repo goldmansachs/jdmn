@@ -65,10 +65,10 @@ public class BureauCallType extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bureauCallTypeArguments_);
 
             // Apply child decisions
-            String preBureauRiskCategoryOutput = preBureauRiskCategory.apply(applicantData, annotationSet_, eventListener_, externalExecutor_);
+            String preBureauRiskCategory = this.preBureauRiskCategory.apply(applicantData, annotationSet_, eventListener_, externalExecutor_);
 
             // Evaluate decision 'BureauCallType'
-            String output_ = evaluate(preBureauRiskCategoryOutput, annotationSet_, eventListener_, externalExecutor_);
+            String output_ = evaluate(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_);
 
             // End decision 'BureauCallType'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, bureauCallTypeArguments_, output_, (System.currentTimeMillis() - bureauCallTypeStartTime_));

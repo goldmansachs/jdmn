@@ -16,38 +16,27 @@ public class Test0004Lending extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         String supportingDocuments = "YES";
 
         // Check Adjudication
-        String adjudicationOutput = new Adjudication().apply(applicantData, bureauData, supportingDocuments, annotationSet_, eventListener_, externalExecutor_);
-        checkValues("ACCEPT", adjudicationOutput);
+        checkValues("ACCEPT", new Adjudication().apply(applicantData, bureauData, supportingDocuments, annotationSet_, eventListener_, externalExecutor_));
         // Check ApplicationRiskScore
-        java.math.BigDecimal applicationRiskScoreOutput = new ApplicationRiskScore().apply(applicantData, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(number("130"), applicationRiskScoreOutput);
+        checkValues(number("130"), new ApplicationRiskScore().apply(applicantData, annotationSet_, eventListener_, externalExecutor_));
         // Check PreBureauRiskCategory
-        String preBureauRiskCategoryOutput = new PreBureauRiskCategory().apply(applicantData, annotationSet_, eventListener_, externalExecutor_);
-        checkValues("LOW", preBureauRiskCategoryOutput);
+        checkValues("LOW", new PreBureauRiskCategory().apply(applicantData, annotationSet_, eventListener_, externalExecutor_));
         // Check BureauCallType
-        String bureauCallTypeOutput = new BureauCallType().apply(applicantData, annotationSet_, eventListener_, externalExecutor_);
-        checkValues("MINI", bureauCallTypeOutput);
+        checkValues("MINI", new BureauCallType().apply(applicantData, annotationSet_, eventListener_, externalExecutor_));
         // Check PostBureauRiskCategory
-        String postBureauRiskCategoryOutput = new PostBureauRiskCategory().apply(applicantData, bureauData, annotationSet_, eventListener_, externalExecutor_);
-        checkValues("LOW", postBureauRiskCategoryOutput);
+        checkValues("LOW", new PostBureauRiskCategory().apply(applicantData, bureauData, annotationSet_, eventListener_, externalExecutor_));
         // Check RequiredMonthlyInstallment
-        java.math.BigDecimal requiredMonthlyInstallmentOutput = new RequiredMonthlyInstallment().apply(requestedProduct, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(number("1680.880325608555"), requiredMonthlyInstallmentOutput);
+        checkValues(number("1680.880325608555"), new RequiredMonthlyInstallment().apply(requestedProduct, annotationSet_, eventListener_, externalExecutor_));
         // Check PreBureauAffordability
-        Boolean preBureauAffordabilityOutput = new PreBureauAffordability().apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(true, preBureauAffordabilityOutput);
+        checkValues(true, new PreBureauAffordability().apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_));
         // Check Eligibility
-        String eligibilityOutput = new Eligibility().apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_);
-        checkValues("ELIGIBLE", eligibilityOutput);
+        checkValues("ELIGIBLE", new Eligibility().apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_));
         // Check Strategy
-        String strategyOutput = new Strategy().apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_);
-        checkValues("BUREAU", strategyOutput);
+        checkValues("BUREAU", new Strategy().apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_));
         // Check PostBureauAffordability
-        Boolean postBureauAffordabilityOutput = new PostBureauAffordability().apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(true, postBureauAffordabilityOutput);
+        checkValues(true, new PostBureauAffordability().apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_));
         // Check Routing
-        String routingOutput = new Routing().apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_);
-        checkValues("ACCEPT", routingOutput);
+        checkValues("ACCEPT", new Routing().apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_));
     }
 
     private void checkValues(Object expected, Object actual) {

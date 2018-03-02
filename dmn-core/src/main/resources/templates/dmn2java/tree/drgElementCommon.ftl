@@ -241,7 +241,7 @@ import static ${transformer.qualifiedName(javaPackageName, transformer.drgElemen
         <#list modelRepository.directSubDecisions(drgElement)>
             // Apply child decisions
             <#items as subDecision>
-            ${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> ${transformer.drgElementOutputVariableName(subDecision)} = new ${transformer.lazyEvalClassName()}<>(() -> ${transformer.drgElementVariableName(subDecision)}.apply(${transformer.drgElementArgumentsExtra(transformer.drgElementArgumentList(subDecision))}));
+            ${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> ${transformer.drgElementVariableName(subDecision)} = new ${transformer.lazyEvalClassName()}<>(() -> this.${transformer.drgElementVariableName(subDecision)}.apply(${transformer.drgElementArgumentsExtra(transformer.drgElementArgumentList(subDecision))}));
             </#items>
 
         </#list>
@@ -249,7 +249,7 @@ import static ${transformer.qualifiedName(javaPackageName, transformer.drgElemen
         <#list modelRepository.directSubDecisions(drgElement)>
             // Apply child decisions
             <#items as subDecision>
-            ${transformer.drgElementOutputType(subDecision)} ${transformer.drgElementOutputVariableName(subDecision)} = ${transformer.drgElementVariableName(subDecision)}.apply(${transformer.drgElementArgumentsExtra(transformer.drgElementArgumentList(subDecision))});
+            ${transformer.drgElementOutputType(subDecision)} ${transformer.drgElementVariableName(subDecision)} = this.${transformer.drgElementVariableName(subDecision)}.apply(${transformer.drgElementArgumentsExtra(transformer.drgElementArgumentList(subDecision))});
             </#items>
 
         </#list>

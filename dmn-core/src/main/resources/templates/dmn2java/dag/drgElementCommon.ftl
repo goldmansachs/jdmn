@@ -246,9 +246,9 @@ import static ${transformer.qualifiedName(javaPackageName, transformer.drgElemen
 
             <#if object.class.simpleName == "TDecision">
             // ${transformer.evaluateElementCommentText(object)}
-            ${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(object)}> ${transformer.drgElementOutputVariableName(object)} = new ${transformer.lazyEvalClassName()}<>(() -> ${transformer.drgElementVariableName(object)}.evaluate(${transformer.drgElementArgumentsExtra(transformer.drgElementDirectArgumentList(object))}));
+            ${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(object)}> ${transformer.drgElementVariableName(object)} = new ${transformer.lazyEvalClassName()}<>(() -> this.${transformer.drgElementVariableName(object)}.evaluate(${transformer.drgElementArgumentsExtra(transformer.drgElementDirectArgumentList(object))}));
 
-            <@endDRGElement object transformer.drgElementOutputVariableName(object) />
+            <@endDRGElement object transformer.drgElementVariableName(object) />
             <#else>
             <@startDRGElement object.decision/>
             </#if>
@@ -264,9 +264,9 @@ import static ${transformer.qualifiedName(javaPackageName, transformer.drgElemen
 
             <#if object.class.simpleName == "TDecision">
             // ${transformer.evaluateElementCommentText(object)}
-            ${transformer.drgElementOutputType(object)} ${transformer.drgElementOutputVariableName(object)} = ${transformer.drgElementVariableName(object)}.evaluate(${transformer.drgElementArgumentsExtra(transformer.drgElementDirectArgumentList(object))});
+            ${transformer.drgElementOutputType(object)} ${transformer.drgElementVariableName(object)} = this.${transformer.drgElementVariableName(object)}.evaluate(${transformer.drgElementArgumentsExtra(transformer.drgElementDirectArgumentList(object))});
 
-            <@endDRGElement object transformer.drgElementOutputVariableName(object) />
+            <@endDRGElement object transformer.drgElementVariableName(object) />
             <#else>
             <@startDRGElement object.decision/>
             </#if>

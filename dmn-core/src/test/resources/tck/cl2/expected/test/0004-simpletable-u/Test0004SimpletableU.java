@@ -15,8 +15,7 @@ public class Test0004SimpletableU extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         Boolean isAffordable = true;
 
         // Check ApprovalStatus
-        String approvalStatusOutput = new ApprovalStatus().apply(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_);
-        checkValues("Approved", approvalStatusOutput);
+        checkValues("Approved", new ApprovalStatus().apply(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_));
     }
 
     @org.junit.Test
@@ -30,8 +29,7 @@ public class Test0004SimpletableU extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         Boolean isAffordable = true;
 
         // Check ApprovalStatus
-        String approvalStatusOutput = new ApprovalStatus().apply(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_);
-        checkValues("Declined", approvalStatusOutput);
+        checkValues("Declined", new ApprovalStatus().apply(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_));
     }
 
     @org.junit.Test
@@ -45,8 +43,7 @@ public class Test0004SimpletableU extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         Boolean isAffordable = true;
 
         // Check ApprovalStatus
-        String approvalStatusOutput = new ApprovalStatus().apply(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_);
-        checkValues("Declined", approvalStatusOutput);
+        checkValues("Declined", new ApprovalStatus().apply(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_));
     }
 
     private void checkValues(Object expected, Object actual) {

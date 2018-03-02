@@ -13,8 +13,7 @@ public class Test0008LXArithmetic extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         type.TLoan loan = new type.TLoanImpl(number("600000"), number("0.0375"), number("360"));
 
         // Check payment
-        java.math.BigDecimal paymentOutput = new Payment().apply(loan, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(number("2778.69354943277"), paymentOutput);
+        checkValues(number("2778.69354943277"), new Payment().apply(loan, annotationSet_, eventListener_, externalExecutor_));
     }
 
     @org.junit.Test
@@ -26,8 +25,7 @@ public class Test0008LXArithmetic extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         type.TLoan loan = new type.TLoanImpl(number("30000"), number("0.0475"), number("60"));
 
         // Check payment
-        java.math.BigDecimal paymentOutput = new Payment().apply(loan, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(number("562.707359373292"), paymentOutput);
+        checkValues(number("562.707359373292"), new Payment().apply(loan, annotationSet_, eventListener_, externalExecutor_));
     }
 
     @org.junit.Test
@@ -39,8 +37,7 @@ public class Test0008LXArithmetic extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         type.TLoan loan = new type.TLoanImpl(number("600000"), number("0.0399"), number("360"));
 
         // Check payment
-        java.math.BigDecimal paymentOutput = new Payment().apply(loan, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(number("2861.03377700389"), paymentOutput);
+        checkValues(number("2861.03377700389"), new Payment().apply(loan, annotationSet_, eventListener_, externalExecutor_));
     }
 
     private void checkValues(Object expected, Object actual) {

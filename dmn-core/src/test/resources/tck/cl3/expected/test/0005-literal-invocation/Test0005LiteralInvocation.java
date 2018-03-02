@@ -14,8 +14,7 @@ public class Test0005LiteralInvocation extends com.gs.dmn.runtime.DefaultDMNBase
         java.math.BigDecimal fee = number("100");
 
         // Check MonthlyPayment
-        java.math.BigDecimal monthlyPaymentOutput = new MonthlyPayment().apply(loan, fee, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(number("2878.69354943277"), monthlyPaymentOutput);
+        checkValues(number("2878.69354943277"), new MonthlyPayment().apply(loan, fee, annotationSet_, eventListener_, externalExecutor_));
     }
 
     @org.junit.Test
@@ -28,8 +27,7 @@ public class Test0005LiteralInvocation extends com.gs.dmn.runtime.DefaultDMNBase
         java.math.BigDecimal fee = number("100");
 
         // Check MonthlyPayment
-        java.math.BigDecimal monthlyPaymentOutput = new MonthlyPayment().apply(loan, fee, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(number("662.707359373292"), monthlyPaymentOutput);
+        checkValues(number("662.707359373292"), new MonthlyPayment().apply(loan, fee, annotationSet_, eventListener_, externalExecutor_));
     }
 
     @org.junit.Test
@@ -42,8 +40,7 @@ public class Test0005LiteralInvocation extends com.gs.dmn.runtime.DefaultDMNBase
         java.math.BigDecimal fee = number("100");
 
         // Check MonthlyPayment
-        java.math.BigDecimal monthlyPaymentOutput = new MonthlyPayment().apply(loan, fee, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(number("2961.03377700389"), monthlyPaymentOutput);
+        checkValues(number("2961.03377700389"), new MonthlyPayment().apply(loan, fee, annotationSet_, eventListener_, externalExecutor_));
     }
 
     private void checkValues(Object expected, Object actual) {

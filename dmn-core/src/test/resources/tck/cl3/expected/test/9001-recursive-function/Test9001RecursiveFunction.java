@@ -13,8 +13,7 @@ public class Test9001RecursiveFunction extends com.gs.dmn.runtime.DefaultDMNBase
         java.math.BigDecimal n = number("0");
 
         // Check main
-        java.math.BigDecimal mainOutput = new Main().apply(n, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(number("1"), mainOutput);
+        checkValues(number("1"), new Main().apply(n, annotationSet_, eventListener_, externalExecutor_));
     }
 
     @org.junit.Test
@@ -26,8 +25,7 @@ public class Test9001RecursiveFunction extends com.gs.dmn.runtime.DefaultDMNBase
         java.math.BigDecimal n = number("1");
 
         // Check main
-        java.math.BigDecimal mainOutput = new Main().apply(n, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(number("1"), mainOutput);
+        checkValues(number("1"), new Main().apply(n, annotationSet_, eventListener_, externalExecutor_));
     }
 
     @org.junit.Test
@@ -39,8 +37,7 @@ public class Test9001RecursiveFunction extends com.gs.dmn.runtime.DefaultDMNBase
         java.math.BigDecimal n = number("3");
 
         // Check main
-        java.math.BigDecimal mainOutput = new Main().apply(n, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(number("6"), mainOutput);
+        checkValues(number("6"), new Main().apply(n, annotationSet_, eventListener_, externalExecutor_));
     }
 
     @org.junit.Test
@@ -52,8 +49,7 @@ public class Test9001RecursiveFunction extends com.gs.dmn.runtime.DefaultDMNBase
         java.math.BigDecimal n = number("-1");
 
         // Check main
-        java.math.BigDecimal mainOutput = new Main().apply(n, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(null, mainOutput);
+        checkValues(null, new Main().apply(n, annotationSet_, eventListener_, externalExecutor_));
     }
 
     private void checkValues(Object expected, Object actual) {

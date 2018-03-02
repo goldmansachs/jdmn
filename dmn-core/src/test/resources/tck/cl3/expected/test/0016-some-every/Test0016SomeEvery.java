@@ -13,23 +13,17 @@ public class Test0016SomeEvery extends com.gs.dmn.runtime.DefaultDMNBaseDecision
         List<type.TItemPrice> priceTable2 = asList(new type.TItemPriceImpl("widget", number("25")), new type.TItemPriceImpl("sprocket", number("15")), new type.TItemPriceImpl("trinket", number("1.5")));
 
         // Check priceTable1
-        List<type.TItemPrice> priceTable1Output = new PriceTable1().apply(annotationSet_, eventListener_, externalExecutor_);
-        checkValues(asList(new type.TItemPriceImpl("widget", number("25")), new type.TItemPriceImpl("sprocket", number("15")), new type.TItemPriceImpl("trinket", number("1.5"))), priceTable1Output);
+        checkValues(asList(new type.TItemPriceImpl("widget", number("25")), new type.TItemPriceImpl("sprocket", number("15")), new type.TItemPriceImpl("trinket", number("1.5"))), new PriceTable1().apply(annotationSet_, eventListener_, externalExecutor_));
         // Check everyGtTen1
-        Boolean everyGtTen1Output = new EveryGtTen1().apply(annotationSet_, eventListener_, externalExecutor_);
-        checkValues(false, everyGtTen1Output);
+        checkValues(false, new EveryGtTen1().apply(annotationSet_, eventListener_, externalExecutor_));
         // Check everyGtTen2
-        Boolean everyGtTen2Output = new EveryGtTen2().apply(priceTable2, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(false, everyGtTen2Output);
+        checkValues(false, new EveryGtTen2().apply(priceTable2, annotationSet_, eventListener_, externalExecutor_));
         // Check someGtTen1
-        Boolean someGtTen1Output = new SomeGtTen1().apply(annotationSet_, eventListener_, externalExecutor_);
-        checkValues(true, someGtTen1Output);
+        checkValues(true, new SomeGtTen1().apply(annotationSet_, eventListener_, externalExecutor_));
         // Check someGtTen2
-        Boolean someGtTen2Output = new SomeGtTen2().apply(priceTable2, annotationSet_, eventListener_, externalExecutor_);
-        checkValues(true, someGtTen2Output);
+        checkValues(true, new SomeGtTen2().apply(priceTable2, annotationSet_, eventListener_, externalExecutor_));
         // Check everyGtTen3
-        Boolean everyGtTen3Output = new EveryGtTen3().apply(annotationSet_, eventListener_, externalExecutor_);
-        checkValues(false, everyGtTen3Output);
+        checkValues(false, new EveryGtTen3().apply(annotationSet_, eventListener_, externalExecutor_));
     }
 
     private void checkValues(Object expected, Object actual) {

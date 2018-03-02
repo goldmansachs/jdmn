@@ -44,10 +44,10 @@ public class EveryGtTen1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, everyGtTen1Arguments_);
 
             // Apply child decisions
-            List<type.TItemPrice> priceTable1Output = priceTable1.apply(annotationSet_, eventListener_, externalExecutor_);
+            List<type.TItemPrice> priceTable1 = this.priceTable1.apply(annotationSet_, eventListener_, externalExecutor_);
 
             // Evaluate decision 'everyGtTen1'
-            Boolean output_ = evaluate(priceTable1Output, annotationSet_, eventListener_, externalExecutor_);
+            Boolean output_ = evaluate(priceTable1, annotationSet_, eventListener_, externalExecutor_);
 
             // End decision 'everyGtTen1'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, everyGtTen1Arguments_, output_, (System.currentTimeMillis() - everyGtTen1StartTime_));

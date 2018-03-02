@@ -66,11 +66,11 @@ public class Strategy extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, strategyArguments_);
 
             // Apply child decisions
-            String bureauCallTypeOutput = bureauCallType.apply(applicantData, annotationSet_, eventListener_, externalExecutor_);
-            String eligibilityOutput = eligibility.apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_);
+            String bureauCallType = this.bureauCallType.apply(applicantData, annotationSet_, eventListener_, externalExecutor_);
+            String eligibility = this.eligibility.apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_);
 
             // Evaluate decision 'Strategy'
-            String output_ = evaluate(bureauCallTypeOutput, eligibilityOutput, annotationSet_, eventListener_, externalExecutor_);
+            String output_ = evaluate(bureauCallType, eligibility, annotationSet_, eventListener_, externalExecutor_);
 
             // End decision 'Strategy'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, strategyArguments_, output_, (System.currentTimeMillis() - strategyStartTime_));

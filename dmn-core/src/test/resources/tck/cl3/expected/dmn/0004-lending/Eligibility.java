@@ -68,11 +68,11 @@ public class Eligibility extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, eligibilityArguments_);
 
             // Apply child decisions
-            Boolean preBureauAffordabilityOutput = preBureauAffordability.apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_);
-            String preBureauRiskCategoryOutput = preBureauRiskCategory.apply(applicantData, annotationSet_, eventListener_, externalExecutor_);
+            Boolean preBureauAffordability = this.preBureauAffordability.apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_);
+            String preBureauRiskCategory = this.preBureauRiskCategory.apply(applicantData, annotationSet_, eventListener_, externalExecutor_);
 
             // Evaluate decision 'Eligibility'
-            String output_ = evaluate(applicantData, preBureauAffordabilityOutput, preBureauRiskCategoryOutput, annotationSet_, eventListener_, externalExecutor_);
+            String output_ = evaluate(applicantData, preBureauAffordability, preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_);
 
             // End decision 'Eligibility'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, eligibilityArguments_, output_, (System.currentTimeMillis() - eligibilityStartTime_));

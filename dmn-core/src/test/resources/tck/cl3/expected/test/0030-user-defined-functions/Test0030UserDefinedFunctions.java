@@ -14,11 +14,9 @@ public class Test0030UserDefinedFunctions extends com.gs.dmn.runtime.DefaultDMNB
         String stringInputB = "#";
 
         // Check simpleFunctionInvocation
-        String simpleFunctionInvocationOutput = new SimpleFunctionInvocation().apply(stringInputA, stringInputB, annotationSet_, eventListener_, externalExecutor_);
-        checkValues("feel#feel#", simpleFunctionInvocationOutput);
+        checkValues("feel#feel#", new SimpleFunctionInvocation().apply(stringInputA, stringInputB, annotationSet_, eventListener_, externalExecutor_));
         // Check namedFunctionInvocation
-        String namedFunctionInvocationOutput = new NamedFunctionInvocation().apply(stringInputA, stringInputB, annotationSet_, eventListener_, externalExecutor_);
-        checkValues("#feel#feel", namedFunctionInvocationOutput);
+        checkValues("#feel#feel", new NamedFunctionInvocation().apply(stringInputA, stringInputB, annotationSet_, eventListener_, externalExecutor_));
     }
 
     private void checkValues(Object expected, Object actual) {

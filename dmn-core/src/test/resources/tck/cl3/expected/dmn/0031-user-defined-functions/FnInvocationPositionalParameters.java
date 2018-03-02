@@ -64,10 +64,10 @@ public class FnInvocationPositionalParameters extends com.gs.dmn.runtime.Default
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnInvocationPositionalParametersArguments_);
 
             // Apply child decisions
-            type.TFnLibrary fnLibraryOutput = fnLibrary.apply(annotationSet_, eventListener_, externalExecutor_);
+            type.TFnLibrary fnLibrary = this.fnLibrary.apply(annotationSet_, eventListener_, externalExecutor_);
 
             // Evaluate decision 'fnInvocationPositionalParameters'
-            type.TFnInvocationPositionalResult output_ = evaluate(fnLibraryOutput, inputA, inputB, annotationSet_, eventListener_, externalExecutor_);
+            type.TFnInvocationPositionalResult output_ = evaluate(fnLibrary, inputA, inputB, annotationSet_, eventListener_, externalExecutor_);
 
             // End decision 'fnInvocationPositionalParameters'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fnInvocationPositionalParametersArguments_, output_, (System.currentTimeMillis() - fnInvocationPositionalParametersStartTime_));
