@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by ACTICO GmbH https://actico.com -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="">
+    <modelName>1100-feel-decimal-function.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Data Type: Number</label>
+        <label>FEEL Functions: number</label>
+        <label>FEEL Arithmetic</label>
+    </labels>
+    <testCase id="001_af177e63fc">
+        <resultNode name="feel-decimal-function_001_af177e63fc" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">0.33</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="002_f4ed9cd487">
+        <resultNode name="feel-decimal-function_002_f4ed9cd487" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">0.33</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="003_2d50ec7ffc">
+        <resultNode name="feel-decimal-function_003_2d50ec7ffc" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">2</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="004_bb6f445d2c">
+        <resultNode name="feel-decimal-function_004_bb6f445d2c" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">2</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="005_55d33eadf6">
+        <resultNode name="feel-decimal-function_005_55d33eadf6" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">0</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="006_d9661e1d45">
+        <resultNode name="feel-decimal-function_006_d9661e1d45" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">0.0</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="007_49f7a22058">
+        <resultNode name="feel-decimal-function_007_49f7a22058" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">0.52</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="008_73e4f1c8b9">
+        <resultNode name="feel-decimal-function_008_73e4f1c8b9" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">65.123456</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="009_398b94286e">
+        <resultNode name="feel-decimal-function_009_398b94286e" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">2.143</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="010_4b46e59c8b">
+        <resultNode name="feel-decimal-function_010_4b46e59c8b" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:decimal">0.385</value>
+            </expected>
+        </resultNode>
+    </testCase>
+</testCases>

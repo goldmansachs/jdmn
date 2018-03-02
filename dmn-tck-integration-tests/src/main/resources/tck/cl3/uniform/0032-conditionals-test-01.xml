@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.omg.org/spec/DMN/20160719/testcase ../../testCases.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<modelName>0032-conditionals.dmn</modelName>
+	<labels>
+		<label>Compliance Level 3</label>
+		<label>Literal Expression</label>
+		<label>FEEL Arithmetic</label>
+		<label>FEEL Conditionals</label>
+		<label>Data Type: Number</label>
+		<label>Data Type: Boolean</label>
+		<label>Data Type: String</label>
+		<label>Data Type: Date</label>
+	</labels>
+	<testCase id="001">
+	    <description>Tests simple 'if' condition for true</description>
+		<inputNode name="bool">
+		    <value>true</value>
+		</inputNode>
+	    <inputNode name="num">
+	        <value>100</value>
+	    </inputNode>
+	    <resultNode name="simpleIf" type="decision">
+			<expected>
+			    <value>110</value>
+			</expected>
+		</resultNode>
+	</testCase>
+    <testCase id="002">
+        <description>Tests simple 'if' condition for false</description>
+        <inputNode name="bool">
+            <value>false</value>
+        </inputNode>
+        <inputNode name="num">
+            <value>100</value>
+        </inputNode>
+        <resultNode name="simpleIf" type="decision">
+            <expected>
+                <value>90</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="003">
+        <description>Tests simple 'if' condition for null</description>
+        <inputNode name="bool">
+            <value xsi:nil="true"/>
+        </inputNode>
+        <inputNode name="num">
+            <value>100</value>
+        </inputNode>
+        <resultNode name="simpleIf" type="decision">
+            <expected>
+            	<value>90</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="004">
+        <description>Tests 'if' condition with function calls for true</description>
+        <inputNode name="aDate">
+            <value xsi:type="xsd:date">2017-01-02</value>
+        </inputNode>
+        <inputNode name="aString">
+            <value>Hello World</value>
+        </inputNode>
+        <resultNode name="conditionWithFunctions" type="decision">
+            <expected>
+                <value>Hello</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="005">
+        <description>Tests 'if' condition with function calls for false</description>
+        <inputNode name="aDate">
+            <value xsi:type="xsd:date">2017-01-01</value>
+        </inputNode>
+        <inputNode name="aString">
+            <value>Hello World</value>
+        </inputNode>
+        <resultNode name="conditionWithFunctions" type="decision">
+            <expected>
+                <value>World</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="006">
+        <description>Tests 'if' condition with function calls for null</description>
+        <inputNode name="aDate">
+            <value xsi:nil="true"/>
+        </inputNode>
+        <inputNode name="aString">
+            <value>Hello World</value>
+        </inputNode>
+        <resultNode name="conditionWithFunctions" type="decision">
+            <expected>
+            	<value>World</value>
+            </expected>
+        </resultNode>
+    </testCase>
+</testCases>
