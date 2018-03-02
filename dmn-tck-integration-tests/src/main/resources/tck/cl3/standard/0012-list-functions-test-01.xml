@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelName>0012-list-functions.dmn</modelName>
+	<labels>
+		<label>Compliance Level 3</label>
+		<label>Literal Expression</label>
+		<label>Item Definition</label>
+		<label>FEEL List</label>
+		<label>FEEL Functions: lists</label>
+		<label>FEEL Functions: string</label>
+		<label>FEEL Functions: list</label>
+		<label>Data Type: String</label>
+		<label>Data Type: Number</label>
+		<label>Data Type: Boolean</label>
+		<label>Data Type: Collection</label>
+	</labels>
+	<testCase id="001">
+		<inputNode name="list1">
+			<list>
+				<item>
+					<value>a</value>
+				</item>
+				<item>
+					<value>b</value>
+				</item>
+				<item>
+					<value>c</value>
+				</item>
+			</list>
+		</inputNode>
+		<inputNode name="list2">
+			<list>
+				<item>
+					<value>x</value>
+				</item>
+				<item>
+					<value>y</value>
+				</item>
+				<item>
+					<value>z</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="listContainsList" type="decision">
+			<expected>
+				<value>false</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="002">
+		<inputNode name="string1">
+			<value>OK</value>
+		</inputNode>
+		<inputNode name="list2">
+			<list>
+				<item>
+					<value>x</value>
+				</item>
+				<item>
+					<value>y</value>
+				</item>
+				<item>
+					<value>z</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="listContains" type="decision">
+			<expected>
+				<value>false</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="003">
+		<inputNode name="list1">
+			<list>
+				<item>
+					<value>a</value>
+				</item>
+				<item>
+					<value>b</value>
+				</item>
+				<item>
+					<value>c</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="count1" type="decision">
+			<expected>
+				<value>3</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="004">
+		<inputNode name="numList">
+			<list>
+				<item>
+					<value>6</value>
+				</item>
+				<item>
+					<value>14</value>
+				</item>
+				<item>
+					<value>-3</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="min1" type="decision">
+			<expected>
+				<value>-3</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="005">
+		<inputNode name="numList">
+			<list>
+				<item>
+					<value>6</value>
+				</item>
+				<item>
+					<value>14</value>
+				</item>
+				<item>
+					<value>-3</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="sum1" type="decision">
+			<expected>
+				<value>17</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="006">
+		<inputNode name="numList">
+			<list>
+				<item>
+					<value>6</value>
+				</item>
+				<item>
+					<value>14</value>
+				</item>
+				<item>
+					<value>-3</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="mean1" type="decision">
+			<expected>
+				<value>5.66666666666667</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="007">
+		<inputNode name="num1">
+			<value>11</value>
+		</inputNode>
+		<inputNode name="num2">
+			<value>2</value>
+		</inputNode>
+		<inputNode name="num3">
+			<value>10</value>
+		</inputNode>
+		<resultNode name="mean2" type="decision">
+			<expected>
+				<value>7.66666666666667</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="008">
+		<inputNode name="list1">
+			<list>
+				<item>
+					<value>a</value>
+				</item>
+				<item>
+					<value>b</value>
+				</item>
+				<item>
+					<value>c</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="sublist12" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>a</value>
+					</item>
+					<item>
+						<value>b</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="009">
+		<inputNode name="list1">
+			<list>
+				<item>
+					<value>a</value>
+				</item>
+				<item>
+					<value>b</value>
+				</item>
+				<item>
+					<value>c</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="sublistLast" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>c</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="010">
+		<inputNode name="num1">
+			<value>11</value>
+		</inputNode>
+		<inputNode name="num2">
+			<value>2</value>
+		</inputNode>
+		<inputNode name="num3">
+			<value>10</value>
+		</inputNode>
+		<inputNode name="numList">
+			<list>
+				<item>
+					<value>6</value>
+				</item>
+				<item>
+					<value>14</value>
+				</item>
+				<item>
+					<value>-3</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="append1" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>6</value>
+					</item>
+					<item>
+						<value>14</value>
+					</item>
+					<item>
+						<value>-3</value>
+					</item>
+					<item>
+						<value>11</value>
+					</item>
+					<item>
+						<value>2</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="011">
+		<inputNode name="list1">
+			<list>
+				<item>
+					<value>a</value>
+				</item>
+				<item>
+					<value>b</value>
+				</item>
+				<item>
+					<value>c</value>
+				</item>
+			</list>
+		</inputNode>
+		<inputNode name="list2">
+			<list>
+				<item>
+					<value>x</value>
+				</item>
+				<item>
+					<value>y</value>
+				</item>
+				<item>
+					<value>z</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="concatenate1" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>a</value>
+					</item>
+					<item>
+						<value>b</value>
+					</item>
+					<item>
+						<value>c</value>
+					</item>
+					<item>
+						<value>x</value>
+					</item>
+					<item>
+						<value>y</value>
+					</item>
+					<item>
+						<value>z</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="012">
+		<inputNode name="string1">
+			<value>OK</value>
+		</inputNode>
+		<inputNode name="list2">
+			<list>
+				<item>
+					<value>x</value>
+				</item>
+				<item>
+					<value>y</value>
+				</item>
+				<item>
+					<value>z</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="insertBefore1" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>x</value>
+					</item>
+					<item>
+						<value>OK</value>
+					</item>
+					<item>
+						<value>y</value>
+					</item>
+					<item>
+						<value>z</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="013">
+		<inputNode name="list2">
+			<list>
+				<item>
+					<value>x</value>
+				</item>
+				<item>
+					<value>y</value>
+				</item>
+				<item>
+					<value>z</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="remove2nd" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>x</value>
+					</item>
+					<item>
+						<value>z</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="014">
+		<inputNode name="list1">
+			<list>
+				<item>
+					<value>a</value>
+				</item>
+				<item>
+					<value>b</value>
+				</item>
+				<item>
+					<value>c</value>
+				</item>
+			</list>
+		</inputNode>
+		<inputNode name="list2">
+			<list>
+				<item>
+					<value>x</value>
+				</item>
+				<item>
+					<value>y</value>
+				</item>
+				<item>
+					<value>z</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="reverse1" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>z</value>
+					</item>
+					<item>
+						<value>y</value>
+					</item>
+					<item>
+						<value>x</value>
+					</item>
+					<item>
+						<value>c</value>
+					</item>
+					<item>
+						<value>b</value>
+					</item>
+					<item>
+						<value>a</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="015">
+		<inputNode name="list1">
+			<list>
+				<item>
+					<value>a</value>
+				</item>
+				<item>
+					<value>b</value>
+				</item>
+				<item>
+					<value>c</value>
+				</item>
+			</list>
+		</inputNode>
+		<inputNode name="list2">
+			<list>
+				<item>
+					<value>x</value>
+				</item>
+				<item>
+					<value>y</value>
+				</item>
+				<item>
+					<value>z</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="appendListItem" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>a</value>
+					</item>
+					<item>
+						<value>b</value>
+					</item>
+					<item>
+						<value>c</value>
+					</item>
+					<item>
+						<list>
+							<item>
+								<value>x</value>
+							</item>
+							<item>
+								<value>y</value>
+							</item>
+							<item>
+								<value>z</value>
+							</item>
+						</list>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="016">
+		<inputNode name="string1">
+			<value>OK</value>
+		</inputNode>
+		<inputNode name="list2">
+			<list>
+				<item>
+					<value>x</value>
+				</item>
+				<item>
+					<value>y</value>
+				</item>
+				<item>
+					<value>z</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="indexOf1" type="decision">
+			<expected>
+				<list/>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="017">
+		<inputNode name="string1">
+			<value>OK</value>
+		</inputNode>
+		<inputNode name="list1">
+			<list>
+				<item>
+					<value>a</value>
+				</item>
+				<item>
+					<value>b</value>
+				</item>
+				<item>
+					<value>c</value>
+				</item>
+			</list>
+		</inputNode>
+		<inputNode name="list2">
+			<list>
+				<item>
+					<value>x</value>
+				</item>
+				<item>
+					<value>y</value>
+				</item>
+				<item>
+					<value>z</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="union1" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>x</value>
+					</item>
+					<item>
+						<value>OK</value>
+					</item>
+					<item>
+						<value>y</value>
+					</item>
+					<item>
+						<value>z</value>
+					</item>
+					<item>
+						<value>a</value>
+					</item>
+					<item>
+						<value>b</value>
+					</item>
+					<item>
+						<value>c</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="018">
+		<inputNode name="string1">
+			<value>OK</value>
+		</inputNode>
+		<inputNode name="list2">
+			<list>
+				<item>
+					<value>x</value>
+				</item>
+				<item>
+					<value>y</value>
+				</item>
+				<item>
+					<value>z</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="distinctVals" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>x</value>
+					</item>
+					<item>
+						<value>OK</value>
+					</item>
+					<item>
+						<value>y</value>
+					</item>
+					<item>
+						<value>z</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="019">
+		<inputNode name="list1">
+			<list>
+				<item>
+					<value>a</value>
+				</item>
+				<item>
+					<value>b</value>
+				</item>
+				<item>
+					<value>c</value>
+				</item>
+			</list>
+		</inputNode>
+		<inputNode name="list2">
+			<list>
+				<item>
+					<value>x</value>
+				</item>
+				<item>
+					<value>y</value>
+				</item>
+				<item>
+					<value>z</value>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="flatten1" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>a</value>
+					</item>
+					<item>
+						<value>b</value>
+					</item>
+					<item>
+						<value>c</value>
+					</item>
+					<item>
+						<value>x</value>
+					</item>
+					<item>
+						<value>y</value>
+					</item>
+					<item>
+						<value>z</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>

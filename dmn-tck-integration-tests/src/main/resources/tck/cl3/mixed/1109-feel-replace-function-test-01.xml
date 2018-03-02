@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by ACTICO GmbH https://actico.com -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="">
+    <modelName>1109-feel-replace-function.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Data Type: String</label>
+        <label>Literal Expression</label>
+        <label>FEEL Functions: strings</label>
+    </labels>
+    <testCase id="001_7637e5a8ed">
+        <resultNode name="feel-replace-function_001_7637e5a8ed" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">[1=ab][2=]cd</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="002_b5c242ccd4">
+        <resultNode name="feel-replace-function_002_b5c242ccd4" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">a</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="003_bf7aa95050">
+        <resultNode name="feel-replace-function_003_bf7aa95050" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">#</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="004_55a2186006">
+        <resultNode name="feel-replace-function_004_55a2186006" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">abc</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="005_271d93aa68">
+        <resultNode name="feel-replace-function_005_271d93aa68" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">abc</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="006_9cd005d2e2">
+        <resultNode name="feel-replace-function_006_9cd005d2e2" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">#ar</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="007_91583e38c9">
+        <resultNode name="feel-replace-function_007_91583e38c9" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">abc</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="008_8c7c3871f8">
+        <resultNode name="feel-replace-function_008_8c7c3871f8" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">a*cada*</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="009_b1e4220bc9">
+        <resultNode name="feel-replace-function_009_b1e4220bc9" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">*</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="010_cd4e7a6d9f">
+        <resultNode name="feel-replace-function_010_cd4e7a6d9f" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">*c*bra</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="011_c310665f57">
+        <resultNode name="feel-replace-function_011_c310665f57" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">brcdbr</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="012_b0cf9e6723">
+        <resultNode name="feel-replace-function_012_b0cf9e6723" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">abbraccaddabbra</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="013_f669d03fa9">
+        <resultNode name="feel-replace-function_013_f669d03fa9" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">b</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="014_cea33baeee">
+        <resultNode name="feel-replace-function_014_cea33baeee" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">bbbb</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="015_57ce78ec8a">
+        <resultNode name="feel-replace-function_015_57ce78ec8a" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">carted</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="016_1c38095f50">
+        <resultNode name="feel-replace-function_016_1c38095f50" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">Xant</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="017_b9c3c03b87">
+        <resultNode name="feel-replace-function_017_b9c3c03b87" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">(012) 345-6789</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="018_aba3349043">
+        <resultNode name="feel-replace-function_018_aba3349043" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">facet[i][o][u]sl[y]</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="019_6ef91033ad">
+        <resultNode name="feel-replace-function_019_6ef91033ad" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">###</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="020_52d93a8851">
+        <resultNode name="feel-replace-function_020_52d93a8851" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">#.#.#.</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="021_e33828e3da">
+        <resultNode name="feel-replace-function_021_e33828e3da" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">###</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="022_bd75fac0bd">
+        <resultNode name="feel-replace-function_022_bd75fac0bd" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">###</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="023_5c337d3725">
+        <resultNode name="feel-replace-function_023_5c337d3725" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string"># # # # </value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="024_4a89220cd6">
+        <resultNode name="feel-replace-function_024_4a89220cd6" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">abc</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="025_b7f9525875">
+        <resultNode name="feel-replace-function_025_b7f9525875" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">###</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="026_acb176590a">
+        <resultNode name="feel-replace-function_026_acb176590a" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">abc</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="027_d8d25f40e5">
+        <resultNode name="feel-replace-function_027_d8d25f40e5" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">###</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="028_96e8c698af">
+        <resultNode name="feel-replace-function_028_96e8c698af" type="decision">
+            <expected>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">abc</value>
+            </expected>
+        </resultNode>
+    </testCase>
+</testCases>

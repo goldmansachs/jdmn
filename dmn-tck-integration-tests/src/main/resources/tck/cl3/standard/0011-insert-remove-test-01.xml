@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelName>0011-insert-remove.dmn</modelName>
+	<labels>
+		<label>Compliance Level 3</label>
+		<label>Literal Expression</label>
+		<label>Item Definition</label>
+		<label>FEEL List</label>
+		<label>FEEL Functions: lists</label>
+		<label>FEEL Functions: list</label>
+		<label>Data Type: String</label>
+		<label>Data Type: Number</label>
+		<label>Data Type: Collection</label>
+	</labels>
+	<testCase id="001">
+		<inputNode name="simpleList">
+			<list>
+				<item>
+					<value>a</value>
+				</item>
+				<item>
+					<value>b</value>
+				</item>
+				<item>
+					<value>c</value>
+				</item>
+			</list>
+		</inputNode>
+		<inputNode name="nestedList">
+			<list>
+				<item>
+					<list>
+						<item>
+							<value>o</value>
+						</item>
+					</list>
+				</item>
+				<item>
+					<list>
+						<item>
+							<value>p</value>
+						</item>
+						<item>
+							<value>q</value>
+						</item>
+					</list>
+				</item>
+			</list>
+		</inputNode>
+		<inputNode name="position">
+			<value>2</value>
+		</inputNode>
+		<resultNode name="literalNestedList" type="decision">
+			<expected>
+				<list>
+					<item>
+						<list>
+							<item>
+								<value>a</value>
+							</item>
+							<item>
+								<value>b</value>
+							</item>
+						</list>
+					</item>
+					<item>
+						<list>
+							<item>
+								<value>b</value>
+							</item>
+							<item>
+								<value>c</value>
+							</item>
+						</list>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+		<resultNode name="remove1" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>a</value>
+					</item>
+					<item>
+						<value>c</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+		<resultNode name="insert3" type="decision">
+			<expected>
+				<list>
+					<item>
+						<list>
+							<item>
+								<value>o</value>
+							</item>
+						</list>
+					</item>
+					<item>
+						<list>
+							<item>
+								<value>a</value>
+							</item>
+							<item>
+								<value>b</value>
+							</item>
+							<item>
+								<value>c</value>
+							</item>
+						</list>
+					</item>
+					<item>
+						<list>
+							<item>
+								<value>p</value>
+							</item>
+							<item>
+								<value>q</value>
+							</item>
+						</list>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+		<resultNode name="insert2" type="decision">
+			<expected>
+				<list>
+					<item>
+						<list>
+							<item>
+								<value>a</value>
+							</item>
+							<item>
+								<value>b</value>
+							</item>
+						</list>
+					</item>
+					<item>
+						<list>
+							<item>
+								<value>a</value>
+							</item>
+							<item>
+								<value>b</value>
+							</item>
+							<item>
+								<value>c</value>
+							</item>
+						</list>
+					</item>
+					<item>
+						<list>
+							<item>
+								<value>b</value>
+							</item>
+							<item>
+								<value>c</value>
+							</item>
+						</list>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+		<resultNode name="remove2" type="decision">
+			<expected>
+				<list>
+					<item>
+						<list>
+							<item>
+								<value>a</value>
+							</item>
+							<item>
+								<value>b</value>
+							</item>
+						</list>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+		<resultNode name="insert1" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value>a</value>
+					</item>
+					<item>
+						<value>x</value>
+					</item>
+					<item>
+						<value>b</value>
+					</item>
+					<item>
+						<value>c</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>
