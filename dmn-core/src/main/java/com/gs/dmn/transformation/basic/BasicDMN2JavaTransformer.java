@@ -724,11 +724,12 @@ public class BasicDMN2JavaTransformer {
         return DMNRuntimeException.class.getName();
     }
 
-    public boolean isLazyEval(TDRGElement element) {
+    // Check if decision should be lazily evaluated
+    public boolean lazyEvaluation(TDRGElement element) {
         if (!this.lazyEvaluation) {
             return false;
         }
-        return element instanceof TDecision;
+        return isSparseDecision(element);
     }
 
     public boolean isDecision(String name) {
@@ -739,8 +740,12 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
+    public boolean isSparseDecision(TDRGElement element) {
+        return element instanceof TDecision && dmnModelRepository.expression(element) instanceof TDecisionTable;
+    }
+
     String lazyEvaluationType(TDRGElement parent, TDRGElement input, String inputJavaType) {
-        return isLazyEval(parent) && input instanceof TDecision ? String.format("%s<%s>", lazyEvalClassName(), inputJavaType) : inputJavaType;
+        return lazyEvaluation(parent) && input instanceof TDecision ? String.format("%s<%s>", lazyEvalClassName(), inputJavaType) : inputJavaType;
     }
 
     public String lazyEvalClassName() {
