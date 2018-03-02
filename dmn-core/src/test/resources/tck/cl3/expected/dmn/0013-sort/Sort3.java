@@ -50,17 +50,17 @@ public class Sort3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public List<String> apply(List<String> stringList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // Decision start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("stringList", stringList);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start decision 'sort3'
+            long sort3StartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments sort3Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            sort3Arguments_.put("stringList", stringList);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, sort3Arguments_);
 
-            // Evaluate expression
+            // Evaluate decision 'sort3'
             List<String> output_ = evaluate(stringList, annotationSet_, eventListener_, externalExecutor_);
 
-            // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End decision 'sort3'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, sort3Arguments_, output_, (System.currentTimeMillis() - sort3StartTime_));
 
             return output_;
         } catch (Exception e) {

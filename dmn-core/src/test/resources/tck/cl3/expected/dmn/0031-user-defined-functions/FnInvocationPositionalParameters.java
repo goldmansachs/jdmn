@@ -56,21 +56,21 @@ public class FnInvocationPositionalParameters extends com.gs.dmn.runtime.Default
 
     public type.TFnInvocationPositionalResult apply(java.math.BigDecimal inputA, java.math.BigDecimal inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // Decision start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("inputA", inputA);
-            arguments_.put("inputB", inputB);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start decision 'fnInvocationPositionalParameters'
+            long fnInvocationPositionalParametersStartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments fnInvocationPositionalParametersArguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            fnInvocationPositionalParametersArguments_.put("inputA", inputA);
+            fnInvocationPositionalParametersArguments_.put("inputB", inputB);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnInvocationPositionalParametersArguments_);
 
             // Apply child decisions
             type.TFnLibrary fnLibraryOutput = fnLibrary.apply(annotationSet_, eventListener_, externalExecutor_);
 
-            // Evaluate expression
+            // Evaluate decision 'fnInvocationPositionalParameters'
             type.TFnInvocationPositionalResult output_ = evaluate(fnLibraryOutput, inputA, inputB, annotationSet_, eventListener_, externalExecutor_);
 
-            // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End decision 'fnInvocationPositionalParameters'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fnInvocationPositionalParametersArguments_, output_, (System.currentTimeMillis() - fnInvocationPositionalParametersStartTime_));
 
             return output_;
         } catch (Exception e) {

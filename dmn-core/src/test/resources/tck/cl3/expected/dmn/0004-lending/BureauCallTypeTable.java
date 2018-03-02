@@ -34,17 +34,17 @@ public class BureauCallTypeTable extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
 
     private String apply(String preBureauRiskCategory, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // BKM start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("preBureauRiskCategory", preBureauRiskCategory);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start BKM 'BureauCallTypeTable'
+            long bureauCallTypeTableStartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments bureauCallTypeTableArguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            bureauCallTypeTableArguments_.put("preBureauRiskCategory", preBureauRiskCategory);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bureauCallTypeTableArguments_);
 
-            // Evaluate expression
+            // Evaluate BKM 'BureauCallTypeTable'
             String output_ = evaluate(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_);
 
-            // BKM end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End BKM 'BureauCallTypeTable'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, bureauCallTypeTableArguments_, output_, (System.currentTimeMillis() - bureauCallTypeTableStartTime_));
 
             return output_;
         } catch (Exception e) {

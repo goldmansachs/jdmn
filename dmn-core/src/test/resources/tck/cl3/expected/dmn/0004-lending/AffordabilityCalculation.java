@@ -36,21 +36,21 @@ public class AffordabilityCalculation extends com.gs.dmn.runtime.DefaultDMNBaseD
 
     private Boolean apply(java.math.BigDecimal monthlyIncome, java.math.BigDecimal monthlyRepayments, java.math.BigDecimal monthlyExpenses, String riskCategory, java.math.BigDecimal requiredMonthlyInstallment, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // BKM start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("monthlyIncome", monthlyIncome);
-            arguments_.put("monthlyRepayments", monthlyRepayments);
-            arguments_.put("monthlyExpenses", monthlyExpenses);
-            arguments_.put("riskCategory", riskCategory);
-            arguments_.put("requiredMonthlyInstallment", requiredMonthlyInstallment);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start BKM 'AffordabilityCalculation'
+            long affordabilityCalculationStartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments affordabilityCalculationArguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            affordabilityCalculationArguments_.put("monthlyIncome", monthlyIncome);
+            affordabilityCalculationArguments_.put("monthlyRepayments", monthlyRepayments);
+            affordabilityCalculationArguments_.put("monthlyExpenses", monthlyExpenses);
+            affordabilityCalculationArguments_.put("riskCategory", riskCategory);
+            affordabilityCalculationArguments_.put("requiredMonthlyInstallment", requiredMonthlyInstallment);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, affordabilityCalculationArguments_);
 
-            // Evaluate expression
+            // Evaluate BKM 'AffordabilityCalculation'
             Boolean output_ = evaluate(monthlyIncome, monthlyRepayments, monthlyExpenses, riskCategory, requiredMonthlyInstallment, annotationSet_, eventListener_, externalExecutor_);
 
-            // BKM end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End BKM 'AffordabilityCalculation'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, affordabilityCalculationArguments_, output_, (System.currentTimeMillis() - affordabilityCalculationStartTime_));
 
             return output_;
         } catch (Exception e) {

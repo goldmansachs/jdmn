@@ -58,22 +58,22 @@ public class Strategy extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public String apply(type.TApplicantData applicantData, type.TRequestedProduct requestedProduct, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // Decision start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("applicantData", applicantData);
-            arguments_.put("requestedProduct", requestedProduct);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start decision 'Strategy'
+            long strategyStartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments strategyArguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            strategyArguments_.put("applicantData", applicantData);
+            strategyArguments_.put("requestedProduct", requestedProduct);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, strategyArguments_);
 
             // Apply child decisions
             String bureauCallTypeOutput = bureauCallType.apply(applicantData, annotationSet_, eventListener_, externalExecutor_);
             String eligibilityOutput = eligibility.apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_);
 
-            // Evaluate expression
+            // Evaluate decision 'Strategy'
             String output_ = evaluate(bureauCallTypeOutput, eligibilityOutput, annotationSet_, eventListener_, externalExecutor_);
 
-            // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End decision 'Strategy'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, strategyArguments_, output_, (System.currentTimeMillis() - strategyStartTime_));
 
             return output_;
         } catch (Exception e) {

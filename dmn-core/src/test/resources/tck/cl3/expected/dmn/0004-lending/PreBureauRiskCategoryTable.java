@@ -34,18 +34,18 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
 
     private String apply(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // BKM start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("existingCustomer", existingCustomer);
-            arguments_.put("applicationRiskScore", applicationRiskScore);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start BKM 'PreBureauRiskCategoryTable'
+            long preBureauRiskCategoryTableStartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments preBureauRiskCategoryTableArguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            preBureauRiskCategoryTableArguments_.put("existingCustomer", existingCustomer);
+            preBureauRiskCategoryTableArguments_.put("applicationRiskScore", applicationRiskScore);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, preBureauRiskCategoryTableArguments_);
 
-            // Evaluate expression
+            // Evaluate BKM 'PreBureauRiskCategoryTable'
             String output_ = evaluate(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_);
 
-            // BKM end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End BKM 'PreBureauRiskCategoryTable'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, preBureauRiskCategoryTableArguments_, output_, (System.currentTimeMillis() - preBureauRiskCategoryTableStartTime_));
 
             return output_;
         } catch (Exception e) {

@@ -58,20 +58,20 @@ public class RankedProducts extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public type.TRankedProducts apply(java.math.BigDecimal requestedAmt, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // Decision start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("requestedAmt", requestedAmt);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start decision 'RankedProducts'
+            long rankedProductsStartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments rankedProductsArguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            rankedProductsArguments_.put("requestedAmt", requestedAmt);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, rankedProductsArguments_);
 
             // Apply child decisions
             List<type.TLoanProduct> bankratesOutput = bankrates.apply(annotationSet_, eventListener_, externalExecutor_);
 
-            // Evaluate expression
+            // Evaluate decision 'RankedProducts'
             type.TRankedProducts output_ = evaluate(bankratesOutput, requestedAmt, annotationSet_, eventListener_, externalExecutor_);
 
-            // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End decision 'RankedProducts'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, rankedProductsArguments_, output_, (System.currentTimeMillis() - rankedProductsStartTime_));
 
             return output_;
         } catch (Exception e) {

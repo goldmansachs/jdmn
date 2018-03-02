@@ -50,19 +50,19 @@ public class PriceInRange extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public String apply(java.math.BigDecimal numB, java.math.BigDecimal numC, type.TA structA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // Decision start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("numB", numB);
-            arguments_.put("numC", numC);
-            arguments_.put("structA", structA);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start decision 'priceInRange'
+            long priceInRangeStartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments priceInRangeArguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            priceInRangeArguments_.put("numB", numB);
+            priceInRangeArguments_.put("numC", numC);
+            priceInRangeArguments_.put("structA", structA);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, priceInRangeArguments_);
 
-            // Evaluate expression
+            // Evaluate decision 'priceInRange'
             String output_ = evaluate(numB, numC, structA, annotationSet_, eventListener_, externalExecutor_);
 
-            // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End decision 'priceInRange'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, priceInRangeArguments_, output_, (System.currentTimeMillis() - priceInRangeStartTime_));
 
             return output_;
         } catch (Exception e) {

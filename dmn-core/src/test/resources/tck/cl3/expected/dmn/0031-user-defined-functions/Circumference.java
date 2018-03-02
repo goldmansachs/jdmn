@@ -34,17 +34,17 @@ public class Circumference extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     private java.math.BigDecimal apply(java.math.BigDecimal radius, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // BKM start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("radius", radius);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start BKM 'Circumference'
+            long circumferenceStartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments circumferenceArguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            circumferenceArguments_.put("radius", radius);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, circumferenceArguments_);
 
-            // Evaluate expression
+            // Evaluate BKM 'Circumference'
             java.math.BigDecimal output_ = evaluate(radius, annotationSet_, eventListener_, externalExecutor_);
 
-            // BKM end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End BKM 'Circumference'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, circumferenceArguments_, output_, (System.currentTimeMillis() - circumferenceStartTime_));
 
             return output_;
         } catch (Exception e) {

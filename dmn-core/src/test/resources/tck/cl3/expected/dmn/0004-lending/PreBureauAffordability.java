@@ -60,22 +60,22 @@ public class PreBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDec
 
     public Boolean apply(type.TApplicantData applicantData, type.TRequestedProduct requestedProduct, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // Decision start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("applicantData", applicantData);
-            arguments_.put("requestedProduct", requestedProduct);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start decision 'PreBureauAffordability'
+            long preBureauAffordabilityStartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments preBureauAffordabilityArguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            preBureauAffordabilityArguments_.put("applicantData", applicantData);
+            preBureauAffordabilityArguments_.put("requestedProduct", requestedProduct);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, preBureauAffordabilityArguments_);
 
             // Apply child decisions
             String preBureauRiskCategoryOutput = preBureauRiskCategory.apply(applicantData, annotationSet_, eventListener_, externalExecutor_);
             java.math.BigDecimal requiredMonthlyInstallmentOutput = requiredMonthlyInstallment.apply(requestedProduct, annotationSet_, eventListener_, externalExecutor_);
 
-            // Evaluate expression
+            // Evaluate decision 'PreBureauAffordability'
             Boolean output_ = evaluate(applicantData, preBureauRiskCategoryOutput, requiredMonthlyInstallmentOutput, annotationSet_, eventListener_, externalExecutor_);
 
-            // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End decision 'PreBureauAffordability'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, preBureauAffordabilityArguments_, output_, (System.currentTimeMillis() - preBureauAffordabilityStartTime_));
 
             return output_;
         } catch (Exception e) {

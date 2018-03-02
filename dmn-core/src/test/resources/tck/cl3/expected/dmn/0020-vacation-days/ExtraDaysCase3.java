@@ -50,18 +50,18 @@ public class ExtraDaysCase3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public java.math.BigDecimal apply(java.math.BigDecimal age, java.math.BigDecimal yearsOfService, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // Decision start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("age", age);
-            arguments_.put("yearsOfService", yearsOfService);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start decision 'ExtraDaysCase3'
+            long extraDaysCase3StartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments extraDaysCase3Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            extraDaysCase3Arguments_.put("age", age);
+            extraDaysCase3Arguments_.put("yearsOfService", yearsOfService);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, extraDaysCase3Arguments_);
 
-            // Evaluate expression
+            // Evaluate decision 'ExtraDaysCase3'
             java.math.BigDecimal output_ = evaluate(age, yearsOfService, annotationSet_, eventListener_, externalExecutor_);
 
-            // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End decision 'ExtraDaysCase3'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, extraDaysCase3Arguments_, output_, (System.currentTimeMillis() - extraDaysCase3StartTime_));
 
             return output_;
         } catch (Exception e) {

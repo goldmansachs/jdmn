@@ -452,26 +452,6 @@ public class BasicDMN2JavaTransformer {
         return inputs;
     }
 
-    public String startCommentText(TDRGElement element) {
-        if (element instanceof TDecision) {
-            return "Decision start";
-        } else if (element instanceof TBusinessKnowledgeModel) {
-            return "BKM start";
-        } else {
-            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
-        }
-    }
-
-    public String endCommentText(TDRGElement element) {
-        if (element instanceof TDecision) {
-            return "Decision end";
-        } else if (element instanceof TBusinessKnowledgeModel) {
-            return "BKM end";
-        } else {
-            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
-        }
-    }
-
     public String startElementCommentText(TDRGElement element) {
         if (element instanceof TDecision) {
             return String.format("Start decision '%s'", element.getName());

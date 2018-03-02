@@ -52,18 +52,18 @@ public class MonthlyPayment extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public java.math.BigDecimal apply(type.TLoan loan, java.math.BigDecimal fee, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // Decision start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("loan", loan);
-            arguments_.put("fee", fee);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start decision 'MonthlyPayment'
+            long monthlyPaymentStartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments monthlyPaymentArguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            monthlyPaymentArguments_.put("loan", loan);
+            monthlyPaymentArguments_.put("fee", fee);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, monthlyPaymentArguments_);
 
-            // Evaluate expression
+            // Evaluate decision 'MonthlyPayment'
             java.math.BigDecimal output_ = evaluate(loan, fee, annotationSet_, eventListener_, externalExecutor_);
 
-            // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End decision 'MonthlyPayment'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, monthlyPaymentArguments_, output_, (System.currentTimeMillis() - monthlyPaymentStartTime_));
 
             return output_;
         } catch (Exception e) {

@@ -34,20 +34,20 @@ public class RoutingRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     private String apply(String postBureauRiskCategory, Boolean postBureauAffordability, Boolean bankrupt, java.math.BigDecimal creditScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // BKM start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("postBureauRiskCategory", postBureauRiskCategory);
-            arguments_.put("postBureauAffordability", postBureauAffordability);
-            arguments_.put("bankrupt", bankrupt);
-            arguments_.put("creditScore", creditScore);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start BKM 'RoutingRules'
+            long routingRulesStartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments routingRulesArguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            routingRulesArguments_.put("postBureauRiskCategory", postBureauRiskCategory);
+            routingRulesArguments_.put("postBureauAffordability", postBureauAffordability);
+            routingRulesArguments_.put("bankrupt", bankrupt);
+            routingRulesArguments_.put("creditScore", creditScore);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, routingRulesArguments_);
 
-            // Evaluate expression
+            // Evaluate BKM 'RoutingRules'
             String output_ = evaluate(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, annotationSet_, eventListener_, externalExecutor_);
 
-            // BKM end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End BKM 'RoutingRules'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, routingRulesArguments_, output_, (System.currentTimeMillis() - routingRulesStartTime_));
 
             return output_;
         } catch (Exception e) {

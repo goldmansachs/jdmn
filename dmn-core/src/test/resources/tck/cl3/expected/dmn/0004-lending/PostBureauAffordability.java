@@ -60,23 +60,23 @@ public class PostBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDe
 
     public Boolean apply(type.TApplicantData applicantData, type.TBureauData bureauData, type.TRequestedProduct requestedProduct, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // Decision start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("applicantData", applicantData);
-            arguments_.put("bureauData", bureauData);
-            arguments_.put("requestedProduct", requestedProduct);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start decision 'PostBureauAffordability'
+            long postBureauAffordabilityStartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments postBureauAffordabilityArguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            postBureauAffordabilityArguments_.put("applicantData", applicantData);
+            postBureauAffordabilityArguments_.put("bureauData", bureauData);
+            postBureauAffordabilityArguments_.put("requestedProduct", requestedProduct);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, postBureauAffordabilityArguments_);
 
             // Apply child decisions
             String postBureauRiskCategoryOutput = postBureauRiskCategory.apply(applicantData, bureauData, annotationSet_, eventListener_, externalExecutor_);
             java.math.BigDecimal requiredMonthlyInstallmentOutput = requiredMonthlyInstallment.apply(requestedProduct, annotationSet_, eventListener_, externalExecutor_);
 
-            // Evaluate expression
+            // Evaluate decision 'PostBureauAffordability'
             Boolean output_ = evaluate(applicantData, postBureauRiskCategoryOutput, requiredMonthlyInstallmentOutput, annotationSet_, eventListener_, externalExecutor_);
 
-            // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End decision 'PostBureauAffordability'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, postBureauAffordabilityArguments_, output_, (System.currentTimeMillis() - postBureauAffordabilityStartTime_));
 
             return output_;
         } catch (Exception e) {

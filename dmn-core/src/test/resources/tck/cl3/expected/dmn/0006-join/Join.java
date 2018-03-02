@@ -50,19 +50,19 @@ public class Join extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public String apply(List<type.TDeptTable> deptTable, List<type.TEmployeeTable> employeeTable, String lastName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // Decision start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            arguments_.put("deptTable", deptTable);
-            arguments_.put("employeeTable", employeeTable);
-            arguments_.put("lastName", lastName);
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start decision 'Join'
+            long joinStartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments joinArguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            joinArguments_.put("deptTable", deptTable);
+            joinArguments_.put("employeeTable", employeeTable);
+            joinArguments_.put("lastName", lastName);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, joinArguments_);
 
-            // Evaluate expression
+            // Evaluate decision 'Join'
             String output_ = evaluate(deptTable, employeeTable, lastName, annotationSet_, eventListener_, externalExecutor_);
 
-            // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End decision 'Join'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, joinArguments_, output_, (System.currentTimeMillis() - joinStartTime_));
 
             return output_;
         } catch (Exception e) {

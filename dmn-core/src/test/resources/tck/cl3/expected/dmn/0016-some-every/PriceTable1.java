@@ -32,16 +32,16 @@ public class PriceTable1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public List<type.TItemPrice> apply(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            // Decision start
-            long startTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, arguments_);
+            // Start decision 'priceTable1'
+            long priceTable1StartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments priceTable1Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, priceTable1Arguments_);
 
-            // Evaluate expression
+            // Evaluate decision 'priceTable1'
             List<type.TItemPrice> output_ = evaluate(annotationSet_, eventListener_, externalExecutor_);
 
-            // Decision end
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, arguments_, output_, (System.currentTimeMillis() - startTime_));
+            // End decision 'priceTable1'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, priceTable1Arguments_, output_, (System.currentTimeMillis() - priceTable1StartTime_));
 
             return output_;
         } catch (Exception e) {

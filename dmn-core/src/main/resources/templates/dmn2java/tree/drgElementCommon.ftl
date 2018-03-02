@@ -214,7 +214,7 @@ import static ${transformer.qualifiedName(javaPackageName, transformer.drgElemen
 -->
 <#macro expressionApplyBody drgElement>
             <@applySubDecisions drgElement/>
-            // Evaluate expression
+            // ${transformer.evaluateElementCommentText(drgElement)}
             ${transformer.drgElementOutputType(drgElement)} output_ = evaluate(${transformer.drgElementArgumentsExtra(transformer.drgElementDirectArgumentList(drgElement))});
 
             <@endDRGElementAndReturn drgElement "output_" />
@@ -260,20 +260,24 @@ import static ${transformer.qualifiedName(javaPackageName, transformer.drgElemen
     Events
 -->
 <#macro startDRGElement drgElement>
-            // ${transformer.startCommentText(drgElement)}
-            long startTime_ = System.currentTimeMillis();
-            ${transformer.argumentsClassName()} arguments_ = new ${transformer.argumentsClassName()}();
+            // ${transformer.startElementCommentText(drgElement)}
+            long ${transformer.drgElementVariableName(drgElement)}StartTime_ = System.currentTimeMillis();
+            ${transformer.argumentsClassName()} ${transformer.drgElementVariableName(drgElement)}Arguments_ = new ${transformer.argumentsClassName()}();
             <#list transformer.drgElementArgumentNameList(drgElement)>
             <#items as arg>
-            arguments_.put("${arg}", ${arg});
+            ${transformer.drgElementVariableName(drgElement)}Arguments_.put("${arg}", ${arg});
             </#items>
             </#list>
-            ${transformer.eventListenerVariableName()}.startDRGElement(<@drgElementAnnotation drgElement/>, arguments_);
+            ${transformer.eventListenerVariableName()}.startDRGElement(<@drgElementAnnotation drgElement/>, ${transformer.drgElementVariableName(drgElement)}Arguments_);
+</#macro>
+
+<#macro endDRGElement drgElement output>
+            // ${transformer.endElementCommentText(drgElement)}
+            ${transformer.eventListenerVariableName()}.endDRGElement(<@drgElementAnnotation drgElement/>, ${transformer.drgElementVariableName(drgElement)}Arguments_, ${output}, (System.currentTimeMillis() - ${transformer.drgElementVariableName(drgElement)}StartTime_));
 </#macro>
 
 <#macro endDRGElementAndReturn drgElement output>
-            // ${transformer.endCommentText(drgElement)}
-            ${transformer.eventListenerVariableName()}.endDRGElement(<@drgElementAnnotation drgElement/>, arguments_, ${output}, (System.currentTimeMillis() - startTime_));
+            <@endDRGElement drgElement output/>
 
             return ${output};
 </#macro>
