@@ -32,9 +32,6 @@ public class CL2TestCasesToJUnitTransformerTest extends AbstractTCKTestCasesToJU
 
     @Test
     public void testCL2() throws Exception {
-        doTest("0001-input-data-string", "0001-input-data-string-test-01");
-        doTest("0002-input-data-number", "0002-input-data-number-test-01");
-        doTest("0003-input-data-string-allowed-values", "0003-input-data-string-allowed-values-test-01");
         doTest("0004-simpletable-U", "0004-simpletable-U-test-01");
         doTest("0005-simpletable-A", "0005-simpletable-A-test-01");
         doTest("0006-simpletable-P1", "0006-simpletable-P1-test-01");
@@ -42,11 +39,5 @@ public class CL2TestCasesToJUnitTransformerTest extends AbstractTCKTestCasesToJU
         doTest("0008-LX-arithmetic", "0008-LX-arithmetic-test-01");
         doTest("0009-invocation-arithmetic", "0009-invocation-arithmetic-test-01");
         doTest("0010-multi-output-U", "0010-multi-output-U-test-01");
-        doTest("0100-feel-constants", "0100-feel-constants-test-01");
-        doTest("0101-feel-constants", "0101-feel-constants-test-01");
-        doTest("0102-feel-constants", "0102-feel-constants-test-01");
-        doTest("0105-feel-math", "0105-feel-math-test-01");
-        doTest("0106-feel-ternary-logic", "0106-feel-ternary-logic-test-01");
-        doTest("0107-feel-ternary-logic-not", "0107-feel-ternary-logic-not-test-01");
     }
 }
