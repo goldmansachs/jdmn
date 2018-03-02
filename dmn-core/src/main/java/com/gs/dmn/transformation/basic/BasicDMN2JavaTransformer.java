@@ -740,7 +740,7 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    public boolean isSparseDecisionTable(TDRGElement element) {
+    private boolean isSparseDecisionTable(TDRGElement element) {
         return element instanceof TDecision && dmnModelRepository.expression(element) instanceof TDecisionTable;
     }
 
