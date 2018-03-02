@@ -237,7 +237,7 @@ import static ${transformer.qualifiedName(javaPackageName, transformer.drgElemen
     Apply sub-decisions
 -->
 <#macro applySubDecisions drgElement>
-    <#if transformer.isLazyEval(drgElement)>
+    <#if transformer.lazyEvaluation(drgElement)>
         <#list modelRepository.topologicalSortWithMarkers(drgElement)>
             //
             // Evaluate child decisions

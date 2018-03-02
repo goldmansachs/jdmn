@@ -378,7 +378,7 @@ public class DecisionTableToJavaTransformer {
         // Generate code for input entry
         Environment inputEntryEnvironment = dmnTransformer.makeInputEntryEnvironment(element, inputExpression);
         FEELContext inputEntryContext = FEELContext.makeContext(inputEntryEnvironment);
-        return feelTranslator.unaryTestsToJava(inputEntryText, inputEntryContext, dmnTransformer.isLazyEval(element));
+        return feelTranslator.unaryTestsToJava(inputEntryText, inputEntryContext, dmnTransformer.lazyEvaluation(element));
     }
 
     public String outputEntryToJava(TDRGElement element, TLiteralExpression outputEntryExpression, int outputIndex) {
@@ -394,7 +394,7 @@ public class DecisionTableToJavaTransformer {
 
             // Generate code
             FEELContext context = FEELContext.makeContext(outputEntryEnvironment);
-            return feelTranslator.simpleExpressionsToJava(feelOutputEntryExpression, context, dmnTransformer.isLazyEval(element));
+            return feelTranslator.simpleExpressionsToJava(feelOutputEntryExpression, context, dmnTransformer.lazyEvaluation(element));
         } else {
             throw new UnsupportedOperationException(String.format("Not supported '%s'", tExpression.getClass().getSimpleName()));
         }

@@ -103,7 +103,7 @@ class AbstractFEELTranslator implements FEELTranslator {
     @Override
     public String unaryTestsToJava(UnaryTests expression, FEELContext context, boolean lazyEvaluation) {
         this.expressionVisitor.init(lazyEvaluation);
-        return (String) expression.accept(expressionVisitor, context);
+        return (String) expression.accept(this.expressionVisitor, context);
     }
 
     @Override
@@ -120,12 +120,13 @@ class AbstractFEELTranslator implements FEELTranslator {
     @Override
     public String expressionToJava(Expression expression, FEELContext context, boolean lazyEvaluation) {
         this.expressionVisitor.init(lazyEvaluation);
-        return (String) expression.accept(expressionVisitor, context);
+        return (String) expression.accept(this.expressionVisitor, context);
     }
 
     @Override
     public String simpleExpressionsToJava(Expression simpleExpressions, FEELContext context, boolean lazyEvaluation) {
-        String javaOutputEntryText = (String) simpleExpressions.accept(simpleExpressionsVisitor, context);
+        this.simpleExpressionsVisitor.init(lazyEvaluation);
+        String javaOutputEntryText = (String) simpleExpressions.accept(this.simpleExpressionsVisitor, context);
         return "-".equals(javaOutputEntryText) ? "null" : javaOutputEntryText;
     }
 }
