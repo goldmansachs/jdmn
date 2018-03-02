@@ -27,7 +27,7 @@
     <properties>
         <dmn.version>1.1</dmn.version>
         <dmn.schema>${project.basedir}/src/main/resources/dmn/${dmn.version}/dmn.xsd</dmn.schema>
-        <tck.schema>${project.basedir}/src/test/resources/tck/testCases.xsd</tck.schema>
+        <tck.schema>${project.basedir}/src/main/resources/tck/testCases.xsd</tck.schema>
 
         <jaxb.version>2.2</jaxb.version>
         <jaxb.generated.dmn>${project.basedir}/target/generated-sources/jaxb</jaxb.generated.dmn>
