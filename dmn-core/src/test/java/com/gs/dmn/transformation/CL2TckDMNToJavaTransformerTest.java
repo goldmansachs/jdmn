@@ -27,9 +27,6 @@ public class CL2TckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
 
     @Test
     public void testCL2() throws Exception {
-        doTest("0001-input-data-string");
-        doTest("0002-input-data-number");
-        doTest("0003-input-data-string-allowed-values");
         doTest("0004-simpletable-U");
         doTest("0005-simpletable-A");
         doTest("0006-simpletable-P1");
@@ -37,11 +34,5 @@ public class CL2TckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
         doTest("0008-LX-arithmetic");
         doTest("0009-invocation-arithmetic");
         doTest("0010-multi-output-U");
-        doTest("0100-feel-constants");
-        doTest("0101-feel-constants");
-        doTest("0102-feel-constants");
-        doTest("0105-feel-math");
-        doTest("0106-feel-ternary-logic");
-        doTest("0107-feel-ternary-logic-not");
     }
 }
