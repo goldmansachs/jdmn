@@ -729,7 +729,7 @@ public class BasicDMN2JavaTransformer {
         if (!this.lazyEvaluation) {
             return false;
         }
-        return isSparseDecision(element);
+        return isSparseDecisionTable(element);
     }
 
     public boolean isDecision(String name) {
@@ -740,7 +740,7 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    public boolean isSparseDecision(TDRGElement element) {
+    public boolean isSparseDecisionTable(TDRGElement element) {
         return element instanceof TDecision && dmnModelRepository.expression(element) instanceof TDecisionTable;
     }
 
