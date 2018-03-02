@@ -69,6 +69,9 @@ public class DMNModelRepository {
 
     public List<TDecision> decisions() {
         List<TDecision> result = new ArrayList<>();
+        if (definitions == null) {
+            return result;
+        }
         for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
             TDRGElement element = jaxbElement.getValue();
             if (element instanceof TDecision) {
@@ -80,6 +83,9 @@ public class DMNModelRepository {
 
     public List<TInputData> inputDatas() {
         List<TInputData> result = new ArrayList<>();
+        if (definitions == null) {
+            return result;
+        }
         for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
             TDRGElement element = jaxbElement.getValue();
             if (element instanceof TInputData) {
@@ -91,6 +97,9 @@ public class DMNModelRepository {
 
     public List<TBusinessKnowledgeModel> businessKnowledgeModels() {
         List<TBusinessKnowledgeModel> result = new ArrayList<>();
+        if (definitions == null) {
+            return result;
+        }
         for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
             TDRGElement element = jaxbElement.getValue();
             if (element instanceof TBusinessKnowledgeModel) {
@@ -101,6 +110,9 @@ public class DMNModelRepository {
     }
 
     public List<TItemDefinition> itemDefinitions() {
+        if (definitions == null) {
+            return new ArrayList<>();
+        }
         List<TItemDefinition> itemDefinition = definitions.getItemDefinition();
         return itemDefinition;
     }
