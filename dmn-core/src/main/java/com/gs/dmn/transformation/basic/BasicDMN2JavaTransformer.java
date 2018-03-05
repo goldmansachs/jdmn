@@ -338,30 +338,6 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    public String drgElementDirectSignature(TDRGElement element) {
-        if (element instanceof TDecision) {
-            List<Pair<String, String>> parameters = directInformationRequirementParameters(element);
-            String javaParameters = parameters.stream().map(p -> String.format("%s %s", p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
-            return augmentSignature(javaParameters);
-        } else if (element instanceof TBusinessKnowledgeModel) {
-            return drgElementSignature(element);
-        } else {
-            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
-        }
-    }
-
-    public String drgElementDirectArgumentList(TDRGElement element) {
-        if (element instanceof TDecision) {
-            List<Pair<String, String>> parameters = directInformationRequirementParameters(element);
-            String argumentList = parameters.stream().map(p -> String.format("%s", p.getLeft())).collect(Collectors.joining(", "));
-            return augmentArgumentList(argumentList);
-        } else if (element instanceof TBusinessKnowledgeModel) {
-            return drgElementArgumentList(element);
-        } else {
-            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
-        }
-    }
-
     public String decisionConstructorSignature(TDecision decision) {
         List<TDecision> subDecisions = dmnModelRepository.directSubDecisions(decision);
         subDecisions.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
@@ -400,6 +376,41 @@ public class BasicDMN2JavaTransformer {
         return !this.dmnModelRepository.directSubDecisions(decision).isEmpty();
     }
 
+    //
+    // Evaluate method related functions
+    //
+    public String drgElementEvaluateSignature(TDRGElement element) {
+        return drgElementSignatureExtra(drgElementDirectSignature(element));
+    }
+
+    public String drgElementEvaluateArgumentList(TDRGElement element) {
+        return drgElementArgumentsExtra(drgElementDirectArgumentList(element));
+    }
+
+    protected String drgElementDirectSignature(TDRGElement element) {
+        if (element instanceof TDecision) {
+            List<Pair<String, String>> parameters = directInformationRequirementParameters(element);
+            String javaParameters = parameters.stream().map(p -> String.format("%s %s", p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
+            return augmentSignature(javaParameters);
+        } else if (element instanceof TBusinessKnowledgeModel) {
+            return drgElementSignature(element);
+        } else {
+            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
+        }
+    }
+
+    protected String drgElementDirectArgumentList(TDRGElement element) {
+        if (element instanceof TDecision) {
+            List<Pair<String, String>> parameters = directInformationRequirementParameters(element);
+            String argumentList = parameters.stream().map(p -> String.format("%s", p.getLeft())).collect(Collectors.joining(", "));
+            return augmentArgumentList(argumentList);
+        } else if (element instanceof TBusinessKnowledgeModel) {
+            return drgElementArgumentList(element);
+        } else {
+            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
+        }
+    }
+
     private List<Pair<String, String>> directInformationRequirementParameters(TDRGElement element) {
         List<TDRGElement> inputs = directInformationRequirements(element);
         this.dmnModelRepository.sortNamedElements(inputs);
@@ -431,6 +442,9 @@ public class BasicDMN2JavaTransformer {
         return inputs;
     }
 
+    //
+    // Comment related functions
+    //
     public String startElementCommentText(TDRGElement element) {
         if (element instanceof TDecision) {
             return String.format("Start decision '%s'", element.getName());

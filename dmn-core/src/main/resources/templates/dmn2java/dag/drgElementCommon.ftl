@@ -84,7 +84,7 @@ import static ${transformer.qualifiedName(javaPackageName, transformer.drgElemen
     Decision table
 -->
 <#macro addEvaluateDecisionTableMethod drgElement>
-    ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementSignatureExtra(transformer.drgElementDirectSignature(drgElement))}) {
+    ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementEvaluateSignature(drgElement)}) {
     <#assign expression = modelRepository.expression(drgElement)>
         <@collectRuleResults drgElement expression />
 
@@ -215,13 +215,13 @@ import static ${transformer.qualifiedName(javaPackageName, transformer.drgElemen
 <#macro expressionApplyBody drgElement>
             <@applySubDecisions drgElement/>
             // ${transformer.evaluateElementCommentText(drgElement)}
-            ${transformer.drgElementOutputType(drgElement)} output_ = evaluate(${transformer.drgElementArgumentsExtra(transformer.drgElementDirectArgumentList(drgElement))});
+            ${transformer.drgElementOutputType(drgElement)} output_ = evaluate(${transformer.drgElementEvaluateArgumentList(drgElement)});
 
             <@endDRGElementAndReturn drgElement "output_" />
 </#macro>
 
 <#macro addEvaluateExpressionMethod drgElement>
-    ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementSignatureExtra(transformer.drgElementDirectSignature(drgElement))}) {
+    ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementEvaluateSignature(drgElement)}) {
     <#assign stm = transformer.expressionToJava(drgElement)>
     <#if transformer.isCompoundStatement(stm)>
         <#list stm.statements as child>
@@ -246,7 +246,7 @@ import static ${transformer.qualifiedName(javaPackageName, transformer.drgElemen
 
             <#if object.class.simpleName == "TDecision">
             // ${transformer.evaluateElementCommentText(object)}
-            ${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(object)}> ${transformer.drgElementVariableName(object)} = new ${transformer.lazyEvalClassName()}<>(() -> this.${transformer.drgElementVariableName(object)}.evaluate(${transformer.drgElementArgumentsExtra(transformer.drgElementDirectArgumentList(object))}));
+            ${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(object)}> ${transformer.drgElementVariableName(object)} = new ${transformer.lazyEvalClassName()}<>(() -> this.${transformer.drgElementVariableName(object)}.evaluate(${transformer.drgElementEvaluateArgumentList(object)}));
 
             <@endDRGElement object transformer.drgElementVariableName(object) />
             <#else>
@@ -264,7 +264,7 @@ import static ${transformer.qualifiedName(javaPackageName, transformer.drgElemen
 
             <#if object.class.simpleName == "TDecision">
             // ${transformer.evaluateElementCommentText(object)}
-            ${transformer.drgElementOutputType(object)} ${transformer.drgElementVariableName(object)} = this.${transformer.drgElementVariableName(object)}.evaluate(${transformer.drgElementArgumentsExtra(transformer.drgElementDirectArgumentList(object))});
+            ${transformer.drgElementOutputType(object)} ${transformer.drgElementVariableName(object)} = this.${transformer.drgElementVariableName(object)}.evaluate(${transformer.drgElementEvaluateArgumentList(object)});
 
             <@endDRGElement object transformer.drgElementVariableName(object) />
             <#else>
