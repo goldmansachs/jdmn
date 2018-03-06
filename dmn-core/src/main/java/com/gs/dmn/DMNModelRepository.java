@@ -44,11 +44,11 @@ public class DMNModelRepository {
         }
     }
 
-    public LazyEvaluationOptimisation computeLazyEvaluationOptimisation(boolean lazyEvaluationFlag) {
+    public LazyEvaluationOptimisation computeLazyEvaluationOptimisation(boolean lazyEvaluationFlag, double sparsityThreshold) {
         LazyEvaluationOptimisation lazyEvaluationOptimisation = new LazyEvaluationOptimisation();
         if (lazyEvaluationFlag) {
             for(TDecision decision: decisions()) {
-                boolean lazyEvalFlag = isSparseDecisionTable(decision);
+                boolean lazyEvalFlag = isSparseDecisionTable(decision, sparsityThreshold);
                 if (lazyEvalFlag) {
                     for(TInformationRequirement ir: decision.getInformationRequirement()) {
                         TDMNElementReference requiredDecision = ir.getRequiredDecision();
@@ -66,8 +66,29 @@ public class DMNModelRepository {
         return lazyEvaluationOptimisation;
     }
 
-    public boolean isSparseDecisionTable(TDRGElement element) {
-        return element instanceof TDecision && expression(element) instanceof TDecisionTable;
+    private boolean isSparseDecisionTable(TDRGElement element, double sparsityThreshold) {
+        if (element instanceof TDecision) {
+            TExpression expression = expression(element);
+            if (expression instanceof TDecisionTable) {
+                return isSparseDecisionTable((TDecisionTable) expression, sparsityThreshold);
+            }
+        }
+        return false;
+    }
+
+    boolean isSparseDecisionTable(TDecisionTable expression, double sparsityThreshold) {
+        int columnNo = expression.getInput().size();
+        int lineNo = expression.getRule().size();
+        int anyMatchCount = 0;
+        for(TDecisionRule rule: expression.getRule()) {
+            for(TUnaryTests test : rule.getInputEntry()) {
+                if ("-".equals(test.getText())) {
+                    anyMatchCount++;
+                }
+            }
+        }
+        double sparsity = 1.0 * anyMatchCount / (lineNo * columnNo);
+        return sparsity >= sparsityThreshold;
     }
 
     public String removeSingleQuotes(String name) {
@@ -326,7 +347,7 @@ public class DMNModelRepository {
     }
 
     public List<TInputData> directInputDatas(TDRGElement element) {
-        if (element instanceof TDRGElement) {
+        if (element != null) {
             List<TInformationRequirement> informationRequirement = ((TDecision) element).getInformationRequirement();
             return directInputDatas(informationRequirement);
         } else {
@@ -351,7 +372,7 @@ public class DMNModelRepository {
     }
 
     public List<TInputData> allInputDatas(TDRGElement element) {
-        if (element instanceof TDRGElement) {
+        if (element != null) {
             Set<TInputData> result = new LinkedHashSet<>();
             collectInputDatas(element, result);
             return new ArrayList<>(result);
@@ -558,11 +579,9 @@ public class DMNModelRepository {
                             typeRef = outputList.get(0).getTypeRef();
                             if (typeRef == null) {
                                 // Derive from rules
-                                if (typeRef == null) {
-                                    List<TDecisionRule> ruleList = ((TDecisionTable) expression).getRule();
-                                    List<TLiteralExpression> outputEntry = ruleList.get(0).getOutputEntry();
-                                    typeRef = outputEntry.get(0).getTypeRef();
-                                }
+                                List<TDecisionRule> ruleList = ((TDecisionTable) expression).getRule();
+                                List<TLiteralExpression> outputEntry = ruleList.get(0).getOutputEntry();
+                                typeRef = outputEntry.get(0).getTypeRef();
                             }
                         }
                     }
