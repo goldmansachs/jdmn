@@ -1254,14 +1254,14 @@ public abstract class AbstractFEELProcessorTest {
 
     private void doCodeGenerationTest(UnaryTests inputEntry, FEELContext inputEntryContext, String expectedJavaCode) {
         if (expectedJavaCode != null) {
-            String javaCode = feelTranslator.expressionToJava(inputEntry, inputEntryContext, false);
+            String javaCode = feelTranslator.expressionToJava(inputEntry, inputEntryContext);
             assertEquals("Generated code mismatch", expectedJavaCode, javaCode);
         }
     }
 
     private void doCodeGenerationTest(Expression expression, FEELContext expressionContext, String expectedJavaCode) {
         if (expectedJavaCode != null) {
-            String javaCode = feelTranslator.expressionToJava(expression, expressionContext, false);
+            String javaCode = feelTranslator.expressionToJava(expression, expressionContext);
             assertEquals("Generated code mismatch", expectedJavaCode, javaCode);
         }
     }

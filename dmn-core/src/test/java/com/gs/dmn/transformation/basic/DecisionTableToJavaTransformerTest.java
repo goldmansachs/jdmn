@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.transformation.basic;
 
+import com.gs.dmn.DMNModelRepository;
 import org.junit.Test;
 import org.omg.spec.dmn._20151101.dmn.TDecisionRule;
 
@@ -20,7 +21,7 @@ import java.util.LinkedHashMap;
 import static org.junit.Assert.assertEquals;
 
 public class DecisionTableToJavaTransformerTest {
-    DecisionTableToJavaTransformer transformer = new DecisionTableToJavaTransformer(new BasicDMN2JavaTransformer(null, null, null, new LinkedHashMap<>()));
+    DecisionTableToJavaTransformer transformer = new DecisionTableToJavaTransformer(new BasicDMN2JavaTransformer(new DMNModelRepository(), null, null, new LinkedHashMap<>()));
 
     @Test
     public void testAnnotationEscapedText() {
