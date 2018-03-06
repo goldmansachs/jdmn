@@ -234,46 +234,30 @@ import static ${transformer.qualifiedName(javaPackageName, transformer.drgElemen
 </#macro>
 
 <#--
-    Apply sub-decisions
+    Evaluate all sub-decisions
 -->
 <#macro applySubDecisions drgElement>
-    <#if transformer.lazyEvaluation(drgElement)>
-        <#list modelRepository.topologicalSortWithMarkers(drgElement)>
+    <#list modelRepository.topologicalSortWithMarkers(drgElement)>
             //
             // Evaluate child decisions
             //
-            <#items as object>
+    <#items as object>
 
-            <#if object.class.simpleName == "TDecision">
+        <#if object.class.simpleName == "TDecision">
             // ${transformer.evaluateElementCommentText(object)}
+        <#if transformer.isLazyEvaluated(object)>
             ${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(object)}> ${transformer.drgElementVariableName(object)} = new ${transformer.lazyEvalClassName()}<>(() -> this.${transformer.drgElementVariableName(object)}.evaluate(${transformer.drgElementEvaluateArgumentList(object)}));
-
-            <@endDRGElement object transformer.drgElementVariableName(object) />
-            <#else>
-            <@startDRGElement object.decision/>
-            </#if>
-            </#items>
-
-        </#list>
-    <#else>
-        <#list modelRepository.topologicalSortWithMarkers(drgElement)>
-            //
-            // Evaluate child decisions
-            //
-            <#items as object>
-
-            <#if object.class.simpleName == "TDecision">
-            // ${transformer.evaluateElementCommentText(object)}
+        <#else>
             ${transformer.drgElementOutputType(object)} ${transformer.drgElementVariableName(object)} = this.${transformer.drgElementVariableName(object)}.evaluate(${transformer.drgElementEvaluateArgumentList(object)});
+        </#if>
 
             <@endDRGElement object transformer.drgElementVariableName(object) />
-            <#else>
+        <#else>
             <@startDRGElement object.decision/>
-            </#if>
-            </#items>
+        </#if>
+    </#items>
 
-        </#list>
-    </#if>
+    </#list>
 </#macro>
 
 <#--
