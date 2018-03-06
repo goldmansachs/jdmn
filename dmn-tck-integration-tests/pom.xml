@@ -658,6 +658,7 @@
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>com.gs.dmn.tck.cl3_0004_lending</javaRootPackage>
+                                <lazyEvaluation>true</lazyEvaluation>
                             </inputParameters>
                         </configuration>
                     </execution>
