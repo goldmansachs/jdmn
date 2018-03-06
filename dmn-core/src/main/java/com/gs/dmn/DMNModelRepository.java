@@ -15,6 +15,7 @@ package com.gs.dmn;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNNamespacePrefixMapper;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
+import com.gs.dmn.transformation.basic.LazyEvaluationOptimisation;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20151101.dmn.*;
 
@@ -41,6 +42,32 @@ public class DMNModelRepository {
             sortDRGElements(definitions.getDrgElement());
             sortNamedElements(definitions.getItemDefinition());
         }
+    }
+
+    public LazyEvaluationOptimisation computeLazyEvaluationOptimisation(boolean lazyEvaluationFlag) {
+        LazyEvaluationOptimisation lazyEvaluationOptimisation = new LazyEvaluationOptimisation();
+        if (lazyEvaluationFlag) {
+            for(TDecision decision: decisions()) {
+                boolean lazyEvalFlag = isSparseDecisionTable(decision);
+                if (lazyEvalFlag) {
+                    for(TInformationRequirement ir: decision.getInformationRequirement()) {
+                        TDMNElementReference requiredDecision = ir.getRequiredDecision();
+                        if (requiredDecision != null) {
+                            String href = requiredDecision.getHref();
+                            TDecision drgElement = this.findDecisionById(href);
+                            if (drgElement != null) {
+                                lazyEvaluationOptimisation.addLazyEvaluatedDecision(drgElement.getName());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return lazyEvaluationOptimisation;
+    }
+
+    public boolean isSparseDecisionTable(TDRGElement element) {
+        return element instanceof TDecision && expression(element) instanceof TDecisionTable;
     }
 
     public String removeSingleQuotes(String name) {
