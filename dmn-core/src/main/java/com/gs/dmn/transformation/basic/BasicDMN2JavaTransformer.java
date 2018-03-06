@@ -74,6 +74,8 @@ public class BasicDMN2JavaTransformer {
     private final InvocationToJavaTransformer invocationToJavaTransformer;
     private final RelationToJavaTransformer relationToJavaTransformer;
 
+    private final LazyEvaluationOptimisation lazyEvaluationOptimisation;
+
     public BasicDMN2JavaTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, FEELTypeTranslator feelTypeTranslator, Map<String, String> inputParameters) {
         this.dmnModelRepository = dmnModelRepository;
         this.environmentFactory = environmentFactory;
@@ -88,6 +90,8 @@ public class BasicDMN2JavaTransformer {
         this.invocationToJavaTransformer = new InvocationToJavaTransformer(this);
         this.literalExpressionToJavaTransformer = new LiteralExpressionToJavaTransformer(this);
         this.relationToJavaTransformer = new RelationToJavaTransformer(this);
+
+        this.lazyEvaluationOptimisation = this.dmnModelRepository.computeLazyEvaluationOptimisation(lazyEvaluation);
     }
 
     public DMNModelRepository getDMNModelRepository() {
@@ -426,7 +430,7 @@ public class BasicDMN2JavaTransformer {
                 TDecision subDecision = (TDecision) input;
                 String parameterName = drgElementVariableName(subDecision);
                 String parameterJavaType = drgElementOutputType(subDecision);
-                parameters.add(new Pair<>(parameterName, lazyEvaluationType(element, input, parameterJavaType)));
+                parameters.add(new Pair<>(parameterName, lazyEvaluationType(input, parameterJavaType)));
             } else {
                 throw new UnsupportedOperationException(String.format("'%s' is not supported yet", input.getClass().getSimpleName()));
             }
@@ -697,6 +701,22 @@ public class BasicDMN2JavaTransformer {
         return toJavaType(type);
     }
 
+    public boolean isLazyEvaluated(TDRGElement element) {
+        return this.isLazyEvaluated(element.getName());
+    }
+
+    public boolean isLazyEvaluated(String name) {
+        return this.lazyEvaluationOptimisation.isLazyEvaluated(name);
+    }
+
+    protected String lazyEvaluationType(TDRGElement input, String inputJavaType) {
+        return isLazyEvaluated(input) ? String.format("%s<%s>", lazyEvalClassName(), inputJavaType) : inputJavaType;
+    }
+
+    String lazyEvaluationArgument(TDRGElement parent, String name) {
+        return isLazyEvaluated(name) ? String.format("%s.getOrCompute()", name) : name;
+    }
+
     public String pairClassName() {
         return Pair.class.getName();
     }
@@ -715,30 +735,6 @@ public class BasicDMN2JavaTransformer {
 
     public String dmnRuntimeExceptionClassName() {
         return DMNRuntimeException.class.getName();
-    }
-
-    // Check if decision should be lazily evaluated
-    public boolean lazyEvaluation(TDRGElement element) {
-        if (!this.lazyEvaluation) {
-            return false;
-        }
-        return isSparseDecisionTable(element);
-    }
-
-    public boolean isDecision(String name) {
-        try {
-            return dmnModelRepository.findDRGElementByName(name) instanceof TDecision;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    private boolean isSparseDecisionTable(TDRGElement element) {
-        return element instanceof TDecision && dmnModelRepository.expression(element) instanceof TDecisionTable;
-    }
-
-    String lazyEvaluationType(TDRGElement parent, TDRGElement input, String inputJavaType) {
-        return lazyEvaluation(parent) && input instanceof TDecision ? String.format("%s<%s>", lazyEvalClassName(), inputJavaType) : inputJavaType;
     }
 
     public String lazyEvalClassName() {

@@ -15,6 +15,7 @@ package com.gs.dmn;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.serialization.DMNReader;
+import com.gs.dmn.transformation.basic.LazyEvaluationOptimisation;
 import org.junit.Before;
 import org.junit.Test;
 import org.omg.spec.dmn._20151101.dmn.TDMNElement;
@@ -23,6 +24,7 @@ import org.omg.spec.dmn._20151101.dmn.TDefinitions;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -59,6 +61,13 @@ public class DMNModelRepositoryTest {
         List<String> actualNames = decisions.stream().map(d -> d.getName()).collect(Collectors.toList());
         List<String> expectedNames = Arrays.asList("ApplicationRiskScore", "Pre-bureauRiskCategory", "BureauCallType", "RequiredMonthlyInstallment", "Pre-bureauAffordability", "Eligibility");
         assertEquals(expectedNames, actualNames);
+    }
+
+    @Test
+    public void testLazyEvaluationOptimisation() {
+        LazyEvaluationOptimisation lazyEvaluationOptimisation = dmnModelRepository.computeLazyEvaluationOptimisation(true);
+
+        assertEquals(Arrays.asList("BureauCallType", "Eligibility"), new ArrayList<>(lazyEvaluationOptimisation.getLazyEvaluatedDecisions()));
     }
 
     private TDMNElement readDMN(String pathName) throws Exception {
