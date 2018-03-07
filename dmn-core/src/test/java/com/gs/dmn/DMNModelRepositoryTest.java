@@ -18,9 +18,7 @@ import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.transformation.basic.LazyEvaluationOptimisation;
 import org.junit.Before;
 import org.junit.Test;
-import org.omg.spec.dmn._20151101.dmn.TDMNElement;
-import org.omg.spec.dmn._20151101.dmn.TDecision;
-import org.omg.spec.dmn._20151101.dmn.TDefinitions;
+import org.omg.spec.dmn._20151101.dmn.*;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
@@ -65,9 +63,20 @@ public class DMNModelRepositoryTest {
 
     @Test
     public void testLazyEvaluationOptimisation() {
-        LazyEvaluationOptimisation lazyEvaluationOptimisation = dmnModelRepository.computeLazyEvaluationOptimisation(true);
+        LazyEvaluationOptimisation lazyEvaluationOptimisation = dmnModelRepository.computeLazyEvaluationOptimisation(true, 0.10);
 
         assertEquals(Arrays.asList("BureauCallType", "Eligibility"), new ArrayList<>(lazyEvaluationOptimisation.getLazyEvaluatedDecisions()));
+    }
+
+    @Test
+    public void testIsSparseDecisionTable() {
+        checkDecisionTable(dmnModelRepository.findDRGElementByName("EligibilityRules"), 0.75, true);
+        checkDecisionTable(dmnModelRepository.findDRGElementByName("Strategy"), 0.75, false);
+    }
+
+    private void checkDecisionTable(TDRGElement element, double sparsityThreshold, boolean expectedResult) {
+        TExpression expression = dmnModelRepository.expression(element);
+        assertEquals(expectedResult, dmnModelRepository.isSparseDecisionTable((TDecisionTable) expression, sparsityThreshold));
     }
 
     private TDMNElement readDMN(String pathName) throws Exception {

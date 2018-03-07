@@ -66,6 +66,7 @@ public class BasicDMN2JavaTransformer {
     protected final FEELTranslator feelTranslator;
     private final String javaRootPackage;
     private final boolean lazyEvaluation;
+    private double sparsityThreshold = 0.0;
 
     private final ContextToJavaTransformer contextToJavaTransformer;
     private final DecisionTableToJavaTransformer decisionTableToJavaTransformer;
@@ -82,6 +83,10 @@ public class BasicDMN2JavaTransformer {
         this.feelTypeTranslator = feelTypeTranslator;
         this.javaRootPackage = InputParamUtil.getOptionalParam(inputParameters, "javaRootPackage");
         this.lazyEvaluation = InputParamUtil.getOptionalBooleanParam(inputParameters, "lazyEvaluation");
+        String sparsityThresholdParam = InputParamUtil.getOptionalParam(inputParameters, "sparsityThreshold");
+        if (sparsityThresholdParam != null) {
+            this.sparsityThreshold = Double.parseDouble(sparsityThresholdParam);
+        }
         this.feelTranslator = new FEELTranslatorImpl(this);
 
         this.contextToJavaTransformer = new ContextToJavaTransformer(this);
@@ -91,7 +96,7 @@ public class BasicDMN2JavaTransformer {
         this.literalExpressionToJavaTransformer = new LiteralExpressionToJavaTransformer(this);
         this.relationToJavaTransformer = new RelationToJavaTransformer(this);
 
-        this.lazyEvaluationOptimisation = this.dmnModelRepository.computeLazyEvaluationOptimisation(lazyEvaluation);
+        this.lazyEvaluationOptimisation = this.dmnModelRepository.computeLazyEvaluationOptimisation(lazyEvaluation, this.sparsityThreshold);
     }
 
     public DMNModelRepository getDMNModelRepository() {
