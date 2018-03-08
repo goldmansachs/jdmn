@@ -38,7 +38,6 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
     public FEELSemanticVisitor(BasicDMN2JavaTransformer dmnTransformer) {

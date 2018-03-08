@@ -13,7 +13,6 @@
 package com.gs.dmn.feel.analysis.scanner;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class LexicalContext {

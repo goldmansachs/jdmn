@@ -188,7 +188,7 @@ public class DecisionTableToJavaTransformer {
     }
 
     private List<TOutputClause> sortOutputClauses(TDRGElement element, List<TOutputClause> parameters) {
-        parameters.sort((o1, o2) -> dmnModelRepository.outputClauseName(element, o1).compareTo(dmnModelRepository.outputClauseName(element, o2)));
+        parameters.sort(Comparator.comparing(o -> dmnModelRepository.outputClauseName(element, o)));
         return parameters;
     }
 

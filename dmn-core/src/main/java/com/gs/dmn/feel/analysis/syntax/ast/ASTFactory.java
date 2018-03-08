@@ -33,7 +33,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 
 import static com.gs.dmn.feel.analysis.semantics.type.FEELTypes.FEEL_LITERAL_DATE_TIME_NAMES;
 
