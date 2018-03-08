@@ -47,7 +47,6 @@ public abstract class AbstractDMNTransformer extends AbstractTemplateBasedTransf
     }
 
     protected TDefinitions readDMN(File file) {
-        TDefinitions definitions = dmnReader.read(file);
-        return definitions;
+        return dmnReader.read(file);
     }
 }

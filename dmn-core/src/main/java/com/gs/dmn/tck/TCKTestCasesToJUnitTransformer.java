@@ -93,8 +93,7 @@ public class TCKTestCasesToJUnitTransformer extends AbstractDMNTransformer {
         if (modelName.endsWith(DMNReader.DMN_FILE_EXTENSION)) {
             modelName = modelName.substring(0, modelName.length() - 4);
         }
-        String testClassName = StringUtils.capitalize(dmnTransformer.javaFriendlyName("Test" + modelName));
-        return testClassName;
+        return StringUtils.capitalize(dmnTransformer.javaFriendlyName("Test" + modelName));
     }
 
     private Map<String, Object> makeTemplateParams(TestCases testCases, BasicDMN2JavaTransformer dmnTransformer) {

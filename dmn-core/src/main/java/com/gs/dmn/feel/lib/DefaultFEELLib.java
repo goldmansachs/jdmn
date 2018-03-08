@@ -258,11 +258,10 @@ public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalend
         }
 
         try {
-            XMLGregorianCalendar xmlGregorianCalendar = DATA_TYPE_FACTORY.newXMLGregorianCalendar(
+            return DATA_TYPE_FACTORY.newXMLGregorianCalendar(
                     BigInteger.valueOf(date.getYear()), date.getMonth(), date.getDay(),
                     time.getHour(), time.getMinute(), time.getSecond(), time.getFractionalSecond(), time.getTimezone()
             );
-            return xmlGregorianCalendar;
         } catch (Throwable e) {
             return null;
         }

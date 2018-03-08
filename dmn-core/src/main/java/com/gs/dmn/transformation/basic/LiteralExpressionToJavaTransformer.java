@@ -44,7 +44,6 @@ public class LiteralExpressionToJavaTransformer {
         Type expressionType = expression.getType();
 
         String javaExpression = feelTranslator.expressionToJava(expression, context);
-        ExpressionStatement javaStatement = new ExpressionStatement(javaExpression, expressionType);
-        return javaStatement;
+        return new ExpressionStatement(javaExpression, expressionType);
     }
 }

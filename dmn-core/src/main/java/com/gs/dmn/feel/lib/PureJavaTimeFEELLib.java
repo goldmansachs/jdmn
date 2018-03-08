@@ -221,10 +221,9 @@ public class PureJavaTimeFEELLib extends FEELOperators<BigDecimal, LocalDate, Of
 
         try {
             time = time.withOffsetSameInstant(ZoneOffset.ofTotalSeconds(0));
-            ZonedDateTime zonedDateTime = ZonedDateTime.of(
+            return ZonedDateTime.of(
                     date.getYear(), date.getMonth().getValue(), date.getDayOfMonth(),
                     time.getHour(), time.getMinute(), time.getSecond(), time.getNano(), DateTimeUtil.UTC);
-            return zonedDateTime;
         } catch (Throwable e) {
             return null;
         }

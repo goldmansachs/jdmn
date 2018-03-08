@@ -85,8 +85,7 @@ public class RuleOutputList {
         } else if (tHitPolicy == THitPolicy.RULE_ORDER) {
             return matchedRuleOutputs;
         } else if (tHitPolicy == THitPolicy.OUTPUT_ORDER) {
-            List<RuleOutput> sortedRuleOutputs = sort(matchedRuleOutputs);
-            return sortedRuleOutputs;
+            return sort(matchedRuleOutputs);
         } else {
             throw new UnsupportedOperationException(String.format("Not supported multiple hit policy %s.", tHitPolicy.name()));
         }

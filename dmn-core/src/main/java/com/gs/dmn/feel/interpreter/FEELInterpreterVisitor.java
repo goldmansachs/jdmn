@@ -209,8 +209,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     }
 
     protected JavaOperator javaOperator(String feelOperator, Expression leftOperand, Expression rightOperand) {
-        JavaOperator javaOperator = OperatorDecisionTable.javaOperator(feelOperator, leftOperand.getType(), rightOperand.getType());
-        return javaOperator;
+        return OperatorDecisionTable.javaOperator(feelOperator, leftOperand.getType(), rightOperand.getType());
     }
 
     private Class<?> getClass(Object leftValue) {
@@ -270,8 +269,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
             Class<?> cls = JAVA_COMPILER.compile(classData);
 
             // Create instance
-            Object result = cls.newInstance();
-            return result;
+            return cls.newInstance();
         } catch (Exception e) {
             throw new DMNRuntimeException("Execution error", e);
         }

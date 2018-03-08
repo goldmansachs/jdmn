@@ -350,35 +350,31 @@ public class BasicDMN2JavaTransformer {
     public String decisionConstructorSignature(TDecision decision) {
         List<TDecision> subDecisions = dmnModelRepository.directSubDecisions(decision);
         subDecisions.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
-        String signature = subDecisions.stream().map(d -> String.format("%s %s", qualifiedName(javaRootPackage, drgElementClassName(d)), drgElementVariableName(d))).collect(Collectors.joining(", "));
-        return signature;
+        return subDecisions.stream().map(d -> String.format("%s %s", qualifiedName(javaRootPackage, drgElementClassName(d)), drgElementVariableName(d))).collect(Collectors.joining(", "));
     }
 
     public String decisionConstructorNewArgumentList(TDecision decision) {
         List<TDecision> subDecisions = dmnModelRepository.directSubDecisions(decision);
         subDecisions.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
-        String arguments = subDecisions
+        return subDecisions
                 .stream()
                 .map(d -> String.format("%s", defaultConstructor(qualifiedName(javaRootPackage, drgElementClassName(d)))))
                 .collect(Collectors.joining(", "));
-        return arguments;
     }
 
     public String decisionTopologicalConstructorSignature(TDecision decision) {
         List<TDecision> subDecisions = dmnModelRepository.topologicalSort(decision);
         subDecisions.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
-        String signature = subDecisions.stream().map(d -> String.format("%s %s", qualifiedName(javaRootPackage, drgElementClassName(d)), drgElementVariableName(d))).collect(Collectors.joining(", "));
-        return signature;
+        return subDecisions.stream().map(d -> String.format("%s %s", qualifiedName(javaRootPackage, drgElementClassName(d)), drgElementVariableName(d))).collect(Collectors.joining(", "));
     }
 
     public String decisionTopologicalConstructorNewArgumentList(TDecision decision) {
         List<TDecision> subDecisions = dmnModelRepository.topologicalSort(decision);
         subDecisions.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
-        String arguments = subDecisions
+        return subDecisions
                 .stream()
                 .map(d -> String.format("%s", defaultConstructor(qualifiedName(javaRootPackage, drgElementClassName(d)))))
                 .collect(Collectors.joining(", "));
-        return arguments;
     }
 
     public boolean hasDirectSubDecisions(TDecision decision) {
@@ -1085,13 +1081,12 @@ public class BasicDMN2JavaTransformer {
 
 
     private String applyMethod(String returnType, String signature, String parametersAssignment, String body) {
-        String method = String.format(
+        return String.format(
                 "public %s apply(%s) {" +
                     "%s" +
                     "return %s;" +
                 "}",
                 returnType, signature, parametersAssignment, body);
-        return method;
     }
 
     //
@@ -1165,8 +1160,7 @@ public class BasicDMN2JavaTransformer {
             return null;
         }
         String typeName = typeRef.getLocalPart();
-        Type primitiveType = FEELTypes.FEEL_NAME_TO_FEEL_TYPE.get(typeName);
-        return primitiveType;
+        return FEELTypes.FEEL_NAME_TO_FEEL_TYPE.get(typeName);
     }
 
     //
@@ -1401,8 +1395,7 @@ public class BasicDMN2JavaTransformer {
     }
 
     Environment makeOutputEntryEnvironment(TDRGElement element, EnvironmentFactory environmentFactory) {
-        Environment environment = environmentFactory.makeEnvironment(makeEnvironment(element));
-        return environment;
+        return environmentFactory.makeEnvironment(makeEnvironment(element));
     }
 
     public Environment makeContextEnvironment(TContext context, Environment elementEnvironment) {
@@ -1427,8 +1420,7 @@ public class BasicDMN2JavaTransformer {
         if (variable != null) {
             QName typeRef = variable.getTypeRef();
             if (typeRef != null) {
-                Type feelType = toFEELType(typeRef);
-                return feelType;
+                return toFEELType(typeRef);
             }
         }
         JAXBElement<? extends TExpression> expressionElement = entry.getExpression();
@@ -1446,8 +1438,7 @@ public class BasicDMN2JavaTransformer {
         }
         QName typeRef = expression.getTypeRef();
         if (typeRef != null) {
-            Type feelType = toFEELType(typeRef);
-            return feelType;
+            return toFEELType(typeRef);
         }
         if (expression instanceof TContext) {
             List<TContextEntry> contextEntry = ((TContext) expression).getContextEntry();

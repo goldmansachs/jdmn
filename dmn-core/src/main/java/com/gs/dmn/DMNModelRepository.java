@@ -173,8 +173,7 @@ public class DMNModelRepository {
         if (definitions == null) {
             return new ArrayList<>();
         }
-        List<TItemDefinition> itemDefinition = definitions.getItemDefinition();
-        return itemDefinition;
+        return definitions.getItemDefinition();
     }
 
     public List<TItemDefinition> sortItemComponent(TItemDefinition itemDefinition) {
@@ -693,8 +692,7 @@ public class DMNModelRepository {
     }
 
     public String name(TNamedElement element) {
-        String name = element.getName();
-        return name;
+        return element.getName();
     }
 
     public String label(TDMNElement element) {

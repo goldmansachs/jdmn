@@ -515,8 +515,7 @@ public class DMNInterpreter {
                     if (dmnModelRepository.hasAggregator(decisionTable)) {
                         return null;
                     } else {
-                        List<Object> decisionOutput = ruleOutputs.stream().map(r -> toDecisionOutput(element, decisionTable, (InterpretedRuleOutput) r)).collect(Collectors.toList());
-                        return decisionOutput;
+                        return ruleOutputs.stream().map(r -> toDecisionOutput(element, decisionTable, (InterpretedRuleOutput) r)).collect(Collectors.toList());
                     }
                 } else {
                     List<Object> decisionOutput = ruleOutputs.stream().map(r -> toDecisionOutput(element, decisionTable, (InterpretedRuleOutput) r)).collect(Collectors.toList());
@@ -567,8 +566,7 @@ public class DMNInterpreter {
                 }
             } else {
                 String key = dmnModelRepository.outputClauseName(element, decisionTable.getOutput().get(0));
-                Object value = defaultValue.get(key);
-                return value;
+                return defaultValue.get(key);
             }
         } else {
             return null;
