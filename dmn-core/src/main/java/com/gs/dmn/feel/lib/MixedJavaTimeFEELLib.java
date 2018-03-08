@@ -1156,16 +1156,13 @@ public class MixedJavaTimeFEELLib extends FEELOperators<BigDecimal, LocalDate, O
     @Override
     public <T> List<T> sort(List<T> list, LambdaExpression<Boolean> comparator) {
         List<T> clone = new ArrayList<>(list);
-        Comparator<? super T> comp = new Comparator<T>() {
-            @Override
-            public int compare(T o1, T o2) {
-                if (comparator.apply(o1, o2)) {
-                    return -1;
-                } else if (o1 != null && o1.equals(o2)) {
-                    return 0;
-                } else {
-                    return 1;
-                }
+        Comparator<? super T> comp = (Comparator<T>) (o1, o2) -> {
+            if (comparator.apply(o1, o2)) {
+                return -1;
+            } else if (o1 != null && o1.equals(o2)) {
+                return 0;
+            } else {
+                return 1;
             }
         };
         Collections.sort(clone, comp);
