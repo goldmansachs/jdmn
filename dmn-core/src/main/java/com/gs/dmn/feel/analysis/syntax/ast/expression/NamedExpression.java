@@ -12,11 +12,9 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
-import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
-import com.gs.dmn.feel.analysis.semantics.type.NullType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 
 public abstract class NamedExpression extends Expression {

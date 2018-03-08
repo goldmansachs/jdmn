@@ -15,9 +15,6 @@ package com.gs.dmn.feel.lib.type.time;
 import com.gs.dmn.feel.lib.type.BaseType;
 import org.slf4j.Logger;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-
 public class JavaTimeType extends BaseType{
 
     public JavaTimeType(Logger logger) {

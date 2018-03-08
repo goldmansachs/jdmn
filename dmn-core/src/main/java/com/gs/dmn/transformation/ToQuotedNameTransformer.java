@@ -14,7 +14,6 @@ package com.gs.dmn.transformation;
 
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
-import org.omg.spec.dmn._20151101.dmn.TNamedElement;
 
 public class ToQuotedNameTransformer extends NameTransformer {
     public ToQuotedNameTransformer() {

@@ -15,9 +15,9 @@ package com.gs.dmn.transformation.basic;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.transformation.java.ExpressionStatement;
 import com.gs.dmn.transformation.java.Statement;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import org.omg.spec.dmn._20151101.dmn.*;
 
 import java.util.ArrayList;

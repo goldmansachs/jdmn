@@ -1,6 +1,7 @@
 package com.gs.dmn.transformation.basic;
 
-import java.util.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class LazyEvaluationOptimisation {
     private final Set<String> lazyEvaluatedDecisions = new LinkedHashSet<>();

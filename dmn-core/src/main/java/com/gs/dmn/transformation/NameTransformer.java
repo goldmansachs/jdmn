@@ -25,7 +25,8 @@ import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBElement;
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.gs.dmn.feel.analysis.scanner.ContextDependentFEELLexer.*;
 

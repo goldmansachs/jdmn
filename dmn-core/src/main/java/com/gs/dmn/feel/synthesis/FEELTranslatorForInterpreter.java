@@ -12,9 +12,9 @@
  */
 package com.gs.dmn.feel.synthesis;
 
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.feel.analysis.FEELAnalyzer;
 import com.gs.dmn.feel.analysis.FEELAnalyzerImpl;
+import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 
 public class FEELTranslatorForInterpreter extends AbstractFEELTranslator {
     public FEELTranslatorForInterpreter(FEELAnalyzer feelAnalyzer, FEELToJavaVisitor expressionVisitor, SimpleExpressionsToJavaVisitor simpleExpressionsVisitor) {

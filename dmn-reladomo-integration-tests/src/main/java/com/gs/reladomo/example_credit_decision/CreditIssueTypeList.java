@@ -14,7 +14,7 @@ package com.gs.reladomo.example_credit_decision;
 
 import com.gs.fw.finder.Operation;
 
-import java.util.*;
+import java.util.Collection;
 
 public class CreditIssueTypeList extends CreditIssueTypeListAbstract {
     public CreditIssueTypeList() {

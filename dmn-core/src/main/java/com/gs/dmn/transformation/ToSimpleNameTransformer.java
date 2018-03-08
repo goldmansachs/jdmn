@@ -22,7 +22,10 @@ import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.spec.dmn._20151101.dmn.TDefinitions;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ToSimpleNameTransformer extends NameTransformer {
     private int counter = 0;

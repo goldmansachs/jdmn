@@ -11,8 +11,10 @@
  * specific language governing permissions and limitations under the License.
  */
 package com.gs.reladomo.example_credit_decision;
+
 import com.gs.fw.finder.Operation;
-import java.util.*;
+
+import java.util.Collection;
 public class ApplicantCreditIssueTypeList extends ApplicantCreditIssueTypeListAbstract
 {
 	public ApplicantCreditIssueTypeList()
