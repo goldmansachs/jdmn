@@ -80,8 +80,8 @@ public class TypeDeserializer {
                     stack.push(top);
                 } else if (top instanceof FormalParameter) {
                     List<Object> args = new ArrayList<>();
-                    for(int j = 0; j < size; j++) {
-                        args.add(children.get(j));
+                    for (Object aChildren : children) {
+                        args.add(aChildren);
                     }
                     top = new FormalParameter((String)args.get(0), args.size() == 1 ? null : (Type)args.get(1));
                     stack.pop();

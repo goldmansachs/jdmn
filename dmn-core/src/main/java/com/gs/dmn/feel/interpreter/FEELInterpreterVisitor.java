@@ -507,8 +507,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
 
         Boolean result = false;
         List<PositiveUnaryTest> positiveUnaryTests = element.getTests();
-        for (int i = 0; i < positiveUnaryTests.size(); i++) {
-            PositiveUnaryTest positiveUnaryTest = positiveUnaryTests.get(i);
+        for (PositiveUnaryTest positiveUnaryTest : positiveUnaryTests) {
             Boolean test = false;
             if (positiveUnaryTest instanceof ListTest) {
                 List list = (List) ((ListTest) positiveUnaryTest).getListLiteral().accept(this, inParams);

@@ -970,8 +970,8 @@ public class DoubleMixedJavaTimeFEELLib extends FEELOperators<Double, LocalDate,
 
         try {
             Double result = Double.valueOf(0);
-            for (int i = 0; i < list.size(); i++) {
-                Double x = (Double)list.get(i);
+            for (Object aList : list) {
+                Double x = (Double) aList;
                 result = result + x;
             }
             return result;

@@ -113,8 +113,7 @@ public class Assert {
     private static List<Method> getters(Class<?> cls) {
         Method[] declaredMethods = cls.getDeclaredMethods();
         List<Method> getters = new ArrayList<>();
-        for(int i = 0; i < declaredMethods.length; i++) {
-            Method m = declaredMethods[i];
+        for (Method m : declaredMethods) {
             if (m.getName().startsWith("get")) {
                 getters.add(m);
             }
