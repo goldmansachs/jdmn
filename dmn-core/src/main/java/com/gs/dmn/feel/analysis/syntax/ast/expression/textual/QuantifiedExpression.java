@@ -60,7 +60,7 @@ public class QuantifiedExpression extends Expression {
 
     @Override
     public String toString() {
-        String iterators = this.iterators.stream().map(it -> it.toString()).collect(Collectors.joining(","));
+        String iterators = this.iterators.stream().map(Iterator::toString).collect(Collectors.joining(","));
         return String.format("QuantifiedExpression(%s, %s -> %s)", predicate, iterators, body.toString());
     }
 }

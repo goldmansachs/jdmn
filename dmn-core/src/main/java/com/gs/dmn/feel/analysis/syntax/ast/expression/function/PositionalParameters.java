@@ -36,7 +36,7 @@ public class PositionalParameters extends Parameters {
 
     @Override
     public PositionalSignature getSignature() {
-        return new PositionalSignature(parameters.stream().map(e -> e.getType()).collect(Collectors.toList()));
+        return new PositionalSignature(parameters.stream().map(Expression::getType).collect(Collectors.toList()));
     }
 
     public List<Expression> getParameters() {
@@ -50,7 +50,7 @@ public class PositionalParameters extends Parameters {
 
     @Override
     public String toString() {
-        String opd = parameters.stream().map(p -> p.toString()).collect(Collectors.joining(", "));
+        String opd = parameters.stream().map(Object::toString).collect(Collectors.joining(", "));
         return String.format("PositionalParameters(%s)", opd);
     }
 }

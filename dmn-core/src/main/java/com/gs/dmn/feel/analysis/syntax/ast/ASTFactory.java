@@ -206,7 +206,7 @@ public class ASTFactory {
     private boolean isListTest(String leftPar, List<Expression> expressions, List<String> operators, String rightPar) {
         boolean isEmpty = operators.size() == 0 && expressions.size() == 0;
         boolean hasAtLeastOneElement = operators.size() == expressions.size() - 1;
-        boolean allOperatorsAreComma = operators.stream().allMatch(o -> ",".equals(o));
+        boolean allOperatorsAreComma = operators.stream().allMatch(","::equals);
         return leftPar.equals("[")
                 && (isEmpty || hasAtLeastOneElement && allOperatorsAreComma)
                 && rightPar.equals("]");
@@ -215,7 +215,7 @@ public class ASTFactory {
     private boolean isPositiveUnaryTests(String leftPar, List<Expression> expressions, List<String> operators, String rightPar) {
         boolean isEmpty = operators.size() == 0 && expressions.size() == 0;
         boolean hasAtLeastOneElement = operators.size() == expressions.size() - 1;
-        boolean allOperatorsAreComma = operators.stream().allMatch(o -> ",".equals(o));
+        boolean allOperatorsAreComma = operators.stream().allMatch(","::equals);
         return leftPar.equals("(")
                 && (isEmpty || hasAtLeastOneElement && allOperatorsAreComma)
                 && rightPar.equals(")");

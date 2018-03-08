@@ -462,7 +462,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         if (!argList.isEmpty()) {
             argList = convertArguments(argList, element.getParameterConversions());
         }
-        String argumentsText = argList.stream().map(a -> a.toString()).collect(Collectors.joining(", "));
+        String argumentsText = argList.stream().map(Object::toString).collect(Collectors.joining(", "));
         if (function instanceof Name || function instanceof QualifiedName && ((QualifiedName) function).getNames().size() == 1) {
             String feelFunctionName = functionName(function);
             Signature signature = element.getParameters().getSignature();

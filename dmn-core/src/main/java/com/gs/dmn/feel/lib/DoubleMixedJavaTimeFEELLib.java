@@ -1171,7 +1171,7 @@ public class DoubleMixedJavaTimeFEELLib extends FEELOperators<Double, LocalDate,
                 return 1;
             }
         };
-        Collections.sort(clone, comp);
+        clone.sort(comp);
         return clone;
     }
 

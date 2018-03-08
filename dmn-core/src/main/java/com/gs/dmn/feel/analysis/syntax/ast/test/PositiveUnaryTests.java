@@ -17,6 +17,7 @@ import com.gs.dmn.feel.analysis.semantics.type.TupleType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class PositiveUnaryTests extends UnaryTests {
 
     @Override
     public void deriveType(Environment environment) {
-        List<Type> types = getPositiveUnaryTests().stream().map(t -> t.getType()).collect(Collectors.toList());
+        List<Type> types = getPositiveUnaryTests().stream().map(Expression::getType).collect(Collectors.toList());
         setType(new TupleType(types));
     }
 
@@ -48,7 +49,7 @@ public class PositiveUnaryTests extends UnaryTests {
 
     @Override
     public String toString() {
-        String tests = positiveUnaryTests.stream().map(t -> t.toString()).collect(Collectors.joining(","));
+        String tests = positiveUnaryTests.stream().map(Object::toString).collect(Collectors.joining(","));
         return String.format("PositiveUnaryTests(%s)", tests);
     }
 }

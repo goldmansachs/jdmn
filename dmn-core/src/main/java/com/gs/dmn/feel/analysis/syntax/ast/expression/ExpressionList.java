@@ -41,7 +41,7 @@ public class ExpressionList extends Expression {
 
     @Override
     public void deriveType(Environment environment) {
-        List<com.gs.dmn.feel.analysis.semantics.type.Type> types = expressionList.stream().map(e -> e.getType()).collect(Collectors.toList());
+        List<com.gs.dmn.feel.analysis.semantics.type.Type> types = expressionList.stream().map(Expression::getType).collect(Collectors.toList());
         setType(new TupleType(types));
     }
 
@@ -52,7 +52,7 @@ public class ExpressionList extends Expression {
 
     @Override
     public String toString() {
-        String expressions = expressionList.stream().map(e -> e.toString()).collect(Collectors.joining(","));
+        String expressions = expressionList.stream().map(Object::toString).collect(Collectors.joining(","));
         return String.format("ExpressionList(%s)", expressions);
     }
 }

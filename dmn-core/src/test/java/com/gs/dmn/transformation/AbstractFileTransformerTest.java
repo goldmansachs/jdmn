@@ -63,8 +63,8 @@ public class AbstractFileTransformerTest {
     private void compareFileList(File expectedParent, List<File> expectedChildren, File actualParent, List<File> actualChildren) throws Exception {
         String message = String.format("Different number of children when comparing '%s' with '%s'", expectedParent.getCanonicalPath(), actualParent.getCanonicalPath());
         assertEquals(message, expectedChildren.size(), actualChildren.size());
-        Collections.sort(expectedChildren, new FileComparator());
-        Collections.sort(actualChildren, new FileComparator());
+        expectedChildren.sort(new FileComparator());
+        actualChildren.sort(new FileComparator());
         for (int i = 0; i < expectedChildren.size(); i++) {
             compareFile(expectedChildren.get(i), actualChildren.get(i));
         }

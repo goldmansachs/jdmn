@@ -39,8 +39,8 @@ public class BuiltinFunctionType extends FunctionType {
         super(new ArrayList<FormalParameter>(parameters), returnType);
         this.totalParamsCount = parameters.size();
         this.mandatoryParamsCount = parameters.stream().filter(p -> !p.isOptional() && !p.isVarArg()).collect(Collectors.toList()).size();
-        this.hasOptionalParams = parameters.stream().anyMatch(p -> p.isOptional());
-        this.hasVarArgs = parameters.stream().anyMatch(p -> p.isVarArg());
+        this.hasOptionalParams = parameters.stream().anyMatch(Parameter::isOptional);
+        this.hasVarArgs = parameters.stream().anyMatch(Parameter::isVarArg);
     }
 
     @Override

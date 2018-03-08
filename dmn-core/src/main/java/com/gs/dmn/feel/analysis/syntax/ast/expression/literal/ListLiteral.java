@@ -55,7 +55,7 @@ public class ListLiteral extends Expression {
     }
 
     private void checkListElementTypes() {
-        List<Type> types = expressionList.stream().map(e -> e.getType()).collect(Collectors.toList());
+        List<Type> types = expressionList.stream().map(Expression::getType).collect(Collectors.toList());
         boolean sameType = true;
         for (int i = 0; i < types.size() - 1; i++) {
             Type type1 = types.get(i);
@@ -84,7 +84,7 @@ public class ListLiteral extends Expression {
 
     @Override
     public String toString() {
-        String expressions = expressionList.stream().map(e -> e.toString()).collect(Collectors.joining(","));
+        String expressions = expressionList.stream().map(Object::toString).collect(Collectors.joining(","));
         return String.format("ListLiteral(%s)", expressions);
     }
 }

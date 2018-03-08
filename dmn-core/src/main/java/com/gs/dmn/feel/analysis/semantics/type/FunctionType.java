@@ -28,7 +28,7 @@ public abstract class FunctionType extends Type {
         this.returnType = type;
         if (parameters != null) {
             this.parameters.addAll(parameters);
-            this.parameterTypes.addAll(parameters.stream().map(p -> p.getType()).collect(Collectors.toList()));
+            this.parameterTypes.addAll(parameters.stream().map(FormalParameter::getType).collect(Collectors.toList()));
         }
     }
 
@@ -51,7 +51,7 @@ public abstract class FunctionType extends Type {
         if (returnType == null) {
             return false;
         }
-        return parameterTypes.stream().allMatch(t -> t.isValid())
+        return parameterTypes.stream().allMatch(Type::isValid)
                 && returnType.isValid();
     }
 }

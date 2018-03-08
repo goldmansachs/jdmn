@@ -61,7 +61,7 @@ public class FunctionDefinition extends Expression {
 
     @Override
     public String toString() {
-        String parameters = formalParameters.stream().map(p -> p.toString()).collect(Collectors.joining(","));
+        String parameters = formalParameters.stream().map(FormalParameter::toString).collect(Collectors.joining(","));
         return String.format("FunctionDefinition(%s, %s, %s)", parameters, body.toString(), external);
     }
 }

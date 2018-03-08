@@ -1165,7 +1165,7 @@ public class MixedJavaTimeFEELLib extends FEELOperators<BigDecimal, LocalDate, O
                 return 1;
             }
         };
-        Collections.sort(clone, comp);
+        clone.sort(comp);
         return clone;
     }
 

@@ -27,6 +27,6 @@ public class Applicant extends ApplicantAbstract implements com.gs.dmn.example_c
     @Override
     public List<String> getPriorIssues() {
         MutableList<CreditIssueType> creditIssueTypes = this.getCreditIssueTypes().getCreditIssueTypes().asGscList();
-        return creditIssueTypes.stream().map(cit -> cit.getName()).collect(Collectors.toList());
+        return creditIssueTypes.stream().map(CreditIssueTypeAbstract::getName).collect(Collectors.toList());
     }
 }
