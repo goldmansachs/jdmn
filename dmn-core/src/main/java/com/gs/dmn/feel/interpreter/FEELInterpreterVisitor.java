@@ -467,7 +467,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         if (leftOperand instanceof Boolean || leftOperand == null) {
             return lib.booleanNot((Boolean) leftOperand);
         } else {
-            handleError(String.format("Expected boolean operand, found '%s'", leftOperand == null ? null : leftOperand.getClass().getName()));
+            handleError(String.format("Expected boolean operand, found '%s'", leftOperand.getClass().getName()));
             return null;
         }
     }

@@ -111,9 +111,9 @@ public class OffsetTimeType extends JavaTimeType implements TimeType<OffsetTime,
     protected Boolean offsetTimeEqual(OffsetTime first, OffsetTime second) {
         if (first == null && second == null) {
             return true;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return false;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return false;
         } else {
             int result = compare(first, second);
@@ -124,9 +124,9 @@ public class OffsetTimeType extends JavaTimeType implements TimeType<OffsetTime,
     protected Boolean offsetTimeLessThan(OffsetTime first, OffsetTime second) {
         if (first == null && second == null) {
             return false;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = compare(first, second);
@@ -137,9 +137,9 @@ public class OffsetTimeType extends JavaTimeType implements TimeType<OffsetTime,
     protected Boolean offsetTimeGreaterThan(OffsetTime first, OffsetTime second) {
         if (first == null && second == null) {
             return false;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = compare(first, second);
@@ -150,9 +150,9 @@ public class OffsetTimeType extends JavaTimeType implements TimeType<OffsetTime,
     protected Boolean offsetTimeLessEqualThan(OffsetTime first, OffsetTime second) {
         if (first == null && second == null) {
             return true;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = compare(first, second);
@@ -163,9 +163,9 @@ public class OffsetTimeType extends JavaTimeType implements TimeType<OffsetTime,
     protected Boolean offsetTimeGreaterEqualThan(OffsetTime first, OffsetTime second) {
         if (first == null && second == null) {
             return true;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = compare(first, second);

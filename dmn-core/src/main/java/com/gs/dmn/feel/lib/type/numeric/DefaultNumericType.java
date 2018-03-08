@@ -81,7 +81,7 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
         if (first == null || second == null) {
             return null;
         }
-        if (second == BigDecimal.ZERO) {
+        if (BigDecimal.ZERO.equals(second)) {
             return null;
         }
 
@@ -149,9 +149,9 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
     public Boolean numericEqual(BigDecimal first, BigDecimal second) {
         if (first == null && second == null) {
             return true;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return false;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return false;
         } else {
             int result = first.compareTo(second);
@@ -168,9 +168,9 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
     public Boolean numericLessThan(BigDecimal first, BigDecimal second) {
         if (first == null && second == null) {
             return null;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = first.compareTo(second);
@@ -182,9 +182,9 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
     public Boolean numericGreaterThan(BigDecimal first, BigDecimal second) {
         if (first == null && second == null) {
             return null;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = first.compareTo(second);
@@ -196,9 +196,9 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
     public Boolean numericLessEqualThan(BigDecimal first, BigDecimal second) {
         if (first == null && second == null) {
             return true;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = first.compareTo(second);
@@ -210,9 +210,9 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
     public Boolean numericGreaterEqualThan(BigDecimal first, BigDecimal second) {
         if (first == null && second == null) {
             return true;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = first.compareTo(second);

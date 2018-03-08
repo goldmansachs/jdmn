@@ -484,7 +484,7 @@ public class DMNInterpreter {
 
     private Object convertExpression(Object value, Type expectedType) {
         if (value == null) {
-            return value;
+            return null;
         }
         if (value instanceof List && ((List) value).size() == 1 && !(expectedType instanceof ListType)) {
             return feelLib.asElement((List)value);

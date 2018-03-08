@@ -91,7 +91,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         } else if (sourceType instanceof DurationType) {
             return String.format("%s(%s)", javaMemberFunctionName(memberName), source);
         } else {
-            throw new SemanticError(element, String.format("Cannot generate navigation path", element.toString()));
+            throw new SemanticError(element, String.format("Cannot generate navigation path '%s'", element.toString()));
         }
     }
 

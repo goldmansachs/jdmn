@@ -69,7 +69,7 @@ public class ItemDefinitionType extends NamedType implements CompositeDataType {
 
     @Override
     public boolean isValid() {
-        if (members == null || members.isEmpty()) {
+        if (members.isEmpty()) {
             return false;
         }
         return members.values().stream().allMatch(t -> t.isValid() && t != AnyType.ANY);
@@ -82,15 +82,15 @@ public class ItemDefinitionType extends NamedType implements CompositeDataType {
 
         ItemDefinitionType that = (ItemDefinitionType) o;
 
-        if (members != null ? !members.equals(that.members) : that.members != null) return false;
-        return aliases != null ? aliases.equals(that.aliases) : that.aliases == null;
+        if (!members.equals(that.members)) return false;
+        return aliases.equals(that.aliases);
 
     }
 
     @Override
     public int hashCode() {
-        int result = members != null ? members.hashCode() : 0;
-        result = 31 * result + (aliases != null ? aliases.hashCode() : 0);
+        int result = members.hashCode();
+        result = 31 * result + aliases.hashCode();
         return result;
     }
 

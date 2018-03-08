@@ -269,7 +269,7 @@ public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalend
 
     private XMLGregorianCalendar midnightIfDate(XMLGregorianCalendar clone) {
         if (clone == null) {
-            return clone;
+            return null;
         }
 
         if (clone.getHour() == DatatypeConstants.FIELD_UNDEFINED) {
@@ -943,7 +943,7 @@ public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalend
     private boolean isOutOfBounds(List list, int position) {
         int length = list.size();
         if (position < 0) {
-            return !(-length <= position && position <= -1);
+            return !(-length <= position);
         } else {
             return !(1 <= position && position <= length);
         }

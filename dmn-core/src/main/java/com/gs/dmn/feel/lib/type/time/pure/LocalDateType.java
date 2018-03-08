@@ -112,9 +112,9 @@ public class LocalDateType extends JavaTimeType implements DateType<LocalDate, T
     protected Boolean localDateEqual(LocalDate first, LocalDate second) {
         if (first == null && second == null) {
             return true;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return false;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return false;
         } else {
             int result = compare(first, second);
@@ -125,9 +125,9 @@ public class LocalDateType extends JavaTimeType implements DateType<LocalDate, T
     protected Boolean localDateLessThan(LocalDate first, LocalDate second) {
         if (first == null && second == null) {
             return false;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = compare(first, second);
@@ -138,9 +138,9 @@ public class LocalDateType extends JavaTimeType implements DateType<LocalDate, T
     protected Boolean localDateGreaterThan(LocalDate first, LocalDate second) {
         if (first == null && second == null) {
             return false;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = compare(first, second);
@@ -151,9 +151,9 @@ public class LocalDateType extends JavaTimeType implements DateType<LocalDate, T
     protected Boolean localDateLessEqualThan(LocalDate first, LocalDate second) {
         if (first == null && second == null) {
             return true;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = compare(first, second);
@@ -164,9 +164,9 @@ public class LocalDateType extends JavaTimeType implements DateType<LocalDate, T
     protected Boolean localDateGreaterEqualThan(LocalDate first, LocalDate second) {
         if (first == null && second == null) {
             return true;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = compare(first, second);

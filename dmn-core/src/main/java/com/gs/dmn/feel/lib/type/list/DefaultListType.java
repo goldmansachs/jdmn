@@ -32,9 +32,9 @@ public class DefaultListType extends BaseType implements ListType {
     public Boolean listEqual(List list1, List list2) {
         if (list1 == null && list2 == null) {
             return true;
-        } else if (list1 == null && list2 != null) {
+        } else if (list1 == null) {
             return false;
-        } else if (list1 != null && list2 == null) {
+        } else if (list2 == null) {
             return false;
         } else {
             return list1.equals(list2);

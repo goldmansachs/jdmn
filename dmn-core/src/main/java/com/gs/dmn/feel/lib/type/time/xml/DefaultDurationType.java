@@ -37,9 +37,9 @@ public class DefaultDurationType extends BaseType implements DurationType<Durati
     public Boolean durationEqual(Duration first, Duration second) {
         if (first == null && second == null) {
             return true;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return false;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return false;
         } else {
             return first.equals(second);
@@ -55,9 +55,9 @@ public class DefaultDurationType extends BaseType implements DurationType<Durati
     public Boolean durationLessThan(Duration first, Duration second) {
         if (first == null && second == null) {
             return false;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             return first.compare(second) < 0;
@@ -68,9 +68,9 @@ public class DefaultDurationType extends BaseType implements DurationType<Durati
     public Boolean durationGreaterThan(Duration first, Duration second) {
         if (first == null && second == null) {
             return false;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             return first.compare(second) > 0;
@@ -81,9 +81,9 @@ public class DefaultDurationType extends BaseType implements DurationType<Durati
     public Boolean durationLessEqualThan(Duration first, Duration second) {
         if (first == null && second == null) {
             return false;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             return first.compare(second) <= 0;
@@ -94,9 +94,9 @@ public class DefaultDurationType extends BaseType implements DurationType<Durati
     public Boolean durationGreaterEqualThan(Duration first, Duration second) {
         if (first == null && second == null) {
             return false;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             return first.compare(second) >= 0;
