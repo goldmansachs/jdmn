@@ -845,8 +845,8 @@ public class UniformJavaTimeFEELLib extends FEELOperators<BigDecimal, ZonedDateT
 
         try {
             BigDecimal result = BigDecimal.valueOf(0);
-            for (int i = 0; i < list.size(); i++) {
-                BigDecimal x = (BigDecimal) list.get(i);
+            for (Object aList : list) {
+                BigDecimal x = (BigDecimal) aList;
                 result = result.add(x);
             }
             return result.stripTrailingZeros();

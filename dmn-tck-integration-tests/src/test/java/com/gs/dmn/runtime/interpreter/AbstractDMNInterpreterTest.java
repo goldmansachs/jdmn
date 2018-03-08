@@ -17,6 +17,7 @@ import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
+import com.gs.dmn.runtime.Assert;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
@@ -103,8 +104,7 @@ public abstract class AbstractDMNInterpreterTest {
         RuntimeEnvironment runtimeEnvironment = tckUtil.makeEnvironment(testCase);
 
         List<ResultNode> resultNode = testCase.getResultNode();
-        for (int i = 0; i < resultNode.size(); i++) {
-            ResultNode res = resultNode.get(i);
+        for (ResultNode res : resultNode) {
             Object expectedValue = null;
             Object actualOutput = null;
             String message = String.format("Unexpected result in test case in file '%s' for result node '%s'", testCaseFileName, res.getName());
@@ -118,7 +118,7 @@ public abstract class AbstractDMNInterpreterTest {
                 DMNRuntimeException dmnRuntimeException = new DMNRuntimeException(message, e);
                 assertTrue(dmnRuntimeException.getMessage() + ". " + e.getMessage() + String.format(".  Expected '%s' actual '%s'", expectedValue, actualOutput), res.isErrorResult());
             }
-            com.gs.dmn.runtime.Assert.assertEquals(message, expectedValue, actualOutput);
+            Assert.assertEquals(message, expectedValue, actualOutput);
         }
     }
 

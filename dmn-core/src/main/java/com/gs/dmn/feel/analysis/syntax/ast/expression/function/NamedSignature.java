@@ -37,8 +37,7 @@ public class NamedSignature extends Signature {
         if (size() != parameters.size()) {
             return false;
         }
-        for(int i=0; i<parameters.size(); i++) {
-            FormalParameter formalParameter = parameters.get(i);
+        for (FormalParameter formalParameter : parameters) {
             Type argumentType = namedTypes.get(formalParameter.getName());
             Type parameterType = formalParameter.getType();
             if (!argumentType.conformsTo(parameterType)) {
