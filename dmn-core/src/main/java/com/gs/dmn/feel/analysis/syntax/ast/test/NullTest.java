@@ -30,7 +30,7 @@ public class NullTest extends PositiveUnaryTest {
 
     @Override
     public String toString() {
-        return String.format("NullTest()");
+        return "NullTest()";
     }
 
 }

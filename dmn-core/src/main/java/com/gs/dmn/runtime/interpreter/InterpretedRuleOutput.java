@@ -79,9 +79,6 @@ public class InterpretedRuleOutput extends RuleOutput {
 
     @Override
     public String toString() {
-        StringBuilder result_ = new StringBuilder("(matched=" + isMatched());
-        result_.append(String.format(", result='%s'", result));
-        result_.append(")");
-        return result_.toString();
+        return "(matched=" + isMatched() + String.format(", result='%s'", result) + ")";
     }
 }

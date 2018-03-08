@@ -1258,21 +1258,21 @@ public class BasicDMN2JavaTransformer {
 
     public String javaFriendlyVariableName(String name) {
         if (StringUtils.isBlank(name)) {
-            throw new DMNRuntimeException(String.format("Cannot build variable name from empty string"));
+            throw new DMNRuntimeException("Cannot build variable name from empty string");
         }
         name = this.dmnModelRepository.removeSingleQuotes(name);
         String[] parts = name.split("\\.");
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < parts.length; i++) {
             String part = parts[i];
             String firstChar = Character.toString(Character.toLowerCase(part.charAt(0)));
             String partName = javaFriendlyName(part.length() == 1 ? firstChar : firstChar + part.substring(1));
             if (i != 0) {
-                result += ".";
+                result.append(".");
             }
-            result += partName;
+            result.append(partName);
         }
-        return result;
+        return result.toString();
     }
 
     public String javaFriendlyName(String name) {
