@@ -19,7 +19,6 @@ import org.omg.spec.dmn._20151101.dmn.THitPolicy;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Consumer;
 
 import static org.junit.Assert.assertEquals;
 

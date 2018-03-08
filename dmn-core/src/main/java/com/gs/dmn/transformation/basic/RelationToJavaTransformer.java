@@ -84,7 +84,7 @@ public class RelationToJavaTransformer {
                     }
                     argPairList.add(new Pair<String, String>(argNameList.get(i), argValue));
                 }
-                argPairList.sort((o1, o2) -> o1.getLeft().compareTo(o2.getLeft()));
+                argPairList.sort(Comparator.comparing(Pair::getLeft));
                 String argList = argPairList.stream().map(Pair::getRight).collect(Collectors.joining(", "));
                 rowValues.add(dmnTransformer.constructor(dmnTransformer.itemDefinitionJavaClassName(javaType), argList));
             }
