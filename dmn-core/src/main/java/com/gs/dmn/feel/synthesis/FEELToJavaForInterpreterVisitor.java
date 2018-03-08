@@ -12,10 +12,10 @@
  */
 package com.gs.dmn.feel.synthesis;
 
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 
 public class FEELToJavaForInterpreterVisitor extends FEELToJavaVisitor {
     public FEELToJavaForInterpreterVisitor(BasicDMN2JavaTransformer dmnTransformer) {
