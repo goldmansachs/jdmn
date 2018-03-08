@@ -1155,7 +1155,7 @@ public class MixedJavaTimeFEELLib extends FEELOperators<BigDecimal, LocalDate, O
     }
 
     @Override
-    public <T extends Object> List<T> sort(List<T> list, LambdaExpression<Boolean> comparator) {
+    public <T> List<T> sort(List<T> list, LambdaExpression<Boolean> comparator) {
         List<T> clone = new ArrayList<>(list);
         Comparator<? super T> comp = new Comparator<T>() {
             @Override

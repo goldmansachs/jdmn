@@ -619,7 +619,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         return evaluateMethod(lib, lib.getClass(), functionName, argList);
     }
 
-    private Object evaluateMethod(Object object, Class<? extends Object> cls, String functionName, List<Object> argList) {
+    private Object evaluateMethod(Object object, Class<?> cls, String functionName, List<Object> argList) {
         try {
             Class[] argTypes = new Class[argList.size()];
             for (int i = 0; i < argList.size(); i++) {
