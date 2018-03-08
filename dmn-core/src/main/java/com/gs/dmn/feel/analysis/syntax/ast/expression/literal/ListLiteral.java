@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ListLiteral extends Expression {
-    private List<Expression> expressionList = new ArrayList<>();
+    private final List<Expression> expressionList = new ArrayList<>();
 
     public ListLiteral(List<Expression> expressionList) {
         if (expressionList != null) {

@@ -21,8 +21,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
-import java.io.FileNotFoundException;
-import java.sql.SQLException;
 
 public class JPAExampleCreditDecision extends com.gs.dmn.runtime.MixedJavaTimeDMNBaseDecision {
     protected static EntityManagerFactory emf;

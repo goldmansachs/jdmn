@@ -17,7 +17,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import java.util.List;
 
 public class PositionalArguments extends Arguments {
-    private List<Object> arguments;
+    private final List<Object> arguments;
 
     public PositionalArguments(List<Object> arguments) {
         this.arguments = arguments;

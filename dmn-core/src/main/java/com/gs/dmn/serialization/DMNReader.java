@@ -30,7 +30,7 @@ public class DMNReader {
     public static final String DMN_FILE_EXTENSION = ".dmn";
     static final String CONTEXT_PATH = "org.omg.spec.dmn._20151101.dmn";
     static final String schemaVersion = "1.1";
-    private static JAXBContext JAXB_CONTEXT;
+    private static final JAXBContext JAXB_CONTEXT;
 
     static {
         try {

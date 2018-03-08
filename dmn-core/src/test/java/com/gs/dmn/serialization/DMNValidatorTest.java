@@ -28,9 +28,9 @@ import static org.junit.Assert.*;
 public class DMNValidatorTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(DMNValidatorTest.class));
 
-    private DMNDialectDefinition dialectDefinition = new StandardDMNDialectDefinition();
-    private DMNValidator validator = dialectDefinition.createValidator(true);
-    private DMNReader reader = new DMNReader(LOGGER, false);
+    private final DMNDialectDefinition dialectDefinition = new StandardDMNDialectDefinition();
+    private final DMNValidator validator = dialectDefinition.createValidator(true);
+    private final DMNReader reader = new DMNReader(LOGGER, false);
 
     @Test
     public void testValidateDefinitions() {

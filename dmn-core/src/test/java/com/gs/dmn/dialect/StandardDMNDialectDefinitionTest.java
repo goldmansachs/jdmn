@@ -33,7 +33,7 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 
 public class StandardDMNDialectDefinitionTest {
-    private DMNDialectDefinition dialect = new StandardDMNDialectDefinition();
+    private final DMNDialectDefinition dialect = new StandardDMNDialectDefinition();
     private static final TDefinitions definitions = new TDefinitions();
 
     @Test

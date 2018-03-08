@@ -13,9 +13,9 @@
 package com.gs.dmn.runtime.annotation;
 
 public class Annotation {
-    private String decisionName;
-    private int ruleIndex;
-    private String annotation;
+    private final String decisionName;
+    private final int ruleIndex;
+    private final String annotation;
 
     public Annotation(String decisionName, int ruleIndex, String annotation) {
         this.decisionName = decisionName;

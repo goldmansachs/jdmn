@@ -13,7 +13,6 @@
 package com.gs.dmn.transformation.formatter;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;

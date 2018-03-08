@@ -32,7 +32,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 import static org.junit.Assert.assertEquals;
 
 public class TypeEquivalenceTest {
-    public Map<Pair<Type, Type>, Boolean> dataTypeTable = new LinkedHashMap() {{
+    public final Map<Pair<Type, Type>, Boolean> dataTypeTable = new LinkedHashMap() {{
         put(new Pair(NUMBER, NUMBER), true);
         put(new Pair(NUMBER, ANY), false);
 

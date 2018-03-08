@@ -33,7 +33,7 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 
 public class MixedJavaTimeDMNDialectDefinitionTest {
-    private DMNDialectDefinition dialect = new MixedJavaTimeDMNDialectDefinition();
+    private final DMNDialectDefinition dialect = new MixedJavaTimeDMNDialectDefinition();
     private static final TDefinitions definitions = new TDefinitions();
 
     @Test

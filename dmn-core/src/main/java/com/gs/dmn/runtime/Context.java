@@ -16,7 +16,7 @@ import java.util.*;
 
 public class Context {
     private String name;
-    private Map map = new LinkedHashMap<>();
+    private final Map map = new LinkedHashMap<>();
 
     public Context() {
     }

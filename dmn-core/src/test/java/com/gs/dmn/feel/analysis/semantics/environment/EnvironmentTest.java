@@ -21,7 +21,7 @@ import java.util.Arrays;
 import static org.junit.Assert.assertEquals;
 
 public class EnvironmentTest {
-    private EnvironmentFactory environmentFactory = DefaultDMNEnvironmentFactory.instance();
+    private final EnvironmentFactory environmentFactory = DefaultDMNEnvironmentFactory.instance();
 
     @Test
     public void testLookupVariableDeclaration() {

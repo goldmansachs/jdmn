@@ -33,7 +33,7 @@ import static org.junit.Assert.assertEquals;
 public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
     private final DMNDialectDefinition dialectDefinition = new StandardDMNDialectDefinition();
     private final TotalVacationDays decision = new TotalVacationDays();
-    private NameTransformer nameTransformer = new ToQuotedNameTransformer(new NopBuildLogger());
+    private final NameTransformer nameTransformer = new ToQuotedNameTransformer(new NopBuildLogger());
 
     @Test
     public void applyCompiler() {

@@ -22,7 +22,7 @@ import org.omg.spec.dmn._20151101.dmn.TDefinitions;
 import java.io.File;
 
 public abstract class NameTransformerTest extends AbstractFileTransformerTest {
-    protected static ClassLoader CLASS_LOADER = NameTransformerTest.class.getClassLoader();
+    protected static final ClassLoader CLASS_LOADER = NameTransformerTest.class.getClassLoader();
 
     protected final DMNReader dmnReader = new DMNReader(LOGGER, false);
     protected final TestCasesReader testReader = new TestCasesReader(LOGGER);

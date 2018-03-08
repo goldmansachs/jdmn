@@ -13,8 +13,8 @@
 package com.gs.dmn.runtime.compiler;
 
 public abstract class ClassDataImpl implements ClassData {
-    String packageName;
-    String className;
+    final String packageName;
+    final String className;
 
     public ClassDataImpl(String packageName, String className) {
         this.packageName = packageName;

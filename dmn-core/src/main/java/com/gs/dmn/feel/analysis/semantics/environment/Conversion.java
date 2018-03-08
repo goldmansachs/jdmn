@@ -15,8 +15,8 @@ package com.gs.dmn.feel.analysis.semantics.environment;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 public class Conversion {
-    private ConversionKind kind;
-    private String elementType;
+    private final ConversionKind kind;
+    private final String elementType;
 
     public Conversion(ConversionKind kind, String elementType) {
         this.kind = kind;

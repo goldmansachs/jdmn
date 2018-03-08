@@ -16,7 +16,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Environment<K, V> {
-    private Map<K, V> bindings = new LinkedHashMap<>();
+    private final Map<K, V> bindings = new LinkedHashMap<>();
 
     private final Environment<K, V> parent;
 

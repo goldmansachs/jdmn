@@ -19,7 +19,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 
 abstract class AbstractFEELAnalyzer implements FEELAnalyzer {
-    private BasicDMN2JavaTransformer dmnTransformer;
+    private final BasicDMN2JavaTransformer dmnTransformer;
 
     protected AbstractFEELAnalyzer(BasicDMN2JavaTransformer dmnTransformer) {
         this.dmnTransformer = dmnTransformer;

@@ -21,7 +21,7 @@ import java.util.LinkedHashMap;
 import static org.junit.Assert.assertEquals;
 
 public class DecisionTableToJavaTransformerTest {
-    DecisionTableToJavaTransformer transformer = new DecisionTableToJavaTransformer(new BasicDMN2JavaTransformer(new DMNModelRepository(), null, null, new LinkedHashMap<>()));
+    final DecisionTableToJavaTransformer transformer = new DecisionTableToJavaTransformer(new BasicDMN2JavaTransformer(new DMNModelRepository(), null, null, new LinkedHashMap<>()));
 
     @Test
     public void testAnnotationEscapedText() {

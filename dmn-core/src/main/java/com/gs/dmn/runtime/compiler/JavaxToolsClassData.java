@@ -13,7 +13,7 @@
 package com.gs.dmn.runtime.compiler;
 
 public class JavaxToolsClassData extends ClassDataImpl implements ClassData {
-    private String classText;
+    private final String classText;
 
     public JavaxToolsClassData(String packageName, String className, String classText) {
         super(packageName, className);

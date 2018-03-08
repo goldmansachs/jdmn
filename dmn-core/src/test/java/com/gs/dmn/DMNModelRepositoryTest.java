@@ -33,7 +33,7 @@ public class DMNModelRepositoryTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(DMNModelRepositoryTest.class));
 
     private DMNModelRepository dmnModelRepository;
-    private DMNReader dmnReader = new DMNReader(LOGGER, false);
+    private final DMNReader dmnReader = new DMNReader(LOGGER, false);
 
     @Before
     public void setUp() {
