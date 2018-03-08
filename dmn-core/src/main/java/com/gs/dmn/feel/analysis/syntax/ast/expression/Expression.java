@@ -57,8 +57,7 @@ public abstract class Expression extends Element {
             Type memberType = memberType(((ListType) sourceType).getElementType(), member);
             type = new ListType(memberType);
         } else {
-            Type memberType = memberType(sourceType, member);
-            type = memberType;
+            type = memberType(sourceType, member);
         }
         return type;
     }

@@ -47,8 +47,7 @@ public class FunctionDefinitionToJavaTransformer {
 
     public String functionDefinitionToJava(FunctionDefinition element, String body, boolean convertToContext) {
         FunctionType functionType = (FunctionType) element.getType();
-        String lambdaExpression = functionDefinitionToJava(functionType, body, convertToContext);
-        return lambdaExpression;
+        return functionDefinitionToJava(functionType, body, convertToContext);
     }
 
     private String functionDefinitionToJava(FunctionType functionType, String body, boolean convertToContext) {

@@ -576,14 +576,13 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     }
 
     private String makeListTestCondition(String feelOperator, String inputExpression, Expression rightOperand, FEELContext params) {
-        String leftOpd = inputExpression;
         String rightOpd = (String) rightOperand.accept(this, params);
         String condition = null;
         String javaOperator = listTestOperator(feelOperator, params.getEnvironment().getInputExpression(), rightOperand);
         if (StringUtils.isEmpty(javaOperator)) {
-            condition = infixExpression(javaOperator, leftOpd, rightOpd);
+            condition = infixExpression(javaOperator, inputExpression, rightOpd);
         } else {
-            condition = functionalExpression(javaOperator, leftOpd, rightOpd);
+            condition = functionalExpression(javaOperator, inputExpression, rightOpd);
         }
         return condition;
     }

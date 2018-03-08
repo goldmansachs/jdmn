@@ -71,13 +71,12 @@ public class JavaxToolsCompiler extends JavaCompilerImpl {
     }
 
     private String applyMethod(FunctionDefinition element, String returnType, String parametersAssignment, String body) {
-        String method = String.format(
+        return String.format(
                 "public %s apply() {" +
                         "%s" +
                         "return %s;" +
                         "}",
                 returnType, parametersAssignment, body);
-        return method;
     }
 
     @Override

@@ -172,8 +172,7 @@ public class UniformJavaTimeFEELLib extends FEELOperators<BigDecimal, ZonedDateT
             ZoneOffset offset = offsetTime.getOffset();
 
             // Make ZonedDateTime
-            ZonedDateTime zonedDateTime = ZonedDateTime.of(LocalDateTime.of(LocalDate.MIN, offsetTime.toLocalTime()), offset);
-            return zonedDateTime;
+            return ZonedDateTime.of(LocalDateTime.of(LocalDate.MIN, offsetTime.toLocalTime()), offset);
         } catch (Exception e) {
             String message = String.format("time(%s)", literal);
             logError(message, e);
@@ -202,8 +201,7 @@ public class UniformJavaTimeFEELLib extends FEELOperators<BigDecimal, ZonedDateT
                 String format = dateTimeISOFormat(year, month, day, hour.intValue(), minute.intValue(), second.intValue(), millis, offsetString);
 
                 // Make ZonedDateTime
-                ZonedDateTime zonedDateTime = makeZonedDateTime(format);
-                return zonedDateTime;
+                return makeZonedDateTime(format);
             } else {
                 // Make OffsetTime and add nanos
                 OffsetTime offsetTime = OffsetTime.of(hour.intValue(), minute.intValue(), second.intValue(), 0, ZoneOffset.UTC);
@@ -212,8 +210,7 @@ public class UniformJavaTimeFEELLib extends FEELOperators<BigDecimal, ZonedDateT
                 offsetTime = offsetTime.plusNanos((long) nanos);
 
                 // Make ZonedDateTime
-                ZonedDateTime zonedDateTime = ZonedDateTime.of(LocalDateTime.of(LocalDate.MIN, offsetTime.toLocalTime()), DateTimeUtil.UTC);
-                return zonedDateTime;
+                return ZonedDateTime.of(LocalDateTime.of(LocalDate.MIN, offsetTime.toLocalTime()), DateTimeUtil.UTC);
             }
         } catch (Throwable e) {
             String message = String.format("time(%s, %s, %s, %s)", hour, minute, second, offset);
@@ -253,11 +250,10 @@ public class UniformJavaTimeFEELLib extends FEELOperators<BigDecimal, ZonedDateT
         }
 
         try {
-            ZonedDateTime zonedDateTime = ZonedDateTime.of(
+            return ZonedDateTime.of(
                     date.getYear(), date.getMonth().getValue(), date.getDayOfMonth(),
                     time.getHour(), time.getMinute(), time.getSecond(), time.getNano(), time.getZone()
             );
-            return zonedDateTime;
         } catch (Throwable e) {
             String message = String.format("dateAndTime(%s, %s)", date, time);
             logError(message, e);

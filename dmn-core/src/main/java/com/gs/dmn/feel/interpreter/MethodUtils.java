@@ -18,8 +18,7 @@ class MethodUtils {
     public static Method resolveMethod(String methodName, Class cls, Class[] argumentTypes) {
         // try the exact match
         try {
-            final Method method = cls.getMethod(methodName, argumentTypes);
-            return method;
+            return cls.getMethod(methodName, argumentTypes);
         } catch (final NoSuchMethodException e) {
         }
 

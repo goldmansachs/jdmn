@@ -161,8 +161,7 @@ public class TCKUtil {
     }
 
     private TDRGElement findDRGElementByName(String name) {
-        TDRGElement element = dmnTransformer.getDMNModelRepository().findDRGElementByName(name);
-        return element;
+        return dmnTransformer.getDMNModelRepository().findDRGElementByName(name);
     }
 
     private Type toFEELType(InputNode inputNode) {

@@ -262,8 +262,7 @@ public class MixedJavaTimeFEELLib extends FEELOperators<BigDecimal, LocalDate, O
         try {
             ZoneOffset offset = time.getOffset();
             LocalDateTime localDateTime = LocalDateTime.of(date, time.toLocalTime());
-            ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(localDateTime, offset, ZoneId.of(offset.getId()));
-            return zonedDateTime;
+            return ZonedDateTime.ofInstant(localDateTime, offset, ZoneId.of(offset.getId()));
         } catch (Throwable e) {
             String message = String.format("dateAndTime(%s, %s)", date, time);
             logError(message, e);

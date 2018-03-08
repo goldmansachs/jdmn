@@ -71,8 +71,7 @@ public class InvocationToJavaTransformer {
             String argListString = argList.stream().map(s -> ((ExpressionStatement)s).getExpression()).collect(Collectors.joining(", "));
             String expressionText = String.format("%s(%s)", bkmFunctionName, dmnTransformer.drgElementArgumentsExtra(dmnTransformer.augmentArgumentList(argListString)));
             Type expressionType = dmnTransformer.toFEELType(dmnTransformer.drgElementOutputTypeRef(bkm));
-            Statement java = new ExpressionStatement(expressionText, expressionType);
-            return java;
+            return new ExpressionStatement(expressionText, expressionType);
         } else {
             throw new DMNRuntimeException(String.format("Not supported '%s'", body.getClass().getSimpleName()));
         }
