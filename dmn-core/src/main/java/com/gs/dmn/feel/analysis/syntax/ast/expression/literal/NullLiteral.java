@@ -33,7 +33,7 @@ public class NullLiteral extends Literal {
 
     @Override
     public String toString() {
-        return String.format("NullLiteral()");
+        return "NullLiteral()";
     }
 }
 

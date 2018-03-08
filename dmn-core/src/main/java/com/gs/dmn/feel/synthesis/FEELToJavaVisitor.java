@@ -150,7 +150,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
             String body = (String)element.getBody().accept(this, context);
             return dmnTransformer.functionDefinitionToJava(element, false, body);
         } else {
-            throw new DMNRuntimeException(String.format("Dynamic typing for FEEL functions not supported yet"));
+            throw new DMNRuntimeException("Dynamic typing for FEEL functions not supported yet");
         }
     }
 
@@ -387,10 +387,10 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         Environment inEnvironment = environmentFactory.makeEnvironment(context.getEnvironment(), valueExp);
         FEELContext inParams = FEELContext.makeContext(inEnvironment);
 
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < positiveUnaryTests.size(); i++) {
             if (i != 0) {
-                result += " || ";
+                result.append(" || ");
             }
             PositiveUnaryTest positiveUnaryTest = positiveUnaryTests.get(i);
             String test = null;
@@ -401,9 +401,9 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
             } else {
                 test = (String) positiveUnaryTest.accept(this, inParams);
             }
-            result += String.format("(%s)", test);
+            result.append(String.format("(%s)", test));
         }
-        return result;
+        return result.toString();
     }
 
     //

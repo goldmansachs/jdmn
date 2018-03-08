@@ -200,7 +200,7 @@ public class DMNInterpreter {
                 TDecision child = dmnModelRepository.findDecisionById(requiredDecision.getHref());
                 evaluateDecision(child, runtimeEnvironment);
             } else {
-                handleError(String.format("Incorrect InformationRequirement. Missing required input and decision"));
+                handleError("Incorrect InformationRequirement. Missing required input and decision");
             }
         }
     }

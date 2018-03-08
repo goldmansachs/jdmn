@@ -42,11 +42,9 @@ public class JavaAssistCompiler extends JavaCompilerImpl {
     }
 
     private String bridgeMethodText() {
-        return String.format(
-                "public Object apply(Object[] args) {\n" +
-                "   return apply(args);\n" +
-                "}\n"
-                );
+        return "public Object apply(Object[] args) {\n" +
+               "   return apply(args);\n" +
+               "}\n";
     }
 
     @Override

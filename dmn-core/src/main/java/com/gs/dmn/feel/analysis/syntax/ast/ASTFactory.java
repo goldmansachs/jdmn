@@ -184,14 +184,14 @@ public class ASTFactory {
         } else if (isPositiveUnaryTests(leftPar, expressions, operators, rightPar)) {
             return toPositiveUnaryTests(expressions);
         } else {
-            String content = "";
+            StringBuilder content = new StringBuilder();
             for (int i = 0; i < expressions.size(); i++) {
                 if (i != 0) {
-                    content += operators.get(i - 1) + " ";
+                    content.append(operators.get(i - 1)).append(" ");
                 }
-                content += expressions.get(i).toString();
+                content.append(expressions.get(i).toString());
             }
-            throw new DMNRuntimeException(String.format("Illegal interval or list test '%s%s%s'", leftPar, content, rightPar));
+            throw new DMNRuntimeException(String.format("Illegal interval or list test '%s%s%s'", leftPar, content.toString(), rightPar));
         }
     }
 

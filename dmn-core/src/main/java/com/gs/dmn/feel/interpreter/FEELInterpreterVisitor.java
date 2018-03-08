@@ -258,7 +258,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         if (element.isStaticTyped()) {
             return makeLambdaExpression(element, context);
         } else {
-            throw new DMNRuntimeException(String.format("Dynamic typing for FEEL functions not supported yet"));
+            throw new DMNRuntimeException("Dynamic typing for FEEL functions not supported yet");
         }
     }
 

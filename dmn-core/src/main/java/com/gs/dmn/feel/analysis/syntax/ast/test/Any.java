@@ -30,7 +30,7 @@ public class Any extends SimpleUnaryTests {
 
     @Override
     public String toString() {
-        return String.format("Any()");
+        return "Any()";
     }
 
 }
