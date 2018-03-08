@@ -82,7 +82,7 @@ public class ToSimpleNameTransformer extends NameTransformer {
         return result.toString();
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         NopBuildLogger logger = new NopBuildLogger();
 
         File inputFolder = new File("H:/Projects/EP/dmn/dmn-core/src/test/resources/tck/cl2/input/");
