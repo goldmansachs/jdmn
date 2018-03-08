@@ -20,7 +20,7 @@ import java.io.File;
 public class SchemaValidatorTest {
 
     @Test
-    public void testValidateForDMNFiles() throws Exception {
+    public void testValidateForDMNFiles() {
         File schemaLocation = new File(SchemaValidatorTest.class.getClassLoader().getResource("dmn/" + DMNReader.schemaVersion + "/dmn.xsd").getFile());
 
         SchemaValidator validator = new SchemaValidator(schemaLocation, DMNReader.CONTEXT_PATH);
@@ -29,7 +29,7 @@ public class SchemaValidatorTest {
     }
 
     @Test
-    public void testValidateForTCKFiles() throws Exception {
+    public void testValidateForTCKFiles() {
         File schemaLocation = new File(SchemaValidatorTest.class.getClassLoader().getResource("tck/testCases.xsd").getFile());
 
         SchemaValidator validator = new SchemaValidator(schemaLocation, "org.omg.dmn.tck.marshaller._20160719");
@@ -37,7 +37,7 @@ public class SchemaValidatorTest {
         validate(dmnFileFolder, validator, TestCasesReader.TEST_FILE_EXTENSION);
     }
 
-    private void validate(File file, SchemaValidator validator, String extension) throws Exception {
+    private void validate(File file, SchemaValidator validator, String extension) {
         if (file.isDirectory()) {
             for(File child: file.listFiles()) {
                 validate(child, validator, extension);

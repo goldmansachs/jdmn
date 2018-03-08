@@ -63,7 +63,7 @@ public class SchemaValidator {
         u.setSchema(schema);
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         File rootFolder = new File("dmn-core/src/test/resources/tck");
         File dmnSchemaLocation = new File("dmn-core/src/main/resources/dmn/" + DMNReader.schemaVersion + "/dmn.xsd");
         File testCasesSchemaLocation = new File("dmn-core/src/test/resources/tck/testCases.xsd");
