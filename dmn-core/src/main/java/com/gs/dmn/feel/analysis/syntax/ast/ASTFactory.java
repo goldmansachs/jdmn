@@ -166,14 +166,11 @@ public class ASTFactory {
 
     public SimplePositiveUnaryTests toSimplePositiveUnaryTests(List<Expression> expressions) {
         List<SimplePositiveUnaryTest> tests = new ArrayList<>();
-        expressions.forEach(new Consumer<Expression>() {
-            @Override
-            public void accept(Expression expression) {
-                if (expression instanceof SimplePositiveUnaryTest) {
-                    tests.add((SimplePositiveUnaryTest) expression);
-                } else {
-                    tests.add(toOperatorTest(null, expression));
-                }
+        expressions.forEach(expression -> {
+            if (expression instanceof SimplePositiveUnaryTest) {
+                tests.add((SimplePositiveUnaryTest) expression);
+            } else {
+                tests.add(toOperatorTest(null, expression));
             }
         });
         return new SimplePositiveUnaryTests(tests);

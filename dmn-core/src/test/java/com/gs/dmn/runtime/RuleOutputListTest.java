@@ -116,14 +116,11 @@ class DefaultSimpleOutput extends RuleOutput {
     @Override
     public List<RuleOutput> sort(List<RuleOutput> results) {
         List<Pair<String, Integer>> outputPairs = new ArrayList<>();
-        results.forEach(new Consumer<RuleOutput>() {
-            @Override
-            public void accept(RuleOutput decisionOutputRuleResult) {
-                String output = ((DefaultSimpleOutput)decisionOutputRuleResult).getOutput();
-                Integer priority = ((DefaultSimpleOutput)decisionOutputRuleResult).getPriority();
-                Pair<String, Integer> pair = new Pair(output, priority);
-                outputPairs.add(pair);
-            }
+        results.forEach(decisionOutputRuleResult -> {
+            String output = ((DefaultSimpleOutput)decisionOutputRuleResult).getOutput();
+            Integer priority = ((DefaultSimpleOutput)decisionOutputRuleResult).getPriority();
+            Pair<String, Integer> pair = new Pair(output, priority);
+            outputPairs.add(pair);
         });
         outputPairs.sort(new PairComparator());
 

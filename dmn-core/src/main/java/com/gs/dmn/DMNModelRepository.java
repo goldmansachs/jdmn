@@ -181,18 +181,15 @@ public class DMNModelRepository {
             return null;
         }
         List<TItemDefinition> children = new ArrayList<>(itemDefinition.getItemComponent());
-        children.sort(new Comparator<TItemDefinition>() {
-            @Override
-            public int compare(TItemDefinition o1, TItemDefinition o2) {
-                if (o1 == null && o2 == null) {
-                    return 0;
-                } if (o1 == null && o2 != null) {
-                    return 1;
-                } if (o1 != null && o2 == null) {
-                    return -1;
-                } else {
-                    return o1.getName().compareTo(o2.getName());
-                }
+        children.sort((o1, o2) -> {
+            if (o1 == null && o2 == null) {
+                return 0;
+            } if (o1 == null && o2 != null) {
+                return 1;
+            } if (o1 != null && o2 == null) {
+                return -1;
+            } else {
+                return o1.getName().compareTo(o2.getName());
             }
         });
         return children;

@@ -463,22 +463,19 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
         FEELSemanticVisitor visitor = this;
         Environment qEnvironment = environmentFactory.makeEnvironment(context.getEnvironment());
         FEELContext qParams = FEELContext.makeContext(qEnvironment);
-        iterators.forEach(new Consumer<Iterator>() {
-            @Override
-            public void accept(Iterator it) {
-                it.accept(visitor, qParams);
-                String itName = it.getName();
-                Type domainType = it.getDomain().getType();
-                Type itType = null;
-                if (domainType instanceof ListType) {
-                    itType = ((ListType) domainType).getElementType();
-                } else if (domainType instanceof RangeType) {
-                    itType = ((RangeType) domainType).getRangeType();
-                } else {
-                    throw new SemanticError(element, String.format("Cannot resolve iterator type for '%s'", domainType));
-                }
-                qEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(itName, itType));
+        iterators.forEach(it -> {
+            it.accept(visitor, qParams);
+            String itName = it.getName();
+            Type domainType = it.getDomain().getType();
+            Type itType = null;
+            if (domainType instanceof ListType) {
+                itType = ((ListType) domainType).getElementType();
+            } else if (domainType instanceof RangeType) {
+                itType = ((RangeType) domainType).getRangeType();
+            } else {
+                throw new SemanticError(element, String.format("Cannot resolve iterator type for '%s'", domainType));
             }
+            qEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(itName, itType));
         });
         return qParams;
     }
