@@ -114,9 +114,9 @@ public class DefaultBooleanType extends BaseType implements BooleanType {
     public Boolean booleanEqual(Boolean first, Boolean second) {
         if (first == null && second == null) {
             return true;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return false;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return false;
         } else {
             return first == second;

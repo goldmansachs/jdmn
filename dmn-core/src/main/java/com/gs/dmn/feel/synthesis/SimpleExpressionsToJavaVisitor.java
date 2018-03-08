@@ -240,7 +240,7 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
             String memberName = element.getMember();
             return makeNavigationPath(element, sourceName, memberName, context);
         }
-        throw new SemanticError(element, String.format("Cannot compute navigation path", element.toString()));
+        throw new SemanticError(element, String.format("Cannot compute navigation path '%s'", element.toString()));
     }
 
     //
@@ -289,7 +289,7 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
             String memberName = names.get(1);
             return makeNavigationPath(element, sourceName, memberName, context);
         }
-        throw new SemanticError(element, String.format("Cannot compute navigation path", element.toString()));
+        throw new SemanticError(element, String.format("Cannot compute navigation path '%s'", element.toString()));
     }
 
     @Override
@@ -310,6 +310,6 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
             String memberVariableName = javaFriendlyVariableName(memberName);
             return makeNavigation(element, sourceType, sourceVariableName, memberName, memberVariableName);
         }
-        throw new SemanticError(element, String.format("Cannot generate navigation path", element.toString()));
+        throw new SemanticError(element, String.format("Cannot generate navigation path '%s'", element.toString()));
     }
 }

@@ -118,9 +118,9 @@ public class ZonedDateTimeType extends JavaTimeCalendarType implements DateTimeT
     protected Boolean zonedDateTimeEqual(ZonedDateTime first, ZonedDateTime second) {
         if (first == null && second == null) {
             return true;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return false;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return false;
         } else {
             int result = compare(first, second);
@@ -131,9 +131,9 @@ public class ZonedDateTimeType extends JavaTimeCalendarType implements DateTimeT
     protected Boolean zonedDateTimeLessThan(ZonedDateTime first, ZonedDateTime second) {
         if (first == null && second == null) {
             return false;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = compare(first, second);
@@ -144,9 +144,9 @@ public class ZonedDateTimeType extends JavaTimeCalendarType implements DateTimeT
     protected Boolean zonedDateTimeGreaterThan(ZonedDateTime first, ZonedDateTime second) {
         if (first == null && second == null) {
             return false;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = compare(first, second);
@@ -157,9 +157,9 @@ public class ZonedDateTimeType extends JavaTimeCalendarType implements DateTimeT
     protected Boolean zonedDateTimeLessEqualThan(ZonedDateTime first, ZonedDateTime second) {
         if (first == null && second == null) {
             return true;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = compare(first, second);
@@ -170,9 +170,9 @@ public class ZonedDateTimeType extends JavaTimeCalendarType implements DateTimeT
     protected Boolean zonedDateTimeGreaterEqualThan(ZonedDateTime first, ZonedDateTime second) {
         if (first == null && second == null) {
             return true;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = compare(first, second);

@@ -31,9 +31,9 @@ public abstract class DefaultXMLCalendarType extends BaseType {
     protected Boolean xmlCalendarEqual(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
             return true;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return false;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return false;
         } else {
             int result = compare(first, second);
@@ -44,9 +44,9 @@ public abstract class DefaultXMLCalendarType extends BaseType {
     protected Boolean xmlCalendarLessThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
             return false;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = compare(first, second);
@@ -57,9 +57,9 @@ public abstract class DefaultXMLCalendarType extends BaseType {
     protected Boolean xmlCalendarGreaterThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
             return false;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = compare(first, second);
@@ -70,9 +70,9 @@ public abstract class DefaultXMLCalendarType extends BaseType {
     protected Boolean xmlCalendarLessEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
             return true;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = compare(first, second);
@@ -83,9 +83,9 @@ public abstract class DefaultXMLCalendarType extends BaseType {
     protected Boolean xmlCalendarGreaterEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
             return true;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = compare(first, second);

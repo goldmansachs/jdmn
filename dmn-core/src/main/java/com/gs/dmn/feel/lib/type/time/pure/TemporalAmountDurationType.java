@@ -40,9 +40,9 @@ public class TemporalAmountDurationType extends BaseType implements DurationType
     public Boolean durationEqual(TemporalAmount first, TemporalAmount second) {
         if (first == null && second == null) {
             return true;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return false;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return false;
         } else {
             return first.equals(second);
@@ -58,9 +58,9 @@ public class TemporalAmountDurationType extends BaseType implements DurationType
     public Boolean durationLessThan(TemporalAmount first, TemporalAmount second) {
         if (first == null && second == null) {
             return false;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             return compare(first, second) < 0;
@@ -71,9 +71,9 @@ public class TemporalAmountDurationType extends BaseType implements DurationType
     public Boolean durationGreaterThan(TemporalAmount first, TemporalAmount second) {
         if (first == null && second == null) {
             return false;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             return compare(first, second) > 0;
@@ -84,9 +84,9 @@ public class TemporalAmountDurationType extends BaseType implements DurationType
     public Boolean durationLessEqualThan(TemporalAmount first, TemporalAmount second) {
         if (first == null && second == null) {
             return false;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             return compare(first, second) <= 0;
@@ -97,9 +97,9 @@ public class TemporalAmountDurationType extends BaseType implements DurationType
     public Boolean durationGreaterEqualThan(TemporalAmount first, TemporalAmount second) {
         if (first == null && second == null) {
             return false;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             return compare(first, second) >= 0;

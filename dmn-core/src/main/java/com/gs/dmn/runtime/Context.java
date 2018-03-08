@@ -96,12 +96,12 @@ public class Context {
 
         Context context = (Context) o;
 
-        return map != null ? map.equals(context.map) : context.map == null;
+        return map.equals(context.map);
 
     }
 
     @Override
     public int hashCode() {
-        return map != null ? map.hashCode() : 0;
+        return map.hashCode();
     }
 }

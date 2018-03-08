@@ -21,9 +21,9 @@ public class PairComparator<T> implements Comparator<Pair<T, Integer>> {
         Integer priority2 = o2.getRight();
         if (priority1 == null && priority2 == null) {
             return 0;
-        } else if (priority1 == null && priority2 != null) {
+        } else if (priority1 == null) {
             return 1;
-        } else if (priority1 != null && priority2 == null) {
+        } else if (priority2 == null) {
             return -1;
         } else {
             return priority2 - priority1;

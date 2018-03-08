@@ -30,14 +30,7 @@ public class DMNNamespacePrefixMapper extends NamespacePrefixMapper {
     private final Map<String, String> namespaceMap = new HashMap<>();
 
     public DMNNamespacePrefixMapper() {
-        this.userNamespace = null;
-        this.userPrefix = null;
-
-        this.namespaceMap.put(XSD_NS, "xsd");
-        this.namespaceMap.put(FEEL_NS, "feel");
-        if (!StringUtils.isEmpty(userNamespace) && !StringUtils.isEmpty(userPrefix)) {
-            this.namespaceMap.put(userNamespace, userPrefix);
-        }
+        this(null, null);
     }
 
     public DMNNamespacePrefixMapper(String namespace, String prefix) {

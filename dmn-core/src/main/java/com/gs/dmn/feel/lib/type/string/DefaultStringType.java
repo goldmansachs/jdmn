@@ -25,9 +25,9 @@ public class DefaultStringType extends BaseType implements StringType {
     public Boolean stringEqual(String first, String second) {
         if (first == null && second == null) {
             return true;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return false;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return false;
         } else {
             int result = first.compareTo(second);
@@ -45,9 +45,9 @@ public class DefaultStringType extends BaseType implements StringType {
     public String stringAdd(String first, String second) {
         if (first == null && second == null) {
             return "";
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return second;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return first;
         } else {
             return first + second;
@@ -58,9 +58,9 @@ public class DefaultStringType extends BaseType implements StringType {
     public Boolean stringLessThan(String first, String second) {
         if (first == null && second == null) {
             return null;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = first.compareTo(second);
@@ -72,9 +72,9 @@ public class DefaultStringType extends BaseType implements StringType {
     public Boolean stringGreaterThan(String first, String second) {
         if (first == null && second == null) {
             return null;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = first.compareTo(second);
@@ -86,9 +86,9 @@ public class DefaultStringType extends BaseType implements StringType {
     public Boolean stringLessEqualThan(String first, String second) {
         if (first == null && second == null) {
             return true;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = first.compareTo(second);
@@ -100,9 +100,9 @@ public class DefaultStringType extends BaseType implements StringType {
     public Boolean stringGreaterEqualThan(String first, String second) {
         if (first == null && second == null) {
             return true;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = first.compareTo(second);

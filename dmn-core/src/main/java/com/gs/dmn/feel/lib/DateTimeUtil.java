@@ -72,7 +72,7 @@ public class DateTimeUtil {
     // and T11:00:00.000+0000 to 11:00:00.000+00:00
     public static String fixDateTimeFormat(String literal) {
         if (literal == null) {
-            return literal;
+            return null;
         }
         if (literal.startsWith("T")) {
             literal = literal.substring(1);

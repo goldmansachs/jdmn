@@ -577,9 +577,9 @@ public class BasicDMN2JavaTransformer {
                     return new ExpressionStatement(conversionText, expectedType);
                 }
             }
-        } else if (expectedType instanceof ListType && !(expressionType instanceof ListType)) {
+        } else if (expectedType instanceof ListType) {
             return new ExpressionStatement(convertElementToList(javaExpression, expectedType), expectedType);
-        } else if (expressionType instanceof ListType && !(expectedType instanceof ListType)) {
+        } else if (expressionType instanceof ListType) {
             return new ExpressionStatement(convertListToElement(javaExpression, expectedType), expectedType);
         } else if (expectedType instanceof ItemDefinitionType) {
             if (expressionType.conformsTo(expectedType) || expressionType == AnyType.ANY || expressionType instanceof ContextType) {

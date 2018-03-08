@@ -123,9 +123,9 @@ public class DoubleNumericType extends BaseType implements NumericType<Double> {
     public Boolean numericEqual(Double first, Double second) {
         if (first == null && second == null) {
             return true;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return false;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return false;
         } else {
             int result = first.compareTo(second);
@@ -142,9 +142,9 @@ public class DoubleNumericType extends BaseType implements NumericType<Double> {
     public Boolean numericLessThan(Double first, Double second) {
         if (first == null && second == null) {
             return null;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = first.compareTo(second);
@@ -156,9 +156,9 @@ public class DoubleNumericType extends BaseType implements NumericType<Double> {
     public Boolean numericGreaterThan(Double first, Double second) {
         if (first == null && second == null) {
             return null;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = first.compareTo(second);
@@ -170,9 +170,9 @@ public class DoubleNumericType extends BaseType implements NumericType<Double> {
     public Boolean numericLessEqualThan(Double first, Double second) {
         if (first == null && second == null) {
             return true;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = first.compareTo(second);
@@ -184,9 +184,9 @@ public class DoubleNumericType extends BaseType implements NumericType<Double> {
     public Boolean numericGreaterEqualThan(Double first, Double second) {
         if (first == null && second == null) {
             return true;
-        } else if (first == null && second != null) {
+        } else if (first == null) {
             return null;
-        } else if (first != null && second == null) {
+        } else if (second == null) {
             return null;
         } else {
             int result = first.compareTo(second);
