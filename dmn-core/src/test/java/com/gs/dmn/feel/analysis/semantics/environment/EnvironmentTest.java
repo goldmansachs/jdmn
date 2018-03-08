@@ -24,7 +24,7 @@ public class EnvironmentTest {
     private EnvironmentFactory environmentFactory = DefaultDMNEnvironmentFactory.instance();
 
     @Test
-    public void testLookupVariableDeclaration() throws Exception {
+    public void testLookupVariableDeclaration() {
         Environment environment = environmentFactory.makeEnvironment();
         String name = "x";
         environment.addDeclaration(new VariableDeclaration(name, StringType.STRING));
@@ -33,7 +33,7 @@ public class EnvironmentTest {
     }
 
     @Test
-    public void testLookupFunctionDeclaration() throws Exception {
+    public void testLookupFunctionDeclaration() {
         Environment environment = environmentFactory.makeEnvironment();
 
         String functionName = "date";

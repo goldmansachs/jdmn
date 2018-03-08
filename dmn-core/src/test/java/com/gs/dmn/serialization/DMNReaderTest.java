@@ -30,7 +30,7 @@ public class DMNReaderTest {
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
 
     @Test
-    public void testRead() throws Exception {
+    public void testRead() {
         File input = new File(DMNReaderTest.class.getClassLoader().getResource("dmn/input/test-dmn.dmn").getFile());
 
         TDMNElement root = dmnReader.read(input);

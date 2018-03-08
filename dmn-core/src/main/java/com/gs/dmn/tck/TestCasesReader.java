@@ -41,7 +41,7 @@ public class TestCasesReader {
         this.logger = logger;
     }
 
-    public TestCases read(File file) throws Exception {
+    public TestCases read(File file) {
         try {
             return read(file.toURI().toURL());
         } catch (Exception e) {

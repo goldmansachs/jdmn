@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 
 public class PairComparatorTest {
     @Test
-    public void testSort() throws Exception {
+    public void testSort() {
         List<Pair<String, Integer>> resultList = new ArrayList<>();
         resultList.add(new Pair<>("1", null));
         resultList.add(new Pair<>("2", null));

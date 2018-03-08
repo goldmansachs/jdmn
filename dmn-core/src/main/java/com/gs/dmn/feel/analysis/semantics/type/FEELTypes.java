@@ -34,11 +34,9 @@ public class FEELTypes {
         put(DurationType.YEAR_MONTH_DURATION.getName(), DurationType.YEARS_AND_MONTHS_DURATION);
     }};
 
-    public static final List<String> FEEL_TYPE_NAMES = Arrays.asList(new String[]{
-            NumberType.NUMBER.getName(), BooleanType.BOOLEAN.getName(), StringType.STRING.getName(),
+    public static final List<String> FEEL_TYPE_NAMES = Arrays.asList(NumberType.NUMBER.getName(), BooleanType.BOOLEAN.getName(), StringType.STRING.getName(),
             DateType.DATE.getName(), TimeType.TIME.getName(), DateTimeType.DATE_TIME_CAMEL.getName(), DateTimeType.DATE_TIME.getName(), DateTimeType.DATE_AND_TIME.getName(),
-            DurationType.DAYS_AND_TIME_DURATION.getName(), DurationType.YEARS_AND_MONTHS_DURATION.getName(), EnumerationType.ENUMERATION.getName()
-    });
+            DurationType.DAYS_AND_TIME_DURATION.getName(), DurationType.YEARS_AND_MONTHS_DURATION.getName(), EnumerationType.ENUMERATION.getName());
 
     public static final List<Type> FEEL_PRIMITIVE_TYPES = Arrays.asList(new Type[]{
             NumberType.NUMBER,
@@ -52,14 +50,12 @@ public class FEELTypes {
             DurationType.YEARS_AND_MONTHS_DURATION
     });
 
-    public static final List<String> FEEL_LITERAL_DATE_TIME_NAMES = Arrays.asList(new String[]{
-            NumberType.NUMBER.getConversionFunction(),
+    public static final List<String> FEEL_LITERAL_DATE_TIME_NAMES = Arrays.asList(NumberType.NUMBER.getConversionFunction(),
             DateType.DATE.getConversionFunction(),
             TimeType.TIME.getConversionFunction(),
             DateTimeType.DATE_AND_TIME.getConversionFunction(),
             DurationType.DAYS_AND_TIME_DURATION.getConversionFunction(),
-            DurationType.YEARS_AND_MONTHS_DURATION.getConversionFunction()
-    });
+            DurationType.YEARS_AND_MONTHS_DURATION.getConversionFunction());
 
     public static final Map<Type, String> FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION = new HashMap<Type, String>() {{
         put(NumberType.NUMBER, "number");

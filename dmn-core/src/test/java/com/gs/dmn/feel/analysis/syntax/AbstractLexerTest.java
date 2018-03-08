@@ -37,7 +37,7 @@ public abstract class AbstractLexerTest {
     }
 
     public int getBeginOffset(Token token) {
-        return ((CommonToken)token).getStartIndex();
+        return token.getStartIndex();
     }
 
     private int getEndLine(Token token) {
@@ -55,7 +55,7 @@ public abstract class AbstractLexerTest {
     }
 
     private int getEndOffset(Token token) {
-        return ((CommonToken)token).getStopIndex() + 1;
+        return token.getStopIndex() + 1;
     }
 
     private int countLines(String text) {

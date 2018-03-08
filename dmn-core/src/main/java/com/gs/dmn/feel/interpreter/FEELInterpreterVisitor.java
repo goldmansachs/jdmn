@@ -162,14 +162,14 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
                 if (method == null) {
                     throw new DMNRuntimeException(String.format("Cannot find method '%s' for arguments '%s' and '%s'", methodName, self, endpointValue));
                 }
-                return method.invoke(lib, new Object[]{self, endpointValue});
+                return method.invoke(lib, self, endpointValue);
             } else {
                 Class[] argumentTypes = {getClass(endpointValue), getClass(null)};
                 Method method = MethodUtils.resolveMethod(methodName, lib.getClass(), argumentTypes);
                 if (method == null) {
                     throw new DMNRuntimeException(String.format("Cannot find method '%s' for arguments '%s' and '%s'", methodName, self, endpointValue));
                 }
-                return method.invoke(lib, new Object[]{endpointValue, self});
+                return method.invoke(lib, endpointValue, self);
             }
         }
     }
@@ -186,10 +186,10 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
                 if (javaOperator.getNotation() == JavaOperator.Notation.FUNCTIONAL) {
                     if (javaOperator.getAssociativity() == JavaOperator.Associativity.LEFT_RIGHT) {
                         Method method = MethodUtils.resolveMethod(javaOperator.getName(), lib.getClass(), new Class[]{getClass(leftValue), getClass(rightValue)});
-                        return method.invoke(lib, new Object[]{leftValue, rightValue});
+                        return method.invoke(lib, leftValue, rightValue);
                     } else {
                         Method method = MethodUtils.resolveMethod(javaOperator.getName(), lib.getClass(), new Class[]{getClass(rightValue), getClass(leftValue)});
-                        return method.invoke(lib, new Object[]{rightValue, leftValue});
+                        return method.invoke(lib, rightValue, leftValue);
                     }
                 } else {
                     // Infix
@@ -699,7 +699,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
                 } else {
                     String getterName = dmnTransformer.getterName(member);
                     Method method = MethodUtils.resolveMethod(getterName, source.getClass(), new Class[]{});
-                    return method.invoke(source, new Object[]{});
+                    return method.invoke(source);
                 }
             } else if (sourceType instanceof ContextType) {
                 List<String> aliases = ((ContextType) sourceType).getAliases(member);
@@ -722,7 +722,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         }
     }
 
-    private Object evaluateDateTimeMember(Object source, String member) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    private Object evaluateDateTimeMember(Object source, String member) {
         if ("year".equals(member)) {
             return lib.year(lib.toDate(source));
         } else if ("month".equals(member)) {

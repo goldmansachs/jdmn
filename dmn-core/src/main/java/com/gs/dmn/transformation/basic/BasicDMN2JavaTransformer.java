@@ -688,7 +688,7 @@ public class BasicDMN2JavaTransformer {
         if (element instanceof TInputData) {
             parameterJavaType = inputDataType((TInputData) element);
         } else if (element instanceof TDecision) {
-            parameterJavaType = drgElementOutputType((TDecision) element);
+            parameterJavaType = drgElementOutputType(element);
         } else if (element instanceof TInformationItem) {
             parameterJavaType = parameterType((TInformationItem) element);
         } else {

@@ -81,7 +81,7 @@ public class TypeEquivalenceTest {
     }};
 
     @Test
-    public void testDataTypes() throws Exception {
+    public void testDataTypes() {
         // data types
         for (Pair<Type, Type> p : dataTypeTable.keySet()) {
             Type left = p.getLeft();

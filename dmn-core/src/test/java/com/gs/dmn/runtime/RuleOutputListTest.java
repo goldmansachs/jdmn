@@ -40,7 +40,7 @@ public class RuleOutputListTest {
     private final HitPolicy OUTPUT_ORDER = HitPolicy.fromValue(THitPolicy.OUTPUT_ORDER.value());
 
     @Test
-    public void testApplyUnique() throws Exception {
+    public void testApplyUnique() {
         assertEquals(STRING_1, makeRuleResultList(STRING_1).applySingle(UNIQUE));
         assertEquals(null, makeRuleResultList(STRING_1, STRING_1).applySingle(UNIQUE));
         assertEquals(null, makeRuleResultList(STRING_LIST_1, STRING_LIST_1).applySingle(UNIQUE));
@@ -49,7 +49,7 @@ public class RuleOutputListTest {
     }
 
     @Test
-    public void testApplyFirst() throws Exception {
+    public void testApplyFirst() {
         assertEquals(STRING_1, makeRuleResultList(STRING_1, STRING_1).applySingle(FIRST));
         assertEquals(STRING_2, makeRuleResultList(STRING_2, STRING_1).applySingle(FIRST));
         assertEquals(STRING_LIST_2, makeRuleResultList(STRING_LIST_2, STRING_LIST_1).applySingle(FIRST));
@@ -58,31 +58,31 @@ public class RuleOutputListTest {
     }
 
     @Test
-    public void testApplyPriority() throws Exception {
+    public void testApplyPriority() {
         assertEquals(STRING_1.getOutput(),  ((DefaultSimpleOutput)makeRuleResultList(STRING_2, STRING_1).applySingle(PRIORITY)).getOutput());
 
         assertEquals(null, makeRuleResultList().applySingle(PRIORITY));
     }
 
     @Test
-    public void testApplyAny() throws Exception {
+    public void testApplyAny() {
         assertEquals(STRING_1, makeRuleResultList(STRING_1, STRING_1).applySingle(ANY));
 
         assertEquals(null, makeRuleResultList().applySingle(ANY));
     }
 
     @Test
-    public void testApplyCollect() throws Exception {
+    public void testApplyCollect() {
         assertEquals("[value1, value2]", makeRuleResultList(STRING_1, STRING_2).applyMultiple(COLLECT).toString());
     }
 
     @Test
-    public void testApplyRuleOrder() throws Exception {
+    public void testApplyRuleOrder() {
         assertEquals("[value1, value2]", makeRuleResultList(STRING_1, STRING_2).applyMultiple(RULE_ORDER).toString());
     }
 
     @Test
-    public void testApplyOutputOrder() throws Exception {
+    public void testApplyOutputOrder() {
         assertEquals("[value1, value2]", makeRuleResultList(STRING_1, STRING_2).applyMultiple(OUTPUT_ORDER).toString());
     }
 

@@ -79,7 +79,7 @@ public class DMNModelRepositoryTest {
         assertEquals(expectedResult, dmnModelRepository.isSparseDecisionTable((TDecisionTable) expression, sparsityThreshold));
     }
 
-    private TDMNElement readDMN(String pathName) throws Exception {
+    private TDMNElement readDMN(String pathName) {
         File input = new File(DMNModelRepositoryTest.class.getClassLoader().getResource(pathName).getFile());
         return dmnReader.read(input);
     }

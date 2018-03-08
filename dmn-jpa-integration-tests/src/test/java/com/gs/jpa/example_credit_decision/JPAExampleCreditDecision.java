@@ -29,7 +29,7 @@ public class JPAExampleCreditDecision extends com.gs.dmn.runtime.MixedJavaTimeDM
     protected static EntityManager em;
 
     @BeforeClass
-    public static void init() throws FileNotFoundException, SQLException {
+    public static void init() {
         emf = Persistence.createEntityManagerFactory("mnf-pu-test");
         em = emf.createEntityManager();
     }

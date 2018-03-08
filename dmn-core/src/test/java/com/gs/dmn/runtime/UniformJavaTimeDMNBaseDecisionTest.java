@@ -22,13 +22,13 @@ public class UniformJavaTimeDMNBaseDecisionTest {
     private final UniformJavaTimeDMNBaseDecision baseDecision = new UniformJavaTimeDMNBaseDecision();
 
     @Test
-    public void testGetDRGElementAnnotation() throws Exception {
+    public void testGetDRGElementAnnotation() {
         DRGElement drgElementAnnotation = baseDecision.getDRGElementAnnotation();
         assertNull(drgElementAnnotation);
     }
 
     @Test
-    public void testGetRuleAnnotation() throws Exception {
+    public void testGetRuleAnnotation() {
         Rule ruleAnnotation = baseDecision.getRuleAnnotation(0);
         assertNull(ruleAnnotation);
     }

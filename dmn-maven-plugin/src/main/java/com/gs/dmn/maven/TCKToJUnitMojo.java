@@ -51,7 +51,7 @@ public class TCKToJUnitMojo extends AbstractDMNMojo {
     public File outputFileDirectory;
 
     @Override
-    public void execute() throws MojoExecutionException, MojoFailureException {
+    public void execute() throws MojoExecutionException {
         checkMandatoryField(inputTestFileDirectory, "inputTestFileDirectory");
         checkMandatoryField(inputModelFileDirectory, "inputModelFileDirectory");
         checkMandatoryField(outputFileDirectory, "outputFileDirectory");

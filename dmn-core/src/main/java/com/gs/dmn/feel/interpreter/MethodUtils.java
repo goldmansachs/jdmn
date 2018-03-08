@@ -15,7 +15,7 @@ package com.gs.dmn.feel.interpreter;
 import java.lang.reflect.Method;
 
 class MethodUtils {
-    public static Method resolveMethod(String methodName, Class cls, Class[] argumentTypes) throws NoSuchMethodException {
+    public static Method resolveMethod(String methodName, Class cls, Class[] argumentTypes) {
         // try the exact match
         try {
             final Method method = cls.getMethod(methodName, argumentTypes);

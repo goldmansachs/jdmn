@@ -37,13 +37,13 @@ public class UniformJavaTimeDMNDialectDefinitionTest {
     private static final TDefinitions definitions = new TDefinitions();
 
     @Test
-    public void testCreateDMNInterpreter() throws Exception {
+    public void testCreateDMNInterpreter() {
         DMNInterpreter dmnInterpreter = dialect.createDMNInterpreter(definitions);
         assertEquals(DMNInterpreter.class.getName(), dmnInterpreter.getClass().getName());
     }
 
     @Test
-    public void testCreateDMNToJavaTransformer() throws Exception {
+    public void testCreateDMNToJavaTransformer() {
         Map<String, String> inputParameters = new LinkedHashMap<>();
         inputParameters.put("dmnVersion", "1.1");
         inputParameters.put("modelVersion", "1.2");
@@ -53,31 +53,31 @@ public class UniformJavaTimeDMNDialectDefinitionTest {
     }
 
     @Test
-    public void testCreateBasicTransformer() throws Exception {
+    public void testCreateBasicTransformer() {
         BasicDMN2JavaTransformer basicTransformer = dialect.createBasicTransformer(definitions, new LinkedHashMap<>());
         assertEquals(BasicDMN2JavaTransformer.class.getName(), basicTransformer.getClass().getName());
     }
 
     @Test
-    public void testCreateTypeTranslator() throws Exception {
+    public void testCreateTypeTranslator() {
         FEELTypeTranslator typeTranslator = dialect.createTypeTranslator();
         assertEquals(UniformJavaTimeFEELTypeTranslator.class.getName(), typeTranslator.getClass().getName());
     }
 
     @Test
-    public void testCreateFEELLib() throws Exception {
+    public void testCreateFEELLib() {
         FEELLib feelLib = dialect.createFEELLib();
         assertEquals(UniformJavaTimeFEELLib.class.getName(), feelLib.getClass().getName());
     }
 
     @Test
-    public void testGetDecisionBaseClass() throws Exception {
+    public void testGetDecisionBaseClass() {
         String decisionBaseClass = dialect.getDecisionBaseClass();
         assertEquals(UniformJavaTimeDMNBaseDecision.class.getName(), decisionBaseClass);
     }
 
     @Test
-    public void testCreateValidator() throws Exception {
+    public void testCreateValidator() {
         DMNValidator validator = dialect.createValidator(true);
         assertEquals(StandardDMNValidator.class.getName(), validator.getClass().getName());
     }

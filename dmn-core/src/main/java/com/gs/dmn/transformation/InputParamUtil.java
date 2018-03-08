@@ -35,6 +35,6 @@ public class InputParamUtil {
 
     public static boolean getOptionalBooleanParam(Map<String, String> parameters, String paramKey) {
         String param = InputParamUtil.getOptionalParam(parameters, paramKey);
-        return param == null ? false : Boolean.parseBoolean(param);
+        return param != null && Boolean.parseBoolean(param);
     }
 }

@@ -25,7 +25,7 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
     //
 
     @Test
-    public void testNumber() throws Exception {
+    public void testNumber() {
         assertNull(getLib().number(null));
 
         assertEquals("123.56", getLib().number("123.56").toString());
@@ -34,7 +34,7 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
     }
 
     @Test
-    public void testFloor() throws Exception {
+    public void testFloor() {
         assertNull(getLib().floor(null));
 
         assertEqualsNumber(makeNumber("1"), getLib().floor(makeNumber(1)));
@@ -45,7 +45,7 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
     }
 
     @Test
-    public void testCeiling() throws Exception {
+    public void testCeiling() {
         assertNull(getLib().ceiling(null));
 
         assertEqualsNumber(makeNumber("1"), getLib().ceiling(makeNumber(1)));
@@ -59,7 +59,7 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
     // String functions
     //
     @Test
-    public void testContains() throws Exception {
+    public void testContains() {
         assertNull(getLib().contains(null, null));
         assertNull(getLib().contains(null, "bcg"));
         assertNull(getLib().contains("bcg", null));
@@ -73,7 +73,7 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
     }
 
     @Test
-    public void testStartsWith() throws Exception {
+    public void testStartsWith() {
         assertNull(getLib().startsWith(null, null));
         assertNull(getLib().startsWith(null, "bcg"));
         assertNull(getLib().startsWith("bcg", null));
@@ -85,7 +85,7 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
     }
 
     @Test
-    public void testEndsWith() throws Exception {
+    public void testEndsWith() {
         assertNull(getLib().endsWith(null, null));
         assertNull(getLib().endsWith(null, "bcg"));
         assertNull(getLib().endsWith("bcg", null));
@@ -101,7 +101,7 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
     //
 
     @Test
-    public void testAppend() throws Exception {
+    public void testAppend() {
         assertEquals("[null]", getLib().append(null, null).toString());
         assertEquals(Arrays.asList("3"), getLib().append(null, "3"));
         assertEquals(makeNumberList("1", null, "3", null, "3"), getLib().append(makeNumberList(1, null, 3), null, makeNumber(3)));
@@ -111,7 +111,7 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
     }
 
     @Test
-    public void testCount() throws Exception {
+    public void testCount() {
         assertEqualsNumber(makeNumber("0"), getLib().count(null));
 
         assertEqualsNumber(makeNumber("3"), getLib().count(makeNumberList(1, 2, 3)));

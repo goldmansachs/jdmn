@@ -52,6 +52,6 @@ public class HandwrittenMonthlyPaymentTest extends AbstractHandwrittenDecisionTe
     @Override
     protected void applyDecision() {
         AnnotationSet annotationSet = new AnnotationSet();
-        decision.apply((String)null, (String)null, annotationSet);
+        decision.apply((String)null, null, annotationSet);
     }
 }

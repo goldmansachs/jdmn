@@ -27,7 +27,7 @@ public class TypeDeserializerTest {
     private TypeDeserializer resolver = new TypeDeserializer();
 
     @Test
-    public void testResolve() throws Exception {
+    public void testResolve() {
         // Data type
         assertEquals(NUMBER, resolver.deserialize(NUMBER.toString()));
         assertEquals(STRING, resolver.deserialize(STRING.toString()));

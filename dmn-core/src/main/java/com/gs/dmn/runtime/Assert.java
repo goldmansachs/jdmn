@@ -63,9 +63,9 @@ public class Assert {
                 List<Method> expectedGetters = getters(expected.getClass());
                 for (Method expectedGetter : expectedGetters) {
                     try {
-                        Object expectedProperty = expectedGetter.invoke(expected, new Object[]{});
-                        Method actualGetter = actual.getClass().getDeclaredMethod(expectedGetter.getName(), new Class[]{});
-                        Object actualProperty = actualGetter.invoke(actual, new Object[]{});
+                        Object expectedProperty = expectedGetter.invoke(expected);
+                        Method actualGetter = actual.getClass().getDeclaredMethod(expectedGetter.getName());
+                        Object actualProperty = actualGetter.invoke(actual);
                         assertEquals(message, expectedProperty, actualProperty);
                     } catch (Exception e) {
                         throw new DMNRuntimeException(String.format("Error in '%s.%s()' ", expected.getClass().getSimpleName(), expectedGetter.getName()), e);
