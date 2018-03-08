@@ -24,7 +24,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     // Conversion functions
     //
     @Test
-    public void testNumberWithSeparators() throws Exception {
+    public void testNumberWithSeparators() {
         assertNull(getLib().number(null, null, null));
         assertNull(getLib().number(null, ".", ","));
         assertNull(getLib().number("123", null, ","));
@@ -61,7 +61,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     // Boolean built-in functions for Booleans
     //
     @Test
-    public void testNot() throws Exception {
+    public void testNot() {
         assertTrue(getLib().not(Boolean.FALSE));
         assertFalse(getLib().not(Boolean.TRUE));
         assertNull(getLib().not(null));
@@ -71,41 +71,41 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     // String built-in functions for Strings
     //
     @Test
-    public void testSubstring() throws Exception {
+    public void testSubstring() {
         assertEquals("obar", getLib().substring("foobar", makeNumber("3")));
         assertEquals("oba", getLib().substring("foobar", makeNumber("3"), makeNumber("3")));
         assertEquals("a", getLib().substring("foobar", makeNumber("-2"), makeNumber("1")));
     }
 
     @Test
-    public void testStringLength() throws Exception {
+    public void testStringLength() {
         assertEqualsNumber(makeNumber(3), getLib().stringLength("foo"));
     }
 
     @Test
-    public void testUpperCase() throws Exception {
+    public void testUpperCase() {
         assertEquals("ABC4", getLib().upperCase("aBc4"));
         assertEquals("abc4", getLib().lowerCase("aBc4"));
     }
 
     @Test
-    public void testLowerCase() throws Exception {
+    public void testLowerCase() {
         assertEquals("abc4", getLib().lowerCase("aBc4"));
     }
 
     @Test
-    public void testSubstringBefore() throws Exception {
+    public void testSubstringBefore() {
         assertEquals("foo", getLib().substringBefore("foobar", "bar"));
         assertEquals("", getLib().substringBefore("foobar", "xyz"));
     }
 
     @Test
-    public void testSubstringAfter() throws Exception {
+    public void testSubstringAfter() {
         assertEquals("ar", getLib().substringAfter("foobar", "ob"));
     }
 
     @Test
-    public void testReplace() throws Exception {
+    public void testReplace() {
         assertNull(getLib().replace("", "", ""));
         assertNull(getLib().replace("", "", null));
 
@@ -130,7 +130,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Test
-    public void testMatches() throws Exception {
+    public void testMatches() {
         assertTrue(getLib().matches("", "", ""));
         assertTrue(getLib().matches("", "", null));
 
@@ -157,7 +157,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     // String built-in functions for Lists
     //
     @Test
-    public void testListContains() throws Exception {
+    public void testListContains() {
         assertEquals(true, getLib().listContains(makeNumberList(1, 2, 3), makeNumber(2)));
     }
 
@@ -189,7 +189,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Test
-    public void testMean() throws Exception {
+    public void testMean() {
         assertNull(getLib().mean((List) null));
 
         assertEqualsNumber(2.0, getLib().mean(makeNumberList(1, 2, 3)), 0.001);
@@ -198,7 +198,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Test
-    public void testAnd() throws Exception {
+    public void testAnd() {
         assertNull(getLib().and((List) null));
         assertTrue(getLib().and(Arrays.asList(true, true)));
         assertFalse(getLib().and(Arrays.asList(true, true, false)));
@@ -210,7 +210,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Test
-    public void testOr() throws Exception {
+    public void testOr() {
         assertNull(getLib().or((List) null));
         assertTrue(getLib().or(Arrays.asList(true, true)));
         assertFalse(getLib().or(Arrays.asList(false, false, false)));
@@ -222,49 +222,49 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Test
-    public void testSublist() throws Exception {
+    public void testSublist() {
         assertEquals(makeNumberList("1", "2", "3"), getLib().sublist(makeNumberList(1, 2, 3), makeNumber("1")));
         assertEquals(makeNumberList("1", "2"), getLib().sublist(makeNumberList(1, 2, 3), makeNumber("1"), makeNumber("2")));
         assertEquals(makeNumberList("2"), getLib().sublist(makeNumberList(1, 2, 3), makeNumber("2"), makeNumber("1")));
     }
 
     @Test
-    public void testConcatenate() throws Exception {
+    public void testConcatenate() {
         assertEquals(makeNumberList("1", "2", "3", "4", "5", "6"), getLib().concatenate(makeNumberList(1, 2, 3), makeNumberList(4, 5, 6)));
     }
 
     @Test
-    public void testInsertBefore() throws Exception {
+    public void testInsertBefore() {
         assertEquals(makeNumberList("2", "1", "3"), getLib().insertBefore(makeNumberList(1, 3), makeNumber("1"), makeNumber("2")));
     }
 
     @Test
-    public void testRemove() throws Exception {
+    public void testRemove() {
         assertEquals(makeNumberList("1", "3"), getLib().remove(makeNumberList(1, 2, 3), makeNumber("2")));
     }
 
     @Test
-    public void testReverse() throws Exception {
+    public void testReverse() {
         assertEquals(makeNumberList("3", "2", "1"), getLib().reverse(makeNumberList(1, 2, 3)));
     }
 
     @Test
-    public void testIndexOf() throws Exception {
+    public void testIndexOf() {
         assertEquals(makeNumberList("2", "4"), getLib().indexOf(Arrays.asList("1", "2", "3", "2"), "2"));
     }
 
     @Test
-    public void testUnion() throws Exception {
+    public void testUnion() {
         assertEquals(makeNumberList("1", "2", "3"), getLib().union(makeNumberList(1, 2), makeNumberList(2, 3)));
     }
 
     @Test
-    public void testDistinctValues() throws Exception {
+    public void testDistinctValues() {
         assertEquals(makeNumberList("1", "2", "3"), getLib().distinctValues(makeNumberList(1, 2, 3, 2, 1)));
     }
 
     @Test
-    public void testFlatten() throws Exception {
+    public void testFlatten() {
         assertEquals("[1, 2, 3, 4]", getLib().flatten(Arrays.asList(
                 Arrays.asList(Arrays.asList("1", "2")),
                 Arrays.asList(Arrays.asList("3")),
@@ -273,7 +273,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Test
-    public void testRangeToList() throws Exception {
+    public void testRangeToList() {
         assertEquals(makeNumberList("2"), getLib().rangeToList(true, makeNumber("1"), true, makeNumber("3")));
         assertEquals(makeNumberList("1", "2"), getLib().rangeToList(false, makeNumber("1"), true, makeNumber("3")));
         assertEquals(makeNumberList("2", "3"), getLib().rangeToList(true, makeNumber("1"), false, makeNumber("3")));
@@ -285,7 +285,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Test
-    public void testFlattenFirstLevel() throws Exception {
+    public void testFlattenFirstLevel() {
         assertEquals("[]", getLib().flattenFirstLevel(Arrays.asList()).toString());
         assertEquals("[l11, l12, l13]", getLib().flattenFirstLevel(Arrays.asList("l11", "l12", "l13")).toString());
         assertEquals("[l11, l21, l22, l13]", getLib().flattenFirstLevel(Arrays.asList("l11", Arrays.asList("l21", "l22"), "l13")).toString());
@@ -296,7 +296,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Test
-    public void testElementAt() throws Exception {
+    public void testElementAt() {
         assertEquals("1", getLib().elementAt(Arrays.asList("1", "2", "3"), makeNumber("1")));
         assertEquals("2", getLib().elementAt(Arrays.asList("1", "2", "3"), makeNumber("2")));
         assertEquals("3", getLib().elementAt(Arrays.asList("1", "2", "3"), makeNumber("3")));
@@ -315,7 +315,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     // String built-in functions for Number
     //
     @Test
-    public void testDecimal() throws Exception {
+    public void testDecimal() {
         assertNull(getLib().decimal(null, null));
         assertNull(getLib().decimal(null, makeNumber("128")));
         assertNull(getLib().decimal(makeNumber("10"), null));

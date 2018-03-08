@@ -132,7 +132,6 @@ public abstract class DMNValidator {
         List<TInformationRequirement> informationRequirement = decision.getInformationRequirement();
         List<TNamedElement> references = informationRequirement.stream()
                 .map(ir -> ir.getRequiredDecision() != null ? dmnModelRepository.findDecisionById(ir.getRequiredDecision().getHref()) : dmnModelRepository.findInputDataById(ir.getRequiredInput().getHref())).collect(Collectors.toList());
-        ;
         validateUnique("DRGElement", "name", false,
                 references, TNamedElement::getName, decision.getName());
 

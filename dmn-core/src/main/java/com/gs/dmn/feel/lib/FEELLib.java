@@ -197,7 +197,7 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     //
     <T> List<T> asList(T ...objects);
 
-    public<T> T asElement(List<T> list);
+    <T> T asElement(List<T> list);
 
     List<NUMBER> rangeToList(boolean isOpenStart, NUMBER start, boolean isOpenEnd, NUMBER end);
 

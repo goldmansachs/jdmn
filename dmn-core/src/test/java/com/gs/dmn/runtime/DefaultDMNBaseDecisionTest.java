@@ -22,13 +22,13 @@ public class DefaultDMNBaseDecisionTest {
     private final DefaultDMNBaseDecision baseDecision = new DefaultDMNBaseDecision();
 
     @Test
-    public void testGetDRGElementAnnotation() throws Exception {
+    public void testGetDRGElementAnnotation() {
         DRGElement drgElementAnnotation = baseDecision.getDRGElementAnnotation();
         assertNull(drgElementAnnotation);
     }
 
     @Test
-    public void testGetRuleAnnotation() throws Exception {
+    public void testGetRuleAnnotation() {
         Rule ruleAnnotation = baseDecision.getRuleAnnotation(0);
         assertNull(ruleAnnotation);
     }

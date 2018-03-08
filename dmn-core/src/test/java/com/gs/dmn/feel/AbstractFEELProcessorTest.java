@@ -255,7 +255,7 @@ public abstract class AbstractFEELProcessorTest {
     }
 
     @Test
-    public void testIntervalTest() throws Exception {
+    public void testIntervalTest() {
         Object input = lib.number("1");
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", NUMBER, input));
@@ -281,7 +281,7 @@ public abstract class AbstractFEELProcessorTest {
     }
 
     @Test(expected = SemanticError.class)
-    public void testEqualityWhenTypeMismatch() throws Exception {
+    public void testEqualityWhenTypeMismatch() {
         boolean input = true;
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", BOOLEAN, input));
@@ -290,7 +290,7 @@ public abstract class AbstractFEELProcessorTest {
     }
 
     @Test(expected = SemanticError.class)
-    public void testOperatorTestWhenTypeMismatch() throws Exception {
+    public void testOperatorTestWhenTypeMismatch() {
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", BOOLEAN, true));
 
@@ -580,7 +580,7 @@ public abstract class AbstractFEELProcessorTest {
     }
 
     @Test
-    public void testAddition() throws Exception {
+    public void testAddition() {
         String number = "1";
         String time = "time(\"12:00:00Z\")";
         String dateAndTime = "date and time(\"2016-08-01T11:00:00Z\")";
@@ -751,7 +751,7 @@ public abstract class AbstractFEELProcessorTest {
     }
 
     @Test
-    public void testMultiplication() throws Exception {
+    public void testMultiplication() {
         String number = "1";
         String yearsAndMonthsDuration = "duration(\"P1Y1M\")";
         String daysAndTimeDuration = "duration(\"P1DT1H\")";
@@ -835,7 +835,7 @@ public abstract class AbstractFEELProcessorTest {
     }
 
     @Test
-    public void testExponentiation() throws Exception {
+    public void testExponentiation() {
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", NUMBER, lib.number("1")));
 
@@ -848,7 +848,7 @@ public abstract class AbstractFEELProcessorTest {
     }
 
     @Test
-    public void testArithmeticNegation() throws Exception {
+    public void testArithmeticNegation() {
         String number = "1";
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", NUMBER, lib.number("1")));

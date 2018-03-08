@@ -31,7 +31,7 @@ import static org.junit.Assert.assertNotNull;
 
 public class JavaToolsCompilerTest extends AbstractCompilerTest {
     @Test
-    public void testMakeClassData() throws Exception {
+    public void testMakeClassData() {
         ClassData classData = makeClassData();
 
         assertEquals(JavaxToolsClassData.class.getName(), classData.getClass().getName());

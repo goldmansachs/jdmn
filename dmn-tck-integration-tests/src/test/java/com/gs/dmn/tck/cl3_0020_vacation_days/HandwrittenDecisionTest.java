@@ -36,7 +36,7 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
     private NameTransformer nameTransformer = new ToQuotedNameTransformer(new NopBuildLogger());
 
     @Test
-    public void applyCompiler() throws Exception {
+    public void applyCompiler() {
         AnnotationSet annotationSet = new AnnotationSet();
         assertEquals("27", decision.apply("16", "1", annotationSet).toPlainString());
         assertEquals("22", decision.apply("25", "5", annotationSet).toPlainString());

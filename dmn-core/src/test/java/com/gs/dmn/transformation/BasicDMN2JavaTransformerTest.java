@@ -46,7 +46,7 @@ public class BasicDMN2JavaTransformerTest {
     }
 
     @Test
-    public void testJavaFriendlyName() throws Exception {
+    public void testJavaFriendlyName() {
         assertEquals("ClientLevelRequirementRules", dmnTransformer.javaFriendlyName("Client-level Requirement Rules"));
         assertEquals("ClientLevelRequirementRulesType", dmnTransformer.javaFriendlyName("Client-level Requirement RulesType"));
         assertEquals("LinkedToList12ApprovedRegulator", dmnTransformer.javaFriendlyName("Linked to List 1,2 Approved Regulator"));
@@ -54,7 +54,7 @@ public class BasicDMN2JavaTransformerTest {
     }
 
     @Test
-    public void testJavaFriendlyVariableName() throws Exception {
+    public void testJavaFriendlyVariableName() {
         assertEquals("clientLevelRequirementRules", dmnTransformer.javaFriendlyVariableName("Client-level Requirement Rules"));
         assertEquals("clientLevelRequirementRulesType", dmnTransformer.javaFriendlyVariableName("Client-level Requirement RulesType"));
         assertEquals("linkedToList12ApprovedRegulator", dmnTransformer.javaFriendlyVariableName("Linked to List 1,2 Approved Regulator"));
@@ -63,7 +63,7 @@ public class BasicDMN2JavaTransformerTest {
     }
 
     @Test
-    public void testUpperCaseFirst() throws Exception {
+    public void testUpperCaseFirst() {
         assertEquals("ClientLevelRequirementRules", dmnTransformer.upperCaseFirst("Client-level Requirement Rules"));
         assertEquals("ClientLevelRequirementRulesType", dmnTransformer.upperCaseFirst("Client-level Requirement RulesType"));
         assertEquals("LinkedToList12ApprovedRegulator", dmnTransformer.upperCaseFirst("Linked to List 1,2 Approved Regulator"));
@@ -71,7 +71,7 @@ public class BasicDMN2JavaTransformerTest {
     }
 
     @Test
-    public void testLowerCaseFirst() throws Exception {
+    public void testLowerCaseFirst() {
         assertEquals("clientLevelRequirementRules", dmnTransformer.lowerCaseFirst("Client-level Requirement Rules"));
         assertEquals("clientLevelRequirementRulesType", dmnTransformer.lowerCaseFirst("Client-level Requirement RulesType"));
         assertEquals("linkedToList12ApprovedRegulator", dmnTransformer.lowerCaseFirst("Linked to List 1,2 Approved Regulator"));
@@ -116,7 +116,7 @@ public class BasicDMN2JavaTransformerTest {
         assertEquals("ab\\\\dc", dmnTransformer.escapeInString("ab\\dc"));
     }
 
-    private TDefinitions readDMN(String pathName) throws Exception {
+    private TDefinitions readDMN(String pathName) {
         File input = new File(BasicDMN2JavaTransformerTest.class.getClassLoader().getResource(pathName).getFile());
         return dmnReader.read(input);
     }

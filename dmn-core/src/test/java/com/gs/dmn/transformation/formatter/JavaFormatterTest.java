@@ -32,7 +32,7 @@ public abstract class JavaFormatterTest {
         String code = readResource("formatter/" + fileName);
         JavaFormatter formatter = getFormatter();
         String actualContent = formatter.formatSource(code).replace("    \r", "\r").replace("\r", "");
-        String expectedContent = readResource(getExpectedRelativePath() + fileName).replace("    \r", "\r").replace("\r", "");;
+        String expectedContent = readResource(getExpectedRelativePath() + fileName).replace("    \r", "\r").replace("\r", "");
         assertEquals("Error for " + fileName, expectedContent, actualContent);
     }
 

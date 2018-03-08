@@ -43,7 +43,7 @@ public class SchemaValidator {
         }
     }
 
-    private void validateSchema(File file) throws Exception {
+    private void validateSchema(File file) {
         try {
             JAXBContext jc = JAXBContext.newInstance(context);
             Unmarshaller u = jc.createUnmarshaller();

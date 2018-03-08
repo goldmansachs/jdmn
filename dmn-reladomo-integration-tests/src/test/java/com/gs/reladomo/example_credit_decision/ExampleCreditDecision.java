@@ -28,7 +28,7 @@ public class ExampleCreditDecision extends com.gs.dmn.runtime.MixedJavaTimeDMNBa
     }
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         this.mithraTestResource = new MithraTestResource(this.getMithraConfigXmlFilename());
 
         final ConnectionManagerForTests connectionManager = ConnectionManagerForTests.getInstanceForDbName("mithra_db");
@@ -41,7 +41,7 @@ public class ExampleCreditDecision extends com.gs.dmn.runtime.MixedJavaTimeDMNBa
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         this.mithraTestResource.tearDown();
     }
 

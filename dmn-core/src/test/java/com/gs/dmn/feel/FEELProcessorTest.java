@@ -417,23 +417,21 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "QuantifiedExpression(some, Iterator(i in ListLiteral(NumericLiteral(1),NumericLiteral(2))),Iterator(j in ListLiteral(NumericLiteral(2),NumericLiteral(3))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))",
                 "boolean",
                 "booleanOr((List)asList(number(\"1\"), number(\"2\")).stream().map(i -> asList(number(\"2\"), number(\"3\")).stream().map(j -> numericGreaterThan(numericAdd(i, j), number(\"1\")))).flatMap(x -> x).collect(Collectors.toList()))",
-                lib.booleanOr((List)
-                        Arrays.asList(lib.number("1"), lib.number("2")).stream().map(i ->
-                                Arrays.asList(lib.number("2"), lib.number("3")).stream().map(j ->
-                                        lib.numericGreaterThan(lib.numericAdd(i, j), lib.number("1"))))
-                                .flatMap(x -> x)
-                                .collect(Collectors.toList())),
+                lib.booleanOr(Arrays.asList(lib.number("1"), lib.number("2")).stream().map(i ->
+                        Arrays.asList(lib.number("2"), lib.number("3")).stream().map(j ->
+                                lib.numericGreaterThan(lib.numericAdd(i, j), lib.number("1"))))
+                        .flatMap(x -> x)
+                        .collect(Collectors.toList())),
                 true);
         doExpressionTest(entries, "", "every i in [1, 2] j in [2, 3] satisfies i + j > 1",
                 "QuantifiedExpression(every, Iterator(i in ListLiteral(NumericLiteral(1),NumericLiteral(2))),Iterator(j in ListLiteral(NumericLiteral(2),NumericLiteral(3))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))",
                 "boolean",
                 "booleanAnd((List)asList(number(\"1\"), number(\"2\")).stream().map(i -> asList(number(\"2\"), number(\"3\")).stream().map(j -> numericGreaterThan(numericAdd(i, j), number(\"1\")))).flatMap(x -> x).collect(Collectors.toList()))",
-                lib.booleanAnd((List)
-                        Arrays.asList(lib.number("1"), lib.number("2")).stream().map(i ->
-                                Arrays.asList(lib.number("2"), lib.number("3")).stream().map(j ->
-                                        lib.numericGreaterThan(lib.numericAdd(i, j), lib.number("1"))))
-                                .flatMap(x -> x)
-                                .collect(Collectors.toList())),
+                lib.booleanAnd(Arrays.asList(lib.number("1"), lib.number("2")).stream().map(i ->
+                        Arrays.asList(lib.number("2"), lib.number("3")).stream().map(j ->
+                                lib.numericGreaterThan(lib.numericAdd(i, j), lib.number("1"))))
+                        .flatMap(x -> x)
+                        .collect(Collectors.toList())),
                 true);
     }
 
@@ -1039,19 +1037,19 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20)))",
                 "ListType(ContextType(id = number, dept = number, name = string))",
                 "employee.stream().filter(item -> numericEqual(((java.math.BigDecimal)item.get(\"dept\")), number(\"20\"))).collect(Collectors.toList())",
-                employeeValue.stream().filter(item -> lib.numericEqual((BigDecimal) item.get("dept"), lib.number("20"))).collect(Collectors.toList()),
+                employeeValue.stream().filter(item -> lib.numericEqual(item.get("dept"), lib.number("20"))).collect(Collectors.toList()),
                 Arrays.asList(employeeValue.get(1), employeeValue.get(2)));
         doExpressionTest(entries, "", "employee[item.dept = 20].name",
                 "PathExpression(FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20))), name)",
                 "ListType(string)",
                 "employee.stream().filter(item -> numericEqual(((java.math.BigDecimal)item.get(\"dept\")), number(\"20\"))).collect(Collectors.toList()).stream().map(x -> ((String)x.get(\"name\"))).collect(Collectors.toList())",
-                employeeValue.stream().filter(item -> lib.numericEqual((java.math.BigDecimal) item.get("dept"), lib.number("20"))).collect(Collectors.toList()).stream().map(x -> x.get("name")).collect(Collectors.toList()),
+                employeeValue.stream().filter(item -> lib.numericEqual(item.get("dept"), lib.number("20"))).collect(Collectors.toList()).stream().map(x -> x.get("name")).collect(Collectors.toList()),
                 Arrays.asList(employeeValue.get(1).get("name"), employeeValue.get(2).get("name")));
         doExpressionTest(entries, "", "employee[dept = 20].name",
                 "PathExpression(FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20))), name)",
                 "ListType(string)",
                 "employee.stream().filter(item -> numericEqual(((java.math.BigDecimal)item.get(\"dept\")), number(\"20\"))).collect(Collectors.toList()).stream().map(x -> ((String)x.get(\"name\"))).collect(Collectors.toList())",
-                employeeValue.stream().filter(item -> lib.numericEqual((java.math.BigDecimal) item.get("dept"), lib.number("20"))).collect(Collectors.toList()).stream().map(x -> (String) x.get("name")).collect(Collectors.toList()),
+                employeeValue.stream().filter(item -> lib.numericEqual(item.get("dept"), lib.number("20"))).collect(Collectors.toList()).stream().map(x -> (String) x.get("name")).collect(Collectors.toList()),
                 Arrays.asList(employeeValue.get(1).get("name"), employeeValue.get(2).get("name")));
 
         // numeric filter
@@ -1085,7 +1083,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(1)),ContextEntry(ContextEntryKey(y) = NumericLiteral(2))),Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(2)),ContextEntry(ContextEntryKey(y) = NumericLiteral(3)))), Relational(=,PathExpression(Name(item), x),NumericLiteral(1)))",
                 "ListType(ContextType(x = number, y = number))",
                 "asList(new com.gs.dmn.runtime.Context().add(\"x\", number(\"1\")).add(\"y\", number(\"2\")), new com.gs.dmn.runtime.Context().add(\"x\", number(\"2\")).add(\"y\", number(\"3\"))).stream().filter(item -> numericEqual(((java.math.BigDecimal)item.get(\"x\")), number(\"1\"))).collect(Collectors.toList())",
-                Arrays.asList(new com.gs.dmn.runtime.Context().add("x", lib.number("1")).add("y", lib.number("2")), new com.gs.dmn.runtime.Context().add("x", lib.number("2")).add("y", lib.number("3"))).stream().filter(item -> lib.numericEqual((java.math.BigDecimal) item.get("x"), lib.number("1"))).collect(Collectors.toList()),
+                Arrays.asList(new com.gs.dmn.runtime.Context().add("x", lib.number("1")).add("y", lib.number("2")), new com.gs.dmn.runtime.Context().add("x", lib.number("2")).add("y", lib.number("3"))).stream().filter(item -> lib.numericEqual(item.get("x"), lib.number("1"))).collect(Collectors.toList()),
                 Arrays.asList(new com.gs.dmn.runtime.Context().add("x", lib.number("1")).add("y", lib.number("2"))));
     }
 
@@ -1124,7 +1122,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
 
     @Ignore
     @Test(expected = DMNRuntimeException.class)
-    public void testFunctionInvocationWhenMultipleMatch() throws Exception {
+    public void testFunctionInvocationWhenMultipleMatch() {
         List<EnvironmentEntry> entries = Arrays.asList();
 
         // Multiple matches for date(null)

@@ -33,7 +33,7 @@ public class JavaAssistCompilerTest extends AbstractCompilerTest {
     private final JavaCompiler compiler = new JavaAssistCompiler();
 
     @Test
-    public void testMakeClassData() throws Exception {
+    public void testMakeClassData() {
         ClassData classData = makeClassData();
 
         assertEquals(JavaAssistClassData.class.getName(), classData.getClass().getName());

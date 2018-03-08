@@ -48,7 +48,7 @@ public class DMNToJavaMojo extends AbstractDMNMojo {
     public File outputFileDirectory;
 
     @Override
-    public void execute() throws MojoExecutionException, MojoFailureException {
+    public void execute() throws MojoExecutionException {
         checkMandatoryField(project, "project");
         checkMandatoryField(inputFileDirectory, "inputFileDirectory");
         checkMandatoryField(outputFileDirectory, "outputFileDirectory");
