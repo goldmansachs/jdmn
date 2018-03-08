@@ -1046,7 +1046,7 @@ public class UniformJavaTimeFEELLib extends FEELOperators<BigDecimal, ZonedDateT
                 return 1;
             }
         };
-        Collections.sort(clone, comp);
+        clone.sort(comp);
         return clone;
     }
 

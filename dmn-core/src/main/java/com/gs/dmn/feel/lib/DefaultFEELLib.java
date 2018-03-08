@@ -1080,7 +1080,7 @@ public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalend
                 return 1;
             }
         };
-        Collections.sort(clone, comp);
+        clone.sort(comp);
         return clone;
     }
 

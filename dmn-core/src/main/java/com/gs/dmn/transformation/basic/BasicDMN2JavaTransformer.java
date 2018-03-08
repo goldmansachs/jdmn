@@ -49,10 +49,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.gs.dmn.serialization.DMNNamespacePrefixMapper.FEEL_NS;
@@ -307,10 +304,10 @@ public class BasicDMN2JavaTransformer {
     public List<String> drgElementArgumentNameList(TDRGElement element) {
         if (element instanceof TBusinessKnowledgeModel) {
             List<Pair<String, String>> parameters = bkmParameters((TBusinessKnowledgeModel) element);
-            return parameters.stream().map(p -> p.getLeft()).collect(Collectors.toList());
+            return parameters.stream().map(Pair::getLeft).collect(Collectors.toList());
         } else if (element instanceof TDecision) {
             List<Pair<String, Type>> parameters = inputDataParametersClosure((TDecision) element);
-            return parameters.stream().map(p -> p.getLeft()).collect(Collectors.toList());
+            return parameters.stream().map(Pair::getLeft).collect(Collectors.toList());
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
         }
@@ -349,13 +346,13 @@ public class BasicDMN2JavaTransformer {
 
     public String decisionConstructorSignature(TDecision decision) {
         List<TDecision> subDecisions = dmnModelRepository.directSubDecisions(decision);
-        subDecisions.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
+        subDecisions.sort(Comparator.comparing(TNamedElement::getName));
         return subDecisions.stream().map(d -> String.format("%s %s", qualifiedName(javaRootPackage, drgElementClassName(d)), drgElementVariableName(d))).collect(Collectors.joining(", "));
     }
 
     public String decisionConstructorNewArgumentList(TDecision decision) {
         List<TDecision> subDecisions = dmnModelRepository.directSubDecisions(decision);
-        subDecisions.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
+        subDecisions.sort(Comparator.comparing(TNamedElement::getName));
         return subDecisions
                 .stream()
                 .map(d -> String.format("%s", defaultConstructor(qualifiedName(javaRootPackage, drgElementClassName(d)))))
@@ -364,13 +361,13 @@ public class BasicDMN2JavaTransformer {
 
     public String decisionTopologicalConstructorSignature(TDecision decision) {
         List<TDecision> subDecisions = dmnModelRepository.topologicalSort(decision);
-        subDecisions.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
+        subDecisions.sort(Comparator.comparing(TNamedElement::getName));
         return subDecisions.stream().map(d -> String.format("%s %s", qualifiedName(javaRootPackage, drgElementClassName(d)), drgElementVariableName(d))).collect(Collectors.joining(", "));
     }
 
     public String decisionTopologicalConstructorNewArgumentList(TDecision decision) {
         List<TDecision> subDecisions = dmnModelRepository.topologicalSort(decision);
-        subDecisions.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
+        subDecisions.sort(Comparator.comparing(TNamedElement::getName));
         return subDecisions
                 .stream()
                 .map(d -> String.format("%s", defaultConstructor(qualifiedName(javaRootPackage, drgElementClassName(d)))))
@@ -537,7 +534,7 @@ public class BasicDMN2JavaTransformer {
     }
 
     public List<String> bkmFEELParameterNames(TBusinessKnowledgeModel bkm) {
-        return bkmFEELParameters(bkm).stream().map(p -> p.getName()).collect(Collectors.toList());
+        return bkmFEELParameters(bkm).stream().map(FormalParameter::getName).collect(Collectors.toList());
     }
 
     private List<Pair<String, String>> bkmParameters(TBusinessKnowledgeModel bkm) {

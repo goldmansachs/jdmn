@@ -365,7 +365,7 @@ public class DMNInterpreter {
         Environment relationEnvironment = basicDMNTransformer.makeRelationEnvironment(relation, environment);
 
         // Column names
-        List<String> columnNameList = relation.getColumn().stream().map(c -> c.getName()).collect(Collectors.toList());
+        List<String> columnNameList = relation.getColumn().stream().map(TNamedElement::getName).collect(Collectors.toList());
 
         // Scan relation and evaluate each row
         List<Object> relationValue = new ArrayList<>();

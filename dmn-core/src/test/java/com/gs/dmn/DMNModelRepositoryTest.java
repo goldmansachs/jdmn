@@ -56,7 +56,7 @@ public class DMNModelRepositoryTest {
 
         List<TDecision> decisions = dmnModelRepository.topologicalSort((TDecision)root);
 
-        List<String> actualNames = decisions.stream().map(d -> d.getName()).collect(Collectors.toList());
+        List<String> actualNames = decisions.stream().map(TNamedElement::getName).collect(Collectors.toList());
         List<String> expectedNames = Arrays.asList("ApplicationRiskScore", "Pre-bureauRiskCategory", "BureauCallType", "RequiredMonthlyInstallment", "Pre-bureauAffordability", "Eligibility");
         assertEquals(expectedNames, actualNames);
     }

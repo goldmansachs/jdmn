@@ -72,6 +72,6 @@ public class ApplicantJPA implements Applicant {
         if (creditIssueTypes == null) {
             return Arrays.asList();
         }
-        return creditIssueTypes.stream().map(pi -> pi.getName()).collect(Collectors.toList());
+        return creditIssueTypes.stream().map(CreditIssueTypeJPA::getName).collect(Collectors.toList());
     }
 }

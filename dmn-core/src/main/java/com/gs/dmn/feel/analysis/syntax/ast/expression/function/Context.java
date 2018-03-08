@@ -73,7 +73,7 @@ public class Context extends Expression {
 
     @Override
     public String toString() {
-        String expressions = entries.stream().map(e -> e.toString()).collect(Collectors.joining(","));
+        String expressions = entries.stream().map(ContextEntry::toString).collect(Collectors.joining(","));
         return String.format("Context(%s)", expressions);
     }
 }

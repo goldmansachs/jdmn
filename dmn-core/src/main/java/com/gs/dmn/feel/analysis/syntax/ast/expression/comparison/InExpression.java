@@ -63,7 +63,7 @@ public class InExpression extends Comparison {
 
     @Override
     public String toString() {
-        String right = tests.stream().map(t -> t.toString()).collect(Collectors.joining(", "));
+        String right = tests.stream().map(Object::toString).collect(Collectors.joining(", "));
         return String.format("InExpression(%s, %s)", value.toString(), right);
     }
 }

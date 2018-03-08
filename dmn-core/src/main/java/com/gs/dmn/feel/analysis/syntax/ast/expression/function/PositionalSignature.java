@@ -65,7 +65,7 @@ public class PositionalSignature extends Signature {
 
     @Override
     public String toString() {
-        String opd = types.stream().map(p -> p.toString()).collect(Collectors.joining(", "));
+        String opd = types.stream().map(Type::toString).collect(Collectors.joining(", "));
         return String.format("PositionalSignature(%s)", opd);
     }
 }

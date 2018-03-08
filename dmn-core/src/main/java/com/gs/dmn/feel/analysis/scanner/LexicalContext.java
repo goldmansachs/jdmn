@@ -46,7 +46,7 @@ public class LexicalContext {
 
     public List<String> orderedNames() {
         if (!ordered) {
-            Collections.sort(this.names, (o1, o2) -> o2.length() - o1.length());
+            this.names.sort((o1, o2) -> o2.length() - o1.length());
             this.ordered = true;
         }
         return this.names;

@@ -1080,7 +1080,7 @@ public class PureJavaTimeFEELLib extends FEELOperators<BigDecimal, LocalDate, Of
                 return 1;
             }
         };
-        Collections.sort(clone, comp);
+        clone.sort(comp);
         return clone;
     }
 

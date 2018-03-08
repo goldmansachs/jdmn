@@ -122,9 +122,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
         Environment parentEnvironment = context.getEnvironment();
         Environment bodyEnvironment = this.environmentFactory.makeEnvironment(parentEnvironment);
         element.getFormalParameters().forEach(
-                p -> {
-                    bodyEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(p.getName(), p.getType()));
-                }
+                p -> bodyEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(p.getName(), p.getType()))
         );
 
         // Analyze body

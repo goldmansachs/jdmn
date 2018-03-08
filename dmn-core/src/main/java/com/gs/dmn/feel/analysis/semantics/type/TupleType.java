@@ -51,7 +51,7 @@ public class TupleType extends Type {
         if (types == null || types.isEmpty()) {
             return false;
         }
-        return types.stream().allMatch(t -> t.isValid());
+        return types.stream().allMatch(Type::isValid);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class TupleType extends Type {
 
     @Override
     public String toString() {
-        String types = this.types.stream().map(t -> t.toString()).collect(Collectors.joining(", "));
+        String types = this.types.stream().map(Type::toString).collect(Collectors.joining(", "));
         return String.format("TupleType(%s)", types);
     }
 
