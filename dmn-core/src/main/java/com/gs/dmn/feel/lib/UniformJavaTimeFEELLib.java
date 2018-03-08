@@ -1039,7 +1039,7 @@ public class UniformJavaTimeFEELLib extends FEELOperators<BigDecimal, ZonedDateT
     }
 
     @Override
-    public <T extends Object> List<T> sort(List<T> list, LambdaExpression<Boolean> comparator) {
+    public <T> List<T> sort(List<T> list, LambdaExpression<Boolean> comparator) {
         List<T> clone = new ArrayList<>(list);
         Comparator<? super T> comp = new Comparator<T>() {
             @Override

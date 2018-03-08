@@ -190,7 +190,7 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
 
     void collect(List result, List list);
 
-    <T extends Object> List<T> sort(List<T> list, LambdaExpression<Boolean> comparator);
+    <T> List<T> sort(List<T> list, LambdaExpression<Boolean> comparator);
 
     //
     // Extra functions
