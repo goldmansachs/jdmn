@@ -31,7 +31,7 @@ public class SchemaValidator {
         this.context = context;
     }
 
-    public void validateFile(File file, String extension) throws Exception {
+    public void validateFile(File file, String extension) {
         if (file.isDirectory()) {
             for(File child: file.listFiles()) {
                 validateFile(child, extension);

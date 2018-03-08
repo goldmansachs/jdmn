@@ -36,7 +36,7 @@ public class DMNModelRepositoryTest {
     private DMNReader dmnReader = new DMNReader(LOGGER, false);
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         String pathName = "dmn/input/0004-lending.dmn";
         TDMNElement root = readDMN(pathName);
         dmnModelRepository = new DMNModelRepository((TDefinitions) root);
