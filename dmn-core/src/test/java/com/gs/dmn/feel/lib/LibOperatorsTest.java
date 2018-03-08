@@ -33,7 +33,7 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
     // Numeric operator functions
     //
     @Test
-    public void testNumber() throws Exception {
+    public void testNumber() {
         assertEquals("123.56", getLib().number("123.56").toString());
         assertEquals("-123.56", getLib().number("-123.56").toString());
         assertNull(getLib().number(null));

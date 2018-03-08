@@ -39,7 +39,7 @@ public class BasicDMN2JavaTransformerTest {
     private String href = "d_RequiredMonthlyInstallment";
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         String pathName = "dmn/input/0004-lending.dmn";
         TDefinitions definitions = readDMN(pathName);
         this.dmnTransformer = dialectDefinition.createBasicTransformer(definitions, new LinkedHashMap<>());

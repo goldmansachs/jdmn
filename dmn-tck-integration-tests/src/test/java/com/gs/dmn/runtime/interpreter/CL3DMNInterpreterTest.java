@@ -21,7 +21,7 @@ public abstract class CL3DMNInterpreterTest extends AbstractDMNInterpreterTest {
     }
 
     @Test
-    public void testCL3() throws Exception {
+    public void testCL3() {
         doTestDiagram("0001-filter");
         doTestDiagram("0002-string-functions");
         doTestDiagram("0003-iteration");

@@ -123,7 +123,7 @@ public class ToSimpleNameTransformer extends NameTransformer {
         return definitions;
     }
 
-    private static void transformTestCases(ToSimpleNameTransformer transformer, TDefinitions definitions, File inputFile, File outputFile, BuildLogger logger) throws Exception {
+    private static void transformTestCases(ToSimpleNameTransformer transformer, TDefinitions definitions, File inputFile, File outputFile, BuildLogger logger) {
         // Read
         TestCasesReader reader = new TestCasesReader(logger);
 

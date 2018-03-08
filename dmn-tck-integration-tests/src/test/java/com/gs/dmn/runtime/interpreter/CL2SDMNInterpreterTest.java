@@ -26,7 +26,7 @@ public abstract class CL2SDMNInterpreterTest extends AbstractDMNInterpreterTest 
     }
 
     @Test
-    public void testCL2() throws Exception {
+    public void testCL2() {
         doTestDiagram("0001-input-data-string");
         doTestDiagram("0002-input-data-number");
         doTestDiagram("0003-input-data-string-allowed-values");
