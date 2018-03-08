@@ -18,13 +18,18 @@ import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.LazyEvaluationOptimisation;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20151101.dmn.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class DMNModelRepository {
-    public static final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
+    private static final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DMNModelRepository.class);
 
     private final TDefinitions definitions;
 
@@ -47,9 +52,14 @@ public class DMNModelRepository {
     public LazyEvaluationOptimisation computeLazyEvaluationOptimisation(boolean lazyEvaluationFlag, double sparsityThreshold) {
         LazyEvaluationOptimisation lazyEvaluationOptimisation = new LazyEvaluationOptimisation();
         if (lazyEvaluationFlag) {
+
+            LOGGER.info("Scanning for sparse decisions ...");
+
             for(TDecision decision: decisions()) {
-                boolean lazyEvalFlag = isSparseDecisionTable(decision, sparsityThreshold);
-                if (lazyEvalFlag) {
+                if (isSparseDecisionTable(decision, sparsityThreshold)) {
+
+                    LOGGER.info(String.format("Found sparse decision '%s'", decision.getName()));
+
                     for(TInformationRequirement ir: decision.getInformationRequirement()) {
                         TDMNElementReference requiredDecision = ir.getRequiredDecision();
                         if (requiredDecision != null) {
@@ -62,6 +72,8 @@ public class DMNModelRepository {
                     }
                 }
             }
+
+            LOGGER.info(String.format("Decisions to be lazy evaluated: '%s'", lazyEvaluationOptimisation.getLazyEvaluatedDecisions().stream().collect(Collectors.joining(", "))));
         }
         return lazyEvaluationOptimisation;
     }
