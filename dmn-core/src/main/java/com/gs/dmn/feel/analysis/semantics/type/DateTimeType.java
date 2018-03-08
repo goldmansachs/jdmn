@@ -25,7 +25,7 @@ public class DateTimeType extends DataType {
     public static final DateTimeType DATE_TIME_CAMEL = new DateTimeType("dateTime");
     public static final DateTimeType DATE_TIME = new DateTimeType("datetime");
 
-    private static Map<String, Type> MEMBERS = new LinkedHashMap() {{
+    private static final Map<String, Type> MEMBERS = new LinkedHashMap() {{
         put("year", NUMBER);
         put("month", NUMBER);
         put("day", NUMBER);

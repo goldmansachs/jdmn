@@ -45,7 +45,7 @@ public class DMNInterpreter {
     protected static EventListener EVENT_LISTENER = new LoggingEventListener(LOGGER);
     protected final RuntimeEnvironmentFactory runtimeEnvironmentFactory = RuntimeEnvironmentFactory.instance();
     private final DMNModelRepository dmnModelRepository;
-    private EnvironmentFactory environmentFactory;
+    private final EnvironmentFactory environmentFactory;
 
     public static void setEventListener(EventListener eventListener) {
         EVENT_LISTENER = eventListener;

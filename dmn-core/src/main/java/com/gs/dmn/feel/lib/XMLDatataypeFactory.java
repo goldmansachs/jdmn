@@ -18,7 +18,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 
 public class XMLDatataypeFactory {
-    public static final DatatypeFactory newInstance() {
+    public static DatatypeFactory newInstance() {
         try {
             return DatatypeFactory.newInstance();
         } catch (DatatypeConfigurationException e) {

@@ -33,10 +33,10 @@ import static org.junit.Assert.assertNull;
 public class BasicDMN2JavaTransformerTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(BasicDMN2JavaTransformerTest.class));
 
-    private DMNDialectDefinition dialectDefinition = new StandardDMNDialectDefinition();
+    private final DMNDialectDefinition dialectDefinition = new StandardDMNDialectDefinition();
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
     private BasicDMN2JavaTransformer dmnTransformer;
-    private String href = "d_RequiredMonthlyInstallment";
+    private final String href = "d_RequiredMonthlyInstallment";
 
     @Before
     public void setUp() {

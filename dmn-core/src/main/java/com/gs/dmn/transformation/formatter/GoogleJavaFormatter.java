@@ -21,7 +21,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 public class GoogleJavaFormatter implements JavaFormatter {
-    private static Formatter FORMATTER;
+    private static final Formatter FORMATTER;
 
     static {
         try {

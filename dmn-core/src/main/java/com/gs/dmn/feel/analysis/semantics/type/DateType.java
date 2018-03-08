@@ -18,7 +18,7 @@ import java.util.Map;
 public class DateType extends DataType {
     public static final DateType DATE = new DateType();
 
-    private static Map<String, Type> MEMBERS = new LinkedHashMap() {{
+    private static final Map<String, Type> MEMBERS = new LinkedHashMap() {{
         put("year", NumberType.NUMBER);
         put("month", NumberType.NUMBER);
         put("day", NumberType.NUMBER);

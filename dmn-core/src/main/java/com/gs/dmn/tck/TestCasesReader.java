@@ -23,9 +23,9 @@ import java.io.File;
 import java.net.URL;
 
 public class TestCasesReader {
-    public static String TEST_FILE_EXTENSION = ".xml";
+    public static final String TEST_FILE_EXTENSION = ".xml";
 
-    private static JAXBContext JAXB_CONTEXT;
+    private static final JAXBContext JAXB_CONTEXT;
 
     static {
         try {

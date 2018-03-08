@@ -28,7 +28,7 @@ import static org.junit.Assert.assertTrue;
 public abstract class AbstractHandwrittenDecisionTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractHandwrittenDecisionTest.class));
 
-    private DMNReader dmnReader = new DMNReader(LOGGER, false);
+    private final DMNReader dmnReader = new DMNReader(LOGGER, false);
 
     protected String toJson(Object object) {
         try {

@@ -26,7 +26,7 @@ import java.util.List;
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 
 public class ListTest extends SimplePositiveUnaryTest {
-    private ListLiteral listLiteral;
+    private final ListLiteral listLiteral;
 
     public ListTest(ListLiteral listLiteral) {
         this.listLiteral = listLiteral;

@@ -39,12 +39,12 @@ public class DurationType extends DataType {
                 (this == YEARS_AND_MONTHS_DURATION || this == YEAR_MONTH_DURATION) && (other == YEARS_AND_MONTHS_DURATION || other == YEAR_MONTH_DURATION);
     }
 
-    private static Map<String, Type> YEARS_AND_MONTHS_DURATION_MEMBERS = new LinkedHashMap() {{
+    private static final Map<String, Type> YEARS_AND_MONTHS_DURATION_MEMBERS = new LinkedHashMap() {{
         put("years", NUMBER);
         put("months", NUMBER);
     }};
 
-    private static Map<String, Type> DAYS_AND_TIME_DURATION_MEMBERS = new LinkedHashMap() {{
+    private static final Map<String, Type> DAYS_AND_TIME_DURATION_MEMBERS = new LinkedHashMap() {{
         put("days", NUMBER);
         put("hours", NUMBER);
         put("minutes", NUMBER);

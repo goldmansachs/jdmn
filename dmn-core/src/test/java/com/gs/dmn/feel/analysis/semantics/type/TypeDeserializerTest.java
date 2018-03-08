@@ -24,7 +24,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static org.junit.Assert.assertEquals;
 
 public class TypeDeserializerTest {
-    private TypeDeserializer resolver = new TypeDeserializer();
+    private final TypeDeserializer resolver = new TypeDeserializer();
 
     @Test
     public void testResolve() {

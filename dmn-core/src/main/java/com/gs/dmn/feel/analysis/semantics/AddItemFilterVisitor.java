@@ -23,7 +23,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.PathExpression;
 
 public class AddItemFilterVisitor extends CloneVisitor {
-    private ASTFactory astFactory = new ASTFactory();
+    private final ASTFactory astFactory = new ASTFactory();
 
     private final String lambdaParameterName;
     private final Type lambdaParameterType;

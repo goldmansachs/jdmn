@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 public class NamedArguments extends Arguments {
-    private Map<String, Object> arguments;
+    private final Map<String, Object> arguments;
 
     public NamedArguments(Map<String, Object> arguments) {
         this.arguments = arguments;

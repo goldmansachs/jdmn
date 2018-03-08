@@ -21,7 +21,7 @@ import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 public abstract class DefaultXMLCalendarType extends BaseType {
-    protected DatatypeFactory datatypeFactory;
+    protected final DatatypeFactory datatypeFactory;
 
     public DefaultXMLCalendarType(Logger logger, DatatypeFactory datatypeFactory) {
         super(logger);

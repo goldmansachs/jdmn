@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 
 public class ItemDefinitionType extends NamedType implements CompositeDataType {
-    private Map<String, Type> members = new LinkedHashMap<>();
-    private Map<String, List<String>> aliases = new LinkedHashMap<>();
+    private final Map<String, Type> members = new LinkedHashMap<>();
+    private final Map<String, List<String>> aliases = new LinkedHashMap<>();
 
     public ItemDefinitionType(String name) {
         super(name);

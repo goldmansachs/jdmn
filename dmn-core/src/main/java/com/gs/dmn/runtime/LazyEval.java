@@ -23,7 +23,7 @@ import java.util.function.Supplier;
 public final class LazyEval<T> {
     private T value;
     private boolean isValueSet = false;
-    private Supplier<T> supplier;
+    private final Supplier<T> supplier;
 
     public LazyEval(Supplier<T> supplier) {
         this.supplier = supplier;

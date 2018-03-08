@@ -20,7 +20,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 
 public class FormalParameter extends Element {
-    protected String name;
+    protected final String name;
     private String typeName;
     protected Type type;
 

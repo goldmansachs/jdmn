@@ -20,7 +20,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 public class TimeType extends DataType {
     public static final TimeType TIME = new TimeType();
 
-    private static Map<String, Type> MEMBERS = new LinkedHashMap() {{
+    private static final Map<String, Type> MEMBERS = new LinkedHashMap() {{
         put("minute", NUMBER);
         put("second", NUMBER);
         put("time offset", DurationType.DAYS_AND_TIME_DURATION);
