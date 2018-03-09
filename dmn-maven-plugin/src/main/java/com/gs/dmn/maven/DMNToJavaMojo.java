@@ -31,8 +31,8 @@ public class DMNToJavaMojo extends AbstractDMNMojo {
     @Parameter(required = true, defaultValue = "com.gs.dmn.dialect.DMNStandardDialectDefinition")
     public String dmnDialect;
 
-    @Parameter(required = true, defaultValue = "com.gs.dmn.transformation.NopDMNTransformer")
-    public String dmnTransformer;
+    @Parameter(required = false)
+    public String[] dmnTransformers;
 
     @Parameter(required = true, defaultValue = "com.gs.dmn.transformation.template.TreeTemplateProvider")
     public String templateProvider;
@@ -58,7 +58,7 @@ public class DMNToJavaMojo extends AbstractDMNMojo {
             BuildLogger logger = new MavenBuildLogger(this.getLog());
             Class<?> dialectClass = Class.forName(dmnDialect);
             DMNDialectDefinition dmnDialect = (DMNDialectDefinition) dialectClass.newInstance();
-            DMNTransformer dmnTransformer = makeDMNTransformer(this.dmnTransformer, logger);
+            DMNTransformer dmnTransformer = makeDMNTransformer(this.dmnTransformers, logger);
             TemplateProvider templateProvider = makeTemplateProvider(this.templateProvider, logger);
             DMNToJavaTransformer transformer = dmnDialect.createDMNToJavaTransformer(
                     dmnTransformer,
