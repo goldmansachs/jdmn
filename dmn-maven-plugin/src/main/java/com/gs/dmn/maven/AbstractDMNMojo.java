@@ -13,11 +13,16 @@
 package com.gs.dmn.maven;
 
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.transformation.CompositeDMNTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
+import com.gs.dmn.transformation.NopDMNTransformer;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AbstractDMNMojo extends AbstractMojo {
     @Parameter(defaultValue = "${project}", readonly = true, required = true)
@@ -29,13 +34,20 @@ public abstract class AbstractDMNMojo extends AbstractMojo {
         }
     }
 
-    protected DMNTransformer makeDMNTransformer(String dmnTransformerClassName, BuildLogger logger) throws Exception {
-        Class<?> dmnTransformerClass = Class.forName(dmnTransformerClassName);
-        try {
-            return (DMNTransformer) dmnTransformerClass.getConstructor(new Class[]{BuildLogger.class}).newInstance(new Object[]{logger});
-        } catch (Exception e) {
-            return (DMNTransformer) dmnTransformerClass.newInstance();
+    protected DMNTransformer makeDMNTransformer(String[] dmnTransformerClassNames, BuildLogger logger) throws Exception {
+        if (dmnTransformerClassNames == null) {
+            return new NopDMNTransformer();
         }
+        List<DMNTransformer> dmnTransformers = new ArrayList();
+        for(String dmnTransformerClassName: dmnTransformerClassNames) {
+            Class<?> dmnTransformerClass = Class.forName(dmnTransformerClassName);
+            try {
+                dmnTransformers.add((DMNTransformer) dmnTransformerClass.getConstructor(new Class[]{BuildLogger.class}).newInstance(new Object[]{logger}));
+            } catch (Exception e) {
+                dmnTransformers.add((DMNTransformer) dmnTransformerClass.newInstance());
+            }
+        }
+        return new CompositeDMNTransformer(dmnTransformers);
     }
 
     protected TemplateProvider makeTemplateProvider(String templateProviderClassName, BuildLogger logger) throws Exception {
