@@ -38,7 +38,7 @@ public class DMN2JavaMojoTest extends AbstractMojoTest {
         String input = this.getClass().getClassLoader().getResource("input/0004-lending.dmn").getFile();
         mojo.project = project;
         mojo.dmnDialect = StandardDMNDialectDefinition.class.getName();
-        mojo.dmnTransformer = ToSimpleNameTransformer.class.getName();
+        mojo.dmnTransformers = new String[] {ToSimpleNameTransformer.class.getName()};
         mojo.templateProvider = TreeTemplateProvider.class.getName();
         mojo.inputFileDirectory = new File(input);
         mojo.outputFileDirectory = new File("target/output");
