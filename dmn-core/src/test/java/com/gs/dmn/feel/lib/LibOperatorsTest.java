@@ -697,7 +697,7 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
 
     protected void assertEqualsTime(String expected, Object actual) {
         if (actual instanceof XMLGregorianCalendar) {
-            assertEquals(expected, ((XMLGregorianCalendar) actual).toXMLFormat());
+            assertEquals(expected, ((XMLGregorianCalendar) actual).toString());
         } else if (actual instanceof LocalDate) {
             String actualText = ((LocalDate) actual).format(DateTimeFormatter.ISO_DATE);
             assertEquals(expected, cleanActualText(actualText));
