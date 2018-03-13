@@ -374,7 +374,7 @@
     <testCase id="053_3d956966c0">
         <resultNode name="feel-time-function_053_3d956966c0" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:time">00:00:00</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:time">00:00:00Z</value>
             </expected>
         </resultNode>
     </testCase>

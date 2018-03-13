@@ -82,14 +82,14 @@
     <testCase id="011_eec2d5bdcd">
         <resultNode name="feel-date-and-time-function_011_eec2d5bdcd" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">9999-12-31T11:22:33</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">99999-12-31T11:22:33</value>
             </expected>
         </resultNode>
     </testCase>
     <testCase id="012_225a105eef">
         <resultNode name="feel-date-and-time-function_012_225a105eef" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">-9999-12-31T11:22:33</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">-99999-12-31T11:22:33</value>
             </expected>
         </resultNode>
     </testCase>
@@ -166,42 +166,42 @@
     <testCase id="023_2e41497673">
         <resultNode name="feel-date-and-time-function_023_2e41497673" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2011-12-31T10:15:30+01:00</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2011-12-31T10:15:30@Europe/Paris</value>
             </expected>
         </resultNode>
     </testCase>
     <testCase id="024_b4d1fb8735">
         <resultNode name="feel-date-and-time-function_024_b4d1fb8735" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2011-12-31T10:15:30Z</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2011-12-31T10:15:30@Etc/UTC</value>
             </expected>
         </resultNode>
     </testCase>
     <testCase id="025_0cb7f83ec6">
         <resultNode name="feel-date-and-time-function_025_0cb7f83ec6" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2011-12-31T10:15:30.987+01:00</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2011-12-31T10:15:30.987@Europe/Paris</value>
             </expected>
         </resultNode>
     </testCase>
     <testCase id="026_5ba081cd5f">
         <resultNode name="feel-date-and-time-function_026_5ba081cd5f" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2011-12-31T10:15:30.123456789+01:00</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2011-12-31T10:15:30.123456789@Europe/Paris</value>
             </expected>
         </resultNode>
     </testCase>
     <testCase id="027_ae365197dd">
         <resultNode name="feel-date-and-time-function_027_ae365197dd" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">9999-12-31T23:59:59.999999999+01:00</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">999999999-12-31T23:59:59.999999999@Europe/Paris</value>
             </expected>
         </resultNode>
     </testCase>
     <testCase id="028_1c3d56275f">
         <resultNode name="feel-date-and-time-function_028_1c3d56275f" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">-9999-12-31T23:59:59.999999999+02:00</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">-999999999-12-31T23:59:59.999999999+02:00</value>
             </expected>
         </resultNode>
     </testCase>
@@ -229,14 +229,14 @@
     <testCase id="032_1e95e8726e">
         <resultNode name="feel-date-and-time-function_032_1e95e8726e" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2017-01-01T23:59:01+01:00</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2017-01-01T23:59:01@Europe/Paris</value>
             </expected>
         </resultNode>
     </testCase>
     <testCase id="033_2fac4d6807">
         <resultNode name="feel-date-and-time-function_033_2fac4d6807" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2017-01-01T23:59:01.123456789+01:00</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2017-01-01T23:59:01.123456789@Europe/Paris</value>
             </expected>
         </resultNode>
     </testCase>
@@ -285,7 +285,7 @@
     <testCase id="040_d9116e1daa">
         <resultNode name="feel-date-and-time-function_040_d9116e1daa" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2017-09-05T09:15:30.987654321+01:00</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2017-09-05T09:15:30.987654321@Europe/Paris</value>
             </expected>
         </resultNode>
     </testCase>
@@ -334,7 +334,7 @@
     <testCase id="047_60ea7838ce">
         <resultNode name="feel-date-and-time-function_047_60ea7838ce" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2017-09-05T09:15:30.987654321+01:00</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2017-09-05T09:15:30.987654321@Europe/Paris</value>
             </expected>
         </resultNode>
     </testCase>
@@ -383,7 +383,7 @@
     <testCase id="054_2561a406fc">
         <resultNode name="feel-date-and-time-function_054_2561a406fc" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2017-09-05T09:15:30.987654321+01:00</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2017-09-05T09:15:30.987654321@Europe/Paris</value>
             </expected>
         </resultNode>
     </testCase>
