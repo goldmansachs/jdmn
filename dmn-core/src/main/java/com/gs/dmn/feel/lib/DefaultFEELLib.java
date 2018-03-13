@@ -30,7 +30,6 @@ import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
-import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -43,8 +42,12 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
-import java.time.*;
-import java.util.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> implements FEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     protected static final Logger LOGGER = LoggerFactory.getLogger(DefaultFEELLib.class);
@@ -146,7 +149,7 @@ public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalend
             return null;
         }
 
-        XMLGregorianCalendar calendar = makeXMLCalendar(String.format("%d-%02d-%02d", year.intValue(), month.intValue(), day.intValue()));
+        XMLGregorianCalendar calendar = FEELXMLGregorianCalendar.makeDate(year.toBigInteger(), month.intValue(), day.intValue());
         return DateTimeUtil.isValidDate(calendar) ? calendar : null;
     }
 
@@ -176,7 +179,7 @@ public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalend
             return null;
         }
 
-        XMLGregorianCalendar clone = makeDateTime(literal);
+        XMLGregorianCalendar clone = makeXMLCalendar(literal);
         if (clone != null) {
             clone.setYear(DatatypeConstants.FIELD_UNDEFINED);
             clone.setMonth(DatatypeConstants.FIELD_UNDEFINED);
@@ -200,11 +203,10 @@ public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalend
                 BigDecimal secondFraction = second.subtract(BigDecimal.valueOf(second.intValue()));
                 int sign = offset.getSign() < 0 ? -1 : +1;
                 int timezone = sign * (offset.getHours() * 60 + offset.getMinutes());
-                xmlGregorianCalendar = new FEELXMLGregorianCalendar(hour.intValue(), minute.intValue(), second.intValue(), secondFraction, timezone, null);
+                xmlGregorianCalendar = FEELXMLGregorianCalendar.makeTime(hour.intValue(), minute.intValue(), second.intValue(), secondFraction, timezone, null);
             } else {
-                xmlGregorianCalendar = makeXMLCalendar(String.format("%02d:%02d:%02d", hour.intValue(), minute.intValue(), second.intValue()));
                 BigDecimal secondFraction = second.subtract(BigDecimal.valueOf(second.intValue()));
-                xmlGregorianCalendar.setFractionalSecond(secondFraction);
+                xmlGregorianCalendar = FEELXMLGregorianCalendar.makeTime(hour.intValue(), minute.intValue(), second.intValue(), secondFraction, DatatypeConstants.FIELD_UNDEFINED, null);
             }
             return xmlGregorianCalendar;
         } catch (Throwable e) {
@@ -256,7 +258,7 @@ public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalend
         }
 
         try {
-            return new FEELXMLGregorianCalendar(
+            return FEELXMLGregorianCalendar.makeDateTime(
                     BigInteger.valueOf(date.getYear()), date.getMonth(), date.getDay(),
                     time.getHour(), time.getMinute(), time.getSecond(), time.getFractionalSecond(),
                     time.getTimezone(), ((FEELXMLGregorianCalendar)time).getZoneID()
@@ -322,12 +324,6 @@ public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalend
                 String zoneID = literal.substring(zoneIdIndex + 1);
                 ZoneId zone = ZoneId.of(zoneID);
                 XMLGregorianCalendar xmlGregorianCalendar = new FEELXMLGregorianCalendar(literal.substring(0, zoneIdIndex), zoneID);
-/*
-                LocalDateTime dt = LocalDateTime.now();
-                ZonedDateTime zdt = dt.atZone(zone);
-                ZoneOffset offset = zdt.getOffset();
-                xmlGregorianCalendar.setTimezone(offset.getTotalSeconds() / 60);
-*/
                 return xmlGregorianCalendar;
             } else {
                 return new FEELXMLGregorianCalendar(literal);
