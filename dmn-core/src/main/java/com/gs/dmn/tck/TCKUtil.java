@@ -386,13 +386,13 @@ public class TCKUtil {
         if (value instanceof String) {
             return (String) value;
         } else if (value instanceof BigDecimal) {
-            return ((BigDecimal) value).toPlainString();
+            return feelLib.string(value);
         } else if (value instanceof Boolean) {
             return value.toString();
         } else if (value instanceof XMLGregorianCalendar) {
-            return ((XMLGregorianCalendar) value).toXMLFormat();
+            return feelLib.string(value);
         } else if (value instanceof Duration) {
-            return value.toString();
+            return feelLib.string(value);
         } else if (value instanceof org.w3c.dom.Element) {
             return ((org.w3c.dom.Element) value).getTextContent();
         } else {

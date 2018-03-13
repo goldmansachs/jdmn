@@ -203,14 +203,14 @@
     <testCase id="028_eaea7a943c">
         <resultNode name="feel-time-function_028_eaea7a943c" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">00:01:00Z</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">00:01:00@Etc/UTC</value>
             </expected>
         </resultNode>
     </testCase>
     <testCase id="029_f0d5c2c16a">
         <resultNode name="feel-time-function_029_f0d5c2c16a" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">00:01:00+01:00</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">00:01:00@Europe/Paris</value>
             </expected>
         </resultNode>
     </testCase>
@@ -259,14 +259,14 @@
     <testCase id="036_eb05fabc01">
         <resultNode name="feel-time-function_036_eb05fabc01" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">10:20:00+01:00</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">10:20:00@Europe/Paris</value>
             </expected>
         </resultNode>
     </testCase>
     <testCase id="037_eed195f693">
         <resultNode name="feel-time-function_037_eed195f693" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">11:20:00+06:00</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">11:20:00@Asia/Dhaka</value>
             </expected>
         </resultNode>
     </testCase>
@@ -378,7 +378,7 @@
     <testCase id="053_3d956966c0">
         <resultNode name="feel-time-function_053_3d956966c0" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:time">00:00:00</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:time">00:00:00Z</value>
             </expected>
         </resultNode>
     </testCase>
