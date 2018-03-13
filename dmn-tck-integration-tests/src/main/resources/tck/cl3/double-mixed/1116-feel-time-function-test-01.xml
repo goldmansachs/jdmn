@@ -325,14 +325,14 @@
     <testCase id="046_7b80221ec1">
         <resultNode name="feel-time-function_046_7b80221ec1" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">11:59:45+02:45</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">11:59:45+02:45:55</value>
             </expected>
         </resultNode>
     </testCase>
     <testCase id="047_33cd7b9b15">
         <resultNode name="feel-time-function_047_33cd7b9b15" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">11:59:45-02:45</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">11:59:45-02:45:55</value>
             </expected>
         </resultNode>
     </testCase>
@@ -374,7 +374,7 @@
     <testCase id="053_3d956966c0">
         <resultNode name="feel-time-function_053_3d956966c0" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:time">00:00:00</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:time">00:00:00Z</value>
             </expected>
         </resultNode>
     </testCase>

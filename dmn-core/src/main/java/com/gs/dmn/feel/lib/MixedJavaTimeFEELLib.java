@@ -194,7 +194,7 @@ public class MixedJavaTimeFEELLib extends FEELOperators<BigDecimal, LocalDate, O
             if (offset != null) {
                 // Make ZoneOffset
                 String sign = offset.getSign() < 0 ? "-" : "+";
-                String offsetString = String.format("%s%02d:%02d", sign, (long) offset.getHours(), (long) offset.getMinutes());
+                String offsetString = String.format("%s%02d:%02d:%02d", sign, (long) offset.getHours(), (long) offset.getMinutes(), offset.getSeconds());
                 ZoneOffset zoneOffset = ZoneOffset.of(offsetString);
 
                 // Make OffsetTime and add nanos

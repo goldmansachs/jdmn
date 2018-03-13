@@ -31,7 +31,7 @@ public class DateTimeUtil {
     public static final LocalDate EPOCH = LocalDate.of(1970, 1, 1);
     public static final ZoneId UTC = ZoneId.of("UTC");
 
-    public static final DateTimeFormatter FEEL_DATE_FORMAT ;
+    public static final DateTimeFormatter FEEL_DATE_FORMAT;
     public static final DateTimeFormatter FEEL_TIME_FORMAT;
     public static final DateTimeFormatter FEEL_DATE_TIME_FORMAT;
 
@@ -184,7 +184,7 @@ public class DateTimeUtil {
             } else {
                 return OffsetTime.parse(literal);
             }
-        } if (DateTimeUtil.hasOffset(literal)) {
+        } else if (DateTimeUtil.hasOffset(literal)) {
             return OffsetTime.parse(literal);
         } else {
             return OffsetTime.parse(literal + "Z");
@@ -201,7 +201,7 @@ public class DateTimeUtil {
         } else if (DateTimeUtil.hasOffset(literal)) {
             return ZonedDateTime.parse(literal, DateTimeUtil.FEEL_DATE_TIME_FORMAT);
         } else if (DateTimeUtil.hasTime(literal)) {
-            return ZonedDateTime.parse(literal  + 'Z', DateTimeUtil.FEEL_DATE_TIME_FORMAT);
+            return ZonedDateTime.parse(literal + 'Z', DateTimeUtil.FEEL_DATE_TIME_FORMAT);
         } else {
             LocalDate localDate = LocalDate.parse(literal, DateTimeUtil.FEEL_DATE_FORMAT);
             return localDate.atStartOfDay(DateTimeUtil.UTC);
@@ -282,20 +282,20 @@ public class DateTimeUtil {
             year = eonAndYear.intValue();
         }
         return isValidDate(year, calendar.getMonth(), calendar.getDay())
-                ||  isValidDate(year, calendar.getMonth(), calendar.getDay()) && isValidTime(calendar.getHour(), calendar.getMinute(), calendar.getSecond())
+                || isValidDate(year, calendar.getMonth(), calendar.getDay()) && isValidTime(calendar.getHour(), calendar.getMinute(), calendar.getSecond())
                 ;
     }
 
     private static boolean isValidYear(long year) {
-        return -999999999L <= year  &&  year <= 999999999L;
+        return -999999999L <= year && year <= 999999999L;
     }
 
     private static boolean isValidMonth(long month) {
-        return 1 <= month  &&  month <= 12;
+        return 1 <= month && month <= 12;
     }
 
     private static boolean isValidDay(long day) {
-        return 1 <= day  &&  day <= 31;
+        return 1 <= day && day <= 31;
     }
 
     private static boolean isValidHour(long hour) {
