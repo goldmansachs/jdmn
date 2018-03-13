@@ -15,13 +15,25 @@ package com.gs.dmn.feel.lib.type.time.xml;
 import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
 
 import javax.xml.datatype.DatatypeConstants;
+import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.GregorianCalendar;
 
 public class FEELXMLGregorianCalendar extends XMLGregorianCalendarImpl {
     private final String zoneID;
+
+    public static XMLGregorianCalendar makeDate(BigInteger year, int month, int day) {
+        return new FEELXMLGregorianCalendar(year, month, day);
+    }
+
+    public static XMLGregorianCalendar makeTime(int hour, int minute, int second, BigDecimal fractionalSecond, int timezone, String zoneID) {
+        return new FEELXMLGregorianCalendar(hour, minute, second, fractionalSecond, timezone, zoneID);
+    }
+
+    public static XMLGregorianCalendar makeDateTime(BigInteger year, int month, int day, int hour, int minute, int second, BigDecimal fractionalSecond, int timezone, String zoneID) {
+        return new FEELXMLGregorianCalendar(year, month, day, hour, minute, second, fractionalSecond, timezone, zoneID);
+    }
 
     public FEELXMLGregorianCalendar() {
         super();
@@ -38,7 +50,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendarImpl {
         this.zoneID = zoneID;
     }
 
-    public FEELXMLGregorianCalendar(
+    private FEELXMLGregorianCalendar(
             BigInteger year,
             int month,
             int day) {
@@ -46,7 +58,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendarImpl {
         this.zoneID = null;
     }
 
-    public FEELXMLGregorianCalendar(
+    private FEELXMLGregorianCalendar(
             int hour,
             int minute,
             int second,
@@ -57,7 +69,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendarImpl {
         this.zoneID = zoneID;
     }
 
-    public FEELXMLGregorianCalendar(
+    private FEELXMLGregorianCalendar(
             BigInteger year,
             int month,
             int day,
@@ -69,11 +81,6 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendarImpl {
             String zoneID) {
         super(year, month, day, hour, minute, second, fractionalSecond, timezone);
         this.zoneID = zoneID;
-    }
-
-    public FEELXMLGregorianCalendar(GregorianCalendar cal) {
-        super(cal);
-        this.zoneID = null;
     }
 
     @Override
