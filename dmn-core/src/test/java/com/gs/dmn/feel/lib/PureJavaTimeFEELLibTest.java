@@ -19,7 +19,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAmount;
 
 import static org.junit.Assert.assertEquals;
@@ -175,10 +174,10 @@ public class PureJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalDa
     @Override
     protected void assertEqualsTime(String expected, Object actual) {
         if (actual instanceof LocalDate) {
-            String actualText = ((LocalDate) actual).format(DateTimeFormatter.ISO_DATE);
+            String actualText = ((LocalDate) actual).format(DateTimeUtil.FEEL_DATE_FORMAT);
             assertEquals(expected, cleanActualText(actualText));
         } else if (actual instanceof OffsetTime) {
-            String actualText = ((OffsetTime) actual).format(DateTimeFormatter.ISO_OFFSET_TIME);
+            String actualText = ((OffsetTime) actual).format(DateTimeUtil.FEEL_TIME_FORMAT);
             assertEquals(expected, cleanActualText(actualText));
         } else if (actual instanceof ZonedDateTime) {
             assertEquals(normalize(ZonedDateTime.parse(expected)), normalize((ZonedDateTime)actual));
