@@ -17,16 +17,13 @@ import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.gs.dmn.feel.lib.XMLDatataypeFactory;
+import com.gs.dmn.feel.lib.type.time.xml.FEELXMLGregorianCalendar;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.IOException;
 
 public class XMLGregorianCalendarDeserializer extends JsonDeserializer<XMLGregorianCalendar> {
-    private final DatatypeFactory datatypeFactory = XMLDatataypeFactory.newInstance();
-
     public XMLGregorianCalendarDeserializer() {
     }
 
@@ -37,7 +34,7 @@ public class XMLGregorianCalendarDeserializer extends JsonDeserializer<XMLGregor
 
         try {
             String literal = node.asText();
-            return datatypeFactory.newXMLGregorianCalendar(literal);
+            return new FEELXMLGregorianCalendar(literal);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Error deserializing '%s' ", node), e);
         }

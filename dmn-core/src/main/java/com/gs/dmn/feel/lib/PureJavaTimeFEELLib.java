@@ -246,6 +246,17 @@ public class PureJavaTimeFEELLib extends FEELOperators<BigDecimal, LocalDate, Of
         }
     }
 
+    public TemporalAmount duration(long milliseconds) {
+        try {
+            Duration.ofSeconds(milliseconds / 1000, (milliseconds % 1000) * 1000);
+            throw new DMNRuntimeException("Not supported yet");
+        } catch (Throwable e) {
+            String message = String.format("duration(%d)", milliseconds);
+            logError(message, e);
+            return null;
+        }
+    }
+
     @Override
     public TemporalAmount yearsAndMonthsDuration(ZonedDateTime from, ZonedDateTime to) {
         if (from == null || to == null) {
@@ -741,32 +752,14 @@ public class PureJavaTimeFEELLib extends FEELOperators<BigDecimal, LocalDate, Of
     }
 
     public TemporalAmount timezone(OffsetTime time) {
-        // timezone offset in minutes
-        int minutesOffset = time.getOffset().getTotalSeconds() / 60;
-        // Compute duration
-        String sign = minutesOffset < 0 ? "-" : "";
-        if (minutesOffset < 0) {
-            minutesOffset = - minutesOffset;
-        }
-        int days = minutesOffset / (24 * 60);
-        int hours = minutesOffset % (24 * 60) / 60;
-        int minutes = minutesOffset % 60;
-        String dayTimeDuration = String.format("%sP%dDT%dH%dM", sign, days, hours, minutes);
-        return duration(dayTimeDuration);
+        // timezone offset in seconds
+        int secondsOffset = time.getOffset().getTotalSeconds();
+        return duration(secondsOffset * 1000);
     }
     public TemporalAmount timezone(ZonedDateTime dateTime) {
-        // timezone offset in minutes
-        int minutesOffset = dateTime.getOffset().getTotalSeconds() / 60;
-        // Compute duration
-        String sign = minutesOffset < 0 ? "-" : "";
-        if (minutesOffset < 0) {
-            minutesOffset = - minutesOffset;
-        }
-        int days = minutesOffset / (24 * 60);
-        int hours = minutesOffset % (24 * 60) / 60;
-        int minutes = minutesOffset % 60;
-        String dayTimeDuration = String.format("%sP%dDT%dH%dM", sign, days, hours, minutes);
-        return duration(dayTimeDuration);
+        // timezone offset in seconds
+        int secondsOffset = dateTime.getOffset().getTotalSeconds();
+        return duration(secondsOffset * 1000);
     }
 
     //

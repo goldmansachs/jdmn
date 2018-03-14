@@ -818,28 +818,18 @@ public class MixedJavaTimeFEELLib extends FEELOperators<BigDecimal, LocalDate, O
     }
 
     public Duration timezone(OffsetTime time) {
-        // timezone offset in minutes
-        int minutesOffset = time.getOffset().getTotalSeconds() / 60;
-        return computeDuration(minutesOffset);
+        // timezone offset in seconds
+        int secondsOffset = time.getOffset().getTotalSeconds();
+        return computeDuration(secondsOffset);
 
     }
     public Duration timezone(ZonedDateTime dateTime) {
-        // timezone offset in minutes
-        int minutesOffset = dateTime.getOffset().getTotalSeconds() / 60;
-        // Compute duration
-        return computeDuration(minutesOffset);
+        // timezone offset in seconds
+        int secondsOffset = dateTime.getOffset().getTotalSeconds();
+        return computeDuration(secondsOffset);
     }
-    private Duration computeDuration(int minutesOffset) {
-        // Compute duration
-        String sign = minutesOffset < 0 ? "-" : "";
-        if (minutesOffset < 0) {
-            minutesOffset = - minutesOffset;
-        }
-        int days = minutesOffset / (24 * 60);
-        int hours = minutesOffset % (24 * 60) / 60;
-        int minutes = minutesOffset % 60;
-        String dayTimeDuration = String.format("%sP%dDT%dH%dM", sign, days, hours, minutes);
-        return duration(dayTimeDuration);
+    private Duration computeDuration(int secondsOffset) {
+        return DATA_TYPE_FACTORY.newDuration(secondsOffset * 1000);
     }
 
     //
