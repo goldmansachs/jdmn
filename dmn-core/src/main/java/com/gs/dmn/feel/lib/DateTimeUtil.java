@@ -42,7 +42,7 @@ public class DateTimeUtil {
                 .appendValue(MONTH_OF_YEAR, 2)
                 .appendLiteral('-')
                 .appendValue(DAY_OF_MONTH, 2)
-                .toFormatter();
+                .toFormatter(Locale.getDefault(Locale.Category.FORMAT));
 
         FEEL_TIME_FORMAT = new DateTimeFormatterBuilder()
                 .appendValue(HOUR_OF_DAY, 2)
@@ -53,18 +53,22 @@ public class DateTimeUtil {
                 .appendValue(SECOND_OF_MINUTE, 2)
                 .optionalStart()
                 .appendFraction(NANO_OF_SECOND, 0, 9, true)
+                .optionalEnd()
+                .optionalEnd()
                 .optionalStart()
                 .appendOffsetId()
-                .toFormatter();
+                .optionalEnd()
+                .optionalStart()
+                .appendLiteral('@')
+                .parseCaseSensitive()
+                .appendZoneRegionId()
+                .optionalEnd()
+                .toFormatter(Locale.getDefault(Locale.Category.FORMAT));
 
         FEEL_DATE_TIME_FORMAT = new DateTimeFormatterBuilder()
                 .append(FEEL_DATE_FORMAT)
                 .appendLiteral('T')
                 .append(FEEL_TIME_FORMAT)
-                .optionalStart()
-                .appendLiteral('@')
-                .parseCaseSensitive()
-                .appendZoneRegionId()
                 .toFormatter(Locale.getDefault(Locale.Category.FORMAT));
     }
 

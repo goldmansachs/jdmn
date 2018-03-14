@@ -42,10 +42,12 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAmount;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 public class PureJavaTimeFEELLib extends FEELOperators<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, TemporalAmount> implements FEELLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, TemporalAmount> {
     protected static final Logger LOGGER = LoggerFactory.getLogger(PureJavaTimeFEELLib.class);
@@ -116,7 +118,7 @@ public class PureJavaTimeFEELLib extends FEELOperators<BigDecimal, LocalDate, Of
         } else if (from instanceof BigDecimal) {
             return ((BigDecimal) from).toPlainString();
         } else if (from instanceof ZonedDateTime) {
-            return ((ZonedDateTime) from).format(DateTimeFormatter.ISO_DATE_TIME);
+            return ((ZonedDateTime) from).format(DateTimeUtil.FEEL_DATE_TIME_FORMAT);
         } else {
             return from.toString();
         }
@@ -128,7 +130,7 @@ public class PureJavaTimeFEELLib extends FEELOperators<BigDecimal, LocalDate, Of
             if (literal == null) {
                 return null;
             }
-            return LocalDate.parse(literal, DateTimeFormatter.ISO_DATE);
+            return LocalDate.parse(literal, DateTimeUtil.FEEL_DATE_FORMAT);
         } catch (Exception e) {
             String message = String.format("date(%s)", literal);
             logError(message, e);
@@ -265,7 +267,7 @@ public class PureJavaTimeFEELLib extends FEELOperators<BigDecimal, LocalDate, Of
         }
 
         try {
-            return ZonedDateTime.parse(literal, DateTimeFormatter.ISO_DATE_TIME);
+            return ZonedDateTime.parse(literal, DateTimeUtil.FEEL_DATE_TIME_FORMAT);
         } catch (Throwable e) {
             String message = String.format("makeXMLCalendar(%s)", literal);
             logError(message, e);

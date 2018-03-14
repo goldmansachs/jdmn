@@ -14,12 +14,12 @@ package com.gs.dmn.feel.lib;
 
 import org.junit.Test;
 
+import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -221,8 +221,8 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
         assertEqualsTime(null, getLib().dateAddDuration(null, null));
         assertEqualsTime(null, getLib().dateAddDuration(null, makeDuration("P0Y2M")));
         assertEqualsTime(null, getLib().dateAddDuration(makeDate("2016-08-01"), null));
-        assertEqualsTime("2016-10-01", getLib().dateAddDuration(makeDate("2016-08-01"), makeDuration("P0Y2M")).toString());
-        assertEqualsTime("2016-06-01", getLib().dateAddDuration(makeDate("2016-08-01"), makeDuration("-P0Y2M")).toString());
+        assertEqualsTime("2016-10-01", getLib().dateAddDuration(makeDate("2016-08-01"), makeDuration("P0Y2M")));
+        assertEqualsTime("2016-06-01", getLib().dateAddDuration(makeDate("2016-08-01"), makeDuration("-P0Y2M")));
     }
 
     @Test
@@ -230,8 +230,8 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
         assertEqualsTime(null, getLib().dateSubtractDuration(null, null));
         assertEqualsTime(null, getLib().dateSubtractDuration(null, makeDuration("P0Y2M")));
         assertEqualsTime(null, getLib().dateSubtractDuration(makeDate("2016-08-01"), null));
-        assertEqualsTime("2016-06-01", getLib().dateSubtractDuration(makeDate("2016-08-01"), makeDuration("P0Y2M")).toString());
-        assertEqualsTime("2016-10-01", getLib().dateSubtractDuration(makeDate("2016-08-01"), makeDuration("-P0Y2M")).toString());
+        assertEqualsTime("2016-06-01", getLib().dateSubtractDuration(makeDate("2016-08-01"), makeDuration("P0Y2M")));
+        assertEqualsTime("2016-10-01", getLib().dateSubtractDuration(makeDate("2016-08-01"), makeDuration("-P0Y2M")));
     }
 
     //
@@ -329,8 +329,8 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
         assertEqualsTime(null, getLib().timeSubtract(null, null));
         assertEqualsTime(null, getLib().timeSubtract(null, makeTime("12:00:00Z")));
         assertEqualsTime(null, getLib().timeSubtract(makeTime("12:00:00Z"), null));
-        assertEqualsTime("P0Y0M0DT0H0M0.000S", getLib().timeSubtract(makeTime("12:00:00Z"), makeTime("12:00:00Z")).toString());
-        assertEqualsTime("-P0Y0M0DT1H0M0.000S", getLib().timeSubtract(makeTime("12:00:00Z"), makeTime("13:00:00Z")).toString());
+        assertEqualsTime("P0Y0M0DT0H0M0.000S", getLib().timeSubtract(makeTime("12:00:00Z"), makeTime("12:00:00Z")));
+        assertEqualsTime("-P0Y0M0DT1H0M0.000S", getLib().timeSubtract(makeTime("12:00:00Z"), makeTime("13:00:00Z")));
     }
 
     @Test
@@ -338,8 +338,8 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
         assertEqualsTime(null, getLib().timeAddDuration(null, null));
         assertEqualsTime(null, getLib().timeAddDuration(null, makeDuration("P0DT1H")));
         assertEqualsTime(null, getLib().timeAddDuration(makeTime("12:00:00Z"), null));
-        assertEqualsTime("13:00:01Z", getLib().timeAddDuration(makeTime("12:00:01Z"), makeDuration("P0DT1H")).toString());
-        assertEqualsTime("12:00:01Z", getLib().timeAddDuration(makeTime("12:00:01Z"), makeDuration("P1DT0H")).toString());
+        assertEqualsTime("13:00:01Z", getLib().timeAddDuration(makeTime("12:00:01Z"), makeDuration("P0DT1H")));
+        assertEqualsTime("12:00:01Z", getLib().timeAddDuration(makeTime("12:00:01Z"), makeDuration("P1DT0H")));
     }
 
     @Test
@@ -347,8 +347,8 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
         assertEqualsTime(null, getLib().timeSubtractDuration(null, null));
         assertEqualsTime(null, getLib().timeSubtractDuration(null, makeDuration("P0DT1H")));
         assertEqualsTime(null, getLib().timeSubtractDuration(makeTime("12:00:01Z"), null));
-        assertEqualsTime("11:00:01Z", getLib().timeSubtractDuration(makeTime("12:00:01Z"), makeDuration("P0DT1H")).toString());
-        assertEqualsTime("12:00:01Z", getLib().timeSubtractDuration(makeTime("12:00:01Z"), makeDuration("P1DT0H")).toString());
+        assertEqualsTime("11:00:01Z", getLib().timeSubtractDuration(makeTime("12:00:01Z"), makeDuration("P0DT1H")));
+        assertEqualsTime("12:00:01Z", getLib().timeSubtractDuration(makeTime("12:00:01Z"), makeDuration("P1DT0H")));
     }
 
     //
@@ -697,15 +697,18 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
 
     protected void assertEqualsTime(String expected, Object actual) {
         if (actual instanceof XMLGregorianCalendar) {
-            assertEquals(expected, ((XMLGregorianCalendar) actual).toString());
+            assertEquals(expected, actual.toString());
         } else if (actual instanceof LocalDate) {
-            String actualText = ((LocalDate) actual).format(DateTimeFormatter.ISO_DATE);
+            String actualText = ((LocalDate) actual).format(DateTimeUtil.FEEL_DATE_FORMAT);
             assertEquals(expected, cleanActualText(actualText));
         } else if (actual instanceof OffsetTime) {
-            String actualText = ((OffsetTime) actual).format(DateTimeFormatter.ISO_OFFSET_TIME);
+            String actualText = ((OffsetTime) actual).format(DateTimeUtil.FEEL_TIME_FORMAT);
             assertEquals(expected, cleanActualText(actualText));
         } else if (actual instanceof ZonedDateTime) {
-            String actualText = ((ZonedDateTime) actual).format(DateTimeFormatter.ISO_DATE_TIME);
+            String actualText = ((ZonedDateTime) actual).format(DateTimeUtil.FEEL_DATE_TIME_FORMAT);
+            assertEquals(expected, cleanActualText(actualText));
+        } else if (actual instanceof Duration) {
+            String actualText = actual.toString();
             assertEquals(expected, cleanActualText(actualText));
         } else if (actual instanceof String) {
             String actualText = cleanActualText((String) actual);
@@ -717,9 +720,9 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
 
     protected String cleanActualText(String actualText) {
         String[] midnightSuffixes = new String[] {
-                "T00:00:00Z[UTC]",
+                "T00:00:00Z@UTC",
                 "T00:00:00Z",
-                "T00:00Z[UTC]",
+                "T00:00Z@UTC",
                 "T00:00Z"
         };
         String noDatePrefix = "-999999999-01-01T";
