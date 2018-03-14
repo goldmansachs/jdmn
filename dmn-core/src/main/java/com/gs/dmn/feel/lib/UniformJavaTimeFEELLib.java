@@ -43,8 +43,10 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 public class UniformJavaTimeFEELLib extends FEELOperators<BigDecimal, ZonedDateTime, ZonedDateTime, ZonedDateTime, Duration> implements FEELLib<BigDecimal, ZonedDateTime, ZonedDateTime, ZonedDateTime, Duration> {
     protected static final Logger LOGGER = LoggerFactory.getLogger(UniformJavaTimeFEELLib.class);
@@ -117,7 +119,7 @@ public class UniformJavaTimeFEELLib extends FEELOperators<BigDecimal, ZonedDateT
         } else if (from instanceof BigDecimal) {
             return ((BigDecimal) from).toPlainString();
         } else if (from instanceof ZonedDateTime) {
-            return ((ZonedDateTime) from).format(DateTimeFormatter.ISO_DATE_TIME);
+            return ((ZonedDateTime) from).format(DateTimeUtil.FEEL_DATE_TIME_FORMAT);
         } else {
             return from.toString();
         }
@@ -297,7 +299,7 @@ public class UniformJavaTimeFEELLib extends FEELOperators<BigDecimal, ZonedDateT
         }
 
         try {
-            return ZonedDateTime.parse(literal, DateTimeFormatter.ISO_DATE_TIME);
+            return ZonedDateTime.parse(literal, DateTimeUtil.FEEL_DATE_TIME_FORMAT);
         } catch (Throwable e) {
             String message = String.format("makeXMLCalendar(%s)", literal);
             logError(message, e);
