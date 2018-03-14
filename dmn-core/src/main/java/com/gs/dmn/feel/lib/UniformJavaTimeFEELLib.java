@@ -721,18 +721,9 @@ public class UniformJavaTimeFEELLib extends FEELOperators<BigDecimal, ZonedDateT
     }
 
     public Duration timezone(ZonedDateTime date) {
-        // timezone offset in minutes
-        int minutesOffset = date.getOffset().getTotalSeconds() / 60;
-        // Compute duration
-        String sign = minutesOffset < 0 ? "-" : "";
-        if (minutesOffset < 0) {
-            minutesOffset = -minutesOffset;
-        }
-        int days = minutesOffset / (24 * 60);
-        int hours = minutesOffset % (24 * 60) / 60;
-        int minutes = minutesOffset % 60;
-        String dayTimeDuration = String.format("%sP%dDT%dH%dM", sign, days, hours, minutes);
-        return duration(dayTimeDuration);
+        // timezone offset in seconds
+        int secondsOffset = date.getOffset().getTotalSeconds();
+        return DATA_TYPE_FACTORY.newDuration(secondsOffset * 1000);
     }
 
     //
