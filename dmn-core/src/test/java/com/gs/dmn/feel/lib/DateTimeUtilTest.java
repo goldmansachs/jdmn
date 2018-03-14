@@ -131,7 +131,7 @@ public class DateTimeUtilTest {
 
     @Test(expected = DateTimeParseException.class)
     public void testMakeLocalDateWhenSign() {
-        DateTimeUtil.makeLocalDate("+999999999-01-01");
+        assertNotNull(DateTimeUtil.makeLocalDate("+999999999-01-01"));
     }
 
     @Test

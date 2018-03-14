@@ -18,7 +18,6 @@ import javax.xml.datatype.Duration;
 import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 
 import static org.junit.Assert.assertEquals;
 
@@ -62,11 +61,11 @@ public class DoubleMixedJavaTimeFEELLibTest extends BaseFEELLibTest<Double, Loca
         assertEqualsTime("-2017-02-28T02:02:02Z", getLib().dateAndTime("-2017-02-28T02:02:02"));
 
         assertEqualsTime("2016-08-01T11:00:00Z", getLib().dateAndTime("2016-08-01T11:00:00"));
-        assertEqualsTime("2011-12-03T10:15:30+01:00[Europe/Paris]", getLib().dateAndTime("2011-12-03T10:15:30@Europe/Paris"));
+        assertEqualsTime("2011-12-03T10:15:30+01:00@Europe/Paris", getLib().dateAndTime("2011-12-03T10:15:30@Europe/Paris"));
 
         // Test minimum and maximum
-        assertEqualsTime("-99999-12-31T11:22:33Z[UTC]", getLib().dateAndTime("-99999-12-31T11:22:33"));
-        assertEqualsTime("+99999-12-31T11:22:33Z[UTC]", getLib().dateAndTime("99999-12-31T11:22:33"));
+        assertEqualsTime("-99999-12-31T11:22:33Z@UTC", getLib().dateAndTime("-99999-12-31T11:22:33"));
+        assertEqualsTime("99999-12-31T11:22:33Z@UTC", getLib().dateAndTime("99999-12-31T11:22:33"));
     }
 
     @Test
@@ -77,9 +76,9 @@ public class DoubleMixedJavaTimeFEELLibTest extends BaseFEELLibTest<Double, Loca
         assertEquals("123.45", getLib().string(makeNumber("123.45")));
         assertEquals("true", getLib().string(true));
 
-//        assertEquals("999999999-12-31", getLib().string(getLib().date("999999999-12-31")));
+        assertEquals("999999999-12-31", getLib().string(getLib().date("999999999-12-31")));
         assertEquals("-999999999-12-31", getLib().string(getLib().date("-999999999-12-31")));
-//        assertEquals("999999999-12-31", getLib().string(getLib().date(makeNumber(999999999), makeNumber(12),makeNumber(31))));
+        assertEquals("999999999-12-31", getLib().string(getLib().date(makeNumber(999999999), makeNumber(12),makeNumber(31))));
         assertEquals("-999999999-12-31", getLib().string(getLib().date(makeNumber(-999999999), makeNumber(12),makeNumber(31))));
 
 //        assertEquals("00:01:00@Etc/UTC", getLib().string(getLib().time("00:01:00@Etc/UTC")));
@@ -122,20 +121,25 @@ public class DoubleMixedJavaTimeFEELLibTest extends BaseFEELLibTest<Double, Loca
     public void testDateSubtract() throws Exception {
         super.testDateSubtract();
 
-        assertEqualsTime("P0Y0M", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-01")).toString());
-        assertEqualsTime("P0Y0M", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-03")).toString());
+        assertEqualsTime("P0Y0M", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-01")));
+        assertEqualsTime("P0Y0M", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-03")));
     }
 
     @Override
     protected void assertEqualsTime(String expected, Object actual) {
         if (actual instanceof LocalDate) {
-            String actualText = ((LocalDate) actual).format(DateTimeFormatter.ISO_DATE);
+            String actualText = ((LocalDate) actual).format(DateTimeUtil.FEEL_DATE_FORMAT);
             assertEquals(expected, cleanActualText(actualText));
         } else if (actual instanceof OffsetTime) {
-            String actualText = ((OffsetTime) actual).format(DateTimeFormatter.ISO_OFFSET_TIME);
+            String actualText = ((OffsetTime) actual).format(DateTimeUtil.FEEL_TIME_FORMAT);
             assertEquals(expected, cleanActualText(actualText));
         } else if (actual instanceof ZonedDateTime) {
-            assertEquals(normalize(ZonedDateTime.parse(expected)), normalize((ZonedDateTime)actual));
+            ZonedDateTime expectedDateTime = normalize(ZonedDateTime.parse(expected, DateTimeUtil.FEEL_DATE_TIME_FORMAT));
+            ZonedDateTime actualDateTime = normalize((ZonedDateTime) actual);
+            assertEquals(expectedDateTime, actualDateTime);
+        } else if (actual instanceof Duration) {
+            String actualText = actual.toString();
+            assertEquals(expected, cleanActualText(actualText));
         } else if (actual instanceof String) {
             String actualText = cleanActualText((String) actual);
             assertEquals(expected, cleanActualText(actualText));

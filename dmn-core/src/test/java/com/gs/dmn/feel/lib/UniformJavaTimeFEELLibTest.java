@@ -38,7 +38,7 @@ public class UniformJavaTimeFEELLibTest extends BaseFEELLibTest {
         super.testTime();
 
         assertEqualsTime("12:00:00Z", getLib().time(makeTime("12:00:00Z")));
-        assertEqualsTime("12:00:00Z[UTC]", getLib().time(
+        assertEqualsTime("12:00:00Z@UTC", getLib().time(
                 makeNumber("12"), makeNumber("00"), makeNumber("00"),
                 null));
         assertEqualsTime("00:00:00Z", getLib().time(getLib().date("2017-08-10")));
@@ -56,11 +56,11 @@ public class UniformJavaTimeFEELLibTest extends BaseFEELLibTest {
         assertEqualsTime("-2017-02-28T02:02:02Z", getLib().dateAndTime("-2017-02-28T02:02:02"));
 
         assertEqualsTime("2016-08-01T11:00:00Z", getLib().dateAndTime("2016-08-01T11:00:00"));
-        assertEqualsTime("2011-12-03T10:15:30+01:00[Europe/Paris]", getLib().dateAndTime("2011-12-03T10:15:30@Europe/Paris"));
+        assertEqualsTime("2011-12-03T10:15:30+01:00@Europe/Paris", getLib().dateAndTime("2011-12-03T10:15:30@Europe/Paris"));
 
         // Test minimum and maximum
         assertEqualsTime("-99999-12-31T11:22:33Z", getLib().dateAndTime("-99999-12-31T11:22:33"));
-        assertEqualsTime("+99999-12-31T11:22:33Z", getLib().dateAndTime("99999-12-31T11:22:33"));
+        assertEqualsTime("99999-12-31T11:22:33Z", getLib().dateAndTime("99999-12-31T11:22:33"));
     }
 
     @Test

@@ -108,14 +108,14 @@
     <testCase id="015_1dd66594cf">
         <resultNode name="feel-date-function_015_1dd66594cf" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">+999999999-12-31T00:00:00Z[UTC]</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">999999999-12-31T00:00:00Z@UTC</value>
             </expected>
         </resultNode>
     </testCase>
     <testCase id="016_31f3fef4a0">
         <resultNode name="feel-date-function_016_31f3fef4a0" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">-999999999-12-31T00:00:00Z[UTC]</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">-999999999-12-31T00:00:00Z@UTC</value>
             </expected>
         </resultNode>
     </testCase>
@@ -206,14 +206,14 @@
     <testCase id="029_88f5c7c90f">
         <resultNode name="feel-date-function_029_88f5c7c90f" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">+999999999-12-31T00:00:00Z[UTC]</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">999999999-12-31T00:00:00Z@UTC</value>
             </expected>
         </resultNode>
     </testCase>
     <testCase id="030_9184a7bfc3">
         <resultNode name="feel-date-function_030_9184a7bfc3" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">-999999999-12-31T00:00:00Z[UTC]</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">-999999999-12-31T00:00:00Z@UTC</value>
             </expected>
         </resultNode>
     </testCase>

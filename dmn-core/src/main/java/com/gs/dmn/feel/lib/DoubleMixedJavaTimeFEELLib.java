@@ -44,8 +44,10 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 public class DoubleMixedJavaTimeFEELLib extends FEELOperators<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> implements FEELLib<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> {
 
@@ -118,14 +120,14 @@ public class DoubleMixedJavaTimeFEELLib extends FEELOperators<Double, LocalDate,
     public String string(Object from) {
         if (from == null) {
             return "null";
-        } else if (from instanceof BigDecimal) {
-            return ((BigDecimal) from).toPlainString();
         } else if (from instanceof Double) {
             return DECIMAL_FORMAT.format(from);
-        } else if (from instanceof ZonedDateTime) {
-            return ((ZonedDateTime) from).format(DateTimeFormatter.ISO_DATE_TIME);
+        } else if (from instanceof LocalDate) {
+            return ((LocalDate) from).format(DateTimeUtil.FEEL_DATE_FORMAT);
         } else if (from instanceof OffsetTime) {
-            return ((OffsetTime) from).format(DateTimeFormatter.ISO_OFFSET_TIME);
+            return ((OffsetTime) from).format(DateTimeUtil.FEEL_TIME_FORMAT);
+        } else if (from instanceof ZonedDateTime) {
+            return ((ZonedDateTime) from).format(DateTimeUtil.FEEL_DATE_TIME_FORMAT);
         } else {
             return from.toString();
         }
@@ -356,20 +358,6 @@ public class DoubleMixedJavaTimeFEELLib extends FEELOperators<Double, LocalDate,
             return DateTimeUtil.toYearsMonthDuration(DATA_TYPE_FACTORY, toDate(to), from);
         } catch (Throwable e) {
             String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    protected ZonedDateTime makeZonedDateTime(String literal) {
-        if (StringUtils.isBlank(literal)) {
-            return null;
-        }
-
-        try {
-            return ZonedDateTime.parse(literal, DateTimeFormatter.ISO_DATE_TIME);
-        } catch (Throwable e) {
-            String message = String.format("makeXMLCalendar(%s)", literal);
             logError(message, e);
             return null;
         }
