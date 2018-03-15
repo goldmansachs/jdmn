@@ -52,7 +52,7 @@ import java.util.List;
 public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> implements FEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     protected static final Logger LOGGER = LoggerFactory.getLogger(DefaultFEELLib.class);
 
-    protected static final DatatypeFactory DATA_TYPE_FACTORY = XMLDatataypeFactory.newInstance();
+    public static final DatatypeFactory DATA_TYPE_FACTORY = XMLDatataypeFactory.newInstance();
 
     public DefaultFEELLib() {
         super(new DefaultNumericType(LOGGER),
@@ -202,7 +202,7 @@ public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalend
             if (offset != null) {
                 BigDecimal secondFraction = second.subtract(BigDecimal.valueOf(second.intValue()));
                 int sign = offset.getSign() < 0 ? -1 : +1;
-                int timezone = sign * (offset.getHours() * 60 + offset.getMinutes());
+                int timezone = sign * (((offset.getHours() * 60 + offset.getMinutes()) * 60) + offset.getSeconds());
                 xmlGregorianCalendar = FEELXMLGregorianCalendar.makeTime(hour.intValue(), minute.intValue(), second.intValue(), secondFraction, timezone, null);
             } else {
                 BigDecimal secondFraction = second.subtract(BigDecimal.valueOf(second.intValue()));
@@ -750,18 +750,9 @@ public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalend
     }
 
     public Duration timezone(XMLGregorianCalendar date) {
-        // timezone offset in minutes
-        int minutesOffset = date.getTimezone();
-        // Compute duration
-        String sign = minutesOffset < 0 ? "-" : "";
-        if (minutesOffset < 0) {
-            minutesOffset = - minutesOffset;
-        }
-        int days = minutesOffset / (24 * 60);
-        int hours = minutesOffset % (24 * 60) / 60;
-        int minutes = minutesOffset % 60;
-        String dayTimeDuration = String.format("%sP%dDT%dH%dM", sign, days, hours, minutes);
-        return duration(dayTimeDuration);
+        // timezone offset in seconds
+        int secondsOffset = date.getTimezone();
+        return DATA_TYPE_FACTORY.newDuration(secondsOffset * 1000);
     }
 
     //
