@@ -1395,38 +1395,74 @@ public class BasicDMN2JavaTransformer {
         return environmentFactory.makeEnvironment(makeEnvironment(element));
     }
 
-    public Environment makeContextEnvironment(TContext context, Environment elementEnvironment) {
+    public Pair<Environment, Map<TContextEntry, Expression>> makeContextEnvironment(TContext context, Environment elementEnvironment) {
         Environment contextEnvironment = environmentFactory.makeEnvironment(elementEnvironment);
+        Map<TContextEntry, Expression> literalExpressionMap = new LinkedHashMap<>();
         for(TContextEntry entry: context.getContextEntry()) {
             TInformationItem variable = entry.getVariable();
+            JAXBElement<? extends TExpression> element = entry.getExpression();
+            TExpression expression = element == null ? null : element.getValue();
+            Expression feelExpression = null;
+            if (expression instanceof TLiteralExpression) {
+                feelExpression = this.feelTranslator.analyzeExpression(((TLiteralExpression) expression).getText(), FEELContext.makeContext(contextEnvironment));
+                literalExpressionMap.put(entry, feelExpression);
+            }
             if (variable != null) {
                 String name = variable.getName();
-                Type entryType = entryType(entry, contextEnvironment);
-                if (entryType instanceof FunctionType) {
-                    contextEnvironment.addDeclaration(environmentFactory.makeFunctionDeclaration(name, (FunctionType) entryType));
+                Type entryType;
+                if (expression instanceof TLiteralExpression) {
+                    entryType = expressionType(((TLiteralExpression) expression), feelExpression);
                 } else {
-                    contextEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(name, entryType));
+                    entryType = entryType(entry, contextEnvironment);
                 }
+                addContextEntryDeclaration(contextEnvironment, name, entryType);
             }
         }
-        return contextEnvironment;
+        return new Pair(contextEnvironment, literalExpressionMap);
+    }
+
+    Type expressionType(TLiteralExpression expression, Expression feelExpression) {
+        Type entryType = null;
+        QName typeRef = expression.getTypeRef();
+        if (typeRef != null) {
+            entryType = toFEELType(typeRef);
+        }
+        if (entryType == null) {
+            entryType = feelExpression.getType();
+        }
+        return entryType;
+    }
+
+    private void addContextEntryDeclaration(Environment contextEnvironment, String name, Type entryType) {
+        if (entryType instanceof FunctionType) {
+            contextEnvironment.addDeclaration(environmentFactory.makeFunctionDeclaration(name, (FunctionType) entryType));
+        } else {
+            contextEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(name, entryType));
+        }
     }
 
     Type entryType(TContextEntry entry, Environment contextEnvironment) {
         TInformationItem variable = entry.getVariable();
+        Type feelType = variableType(variable);
+        if (feelType != null) {
+            return feelType;
+        }
+        feelType = expressionType(entry.getExpression(), contextEnvironment);
+        return feelType == null ? AnyType.ANY : feelType;
+    }
+
+    Type variableType(TInformationItem variable) {
         if (variable != null) {
             QName typeRef = variable.getTypeRef();
             if (typeRef != null) {
                 return toFEELType(typeRef);
             }
         }
-        JAXBElement<? extends TExpression> expressionElement = entry.getExpression();
-        if (expressionElement != null) {
-            TExpression value = expressionElement.getValue();
-            Type feelType = expressionType(value, contextEnvironment);
-            if (feelType != null) return feelType;
-        }
-        return AnyType.ANY;
+        return null;
+    }
+
+    private Type expressionType(JAXBElement<? extends TExpression> element, Environment environment) {
+        return element == null ? null : expressionType(element.getValue(), environment);
     }
 
     Type expressionType(TExpression expression, Environment environment) {

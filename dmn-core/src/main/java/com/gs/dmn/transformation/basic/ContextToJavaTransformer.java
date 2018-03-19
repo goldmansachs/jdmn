@@ -15,12 +15,16 @@ package com.gs.dmn.transformation.basic;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.java.CompoundStatement;
 import com.gs.dmn.transformation.java.ExpressionStatement;
 import com.gs.dmn.transformation.java.Statement;
 import org.omg.spec.dmn._20151101.dmn.*;
 
 import javax.xml.bind.JAXBElement;
+import java.util.Map;
 
 public class ContextToJavaTransformer {
     private final BasicDMN2JavaTransformer dmnTransformer;
@@ -35,12 +39,19 @@ public class ContextToJavaTransformer {
         Environment elementEnvironment = dmnTransformer.makeEnvironment(element);
 
         // Make context environment
-        Environment contextEnvironment = dmnTransformer.makeContextEnvironment(context, elementEnvironment);
-        return contextExpressionToJava(context, contextEnvironment, element);
+        Pair<Environment, Map<TContextEntry, Expression>> pair = dmnTransformer.makeContextEnvironment(context, elementEnvironment);
+        return contextExpressionToJava(context, pair.getLeft(), pair.getRight(), element);
     }
 
-    Statement contextExpressionToJava(TContext context, Environment contextEnvironment, TDRGElement element) {
+    Statement contextExpressionToJava(TContext context, Environment elementEnvironment, TDRGElement element) {
+        // Make context environment
+        Pair<Environment, Map<TContextEntry, Expression>> pair = dmnTransformer.makeContextEnvironment(context, elementEnvironment);
+        return contextExpressionToJava(context, pair.getLeft(), pair.getRight(), element);
+    }
+
+     private Statement contextExpressionToJava(TContext context, Environment contextEnvironment, Map<TContextEntry, Expression> literalExpressionMap, TDRGElement element) {
         // Translate to Java
+        FEELContext feelContext = FEELContext.makeContext(contextEnvironment);
         CompoundStatement statement = new CompoundStatement();
         ExpressionStatement returnValue = null;
         for(TContextEntry entry: context.getContextEntry()) {
@@ -50,7 +61,13 @@ public class ContextToJavaTransformer {
             JAXBElement<? extends TExpression> jaxbElement = entry.getExpression();
             if (jaxbElement != null) {
                 TExpression expression = jaxbElement.getValue();
-                value = (ExpressionStatement) dmnTransformer.expressionToJava(expression, contextEnvironment, element);
+                if (expression instanceof TLiteralExpression) {
+                    Expression feelExpression = literalExpressionMap.get(entry);
+                    String stm = dmnTransformer.feelTranslator.expressionToJava(feelExpression, feelContext);
+                    value = new ExpressionStatement(stm, feelExpression.getType());
+                } else {
+                    value = (ExpressionStatement) dmnTransformer.expressionToJava(expression, contextEnvironment, element);
+                }
             } else {
                 value = new ExpressionStatement("null", entryType);
             }
