@@ -295,22 +295,30 @@ public class DMNInterpreter {
 
     private Object evaluateContextExpression(TContext context, Environment environment, RuntimeEnvironment runtimeEnvironment, TDRGElement element, DRGElement elementAnnotation) {
         // Make context environment
-        Environment contextEnvironment = basicDMNTransformer.makeContextEnvironment(context, environment);
+        Pair<Environment, Map<TContextEntry, Expression>> pair = basicDMNTransformer.makeContextEnvironment(context, environment);
+        Environment contextEnvironment = pair.getLeft();
+        Map<TContextEntry, Expression> literalExpressionMap = pair.getRight();
 
+        // Evaluate entries
         RuntimeEnvironment contextRuntimeEnvironment = runtimeEnvironmentFactory.makeEnvironment(runtimeEnvironment);
+        FEELContext feelContext = FEELContext.makeContext(contextEnvironment, contextRuntimeEnvironment);
         Object returnValue = null;
         for(TContextEntry entry: context.getContextEntry()) {
-            // Evaluate entry value
             Object entryValue;
             JAXBElement<? extends TExpression> jaxbElement = entry.getExpression();
             if (jaxbElement != null) {
                 TExpression expression = jaxbElement.getValue();
-                entryValue = evaluateExpression(expression, contextEnvironment, contextRuntimeEnvironment, element, elementAnnotation);
+                if (expression instanceof TLiteralExpression) {
+                    Expression feelExpression = literalExpressionMap.get(entry);
+                    entryValue = this.feelInterpreter.evaluateExpression(feelExpression, feelContext);
+                } else {
+                    entryValue = evaluateExpression(expression, contextEnvironment, contextRuntimeEnvironment, element, elementAnnotation);
+                }
             } else {
                 entryValue = null;
             }
 
-            // Add statement
+            // Add runtime binding
             TInformationItem variable = entry.getVariable();
             if (variable != null) {
                 String entryName = variable.getName();
