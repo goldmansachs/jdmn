@@ -653,7 +653,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3")));
         doExpressionTest(expressionPairs, "", "[]",
                 "ListLiteral()",
-                "ListType(AnyType())",
+                "ListType(AnyType)",
                 "asList()",
                 Arrays.asList(),
                 Arrays.asList());
@@ -674,7 +674,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
 
         doExpressionTest(expressionPairs, "number", "[1, <2, [3..4]]",
                 "ListLiteral(NumericLiteral(1),OperatorTest(<,NumericLiteral(2)),IntervalTest(false,NumericLiteral(3),false,NumericLiteral(4)))",
-                "ListType(AnyType())",
+                "ListType(AnyType)",
                 "asList(number(\"1\"), numericLessThan(number, number(\"2\")), booleanAnd(numericGreaterEqualThan(number, number(\"3\")), numericLessEqualThan(number, number(\"4\"))))",
                 null,
                 null);
@@ -956,7 +956,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
 
         doExpressionTest(entries, "", "null",
                 "NullLiteral()",
-                "NullType()",
+                "NullType",
                 "null",
                 null,
                 null);
@@ -1140,7 +1140,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
 
         doExpressionTest(entries, "", "sort([3,1,4,5,2], function(x: number, y: number) x < y)",
                 "FunctionInvocation(Name(sort) -> PositionalParameters(ListLiteral(NumericLiteral(3),NumericLiteral(1),NumericLiteral(4),NumericLiteral(5),NumericLiteral(2)), FunctionDefinition(FormalParameter(x, number),FormalParameter(y, number), Relational(<,Name(x),Name(y)), false)))",
-                "ListType(AnyType())",
+                "ListType(AnyType)",
                 "sort(asList(number(\"3\"), number(\"1\"), number(\"4\"), number(\"5\"), number(\"2\")), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return numericLessThan(x, y);}})",
                 null,
                 null
@@ -1335,68 +1335,68 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 lib.number("2"));
         doExpressionTest(entries, "", "sublist([1, 2, 3], 2, 1)",
                 "FunctionInvocation(Name(sublist) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), NumericLiteral(2), NumericLiteral(1)))",
-                "ListType(AnyType())",
+                "ListType(AnyType)",
                 "sublist(asList(number(\"1\"), number(\"2\"), number(\"3\")), number(\"2\"), number(\"1\"))",
                 lib.sublist(Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3")), lib.number("2"), lib.number("1")),
                 Arrays.asList(lib.number("2")));
         doExpressionTest(entries, "", "sublist([1, 2, 3], 2)",
                 "FunctionInvocation(Name(sublist) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), NumericLiteral(2)))",
-                "ListType(AnyType())",
+                "ListType(AnyType)",
                 "sublist(asList(number(\"1\"), number(\"2\"), number(\"3\")), number(\"2\"))",
                 lib.sublist(Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3")), lib.number("2")),
                 Arrays.asList(lib.number("2"), lib.number("3")));
         doExpressionTest(entries, "", "append([1, 2, 3], 4)",
                 "FunctionInvocation(Name(append) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), NumericLiteral(4)))",
-                "ListType(AnyType())",
+                "ListType(AnyType)",
                 "append(asList(number(\"1\"), number(\"2\"), number(\"3\")), number(\"4\"))",
                 lib.append(Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3")), lib.number("4")),
                 Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3"), lib.number("4")));
 
         doExpressionTest(entries, "", "concatenate([1, 2, 3], [4, 5, 6])",
                 "FunctionInvocation(Name(concatenate) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListLiteral(NumericLiteral(4),NumericLiteral(5),NumericLiteral(6))))",
-                "ListType(AnyType())",
+                "ListType(AnyType)",
                 "concatenate(asList(number(\"1\"), number(\"2\"), number(\"3\")), asList(number(\"4\"), number(\"5\"), number(\"6\")))",
                 lib.concatenate(Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3")), Arrays.asList(lib.number("4"), lib.number("5"), lib.number("6"))),
                 Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3"), lib.number("4"), lib.number("5"), lib.number("6")));
         doExpressionTest(entries, "", "insert before([1, 2, 3], 1, 4)",
                 "FunctionInvocation(Name(insert before) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), NumericLiteral(1), NumericLiteral(4)))",
-                "ListType(AnyType())",
+                "ListType(AnyType)",
                 "insertBefore(asList(number(\"1\"), number(\"2\"), number(\"3\")), number(\"1\"), number(\"4\"))",
                 lib.insertBefore(Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3")), lib.number("1"), lib.number("4")),
                 Arrays.asList(lib.number("4"), lib.number("1"), lib.number("2"), lib.number("3")));
         doExpressionTest(entries, "", "remove([1, 2, 3], 1)",
                 "FunctionInvocation(Name(remove) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), NumericLiteral(1)))",
-                "ListType(AnyType())",
+                "ListType(AnyType)",
                 "remove(asList(number(\"1\"), number(\"2\"), number(\"3\")), number(\"1\"))",
                 lib.remove(Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3")), lib.number("1")),
                 Arrays.asList(lib.number("2"), lib.number("3")));
         doExpressionTest(entries, "", "reverse([1, 2, 3])",
                 "FunctionInvocation(Name(reverse) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))",
-                "ListType(AnyType())",
+                "ListType(AnyType)",
                 "reverse(asList(number(\"1\"), number(\"2\"), number(\"3\")))",
                 lib.reverse(Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3"))),
                 Arrays.asList(lib.number("3"), lib.number("2"), lib.number("1")));
         doExpressionTest(entries, "", "index of([1, 2, 3], 3)",
                 "FunctionInvocation(Name(index of) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), NumericLiteral(3)))",
-                "ListType(AnyType())",
+                "ListType(AnyType)",
                 "indexOf(asList(number(\"1\"), number(\"2\"), number(\"3\")), number(\"3\"))",
                 lib.indexOf(Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3")), lib.number("3")),
                 Arrays.asList(lib.number("3")));
         doExpressionTest(entries, "", "union([1, 2, 3], [4, 5, 6])",
                 "FunctionInvocation(Name(union) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListLiteral(NumericLiteral(4),NumericLiteral(5),NumericLiteral(6))))",
-                "ListType(AnyType())",
+                "ListType(AnyType)",
                 "union(asList(number(\"1\"), number(\"2\"), number(\"3\")), asList(number(\"4\"), number(\"5\"), number(\"6\")))",
                 lib.union(Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3")), Arrays.asList(lib.number("4"), lib.number("5"), lib.number("6"))),
                 Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3"), lib.number("4"), lib.number("5"), lib.number("6")));
         doExpressionTest(entries, "", "distinct values([1, 2, 3])",
                 "FunctionInvocation(Name(distinct values) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))",
-                "ListType(AnyType())",
+                "ListType(AnyType)",
                 "distinctValues(asList(number(\"1\"), number(\"2\"), number(\"3\")))",
                 lib.distinctValues(Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3"))),
                 Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3")));
         doExpressionTest(entries, "", "flatten([1, 2, 3])",
                 "FunctionInvocation(Name(flatten) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))",
-                "ListType(AnyType())",
+                "ListType(AnyType)",
                 "flatten(asList(number(\"1\"), number(\"2\"), number(\"3\")))",
                 lib.flatten(Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3"))),
                 Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3")));
