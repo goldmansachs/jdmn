@@ -34,6 +34,6 @@ public abstract class Type {
 
     @Override
     public String toString() {
-        return String.format("%s()", this.getClass().getSimpleName());
+        return this.getClass().getSimpleName();
     }
 }
