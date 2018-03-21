@@ -13,17 +13,28 @@
 package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Signature;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class FEELFunctionType extends FunctionType {
+    private final FunctionDefinition functionDefinition;
     private final boolean external;
 
     public FEELFunctionType(List<FormalParameter> parameters, Type returnType, boolean external) {
+        this(parameters, returnType, external, null);
+    }
+
+    public FEELFunctionType(List<FormalParameter> parameters, Type returnType, boolean external, FunctionDefinition functionDefinition) {
         super(parameters, returnType);
+        this.functionDefinition = functionDefinition;
         this.external = external;
+    }
+
+    public FunctionDefinition getFunctionDefinition() {
+        return functionDefinition;
     }
 
     public boolean isExternal() {

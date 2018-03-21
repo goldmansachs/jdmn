@@ -141,6 +141,22 @@ public class Environment {
         }
     }
 
+    public List<Declaration> lookupFunctionDeclaration(String name) {
+        List<Declaration> declarations = lookupLocalFunctionDeclaration(name);
+        if (declarations == null) {
+            declarations = new ArrayList<>();
+        }
+        Environment parent = getParent();
+        while (parent != null) {
+            List<Declaration> parentDeclarations = parent.lookupLocalFunctionDeclaration(name);
+            if (parentDeclarations != null) {
+                declarations.addAll(parentDeclarations);
+            }
+            parent = parent.getParent();
+        }
+        return declarations;
+    }
+
     public Declaration lookupFunctionDeclaration(String name, Signature signature) {
         List<Declaration> declarations = lookupLocalFunctionDeclaration(name);
         if (declarations != null) {

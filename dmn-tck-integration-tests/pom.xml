@@ -1099,61 +1099,61 @@
                     </execution>
 
                     <execution>
-                        <id>cl3-0030-user-defined-functions</id>
+                        <id>cl3-0030-static-user-defined-functions</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${tck.diagram.folder}/cl3/0030-user-defined-functions.dmn</inputFileDirectory>
+                            <inputFileDirectory>${tck.diagram.folder}/cl3/0030-static-user-defined-functions.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0030_user_defined_functions</javaRootPackage>
+                                <javaRootPackage>com.gs.dmn.tck.cl3_0030_static_user_defined_functions</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>test-cl3-0030-user-defined-functions</id>
+                        <id>test-cl3-0030-static-user-defined-functions</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>tck-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${tck.diagram.folder}/cl3/0030-user-defined-functions-test-01.xml</inputTestFileDirectory>
-                            <inputModelFileDirectory>${tck.diagram.folder}/cl3/0030-user-defined-functions.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${tck.diagram.folder}/cl3/0030-static-user-defined-functions-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.diagram.folder}/cl3/0030-static-user-defined-functions.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0030_user_defined_functions</javaRootPackage>
+                                <javaRootPackage>com.gs.dmn.tck.cl3_0030_static_user_defined_functions</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
 
                     <execution>
-                        <id>cl3-0031-user-defined-functions</id>
+                        <id>cl3-0031-static-user-defined-functions</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${tck.diagram.folder}/cl3/0031-user-defined-functions.dmn</inputFileDirectory>
+                            <inputFileDirectory>${tck.diagram.folder}/cl3/0031-static-user-defined-functions.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0031_user_defined_functions</javaRootPackage>
+                                <javaRootPackage>com.gs.dmn.tck.cl3_static_0031_user_defined_functions</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>test-cl3-0031-user-defined-functions</id>
+                        <id>test-cl3-0031-static-user-defined-functions</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>tck-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${tck.diagram.folder}/cl3/0031-user-defined-functions-test-01.xml</inputTestFileDirectory>
-                            <inputModelFileDirectory>${tck.diagram.folder}/cl3/0031-user-defined-functions.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${tck.diagram.folder}/cl3/0031-static-user-defined-functions-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.diagram.folder}/cl3/0031-static-user-defined-functions.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0031_user_defined_functions</javaRootPackage>
+                                <javaRootPackage>com.gs.dmn.tck.cl3_static_0031_user_defined_functions</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>

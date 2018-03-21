@@ -255,11 +255,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(FunctionDefinition element, FEELContext context) {
-        if (element.isStaticTyped()) {
-            return makeLambdaExpression(element, context);
-        } else {
-            throw new DMNRuntimeException("Dynamic typing for FEEL functions not supported yet");
-        }
+        return element;
     }
 
     private Object makeLambdaExpression(FunctionDefinition element, FEELContext context) {
@@ -560,8 +556,8 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     public Object visit(FunctionInvocation element, FEELContext context) {
         Arguments arguments = (Arguments) element.getParameters().accept(this, context);
         Expression function = element.getFunction();
-        FunctionType type = (FunctionType) element.getFunction().getType();
-        List<FormalParameter> formalParameters = type.getParameters();
+        FunctionType functionType = (FunctionType) element.getFunction().getType();
+        List<FormalParameter> formalParameters = functionType.getParameters();
         List<Object> argList = arguments.argumentList(formalParameters);
         if (!argList.isEmpty()) {
             argList = convertArguments(argList, element.getParameterConversions());
@@ -572,11 +568,23 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
             if (binding instanceof TBusinessKnowledgeModel) {
                 return dmnInterpreter.evaluateBKM((TBusinessKnowledgeModel) binding, argList, context);
             } else if (binding instanceof TFunctionDefinition) {
-                return dmnInterpreter.evaluateFunctionDefinitionCall((TFunctionDefinition) binding, argList, context);
+                return dmnInterpreter.evaluateFunctionDefinition((TFunctionDefinition) binding, argList, context);
+            } else if (binding instanceof FunctionDefinition) {
+                FunctionDefinition functionDefinitionBinding = (FunctionDefinition) binding;
+                if (functionType instanceof FEELFunctionType) {
+                    // Use the one with inferred types
+                    functionDefinitionBinding = ((FEELFunctionType) functionType).getFunctionDefinition();
+                }
+                return evaluateFunctionDefinition(functionDefinitionBinding, argList, context);
             } else if (binding instanceof LambdaExpression) {
                 return evaluateLambdaExpression((LambdaExpression) binding, argList, context);
             } else {
                 String javaFunctionName = javaFunctionName(feelFunctionName);
+                if ("sort".equals(javaFunctionName)) {
+                    FunctionDefinition functionDefinition = (FunctionDefinition) argList.get(1);
+                    Object lambdaExpression = makeLambdaExpression(functionDefinition, context);
+                    argList.set(1, lambdaExpression);
+                }
                 return evaluateBuiltInFunction(lib, javaFunctionName, argList);
             }
         } else {
@@ -584,13 +592,47 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
             if (binding instanceof TBusinessKnowledgeModel) {
                 return dmnInterpreter.evaluateBKM((TBusinessKnowledgeModel) binding, argList, context);
             } else if (binding instanceof TFunctionDefinition) {
-                return dmnInterpreter.evaluateFunctionDefinitionCall((TFunctionDefinition) binding, argList, context);
+                return dmnInterpreter.evaluateFunctionDefinition((TFunctionDefinition) binding, argList, context);
+            } else if (binding instanceof FunctionDefinition) {
+                FunctionDefinition functionDefinitionBinding = (FunctionDefinition) binding;
+                if (functionType instanceof FEELFunctionType) {
+                    // Use the one with inferred types
+                    functionDefinitionBinding = ((FEELFunctionType) functionType).getFunctionDefinition();
+                }
+                return evaluateFunctionDefinition(functionDefinitionBinding, argList, context);
             } else if (binding instanceof LambdaExpression) {
                 return evaluateLambdaExpression((LambdaExpression) binding, argList, context);
             } else {
                 throw new DMNRuntimeException(String.format("Not supported yet %s", binding.getClass().getSimpleName()));
             }
         }
+    }
+
+    public Object evaluateFunctionDefinition(FunctionDefinition functionDefinition, List<Object> argList, FEELContext context) {
+        // Create new environments and bind parameters
+        Environment functionEnvironment = environmentFactory.makeEnvironment(context.getEnvironment());
+        RuntimeEnvironment functionRuntimeEnvironment = runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment());
+        FEELContext functionContext = FEELContext.makeContext(functionEnvironment, functionRuntimeEnvironment);
+        List<FormalParameter> formalParameterList = functionDefinition.getFormalParameters();
+        for (int i = 0; i < formalParameterList.size(); i++) {
+            FormalParameter param = formalParameterList.get(i);
+            String name = param.getName();
+            Type type = param.getType();
+            Object value = argList.get(i);
+            functionEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(name, type));
+            functionRuntimeEnvironment.bind(name, value);
+        }
+
+        // Execute function body
+        Expression body = functionDefinition.getBody();
+        Object output;
+        if (body == null) {
+            output = null;
+        } else {
+            output = body.accept(this, functionContext);
+        }
+
+        return output;
     }
 
     @Override
@@ -668,21 +710,22 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(PathExpression element, FEELContext context) {
-        Type sourceType = element.getSource().getType();
-        Object source = element.getSource().accept(this, context);
+        Expression source = element.getSource();
+        Type sourceType = source.getType();
+        Object sourceValue = source.accept(this, context);
         String member = element.getMember();
 
         if (sourceType instanceof ListType) {
             List result = new ArrayList();
-            if (source == null) {
+            if (sourceValue == null) {
                 return null;
             }
-            for (Object obj : (List) source) {
+            for (Object obj : (List) sourceValue) {
                 result.add(navigate(element, ((ListType) sourceType).getElementType(), obj, member));
             }
             return result;
         } else {
-            return navigate(element, sourceType, source, member);
+            return navigate(element, sourceType, sourceValue, member);
         }
     }
 

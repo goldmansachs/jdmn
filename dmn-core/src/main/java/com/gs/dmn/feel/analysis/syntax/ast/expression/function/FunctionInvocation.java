@@ -57,7 +57,7 @@ public class FunctionInvocation extends Expression {
         if (function instanceof Name) {
             checkFunction(environment, ((Name) function).getName());
         } else if (function instanceof QualifiedName && ((QualifiedName) function).getNames().size() == 1) {
-           checkFunction(environment, ((QualifiedName) function).getQualifiedName());
+            checkFunction(environment, ((QualifiedName) function).getQualifiedName());
         } else {
             Type type = function.getType();
             if (type instanceof FunctionType) {
@@ -86,8 +86,9 @@ public class FunctionInvocation extends Expression {
         } else if (functionMatches.size() == 1) {
             DeclarationMatch declarationMatch = functionMatches.get(0);
             FunctionDeclaration functionDeclaration = (FunctionDeclaration) declarationMatch.getDeclaration();
-            this.function.setType(functionDeclaration.getType());
-            setType(functionDeclaration.getType().getReturnType());
+            FunctionType functionType = functionDeclaration.getType();
+            this.function.setType(functionType);
+            setType(functionType.getReturnType());
             setParameterConversions(declarationMatch.getParameterConversions());
         } else {
             throw new DMNRuntimeException(String.format("Multiple matches for function '%s(%s)'", name, signature));

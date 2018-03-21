@@ -12,20 +12,39 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
-import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
+import com.gs.dmn.feel.analysis.semantics.environment.*;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
+
+import java.util.List;
 
 public abstract class NamedExpression extends Expression {
     @Override
     public void deriveType(Environment environment) {
         Type type;
-        Declaration declaration = environment.lookupVariableDeclaration(getName());
+        String name = getName();
+        // Loopup for variables
+        Declaration declaration = environment.lookupVariableDeclaration(name);
         if (declaration instanceof VariableDeclaration) {
             type = ((VariableDeclaration) declaration).getType();
             setType(type);
+            return;
         }
+        // Lookup for member (used in filters)
+        declaration = environment.lookupMemberDeclaration(name);
+        if (declaration instanceof MemberDeclaration) {
+            type = ((MemberDeclaration) declaration).getType();
+            setType(type);
+            return;
+        }
+        // Lookup for functions
+        List<Declaration> declarations = environment.lookupFunctionDeclaration(name);
+        if (declarations != null && declarations.size() == 1) {
+            declaration = declarations.get(0);
+            type = ((FunctionDeclaration) declaration).getType();
+            setType(type);
+            return;
+        }
+
     }
 
     protected abstract String getName();

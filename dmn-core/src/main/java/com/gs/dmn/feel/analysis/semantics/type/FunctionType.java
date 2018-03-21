@@ -22,10 +22,10 @@ import java.util.stream.Collectors;
 public abstract class FunctionType extends Type {
     protected final List<FormalParameter> parameters = new ArrayList<>();
     protected final List<Type> parameterTypes = new ArrayList<>();
-    protected final Type returnType;
+    protected Type returnType;
 
-    public FunctionType(List<FormalParameter> parameters, Type type) {
-        this.returnType = type;
+    public FunctionType(List<FormalParameter> parameters, Type returnType) {
+        this.returnType = returnType;
         if (parameters != null) {
             this.parameters.addAll(parameters);
             this.parameterTypes.addAll(parameters.stream().map(FormalParameter::getType).collect(Collectors.toList()));
@@ -44,6 +44,10 @@ public abstract class FunctionType extends Type {
         return returnType;
     }
 
+    public void setReturnType(Type returnType) {
+        this.returnType = returnType;
+    }
+
     public abstract boolean match(Signature signature);
 
     @Override
@@ -53,5 +57,9 @@ public abstract class FunctionType extends Type {
         }
         return parameterTypes.stream().allMatch(Type::isValid)
                 && returnType.isValid();
+    }
+
+    public boolean isStaticTyped() {
+        return parameters.stream().allMatch(p -> p.getType() != null && p.getType() != AnyType.ANY);
     }
 }
