@@ -48,13 +48,13 @@
       <dmn:contextEntry>
         <dmn:variable id="_tc5HIH6OEeePe9Zmt-encA" name="sumFn"/>
         <dmn:literalExpression id="_tc5HIX6OEeePe9Zmt-encA">
-          <dmn:text>function(a,b) a+b</dmn:text>
+          <dmn:text>function(a:number,b:number) a+b</dmn:text>
         </dmn:literalExpression>
       </dmn:contextEntry>
       <dmn:contextEntry>
         <dmn:variable id="_2WC5IH6OEeePe9Zmt-encA" name="subFn"/>
         <dmn:literalExpression id="_oUtvYIDeEee-MeWXoLgrYg">
-          <dmn:text>function(a,b) a-b</dmn:text>
+          <dmn:text>function(a:number,b:number) a-b</dmn:text>
         </dmn:literalExpression>
       </dmn:contextEntry>
       <dmn:contextEntry>
@@ -70,7 +70,7 @@
       <dmn:contextEntry>
         <dmn:variable id="_SgHREIDSEee-MeWXoLgrYg" name="divideFn"/>
         <dmn:literalExpression id="_kG65QIDeEee-MeWXoLgrYg">
-          <dmn:text>function(a,b) if b = 0 then null else a/b</dmn:text>
+          <dmn:text>function(a:number,b:number) if b = 0 then null else a/b</dmn:text>
         </dmn:literalExpression>
       </dmn:contextEntry>
     </dmn:context>

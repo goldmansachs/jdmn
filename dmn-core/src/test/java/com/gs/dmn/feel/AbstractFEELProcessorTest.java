@@ -1159,7 +1159,7 @@ public abstract class AbstractFEELProcessorTest {
         Expression actual = feelTranslator.analyzeExpression(expressionText, expressionContext);
 
         // Check expression
-        assertEquals("AST mismatch", expectedAST, actual.toString());
+        assertEquals("Augmented AST mismatch", expectedAST, actual.toString());
         assertEquals("Type mismatch", expectedType, (actual.getType() == null ? null : actual.getType().toString()));
 
         // Generate code and check

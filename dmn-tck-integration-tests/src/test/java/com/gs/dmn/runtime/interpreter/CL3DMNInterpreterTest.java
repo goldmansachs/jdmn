@@ -61,6 +61,8 @@ public abstract class CL3DMNInterpreterTest extends AbstractDMNInterpreterTest {
         doTestDiagram("1120-feel-duration-function");
         doTestDiagram("1121-feel-years-and-months-duration-function");
 
+        doTestDiagram("0030-static-user-defined-functions");
+        doTestDiagram("0031-static-user-defined-functions");
         doTestDiagram("9001-recursive-function");
     }
 }

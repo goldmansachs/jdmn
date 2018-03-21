@@ -23,7 +23,7 @@
       <dmn:contextEntry>
         <dmn:variable id="_nsnCAIDoEee-MeWXoLgrYg" name="literalFnDefinition"/>
         <dmn:literalExpression id="_nsnCAYDoEee-MeWXoLgrYg">
-          <dmn:text>function(a,b) a + b</dmn:text>
+          <dmn:text>function(a:string,b:string) a + b</dmn:text>
         </dmn:literalExpression>
       </dmn:contextEntry>
       <dmn:contextEntry>
@@ -55,7 +55,7 @@
       <dmn:contextEntry>
         <dmn:variable id="_HeKjmYDzEeehqsf_bU54Lw" name="literalFnDefinition"/>
         <dmn:literalExpression id="_HeKjm4DzEeehqsf_bU54Lw">
-          <dmn:text>function(a,b) a + b</dmn:text>
+          <dmn:text>function(a:string,b:string) a + b</dmn:text>
         </dmn:literalExpression>
       </dmn:contextEntry>
       <dmn:contextEntry>

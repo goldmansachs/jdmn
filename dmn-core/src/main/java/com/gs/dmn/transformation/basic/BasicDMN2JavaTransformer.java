@@ -1411,7 +1411,7 @@ public class BasicDMN2JavaTransformer {
                 String name = variable.getName();
                 Type entryType;
                 if (expression instanceof TLiteralExpression) {
-                    entryType = expressionType(((TLiteralExpression) expression), feelExpression);
+                    entryType = entryType(entry, expression, feelExpression);
                 } else {
                     entryType = entryType(entry, contextEnvironment);
                 }
@@ -1421,9 +1421,13 @@ public class BasicDMN2JavaTransformer {
         return new Pair(contextEnvironment, literalExpressionMap);
     }
 
-    Type expressionType(TLiteralExpression expression, Expression feelExpression) {
-        Type entryType = null;
-        QName typeRef = expression.getTypeRef();
+    Type entryType(TContextEntry entry, TExpression expression, Expression feelExpression) {
+        TInformationItem variable = entry.getVariable();
+        Type entryType = variableType(variable);
+        if (entryType != null) {
+            return entryType;
+        }
+        QName typeRef = expression == null ? null : expression.getTypeRef();
         if (typeRef != null) {
             entryType = toFEELType(typeRef);
         }

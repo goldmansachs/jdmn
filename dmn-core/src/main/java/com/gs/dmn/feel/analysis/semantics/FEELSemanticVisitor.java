@@ -14,10 +14,7 @@ package com.gs.dmn.feel.analysis.semantics;
 
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
-import com.gs.dmn.feel.analysis.semantics.type.AnyType;
-import com.gs.dmn.feel.analysis.semantics.type.ListType;
-import com.gs.dmn.feel.analysis.semantics.type.RangeType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.AbstractAnalysisVisitor;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
@@ -386,9 +383,56 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
             parameters.accept(this, context);
             function.accept(this, context);
         }
+
+        inferMissingTypesInFunction(element.getFunction(), element.getParameters(), context);
+
         element.deriveType(context.getEnvironment());
         return element;
     }
+
+    private void inferMissingTypesInFunction(Expression function, Parameters arguments, FEELContext context) {
+        Type functionType = function.getType();
+        if (functionType instanceof FEELFunctionType) {
+            FEELFunctionType feelFunctionType = (FEELFunctionType) functionType;
+            if (!feelFunctionType.isStaticTyped()) {
+                // Bind names to types in function type
+                bindNameToTypes(feelFunctionType.getParameters(), arguments);
+
+                // Bind names to types in function type
+                FunctionDefinition functionDefinition = feelFunctionType.getFunctionDefinition();
+                if (functionDefinition != null) {
+                    bindNameToTypes(functionDefinition.getFormalParameters(), arguments);
+                }
+
+                // Set return type
+                functionDefinition.accept(this, context);
+                feelFunctionType.setReturnType(functionDefinition.getBody().getType());
+            }
+        }
+    }
+
+    private void bindNameToTypes(List<FormalParameter> parameters, Parameters arguments) {
+        if (arguments instanceof NamedParameters) {
+            for(FormalParameter p: parameters) {
+                Type type = p.getType();
+                if (type == null || type == AnyType.ANY) {
+                    Type newType = ((NamedParameters) arguments).getParameters().get(p.getName()).getType();
+                    p.setType(newType);
+                }
+            }
+        } else if (arguments instanceof PositionalParameters) {
+            for(int i=0; i < parameters.size(); i++) {
+                FormalParameter p = parameters.get(i);
+                Type type = p.getType();
+                if (type == null || type == AnyType.ANY) {
+                    Type newType = ((PositionalParameters) arguments).getParameters().get(i).getType();
+                    p.setType(newType);
+                }
+            }
+        }
+
+    }
+
 
     @Override
     public Object visit(NamedParameters element, FEELContext context) {

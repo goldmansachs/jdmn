@@ -118,11 +118,10 @@ public class DMNInterpreter {
         return output;
     }
 
-    public Object evaluateFunctionDefinitionCall(TFunctionDefinition functionDefinition, List<Object> argList, FEELContext context) {
-        RuntimeEnvironment functionRuntimeEnvironment = runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment());
-
-        // Bind parameters
+    public Object evaluateFunctionDefinition(TFunctionDefinition functionDefinition, List<Object> argList, FEELContext context) {
+        // Create new environments and bind parameters
         Environment functionEnvironment = environmentFactory.makeEnvironment(context.getEnvironment());
+        RuntimeEnvironment functionRuntimeEnvironment = runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment());
         List<TInformationItem> formalParameterList = functionDefinition.getFormalParameter();
         for (int i = 0; i < formalParameterList.size(); i++) {
             TInformationItem param = formalParameterList.get(i);
