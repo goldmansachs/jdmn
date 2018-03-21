@@ -31,10 +31,10 @@ public class FormalParameter extends Element {
     public FormalParameter(String name, Type type) {
         this.name = name;
         this.type = type;
-        setTypename(type);
+        setTypeName(type);
     }
 
-    private void setTypename(Type type) {
+    private void setTypeName(Type type) {
         if (type != null) {
             if (type instanceof NamedType) {
                 this.typeName = ((NamedType) type).getName();
@@ -58,7 +58,7 @@ public class FormalParameter extends Element {
 
     public void setType(Type type) {
         this.type = type;
-        setTypename(type);
+        setTypeName(type);
     }
 
     @Override
