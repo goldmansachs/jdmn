@@ -12,8 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
-import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
+import com.gs.dmn.feel.analysis.semantics.type.NamedType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
@@ -32,6 +31,17 @@ public class FormalParameter extends Element {
     public FormalParameter(String name, Type type) {
         this.name = name;
         this.type = type;
+        setTypename(type);
+    }
+
+    private void setTypename(Type type) {
+        if (type != null) {
+            if (type instanceof NamedType) {
+                this.typeName = ((NamedType) type).getName();
+            } else {
+                this.typeName = type.toString();
+            }
+        }
     }
 
     public String getName() {
@@ -48,15 +58,7 @@ public class FormalParameter extends Element {
 
     public void setType(Type type) {
         this.type = type;
-    }
-
-    public void deriveType(FunctionDefinition element, FEELContext context) {
-        if (type == null) {
-            Declaration declaration = context.getEnvironment().lookupVariableDeclaration(name);
-            if (declaration instanceof VariableDeclaration) {
-                this.setType(((VariableDeclaration) declaration).getType());
-            }
-        }
+        setTypename(type);
     }
 
     @Override

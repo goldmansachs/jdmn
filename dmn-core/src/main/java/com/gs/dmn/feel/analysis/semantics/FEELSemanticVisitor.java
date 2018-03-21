@@ -14,6 +14,7 @@ package com.gs.dmn.feel.analysis.semantics;
 
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
+import com.gs.dmn.feel.analysis.semantics.type.AnyType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.RangeType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
@@ -125,11 +126,17 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
         );
 
         // Analyze body
+        Expression body = element.getBody();
         if (element.isStaticTyped()) {
             // Analyze body
             FEELContext functionDefinitionContext = FEELContext.makeContext(bodyEnvironment);
-            element.getBody().accept(this, functionDefinitionContext);
+            body.accept(this, functionDefinitionContext);
+        } else {
+            if (body.getType() == null) {
+                body.setType(AnyType.ANY);
+            }
         }
+
         // Derive element type
         element.deriveType(bodyEnvironment);
         return element;
@@ -137,10 +144,15 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
 
     @Override
     public Object visit(FormalParameter element, FEELContext context) {
-        String typeName = element.getTypeName();
-        if (typeName != null) {
-            Type type = dmnTransformer.toFEELType(typeName);
-            element.setType(type);
+        if (element.getType() == null) {
+            String typeName = element.getTypeName();
+            if (typeName == null) {
+                element.setType(AnyType.ANY);
+            } else {
+                Type type = dmnTransformer.toFEELType(typeName);
+                element.setType(type);
+            }
+
         }
         return element;
     }
