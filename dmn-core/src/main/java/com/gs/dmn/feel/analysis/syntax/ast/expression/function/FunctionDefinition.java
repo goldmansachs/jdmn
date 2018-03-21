@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
+import com.gs.dmn.feel.analysis.semantics.type.AnyType;
 import com.gs.dmn.feel.analysis.semantics.type.FEELFunctionType;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
@@ -37,7 +38,7 @@ public class FunctionDefinition extends Expression {
     }
 
     public boolean isStaticTyped() {
-        return formalParameters.stream().allMatch(p -> p.getType() != null);
+        return formalParameters.stream().allMatch(p -> p.getType() != null && p.getType() != AnyType.ANY);
     }
 
     public Expression getBody() {
