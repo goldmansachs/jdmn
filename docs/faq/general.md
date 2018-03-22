@@ -8,6 +8,16 @@ DMN models can be executed in jDMN in two ways:
 
 For more information please look at the other [FAQs](index.md).
 
+## How to read DMN models?
+
+DMN models can be read as follows:
+
+```
+    BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(...));
+    DMNReader reader = new DMNReader(LOGGER, false);
+    TDefinitions definitions = reader.read(dmnFileURL);
+```
+
 ## What is a jDMN dialect?
 
 A dialect is a jDMN abstraction introduced to support variations both of source (DMN) and target (Java). For example, 
