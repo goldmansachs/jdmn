@@ -7,6 +7,7 @@ This is the main landing page for the jDMN 4 FAQ. The links below will take you 
 ## General
 
 * [How to execute a DMN model?](general.md)
+* [How to read a DMN model?](general.md)
 * [What is a DMN dialect?](general.md)
 * [How many dialects are supported?](general.md)
 * [What is a template provider?](general.md)
