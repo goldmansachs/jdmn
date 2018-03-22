@@ -1,6 +1,6 @@
 # General
 
-## How to execute DMN models?
+## How to execute a DMN model?
 
 DMN models can be executed in jDMN in two ways:
 * interpretation on JVM
@@ -8,7 +8,7 @@ DMN models can be executed in jDMN in two ways:
 
 For more information please look at the other [FAQs](index.md).
 
-## How to read DMN models?
+## How to read a DMN model?
 
 DMN models can be read as follows:
 
