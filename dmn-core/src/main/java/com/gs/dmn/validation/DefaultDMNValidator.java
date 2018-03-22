@@ -10,10 +10,12 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.serialization;
+package com.gs.dmn.validation;
 
 import com.google.common.base.Function;
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20151101.dmn.*;
@@ -26,34 +28,40 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public abstract class DMNValidator {
-    private final boolean semanticValidation;
-
-    public DMNValidator(boolean semanticValidation) {
-        this.semanticValidation = semanticValidation;
+public class DefaultDMNValidator extends SimpleDMNValidator {
+    public DefaultDMNValidator() {
+        super(new Slf4jBuildLogger(LOGGER));
     }
 
-    public void validateDefinitions(DMNModelRepository dmnModelRepository) {
-        if (!semanticValidation) {
-            return;
-        }
+    public DefaultDMNValidator(BuildLogger logger) {
+        super(logger);
+    }
 
+    @Override
+    public void validate(DMNModelRepository dmnModelRepository) {
         if (dmnModelRepository == null) {
             throw new IllegalArgumentException("Missing definitions");
         }
+
+        logger.debug("Validate unique 'DRGElement.id'");
         validateUnique(
                 "DRGElement", "id", false,
                 new ArrayList<>(dmnModelRepository.drgElements()), TDMNElement::getId, null
         );
+
+        logger.debug("Validate unique 'DRGElement.name'");
         validateUnique(
                 "DRGElement", "name", false,
                 new ArrayList<>(dmnModelRepository.drgElements()), TNamedElement::getName, null
         );
+
+        logger.debug("Validate unique 'ItemDefinition.name'");
         validateUnique(
                 "ItemDefinition", "name", false,
                 new ArrayList<>(dmnModelRepository.itemDefinitions()), TNamedElement::getName, null
         );
         for (TDRGElement element : dmnModelRepository.drgElements()) {
+            logger.debug(String.format("Validate element '%s'", element.getName()));
             if (element instanceof TInputData) {
                 validateInputData((TInputData) element);
             } else if (element instanceof TBusinessKnowledgeModel) {

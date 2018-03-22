@@ -18,11 +18,11 @@ import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
-import com.gs.dmn.serialization.DMNValidator;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.template.TemplateProvider;
+import com.gs.dmn.validation.DMNValidator;
 import org.omg.spec.dmn._20151101.dmn.TDefinitions;
 
 import java.util.Map;
@@ -44,7 +44,7 @@ public interface DMNDialectDefinition {
     //
     DMNInterpreter createDMNInterpreter(TDefinitions definitions);
 
-    DMNToJavaTransformer createDMNToJavaTransformer(DMNTransformer dmnTransformer, TemplateProvider templateProvider, Map<String, String> inputParameters, BuildLogger logger);
+    DMNToJavaTransformer createDMNToJavaTransformer(DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, Map<String, String> inputParameters, BuildLogger logger);
 
     BasicDMN2JavaTransformer createBasicTransformer(TDefinitions definitions, Map<String, String> inputParameters);
 
@@ -56,6 +56,4 @@ public interface DMNDialectDefinition {
     FEELLib createFEELLib();
 
     String getDecisionBaseClass();
-
-    DMNValidator createValidator(boolean semanticValidation);
 }
