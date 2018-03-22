@@ -20,6 +20,7 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.template.TemplateProvider;
+import com.gs.dmn.validation.DMNValidator;
 import org.omg.spec.dmn._20151101.dmn.TBusinessKnowledgeModel;
 import org.omg.spec.dmn._20151101.dmn.TDecision;
 import org.omg.spec.dmn._20151101.dmn.TDefinitions;
@@ -52,8 +53,8 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
     protected final String modelVersion;
     protected final String platformVersion;
 
-    public DMNToJavaTransformer(DMNDialectDefinition dialectDefinition, DMNTransformer dmnTransformer, TemplateProvider templateProvider, Map<String, String> inputParameters, BuildLogger logger) {
-        super(dialectDefinition, dmnTransformer, templateProvider, inputParameters, logger);
+    public DMNToJavaTransformer(DMNDialectDefinition dialectDefinition, DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, Map<String, String> inputParameters, BuildLogger logger) {
+        super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, inputParameters, logger);
 
         this.dmnVersion = InputParamUtil.getRequiredParam(inputParameters, "dmnVersion");
         this.modelVersion = InputParamUtil.getRequiredParam(inputParameters, "modelVersion");
@@ -79,7 +80,7 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
         definitions = dmnTransformer.transform(definitions);
         BasicDMN2JavaTransformer dmnTransformer = dialectDefinition.createBasicTransformer(definitions, inputParameters);
         DMNModelRepository dmnModelRepository = dmnTransformer.getDMNModelRepository();
-        this.dmnValidator.validateDefinitions(dmnModelRepository);
+        this.dmnValidator.validate(dmnModelRepository);
 
         // Transform
         transform(dmnTransformer, dmnModelRepository, outputPath);

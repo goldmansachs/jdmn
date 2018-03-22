@@ -14,6 +14,8 @@ package com.gs.dmn.transformation;
 
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.DMNReader;
+import com.gs.dmn.validation.DMNValidator;
+import com.gs.dmn.validation.DefaultDMNValidator;
 
 import java.io.File;
 import java.net.URI;
@@ -54,12 +56,17 @@ public abstract class AbstractDMNToJavaTest extends AbstractTransformerTest {
     }
 
     @Override
+    protected DMNValidator makeDMNValidator(BuildLogger logger) {
+        return new DefaultDMNValidator(logger);
+    }
+
+    @Override
     protected DMNTransformer makeDMNTransformer(BuildLogger logger) {
         return new NopDMNTransformer();
     }
 
     private FileTransformer makeTransformer(Map<String, String> inputParameters, BuildLogger logger) {
-        return makeDialectDefinition().createDMNToJavaTransformer(makeDMNTransformer(logger), makeTemplateProvider(), inputParameters, logger);
+        return makeDialectDefinition().createDMNToJavaTransformer(makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), inputParameters, logger);
     }
 
     @Override
@@ -68,7 +75,6 @@ public abstract class AbstractDMNToJavaTest extends AbstractTransformerTest {
             put("dmnVersion", "1.1");
             put("modelVersion", "2.0");
             put("platformVersion", "1.0");
-            put("semanticValidation", "true");
         }};
     }
 

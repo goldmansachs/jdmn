@@ -18,12 +18,11 @@ import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
 import com.gs.dmn.feel.synthesis.type.StandardFEELTypeTranslator;
 import com.gs.dmn.runtime.DefaultDMNBaseDecision;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
-import com.gs.dmn.serialization.DMNValidator;
-import com.gs.dmn.serialization.StandardDMNValidator;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.NopDMNTransformer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.template.TreeTemplateProvider;
+import com.gs.dmn.validation.NopDMNValidator;
 import org.junit.Test;
 import org.omg.spec.dmn._20151101.dmn.TDefinitions;
 
@@ -48,7 +47,7 @@ public class StandardDMNDialectDefinitionTest {
         inputParameters.put("dmnVersion", "1.1");
         inputParameters.put("modelVersion", "1.2");
         inputParameters.put("platformVersion", "3.2");
-        DMNToJavaTransformer dmnToJavaTransformer = dialect.createDMNToJavaTransformer(new NopDMNTransformer(), new TreeTemplateProvider(), inputParameters, null);
+        DMNToJavaTransformer dmnToJavaTransformer = dialect.createDMNToJavaTransformer(new NopDMNValidator(), new NopDMNTransformer(), new TreeTemplateProvider(), inputParameters, null);
         assertEquals(DMNToJavaTransformer.class.getName(), dmnToJavaTransformer.getClass().getName());
     }
 
@@ -75,11 +74,4 @@ public class StandardDMNDialectDefinitionTest {
         String decisionBaseClass = dialect.getDecisionBaseClass();
         assertEquals(DefaultDMNBaseDecision.class.getName(), decisionBaseClass);
     }
-
-    @Test
-    public void testCreateValidator() {
-        DMNValidator validator = dialect.createValidator(true);
-        assertEquals(StandardDMNValidator.class.getName(), validator.getClass().getName());
-    }
-
 }

@@ -10,10 +10,24 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.serialization;
+package com.gs.dmn.validation;
 
-public class StandardDMNValidator extends DMNValidator {
-    public StandardDMNValidator(boolean semanticValidation) {
-        super(semanticValidation);
+import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.log.Slf4jBuildLogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public abstract class SimpleDMNValidator implements DMNValidator {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(SimpleDMNValidator.class);
+
+    protected final BuildLogger logger;
+
+    public SimpleDMNValidator() {
+        this(new Slf4jBuildLogger(LOGGER));
     }
+
+    public SimpleDMNValidator(BuildLogger logger) {
+        this.logger = logger;
+    }
+
 }

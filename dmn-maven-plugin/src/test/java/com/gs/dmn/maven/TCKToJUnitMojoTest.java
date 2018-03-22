@@ -23,8 +23,8 @@ import java.io.File;
 
 import static org.junit.Assert.assertTrue;
 
-public class DMN2JavaMojoTest extends AbstractMojoTest {
-    private final DMNToJavaMojo mojo = new DMNToJavaMojo();
+public class TCKToJUnitMojoTest extends AbstractMojoTest {
+    private final TCKToJUnitMojo mojo = new TCKToJUnitMojo();
     private final MavenProject project = new MavenProject();
 
     @Test(expected = IllegalArgumentException.class)
@@ -36,13 +36,15 @@ public class DMN2JavaMojoTest extends AbstractMojoTest {
 
     @Test
     public void testExecute() throws Exception {
-        String input = this.getClass().getClassLoader().getResource("input/0004-lending.dmn").getFile();
+        String inputModel = this.getClass().getClassLoader().getResource("input/0004-lending.dmn").getFile();
+        String inputTest = this.getClass().getClassLoader().getResource("input/0004-lending-test-01.xml").getFile();
         mojo.project = project;
         mojo.dmnDialect = StandardDMNDialectDefinition.class.getName();
         mojo.dmnValidators = new String[] {NopDMNValidator.class.getName()};
         mojo.dmnTransformers = new String[] {ToSimpleNameTransformer.class.getName()};
         mojo.templateProvider = TreeTemplateProvider.class.getName();
-        mojo.inputFileDirectory = new File(input);
+        mojo.inputModelFileDirectory = new File(inputModel);
+        mojo.inputTestFileDirectory = new File(inputTest);
         mojo.outputFileDirectory = new File("target/output");
         mojo.inputParameters = makeParams();
         mojo.execute();

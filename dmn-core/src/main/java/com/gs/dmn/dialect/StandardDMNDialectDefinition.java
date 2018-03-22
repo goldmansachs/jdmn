@@ -22,12 +22,11 @@ import com.gs.dmn.feel.synthesis.type.StandardFEELTypeTranslator;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DefaultDMNBaseDecision;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
-import com.gs.dmn.serialization.DMNValidator;
-import com.gs.dmn.serialization.StandardDMNValidator;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.template.TemplateProvider;
+import com.gs.dmn.validation.DMNValidator;
 import org.omg.spec.dmn._20151101.dmn.TDefinitions;
 
 import java.util.LinkedHashMap;
@@ -43,8 +42,8 @@ public class StandardDMNDialectDefinition extends AbstractDMNDialectDefinition {
     }
 
     @Override
-    public DMNToJavaTransformer createDMNToJavaTransformer(DMNTransformer dmnTransformer, TemplateProvider templateProvider, Map<String, String> inputParameters, BuildLogger logger) {
-        return new DMNToJavaTransformer(this, dmnTransformer, templateProvider, inputParameters, logger);
+    public DMNToJavaTransformer createDMNToJavaTransformer(DMNValidator dmnValidator,DMNTransformer dmnTransformer, TemplateProvider templateProvider, Map<String, String> inputParameters, BuildLogger logger) {
+        return new DMNToJavaTransformer(this, dmnValidator, dmnTransformer, templateProvider, inputParameters, logger);
     }
 
     @Override
@@ -81,10 +80,5 @@ public class StandardDMNDialectDefinition extends AbstractDMNDialectDefinition {
     @Override
     public String getDecisionBaseClass() {
         return DefaultDMNBaseDecision.class.getName();
-    }
-
-    @Override
-    public DMNValidator createValidator(boolean semanticValidation) {
-        return new StandardDMNValidator(semanticValidation);
     }
 }

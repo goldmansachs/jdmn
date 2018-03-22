@@ -17,6 +17,9 @@ import com.gs.dmn.transformation.CompositeDMNTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.NopDMNTransformer;
 import com.gs.dmn.transformation.template.TemplateProvider;
+import com.gs.dmn.validation.CompositeDMNValidator;
+import com.gs.dmn.validation.DMNValidator;
+import com.gs.dmn.validation.NopDMNValidator;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
@@ -32,6 +35,22 @@ public abstract class AbstractDMNMojo extends AbstractMojo {
         if (fieldValue == null) {
             throw new IllegalArgumentException(String.format("'%s' is mandatory.", fieldName));
         }
+    }
+
+    protected DMNValidator makeDMNValidator(String[] dmnValidatorClassNames, BuildLogger logger) throws Exception {
+        if (dmnValidatorClassNames == null) {
+            return new NopDMNValidator();
+        }
+        List<DMNValidator> dmnValidators = new ArrayList();
+        for(String dmnValidatorClassName: dmnValidatorClassNames) {
+            Class<?> dmnValidatorClass = Class.forName(dmnValidatorClassName);
+            try {
+                dmnValidators.add((DMNValidator) dmnValidatorClass.getConstructor(new Class[]{BuildLogger.class}).newInstance(new Object[]{logger}));
+            } catch (Exception e) {
+                dmnValidators.add((DMNValidator) dmnValidatorClass.newInstance());
+            }
+        }
+        return new CompositeDMNValidator(dmnValidators);
     }
 
     protected DMNTransformer makeDMNTransformer(String[] dmnTransformerClassNames, BuildLogger logger) throws Exception {

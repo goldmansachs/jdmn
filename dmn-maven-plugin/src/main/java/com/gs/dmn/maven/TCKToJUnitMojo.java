@@ -17,6 +17,7 @@ import com.gs.dmn.tck.TCKTestCasesToJUnitTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.FileTransformer;
 import com.gs.dmn.transformation.template.TemplateProvider;
+import com.gs.dmn.validation.DMNValidator;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -30,6 +31,9 @@ import java.util.Map;
 public class TCKToJUnitMojo extends AbstractDMNMojo {
     @Parameter(required = true, defaultValue = "com.gs.dmn.dialect.DMNStandardDialectDefinition")
     public String dmnDialect;
+
+    @Parameter(required = false)
+    public String[] dmnValidators;
 
     @Parameter(required = false)
     public String[] dmnTransformers;
@@ -61,10 +65,11 @@ public class TCKToJUnitMojo extends AbstractDMNMojo {
             MavenBuildLogger logger = new MavenBuildLogger(this.getLog());
             Class<?> dialectClass = Class.forName(dmnDialect);
             DMNDialectDefinition dmnDialect = (DMNDialectDefinition) dialectClass.newInstance();
+            DMNValidator dmnValidator = makeDMNValidator(this.dmnValidators, logger);
             DMNTransformer dmnTransformer = makeDMNTransformer(this.dmnTransformers, logger);
             TemplateProvider templateProvider = makeTemplateProvider(this.templateProvider, logger);
             FileTransformer transformer = new TCKTestCasesToJUnitTransformer(
-                    dmnDialect, dmnTransformer, templateProvider,
+                    dmnDialect, dmnValidator, dmnTransformer, templateProvider,
                     inputModelFileDirectory.toPath(), inputParameters,
                     logger
             );

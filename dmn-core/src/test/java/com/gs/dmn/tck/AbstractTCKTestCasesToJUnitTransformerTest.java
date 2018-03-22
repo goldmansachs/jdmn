@@ -24,6 +24,8 @@ import com.gs.dmn.transformation.FileTransformer;
 import com.gs.dmn.transformation.ToSimpleNameTransformer;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.transformation.template.TreeTemplateProvider;
+import com.gs.dmn.validation.DMNValidator;
+import com.gs.dmn.validation.DefaultDMNValidator;
 
 import java.net.URLDecoder;
 import java.nio.file.Path;
@@ -48,6 +50,11 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends Abstrac
     }
 
     @Override
+    protected DMNValidator makeDMNValidator(BuildLogger logger) {
+        return new DefaultDMNValidator(logger);
+    }
+
+    @Override
     protected DMNTransformer makeDMNTransformer(BuildLogger logger) {
         return new ToSimpleNameTransformer(logger);
     }
@@ -59,7 +66,7 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends Abstrac
 
     @Override
     protected FileTransformer makeTransformer(Path inputModelPath, Map<String, String> inputParameters, BuildLogger logger) {
-        return new TCKTestCasesToJUnitTransformer(makeDialectDefinition(), makeDMNTransformer(logger), makeTemplateProvider(), inputModelPath, inputParameters, logger);
+        return new TCKTestCasesToJUnitTransformer(makeDialectDefinition(), makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), inputModelPath, inputParameters, logger);
     }
 
     @Override
@@ -67,7 +74,6 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends Abstrac
         return new LinkedHashMap<String, String>() {{
             put("environmentFactoryClass", DefaultDMNEnvironmentFactory.class.getName());
             put("decisionBaseClass", DefaultDMNBaseDecision.class.getName());
-            put("semanticValidation", "true");
         }};
     }
 

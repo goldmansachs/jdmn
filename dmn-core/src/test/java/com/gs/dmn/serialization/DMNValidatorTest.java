@@ -13,10 +13,10 @@
 package com.gs.dmn.serialization;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
+import com.gs.dmn.validation.DMNValidator;
+import com.gs.dmn.validation.DefaultDMNValidator;
 import org.junit.Test;
 import org.omg.spec.dmn._20151101.dmn.TDefinitions;
 import org.slf4j.LoggerFactory;
@@ -28,8 +28,7 @@ import static org.junit.Assert.*;
 public class DMNValidatorTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(DMNValidatorTest.class));
 
-    private final DMNDialectDefinition dialectDefinition = new StandardDMNDialectDefinition();
-    private final DMNValidator validator = dialectDefinition.createValidator(true);
+    private final DMNValidator validator = new DefaultDMNValidator();
     private final DMNReader reader = new DMNReader(LOGGER, false);
 
     @Test
@@ -42,7 +41,7 @@ public class DMNValidatorTest {
         try {
             File input = new File(DMNValidatorTest.class.getClassLoader().getResource("dmn/input/test-dmn-with-duplicates.dmn").getFile());
             TDefinitions definitions = reader.read(input);
-            validator.validateDefinitions(new DMNModelRepository(definitions));
+            validator.validate(new DMNModelRepository(definitions));
             fail("Should throw IllegalArgument");
         } catch (IllegalArgumentException e) {
             assertEquals("The 'name' of a 'DRGElement' must be unique. Found duplicates for 'CIP Assessments'.", e.getMessage());
@@ -54,7 +53,7 @@ public class DMNValidatorTest {
         try {
             File input = new File(DMNValidatorTest.class.getClassLoader().getResource("dmn/input/test-dmn.dmn").getFile());
             TDefinitions definitions = reader.read(input);
-            validator.validateDefinitions(new DMNModelRepository(definitions));
+            validator.validate(new DMNModelRepository(definitions));
             fail("Should throw IllegalArgument");
         } catch (IllegalArgumentException e) {
             assertEquals("Missing variable for 'CIP Assessments'", e.getMessage());
@@ -63,14 +62,14 @@ public class DMNValidatorTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testValidateDefinitionsWhenNull() {
-        validator.validateDefinitions(null);
+        validator.validate(null);
     }
 
     private void validate(String path) {
         try {
             File input = new File(DMNValidatorTest.class.getClassLoader().getResource(path).getFile());
             TDefinitions definitions = reader.read(input);
-            validator.validateDefinitions(new DMNModelRepository(definitions));
+            validator.validate(new DMNModelRepository(definitions));
             assertTrue(true);
         } catch (IllegalArgumentException e) {
             fail("Unexpected exception, diagram is correct");

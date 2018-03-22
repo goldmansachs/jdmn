@@ -35,7 +35,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     protected final BuildLogger logger;
     private boolean transformDefinition = true;
 
-    protected NameTransformer(BuildLogger logger) {
+    public NameTransformer(BuildLogger logger) {
         this.logger = logger;
     }
 

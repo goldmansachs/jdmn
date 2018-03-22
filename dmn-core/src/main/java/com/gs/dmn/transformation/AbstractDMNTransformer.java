@@ -15,8 +15,8 @@ package com.gs.dmn.transformation;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.DMNReader;
-import com.gs.dmn.serialization.DMNValidator;
 import com.gs.dmn.transformation.template.TemplateProvider;
+import com.gs.dmn.validation.DMNValidator;
 import org.omg.spec.dmn._20151101.dmn.TDefinitions;
 
 import java.io.File;
@@ -32,14 +32,13 @@ public abstract class AbstractDMNTransformer extends AbstractTemplateBasedTransf
     protected final String javaRootPackage;
     protected final boolean lazyEvaluation;
 
-    public AbstractDMNTransformer(DMNDialectDefinition dialectDefinition, DMNTransformer dmnTransformer, TemplateProvider templateProvider, Map<String, String> inputParameters, BuildLogger logger) {
+    public AbstractDMNTransformer(DMNDialectDefinition dialectDefinition, DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, Map<String, String> inputParameters, BuildLogger logger) {
         super(templateProvider, inputParameters, logger);
         this.dialectDefinition = dialectDefinition;
         this.dmnTransformer = dmnTransformer;
         boolean xsdValidation = InputParamUtil.getOptionalBooleanParam(inputParameters, "xsdValidation");
         this.dmnReader = new DMNReader(logger, xsdValidation);
-        boolean semanticValidation = InputParamUtil.getOptionalBooleanParam(inputParameters, "semanticValidation");
-        this.dmnValidator = this.dialectDefinition.createValidator(semanticValidation);
+        this.dmnValidator = dmnValidator;
 
         this.javaRootPackage = InputParamUtil.getOptionalParam(inputParameters, "javaRootPackage");
         this.decisionBaseClass = dialectDefinition.getDecisionBaseClass();
