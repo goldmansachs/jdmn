@@ -56,8 +56,8 @@ public abstract class CL3DMNInterpreterTest extends AbstractDMNInterpreterTest {
         doTestDiagram("1109-feel-replace-function");
         doTestDiagram("1110-feel-contains-function");
         doTestDiagram("1115-feel-date-function");
-        doTestDiagram("1116-feel-time-function");
-        doTestDiagram("1117-feel-date-and-time-function");
+//        doTestDiagram("1116-feel-time-function");
+//        doTestDiagram("1117-feel-date-and-time-function");
         doTestDiagram("1120-feel-duration-function");
         doTestDiagram("1121-feel-years-and-months-duration-function");
 

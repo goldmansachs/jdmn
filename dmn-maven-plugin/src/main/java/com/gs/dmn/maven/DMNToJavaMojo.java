@@ -16,6 +16,8 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
+import com.gs.dmn.transformation.InputParamUtil;
+import com.gs.dmn.transformation.template.DagTemplateProvider;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -58,13 +60,16 @@ public class DMNToJavaMojo extends AbstractDMNMojo {
         checkMandatoryField(dmnDialect, "dmnDialect");
 
         try {
-            // Create transformer
+            // Create and validate arguments
             BuildLogger logger = new MavenBuildLogger(this.getLog());
             Class<?> dialectClass = Class.forName(dmnDialect);
             DMNDialectDefinition dmnDialect = (DMNDialectDefinition) dialectClass.newInstance();
             DMNValidator dmnValidator = makeDMNValidator(this.dmnValidators, logger);
             DMNTransformer dmnTransformer = makeDMNTransformer(this.dmnTransformers, logger);
             TemplateProvider templateProvider = makeTemplateProvider(this.templateProvider, logger);
+            validateParameters(dmnDialect, dmnValidator, dmnTransformer, templateProvider, inputParameters);
+
+            // Create transformer
             DMNToJavaTransformer transformer = dmnDialect.createDMNToJavaTransformer(
                     dmnValidator,
                     dmnTransformer,
@@ -81,6 +86,13 @@ public class DMNToJavaMojo extends AbstractDMNMojo {
             this.project.addCompileSourceRoot(this.outputFileDirectory.getCanonicalPath());
         } catch (Exception e) {
             throw new MojoExecutionException("", e);
+        }
+    }
+
+    private void validateParameters(DMNDialectDefinition dmnDialect, DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, Map<String, String> inputParameters) {
+        boolean caching = InputParamUtil.getOptionalBooleanParam(inputParameters, "caching");
+        if (templateProvider instanceof DagTemplateProvider && caching) {
+            throw new IllegalArgumentException("'DagTemplateProvider' and 'caching' are not compatible. Please set 'caching' to false");
         }
     }
 }

@@ -30,6 +30,8 @@ import com.gs.dmn.runtime.annotation.AnnotationSet;
 import com.gs.dmn.runtime.annotation.DRGElementKind;
 import com.gs.dmn.runtime.annotation.ExpressionKind;
 import com.gs.dmn.runtime.annotation.HitPolicy;
+import com.gs.dmn.runtime.cache.Cache;
+import com.gs.dmn.runtime.cache.DefaultCache;
 import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
 import com.gs.dmn.runtime.external.ExternalFunctionExecutor;
 import com.gs.dmn.runtime.listener.Arguments;
@@ -62,6 +64,7 @@ public class BasicDMN2JavaTransformer {
     protected final FEELTypeTranslator feelTypeTranslator;
     protected final FEELTranslator feelTranslator;
     private final String javaRootPackage;
+    private final boolean caching;
     private final boolean lazyEvaluation;
     private double sparsityThreshold = 0.0;
 
@@ -73,12 +76,14 @@ public class BasicDMN2JavaTransformer {
     private final RelationToJavaTransformer relationToJavaTransformer;
 
     private final LazyEvaluationOptimisation lazyEvaluationOptimisation;
+    private final Set<String> cachedElements;
 
     public BasicDMN2JavaTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, FEELTypeTranslator feelTypeTranslator, Map<String, String> inputParameters) {
         this.dmnModelRepository = dmnModelRepository;
         this.environmentFactory = environmentFactory;
         this.feelTypeTranslator = feelTypeTranslator;
         this.javaRootPackage = InputParamUtil.getOptionalParam(inputParameters, "javaRootPackage");
+        this.caching = InputParamUtil.getOptionalBooleanParam(inputParameters, "caching");
         this.lazyEvaluation = InputParamUtil.getOptionalBooleanParam(inputParameters, "lazyEvaluation");
         String sparsityThresholdParam = InputParamUtil.getOptionalParam(inputParameters, "sparsityThreshold");
         if (sparsityThresholdParam != null) {
@@ -94,6 +99,7 @@ public class BasicDMN2JavaTransformer {
         this.relationToJavaTransformer = new RelationToJavaTransformer(this);
 
         this.lazyEvaluationOptimisation = this.dmnModelRepository.computeLazyEvaluationOptimisation(lazyEvaluation, this.sparsityThreshold);
+        this.cachedElements = this.dmnModelRepository.computeCachedElements(caching);
     }
 
     public DMNModelRepository getDMNModelRepository() {
@@ -779,6 +785,18 @@ public class BasicDMN2JavaTransformer {
         return DefaultExternalFunctionExecutor.class.getName();
     }
 
+    public String cacheInterfaceName() {
+        return Cache.class.getName();
+    }
+
+    public String cacheVariableName() {
+        return "cache_";
+    }
+
+    public String defaultCacheClassName() {
+        return DefaultCache.class.getName();
+    }
+
     public String drgElementSignatureExtra(String signature) {
         if (StringUtils.isBlank(signature)) {
             return String.format("%s %s, %s %s",
@@ -807,6 +825,58 @@ public class BasicDMN2JavaTransformer {
             return String.format("new %s(LOGGER), new %s()", loggingEventListenerClassName(), defaultExternalExecutorClassName());
         } else {
             return String.format("%s, new %s(LOGGER), new %s()", arguments, loggingEventListenerClassName(), defaultExternalExecutorClassName());
+        }
+    }
+
+    public boolean isCaching() {
+        return caching;
+    }
+
+    public boolean isCaching(String element) {
+        if (!caching) {
+            return false;
+        }
+        return cachedElements.contains(element);
+    }
+
+    public String drgElementSignatureExtraCache(String signature) {
+        if (!caching) {
+            return signature;
+        }
+
+        if (StringUtils.isBlank(signature)) {
+            return String.format("%s %s",
+                    cacheInterfaceName(), cacheVariableName()
+            );
+        } else {
+            return String.format("%s, %s %s",
+                    signature,
+                    cacheInterfaceName(), cacheVariableName()
+            );
+        }
+    }
+
+    public String drgElementArgumentsExtraCache(String arguments) {
+        if (!caching) {
+            return arguments;
+        }
+
+        if (StringUtils.isBlank(arguments)) {
+            return String.format("%s", cacheVariableName());
+        } else {
+            return String.format("%s, %s", arguments, cacheVariableName());
+        }
+    }
+
+    public String drgElementDefaultArgumentsExtraCache(String arguments) {
+        if (!caching) {
+            return arguments;
+        }
+
+        if (StringUtils.isBlank(arguments)) {
+            return String.format("new %s()", defaultCacheClassName());
+        } else {
+            return String.format("%s, new %s()", arguments, defaultCacheClassName());
         }
     }
 
