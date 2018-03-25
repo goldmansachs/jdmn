@@ -121,6 +121,38 @@ public class TCKUtil {
         return dmnTransformer.defaultExternalExecutorClassName();
     }
 
+    public String cacheInterfaceName() {
+        return dmnTransformer.cacheInterfaceName();
+    }
+
+    public String cacheVariableName() {
+        return dmnTransformer.cacheVariableName();
+    }
+
+    public String defaultCacheClassName() {
+        return dmnTransformer.defaultCacheClassName();
+    }
+
+    public boolean isCaching() {
+        return dmnTransformer.isCaching();
+    }
+
+    public boolean isCaching(String element) {
+        return dmnTransformer.isCaching(element);
+    }
+
+    public String drgElementSignatureExtraCache(String signature) {
+        return dmnTransformer.drgElementSignatureExtraCache(signature);
+    }
+
+    public String drgElementArgumentsExtraCache(String arguments) {
+        return dmnTransformer.drgElementArgumentsExtraCache(arguments);
+    }
+
+    public String drgElementDefaultArgumentsExtraCache(String arguments) {
+        return dmnTransformer.drgElementDefaultArgumentsExtraCache(arguments);
+    }
+
     public String getter(String outputName) {
         return dmnTransformer.getter(outputName);
     }

@@ -61,13 +61,15 @@ public class TCKToJUnitMojo extends AbstractDMNMojo {
         checkMandatoryField(dmnDialect, "dmnDialect");
 
         try {
-            // Create transformer
+            // Create arguments
             MavenBuildLogger logger = new MavenBuildLogger(this.getLog());
             Class<?> dialectClass = Class.forName(dmnDialect);
             DMNDialectDefinition dmnDialect = (DMNDialectDefinition) dialectClass.newInstance();
             DMNValidator dmnValidator = makeDMNValidator(this.dmnValidators, logger);
             DMNTransformer dmnTransformer = makeDMNTransformer(this.dmnTransformers, logger);
             TemplateProvider templateProvider = makeTemplateProvider(this.templateProvider, logger);
+
+            // Create transformer
             FileTransformer transformer = new TCKTestCasesToJUnitTransformer(
                     dmnDialect, dmnValidator, dmnTransformer, templateProvider,
                     inputModelFileDirectory.toPath(), inputParameters,

@@ -30,6 +30,9 @@ public class ${testClassName} extends ${decisionBaseClass} {
         ${tckUtil.annotationSetClassName()} ${tckUtil.annotationSetVariableName()} = new ${tckUtil.annotationSetClassName()}();
         ${tckUtil.eventListenerClassName()} ${tckUtil.eventListenerVariableName()} = new ${tckUtil.defaultEventListenerClassName()}();
         ${tckUtil.externalExecutorClassName()} ${tckUtil.externalExecutorVariableName()} = new ${tckUtil.defaultExternalExecutorClassName()}();
+        <#if tckUtil.isCaching()>
+        ${tckUtil.cacheInterfaceName()} ${tckUtil.cacheVariableName()} = new ${tckUtil.defaultCacheClassName()}();
+        </#if>
     <#list testCase.inputNode>
         // Initialize input data
         <#items as input>
@@ -42,7 +45,7 @@ public class ${testClassName} extends ${decisionBaseClass} {
     <#list testCase.resultNode>
         <#items as result>
         // Check ${result.name}
-        checkValues(${tckUtil.toJavaExpression(testCases, result)}, new ${tckUtil.qualifiedName(packageName, tckUtil.drgElementClassName(result))}().apply(${tckUtil.drgElementArgumentsExtra(tckUtil.drgElementArgumentList(result))}));
+        checkValues(${tckUtil.toJavaExpression(testCases, result)}, new ${tckUtil.qualifiedName(packageName, tckUtil.drgElementClassName(result))}().apply(${tckUtil.drgElementArgumentsExtraCache(tckUtil.drgElementArgumentsExtra(tckUtil.drgElementArgumentList(result)))}));
         </#items>
     </#list>
 </#macro>

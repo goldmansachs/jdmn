@@ -69,7 +69,7 @@
                         <modelVersion>${model.version}</modelVersion>
                         <platformVersion>${platform.version}</platformVersion>
                         <xsdValidation>false</xsdValidation>
-                        <semanticValidation>false</semanticValidation>
+                        <caching>true</caching>
                     </inputParameters>
                 </configuration>
                 <executions>
@@ -646,7 +646,7 @@
                     </execution>
 
                     <execution>
-                        <id>cl3-0004-lending</id>
+                        <id>cl3-0004-lending-dag</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>dmn-to-java</goal>
@@ -656,13 +656,14 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0004_lending</javaRootPackage>
+                                <javaRootPackage>com.gs.dmn.tck.cl3_0004_lending_dag</javaRootPackage>
                                 <lazyEvaluation>true</lazyEvaluation>
+                                <caching>false</caching>
                             </inputParameters>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>test-cl3-0004-lending</id>
+                        <id>test-cl3-0004-lending-dag</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>tck-to-java</goal>
@@ -673,7 +674,41 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0004_lending</javaRootPackage>
+                                <javaRootPackage>com.gs.dmn.tck.cl3_0004_lending_dag</javaRootPackage>
+                                <caching>false</caching>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>cl3-0004-lending-tree</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <templateProvider>com.gs.dmn.transformation.template.TreeTemplateProvider</templateProvider>
+                            <inputFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>com.gs.dmn.tck.cl3_0004_lending_tree</javaRootPackage>
+                                <lazyEvaluation>true</lazyEvaluation>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-cl3-0004-lending-tree</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <templateProvider>com.gs.dmn.transformation.template.TreeTemplateProvider</templateProvider>
+                            <inputTestFileDirectory>${tck.diagram.folder}/cl3/0004-lending-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>com.gs.dmn.tck.cl3_0004_lending_tree</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>

@@ -44,16 +44,16 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     <#if transformer.shouldGenerateApplyWithConversionFromString(drgElement)>
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureWithConversionFromString(drgElement)}) {
         try {
-            return apply(${transformer.drgElementDefaultArgumentsExtra(transformer.drgElementArgumentListWithConversionFromString(drgElement))});
+            return apply(${transformer.drgElementDefaultArgumentsExtraCache(transformer.drgElementDefaultArgumentsExtra(transformer.drgElementArgumentListWithConversionFromString(drgElement)))});
         } catch (Exception e) {
             logError("Cannot apply decision '${javaClassName}'", e);
             return null;
         }
     }
 
-    public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtra(transformer.drgElementSignatureWithConversionFromString(drgElement))}) {
+    public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraCache(transformer.drgElementSignatureExtra(transformer.drgElementSignatureWithConversionFromString(drgElement)))}) {
         try {
-            return apply(${transformer.drgElementArgumentsExtra(transformer.drgElementArgumentListWithConversionFromString(drgElement))});
+            return apply(${transformer.drgElementArgumentsExtraCache(transformer.drgElementArgumentsExtra(transformer.drgElementArgumentListWithConversionFromString(drgElement)))});
         } catch (Exception e) {
             logError("Cannot apply decision '${javaClassName}'", e);
             return null;
@@ -62,10 +62,10 @@ public class ${javaClassName} extends ${decisionBaseClass} {
 
     </#if>
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignature(drgElement)}) {
-        return apply(${transformer.drgElementDefaultArgumentsExtra(transformer.drgElementArgumentList(drgElement))});
+        return apply(${transformer.drgElementDefaultArgumentsExtraCache(transformer.drgElementDefaultArgumentsExtra(transformer.drgElementArgumentList(drgElement)))});
     }
 
-    public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtra(transformer.drgElementSignature(drgElement))}) {
+    public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraCache(transformer.drgElementSignatureExtra(transformer.drgElementSignature(drgElement)))}) {
         <@applyMethodBody drgElement />
     }
     <@evaluateExpressionMethod drgElement />

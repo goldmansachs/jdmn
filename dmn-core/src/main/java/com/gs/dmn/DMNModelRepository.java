@@ -78,6 +78,44 @@ public class DMNModelRepository {
         return lazyEvaluationOptimisation;
     }
 
+    public Set<String> computeCachedElements(boolean cachingFlag) {
+        if (!cachingFlag) {
+            return new LinkedHashSet<>();
+        }
+
+        LOGGER.info("Scanning for decisions to cache ...");
+
+        Map<String, Integer> map = new LinkedHashMap<>();
+        for (TDecision decision : decisions()) {
+            for (TInformationRequirement ir : decision.getInformationRequirement()) {
+                TDMNElementReference requiredDecision = ir.getRequiredDecision();
+                if (requiredDecision != null) {
+                    String href = requiredDecision.getHref();
+                    Integer counter = map.get(href);
+                    if (counter == null) {
+                        counter = Integer.valueOf(0);
+                    }
+                    counter++;
+                    map.put(href, counter);
+                }
+            }
+        }
+
+        Set<String> result = new LinkedHashSet<>();
+        for(Map.Entry<String, Integer> entry: map.entrySet()) {
+            if (entry.getValue() > 1) {
+                TDecision drgElement = this.findDecisionById(entry.getKey());
+                if (drgElement != null) {
+                    result.add(name(drgElement));
+                }
+            }
+        }
+
+        LOGGER.info(String.format("Decisions to be cached: %s", result.stream().collect(Collectors.joining(", "))));
+
+        return result;
+    }
+
     private boolean isSparseDecisionTable(TDRGElement element, double sparsityThreshold) {
         if (element instanceof TDecision) {
             TExpression expression = expression(element);

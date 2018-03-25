@@ -25,6 +25,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
@@ -59,6 +60,13 @@ public class DMNModelRepositoryTest {
         List<String> actualNames = decisions.stream().map(TNamedElement::getName).collect(Collectors.toList());
         List<String> expectedNames = Arrays.asList("ApplicationRiskScore", "Pre-bureauRiskCategory", "BureauCallType", "RequiredMonthlyInstallment", "Pre-bureauAffordability", "Eligibility");
         assertEquals(expectedNames, actualNames);
+    }
+
+    @Test
+    public void testCachedElements() {
+        Set<String> cachedElements = dmnModelRepository.computeCachedElements(true);
+
+        assertEquals(Arrays.asList("Pre-bureauRiskCategory", "RequiredMonthlyInstallment", "Post-bureauRiskCategory", "ApplicationRiskScore"), cachedElements.stream().collect(Collectors.toList()));
     }
 
     @Test
