@@ -140,7 +140,7 @@ public class DateTimeUtilTest {
         assertEquals("10:20:00Z", DateTimeUtil.makeOffsetTime("10:20:00Z").format(DateTimeUtil.FEEL_TIME_FORMAT));
         assertEquals("10:20:00+01:00", DateTimeUtil.makeOffsetTime("10:20:00+01:00").format(DateTimeUtil.FEEL_TIME_FORMAT));
         assertEquals("10:20:00-01:00", DateTimeUtil.makeOffsetTime("10:20:00-01:00").format(DateTimeUtil.FEEL_TIME_FORMAT));
-//        assertEquals("10:20:00+01:00", DateTimeUtil.makeOffsetTime("10:20:00@Europe/Paris").format(DateTimeUtil.FEEL_TIME_FORMAT));
+        assertEquals("10:20:00+01:00", DateTimeUtil.makeOffsetTime("10:20:00@Europe/Paris").format(DateTimeUtil.FEEL_TIME_FORMAT));
         assertEquals("10:20:00Z", DateTimeUtil.makeOffsetTime("10:20:00@UTC").format(DateTimeUtil.FEEL_TIME_FORMAT));
     }
 
