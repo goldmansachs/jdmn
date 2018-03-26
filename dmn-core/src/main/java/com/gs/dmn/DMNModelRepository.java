@@ -15,7 +15,6 @@ package com.gs.dmn;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNNamespacePrefixMapper;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
-import com.gs.dmn.transformation.basic.LazyEvaluationOptimisation;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20151101.dmn.*;
 import org.slf4j.Logger;
@@ -47,35 +46,6 @@ public class DMNModelRepository {
             sortDRGElements(definitions.getDrgElement());
             sortNamedElements(definitions.getItemDefinition());
         }
-    }
-
-    public LazyEvaluationOptimisation computeLazyEvaluationOptimisation(boolean lazyEvaluationFlag, double sparsityThreshold) {
-        LazyEvaluationOptimisation lazyEvaluationOptimisation = new LazyEvaluationOptimisation();
-        if (lazyEvaluationFlag) {
-
-            LOGGER.info("Scanning for sparse decisions ...");
-
-            for(TDecision decision: decisions()) {
-                if (isSparseDecisionTable(decision, sparsityThreshold)) {
-
-                    LOGGER.info(String.format("Found sparse decision '%s'", decision.getName()));
-
-                    for(TInformationRequirement ir: decision.getInformationRequirement()) {
-                        TDMNElementReference requiredDecision = ir.getRequiredDecision();
-                        if (requiredDecision != null) {
-                            String href = requiredDecision.getHref();
-                            TDecision drgElement = this.findDecisionById(href);
-                            if (drgElement != null) {
-                                lazyEvaluationOptimisation.addLazyEvaluatedDecision(drgElement.getName());
-                            }
-                        }
-                    }
-                }
-            }
-
-            LOGGER.info(String.format("Decisions to be lazy evaluated: '%s'", lazyEvaluationOptimisation.getLazyEvaluatedDecisions().stream().collect(Collectors.joining(", "))));
-        }
-        return lazyEvaluationOptimisation;
     }
 
     public Set<String> computeCachedElements(boolean cachingFlag) {
@@ -114,31 +84,6 @@ public class DMNModelRepository {
         LOGGER.info(String.format("Decisions to be cached: %s", result.stream().collect(Collectors.joining(", "))));
 
         return result;
-    }
-
-    private boolean isSparseDecisionTable(TDRGElement element, double sparsityThreshold) {
-        if (element instanceof TDecision) {
-            TExpression expression = expression(element);
-            if (expression instanceof TDecisionTable) {
-                return isSparseDecisionTable((TDecisionTable) expression, sparsityThreshold);
-            }
-        }
-        return false;
-    }
-
-    boolean isSparseDecisionTable(TDecisionTable expression, double sparsityThreshold) {
-        int columnNo = expression.getInput().size();
-        int lineNo = expression.getRule().size();
-        int anyMatchCount = 0;
-        for(TDecisionRule rule: expression.getRule()) {
-            for(TUnaryTests test : rule.getInputEntry()) {
-                if ("-".equals(test.getText())) {
-                    anyMatchCount++;
-                }
-            }
-        }
-        double sparsity = 1.0 * anyMatchCount / (lineNo * columnNo);
-        return sparsity >= sparsityThreshold;
     }
 
     public String removeSingleQuotes(String name) {

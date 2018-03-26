@@ -19,6 +19,7 @@ import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.FEELTranslatorImpl;
 import com.gs.dmn.feel.synthesis.SFEELTranslatorImpl;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
+import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.omg.spec.dmn._20151101.dmn.TDefinitions;
 
 import java.util.Map;
@@ -35,7 +36,7 @@ public abstract class AbstractDMNDialectDefinition implements DMNDialectDefiniti
 
     @Override
     public FEELTranslator createFEELTranslator(TDefinitions definitions, Map<String, String> inputParameters) {
-        return new FEELTranslatorImpl(createBasicTransformer(definitions, inputParameters));
+        return new FEELTranslatorImpl(createBasicTransformer(definitions, new NopLazyEvaluationDetector(), inputParameters));
     }
 
     @Override
@@ -46,6 +47,6 @@ public abstract class AbstractDMNDialectDefinition implements DMNDialectDefiniti
 
     @Override
     public FEELTranslator createSFEELTranslator(TDefinitions definitions, Map<String, String> inputParameters) {
-        return new SFEELTranslatorImpl(createBasicTransformer(definitions, inputParameters));
+        return new SFEELTranslatorImpl(createBasicTransformer(definitions, new NopLazyEvaluationDetector(), inputParameters));
     }
 }
