@@ -15,8 +15,12 @@ package com.gs.dmn.transformation;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
+import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.transformation.template.TreeTemplateProvider;
+
+import java.util.Map;
 
 public abstract class AbstractTckDMNToJavaTransformerTest extends AbstractDMNToJavaTest {
     @Override
@@ -32,5 +36,10 @@ public abstract class AbstractTckDMNToJavaTransformerTest extends AbstractDMNToJ
     @Override
     protected TemplateProvider makeTemplateProvider() {
         return new TreeTemplateProvider();
+    }
+
+    @Override
+    protected LazyEvaluationDetector makeLazyEvaluationDetector(Map<String, String> inputParameters, BuildLogger logger) {
+        return new NopLazyEvaluationDetector();
     }
 }

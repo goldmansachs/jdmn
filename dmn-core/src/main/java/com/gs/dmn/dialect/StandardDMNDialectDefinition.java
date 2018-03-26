@@ -25,6 +25,8 @@ import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
+import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 import org.omg.spec.dmn._20151101.dmn.TDefinitions;
@@ -38,18 +40,18 @@ public class StandardDMNDialectDefinition extends AbstractDMNDialectDefinition {
     //
     @Override
     public DMNInterpreter createDMNInterpreter(TDefinitions definitions) {
-        return new DMNInterpreter(createBasicTransformer(definitions, new LinkedHashMap<>()), createFEELLib());
+        return new DMNInterpreter(createBasicTransformer(definitions, new NopLazyEvaluationDetector(), new LinkedHashMap<>()), createFEELLib());
     }
 
     @Override
-    public DMNToJavaTransformer createDMNToJavaTransformer(DMNValidator dmnValidator,DMNTransformer dmnTransformer, TemplateProvider templateProvider, Map<String, String> inputParameters, BuildLogger logger) {
-        return new DMNToJavaTransformer(this, dmnValidator, dmnTransformer, templateProvider, inputParameters, logger);
+    public DMNToJavaTransformer createDMNToJavaTransformer(DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters, BuildLogger logger) {
+        return new DMNToJavaTransformer(this, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, inputParameters, logger);
     }
 
     @Override
-    public BasicDMN2JavaTransformer createBasicTransformer(TDefinitions definitions, Map<String, String> inputParameters) {
+    public BasicDMN2JavaTransformer createBasicTransformer(TDefinitions definitions, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         EnvironmentFactory environmentFactory = createEnvironmentFactory();
-        return new BasicDMN2JavaTransformer(createModelRepository(definitions), environmentFactory, createTypeTranslator(), inputParameters);
+        return new BasicDMN2JavaTransformer(createModelRepository(definitions), environmentFactory, createTypeTranslator(), lazyEvaluationDetector, inputParameters);
     }
 
     private DMNModelRepository createModelRepository(TDefinitions definitions) {

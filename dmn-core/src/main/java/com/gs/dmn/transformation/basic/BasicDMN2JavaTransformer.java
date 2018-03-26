@@ -44,6 +44,8 @@ import com.gs.dmn.transformation.InputParamUtil;
 import com.gs.dmn.transformation.java.CompoundStatement;
 import com.gs.dmn.transformation.java.ExpressionStatement;
 import com.gs.dmn.transformation.java.Statement;
+import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
+import com.gs.dmn.transformation.lazy.LazyEvaluationOptimisation;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20151101.dmn.*;
 import org.slf4j.Logger;
@@ -65,8 +67,6 @@ public class BasicDMN2JavaTransformer {
     protected final FEELTranslator feelTranslator;
     private final String javaRootPackage;
     private final boolean caching;
-    private final boolean lazyEvaluation;
-    private double sparsityThreshold = 0.0;
 
     private final ContextToJavaTransformer contextToJavaTransformer;
     private final DecisionTableToJavaTransformer decisionTableToJavaTransformer;
@@ -78,17 +78,12 @@ public class BasicDMN2JavaTransformer {
     private final LazyEvaluationOptimisation lazyEvaluationOptimisation;
     private final Set<String> cachedElements;
 
-    public BasicDMN2JavaTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, FEELTypeTranslator feelTypeTranslator, Map<String, String> inputParameters) {
+    public BasicDMN2JavaTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, FEELTypeTranslator feelTypeTranslator, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         this.dmnModelRepository = dmnModelRepository;
         this.environmentFactory = environmentFactory;
         this.feelTypeTranslator = feelTypeTranslator;
         this.javaRootPackage = InputParamUtil.getOptionalParam(inputParameters, "javaRootPackage");
         this.caching = InputParamUtil.getOptionalBooleanParam(inputParameters, "caching");
-        this.lazyEvaluation = InputParamUtil.getOptionalBooleanParam(inputParameters, "lazyEvaluation");
-        String sparsityThresholdParam = InputParamUtil.getOptionalParam(inputParameters, "sparsityThreshold");
-        if (sparsityThresholdParam != null) {
-            this.sparsityThreshold = Double.parseDouble(sparsityThresholdParam);
-        }
         this.feelTranslator = new FEELTranslatorImpl(this);
 
         this.contextToJavaTransformer = new ContextToJavaTransformer(this);
@@ -98,7 +93,7 @@ public class BasicDMN2JavaTransformer {
         this.literalExpressionToJavaTransformer = new LiteralExpressionToJavaTransformer(this);
         this.relationToJavaTransformer = new RelationToJavaTransformer(this);
 
-        this.lazyEvaluationOptimisation = this.dmnModelRepository.computeLazyEvaluationOptimisation(lazyEvaluation, this.sparsityThreshold);
+        this.lazyEvaluationOptimisation = lazyEvaluationDetector.detect(this.dmnModelRepository);
         this.cachedElements = this.dmnModelRepository.computeCachedElements(caching);
     }
 
