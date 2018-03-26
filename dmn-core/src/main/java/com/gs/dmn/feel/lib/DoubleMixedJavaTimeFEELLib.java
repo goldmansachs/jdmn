@@ -42,7 +42,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.time.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,8 +53,6 @@ public class DoubleMixedJavaTimeFEELLib extends FEELOperators<Double, LocalDate,
     protected static final Logger LOGGER = LoggerFactory.getLogger(DoubleMixedJavaTimeFEELLib.class);
 
     private static final DatatypeFactory DATA_TYPE_FACTORY = XMLDatataypeFactory.newInstance();
-
-    private final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.######");
 
     public DoubleMixedJavaTimeFEELLib() {
         super(new DoubleNumericType(LOGGER),
@@ -118,19 +115,7 @@ public class DoubleMixedJavaTimeFEELLib extends FEELOperators<Double, LocalDate,
 
     @Override
     public String string(Object from) {
-        if (from == null) {
-            return "null";
-        } else if (from instanceof Double) {
-            return DECIMAL_FORMAT.format(from);
-        } else if (from instanceof LocalDate) {
-            return ((LocalDate) from).format(DateTimeUtil.FEEL_DATE_FORMAT);
-        } else if (from instanceof OffsetTime) {
-            return ((OffsetTime) from).format(DateTimeUtil.FEEL_TIME_FORMAT);
-        } else if (from instanceof ZonedDateTime) {
-            return ((ZonedDateTime) from).format(DateTimeUtil.FEEL_DATE_TIME_FORMAT);
-        } else {
-            return from.toString();
-        }
+        return DateTimeUtil.string(from);
     }
 
     @Override
