@@ -21,6 +21,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinitio
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.NumericLiteral;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.junit.Test;
 import org.omg.spec.dmn._20151101.dmn.TDefinitions;
 
@@ -39,7 +40,7 @@ public abstract class AbstractCompilerTest {
         element.setType(new BuiltinFunctionType(Arrays.asList(), NumberType.NUMBER));
         FEELContext context = null;
         TDefinitions definitions = new TDefinitions();
-        BasicDMN2JavaTransformer dmnTransformer = dialectDefinition.createBasicTransformer(definitions, new LinkedHashMap<>());
+        BasicDMN2JavaTransformer dmnTransformer = dialectDefinition.createBasicTransformer(definitions, new NopLazyEvaluationDetector(), new LinkedHashMap<>());
         FEELTranslator feelTranslator = dialectDefinition.createFEELTranslator(definitions, new LinkedHashMap<>());
         return getCompiler().makeClassData(element, context, dmnTransformer, feelTranslator, dialectDefinition.createFEELLib().getClass().getName());
     }

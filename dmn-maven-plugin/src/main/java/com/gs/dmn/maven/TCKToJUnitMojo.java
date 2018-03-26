@@ -16,6 +16,7 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.tck.TCKTestCasesToJUnitTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.FileTransformer;
+import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -40,6 +41,9 @@ public class TCKToJUnitMojo extends AbstractDMNMojo {
 
     @Parameter(required = true, defaultValue = "com.gs.dmn.transformation.template.TreeTemplateProvider")
     public String templateProvider;
+
+    @Parameter(required = false)
+    public String[] lazyEvaluationDetectors;
 
     @Parameter(required = false)
     public Map<String, String> inputParameters;
@@ -68,10 +72,11 @@ public class TCKToJUnitMojo extends AbstractDMNMojo {
             DMNValidator dmnValidator = makeDMNValidator(this.dmnValidators, logger);
             DMNTransformer dmnTransformer = makeDMNTransformer(this.dmnTransformers, logger);
             TemplateProvider templateProvider = makeTemplateProvider(this.templateProvider, logger);
+            LazyEvaluationDetector lazyEvaluationDetector = makeLazyEvaluationDetector(this.lazyEvaluationDetectors, logger, this.inputParameters);
 
             // Create transformer
             FileTransformer transformer = new TCKTestCasesToJUnitTransformer(
-                    dmnDialect, dmnValidator, dmnTransformer, templateProvider,
+                    dmnDialect, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector,
                     inputModelFileDirectory.toPath(), inputParameters,
                     logger
             );

@@ -1,4 +1,4 @@
-package com.gs.dmn.transformation.basic;
+package com.gs.dmn.transformation.lazy;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -16,5 +16,9 @@ public class LazyEvaluationOptimisation {
 
     public Set<String> getLazyEvaluatedDecisions() {
         return this.lazyEvaluatedDecisions;
+    }
+
+    public void union(LazyEvaluationOptimisation other) {
+        this.lazyEvaluatedDecisions.addAll(other.lazyEvaluatedDecisions);
     }
 }

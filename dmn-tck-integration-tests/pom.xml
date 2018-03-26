@@ -653,11 +653,13 @@
                         </goals>
                         <configuration>
                             <templateProvider>com.gs.dmn.transformation.template.DagTemplateProvider</templateProvider>
+                            <lazyEvaluationDetectors>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
+                            </lazyEvaluationDetectors>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>com.gs.dmn.tck.cl3_0004_lending_dag</javaRootPackage>
-                                <lazyEvaluation>true</lazyEvaluation>
                                 <caching>false</caching>
                             </inputParameters>
                         </configuration>
@@ -688,11 +690,13 @@
                         </goals>
                         <configuration>
                             <templateProvider>com.gs.dmn.transformation.template.TreeTemplateProvider</templateProvider>
+                            <lazyEvaluationDetectors>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
+                            </lazyEvaluationDetectors>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>com.gs.dmn.tck.cl3_0004_lending_tree</javaRootPackage>
-                                <lazyEvaluation>true</lazyEvaluation>
                             </inputParameters>
                         </configuration>
                     </execution>

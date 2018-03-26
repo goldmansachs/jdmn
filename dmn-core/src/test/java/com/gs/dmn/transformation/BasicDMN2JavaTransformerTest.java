@@ -18,6 +18,7 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.junit.Before;
 import org.junit.Test;
 import org.omg.spec.dmn._20151101.dmn.TDecision;
@@ -42,7 +43,7 @@ public class BasicDMN2JavaTransformerTest {
     public void setUp() {
         String pathName = "dmn/input/0004-lending.dmn";
         TDefinitions definitions = readDMN(pathName);
-        this.dmnTransformer = dialectDefinition.createBasicTransformer(definitions, new LinkedHashMap<>());
+        this.dmnTransformer = dialectDefinition.createBasicTransformer(definitions, new NopLazyEvaluationDetector(), new LinkedHashMap<>());
     }
 
     @Test
