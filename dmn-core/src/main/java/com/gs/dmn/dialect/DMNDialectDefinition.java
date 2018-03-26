@@ -21,6 +21,7 @@ import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 import org.omg.spec.dmn._20151101.dmn.TDefinitions;
@@ -44,9 +45,9 @@ public interface DMNDialectDefinition {
     //
     DMNInterpreter createDMNInterpreter(TDefinitions definitions);
 
-    DMNToJavaTransformer createDMNToJavaTransformer(DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, Map<String, String> inputParameters, BuildLogger logger);
+    DMNToJavaTransformer createDMNToJavaTransformer(DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters, BuildLogger logger);
 
-    BasicDMN2JavaTransformer createBasicTransformer(TDefinitions definitions, Map<String, String> inputParameters);
+    BasicDMN2JavaTransformer createBasicTransformer(TDefinitions definitions, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters);
 
     //
     // Execution engine

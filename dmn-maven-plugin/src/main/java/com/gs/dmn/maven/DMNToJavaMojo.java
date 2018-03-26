@@ -17,6 +17,7 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.InputParamUtil;
+import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.DagTemplateProvider;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
@@ -44,6 +45,9 @@ public class DMNToJavaMojo extends AbstractDMNMojo {
     public String templateProvider;
 
     @Parameter(required = false)
+    public String[] lazyEvaluationDetectors;
+
+    @Parameter(required = false)
     public Map<String, String> inputParameters;
 
     @Parameter(required = true, defaultValue = "${project.basedir}/src/main/resources/dmn")
@@ -63,10 +67,11 @@ public class DMNToJavaMojo extends AbstractDMNMojo {
             // Create and validate arguments
             BuildLogger logger = new MavenBuildLogger(this.getLog());
             Class<?> dialectClass = Class.forName(dmnDialect);
-            DMNDialectDefinition dmnDialect = (DMNDialectDefinition) dialectClass.newInstance();
+            DMNDialectDefinition dmnDialect = makeDialect(dialectClass);
             DMNValidator dmnValidator = makeDMNValidator(this.dmnValidators, logger);
             DMNTransformer dmnTransformer = makeDMNTransformer(this.dmnTransformers, logger);
             TemplateProvider templateProvider = makeTemplateProvider(this.templateProvider, logger);
+            LazyEvaluationDetector lazyEvaluationDetector = makeLazyEvaluationDetector(this.lazyEvaluationDetectors, logger, this.inputParameters);
             validateParameters(dmnDialect, dmnValidator, dmnTransformer, templateProvider, inputParameters);
 
             // Create transformer
@@ -74,6 +79,7 @@ public class DMNToJavaMojo extends AbstractDMNMojo {
                     dmnValidator,
                     dmnTransformer,
                     templateProvider,
+                    lazyEvaluationDetector,
                     inputParameters,
                     logger
             );

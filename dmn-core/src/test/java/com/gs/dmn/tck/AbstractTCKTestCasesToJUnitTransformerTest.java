@@ -22,6 +22,8 @@ import com.gs.dmn.transformation.AbstractTestTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.FileTransformer;
 import com.gs.dmn.transformation.ToSimpleNameTransformer;
+import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
+import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.transformation.template.TreeTemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
@@ -65,8 +67,8 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends Abstrac
     }
 
     @Override
-    protected FileTransformer makeTransformer(Path inputModelPath, Map<String, String> inputParameters, BuildLogger logger) {
-        return new TCKTestCasesToJUnitTransformer(makeDialectDefinition(), makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), inputModelPath, inputParameters, logger);
+    protected LazyEvaluationDetector makeLazyEvaluationDetector(Map<String, String> inputParameters, BuildLogger logger) {
+        return new NopLazyEvaluationDetector();
     }
 
     @Override
@@ -75,6 +77,11 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends Abstrac
             put("environmentFactoryClass", DefaultDMNEnvironmentFactory.class.getName());
             put("decisionBaseClass", DefaultDMNBaseDecision.class.getName());
         }};
+    }
+
+    @Override
+    protected FileTransformer makeTransformer(Path inputModelPath, Map<String, String> inputParameters, BuildLogger logger) {
+        return new TCKTestCasesToJUnitTransformer(makeDialectDefinition(), makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, LOGGER), inputModelPath, inputParameters, logger);
     }
 
     protected abstract String getDMNInputPath();

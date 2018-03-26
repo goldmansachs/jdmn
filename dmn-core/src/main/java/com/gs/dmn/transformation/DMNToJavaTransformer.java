@@ -19,6 +19,7 @@ import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 import org.omg.spec.dmn._20151101.dmn.TBusinessKnowledgeModel;
@@ -53,8 +54,8 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
     protected final String modelVersion;
     protected final String platformVersion;
 
-    public DMNToJavaTransformer(DMNDialectDefinition dialectDefinition, DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, Map<String, String> inputParameters, BuildLogger logger) {
-        super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, inputParameters, logger);
+    public DMNToJavaTransformer(DMNDialectDefinition dialectDefinition, DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters, BuildLogger logger) {
+        super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, inputParameters, logger);
 
         this.dmnVersion = InputParamUtil.getRequiredParam(inputParameters, "dmnVersion");
         this.modelVersion = InputParamUtil.getRequiredParam(inputParameters, "modelVersion");
@@ -78,7 +79,7 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
         // Read and validate DMN
         TDefinitions definitions = readDMN(file);
         definitions = dmnTransformer.transform(definitions);
-        BasicDMN2JavaTransformer dmnTransformer = dialectDefinition.createBasicTransformer(definitions, inputParameters);
+        BasicDMN2JavaTransformer dmnTransformer = dialectDefinition.createBasicTransformer(definitions, lazyEvaluationDetector, inputParameters);
         DMNModelRepository dmnModelRepository = dmnTransformer.getDMNModelRepository();
         this.dmnValidator.validate(dmnModelRepository);
 
