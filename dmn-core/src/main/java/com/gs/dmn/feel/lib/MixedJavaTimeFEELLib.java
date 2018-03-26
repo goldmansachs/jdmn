@@ -114,19 +114,7 @@ public class MixedJavaTimeFEELLib extends FEELOperators<BigDecimal, LocalDate, O
 
     @Override
     public String string(Object from) {
-        if (from == null) {
-            return "null";
-        } else if (from instanceof BigDecimal) {
-            return ((BigDecimal) from).toPlainString();
-        } else if (from instanceof LocalDate) {
-            return ((LocalDate) from).format(DateTimeUtil.FEEL_DATE_FORMAT);
-        } else if (from instanceof OffsetTime) {
-            return ((OffsetTime) from).format(DateTimeUtil.FEEL_TIME_FORMAT);
-        } else if (from instanceof ZonedDateTime) {
-            return ((ZonedDateTime) from).format(DateTimeUtil.FEEL_DATE_TIME_FORMAT);
-        } else {
-            return from.toString();
-        }
+        return DateTimeUtil.string(from);
     }
 
     @Override

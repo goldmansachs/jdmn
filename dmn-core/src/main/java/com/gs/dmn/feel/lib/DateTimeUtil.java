@@ -18,7 +18,9 @@ import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.DecimalFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -30,6 +32,7 @@ import static java.time.temporal.ChronoField.*;
 public class DateTimeUtil {
     public static final LocalDate EPOCH = LocalDate.of(1970, 1, 1);
     public static final ZoneId UTC = ZoneId.of("UTC");
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.######");
 
     public static final DateTimeFormatter FEEL_DATE_FORMAT;
     public static final DateTimeFormatter FEEL_TIME_FORMAT;
@@ -180,10 +183,9 @@ public class DateTimeUtil {
                 int zoneIndex = literal.indexOf("@");
                 String zoneId = literal.substring(literal.indexOf('@') + 1);
                 ZoneId zone = ZoneId.of(zoneId);
-                LocalDateTime dt = LocalDateTime.now();
-                ZonedDateTime zdt = dt.atZone(zone);
-                ZoneOffset offset = zdt.getOffset();
                 LocalTime localTime = LocalTime.parse(literal.substring(0, zoneIndex), FEEL_TIME_FORMAT);
+                ZonedDateTime zdt = ZonedDateTime.of(LocalDate.now(zone), localTime, zone);
+                ZoneOffset offset = zone.getRules().getStandardOffset(zdt.toInstant());
                 return localTime.atOffset(offset);
             } else {
                 return OffsetTime.parse(literal);
@@ -221,6 +223,24 @@ public class DateTimeUtil {
             months = - months;
         }
         return datatypeFactory.newDurationYearMonth(!between.isNegative(), years, months);
+    }
+
+    public static String string(Object from) {
+        if (from == null) {
+            return "null";
+        } else if (from instanceof Double) {
+            return DECIMAL_FORMAT.format(from);
+        } else if (from instanceof BigDecimal) {
+            return ((BigDecimal) from).toPlainString();
+        } else if (from instanceof LocalDate) {
+            return ((LocalDate) from).format(DateTimeUtil.FEEL_DATE_FORMAT);
+        } else if (from instanceof OffsetTime) {
+            return ((OffsetTime) from).format(DateTimeUtil.FEEL_TIME_FORMAT);
+        } else if (from instanceof ZonedDateTime) {
+            return ((ZonedDateTime) from).format(DateTimeUtil.FEEL_DATE_TIME_FORMAT);
+        } else {
+            return from.toString();
+        }
     }
 
     public static boolean invalidYear(String literal) {
