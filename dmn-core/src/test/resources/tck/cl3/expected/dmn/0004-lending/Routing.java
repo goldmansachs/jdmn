@@ -86,6 +86,6 @@ public class Routing extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     private String evaluate(type.TBureauData bureauData, Boolean postBureauAffordability, String postBureauRiskCategory, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
-        return RoutingRules(postBureauRiskCategory, postBureauAffordability, ((Boolean)bureauData.getBankrupt()), ((java.math.BigDecimal)bureauData.getCreditScore()), annotationSet_, eventListener_, externalExecutor_);
+        return RoutingRules(postBureauRiskCategory, postBureauAffordability, ((Boolean)(bureauData != null ? bureauData.getBankrupt() : null)), ((java.math.BigDecimal)(bureauData != null ? bureauData.getCreditScore() : null)), annotationSet_, eventListener_, externalExecutor_);
     }
 }

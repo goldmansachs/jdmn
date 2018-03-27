@@ -262,8 +262,8 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 null,
                 null);
         doExpressionTest(entries, "", "function(a: number, b: number) external {" +
-                    "java: {class: \"com.gs.dmn.simple_decision_with_user_function.Sum\", methodSignature: \"add(a, b)\", returnType : \"number\"}" +
-                "}",
+                        "java: {class: \"com.gs.dmn.simple_decision_with_user_function.Sum\", methodSignature: \"add(a, b)\", returnType : \"number\"}" +
+                        "}",
                 "FunctionDefinition(FormalParameter(a, number),FormalParameter(b, number), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"com.gs.dmn.simple_decision_with_user_function.Sum\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"add(a, b)\")),ContextEntry(ContextEntryKey(returnType) = StringLiteral(\"number\"))))), true)",
                 "FEELFunctionType(FormalParameter(a, number), FormalParameter(b, number), ContextType(java = ContextType(class = string, methodSignature = string, returnType = string)), true)",
                 null,
@@ -982,7 +982,10 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
         doExpressionTest(entries, "", "DeptTable[number = EmployeeTable[name=LastName].deptNum[1]].manager[1]",
                 "FilterExpression(PathExpression(FilterExpression(Name(DeptTable), Relational(=,PathExpression(Name(item), number),FilterExpression(PathExpression(FilterExpression(Name(EmployeeTable), Relational(=,PathExpression(Name(item), name),Name(LastName))), deptNum), NumericLiteral(1)))), manager), NumericLiteral(1))",
                 "string",
-                "(String)(elementAt(deptTable.stream().filter(item -> numericEqual(((java.math.BigDecimal)item.getNumber()), (java.math.BigDecimal)(elementAt(employeeTable.stream().filter(item_1_ -> stringEqual(((String)item_1_.getName()), lastName)).collect(Collectors.toList()).stream().map(x -> ((java.math.BigDecimal)x.getDeptNum())).collect(Collectors.toList()), number(\"1\"))))).collect(Collectors.toList()).stream().map(x -> ((String)x.getManager())).collect(Collectors.toList()), number(\"1\")))",
+                "(String)(elementAt(deptTable.stream().filter(item -> numericEqual(((java.math.BigDecimal)(item != null ? item.getNumber() : null)), " +
+                        "(java.math.BigDecimal)(elementAt(employeeTable.stream().filter(item_1_ -> stringEqual(((String)(item_1_ != null ? item_1_.getName() : null)), " +
+                        "lastName)).collect(Collectors.toList()).stream().map(x -> ((java.math.BigDecimal)(x != null ? x.getDeptNum() : null))).collect(Collectors.toList()), number(\"1\")))))" +
+                        ".collect(Collectors.toList()).stream().map(x -> ((String)(x != null ? x.getManager() : null))).collect(Collectors.toList()), number(\"1\")))",
                 null,
                 null
         );
@@ -1144,7 +1147,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "sort(asList(number(\"3\"), number(\"1\"), number(\"4\"), number(\"5\"), number(\"2\")), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return numericLessThan(x, y);}})",
                 null,
                 null
-                );
+        );
     }
 
     @Test
@@ -1156,7 +1159,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
         doExpressionTest(entries, "", "string length(PrivateFundRequirements.HierarchyNode)",
                 "FunctionInvocation(Name(string length) -> PositionalParameters(PathExpression(Name(PrivateFundRequirements), HierarchyNode)))",
                 "number",
-                "stringLength(((String)privateFundRequirements.getHierarchyNode()))",
+                "stringLength(((String)(privateFundRequirements != null ? privateFundRequirements.getHierarchyNode() : null)))",
                 null,
                 null);
     }

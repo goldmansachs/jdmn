@@ -58,10 +58,10 @@ public class FinancialMetrics extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
     }
 
     private type.TMetric evaluate(type.TLoanProduct product, java.math.BigDecimal requestedAmt, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
-        String lenderName = ((String)product.getLenderName());
-        java.math.BigDecimal rate = ((java.math.BigDecimal)product.getRate());
-        java.math.BigDecimal points = ((java.math.BigDecimal)product.getPoints());
-        java.math.BigDecimal fee = ((java.math.BigDecimal)product.getFee());
+        String lenderName = ((String)(product != null ? product.getLenderName() : null));
+        java.math.BigDecimal rate = ((java.math.BigDecimal)(product != null ? product.getRate() : null));
+        java.math.BigDecimal points = ((java.math.BigDecimal)(product != null ? product.getPoints() : null));
+        java.math.BigDecimal fee = ((java.math.BigDecimal)(product != null ? product.getFee() : null));
         java.math.BigDecimal loanAmt = numericAdd(numericMultiply(requestedAmt, numericAdd(number("1"), numericDivide(points, number("100")))), fee);
         java.math.BigDecimal downPmtAmt = numericMultiply(number("0.2"), loanAmt);
         java.math.BigDecimal paymentAmt = monthlyPayment(loanAmt, rate, number("360"), annotationSet_, eventListener_, externalExecutor_);

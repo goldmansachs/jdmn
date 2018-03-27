@@ -74,7 +74,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         if (sourceType instanceof ItemDefinitionType) {
             Type memberType = ((ItemDefinitionType) sourceType).getMemberType(memberName);
             String javaType = dmnTransformer.toJavaType(memberType);
-            return String.format("((%s)%s.%s)", javaType, source, dmnTransformer.getter(memberName));
+            return makeSafeAccessor(javaType, source, dmnTransformer.getter(memberName));
         } else if (sourceType instanceof ContextType) {
             Type memberType = ((ContextType) sourceType).getMemberType(memberName);
             String javaType = dmnTransformer.toJavaType(memberType);
@@ -135,6 +135,11 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
                 throw new DMNRuntimeException(String.format("Operator '%s' cannot be applied to '%s' and '%s'", feelOperator, leftOpd, rightOpd));
             }
         }
+    }
+
+    protected String makeSafeAccessor(String javaType, String source, String accessorMethod)
+    {
+        return String.format("((%s)(%s != null ? %s.%s : null))", javaType, source, source, accessorMethod);
     }
 
     protected String listTestOperator(String feelOperatorName, Expression leftOperand, Expression rightOperand) {
