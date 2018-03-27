@@ -8,6 +8,7 @@ DMN models can be executed in jDMN in two ways:
 
 For more information please look at the other [FAQs](index.md).
 
+
 ## How to read a DMN model?
 
 DMN models can be read as follows:
@@ -16,6 +17,37 @@ DMN models can be read as follows:
     BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(...));
     DMNReader reader = new DMNReader(LOGGER, false);
     TDefinitions definitions = reader.read(dmnFileURL);
+```
+
+## How to validate a DMN model?
+
+DMN models can be validated at the syntax level (XSD schema validation) as follows:
+
+```
+    BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(...));
+    DMNReader reader = new DMNReader(LOGGER, true);
+    TDefinitions definitions = reader.read(dmnFileURL);
+```
+
+DMN models can be validated at the semantic level by implementing the ```DMNValidator``` interface. jDMN provides a default implementation.
+
+```
+    DMNValidator validator = new DefaultDMNValidator();
+    DMNReader reader = new DMNReader(LOGGER, false);
+    TDefinitions definitions = reader.read(input);
+    validator.validate(new DMNModelRepository(definitions));
+```
+
+## How to transform a DMN model?
+
+DMN models can be transformed by implementing the ```DMNTransformer``` interface. jDMN provides support for the Composite Design Pattern.
+
+```
+    BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(...));
+    DMNReader reader = new DMNReader(LOGGER, false);
+    TDefinitions definitions = reader.read(dmnFileURL);
+    DMNTransformer<TestCases> transformer = new ToQuotedNameTransformer(LOGGER);
+    transformer.transformer(definitions);
 ```
 
 ## What is a jDMN dialect?
