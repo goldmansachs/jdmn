@@ -70,6 +70,6 @@ public class Sort2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     private List<type.TRow> evaluate(List<type.TRow> tableB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
-        return sort(tableB, new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {type.TRow x = (type.TRow)args[0]; type.TRow y = (type.TRow)args[1];return numericLessThan(((java.math.BigDecimal)x.getCol2()), ((java.math.BigDecimal)y.getCol2()));}}).stream().map(x -> type.TRow.toTRow(x)).collect(Collectors.toList());
+        return sort(tableB, new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {type.TRow x = (type.TRow)args[0]; type.TRow y = (type.TRow)args[1];return numericLessThan(((java.math.BigDecimal)(x != null ? x.getCol2() : null)), ((java.math.BigDecimal)(y != null ? y.getCol2() : null)));}}).stream().map(x -> type.TRow.toTRow(x)).collect(Collectors.toList());
     }
 }

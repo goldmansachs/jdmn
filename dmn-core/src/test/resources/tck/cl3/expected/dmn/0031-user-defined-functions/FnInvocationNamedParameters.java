@@ -80,10 +80,10 @@ public class FnInvocationNamedParameters extends com.gs.dmn.runtime.DefaultDMNBa
     }
 
     private type.TFnInvocationNamedResult evaluate(type.TFnLibrary fnLibrary, java.math.BigDecimal inputA, java.math.BigDecimal inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
-        java.math.BigDecimal subResult = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)fnLibrary.getSubFn()).apply(inputA, inputB);
-        java.math.BigDecimal multiplicationResultNamed = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)fnLibrary.getMultiplyFn()).apply(inputA, inputB);
-        java.math.BigDecimal subResultMixed = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)fnLibrary.getSubFn()).apply(inputB, inputA);
-        java.math.BigDecimal divisionResultNamed = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)fnLibrary.getDivideFn()).apply(inputA, inputB);
+        java.math.BigDecimal subResult = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getSubFn() : null)).apply(inputA, inputB);
+        java.math.BigDecimal multiplicationResultNamed = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getMultiplyFn() : null)).apply(inputA, inputB);
+        java.math.BigDecimal subResultMixed = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getSubFn() : null)).apply(inputB, inputA);
+        java.math.BigDecimal divisionResultNamed = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getDivideFn() : null)).apply(inputA, inputB);
         type.TFnInvocationNamedResultImpl fnInvocationNamedParameters = new type.TFnInvocationNamedResultImpl();
         fnInvocationNamedParameters.setSubResult(subResult);
         fnInvocationNamedParameters.setMultiplicationResultNamed(multiplicationResultNamed);

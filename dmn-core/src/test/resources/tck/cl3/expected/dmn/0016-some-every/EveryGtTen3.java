@@ -62,6 +62,6 @@ public class EveryGtTen3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     private Boolean evaluate(List<type.TItemPrice> priceTable1, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
-        return booleanAnd((List)priceTable1.stream().map(i -> booleanEqual(gtTen(((java.math.BigDecimal)i.getPrice()), annotationSet_, eventListener_, externalExecutor_), Boolean.TRUE)).collect(Collectors.toList()));
+        return booleanAnd((List)priceTable1.stream().map(i -> booleanEqual(gtTen(((java.math.BigDecimal)(i != null ? i.getPrice() : null)), annotationSet_, eventListener_, externalExecutor_), Boolean.TRUE)).collect(Collectors.toList()));
     }
 }

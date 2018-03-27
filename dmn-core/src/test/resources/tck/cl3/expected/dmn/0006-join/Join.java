@@ -72,6 +72,6 @@ public class Join extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     private String evaluate(List<type.TDeptTable> deptTable, List<type.TEmployeeTable> employeeTable, String lastName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
-        return (String)(elementAt(deptTable.stream().filter(item -> numericEqual(((java.math.BigDecimal)item.getNumber()), (java.math.BigDecimal)(elementAt(employeeTable.stream().filter(item_1_ -> stringEqual(((String)item_1_.getName()), lastName)).collect(Collectors.toList()).stream().map(x -> ((java.math.BigDecimal)x.getDeptNum())).collect(Collectors.toList()), number("1"))))).collect(Collectors.toList()).stream().map(x -> ((String)x.getManager())).collect(Collectors.toList()), number("1")));
+        return (String)(elementAt(deptTable.stream().filter(item -> numericEqual(((java.math.BigDecimal)(item != null ? item.getNumber() : null)), (java.math.BigDecimal)(elementAt(employeeTable.stream().filter(item_1_ -> stringEqual(((String)(item_1_ != null ? item_1_.getName() : null)), lastName)).collect(Collectors.toList()).stream().map(x -> ((java.math.BigDecimal)(x != null ? x.getDeptNum() : null))).collect(Collectors.toList()), number("1"))))).collect(Collectors.toList()).stream().map(x -> ((String)(x != null ? x.getManager() : null))).collect(Collectors.toList()), number("1")));
     }
 }

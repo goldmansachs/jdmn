@@ -81,6 +81,6 @@ public class PreBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDeci
     }
 
     private String evaluate(type.TApplicantData applicantData, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
-        return PreBureauRiskCategoryTable(((Boolean)applicantData.getExistingCustomer()), applicationRiskScore, annotationSet_, eventListener_, externalExecutor_);
+        return PreBureauRiskCategoryTable(((Boolean)(applicantData != null ? applicantData.getExistingCustomer() : null)), applicationRiskScore, annotationSet_, eventListener_, externalExecutor_);
     }
 }
