@@ -70,11 +70,8 @@ For dmn-to-java goal only:
 
 Parameter Name | Description | Comments
 ---------------|-------------|----------
-dmnDialect | DMN dialect used to describe the decision model. | Mandatory. Default value is com.gs.dmn.dialect.StandardDMNDialectDefinition
 inputFileDirectory | Folder where the DMN file are. | Mandatory. Default value ${project.basedir}/src/main/resources/dmn
 outputFileDirectory | Folder to contain the generated code. | Mandatory. Default value ${project.build.directory}/generated-sources/dmn
-
-
 
 For tck-to-java goal only:
 
@@ -92,8 +89,12 @@ dmnVersion              | Version of the DMN standard, currently 1.1	   | Requir
 modelVersion            | Version of the decision model, controlled by the user    | Required
 platformVersion         | Version of the DMN Engine used to process the decision model. | Required
 xsdValidation           | Forces the DMN reader to perform XSD validation. | Optional. Default value false
-semanticValidation      | Forces validation at the Abstract Syntax Tree (AST) validation (e.g. ID are unique) | Optional. Default value false
-javaRootPackage         | Package that contains the generated code.	       | Optional. Default value ""
+javaRootPackage         | Package that contains the generated code.	       | Optional. Default value is empty string
+dmnDialect              | DMN dialect used to describe the decision model. | Mandatory. Default value is com.gs.dmn.dialect.StandardDMNDialectDefinition
+dmnValidators           | DMN validators to be used to validate the model. | Optional. Default value com.gs.dmn.validation.NopDMNValidator
+dmnTransformers         | DMN transformers to be applied before translation. | Optional. Default value com.gs.dmn.transformation.NopDMNTransformer. 
+templateProvider        | The template provider to be used.                  | Mandatory. Default value is com.gs.dmn.transformation.template.TreeTemplateProvider
+lazyEvaluationDetectors | Lazy evaluation detectors to be used during translation | Optional
 
 
 Sample:
@@ -110,7 +111,6 @@ Sample:
                 <modelVersion>${model.version}</modelVersion>
                 <platformVersion>${platform.version}</platformVersion>
                 <xsdValidation>false</xsdValidation>
-                <semanticValidation>false</semanticValidation>
             </inputParameters>
         </configuration>
         <executions>
@@ -118,6 +118,8 @@ Sample:
         </executions>
     </plugin>
 ```
+
+More examples in the pom of the ```dmn-tck-integration-tests``` module.
 
 ## How to evaluate a decision using the generated code?
 1. Create an instance of the decision.
