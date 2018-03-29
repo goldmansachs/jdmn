@@ -21,6 +21,7 @@ import com.gs.dmn.validation.DMNValidator;
 import org.omg.spec.dmn._20151101.dmn.TDefinitions;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 public abstract class AbstractDMNTransformer extends AbstractTemplateBasedTransformer {
@@ -48,5 +49,16 @@ public abstract class AbstractDMNTransformer extends AbstractTemplateBasedTransf
 
     protected TDefinitions readDMN(File file) {
         return dmnReader.read(file);
+    }
+
+    protected void handleValidationErrors(List<String> errors) {
+        if (errors == null || errors.isEmpty()) {
+            return;
+        }
+
+        for(String error: errors) {
+            logger.error(error);
+        }
+        throw new IllegalArgumentException("Validation errors " + errors);
     }
 }
