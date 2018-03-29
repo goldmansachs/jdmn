@@ -27,9 +27,14 @@ public class CompositeDMNValidator implements DMNValidator {
     }
 
     @Override
-    public void validate(DMNModelRepository dmnModelRepository) {
+    public List<String> validate(DMNModelRepository dmnModelRepository) {
+        List<String> result = new ArrayList<>();
         for(DMNValidator validator: this.validators) {
-            validator.validate(dmnModelRepository);
+            List<String> errors = validator.validate(dmnModelRepository);
+            if (errors != null) {
+                result.addAll(errors);
+            }
         }
+        return result;
     }
 }

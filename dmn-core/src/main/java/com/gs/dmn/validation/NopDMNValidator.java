@@ -14,11 +14,15 @@ package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class NopDMNValidator extends SimpleDMNValidator {
     public NopDMNValidator() {
     }
 
     @Override
-    public void validate(DMNModelRepository dmnModelRepository) {
+    public List<String> validate(DMNModelRepository dmnModelRepository) {
+        return new ArrayList<>();
     }
 }
