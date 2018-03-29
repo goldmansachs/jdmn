@@ -22,6 +22,7 @@ import org.omg.spec.dmn._20151101.dmn.TDefinitions;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -38,26 +39,18 @@ public class DMNValidatorTest {
 
     @Test
     public void testValidateDefinitionsWhenNotUniqueNames() {
-        try {
-            File input = new File(DMNValidatorTest.class.getClassLoader().getResource("dmn/input/test-dmn-with-duplicates.dmn").getFile());
-            TDefinitions definitions = reader.read(input);
-            validator.validate(new DMNModelRepository(definitions));
-            fail("Should throw IllegalArgument");
-        } catch (IllegalArgumentException e) {
-            assertEquals("The 'name' of a 'DRGElement' must be unique. Found duplicates for 'CIP Assessments'.", e.getMessage());
-        }
+        File input = new File(DMNValidatorTest.class.getClassLoader().getResource("dmn/input/test-dmn-with-duplicates.dmn").getFile());
+        TDefinitions definitions = reader.read(input);
+        List<String> errors = validator.validate(new DMNModelRepository(definitions));
+        assertTrue(!errors.isEmpty());
     }
 
     @Test
     public void testValidateDefinitionsWithError() {
-        try {
-            File input = new File(DMNValidatorTest.class.getClassLoader().getResource("dmn/input/test-dmn.dmn").getFile());
-            TDefinitions definitions = reader.read(input);
-            validator.validate(new DMNModelRepository(definitions));
-            fail("Should throw IllegalArgument");
-        } catch (IllegalArgumentException e) {
-            assertEquals("Missing variable for 'CIP Assessments'", e.getMessage());
-        }
+        File input = new File(DMNValidatorTest.class.getClassLoader().getResource("dmn/input/test-dmn.dmn").getFile());
+        TDefinitions definitions = reader.read(input);
+        List<String> errors = validator.validate(new DMNModelRepository(definitions));
+        assertTrue(!errors.isEmpty());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -66,13 +59,9 @@ public class DMNValidatorTest {
     }
 
     private void validate(String path) {
-        try {
-            File input = new File(DMNValidatorTest.class.getClassLoader().getResource(path).getFile());
-            TDefinitions definitions = reader.read(input);
-            validator.validate(new DMNModelRepository(definitions));
-            assertTrue(true);
-        } catch (IllegalArgumentException e) {
-            fail("Unexpected exception, diagram is correct");
-        }
+        File input = new File(DMNValidatorTest.class.getClassLoader().getResource(path).getFile());
+        TDefinitions definitions = reader.read(input);
+        List<String> erros = validator.validate(new DMNModelRepository(definitions));
+        assertTrue(erros.isEmpty());
     }
 }

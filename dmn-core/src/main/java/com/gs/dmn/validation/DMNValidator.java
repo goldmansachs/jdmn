@@ -14,6 +14,8 @@ package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
 
+import java.util.List;
+
 public interface DMNValidator {
-    void validate(DMNModelRepository dmnModelRepository);
+    List<String> validate(DMNModelRepository dmnModelRepository);
 }
