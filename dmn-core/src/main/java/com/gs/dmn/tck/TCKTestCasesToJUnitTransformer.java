@@ -43,7 +43,7 @@ public class TCKTestCasesToJUnitTransformer extends AbstractDMNTransformer {
         TDefinitions definitions = readDMN(inputModelPath.toFile());
         this.basicTransformer = this.dialectDefinition.createBasicTransformer(definitions, lazyEvaluationDetector, inputParameters);
         DMNModelRepository dmnModelRepository = this.basicTransformer.getDMNModelRepository();
-        this.dmnValidator.validate(dmnModelRepository);
+        handleValidationErrors(this.dmnValidator.validate(dmnModelRepository));
         this.testCasesReader = new TestCasesReader(logger);
         this.tckUtil = new TCKUtil(basicTransformer, dialectDefinition.createFEELLib());
     }

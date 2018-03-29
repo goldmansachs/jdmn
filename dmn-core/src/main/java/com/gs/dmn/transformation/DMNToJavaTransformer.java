@@ -32,11 +32,7 @@ import java.nio.file.Path;
 import java.util.*;
 
 public class DMNToJavaTransformer extends AbstractDMNTransformer {
-    public static final String DMN_METADATA_FILE_NAME = "DMNMetadata";
-
     public static final String DATA_PACKAGE = "type";
-    public static final String DECISION_OUTPUT_SUFFIX = "Output";
-    public static final String DECISION_OUTPUT_FIELD_NAME = "value";
     public static final String DECISION_RULE_OUTPUT_CLASS_SUFFIX = "RuleOutput";
     public static final String PRIORITY_SUFFIX = "Priority";
     public static final String INPUT_ENTRY_PLACE_HOLDER = "?";
@@ -81,7 +77,7 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
         definitions = dmnTransformer.transform(definitions);
         BasicDMN2JavaTransformer dmnTransformer = dialectDefinition.createBasicTransformer(definitions, lazyEvaluationDetector, inputParameters);
         DMNModelRepository dmnModelRepository = dmnTransformer.getDMNModelRepository();
-        this.dmnValidator.validate(dmnModelRepository);
+        handleValidationErrors(this.dmnValidator.validate(dmnModelRepository));
 
         // Transform
         transform(dmnTransformer, dmnModelRepository, outputPath);
