@@ -137,8 +137,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         }
     }
 
-    protected String makeSafeAccessor(String javaType, String source, String accessorMethod)
-    {
+    protected String makeSafeAccessor(String javaType, String source, String accessorMethod) {
         return String.format("((%s)(%s != null ? %s.%s : null))", javaType, source, source, accessorMethod);
     }
 
