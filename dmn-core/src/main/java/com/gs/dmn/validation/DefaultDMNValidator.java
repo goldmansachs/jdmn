@@ -17,11 +17,11 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
+import com.gs.dmn.transformation.basic.QualifiedName;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20151101.dmn.*;
 
 import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -132,7 +132,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
                 errors.add(String.format("Decision name and variable name should be the same. Found '%s' and '%s'", decisionName, variableName));
             }
             // decision/variable/@typeRef is not null
-            QName typeRef = variable.getTypeRef();
+            QualifiedName typeRef = QualifiedName.toQualifiedName(variable.getTypeRef());
             if (typeRef == null) {
                 errors.add(String.format("Variable typRef is missing in decision '%s'", decisionName));
             }

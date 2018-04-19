@@ -15,13 +15,13 @@ package com.gs.dmn;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNNamespacePrefixMapper;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
+import com.gs.dmn.transformation.basic.QualifiedName;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20151101.dmn.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -197,7 +197,7 @@ public class DMNModelRepository {
                 || itemDefinition.getTypeRef() == null) {
             return null;
         }
-        return lookupItemDefinition(itemDefinition.getTypeRef());
+        return lookupItemDefinition(QualifiedName.toQualifiedName(itemDefinition.getTypeRef()));
     }
 
     private void sortDRGElements(List<JAXBElement<? extends TDRGElement>> result) {
@@ -425,12 +425,12 @@ public class DMNModelRepository {
         }
     }
 
-    public TItemDefinition lookupItemDefinition(QName typeRef) {
+    public TItemDefinition lookupItemDefinition(QualifiedName typeRef) {
         return lookupItemDefinition(definitions.getItemDefinition(), typeRef);
     }
 
-    TItemDefinition lookupItemDefinition(List<TItemDefinition> itemDefinitionList, QName typeRef) {
-        if (typeRef == null || DMNNamespacePrefixMapper.FEEL_NS.equals(typeRef.getNamespaceURI())) {
+    TItemDefinition lookupItemDefinition(List<TItemDefinition> itemDefinitionList, QualifiedName typeRef) {
+        if (typeRef == null || DMNNamespacePrefixMapper.FEEL_NS.equals(typeRef.getNamespace())) {
             return null;
         }
         for (TItemDefinition itemDefinition : itemDefinitionList) {
@@ -534,23 +534,23 @@ public class DMNModelRepository {
         return list == null || list.isEmpty();
     }
 
-    public QName typeRef(TNamedElement element) {
-        QName typeRef = null;
+    public QualifiedName typeRef(TNamedElement element) {
+        QualifiedName typeRef = null;
         if (element instanceof TInformationItem) {
-            typeRef = ((TInformationItem) element).getTypeRef();
+            typeRef = QualifiedName.toQualifiedName(((TInformationItem) element).getTypeRef());
         }
         if (typeRef == null) {
             // Derive from variable
             TInformationItem variable = variable(element);
             if (variable != null) {
-                typeRef = variable.getTypeRef();
+                typeRef = QualifiedName.toQualifiedName(variable.getTypeRef());
             }
         }
         if (typeRef == null) {
             // Derive from expression
             TExpression expression = expression(element);
             if (expression != null) {
-                typeRef = expression.getTypeRef();
+                typeRef = QualifiedName.toQualifiedName(expression.getTypeRef());
                 if (typeRef == null) {
                     if (expression instanceof TContext) {
                         // Derive from return entry
@@ -559,7 +559,7 @@ public class DMNModelRepository {
                             if (ce.getVariable() == null) {
                                 JAXBElement<? extends TExpression> returnElement = ce.getExpression();
                                 if (returnElement != null) {
-                                    typeRef = returnElement.getValue().getTypeRef();
+                                    typeRef = QualifiedName.toQualifiedName(returnElement.getValue().getTypeRef());
                                 }
                             }
                         }
@@ -567,12 +567,12 @@ public class DMNModelRepository {
                         // Derive from output clause
                         List<TOutputClause> outputList = ((TDecisionTable) expression).getOutput();
                         if (outputList.size() == 1) {
-                            typeRef = outputList.get(0).getTypeRef();
+                            typeRef = QualifiedName.toQualifiedName(outputList.get(0).getTypeRef());
                             if (typeRef == null) {
                                 // Derive from rules
                                 List<TDecisionRule> ruleList = ((TDecisionTable) expression).getRule();
                                 List<TLiteralExpression> outputEntry = ruleList.get(0).getOutputEntry();
-                                typeRef = outputEntry.get(0).getTypeRef();
+                                typeRef = QualifiedName.toQualifiedName(outputEntry.get(0).getTypeRef());
                             }
                         }
                     }

@@ -31,12 +31,12 @@ import com.gs.dmn.runtime.listener.Arguments;
 import com.gs.dmn.runtime.listener.*;
 import com.gs.dmn.runtime.listener.EventListener;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.QualifiedName;
 import org.omg.spec.dmn._20151101.dmn.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -102,7 +102,7 @@ public class DMNInterpreter {
         for (int i = 0; i < formalParameterList.size(); i++) {
             TInformationItem param = formalParameterList.get(i);
             String name = param.getName();
-            Type type = basicDMNTransformer.toFEELType(param.getTypeRef());
+            Type type = basicDMNTransformer.toFEELType(QualifiedName.toQualifiedName(param.getTypeRef()));
             Object value = argList.get(i);
             bkmEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(name, type));
             bkmRuntimeEnvironment.bind(name, value);
@@ -126,7 +126,7 @@ public class DMNInterpreter {
         for (int i = 0; i < formalParameterList.size(); i++) {
             TInformationItem param = formalParameterList.get(i);
             String name = param.getName();
-            Type type = basicDMNTransformer.toFEELType(param.getTypeRef());
+            Type type = basicDMNTransformer.toFEELType(QualifiedName.toQualifiedName(param.getTypeRef()));
             Object value = argList.get(i);
             functionEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(name, type));
             functionRuntimeEnvironment.bind(name, value);
@@ -241,7 +241,7 @@ public class DMNInterpreter {
         if (element == null) {
             return value;
         } else {
-            QName typeRef = basicDMNTransformer.drgElementOutputTypeRef(element);
+            QualifiedName typeRef = basicDMNTransformer.drgElementOutputTypeRef(element);
             if (typeRef != null) {
                 Type expectedType = basicDMNTransformer.toFEELType(typeRef);
                 return convertExpression(value, expectedType);

@@ -30,7 +30,6 @@ import com.gs.dmn.transformation.DMNToJavaTransformer;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20151101.dmn.*;
 
-import javax.xml.namespace.QName;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -96,12 +95,12 @@ public class DecisionTableToJavaTransformer {
 
     private Type toFEELType(TDRGElement element, TOutputClause outputClause) {
         // Check TOutputClause.typeRef
-        QName outputClauseTypeRef = outputClause.getTypeRef();
+        QualifiedName outputClauseTypeRef = QualifiedName.toQualifiedName(outputClause.getTypeRef());
         if (outputClauseTypeRef != null) {
             return dmnTransformer.toFEELType(outputClauseTypeRef);
         }
         // Derive from parent typeRef
-        QName parentTypeRef = this.dmnModelRepository.typeRef(element);
+        QualifiedName parentTypeRef = this.dmnModelRepository.typeRef(element);
         if (this.dmnModelRepository.isCompoundDecisionTable(element)) {
             TItemDefinition itemDefinition = this.dmnModelRepository.lookupItemDefinition(parentTypeRef);
             if (itemDefinition != null) {
