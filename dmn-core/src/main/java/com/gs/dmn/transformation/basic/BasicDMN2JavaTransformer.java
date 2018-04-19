@@ -52,7 +52,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -179,7 +178,7 @@ public class BasicDMN2JavaTransformer {
     // TInformationItem related functions
     //
     public String informationItemTypeName(TInformationItem element) {
-        Type type = toFEELType(element.getTypeRef());
+        Type type = toFEELType(QualifiedName.toQualifiedName(element.getTypeRef()));
         return toJavaType(type);
     }
 
@@ -241,7 +240,7 @@ public class BasicDMN2JavaTransformer {
     }
 
     protected Type drgElementOutputFEELType(TNamedElement element) {
-        QName typeRef = this.dmnModelRepository.typeRef(element);
+        QualifiedName typeRef = this.dmnModelRepository.typeRef(element);
         return toFEELType(typeRef);
     }
 
@@ -478,9 +477,9 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    public QName drgElementOutputTypeRef(TDRGElement element) {
+    public QualifiedName drgElementOutputTypeRef(TDRGElement element) {
         if (element instanceof TBusinessKnowledgeModel) {
-            QName typeRef = dmnModelRepository.typeRef(element);
+            QualifiedName typeRef = dmnModelRepository.typeRef(element);
             if (typeRef == null) {
                 throw new DMNRuntimeException(String.format("Cannot infer return type for BKM '%s'", element.getName()));
             }
@@ -488,7 +487,7 @@ public class BasicDMN2JavaTransformer {
         } else {
             TInformationItem variable = dmnModelRepository.variable(element);
             if (variable != null) {
-                return variable.getTypeRef();
+                return QualifiedName.toQualifiedName(variable.getTypeRef());
             } else {
                 throw new DMNRuntimeException(String.format("Missing variable in element '%s'", element.getClass().getSimpleName()));
             }
@@ -507,7 +506,7 @@ public class BasicDMN2JavaTransformer {
     }
 
     public Type toFEELType(TInputData inputData) {
-        QName typeRef = inputData.getVariable().getTypeRef();
+        QualifiedName typeRef = QualifiedName.toQualifiedName(inputData.getVariable().getTypeRef());
         return toFEELType(typeRef);
     }
 
@@ -530,7 +529,7 @@ public class BasicDMN2JavaTransformer {
 
     protected List<FormalParameter> bkmFEELParameters(TBusinessKnowledgeModel bkm) {
         List<FormalParameter> parameters = new ArrayList<>();
-        bkm.getEncapsulatedLogic().getFormalParameter().forEach(p -> parameters.add(new FormalParameter(p.getName(), toFEELType(p.getTypeRef()))));
+        bkm.getEncapsulatedLogic().getFormalParameter().forEach(p -> parameters.add(new FormalParameter(p.getName(), toFEELType(QualifiedName.toQualifiedName(p.getTypeRef())))));
         return parameters;
     }
 
@@ -692,7 +691,7 @@ public class BasicDMN2JavaTransformer {
     }
 
     private String parameterType(TInformationItem element) {
-        QName typeRef = this.dmnModelRepository.typeRef(element);
+        QualifiedName typeRef = this.dmnModelRepository.typeRef(element);
         if (typeRef == null) {
             throw new IllegalArgumentException(String.format("Cannot resolve typeRef for element '%s'", element.getName()));
         }
@@ -1164,13 +1163,13 @@ public class BasicDMN2JavaTransformer {
             return null;
         }
         // Lookup primitive types
-        Type primitiveType = lookupPrimitiveType(new QName(FEEL_NS, typeName));
+        Type primitiveType = lookupPrimitiveType(new QualifiedName(FEEL_NS, typeName));
         if (primitiveType != null) {
             return primitiveType;
         }
         // Lookup item definitions
         String namespace = dmnModelRepository.getDefinitions().getNamespace();
-        QName typeRef = new QName(namespace, typeName);
+        QualifiedName typeRef = new QualifiedName(namespace, typeName);
         TItemDefinition itemDefinition = this.dmnModelRepository.lookupItemDefinition(typeRef);
         if (itemDefinition != null) {
             return toFEELType(itemDefinition);
@@ -1179,7 +1178,7 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    public Type toFEELType(QName typeRef) {
+    public Type toFEELType(QualifiedName typeRef) {
         // Lookup primitive types
         Type primitiveType = lookupPrimitiveType(typeRef);
         if (primitiveType != null) {
@@ -1196,7 +1195,7 @@ public class BasicDMN2JavaTransformer {
 
     Type toFEELType(TItemDefinition itemDefinition) {
         itemDefinition = this.dmnModelRepository.normalize(itemDefinition);
-        QName typeRef = itemDefinition.getTypeRef();
+        QualifiedName typeRef = QualifiedName.toQualifiedName(itemDefinition.getTypeRef());
         List<TItemDefinition> itemComponent = itemDefinition.getItemComponent();
         if (typeRef == null && (itemComponent == null || itemComponent.isEmpty())) {
             return AnyType.ANY;
@@ -1217,8 +1216,8 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    Type lookupPrimitiveType(QName typeRef) {
-        if (!FEEL_NS.equals(typeRef.getNamespaceURI())) {
+    Type lookupPrimitiveType(QualifiedName typeRef) {
+        if (!FEEL_NS.equals(typeRef.getNamespace())) {
             return null;
         }
         String typeName = typeRef.getLocalPart();
@@ -1228,7 +1227,7 @@ public class BasicDMN2JavaTransformer {
     //
     // Common functions
     //
-    private String toJavaType(QName typeRef) {
+    private String toJavaType(QualifiedName typeRef) {
         try {
             Type type = toFEELType(typeRef);
             return toJavaType(type);
@@ -1425,7 +1424,7 @@ public class BasicDMN2JavaTransformer {
         bkmEnvironment.addDeclaration(makeBusinessKnowledgeModelDeclaration(bkm));
         TFunctionDefinition functionDefinition = bkm.getEncapsulatedLogic();
         functionDefinition.getFormalParameter().forEach(
-                p -> bkmEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(p.getName(), toFEELType(p.getTypeRef()))));
+                p -> bkmEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(p.getName(), toFEELType(QualifiedName.toQualifiedName(p.getTypeRef())))));
         getDMNModelRepository().allKnowledgeModels(bkm).forEach(
                 e -> bkmEnvironment.addDeclaration(makeBusinessKnowledgeModelDeclaration(e)));
         return bkmEnvironment;
@@ -1434,7 +1433,7 @@ public class BasicDMN2JavaTransformer {
     public Environment makeFunctionDefinitionEnvironment(TFunctionDefinition functionDefinition, Environment parentEnvironment) {
         Environment environment = environmentFactory.makeEnvironment(parentEnvironment);
         functionDefinition.getFormalParameter().forEach(
-                p -> environment.addDeclaration(environmentFactory.makeVariableDeclaration(p.getName(), toFEELType(p.getTypeRef()))));
+                p -> environment.addDeclaration(environmentFactory.makeVariableDeclaration(p.getName(), toFEELType(QualifiedName.toQualifiedName(p.getTypeRef())))));
         return environment;
     }
 
@@ -1492,7 +1491,7 @@ public class BasicDMN2JavaTransformer {
         if (entryType != null) {
             return entryType;
         }
-        QName typeRef = expression == null ? null : expression.getTypeRef();
+        QualifiedName typeRef = expression == null ? null : QualifiedName.toQualifiedName(expression.getTypeRef());
         if (typeRef != null) {
             entryType = toFEELType(typeRef);
         }
@@ -1522,7 +1521,7 @@ public class BasicDMN2JavaTransformer {
 
     Type variableType(TInformationItem variable) {
         if (variable != null) {
-            QName typeRef = variable.getTypeRef();
+            QualifiedName typeRef = QualifiedName.toQualifiedName(variable.getTypeRef());
             if (typeRef != null) {
                 return toFEELType(typeRef);
             }
@@ -1538,7 +1537,7 @@ public class BasicDMN2JavaTransformer {
         if (expression == null) {
             return null;
         }
-        QName typeRef = expression.getTypeRef();
+        QualifiedName typeRef = QualifiedName.toQualifiedName(expression.getTypeRef());
         if (typeRef != null) {
             return toFEELType(typeRef);
         }
@@ -1574,7 +1573,7 @@ public class BasicDMN2JavaTransformer {
         JAXBElement<? extends TExpression> expressionElement = functionDefinition.getExpression();
         if (expressionElement != null) {
             TExpression body = expressionElement.getValue();
-            QName typeRef = body.getTypeRef();
+            QualifiedName typeRef = QualifiedName.toQualifiedName(body.getTypeRef());
             if (typeRef != null) {
                 return toFEELType(typeRef);
             } else {
@@ -1582,7 +1581,7 @@ public class BasicDMN2JavaTransformer {
                 Type bodyType = expressionType(body, functionDefinitionEnvironment);
                 List<FormalParameter> parameters = new ArrayList<>();
                 for(TInformationItem param: functionDefinition.getFormalParameter()) {
-                    Type paramType = toFEELType(param.getTypeRef());
+                    Type paramType = toFEELType(QualifiedName.toQualifiedName(param.getTypeRef()));
                     parameters.add(new FormalParameter(param.getName(), paramType));
                 }
                 if (bodyType != null) {
@@ -1602,7 +1601,7 @@ public class BasicDMN2JavaTransformer {
     public Environment makeRelationEnvironment(TRelation relation, Environment environment) {
         Environment relationEnvironment = environmentFactory.makeEnvironment(environment);
         for(TInformationItem column: relation.getColumn()) {
-            QName typeRef = column.getTypeRef();
+            QualifiedName typeRef = QualifiedName.toQualifiedName(column.getTypeRef());
             if (typeRef != null) {
                 String name = column.getName();
                 relationEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(name, toFEELType(typeRef)));
@@ -1616,7 +1615,7 @@ public class BasicDMN2JavaTransformer {
         if (StringUtils.isBlank(name) || variable == null) {
             throw new DMNRuntimeException(String.format("Name and typeRef cannot be null. Found '%s' and '%s'", name, variable));
         }
-        QName typeRef = variable.getTypeRef();
+        QualifiedName typeRef = QualifiedName.toQualifiedName(variable.getTypeRef());
         Type variableType = toFEELType(typeRef);
         if (!variableType.isValid()) {
             TExpression expression = dmnModelRepository.expression(element);

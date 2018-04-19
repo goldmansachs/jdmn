@@ -20,6 +20,7 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.QualifiedName;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase;
@@ -34,7 +35,6 @@ import org.omg.spec.dmn._20151101.dmn.TInputData;
 import javax.xml.bind.JAXBElement;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
-import javax.xml.namespace.QName;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -198,7 +198,7 @@ public class TCKUtil {
 
     private Type toFEELType(InputNode inputNode) {
         try {
-            QName typeRef = getTypeRef(inputNode);
+            QualifiedName typeRef = getTypeRef(inputNode);
             return dmnTransformer.toFEELType(typeRef);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot resolve FEEL type for node '%s'", inputNode.getName()));
@@ -207,29 +207,29 @@ public class TCKUtil {
 
     private Type toFEELType(ResultNode resultNode) {
         try {
-            QName typeRef = getTypeRef(resultNode);
+            QualifiedName typeRef = getTypeRef(resultNode);
             return dmnTransformer.toFEELType(typeRef);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot resolve FEEL type for node '%s'", resultNode.getName()));
         }
     }
 
-    private QName getTypeRef(InputNode node) {
+    private QualifiedName getTypeRef(InputNode node) {
         TDRGElement element = findDRGElementByName(node.getName());
-        QName typeRef = null;
+        QualifiedName typeRef = null;
         if (element instanceof TInputData) {
-            typeRef = ((TInputData) element).getVariable().getTypeRef();
+            typeRef = QualifiedName.toQualifiedName(((TInputData) element).getVariable().getTypeRef());
         } else {
             throw new UnsupportedOperationException(String.format("Cannot resolve FEEL type for node '%s'. '%s' not supported", node.getName(), element.getClass().getSimpleName()));
         }
         return typeRef;
     }
 
-    private QName getTypeRef(ResultNode node) {
+    private QualifiedName getTypeRef(ResultNode node) {
         TDRGElement element = findDRGElementByName(node.getName());
-        QName typeRef = null;
+        QualifiedName typeRef = null;
         if (element instanceof TDecision) {
-            typeRef = ((TDecision) element).getVariable().getTypeRef();
+            typeRef = QualifiedName.toQualifiedName(((TDecision) element).getVariable().getTypeRef());
         } else {
             throw new UnsupportedOperationException(String.format("Cannot resolve FEEL type for node '%s'. '%s' not supported", node.getName(), element.getClass().getSimpleName()));
         }
@@ -314,7 +314,7 @@ public class TCKUtil {
     private Object makeValue(InputNode inputNode) {
         TDRGElement drgElement = dmnTransformer.getDMNModelRepository().findDRGElementByName(inputNode.getName());
         if (drgElement instanceof TInputData) {
-            Type type = dmnTransformer.toFEELType(((TInputData) drgElement).getVariable().getTypeRef());
+            Type type = dmnTransformer.toFEELType(QualifiedName.toQualifiedName(((TInputData) drgElement).getVariable().getTypeRef()));
             return makeValue(inputNode, type);
         } else {
             throw new UnsupportedOperationException(String.format("Not supported DRGElement '%s'", drgElement.getClass().getSimpleName()));
