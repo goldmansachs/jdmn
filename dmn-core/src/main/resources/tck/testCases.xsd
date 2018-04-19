@@ -54,11 +54,11 @@
 	<xs:complexType name="valueType">
 		<xs:choice>
 			<xs:element name="value" type="xs:anySimpleType" nillable="true"/>
-			<xs:element name="component" nillable="true" maxOccurs="unbounded">
+			<xs:element name="component" nillable="true" minOccurs="0" maxOccurs="unbounded">
 				<xs:complexType>
 					<xs:complexContent>
 						<xs:extension base="valueType">
-							<xs:attribute name="name" use="required"/>
+							<xs:attribute name="name" />
 						</xs:extension>
 					</xs:complexContent>
 				</xs:complexType>
