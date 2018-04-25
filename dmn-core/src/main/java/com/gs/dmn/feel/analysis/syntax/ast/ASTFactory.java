@@ -175,51 +175,29 @@ public class ASTFactory {
         return new SimplePositiveUnaryTests(tests);
     }
 
-    public Expression toIntervalOrListTest(String leftPar, List<Expression> expressions, List<String> operators, String rightPar) {
-        if (isOperatorTest(leftPar, expressions, operators, rightPar)) {
-            return toIntervalTest(leftPar, expressions.get(0), rightPar, expressions.get(1));
-        } else if (isListTest(leftPar, expressions, operators, rightPar)) {
-            return toListTest(expressions);
-        } else if (isPositiveUnaryTests(leftPar, expressions, operators, rightPar)) {
-            return toPositiveUnaryTests(expressions);
+    public PositiveUnaryTest toPositiveUnaryTest(Expression expression) {
+        if (expression instanceof SimplePositiveUnaryTest) {
+            return (PositiveUnaryTest) expression;
+        } else if (expression instanceof NullLiteral) {
+            return toNullPositiveUnaryTest();
+        } else if (expression instanceof SimpleLiteral) {
+            return toOperatorTest(null, expression);
+        } else if (expression instanceof ArithmeticNegation && ((ArithmeticNegation) expression).getLeftOperand() instanceof NumericLiteral) {
+            return toOperatorTest(null, expression);
+        } else if (expression instanceof NamedExpression || expression instanceof PathExpression) {
+            return toOperatorTest(null, expression);
+        } else if (expression instanceof FunctionInvocation) {
+            return toOperatorTest(null, expression);
+        } else if (expression instanceof ListLiteral) {
+            return toListTest((ListLiteral) expression);
         } else {
-            StringBuilder content = new StringBuilder();
-            for (int i = 0; i < expressions.size(); i++) {
-                if (i != 0) {
-                    content.append(operators.get(i - 1)).append(" ");
-                }
-                content.append(expressions.get(i).toString());
-            }
-            throw new DMNRuntimeException(String.format("Illegal interval or list test '%s%s%s'", leftPar, content.toString(), rightPar));
+            throw new DMNRuntimeException(String.format("PositiveUnaryTest not supported for '%s'", expression.getClass().getSimpleName()));
         }
     }
 
-    private boolean isOperatorTest(String leftPar, List<Expression> expressions, List<String> operators, String rightPar) {
-        return (leftPar.equals("(") || leftPar.equals("]") || leftPar.equals("["))
-                && expressions.size() == 2
-                && operators.size() == 1
-                && "..".equals(operators.get(0))
-                && (rightPar.equals(")") || rightPar.equals("[") || rightPar.equals("]"));
+    public PositiveUnaryTest toNullPositiveUnaryTest() {
+        return new NullTest();
     }
-
-    private boolean isListTest(String leftPar, List<Expression> expressions, List<String> operators, String rightPar) {
-        boolean isEmpty = operators.size() == 0 && expressions.size() == 0;
-        boolean hasAtLeastOneElement = operators.size() == expressions.size() - 1;
-        boolean allOperatorsAreComma = operators.stream().allMatch(","::equals);
-        return leftPar.equals("[")
-                && (isEmpty || hasAtLeastOneElement && allOperatorsAreComma)
-                && rightPar.equals("]");
-    }
-
-    private boolean isPositiveUnaryTests(String leftPar, List<Expression> expressions, List<String> operators, String rightPar) {
-        boolean isEmpty = operators.size() == 0 && expressions.size() == 0;
-        boolean hasAtLeastOneElement = operators.size() == expressions.size() - 1;
-        boolean allOperatorsAreComma = operators.stream().allMatch(","::equals);
-        return leftPar.equals("(")
-                && (isEmpty || hasAtLeastOneElement && allOperatorsAreComma)
-                && rightPar.equals(")");
-    }
-
 
     public RangeTest toIntervalTest(String leftPar, Expression start, String rightPar, Expression end) {
         return new RangeTest(!"[".equals(leftPar), start, !"]".equals(rightPar), end);
@@ -227,6 +205,10 @@ public class ASTFactory {
 
     public OperatorTest toOperatorTest(String operator, Expression endpoint) {
         return new OperatorTest(operator, endpoint);
+    }
+
+    public ListTest toListTest(ListLiteral expression) {
+        return new ListTest(expression);
     }
 
     public ListTest toListTest(List<Expression> expressions) {
@@ -243,14 +225,10 @@ public class ASTFactory {
             if (e instanceof PositiveUnaryTest) {
                 positiveUnaryTests.add((PositiveUnaryTest) e);
             } else {
-                positiveUnaryTests.add(toOperatorTest(null, e));
+                positiveUnaryTests.add(toPositiveUnaryTest(e));
             }
         }
         return new PositiveUnaryTests(positiveUnaryTests);
-    }
-
-    public PositiveUnaryTest toNullPositiveUnaryTest() {
-        return new NullTest();
     }
 
     public FormalParameter toFormalParameter(String parameterName, String typeName) {
