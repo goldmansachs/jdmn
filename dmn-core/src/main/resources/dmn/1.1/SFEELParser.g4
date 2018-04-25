@@ -49,13 +49,13 @@ simpleExpressionsRoot returns [Expression ast] :
 // Tests
 simpleUnaryTests returns [SimpleUnaryTests ast] :
     (
-        tests = simplePositiveUnaryTests
-        {$ast = $tests.ast;}
+        NOT PAREN_OPEN tests = simplePositiveUnaryTests PAREN_CLOSE
+        {$ast = astFactory.toNegatedSimpleUnaryTests($tests.ast);}
     )
     |
     (
-        NOT PAREN_OPEN tests = simplePositiveUnaryTests PAREN_CLOSE
-        {$ast = astFactory.toNegatedSimpleUnaryTests($tests.ast);}
+        tests = simplePositiveUnaryTests
+        {$ast = $tests.ast;}
     )
     |
     (
@@ -159,11 +159,11 @@ simpleExpression returns [Expression ast] :
 ;
 
 comparison returns [Expression ast] :
-    left = arithmeticExpression
-    {$ast = $left.ast;}
+    ae1 = arithmeticExpression
+    {$ast = $ae1.ast;}
     (
-        (op = EQ | op = NE | op = LT | op = GT | op = LE | op = GE) right = addition
-        {$ast = astFactory.toComparison($op.text, $ast, $right.ast);}
+        (op = EQ | op = NE | op = LT | op = GT | op = LE | op = GE) ae2 = arithmeticExpression
+        {$ast = astFactory.toComparison($op.text, $ae1.ast, $ae2.ast);}
     )?
 ;
 
@@ -222,13 +222,13 @@ primaryExpression returns [Expression ast] :
 
 simpleValue returns [Expression ast]:
     (
-        qualifiedName
-        {$ast = $qualifiedName.ast;}
+        simpleLiteral
+        {$ast = $simpleLiteral.ast;}
     )
     |
     (
-        simpleLiteral
-        {$ast = $simpleLiteral.ast;}
+        qualifiedName
+        {$ast = $qualifiedName.ast;}
     )
 ;
 
@@ -266,26 +266,26 @@ simpleLiteral returns [Expression ast]:
 ;
 
 stringLiteral returns [Expression ast]:
-    literal = STRING
-    {$ast = astFactory.toStringLiteral($literal.text);}
+    lit = STRING
+    {$ast = astFactory.toStringLiteral($lit.text);}
 ;
 
 booleanLiteral returns [Expression ast]:
-    (literal = TRUE | literal = FALSE)
-    {$ast = astFactory.toBooleanLiteral($literal.text);}
+    (lit = TRUE | lit = FALSE)
+    {$ast = astFactory.toBooleanLiteral($lit.text);}
 ;
 
 numericLiteral returns [Expression ast]:
-    literal=NUMBER
-    {$ast = astFactory.toNumericLiteral($literal.text);}
+    lit = NUMBER
+    {$ast = astFactory.toNumericLiteral($lit.text);}
 ;
 
 dateTimeLiteral returns [Expression ast] :
-    ( kind = identifier ) PAREN_OPEN literal = stringLiteral PAREN_CLOSE
-    {$ast = astFactory.toDateTimeLiteral($kind.text, $literal.ast);}
+    ( kind = identifier ) PAREN_OPEN stringLiteral PAREN_CLOSE
+    {$ast = astFactory.toDateTimeLiteral($kind.text, $stringLiteral.ast);}
 ;
 
 identifier returns [Token ast] :
-    name = NAME
-    {$ast = $name;}
+    token = NAME
+    {$ast = $token;}
 ;

@@ -65,13 +65,13 @@ boxedExpressionRoot returns [Expression ast] :
 // Tests
 unaryTests returns [UnaryTests ast] :
     (
-        tests = positiveUnaryTests
-        {$ast = $tests.ast;}
+        NOT PAREN_OPEN tests = positiveUnaryTests PAREN_CLOSE
+        {$ast = astFactory.toNegatedUnaryTests($tests.ast);}
     )
     |
     (
-        NOT PAREN_OPEN tests = positiveUnaryTests PAREN_CLOSE
-        {$ast = astFactory.toNegatedUnaryTests($tests.ast);}
+        tests = positiveUnaryTests
+        {$ast = $tests.ast;}
     )
     |
     (
@@ -106,14 +106,14 @@ positiveUnaryTest returns [Expression ast]:
 
 simpleUnaryTests returns [SimpleUnaryTests ast] :
     (
-        tests = simplePositiveUnaryTests
-        {$ast = $tests.ast;}
-    )
-    |
-    (
         NOT PAREN_OPEN tests = simplePositiveUnaryTests PAREN_CLOSE
         {$ast = astFactory.toNegatedSimpleUnaryTests($tests.ast);}
         {$ast = astFactory.toNegatedSimpleUnaryTests($tests.ast);}
+    )
+    |
+    (
+        tests = simplePositiveUnaryTests
+        {$ast = $tests.ast;}
     )
     |
     (
@@ -136,7 +136,7 @@ simplePositiveUnaryTests returns [SimplePositiveUnaryTests ast]:
 // Extended to support lists
 simplePositiveUnaryTest returns [Expression ast] :
     (
-        ( op=LT | op=LE | op=GT | op=GE )? opd = endpoint
+        ( op = LT | op = LE | op = GT | op = GE )? opd = endpoint
         {$ast = $op == null ? astFactory.toOperatorTest(null, $opd.ast) : astFactory.toOperatorTest($op.text, $opd.ast);}
     )
     |
@@ -236,6 +236,7 @@ endpoint returns [Expression ast]:
 
 //
 // Simple expressions
+//
 simpleExpressions returns [Expression ast] :
 	{List<Expression> expressionList = new ArrayList<>();}
     exp = simpleExpression
@@ -266,18 +267,6 @@ expression returns [Expression ast] :
     (
         textualExpression
         {$ast = $textualExpression.ast;}
-    )
-    |
-    (
-        boxedExpressionPart
-        {$ast = $boxedExpressionPart.ast;}
-    )
-;
-
-boxedExpressionPart returns [Expression ast]:
-    (
-        context
-        {$ast = $context.ast;}
     )
 ;
 
@@ -425,13 +414,14 @@ addition returns [Expression ast] :
     left = multiplication
     {$ast = $left.ast;}
     (
-        (op=PLUS | op=MINUS) right = multiplication
+        (op = PLUS | op = MINUS) right = multiplication
         {$ast = astFactory.toAddition($op.text, $ast, $right.ast);}
     )*
 ;
 
 multiplication returns [Expression ast] :
-    left = exponentiation {$ast = $left.ast;}
+    left = exponentiation
+    {$ast = $left.ast;}
     (
         (op = STAR | op = FORWARD_SLASH)
         right = exponentiation
@@ -553,11 +543,6 @@ primaryExpression returns [Expression ast] :
     )
     |
     (
-        simplePositiveUnaryTestPart
-        {$ast = $simplePositiveUnaryTestPart.ast; }
-    )
-    |
-    (
         name = identifier
         {$ast = astFactory.toName($name.text);}
     )
@@ -568,32 +553,25 @@ primaryExpression returns [Expression ast] :
     )
     |
     (
-        list
-        {$ast = $list.ast;}
-    )
-;
-
-simplePositiveUnaryTestPart returns [Expression ast] :
-    (
-        ( op = LT | op = LE | op = GT | op = GE ) opd = endpoint
-        {$ast = $op == null ? astFactory.toOperatorTest(null, $opd.ast) : astFactory.toOperatorTest($op.text, $opd.ast);}
+        boxedExpression
+        {$ast = $boxedExpression.ast;}
     )
     |
     (
-        opd2 = interval
-        {$ast = $opd2.ast;}
+        simplePositiveUnaryTest
+        {$ast = $simplePositiveUnaryTest.ast; }
     )
 ;
 
 simpleValue returns [Expression ast]:
     (
-        qualifiedName
-        {$ast = $qualifiedName.ast;}
+        simpleLiteral
+        {$ast = $simpleLiteral.ast;}
     )
     |
     (
-        simpleLiteral
-        {$ast = $simpleLiteral.ast;}
+        qualifiedName
+        {$ast = $qualifiedName.ast;}
     )
 ;
 
