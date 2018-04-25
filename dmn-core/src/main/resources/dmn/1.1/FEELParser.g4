@@ -108,7 +108,6 @@ simpleUnaryTests returns [SimpleUnaryTests ast] :
     (
         NOT PAREN_OPEN tests = simplePositiveUnaryTests PAREN_CLOSE
         {$ast = astFactory.toNegatedSimpleUnaryTests($tests.ast);}
-        {$ast = astFactory.toNegatedSimpleUnaryTests($tests.ast);}
     )
     |
     (
@@ -423,8 +422,7 @@ multiplication returns [Expression ast] :
     left = exponentiation
     {$ast = $left.ast;}
     (
-        (op = STAR | op = FORWARD_SLASH)
-        right = exponentiation
+        (op = STAR | op = FORWARD_SLASH) right = exponentiation
         {$ast = astFactory.toMultiplication($op.text, $ast, $right.ast);}
     )*
 ;
