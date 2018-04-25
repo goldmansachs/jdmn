@@ -204,21 +204,6 @@ intervalEndPar returns [String ast] :
     )
 ;
 
-listTest returns [SimplePositiveUnaryTest ast] :
-    {List<Expression> expressions = new ArrayList<>();}
-    BRACKET_OPEN
-    (
-        exp = endpoint
-        {expressions.add($exp.ast);}
-        (
-            COMMA exp = endpoint
-            {expressions.add($exp.ast);}
-        )*
-    )?
-    BRACKET_CLOSE
-    {$ast = astFactory.toListTest(expressions);}
-;
-
 // Extended to support function invocation in unaryTests
 endpoint returns [Expression ast]:
     (
@@ -259,8 +244,7 @@ simpleExpression returns [Expression ast]:
     )
 ;
 
-//
-// Expression
+//// Expression
 //
 expression returns [Expression ast] :
     (
