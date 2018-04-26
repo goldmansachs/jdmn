@@ -77,6 +77,12 @@ public class CloneVisitor extends AbstractVisitor {
     }
 
     @Override
+    public Object visit(ExpressionTest element, FEELContext context) {
+        Expression expression = (Expression) element.getExpression().accept(this, context);
+        return astFactory.toExpressionTest(expression);
+    }
+
+    @Override
     public Object visit(OperatorTest element, FEELContext context) {
         Expression endpoint = (Expression) element.getEndpoint().accept(this, context);
         return astFactory.toOperatorTest(element.getOperator(), endpoint);

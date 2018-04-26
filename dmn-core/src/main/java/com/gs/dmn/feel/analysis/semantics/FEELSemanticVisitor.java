@@ -86,6 +86,13 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
     }
 
     @Override
+    public Object visit(ExpressionTest element, FEELContext context) {
+        element.getExpression().accept(this, context);
+        element.deriveType(context.getEnvironment());
+        return element;
+    }
+
+    @Override
     public Object visit(OperatorTest element, FEELContext context) {
         element.getEndpoint().accept(this, context);
         element.deriveType(context.getEnvironment());

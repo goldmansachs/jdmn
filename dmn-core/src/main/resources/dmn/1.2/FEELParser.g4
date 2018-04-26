@@ -94,13 +94,8 @@ positiveUnaryTests returns [PositiveUnaryTests ast]:
 
 positiveUnaryTest returns [Expression ast]:
     (
-        test = simplePositiveUnaryTest
-        {$ast = $test.ast;}
-    )
-    |
-    (
-        NULL
-        {$ast = astFactory.toNullPositiveUnaryTest();}
+        expression
+        {$ast = astFactory.toPositiveUnaryTest($expression.ast);}
     )
 ;
 
@@ -132,7 +127,6 @@ simplePositiveUnaryTests returns [SimplePositiveUnaryTests ast]:
     {$ast = astFactory.toSimplePositiveUnaryTests(tests);}
 ;
 
-// Extended to support lists
 simplePositiveUnaryTest returns [Expression ast] :
     (
         ( op = LT | op = LE | op = GT | op = GE )? opd = endpoint
@@ -140,29 +134,9 @@ simplePositiveUnaryTest returns [Expression ast] :
     )
     |
     (
-        opd2 = intervalOrList
+        opd2 = interval
         {$ast = $opd2.ast;}
     )
-;
-
-intervalOrList returns [Expression ast] :
-    {List<Expression> expressions = new ArrayList<>();}
-    {List<String> operators = new ArrayList<>();}
-    leftPar=intervalStartPar
-    (
-        (
-            ep1 = endpoint
-            {expressions.add($ep1.ast);}
-            (
-                (op = DOT_DOT | op = COMMA)
-                {operators.add($op.text);}
-                ep2=endpoint
-                {expressions.add($ep2.ast);}
-            )*
-        )?
-    )
-    rightPar=intervalEndPar
-    {$ast = astFactory.toIntervalOrListTest($leftPar.ast, expressions, operators, $rightPar.ast);}
 ;
 
 interval returns [RangeTest ast] :
@@ -204,18 +178,11 @@ intervalEndPar returns [String ast] :
     )
 ;
 
-// Extended to support function invocation in unaryTests
 endpoint returns [Expression ast]:
     (
         (op = MINUS)? opd = simpleValue
      	{$ast = ($op == null) ? $opd.ast : astFactory.toNegation($op.text, $opd.ast);}
     )
-    (
-        (
-            parameters
-            {$ast = astFactory.toFunctionInvocation($ast, $parameters.ast);}
-        )
-    )*
 ;
 
 //
@@ -266,11 +233,6 @@ textualExpressions returns [Expression ast] :
 ;
 
 textualExpression returns [Expression ast] :
-    (
-        functionDefinition
-        {$ast = $functionDefinition.ast;}
-    )
-    |
     (
         forExpression
         {$ast = $forExpression.ast;}
@@ -541,20 +503,8 @@ primaryExpression returns [Expression ast] :
     )
     |
     (
-        simplePositiveUnaryTestPart
-        {$ast = $simplePositiveUnaryTestPart.ast; }
-    )
-;
-
-simplePositiveUnaryTestPart returns [Expression ast] :
-    (
-        ( op = LT | op = LE | op = GT | op = GE ) opd = endpoint
-        {$ast = $op == null ? astFactory.toOperatorTest(null, $opd.ast) : astFactory.toOperatorTest($op.text, $opd.ast);}
-    )
-    |
-    (
-        opd2 = interval
-        {$ast = $opd2.ast;}
+        simplePositiveUnaryTest
+        {$ast = $simplePositiveUnaryTest.ast; }
     )
 ;
 
