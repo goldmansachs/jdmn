@@ -211,25 +211,8 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         StringBuilder result = new StringBuilder();
         List<Iterator> iterators = element.getIterators();
         for (Iterator it : iterators) {
-            Expression expressionDomain = it.getDomain();
-            String domain = null;
-            if (expressionDomain instanceof Name) {
-                String name = ((Name) expressionDomain).getName();
-                domain = dmnTransformer.javaFriendlyVariableName(name);
-            } else if (expressionDomain instanceof RangeTest) {
-                RangeTest test = (RangeTest) expressionDomain;
-                String start = (String) test.getStart().accept(this, context);
-                String end = (String) test.getEnd().accept(this, context);
-                domain = String.format("rangeToList(%s, %s, %s, %s)", test.isOpenStart(), start, test.isOpenEnd(), end);
-            } else if (expressionDomain instanceof ListTest) {
-                ListTest test = (ListTest) expressionDomain;
-                domain = (String) test.getListLiteral().accept(this, context);
-            } else if (expressionDomain instanceof ListLiteral) {
-                domain = (String) expressionDomain.accept(this, context);
-            } else {
-                throw new UnsupportedOperationException(String.format("FEEL '%s' is not supported yet with domain '%s'",
-                        element.getClass().getSimpleName(), expressionDomain.getClass().getSimpleName()));
-            }
+            IteratorDomain expressionDomain = it.getDomain();
+            String domain = (String) expressionDomain.accept(this, context);
             result.append(String.format("%s.stream().map(%s -> ", domain, it.getName()));
         }
         // Add body
@@ -251,6 +234,38 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     @Override
     public Object visit(Iterator element, FEELContext context) {
         throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+    }
+
+    @Override
+    public Object visit(ExpressionIteratorDomain element, FEELContext context) {
+        Expression expressionDomain = element.getExpression();
+        String domain = null;
+        if (expressionDomain instanceof Name) {
+            String name = ((Name) expressionDomain).getName();
+            domain = dmnTransformer.javaFriendlyVariableName(name);
+        } else if (expressionDomain instanceof RangeTest) {
+            RangeTest test = (RangeTest) expressionDomain;
+            String start = (String) test.getStart().accept(this, context);
+            String end = (String) test.getEnd().accept(this, context);
+            domain = String.format("rangeToList(%s, %s, %s, %s)", test.isOpenStart(), start, test.isOpenEnd(), end);
+        } else if (expressionDomain instanceof ListTest) {
+            ListTest test = (ListTest) expressionDomain;
+            domain = (String) test.getListLiteral().accept(this, context);
+        } else if (expressionDomain instanceof ListLiteral) {
+            domain = (String) expressionDomain.accept(this, context);
+        } else {
+            throw new UnsupportedOperationException(String.format("FEEL '%s' is not supported yet with domain '%s'",
+                    element.getClass().getSimpleName(), expressionDomain.getClass().getSimpleName()));
+        }
+        return domain;
+    }
+
+    @Override
+    // TODO optimize generated code
+    public Object visit(RangeIteratorDomain element, FEELContext context) {
+        String start = (String) element.getStart().accept(this, context);
+        String end = (String) element.getEnd().accept(this, context);
+        return String.format("rangeToList(%s, %s)", start, end);
     }
 
     @Override

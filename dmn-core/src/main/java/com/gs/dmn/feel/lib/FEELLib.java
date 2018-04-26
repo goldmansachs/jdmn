@@ -201,6 +201,8 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
 
     List<NUMBER> rangeToList(boolean isOpenStart, NUMBER start, boolean isOpenEnd, NUMBER end);
 
+    List<NUMBER> rangeToList(NUMBER start, NUMBER end);
+
     List flattenFirstLevel(List list);
 
     Object elementAt(List list, NUMBER index);

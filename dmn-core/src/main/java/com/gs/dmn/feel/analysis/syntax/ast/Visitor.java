@@ -69,6 +69,10 @@ public interface Visitor {
 
     Object visit(Iterator element, FEELContext params);
 
+    Object visit(ExpressionIteratorDomain element, FEELContext params);
+
+    Object visit(RangeIteratorDomain element, FEELContext params);
+
     Object visit(IfExpression element, FEELContext params);
 
     Object visit(QuantifiedExpression element, FEELContext params);

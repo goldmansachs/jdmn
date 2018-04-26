@@ -12,25 +12,37 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
-import com.gs.dmn.feel.analysis.syntax.ast.Element;
+import com.gs.dmn.feel.analysis.semantics.environment.Environment;
+import com.gs.dmn.feel.analysis.semantics.type.RangeType;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 
-public class Iterator extends Element {
-    private final String name;
-    private final IteratorDomain domain;
+public class RangeIteratorDomain extends IteratorDomain {
+    private final Expression start;
+    private final Expression end;
+    private Type type;
 
-    public Iterator(String name, IteratorDomain domain) {
-        this.name = name;
-        this.domain = domain;
+    public RangeIteratorDomain(Expression start, Expression end) {
+        this.start = start;
+        this.end = end;
     }
 
-    public String getName() {
-        return name;
+    public Expression getStart() {
+        return start;
     }
 
-    public IteratorDomain getDomain() {
-        return domain;
+    public Expression getEnd() {
+        return end;
+    }
+
+    public void deriveType(Environment environment) {
+        this.type = new RangeType(start.getType());
+    }
+
+    @Override
+    public Type getType() {
+        return type;
     }
 
     @Override
@@ -40,6 +52,6 @@ public class Iterator extends Element {
 
     @Override
     public String toString() {
-        return String.format("Iterator(%s in %s)", name, domain.toString());
+        return String.format("RangeIteratorDomain(%s, %s)", start, end);
     }
 }

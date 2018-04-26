@@ -60,6 +60,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -313,7 +314,53 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
 
         // Evaluate domain
         Iterator iterator = element.getIterators().get(0);
-        Expression expressionDomain = iterator.getDomain();
+        IteratorDomain expressionDomain = iterator.getDomain();
+        Object domain = expressionDomain.accept(this, context);
+
+        // Loop over domain and evaluate body
+        FEELContext forContext = FEELContext.makeContext(context.getEnvironment(), runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment()));
+        List result = new ArrayList<>();
+        if (expressionDomain instanceof ExpressionIteratorDomain) {
+            for (Object value : (List) domain) {
+                forContext.runtimeBind(iterator.getName(), value);
+                result.add(element.getBody().accept(this, forContext));
+            }
+        } else {
+            int start = toNumber(((Pair) domain).getLeft());
+            int end = toNumber(((Pair) domain).getRight());
+            if (start <= end) {
+                for(int value = start; value <= end; value++) {
+                    forContext.runtimeBind(iterator.getName(), BigDecimal.valueOf(value));
+                    result.add(element.getBody().accept(this, forContext));
+                }
+            } else {
+                for(int value = start; value <= end; value--) {
+                    forContext.runtimeBind(iterator.getName(), BigDecimal.valueOf(value));
+                    result.add(element.getBody().accept(this, forContext));
+                }
+            }
+        }
+        for (int i = 1; i <= iteratorNo - 1; i++) {
+            result = lib.flattenFirstLevel(result);
+        }
+        return result;
+    }
+
+    private int toNumber(Object number) {
+        if (number instanceof BigDecimal) {
+            return ((BigDecimal) number).intValue();
+        }
+        throw new DMNRuntimeException(String.format("Cannot convert '%s' to integer", number));
+    }
+
+    @Override
+    public Object visit(Iterator element, FEELContext context) {
+        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+    }
+
+    @Override
+    public Object visit(ExpressionIteratorDomain element, FEELContext context) {
+        Expression expressionDomain = element.getExpression();
         List domain = null;
         if (expressionDomain instanceof Name) {
             String name = ((Name) expressionDomain).getName();
@@ -336,23 +383,14 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
             throw new UnsupportedOperationException(String.format("FEEL '%s' is not supported yet with domain '%s'",
                     element.getClass().getSimpleName(), expressionDomain.getClass().getSimpleName()));
         }
-
-        // Evaluate body
-        FEELContext forContext = FEELContext.makeContext(context.getEnvironment(), runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment()));
-        List result = new ArrayList<>();
-        for (Object value : domain) {
-            forContext.runtimeBind(iterator.getName(), value);
-            result.add(element.getBody().accept(this, forContext));
-        }
-        for (int i = 1; i <= iteratorNo - 1; i++) {
-            result = lib.flattenFirstLevel(result);
-        }
-        return result;
+        return domain;
     }
 
     @Override
-    public Object visit(Iterator element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+    public Object visit(RangeIteratorDomain element, FEELContext context) {
+        Object start = element.getStart().accept(this, context);
+        Object end = element.getEnd().accept(this, context);
+        return new Pair(start, end);
     }
 
     @Override
