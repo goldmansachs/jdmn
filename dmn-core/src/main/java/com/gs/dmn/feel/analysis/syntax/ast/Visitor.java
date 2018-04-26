@@ -44,6 +44,8 @@ public interface Visitor {
 
     Object visit(NullTest element, FEELContext params);
 
+    Object visit(ExpressionTest element, FEELContext params);
+
     Object visit(OperatorTest element, FEELContext params);
 
     Object visit(RangeTest element, FEELContext params);

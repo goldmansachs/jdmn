@@ -191,20 +191,24 @@ public class ASTFactory {
         } else if (expression instanceof ListLiteral) {
             return toListTest((ListLiteral) expression);
         } else {
-            throw new DMNRuntimeException(String.format("PositiveUnaryTest not supported for '%s'", expression.getClass().getSimpleName()));
+            return toExpressionTest(expression);
         }
     }
 
-    public PositiveUnaryTest toNullPositiveUnaryTest() {
+    public NullTest toNullPositiveUnaryTest() {
         return new NullTest();
     }
 
-    public RangeTest toIntervalTest(String leftPar, Expression start, String rightPar, Expression end) {
-        return new RangeTest(!"[".equals(leftPar), start, !"]".equals(rightPar), end);
+    public ExpressionTest toExpressionTest(Expression expression) {
+        return new ExpressionTest(expression);
     }
 
     public OperatorTest toOperatorTest(String operator, Expression endpoint) {
         return new OperatorTest(operator, endpoint);
+    }
+
+    public RangeTest toIntervalTest(String leftPar, Expression start, String rightPar, Expression end) {
+        return new RangeTest(!"[".equals(leftPar), start, !"]".equals(rightPar), end);
     }
 
     public ListTest toListTest(ListLiteral expression) {

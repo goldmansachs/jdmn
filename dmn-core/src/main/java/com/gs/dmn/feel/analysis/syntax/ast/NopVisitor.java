@@ -68,6 +68,11 @@ public class NopVisitor extends AbstractVisitor {
     }
 
     @Override
+    public Object visit(ExpressionTest element, FEELContext context) {
+        return element;
+    }
+
+    @Override
     public Object visit(OperatorTest element, FEELContext context) {
         return element;
     }

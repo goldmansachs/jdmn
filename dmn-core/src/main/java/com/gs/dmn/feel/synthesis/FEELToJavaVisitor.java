@@ -105,6 +105,13 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     }
 
     @Override
+    public Object visit(ExpressionTest element, FEELContext context) {
+        Expression expression = element.getExpression();
+        String condition = (String) expression.accept(this, context);
+        return condition;
+    }
+
+    @Override
     public Object visit(OperatorTest element, FEELContext context) {
         String operator = element.getOperator();
         Expression endpoint = element.getEndpoint();

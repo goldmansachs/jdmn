@@ -77,6 +77,11 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
     }
 
     @Override
+    public Object visit(ExpressionTest element, FEELContext context) {
+        return element.getExpression().accept(this, context);
+    }
+
+    @Override
     public Object visit(OperatorTest element, FEELContext context) {
         return element.getEndpoint().accept(this, context);
     }
