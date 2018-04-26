@@ -12,25 +12,30 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
-import com.gs.dmn.feel.analysis.syntax.ast.Element;
+import com.gs.dmn.feel.analysis.semantics.environment.Environment;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 
-public class Iterator extends Element {
-    private final String name;
-    private final IteratorDomain domain;
+public class ExpressionIteratorDomain extends IteratorDomain {
+    private final Expression expression;
+    private Type type;
 
-    public Iterator(String name, IteratorDomain domain) {
-        this.name = name;
-        this.domain = domain;
+    public ExpressionIteratorDomain(Expression expression) {
+        this.expression = expression;
     }
 
-    public String getName() {
-        return name;
+    public Expression getExpression() {
+        return expression;
     }
 
-    public IteratorDomain getDomain() {
-        return domain;
+    public void deriveType(Environment environment) {
+        this.type = expression.getType();
+    }
+
+    @Override
+    public Type getType() {
+        return type;
     }
 
     @Override
@@ -40,6 +45,6 @@ public class Iterator extends Element {
 
     @Override
     public String toString() {
-        return String.format("Iterator(%s in %s)", name, domain.toString());
+        return String.format("ExpressionIteratorDomain(%s)", expression);
     }
 }

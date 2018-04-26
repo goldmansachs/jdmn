@@ -145,8 +145,21 @@ public class CloneVisitor extends AbstractVisitor {
 
     @Override
     public Object visit(Iterator element, FEELContext context) {
-        Expression domain = (Expression) element.getDomain().accept(this, context);
+        IteratorDomain domain = (IteratorDomain) element.getDomain().accept(this, context);
         return astFactory.toIterator(element.getName(), domain);
+    }
+
+    @Override
+    public Object visit(ExpressionIteratorDomain element, FEELContext context) {
+        Expression expression = (Expression) element.getExpression().accept(this, context);
+        return astFactory.toIteratorDomain(expression, null);
+    }
+
+    @Override
+    public Object visit(RangeIteratorDomain element, FEELContext context) {
+        Expression start = (Expression) element.getStart().accept(this, context);
+        Expression end = (Expression) element.getEnd().accept(this, context); ;
+        return astFactory.toIteratorDomain(start, end);
     }
 
     @Override

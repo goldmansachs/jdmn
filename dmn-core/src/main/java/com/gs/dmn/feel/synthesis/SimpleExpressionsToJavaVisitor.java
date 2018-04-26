@@ -135,6 +135,16 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
     }
 
     @Override
+    public Object visit(ExpressionIteratorDomain element, FEELContext context) {
+        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+    }
+
+    @Override
+    public Object visit(RangeIteratorDomain element, FEELContext context) {
+        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+    }
+
+    @Override
     public Object visit(IfExpression element, FEELContext context) {
         throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }

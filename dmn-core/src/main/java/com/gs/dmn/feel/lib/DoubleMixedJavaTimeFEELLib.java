@@ -1178,6 +1178,26 @@ public class DoubleMixedJavaTimeFEELLib extends FEELOperators<Double, LocalDate,
     }
 
     @Override
+    public List<Double> rangeToList(Double start, Double end) {
+        List<Double> result = new ArrayList<>();
+        if (start == null || end == null) {
+            return result;
+        }
+        int startValue = start.intValue();
+        int endValue = end.intValue();
+        if (startValue <= endValue) {
+            for (int i = startValue; i <= endValue; i++) {
+                result.add(Double.valueOf(i));
+            }
+        } else {
+            for (int i = startValue; i <= endValue; i--) {
+                result.add(Double.valueOf(i));
+            }
+        }
+        return result;
+    }
+
+    @Override
     public List flattenFirstLevel(List list) {
         if (list == null) {
             return null;

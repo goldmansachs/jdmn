@@ -1075,6 +1075,26 @@ public class UniformJavaTimeFEELLib extends FEELOperators<BigDecimal, ZonedDateT
     }
 
     @Override
+    public List<BigDecimal> rangeToList(BigDecimal start, BigDecimal end) {
+        List<BigDecimal> result = new ArrayList<>();
+        if (start == null || end == null) {
+            return result;
+        }
+        int startValue = start.intValue();
+        int endValue = end.intValue();
+        if (startValue <= endValue) {
+            for (int i = startValue; i <= endValue; i++) {
+                result.add(BigDecimal.valueOf(i));
+            }
+        } else {
+            for (int i = startValue; i <= endValue; i--) {
+                result.add(BigDecimal.valueOf(i));
+            }
+        }
+        return result;
+    }
+
+    @Override
     public List flattenFirstLevel(List list) {
         if (list == null) {
             return null;

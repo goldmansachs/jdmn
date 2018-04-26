@@ -126,6 +126,16 @@ public class NopVisitor extends AbstractVisitor {
     }
 
     @Override
+    public Object visit(ExpressionIteratorDomain element, FEELContext context) {
+        return element;
+    }
+
+    @Override
+    public Object visit(RangeIteratorDomain element, FEELContext context) {
+        return element;
+    }
+
+    @Override
     public Object visit(IfExpression element, FEELContext context) {
         return element;
     }

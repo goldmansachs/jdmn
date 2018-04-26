@@ -279,14 +279,20 @@ formalParameter returns [FormalParameter ast]:
 
 forExpression returns [Expression ast] :
     {List<com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator> iterators = new ArrayList<>();}
-    FOR var = identifier IN  domain = expression
+    FOR var = identifier IN  domain = iterationDomain
     {iterators.add(astFactory.toIterator($var.text, $domain.ast));}
     (
-        COMMA var = identifier IN domain = expression
+        COMMA var = identifier IN domain = iterationDomain
         {iterators.add(astFactory.toIterator($var.text, $domain.ast));}
     )*
     RETURN body = expression
     {$ast = astFactory.toForExpression(iterators, $body.ast);}
+;
+
+iterationDomain returns [IteratorDomain ast]:
+    {Expression end = null;}
+    exp1 = expression (DOT_DOT exp2 = expression {end = $exp2.ast;})?
+    {$ast = astFactory.toIteratorDomain($exp1.ast, end);}
 ;
 
 ifExpression returns [Expression ast] :

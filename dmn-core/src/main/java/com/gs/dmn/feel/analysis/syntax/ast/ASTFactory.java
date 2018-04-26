@@ -187,6 +187,7 @@ public class ASTFactory {
         } else if (expression instanceof NamedExpression || expression instanceof PathExpression) {
             return toOperatorTest(null, expression);
         } else if (expression instanceof FunctionInvocation) {
+            // TODO refactor to use ExpressionTest
             return toOperatorTest(null, expression);
         } else if (expression instanceof ListLiteral) {
             return toListTest((ListLiteral) expression);
@@ -244,7 +245,19 @@ public class ASTFactory {
     }
 
     public Iterator toIterator(String name, Expression domain) {
+        return new Iterator(name, toIteratorDomain(domain, null));
+    }
+
+    public Iterator toIterator(String name, IteratorDomain domain) {
         return new Iterator(name, domain);
+    }
+
+    public IteratorDomain toIteratorDomain(Expression start, Expression end) {
+        if (end == null) {
+            return new ExpressionIteratorDomain(start);
+        } else {
+            return new RangeIteratorDomain(start, end);
+        }
     }
 
     public Expression toContext(List<ContextEntry> entries) {
