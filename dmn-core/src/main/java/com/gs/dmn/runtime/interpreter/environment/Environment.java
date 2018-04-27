@@ -44,6 +44,18 @@ public class Environment<K, V> {
         }
     }
 
+    public boolean isBound(K key) {
+        if (isLocalBound(key)) {
+            return true;
+        } else {
+            if (parent != null) {
+                return parent.isBound(key);
+            } else {
+                return false;
+            }
+        }
+    }
+
     private V lookupLocalBinding(K key) {
         return bindings.get(normalize(key));
     }
