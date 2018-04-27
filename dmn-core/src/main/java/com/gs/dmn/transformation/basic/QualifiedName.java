@@ -19,6 +19,10 @@ public class QualifiedName {
         return qName == null ? null : new QualifiedName(qName.getNamespaceURI(), qName.getLocalPart());
     }
 
+    public static QualifiedName toQualifiedName(String qName) {
+        return qName == null ? null : new QualifiedName(qName);
+    }
+
     private final String namespace;
     private final String localPart;
 
