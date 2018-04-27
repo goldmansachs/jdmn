@@ -174,20 +174,32 @@ public class DMNInterpreter {
         com.gs.dmn.runtime.listener.Arguments decisionArguments = makeArguments(decision, runtimeEnvironment);
         EVENT_LISTENER.startDRGElement(drgElementAnnotation, decisionArguments);
 
-        // Evaluate dependencies
-        evaluateInformationRequirementList(decision.getInformationRequirement(), runtimeEnvironment);
-        evaluateBKMRequirements(decision.getKnowledgeRequirement(), runtimeEnvironment);
+        // Check if has already been evaluated
+        String decisionName = decision.getName();
+        Object output = null;
+        if (dagOptimisation() && runtimeEnvironment.isBound(decisionName)) {
+            // Retrieve value from environment
+            output = runtimeEnvironment.lookupBinding(decisionName);
+        } else {
+            // Evaluate dependencies
+            evaluateInformationRequirementList(decision.getInformationRequirement(), runtimeEnvironment);
+            evaluateBKMRequirements(decision.getKnowledgeRequirement(), runtimeEnvironment);
 
-        // Evaluate expression
-        TExpression expression = dmnModelRepository.expression(decision);
-        Environment environment = basicDMNTransformer.makeEnvironment(decision);
-        Object output = evaluateExpression(expression, environment, runtimeEnvironment, decision, drgElementAnnotation);
+            // Evaluate expression
+            TExpression expression = dmnModelRepository.expression(decision);
+            Environment environment = basicDMNTransformer.makeEnvironment(decision);
+            output = evaluateExpression(expression, environment, runtimeEnvironment, decision, drgElementAnnotation);
 
-        // Set variable
-        runtimeEnvironment.bind(decision.getName(), output);
+            // Set variable
+            runtimeEnvironment.bind(decisionName, output);
+        }
 
         // Decision end
         EVENT_LISTENER.endDRGElement(drgElementAnnotation, decisionArguments, output, (System.currentTimeMillis() - startTime_));
+    }
+
+    protected boolean dagOptimisation() {
+        return true;
     }
 
     private void evaluateInformationRequirementList(List<TInformationRequirement> informationRequirementList, RuntimeEnvironment runtimeEnvironment) {
