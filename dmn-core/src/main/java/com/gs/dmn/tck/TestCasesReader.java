@@ -22,14 +22,16 @@ import javax.xml.namespace.QName;
 import java.io.File;
 import java.net.URL;
 
+import static com.gs.dmn.serialization.DMNConstants.TCK_NS;
+import static com.gs.dmn.serialization.DMNConstants.TCK_PACKAGE;
+
 public class TestCasesReader {
     public static final String TEST_FILE_EXTENSION = ".xml";
-
     private static final JAXBContext JAXB_CONTEXT;
 
     static {
         try {
-            JAXB_CONTEXT = JAXBContext.newInstance(TestCases.class);
+            JAXB_CONTEXT = JAXBContext.newInstance(TCK_PACKAGE);
         } catch (JAXBException e) {
             throw new DMNRuntimeException("Cannot create JAXB Context", e);
         }
@@ -78,7 +80,7 @@ public class TestCasesReader {
                 marshaller.setProperty("com.sun.xml.internal.bind.namespacePrefixMapper", namespacePrefixMapper);
             }
 
-            QName qName = new QName(DMNNamespacePrefixMapper.TCK_NS, "testCases");
+            QName qName = new QName(TCK_NS, "testCases");
             JAXBElement<TestCases> root = new JAXBElement<TestCases>(qName, TestCases.class, testCases);
 
             marshaller.marshal(root, file);

@@ -26,15 +26,16 @@ import java.io.Reader;
 import java.net.URI;
 import java.net.URL;
 
+import static com.gs.dmn.serialization.DMNConstants.DMN_11_NS;
+import static com.gs.dmn.serialization.DMNConstants.DMN_11_PACKAGE;
+
 public class DMNReader {
     public static final String DMN_FILE_EXTENSION = ".dmn";
-    static final String CONTEXT_PATH = "org.omg.spec.dmn._20151101.dmn";
-    static final String schemaVersion = "1.1";
     private static final JAXBContext JAXB_CONTEXT;
 
     static {
         try {
-            JAXB_CONTEXT = JAXBContext.newInstance(CONTEXT_PATH);
+            JAXB_CONTEXT = JAXBContext.newInstance(DMN_11_PACKAGE);
         } catch (JAXBException e) {
             throw new DMNRuntimeException("Cannot create JAXB Context", e);
         }
@@ -102,7 +103,7 @@ public class DMNReader {
                 marshaller.setProperty("com.sun.xml.internal.bind.namespacePrefixMapper", namespacePrefixMapper);
             }
 
-            QName qName = new QName(DMNNamespacePrefixMapper.DMN_NS, "definitions");
+            QName qName = new QName(DMN_11_NS, "definitions");
             JAXBElement<TDefinitions> root = new JAXBElement<TDefinitions>(qName, TDefinitions.class, definitions);
 
             marshaller.marshal(root, file);
@@ -113,7 +114,7 @@ public class DMNReader {
 
     private void setSchema(Unmarshaller u) throws Exception {
         SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        URI schemaURI = getClass().getClassLoader().getResource("dmn/" + schemaVersion + "/dmn.xsd").toURI();
+        URI schemaURI = getClass().getClassLoader().getResource("dmn/dmn.xsd").toURI();
         Schema schema = sf.newSchema(schemaURI.toURL());
         u.setSchema(schema);
     }
