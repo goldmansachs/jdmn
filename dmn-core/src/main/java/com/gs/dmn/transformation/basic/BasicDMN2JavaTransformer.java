@@ -55,7 +55,7 @@ import javax.xml.bind.JAXBElement;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.gs.dmn.serialization.DMNNamespacePrefixMapper.FEEL_NS;
+import static com.gs.dmn.serialization.DMNConstants.FEEL_11_NS;
 
 public class BasicDMN2JavaTransformer {
     protected static final Logger LOGGER = LoggerFactory.getLogger(BasicDMN2JavaTransformer.class);
@@ -1163,7 +1163,7 @@ public class BasicDMN2JavaTransformer {
             return null;
         }
         // Lookup primitive types
-        Type primitiveType = lookupPrimitiveType(new QualifiedName(FEEL_NS, typeName));
+        Type primitiveType = lookupPrimitiveType(new QualifiedName(FEEL_11_NS, typeName));
         if (primitiveType != null) {
             return primitiveType;
         }
@@ -1217,7 +1217,7 @@ public class BasicDMN2JavaTransformer {
     }
 
     Type lookupPrimitiveType(QualifiedName typeRef) {
-        if (!FEEL_NS.equals(typeRef.getNamespace())) {
+        if (!FEEL_11_NS.equals(typeRef.getNamespace())) {
             return null;
         }
         String typeName = typeRef.getLocalPart();

@@ -18,12 +18,9 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DMNNamespacePrefixMapper extends NamespacePrefixMapper {
-    public static final String DMN_NS = "http://www.omg.org/spec/DMN/20151101/dmn.xsd";
-    public static final String TCK_NS = "http://www.omg.org/spec/DMN/20160719/testcase";
-    public static final String XSD_NS = "http://www.w3.org/2001/XMLSchema";
-    public static final String FEEL_NS = "http://www.omg.org/spec/FEEL/20140401";
+import static com.gs.dmn.serialization.DMNConstants.*;
 
+public class DMNNamespacePrefixMapper extends NamespacePrefixMapper {
     private final String userNamespace;
     private final String userPrefix;
 
@@ -37,8 +34,8 @@ public class DMNNamespacePrefixMapper extends NamespacePrefixMapper {
         this.userNamespace = namespace;
         this.userPrefix = prefix;
 
-        this.namespaceMap.put(XSD_NS, "xsd");
-        this.namespaceMap.put(FEEL_NS, "feel");
+        this.namespaceMap.put(XSD_NS, XSD_PREFIX);
+        this.namespaceMap.put(FEEL_11_NS, FEEL_11_PREFIX);
         if (!StringUtils.isEmpty(userNamespace) && !StringUtils.isEmpty(userPrefix)) {
             this.namespaceMap.put(userNamespace, userPrefix);
         }

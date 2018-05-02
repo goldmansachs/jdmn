@@ -22,6 +22,9 @@ import javax.xml.validation.SchemaFactory;
 import java.io.File;
 import java.net.URI;
 
+import static com.gs.dmn.serialization.DMNConstants.DMN_11_PACKAGE;
+import static com.gs.dmn.serialization.DMNConstants.TCK_PACKAGE;
+
 public class SchemaValidator {
     private final File schemaLocation;
     private final String context;
@@ -65,10 +68,10 @@ public class SchemaValidator {
 
     public static void main(String[] args) {
         File rootFolder = new File("dmn-core/src/test/resources/tck");
-        File dmnSchemaLocation = new File("dmn-core/src/main/resources/dmn/" + DMNReader.schemaVersion + "/dmn.xsd");
+        File dmnSchemaLocation = new File("dmn-core/src/main/resources/dmn/dmn.xsd");
         File testCasesSchemaLocation = new File("dmn-core/src/test/resources/tck/testCases.xsd");
 
-        new SchemaValidator(dmnSchemaLocation, DMNReader.CONTEXT_PATH).validateFile(rootFolder, ".dmn");
-        new SchemaValidator(testCasesSchemaLocation, "org.omg.dmn.tck.marshaller._20160719").validateFile(rootFolder, ".xml");
+        new SchemaValidator(dmnSchemaLocation, DMN_11_PACKAGE).validateFile(rootFolder, ".dmn");
+        new SchemaValidator(testCasesSchemaLocation, TCK_PACKAGE).validateFile(rootFolder, ".xml");
     }
 }

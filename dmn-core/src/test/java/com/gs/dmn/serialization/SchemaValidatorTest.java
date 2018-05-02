@@ -17,13 +17,15 @@ import org.junit.Test;
 
 import java.io.File;
 
+import static com.gs.dmn.serialization.DMNConstants.DMN_11_PACKAGE;
+
 public class SchemaValidatorTest {
 
     @Test
     public void testValidateForDMNFiles() {
-        File schemaLocation = new File(SchemaValidatorTest.class.getClassLoader().getResource("dmn/" + DMNReader.schemaVersion + "/dmn.xsd").getFile());
+        File schemaLocation = new File(SchemaValidatorTest.class.getClassLoader().getResource("dmn/dmn.xsd").getFile());
 
-        SchemaValidator validator = new SchemaValidator(schemaLocation, DMNReader.CONTEXT_PATH);
+        SchemaValidator validator = new SchemaValidator(schemaLocation, DMN_11_PACKAGE);
         File dmnFileFolder = new File(SchemaValidatorTest.class.getClassLoader().getResource("tck").getFile());
         validate(dmnFileFolder, validator, DMNReader.DMN_FILE_EXTENSION);
     }
