@@ -27,7 +27,7 @@ public class SchemaValidatorTest {
 
         SchemaValidator validator = new SchemaValidator(schemaLocation, DMN_11_PACKAGE);
         File dmnFileFolder = new File(SchemaValidatorTest.class.getClassLoader().getResource("tck").getFile());
-        validate(dmnFileFolder, validator, DMNReader.DMN_FILE_EXTENSION);
+        validate(dmnFileFolder, validator, DMNConstants.DMN_FILE_EXTENSION);
     }
 
     @Test

@@ -17,6 +17,7 @@ import com.gs.dmn.log.NopBuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.serialization.DMNNamespacePrefixMapper;
 import com.gs.dmn.serialization.DMNReader;
+import com.gs.dmn.serialization.DMNWriter;
 import com.gs.dmn.tck.TestCasesReader;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.spec.dmn._20151101.dmn.TDefinitions;
@@ -114,11 +115,12 @@ public class ToSimpleNameTransformer extends NameTransformer {
         DMNReader reader = new DMNReader(logger, false);
         TDefinitions definitions = reader.read(inputFile);
 
-        // Clean
+        // Transform
         transformer.transform(definitions);
 
-        // Write
-        reader.write(definitions, outputFile, new DMNNamespacePrefixMapper());
+        // Writw
+        DMNWriter writer = new DMNWriter(logger);
+        writer.write(definitions, outputFile, new DMNNamespacePrefixMapper());
 
         return definitions;
     }

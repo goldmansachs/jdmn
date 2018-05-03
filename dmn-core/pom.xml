@@ -23,7 +23,8 @@
 
     <properties>
         <dmn.version>1.1</dmn.version>
-        <dmn.schema>${project.basedir}/src/main/resources/dmn/${dmn.version}/dmn.xsd</dmn.schema>
+        <dmn11.schema>${project.basedir}/src/main/resources/dmn/1.1/dmn.xsd</dmn11.schema>
+        <dmn12.schema>${project.basedir}/src/main/resources/dmn/1.2/dmn.xsd</dmn12.schema>
         <tck.schema>${project.basedir}/src/main/resources/tck/testCases.xsd</tck.schema>
 
         <jaxb.version>2.2</jaxb.version>
@@ -172,15 +173,31 @@
                 <version>${jaxb.version}</version>
                 <executions>
                     <execution>
-                        <id>dmn</id>
+                        <id>dmn-11</id>
                         <configuration>
                             <sources>
-                                <source>${dmn.schema}</source>
+                                <source>${dmn11.schema}</source>
                             </sources>
                             <outputDirectory>${jaxb.generated.dmn}</outputDirectory>
                             <clearOutputDir>false</clearOutputDir>
                             <noPackageLevelAnnotations>false</noPackageLevelAnnotations>
                             <packageName>org.omg.spec.dmn._20151101.dmn</packageName>
+                            <encoding>UTF-8</encoding>
+                        </configuration>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>dmn-12</id>
+                        <configuration>
+                            <sources>
+                                <source>${dmn12.schema}</source>
+                            </sources>
+                            <outputDirectory>${jaxb.generated.dmn}</outputDirectory>
+                            <clearOutputDir>false</clearOutputDir>
+                            <noPackageLevelAnnotations>false</noPackageLevelAnnotations>
+                            <packageName>org.omg.spec.dmn._20180521.model</packageName>
                             <encoding>UTF-8</encoding>
                         </configuration>
                         <goals>

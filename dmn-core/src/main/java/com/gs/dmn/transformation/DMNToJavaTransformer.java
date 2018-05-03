@@ -17,7 +17,7 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.serialization.DMNReader;
+import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
@@ -64,7 +64,7 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
         if (inputFile.isDirectory()) {
             return !name.endsWith(".svn");
         } else {
-            return name.endsWith(DMNReader.DMN_FILE_EXTENSION);
+            return name.endsWith(DMNConstants.DMN_FILE_EXTENSION);
         }
     }
 

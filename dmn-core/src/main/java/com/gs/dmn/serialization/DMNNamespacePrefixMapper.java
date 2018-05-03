@@ -23,6 +23,7 @@ import static com.gs.dmn.serialization.DMNConstants.*;
 public class DMNNamespacePrefixMapper extends NamespacePrefixMapper {
     private final String userNamespace;
     private final String userPrefix;
+    private final DMNVersion version;
 
     private final Map<String, String> namespaceMap = new HashMap<>();
 
@@ -31,11 +32,24 @@ public class DMNNamespacePrefixMapper extends NamespacePrefixMapper {
     }
 
     public DMNNamespacePrefixMapper(String namespace, String prefix) {
+        this(namespace, prefix, DMNVersion.DMN_11);
+    }
+
+    public DMNNamespacePrefixMapper(String namespace, String prefix, DMNVersion version) {
         this.userNamespace = namespace;
         this.userPrefix = prefix;
+        this.version = version;
 
         this.namespaceMap.put(XSD_NS, XSD_PREFIX);
-        this.namespaceMap.put(FEEL_11_NS, FEEL_11_PREFIX);
+        if (version == DMNVersion.DMN_11) {
+            this.namespaceMap.put(FEEL_11_NS, FEEL_11_PREFIX);
+        } else if (version == DMNVersion.DMN_12) {
+            this.namespaceMap.put(DMN_12_NS, DMN_12_PREFIX);
+            this.namespaceMap.put(DMN_12_DI_NS, DMN_12_DI_PREFIX);
+            this.namespaceMap.put(DMN_12_DMNDI_NS, DMN_12_DMNDI_PREFIX);
+            this.namespaceMap.put(DMN_12_DC_NS, DMN_12_DC_PREFIX);
+            this.namespaceMap.put(FEEL_12_NS, FEEL_12_PREFIX);
+        }
         if (!StringUtils.isEmpty(userNamespace) && !StringUtils.isEmpty(userPrefix)) {
             this.namespaceMap.put(userNamespace, userPrefix);
         }
@@ -57,5 +71,9 @@ public class DMNNamespacePrefixMapper extends NamespacePrefixMapper {
 
     public String getUserPrefix() {
         return userPrefix;
+    }
+
+    public DMNVersion getVersion() {
+        return version;
     }
 }
