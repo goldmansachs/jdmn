@@ -15,6 +15,7 @@ package com.gs.dmn.transformation;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNNamespacePrefixMapper;
 import com.gs.dmn.serialization.DMNReader;
+import com.gs.dmn.serialization.DMNWriter;
 import com.gs.dmn.tck.TestCasesReader;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.spec.dmn._20151101.dmn.TDefinitions;
@@ -25,6 +26,7 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
     protected static final ClassLoader CLASS_LOADER = NameTransformerTest.class.getClassLoader();
 
     protected final DMNReader dmnReader = new DMNReader(LOGGER, false);
+    protected final DMNWriter dmnWriter = new DMNWriter(LOGGER);
     protected final TestCasesReader testReader = new TestCasesReader(LOGGER);
 
     protected  String getTargetPath() {
@@ -54,7 +56,7 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
 
     private void check(TDefinitions actualDefinitions, String fileName, DMNNamespacePrefixMapper dmnNamespacePrefixMapper) throws Exception {
         File actualDMNFile = new File(getTargetPath() + fileName);
-        dmnReader.write(actualDefinitions, actualDMNFile, dmnNamespacePrefixMapper);
+        dmnWriter.write(actualDefinitions, actualDMNFile, dmnNamespacePrefixMapper);
         File expectedDMNFile = new File(CLASS_LOADER.getResource(getExpectedPath() + fileName).getFile());
 
         compareFile(expectedDMNFile, actualDMNFile);

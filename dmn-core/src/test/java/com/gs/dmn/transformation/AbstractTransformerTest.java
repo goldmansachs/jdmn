@@ -14,34 +14,18 @@ package com.gs.dmn.transformation;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 import org.junit.Test;
 
 import java.io.File;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Path;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractTransformerTest extends AbstractFileTransformerTest {
-    protected URI resource(String path) {
-        try {
-            URL url = this.getClass().getClassLoader().getResource(path);
-            if (url == null) {
-                throw new DMNRuntimeException(String.format("Cannot find resource '%s'", path));
-            }
-            return url.toURI();
-        } catch (URISyntaxException e) {
-            throw new DMNRuntimeException(e);
-        }
-    }
-
     protected Path path(String path) {
         File file = new File(resource(path));
         return file.toPath();

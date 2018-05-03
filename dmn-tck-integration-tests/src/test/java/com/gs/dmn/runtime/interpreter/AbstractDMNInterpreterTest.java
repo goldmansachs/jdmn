@@ -21,6 +21,7 @@ import com.gs.dmn.runtime.Assert;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
+import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.tck.TCKUtil;
 import com.gs.dmn.tck.TestCasesReader;
@@ -56,7 +57,7 @@ public abstract class AbstractDMNInterpreterTest {
         String errorMessage = String.format("Tested failed for diagram '%s'", dmnFileName);
         try {
             // Read DMN file
-            String dmnPathName = getDMNInputPath() + "/" + dmnFileName + DMNReader.DMN_FILE_EXTENSION;
+            String dmnPathName = getDMNInputPath() + "/" + dmnFileName + DMNConstants.DMN_FILE_EXTENSION;
             URL dmnFileURL = getClass().getClassLoader().getResource(dmnPathName).toURI().toURL();
             TDefinitions definitions = reader.read(dmnFileURL);
 

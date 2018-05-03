@@ -16,7 +16,7 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.serialization.DMNReader;
+import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.transformation.AbstractDMNTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
@@ -92,7 +92,7 @@ public class TCKTestCasesToJUnitTransformer extends AbstractDMNTransformer {
 
     protected String testClassName(TestCases testCases, BasicDMN2JavaTransformer dmnTransformer) {
         String modelName = testCases.getModelName();
-        if (modelName.endsWith(DMNReader.DMN_FILE_EXTENSION)) {
+        if (modelName.endsWith(DMNConstants.DMN_FILE_EXTENSION)) {
             modelName = modelName.substring(0, modelName.length() - 4);
         }
         return StringUtils.capitalize(dmnTransformer.javaFriendlyName("Test" + modelName));

@@ -17,7 +17,7 @@ import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.environment.DefaultDMNEnvironmentFactory;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DefaultDMNBaseDecision;
-import com.gs.dmn.serialization.DMNReader;
+import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.transformation.AbstractTestTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.FileTransformer;
@@ -40,7 +40,7 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends Abstrac
         String testCasesPath = getTestCasesInputPath() + "/";
         String expectedPath = getExpectedPath() + "/" + friendlyFolderName(dmnFileName);
         String inputTestFilePath = testCasesPath + testFileName + TestCasesReader.TEST_FILE_EXTENSION;
-        String inputModelFilePath = dmnPath + dmnFileName + DMNReader.DMN_FILE_EXTENSION;
+        String inputModelFilePath = dmnPath + dmnFileName + DMNConstants.DMN_FILE_EXTENSION;
         String decodedInputTestFilePath = URLDecoder.decode(resource(inputTestFilePath).getPath(), "UTF-8");
         String decodedInputModelFilePath = URLDecoder.decode(resource(inputModelFilePath).getPath(), "UTF-8");
         super.doTest(decodedInputTestFilePath, decodedInputModelFilePath, expectedPath);

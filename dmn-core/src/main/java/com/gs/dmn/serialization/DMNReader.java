@@ -17,99 +17,121 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import org.omg.spec.dmn._20151101.dmn.TDefinitions;
 
 import javax.xml.XMLConstants;
-import javax.xml.bind.*;
-import javax.xml.namespace.QName;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import java.io.File;
+import java.io.InputStream;
 import java.io.Reader;
 import java.net.URI;
 import java.net.URL;
 
-import static com.gs.dmn.serialization.DMNConstants.DMN_11_NS;
 import static com.gs.dmn.serialization.DMNConstants.DMN_11_PACKAGE;
+import static com.gs.dmn.serialization.DMNConstants.DMN_12_PACKAGE;
 
-public class DMNReader {
-    public static final String DMN_FILE_EXTENSION = ".dmn";
-    private static final JAXBContext JAXB_CONTEXT;
+public class DMNReader extends DMNSerializer {
+    protected static final JAXBContext JAXB_DMN_CONTEXT;
 
     static {
         try {
-            JAXB_CONTEXT = JAXBContext.newInstance(DMN_11_PACKAGE);
+            JAXB_DMN_CONTEXT = JAXBContext.newInstance(String.format("%s:%s", DMN_12_PACKAGE, DMN_11_PACKAGE));
         } catch (JAXBException e) {
             throw new DMNRuntimeException("Cannot create JAXB Context", e);
         }
     }
 
-    private final BuildLogger logger;
     private final boolean validateSchema;
 
     public DMNReader(BuildLogger logger, boolean validateSchema) {
-        this.logger = logger;
+        super(logger);
         this.validateSchema = validateSchema;
     }
 
-    public TDefinitions read(File file) {
+    public TDefinitions read(File input) {
         try {
-            return read(file.toURI().toURL());
-        } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", file.getPath()), e);
-        }
-    }
+            logger.info(String.format("Reading DMN '%s' ...", input.getAbsolutePath()));
 
-    public TDefinitions read(URL url) {
-        try {
-            logger.info(String.format("Reading DMN '%s' ...", url.toString()));
-
-            Unmarshaller u = JAXB_CONTEXT.createUnmarshaller();
-            if (validateSchema) {
-                setSchema(u);
-            }
-
-            JAXBElement<?> jaxbElement = (JAXBElement<?>) u.unmarshal(url);
-            TDefinitions definitions = (TDefinitions) jaxbElement.getValue();
+            Unmarshaller u = makeUnmarshaller();
+            TDefinitions definitions = read(u, input);
 
             logger.info("DMN read.");
             return definitions;
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", url.toString()), e);
+            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.getAbsolutePath()), e);
         }
     }
 
-    public TDefinitions read(Reader reader) {
+    public TDefinitions read(InputStream input) {
         try {
-            logger.info(String.format("Reading DMN '%s' ...", reader.toString()));
+            logger.info(String.format("Reading DMN '%s' ...", input.toString()));
 
-            Unmarshaller u = JAXB_CONTEXT.createUnmarshaller();
-            if (validateSchema) {
-                setSchema(u);
-            }
-
-            JAXBElement<?> jaxbElement = (JAXBElement<?>) u.unmarshal(reader);
-            TDefinitions definitions = (TDefinitions) jaxbElement.getValue();
+            Unmarshaller u = makeUnmarshaller();
+            TDefinitions definitions = read(u, input);
 
             logger.info("DMN read.");
             return definitions;
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", reader.toString()), e);
+            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.toString()), e);
         }
     }
 
-    public void write(TDefinitions definitions, File file, DMNNamespacePrefixMapper namespacePrefixMapper) {
+    public TDefinitions read(URL input) {
         try {
-            Marshaller marshaller = JAXB_CONTEXT.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            if (namespacePrefixMapper != null) {
-                marshaller.setProperty("com.sun.xml.internal.bind.namespacePrefixMapper", namespacePrefixMapper);
-            }
+            logger.info(String.format("Reading DMN '%s' ...", input.toString()));
 
-            QName qName = new QName(DMN_11_NS, "definitions");
-            JAXBElement<TDefinitions> root = new JAXBElement<TDefinitions>(qName, TDefinitions.class, definitions);
+            Unmarshaller u = makeUnmarshaller();
+            TDefinitions definitions = read(u, input);
 
-            marshaller.marshal(root, file);
+            logger.info("DMN read.");
+            return definitions;
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot write DMN to '%s'", file.getPath()), e);
+            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.toString()), e);
         }
+    }
+
+    public TDefinitions read(Reader input) {
+        try {
+            logger.info(String.format("Reading DMN '%s' ...", input.toString()));
+
+            Unmarshaller u = makeUnmarshaller();
+            TDefinitions definitions = read(u, input);
+
+            logger.info("DMN read.");
+            return definitions;
+        } catch (Exception e) {
+            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.toString()), e);
+        }
+    }
+
+    private Unmarshaller makeUnmarshaller() throws Exception {
+        Unmarshaller u = JAXB_DMN_CONTEXT.createUnmarshaller();
+        if (validateSchema) {
+            setSchema(u);
+        }
+        return u;
+    }
+
+    private TDefinitions read(Unmarshaller unmarshaller, URL input) throws JAXBException {
+        JAXBElement<?> jaxbElement = (JAXBElement<?>) unmarshaller.unmarshal(input);
+        return (TDefinitions) jaxbElement.getValue();
+    }
+
+    private TDefinitions read(Unmarshaller unmarshaller, File input) throws JAXBException {
+        JAXBElement<?> jaxbElement = (JAXBElement<?>) unmarshaller.unmarshal(input);
+        return (TDefinitions) jaxbElement.getValue();
+    }
+
+    private TDefinitions read(Unmarshaller unmarshaller, InputStream input) throws JAXBException {
+        JAXBElement<?> jaxbElement = (JAXBElement<?>) unmarshaller.unmarshal(input);
+        return (TDefinitions) jaxbElement.getValue();
+    }
+
+    private TDefinitions read(Unmarshaller unmarshaller, Reader input) throws JAXBException {
+        JAXBElement<?> jaxbElement = (JAXBElement<?>) unmarshaller.unmarshal(input);
+        return (TDefinitions) jaxbElement.getValue();
     }
 
     private void setSchema(Unmarshaller u) throws Exception {

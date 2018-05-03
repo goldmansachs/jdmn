@@ -13,7 +13,7 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.serialization.DMNReader;
+import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.DefaultDMNValidator;
 
@@ -29,7 +29,7 @@ public abstract class AbstractDMNToJavaTest extends AbstractTransformerTest {
         File folder = path(inputPath).toFile();
         if (folder.listFiles() != null) {
             for(File file: folder.listFiles()) {
-                if (file.isFile() && file.getName().endsWith(DMNReader.DMN_FILE_EXTENSION)) {
+                if (file.isFile() && file.getName().endsWith(DMNConstants.DMN_FILE_EXTENSION)) {
                     doTest(diagramName(file));
                 }
             }
@@ -38,7 +38,7 @@ public abstract class AbstractDMNToJavaTest extends AbstractTransformerTest {
 
     protected void doTest(String diagramName) throws Exception {
         String path = getInputPath();
-        String inputFilePath = path + "/" + diagramName + DMNReader.DMN_FILE_EXTENSION;
+        String inputFilePath = path + "/" + diagramName + DMNConstants.DMN_FILE_EXTENSION;
         String expectedOutputPath = getExpectedPath() + "/" + friendlyFolderName(diagramName.toLowerCase());
         URI resource = resource(inputFilePath);
         doTest(resource.getPath(), expectedOutputPath);
@@ -80,7 +80,7 @@ public abstract class AbstractDMNToJavaTest extends AbstractTransformerTest {
 
     private String diagramName(File file) {
         String name = file.getName();
-        int i = name.indexOf(DMNReader.DMN_FILE_EXTENSION);
+        int i = name.indexOf(DMNConstants.DMN_FILE_EXTENSION);
         return i == -1 ? name : name.substring(0, i);
     }
 
