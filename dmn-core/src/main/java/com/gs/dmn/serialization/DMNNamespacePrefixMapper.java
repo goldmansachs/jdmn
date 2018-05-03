@@ -15,7 +15,7 @@ package com.gs.dmn.serialization;
 import com.sun.xml.internal.bind.marshaller.NamespacePrefixMapper;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static com.gs.dmn.serialization.DMNConstants.*;
@@ -25,7 +25,7 @@ public class DMNNamespacePrefixMapper extends NamespacePrefixMapper {
     private final String userPrefix;
     private final DMNVersion version;
 
-    private final Map<String, String> namespaceMap = new HashMap<>();
+    private final Map<String, String> namespaceMap = new LinkedHashMap<>();
 
     public DMNNamespacePrefixMapper() {
         this(null, null);

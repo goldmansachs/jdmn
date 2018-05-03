@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelName>0034-drg-scopes.dmn</modelName>
     <labels>
         <label>Compliance Level 3</label>

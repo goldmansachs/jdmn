@@ -63,6 +63,11 @@ public class ToSimpleNameTransformerTest extends NameTransformerTest {
     }
 
     @Override
+    protected  String getTargetPath() {
+        return "target/simple/";
+    }
+
+    @Override
     protected  String getExpectedPath() {
         return "dmn/expected/simple/";
     }
