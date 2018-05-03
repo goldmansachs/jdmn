@@ -29,10 +29,6 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
     protected final DMNWriter dmnWriter = new DMNWriter(LOGGER);
     protected final TestCasesReader testReader = new TestCasesReader(LOGGER);
 
-    protected  String getTargetPath() {
-        return "target/";
-    }
-
     protected void doTest(String dmnFileName, Pair<String, String> dmnNamespacePrefixMapping, String testsFileName, Pair<String, String> testsNamespacePrefixMapping) throws Exception {
         DMNTransformer<TestCases> transformer = getTransformer();
         String path = getInputPath();
@@ -48,6 +44,8 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
         TestCases actualTestCases = transformer.transform(actualDefinitions, testCases).getRight();
 
         // Check output
+        File targetFolder = new File(getTargetPath());
+        targetFolder.mkdirs();
         DMNNamespacePrefixMapper dmnNamespacePrefixMapper = new DMNNamespacePrefixMapper(dmnNamespacePrefixMapping.getLeft(), dmnNamespacePrefixMapping.getRight());
         check(actualDefinitions, dmnFileName, dmnNamespacePrefixMapper);
         DMNNamespacePrefixMapper testsNamespacePrefixMapper = new DMNNamespacePrefixMapper(testsNamespacePrefixMapping.getLeft(), testsNamespacePrefixMapping.getRight());
@@ -72,5 +70,6 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
 
     protected abstract DMNTransformer<TestCases> getTransformer();
     protected abstract String getInputPath();
+    protected abstract String getTargetPath();
     protected abstract String getExpectedPath();
 }

@@ -38,6 +38,11 @@ public class ToQuotedNameTransformerTest extends NameTransformerTest {
     }
 
     @Override
+    protected  String getTargetPath() {
+        return "target/quoted/";
+    }
+
+    @Override
     protected  String getExpectedPath() {
         return "dmn/expected/quoted/";
     }
