@@ -14,7 +14,7 @@ package com.gs.dmn.serialization;
 
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import org.omg.spec.dmn._20151101.dmn.TDefinitions;
+import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
@@ -44,6 +44,7 @@ public class DMNReader extends DMNSerializer {
     }
 
     private final boolean validateSchema;
+    private DMNDialectTransformer transformer = new DMNDialectTransformer(logger);
 
     public DMNReader(BuildLogger logger, boolean validateSchema) {
         super(logger);
@@ -54,8 +55,7 @@ public class DMNReader extends DMNSerializer {
         try {
             logger.info(String.format("Reading DMN '%s' ...", input.getAbsolutePath()));
 
-            Unmarshaller u = makeUnmarshaller();
-            TDefinitions definitions = read(u, input);
+            TDefinitions definitions = transform(readObject(input));
 
             logger.info("DMN read.");
             return definitions;
@@ -68,8 +68,7 @@ public class DMNReader extends DMNSerializer {
         try {
             logger.info(String.format("Reading DMN '%s' ...", input.toString()));
 
-            Unmarshaller u = makeUnmarshaller();
-            TDefinitions definitions = read(u, input);
+            TDefinitions definitions = transform(readObject(input));
 
             logger.info("DMN read.");
             return definitions;
@@ -82,8 +81,7 @@ public class DMNReader extends DMNSerializer {
         try {
             logger.info(String.format("Reading DMN '%s' ...", input.toString()));
 
-            Unmarshaller u = makeUnmarshaller();
-            TDefinitions definitions = read(u, input);
+            TDefinitions definitions = transform(readObject(input));
 
             logger.info("DMN read.");
             return definitions;
@@ -96,8 +94,7 @@ public class DMNReader extends DMNSerializer {
         try {
             logger.info(String.format("Reading DMN '%s' ...", input.toString()));
 
-            Unmarshaller u = makeUnmarshaller();
-            TDefinitions definitions = read(u, input);
+            TDefinitions definitions = transform(readObject(input));
 
             logger.info("DMN read.");
             return definitions;
@@ -114,24 +111,42 @@ public class DMNReader extends DMNSerializer {
         return u;
     }
 
-    private TDefinitions read(Unmarshaller unmarshaller, URL input) throws JAXBException {
+    Object readObject(URL input) throws Exception {
+        Unmarshaller unmarshaller = makeUnmarshaller();
         JAXBElement<?> jaxbElement = (JAXBElement<?>) unmarshaller.unmarshal(input);
-        return (TDefinitions) jaxbElement.getValue();
+        return jaxbElement.getValue();
     }
 
-    private TDefinitions read(Unmarshaller unmarshaller, File input) throws JAXBException {
+    Object readObject(File input) throws Exception {
+        Unmarshaller unmarshaller = makeUnmarshaller();
         JAXBElement<?> jaxbElement = (JAXBElement<?>) unmarshaller.unmarshal(input);
-        return (TDefinitions) jaxbElement.getValue();
+        return jaxbElement.getValue();
     }
 
-    private TDefinitions read(Unmarshaller unmarshaller, InputStream input) throws JAXBException {
+    Object readObject(InputStream input) throws Exception {
+        Unmarshaller unmarshaller = makeUnmarshaller();
         JAXBElement<?> jaxbElement = (JAXBElement<?>) unmarshaller.unmarshal(input);
-        return (TDefinitions) jaxbElement.getValue();
+        return jaxbElement.getValue();
     }
 
-    private TDefinitions read(Unmarshaller unmarshaller, Reader input) throws JAXBException {
+    Object readObject(Reader input) throws Exception {
+        Unmarshaller unmarshaller = makeUnmarshaller();
         JAXBElement<?> jaxbElement = (JAXBElement<?>) unmarshaller.unmarshal(input);
-        return (TDefinitions) jaxbElement.getValue();
+        return jaxbElement.getValue();
+    }
+
+    private TDefinitions transform(Object value) {
+        if (value == null) {
+            return null;
+        }
+
+        if (value instanceof org.omg.spec.dmn._20151101.dmn.TDefinitions) {
+            return transformer.transform((org.omg.spec.dmn._20151101.dmn.TDefinitions) value);
+        } else if (value instanceof TDefinitions) {
+            return (TDefinitions) value;
+        } else {
+            throw new DMNRuntimeException(String.format("'%s' is not supported", value.getClass()));
+        }
     }
 
     private void setSchema(Unmarshaller u) throws Exception {

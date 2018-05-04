@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.runtime.annotation;
 
-import org.omg.spec.dmn._20151101.dmn.*;
+import org.omg.spec.dmn._20180521.model.*;
 
 public enum ExpressionKind {
     FUNCTION_DEFINITION,

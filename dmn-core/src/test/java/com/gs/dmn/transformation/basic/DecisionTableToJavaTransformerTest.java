@@ -15,7 +15,7 @@ package com.gs.dmn.transformation.basic;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.junit.Test;
-import org.omg.spec.dmn._20151101.dmn.TDecisionRule;
+import org.omg.spec.dmn._20180521.model.TDecisionRule;
 
 import java.util.LinkedHashMap;
 

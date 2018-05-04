@@ -19,10 +19,10 @@ import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.java.ExpressionStatement;
 import com.gs.dmn.transformation.java.Statement;
-import org.omg.spec.dmn._20151101.dmn.TDRGElement;
-import org.omg.spec.dmn._20151101.dmn.TExpression;
-import org.omg.spec.dmn._20151101.dmn.TList;
-import org.omg.spec.dmn._20151101.dmn.TRelation;
+import org.omg.spec.dmn._20180521.model.TDRGElement;
+import org.omg.spec.dmn._20180521.model.TExpression;
+import org.omg.spec.dmn._20180521.model.TList;
+import org.omg.spec.dmn._20180521.model.TRelation;
 
 import javax.xml.bind.JAXBElement;
 import java.util.ArrayList;

@@ -1,1396 +1,1396 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:tns="http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" expressionLanguage="http://www.omg.org/spec/FEEL/20140401" typeLanguage="http://www.omg.org/spec/FEEL/20140401" namespace="http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b" exporter="DMN Modeler; Method and Style trisofix.xslt" exporterVersion="5.0.32.2; 1.0" name="Lending1" id="_4e0f0b70-d31c-471c-bd52-5ca709ed362b" triso:logoChoice="Default">
-    <itemDefinition isCollection="false" name="tEligibility">
-        <typeRef>feel:string</typeRef>
-        <allowedValues>
-            <text>"INELIGIBLE", "ELIGIBLE"</text>
-        </allowedValues>
-    </itemDefinition>
-    <itemDefinition isCollection="false" name="tBureauCallType">
-        <typeRef>feel:string</typeRef>
-        <allowedValues>
-            <text>"FULL", "MINI", "NONE"</text>
-        </allowedValues>
-    </itemDefinition>
-    <itemDefinition isCollection="false" name="tStrategy">
-        <typeRef>feel:string</typeRef>
-        <allowedValues>
-            <text>"DECLINE", "BUREAU", "THROUGH"</text>
-        </allowedValues>
-    </itemDefinition>
-    <itemDefinition isCollection="false" name="tRiskCategory">
-        <typeRef>feel:string</typeRef>
-        <allowedValues>
-            <text>"DECLINE", "HIGH", "MEDIUM", "LOW", "VERY LOW"</text>
-        </allowedValues>
-    </itemDefinition>
-    <itemDefinition isCollection="false" name="tRouting">
-        <typeRef>feel:string</typeRef>
-        <allowedValues>
-            <text>"DECLINE", "REFER", "ACCEPT"</text>
-        </allowedValues>
-    </itemDefinition>
-    <itemDefinition isCollection="false" name="tBureauData">
-        <itemComponent isCollection="false" name="CreditScore">
-            <typeRef>feel:number</typeRef>
-            <allowedValues>
-                <text>[0..999], null</text>
-            </allowedValues>
-        </itemComponent>
-        <itemComponent isCollection="false" name="Bankrupt">
-            <typeRef>feel:boolean</typeRef>
-        </itemComponent>
-    </itemDefinition>
-    <itemDefinition isCollection="false" name="tAdjudication">
-        <typeRef>feel:string</typeRef>
-        <allowedValues>
-            <text>"DECLINE", "ACCEPT"</text>
-        </allowedValues>
-    </itemDefinition>
-    <itemDefinition isCollection="false" name="tApplicantData">
-        <itemComponent isCollection="false" name="Monthly">
-            <itemComponent isCollection="false" name="Income">
-                <typeRef>feel:number</typeRef>
-            </itemComponent>
-            <itemComponent isCollection="false" name="Expenses">
-                <typeRef>feel:number</typeRef>
-            </itemComponent>
-            <itemComponent isCollection="false" name="Repayments">
-                <typeRef>feel:number</typeRef>
-            </itemComponent>
-        </itemComponent>
-        <itemComponent isCollection="false" name="Age">
-            <typeRef>feel:number</typeRef>
-        </itemComponent>
-        <itemComponent isCollection="false" name="ExistingCustomer">
-            <typeRef>feel:boolean</typeRef>
-        </itemComponent>
-        <itemComponent isCollection="false" name="MaritalStatus">
-            <typeRef>feel:string</typeRef>
-            <allowedValues>
-                <text>"S","M"</text>
-            </allowedValues>
-        </itemComponent>
-        <itemComponent isCollection="false" name="EmploymentStatus">
-            <typeRef>feel:string</typeRef>
-            <allowedValues>
-                <text>"EMPLOYED","SELF-EMPLOYED","STUDENT","UNEMPLOYED"</text>
-            </allowedValues>
-        </itemComponent>
-    </itemDefinition>
-    <itemDefinition isCollection="false" name="tRequestedProduct">
-        <itemComponent isCollection="false" name="ProductType">
-            <typeRef>feel:string</typeRef>
-            <allowedValues>
-                <text>"STANDARD LOAN", "SPECIAL LOAN"</text>
-            </allowedValues>
-        </itemComponent>
-        <itemComponent isCollection="false" name="Amount">
-            <typeRef>feel:number</typeRef>
-        </itemComponent>
-        <itemComponent isCollection="false" name="Rate">
-            <typeRef>feel:number</typeRef>
-        </itemComponent>
-        <itemComponent isCollection="false" name="Term">
-            <typeRef>feel:number</typeRef>
-        </itemComponent>
-    </itemDefinition>
-    <decision name="BureauCallType" id="d_BureauCallType">
-        <variable typeRef="tns:tBureauCallType" name="BureauCallType"/>
-        <informationRequirement>
-            <requiredDecision href="#d_Pre-bureauRiskCategory"/>
-        </informationRequirement>
-        <knowledgeRequirement>
-            <requiredKnowledge href="#b_BureauCallTypeTable"/>
-        </knowledgeRequirement>
-        <invocation>
-            <literalExpression>
-                <text>BureauCallTypeTable</text>
-            </literalExpression>
-            <binding>
-                <parameter name="PreBureauRiskCategory" id="_65deeb90-626c-4cce-9485-eae9455b2194"/>
-                <literalExpression>
-                    <text>PreBureauRiskCategory</text>
-                </literalExpression>
-            </binding>
-        </invocation>
-    </decision>
-    <decision name="Strategy" id="d_Strategy">
-        <question>Is credit bureau call required?</question>
-        <allowedAnswers>Yes (BUREAU) or No (DECLINE, THROUGH)</allowedAnswers>
-        <variable typeRef="tns:tStrategy" name="Strategy"/>
-        <informationRequirement>
-            <requiredDecision href="#d_BureauCallType"/>
-        </informationRequirement>
-        <informationRequirement>
-            <requiredDecision href="#d_Eligibility"/>
-        </informationRequirement>
-        <decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row" outputLabel="Strategy">
-            <input id="_09a4cf3d-54fa-4232-ada0-e291c67a16c0" label="Eligibility">
-                <inputExpression typeRef="feel:string">
-                    <text>Eligibility</text>
-                </inputExpression>
-                <inputValues>
-                    <text>"ELIGIBLE", "INELIGIBLE"</text>
-                </inputValues>
-            </input>
-            <input id="_f3816132-3cf1-4414-ab6b-0ed875a5fa1b" label="Bureau Call">
-                <inputExpression typeRef="feel:string">
-                    <text>BureauCallType</text>
-                </inputExpression>
-                <inputValues>
-                    <text>"FULL", "MINI", "NONE"</text>
-                </inputValues>
-            </input>
-            <output id="_8c01b3c4-216d-4db4-8c5b-4375e6f524be">
-                <outputValues>
-                    <text>"DECLINE", "THROUGH", "BUREAU"</text>
-                </outputValues>
-            </output>
-            <rule id="_cc1cbffe-d1fe-4646-bc2e-df2bf08cb661">
-                <inputEntry id="_cc1cbffe-d1fe-4646-bc2e-df2bf08cb661-0">
-                    <text>"INELIGIBLE"</text>
-                </inputEntry>
-                <inputEntry id="_cc1cbffe-d1fe-4646-bc2e-df2bf08cb661-1">
-                    <text>-</text>
-                </inputEntry>
-                <outputEntry id="_cc1cbffe-d1fe-4646-bc2e-df2bf08cb661-2">
-                    <text>"DECLINE"</text>
-                </outputEntry>
-            </rule>
-            <rule id="_fbe095b9-b6b8-42f8-b980-3db4fb2dbe12">
-                <inputEntry id="_fbe095b9-b6b8-42f8-b980-3db4fb2dbe12-0">
-                    <text>"ELIGIBLE"</text>
-                </inputEntry>
-                <inputEntry id="_fbe095b9-b6b8-42f8-b980-3db4fb2dbe12-1">
-                    <text>"FULL","MINI"</text>
-                </inputEntry>
-                <outputEntry id="_fbe095b9-b6b8-42f8-b980-3db4fb2dbe12-2">
-                    <text>"BUREAU"</text>
-                </outputEntry>
-            </rule>
-            <rule id="_9af79b26-005f-4855-a66c-88401349bb72">
-                <inputEntry id="_9af79b26-005f-4855-a66c-88401349bb72-0">
-                    <text>"ELIGIBLE"</text>
-                </inputEntry>
-                <inputEntry id="_9af79b26-005f-4855-a66c-88401349bb72-1">
-                    <text>"NONE"</text>
-                </inputEntry>
-                <outputEntry id="_9af79b26-005f-4855-a66c-88401349bb72-2">
-                    <text>"THROUGH"</text>
-                </outputEntry>
-            </rule>
-        </decisionTable>
-    </decision>
-    <decision name="Eligibility" id="d_Eligibility">
-        <variable typeRef="tns:tEligibility" name="Eligibility"/>
-        <informationRequirement>
-            <requiredDecision href="#d_Pre-bureauAffordability"/>
-        </informationRequirement>
-        <informationRequirement>
-            <requiredDecision href="#d_Pre-bureauRiskCategory"/>
-        </informationRequirement>
-        <informationRequirement>
-            <requiredInput href="#i_ApplicantData"/>
-        </informationRequirement>
-        <knowledgeRequirement>
-            <requiredKnowledge href="#b_EligibilityRules"/>
-        </knowledgeRequirement>
-        <invocation>
-            <literalExpression>
-                <text>EligibilityRules</text>
-            </literalExpression>
-            <binding>
-                <parameter name="PreBureauAffordability" id="_83d27025-44c2-4bb2-8747-ae3d40e97f25"/>
-                <literalExpression>
-                    <text>PreBureauAffordability</text>
-                </literalExpression>
-            </binding>
-            <binding>
-                <parameter name="PreBureauRiskCategory" id="_b5fe2d0c-1d71-4c98-b0c6-a821b854ffc4"/>
-                <literalExpression>
-                    <text>PreBureauRiskCategory</text>
-                </literalExpression>
-            </binding>
-            <binding>
-                <parameter name="Age" id="_87021512-68d6-40ba-a159-165a701c197b"/>
-                <literalExpression>
-                    <text>ApplicantData.Age</text>
-                </literalExpression>
-            </binding>
-        </invocation>
-    </decision>
-    <decision name="PreBureauRiskCategory" id="d_Pre-bureauRiskCategory">
-        <variable typeRef="tns:tRiskCategory" name="PreBureauRiskCategory"/>
-        <informationRequirement>
-            <requiredDecision href="#d_ApplicationRiskScore"/>
-        </informationRequirement>
-        <informationRequirement>
-            <requiredInput href="#i_ApplicantData"/>
-        </informationRequirement>
-        <knowledgeRequirement>
-            <requiredKnowledge href="#b_Pre-bureauRiskCategoryTable"/>
-        </knowledgeRequirement>
-        <invocation>
-            <literalExpression>
-                <text>PreBureauRiskCategoryTable</text>
-            </literalExpression>
-            <binding>
-                <parameter name="ExistingCustomer" id="_a4ffd56c-aca1-4cf0-84e0-44fefecb5f48"/>
-                <literalExpression>
-                    <text>ApplicantData.ExistingCustomer</text>
-                </literalExpression>
-            </binding>
-            <binding>
-                <parameter name="ApplicationRiskScore" id="_eb561110-cd9a-4f96-9170-f32b2e6c13f6"/>
-                <literalExpression>
-                    <text>ApplicationRiskScore</text>
-                </literalExpression>
-            </binding>
-        </invocation>
-    </decision>
-    <decision name="PostBureauRiskCategory" id="d_Post-bureauRiskCategory">
-        <variable typeRef="tns:tRiskCategory" name="PostBureauRiskCategory"/>
-        <informationRequirement>
-            <requiredDecision href="#d_ApplicationRiskScore"/>
-        </informationRequirement>
-        <informationRequirement>
-            <requiredInput href="#i_BureauData"/>
-        </informationRequirement>
-        <informationRequirement>
-            <requiredInput href="#i_ApplicantData"/>
-        </informationRequirement>
-        <knowledgeRequirement>
-            <requiredKnowledge href="#b_Post-bureauRiskCategoryTable"/>
-        </knowledgeRequirement>
-        <invocation>
-            <literalExpression>
-                <text>PostBureauRiskCategoryTable</text>
-            </literalExpression>
-            <binding>
-                <parameter name="ExistingCustomer" id="_a5eee7ca-e12f-49fe-80cb-54a7a5a7912e"/>
-                <literalExpression>
-                    <text>ApplicantData.ExistingCustomer</text>
-                </literalExpression>
-            </binding>
-            <binding>
-                <parameter name="CreditScore" id="_980eaa9b-461d-49fd-bfc0-d115e8261b8b"/>
-                <literalExpression>
-                    <text>BureauData.CreditScore</text>
-                </literalExpression>
-            </binding>
-            <binding>
-                <parameter name="ApplicationRiskScore" id="_222a3f84-eb98-439a-8ea8-6c1460760769"/>
-                <literalExpression>
-                    <text>ApplicationRiskScore</text>
-                </literalExpression>
-            </binding>
-        </invocation>
-    </decision>
-    <decision name="ApplicationRiskScore" id="d_ApplicationRiskScore">
-        <variable typeRef="feel:number" name="ApplicationRiskScore"/>
-        <informationRequirement>
-            <requiredInput href="#i_ApplicantData"/>
-        </informationRequirement>
-        <knowledgeRequirement>
-            <requiredKnowledge href="#b_ApplicationRiskScoreModel"/>
-        </knowledgeRequirement>
-        <invocation>
-            <literalExpression>
-                <text>ApplicationRiskScoreModel</text>
-            </literalExpression>
-            <binding>
-                <parameter name="Age" id="_624532fc-b467-4118-a6d9-498d2891e654"/>
-                <literalExpression>
-                    <text>ApplicantData.Age</text>
-                </literalExpression>
-            </binding>
-            <binding>
-                <parameter name="MaritalStatus" id="_a90e9150-f937-446c-94e3-14b13deb1aa7"/>
-                <literalExpression>
-                    <text>ApplicantData.MaritalStatus</text>
-                </literalExpression>
-            </binding>
-            <binding>
-                <parameter name="EmploymentStatus" id="_794f4a7e-a4de-4777-b7b6-5f83df6584dd"/>
-                <literalExpression>
-                    <text>ApplicantData.EmploymentStatus</text>
-                </literalExpression>
-            </binding>
-        </invocation>
-    </decision>
-    <decision name="PreBureauAffordability" id="d_Pre-bureauAffordability">
-        <variable typeRef="feel:boolean" name="PreBureauAffordability"/>
-        <informationRequirement>
-            <requiredDecision href="#d_RequiredMonthlyInstallment"/>
-        </informationRequirement>
-        <informationRequirement>
-            <requiredDecision href="#d_Pre-bureauRiskCategory"/>
-        </informationRequirement>
-        <informationRequirement>
-            <requiredInput href="#i_ApplicantData"/>
-        </informationRequirement>
-        <knowledgeRequirement>
-            <requiredKnowledge href="#b_AffordabilityCalculation"/>
-        </knowledgeRequirement>
-        <invocation>
-            <literalExpression>
-                <text>AffordabilityCalculation</text>
-            </literalExpression>
-            <binding>
-                <parameter name="MonthlyIncome" id="_688a5d35-c0d1-4faa-b411-2ac96e5db3f2"/>
-                <literalExpression>
-                    <text>ApplicantData.Monthly.Income</text>
-                </literalExpression>
-            </binding>
-            <binding>
-                <parameter name="MonthlyRepayments" id="_fe44410f-d02b-44c5-b696-0c5a53b3d965"/>
-                <literalExpression>
-                    <text>ApplicantData.Monthly.Repayments</text>
-                </literalExpression>
-            </binding>
-            <binding>
-                <parameter name="MonthlyExpenses" id="_3542be62-0447-45db-850a-55ec1c3c59bd"/>
-                <literalExpression>
-                    <text>ApplicantData.Monthly.Expenses</text>
-                </literalExpression>
-            </binding>
-            <binding>
-                <parameter name="RiskCategory" id="_05524e98-e76d-4109-ac99-f5090cd7bb48"/>
-                <literalExpression>
-                    <text>PreBureauRiskCategory</text>
-                </literalExpression>
-            </binding>
-            <binding>
-                <parameter name="RequiredMonthlyInstallment" id="_be179be3-8be2-4abc-81d9-9540abe25e06"/>
-                <literalExpression>
-                    <text>RequiredMonthlyInstallment</text>
-                </literalExpression>
-            </binding>
-        </invocation>
-    </decision>
-    <decision name="PostBureauAffordability" id="d_Post-bureauAffordability">
-        <variable typeRef="feel:boolean" name="PostBureauAffordability"/>
-        <informationRequirement>
-            <requiredDecision href="#d_RequiredMonthlyInstallment"/>
-        </informationRequirement>
-        <informationRequirement>
-            <requiredDecision href="#d_Post-bureauRiskCategory"/>
-        </informationRequirement>
-        <informationRequirement>
-            <requiredInput href="#i_ApplicantData"/>
-        </informationRequirement>
-        <knowledgeRequirement>
-            <requiredKnowledge href="#b_AffordabilityCalculation"/>
-        </knowledgeRequirement>
-        <invocation>
-            <literalExpression>
-                <text>AffordabilityCalculation</text>
-            </literalExpression>
-            <binding>
-                <parameter name="MonthlyIncome" id="_9ddcd6eb-0154-426f-9752-32c9d64471be"/>
-                <literalExpression>
-                    <text>ApplicantData.Monthly.Income</text>
-                </literalExpression>
-            </binding>
-            <binding>
-                <parameter name="MonthlyRepayments" id="_2ed2cf1c-2dff-4bdc-8cc3-92d0fdc38c81"/>
-                <literalExpression>
-                    <text>ApplicantData.Monthly.Repayments</text>
-                </literalExpression>
-            </binding>
-            <binding>
-                <parameter name="MonthlyExpenses" id="_2d0b4728-c40c-4a0c-980c-81156750bfc1"/>
-                <literalExpression>
-                    <text>ApplicantData.Monthly.Expenses</text>
-                </literalExpression>
-            </binding>
-            <binding>
-                <parameter name="RiskCategory" id="_f75ffcc3-cb93-46cc-82ae-bad3a7202e99"/>
-                <literalExpression>
-                    <text>PostBureauRiskCategory</text>
-                </literalExpression>
-            </binding>
-            <binding>
-                <parameter name="RequiredMonthlyInstallment" id="_0f3e2756-3007-4412-b788-81d01f68399d"/>
-                <literalExpression>
-                    <text>RequiredMonthlyInstallment</text>
-                </literalExpression>
-            </binding>
-        </invocation>
-    </decision>
-    <decision name="RequiredMonthlyInstallment" id="d_RequiredMonthlyInstallment">
-        <variable typeRef="feel:number" name="RequiredMonthlyInstallment"/>
-        <informationRequirement>
-            <requiredInput href="#i_RequestedProduct"/>
-        </informationRequirement>
-        <knowledgeRequirement>
-            <requiredKnowledge href="#b_InstallmentCalculation"/>
-        </knowledgeRequirement>
-        <invocation>
-            <literalExpression>
-                <text>InstallmentCalculation</text>
-            </literalExpression>
-            <binding>
-                <parameter name="ProductType" id="_2e65e0bd-d6d4-4d73-b806-12b4bc853a17"/>
-                <literalExpression>
-                    <text>RequestedProduct.ProductType</text>
-                </literalExpression>
-            </binding>
-            <binding>
-                <parameter name="Rate" id="_ee9f5360-cc2d-4370-b75e-6895002c1c48"/>
-                <literalExpression>
-                    <text>RequestedProduct.Rate</text>
-                </literalExpression>
-            </binding>
-            <binding>
-                <parameter name="Term" id="_b6fddc07-5494-4878-878c-3e1a96fad9fe"/>
-                <literalExpression>
-                    <text>RequestedProduct.Term</text>
-                </literalExpression>
-            </binding>
-            <binding>
-                <parameter name="Amount" id="_84755f4f-3455-4e76-b182-db4c375b9fb3"/>
-                <literalExpression>
-                    <text>RequestedProduct.Amount</text>
-                </literalExpression>
-            </binding>
-        </invocation>
-    </decision>
-    <decision name="Routing" id="d_Routing">
-        <variable typeRef="tns:tRouting" name="Routing"/>
-        <informationRequirement>
-            <requiredDecision href="#d_Post-bureauAffordability"/>
-        </informationRequirement>
-        <informationRequirement>
-            <requiredDecision href="#d_Post-bureauRiskCategory"/>
-        </informationRequirement>
-        <informationRequirement>
-            <requiredInput href="#i_BureauData"/>
-        </informationRequirement>
-        <knowledgeRequirement>
-            <requiredKnowledge href="#b_RoutingRules"/>
-        </knowledgeRequirement>
-        <invocation>
-            <literalExpression>
-                <text>RoutingRules</text>
-            </literalExpression>
-            <binding>
-                <parameter name="Bankrupt" id="_c2ebec2c-0072-47af-9703-e202cf8af50b"/>
-                <literalExpression>
-                    <text>BureauData.Bankrupt</text>
-                </literalExpression>
-            </binding>
-            <binding>
-                <parameter name="CreditScore" id="_a5193c53-bd02-4579-a249-44ed95dd0c3e"/>
-                <literalExpression>
-                    <text>BureauData.CreditScore</text>
-                </literalExpression>
-            </binding>
-            <binding>
-                <parameter name="PostBureauRiskCategory" id="_4b461288-5d18-44ab-b102-835a91946890"/>
-                <literalExpression>
-                    <text>PostBureauRiskCategory</text>
-                </literalExpression>
-            </binding>
-            <binding>
-                <parameter name="PostBureauAffordability" id="_8846c6e3-65ff-4d46-87b9-7c7cad86ee67"/>
-                <literalExpression>
-                    <text>PostBureauAffordability</text>
-                </literalExpression>
-            </binding>
-        </invocation>
-    </decision>
-    <decision name="Adjudication" id="d_Adjudication">
-        <variable typeRef="tns:tAdjudication" name="Adjudication"/>
-        <informationRequirement>
-            <requiredInput href="#i_BureauData"/>
-        </informationRequirement>
-        <informationRequirement>
-            <requiredInput href="#i_SupportingDocuments"/>
-        </informationRequirement>
-        <informationRequirement>
-            <requiredInput href="#i_ApplicantData"/>
-        </informationRequirement>
-        <literalExpression>
-            <text>"ACCEPT"</text>
-        </literalExpression>
-    </decision>
-    <businessKnowledgeModel name="AffordabilityCalculation" id="b_AffordabilityCalculation">
-        <encapsulatedLogic>
-            <formalParameter typeRef="feel:number" name="MonthlyIncome"/>
-            <formalParameter typeRef="feel:number" name="MonthlyRepayments"/>
-            <formalParameter typeRef="feel:number" name="MonthlyExpenses"/>
-            <formalParameter typeRef="tns:tRiskCategory" name="RiskCategory"/>
-            <formalParameter typeRef="feel:number" name="RequiredMonthlyInstallment"/>
-            <context>
-                <contextEntry>
-                    <variable typeRef="feel:number" name="DisposableIncome"/>
-                    <literalExpression>
-                        <text>MonthlyIncome - (MonthlyExpenses + MonthlyRepayments)</text>
-                    </literalExpression>
-                </contextEntry>
-                <contextEntry>
-                    <variable typeRef="feel:number" name="CreditContingencyFactor"/>
-                    <invocation>
-                        <literalExpression>
-                            <text>CreditContingencyFactorTable</text>
-                        </literalExpression>
-                        <binding>
-                            <parameter name="RiskCategory" id="_cfbad925-5470-4165-b7f0-0945cf321889"/>
-                            <literalExpression>
-<text>RiskCategory</text>
-                            </literalExpression>
-                        </binding>
-                    </invocation>
-                </contextEntry>
-                <contextEntry>
-                    <variable typeRef="feel:boolean" name="Affordability"/>
-                    <literalExpression>
-                        <text>if DisposableIncome * CreditContingencyFactor &gt; RequiredMonthlyInstallment then true else false</text>
-                    </literalExpression>
-                </contextEntry>
-                <contextEntry>
-                    <literalExpression>
-                        <text>Affordability</text>
-                    </literalExpression>
-                </contextEntry>
-            </context>
-        </encapsulatedLogic>
-        <variable typeRef="feel:boolean" name="AffordabilityCalculation"/>
-        <knowledgeRequirement>
-            <requiredKnowledge href="#b_CreditContingencyFactorTable"/>
-        </knowledgeRequirement>
-    </businessKnowledgeModel>
-    <businessKnowledgeModel name="CreditContingencyFactorTable" id="b_CreditContingencyFactorTable">
-        <encapsulatedLogic>
-            <formalParameter typeRef="tns:tRiskCategory" name="RiskCategory"/>
-            <decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row" outputLabel="CreditContingencyFactorTable">
-                <input id="_7cdd3950-9a45-41f0-bef0-dc54240fe4c2" label="RiskCategory">
-                    <inputExpression typeRef="feel:string">
-                        <text>RiskCategory</text>
-                    </inputExpression>
-                    <inputValues>
-                        <text>"DECLINE", "HIGH", "LOW", "MEDIUM", "VERY LOW"</text>
-                    </inputValues>
-                </input>
-                <output id="_3f5c697d-887c-43b7-abb6-5fa3b27d0824"/>
-                <rule id="_0fc85427-04a2-4796-8771-a391170b9c13">
-                    <inputEntry id="_0fc85427-04a2-4796-8771-a391170b9c13-0">
-                        <text>"HIGH", "DECLINE"</text>
-                    </inputEntry>
-                    <outputEntry id="_0fc85427-04a2-4796-8771-a391170b9c13-1">
-                        <text>0.6</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_22972ab6-af35-4be0-9bce-965e39f0c7d7">
-                    <inputEntry id="_22972ab6-af35-4be0-9bce-965e39f0c7d7-0">
-                        <text>"MEDIUM"</text>
-                    </inputEntry>
-                    <outputEntry id="_22972ab6-af35-4be0-9bce-965e39f0c7d7-1">
-                        <text>0.7</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_2d46a208-d471-48eb-9ea3-02cfa105fd69">
-                    <inputEntry id="_2d46a208-d471-48eb-9ea3-02cfa105fd69-0">
-                        <text>"LOW", "VERY LOW"</text>
-                    </inputEntry>
-                    <outputEntry id="_2d46a208-d471-48eb-9ea3-02cfa105fd69-1">
-                        <text>0.8</text>
-                    </outputEntry>
-                </rule>
-            </decisionTable>
-        </encapsulatedLogic>
-        <variable typeRef="feel:number" name="CreditContingencyFactorTable"/>
-    </businessKnowledgeModel>
-    <businessKnowledgeModel name="EligibilityRules" id="b_EligibilityRules">
-        <encapsulatedLogic>
-            <formalParameter typeRef="tns:tRiskCategory" name="PreBureauRiskCategory"/>
-            <formalParameter typeRef="feel:boolean" name="PreBureauAffordability"/>
-            <formalParameter typeRef="feel:number" name="Age"/>
-            <decisionTable hitPolicy="PRIORITY" preferredOrientation="Rule-as-Row" outputLabel="EligibilityRules">
-                <input id="_2bc2f208-6c1d-4411-8a19-c5b424fb8fa9" label="Pre-bureauRiskCategory">
-                    <inputExpression typeRef="feel:string">
-                        <text>PreBureauRiskCategory</text>
-                    </inputExpression>
-                </input>
-                <input id="_1d794320-6e6c-46bf-b86d-de073822d6f6" label="Pre-bureauAffordability">
-                    <inputExpression typeRef="feel:string">
-                        <text>PreBureauAffordability</text>
-                    </inputExpression>
-                </input>
-                <input id="_876096bc-7329-444a-830b-7bd2a06a7982" label="Age">
-                    <inputExpression typeRef="feel:number">
-                        <text>Age</text>
-                    </inputExpression>
-                </input>
-                <output id="_1beb4059-cfc5-4b79-a73d-cdd369ee308a">
-                    <outputValues>
-                        <text>"INELIGIBLE", "ELIGIBLE"</text>
-                    </outputValues>
-                </output>
-                <rule id="_3e475ba3-f5a5-407e-95e9-c4081a6d1479">
-                    <inputEntry id="_3e475ba3-f5a5-407e-95e9-c4081a6d1479-0">
-                        <text>"DECLINE"</text>
-                    </inputEntry>
-                    <inputEntry id="_3e475ba3-f5a5-407e-95e9-c4081a6d1479-1">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_3e475ba3-f5a5-407e-95e9-c4081a6d1479-2">
-                        <text>-</text>
-                    </inputEntry>
-                    <outputEntry id="_3e475ba3-f5a5-407e-95e9-c4081a6d1479-3">
-                        <text>"INELIGIBLE"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_a3e0609d-0176-4920-9fd5-9cd0e51d6335">
-                    <inputEntry id="_a3e0609d-0176-4920-9fd5-9cd0e51d6335-0">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_a3e0609d-0176-4920-9fd5-9cd0e51d6335-1">
-                        <text>false</text>
-                    </inputEntry>
-                    <inputEntry id="_a3e0609d-0176-4920-9fd5-9cd0e51d6335-2">
-                        <text>-</text>
-                    </inputEntry>
-                    <outputEntry id="_a3e0609d-0176-4920-9fd5-9cd0e51d6335-3">
-                        <text>"INELIGIBLE"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_20ed95e5-71f3-4b61-9bf0-b5f47a2ed3ec">
-                    <inputEntry id="_20ed95e5-71f3-4b61-9bf0-b5f47a2ed3ec-0">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_20ed95e5-71f3-4b61-9bf0-b5f47a2ed3ec-1">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_20ed95e5-71f3-4b61-9bf0-b5f47a2ed3ec-2">
-                        <text>&lt;18</text>
-                    </inputEntry>
-                    <outputEntry id="_20ed95e5-71f3-4b61-9bf0-b5f47a2ed3ec-3">
-                        <text>"INELIGIBLE"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_23369b13-bf65-47ed-b0af-9f2c2c118e52">
-                    <inputEntry id="_23369b13-bf65-47ed-b0af-9f2c2c118e52-0">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_23369b13-bf65-47ed-b0af-9f2c2c118e52-1">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_23369b13-bf65-47ed-b0af-9f2c2c118e52-2">
-                        <text>-</text>
-                    </inputEntry>
-                    <outputEntry id="_23369b13-bf65-47ed-b0af-9f2c2c118e52-3">
-                        <text>"ELIGIBLE"</text>
-                    </outputEntry>
-                </rule>
-            </decisionTable>
-        </encapsulatedLogic>
-        <variable typeRef="feel:string" name="EligibilityRules"/>
-    </businessKnowledgeModel>
-    <businessKnowledgeModel name="BureauCallTypeTable" id="b_BureauCallTypeTable">
-        <encapsulatedLogic>
-            <formalParameter typeRef="tns:tRiskCategory" name="PreBureauRiskCategory"/>
-            <decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row" outputLabel="BureauCallTypeTable">
-                <input id="_fcd1287d-7572-4523-ab27-33eff68d965b" label="Pre-bureauRiskCategory">
-                    <inputExpression typeRef="feel:string">
-                        <text>PreBureauRiskCategory</text>
-                    </inputExpression>
-                </input>
-                <output id="_89b655a2-2e07-4aec-afb4-c1a3b595da6e"/>
-                <rule id="_4d8928da-71c6-4d9b-b304-a2dbdf27ad88">
-                    <inputEntry id="_4d8928da-71c6-4d9b-b304-a2dbdf27ad88-0">
-                        <text>"HIGH","MEDIUM"</text>
-                    </inputEntry>
-                    <outputEntry id="_4d8928da-71c6-4d9b-b304-a2dbdf27ad88-1">
-                        <text>"FULL"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_0a9819a4-9cf0-4390-9ae5-af156c678c59">
-                    <inputEntry id="_0a9819a4-9cf0-4390-9ae5-af156c678c59-0">
-                        <text>"LOW"</text>
-                    </inputEntry>
-                    <outputEntry id="_0a9819a4-9cf0-4390-9ae5-af156c678c59-1">
-                        <text>"MINI"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_80dc65d3-b61d-401e-b8ec-bd236c47404b">
-                    <inputEntry id="_80dc65d3-b61d-401e-b8ec-bd236c47404b-0">
-                        <text>"VERY LOW","DECLINE"</text>
-                    </inputEntry>
-                    <outputEntry id="_80dc65d3-b61d-401e-b8ec-bd236c47404b-1">
-                        <text>"NONE"</text>
-                    </outputEntry>
-                </rule>
-            </decisionTable>
-        </encapsulatedLogic>
-        <variable typeRef="feel:string" name="BureauCallTypeTable"/>
-    </businessKnowledgeModel>
-    <businessKnowledgeModel name="PreBureauRiskCategoryTable" id="b_Pre-bureauRiskCategoryTable">
-        <encapsulatedLogic>
-            <formalParameter typeRef="feel:boolean" name="ExistingCustomer"/>
-            <formalParameter typeRef="feel:number" name="ApplicationRiskScore"/>
-            <decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row" outputLabel="Pre-bureauRiskCategoryTable">
-                <input id="_6f7fbf13-3fa6-44f5-afe4-7c1e688e76a9" label="ExistingCustomer">
-                    <inputExpression typeRef="feel:string">
-                        <text>ExistingCustomer</text>
-                    </inputExpression>
-                </input>
-                <input id="_89d36bd5-03c2-4c6f-bf47-faa7d28e13a1" label="ApplicationRiskScore">
-                    <inputExpression typeRef="feel:string">
-                        <text>ApplicationRiskScore</text>
-                    </inputExpression>
-                </input>
-                <output id="_50a19805-7611-490b-8e92-5964a457e1e7"/>
-                <rule id="_e0082937-feb0-48f9-bbf4-0611cdb620c8">
-                    <inputEntry id="_e0082937-feb0-48f9-bbf4-0611cdb620c8-0">
-                        <text>false</text>
-                    </inputEntry>
-                    <inputEntry id="_e0082937-feb0-48f9-bbf4-0611cdb620c8-1">
-                        <text>&lt;100</text>
-                    </inputEntry>
-                    <outputEntry id="_e0082937-feb0-48f9-bbf4-0611cdb620c8-2">
-                        <text>"HIGH"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_d2ecd3bd-aa41-4f52-a09e-af12156d93f4">
-                    <inputEntry id="_d2ecd3bd-aa41-4f52-a09e-af12156d93f4-0">
-                        <text>false</text>
-                    </inputEntry>
-                    <inputEntry id="_d2ecd3bd-aa41-4f52-a09e-af12156d93f4-1">
-                        <text>[100..120)</text>
-                    </inputEntry>
-                    <outputEntry id="_d2ecd3bd-aa41-4f52-a09e-af12156d93f4-2">
-                        <text>"MEDIUM"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_f683499b-2beb-476d-ae18-90caf9eb929a">
-                    <inputEntry id="_f683499b-2beb-476d-ae18-90caf9eb929a-0">
-                        <text>false</text>
-                    </inputEntry>
-                    <inputEntry id="_f683499b-2beb-476d-ae18-90caf9eb929a-1">
-                        <text>[120..130)</text>
-                    </inputEntry>
-                    <outputEntry id="_f683499b-2beb-476d-ae18-90caf9eb929a-2">
-                        <text>"LOW"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_606eca29-2fb8-42c8-8eda-e3bc15c7cdf0">
-                    <inputEntry id="_606eca29-2fb8-42c8-8eda-e3bc15c7cdf0-0">
-                        <text>false</text>
-                    </inputEntry>
-                    <inputEntry id="_606eca29-2fb8-42c8-8eda-e3bc15c7cdf0-1">
-                        <text>&gt;130</text>
-                    </inputEntry>
-                    <outputEntry id="_606eca29-2fb8-42c8-8eda-e3bc15c7cdf0-2">
-                        <text>"VERY LOW"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_ff97cf45-e2a7-43c1-9b06-1a4caadf519c">
-                    <inputEntry id="_ff97cf45-e2a7-43c1-9b06-1a4caadf519c-0">
-                        <text>true</text>
-                    </inputEntry>
-                    <inputEntry id="_ff97cf45-e2a7-43c1-9b06-1a4caadf519c-1">
-                        <text>&lt;80</text>
-                    </inputEntry>
-                    <outputEntry id="_ff97cf45-e2a7-43c1-9b06-1a4caadf519c-2">
-                        <text>"DECLINE"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_3457a501-8de9-49a5-ac44-9521aa94f332">
-                    <inputEntry id="_3457a501-8de9-49a5-ac44-9521aa94f332-0">
-                        <text>true</text>
-                    </inputEntry>
-                    <inputEntry id="_3457a501-8de9-49a5-ac44-9521aa94f332-1">
-                        <text>[80..90)</text>
-                    </inputEntry>
-                    <outputEntry id="_3457a501-8de9-49a5-ac44-9521aa94f332-2">
-                        <text>"HIGH"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_e093dbcb-d26b-4124-9a1f-77bf4db3ee0e">
-                    <inputEntry id="_e093dbcb-d26b-4124-9a1f-77bf4db3ee0e-0">
-                        <text>true</text>
-                    </inputEntry>
-                    <inputEntry id="_e093dbcb-d26b-4124-9a1f-77bf4db3ee0e-1">
-                        <text>[90..110]</text>
-                    </inputEntry>
-                    <outputEntry id="_e093dbcb-d26b-4124-9a1f-77bf4db3ee0e-2">
-                        <text>"MEDIUM"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_f1f6c928-57b4-4bed-be7e-eebec9e0400a">
-                    <inputEntry id="_f1f6c928-57b4-4bed-be7e-eebec9e0400a-0">
-                        <text>true</text>
-                    </inputEntry>
-                    <inputEntry id="_f1f6c928-57b4-4bed-be7e-eebec9e0400a-1">
-                        <text>&gt;110</text>
-                    </inputEntry>
-                    <outputEntry id="_f1f6c928-57b4-4bed-be7e-eebec9e0400a-2">
-                        <text>"LOW"</text>
-                    </outputEntry>
-                </rule>
-            </decisionTable>
-        </encapsulatedLogic>
-        <variable typeRef="feel:string" name="PreBureauRiskCategoryTable"/>
-    </businessKnowledgeModel>
-    <businessKnowledgeModel name="PostBureauRiskCategoryTable" id="b_Post-bureauRiskCategoryTable">
-        <encapsulatedLogic>
-            <formalParameter typeRef="feel:boolean" name="ExistingCustomer"/>
-            <formalParameter typeRef="feel:number" name="ApplicationRiskScore"/>
-            <formalParameter typeRef="feel:number" name="CreditScore"/>
-            <decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row" outputLabel="Post-bureauRiskCategoryTable">
-                <input id="_0859d2fc-bb13-4eaa-bebf-4bf8f0866c49" label="ExistingCustomer">
-                    <inputExpression typeRef="feel:string">
-                        <text>ExistingCustomer</text>
-                    </inputExpression>
-                </input>
-                <input id="_fba27bc9-7678-4457-893e-6bc96fc69626" label="ApplicationRiskScore">
-                    <inputExpression typeRef="feel:string">
-                        <text>ApplicationRiskScore</text>
-                    </inputExpression>
-                </input>
-                <input id="_b54042e3-1fe7-4fb3-90d6-ec528047fafb" label="CreditScore">
-                    <inputExpression typeRef="feel:string">
-                        <text>CreditScore</text>
-                    </inputExpression>
-                </input>
-                <output id="_be066d93-7cda-4a46-ae37-ab508c0bd738"/>
-                <rule id="_cc9cbf6c-40b2-4fae-9e93-c38718aa4c15">
-                    <inputEntry id="_cc9cbf6c-40b2-4fae-9e93-c38718aa4c15-0">
-                        <text>false</text>
-                    </inputEntry>
-                    <inputEntry id="_cc9cbf6c-40b2-4fae-9e93-c38718aa4c15-1">
-                        <text>&lt;120</text>
-                    </inputEntry>
-                    <inputEntry id="_cc9cbf6c-40b2-4fae-9e93-c38718aa4c15-2">
-                        <text>&lt;590</text>
-                    </inputEntry>
-                    <outputEntry id="_cc9cbf6c-40b2-4fae-9e93-c38718aa4c15-3">
-                        <text>"HIGH"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_0d6ad398-440b-4a9a-b5e7-d8331ba9e4d2">
-                    <inputEntry id="_0d6ad398-440b-4a9a-b5e7-d8331ba9e4d2-0">
-                        <text>false</text>
-                    </inputEntry>
-                    <inputEntry id="_0d6ad398-440b-4a9a-b5e7-d8331ba9e4d2-1">
-                        <text>&lt;120</text>
-                    </inputEntry>
-                    <inputEntry id="_0d6ad398-440b-4a9a-b5e7-d8331ba9e4d2-2">
-                        <text>[590..610]</text>
-                    </inputEntry>
-                    <outputEntry id="_0d6ad398-440b-4a9a-b5e7-d8331ba9e4d2-3">
-                        <text>"MEDIUM"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_481b8823-7ab7-4e4e-9b70-d318096dd61d">
-                    <inputEntry id="_481b8823-7ab7-4e4e-9b70-d318096dd61d-0">
-                        <text>false</text>
-                    </inputEntry>
-                    <inputEntry id="_481b8823-7ab7-4e4e-9b70-d318096dd61d-1">
-                        <text>&lt;120</text>
-                    </inputEntry>
-                    <inputEntry id="_481b8823-7ab7-4e4e-9b70-d318096dd61d-2">
-                        <text>&gt;610</text>
-                    </inputEntry>
-                    <outputEntry id="_481b8823-7ab7-4e4e-9b70-d318096dd61d-3">
-                        <text>"LOW"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_9b1faa6a-3036-48f6-9dc3-c9dd5730f279">
-                    <inputEntry id="_9b1faa6a-3036-48f6-9dc3-c9dd5730f279-0">
-                        <text>false</text>
-                    </inputEntry>
-                    <inputEntry id="_9b1faa6a-3036-48f6-9dc3-c9dd5730f279-1">
-                        <text>[120..130]</text>
-                    </inputEntry>
-                    <inputEntry id="_9b1faa6a-3036-48f6-9dc3-c9dd5730f279-2">
-                        <text>&lt;600</text>
-                    </inputEntry>
-                    <outputEntry id="_9b1faa6a-3036-48f6-9dc3-c9dd5730f279-3">
-                        <text>"HIGH"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_578c86e3-e237-4dd3-bdb2-f22bc2fc748f">
-                    <inputEntry id="_578c86e3-e237-4dd3-bdb2-f22bc2fc748f-0">
-                        <text>false</text>
-                    </inputEntry>
-                    <inputEntry id="_578c86e3-e237-4dd3-bdb2-f22bc2fc748f-1">
-                        <text>[120..130]</text>
-                    </inputEntry>
-                    <inputEntry id="_578c86e3-e237-4dd3-bdb2-f22bc2fc748f-2">
-                        <text>[600..625]</text>
-                    </inputEntry>
-                    <outputEntry id="_578c86e3-e237-4dd3-bdb2-f22bc2fc748f-3">
-                        <text>"MEDIUM"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_2c381fb4-ba8c-42b5-9e2a-8e7afdaa1488">
-                    <inputEntry id="_2c381fb4-ba8c-42b5-9e2a-8e7afdaa1488-0">
-                        <text>false</text>
-                    </inputEntry>
-                    <inputEntry id="_2c381fb4-ba8c-42b5-9e2a-8e7afdaa1488-1">
-                        <text>[120..130]</text>
-                    </inputEntry>
-                    <inputEntry id="_2c381fb4-ba8c-42b5-9e2a-8e7afdaa1488-2">
-                        <text>&gt;625</text>
-                    </inputEntry>
-                    <outputEntry id="_2c381fb4-ba8c-42b5-9e2a-8e7afdaa1488-3">
-                        <text>"LOW"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_181968ef-d435-456b-a0cd-38223ef291dc">
-                    <inputEntry id="_181968ef-d435-456b-a0cd-38223ef291dc-0">
-                        <text>false</text>
-                    </inputEntry>
-                    <inputEntry id="_181968ef-d435-456b-a0cd-38223ef291dc-1">
-                        <text>&gt;130</text>
-                    </inputEntry>
-                    <inputEntry id="_181968ef-d435-456b-a0cd-38223ef291dc-2">
-                        <text>-</text>
-                    </inputEntry>
-                    <outputEntry id="_181968ef-d435-456b-a0cd-38223ef291dc-3">
-                        <text>"VERY LOW"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_08c84023-da86-42d4-ba49-b3e741dacbdb">
-                    <inputEntry id="_08c84023-da86-42d4-ba49-b3e741dacbdb-0">
-                        <text>true</text>
-                    </inputEntry>
-                    <inputEntry id="_08c84023-da86-42d4-ba49-b3e741dacbdb-1">
-                        <text>&lt;=100</text>
-                    </inputEntry>
-                    <inputEntry id="_08c84023-da86-42d4-ba49-b3e741dacbdb-2">
-                        <text>&lt;580</text>
-                    </inputEntry>
-                    <outputEntry id="_08c84023-da86-42d4-ba49-b3e741dacbdb-3">
-                        <text>"HIGH"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_a670400b-bded-45d4-b8b9-f9870fda8817">
-                    <inputEntry id="_a670400b-bded-45d4-b8b9-f9870fda8817-0">
-                        <text>true</text>
-                    </inputEntry>
-                    <inputEntry id="_a670400b-bded-45d4-b8b9-f9870fda8817-1">
-                        <text>&lt;=100</text>
-                    </inputEntry>
-                    <inputEntry id="_a670400b-bded-45d4-b8b9-f9870fda8817-2">
-                        <text>[580..600]</text>
-                    </inputEntry>
-                    <outputEntry id="_a670400b-bded-45d4-b8b9-f9870fda8817-3">
-                        <text>"MEDIUM"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_f0f466a3-0b6a-41fe-b109-d655eba844e7">
-                    <inputEntry id="_f0f466a3-0b6a-41fe-b109-d655eba844e7-0">
-                        <text>true</text>
-                    </inputEntry>
-                    <inputEntry id="_f0f466a3-0b6a-41fe-b109-d655eba844e7-1">
-                        <text>&lt;=100</text>
-                    </inputEntry>
-                    <inputEntry id="_f0f466a3-0b6a-41fe-b109-d655eba844e7-2">
-                        <text>&gt;600</text>
-                    </inputEntry>
-                    <outputEntry id="_f0f466a3-0b6a-41fe-b109-d655eba844e7-3">
-                        <text>"LOW"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_b8742c40-6ec2-4848-81a8-337e8ce7c5e1">
-                    <inputEntry id="_b8742c40-6ec2-4848-81a8-337e8ce7c5e1-0">
-                        <text>true</text>
-                    </inputEntry>
-                    <inputEntry id="_b8742c40-6ec2-4848-81a8-337e8ce7c5e1-1">
-                        <text>&gt;100</text>
-                    </inputEntry>
-                    <inputEntry id="_b8742c40-6ec2-4848-81a8-337e8ce7c5e1-2">
-                        <text>&lt;590</text>
-                    </inputEntry>
-                    <outputEntry id="_b8742c40-6ec2-4848-81a8-337e8ce7c5e1-3">
-                        <text>"HIGH"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_2eba5777-6ff9-46b8-a445-a41afb2cdcf9">
-                    <inputEntry id="_2eba5777-6ff9-46b8-a445-a41afb2cdcf9-0">
-                        <text>true</text>
-                    </inputEntry>
-                    <inputEntry id="_2eba5777-6ff9-46b8-a445-a41afb2cdcf9-1">
-                        <text>&gt;100</text>
-                    </inputEntry>
-                    <inputEntry id="_2eba5777-6ff9-46b8-a445-a41afb2cdcf9-2">
-                        <text>[590..615]</text>
-                    </inputEntry>
-                    <outputEntry id="_2eba5777-6ff9-46b8-a445-a41afb2cdcf9-3">
-                        <text>"MEDIUM"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_ba0ef1af-02b0-4a89-b75b-901d5044bbe4">
-                    <inputEntry id="_ba0ef1af-02b0-4a89-b75b-901d5044bbe4-0">
-                        <text>true</text>
-                    </inputEntry>
-                    <inputEntry id="_ba0ef1af-02b0-4a89-b75b-901d5044bbe4-1">
-                        <text>&gt;100</text>
-                    </inputEntry>
-                    <inputEntry id="_ba0ef1af-02b0-4a89-b75b-901d5044bbe4-2">
-                        <text>&gt;615</text>
-                    </inputEntry>
-                    <outputEntry id="_ba0ef1af-02b0-4a89-b75b-901d5044bbe4-3">
-                        <text>"LOW"</text>
-                    </outputEntry>
-                </rule>
-            </decisionTable>
-        </encapsulatedLogic>
-        <variable typeRef="feel:string" name="PostBureauRiskCategoryTable"/>
-    </businessKnowledgeModel>
-    <businessKnowledgeModel name="ApplicationRiskScoreModel" id="b_ApplicationRiskScoreModel">
-        <encapsulatedLogic>
-            <formalParameter typeRef="feel:number" name="Age"/>
-            <formalParameter typeRef="feel:string" name="MaritalStatus"/>
-            <formalParameter typeRef="feel:string" name="EmploymentStatus"/>
-            <decisionTable hitPolicy="COLLECT" aggregation="SUM" preferredOrientation="Rule-as-Row" outputLabel="ApplicationRiskScoreModel">
-                <input id="_dc6c54d5-80a0-4b78-aa83-0a33802de55c" label="Age">
-                    <inputExpression typeRef="feel:number">
-                        <text>Age</text>
-                    </inputExpression>
-                    <inputValues>
-                        <text>[18..120]</text>
-                    </inputValues>
-                </input>
-                <input id="_ee956a72-302e-4c89-89a5-1cae18915df9" label="MaritalStatus">
-                    <inputExpression typeRef="feel:string">
-                        <text>MaritalStatus</text>
-                    </inputExpression>
-                    <inputValues>
-                        <text>"S", "M"</text>
-                    </inputValues>
-                </input>
-                <input id="_d6432000-3b07-465e-b31c-8576677b8d39" label="EmploymentStatus">
-                    <inputExpression typeRef="feel:string">
-                        <text>EmploymentStatus</text>
-                    </inputExpression>
-                    <inputValues>
-                        <text>"UNEMPLOYED", "EMPLOYED", "SELF-EMPLOYED", "STUDENT"</text>
-                    </inputValues>
-                </input>
-                <output id="_79391b75-39ec-44d1-8104-c2d0b09b2523"/>
-                <rule id="_a3bbf3c8-5315-4fd9-862c-810518b2ab6d">
-                    <inputEntry id="_a3bbf3c8-5315-4fd9-862c-810518b2ab6d-0">
-                        <text>[18..21]</text>
-                    </inputEntry>
-                    <inputEntry id="_a3bbf3c8-5315-4fd9-862c-810518b2ab6d-1">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_a3bbf3c8-5315-4fd9-862c-810518b2ab6d-2">
-                        <text>-</text>
-                    </inputEntry>
-                    <outputEntry id="_a3bbf3c8-5315-4fd9-862c-810518b2ab6d-3">
-                        <text>32</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_cacdc480-72be-4225-b053-f066c28dbe47">
-                    <inputEntry id="_cacdc480-72be-4225-b053-f066c28dbe47-0">
-                        <text>[22..25]</text>
-                    </inputEntry>
-                    <inputEntry id="_cacdc480-72be-4225-b053-f066c28dbe47-1">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_cacdc480-72be-4225-b053-f066c28dbe47-2">
-                        <text>-</text>
-                    </inputEntry>
-                    <outputEntry id="_cacdc480-72be-4225-b053-f066c28dbe47-3">
-                        <text>35</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_eade01fe-857d-4d41-ae69-d355b94e06bc">
-                    <inputEntry id="_eade01fe-857d-4d41-ae69-d355b94e06bc-0">
-                        <text>[26..35]</text>
-                    </inputEntry>
-                    <inputEntry id="_eade01fe-857d-4d41-ae69-d355b94e06bc-1">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_eade01fe-857d-4d41-ae69-d355b94e06bc-2">
-                        <text>-</text>
-                    </inputEntry>
-                    <outputEntry id="_eade01fe-857d-4d41-ae69-d355b94e06bc-3">
-                        <text>40</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_31f5ffb6-d991-4f62-a050-6cd80a4b8d82">
-                    <inputEntry id="_31f5ffb6-d991-4f62-a050-6cd80a4b8d82-0">
-                        <text>[36..49]</text>
-                    </inputEntry>
-                    <inputEntry id="_31f5ffb6-d991-4f62-a050-6cd80a4b8d82-1">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_31f5ffb6-d991-4f62-a050-6cd80a4b8d82-2">
-                        <text>-</text>
-                    </inputEntry>
-                    <outputEntry id="_31f5ffb6-d991-4f62-a050-6cd80a4b8d82-3">
-                        <text>43</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_b5245861-10b9-4db1-a2e6-7fbdae837a67">
-                    <inputEntry id="_b5245861-10b9-4db1-a2e6-7fbdae837a67-0">
-                        <text>&gt;=50</text>
-                    </inputEntry>
-                    <inputEntry id="_b5245861-10b9-4db1-a2e6-7fbdae837a67-1">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_b5245861-10b9-4db1-a2e6-7fbdae837a67-2">
-                        <text>-</text>
-                    </inputEntry>
-                    <outputEntry id="_b5245861-10b9-4db1-a2e6-7fbdae837a67-3">
-                        <text>48</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_4caf7dc6-aa7d-4f5a-9eec-4c403083b4c5">
-                    <inputEntry id="_4caf7dc6-aa7d-4f5a-9eec-4c403083b4c5-0">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_4caf7dc6-aa7d-4f5a-9eec-4c403083b4c5-1">
-                        <text>"S"</text>
-                    </inputEntry>
-                    <inputEntry id="_4caf7dc6-aa7d-4f5a-9eec-4c403083b4c5-2">
-                        <text>-</text>
-                    </inputEntry>
-                    <outputEntry id="_4caf7dc6-aa7d-4f5a-9eec-4c403083b4c5-3">
-                        <text>25</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_4034dd3e-0366-455f-bcba-1d7a7c59ba7f">
-                    <inputEntry id="_4034dd3e-0366-455f-bcba-1d7a7c59ba7f-0">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_4034dd3e-0366-455f-bcba-1d7a7c59ba7f-1">
-                        <text>"M"</text>
-                    </inputEntry>
-                    <inputEntry id="_4034dd3e-0366-455f-bcba-1d7a7c59ba7f-2">
-                        <text>-</text>
-                    </inputEntry>
-                    <outputEntry id="_4034dd3e-0366-455f-bcba-1d7a7c59ba7f-3">
-                        <text>45</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_51933974-5c70-44be-892d-20fbb6af66a9">
-                    <inputEntry id="_51933974-5c70-44be-892d-20fbb6af66a9-0">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_51933974-5c70-44be-892d-20fbb6af66a9-1">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_51933974-5c70-44be-892d-20fbb6af66a9-2">
-                        <text>"UNEMPLOYED"</text>
-                    </inputEntry>
-                    <outputEntry id="_51933974-5c70-44be-892d-20fbb6af66a9-3">
-                        <text>15</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_3d3a596f-6e83-483b-96e6-715b33ba7af5">
-                    <inputEntry id="_3d3a596f-6e83-483b-96e6-715b33ba7af5-0">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_3d3a596f-6e83-483b-96e6-715b33ba7af5-1">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_3d3a596f-6e83-483b-96e6-715b33ba7af5-2">
-                        <text>"EMPLOYED"</text>
-                    </inputEntry>
-                    <outputEntry id="_3d3a596f-6e83-483b-96e6-715b33ba7af5-3">
-                        <text>45</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_732fd2fe-c312-4be5-8fb4-fd6699a28ec0">
-                    <inputEntry id="_732fd2fe-c312-4be5-8fb4-fd6699a28ec0-0">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_732fd2fe-c312-4be5-8fb4-fd6699a28ec0-1">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_732fd2fe-c312-4be5-8fb4-fd6699a28ec0-2">
-                        <text>"SELF-EMPLOYED"</text>
-                    </inputEntry>
-                    <outputEntry id="_732fd2fe-c312-4be5-8fb4-fd6699a28ec0-3">
-                        <text>36</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_cea5e26e-43e0-4457-9ae8-c8c1fcbc22f1">
-                    <inputEntry id="_cea5e26e-43e0-4457-9ae8-c8c1fcbc22f1-0">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_cea5e26e-43e0-4457-9ae8-c8c1fcbc22f1-1">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_cea5e26e-43e0-4457-9ae8-c8c1fcbc22f1-2">
-                        <text>"STUDENT"</text>
-                    </inputEntry>
-                    <outputEntry id="_cea5e26e-43e0-4457-9ae8-c8c1fcbc22f1-3">
-                        <text>18</text>
-                    </outputEntry>
-                </rule>
-            </decisionTable>
-        </encapsulatedLogic>
-        <variable typeRef="feel:number" name="ApplicationRiskScoreModel"/>
-    </businessKnowledgeModel>
-    <businessKnowledgeModel name="InstallmentCalculation" id="b_InstallmentCalculation">
-        <encapsulatedLogic>
-            <formalParameter typeRef="feel:string" name="ProductType"/>
-            <formalParameter typeRef="feel:number" name="Rate"/>
-            <formalParameter typeRef="feel:number" name="Term"/>
-            <formalParameter typeRef="feel:number" name="Amount"/>
-            <context>
-                <contextEntry>
-                    <variable typeRef="feel:number" name="MonthlyFee"/>
-                    <literalExpression>
-                        <text>if ProductType ="STANDARD LOAN" then 20.00 else if ProductType ="SPECIAL LOAN" then 25.00 else null</text>
-                    </literalExpression>
-                </contextEntry>
-                <contextEntry>
-                    <variable typeRef="feel:number" name="MonthlyRepayment"/>
-                    <literalExpression>
-                        <text>(Amount *Rate/12) / (1 - (1 + Rate/12)**-Term)</text>
-                    </literalExpression>
-                </contextEntry>
-                <contextEntry>
-                    <literalExpression>
-                        <text>MonthlyRepayment+MonthlyFee</text>
-                    </literalExpression>
-                </contextEntry>
-            </context>
-        </encapsulatedLogic>
-        <variable typeRef="feel:number" name="InstallmentCalculation"/>
-    </businessKnowledgeModel>
-    <businessKnowledgeModel name="RoutingRules" id="b_RoutingRules">
-        <encapsulatedLogic>
-            <formalParameter typeRef="tns:tRiskCategory" name="PostBureauRiskCategory"/>
-            <formalParameter typeRef="feel:boolean" name="PostBureauAffordability"/>
-            <formalParameter typeRef="feel:boolean" name="Bankrupt"/>
-            <formalParameter typeRef="feel:number" name="CreditScore"/>
-            <decisionTable hitPolicy="PRIORITY" preferredOrientation="Rule-as-Row" outputLabel="RoutingRules">
-                <input id="_e4d34fbe-9d83-4126-a268-6ff44d6d33c0" label="Post-bureauRiskCategory">
-                    <inputExpression typeRef="feel:string">
-                        <text>PostBureauRiskCategory</text>
-                    </inputExpression>
-                </input>
-                <input id="_fc1055cf-ab08-44a0-91bc-2d6539df00c5" label="Post-bureauAffordability">
-                    <inputExpression typeRef="feel:string">
-                        <text>PostBureauAffordability</text>
-                    </inputExpression>
-                </input>
-                <input id="_17cf72a2-81db-4ee3-a599-aaa70699fdf7" label="Bankrupt">
-                    <inputExpression typeRef="feel:boolean">
-                        <text>Bankrupt</text>
-                    </inputExpression>
-                </input>
-                <input id="_f692dbba-dc13-4076-a5ba-275041c0b944" label="CreditScore">
-                    <inputExpression typeRef="feel:string">
-                        <text>CreditScore</text>
-                    </inputExpression>
-                </input>
-                <output id="_4b478b34-a8f7-4019-a667-1c78d64154fe">
-                    <outputValues>
-                        <text>"DECLINE", "REFER", "ACCEPT"</text>
-                    </outputValues>
-                </output>
-                <rule id="_e7e1be73-1250-49ca-ac8c-0163f4df4eaf">
-                    <inputEntry id="_e7e1be73-1250-49ca-ac8c-0163f4df4eaf-0">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_e7e1be73-1250-49ca-ac8c-0163f4df4eaf-1">
-                        <text>false</text>
-                    </inputEntry>
-                    <inputEntry id="_e7e1be73-1250-49ca-ac8c-0163f4df4eaf-2">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_e7e1be73-1250-49ca-ac8c-0163f4df4eaf-3">
-                        <text>-</text>
-                    </inputEntry>
-                    <outputEntry id="_e7e1be73-1250-49ca-ac8c-0163f4df4eaf-4">
-                        <text>"DECLINE"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_a905d88e-eb62-4f5f-8447-32f541ebd31a">
-                    <inputEntry id="_a905d88e-eb62-4f5f-8447-32f541ebd31a-0">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_a905d88e-eb62-4f5f-8447-32f541ebd31a-1">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_a905d88e-eb62-4f5f-8447-32f541ebd31a-2">
-                        <text>true</text>
-                    </inputEntry>
-                    <inputEntry id="_a905d88e-eb62-4f5f-8447-32f541ebd31a-3">
-                        <text>-</text>
-                    </inputEntry>
-                    <outputEntry id="_a905d88e-eb62-4f5f-8447-32f541ebd31a-4">
-                        <text>"DECLINE"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_36d8f903-d158-4d18-970a-9a53d4a8c69e">
-                    <inputEntry id="_36d8f903-d158-4d18-970a-9a53d4a8c69e-0">
-                        <text>"HIGH"</text>
-                    </inputEntry>
-                    <inputEntry id="_36d8f903-d158-4d18-970a-9a53d4a8c69e-1">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_36d8f903-d158-4d18-970a-9a53d4a8c69e-2">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_36d8f903-d158-4d18-970a-9a53d4a8c69e-3">
-                        <text>-</text>
-                    </inputEntry>
-                    <outputEntry id="_36d8f903-d158-4d18-970a-9a53d4a8c69e-4">
-                        <text>"REFER"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_c51cff41-6161-435b-af3b-17dcbd4591b9">
-                    <inputEntry id="_c51cff41-6161-435b-af3b-17dcbd4591b9-0">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_c51cff41-6161-435b-af3b-17dcbd4591b9-1">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_c51cff41-6161-435b-af3b-17dcbd4591b9-2">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_c51cff41-6161-435b-af3b-17dcbd4591b9-3">
-                        <text>&lt;580</text>
-                    </inputEntry>
-                    <outputEntry id="_c51cff41-6161-435b-af3b-17dcbd4591b9-4">
-                        <text>"REFER"</text>
-                    </outputEntry>
-                </rule>
-                <rule id="_1bb571e8-b791-4967-9c70-77c402982e3b">
-                    <inputEntry id="_1bb571e8-b791-4967-9c70-77c402982e3b-0">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_1bb571e8-b791-4967-9c70-77c402982e3b-1">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_1bb571e8-b791-4967-9c70-77c402982e3b-2">
-                        <text>-</text>
-                    </inputEntry>
-                    <inputEntry id="_1bb571e8-b791-4967-9c70-77c402982e3b-3">
-                        <text>-</text>
-                    </inputEntry>
-                    <outputEntry id="_1bb571e8-b791-4967-9c70-77c402982e3b-4">
-                        <text>"ACCEPT"</text>
-                    </outputEntry>
-                </rule>
-            </decisionTable>
-        </encapsulatedLogic>
-        <variable typeRef="feel:string" name="RoutingRules"/>
-    </businessKnowledgeModel>
-    <inputData name="ApplicantData" id="i_ApplicantData">
-        <variable typeRef="tns:tApplicantData" name="ApplicantData"/>
-    </inputData>
-    <inputData name="BureauData" id="i_BureauData">
-        <variable typeRef="tns:tBureauData" name="BureauData"/>
-    </inputData>
-    <inputData name="RequestedProduct" id="i_RequestedProduct">
-        <variable typeRef="tns:tRequestedProduct" name="RequestedProduct"/>
-    </inputData>
-    <inputData name="SupportingDocuments" id="i_SupportingDocuments">
-        <variable typeRef="feel:string" name="SupportingDocuments"/>
-    </inputData>
-</definitions>
+<dmn:definitions xmlns:dmn="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:tns="http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" expressionLanguage="http://www.omg.org/spec/FEEL/20140401" typeLanguage="http://www.omg.org/spec/FEEL/20140401" namespace="http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b" exporter="DMN Modeler; Method and Style trisofix.xslt" exporterVersion="5.0.32.2; 1.0" name="Lending1" id="_4e0f0b70-d31c-471c-bd52-5ca709ed362b" triso:logoChoice="Default">
+    <dmn:itemDefinition isCollection="false" name="tEligibility">
+        <dmn:typeRef>feel.string</dmn:typeRef>
+        <dmn:allowedValues>
+            <dmn:text>"INELIGIBLE", "ELIGIBLE"</dmn:text>
+        </dmn:allowedValues>
+    </dmn:itemDefinition>
+    <dmn:itemDefinition isCollection="false" name="tBureauCallType">
+        <dmn:typeRef>feel.string</dmn:typeRef>
+        <dmn:allowedValues>
+            <dmn:text>"FULL", "MINI", "NONE"</dmn:text>
+        </dmn:allowedValues>
+    </dmn:itemDefinition>
+    <dmn:itemDefinition isCollection="false" name="tStrategy">
+        <dmn:typeRef>feel.string</dmn:typeRef>
+        <dmn:allowedValues>
+            <dmn:text>"DECLINE", "BUREAU", "THROUGH"</dmn:text>
+        </dmn:allowedValues>
+    </dmn:itemDefinition>
+    <dmn:itemDefinition isCollection="false" name="tRiskCategory">
+        <dmn:typeRef>feel.string</dmn:typeRef>
+        <dmn:allowedValues>
+            <dmn:text>"DECLINE", "HIGH", "MEDIUM", "LOW", "VERY LOW"</dmn:text>
+        </dmn:allowedValues>
+    </dmn:itemDefinition>
+    <dmn:itemDefinition isCollection="false" name="tRouting">
+        <dmn:typeRef>feel.string</dmn:typeRef>
+        <dmn:allowedValues>
+            <dmn:text>"DECLINE", "REFER", "ACCEPT"</dmn:text>
+        </dmn:allowedValues>
+    </dmn:itemDefinition>
+    <dmn:itemDefinition isCollection="false" name="tBureauData">
+        <dmn:itemComponent isCollection="false" name="CreditScore">
+            <dmn:typeRef>feel.number</dmn:typeRef>
+            <dmn:allowedValues>
+                <dmn:text>[0..999], null</dmn:text>
+            </dmn:allowedValues>
+        </dmn:itemComponent>
+        <dmn:itemComponent isCollection="false" name="Bankrupt">
+            <dmn:typeRef>feel.boolean</dmn:typeRef>
+        </dmn:itemComponent>
+    </dmn:itemDefinition>
+    <dmn:itemDefinition isCollection="false" name="tAdjudication">
+        <dmn:typeRef>feel.string</dmn:typeRef>
+        <dmn:allowedValues>
+            <dmn:text>"DECLINE", "ACCEPT"</dmn:text>
+        </dmn:allowedValues>
+    </dmn:itemDefinition>
+    <dmn:itemDefinition isCollection="false" name="tApplicantData">
+        <dmn:itemComponent isCollection="false" name="Monthly">
+            <dmn:itemComponent isCollection="false" name="Income">
+                <dmn:typeRef>feel.number</dmn:typeRef>
+            </dmn:itemComponent>
+            <dmn:itemComponent isCollection="false" name="Expenses">
+                <dmn:typeRef>feel.number</dmn:typeRef>
+            </dmn:itemComponent>
+            <dmn:itemComponent isCollection="false" name="Repayments">
+                <dmn:typeRef>feel.number</dmn:typeRef>
+            </dmn:itemComponent>
+        </dmn:itemComponent>
+        <dmn:itemComponent isCollection="false" name="Age">
+            <dmn:typeRef>feel.number</dmn:typeRef>
+        </dmn:itemComponent>
+        <dmn:itemComponent isCollection="false" name="ExistingCustomer">
+            <dmn:typeRef>feel.boolean</dmn:typeRef>
+        </dmn:itemComponent>
+        <dmn:itemComponent isCollection="false" name="MaritalStatus">
+            <dmn:typeRef>feel.string</dmn:typeRef>
+            <dmn:allowedValues>
+                <dmn:text>"S","M"</dmn:text>
+            </dmn:allowedValues>
+        </dmn:itemComponent>
+        <dmn:itemComponent isCollection="false" name="EmploymentStatus">
+            <dmn:typeRef>feel.string</dmn:typeRef>
+            <dmn:allowedValues>
+                <dmn:text>"EMPLOYED","SELF-EMPLOYED","STUDENT","UNEMPLOYED"</dmn:text>
+            </dmn:allowedValues>
+        </dmn:itemComponent>
+    </dmn:itemDefinition>
+    <dmn:itemDefinition isCollection="false" name="tRequestedProduct">
+        <dmn:itemComponent isCollection="false" name="ProductType">
+            <dmn:typeRef>feel.string</dmn:typeRef>
+            <dmn:allowedValues>
+                <dmn:text>"STANDARD LOAN", "SPECIAL LOAN"</dmn:text>
+            </dmn:allowedValues>
+        </dmn:itemComponent>
+        <dmn:itemComponent isCollection="false" name="Amount">
+            <dmn:typeRef>feel.number</dmn:typeRef>
+        </dmn:itemComponent>
+        <dmn:itemComponent isCollection="false" name="Rate">
+            <dmn:typeRef>feel.number</dmn:typeRef>
+        </dmn:itemComponent>
+        <dmn:itemComponent isCollection="false" name="Term">
+            <dmn:typeRef>feel.number</dmn:typeRef>
+        </dmn:itemComponent>
+    </dmn:itemDefinition>
+    <dmn:decision name="BureauCallType" id="d_BureauCallType">
+        <dmn:variable typeRef="tns.tBureauCallType" name="BureauCallType"/>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#d_Pre-bureauRiskCategory"/>
+        </dmn:informationRequirement>
+        <dmn:knowledgeRequirement>
+            <dmn:requiredKnowledge href="#b_BureauCallTypeTable"/>
+        </dmn:knowledgeRequirement>
+        <dmn:invocation>
+            <dmn:literalExpression>
+                <dmn:text>BureauCallTypeTable</dmn:text>
+            </dmn:literalExpression>
+            <dmn:binding>
+                <dmn:parameter name="PreBureauRiskCategory" id="_65deeb90-626c-4cce-9485-eae9455b2194"/>
+                <dmn:literalExpression>
+                    <dmn:text>PreBureauRiskCategory</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+        </dmn:invocation>
+    </dmn:decision>
+    <dmn:decision name="Strategy" id="d_Strategy">
+        <dmn:question>Is credit bureau call required?</dmn:question>
+        <dmn:allowedAnswers>Yes (BUREAU) or No (DECLINE, THROUGH)</dmn:allowedAnswers>
+        <dmn:variable typeRef="tns.tStrategy" name="Strategy"/>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#d_BureauCallType"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#d_Eligibility"/>
+        </dmn:informationRequirement>
+        <dmn:decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row" outputLabel="Strategy">
+            <dmn:input id="_09a4cf3d-54fa-4232-ada0-e291c67a16c0" label="Eligibility">
+                <dmn:inputExpression typeRef="feel.string">
+                    <dmn:text>Eligibility</dmn:text>
+                </dmn:inputExpression>
+                <dmn:inputValues>
+                    <dmn:text>"ELIGIBLE", "INELIGIBLE"</dmn:text>
+                </dmn:inputValues>
+            </dmn:input>
+            <dmn:input id="_f3816132-3cf1-4414-ab6b-0ed875a5fa1b" label="Bureau Call">
+                <dmn:inputExpression typeRef="feel.string">
+                    <dmn:text>BureauCallType</dmn:text>
+                </dmn:inputExpression>
+                <dmn:inputValues>
+                    <dmn:text>"FULL", "MINI", "NONE"</dmn:text>
+                </dmn:inputValues>
+            </dmn:input>
+            <dmn:output id="_8c01b3c4-216d-4db4-8c5b-4375e6f524be">
+                <dmn:outputValues>
+                    <dmn:text>"DECLINE", "THROUGH", "BUREAU"</dmn:text>
+                </dmn:outputValues>
+            </dmn:output>
+            <dmn:rule id="_cc1cbffe-d1fe-4646-bc2e-df2bf08cb661">
+                <dmn:inputEntry id="_cc1cbffe-d1fe-4646-bc2e-df2bf08cb661-0">
+                    <dmn:text>"INELIGIBLE"</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_cc1cbffe-d1fe-4646-bc2e-df2bf08cb661-1">
+                    <dmn:text>-</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_cc1cbffe-d1fe-4646-bc2e-df2bf08cb661-2">
+                    <dmn:text>"DECLINE"</dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+            <dmn:rule id="_fbe095b9-b6b8-42f8-b980-3db4fb2dbe12">
+                <dmn:inputEntry id="_fbe095b9-b6b8-42f8-b980-3db4fb2dbe12-0">
+                    <dmn:text>"ELIGIBLE"</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_fbe095b9-b6b8-42f8-b980-3db4fb2dbe12-1">
+                    <dmn:text>"FULL","MINI"</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_fbe095b9-b6b8-42f8-b980-3db4fb2dbe12-2">
+                    <dmn:text>"BUREAU"</dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+            <dmn:rule id="_9af79b26-005f-4855-a66c-88401349bb72">
+                <dmn:inputEntry id="_9af79b26-005f-4855-a66c-88401349bb72-0">
+                    <dmn:text>"ELIGIBLE"</dmn:text>
+                </dmn:inputEntry>
+                <dmn:inputEntry id="_9af79b26-005f-4855-a66c-88401349bb72-1">
+                    <dmn:text>"NONE"</dmn:text>
+                </dmn:inputEntry>
+                <dmn:outputEntry id="_9af79b26-005f-4855-a66c-88401349bb72-2">
+                    <dmn:text>"THROUGH"</dmn:text>
+                </dmn:outputEntry>
+            </dmn:rule>
+        </dmn:decisionTable>
+    </dmn:decision>
+    <dmn:decision name="Eligibility" id="d_Eligibility">
+        <dmn:variable typeRef="tns.tEligibility" name="Eligibility"/>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#d_Pre-bureauAffordability"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#d_Pre-bureauRiskCategory"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#i_ApplicantData"/>
+        </dmn:informationRequirement>
+        <dmn:knowledgeRequirement>
+            <dmn:requiredKnowledge href="#b_EligibilityRules"/>
+        </dmn:knowledgeRequirement>
+        <dmn:invocation>
+            <dmn:literalExpression>
+                <dmn:text>EligibilityRules</dmn:text>
+            </dmn:literalExpression>
+            <dmn:binding>
+                <dmn:parameter name="PreBureauAffordability" id="_83d27025-44c2-4bb2-8747-ae3d40e97f25"/>
+                <dmn:literalExpression>
+                    <dmn:text>PreBureauAffordability</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+            <dmn:binding>
+                <dmn:parameter name="PreBureauRiskCategory" id="_b5fe2d0c-1d71-4c98-b0c6-a821b854ffc4"/>
+                <dmn:literalExpression>
+                    <dmn:text>PreBureauRiskCategory</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+            <dmn:binding>
+                <dmn:parameter name="Age" id="_87021512-68d6-40ba-a159-165a701c197b"/>
+                <dmn:literalExpression>
+                    <dmn:text>ApplicantData.Age</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+        </dmn:invocation>
+    </dmn:decision>
+    <dmn:decision name="PreBureauRiskCategory" id="d_Pre-bureauRiskCategory">
+        <dmn:variable typeRef="tns.tRiskCategory" name="PreBureauRiskCategory"/>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#d_ApplicationRiskScore"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#i_ApplicantData"/>
+        </dmn:informationRequirement>
+        <dmn:knowledgeRequirement>
+            <dmn:requiredKnowledge href="#b_Pre-bureauRiskCategoryTable"/>
+        </dmn:knowledgeRequirement>
+        <dmn:invocation>
+            <dmn:literalExpression>
+                <dmn:text>PreBureauRiskCategoryTable</dmn:text>
+            </dmn:literalExpression>
+            <dmn:binding>
+                <dmn:parameter name="ExistingCustomer" id="_a4ffd56c-aca1-4cf0-84e0-44fefecb5f48"/>
+                <dmn:literalExpression>
+                    <dmn:text>ApplicantData.ExistingCustomer</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+            <dmn:binding>
+                <dmn:parameter name="ApplicationRiskScore" id="_eb561110-cd9a-4f96-9170-f32b2e6c13f6"/>
+                <dmn:literalExpression>
+                    <dmn:text>ApplicationRiskScore</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+        </dmn:invocation>
+    </dmn:decision>
+    <dmn:decision name="PostBureauRiskCategory" id="d_Post-bureauRiskCategory">
+        <dmn:variable typeRef="tns.tRiskCategory" name="PostBureauRiskCategory"/>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#d_ApplicationRiskScore"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#i_BureauData"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#i_ApplicantData"/>
+        </dmn:informationRequirement>
+        <dmn:knowledgeRequirement>
+            <dmn:requiredKnowledge href="#b_Post-bureauRiskCategoryTable"/>
+        </dmn:knowledgeRequirement>
+        <dmn:invocation>
+            <dmn:literalExpression>
+                <dmn:text>PostBureauRiskCategoryTable</dmn:text>
+            </dmn:literalExpression>
+            <dmn:binding>
+                <dmn:parameter name="ExistingCustomer" id="_a5eee7ca-e12f-49fe-80cb-54a7a5a7912e"/>
+                <dmn:literalExpression>
+                    <dmn:text>ApplicantData.ExistingCustomer</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+            <dmn:binding>
+                <dmn:parameter name="CreditScore" id="_980eaa9b-461d-49fd-bfc0-d115e8261b8b"/>
+                <dmn:literalExpression>
+                    <dmn:text>BureauData.CreditScore</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+            <dmn:binding>
+                <dmn:parameter name="ApplicationRiskScore" id="_222a3f84-eb98-439a-8ea8-6c1460760769"/>
+                <dmn:literalExpression>
+                    <dmn:text>ApplicationRiskScore</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+        </dmn:invocation>
+    </dmn:decision>
+    <dmn:decision name="ApplicationRiskScore" id="d_ApplicationRiskScore">
+        <dmn:variable typeRef="feel.number" name="ApplicationRiskScore"/>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#i_ApplicantData"/>
+        </dmn:informationRequirement>
+        <dmn:knowledgeRequirement>
+            <dmn:requiredKnowledge href="#b_ApplicationRiskScoreModel"/>
+        </dmn:knowledgeRequirement>
+        <dmn:invocation>
+            <dmn:literalExpression>
+                <dmn:text>ApplicationRiskScoreModel</dmn:text>
+            </dmn:literalExpression>
+            <dmn:binding>
+                <dmn:parameter name="Age" id="_624532fc-b467-4118-a6d9-498d2891e654"/>
+                <dmn:literalExpression>
+                    <dmn:text>ApplicantData.Age</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+            <dmn:binding>
+                <dmn:parameter name="MaritalStatus" id="_a90e9150-f937-446c-94e3-14b13deb1aa7"/>
+                <dmn:literalExpression>
+                    <dmn:text>ApplicantData.MaritalStatus</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+            <dmn:binding>
+                <dmn:parameter name="EmploymentStatus" id="_794f4a7e-a4de-4777-b7b6-5f83df6584dd"/>
+                <dmn:literalExpression>
+                    <dmn:text>ApplicantData.EmploymentStatus</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+        </dmn:invocation>
+    </dmn:decision>
+    <dmn:decision name="PreBureauAffordability" id="d_Pre-bureauAffordability">
+        <dmn:variable typeRef="feel.boolean" name="PreBureauAffordability"/>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#d_RequiredMonthlyInstallment"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#d_Pre-bureauRiskCategory"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#i_ApplicantData"/>
+        </dmn:informationRequirement>
+        <dmn:knowledgeRequirement>
+            <dmn:requiredKnowledge href="#b_AffordabilityCalculation"/>
+        </dmn:knowledgeRequirement>
+        <dmn:invocation>
+            <dmn:literalExpression>
+                <dmn:text>AffordabilityCalculation</dmn:text>
+            </dmn:literalExpression>
+            <dmn:binding>
+                <dmn:parameter name="MonthlyIncome" id="_688a5d35-c0d1-4faa-b411-2ac96e5db3f2"/>
+                <dmn:literalExpression>
+                    <dmn:text>ApplicantData.Monthly.Income</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+            <dmn:binding>
+                <dmn:parameter name="MonthlyRepayments" id="_fe44410f-d02b-44c5-b696-0c5a53b3d965"/>
+                <dmn:literalExpression>
+                    <dmn:text>ApplicantData.Monthly.Repayments</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+            <dmn:binding>
+                <dmn:parameter name="MonthlyExpenses" id="_3542be62-0447-45db-850a-55ec1c3c59bd"/>
+                <dmn:literalExpression>
+                    <dmn:text>ApplicantData.Monthly.Expenses</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+            <dmn:binding>
+                <dmn:parameter name="RiskCategory" id="_05524e98-e76d-4109-ac99-f5090cd7bb48"/>
+                <dmn:literalExpression>
+                    <dmn:text>PreBureauRiskCategory</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+            <dmn:binding>
+                <dmn:parameter name="RequiredMonthlyInstallment" id="_be179be3-8be2-4abc-81d9-9540abe25e06"/>
+                <dmn:literalExpression>
+                    <dmn:text>RequiredMonthlyInstallment</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+        </dmn:invocation>
+    </dmn:decision>
+    <dmn:decision name="PostBureauAffordability" id="d_Post-bureauAffordability">
+        <dmn:variable typeRef="feel.boolean" name="PostBureauAffordability"/>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#d_RequiredMonthlyInstallment"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#d_Post-bureauRiskCategory"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#i_ApplicantData"/>
+        </dmn:informationRequirement>
+        <dmn:knowledgeRequirement>
+            <dmn:requiredKnowledge href="#b_AffordabilityCalculation"/>
+        </dmn:knowledgeRequirement>
+        <dmn:invocation>
+            <dmn:literalExpression>
+                <dmn:text>AffordabilityCalculation</dmn:text>
+            </dmn:literalExpression>
+            <dmn:binding>
+                <dmn:parameter name="MonthlyIncome" id="_9ddcd6eb-0154-426f-9752-32c9d64471be"/>
+                <dmn:literalExpression>
+                    <dmn:text>ApplicantData.Monthly.Income</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+            <dmn:binding>
+                <dmn:parameter name="MonthlyRepayments" id="_2ed2cf1c-2dff-4bdc-8cc3-92d0fdc38c81"/>
+                <dmn:literalExpression>
+                    <dmn:text>ApplicantData.Monthly.Repayments</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+            <dmn:binding>
+                <dmn:parameter name="MonthlyExpenses" id="_2d0b4728-c40c-4a0c-980c-81156750bfc1"/>
+                <dmn:literalExpression>
+                    <dmn:text>ApplicantData.Monthly.Expenses</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+            <dmn:binding>
+                <dmn:parameter name="RiskCategory" id="_f75ffcc3-cb93-46cc-82ae-bad3a7202e99"/>
+                <dmn:literalExpression>
+                    <dmn:text>PostBureauRiskCategory</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+            <dmn:binding>
+                <dmn:parameter name="RequiredMonthlyInstallment" id="_0f3e2756-3007-4412-b788-81d01f68399d"/>
+                <dmn:literalExpression>
+                    <dmn:text>RequiredMonthlyInstallment</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+        </dmn:invocation>
+    </dmn:decision>
+    <dmn:decision name="RequiredMonthlyInstallment" id="d_RequiredMonthlyInstallment">
+        <dmn:variable typeRef="feel.number" name="RequiredMonthlyInstallment"/>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#i_RequestedProduct"/>
+        </dmn:informationRequirement>
+        <dmn:knowledgeRequirement>
+            <dmn:requiredKnowledge href="#b_InstallmentCalculation"/>
+        </dmn:knowledgeRequirement>
+        <dmn:invocation>
+            <dmn:literalExpression>
+                <dmn:text>InstallmentCalculation</dmn:text>
+            </dmn:literalExpression>
+            <dmn:binding>
+                <dmn:parameter name="ProductType" id="_2e65e0bd-d6d4-4d73-b806-12b4bc853a17"/>
+                <dmn:literalExpression>
+                    <dmn:text>RequestedProduct.ProductType</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+            <dmn:binding>
+                <dmn:parameter name="Rate" id="_ee9f5360-cc2d-4370-b75e-6895002c1c48"/>
+                <dmn:literalExpression>
+                    <dmn:text>RequestedProduct.Rate</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+            <dmn:binding>
+                <dmn:parameter name="Term" id="_b6fddc07-5494-4878-878c-3e1a96fad9fe"/>
+                <dmn:literalExpression>
+                    <dmn:text>RequestedProduct.Term</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+            <dmn:binding>
+                <dmn:parameter name="Amount" id="_84755f4f-3455-4e76-b182-db4c375b9fb3"/>
+                <dmn:literalExpression>
+                    <dmn:text>RequestedProduct.Amount</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+        </dmn:invocation>
+    </dmn:decision>
+    <dmn:decision name="Routing" id="d_Routing">
+        <dmn:variable typeRef="tns.tRouting" name="Routing"/>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#d_Post-bureauAffordability"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#d_Post-bureauRiskCategory"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#i_BureauData"/>
+        </dmn:informationRequirement>
+        <dmn:knowledgeRequirement>
+            <dmn:requiredKnowledge href="#b_RoutingRules"/>
+        </dmn:knowledgeRequirement>
+        <dmn:invocation>
+            <dmn:literalExpression>
+                <dmn:text>RoutingRules</dmn:text>
+            </dmn:literalExpression>
+            <dmn:binding>
+                <dmn:parameter name="Bankrupt" id="_c2ebec2c-0072-47af-9703-e202cf8af50b"/>
+                <dmn:literalExpression>
+                    <dmn:text>BureauData.Bankrupt</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+            <dmn:binding>
+                <dmn:parameter name="CreditScore" id="_a5193c53-bd02-4579-a249-44ed95dd0c3e"/>
+                <dmn:literalExpression>
+                    <dmn:text>BureauData.CreditScore</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+            <dmn:binding>
+                <dmn:parameter name="PostBureauRiskCategory" id="_4b461288-5d18-44ab-b102-835a91946890"/>
+                <dmn:literalExpression>
+                    <dmn:text>PostBureauRiskCategory</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+            <dmn:binding>
+                <dmn:parameter name="PostBureauAffordability" id="_8846c6e3-65ff-4d46-87b9-7c7cad86ee67"/>
+                <dmn:literalExpression>
+                    <dmn:text>PostBureauAffordability</dmn:text>
+                </dmn:literalExpression>
+            </dmn:binding>
+        </dmn:invocation>
+    </dmn:decision>
+    <dmn:decision name="Adjudication" id="d_Adjudication">
+        <dmn:variable typeRef="tns.tAdjudication" name="Adjudication"/>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#i_BureauData"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#i_SupportingDocuments"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#i_ApplicantData"/>
+        </dmn:informationRequirement>
+        <dmn:literalExpression>
+            <dmn:text>"ACCEPT"</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+    <dmn:businessKnowledgeModel name="AffordabilityCalculation" id="b_AffordabilityCalculation">
+        <dmn:variable typeRef="feel.boolean" name="AffordabilityCalculation"/>
+        <dmn:encapsulatedLogic>
+            <dmn:formalParameter typeRef="feel.number" name="MonthlyIncome"/>
+            <dmn:formalParameter typeRef="feel.number" name="MonthlyRepayments"/>
+            <dmn:formalParameter typeRef="feel.number" name="MonthlyExpenses"/>
+            <dmn:formalParameter typeRef="tns.tRiskCategory" name="RiskCategory"/>
+            <dmn:formalParameter typeRef="feel.number" name="RequiredMonthlyInstallment"/>
+            <dmn:context>
+                <dmn:contextEntry>
+                    <dmn:variable typeRef="feel.number" name="DisposableIncome"/>
+                    <dmn:literalExpression>
+                        <dmn:text>MonthlyIncome - (MonthlyExpenses + MonthlyRepayments)</dmn:text>
+                    </dmn:literalExpression>
+                </dmn:contextEntry>
+                <dmn:contextEntry>
+                    <dmn:variable typeRef="feel.number" name="CreditContingencyFactor"/>
+                    <dmn:invocation>
+                        <dmn:literalExpression>
+                            <dmn:text>CreditContingencyFactorTable</dmn:text>
+                        </dmn:literalExpression>
+                        <dmn:binding>
+                            <dmn:parameter name="RiskCategory" id="_cfbad925-5470-4165-b7f0-0945cf321889"/>
+                            <dmn:literalExpression>
+<dmn:text>RiskCategory</dmn:text>
+                            </dmn:literalExpression>
+                        </dmn:binding>
+                    </dmn:invocation>
+                </dmn:contextEntry>
+                <dmn:contextEntry>
+                    <dmn:variable typeRef="feel.boolean" name="Affordability"/>
+                    <dmn:literalExpression>
+                        <dmn:text>if DisposableIncome * CreditContingencyFactor &gt; RequiredMonthlyInstallment then true else false</dmn:text>
+                    </dmn:literalExpression>
+                </dmn:contextEntry>
+                <dmn:contextEntry>
+                    <dmn:literalExpression>
+                        <dmn:text>Affordability</dmn:text>
+                    </dmn:literalExpression>
+                </dmn:contextEntry>
+            </dmn:context>
+        </dmn:encapsulatedLogic>
+        <dmn:knowledgeRequirement>
+            <dmn:requiredKnowledge href="#b_CreditContingencyFactorTable"/>
+        </dmn:knowledgeRequirement>
+    </dmn:businessKnowledgeModel>
+    <dmn:businessKnowledgeModel name="CreditContingencyFactorTable" id="b_CreditContingencyFactorTable">
+        <dmn:variable typeRef="feel.number" name="CreditContingencyFactorTable"/>
+        <dmn:encapsulatedLogic>
+            <dmn:formalParameter typeRef="tns.tRiskCategory" name="RiskCategory"/>
+            <dmn:decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row" outputLabel="CreditContingencyFactorTable">
+                <dmn:input id="_7cdd3950-9a45-41f0-bef0-dc54240fe4c2" label="RiskCategory">
+                    <dmn:inputExpression typeRef="feel.string">
+                        <dmn:text>RiskCategory</dmn:text>
+                    </dmn:inputExpression>
+                    <dmn:inputValues>
+                        <dmn:text>"DECLINE", "HIGH", "LOW", "MEDIUM", "VERY LOW"</dmn:text>
+                    </dmn:inputValues>
+                </dmn:input>
+                <dmn:output id="_3f5c697d-887c-43b7-abb6-5fa3b27d0824"/>
+                <dmn:rule id="_0fc85427-04a2-4796-8771-a391170b9c13">
+                    <dmn:inputEntry id="_0fc85427-04a2-4796-8771-a391170b9c13-0">
+                        <dmn:text>"HIGH", "DECLINE"</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_0fc85427-04a2-4796-8771-a391170b9c13-1">
+                        <dmn:text>0.6</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_22972ab6-af35-4be0-9bce-965e39f0c7d7">
+                    <dmn:inputEntry id="_22972ab6-af35-4be0-9bce-965e39f0c7d7-0">
+                        <dmn:text>"MEDIUM"</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_22972ab6-af35-4be0-9bce-965e39f0c7d7-1">
+                        <dmn:text>0.7</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_2d46a208-d471-48eb-9ea3-02cfa105fd69">
+                    <dmn:inputEntry id="_2d46a208-d471-48eb-9ea3-02cfa105fd69-0">
+                        <dmn:text>"LOW", "VERY LOW"</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_2d46a208-d471-48eb-9ea3-02cfa105fd69-1">
+                        <dmn:text>0.8</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+            </dmn:decisionTable>
+        </dmn:encapsulatedLogic>
+    </dmn:businessKnowledgeModel>
+    <dmn:businessKnowledgeModel name="EligibilityRules" id="b_EligibilityRules">
+        <dmn:variable typeRef="feel.string" name="EligibilityRules"/>
+        <dmn:encapsulatedLogic>
+            <dmn:formalParameter typeRef="tns.tRiskCategory" name="PreBureauRiskCategory"/>
+            <dmn:formalParameter typeRef="feel.boolean" name="PreBureauAffordability"/>
+            <dmn:formalParameter typeRef="feel.number" name="Age"/>
+            <dmn:decisionTable hitPolicy="PRIORITY" preferredOrientation="Rule-as-Row" outputLabel="EligibilityRules">
+                <dmn:input id="_2bc2f208-6c1d-4411-8a19-c5b424fb8fa9" label="Pre-bureauRiskCategory">
+                    <dmn:inputExpression typeRef="feel.string">
+                        <dmn:text>PreBureauRiskCategory</dmn:text>
+                    </dmn:inputExpression>
+                </dmn:input>
+                <dmn:input id="_1d794320-6e6c-46bf-b86d-de073822d6f6" label="Pre-bureauAffordability">
+                    <dmn:inputExpression typeRef="feel.string">
+                        <dmn:text>PreBureauAffordability</dmn:text>
+                    </dmn:inputExpression>
+                </dmn:input>
+                <dmn:input id="_876096bc-7329-444a-830b-7bd2a06a7982" label="Age">
+                    <dmn:inputExpression typeRef="feel.number">
+                        <dmn:text>Age</dmn:text>
+                    </dmn:inputExpression>
+                </dmn:input>
+                <dmn:output id="_1beb4059-cfc5-4b79-a73d-cdd369ee308a">
+                    <dmn:outputValues>
+                        <dmn:text>"INELIGIBLE", "ELIGIBLE"</dmn:text>
+                    </dmn:outputValues>
+                </dmn:output>
+                <dmn:rule id="_3e475ba3-f5a5-407e-95e9-c4081a6d1479">
+                    <dmn:inputEntry id="_3e475ba3-f5a5-407e-95e9-c4081a6d1479-0">
+                        <dmn:text>"DECLINE"</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_3e475ba3-f5a5-407e-95e9-c4081a6d1479-1">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_3e475ba3-f5a5-407e-95e9-c4081a6d1479-2">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_3e475ba3-f5a5-407e-95e9-c4081a6d1479-3">
+                        <dmn:text>"INELIGIBLE"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_a3e0609d-0176-4920-9fd5-9cd0e51d6335">
+                    <dmn:inputEntry id="_a3e0609d-0176-4920-9fd5-9cd0e51d6335-0">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_a3e0609d-0176-4920-9fd5-9cd0e51d6335-1">
+                        <dmn:text>false</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_a3e0609d-0176-4920-9fd5-9cd0e51d6335-2">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_a3e0609d-0176-4920-9fd5-9cd0e51d6335-3">
+                        <dmn:text>"INELIGIBLE"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_20ed95e5-71f3-4b61-9bf0-b5f47a2ed3ec">
+                    <dmn:inputEntry id="_20ed95e5-71f3-4b61-9bf0-b5f47a2ed3ec-0">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_20ed95e5-71f3-4b61-9bf0-b5f47a2ed3ec-1">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_20ed95e5-71f3-4b61-9bf0-b5f47a2ed3ec-2">
+                        <dmn:text>&lt;18</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_20ed95e5-71f3-4b61-9bf0-b5f47a2ed3ec-3">
+                        <dmn:text>"INELIGIBLE"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_23369b13-bf65-47ed-b0af-9f2c2c118e52">
+                    <dmn:inputEntry id="_23369b13-bf65-47ed-b0af-9f2c2c118e52-0">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_23369b13-bf65-47ed-b0af-9f2c2c118e52-1">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_23369b13-bf65-47ed-b0af-9f2c2c118e52-2">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_23369b13-bf65-47ed-b0af-9f2c2c118e52-3">
+                        <dmn:text>"ELIGIBLE"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+            </dmn:decisionTable>
+        </dmn:encapsulatedLogic>
+    </dmn:businessKnowledgeModel>
+    <dmn:businessKnowledgeModel name="BureauCallTypeTable" id="b_BureauCallTypeTable">
+        <dmn:variable typeRef="feel.string" name="BureauCallTypeTable"/>
+        <dmn:encapsulatedLogic>
+            <dmn:formalParameter typeRef="tns.tRiskCategory" name="PreBureauRiskCategory"/>
+            <dmn:decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row" outputLabel="BureauCallTypeTable">
+                <dmn:input id="_fcd1287d-7572-4523-ab27-33eff68d965b" label="Pre-bureauRiskCategory">
+                    <dmn:inputExpression typeRef="feel.string">
+                        <dmn:text>PreBureauRiskCategory</dmn:text>
+                    </dmn:inputExpression>
+                </dmn:input>
+                <dmn:output id="_89b655a2-2e07-4aec-afb4-c1a3b595da6e"/>
+                <dmn:rule id="_4d8928da-71c6-4d9b-b304-a2dbdf27ad88">
+                    <dmn:inputEntry id="_4d8928da-71c6-4d9b-b304-a2dbdf27ad88-0">
+                        <dmn:text>"HIGH","MEDIUM"</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_4d8928da-71c6-4d9b-b304-a2dbdf27ad88-1">
+                        <dmn:text>"FULL"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_0a9819a4-9cf0-4390-9ae5-af156c678c59">
+                    <dmn:inputEntry id="_0a9819a4-9cf0-4390-9ae5-af156c678c59-0">
+                        <dmn:text>"LOW"</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_0a9819a4-9cf0-4390-9ae5-af156c678c59-1">
+                        <dmn:text>"MINI"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_80dc65d3-b61d-401e-b8ec-bd236c47404b">
+                    <dmn:inputEntry id="_80dc65d3-b61d-401e-b8ec-bd236c47404b-0">
+                        <dmn:text>"VERY LOW","DECLINE"</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_80dc65d3-b61d-401e-b8ec-bd236c47404b-1">
+                        <dmn:text>"NONE"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+            </dmn:decisionTable>
+        </dmn:encapsulatedLogic>
+    </dmn:businessKnowledgeModel>
+    <dmn:businessKnowledgeModel name="PreBureauRiskCategoryTable" id="b_Pre-bureauRiskCategoryTable">
+        <dmn:variable typeRef="feel.string" name="PreBureauRiskCategoryTable"/>
+        <dmn:encapsulatedLogic>
+            <dmn:formalParameter typeRef="feel.boolean" name="ExistingCustomer"/>
+            <dmn:formalParameter typeRef="feel.number" name="ApplicationRiskScore"/>
+            <dmn:decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row" outputLabel="Pre-bureauRiskCategoryTable">
+                <dmn:input id="_6f7fbf13-3fa6-44f5-afe4-7c1e688e76a9" label="ExistingCustomer">
+                    <dmn:inputExpression typeRef="feel.string">
+                        <dmn:text>ExistingCustomer</dmn:text>
+                    </dmn:inputExpression>
+                </dmn:input>
+                <dmn:input id="_89d36bd5-03c2-4c6f-bf47-faa7d28e13a1" label="ApplicationRiskScore">
+                    <dmn:inputExpression typeRef="feel.string">
+                        <dmn:text>ApplicationRiskScore</dmn:text>
+                    </dmn:inputExpression>
+                </dmn:input>
+                <dmn:output id="_50a19805-7611-490b-8e92-5964a457e1e7"/>
+                <dmn:rule id="_e0082937-feb0-48f9-bbf4-0611cdb620c8">
+                    <dmn:inputEntry id="_e0082937-feb0-48f9-bbf4-0611cdb620c8-0">
+                        <dmn:text>false</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_e0082937-feb0-48f9-bbf4-0611cdb620c8-1">
+                        <dmn:text>&lt;100</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_e0082937-feb0-48f9-bbf4-0611cdb620c8-2">
+                        <dmn:text>"HIGH"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_d2ecd3bd-aa41-4f52-a09e-af12156d93f4">
+                    <dmn:inputEntry id="_d2ecd3bd-aa41-4f52-a09e-af12156d93f4-0">
+                        <dmn:text>false</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_d2ecd3bd-aa41-4f52-a09e-af12156d93f4-1">
+                        <dmn:text>[100..120)</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_d2ecd3bd-aa41-4f52-a09e-af12156d93f4-2">
+                        <dmn:text>"MEDIUM"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_f683499b-2beb-476d-ae18-90caf9eb929a">
+                    <dmn:inputEntry id="_f683499b-2beb-476d-ae18-90caf9eb929a-0">
+                        <dmn:text>false</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_f683499b-2beb-476d-ae18-90caf9eb929a-1">
+                        <dmn:text>[120..130)</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_f683499b-2beb-476d-ae18-90caf9eb929a-2">
+                        <dmn:text>"LOW"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_606eca29-2fb8-42c8-8eda-e3bc15c7cdf0">
+                    <dmn:inputEntry id="_606eca29-2fb8-42c8-8eda-e3bc15c7cdf0-0">
+                        <dmn:text>false</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_606eca29-2fb8-42c8-8eda-e3bc15c7cdf0-1">
+                        <dmn:text>&gt;130</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_606eca29-2fb8-42c8-8eda-e3bc15c7cdf0-2">
+                        <dmn:text>"VERY LOW"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_ff97cf45-e2a7-43c1-9b06-1a4caadf519c">
+                    <dmn:inputEntry id="_ff97cf45-e2a7-43c1-9b06-1a4caadf519c-0">
+                        <dmn:text>true</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_ff97cf45-e2a7-43c1-9b06-1a4caadf519c-1">
+                        <dmn:text>&lt;80</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_ff97cf45-e2a7-43c1-9b06-1a4caadf519c-2">
+                        <dmn:text>"DECLINE"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_3457a501-8de9-49a5-ac44-9521aa94f332">
+                    <dmn:inputEntry id="_3457a501-8de9-49a5-ac44-9521aa94f332-0">
+                        <dmn:text>true</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_3457a501-8de9-49a5-ac44-9521aa94f332-1">
+                        <dmn:text>[80..90)</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_3457a501-8de9-49a5-ac44-9521aa94f332-2">
+                        <dmn:text>"HIGH"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_e093dbcb-d26b-4124-9a1f-77bf4db3ee0e">
+                    <dmn:inputEntry id="_e093dbcb-d26b-4124-9a1f-77bf4db3ee0e-0">
+                        <dmn:text>true</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_e093dbcb-d26b-4124-9a1f-77bf4db3ee0e-1">
+                        <dmn:text>[90..110]</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_e093dbcb-d26b-4124-9a1f-77bf4db3ee0e-2">
+                        <dmn:text>"MEDIUM"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_f1f6c928-57b4-4bed-be7e-eebec9e0400a">
+                    <dmn:inputEntry id="_f1f6c928-57b4-4bed-be7e-eebec9e0400a-0">
+                        <dmn:text>true</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_f1f6c928-57b4-4bed-be7e-eebec9e0400a-1">
+                        <dmn:text>&gt;110</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_f1f6c928-57b4-4bed-be7e-eebec9e0400a-2">
+                        <dmn:text>"LOW"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+            </dmn:decisionTable>
+        </dmn:encapsulatedLogic>
+    </dmn:businessKnowledgeModel>
+    <dmn:businessKnowledgeModel name="PostBureauRiskCategoryTable" id="b_Post-bureauRiskCategoryTable">
+        <dmn:variable typeRef="feel.string" name="PostBureauRiskCategoryTable"/>
+        <dmn:encapsulatedLogic>
+            <dmn:formalParameter typeRef="feel.boolean" name="ExistingCustomer"/>
+            <dmn:formalParameter typeRef="feel.number" name="ApplicationRiskScore"/>
+            <dmn:formalParameter typeRef="feel.number" name="CreditScore"/>
+            <dmn:decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row" outputLabel="Post-bureauRiskCategoryTable">
+                <dmn:input id="_0859d2fc-bb13-4eaa-bebf-4bf8f0866c49" label="ExistingCustomer">
+                    <dmn:inputExpression typeRef="feel.string">
+                        <dmn:text>ExistingCustomer</dmn:text>
+                    </dmn:inputExpression>
+                </dmn:input>
+                <dmn:input id="_fba27bc9-7678-4457-893e-6bc96fc69626" label="ApplicationRiskScore">
+                    <dmn:inputExpression typeRef="feel.string">
+                        <dmn:text>ApplicationRiskScore</dmn:text>
+                    </dmn:inputExpression>
+                </dmn:input>
+                <dmn:input id="_b54042e3-1fe7-4fb3-90d6-ec528047fafb" label="CreditScore">
+                    <dmn:inputExpression typeRef="feel.string">
+                        <dmn:text>CreditScore</dmn:text>
+                    </dmn:inputExpression>
+                </dmn:input>
+                <dmn:output id="_be066d93-7cda-4a46-ae37-ab508c0bd738"/>
+                <dmn:rule id="_cc9cbf6c-40b2-4fae-9e93-c38718aa4c15">
+                    <dmn:inputEntry id="_cc9cbf6c-40b2-4fae-9e93-c38718aa4c15-0">
+                        <dmn:text>false</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_cc9cbf6c-40b2-4fae-9e93-c38718aa4c15-1">
+                        <dmn:text>&lt;120</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_cc9cbf6c-40b2-4fae-9e93-c38718aa4c15-2">
+                        <dmn:text>&lt;590</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_cc9cbf6c-40b2-4fae-9e93-c38718aa4c15-3">
+                        <dmn:text>"HIGH"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_0d6ad398-440b-4a9a-b5e7-d8331ba9e4d2">
+                    <dmn:inputEntry id="_0d6ad398-440b-4a9a-b5e7-d8331ba9e4d2-0">
+                        <dmn:text>false</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_0d6ad398-440b-4a9a-b5e7-d8331ba9e4d2-1">
+                        <dmn:text>&lt;120</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_0d6ad398-440b-4a9a-b5e7-d8331ba9e4d2-2">
+                        <dmn:text>[590..610]</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_0d6ad398-440b-4a9a-b5e7-d8331ba9e4d2-3">
+                        <dmn:text>"MEDIUM"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_481b8823-7ab7-4e4e-9b70-d318096dd61d">
+                    <dmn:inputEntry id="_481b8823-7ab7-4e4e-9b70-d318096dd61d-0">
+                        <dmn:text>false</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_481b8823-7ab7-4e4e-9b70-d318096dd61d-1">
+                        <dmn:text>&lt;120</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_481b8823-7ab7-4e4e-9b70-d318096dd61d-2">
+                        <dmn:text>&gt;610</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_481b8823-7ab7-4e4e-9b70-d318096dd61d-3">
+                        <dmn:text>"LOW"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_9b1faa6a-3036-48f6-9dc3-c9dd5730f279">
+                    <dmn:inputEntry id="_9b1faa6a-3036-48f6-9dc3-c9dd5730f279-0">
+                        <dmn:text>false</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_9b1faa6a-3036-48f6-9dc3-c9dd5730f279-1">
+                        <dmn:text>[120..130]</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_9b1faa6a-3036-48f6-9dc3-c9dd5730f279-2">
+                        <dmn:text>&lt;600</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_9b1faa6a-3036-48f6-9dc3-c9dd5730f279-3">
+                        <dmn:text>"HIGH"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_578c86e3-e237-4dd3-bdb2-f22bc2fc748f">
+                    <dmn:inputEntry id="_578c86e3-e237-4dd3-bdb2-f22bc2fc748f-0">
+                        <dmn:text>false</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_578c86e3-e237-4dd3-bdb2-f22bc2fc748f-1">
+                        <dmn:text>[120..130]</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_578c86e3-e237-4dd3-bdb2-f22bc2fc748f-2">
+                        <dmn:text>[600..625]</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_578c86e3-e237-4dd3-bdb2-f22bc2fc748f-3">
+                        <dmn:text>"MEDIUM"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_2c381fb4-ba8c-42b5-9e2a-8e7afdaa1488">
+                    <dmn:inputEntry id="_2c381fb4-ba8c-42b5-9e2a-8e7afdaa1488-0">
+                        <dmn:text>false</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_2c381fb4-ba8c-42b5-9e2a-8e7afdaa1488-1">
+                        <dmn:text>[120..130]</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_2c381fb4-ba8c-42b5-9e2a-8e7afdaa1488-2">
+                        <dmn:text>&gt;625</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_2c381fb4-ba8c-42b5-9e2a-8e7afdaa1488-3">
+                        <dmn:text>"LOW"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_181968ef-d435-456b-a0cd-38223ef291dc">
+                    <dmn:inputEntry id="_181968ef-d435-456b-a0cd-38223ef291dc-0">
+                        <dmn:text>false</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_181968ef-d435-456b-a0cd-38223ef291dc-1">
+                        <dmn:text>&gt;130</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_181968ef-d435-456b-a0cd-38223ef291dc-2">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_181968ef-d435-456b-a0cd-38223ef291dc-3">
+                        <dmn:text>"VERY LOW"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_08c84023-da86-42d4-ba49-b3e741dacbdb">
+                    <dmn:inputEntry id="_08c84023-da86-42d4-ba49-b3e741dacbdb-0">
+                        <dmn:text>true</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_08c84023-da86-42d4-ba49-b3e741dacbdb-1">
+                        <dmn:text>&lt;=100</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_08c84023-da86-42d4-ba49-b3e741dacbdb-2">
+                        <dmn:text>&lt;580</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_08c84023-da86-42d4-ba49-b3e741dacbdb-3">
+                        <dmn:text>"HIGH"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_a670400b-bded-45d4-b8b9-f9870fda8817">
+                    <dmn:inputEntry id="_a670400b-bded-45d4-b8b9-f9870fda8817-0">
+                        <dmn:text>true</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_a670400b-bded-45d4-b8b9-f9870fda8817-1">
+                        <dmn:text>&lt;=100</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_a670400b-bded-45d4-b8b9-f9870fda8817-2">
+                        <dmn:text>[580..600]</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_a670400b-bded-45d4-b8b9-f9870fda8817-3">
+                        <dmn:text>"MEDIUM"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_f0f466a3-0b6a-41fe-b109-d655eba844e7">
+                    <dmn:inputEntry id="_f0f466a3-0b6a-41fe-b109-d655eba844e7-0">
+                        <dmn:text>true</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_f0f466a3-0b6a-41fe-b109-d655eba844e7-1">
+                        <dmn:text>&lt;=100</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_f0f466a3-0b6a-41fe-b109-d655eba844e7-2">
+                        <dmn:text>&gt;600</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_f0f466a3-0b6a-41fe-b109-d655eba844e7-3">
+                        <dmn:text>"LOW"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_b8742c40-6ec2-4848-81a8-337e8ce7c5e1">
+                    <dmn:inputEntry id="_b8742c40-6ec2-4848-81a8-337e8ce7c5e1-0">
+                        <dmn:text>true</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_b8742c40-6ec2-4848-81a8-337e8ce7c5e1-1">
+                        <dmn:text>&gt;100</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_b8742c40-6ec2-4848-81a8-337e8ce7c5e1-2">
+                        <dmn:text>&lt;590</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_b8742c40-6ec2-4848-81a8-337e8ce7c5e1-3">
+                        <dmn:text>"HIGH"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_2eba5777-6ff9-46b8-a445-a41afb2cdcf9">
+                    <dmn:inputEntry id="_2eba5777-6ff9-46b8-a445-a41afb2cdcf9-0">
+                        <dmn:text>true</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_2eba5777-6ff9-46b8-a445-a41afb2cdcf9-1">
+                        <dmn:text>&gt;100</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_2eba5777-6ff9-46b8-a445-a41afb2cdcf9-2">
+                        <dmn:text>[590..615]</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_2eba5777-6ff9-46b8-a445-a41afb2cdcf9-3">
+                        <dmn:text>"MEDIUM"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_ba0ef1af-02b0-4a89-b75b-901d5044bbe4">
+                    <dmn:inputEntry id="_ba0ef1af-02b0-4a89-b75b-901d5044bbe4-0">
+                        <dmn:text>true</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_ba0ef1af-02b0-4a89-b75b-901d5044bbe4-1">
+                        <dmn:text>&gt;100</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_ba0ef1af-02b0-4a89-b75b-901d5044bbe4-2">
+                        <dmn:text>&gt;615</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_ba0ef1af-02b0-4a89-b75b-901d5044bbe4-3">
+                        <dmn:text>"LOW"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+            </dmn:decisionTable>
+        </dmn:encapsulatedLogic>
+    </dmn:businessKnowledgeModel>
+    <dmn:businessKnowledgeModel name="ApplicationRiskScoreModel" id="b_ApplicationRiskScoreModel">
+        <dmn:variable typeRef="feel.number" name="ApplicationRiskScoreModel"/>
+        <dmn:encapsulatedLogic>
+            <dmn:formalParameter typeRef="feel.number" name="Age"/>
+            <dmn:formalParameter typeRef="feel.string" name="MaritalStatus"/>
+            <dmn:formalParameter typeRef="feel.string" name="EmploymentStatus"/>
+            <dmn:decisionTable hitPolicy="COLLECT" aggregation="SUM" preferredOrientation="Rule-as-Row" outputLabel="ApplicationRiskScoreModel">
+                <dmn:input id="_dc6c54d5-80a0-4b78-aa83-0a33802de55c" label="Age">
+                    <dmn:inputExpression typeRef="feel.number">
+                        <dmn:text>Age</dmn:text>
+                    </dmn:inputExpression>
+                    <dmn:inputValues>
+                        <dmn:text>[18..120]</dmn:text>
+                    </dmn:inputValues>
+                </dmn:input>
+                <dmn:input id="_ee956a72-302e-4c89-89a5-1cae18915df9" label="MaritalStatus">
+                    <dmn:inputExpression typeRef="feel.string">
+                        <dmn:text>MaritalStatus</dmn:text>
+                    </dmn:inputExpression>
+                    <dmn:inputValues>
+                        <dmn:text>"S", "M"</dmn:text>
+                    </dmn:inputValues>
+                </dmn:input>
+                <dmn:input id="_d6432000-3b07-465e-b31c-8576677b8d39" label="EmploymentStatus">
+                    <dmn:inputExpression typeRef="feel.string">
+                        <dmn:text>EmploymentStatus</dmn:text>
+                    </dmn:inputExpression>
+                    <dmn:inputValues>
+                        <dmn:text>"UNEMPLOYED", "EMPLOYED", "SELF-EMPLOYED", "STUDENT"</dmn:text>
+                    </dmn:inputValues>
+                </dmn:input>
+                <dmn:output id="_79391b75-39ec-44d1-8104-c2d0b09b2523"/>
+                <dmn:rule id="_a3bbf3c8-5315-4fd9-862c-810518b2ab6d">
+                    <dmn:inputEntry id="_a3bbf3c8-5315-4fd9-862c-810518b2ab6d-0">
+                        <dmn:text>[18..21]</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_a3bbf3c8-5315-4fd9-862c-810518b2ab6d-1">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_a3bbf3c8-5315-4fd9-862c-810518b2ab6d-2">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_a3bbf3c8-5315-4fd9-862c-810518b2ab6d-3">
+                        <dmn:text>32</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_cacdc480-72be-4225-b053-f066c28dbe47">
+                    <dmn:inputEntry id="_cacdc480-72be-4225-b053-f066c28dbe47-0">
+                        <dmn:text>[22..25]</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_cacdc480-72be-4225-b053-f066c28dbe47-1">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_cacdc480-72be-4225-b053-f066c28dbe47-2">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_cacdc480-72be-4225-b053-f066c28dbe47-3">
+                        <dmn:text>35</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_eade01fe-857d-4d41-ae69-d355b94e06bc">
+                    <dmn:inputEntry id="_eade01fe-857d-4d41-ae69-d355b94e06bc-0">
+                        <dmn:text>[26..35]</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_eade01fe-857d-4d41-ae69-d355b94e06bc-1">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_eade01fe-857d-4d41-ae69-d355b94e06bc-2">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_eade01fe-857d-4d41-ae69-d355b94e06bc-3">
+                        <dmn:text>40</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_31f5ffb6-d991-4f62-a050-6cd80a4b8d82">
+                    <dmn:inputEntry id="_31f5ffb6-d991-4f62-a050-6cd80a4b8d82-0">
+                        <dmn:text>[36..49]</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_31f5ffb6-d991-4f62-a050-6cd80a4b8d82-1">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_31f5ffb6-d991-4f62-a050-6cd80a4b8d82-2">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_31f5ffb6-d991-4f62-a050-6cd80a4b8d82-3">
+                        <dmn:text>43</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_b5245861-10b9-4db1-a2e6-7fbdae837a67">
+                    <dmn:inputEntry id="_b5245861-10b9-4db1-a2e6-7fbdae837a67-0">
+                        <dmn:text>&gt;=50</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_b5245861-10b9-4db1-a2e6-7fbdae837a67-1">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_b5245861-10b9-4db1-a2e6-7fbdae837a67-2">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_b5245861-10b9-4db1-a2e6-7fbdae837a67-3">
+                        <dmn:text>48</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_4caf7dc6-aa7d-4f5a-9eec-4c403083b4c5">
+                    <dmn:inputEntry id="_4caf7dc6-aa7d-4f5a-9eec-4c403083b4c5-0">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_4caf7dc6-aa7d-4f5a-9eec-4c403083b4c5-1">
+                        <dmn:text>"S"</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_4caf7dc6-aa7d-4f5a-9eec-4c403083b4c5-2">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_4caf7dc6-aa7d-4f5a-9eec-4c403083b4c5-3">
+                        <dmn:text>25</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_4034dd3e-0366-455f-bcba-1d7a7c59ba7f">
+                    <dmn:inputEntry id="_4034dd3e-0366-455f-bcba-1d7a7c59ba7f-0">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_4034dd3e-0366-455f-bcba-1d7a7c59ba7f-1">
+                        <dmn:text>"M"</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_4034dd3e-0366-455f-bcba-1d7a7c59ba7f-2">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_4034dd3e-0366-455f-bcba-1d7a7c59ba7f-3">
+                        <dmn:text>45</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_51933974-5c70-44be-892d-20fbb6af66a9">
+                    <dmn:inputEntry id="_51933974-5c70-44be-892d-20fbb6af66a9-0">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_51933974-5c70-44be-892d-20fbb6af66a9-1">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_51933974-5c70-44be-892d-20fbb6af66a9-2">
+                        <dmn:text>"UNEMPLOYED"</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_51933974-5c70-44be-892d-20fbb6af66a9-3">
+                        <dmn:text>15</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_3d3a596f-6e83-483b-96e6-715b33ba7af5">
+                    <dmn:inputEntry id="_3d3a596f-6e83-483b-96e6-715b33ba7af5-0">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_3d3a596f-6e83-483b-96e6-715b33ba7af5-1">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_3d3a596f-6e83-483b-96e6-715b33ba7af5-2">
+                        <dmn:text>"EMPLOYED"</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_3d3a596f-6e83-483b-96e6-715b33ba7af5-3">
+                        <dmn:text>45</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_732fd2fe-c312-4be5-8fb4-fd6699a28ec0">
+                    <dmn:inputEntry id="_732fd2fe-c312-4be5-8fb4-fd6699a28ec0-0">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_732fd2fe-c312-4be5-8fb4-fd6699a28ec0-1">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_732fd2fe-c312-4be5-8fb4-fd6699a28ec0-2">
+                        <dmn:text>"SELF-EMPLOYED"</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_732fd2fe-c312-4be5-8fb4-fd6699a28ec0-3">
+                        <dmn:text>36</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_cea5e26e-43e0-4457-9ae8-c8c1fcbc22f1">
+                    <dmn:inputEntry id="_cea5e26e-43e0-4457-9ae8-c8c1fcbc22f1-0">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_cea5e26e-43e0-4457-9ae8-c8c1fcbc22f1-1">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_cea5e26e-43e0-4457-9ae8-c8c1fcbc22f1-2">
+                        <dmn:text>"STUDENT"</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_cea5e26e-43e0-4457-9ae8-c8c1fcbc22f1-3">
+                        <dmn:text>18</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+            </dmn:decisionTable>
+        </dmn:encapsulatedLogic>
+    </dmn:businessKnowledgeModel>
+    <dmn:businessKnowledgeModel name="InstallmentCalculation" id="b_InstallmentCalculation">
+        <dmn:variable typeRef="feel.number" name="InstallmentCalculation"/>
+        <dmn:encapsulatedLogic>
+            <dmn:formalParameter typeRef="feel.string" name="ProductType"/>
+            <dmn:formalParameter typeRef="feel.number" name="Rate"/>
+            <dmn:formalParameter typeRef="feel.number" name="Term"/>
+            <dmn:formalParameter typeRef="feel.number" name="Amount"/>
+            <dmn:context>
+                <dmn:contextEntry>
+                    <dmn:variable typeRef="feel.number" name="MonthlyFee"/>
+                    <dmn:literalExpression>
+                        <dmn:text>if ProductType ="STANDARD LOAN" then 20.00 else if ProductType ="SPECIAL LOAN" then 25.00 else null</dmn:text>
+                    </dmn:literalExpression>
+                </dmn:contextEntry>
+                <dmn:contextEntry>
+                    <dmn:variable typeRef="feel.number" name="MonthlyRepayment"/>
+                    <dmn:literalExpression>
+                        <dmn:text>(Amount *Rate/12) / (1 - (1 + Rate/12)**-Term)</dmn:text>
+                    </dmn:literalExpression>
+                </dmn:contextEntry>
+                <dmn:contextEntry>
+                    <dmn:literalExpression>
+                        <dmn:text>MonthlyRepayment+MonthlyFee</dmn:text>
+                    </dmn:literalExpression>
+                </dmn:contextEntry>
+            </dmn:context>
+        </dmn:encapsulatedLogic>
+    </dmn:businessKnowledgeModel>
+    <dmn:businessKnowledgeModel name="RoutingRules" id="b_RoutingRules">
+        <dmn:variable typeRef="feel.string" name="RoutingRules"/>
+        <dmn:encapsulatedLogic>
+            <dmn:formalParameter typeRef="tns.tRiskCategory" name="PostBureauRiskCategory"/>
+            <dmn:formalParameter typeRef="feel.boolean" name="PostBureauAffordability"/>
+            <dmn:formalParameter typeRef="feel.boolean" name="Bankrupt"/>
+            <dmn:formalParameter typeRef="feel.number" name="CreditScore"/>
+            <dmn:decisionTable hitPolicy="PRIORITY" preferredOrientation="Rule-as-Row" outputLabel="RoutingRules">
+                <dmn:input id="_e4d34fbe-9d83-4126-a268-6ff44d6d33c0" label="Post-bureauRiskCategory">
+                    <dmn:inputExpression typeRef="feel.string">
+                        <dmn:text>PostBureauRiskCategory</dmn:text>
+                    </dmn:inputExpression>
+                </dmn:input>
+                <dmn:input id="_fc1055cf-ab08-44a0-91bc-2d6539df00c5" label="Post-bureauAffordability">
+                    <dmn:inputExpression typeRef="feel.string">
+                        <dmn:text>PostBureauAffordability</dmn:text>
+                    </dmn:inputExpression>
+                </dmn:input>
+                <dmn:input id="_17cf72a2-81db-4ee3-a599-aaa70699fdf7" label="Bankrupt">
+                    <dmn:inputExpression typeRef="feel.boolean">
+                        <dmn:text>Bankrupt</dmn:text>
+                    </dmn:inputExpression>
+                </dmn:input>
+                <dmn:input id="_f692dbba-dc13-4076-a5ba-275041c0b944" label="CreditScore">
+                    <dmn:inputExpression typeRef="feel.string">
+                        <dmn:text>CreditScore</dmn:text>
+                    </dmn:inputExpression>
+                </dmn:input>
+                <dmn:output id="_4b478b34-a8f7-4019-a667-1c78d64154fe">
+                    <dmn:outputValues>
+                        <dmn:text>"DECLINE", "REFER", "ACCEPT"</dmn:text>
+                    </dmn:outputValues>
+                </dmn:output>
+                <dmn:rule id="_e7e1be73-1250-49ca-ac8c-0163f4df4eaf">
+                    <dmn:inputEntry id="_e7e1be73-1250-49ca-ac8c-0163f4df4eaf-0">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_e7e1be73-1250-49ca-ac8c-0163f4df4eaf-1">
+                        <dmn:text>false</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_e7e1be73-1250-49ca-ac8c-0163f4df4eaf-2">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_e7e1be73-1250-49ca-ac8c-0163f4df4eaf-3">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_e7e1be73-1250-49ca-ac8c-0163f4df4eaf-4">
+                        <dmn:text>"DECLINE"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_a905d88e-eb62-4f5f-8447-32f541ebd31a">
+                    <dmn:inputEntry id="_a905d88e-eb62-4f5f-8447-32f541ebd31a-0">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_a905d88e-eb62-4f5f-8447-32f541ebd31a-1">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_a905d88e-eb62-4f5f-8447-32f541ebd31a-2">
+                        <dmn:text>true</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_a905d88e-eb62-4f5f-8447-32f541ebd31a-3">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_a905d88e-eb62-4f5f-8447-32f541ebd31a-4">
+                        <dmn:text>"DECLINE"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_36d8f903-d158-4d18-970a-9a53d4a8c69e">
+                    <dmn:inputEntry id="_36d8f903-d158-4d18-970a-9a53d4a8c69e-0">
+                        <dmn:text>"HIGH"</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_36d8f903-d158-4d18-970a-9a53d4a8c69e-1">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_36d8f903-d158-4d18-970a-9a53d4a8c69e-2">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_36d8f903-d158-4d18-970a-9a53d4a8c69e-3">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_36d8f903-d158-4d18-970a-9a53d4a8c69e-4">
+                        <dmn:text>"REFER"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_c51cff41-6161-435b-af3b-17dcbd4591b9">
+                    <dmn:inputEntry id="_c51cff41-6161-435b-af3b-17dcbd4591b9-0">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_c51cff41-6161-435b-af3b-17dcbd4591b9-1">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_c51cff41-6161-435b-af3b-17dcbd4591b9-2">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_c51cff41-6161-435b-af3b-17dcbd4591b9-3">
+                        <dmn:text>&lt;580</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_c51cff41-6161-435b-af3b-17dcbd4591b9-4">
+                        <dmn:text>"REFER"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+                <dmn:rule id="_1bb571e8-b791-4967-9c70-77c402982e3b">
+                    <dmn:inputEntry id="_1bb571e8-b791-4967-9c70-77c402982e3b-0">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_1bb571e8-b791-4967-9c70-77c402982e3b-1">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_1bb571e8-b791-4967-9c70-77c402982e3b-2">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:inputEntry id="_1bb571e8-b791-4967-9c70-77c402982e3b-3">
+                        <dmn:text>-</dmn:text>
+                    </dmn:inputEntry>
+                    <dmn:outputEntry id="_1bb571e8-b791-4967-9c70-77c402982e3b-4">
+                        <dmn:text>"ACCEPT"</dmn:text>
+                    </dmn:outputEntry>
+                </dmn:rule>
+            </dmn:decisionTable>
+        </dmn:encapsulatedLogic>
+    </dmn:businessKnowledgeModel>
+    <dmn:inputData name="ApplicantData" id="i_ApplicantData">
+        <dmn:variable typeRef="tns.tApplicantData" name="ApplicantData"/>
+    </dmn:inputData>
+    <dmn:inputData name="BureauData" id="i_BureauData">
+        <dmn:variable typeRef="tns.tBureauData" name="BureauData"/>
+    </dmn:inputData>
+    <dmn:inputData name="RequestedProduct" id="i_RequestedProduct">
+        <dmn:variable typeRef="tns.tRequestedProduct" name="RequestedProduct"/>
+    </dmn:inputData>
+    <dmn:inputData name="SupportingDocuments" id="i_SupportingDocuments">
+        <dmn:variable typeRef="feel.string" name="SupportingDocuments"/>
+    </dmn:inputData>
+</dmn:definitions>
