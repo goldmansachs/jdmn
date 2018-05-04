@@ -20,7 +20,7 @@ import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.DMNWriter;
 import com.gs.dmn.tck.TestCasesReader;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
-import org.omg.spec.dmn._20151101.dmn.TDefinitions;
+import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -118,7 +118,7 @@ public class ToSimpleNameTransformer extends NameTransformer {
         // Transform
         transformer.transform(definitions);
 
-        // Writw
+        // Write
         DMNWriter writer = new DMNWriter(logger);
         writer.write(definitions, outputFile, new DMNNamespacePrefixMapper());
 

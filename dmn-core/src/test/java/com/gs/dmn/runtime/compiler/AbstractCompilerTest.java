@@ -23,7 +23,7 @@ import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.junit.Test;
-import org.omg.spec.dmn._20151101.dmn.TDefinitions;
+import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;

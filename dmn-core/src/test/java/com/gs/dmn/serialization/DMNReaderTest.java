@@ -15,7 +15,7 @@ package com.gs.dmn.serialization;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import org.junit.Test;
-import org.omg.spec.dmn._20151101.dmn.*;
+import org.omg.spec.dmn._20180521.model.*;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBElement;
@@ -52,7 +52,7 @@ public class DMNReaderTest {
         TInputClause firstClause = inputList.get(0);
         assertDMNElement(firstClause, "input1", "Gender");
         TLiteralExpression inputExpression = firstClause.getInputExpression();
-        String stringType = "{http://www.omg.org/spec/DMN/20151101/dmn.xsd}string";
+        String stringType = "string";
         String id = "inputExpression1";
         String text = "gender";
         assertLiteralExpression(inputExpression, stringType, id, text);
@@ -78,7 +78,7 @@ public class DMNReaderTest {
 
     private void assertLiteralExpression(TLiteralExpression inputExpression, String stringType, String id, String text) {
         assertEquals(id, inputExpression.getId());
-        assertEquals(stringType, inputExpression.getTypeRef().toString());
+        assertEquals(stringType, inputExpression.getTypeRef());
         assertEquals(text, inputExpression.getText());
     }
 

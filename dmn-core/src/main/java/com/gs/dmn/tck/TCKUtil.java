@@ -28,9 +28,9 @@ import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase.InputNode;
 import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase.ResultNode;
 import org.omg.dmn.tck.marshaller._20160719.ValueType;
 import org.omg.dmn.tck.marshaller._20160719.ValueType.Component;
-import org.omg.spec.dmn._20151101.dmn.TDRGElement;
-import org.omg.spec.dmn._20151101.dmn.TDecision;
-import org.omg.spec.dmn._20151101.dmn.TInputData;
+import org.omg.spec.dmn._20180521.model.TDRGElement;
+import org.omg.spec.dmn._20180521.model.TDecision;
+import org.omg.spec.dmn._20180521.model.TInputData;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.datatype.Duration;

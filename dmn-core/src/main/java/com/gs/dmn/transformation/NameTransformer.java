@@ -19,7 +19,7 @@ import com.gs.dmn.runtime.Pair;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.dmn.tck.marshaller._20160719.ValueType;
-import org.omg.spec.dmn._20151101.dmn.*;
+import org.omg.spec.dmn._20180521.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -14,9 +14,23 @@ package com.gs.dmn.transformation.basic;
 
 import javax.xml.namespace.QName;
 
+import static com.gs.dmn.serialization.DMNConstants.*;
+
 public class QualifiedName {
     public static QualifiedName toQualifiedName(QName qName) {
-        return qName == null ? null : new QualifiedName(qName.getNamespaceURI(), qName.getLocalPart());
+        if (qName == null) {
+            return null;
+        }
+
+        String namespaceURI = qName.getNamespaceURI();
+        if (FEEL_11_NS.equals(namespaceURI)) {
+            return new QualifiedName(FEEL_11_PREFIX, qName.getLocalPart());
+        } else if (FEEL_12_NS.equals(namespaceURI)) {
+            return new QualifiedName(FEEL_12_PREFIX, qName.getLocalPart());
+        } else {
+            String prefix = qName.getPrefix();
+            return new QualifiedName(prefix, qName.getLocalPart());
+        }
     }
 
     public static QualifiedName toQualifiedName(String qName) {
