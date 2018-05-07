@@ -13,7 +13,7 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.runtime.Pair;
-import org.omg.spec.dmn._20151101.dmn.TDefinitions;
+import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 public class NopDMNTransformer<T> extends SimpleDMNTransformer<T> {
     @Override

@@ -16,7 +16,7 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20151101.dmn.*;
+import org.omg.spec.dmn._20180521.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +24,7 @@ import javax.xml.bind.JAXBElement;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.gs.dmn.serialization.DMNConstants.FEEL_11_NS;
+import static com.gs.dmn.serialization.DMNConstants.FEEL_11_PREFIX;
 
 public class DMNModelRepository {
     private static final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
@@ -431,7 +431,7 @@ public class DMNModelRepository {
     }
 
     TItemDefinition lookupItemDefinition(List<TItemDefinition> itemDefinitionList, QualifiedName typeRef) {
-        if (typeRef == null || FEEL_11_NS.equals(typeRef.getNamespace())) {
+        if (typeRef == null || FEEL_11_PREFIX.equals(typeRef.getNamespace())) {
             return null;
         }
         for (TItemDefinition itemDefinition : itemDefinitionList) {

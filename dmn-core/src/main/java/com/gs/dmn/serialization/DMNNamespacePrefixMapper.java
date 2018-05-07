@@ -32,7 +32,7 @@ public class DMNNamespacePrefixMapper extends NamespacePrefixMapper {
     }
 
     public DMNNamespacePrefixMapper(String namespace, String prefix) {
-        this(namespace, prefix, DMNVersion.DMN_11);
+        this(namespace, prefix, DMNVersion.DMN_12);
     }
 
     public DMNNamespacePrefixMapper(String namespace, String prefix, DMNVersion version) {

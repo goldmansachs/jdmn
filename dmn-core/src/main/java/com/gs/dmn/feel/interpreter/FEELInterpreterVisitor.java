@@ -53,8 +53,8 @@ import com.gs.dmn.runtime.interpreter.PositionalArguments;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
-import org.omg.spec.dmn._20151101.dmn.TBusinessKnowledgeModel;
-import org.omg.spec.dmn._20151101.dmn.TFunctionDefinition;
+import org.omg.spec.dmn._20180521.model.TBusinessKnowledgeModel;
+import org.omg.spec.dmn._20180521.model.TFunctionDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

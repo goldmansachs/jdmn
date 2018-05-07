@@ -20,7 +20,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.transformation.java.ExpressionStatement;
 import com.gs.dmn.transformation.java.Statement;
-import org.omg.spec.dmn._20151101.dmn.TDRGElement;
+import org.omg.spec.dmn._20180521.model.TDRGElement;
 
 public class LiteralExpressionToJavaTransformer {
     private final BasicDMN2JavaTransformer dmnTransformer;

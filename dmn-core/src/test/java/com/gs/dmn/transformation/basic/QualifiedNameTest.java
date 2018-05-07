@@ -14,6 +14,8 @@ package com.gs.dmn.transformation.basic;
 
 import org.junit.Test;
 
+import javax.xml.namespace.QName;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -44,6 +46,7 @@ public class QualifiedNameTest {
 
     @Test
     public void testFactoryWithNullQName() {
-        assertNull(QualifiedName.toQualifiedName(null));
+        assertNull(QualifiedName.toQualifiedName((QName) null));
+        assertNull(QualifiedName.toQualifiedName((String) null));
     }
 }

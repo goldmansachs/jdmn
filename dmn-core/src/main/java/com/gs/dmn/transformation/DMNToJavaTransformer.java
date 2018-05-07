@@ -22,10 +22,10 @@ import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
-import org.omg.spec.dmn._20151101.dmn.TBusinessKnowledgeModel;
-import org.omg.spec.dmn._20151101.dmn.TDecision;
-import org.omg.spec.dmn._20151101.dmn.TDefinitions;
-import org.omg.spec.dmn._20151101.dmn.TItemDefinition;
+import org.omg.spec.dmn._20180521.model.TBusinessKnowledgeModel;
+import org.omg.spec.dmn._20180521.model.TDecision;
+import org.omg.spec.dmn._20180521.model.TDefinitions;
+import org.omg.spec.dmn._20180521.model.TItemDefinition;
 
 import java.io.File;
 import java.nio.file.Path;

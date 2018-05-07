@@ -19,7 +19,7 @@ import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.serialization.DMNReader;
 import org.junit.Before;
 import org.junit.Test;
-import org.omg.spec.dmn._20151101.dmn.*;
+import org.omg.spec.dmn._20180521.model.*;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;

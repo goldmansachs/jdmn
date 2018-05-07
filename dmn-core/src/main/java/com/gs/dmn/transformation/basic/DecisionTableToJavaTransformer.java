@@ -28,7 +28,7 @@ import com.gs.dmn.runtime.annotation.HitPolicy;
 import com.gs.dmn.runtime.annotation.Rule;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20151101.dmn.*;
+import org.omg.spec.dmn._20180521.model.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
