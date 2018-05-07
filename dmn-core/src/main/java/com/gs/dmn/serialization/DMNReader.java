@@ -140,8 +140,8 @@ public class DMNReader extends DMNSerializer {
             return null;
         }
 
-        if (value instanceof org.omg.spec.dmn._20151101.dmn.TDefinitions) {
-            return transformer.transform((org.omg.spec.dmn._20151101.dmn.TDefinitions) value);
+        if (value instanceof org.omg.spec.dmn._20151101.model.TDefinitions) {
+            return transformer.transform((org.omg.spec.dmn._20151101.model.TDefinitions) value);
         } else if (value instanceof TDefinitions) {
             return (TDefinitions) value;
         } else {

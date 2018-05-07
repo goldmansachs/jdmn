@@ -17,7 +17,7 @@ public class DMNConstants {
 
     // DMN 1.1
     public static final String DMN_11_NS = "http://www.omg.org/spec/DMN/20151101/dmn.xsd";
-    public static final String DMN_11_PACKAGE = "org.omg.spec.dmn._20151101.dmn";
+    public static final String DMN_11_PACKAGE = "org.omg.spec.dmn._20151101.model";
     public static final String FEEL_11_NS = "http://www.omg.org/spec/FEEL/20140401";
     public static final String FEEL_11_PREFIX = "feel";
 
