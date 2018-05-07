@@ -13,7 +13,7 @@
 package com.gs.dmn.runtime;
 
 import com.gs.dmn.runtime.annotation.HitPolicy;
-import org.omg.spec.dmn._20151101.dmn.THitPolicy;
+import org.omg.spec.dmn._20180521.model.THitPolicy;
 
 import java.util.ArrayList;
 import java.util.HashSet;

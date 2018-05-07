@@ -20,7 +20,7 @@ import com.gs.dmn.feel.synthesis.FEELTranslatorImpl;
 import com.gs.dmn.feel.synthesis.SFEELTranslatorImpl;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
-import org.omg.spec.dmn._20151101.dmn.TDefinitions;
+import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 import java.util.Map;
 

@@ -19,9 +19,9 @@ import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.runtime.LambdaExpression;
 import com.gs.dmn.transformation.java.ExpressionStatement;
-import org.omg.spec.dmn._20151101.dmn.TDRGElement;
-import org.omg.spec.dmn._20151101.dmn.TExpression;
-import org.omg.spec.dmn._20151101.dmn.TFunctionDefinition;
+import org.omg.spec.dmn._20180521.model.TDRGElement;
+import org.omg.spec.dmn._20180521.model.TExpression;
+import org.omg.spec.dmn._20180521.model.TFunctionDefinition;
 
 public class FunctionDefinitionToJavaTransformer {
     private final BasicDMN2JavaTransformer dmnTransformer;

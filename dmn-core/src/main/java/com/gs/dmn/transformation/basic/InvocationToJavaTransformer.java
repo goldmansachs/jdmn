@@ -18,7 +18,7 @@ import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.transformation.java.ExpressionStatement;
 import com.gs.dmn.transformation.java.Statement;
-import org.omg.spec.dmn._20151101.dmn.*;
+import org.omg.spec.dmn._20180521.model.*;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

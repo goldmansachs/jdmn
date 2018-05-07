@@ -12,7 +12,7 @@
  */
 package com.gs.dmn;
 
-import org.omg.spec.dmn._20151101.dmn.TDecision;
+import org.omg.spec.dmn._20180521.model.TDecision;
 
 public class StartMarker {
     private final TDecision decision;
