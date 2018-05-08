@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.serialization;
 
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import org.apache.commons.lang3.StringUtils;
@@ -26,12 +27,18 @@ import static com.gs.dmn.serialization.DMNConstants.*;
 public class DMNDialectTransformer {
     private static final ObjectFactory dmnFactory = new ObjectFactory();
     private final BuildLogger logger;
+    private final PrefixNamespaceMappings prefixNamespaceMappings = new PrefixNamespaceMappings();
 
     public DMNDialectTransformer(BuildLogger logger) {
         this.logger = logger;
     }
 
-    public TDefinitions transform(org.omg.spec.dmn._20151101.dmn.TDefinitions dmn11Definitions) {
+    public DMNModelRepository transformRepository(org.omg.spec.dmn._20151101.dmn.TDefinitions dmn11Definitions) {
+        TDefinitions definitions = transform(dmn11Definitions);
+        return new DMNModelRepository(definitions, prefixNamespaceMappings);
+    }
+
+    private TDefinitions transform(org.omg.spec.dmn._20151101.dmn.TDefinitions dmn11Definitions) {
         logger.info(String.format("Transforming '%s' to DMN 1.2 ...", dmn11Definitions.getName()));
 
         TDefinitions definitions = dmnFactory.createTDefinitions();
@@ -655,6 +662,7 @@ public class DMNDialectTransformer {
         String namespaceURI = element.getNamespaceURI();
         String prefix = element.getPrefix();
         String localPart = element.getLocalPart();
+        this.prefixNamespaceMappings.put(prefix, namespaceURI);
         if (!StringUtils.isBlank(prefix)) {
             return String.format("%s.%s", prefix, localPart);
         } else if (FEEL_11_NS.equals(namespaceURI)) {

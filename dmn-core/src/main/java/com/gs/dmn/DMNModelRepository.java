@@ -13,6 +13,7 @@
 package com.gs.dmn;
 
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import org.apache.commons.lang3.StringUtils;
@@ -33,12 +34,15 @@ public class DMNModelRepository {
 
     private final TDefinitions definitions;
 
+    private final PrefixNamespaceMappings prefixNamespaceMappings;
+
     public DMNModelRepository() {
-        this(OBJECT_FACTORY.createTDefinitions());
+        this(OBJECT_FACTORY.createTDefinitions(), new PrefixNamespaceMappings() );
     }
 
-    public DMNModelRepository(TDefinitions definitions) {
+    public DMNModelRepository(TDefinitions definitions, PrefixNamespaceMappings prefixNamespaceMappings) {
         this.definitions = definitions;
+        this.prefixNamespaceMappings = prefixNamespaceMappings;
         normalize(definitions);
     }
 
@@ -100,6 +104,10 @@ public class DMNModelRepository {
 
     public TDefinitions getDefinitions() {
         return definitions;
+    }
+
+    public PrefixNamespaceMappings getPrefixNamespaceMappings() {
+        return prefixNamespaceMappings;
     }
 
     public List<TDRGElement> drgElements() {

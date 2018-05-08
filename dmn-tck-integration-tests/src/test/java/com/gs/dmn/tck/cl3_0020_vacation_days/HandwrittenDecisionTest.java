@@ -13,6 +13,7 @@
 package com.gs.dmn.tck.cl3_0020_vacation_days;
 
 import com.gs.dmn.AbstractHandwrittenDecisionTest;
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.feel.lib.FEELLib;
@@ -62,9 +63,9 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
         FEELLib lib = this.dialectDefinition.createFEELLib();
 
         String pathName = "tck/cl3/0020-vacation-days.dmn";
-        TDefinitions definitions = readDMN(pathName);
-        definitions = nameTransformer.transform(definitions);
-        DMNInterpreter interpreter = this.dialectDefinition.createDMNInterpreter(definitions);
+        DMNModelRepository repository = readDMN(pathName);
+        nameTransformer.transform(repository.getDefinitions());
+        DMNInterpreter interpreter = this.dialectDefinition.createDMNInterpreter(repository);
 
         RuntimeEnvironment environment = RuntimeEnvironmentFactory.instance().makeEnvironment();
         environment.bind("Age", lib.number(i1));

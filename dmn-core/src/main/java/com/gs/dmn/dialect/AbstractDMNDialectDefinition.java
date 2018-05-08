@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.dialect;
 
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.interpreter.FEELInterpreter;
 import com.gs.dmn.feel.interpreter.FEELInterpreterImpl;
 import com.gs.dmn.feel.interpreter.SFEELInterpreterImpl;
@@ -20,7 +21,6 @@ import com.gs.dmn.feel.synthesis.FEELTranslatorImpl;
 import com.gs.dmn.feel.synthesis.SFEELTranslatorImpl;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 import java.util.Map;
 
@@ -29,24 +29,24 @@ public abstract class AbstractDMNDialectDefinition implements DMNDialectDefiniti
     // FEEL Processors
     //
     @Override
-    public FEELInterpreter createFEELInterpreter(TDefinitions definitions) {
-        DMNInterpreter dmnInterpreter = createDMNInterpreter(definitions);
+    public FEELInterpreter createFEELInterpreter(DMNModelRepository repository) {
+        DMNInterpreter dmnInterpreter = createDMNInterpreter(repository);
         return new FEELInterpreterImpl(dmnInterpreter);
     }
 
     @Override
-    public FEELTranslator createFEELTranslator(TDefinitions definitions, Map<String, String> inputParameters) {
-        return new FEELTranslatorImpl(createBasicTransformer(definitions, new NopLazyEvaluationDetector(), inputParameters));
+    public FEELTranslator createFEELTranslator(DMNModelRepository repository, Map<String, String> inputParameters) {
+        return new FEELTranslatorImpl(createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters));
     }
 
     @Override
-    public FEELInterpreter createSFEELInterpreter(TDefinitions definitions) {
-        DMNInterpreter dmnInterpreter = createDMNInterpreter(definitions);
+    public FEELInterpreter createSFEELInterpreter(DMNModelRepository repository) {
+        DMNInterpreter dmnInterpreter = createDMNInterpreter(repository);
         return new SFEELInterpreterImpl(dmnInterpreter);
     }
 
     @Override
-    public FEELTranslator createSFEELTranslator(TDefinitions definitions, Map<String, String> inputParameters) {
-        return new SFEELTranslatorImpl(createBasicTransformer(definitions, new NopLazyEvaluationDetector(), inputParameters));
+    public FEELTranslator createSFEELTranslator(DMNModelRepository repository, Map<String, String> inputParameters) {
+        return new SFEELTranslatorImpl(createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters));
     }
 }

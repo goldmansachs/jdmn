@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.dialect;
 
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.lib.DefaultFEELLib;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
@@ -25,7 +26,6 @@ import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TreeTemplateProvider;
 import com.gs.dmn.validation.NopDMNValidator;
 import org.junit.Test;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -34,11 +34,11 @@ import static org.junit.Assert.assertEquals;
 
 public class StandardDMNDialectDefinitionTest {
     private final DMNDialectDefinition dialect = new StandardDMNDialectDefinition();
-    private static final TDefinitions definitions = new TDefinitions();
+    private static final DMNModelRepository REPOSITORY = new DMNModelRepository();
 
     @Test
     public void testCreateDMNInterpreter() {
-        DMNInterpreter dmnInterpreter = dialect.createDMNInterpreter(definitions);
+        DMNInterpreter dmnInterpreter = dialect.createDMNInterpreter(REPOSITORY);
         assertEquals(DMNInterpreter.class.getName(), dmnInterpreter.getClass().getName());
     }
 
@@ -54,7 +54,7 @@ public class StandardDMNDialectDefinitionTest {
 
     @Test
     public void testCreateBasicTransformer() {
-        BasicDMN2JavaTransformer basicTransformer = dialect.createBasicTransformer(definitions, new NopLazyEvaluationDetector(), new LinkedHashMap<>());
+        BasicDMN2JavaTransformer basicTransformer = dialect.createBasicTransformer(REPOSITORY, new NopLazyEvaluationDetector(), new LinkedHashMap<>());
         assertEquals(BasicDMN2JavaTransformer.class.getName(), basicTransformer.getClass().getName());
     }
 
