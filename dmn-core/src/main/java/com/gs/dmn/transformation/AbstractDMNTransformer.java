@@ -12,13 +12,13 @@
  */
 package com.gs.dmn.transformation;
 
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 import java.io.File;
 import java.util.List;
@@ -47,7 +47,7 @@ public abstract class AbstractDMNTransformer extends AbstractTemplateBasedTransf
         this.decisionBaseClass = dialectDefinition.getDecisionBaseClass();
     }
 
-    protected TDefinitions readDMN(File file) {
+    protected DMNModelRepository readDMN(File file) {
         return dmnReader.read(file);
     }
 

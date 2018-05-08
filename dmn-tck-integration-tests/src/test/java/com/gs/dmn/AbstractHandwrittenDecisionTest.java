@@ -18,7 +18,6 @@ import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.JsonSerializer;
 import org.junit.Test;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
 import org.slf4j.LoggerFactory;
 
 import java.net.URL;
@@ -48,7 +47,7 @@ public abstract class AbstractHandwrittenDecisionTest {
         assertTrue("Takes longer than 500ms", after - before < 500);
     }
 
-    protected TDefinitions readDMN(String pathName) throws Exception {
+    protected DMNModelRepository readDMN(String pathName) throws Exception {
         URL url = this.getClass().getClassLoader().getResource(pathName).toURI().toURL();
         return dmnReader.read(url);
     }

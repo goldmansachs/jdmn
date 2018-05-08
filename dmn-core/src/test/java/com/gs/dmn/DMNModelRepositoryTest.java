@@ -19,7 +19,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.omg.spec.dmn._20180521.model.TDMNElement;
 import org.omg.spec.dmn._20180521.model.TDecision;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
 import org.omg.spec.dmn._20180521.model.TNamedElement;
 import org.slf4j.LoggerFactory;
 
@@ -40,8 +39,7 @@ public class DMNModelRepositoryTest {
     @Before
     public void setUp() {
         String pathName = "dmn/input/0004-lending.dmn";
-        TDMNElement root = readDMN(pathName);
-        dmnModelRepository = new DMNModelRepository((TDefinitions) root);
+        this.dmnModelRepository = readDMN(pathName);
     }
 
     @Test
@@ -70,7 +68,7 @@ public class DMNModelRepositoryTest {
         assertEquals(Arrays.asList("Pre-bureauRiskCategory", "RequiredMonthlyInstallment", "Post-bureauRiskCategory", "ApplicationRiskScore"), cachedElements.stream().collect(Collectors.toList()));
     }
 
-    private TDMNElement readDMN(String pathName) {
+    private DMNModelRepository readDMN(String pathName) {
         File input = new File(DMNModelRepositoryTest.class.getClassLoader().getResource(pathName).getFile());
         return dmnReader.read(input);
     }

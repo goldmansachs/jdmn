@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.runtime.compiler;
 
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.type.BuiltinFunctionType;
@@ -23,7 +24,6 @@ import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.junit.Test;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -39,9 +39,9 @@ public abstract class AbstractCompilerTest {
         FunctionDefinition element = new FunctionDefinition(Arrays.asList(), new NumericLiteral("123"), false);
         element.setType(new BuiltinFunctionType(Arrays.asList(), NumberType.NUMBER));
         FEELContext context = null;
-        TDefinitions definitions = new TDefinitions();
-        BasicDMN2JavaTransformer dmnTransformer = dialectDefinition.createBasicTransformer(definitions, new NopLazyEvaluationDetector(), new LinkedHashMap<>());
-        FEELTranslator feelTranslator = dialectDefinition.createFEELTranslator(definitions, new LinkedHashMap<>());
+        DMNModelRepository repository = new DMNModelRepository();
+        BasicDMN2JavaTransformer dmnTransformer = dialectDefinition.createBasicTransformer(repository, new NopLazyEvaluationDetector(), new LinkedHashMap<>());
+        FEELTranslator feelTranslator = dialectDefinition.createFEELTranslator(repository, new LinkedHashMap<>());
         return getCompiler().makeClassData(element, context, dmnTransformer, feelTranslator, dialectDefinition.createFEELLib().getClass().getName());
     }
 

@@ -18,13 +18,12 @@ import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.DefaultDMNValidator;
 import org.junit.Test;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 public class DMNValidatorTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(DMNValidatorTest.class));
@@ -40,16 +39,16 @@ public class DMNValidatorTest {
     @Test
     public void testValidateDefinitionsWhenNotUniqueNames() {
         File input = new File(DMNValidatorTest.class.getClassLoader().getResource("dmn/input/test-dmn-with-duplicates.dmn").getFile());
-        TDefinitions definitions = reader.read(input);
-        List<String> errors = validator.validate(new DMNModelRepository(definitions));
+        DMNModelRepository repository = reader.read(input);
+        List<String> errors = validator.validate(repository);
         assertTrue(!errors.isEmpty());
     }
 
     @Test
     public void testValidateDefinitionsWithError() {
         File input = new File(DMNValidatorTest.class.getClassLoader().getResource("dmn/input/test-dmn.dmn").getFile());
-        TDefinitions definitions = reader.read(input);
-        List<String> errors = validator.validate(new DMNModelRepository(definitions));
+        DMNModelRepository repository = reader.read(input);
+        List<String> errors = validator.validate(repository);
         assertTrue(!errors.isEmpty());
     }
 
@@ -60,8 +59,8 @@ public class DMNValidatorTest {
 
     private void validate(String path) {
         File input = new File(DMNValidatorTest.class.getClassLoader().getResource(path).getFile());
-        TDefinitions definitions = reader.read(input);
-        List<String> erros = validator.validate(new DMNModelRepository(definitions));
+        DMNModelRepository repository = reader.read(input);
+        List<String> erros = validator.validate(repository);
         assertTrue(erros.isEmpty());
     }
 }
