@@ -19,7 +19,9 @@ import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.serialization.DMNReader;
 import org.junit.Before;
 import org.junit.Test;
-import org.omg.spec.dmn._20180521.model.*;
+import org.omg.spec.dmn._20180521.model.TDRGElement;
+import org.omg.spec.dmn._20180521.model.TDecisionTable;
+import org.omg.spec.dmn._20180521.model.TExpression;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
@@ -40,8 +42,7 @@ public class SparseDecisionDetectorTest {
     @Before
     public void setUp() {
         String pathName = "dmn/input/0004-lending.dmn";
-        TDMNElement root = readDMN(pathName);
-        dmnModelRepository = new DMNModelRepository((TDefinitions) root);
+        dmnModelRepository = readDMN(pathName);
     }
 
     @Test
@@ -66,7 +67,7 @@ public class SparseDecisionDetectorTest {
         assertEquals(expectedResult, detector.isSparseDecisionTable((TDecisionTable) expression, sparsityThreshold));
     }
 
-    private TDMNElement readDMN(String pathName) {
+    private DMNModelRepository readDMN(String pathName) {
         File input = new File(DMNModelRepositoryTest.class.getClassLoader().getResource(pathName).getFile());
         return dmnReader.read(input);
     }

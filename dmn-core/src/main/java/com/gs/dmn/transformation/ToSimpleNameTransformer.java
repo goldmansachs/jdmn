@@ -113,7 +113,7 @@ public class ToSimpleNameTransformer extends NameTransformer {
     private static TDefinitions transformDefinitions(ToSimpleNameTransformer transformer, File inputFile, File outputFile, BuildLogger logger) {
         // Read
         DMNReader reader = new DMNReader(logger, false);
-        TDefinitions definitions = reader.read(inputFile);
+        TDefinitions definitions = reader.read(inputFile).getDefinitions();
 
         // Transform
         transformer.transform(definitions);

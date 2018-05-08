@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel;
 
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
@@ -47,7 +48,7 @@ public abstract class AbstractFEELProcessorTest {
 
     private final RuntimeEnvironmentFactory runtimeEnvironmentFactory = RuntimeEnvironmentFactory.instance();
 
-    protected final DMNInterpreter dmnInterpreter = dialectDefinition.createDMNInterpreter(null);
+    protected final DMNInterpreter dmnInterpreter = dialectDefinition.createDMNInterpreter(new DMNModelRepository());
     protected final BasicDMN2JavaTransformer dmnTransformer = dmnInterpreter.getBasicDMNTransformer();
     protected final EnvironmentFactory environmentFactory = dmnTransformer.getEnvironmentFactory();
     protected final FEELLib lib = dmnInterpreter.getFeelLib();

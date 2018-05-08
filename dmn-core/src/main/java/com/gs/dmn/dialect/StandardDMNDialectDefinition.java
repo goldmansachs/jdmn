@@ -29,7 +29,6 @@ import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -39,8 +38,8 @@ public class StandardDMNDialectDefinition extends AbstractDMNDialectDefinition {
     // DMN Processors
     //
     @Override
-    public DMNInterpreter createDMNInterpreter(TDefinitions definitions) {
-        return new DMNInterpreter(createBasicTransformer(definitions, new NopLazyEvaluationDetector(), new LinkedHashMap<>()), createFEELLib());
+    public DMNInterpreter createDMNInterpreter(DMNModelRepository repository) {
+        return new DMNInterpreter(createBasicTransformer(repository, new NopLazyEvaluationDetector(), new LinkedHashMap<>()), createFEELLib());
     }
 
     @Override
@@ -49,17 +48,9 @@ public class StandardDMNDialectDefinition extends AbstractDMNDialectDefinition {
     }
 
     @Override
-    public BasicDMN2JavaTransformer createBasicTransformer(TDefinitions definitions, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
+    public BasicDMN2JavaTransformer createBasicTransformer(DMNModelRepository repository, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         EnvironmentFactory environmentFactory = createEnvironmentFactory();
-        return new BasicDMN2JavaTransformer(createModelRepository(definitions), environmentFactory, createTypeTranslator(), lazyEvaluationDetector, inputParameters);
-    }
-
-    private DMNModelRepository createModelRepository(TDefinitions definitions) {
-        if (definitions == null) {
-            return new DMNModelRepository();
-        } else {
-            return new DMNModelRepository(definitions);
-        }
+        return new BasicDMN2JavaTransformer(repository, environmentFactory, createTypeTranslator(), lazyEvaluationDetector, inputParameters);
     }
 
     private EnvironmentFactory createEnvironmentFactory() {
