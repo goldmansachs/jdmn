@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.transformation;
 
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNNamespacePrefixMapper;
 import com.gs.dmn.serialization.DMNReader;
@@ -35,8 +36,8 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
 
         // Transform DMN
         File inputDmnFile = new File(CLASS_LOADER.getResource(path + dmnFileName).getFile());
-        TDefinitions definitions = dmnReader.read(inputDmnFile);
-        TDefinitions actualDefinitions = transformer.transform(definitions);
+        DMNModelRepository repository = dmnReader.read(inputDmnFile);
+        TDefinitions actualDefinitions = transformer.transform(repository.getDefinitions());
 
         // Transform Tests
         File inputTestsFile = new File(CLASS_LOADER.getResource(path + testsFileName).getFile());

@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.fitnesse.fixture.sfeel;
 
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.interpreter.FEELInterpreter;
 import com.gs.dmn.feel.interpreter.SFEELInterpreterImpl;
 import com.gs.dmn.fitnesse.fixture.AbstractFixture;
@@ -21,7 +22,7 @@ public class SFEELFixture extends AbstractFixture {
     protected final FEELInterpreter feelInterpreter;
 
     public SFEELFixture() {
-        DMNInterpreter dmnInterpreter = this.dialectDefinition.createDMNInterpreter(null);
+        DMNInterpreter dmnInterpreter = this.dialectDefinition.createDMNInterpreter(new DMNModelRepository());
         this.feelInterpreter = new SFEELInterpreterImpl(dmnInterpreter);
     }
 }

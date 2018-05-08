@@ -10,16 +10,19 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.fitnesse.fixture.feel;
+package com.gs.dmn.serialization;
 
-import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.feel.interpreter.FEELInterpreter;
-import com.gs.dmn.fitnesse.fixture.AbstractFixture;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-public class FEELFixture extends AbstractFixture {
-    protected final FEELInterpreter feelInterpreter;
+public class PrefixNamespaceMappings {
+    Map<String, String> mappings = new LinkedHashMap<>();
 
-    public FEELFixture() {
-        this.feelInterpreter = this.dialectDefinition.createFEELInterpreter(new DMNModelRepository());
+    public void put(String prefix, String namespace) {
+        mappings.put(prefix, namespace);
+    }
+
+    public String get(String prefix) {
+        return mappings.get(prefix);
     }
 }
