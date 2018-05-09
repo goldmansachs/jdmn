@@ -112,13 +112,13 @@ public class DMNReader extends DMNSerializer {
         return u;
     }
 
-    Object readObject(URL input) throws Exception {
+    Object readObject(File input) throws Exception {
         Unmarshaller unmarshaller = makeUnmarshaller();
         JAXBElement<?> jaxbElement = (JAXBElement<?>) unmarshaller.unmarshal(input);
         return jaxbElement.getValue();
     }
 
-    Object readObject(File input) throws Exception {
+    Object readObject(URL input) throws Exception {
         Unmarshaller unmarshaller = makeUnmarshaller();
         JAXBElement<?> jaxbElement = (JAXBElement<?>) unmarshaller.unmarshal(input);
         return jaxbElement.getValue();

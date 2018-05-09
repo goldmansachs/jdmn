@@ -25,7 +25,7 @@ import javax.xml.bind.JAXBElement;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.gs.dmn.serialization.DMNConstants.FEEL_11_PREFIX;
+import static com.gs.dmn.serialization.DMNConstants.FEEL_12_PREFIX;
 
 public class DMNModelRepository {
     private static final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
@@ -439,7 +439,7 @@ public class DMNModelRepository {
     }
 
     TItemDefinition lookupItemDefinition(List<TItemDefinition> itemDefinitionList, QualifiedName typeRef) {
-        if (typeRef == null || FEEL_11_PREFIX.equals(typeRef.getNamespace())) {
+        if (typeRef == null || FEEL_12_PREFIX.equals(typeRef.getNamespace())) {
             return null;
         }
         for (TItemDefinition itemDefinition : itemDefinitionList) {
