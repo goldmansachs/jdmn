@@ -78,9 +78,9 @@ public class DMNWriter extends DMNSerializer {
     }
 
     private void write(Marshaller marshaller, Object definitions, File output) throws JAXBException {
-        if (definitions instanceof org.omg.spec.dmn._20151101.dmn.TDefinitions) {
+        if (definitions instanceof org.omg.spec.dmn._20151101.model.TDefinitions) {
             QName qName = new QName(DMN_11_NS, "definitions");
-            JAXBElement<org.omg.spec.dmn._20151101.dmn.TDefinitions> root = new JAXBElement<org.omg.spec.dmn._20151101.dmn.TDefinitions>(qName, org.omg.spec.dmn._20151101.dmn.TDefinitions.class, (org.omg.spec.dmn._20151101.dmn.TDefinitions) definitions);
+            JAXBElement<org.omg.spec.dmn._20151101.model.TDefinitions> root = new JAXBElement<org.omg.spec.dmn._20151101.model.TDefinitions>(qName, org.omg.spec.dmn._20151101.model.TDefinitions.class, (org.omg.spec.dmn._20151101.model.TDefinitions) definitions);
             marshaller.marshal(root, output);
         } else if (definitions instanceof org.omg.spec.dmn._20180521.model.TDefinitions) {
             QName qName = new QName(DMN_12_NS, "definitions");
@@ -92,9 +92,9 @@ public class DMNWriter extends DMNSerializer {
     }
 
     private void write(Marshaller marshaller, Object definitions, OutputStream output) throws JAXBException {
-        if (definitions instanceof org.omg.spec.dmn._20151101.dmn.TDefinitions) {
+        if (definitions instanceof org.omg.spec.dmn._20151101.model.TDefinitions) {
             QName qName = new QName(DMN_11_NS, "definitions");
-            JAXBElement<org.omg.spec.dmn._20151101.dmn.TDefinitions> root = new JAXBElement<org.omg.spec.dmn._20151101.dmn.TDefinitions>(qName, org.omg.spec.dmn._20151101.dmn.TDefinitions.class, (org.omg.spec.dmn._20151101.dmn.TDefinitions) definitions);
+            JAXBElement<org.omg.spec.dmn._20151101.model.TDefinitions> root = new JAXBElement<org.omg.spec.dmn._20151101.model.TDefinitions>(qName, org.omg.spec.dmn._20151101.model.TDefinitions.class, (org.omg.spec.dmn._20151101.model.TDefinitions) definitions);
             marshaller.marshal(root, output);
         } else if (definitions instanceof org.omg.spec.dmn._20180521.model.TDefinitions) {
             QName qName = new QName(DMN_12_NS, "definitions");
