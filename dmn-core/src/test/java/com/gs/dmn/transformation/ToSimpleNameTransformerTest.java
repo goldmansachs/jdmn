@@ -15,7 +15,8 @@ package com.gs.dmn.transformation;
 import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
-import org.omg.spec.dmn._20180521.model.*;
+import org.omg.spec.dmn._20180521.model.TDRGElement;
+import org.omg.spec.dmn._20180521.model.TInputData;
 
 import static com.gs.dmn.runtime.Assert.assertEquals;
 
