@@ -25,7 +25,7 @@ import java.util.*;
 import static com.gs.dmn.serialization.DMNConstants.*;
 
 public class DMNDialectTransformer {
-    private static final ObjectFactory dmnFactory = new ObjectFactory();
+    private static final ObjectFactory DMN_12_OBJECT_FACTORY = new ObjectFactory();
     private final BuildLogger logger;
     private final PrefixNamespaceMappings prefixNamespaceMappings = new PrefixNamespaceMappings();
 
@@ -41,7 +41,7 @@ public class DMNDialectTransformer {
     private TDefinitions transform(org.omg.spec.dmn._20151101.dmn.TDefinitions dmn11Definitions) {
         logger.info(String.format("Transforming '%s' to DMN 1.2 ...", dmn11Definitions.getName()));
 
-        TDefinitions definitions = dmnFactory.createTDefinitions();
+        TDefinitions definitions = DMN_12_OBJECT_FACTORY.createTDefinitions();
 
         addNamedElementProperties(dmn11Definitions, definitions);
 
@@ -51,9 +51,9 @@ public class DMNDialectTransformer {
         definitions.getArtifact().addAll(transformList(dmn11Definitions.getArtifact()));
         definitions.getElementCollection().addAll(transformList(dmn11Definitions.getElementCollection()));
         definitions.getBusinessContextElement().addAll(transformList(dmn11Definitions.getBusinessContextElement()));
-        definitions.setExpressionLanguage(dmn11Definitions.getExpressionLanguage());
-        definitions.setTypeLanguage(dmn11Definitions.getTypeLanguage());
-        definitions.setNamespace(dmn11Definitions.getNamespace());
+        definitions.setExpressionLanguage(transformLanguage(dmn11Definitions.getExpressionLanguage()));
+        definitions.setTypeLanguage(transformLanguage(dmn11Definitions.getTypeLanguage()));
+        definitions.setNamespace(transformNamespace(dmn11Definitions.getNamespace()));
         definitions.setExporter(dmn11Definitions.getExporter());
         definitions.setExporterVersion(dmn11Definitions.getExporterVersion());
 
@@ -62,7 +62,7 @@ public class DMNDialectTransformer {
         return definitions;
     }
 
-    private Object transformElement(org.omg.spec.dmn._20151101.dmn.TDMNElement element) {
+    private TDMNElement transformElement(org.omg.spec.dmn._20151101.dmn.TDMNElement element) {
         if (element == null) {
             return null;
         }
@@ -71,7 +71,7 @@ public class DMNDialectTransformer {
         } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TInputClause) {
             return transform((org.omg.spec.dmn._20151101.dmn.TInputClause) element);
         } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TArtifact) {
-            return transform((org.omg.spec.dmn._20151101.dmn.TArtifact) element);
+            return transformArtifact((org.omg.spec.dmn._20151101.dmn.TArtifact) element);
         } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TOutputClause) {
             return transform((org.omg.spec.dmn._20151101.dmn.TOutputClause) element);
         } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TDecisionRule) {
@@ -85,7 +85,7 @@ public class DMNDialectTransformer {
         }
     }
 
-    private Object transformNamedElement(org.omg.spec.dmn._20151101.dmn.TNamedElement element) {
+    private TNamedElement transformNamedElement(org.omg.spec.dmn._20151101.dmn.TNamedElement element) {
         if (element == null) {
             return null;
         }
@@ -100,7 +100,7 @@ public class DMNDialectTransformer {
         } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TItemDefinition) {
             return transform((org.omg.spec.dmn._20151101.dmn.TItemDefinition) element);
         } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TBusinessContextElement) {
-            return transform((org.omg.spec.dmn._20151101.dmn.TBusinessContextElement) element);
+            return transformBusinessContextElement((org.omg.spec.dmn._20151101.dmn.TBusinessContextElement) element);
         } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TInformationItem) {
             return transform((org.omg.spec.dmn._20151101.dmn.TInformationItem) element);
         } else {
@@ -127,7 +127,7 @@ public class DMNDialectTransformer {
     }
 
     private void addImportProperties(org.omg.spec.dmn._20151101.dmn.TImport element, TImport result) {
-        result.setNamespace(element.getNamespace());
+        result.setNamespace(transformNamespace(element.getNamespace()));
         result.setLocationURI(element.getLocationURI());
         result.setImportType(element.getImportType());
     }
@@ -138,30 +138,60 @@ public class DMNDialectTransformer {
         }
 
         Object value = element.getValue();
-        if (value instanceof org.omg.spec.dmn._20151101.dmn.TDecision) {
-            return dmnFactory.createDecision(transform((org.omg.spec.dmn._20151101.dmn.TDecision) value));
+        if (value instanceof org.omg.spec.dmn._20151101.dmn.TDefinitions) {
+            return DMN_12_OBJECT_FACTORY.createDefinitions(transform((org.omg.spec.dmn._20151101.dmn.TDefinitions) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TImport) {
+            return DMN_12_OBJECT_FACTORY.createImport(transform((org.omg.spec.dmn._20151101.dmn.TImport) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TElementCollection) {
+            return DMN_12_OBJECT_FACTORY.createElementCollection(transform((org.omg.spec.dmn._20151101.dmn.TElementCollection) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TDecision) {
+            return DMN_12_OBJECT_FACTORY.createDecision(transform((org.omg.spec.dmn._20151101.dmn.TDecision) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TPerformanceIndicator) {
+            return DMN_12_OBJECT_FACTORY.createPerformanceIndicator(transform((org.omg.spec.dmn._20151101.dmn.TPerformanceIndicator) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TOrganizationUnit) {
+            return DMN_12_OBJECT_FACTORY.createOrganizationUnit(transform((org.omg.spec.dmn._20151101.dmn.TOrganizationUnit) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TBusinessContextElement) {
+            return DMN_12_OBJECT_FACTORY.createBusinessContextElement(transformBusinessContextElement((org.omg.spec.dmn._20151101.dmn.TBusinessContextElement) value));
         } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TBusinessKnowledgeModel) {
-            return dmnFactory.createBusinessKnowledgeModel(transform((org.omg.spec.dmn._20151101.dmn.TBusinessKnowledgeModel) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TKnowledgeSource) {
-            return dmnFactory.createKnowledgeSource(transform((org.omg.spec.dmn._20151101.dmn.TKnowledgeSource) value));
+            return DMN_12_OBJECT_FACTORY.createBusinessKnowledgeModel(transform((org.omg.spec.dmn._20151101.dmn.TBusinessKnowledgeModel) value));
         } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TInputData) {
-            return dmnFactory.createInputData(transform((org.omg.spec.dmn._20151101.dmn.TInputData) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TDecisionService) {
-            return dmnFactory.createDecisionService(transform((org.omg.spec.dmn._20151101.dmn.TDecisionService) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TFunctionDefinition) {
-            return dmnFactory.createFunctionDefinition(transform((org.omg.spec.dmn._20151101.dmn.TFunctionDefinition) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TDecisionTable) {
-            return dmnFactory.createDecisionTable(transform((org.omg.spec.dmn._20151101.dmn.TDecisionTable) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TRelation) {
-            return dmnFactory.createRelation(transform((org.omg.spec.dmn._20151101.dmn.TRelation) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TList) {
-            return dmnFactory.createList(transform((org.omg.spec.dmn._20151101.dmn.TList) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TContext) {
-            return dmnFactory.createContext(transform((org.omg.spec.dmn._20151101.dmn.TContext) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TInvocation) {
-            return dmnFactory.createInvocation(transform((org.omg.spec.dmn._20151101.dmn.TInvocation) value));
+            return DMN_12_OBJECT_FACTORY.createInputData(transform((org.omg.spec.dmn._20151101.dmn.TInputData) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TKnowledgeSource) {
+            return DMN_12_OBJECT_FACTORY.createKnowledgeSource(transform((org.omg.spec.dmn._20151101.dmn.TKnowledgeSource) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TInformationRequirement) {
+            return DMN_12_OBJECT_FACTORY.createInformationRequirement(transform((org.omg.spec.dmn._20151101.dmn.TInformationRequirement) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TKnowledgeRequirement) {
+            return DMN_12_OBJECT_FACTORY.createKnowledgeRequirement(transform((org.omg.spec.dmn._20151101.dmn.TKnowledgeRequirement) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TAuthorityRequirement) {
+            return DMN_12_OBJECT_FACTORY.createAuthorityRequirement(transform((org.omg.spec.dmn._20151101.dmn.TAuthorityRequirement) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TItemDefinition) {
+            return DMN_12_OBJECT_FACTORY.createItemDefinition(transform((org.omg.spec.dmn._20151101.dmn.TItemDefinition) value));
         } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TLiteralExpression) {
-            return dmnFactory.createLiteralExpression(transform((org.omg.spec.dmn._20151101.dmn.TLiteralExpression) value));
+            return DMN_12_OBJECT_FACTORY.createLiteralExpression(transform((org.omg.spec.dmn._20151101.dmn.TLiteralExpression) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TInvocation) {
+            return DMN_12_OBJECT_FACTORY.createInvocation(transform((org.omg.spec.dmn._20151101.dmn.TInvocation) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TInformationItem) {
+            return DMN_12_OBJECT_FACTORY.createInformationItem(transform((org.omg.spec.dmn._20151101.dmn.TInformationItem) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TDecisionTable) {
+            return DMN_12_OBJECT_FACTORY.createDecisionTable(transform((org.omg.spec.dmn._20151101.dmn.TDecisionTable) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TTextAnnotation) {
+            return DMN_12_OBJECT_FACTORY.createTextAnnotation(transform((org.omg.spec.dmn._20151101.dmn.TTextAnnotation) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TAssociation) {
+            return DMN_12_OBJECT_FACTORY.createAssociation(transform((org.omg.spec.dmn._20151101.dmn.TAssociation) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TArtifact) {
+            return DMN_12_OBJECT_FACTORY.createArtifact(transformArtifact((org.omg.spec.dmn._20151101.dmn.TArtifact) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TContext) {
+            return DMN_12_OBJECT_FACTORY.createContext(transform((org.omg.spec.dmn._20151101.dmn.TContext) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TContextEntry) {
+            return DMN_12_OBJECT_FACTORY.createContextEntry(transform((org.omg.spec.dmn._20151101.dmn.TContextEntry) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TFunctionDefinition) {
+            return DMN_12_OBJECT_FACTORY.createFunctionDefinition(transform((org.omg.spec.dmn._20151101.dmn.TFunctionDefinition) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TRelation) {
+            return DMN_12_OBJECT_FACTORY.createRelation(transform((org.omg.spec.dmn._20151101.dmn.TRelation) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TList) {
+            return DMN_12_OBJECT_FACTORY.createList(transform((org.omg.spec.dmn._20151101.dmn.TList) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TDecisionService) {
+            return DMN_12_OBJECT_FACTORY.createDecisionService(transform((org.omg.spec.dmn._20151101.dmn.TDecisionService) value));
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported yet", value.getClass()));
         }
@@ -214,7 +244,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TDMNElement.ExtensionElements result = dmnFactory.createTDMNElementExtensionElements();
+        TDMNElement.ExtensionElements result = DMN_12_OBJECT_FACTORY.createTDMNElementExtensionElements();
         List<Object> extensions = new ArrayList<>();
         for(Object extension: element.getAny()) {
             if (extension instanceof JAXBElement) {
@@ -234,7 +264,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TImport result = dmnFactory.createTImport();
+        TImport result = DMN_12_OBJECT_FACTORY.createTImport();
         addImportProperties(element, result);
         return result;
     }
@@ -244,7 +274,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TItemDefinition result = dmnFactory.createTItemDefinition();
+        TItemDefinition result = DMN_12_OBJECT_FACTORY.createTItemDefinition();
         addNamedElementProperties(element, result);
         result.setTypeRef(transform(element.getTypeRef()));
         result.setAllowedValues(transform(element.getAllowedValues()));
@@ -259,7 +289,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TUnaryTests result = dmnFactory.createTUnaryTests();
+        TUnaryTests result = DMN_12_OBJECT_FACTORY.createTUnaryTests();
         addElementProperties(element, result);
         result.setText(element.getText());
         result.setExpressionLanguage(element.getExpressionLanguage());
@@ -289,7 +319,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TBusinessKnowledgeModel result = dmnFactory.createTBusinessKnowledgeModel();
+        TBusinessKnowledgeModel result = DMN_12_OBJECT_FACTORY.createTBusinessKnowledgeModel();
         addNamedElementProperties(element, result);
         result.setEncapsulatedLogic(transform(element.getEncapsulatedLogic()));
         result.setVariable(transform(element.getVariable()));
@@ -303,7 +333,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TDecision result = dmnFactory.createTDecision();
+        TDecision result = DMN_12_OBJECT_FACTORY.createTDecision();
         addNamedElementProperties(element, result);
         result.setQuestion(element.getQuestion());
         result.setAllowedAnswers(element.getAllowedAnswers());
@@ -326,7 +356,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TInputData result = dmnFactory.createTInputData();
+        TInputData result = DMN_12_OBJECT_FACTORY.createTInputData();
         addNamedElementProperties(element, result);
         result.setVariable(transform(element.getVariable()));
         return result;
@@ -337,7 +367,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TKnowledgeSource result = dmnFactory.createTKnowledgeSource();
+        TKnowledgeSource result = DMN_12_OBJECT_FACTORY.createTKnowledgeSource();
         addNamedElementProperties(element, result);
         result.getAuthorityRequirement().addAll(transformList(element.getAuthorityRequirement()));
         result.setType(element.getType());
@@ -346,14 +376,55 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TArtifact transform(org.omg.spec.dmn._20151101.dmn.TArtifact element) {
+    private TArtifact transformArtifact(org.omg.spec.dmn._20151101.dmn.TArtifact element) {
         if (element == null) {
             return null;
         }
 
-        TArtifact result = dmnFactory.createTArtifact();
-        addElementProperties(element, result);   
+        if (element instanceof org.omg.spec.dmn._20151101.dmn.TTextAnnotation) {
+            return transform((org.omg.spec.dmn._20151101.dmn.TTextAnnotation) element);
+        } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TAssociation) {
+            return transform((org.omg.spec.dmn._20151101.dmn.TAssociation) element);
+        } else {
+            TArtifact result = DMN_12_OBJECT_FACTORY.createTArtifact();
+            addElementProperties(element, result);
+            return result;
+        }
+    }
+
+    private TTextAnnotation transform(org.omg.spec.dmn._20151101.dmn.TTextAnnotation element) {
+        if (element == null) {
+            return null;
+        }
+
+        TTextAnnotation result = DMN_12_OBJECT_FACTORY.createTTextAnnotation();
+        addElementProperties(element, result);
+        result.setText(element.getText());
+        result.setTextFormat(element.getTextFormat());
+
         return result;
+    }
+
+    private TAssociation transform(org.omg.spec.dmn._20151101.dmn.TAssociation element) {
+        if (element == null) {
+            return null;
+        }
+
+        TAssociation result = DMN_12_OBJECT_FACTORY.createTAssociation();
+        addElementProperties(element, result);
+        result.setSourceRef(transform(element.getSourceRef()));
+        result.setTargetRef(transform(element.getTargetRef()));
+        result.setAssociationDirection(transform(element.getAssociationDirection()));
+
+        return result;
+    }
+
+    private TAssociationDirection transform(org.omg.spec.dmn._20151101.dmn.TAssociationDirection associationDirection) {
+        if (associationDirection == null) {
+            return null;
+        } else {
+            return TAssociationDirection.fromValue(associationDirection.value());
+        }
     }
 
     private TElementCollection transform(org.omg.spec.dmn._20151101.dmn.TElementCollection element) {
@@ -361,7 +432,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TElementCollection result = dmnFactory.createTElementCollection();
+        TElementCollection result = DMN_12_OBJECT_FACTORY.createTElementCollection();
         addNamedElementProperties(element, result);
         result.getDrgElement().addAll(transformList(element.getDrgElement()));
         return result;
@@ -372,7 +443,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TDecisionService result = dmnFactory.createTDecisionService();
+        TDecisionService result = DMN_12_OBJECT_FACTORY.createTDecisionService();
         addNamedElementProperties(element, result);
         result.getOutputDecision().addAll(transformList(element.getOutputDecision()));
         result.getEncapsulatedDecision().addAll(transformList(element.getEncapsulatedDecision()));
@@ -381,14 +452,45 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TBusinessContextElement transform(org.omg.spec.dmn._20151101.dmn.TBusinessContextElement element) {
+    private TBusinessContextElement transformBusinessContextElement(org.omg.spec.dmn._20151101.dmn.TBusinessContextElement element) {
         if (element == null) {
             return null;
         }
 
-        TBusinessContextElement result = dmnFactory.createTBusinessContextElement();
+        if (element instanceof org.omg.spec.dmn._20151101.dmn.TPerformanceIndicator) {
+            return transform((org.omg.spec.dmn._20151101.dmn.TPerformanceIndicator) element);
+        } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TOrganizationUnit) {
+            return transform((org.omg.spec.dmn._20151101.dmn.TOrganizationUnit) element);
+        } else {
+            TBusinessContextElement result = DMN_12_OBJECT_FACTORY.createTBusinessContextElement();
+            addNamedElementProperties(element, result);
+            result.setURI(element.getURI());
+            return result;
+        }
+    }
+
+    private TPerformanceIndicator transform(org.omg.spec.dmn._20151101.dmn.TPerformanceIndicator element) {
+        if (element == null) {
+            return null;
+        }
+
+        TPerformanceIndicator result = DMN_12_OBJECT_FACTORY.createTPerformanceIndicator();
         addNamedElementProperties(element, result);
         result.setURI(element.getURI());
+        result.getImpactingDecision().addAll(transformList(element.getImpactingDecision()));
+        return result;
+    }
+
+    private TOrganizationUnit transform(org.omg.spec.dmn._20151101.dmn.TOrganizationUnit element) {
+        if (element == null) {
+            return null;
+        }
+
+        TOrganizationUnit result = DMN_12_OBJECT_FACTORY.createTOrganizationUnit();
+        addNamedElementProperties(element, result);
+        result.setURI(element.getURI());
+        result.getDecisionMade().addAll(transformList(element.getDecisionMade()));
+        result.getDecisionOwned().addAll(transformList(element.getDecisionOwned()));
         return result;
     }
 
@@ -397,7 +499,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TInformationItem result = dmnFactory.createTInformationItem();
+        TInformationItem result = DMN_12_OBJECT_FACTORY.createTInformationItem();
         addNamedElementProperties(element, result);
         result.setTypeRef(transform(element.getTypeRef()));
         return result;
@@ -408,7 +510,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TKnowledgeRequirement result = dmnFactory.createTKnowledgeRequirement();
+        TKnowledgeRequirement result = DMN_12_OBJECT_FACTORY.createTKnowledgeRequirement();
         result.setRequiredKnowledge(transform(element.getRequiredKnowledge()));
         return result;
     }
@@ -418,7 +520,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TAuthorityRequirement result = dmnFactory.createTAuthorityRequirement();
+        TAuthorityRequirement result = DMN_12_OBJECT_FACTORY.createTAuthorityRequirement();
         result.setRequiredDecision(transform(element.getRequiredDecision()));
         result.setRequiredInput(transform(element.getRequiredInput()));
         result.setRequiredAuthority(transform(element.getRequiredAuthority()));
@@ -430,7 +532,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TInformationRequirement result = dmnFactory.createTInformationRequirement();
+        TInformationRequirement result = DMN_12_OBJECT_FACTORY.createTInformationRequirement();
         result.setRequiredDecision(transform(element.getRequiredDecision()));
         result.setRequiredInput(transform(element.getRequiredInput()));
         return result;
@@ -441,7 +543,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TDMNElementReference result = dmnFactory.createTDMNElementReference();
+        TDMNElementReference result = DMN_12_OBJECT_FACTORY.createTDMNElementReference();
         result.setHref(element.getHref());
         return result;
     }
@@ -475,7 +577,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TFunctionDefinition result = dmnFactory.createTFunctionDefinition();
+        TFunctionDefinition result = DMN_12_OBJECT_FACTORY.createTFunctionDefinition();
         addExpressionProperties(element, result);
         result.getFormalParameter().addAll(transformList(element.getFormalParameter()));
         result.setExpression(transformJAXBElement(element.getExpression()));
@@ -487,7 +589,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TDecisionTable result = dmnFactory.createTDecisionTable();
+        TDecisionTable result = DMN_12_OBJECT_FACTORY.createTDecisionTable();
         addExpressionProperties(element, result);
         result.getInput().addAll(transformList(element.getInput()));
         result.getOutput().addAll(transformList(element.getOutput()));
@@ -504,7 +606,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TRelation result = dmnFactory.createTRelation();
+        TRelation result = DMN_12_OBJECT_FACTORY.createTRelation();
         addExpressionProperties(element, result);
         result.getColumn().addAll(transformList(element.getColumn()));
         result.getRow().addAll(transformList(element.getRow()));
@@ -516,7 +618,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TList result = dmnFactory.createTList();
+        TList result = DMN_12_OBJECT_FACTORY.createTList();
         addExpressionProperties(element, result);
         result.getExpression().addAll(transformList(element.getExpression()));
         return result;
@@ -527,7 +629,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TContext result = dmnFactory.createTContext();
+        TContext result = DMN_12_OBJECT_FACTORY.createTContext();
         addExpressionProperties(element, result);
         result.getContextEntry().addAll(transformList(element.getContextEntry()));
         return result;
@@ -538,7 +640,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TContextEntry result = dmnFactory.createTContextEntry();
+        TContextEntry result = DMN_12_OBJECT_FACTORY.createTContextEntry();
         result.setVariable(transform(element.getVariable()));
         result.setExpression(transformJAXBElement(element.getExpression()));
         return result;
@@ -549,7 +651,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TInvocation result = dmnFactory.createTInvocation();
+        TInvocation result = DMN_12_OBJECT_FACTORY.createTInvocation();
         addExpressionProperties(element, result);
         result.setExpression(transformJAXBElement(element.getExpression()));
         result.getBinding().addAll(transformList(element.getBinding()));
@@ -561,7 +663,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TBinding result = dmnFactory.createTBinding();
+        TBinding result = DMN_12_OBJECT_FACTORY.createTBinding();
         result.setParameter(transform(element.getParameter()));
         result.setExpression(transformJAXBElement(element.getExpression()));
         return result;
@@ -572,7 +674,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TLiteralExpression result = dmnFactory.createTLiteralExpression();
+        TLiteralExpression result = DMN_12_OBJECT_FACTORY.createTLiteralExpression();
         addExpressionProperties(element, result);
         result.setText(element.getText());
         result.setImportedValues(transformImportedValues(element.getImportedValues()));
@@ -585,7 +687,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TImportedValues result = dmnFactory.createTImportedValues();
+        TImportedValues result = DMN_12_OBJECT_FACTORY.createTImportedValues();
         addImportProperties(element, result);
         result.setImportedElement(element.getImportedElement());
         result.setExpressionLanguage(element.getExpressionLanguage());
@@ -621,7 +723,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TInputClause result = dmnFactory.createTInputClause();
+        TInputClause result = DMN_12_OBJECT_FACTORY.createTInputClause();
         addElementProperties(element, result);
         result.setInputExpression(transform(element.getInputExpression()));
         result.setInputValues(transform(element.getInputValues()));
@@ -633,7 +735,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TOutputClause result = dmnFactory.createTOutputClause();
+        TOutputClause result = DMN_12_OBJECT_FACTORY.createTOutputClause();
         addElementProperties(element, result);
         result.setOutputValues(transform(element.getOutputValues()));
         result.setDefaultOutputEntry(transform(element.getDefaultOutputEntry()));
@@ -647,7 +749,7 @@ public class DMNDialectTransformer {
             return null;
         }
 
-        TDecisionRule result = dmnFactory.createTDecisionRule();
+        TDecisionRule result = DMN_12_OBJECT_FACTORY.createTDecisionRule();
         addElementProperties(element, result);
         result.getInputEntry().addAll(transformList(element.getInputEntry()));
         result.getOutputEntry().addAll(transformList(element.getOutputEntry()));
@@ -674,4 +776,19 @@ public class DMNDialectTransformer {
         }
     }
 
+    private String transformLanguage(String expressionLanguage) {
+        if (FEEL_11_NS.equals(expressionLanguage)) {
+            return FEEL_12_NS;
+        } else {
+            return expressionLanguage;
+        }
+    }
+
+    private String transformNamespace(String namespace) {
+        if (DMN_11_NS.equals(namespace)) {
+            return DMN_12_NS;
+        } else {
+            return namespace;
+        }
+    }
 }

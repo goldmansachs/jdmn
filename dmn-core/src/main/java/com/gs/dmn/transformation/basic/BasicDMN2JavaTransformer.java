@@ -55,7 +55,7 @@ import javax.xml.bind.JAXBElement;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.gs.dmn.serialization.DMNConstants.FEEL_11_PREFIX;
+import static com.gs.dmn.serialization.DMNConstants.FEEL_12_PREFIX;
 
 public class BasicDMN2JavaTransformer {
     protected static final Logger LOGGER = LoggerFactory.getLogger(BasicDMN2JavaTransformer.class);
@@ -1163,7 +1163,7 @@ public class BasicDMN2JavaTransformer {
             return null;
         }
         // Lookup primitive types
-        Type primitiveType = lookupPrimitiveType(new QualifiedName(FEEL_11_PREFIX, typeName));
+        Type primitiveType = lookupPrimitiveType(new QualifiedName(FEEL_12_PREFIX, typeName));
         if (primitiveType != null) {
             return primitiveType;
         }
@@ -1217,7 +1217,7 @@ public class BasicDMN2JavaTransformer {
     }
 
     Type lookupPrimitiveType(QualifiedName typeRef) {
-        if (!FEEL_11_PREFIX.equals(typeRef.getNamespace())) {
+        if (!FEEL_12_PREFIX.equals(typeRef.getNamespace())) {
             return null;
         }
         String typeName = typeRef.getLocalPart();
