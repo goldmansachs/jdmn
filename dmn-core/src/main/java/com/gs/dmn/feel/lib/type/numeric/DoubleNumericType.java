@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.numeric;
 
+import com.gs.dmn.feel.lib.DoubleUtil;
 import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.NumericType;
@@ -73,15 +74,8 @@ public class DoubleNumericType extends BaseType implements NumericType<Double> {
 
     @Override
     public Double numericDivide(Double first, Double second) {
-        if (first == null || second == null) {
-            return null;
-        }
-        if (second == 0.0) {
-            return null;
-        }
-
         try {
-            return first / second;
+            return DoubleUtil.numericDivide(first, second);
         } catch (Throwable e) {
             String message = String.format("numericDivide(%s, %s)", first, second);
             logError(message, e);

@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.numeric;
 
+import com.gs.dmn.feel.lib.BigDecimalUtil;
 import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.NumericType;
@@ -78,15 +79,8 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
 
     @Override
     public BigDecimal numericDivide(BigDecimal first, BigDecimal second) {
-        if (first == null || second == null) {
-            return null;
-        }
-        if (BigDecimal.ZERO.equals(second)) {
-            return null;
-        }
-
         try {
-            return first.divide(second, MathContext.DECIMAL128).stripTrailingZeros();
+            return BigDecimalUtil.numericDivide(first, second);
         } catch (Throwable e) {
             String message = String.format("numericDivide(%s, %s)", first, second);
             logError(message, e);

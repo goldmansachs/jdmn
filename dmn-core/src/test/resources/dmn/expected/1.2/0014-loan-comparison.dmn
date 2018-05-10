@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<dmn:definitions xmlns:dmn="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:tns="http://www.trisotech.com/definitions/_69430b3e-17b8-430d-b760-c505bf6469f9" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" expressionLanguage="http://www.omg.org/spec/FEEL/20140401" typeLanguage="http://www.omg.org/spec/FEEL/20140401" namespace="http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719" exporter="DMN Modeler; Method and Style trisofix.xslt" exporterVersion="5.1.1; 1.1" name="loanComparison" id="_56c7d4a5-e6db-4bba-ac5f-dc082a16f719" triso:logoChoice="Default">
+<dmn:definitions xmlns:dmn="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:tns="http://www.trisotech.com/definitions/_69430b3e-17b8-430d-b760-c505bf6469f9" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" expressionLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" namespace="http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719" exporter="DMN Modeler; Method and Style trisofix.xslt" exporterVersion="5.1.1; 1.1" name="loanComparison" id="_56c7d4a5-e6db-4bba-ac5f-dc082a16f719" triso:logoChoice="Default">
     <dmn:itemDefinition isCollection="false" name="tLoanProduct" label="tLoanProduct">
         <dmn:itemComponent isCollection="false" name="lenderName" id="_e4e050fd-9198-4b62-8f99-15cb2a0a2373">
             <dmn:typeRef>feel.string</dmn:typeRef>
@@ -212,53 +212,6 @@
             </dmn:row>
         </dmn:relation>
     </dmn:decision>
-    <dmn:inputData name="RequestedAmt" id="_67c50a4c-3002-4d0a-9acf-4c76cb0364fa">
-        <dmn:variable typeRef="feel.number" name="RequestedAmt"/>
-    </dmn:inputData>
-    <dmn:decision name="RankedProducts" id="_715940be-0f5d-4701-8155-fcba85874aa1">
-        <dmn:variable typeRef="tns.tRankedProducts" name="RankedProducts"/>
-        <dmn:informationRequirement>
-            <dmn:requiredInput href="#_67c50a4c-3002-4d0a-9acf-4c76cb0364fa"/>
-        </dmn:informationRequirement>
-        <dmn:informationRequirement>
-            <dmn:requiredDecision href="#_c5dd7a17-b588-4daf-8c9b-677e65ce87be"/>
-        </dmn:informationRequirement>
-        <dmn:knowledgeRequirement>
-            <dmn:requiredKnowledge href="#_83059f2e-2862-45a9-97a7-71ffaa860586"/>
-        </dmn:knowledgeRequirement>
-        <dmn:context>
-            <dmn:contextEntry>
-                <dmn:variable typeRef="tns.tMetrics" name="metricsTable"/>
-                <dmn:literalExpression>
-                    <dmn:text>for i in Bankrates return FinancialMetrics(i,RequestedAmt)</dmn:text>
-                </dmn:literalExpression>
-            </dmn:contextEntry>
-            <dmn:contextEntry>
-                <dmn:variable typeRef="tns.tMetrics" name="rankByRate"/>
-                <dmn:literalExpression>
-                    <dmn:text>sort(metricsTable, function(x,y) x.rate&lt;y.rate)</dmn:text>
-                </dmn:literalExpression>
-            </dmn:contextEntry>
-            <dmn:contextEntry>
-                <dmn:variable typeRef="tns.tMetrics" name="rankByDownPmt"/>
-                <dmn:literalExpression>
-                    <dmn:text>sort(metricsTable, function(x,y) x.downPmtAmt&lt;y.downPmtAmt)</dmn:text>
-                </dmn:literalExpression>
-            </dmn:contextEntry>
-            <dmn:contextEntry>
-                <dmn:variable typeRef="tns.tMetrics" name="rankByMonthlyPmt"/>
-                <dmn:literalExpression>
-                    <dmn:text>sort(metricsTable, function(x,y) x.paymentAmt&lt;y.paymentAmt)</dmn:text>
-                </dmn:literalExpression>
-            </dmn:contextEntry>
-            <dmn:contextEntry>
-                <dmn:variable typeRef="tns.tMetrics" name="rankByEquityPct"/>
-                <dmn:literalExpression>
-                    <dmn:text>sort(metricsTable, function(x,y) x.equity36moPct&gt;y.equity36moPct)</dmn:text>
-                </dmn:literalExpression>
-            </dmn:contextEntry>
-        </dmn:context>
-    </dmn:decision>
     <dmn:businessKnowledgeModel name="FinancialMetrics" id="_83059f2e-2862-45a9-97a7-71ffaa860586">
         <dmn:variable name="FinancialMetrics"/>
         <dmn:encapsulatedLogic>
@@ -322,17 +275,53 @@
             <dmn:requiredKnowledge href="#_daec318a-135b-4d54-9e7f-85af3aa662f7"/>
         </dmn:knowledgeRequirement>
     </dmn:businessKnowledgeModel>
-    <dmn:businessKnowledgeModel name="monthlyPayment" id="_8702e1b6-213b-4f75-bf56-99ac3835cde7">
-        <dmn:variable name="monthlyPayment"/>
-        <dmn:encapsulatedLogic>
-            <dmn:formalParameter typeRef="feel.number" name="p"/>
-            <dmn:formalParameter typeRef="feel.number" name="r"/>
-            <dmn:formalParameter typeRef="feel.number" name="n"/>
-            <dmn:literalExpression typeRef="feel.number">
-                <dmn:text>p*r/12/(1-(1+r/12)**-n)</dmn:text>
-            </dmn:literalExpression>
-        </dmn:encapsulatedLogic>
-    </dmn:businessKnowledgeModel>
+    <dmn:decision name="RankedProducts" id="_715940be-0f5d-4701-8155-fcba85874aa1">
+        <dmn:variable typeRef="tns.tRankedProducts" name="RankedProducts"/>
+        <dmn:informationRequirement>
+            <dmn:requiredInput href="#_67c50a4c-3002-4d0a-9acf-4c76cb0364fa"/>
+        </dmn:informationRequirement>
+        <dmn:informationRequirement>
+            <dmn:requiredDecision href="#_c5dd7a17-b588-4daf-8c9b-677e65ce87be"/>
+        </dmn:informationRequirement>
+        <dmn:knowledgeRequirement>
+            <dmn:requiredKnowledge href="#_83059f2e-2862-45a9-97a7-71ffaa860586"/>
+        </dmn:knowledgeRequirement>
+        <dmn:context>
+            <dmn:contextEntry>
+                <dmn:variable typeRef="tns.tMetrics" name="metricsTable"/>
+                <dmn:literalExpression>
+                    <dmn:text>for i in Bankrates return FinancialMetrics(i,RequestedAmt)</dmn:text>
+                </dmn:literalExpression>
+            </dmn:contextEntry>
+            <dmn:contextEntry>
+                <dmn:variable typeRef="tns.tMetrics" name="rankByRate"/>
+                <dmn:literalExpression>
+                    <dmn:text>sort(metricsTable, function(x,y) x.rate&lt;y.rate)</dmn:text>
+                </dmn:literalExpression>
+            </dmn:contextEntry>
+            <dmn:contextEntry>
+                <dmn:variable typeRef="tns.tMetrics" name="rankByDownPmt"/>
+                <dmn:literalExpression>
+                    <dmn:text>sort(metricsTable, function(x,y) x.downPmtAmt&lt;y.downPmtAmt)</dmn:text>
+                </dmn:literalExpression>
+            </dmn:contextEntry>
+            <dmn:contextEntry>
+                <dmn:variable typeRef="tns.tMetrics" name="rankByMonthlyPmt"/>
+                <dmn:literalExpression>
+                    <dmn:text>sort(metricsTable, function(x,y) x.paymentAmt&lt;y.paymentAmt)</dmn:text>
+                </dmn:literalExpression>
+            </dmn:contextEntry>
+            <dmn:contextEntry>
+                <dmn:variable typeRef="tns.tMetrics" name="rankByEquityPct"/>
+                <dmn:literalExpression>
+                    <dmn:text>sort(metricsTable, function(x,y) x.equity36moPct&gt;y.equity36moPct)</dmn:text>
+                </dmn:literalExpression>
+            </dmn:contextEntry>
+        </dmn:context>
+    </dmn:decision>
+    <dmn:inputData name="RequestedAmt" id="_67c50a4c-3002-4d0a-9acf-4c76cb0364fa">
+        <dmn:variable typeRef="feel.number" name="RequestedAmt"/>
+    </dmn:inputData>
     <dmn:businessKnowledgeModel name="equity36Mo" id="_daec318a-135b-4d54-9e7f-85af3aa662f7">
         <dmn:variable name="equity36Mo"/>
         <dmn:encapsulatedLogic>
@@ -342,6 +331,17 @@
             <dmn:formalParameter typeRef="feel.number" name="pmt"/>
             <dmn:literalExpression typeRef="feel.number">
                 <dmn:text>p*(1+r/12)**n - pmt*(-1+(1+r/12)**n)/r</dmn:text>
+            </dmn:literalExpression>
+        </dmn:encapsulatedLogic>
+    </dmn:businessKnowledgeModel>
+    <dmn:businessKnowledgeModel name="monthlyPayment" id="_8702e1b6-213b-4f75-bf56-99ac3835cde7">
+        <dmn:variable name="monthlyPayment"/>
+        <dmn:encapsulatedLogic>
+            <dmn:formalParameter typeRef="feel.number" name="p"/>
+            <dmn:formalParameter typeRef="feel.number" name="r"/>
+            <dmn:formalParameter typeRef="feel.number" name="n"/>
+            <dmn:literalExpression typeRef="feel.number">
+                <dmn:text>p*r/12/(1-(1+r/12)**-n)</dmn:text>
             </dmn:literalExpression>
         </dmn:encapsulatedLogic>
     </dmn:businessKnowledgeModel>

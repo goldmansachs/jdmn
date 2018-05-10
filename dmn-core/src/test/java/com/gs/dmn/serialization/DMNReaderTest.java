@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.serialization;
 
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import org.junit.Test;
@@ -33,9 +34,9 @@ public class DMNReaderTest {
     public void testRead() {
         File input = new File(DMNReaderTest.class.getClassLoader().getResource("dmn/input/test-dmn.dmn").getFile());
 
-        TDMNElement root = dmnReader.read(input);
-        assertTrue(root instanceof TDefinitions);
-        List<JAXBElement<? extends TDRGElement>> drgElementList = ((TDefinitions) root).getDrgElement();
+        DMNModelRepository repository = dmnReader.read(input);
+        assertTrue(repository instanceof DMNModelRepository);
+        List<JAXBElement<? extends TDRGElement>> drgElementList = ((TDefinitions) repository.getDefinitions()).getDrgElement();
         assertEquals(1, drgElementList.size());
 
         TDRGElement decision = drgElementList.get(0).getValue();
