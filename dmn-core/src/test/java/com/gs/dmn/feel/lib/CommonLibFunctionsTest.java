@@ -140,6 +140,7 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
     @Test
     public void testSum() throws Exception {
         assertNull(getLib().sum((List) null));
+        assertNull(getLib().sum((makeNumberList())));
 
         assertEqualsNumber(makeNumber("6"), getLib().sum(makeNumberList(1, 2, 3)));
         assertNull(getLib().sum(makeNumberList(1, null, 3)));

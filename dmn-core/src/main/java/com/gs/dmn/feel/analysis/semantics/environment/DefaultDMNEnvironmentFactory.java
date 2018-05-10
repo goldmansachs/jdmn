@@ -21,6 +21,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DAYS_AND_TIME_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.YEARS_AND_MONTHS_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.ListType.ANY_LIST;
+import static com.gs.dmn.feel.analysis.semantics.type.ListType.STRING_LIST;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
@@ -91,6 +92,7 @@ public class DefaultDMNEnvironmentFactory extends EnvironmentFactory {
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("starts with", new BuiltinFunctionType(BOOLEAN, new Parameter("string", STRING), new Parameter("match", STRING))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("ends with", new BuiltinFunctionType(BOOLEAN, new Parameter("string", STRING), new Parameter("match", STRING))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("matches", new BuiltinFunctionType(BOOLEAN, new Parameter("input", STRING), new Parameter("pattern", STRING), new Parameter("flags", STRING, true, false))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("split", new BuiltinFunctionType(STRING_LIST, new Parameter("string", STRING), new Parameter("delimiter", STRING))));
     }
 
     private static void addListFunctions(Environment environment) {
@@ -106,8 +108,12 @@ public class DefaultDMNEnvironmentFactory extends EnvironmentFactory {
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("mean", new BuiltinFunctionType(NUMBER, new Parameter("n1", ANY), new Parameter("ns", ANY, false, true))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("and", new BuiltinFunctionType(BOOLEAN, new Parameter("list", ANY_LIST))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("and", new BuiltinFunctionType(NUMBER, new Parameter("b1", ANY), new Parameter("bs", ANY, false, true))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("all", new BuiltinFunctionType(BOOLEAN, new Parameter("list", ANY_LIST))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("all", new BuiltinFunctionType(NUMBER, new Parameter("b1", ANY), new Parameter("bs", ANY, false, true))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("or", new BuiltinFunctionType(BOOLEAN, new Parameter("list", ANY_LIST))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("or", new BuiltinFunctionType(NUMBER, new Parameter("b1", ANY), new Parameter("bs", ANY, false, true))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("any", new BuiltinFunctionType(BOOLEAN, new Parameter("list", ANY_LIST))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("any", new BuiltinFunctionType(NUMBER, new Parameter("b1", ANY), new Parameter("bs", ANY, false, true))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("sublist", new BuiltinFunctionType(ANY_LIST, new Parameter("list", ANY_LIST), new Parameter("start position", NUMBER), new Parameter("length", NUMBER, true, false))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("append", new BuiltinFunctionType(ANY_LIST, new Parameter("list", ANY_LIST), new Parameter("item", ANY))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("append", new BuiltinFunctionType(ANY_LIST, new Parameter("list", ANY_LIST), new Parameter("item", ANY, false, true))));
@@ -119,6 +125,14 @@ public class DefaultDMNEnvironmentFactory extends EnvironmentFactory {
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("distinct values", new BuiltinFunctionType(ANY_LIST, new Parameter("list", ANY_LIST))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("union", new BuiltinFunctionType(ANY_LIST, new Parameter("list1", ANY_LIST), new Parameter("list2", ANY_LIST))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("flatten", new BuiltinFunctionType(ANY_LIST, new Parameter("list", ANY_LIST))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("product", new BuiltinFunctionType(NUMBER, new Parameter("list", ANY_LIST))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("product", new BuiltinFunctionType(NUMBER, new Parameter("n1", ANY), new Parameter("ns", ANY, false, true))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("median", new BuiltinFunctionType(NUMBER, new Parameter("list", ANY_LIST))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("median", new BuiltinFunctionType(NUMBER, new Parameter("n1", ANY), new Parameter("ns", ANY, false, true))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("stddev", new BuiltinFunctionType(NUMBER, new Parameter("list", ANY_LIST))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("stddev", new BuiltinFunctionType(NUMBER, new Parameter("n1", ANY), new Parameter("ns", ANY, false, true))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("mode", new BuiltinFunctionType(NUMBER, new Parameter("list", ANY_LIST))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("mode", new BuiltinFunctionType(NUMBER, new Parameter("n1", ANY), new Parameter("ns", ANY, false, true))));
 
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("sort", new BuiltinFunctionType(ANY_LIST, new Parameter("list", ANY_LIST), new Parameter("function", ANY))));
     }
@@ -127,5 +141,12 @@ public class DefaultDMNEnvironmentFactory extends EnvironmentFactory {
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("decimal", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER), new Parameter("scale", NUMBER))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("floor", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("ceiling", new BuiltinFunctionType(NUMBER, new Parameter("n", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("abs", new BuiltinFunctionType(NUMBER, new Parameter("number", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("modulo", new BuiltinFunctionType(NUMBER, new Parameter("number", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("sqrt", new BuiltinFunctionType(NUMBER, new Parameter("number", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("log", new BuiltinFunctionType(NUMBER, new Parameter("number", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("exp", new BuiltinFunctionType(NUMBER, new Parameter("number", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("odd", new BuiltinFunctionType(BOOLEAN, new Parameter("number", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("even", new BuiltinFunctionType(BOOLEAN, new Parameter("number", NUMBER))));
     }
 }

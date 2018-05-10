@@ -153,6 +153,15 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         assertTrue(getLib().matches(input, "kiki", "i"));
     }
 
+    @Test
+    public void testSplit() {
+        assertNull("", getLib().split(null, null));
+        assertNull("", getLib().split("", ""));
+
+        assertEquals(getLib().asList("John", "Doe"), getLib().split("John Doe", "\\s"));
+        assertEquals(getLib().asList("a", "b", "c", "", ""), getLib().split("a;b;c;;", ";"));
+    }
+
     //
     // String built-in functions for Lists
     //
@@ -161,9 +170,6 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         assertEquals(true, getLib().listContains(makeNumberList(1, 2, 3), makeNumber(2)));
     }
 
-    //
-    // Statistic operations
-    //
     @Override
     @Test
     public void testMin() throws Exception {
@@ -210,6 +216,18 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Test
+    public void testAll() {
+        assertNull(getLib().all((List) null));
+        assertTrue(getLib().all(Arrays.asList(true, true)));
+        assertFalse(getLib().all(Arrays.asList(true, true, false)));
+        assertFalse(getLib().all(Arrays.asList(null, false)));
+
+        assertNull(getLib().all(null, null));
+        assertTrue(getLib().all(true, true));
+        assertFalse(getLib().all(true, true, false));
+    }
+
+    @Test
     public void testOr() {
         assertNull(getLib().or((List) null));
         assertTrue(getLib().or(Arrays.asList(true, true)));
@@ -219,6 +237,18 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         assertNull(getLib().or(null, null));
         assertTrue(getLib().or(true, true));
         assertTrue(getLib().or(true, true, false));
+    }
+
+    @Test
+    public void testAny() {
+        assertNull(getLib().any((List) null));
+        assertTrue(getLib().any(Arrays.asList(true, true)));
+        assertFalse(getLib().any(Arrays.asList(false, false, false)));
+        assertNull(getLib().any(Arrays.asList(null, false)));
+
+        assertNull(getLib().any(null, null));
+        assertTrue(getLib().any(true, true));
+        assertTrue(getLib().any(true, true, false));
     }
 
     @Test
@@ -273,6 +303,50 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Test
+    public void testProduct() {
+        assertNull(getLib().product((List) null));
+        assertNull(getLib().product((makeNumberList())));
+
+        assertEqualsNumber(makeNumber(24), getLib().product(makeNumberList(2, 3, 4)));
+
+        assertEqualsNumber(makeNumber(24), getLib().product(makeNumber(2), makeNumber(3), makeNumber(4)));
+    }
+
+    @Test
+    public void testMedian() {
+        assertNull(getLib().median((List) null));
+        assertNull(getLib().median(makeNumberList()));
+
+        assertEqualsNumber(makeNumber(4), getLib().median(makeNumberList(8, 2, 5, 3, 4)));
+        assertEqualsNumber(makeNumber(2.5), getLib().median(makeNumberList(6, 1, 2, 3)));
+
+        assertEqualsNumber(makeNumber(4), getLib().median(makeNumber(8), makeNumber(2), makeNumber(5), makeNumber(3), makeNumber(4)));
+        assertEqualsNumber(makeNumber(2.5), getLib().median(makeNumber(6), makeNumber(1), makeNumber(2), makeNumber(3)));
+    }
+
+    @Test
+    public void testStddev() {
+        assertNull(getLib().stddev((List) null));
+        assertNull(getLib().stddev(makeNumberList()));
+
+        assertEqualsNumber(makeNumber("1.8027756377319946"), getLib().stddev(makeNumberList(2, 4, 7, 5)));
+
+        assertEqualsNumber(makeNumber("1.8027756377319946"), getLib().stddev(makeNumber(2), makeNumber(4), makeNumber(7), makeNumber(5)));
+    }
+
+    @Test
+    public void testMode() {
+        assertNull(getLib().mode((List) null));
+        assertNull(getLib().mode(makeNumberList()));
+
+        assertEquals(makeNumberList(6), getLib().mode(makeNumberList(6, 3, 9, 6, 6)));
+        assertEquals(makeNumberList(1, 6), getLib().mode(makeNumberList(6, 1, 9, 6, 1)));
+
+        assertEquals(makeNumberList(6), getLib().mode(makeNumber(6), makeNumber(3), makeNumber(9), makeNumber(6), makeNumber(6)));
+        assertEquals(makeNumberList(1, 6), getLib().mode(makeNumber(6), makeNumber(1), makeNumber(9), makeNumber(6), makeNumber(1)));
+    }
+
+    @Test
     public void testRangeToList() {
         assertEquals(makeNumberList("2"), getLib().rangeToList(true, makeNumber("1"), true, makeNumber("3")));
         assertEquals(makeNumberList("1", "2"), getLib().rangeToList(false, makeNumber("1"), true, makeNumber("3")));
@@ -324,5 +398,57 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         assertEqualsNumber(makeNumber("2"), getLib().decimal(makeNumber("1.5"), makeNumber("0")));
         assertEqualsNumber(makeNumber("2"), getLib().decimal(makeNumber("2.5"), makeNumber("0")));
         assertEqualsNumber(makeNumber("10.00"), getLib().decimal(makeNumber("10.001"), makeNumber("2")));
+    }
+
+    @Test
+    public void testAbs() {
+        assertNull(getLib().abs(null));
+
+        assertEqualsNumber(makeNumber("10"), getLib().abs(makeNumber(10)));
+        assertEqualsNumber(makeNumber("10"), getLib().abs(makeNumber(-10)));
+    }
+
+    @Test
+    public void testModulo() {
+        assertNull(getLib().modulo(null, null));
+
+        assertEqualsNumber(makeNumber("2"), getLib().modulo(makeNumber(12), makeNumber(5)));
+    }
+
+    @Test
+    public void testSqrt() {
+        assertNull(getLib().sqrt(null));
+
+        assertEqualsNumber(makeNumber("4"), getLib().sqrt(makeNumber(16)));
+    }
+
+    @Test
+    public void testLog() {
+        assertNull(getLib().log(null));
+
+        assertEqualsNumber(makeNumber("2.30258509299404590109361379290930926799774169921875"), getLib().log(makeNumber(10)));
+    }
+
+    @Test
+    public void testExp() {
+        assertNull(getLib().exp(null));
+
+        assertEqualsNumber(makeNumber("148.413159102576599934764089994132518768310546875"), getLib().exp(makeNumber(5)));
+    }
+
+    @Test
+    public void testOdd() {
+        assertNull(getLib().odd(null));
+
+        assertTrue(getLib().odd(makeNumber(5)));
+        assertFalse(getLib().odd(makeNumber(2)));
+    }
+
+    @Test
+    public void testEven() {
+        assertNull(getLib().even(null));
+
+        assertFalse(getLib().even(makeNumber(5)));
+        assertTrue(getLib().even(makeNumber(2)));
     }
 }
