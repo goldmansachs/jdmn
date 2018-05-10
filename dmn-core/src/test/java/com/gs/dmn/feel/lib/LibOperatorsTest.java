@@ -17,6 +17,7 @@ import org.junit.Test;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
@@ -677,7 +678,9 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
 
     protected void assertEqualsNumber(NUMBER expected, Object actual) {
         if (expected instanceof BigDecimal && actual instanceof BigDecimal) {
-            assertEquals(((BigDecimal) expected).stripTrailingZeros().toPlainString(), ((BigDecimal) actual).stripTrailingZeros().toPlainString());
+            BigDecimal expectedNumber = ((BigDecimal) expected).setScale(8, RoundingMode.FLOOR);
+            BigDecimal actualNumber = ((BigDecimal) actual).setScale(8, RoundingMode.FLOOR);
+            assertEquals(((BigDecimal) expectedNumber).stripTrailingZeros().toPlainString(), ((BigDecimal) actualNumber).stripTrailingZeros().toPlainString());
         } else if (expected instanceof Long && actual instanceof Double) {
             assertEquals(expected, ((Double)actual).longValue());
         } else if (expected instanceof Long && actual instanceof Integer) {

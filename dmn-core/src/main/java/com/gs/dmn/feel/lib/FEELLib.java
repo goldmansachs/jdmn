@@ -62,6 +62,20 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
 
     NUMBER ceiling(NUMBER number);
 
+    NUMBER abs(NUMBER number);
+
+    NUMBER modulo(NUMBER divident, NUMBER divisor);
+
+    NUMBER sqrt(NUMBER number);
+
+    NUMBER log(NUMBER number);
+
+    NUMBER exp(NUMBER number);
+
+    Boolean odd(NUMBER number);
+
+    Boolean even(NUMBER number);
+
     //
     // String functions
     //
@@ -93,13 +107,11 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
 
     Boolean matches(String input, String pattern, String flags);
 
+    List split(String string, String delimiter);
+
     //
     // Boolean functions
     //
-    Boolean and(List list);
-
-    Boolean or(List list);
-
     Boolean not(Boolean operand);
 
     //
@@ -149,24 +161,36 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     NUMBER count(List list);
 
     NUMBER min(List list);
-
-    NUMBER max(List list);
-
-    NUMBER sum(List list);
-
     NUMBER min(Object... numbers);
 
+    NUMBER max(List list);
     NUMBER max(Object... numbers);
 
+    NUMBER sum(List list);
     NUMBER sum(Object... numbers);
 
     NUMBER mean(List list);
-
     NUMBER mean(Object... numbers);
 
+    // Use all instead
+    @Deprecated
+    Boolean and(List list);
+    // Use all instead
+    @Deprecated
     Boolean and(Object... args);
 
+    // Use any instead
+    @Deprecated
+    Boolean or(List list);
+    // Use any instead
+    @Deprecated
     Boolean or(Object... args);
+
+    Boolean all(List list);
+    Boolean all(Object... args);
+
+    Boolean any(List list);
+    Boolean any(Object... args);
 
     List sublist(List list, NUMBER position);
 
@@ -187,6 +211,18 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     List distinctValues(List list1);
 
     List flatten(List list1);
+
+    NUMBER product(List list);
+    NUMBER product(Object... numbers);
+
+    NUMBER median(List list);
+    NUMBER median(Object... numbers);
+
+    NUMBER stddev(List list);
+    NUMBER stddev(Object... numbers);
+
+    List mode(List list);
+    List mode(Object... numbers);
 
     void collect(List result, List list);
 

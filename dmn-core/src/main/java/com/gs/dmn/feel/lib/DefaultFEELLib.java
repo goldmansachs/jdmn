@@ -33,21 +33,15 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
+import javax.xml.xpath.*;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> implements FEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     protected static final Logger LOGGER = LoggerFactory.getLogger(DefaultFEELLib.class);
@@ -365,12 +359,8 @@ public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalend
     //
     @Override
     public BigDecimal decimal(BigDecimal n, BigDecimal scale) {
-        if (n == null || scale == null) {
-            return null;
-        }
-
         try {
-            return n.setScale(scale.intValue(), RoundingMode.HALF_EVEN);
+            return BigDecimalUtil.decimal(n, scale);
         } catch (Throwable e) {
             String message = String.format("decimal(%s, %s)", n, scale);
             logError(message, e);
@@ -380,22 +370,98 @@ public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalend
 
     @Override
     public BigDecimal floor(BigDecimal number) {
-        if (number == null) {
+        try {
+            return BigDecimalUtil.floor(number);
+        } catch (Throwable e) {
+            String message = String.format("fllor(%s)", number);
+            logError(message, e);
             return null;
         }
-        return number.setScale(0, BigDecimal.ROUND_FLOOR);
     }
 
     @Override
     public BigDecimal ceiling(BigDecimal number) {
-        if (number == null) {
-            return null;
-        }
-
         try {
-            return number.setScale(0, BigDecimal.ROUND_CEILING).stripTrailingZeros();
+            return BigDecimalUtil.ceiling(number);
         } catch (Throwable e) {
             String message = String.format("ceiling(%s)", number);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public BigDecimal abs(BigDecimal number) {
+        try {
+            return BigDecimalUtil.abs(number);
+        } catch (Throwable e) {
+            String message = String.format("abs(%s)", number);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public BigDecimal modulo(BigDecimal divident, BigDecimal divisor) {
+        try {
+            return BigDecimalUtil.modulo(divident, divisor);
+        } catch (Throwable e) {
+            String message = String.format("modulo(%s, %s)", divident, divisor);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public BigDecimal sqrt(BigDecimal number) {
+        try {
+            return BigDecimalUtil.sqrt(number);
+        } catch (Throwable e) {
+            String message = String.format("sqrt(%s)", number);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public BigDecimal log(BigDecimal number) {
+        try {
+            return BigDecimalUtil.log(number);
+        } catch (Throwable e) {
+            String message = String.format("log(%s)", number);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public BigDecimal exp(BigDecimal number) {
+        try {
+            return BigDecimalUtil.exp(number);
+        } catch (Throwable e) {
+            String message = String.format("exp(%s)", number);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean odd(BigDecimal number) {
+        try {
+            return BigDecimalUtil.odd(number);
+        } catch (Throwable e) {
+            String message = String.format("odd(%s)", number);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean even(BigDecimal number) {
+        try {
+            return BigDecimalUtil.even(number);
+        } catch (Throwable e) {
+            String message = String.format("odd(%s)", number);
             logError(message, e);
             return null;
         }
@@ -448,13 +514,8 @@ public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalend
 
     @Override
     public BigDecimal mean(List list) {
-        if (list == null) {
-            return null;
-        }
-
         try {
-            BigDecimal sum = sum(list);
-            return numericDivide(sum, BigDecimal.valueOf(list.size())).stripTrailingZeros();
+            return BigDecimalUtil.mean(list);
         } catch (Throwable e) {
             String message = String.format("mean(%s)", list);
             logError(message, e);
@@ -576,6 +637,8 @@ public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalend
             String expression = String.format("replace(/root, '%s', '%s', '%s')", pattern, replacement, flags);
             return evaluateXPath(input, expression);
         } catch (Throwable e) {
+            String message = String.format("replace(%s, %s, %s, %s)", input, pattern, replacement, flags);
+            logError(message, e);
             return null;
         }
     }
@@ -599,6 +662,19 @@ public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalend
             String value = evaluateXPath(input, expression);
             return input.equals(value);
         } catch (Throwable e) {
+            String message = String.format("matches(%s, %s, %s)", input, pattern, flags);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public List split(String string, String delimiter) {
+        try {
+            return StringUtil.split(string, delimiter);
+        } catch (Throwable e) {
+            String message = String.format("split(%s, %s)", string, delimiter);
+            logError(message, e);
             return null;
         }
     }
@@ -622,6 +698,16 @@ public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalend
     //
     @Override
     public Boolean and(List list) {
+        return all(list);
+    }
+
+    @Override
+    public Boolean and(Object... args) {
+        return all(args);
+    }
+
+    @Override
+    public Boolean all(List list) {
         if (list == null) {
             return null;
         }
@@ -642,7 +728,32 @@ public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalend
     }
 
     @Override
+    public Boolean all(Object... args) {
+        if (args == null || args.length < 1) {
+            return null;
+        }
+
+        try {
+            return all(Arrays.asList(args));
+        } catch (Throwable e) {
+            String message = String.format("and(%s)", args);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
     public Boolean or(List list) {
+        return any(list);
+    }
+
+    @Override
+    public Boolean or(Object... args) {
+        return any(args);
+    }
+
+    @Override
+    public Boolean any(List list) {
         if (list == null) {
             return null;
         }
@@ -663,38 +774,23 @@ public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalend
     }
 
     @Override
-    public Boolean not(Boolean operand) {
-        return booleanNot(operand);
-    }
-
-    @Override
-    public Boolean and(Object... args) {
+    public Boolean any(Object... args) {
         if (args == null || args.length < 1) {
             return null;
         }
 
         try {
-            return and(Arrays.asList(args));
-        } catch (Throwable e) {
-            String message = String.format("and(%s)", args);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public Boolean or(Object... args) {
-        if (args == null || args.length < 1) {
-            return null;
-        }
-
-        try {
-            return or(Arrays.asList(args));
+            return any(Arrays.asList(args));
         } catch (Throwable e) {
             String message = String.format("or(%s)", args);
             logError(message, e);
             return null;
         }
+    }
+
+    @Override
+    public Boolean not(Boolean operand) {
+        return booleanNot(operand);
     }
 
     //
@@ -817,19 +913,8 @@ public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalend
 
     @Override
     public BigDecimal min(List list) {
-        if (list == null || list.isEmpty()) {
-            return null;
-        }
-
         try {
-            BigDecimal result = (BigDecimal) list.get(0);
-            for (int i = 1; i < list.size(); i++) {
-                BigDecimal x = (BigDecimal) list.get(i);
-                if (result.compareTo(x) > 0) {
-                    result = x;
-                }
-            }
-            return result;
+            return BigDecimalUtil.min(list);
         } catch (Throwable e) {
             String message = String.format("min(%s)", list);
             logError(message, e);
@@ -839,19 +924,8 @@ public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalend
 
     @Override
     public BigDecimal max(List list) {
-        if (list == null || list.isEmpty()) {
-            return null;
-        }
-
         try {
-            BigDecimal result = (BigDecimal) list.get(0);
-            for (int i = 1; i < list.size(); i++) {
-                BigDecimal x = (BigDecimal)list.get(i);
-                if (result.compareTo(x) < 0) {
-                    result = x;
-                }
-            }
-            return result;
+            return BigDecimalUtil.max(list);
         } catch (Throwable e) {
             String message = String.format("max(%s)", list);
             logError(message, e);
@@ -861,17 +935,8 @@ public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalend
 
     @Override
     public BigDecimal sum(List list) {
-        if (list == null || list.isEmpty()) {
-            return null;
-        }
-
         try {
-            BigDecimal result = BigDecimal.valueOf(0);
-            for (Object aList : list) {
-                BigDecimal x = (BigDecimal) aList;
-                result = result.add(x);
-            }
-            return result.stripTrailingZeros();
+            return BigDecimalUtil.sum(list);
         } catch (Throwable e) {
             String message = String.format("sum(%s)", list);
             logError(message, e);
@@ -1044,6 +1109,110 @@ public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalend
     }
 
     @Override
+    public BigDecimal product(List list) {
+        try {
+            return BigDecimalUtil.product(list);
+        } catch (Throwable e) {
+            String message = String.format("product(%s)", list);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public BigDecimal product(Object... numbers) {
+        if (numbers == null || numbers.length < 1) {
+            return null;
+        }
+
+        try {
+            return product(Arrays.asList(numbers));
+        } catch (Throwable e) {
+            String message = String.format("sum(%s)", numbers);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public BigDecimal median(List list) {
+        try {
+            return BigDecimalUtil.median(list);
+        } catch (Throwable e){
+            String message = String.format("median(%s)", list);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public BigDecimal median(Object... numbers) {
+        if (numbers == null || numbers.length < 1) {
+            return null;
+        }
+
+        try {
+            return median(Arrays.asList(numbers));
+        } catch (Throwable e) {
+            String message = String.format("median(%s)", numbers);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public BigDecimal stddev(List list) {
+        try {
+            return BigDecimalUtil.stddev(list);
+        } catch (Throwable e) {
+            String message = String.format("stddev(%s)", list);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public BigDecimal stddev(Object... numbers) {
+        if (numbers == null || numbers.length < 1) {
+            return null;
+        }
+
+        try {
+            return stddev(Arrays.asList(numbers));
+        } catch (Throwable e) {
+            String message = String.format("stddev(%s)", numbers);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public List mode(List list) {
+        try {
+            return BigDecimalUtil.mode(list);
+        } catch (Throwable e) {
+            String message = String.format("mode(%s)", list);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public List mode(Object... numbers) {
+        if (numbers == null || numbers.length < 1) {
+            return null;
+        }
+
+        try {
+            return mode(Arrays.asList(numbers));
+        } catch (Throwable e) {
+            String message = String.format("mode(%s)", numbers);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
     public void collect(List result, List list) {
         if (list != null) {
             for (Object object : list) {
@@ -1076,7 +1245,7 @@ public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalend
     // Extra functions
     //
     @Override
-    public<T> List<T> asList(T ...objects) {
+    public <T> List<T> asList(T... objects) {
         if (objects == null) {
             List<T> result = new ArrayList<>();
             result.add(null);
@@ -1087,7 +1256,7 @@ public class DefaultFEELLib extends FEELOperators<BigDecimal, XMLGregorianCalend
     }
 
     @Override
-    public<T> T asElement(List<T> list) {
+    public <T> T asElement(List<T> list) {
         if (list == null) {
             return null;
         } else if (list.size() == 1) {
