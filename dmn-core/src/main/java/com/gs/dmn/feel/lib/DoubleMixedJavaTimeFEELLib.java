@@ -41,7 +41,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -383,12 +382,8 @@ public class DoubleMixedJavaTimeFEELLib extends FEELOperators<Double, LocalDate,
     //
     @Override
     public Double decimal(Double n, Double scale) {
-        if (n == null || scale == null) {
-            return null;
-        }
-
         try {
-            return BigDecimal.valueOf(n).setScale(scale.intValue(), RoundingMode.HALF_EVEN).doubleValue();
+            return DoubleUtil.decimal(n, scale);
         } catch (Throwable e) {
             String message = String.format("decimal(%s, %s)", n, scale);
             logError(message, e);
@@ -398,22 +393,98 @@ public class DoubleMixedJavaTimeFEELLib extends FEELOperators<Double, LocalDate,
 
     @Override
     public Double floor(Double number) {
-        if (number == null) {
+        try {
+            return DoubleUtil.floor(number);
+        } catch (Throwable e) {
+            String message = String.format("fllor(%s)", number);
+            logError(message, e);
             return null;
         }
-        return BigDecimal.valueOf(number).setScale(0, BigDecimal.ROUND_FLOOR).doubleValue();
     }
 
     @Override
     public Double ceiling(Double number) {
-        if (number == null) {
-            return null;
-        }
-
         try {
-            return BigDecimal.valueOf(number).setScale(0, BigDecimal.ROUND_CEILING).doubleValue();
+            return DoubleUtil.ceiling(number);
         } catch (Throwable e) {
             String message = String.format("ceiling(%s)", number);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Double abs(Double number) {
+        try {
+            return DoubleUtil.abs(number);
+        } catch (Throwable e) {
+            String message = String.format("abs(%s)", number);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Double modulo(Double divident, Double divisor) {
+        try {
+            return DoubleUtil.modulo(divident, divisor);
+        } catch (Throwable e) {
+            String message = String.format("modulo(%s, %s)", divident, divisor);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Double sqrt(Double number) {
+        try {
+            return DoubleUtil.sqrt(number);
+        } catch (Throwable e) {
+            String message = String.format("sqrt(%s)", number);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Double log(Double number) {
+        try {
+            return DoubleUtil.log(number);
+        } catch (Throwable e) {
+            String message = String.format("log(%s)", number);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Double exp(Double number) {
+        try {
+            return DoubleUtil.exp(number);
+        } catch (Throwable e) {
+            String message = String.format("exp(%s)", number);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean odd(Double number) {
+        try {
+            return DoubleUtil.odd(number);
+        } catch (Throwable e) {
+            String message = String.format("odd(%s)", number);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean even(Double number) {
+        try {
+            return DoubleUtil.even(number);
+        } catch (Throwable e) {
+            String message = String.format("odd(%s)", number);
             logError(message, e);
             return null;
         }
@@ -471,8 +542,7 @@ public class DoubleMixedJavaTimeFEELLib extends FEELOperators<Double, LocalDate,
         }
 
         try {
-            Double sum = sum(list);
-            return numericDivide(sum, Double.valueOf(list.size()));
+            return DoubleUtil.mean(list);
         } catch (Throwable e) {
             String message = String.format("mean(%s)", list);
             logError(message, e);
@@ -594,6 +664,8 @@ public class DoubleMixedJavaTimeFEELLib extends FEELOperators<Double, LocalDate,
             String expression = String.format("replace(/root, '%s', '%s', '%s')", pattern, replacement, flags);
             return evaluateXPath(input, expression);
         } catch (Throwable e) {
+            String message = String.format("replace(%s, %s, %s, %s)", input, pattern, replacement, flags);
+            logError(message, e);
             return null;
         }
     }
@@ -617,6 +689,19 @@ public class DoubleMixedJavaTimeFEELLib extends FEELOperators<Double, LocalDate,
             String value = evaluateXPath(input, expression);
             return input.equals(value);
         } catch (Throwable e) {
+            String message = String.format("matches(%s, %s, %s)", input, pattern, flags);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public List split(String string, String delimiter) {
+        try {
+            return StringUtil.split(string, delimiter);
+        } catch (Throwable e) {
+            String message = String.format("split(%s, %s)", string, delimiter);
+            logError(message, e);
             return null;
         }
     }
@@ -640,6 +725,16 @@ public class DoubleMixedJavaTimeFEELLib extends FEELOperators<Double, LocalDate,
     //
     @Override
     public Boolean and(List list) {
+        return all(list);
+    }
+
+    @Override
+    public Boolean and(Object... args) {
+        return all(args);
+    }
+
+    @Override
+    public Boolean all(List list) {
         if (list == null) {
             return null;
         }
@@ -660,7 +755,32 @@ public class DoubleMixedJavaTimeFEELLib extends FEELOperators<Double, LocalDate,
     }
 
     @Override
+    public Boolean all(Object... args) {
+        if (args == null || args.length < 1) {
+            return null;
+        }
+
+        try {
+            return all(Arrays.asList(args));
+        } catch (Throwable e) {
+            String message = String.format("and(%s)", args);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
     public Boolean or(List list) {
+        return any(list);
+    }
+
+    @Override
+    public Boolean or(Object... args) {
+        return any(args);
+    }
+
+    @Override
+    public Boolean any(List list) {
         if (list == null) {
             return null;
         }
@@ -681,38 +801,23 @@ public class DoubleMixedJavaTimeFEELLib extends FEELOperators<Double, LocalDate,
     }
 
     @Override
-    public Boolean not(Boolean operand) {
-        return booleanNot(operand);
-    }
-
-    @Override
-    public Boolean and(Object... args) {
+    public Boolean any(Object... args) {
         if (args == null || args.length < 1) {
             return null;
         }
 
         try {
-            return and(Arrays.asList(args));
-        } catch (Throwable e) {
-            String message = String.format("and(%s)", args);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public Boolean or(Object... args) {
-        if (args == null || args.length < 1) {
-            return null;
-        }
-
-        try {
-            return or(Arrays.asList(args));
+            return any(Arrays.asList(args));
         } catch (Throwable e) {
             String message = String.format("or(%s)", args);
             logError(message, e);
             return null;
         }
+    }
+
+    @Override
+    public Boolean not(Boolean operand) {
+        return booleanNot(operand);
     }
 
     //
@@ -883,19 +988,8 @@ public class DoubleMixedJavaTimeFEELLib extends FEELOperators<Double, LocalDate,
 
     @Override
     public Double min(List list) {
-        if (list == null || list.isEmpty()) {
-            return null;
-        }
-
         try {
-            Double result = number(list.get(0).toString());
-            for (int i = 1; i < list.size(); i++) {
-                Double x = number(list.get(i).toString());
-                if (result.compareTo(x) > 0) {
-                    result = x;
-                }
-            }
-            return result;
+            return DoubleUtil.min(list);
         } catch (Throwable e) {
             String message = String.format("min(%s)", list);
             logError(message, e);
@@ -910,14 +1004,7 @@ public class DoubleMixedJavaTimeFEELLib extends FEELOperators<Double, LocalDate,
         }
 
         try {
-            Double result = number(list.get(0).toString());
-            for (int i = 1; i < list.size(); i++) {
-                Double x = number(list.get(i).toString());
-                if (result.compareTo(x) < 0) {
-                    result = x;
-                }
-            }
-            return result;
+            return DoubleUtil.max(list);
         } catch (Throwable e) {
             String message = String.format("max(%s)", list);
             logError(message, e);
@@ -927,17 +1014,8 @@ public class DoubleMixedJavaTimeFEELLib extends FEELOperators<Double, LocalDate,
 
     @Override
     public Double sum(List list) {
-        if (list == null || list.isEmpty()) {
-            return null;
-        }
-
         try {
-            Double result = Double.valueOf(0);
-            for (Object aList : list) {
-                Double x = (Double) aList;
-                result = result + x;
-            }
-            return result;
+            return DoubleUtil.sum(list);
         } catch (Throwable e) {
             String message = String.format("sum(%s)", list);
             logError(message, e);
@@ -1110,6 +1188,110 @@ public class DoubleMixedJavaTimeFEELLib extends FEELOperators<Double, LocalDate,
     }
 
     @Override
+    public Double product(List list) {
+        try {
+            return DoubleUtil.product(list);
+        } catch (Throwable e) {
+            String message = String.format("product(%s)", list);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Double product(Object... numbers) {
+        if (numbers == null || numbers.length < 1) {
+            return null;
+        }
+
+        try {
+            return product(Arrays.asList(numbers));
+        } catch (Throwable e) {
+            String message = String.format("sum(%s)", numbers);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Double median(List list) {
+        try {
+            return DoubleUtil.median(list);
+        } catch (Throwable e){
+            String message = String.format("median(%s)", list);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Double median(Object... numbers) {
+        if (numbers == null || numbers.length < 1) {
+            return null;
+        }
+
+        try {
+            return median(Arrays.asList(numbers));
+        } catch (Throwable e) {
+            String message = String.format("median(%s)", numbers);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Double stddev(List list) {
+        try {
+            return DoubleUtil.stddev(list);
+        } catch (Throwable e) {
+            String message = String.format("stddev(%s)", list);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Double stddev(Object... numbers) {
+        if (numbers == null || numbers.length < 1) {
+            return null;
+        }
+
+        try {
+            return stddev(Arrays.asList(numbers));
+        } catch (Throwable e) {
+            String message = String.format("stddev(%s)", numbers);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public List mode(List list) {
+        try {
+            return DoubleUtil.mode(list);
+        } catch (Throwable e) {
+            String message = String.format("mode(%s)", list);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public List mode(Object... numbers) {
+        if (numbers == null || numbers.length < 1) {
+            return null;
+        }
+
+        try {
+            return mode(Arrays.asList(numbers));
+        } catch (Throwable e) {
+            String message = String.format("mode(%s)", numbers);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
     public void collect(List result, List list) {
         if (list != null) {
             for (Object object : list) {
@@ -1142,7 +1324,7 @@ public class DoubleMixedJavaTimeFEELLib extends FEELOperators<Double, LocalDate,
     // Extra functions
     //
     @Override
-    public<T> List<T> asList(T ...objects) {
+    public <T> List<T> asList(T... objects) {
         if (objects == null) {
             List<T> result = new ArrayList<>();
             result.add(null);
@@ -1153,7 +1335,7 @@ public class DoubleMixedJavaTimeFEELLib extends FEELOperators<Double, LocalDate,
     }
 
     @Override
-    public<T> T asElement(List<T> list) {
+    public <T> T asElement(List<T> list) {
         if (list == null) {
             return null;
         } else if (list.size() == 1) {
