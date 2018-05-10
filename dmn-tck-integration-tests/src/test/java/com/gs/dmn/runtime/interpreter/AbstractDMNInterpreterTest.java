@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.runtime.interpreter;
 
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.lib.FEELLib;
@@ -59,14 +60,14 @@ public abstract class AbstractDMNInterpreterTest {
             // Read DMN file
             String dmnPathName = getDMNInputPath() + "/" + dmnFileName + DMNConstants.DMN_FILE_EXTENSION;
             URL dmnFileURL = getClass().getClassLoader().getResource(dmnPathName).toURI().toURL();
-            TDefinitions definitions = reader.read(dmnFileURL);
+            DMNModelRepository repository = reader.read(dmnFileURL);
 
-            // Clean definitions
+            // Transform definitions
             dmnTransformer = new ToSimpleNameTransformer(LOGGER);
-            definitions = dmnTransformer.transform(definitions);
+            TDefinitions definitions = dmnTransformer.transform(repository.getDefinitions());
 
             // Set-up execution
-            this.interpreter = getDialectDefinition().createDMNInterpreter(definitions);
+            this.interpreter = getDialectDefinition().createDMNInterpreter(repository);
             this.basicTransformer = interpreter.getBasicDMNTransformer();
             this.lib = interpreter.getFeelLib();
 

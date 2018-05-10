@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.dialect;
 
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.interpreter.FEELInterpreter;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
@@ -24,7 +25,6 @@ import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 import java.util.Map;
 
@@ -32,22 +32,22 @@ public interface DMNDialectDefinition {
     //
     // FEEL Processors
     //
-    FEELInterpreter createFEELInterpreter(TDefinitions definitions);
+    FEELInterpreter createFEELInterpreter(DMNModelRepository repository);
 
-    FEELTranslator createFEELTranslator(TDefinitions definitions, Map<String, String> inputParameters);
+    FEELTranslator createFEELTranslator(DMNModelRepository repository, Map<String, String> inputParameters);
 
-    FEELInterpreter createSFEELInterpreter(TDefinitions definitions);
+    FEELInterpreter createSFEELInterpreter(DMNModelRepository repository);
 
-    FEELTranslator createSFEELTranslator(TDefinitions definitions, Map<String, String> inputParameters);
+    FEELTranslator createSFEELTranslator(DMNModelRepository repository, Map<String, String> inputParameters);
 
     //
     // DMN Processors
     //
-    DMNInterpreter createDMNInterpreter(TDefinitions definitions);
+    DMNInterpreter createDMNInterpreter(DMNModelRepository repository);
 
     DMNToJavaTransformer createDMNToJavaTransformer(DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters, BuildLogger logger);
 
-    BasicDMN2JavaTransformer createBasicTransformer(TDefinitions definitions, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters);
+    BasicDMN2JavaTransformer createBasicTransformer(DMNModelRepository repository, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters);
 
     //
     // Execution engine

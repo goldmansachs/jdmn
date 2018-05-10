@@ -13,6 +13,7 @@
 package com.gs.dmn;
 
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import org.apache.commons.lang3.StringUtils;
@@ -24,7 +25,7 @@ import javax.xml.bind.JAXBElement;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.gs.dmn.serialization.DMNConstants.FEEL_11_PREFIX;
+import static com.gs.dmn.serialization.DMNConstants.FEEL_12_PREFIX;
 
 public class DMNModelRepository {
     private static final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
@@ -33,12 +34,15 @@ public class DMNModelRepository {
 
     private final TDefinitions definitions;
 
+    private final PrefixNamespaceMappings prefixNamespaceMappings;
+
     public DMNModelRepository() {
-        this(OBJECT_FACTORY.createTDefinitions());
+        this(OBJECT_FACTORY.createTDefinitions(), new PrefixNamespaceMappings() );
     }
 
-    public DMNModelRepository(TDefinitions definitions) {
+    public DMNModelRepository(TDefinitions definitions, PrefixNamespaceMappings prefixNamespaceMappings) {
         this.definitions = definitions;
+        this.prefixNamespaceMappings = prefixNamespaceMappings;
         normalize(definitions);
     }
 
@@ -100,6 +104,10 @@ public class DMNModelRepository {
 
     public TDefinitions getDefinitions() {
         return definitions;
+    }
+
+    public PrefixNamespaceMappings getPrefixNamespaceMappings() {
+        return prefixNamespaceMappings;
     }
 
     public List<TDRGElement> drgElements() {
@@ -431,7 +439,7 @@ public class DMNModelRepository {
     }
 
     TItemDefinition lookupItemDefinition(List<TItemDefinition> itemDefinitionList, QualifiedName typeRef) {
-        if (typeRef == null || FEEL_11_PREFIX.equals(typeRef.getNamespace())) {
+        if (typeRef == null || FEEL_12_PREFIX.equals(typeRef.getNamespace())) {
             return null;
         }
         for (TItemDefinition itemDefinition : itemDefinitionList) {

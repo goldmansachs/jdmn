@@ -20,10 +20,11 @@ public class DMNDialectTransformerTest extends AbstractFileTransformerTest {
     protected void doTest(String inputFileName, Pair<String, String> dmnNamespacePrefixMapping) throws Exception {
         // Read
         File inputFile = new File(resource(getInputPath() + inputFileName));
-        org.omg.spec.dmn._20151101.model.TDefinitions dmn11Definitions = (org.omg.spec.dmn._20151101.model.TDefinitions) dmnReader.readObject(inputFile);
+        Object object = dmnReader.readObject(inputFile);
+        org.omg.spec.dmn._20151101.model.TDefinitions dmn11Definitions = (org.omg.spec.dmn._20151101.model.TDefinitions) object;
 
         // Transform
-        org.omg.spec.dmn._20180521.model.TDefinitions dmn12Definitions = transformer.transform(dmn11Definitions);
+        org.omg.spec.dmn._20180521.model.TDefinitions dmn12Definitions = transformer.transformRepository(dmn11Definitions).getDefinitions();
 
         // Write
         File targetFolder = new File(getTargetPath());

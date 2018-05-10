@@ -25,7 +25,6 @@ import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -40,10 +39,9 @@ public class TCKTestCasesToJUnitTransformer extends AbstractDMNTransformer {
 
     public TCKTestCasesToJUnitTransformer(DMNDialectDefinition dialectDefinition, DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, Path inputModelPath, Map<String, String> inputParameters, BuildLogger logger) {
         super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, inputParameters, logger);
-        TDefinitions definitions = readDMN(inputModelPath.toFile());
-        this.basicTransformer = this.dialectDefinition.createBasicTransformer(definitions, lazyEvaluationDetector, inputParameters);
-        DMNModelRepository dmnModelRepository = this.basicTransformer.getDMNModelRepository();
-        handleValidationErrors(this.dmnValidator.validate(dmnModelRepository));
+        DMNModelRepository repository = readDMN(inputModelPath.toFile());
+        this.basicTransformer = this.dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);
+        handleValidationErrors(this.dmnValidator.validate(repository));
         this.testCasesReader = new TestCasesReader(logger);
         this.tckUtil = new TCKUtil(basicTransformer, dialectDefinition.createFEELLib());
     }

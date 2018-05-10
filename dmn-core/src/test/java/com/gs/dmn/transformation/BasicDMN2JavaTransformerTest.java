@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.transformation;
 
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
@@ -22,7 +23,6 @@ import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.junit.Before;
 import org.junit.Test;
 import org.omg.spec.dmn._20180521.model.TDecision;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
@@ -42,8 +42,8 @@ public class BasicDMN2JavaTransformerTest {
     @Before
     public void setUp() {
         String pathName = "dmn/input/0004-lending.dmn";
-        TDefinitions definitions = readDMN(pathName);
-        this.dmnTransformer = dialectDefinition.createBasicTransformer(definitions, new NopLazyEvaluationDetector(), new LinkedHashMap<>());
+        DMNModelRepository repository = readDMN(pathName);
+        this.dmnTransformer = dialectDefinition.createBasicTransformer(repository, new NopLazyEvaluationDetector(), new LinkedHashMap<>());
     }
 
     @Test
@@ -118,7 +118,7 @@ public class BasicDMN2JavaTransformerTest {
         assertEquals("ab\\\\dc", dmnTransformer.escapeInString("ab\\dc"));
     }
 
-    private TDefinitions readDMN(String pathName) {
+    private DMNModelRepository readDMN(String pathName) {
         File input = new File(BasicDMN2JavaTransformerTest.class.getClassLoader().getResource(pathName).getFile());
         return dmnReader.read(input);
     }
