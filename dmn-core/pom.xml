@@ -181,7 +181,7 @@
                             <outputDirectory>${jaxb.generated.dmn}</outputDirectory>
                             <clearOutputDir>false</clearOutputDir>
                             <noPackageLevelAnnotations>false</noPackageLevelAnnotations>
-                            <packageName>org.omg.spec.dmn._20151101.dmn</packageName>
+                            <packageName>org.omg.spec.dmn._20151101.model</packageName>
                             <encoding>UTF-8</encoding>
                         </configuration>
                         <goals>

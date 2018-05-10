@@ -33,12 +33,12 @@ public class DMNDialectTransformer {
         this.logger = logger;
     }
 
-    public DMNModelRepository transformRepository(org.omg.spec.dmn._20151101.dmn.TDefinitions dmn11Definitions) {
+    public DMNModelRepository transformRepository(org.omg.spec.dmn._20151101.model.TDefinitions dmn11Definitions) {
         TDefinitions definitions = transform(dmn11Definitions);
         return new DMNModelRepository(definitions, prefixNamespaceMappings);
     }
 
-    private TDefinitions transform(org.omg.spec.dmn._20151101.dmn.TDefinitions dmn11Definitions) {
+    private TDefinitions transform(org.omg.spec.dmn._20151101.model.TDefinitions dmn11Definitions) {
         logger.info(String.format("Transforming '%s' to DMN 1.2 ...", dmn11Definitions.getName()));
 
         TDefinitions definitions = DMN_12_OBJECT_FACTORY.createTDefinitions();
@@ -62,53 +62,53 @@ public class DMNDialectTransformer {
         return definitions;
     }
 
-    private TDMNElement transformElement(org.omg.spec.dmn._20151101.dmn.TDMNElement element) {
+    private TDMNElement transformElement(org.omg.spec.dmn._20151101.model.TDMNElement element) {
         if (element == null) {
             return null;
         }
-        if (element instanceof org.omg.spec.dmn._20151101.dmn.TUnaryTests) {
-            return transform((org.omg.spec.dmn._20151101.dmn.TUnaryTests) element);
-        } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TInputClause) {
-            return transform((org.omg.spec.dmn._20151101.dmn.TInputClause) element);
-        } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TArtifact) {
-            return transformArtifact((org.omg.spec.dmn._20151101.dmn.TArtifact) element);
-        } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TOutputClause) {
-            return transform((org.omg.spec.dmn._20151101.dmn.TOutputClause) element);
-        } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TDecisionRule) {
-            return transform((org.omg.spec.dmn._20151101.dmn.TDecisionRule) element);
-        } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TNamedElement) {
-            return transformNamedElement((org.omg.spec.dmn._20151101.dmn.TNamedElement) element);
-        } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TExpression) {
-            return transformExpression((org.omg.spec.dmn._20151101.dmn.TExpression) element);
+        if (element instanceof org.omg.spec.dmn._20151101.model.TUnaryTests) {
+            return transform((org.omg.spec.dmn._20151101.model.TUnaryTests) element);
+        } else if (element instanceof org.omg.spec.dmn._20151101.model.TInputClause) {
+            return transform((org.omg.spec.dmn._20151101.model.TInputClause) element);
+        } else if (element instanceof org.omg.spec.dmn._20151101.model.TArtifact) {
+            return transformArtifact((org.omg.spec.dmn._20151101.model.TArtifact) element);
+        } else if (element instanceof org.omg.spec.dmn._20151101.model.TOutputClause) {
+            return transform((org.omg.spec.dmn._20151101.model.TOutputClause) element);
+        } else if (element instanceof org.omg.spec.dmn._20151101.model.TDecisionRule) {
+            return transform((org.omg.spec.dmn._20151101.model.TDecisionRule) element);
+        } else if (element instanceof org.omg.spec.dmn._20151101.model.TNamedElement) {
+            return transformNamedElement((org.omg.spec.dmn._20151101.model.TNamedElement) element);
+        } else if (element instanceof org.omg.spec.dmn._20151101.model.TExpression) {
+            return transformExpression((org.omg.spec.dmn._20151101.model.TExpression) element);
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported"));
         }
     }
 
-    private TNamedElement transformNamedElement(org.omg.spec.dmn._20151101.dmn.TNamedElement element) {
+    private TNamedElement transformNamedElement(org.omg.spec.dmn._20151101.model.TNamedElement element) {
         if (element == null) {
             return null;
         }
-        if (element instanceof org.omg.spec.dmn._20151101.dmn.TDRGElement) {
-            return transformDRGElement((org.omg.spec.dmn._20151101.dmn.TDRGElement) element);
-        } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TElementCollection) {
-            return transform((org.omg.spec.dmn._20151101.dmn.TElementCollection) element);
-        } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TDecisionService) {
-            return transform((org.omg.spec.dmn._20151101.dmn.TDecisionService) element);
-        } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TDefinitions) {
-            return transform((org.omg.spec.dmn._20151101.dmn.TDefinitions) element);
-        } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TItemDefinition) {
-            return transform((org.omg.spec.dmn._20151101.dmn.TItemDefinition) element);
-        } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TBusinessContextElement) {
-            return transformBusinessContextElement((org.omg.spec.dmn._20151101.dmn.TBusinessContextElement) element);
-        } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TInformationItem) {
-            return transform((org.omg.spec.dmn._20151101.dmn.TInformationItem) element);
+        if (element instanceof org.omg.spec.dmn._20151101.model.TDRGElement) {
+            return transformDRGElement((org.omg.spec.dmn._20151101.model.TDRGElement) element);
+        } else if (element instanceof org.omg.spec.dmn._20151101.model.TElementCollection) {
+            return transform((org.omg.spec.dmn._20151101.model.TElementCollection) element);
+        } else if (element instanceof org.omg.spec.dmn._20151101.model.TDecisionService) {
+            return transform((org.omg.spec.dmn._20151101.model.TDecisionService) element);
+        } else if (element instanceof org.omg.spec.dmn._20151101.model.TDefinitions) {
+            return transform((org.omg.spec.dmn._20151101.model.TDefinitions) element);
+        } else if (element instanceof org.omg.spec.dmn._20151101.model.TItemDefinition) {
+            return transform((org.omg.spec.dmn._20151101.model.TItemDefinition) element);
+        } else if (element instanceof org.omg.spec.dmn._20151101.model.TBusinessContextElement) {
+            return transformBusinessContextElement((org.omg.spec.dmn._20151101.model.TBusinessContextElement) element);
+        } else if (element instanceof org.omg.spec.dmn._20151101.model.TInformationItem) {
+            return transform((org.omg.spec.dmn._20151101.model.TInformationItem) element);
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported"));
         }
     }
 
-    private void addElementProperties(org.omg.spec.dmn._20151101.dmn.TDMNElement source, TDMNElement target) {
+    private void addElementProperties(org.omg.spec.dmn._20151101.model.TDMNElement source, TDMNElement target) {
         target.setDescription(source.getDescription());
         target.setExtensionElements(transform(source.getExtensionElements()));
         target.setId(source.getId());
@@ -116,17 +116,17 @@ public class DMNDialectTransformer {
         target.getOtherAttributes().putAll(transform(source.getOtherAttributes()));
     }
 
-    private void addNamedElementProperties(org.omg.spec.dmn._20151101.dmn.TNamedElement source, TNamedElement target) {
+    private void addNamedElementProperties(org.omg.spec.dmn._20151101.model.TNamedElement source, TNamedElement target) {
         addElementProperties(source, target);
         target.setName(source.getName());
     }
 
-    private void addExpressionProperties(org.omg.spec.dmn._20151101.dmn.TExpression source, TExpression target) {
+    private void addExpressionProperties(org.omg.spec.dmn._20151101.model.TExpression source, TExpression target) {
         addElementProperties(source, target);
         target.setTypeRef(transform(source.getTypeRef()));
     }
 
-    private void addImportProperties(org.omg.spec.dmn._20151101.dmn.TImport element, TImport result) {
+    private void addImportProperties(org.omg.spec.dmn._20151101.model.TImport element, TImport result) {
         result.setNamespace(transformNamespace(element.getNamespace()));
         result.setLocationURI(element.getLocationURI());
         result.setImportType(element.getImportType());
@@ -138,60 +138,60 @@ public class DMNDialectTransformer {
         }
 
         Object value = element.getValue();
-        if (value instanceof org.omg.spec.dmn._20151101.dmn.TDefinitions) {
-            return DMN_12_OBJECT_FACTORY.createDefinitions(transform((org.omg.spec.dmn._20151101.dmn.TDefinitions) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TImport) {
-            return DMN_12_OBJECT_FACTORY.createImport(transform((org.omg.spec.dmn._20151101.dmn.TImport) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TElementCollection) {
-            return DMN_12_OBJECT_FACTORY.createElementCollection(transform((org.omg.spec.dmn._20151101.dmn.TElementCollection) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TDecision) {
-            return DMN_12_OBJECT_FACTORY.createDecision(transform((org.omg.spec.dmn._20151101.dmn.TDecision) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TPerformanceIndicator) {
-            return DMN_12_OBJECT_FACTORY.createPerformanceIndicator(transform((org.omg.spec.dmn._20151101.dmn.TPerformanceIndicator) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TOrganizationUnit) {
-            return DMN_12_OBJECT_FACTORY.createOrganizationUnit(transform((org.omg.spec.dmn._20151101.dmn.TOrganizationUnit) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TBusinessContextElement) {
-            return DMN_12_OBJECT_FACTORY.createBusinessContextElement(transformBusinessContextElement((org.omg.spec.dmn._20151101.dmn.TBusinessContextElement) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TBusinessKnowledgeModel) {
-            return DMN_12_OBJECT_FACTORY.createBusinessKnowledgeModel(transform((org.omg.spec.dmn._20151101.dmn.TBusinessKnowledgeModel) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TInputData) {
-            return DMN_12_OBJECT_FACTORY.createInputData(transform((org.omg.spec.dmn._20151101.dmn.TInputData) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TKnowledgeSource) {
-            return DMN_12_OBJECT_FACTORY.createKnowledgeSource(transform((org.omg.spec.dmn._20151101.dmn.TKnowledgeSource) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TInformationRequirement) {
-            return DMN_12_OBJECT_FACTORY.createInformationRequirement(transform((org.omg.spec.dmn._20151101.dmn.TInformationRequirement) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TKnowledgeRequirement) {
-            return DMN_12_OBJECT_FACTORY.createKnowledgeRequirement(transform((org.omg.spec.dmn._20151101.dmn.TKnowledgeRequirement) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TAuthorityRequirement) {
-            return DMN_12_OBJECT_FACTORY.createAuthorityRequirement(transform((org.omg.spec.dmn._20151101.dmn.TAuthorityRequirement) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TItemDefinition) {
-            return DMN_12_OBJECT_FACTORY.createItemDefinition(transform((org.omg.spec.dmn._20151101.dmn.TItemDefinition) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TLiteralExpression) {
-            return DMN_12_OBJECT_FACTORY.createLiteralExpression(transform((org.omg.spec.dmn._20151101.dmn.TLiteralExpression) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TInvocation) {
-            return DMN_12_OBJECT_FACTORY.createInvocation(transform((org.omg.spec.dmn._20151101.dmn.TInvocation) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TInformationItem) {
-            return DMN_12_OBJECT_FACTORY.createInformationItem(transform((org.omg.spec.dmn._20151101.dmn.TInformationItem) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TDecisionTable) {
-            return DMN_12_OBJECT_FACTORY.createDecisionTable(transform((org.omg.spec.dmn._20151101.dmn.TDecisionTable) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TTextAnnotation) {
-            return DMN_12_OBJECT_FACTORY.createTextAnnotation(transform((org.omg.spec.dmn._20151101.dmn.TTextAnnotation) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TAssociation) {
-            return DMN_12_OBJECT_FACTORY.createAssociation(transform((org.omg.spec.dmn._20151101.dmn.TAssociation) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TArtifact) {
-            return DMN_12_OBJECT_FACTORY.createArtifact(transformArtifact((org.omg.spec.dmn._20151101.dmn.TArtifact) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TContext) {
-            return DMN_12_OBJECT_FACTORY.createContext(transform((org.omg.spec.dmn._20151101.dmn.TContext) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TContextEntry) {
-            return DMN_12_OBJECT_FACTORY.createContextEntry(transform((org.omg.spec.dmn._20151101.dmn.TContextEntry) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TFunctionDefinition) {
-            return DMN_12_OBJECT_FACTORY.createFunctionDefinition(transform((org.omg.spec.dmn._20151101.dmn.TFunctionDefinition) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TRelation) {
-            return DMN_12_OBJECT_FACTORY.createRelation(transform((org.omg.spec.dmn._20151101.dmn.TRelation) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TList) {
-            return DMN_12_OBJECT_FACTORY.createList(transform((org.omg.spec.dmn._20151101.dmn.TList) value));
-        } else if (value instanceof org.omg.spec.dmn._20151101.dmn.TDecisionService) {
-            return DMN_12_OBJECT_FACTORY.createDecisionService(transform((org.omg.spec.dmn._20151101.dmn.TDecisionService) value));
+        if (value instanceof org.omg.spec.dmn._20151101.model.TDefinitions) {
+            return DMN_12_OBJECT_FACTORY.createDefinitions(transform((org.omg.spec.dmn._20151101.model.TDefinitions) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.model.TImport) {
+            return DMN_12_OBJECT_FACTORY.createImport(transform((org.omg.spec.dmn._20151101.model.TImport) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.model.TElementCollection) {
+            return DMN_12_OBJECT_FACTORY.createElementCollection(transform((org.omg.spec.dmn._20151101.model.TElementCollection) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.model.TDecision) {
+            return DMN_12_OBJECT_FACTORY.createDecision(transform((org.omg.spec.dmn._20151101.model.TDecision) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.model.TPerformanceIndicator) {
+            return DMN_12_OBJECT_FACTORY.createPerformanceIndicator(transform((org.omg.spec.dmn._20151101.model.TPerformanceIndicator) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.model.TOrganizationUnit) {
+            return DMN_12_OBJECT_FACTORY.createOrganizationUnit(transform((org.omg.spec.dmn._20151101.model.TOrganizationUnit) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.model.TBusinessContextElement) {
+            return DMN_12_OBJECT_FACTORY.createBusinessContextElement(transformBusinessContextElement((org.omg.spec.dmn._20151101.model.TBusinessContextElement) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.model.TBusinessKnowledgeModel) {
+            return DMN_12_OBJECT_FACTORY.createBusinessKnowledgeModel(transform((org.omg.spec.dmn._20151101.model.TBusinessKnowledgeModel) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.model.TInputData) {
+            return DMN_12_OBJECT_FACTORY.createInputData(transform((org.omg.spec.dmn._20151101.model.TInputData) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.model.TKnowledgeSource) {
+            return DMN_12_OBJECT_FACTORY.createKnowledgeSource(transform((org.omg.spec.dmn._20151101.model.TKnowledgeSource) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.model.TInformationRequirement) {
+            return DMN_12_OBJECT_FACTORY.createInformationRequirement(transform((org.omg.spec.dmn._20151101.model.TInformationRequirement) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.model.TKnowledgeRequirement) {
+            return DMN_12_OBJECT_FACTORY.createKnowledgeRequirement(transform((org.omg.spec.dmn._20151101.model.TKnowledgeRequirement) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.model.TAuthorityRequirement) {
+            return DMN_12_OBJECT_FACTORY.createAuthorityRequirement(transform((org.omg.spec.dmn._20151101.model.TAuthorityRequirement) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.model.TItemDefinition) {
+            return DMN_12_OBJECT_FACTORY.createItemDefinition(transform((org.omg.spec.dmn._20151101.model.TItemDefinition) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.model.TLiteralExpression) {
+            return DMN_12_OBJECT_FACTORY.createLiteralExpression(transform((org.omg.spec.dmn._20151101.model.TLiteralExpression) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.model.TInvocation) {
+            return DMN_12_OBJECT_FACTORY.createInvocation(transform((org.omg.spec.dmn._20151101.model.TInvocation) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.model.TInformationItem) {
+            return DMN_12_OBJECT_FACTORY.createInformationItem(transform((org.omg.spec.dmn._20151101.model.TInformationItem) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.model.TDecisionTable) {
+            return DMN_12_OBJECT_FACTORY.createDecisionTable(transform((org.omg.spec.dmn._20151101.model.TDecisionTable) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.model.TTextAnnotation) {
+            return DMN_12_OBJECT_FACTORY.createTextAnnotation(transform((org.omg.spec.dmn._20151101.model.TTextAnnotation) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.model.TAssociation) {
+            return DMN_12_OBJECT_FACTORY.createAssociation(transform((org.omg.spec.dmn._20151101.model.TAssociation) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.model.TArtifact) {
+            return DMN_12_OBJECT_FACTORY.createArtifact(transformArtifact((org.omg.spec.dmn._20151101.model.TArtifact) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.model.TContext) {
+            return DMN_12_OBJECT_FACTORY.createContext(transform((org.omg.spec.dmn._20151101.model.TContext) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.model.TContextEntry) {
+            return DMN_12_OBJECT_FACTORY.createContextEntry(transform((org.omg.spec.dmn._20151101.model.TContextEntry) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.model.TFunctionDefinition) {
+            return DMN_12_OBJECT_FACTORY.createFunctionDefinition(transform((org.omg.spec.dmn._20151101.model.TFunctionDefinition) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.model.TRelation) {
+            return DMN_12_OBJECT_FACTORY.createRelation(transform((org.omg.spec.dmn._20151101.model.TRelation) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.model.TList) {
+            return DMN_12_OBJECT_FACTORY.createList(transform((org.omg.spec.dmn._20151101.model.TList) value));
+        } else if (value instanceof org.omg.spec.dmn._20151101.model.TDecisionService) {
+            return DMN_12_OBJECT_FACTORY.createDecisionService(transform((org.omg.spec.dmn._20151101.model.TDecisionService) value));
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported yet", value.getClass()));
         }
@@ -202,28 +202,28 @@ public class DMNDialectTransformer {
         for(Object element: elements) {
             if (element instanceof JAXBElement) {
                 result.add(transformJAXBElement((JAXBElement) element));
-            } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TDMNElement) {
-                result.add(transformElement((org.omg.spec.dmn._20151101.dmn.TDMNElement) element));
-            } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TImport) {
-                result.add(transform((org.omg.spec.dmn._20151101.dmn.TImport) element));
-            } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TKnowledgeRequirement) {
-                result.add(transform((org.omg.spec.dmn._20151101.dmn.TKnowledgeRequirement) element));
-            } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TAuthorityRequirement) {
-                result.add(transform((org.omg.spec.dmn._20151101.dmn.TAuthorityRequirement) element));
-            } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TInformationRequirement) {
-                result.add(transform((org.omg.spec.dmn._20151101.dmn.TInformationRequirement) element));
-            } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TDMNElementReference) {
-                result.add(transform((org.omg.spec.dmn._20151101.dmn.TDMNElementReference) element));
-            } else if (element instanceof org.omg.spec.dmn._20151101.dmn.THitPolicy) {
-                result.add(transform((org.omg.spec.dmn._20151101.dmn.THitPolicy) element));
-            } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TBuiltinAggregator) {
-                result.add(transform((org.omg.spec.dmn._20151101.dmn.TBuiltinAggregator) element));
-            } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TDecisionTableOrientation) {
-                result.add(transform((org.omg.spec.dmn._20151101.dmn.TDecisionTableOrientation) element));
-            } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TContextEntry) {
-                result.add(transform((org.omg.spec.dmn._20151101.dmn.TContextEntry) element));
-            } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TBinding) {
-                result.add(transform((org.omg.spec.dmn._20151101.dmn.TBinding) element));
+            } else if (element instanceof org.omg.spec.dmn._20151101.model.TDMNElement) {
+                result.add(transformElement((org.omg.spec.dmn._20151101.model.TDMNElement) element));
+            } else if (element instanceof org.omg.spec.dmn._20151101.model.TImport) {
+                result.add(transform((org.omg.spec.dmn._20151101.model.TImport) element));
+            } else if (element instanceof org.omg.spec.dmn._20151101.model.TKnowledgeRequirement) {
+                result.add(transform((org.omg.spec.dmn._20151101.model.TKnowledgeRequirement) element));
+            } else if (element instanceof org.omg.spec.dmn._20151101.model.TAuthorityRequirement) {
+                result.add(transform((org.omg.spec.dmn._20151101.model.TAuthorityRequirement) element));
+            } else if (element instanceof org.omg.spec.dmn._20151101.model.TInformationRequirement) {
+                result.add(transform((org.omg.spec.dmn._20151101.model.TInformationRequirement) element));
+            } else if (element instanceof org.omg.spec.dmn._20151101.model.TDMNElementReference) {
+                result.add(transform((org.omg.spec.dmn._20151101.model.TDMNElementReference) element));
+            } else if (element instanceof org.omg.spec.dmn._20151101.model.THitPolicy) {
+                result.add(transform((org.omg.spec.dmn._20151101.model.THitPolicy) element));
+            } else if (element instanceof org.omg.spec.dmn._20151101.model.TBuiltinAggregator) {
+                result.add(transform((org.omg.spec.dmn._20151101.model.TBuiltinAggregator) element));
+            } else if (element instanceof org.omg.spec.dmn._20151101.model.TDecisionTableOrientation) {
+                result.add(transform((org.omg.spec.dmn._20151101.model.TDecisionTableOrientation) element));
+            } else if (element instanceof org.omg.spec.dmn._20151101.model.TContextEntry) {
+                result.add(transform((org.omg.spec.dmn._20151101.model.TContextEntry) element));
+            } else if (element instanceof org.omg.spec.dmn._20151101.model.TBinding) {
+                result.add(transform((org.omg.spec.dmn._20151101.model.TBinding) element));
             } else {
                 throw new DMNRuntimeException(String.format("'%s' not supported yet", element.getClass()));
             }
@@ -239,7 +239,7 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TDMNElement.ExtensionElements transform(org.omg.spec.dmn._20151101.dmn.TDMNElement.ExtensionElements element) {
+    private TDMNElement.ExtensionElements transform(org.omg.spec.dmn._20151101.model.TDMNElement.ExtensionElements element) {
         if (element == null) {
             return null;
         }
@@ -250,7 +250,7 @@ public class DMNDialectTransformer {
             if (extension instanceof JAXBElement) {
                 extensions.add(transformJAXBElement((JAXBElement) extension));
             } else if (DMNConstants.DMN_11_PACKAGE.equals(extension.getClass().getPackage().getName())) {
-                extensions.add(transformElement((org.omg.spec.dmn._20151101.dmn.TDMNElement)extension));
+                extensions.add(transformElement((org.omg.spec.dmn._20151101.model.TDMNElement)extension));
             } else {
                 extensions.add(extension);
             }
@@ -259,7 +259,7 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TImport transform(org.omg.spec.dmn._20151101.dmn.TImport element) {
+    private TImport transform(org.omg.spec.dmn._20151101.model.TImport element) {
         if (element == null) {
             return null;
         }
@@ -269,7 +269,7 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TItemDefinition transform(org.omg.spec.dmn._20151101.dmn.TItemDefinition element) {
+    private TItemDefinition transform(org.omg.spec.dmn._20151101.model.TItemDefinition element) {
         if (element == null) {
             return null;
         }
@@ -284,7 +284,7 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TUnaryTests transform(org.omg.spec.dmn._20151101.dmn.TUnaryTests element) {
+    private TUnaryTests transform(org.omg.spec.dmn._20151101.model.TUnaryTests element) {
         if (element == null) {
             return null;
         }
@@ -296,25 +296,25 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TDRGElement transformDRGElement(org.omg.spec.dmn._20151101.dmn.TDRGElement element) {
+    private TDRGElement transformDRGElement(org.omg.spec.dmn._20151101.model.TDRGElement element) {
         if (element == null) {
             return null;
         }
 
-        if (element instanceof org.omg.spec.dmn._20151101.dmn.TBusinessKnowledgeModel) {
-            return transform((org.omg.spec.dmn._20151101.dmn.TBusinessKnowledgeModel) element);
-        } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TDecision) {
-            return transform((org.omg.spec.dmn._20151101.dmn.TDecision) element);
-        } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TInputData) {
-            return transform((org.omg.spec.dmn._20151101.dmn.TInputData) element);
-        } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TKnowledgeSource) {
-            return transform((org.omg.spec.dmn._20151101.dmn.TKnowledgeSource) element);
+        if (element instanceof org.omg.spec.dmn._20151101.model.TBusinessKnowledgeModel) {
+            return transform((org.omg.spec.dmn._20151101.model.TBusinessKnowledgeModel) element);
+        } else if (element instanceof org.omg.spec.dmn._20151101.model.TDecision) {
+            return transform((org.omg.spec.dmn._20151101.model.TDecision) element);
+        } else if (element instanceof org.omg.spec.dmn._20151101.model.TInputData) {
+            return transform((org.omg.spec.dmn._20151101.model.TInputData) element);
+        } else if (element instanceof org.omg.spec.dmn._20151101.model.TKnowledgeSource) {
+            return transform((org.omg.spec.dmn._20151101.model.TKnowledgeSource) element);
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported yet", element.getClass()));
         }
     }
 
-    private TBusinessKnowledgeModel transform(org.omg.spec.dmn._20151101.dmn.TBusinessKnowledgeModel element) {
+    private TBusinessKnowledgeModel transform(org.omg.spec.dmn._20151101.model.TBusinessKnowledgeModel element) {
         if (element == null) {
             return null;
         }
@@ -328,7 +328,7 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TDecision transform(org.omg.spec.dmn._20151101.dmn.TDecision element) {
+    private TDecision transform(org.omg.spec.dmn._20151101.model.TDecision element) {
         if (element == null) {
             return null;
         }
@@ -351,7 +351,7 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TInputData transform(org.omg.spec.dmn._20151101.dmn.TInputData element) {
+    private TInputData transform(org.omg.spec.dmn._20151101.model.TInputData element) {
         if (element == null) {
             return null;
         }
@@ -362,7 +362,7 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TKnowledgeSource transform(org.omg.spec.dmn._20151101.dmn.TKnowledgeSource element) {
+    private TKnowledgeSource transform(org.omg.spec.dmn._20151101.model.TKnowledgeSource element) {
         if (element == null) {
             return null;
         }
@@ -376,15 +376,15 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TArtifact transformArtifact(org.omg.spec.dmn._20151101.dmn.TArtifact element) {
+    private TArtifact transformArtifact(org.omg.spec.dmn._20151101.model.TArtifact element) {
         if (element == null) {
             return null;
         }
 
-        if (element instanceof org.omg.spec.dmn._20151101.dmn.TTextAnnotation) {
-            return transform((org.omg.spec.dmn._20151101.dmn.TTextAnnotation) element);
-        } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TAssociation) {
-            return transform((org.omg.spec.dmn._20151101.dmn.TAssociation) element);
+        if (element instanceof org.omg.spec.dmn._20151101.model.TTextAnnotation) {
+            return transform((org.omg.spec.dmn._20151101.model.TTextAnnotation) element);
+        } else if (element instanceof org.omg.spec.dmn._20151101.model.TAssociation) {
+            return transform((org.omg.spec.dmn._20151101.model.TAssociation) element);
         } else {
             TArtifact result = DMN_12_OBJECT_FACTORY.createTArtifact();
             addElementProperties(element, result);
@@ -392,7 +392,7 @@ public class DMNDialectTransformer {
         }
     }
 
-    private TTextAnnotation transform(org.omg.spec.dmn._20151101.dmn.TTextAnnotation element) {
+    private TTextAnnotation transform(org.omg.spec.dmn._20151101.model.TTextAnnotation element) {
         if (element == null) {
             return null;
         }
@@ -405,7 +405,7 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TAssociation transform(org.omg.spec.dmn._20151101.dmn.TAssociation element) {
+    private TAssociation transform(org.omg.spec.dmn._20151101.model.TAssociation element) {
         if (element == null) {
             return null;
         }
@@ -419,7 +419,7 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TAssociationDirection transform(org.omg.spec.dmn._20151101.dmn.TAssociationDirection associationDirection) {
+    private TAssociationDirection transform(org.omg.spec.dmn._20151101.model.TAssociationDirection associationDirection) {
         if (associationDirection == null) {
             return null;
         } else {
@@ -427,7 +427,7 @@ public class DMNDialectTransformer {
         }
     }
 
-    private TElementCollection transform(org.omg.spec.dmn._20151101.dmn.TElementCollection element) {
+    private TElementCollection transform(org.omg.spec.dmn._20151101.model.TElementCollection element) {
         if (element == null) {
             return null;
         }
@@ -438,7 +438,7 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TDecisionService transform(org.omg.spec.dmn._20151101.dmn.TDecisionService element) {
+    private TDecisionService transform(org.omg.spec.dmn._20151101.model.TDecisionService element) {
         if (element == null) {
             return null;
         }
@@ -452,15 +452,15 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TBusinessContextElement transformBusinessContextElement(org.omg.spec.dmn._20151101.dmn.TBusinessContextElement element) {
+    private TBusinessContextElement transformBusinessContextElement(org.omg.spec.dmn._20151101.model.TBusinessContextElement element) {
         if (element == null) {
             return null;
         }
 
-        if (element instanceof org.omg.spec.dmn._20151101.dmn.TPerformanceIndicator) {
-            return transform((org.omg.spec.dmn._20151101.dmn.TPerformanceIndicator) element);
-        } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TOrganizationUnit) {
-            return transform((org.omg.spec.dmn._20151101.dmn.TOrganizationUnit) element);
+        if (element instanceof org.omg.spec.dmn._20151101.model.TPerformanceIndicator) {
+            return transform((org.omg.spec.dmn._20151101.model.TPerformanceIndicator) element);
+        } else if (element instanceof org.omg.spec.dmn._20151101.model.TOrganizationUnit) {
+            return transform((org.omg.spec.dmn._20151101.model.TOrganizationUnit) element);
         } else {
             TBusinessContextElement result = DMN_12_OBJECT_FACTORY.createTBusinessContextElement();
             addNamedElementProperties(element, result);
@@ -469,7 +469,7 @@ public class DMNDialectTransformer {
         }
     }
 
-    private TPerformanceIndicator transform(org.omg.spec.dmn._20151101.dmn.TPerformanceIndicator element) {
+    private TPerformanceIndicator transform(org.omg.spec.dmn._20151101.model.TPerformanceIndicator element) {
         if (element == null) {
             return null;
         }
@@ -481,7 +481,7 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TOrganizationUnit transform(org.omg.spec.dmn._20151101.dmn.TOrganizationUnit element) {
+    private TOrganizationUnit transform(org.omg.spec.dmn._20151101.model.TOrganizationUnit element) {
         if (element == null) {
             return null;
         }
@@ -494,7 +494,7 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TInformationItem transform(org.omg.spec.dmn._20151101.dmn.TInformationItem element) {
+    private TInformationItem transform(org.omg.spec.dmn._20151101.model.TInformationItem element) {
         if (element == null) {
             return null;
         }
@@ -505,7 +505,7 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TKnowledgeRequirement transform(org.omg.spec.dmn._20151101.dmn.TKnowledgeRequirement element) {
+    private TKnowledgeRequirement transform(org.omg.spec.dmn._20151101.model.TKnowledgeRequirement element) {
         if (element == null) {
             return null;
         }
@@ -515,7 +515,7 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TAuthorityRequirement transform(org.omg.spec.dmn._20151101.dmn.TAuthorityRequirement element) {
+    private TAuthorityRequirement transform(org.omg.spec.dmn._20151101.model.TAuthorityRequirement element) {
         if (element == null) {
             return null;
         }
@@ -527,7 +527,7 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TInformationRequirement transform(org.omg.spec.dmn._20151101.dmn.TInformationRequirement element) {
+    private TInformationRequirement transform(org.omg.spec.dmn._20151101.model.TInformationRequirement element) {
         if (element == null) {
             return null;
         }
@@ -538,7 +538,7 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TDMNElementReference transform(org.omg.spec.dmn._20151101.dmn.TDMNElementReference element) {
+    private TDMNElementReference transform(org.omg.spec.dmn._20151101.model.TDMNElementReference element) {
         if (element == null) {
             return null;
         }
@@ -548,31 +548,31 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TExpression transformExpression(org.omg.spec.dmn._20151101.dmn.TExpression element) {
+    private TExpression transformExpression(org.omg.spec.dmn._20151101.model.TExpression element) {
         if (element == null) {
             return null;
         }
 
-        if (element instanceof org.omg.spec.dmn._20151101.dmn.TFunctionDefinition) {
-            return transform((org.omg.spec.dmn._20151101.dmn.TFunctionDefinition) element);
-        } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TDecisionTable) {
-            return transform((org.omg.spec.dmn._20151101.dmn.TDecisionTable) element);
-        } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TRelation) {
-            return transform((org.omg.spec.dmn._20151101.dmn.TRelation) element);
-        } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TList) {
-            return transform((org.omg.spec.dmn._20151101.dmn.TList) element);
-        } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TContext) {
-            return transform((org.omg.spec.dmn._20151101.dmn.TContext) element);
-        } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TInvocation) {
-            return transform((org.omg.spec.dmn._20151101.dmn.TInvocation) element);
-        } else if (element instanceof org.omg.spec.dmn._20151101.dmn.TLiteralExpression) {
-            return transform((org.omg.spec.dmn._20151101.dmn.TLiteralExpression) element);
+        if (element instanceof org.omg.spec.dmn._20151101.model.TFunctionDefinition) {
+            return transform((org.omg.spec.dmn._20151101.model.TFunctionDefinition) element);
+        } else if (element instanceof org.omg.spec.dmn._20151101.model.TDecisionTable) {
+            return transform((org.omg.spec.dmn._20151101.model.TDecisionTable) element);
+        } else if (element instanceof org.omg.spec.dmn._20151101.model.TRelation) {
+            return transform((org.omg.spec.dmn._20151101.model.TRelation) element);
+        } else if (element instanceof org.omg.spec.dmn._20151101.model.TList) {
+            return transform((org.omg.spec.dmn._20151101.model.TList) element);
+        } else if (element instanceof org.omg.spec.dmn._20151101.model.TContext) {
+            return transform((org.omg.spec.dmn._20151101.model.TContext) element);
+        } else if (element instanceof org.omg.spec.dmn._20151101.model.TInvocation) {
+            return transform((org.omg.spec.dmn._20151101.model.TInvocation) element);
+        } else if (element instanceof org.omg.spec.dmn._20151101.model.TLiteralExpression) {
+            return transform((org.omg.spec.dmn._20151101.model.TLiteralExpression) element);
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported yet", element.getClass()));
         }
     }
 
-    private TFunctionDefinition transform(org.omg.spec.dmn._20151101.dmn.TFunctionDefinition element) {
+    private TFunctionDefinition transform(org.omg.spec.dmn._20151101.model.TFunctionDefinition element) {
         if (element == null) {
             return null;
         }
@@ -584,7 +584,7 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TDecisionTable transform(org.omg.spec.dmn._20151101.dmn.TDecisionTable element) {
+    private TDecisionTable transform(org.omg.spec.dmn._20151101.model.TDecisionTable element) {
         if (element == null) {
             return null;
         }
@@ -601,7 +601,7 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TRelation transform(org.omg.spec.dmn._20151101.dmn.TRelation element) {
+    private TRelation transform(org.omg.spec.dmn._20151101.model.TRelation element) {
         if (element == null) {
             return null;
         }
@@ -613,7 +613,7 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TList transform(org.omg.spec.dmn._20151101.dmn.TList element) {
+    private TList transform(org.omg.spec.dmn._20151101.model.TList element) {
         if (element == null) {
             return null;
         }
@@ -624,7 +624,7 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TContext transform(org.omg.spec.dmn._20151101.dmn.TContext element) {
+    private TContext transform(org.omg.spec.dmn._20151101.model.TContext element) {
         if (element == null) {
             return null;
         }
@@ -635,7 +635,7 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TContextEntry transform(org.omg.spec.dmn._20151101.dmn.TContextEntry element) {
+    private TContextEntry transform(org.omg.spec.dmn._20151101.model.TContextEntry element) {
         if (element == null) {
             return null;
         }
@@ -646,7 +646,7 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TInvocation transform(org.omg.spec.dmn._20151101.dmn.TInvocation element) {
+    private TInvocation transform(org.omg.spec.dmn._20151101.model.TInvocation element) {
         if (element == null) {
             return null;
         }
@@ -658,7 +658,7 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TBinding transform(org.omg.spec.dmn._20151101.dmn.TBinding element) {
+    private TBinding transform(org.omg.spec.dmn._20151101.model.TBinding element) {
         if (element == null) {
             return null;
         }
@@ -669,7 +669,7 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TLiteralExpression transform(org.omg.spec.dmn._20151101.dmn.TLiteralExpression element) {
+    private TLiteralExpression transform(org.omg.spec.dmn._20151101.model.TLiteralExpression element) {
         if (element == null) {
             return null;
         }
@@ -682,7 +682,7 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TImportedValues transformImportedValues(org.omg.spec.dmn._20151101.dmn.TImportedValues element) {
+    private TImportedValues transformImportedValues(org.omg.spec.dmn._20151101.model.TImportedValues element) {
         if (element == null) {
             return null;
         }
@@ -694,7 +694,7 @@ public class DMNDialectTransformer {
         return null;
     }
 
-    private TDecisionTableOrientation transform(org.omg.spec.dmn._20151101.dmn.TDecisionTableOrientation element) {
+    private TDecisionTableOrientation transform(org.omg.spec.dmn._20151101.model.TDecisionTableOrientation element) {
         if (element == null) {
             return null;
         }
@@ -702,7 +702,7 @@ public class DMNDialectTransformer {
         return TDecisionTableOrientation.fromValue(element.value());
     }
 
-    private TBuiltinAggregator transform(org.omg.spec.dmn._20151101.dmn.TBuiltinAggregator element) {
+    private TBuiltinAggregator transform(org.omg.spec.dmn._20151101.model.TBuiltinAggregator element) {
         if (element == null) {
             return null;
         }
@@ -710,7 +710,7 @@ public class DMNDialectTransformer {
         return TBuiltinAggregator.fromValue(element.value());
     }
 
-    private THitPolicy transform(org.omg.spec.dmn._20151101.dmn.THitPolicy element) {
+    private THitPolicy transform(org.omg.spec.dmn._20151101.model.THitPolicy element) {
         if (element == null) {
             return null;
         }
@@ -718,7 +718,7 @@ public class DMNDialectTransformer {
         return THitPolicy.fromValue(element.value());
     }
 
-    private TInputClause transform(org.omg.spec.dmn._20151101.dmn.TInputClause element) {
+    private TInputClause transform(org.omg.spec.dmn._20151101.model.TInputClause element) {
         if (element == null) {
             return null;
         }
@@ -730,7 +730,7 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TOutputClause transform(org.omg.spec.dmn._20151101.dmn.TOutputClause element) {
+    private TOutputClause transform(org.omg.spec.dmn._20151101.model.TOutputClause element) {
         if (element == null) {
             return null;
         }
@@ -744,7 +744,7 @@ public class DMNDialectTransformer {
         return result;
     }
 
-    private TDecisionRule transform(org.omg.spec.dmn._20151101.dmn.TDecisionRule element) {
+    private TDecisionRule transform(org.omg.spec.dmn._20151101.model.TDecisionRule element) {
         if (element == null) {
             return null;
         }

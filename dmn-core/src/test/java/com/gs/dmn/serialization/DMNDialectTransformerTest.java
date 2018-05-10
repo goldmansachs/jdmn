@@ -21,7 +21,7 @@ public class DMNDialectTransformerTest extends AbstractFileTransformerTest {
         // Read
         File inputFile = new File(resource(getInputPath() + inputFileName));
         Object object = dmnReader.readObject(inputFile);
-        org.omg.spec.dmn._20151101.dmn.TDefinitions dmn11Definitions = (org.omg.spec.dmn._20151101.dmn.TDefinitions) object;
+        org.omg.spec.dmn._20151101.model.TDefinitions dmn11Definitions = (org.omg.spec.dmn._20151101.model.TDefinitions) object;
 
         // Transform
         org.omg.spec.dmn._20180521.model.TDefinitions dmn12Definitions = transformer.transformRepository(dmn11Definitions).getDefinitions();
