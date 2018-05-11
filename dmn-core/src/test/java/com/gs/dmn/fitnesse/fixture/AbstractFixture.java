@@ -19,7 +19,7 @@ import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.feel.lib.FEELLib;
+import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
@@ -30,11 +30,11 @@ import javax.xml.datatype.Duration;
 
 public class AbstractFixture extends ColumnFixture {
     protected final DMNDialectDefinition dialectDefinition = new StandardDMNDialectDefinition();
-    protected final FEELLib lib;
+    protected final StandardFEELLib lib;
     protected Scope scope;
 
     public AbstractFixture() {
-        this.lib = dialectDefinition.createFEELLib();
+        this.lib = (StandardFEELLib) dialectDefinition.createFEELLib();
 
         fitnesse.slim.converters.ConverterRegistry.addConverter(Scope.class, new ScopeConverter());
         fitnesse.slim.converters.ConverterRegistry.addConverter(Context.class, new ContextConverter());

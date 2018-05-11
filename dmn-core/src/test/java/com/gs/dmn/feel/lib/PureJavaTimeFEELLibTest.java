@@ -33,31 +33,31 @@ public class PureJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalDa
     // Conversion functions
     //
     @Test
-    public void testDate() throws Exception {
+    public void testDate() {
         super.testDate();
     }
 
     @Test
     @Ignore
-    public void testDateSubtract() throws Exception {
+    public void testDateSubtract() {
         super.testDateSubtract();
     }
 
     @Test
     @Ignore
-    public void testDateAddDuration() throws Exception {
+    public void testDateAddDuration() {
         super.testDateAddDuration();
     }
 
     @Test
     @Ignore
-    public void testDateSubtractDuration() throws Exception {
+    public void testDateSubtractDuration() {
         super.testDateSubtractDuration();
     }
 
     @Test
     @Ignore
-    public void testTime() throws Exception {
+    public void testTime() {
         super.testTime();
 
         assertEqualsTime("12:00:00Z", getLib().time(makeTime("12:00:00Z")));
@@ -68,43 +68,43 @@ public class PureJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalDa
 
     @Test
     @Ignore
-    public void testTimeSubtract() throws Exception {
+    public void testTimeSubtract() {
         super.testTimeSubtract();
     }
 
     @Test
     @Ignore
-    public void testTimeAddDuration() throws Exception {
+    public void testTimeAddDuration() {
         super.testTimeAddDuration();
     }
 
     @Test
     @Ignore
-    public void testTimeSubtractDuration() throws Exception {
+    public void testTimeSubtractDuration() {
         super.testTimeSubtractDuration();
     }
 
     @Test
     @Ignore
-    public void testDateTime() throws Exception {
+    public void testDateTime() {
         super.testDateTime();
     }
 
     @Test
     @Ignore
-    public void testDateTimeSubtract() throws Exception {
+    public void testDateTimeSubtract() {
         super.testDateTimeSubtract();
     }
 
     @Test
     @Ignore
-    public void testDateTimeAddDuration() throws Exception {
+    public void testDateTimeAddDuration() {
         super.testDateTimeAddDuration();
     }
 
     @Test
     @Ignore
-    public void testDateTimeSubtractDuration() throws Exception {
+    public void testDateTimeSubtractDuration() {
         super.testDateTimeSubtractDuration();
     }
 
@@ -119,43 +119,37 @@ public class PureJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalDa
 
     @Test
     @Ignore
-    public void testMakeDuration() throws Exception {
-        super.testMakeDuration();
-    }
-
-    @Test
-    @Ignore
-    public void testDurationEqual() throws Exception {
+    public void testDurationEqual() {
         super.testDurationEqual();
     }
 
     @Test
     @Ignore
-    public void testDurationNotEqual() throws Exception {
+    public void testDurationNotEqual() {
         super.testDurationNotEqual();
     }
 
     @Test
     @Ignore
-    public void testDurationLessThan() throws Exception {
+    public void testDurationLessThan() {
         super.testDurationLessThan();
     }
 
     @Test
     @Ignore
-    public void testDurationGreaterThan() throws Exception {
+    public void testDurationGreaterThan() {
         super.testDurationGreaterThan();
     }
 
     @Test
     @Ignore
-    public void testDurationLessEqualThan() throws Exception {
+    public void testDurationLessEqualThan() {
         super.testDurationLessEqualThan();
     }
 
     @Test
     @Ignore
-    public void testDurationGreaterEqualThan() throws Exception {
+    public void testDurationGreaterEqualThan() {
         super.testDurationGreaterEqualThan();
     }
 
