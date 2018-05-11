@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.transformation;
 
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.analysis.scanner.LexicalContext;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
@@ -40,16 +41,16 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     }
 
     @Override
-    public TDefinitions transform(TDefinitions definitions) {
-        transformDefinitions(definitions);
+    public DMNModelRepository transform(DMNModelRepository repository) {
+        transformDefinitions(repository.getDefinitions());
         this.transformDefinition = false;
-        return definitions;
+        return repository;
     }
 
     @Override
-    public Pair<TDefinitions, TestCases> transform(TDefinitions definitions, TestCases testCases) {
+    public Pair<DMNModelRepository, TestCases> transform(DMNModelRepository repository, TestCases testCases) {
         if (transformDefinition) {
-            transform(definitions);
+            transform(repository);
         }
 
         // Clean each TestCase
@@ -58,7 +59,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                 transform(testCase);
             }
         }
-        return new Pair<>(definitions, testCases);
+        return new Pair<>(repository, testCases);
     }
 
     private void transform(TestCases.TestCase testCase) {

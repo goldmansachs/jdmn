@@ -24,7 +24,6 @@ import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 import org.omg.spec.dmn._20180521.model.TBusinessKnowledgeModel;
 import org.omg.spec.dmn._20180521.model.TDecision;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
 import org.omg.spec.dmn._20180521.model.TItemDefinition;
 
 import java.io.File;
@@ -74,8 +73,7 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
 
         // Read and validate DMN
         DMNModelRepository repository = readDMN(file);
-        TDefinitions definitions = repository.getDefinitions();
-        dmnTransformer.transform(definitions);
+        dmnTransformer.transform(repository);
         BasicDMN2JavaTransformer dmnTransformer = dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);
         DMNModelRepository dmnModelRepository = dmnTransformer.getDMNModelRepository();
         handleValidationErrors(this.dmnValidator.validate(dmnModelRepository));

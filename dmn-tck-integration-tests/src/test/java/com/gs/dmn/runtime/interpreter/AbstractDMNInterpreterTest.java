@@ -35,7 +35,6 @@ import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase;
 import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase.ResultNode;
 import org.omg.spec.dmn._20180521.model.TDecision;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
@@ -65,7 +64,7 @@ public abstract class AbstractDMNInterpreterTest {
 
             // Transform definitions
             dmnTransformer = new ToSimpleNameTransformer(LOGGER);
-            TDefinitions definitions = dmnTransformer.transform(repository.getDefinitions());
+            repository = dmnTransformer.transform(repository);
 
             // Set-up execution
             this.interpreter = getDialectDefinition().createDMNInterpreter(repository);
@@ -79,7 +78,7 @@ public abstract class AbstractDMNInterpreterTest {
                 for (File child : inputPathFolder.listFiles()) {
                     if (child.getName().endsWith(TestCasesReader.TEST_FILE_EXTENSION) && child.getName().startsWith(dmnFileName)) {
                         TestCases testCases = testCasesReader.read(child);
-                        doTest(child.getName(), interpreter, definitions, testCases);
+                        doTest(child.getName(), interpreter, repository, testCases);
                     }
                 }
             } else {
@@ -87,7 +86,7 @@ public abstract class AbstractDMNInterpreterTest {
                     String testPathName = getTestCasesInputPath() + "/" + dmnFileName + testSuffix + TestCasesReader.TEST_FILE_EXTENSION;
                     URL testURL = getClass().getClassLoader().getResource(testPathName).toURI().toURL();
                     TestCases testCases = testCasesReader.read(testURL);
-                    doTest(new File(testURL.getFile()).getName(), interpreter, definitions, testCases);
+                    doTest(new File(testURL.getFile()).getName(), interpreter, repository, testCases);
                 }
             }
         } catch (Exception e) {
@@ -95,15 +94,15 @@ public abstract class AbstractDMNInterpreterTest {
         }
     }
 
-    protected void doTest(String testCaseFileName, DMNInterpreter interpreter, TDefinitions definitions, TestCases testCases) {
+    protected void doTest(String testCaseFileName, DMNInterpreter interpreter, DMNModelRepository repository, TestCases testCases) {
         // Check all TestCases
-        Pair<TDefinitions, TestCases> result = dmnTransformer.transform(definitions, testCases);
+        Pair<DMNModelRepository, TestCases> result = dmnTransformer.transform(repository, testCases);
         for (TestCase testCase : result.getRight().getTestCase()) {
             doTest(testCaseFileName, interpreter, result.getLeft(), testCase);
         }
     }
 
-    private void doTest(String testCaseFileName, DMNInterpreter interpreter, TDefinitions definitions, TestCase testCase) {
+    private void doTest(String testCaseFileName, DMNInterpreter interpreter, DMNModelRepository repository, TestCase testCase) {
         TCKUtil tckUtil = new TCKUtil(basicTransformer, (StandardFEELLib) lib);
         RuntimeEnvironment runtimeEnvironment = tckUtil.makeEnvironment(testCase);
 

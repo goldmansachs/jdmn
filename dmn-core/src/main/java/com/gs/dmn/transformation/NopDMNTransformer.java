@@ -12,17 +12,17 @@
  */
 package com.gs.dmn.transformation;
 
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.runtime.Pair;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 public class NopDMNTransformer<T> extends SimpleDMNTransformer<T> {
     @Override
-    public TDefinitions transform(TDefinitions definitions) {
-        return definitions;
+    public DMNModelRepository transform(DMNModelRepository repository) {
+        return repository;
     }
 
     @Override
-    public Pair<TDefinitions, T> transform(TDefinitions definitions, T testCases) {
-        return new Pair(definitions, testCases);
+    public Pair<DMNModelRepository, T> transform(DMNModelRepository repository, T testCases) {
+        return new Pair(repository, testCases);
     }
 }
