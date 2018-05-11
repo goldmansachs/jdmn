@@ -16,6 +16,7 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.lib.FEELLib;
+import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Assert;
@@ -103,7 +104,7 @@ public abstract class AbstractDMNInterpreterTest {
     }
 
     private void doTest(String testCaseFileName, DMNInterpreter interpreter, TDefinitions definitions, TestCase testCase) {
-        TCKUtil tckUtil = new TCKUtil(basicTransformer, lib);
+        TCKUtil tckUtil = new TCKUtil(basicTransformer, (StandardFEELLib) lib);
         RuntimeEnvironment runtimeEnvironment = tckUtil.makeEnvironment(testCase);
 
         List<ResultNode> resultNode = testCase.getResultNode();

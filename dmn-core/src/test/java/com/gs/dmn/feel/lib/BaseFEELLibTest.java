@@ -42,14 +42,14 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Test
-    public void testDuration() {
+    public void testDuration()  {
         assertEquals("P1Y8M", getLib().duration("P1Y8M").toString());
         assertEquals("P2DT20H", getLib().duration("P2DT20H").toString());
         assertEquals("-PT2H", getLib().duration("-PT2H").toString());
     }
 
     @Test
-    public void testYearsAndMonthsDuration() throws Exception {
+    public void testYearsAndMonthsDuration() {
         assertEquals("P0Y0M", getLib().yearsAndMonthsDuration(makeDateAndTime("2015-12-24T12:15:00.000+01:00"), makeDateAndTime("2015-12-24T12:15:00.000+01:00")).toString());
         assertEquals("P1Y2M", getLib().yearsAndMonthsDuration(makeDateAndTime("2016-09-30T23:25:00"), makeDateAndTime("2017-12-28T12:12:12")).toString());
         assertEquals("P7Y6M", getLib().yearsAndMonthsDuration(makeDateAndTime("2010-05-30T03:55:58"), makeDateAndTime("2017-12-15T00:59:59")).toString());
@@ -58,7 +58,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     //
-    // Boolean built-in functions for Booleans
+    // Boolean functions
     //
     @Test
     public void testNot() {
@@ -68,7 +68,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     //
-    // String built-in functions for Strings
+    // String functions
     //
     @Test
     public void testSubstring() {
@@ -163,7 +163,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     //
-    // String built-in functions for Lists
+    // List functions
     //
     @Test
     public void testListContains() {
@@ -172,7 +172,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
 
     @Override
     @Test
-    public void testMin() throws Exception {
+    public void testMin() {
         super.testMin();
         assertEqualsNumber(makeNumber("1"), getLib().min(makeNumber(1), makeNumber(2), makeNumber(3)));
         assertNull(getLib().min(1, null, 3));
@@ -180,7 +180,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
 
     @Override
     @Test
-    public void testMax() throws Exception {
+    public void testMax() {
         super.testMax();
         assertEqualsNumber(makeNumber("3"), getLib().max(makeNumber(1), makeNumber(2), makeNumber(3)));
         assertNull(getLib().max(1, null, 3));
@@ -188,7 +188,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
 
     @Override
     @Test
-    public void testSum() throws Exception {
+    public void testSum() {
         super.testSum();
         assertEqualsNumber(makeNumber("6"), getLib().sum(makeNumber(1), makeNumber(2), makeNumber(3)));
         assertNull(getLib().sum(1, null, 3));
