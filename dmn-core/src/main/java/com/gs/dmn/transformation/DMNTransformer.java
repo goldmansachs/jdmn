@@ -12,11 +12,11 @@
  */
 package com.gs.dmn.transformation;
 
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.runtime.Pair;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 public interface DMNTransformer<T> {
-    TDefinitions transform(TDefinitions definitions);
+    DMNModelRepository transform(DMNModelRepository repository);
 
-    Pair<TDefinitions, T> transform(TDefinitions definitions, T testCases);
+    Pair<DMNModelRepository, T> transform(DMNModelRepository repository, T testCases);
 }

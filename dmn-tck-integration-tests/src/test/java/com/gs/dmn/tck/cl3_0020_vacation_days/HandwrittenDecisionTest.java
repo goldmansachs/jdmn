@@ -25,7 +25,6 @@ import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.NameTransformer;
 import com.gs.dmn.transformation.ToQuotedNameTransformer;
 import org.junit.Test;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 import java.math.BigDecimal;
 
@@ -64,7 +63,7 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
 
         String pathName = "tck/cl3/0020-vacation-days.dmn";
         DMNModelRepository repository = readDMN(pathName);
-        nameTransformer.transform(repository.getDefinitions());
+        nameTransformer.transform(repository);
         DMNInterpreter interpreter = this.dialectDefinition.createDMNInterpreter(repository);
 
         RuntimeEnvironment environment = RuntimeEnvironmentFactory.instance().makeEnvironment();

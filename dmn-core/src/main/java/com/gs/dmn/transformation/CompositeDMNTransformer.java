@@ -12,8 +12,8 @@
  */
 package com.gs.dmn.transformation;
 
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.runtime.Pair;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,16 +28,16 @@ public class CompositeDMNTransformer<T> implements DMNTransformer<T> {
     }
 
     @Override
-    public TDefinitions transform(TDefinitions definitions) {
+    public DMNModelRepository transform(DMNModelRepository repository) {
         for(DMNTransformer transformer: this.transformers) {
-            definitions = transformer.transform(definitions);
+            repository = transformer.transform(repository);
         }
-        return definitions;
+        return repository;
     }
 
     @Override
-    public Pair<TDefinitions, T> transform(TDefinitions definitions, T testCases) {
-        Pair<TDefinitions, T> result = new Pair(definitions, testCases);
+    public Pair<DMNModelRepository, T> transform(DMNModelRepository repository, T testCases) {
+        Pair<DMNModelRepository, T> result = new Pair(repository, testCases);
         for(DMNTransformer transformer: this.transformers) {
             result = transformer.transform(result.getLeft(), result.getRight());
         }

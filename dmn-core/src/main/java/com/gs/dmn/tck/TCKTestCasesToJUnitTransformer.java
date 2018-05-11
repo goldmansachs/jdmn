@@ -59,7 +59,7 @@ public class TCKTestCasesToJUnitTransformer extends AbstractDMNTransformer {
             logger.info("Processing TCK TestCases ...");
 
             TestCases testCases = testCasesReader.read(child);
-            testCases = (TestCases) dmnTransformer.transform(basicTransformer.getDMNModelRepository().getDefinitions(), testCases).getRight();
+            testCases = (TestCases) dmnTransformer.transform(basicTransformer.getDMNModelRepository(), testCases).getRight();
 
             String javaClassName = testClassName(testCases, basicTransformer);
             processTemplate(testCases, templateProvider.testBaseTemplatePath(), templateProvider.testTemplateName(), basicTransformer, outputPath, javaClassName);

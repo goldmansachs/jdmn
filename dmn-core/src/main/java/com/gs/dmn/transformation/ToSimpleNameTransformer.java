@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.transformation;
 
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.NopBuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
@@ -20,7 +21,6 @@ import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.DMNWriter;
 import com.gs.dmn.tck.TestCasesReader;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -91,48 +91,48 @@ public class ToSimpleNameTransformer extends NameTransformer {
 
         for(File child: inputFolder.listFiles()) {
             if (child.getName().endsWith(".dmn")) {
-                ToSimpleNameTransformer cleaner = new ToSimpleNameTransformer(new NopBuildLogger());
+                ToSimpleNameTransformer simpleNameTransformer = new ToSimpleNameTransformer(new NopBuildLogger());
 
                 // Clean DMN
                 String dmnFileName = child.getName();
                 File inputFile = new File(inputFolder, dmnFileName);
                 File outputFile = new File(outputFolder, dmnFileName);
-                TDefinitions definitions = transformDefinitions(cleaner, inputFile, outputFile, logger);
+                DMNModelRepository repository = transformDefinitions(simpleNameTransformer, inputFile, outputFile, logger);
 
                 // Clean Test
                 String testFileName = dmnFileName.replace(".dmn", "-test-01" + TestCasesReader.TEST_FILE_EXTENSION);
                 File inputTestFile = new File(inputFolder, testFileName);
                 if (inputTestFile.exists()) {
                     File outputTestFile = new File(outputFolder, testFileName);
-                    transformTestCases(cleaner, definitions, inputTestFile, outputTestFile, logger);
+                    transformTestCases(simpleNameTransformer, repository, inputTestFile, outputTestFile, logger);
                 }
             }
         }
     }
 
-    private static TDefinitions transformDefinitions(ToSimpleNameTransformer transformer, File inputFile, File outputFile, BuildLogger logger) {
+    private static DMNModelRepository transformDefinitions(ToSimpleNameTransformer transformer, File inputFile, File outputFile, BuildLogger logger) {
         // Read
         DMNReader reader = new DMNReader(logger, false);
-        TDefinitions definitions = reader.read(inputFile).getDefinitions();
+        DMNModelRepository repository = reader.read(inputFile);
 
         // Transform
-        transformer.transform(definitions);
+        transformer.transform(repository);
 
         // Write
         DMNWriter writer = new DMNWriter(logger);
-        writer.write(definitions, outputFile, new DMNNamespacePrefixMapper());
+        writer.write(repository, outputFile, new DMNNamespacePrefixMapper());
 
-        return definitions;
+        return repository;
     }
 
-    private static void transformTestCases(ToSimpleNameTransformer transformer, TDefinitions definitions, File inputFile, File outputFile, BuildLogger logger) {
+    private static void transformTestCases(ToSimpleNameTransformer transformer, DMNModelRepository repository, File inputFile, File outputFile, BuildLogger logger) {
         // Read
         TestCasesReader reader = new TestCasesReader(logger);
 
         TestCases testCases = reader.read(inputFile);
 
         // Clean
-        transformer.transform(definitions, testCases);
+        transformer.transform(repository, testCases);
 
         // Write
         reader.write(testCases, outputFile, new DMNNamespacePrefixMapper());
