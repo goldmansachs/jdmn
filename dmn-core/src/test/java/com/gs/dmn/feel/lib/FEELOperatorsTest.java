@@ -27,19 +27,12 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
-    protected abstract FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> getLib();
+public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
+    protected abstract StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> getLib();
 
     //
     // Numeric operator functions
     //
-    @Test
-    public void testNumber() {
-        assertEquals("123.56", getLib().number("123.56").toString());
-        assertEquals("-123.56", getLib().number("-123.56").toString());
-        assertNull(getLib().number(null));
-    }
-
     @Test
     public void testNumericEqual() {
         assertTrue(getLib().numericEqual(null, null));
@@ -139,24 +132,6 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
     // Date operator functions
     //
     @Test
-    public void testDate() throws Exception {
-        assertNull(getLib().date((String)null));
-        assertNull(getLib().date(""));
-        assertNull(getLib().date("xxx"));
-
-        assertNull("2017-08-25", getLib().date("2017-08-25T11:00:00"));
-
-        assertEqualsTime("2016-08-01", getLib().date("2016-08-01"));
-        assertEqualsTime("2016-08-01", getLib().date("2016-08-01"));
-
-        assertEqualsTime("2016-08-01", getLib().date(makeDateAndTime("2016-08-01T12:00:00Z")));
-
-        assertEqualsTime("2016-08-01", getLib().date(makeNumber("2016"), makeNumber("8"), makeNumber("1")));
-
-        assertNull(getLib().date((String) null));
-    }
-
-    @Test
     public void testDateEqual() {
         assertTrue(getLib().dateEqual(null, null));
         assertFalse(getLib().dateEqual(null, makeDate("2016-08-01")));
@@ -211,14 +186,14 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
     }
 
     @Test
-    public void testDateSubtract() throws Exception {
+    public void testDateSubtract() {
         assertEqualsTime(null, getLib().dateSubtract(null, null));
         assertEqualsTime(null, getLib().dateSubtract(null, makeDate("2016-08-01")));
         assertEqualsTime(null, getLib().dateSubtract(makeDate("2016-08-01"), null));
     }
 
     @Test
-    public void testDateAddDuration() throws Exception {
+    public void testDateAddDuration() {
         assertEqualsTime(null, getLib().dateAddDuration(null, null));
         assertEqualsTime(null, getLib().dateAddDuration(null, makeDuration("P0Y2M")));
         assertEqualsTime(null, getLib().dateAddDuration(makeDate("2016-08-01"), null));
@@ -227,7 +202,7 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
     }
 
     @Test
-    public void testDateSubtractDuration() throws Exception {
+    public void testDateSubtractDuration() {
         assertEqualsTime(null, getLib().dateSubtractDuration(null, null));
         assertEqualsTime(null, getLib().dateSubtractDuration(null, makeDuration("P0Y2M")));
         assertEqualsTime(null, getLib().dateSubtractDuration(makeDate("2016-08-01"), null));
@@ -238,34 +213,6 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
     //
     // Time operator functions
     //
-    @Test
-    public void testTime() throws Exception {
-        assertNull(getLib().time((String)null));
-        assertNull(getLib().time(""));
-        assertNull(getLib().time("xxx"));
-        assertNull(getLib().time("13:20:00+01:00@Europe/Paris"));
-        assertNull(getLib().time("13:20:00+00:00[UTC]"));
-        assertNull(getLib().time(
-                makeNumber("12"), makeNumber("00"), makeNumber("00"),
-                makeDuration("PT25H10M")));
-
-        // Fix input literal
-        assertEqualsTime("11:00:00Z", getLib().time("T11:00:00Z"));
-        assertEqualsTime("11:00:00+01:00", getLib().time("11:00:00+0100"));
-
-        assertEqualsTime("11:00:00Z", getLib().time("11:00:00Z"));
-        assertEqualsTime("11:00:00.001Z", getLib().time("11:00:00.001Z"));
-
-        assertEqualsTime("11:00:00.001+01:00", getLib().time("11:00:00.001+01:00"));
-        assertEqualsTime("11:00:00+01:00", getLib().time("11:00:00+01:00"));
-
-        assertEqualsTime("11:00:00Z", getLib().time(makeDateAndTime("2016-08-01T11:00:00Z")));
-
-        assertEqualsTime("12:00:00+01:10", getLib().time(
-                makeNumber("12"), makeNumber("00"), makeNumber("00"),
-                makeDuration("PT1H10M")));
-    }
-
     @Test
     public void testTimeEqual() {
         assertTrue(getLib().timeEqual(null, null));
@@ -326,7 +273,7 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
     }
 
     @Test
-    public void testTimeSubtract() throws Exception {
+    public void testTimeSubtract() {
         assertEqualsTime(null, getLib().timeSubtract(null, null));
         assertEqualsTime(null, getLib().timeSubtract(null, makeTime("12:00:00Z")));
         assertEqualsTime(null, getLib().timeSubtract(makeTime("12:00:00Z"), null));
@@ -335,7 +282,7 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
     }
 
     @Test
-    public void testTimeAddDuration() throws Exception {
+    public void testTimeAddDuration() {
         assertEqualsTime(null, getLib().timeAddDuration(null, null));
         assertEqualsTime(null, getLib().timeAddDuration(null, makeDuration("P0DT1H")));
         assertEqualsTime(null, getLib().timeAddDuration(makeTime("12:00:00Z"), null));
@@ -344,7 +291,7 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
     }
 
     @Test
-    public void testTimeSubtractDuration() throws Exception {
+    public void testTimeSubtractDuration() {
         assertEqualsTime(null, getLib().timeSubtractDuration(null, null));
         assertEqualsTime(null, getLib().timeSubtractDuration(null, makeDuration("P0DT1H")));
         assertEqualsTime(null, getLib().timeSubtractDuration(makeTime("12:00:01Z"), null));
@@ -355,32 +302,6 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
     //
     // Date and time operator functions
     //
-    @Test
-    public void testDateTime() throws Exception {
-        assertNull(getLib().dateAndTime(null));
-        assertNull(getLib().dateAndTime(""));
-        assertNull(getLib().dateAndTime("xxx"));
-        assertNull(getLib().dateAndTime("11:00:00"));
-        assertNull(getLib().dateAndTime("2011-12-03T10:15:30+01:00@Europe/Paris"));
-
-        assertNull(getLib().dateAndTime(null, null));
-        assertNull(getLib().dateAndTime(null, makeTime("11:00:00Z")));
-        assertNull(getLib().dateAndTime(getLib().date("2016-08-01"), null));
-
-        // Fix input literal
-        assertEqualsTime("2016-08-01T11:00:00+01:00", getLib().dateAndTime("2016-08-01T11:00:00+0100"));
-
-        assertEqualsTime("2016-08-01T11:00:00Z", getLib().dateAndTime("2016-08-01T11:00:00Z"));
-        assertEqualsTime("2016-08-01T11:00:00.001Z", getLib().dateAndTime("2016-08-01T11:00:00.001Z"));
-        assertEqualsTime("2016-08-01T11:00:00.001+01:00", getLib().dateAndTime("2016-08-01T11:00:00.001+01:00"));
-        assertEqualsTime("2016-08-01T11:00:00+01:00", getLib().dateAndTime("2016-08-01T11:00:00+01:00"));
-
-        assertEqualsTime("2016-08-01T11:00:00Z", getLib().dateAndTime("2016-08-01T11:00:00Z"));
-
-        assertEqualsTime("2016-08-01T11:00:00Z", getLib().dateAndTime("2016-08-01T11:00:00Z"));
-        assertEqualsTime("2016-08-01T11:00:00Z", getLib().dateAndTime(makeDate("2016-08-01"), makeTime("11:00:00Z")));
-    }
-
     @Test
     public void testDateTimeEqual() {
         assertTrue(getLib().dateTimeEqual(null, null));
@@ -436,7 +357,7 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
     }
 
     @Test
-    public void testDateTimeSubtract() throws Exception {
+    public void testDateTimeSubtract() {
         assertEqualsTime(null, getLib().dateTimeSubtract(null, null));
         assertEqualsTime(null, getLib().dateTimeSubtract(null, makeDateAndTime("2016-08-01T12:00:00Z")));
         assertEqualsTime(null, getLib().dateTimeSubtract(makeDateAndTime("2016-08-01T12:00:00Z"), null));
@@ -445,7 +366,7 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
     }
 
     @Test
-    public void testDateTimeAddDuration() throws Exception {
+    public void testDateTimeAddDuration() {
         assertEqualsTime(null, getLib().dateTimeAddDuration(null, null));
         assertEqualsTime(null, getLib().dateTimeAddDuration(null, makeDuration("P1YT1H")));
         assertEqualsTime(null, getLib().dateTimeAddDuration(makeDateAndTime("2016-08-01T12:00:00Z"), null));
@@ -454,7 +375,7 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
     }
 
     @Test
-    public void testDateTimeSubtractDuration() throws Exception {
+    public void testDateTimeSubtractDuration() {
         assertEqualsTime(null, getLib().dateTimeSubtractDuration(null, null));
         assertEqualsTime(null, getLib().dateTimeSubtractDuration(null, makeDuration("P1YT1H")));
         assertEqualsTime(null, getLib().dateTimeSubtractDuration(makeDateAndTime("2016-08-01T12:00:00Z"), null));
@@ -466,15 +387,7 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
     // Duration operator functions
     //
     @Test
-    public void testMakeDuration() throws Exception {
-        assertEquals("P1Y8M", getLib().duration("P1Y8M").toString());
-        assertEquals("P2DT20H", getLib().duration("P2DT20H").toString());
-        assertNull(getLib().duration("XXX"));
-        assertNull(getLib().duration(null));
-    }
-
-    @Test
-    public void testDurationEqual() throws Exception {
+    public void testDurationEqual() {
         assertTrue(getLib().durationEqual(null, null));
         assertFalse(getLib().durationEqual(null, makeDuration("P1Y1M1DT1H")));
         assertFalse(getLib().durationEqual(makeDuration("P1Y1M1DT1H"), null));
@@ -483,7 +396,7 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
     }
 
     @Test
-    public void testDurationNotEqual() throws Exception {
+    public void testDurationNotEqual() {
         assertFalse(getLib().durationNotEqual(null, null));
         assertTrue(getLib().durationNotEqual(null, makeDuration("P1Y1M1DT1H")));
         assertTrue(getLib().durationNotEqual(makeDuration("P1Y1M1DT1H"), null));
@@ -492,7 +405,7 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
     }
 
     @Test
-    public void testDurationLessThan() throws Exception {
+    public void testDurationLessThan() {
         assertFalse(getLib().durationLessThan(null, null));
         assertNull(getLib().durationLessThan(null, makeDuration("P1Y1M1DT1H")));
         assertNull(getLib().durationLessThan(makeDuration("P1Y1M1DT1H"), null));
@@ -501,7 +414,7 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
     }
 
     @Test
-    public void testDurationGreaterThan() throws Exception {
+    public void testDurationGreaterThan() {
         assertFalse(getLib().durationGreaterThan(null, null));
         assertNull(getLib().durationGreaterThan(null, makeDuration("P1Y1M1DT1H")));
         assertNull(getLib().durationGreaterThan(makeDuration("P1Y1M1DT1H"), null));
@@ -510,7 +423,7 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
     }
 
     @Test
-    public void testDurationLessEqualThan() throws Exception {
+    public void testDurationLessEqualThan() {
         assertFalse(getLib().durationLessEqualThan(null, null));
         assertNull(getLib().durationLessEqualThan(null, makeDuration("P1Y1M1DT1H")));
         assertNull(getLib().durationLessEqualThan(makeDuration("P1Y1M1DT1H"), null));
@@ -519,7 +432,7 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
     }
 
     @Test
-    public void testDurationGreaterEqualThan() throws Exception {
+    public void testDurationGreaterEqualThan() {
         assertFalse(getLib().durationGreaterEqualThan(null, null));
         assertNull(getLib().durationGreaterEqualThan(null, makeDuration("P1Y1M1DT1H")));
         assertNull(getLib().durationGreaterEqualThan(makeDuration("P1Y1M1DT1H"), null));
@@ -680,7 +593,7 @@ public abstract class LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
         if (expected instanceof BigDecimal && actual instanceof BigDecimal) {
             BigDecimal expectedNumber = ((BigDecimal) expected).setScale(8, RoundingMode.FLOOR);
             BigDecimal actualNumber = ((BigDecimal) actual).setScale(8, RoundingMode.FLOOR);
-            assertEquals(((BigDecimal) expectedNumber).stripTrailingZeros().toPlainString(), ((BigDecimal) actualNumber).stripTrailingZeros().toPlainString());
+            assertEquals(expectedNumber.stripTrailingZeros().toPlainString(), actualNumber.stripTrailingZeros().toPlainString());
         } else if (expected instanceof Long && actual instanceof Double) {
             assertEquals(expected, ((Double)actual).longValue());
         } else if (expected instanceof Long && actual instanceof Integer) {

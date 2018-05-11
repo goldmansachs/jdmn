@@ -14,9 +14,12 @@ package com.gs.dmn.feel.lib;
 
 import com.gs.dmn.feel.lib.type.*;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class FEELOperators<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
+public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     protected final NumericType<NUMBER> numericType;
     protected final BooleanType booleanType;
     protected final StringType stringType;
@@ -26,7 +29,7 @@ public class FEELOperators<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     protected final DurationType<DURATION, NUMBER> durationType;
     protected final ListType listType;
 
-    public FEELOperators(NumericType<NUMBER> numericType, BooleanType booleanType, StringType stringType, DateType<DATE, DURATION> dateType, TimeType<TIME, DURATION> timeType, DateTimeType<DATE_TIME, DURATION> dateTimeType, DurationType<DURATION, NUMBER> durationType, ListType listType) {
+    public BaseFEELLib(NumericType<NUMBER> numericType, BooleanType booleanType, StringType stringType, DateType<DATE, DURATION> dateType, TimeType<TIME, DURATION> timeType, DateTimeType<DATE_TIME, DURATION> dateTimeType, DurationType<DURATION, NUMBER> durationType, ListType listType) {
         this.numericType = numericType;
         this.booleanType = booleanType;
         this.stringType = stringType;
@@ -38,7 +41,7 @@ public class FEELOperators<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     }
 
     //
-    // Numeric
+    // Numeric operators
     //
     public NUMBER numericAdd(NUMBER first, NUMBER second) {
         return numericType.numericAdd(first, second);
@@ -89,7 +92,7 @@ public class FEELOperators<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     }
 
     //
-    // Boolean operations
+    // Boolean operators
     //
     public Boolean booleanNot(Boolean operand) {
         return booleanType.booleanNot(operand);
@@ -128,9 +131,8 @@ public class FEELOperators<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     }
 
     //
-    // String operations
+    // String operators
     //
-
     public Boolean stringEqual(String first, String second) {
         return stringType.stringEqual(first, second);
     }
@@ -160,7 +162,7 @@ public class FEELOperators<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     }
 
     //
-    // Date operations
+    // Date operators
     //
 
     public Boolean dateEqual(DATE first, DATE second) {
@@ -200,7 +202,7 @@ public class FEELOperators<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     }
 
     //
-    // Time operations
+    // Time operators
     //
     public Boolean timeEqual(TIME first, TIME second) {
         return timeType.timeEqual(first, second);
@@ -239,9 +241,8 @@ public class FEELOperators<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     }
 
     //
-    // Date and Time operations
+    // Date and Time operators
     //
-
     public Boolean dateTimeEqual(DATE_TIME first, DATE_TIME second) {
         return dateTimeType.dateTimeEqual(first, second);
     }
@@ -279,9 +280,8 @@ public class FEELOperators<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     }
 
     //
-    // Duration operations
+    // Duration operators
     //
-
     public Boolean durationEqual(DURATION first, DURATION second) {
         return durationType.durationEqual(first, second);
     }
@@ -323,14 +323,138 @@ public class FEELOperators<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     }
 
     //
-    // List operations
+    // List operators
     //
-
     public Boolean listEqual(List list1, List list2) {
         return listType.listEqual(list1, list2);
     }
 
     public Boolean listNotEqual(List list1, List list2) {
         return listType.listNotEqual(list1, list2);
+    }
+
+    //
+    // Extra functions
+    //
+    @Override
+    public<T> List<T> asList(T ...objects) {
+        if (objects == null) {
+            List<T> result = new ArrayList<>();
+            result.add(null);
+            return result;
+        } else {
+            return Arrays.asList(objects);
+        }
+    }
+
+    @Override
+    public<T> T asElement(List<T> list) {
+        if (list == null) {
+            return null;
+        } else if (list.size() == 1) {
+            return list.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    public List<BigDecimal> rangeToList(boolean isOpenStart, BigDecimal start, boolean isOpenEnd, BigDecimal end) {
+        List<BigDecimal> result = new ArrayList<>();
+        if (start == null || end == null) {
+            return result;
+        }
+        int startValue = isOpenStart ? start.intValue() + 1 : start.intValue();
+        int endValue = isOpenEnd ? end.intValue() - 1 : end.intValue();
+        for (int i = startValue; i <= endValue; i++) {
+            result.add(BigDecimal.valueOf(i));
+        }
+        return result;
+    }
+    public List<Double> rangeToList(boolean isOpenStart, Double start, boolean isOpenEnd, Double end) {
+        List<Double> result = new ArrayList<>();
+        if (start == null || end == null) {
+            return result;
+        }
+        int startValue = isOpenStart ? start.intValue() + 1 : start.intValue();
+        int endValue = isOpenEnd ? end.intValue() - 1 : end.intValue();
+        for (int i = startValue; i <= endValue; i++) {
+            result.add(Double.valueOf(i));
+        }
+        return result;
+    }
+
+    public List<BigDecimal> rangeToList(BigDecimal start, BigDecimal end) {
+        List<BigDecimal> result = new ArrayList<>();
+        if (start == null || end == null) {
+            return result;
+        }
+        int startValue = start.intValue();
+        int endValue = end.intValue();
+        if (startValue <= endValue) {
+            for (int i = startValue; i <= endValue; i++) {
+                result.add(BigDecimal.valueOf(i));
+            }
+        } else {
+            for (int i = startValue; i <= endValue; i--) {
+                result.add(BigDecimal.valueOf(i));
+            }
+        }
+        return result;
+    }
+    public List<Double> rangeToList(Double start, Double end) {
+        List<Double> result = new ArrayList<>();
+        if (start == null || end == null) {
+            return result;
+        }
+        int startValue = start.intValue();
+        int endValue = end.intValue();
+        if (startValue <= endValue) {
+            for (int i = startValue; i <= endValue; i++) {
+                result.add(Double.valueOf(i));
+            }
+        } else {
+            for (int i = startValue; i <= endValue; i--) {
+                result.add(Double.valueOf(i));
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public List flattenFirstLevel(List list) {
+        if (list == null) {
+            return null;
+        }
+        List result = new ArrayList<>();
+        for (Object object : list) {
+            if (object instanceof List) {
+                result.addAll((List) object);
+            } else {
+                result.add(object);
+            }
+        }
+        return result;
+    }
+
+    public Object elementAt(List list, BigDecimal index) {
+        return elementAt(list, index.intValue());
+    }
+
+    public Object elementAt(List list, Double index) {
+        return elementAt(list, index.intValue());
+    }
+
+    private Object elementAt(List list, int index) {
+        if (list == null) {
+            return null;
+        }
+        int listSize = list.size();
+        if (1 <= index && index <= listSize) {
+            return list.get(index - 1);
+        } else if (-listSize <= index && index <= -1) {
+            return list.get(listSize + index);
+        } else {
+            return null;
+        }
     }
 }

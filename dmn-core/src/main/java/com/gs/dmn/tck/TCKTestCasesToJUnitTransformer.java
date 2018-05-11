@@ -14,6 +14,7 @@ package com.gs.dmn.tck;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
+import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNConstants;
@@ -43,7 +44,7 @@ public class TCKTestCasesToJUnitTransformer extends AbstractDMNTransformer {
         this.basicTransformer = this.dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);
         handleValidationErrors(this.dmnValidator.validate(repository));
         this.testCasesReader = new TestCasesReader(logger);
-        this.tckUtil = new TCKUtil(basicTransformer, dialectDefinition.createFEELLib());
+        this.tckUtil = new TCKUtil(basicTransformer, (StandardFEELLib) dialectDefinition.createFEELLib());
     }
 
     @Override

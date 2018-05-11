@@ -24,8 +24,6 @@ import com.gs.dmn.runtime.LambdaExpression;
 import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
 import net.sf.saxon.xpath.XPathFactoryImpl;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
@@ -47,9 +45,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-public class UniformJavaTimeFEELLib extends FEELOperators<BigDecimal, ZonedDateTime, ZonedDateTime, ZonedDateTime, Duration> implements FEELLib<BigDecimal, ZonedDateTime, ZonedDateTime, ZonedDateTime, Duration> {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(UniformJavaTimeFEELLib.class);
-
+public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTime, ZonedDateTime, ZonedDateTime, Duration> implements StandardFEELLib<BigDecimal, ZonedDateTime, ZonedDateTime, ZonedDateTime, Duration> {
     private static final DatatypeFactory DATA_TYPE_FACTORY = XMLDatataypeFactory.newInstance();
 
     public UniformJavaTimeFEELLib() {
@@ -1209,110 +1205,7 @@ public class UniformJavaTimeFEELLib extends FEELOperators<BigDecimal, ZonedDateT
         return clone;
     }
 
-    //
-    // Extra functions
-    //
-    @Override
-    public <T> List<T> asList(T... objects) {
-        if (objects == null) {
-            List<T> result = new ArrayList<>();
-            result.add(null);
-            return result;
-        } else {
-            return Arrays.asList(objects);
-        }
-    }
-
-    @Override
-    public <T> T asElement(List<T> list) {
-        if (list == null) {
-            return null;
-        } else if (list.size() == 1) {
-            return list.get(0);
-        } else {
-            return null;
-        }
-    }
-
-    @Override
-    public List<BigDecimal> rangeToList(boolean isOpenStart, BigDecimal start, boolean isOpenEnd, BigDecimal end) {
-        List<BigDecimal> result = new ArrayList<>();
-        if (start == null || end == null) {
-            return result;
-        }
-        int startValue = isOpenStart ? start.intValue() + 1 : start.intValue();
-        int endValue = isOpenEnd ? end.intValue() - 1 : end.intValue();
-        for (int i = startValue; i <= endValue; i++) {
-            result.add(BigDecimal.valueOf(i));
-        }
-        return result;
-    }
-
-    @Override
-    public List<BigDecimal> rangeToList(BigDecimal start, BigDecimal end) {
-        List<BigDecimal> result = new ArrayList<>();
-        if (start == null || end == null) {
-            return result;
-        }
-        int startValue = start.intValue();
-        int endValue = end.intValue();
-        if (startValue <= endValue) {
-            for (int i = startValue; i <= endValue; i++) {
-                result.add(BigDecimal.valueOf(i));
-            }
-        } else {
-            for (int i = startValue; i <= endValue; i--) {
-                result.add(BigDecimal.valueOf(i));
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public List flattenFirstLevel(List list) {
-        if (list == null) {
-            return null;
-        }
-        List result = new ArrayList<>();
-        for (Object object : list) {
-            if (object instanceof List) {
-                result.addAll((List) object);
-            } else {
-                result.add(object);
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public Object elementAt(List list, BigDecimal index) {
-        return elementAt(list, index.intValue());
-    }
-
-    private Object elementAt(List list, int index) {
-        if (list == null) {
-            return null;
-        }
-        int listSize = list.size();
-        if (1 <= index && index <= listSize) {
-            return list.get(index - 1);
-        } else if (-listSize <= index && index <= -1) {
-            return list.get(listSize + index);
-        } else {
-            logError(String.format("Index '%s' out of bounds [1, %s]", index, list.size()));
-            return null;
-        }
-    }
-
     private String dateTimeISOFormat(int year, int month, int day, int hours, int minutes, int seconds, int millis, String offset) {
         return String.format("%04d-%02d-%02dT%02d:%02d:%02d.%d%s", year, month, day, hours, minutes, seconds, millis, offset);
-    }
-
-    protected void logError(String message) {
-        LOGGER.error(message);
-    }
-
-    protected void logError(String message, Throwable e) {
-        LOGGER.error(message, e);
     }
 }
