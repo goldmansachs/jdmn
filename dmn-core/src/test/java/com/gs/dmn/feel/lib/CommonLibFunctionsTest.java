@@ -19,11 +19,10 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends LibOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
+public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     //
-    // Numeric functions
+    // Constructors
     //
-
     @Test
     public void testNumber() {
         assertNull(getLib().number(null));
@@ -33,6 +32,89 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
         assertNull(getLib().number("xxx"));
     }
 
+    @Test
+    public void testDate() {
+        assertNull(getLib().date((String)null));
+        assertNull(getLib().date(""));
+        assertNull(getLib().date("xxx"));
+
+        assertNull("2017-08-25", getLib().date("2017-08-25T11:00:00"));
+
+        assertEqualsTime("2016-08-01", getLib().date("2016-08-01"));
+        assertEqualsTime("2016-08-01", getLib().date("2016-08-01"));
+
+        assertEqualsTime("2016-08-01", getLib().date(makeDateAndTime("2016-08-01T12:00:00Z")));
+
+        assertEqualsTime("2016-08-01", getLib().date(makeNumber("2016"), makeNumber("8"), makeNumber("1")));
+
+        assertNull(getLib().date((String) null));
+    }
+
+    @Test
+    public void testTime() {
+        assertNull(getLib().time((String)null));
+        assertNull(getLib().time(""));
+        assertNull(getLib().time("xxx"));
+        assertNull(getLib().time("13:20:00+01:00@Europe/Paris"));
+        assertNull(getLib().time("13:20:00+00:00[UTC]"));
+        assertNull(getLib().time(
+                makeNumber("12"), makeNumber("00"), makeNumber("00"),
+                makeDuration("PT25H10M")));
+
+        // Fix input literal
+        assertEqualsTime("11:00:00Z", getLib().time("T11:00:00Z"));
+        assertEqualsTime("11:00:00+01:00", getLib().time("11:00:00+0100"));
+
+        assertEqualsTime("11:00:00Z", getLib().time("11:00:00Z"));
+        assertEqualsTime("11:00:00.001Z", getLib().time("11:00:00.001Z"));
+
+        assertEqualsTime("11:00:00.001+01:00", getLib().time("11:00:00.001+01:00"));
+        assertEqualsTime("11:00:00+01:00", getLib().time("11:00:00+01:00"));
+
+        assertEqualsTime("11:00:00Z", getLib().time(makeDateAndTime("2016-08-01T11:00:00Z")));
+
+        assertEqualsTime("12:00:00+01:10", getLib().time(
+                makeNumber("12"), makeNumber("00"), makeNumber("00"),
+                makeDuration("PT1H10M")));
+    }
+
+    @Test
+    public void testDateTime() {
+        assertNull(getLib().dateAndTime(null));
+        assertNull(getLib().dateAndTime(""));
+        assertNull(getLib().dateAndTime("xxx"));
+        assertNull(getLib().dateAndTime("11:00:00"));
+        assertNull(getLib().dateAndTime("2011-12-03T10:15:30+01:00@Europe/Paris"));
+
+        assertNull(getLib().dateAndTime(null, null));
+        assertNull(getLib().dateAndTime(null, makeTime("11:00:00Z")));
+        assertNull(getLib().dateAndTime(getLib().date("2016-08-01"), null));
+
+        // Fix input literal
+        assertEqualsTime("2016-08-01T11:00:00+01:00", getLib().dateAndTime("2016-08-01T11:00:00+0100"));
+
+        assertEqualsTime("2016-08-01T11:00:00Z", getLib().dateAndTime("2016-08-01T11:00:00Z"));
+        assertEqualsTime("2016-08-01T11:00:00.001Z", getLib().dateAndTime("2016-08-01T11:00:00.001Z"));
+        assertEqualsTime("2016-08-01T11:00:00.001+01:00", getLib().dateAndTime("2016-08-01T11:00:00.001+01:00"));
+        assertEqualsTime("2016-08-01T11:00:00+01:00", getLib().dateAndTime("2016-08-01T11:00:00+01:00"));
+
+        assertEqualsTime("2016-08-01T11:00:00Z", getLib().dateAndTime("2016-08-01T11:00:00Z"));
+
+        assertEqualsTime("2016-08-01T11:00:00Z", getLib().dateAndTime("2016-08-01T11:00:00Z"));
+        assertEqualsTime("2016-08-01T11:00:00Z", getLib().dateAndTime(makeDate("2016-08-01"), makeTime("11:00:00Z")));
+    }
+
+    @Test
+    public void testDuration() {
+        assertEquals("P1Y8M", getLib().duration("P1Y8M").toString());
+        assertEquals("P2DT20H", getLib().duration("P2DT20H").toString());
+        assertNull(getLib().duration("XXX"));
+        assertNull(getLib().duration(null));
+    }
+
+    //
+    // Numeric functions
+    //
     @Test
     public void testFloor() {
         assertNull(getLib().floor(null));
@@ -119,7 +201,7 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
     }
 
     @Test
-    public void testMin() throws Exception {
+    public void testMin() {
         assertNull(getLib().min((List) null));
 
         assertEqualsNumber(makeNumber("1"), getLib().min(makeNumberList(1, 2, 3)));
@@ -127,7 +209,7 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
     }
 
     @Test
-    public void testMax() throws Exception {
+    public void testMax() {
         assertNull(getLib().max((List) null));
 
         assertEqualsNumber(makeNumber("3"), getLib().max(makeNumberList(1, 2, 3)));
@@ -138,7 +220,7 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
     }
 
     @Test
-    public void testSum() throws Exception {
+    public void testSum() {
         assertNull(getLib().sum((List) null));
         assertNull(getLib().sum((makeNumberList())));
 

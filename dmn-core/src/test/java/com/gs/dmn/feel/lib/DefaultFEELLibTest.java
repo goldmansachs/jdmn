@@ -22,7 +22,7 @@ import static org.junit.Assert.assertEquals;
 
 public class DefaultFEELLibTest extends BaseFEELLibTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     @Override
-    protected FEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> getLib() {
+    protected StandardFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> getLib() {
         return new DefaultFEELLib();
     }
 
@@ -30,7 +30,7 @@ public class DefaultFEELLibTest extends BaseFEELLibTest<BigDecimal, XMLGregorian
     // Conversion functions
     //
     @Test
-    public void testDate() throws Exception {
+    public void testDate() {
         super.testDate();
 
         assertEqualsTime("2016-08-01", getLib().date(makeDate("2016-08-01")));
@@ -38,7 +38,7 @@ public class DefaultFEELLibTest extends BaseFEELLibTest<BigDecimal, XMLGregorian
     }
 
     @Test
-    public void testTime() throws Exception {
+    public void testTime() {
         super.testTime();
 
         assertEqualsTime("12:00:00Z", getLib().time(makeTime("12:00:00Z")));
@@ -49,7 +49,7 @@ public class DefaultFEELLibTest extends BaseFEELLibTest<BigDecimal, XMLGregorian
     }
 
     @Test
-    public void testDateTime() throws Exception {
+    public void testDateTime() {
         super.testDateTime();
 
         // Test date
@@ -104,7 +104,7 @@ public class DefaultFEELLibTest extends BaseFEELLibTest<BigDecimal, XMLGregorian
     }
 
     @Test
-    public void testYearsAndMonthsDuration() throws Exception {
+    public void testYearsAndMonthsDuration() {
         super.testYearsAndMonthsDuration();
     }
 
@@ -112,7 +112,7 @@ public class DefaultFEELLibTest extends BaseFEELLibTest<BigDecimal, XMLGregorian
     // Date time operators
     //
     @Test
-    public void testDateSubtract() throws Exception {
+    public void testDateSubtract() {
         super.testDateSubtract();
         assertEqualsTime("P0Y0M0DT0H0M0.000S", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-01")).toString());
         assertEqualsTime("-P0Y0M2DT0H0M0.000S", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-03")).toString());

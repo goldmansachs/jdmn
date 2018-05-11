@@ -13,7 +13,7 @@
 package com.gs.dmn.tck;
 
 import com.gs.dmn.feel.analysis.semantics.type.*;
-import com.gs.dmn.feel.lib.FEELLib;
+import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
@@ -42,9 +42,9 @@ import java.util.stream.Collectors;
 
 public class TCKUtil {
     private final BasicDMN2JavaTransformer dmnTransformer;
-    private final FEELLib feelLib;
+    private final StandardFEELLib feelLib;
 
-    public TCKUtil(BasicDMN2JavaTransformer dmnTransformer, FEELLib feelLib) {
+    public TCKUtil(BasicDMN2JavaTransformer dmnTransformer, StandardFEELLib feelLib) {
         this.dmnTransformer = dmnTransformer;
         this.feelLib = feelLib;
     }
