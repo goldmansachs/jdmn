@@ -258,7 +258,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", NUMBER, lib.number("1")));
 
-        doExpressionTest(entries, "", "function (x : string, y : string) x + y",
+        doExpressionTest(entries, "", "function (x : feel.string, y : feel.string) x + y",
                 "FunctionDefinition(FormalParameter(x, string),FormalParameter(y, string), Addition(+,Name(x),Name(y)), false)",
                 "FEELFunctionType(FormalParameter(x, string), FormalParameter(y, string), string, false)",
                 null,
@@ -271,7 +271,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 null,
                 null);
 
-        doExpressionTest(entries, "", "function (x : string, y : string) external { " +
+        doExpressionTest(entries, "", "function (x : feel.string, y : feel.string) external { " +
                         "java: {class : \"name\", methodSignature: \"signature\" } }",
                 "FunctionDefinition(FormalParameter(x, string),FormalParameter(y, string), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"name\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"signature\"))))), true)",
                 "FEELFunctionType(FormalParameter(x, string), FormalParameter(y, string), ContextType(java = ContextType(class = string, methodSignature = string)), true)",
@@ -285,7 +285,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 null,
                 null,
                 null);
-        doExpressionTest(entries, "", "function(a: number, b: number) external {" +
+        doExpressionTest(entries, "", "function(a: feel.number, b: feel.number) external {" +
                         "java: {class: \"com.gs.dmn.simple_decision_with_user_function.Sum\", methodSignature: \"add(a, b)\", returnType : \"number\"}" +
                         "}",
                 "FunctionDefinition(FormalParameter(a, number),FormalParameter(b, number), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"com.gs.dmn.simple_decision_with_user_function.Sum\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"add(a, b)\")),ContextEntry(ContextEntryKey(returnType) = StringLiteral(\"number\"))))), true)",
@@ -748,7 +748,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "new com.gs.dmn.runtime.Context().add(\"k1\", number(\"1\")).add(\"k2\", number(\"2\"))",
                 new com.gs.dmn.runtime.Context().add("k1", lib.number("1")).add("k2", lib.number("2")),
                 new Context().add("k1", lib.number("1")).add("k2", lib.number("2")));
-        doExpressionTest(entries, "", "{ isPositive : function(x : number) x > 1 }",
+        doExpressionTest(entries, "", "{ isPositive : function(x : feel.number) x > 1 }",
                 "Context(ContextEntry(ContextEntryKey(isPositive) = FunctionDefinition(FormalParameter(x, number), Relational(>,Name(x),NumericLiteral(1)), false)))",
                 "ContextType(isPositive = FEELFunctionType(FormalParameter(x, number), boolean, false))",
                 null,
@@ -1164,7 +1164,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
         List<EnvironmentEntry> entries = Arrays.asList(
         );
 
-        doExpressionTest(entries, "", "sort([3,1,4,5,2], function(x: number, y: number) x < y)",
+        doExpressionTest(entries, "", "sort([3,1,4,5,2], function(x: feel.number, y: feel.number) x < y)",
                 "FunctionInvocation(Name(sort) -> PositionalParameters(ListLiteral(NumericLiteral(3),NumericLiteral(1),NumericLiteral(4),NumericLiteral(5),NumericLiteral(2)), FunctionDefinition(FormalParameter(x, number),FormalParameter(y, number), Relational(<,Name(x),Name(y)), false)))",
                 "ListType(AnyType)",
                 "sort(asList(number(\"3\"), number(\"1\"), number(\"4\"), number(\"5\"), number(\"2\")), new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return numericLessThan(x, y);}})",

@@ -153,7 +153,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
             if (typeName == null) {
                 element.setType(AnyType.ANY);
             } else {
-                Type type = dmnTransformer.toFEELType(typeName);
+                Type type = dmnTransformer.toFEELType(com.gs.dmn.transformation.basic.QualifiedName.toQualifiedName(typeName));
                 element.setType(type);
             }
 
