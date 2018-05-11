@@ -31,7 +31,7 @@ public class DoubleMixedJavaTimeFEELLibTest extends BaseFEELLibTest<Double, Loca
     // Conversion functions
     //
     @Test
-    public void testDate() throws Exception {
+    public void testDate() {
         super.testDate();
 
         assertEqualsTime("2016-08-01", getLib().date(makeDate("2016-08-01")));
@@ -39,7 +39,7 @@ public class DoubleMixedJavaTimeFEELLibTest extends BaseFEELLibTest<Double, Loca
     }
 
     @Test
-    public void testTime() throws Exception {
+    public void testTime() {
         super.testTime();
 
         assertEqualsTime("12:00:00Z", getLib().time(makeTime("12:00:00Z")));
@@ -50,7 +50,7 @@ public class DoubleMixedJavaTimeFEELLibTest extends BaseFEELLibTest<Double, Loca
     }
 
     @Test
-    public void testDateTime() throws Exception {
+    public void testDateTime() {
         super.testDateTime();
 
         // Test date
@@ -110,7 +110,7 @@ public class DoubleMixedJavaTimeFEELLibTest extends BaseFEELLibTest<Double, Loca
     }
 
     @Test
-    public void testYearsAndMonthsDuration() throws Exception {
+    public void testYearsAndMonthsDuration() {
         super.testYearsAndMonthsDuration();
     }
 
@@ -118,7 +118,7 @@ public class DoubleMixedJavaTimeFEELLibTest extends BaseFEELLibTest<Double, Loca
     // Date time operators
     //
     @Test
-    public void testDateSubtract() throws Exception {
+    public void testDateSubtract() {
         super.testDateSubtract();
 
         assertEqualsTime("P0Y0M", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-01")));
