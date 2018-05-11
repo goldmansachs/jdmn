@@ -1189,6 +1189,13 @@ public class BasicDMN2JavaTransformer {
         if (itemDefinition != null) {
             return toFEELType(itemDefinition);
         } else {
+            // Try to recover for FEEL types without prefix
+            if (typeRef.getNamespace() == null) {
+                Type feelType = lookupPrimitiveType(new QualifiedName(FEEL_12_PREFIX, typeRef.getLocalPart()));
+                if (feelType != null) {
+                    return feelType;
+                }
+            }
             throw new DMNRuntimeException(String.format("Cannot map type '%s' to FEEL", typeRef.toString()));
         }
     }

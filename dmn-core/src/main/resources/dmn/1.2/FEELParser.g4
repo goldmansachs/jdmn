@@ -470,7 +470,7 @@ parameterName returns [String ast]:
 ;
 
 typeName returns [String ast]:
-    name = identifier
+    name = qualifiedName
     {$ast = $name.text;}
 ;
 
