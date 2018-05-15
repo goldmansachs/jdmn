@@ -32,13 +32,13 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
 
         assertNull(getLib().number("12,356,00", ".", ","));
 
-        assertEquals(makeNumber("12356"), getLib().number("12.356,00", ".", ","));
-        assertEquals(makeNumber("12356"), getLib().number("12.356", ".", ","));
-        assertEquals("12356.01", getLib().number("12356,01", ".", ",").toString());
+        assertEqualsNumber(makeNumber("12356"), getLib().number("12.356,00", ".", ","));
+        assertEqualsNumber(makeNumber("12356"), getLib().number("12.356", ".", ","));
+        assertEqualsNumber(makeNumber("12356.01"), getLib().number("12356,01", ".", ","));
 
-        assertEquals(makeNumber("12356"), getLib().number("12,356.00", ",", "."));
-        assertEquals(makeNumber("12356"), getLib().number("12,356", ",", "."));
-        assertEquals("12356.01", getLib().number("12356.01", ",", ".").toString());
+        assertEqualsNumber(makeNumber("12356"), getLib().number("12,356.00", ",", "."));
+        assertEqualsNumber(makeNumber("12356"), getLib().number("12,356", ",", "."));
+        assertEqualsNumber(makeNumber("12356.01"), getLib().number("12356.01", ",", "."));
     }
 
     @Test

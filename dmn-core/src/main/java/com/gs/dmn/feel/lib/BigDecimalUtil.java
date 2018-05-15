@@ -41,7 +41,7 @@ public class BigDecimalUtil {
             return null;
         }
 
-        return number.setScale(0, BigDecimal.ROUND_CEILING).stripTrailingZeros();
+        return number.setScale(0, BigDecimal.ROUND_CEILING);
     }
 
     public static BigDecimal abs(BigDecimal number) {
@@ -156,7 +156,7 @@ public class BigDecimalUtil {
             BigDecimal number = (BigDecimal) e;
             result = result.add(number);
         }
-        return result.stripTrailingZeros();
+        return result;
     }
 
     public static BigDecimal mean(List list) {
@@ -165,7 +165,7 @@ public class BigDecimalUtil {
         }
 
         BigDecimal sum = sum(list);
-        return numericDivide(sum, BigDecimal.valueOf(list.size())).stripTrailingZeros();
+        return numericDivide(sum, BigDecimal.valueOf(list.size()));
     }
 
     public static BigDecimal product(List list) {
@@ -178,7 +178,7 @@ public class BigDecimalUtil {
             BigDecimal number = (BigDecimal) e;
             result = result.multiply(number);
         }
-        return result.stripTrailingZeros();
+        return result;
     }
 
     public static BigDecimal median(List list) {
@@ -259,7 +259,7 @@ public class BigDecimalUtil {
             return null;
         }
 
-        return first.divide(second, MathContext.DECIMAL128).stripTrailingZeros();
+        return first.divide(second, MathContext.DECIMAL128);
     }
 
 }

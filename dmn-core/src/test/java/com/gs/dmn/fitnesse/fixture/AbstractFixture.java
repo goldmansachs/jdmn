@@ -27,6 +27,7 @@ import com.gs.dmn.transformation.DMNToJavaTransformer;
 import fit.ColumnFixture;
 
 import javax.xml.datatype.Duration;
+import java.math.BigDecimal;
 
 public class AbstractFixture extends ColumnFixture {
     protected final DMNDialectDefinition dialectDefinition = new StandardDMNDialectDefinition();
@@ -39,6 +40,7 @@ public class AbstractFixture extends ColumnFixture {
         fitnesse.slim.converters.ConverterRegistry.addConverter(Scope.class, new ScopeConverter());
         fitnesse.slim.converters.ConverterRegistry.addConverter(Context.class, new ContextConverter());
         fitnesse.slim.converters.ConverterRegistry.addConverter(Duration.class, new DurationConverter());
+        fitnesse.slim.converters.ConverterRegistry.addConverter(BigDecimal.class, new BigDecimalConverter());
     }
 
     public void setScope(Scope scope) {
