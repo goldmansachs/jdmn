@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.runtime.Assert;
 import org.junit.Test;
 
 import javax.xml.datatype.Duration;
@@ -590,17 +591,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     protected void assertEqualsNumber(NUMBER expected, Object actual) {
-        if (expected instanceof BigDecimal && actual instanceof BigDecimal) {
-            BigDecimal expectedNumber = ((BigDecimal) expected).setScale(8, RoundingMode.FLOOR);
-            BigDecimal actualNumber = ((BigDecimal) actual).setScale(8, RoundingMode.FLOOR);
-            assertEquals(expectedNumber.stripTrailingZeros().toPlainString(), actualNumber.stripTrailingZeros().toPlainString());
-        } else if (expected instanceof Long && actual instanceof Double) {
-            assertEquals(expected, ((Double)actual).longValue());
-        } else if (expected instanceof Long && actual instanceof Integer) {
-            assertEquals(expected, Long.valueOf((Integer)actual).longValue());
-        } else {
-            assertEquals(expected, actual);
-        }
+        Assert.assertEquals(expected, actual);
     }
 
     protected void assertEqualsNumber(double expected, Object actual, double precision) {

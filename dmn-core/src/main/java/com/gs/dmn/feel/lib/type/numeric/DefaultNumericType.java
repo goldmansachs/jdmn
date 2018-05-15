@@ -39,7 +39,7 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
         }
 
         try {
-            return first.add(second, MATH_CONTEXT).stripTrailingZeros();
+            return first.add(second, MATH_CONTEXT);
         } catch (Throwable e) {
             String message = String.format("numericAdd(%s, %s)", first, second);
             logError(message, e);
@@ -54,7 +54,7 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
         }
 
         try {
-            return first.subtract(second, MATH_CONTEXT).stripTrailingZeros();
+            return first.subtract(second, MATH_CONTEXT);
         } catch (Throwable e) {
             String message = String.format("numericSubtract(%s, %s)", first, second);
             logError(message, e);
@@ -69,7 +69,7 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
         }
 
         try {
-            return first.multiply(second, MATH_CONTEXT).stripTrailingZeros();
+            return first.multiply(second, MATH_CONTEXT);
         } catch (Throwable e) {
             String message = String.format("numericMultiply(%s, %s)", first, second);
             logError(message, e);
@@ -95,7 +95,7 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
         }
 
         try {
-            return first.negate(MATH_CONTEXT).stripTrailingZeros();
+            return first.negate(MATH_CONTEXT);
         } catch (Throwable e) {
             String message = String.format("numericUnaryMinus(%s)", first);
             logError(message, e);
@@ -125,12 +125,12 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
 
         try {
             if (second < 0) {
-                return first.pow(second, MATH_CONTEXT).stripTrailingZeros();
+                return first.pow(second, MATH_CONTEXT);
             } else if (second == 0) {
                 return BigDecimal.ONE;
             } else {
                 BigDecimal temp = first.pow(-second, MATH_CONTEXT);
-                return BigDecimal.ONE.divide(temp, MATH_CONTEXT).stripTrailingZeros();
+                return BigDecimal.ONE.divide(temp, MATH_CONTEXT);
             }
         } catch (Throwable e) {
             String message = String.format("numericExponentiation(%s, %s)", first, second);
