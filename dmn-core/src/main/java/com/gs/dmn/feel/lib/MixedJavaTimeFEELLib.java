@@ -71,7 +71,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
         }
 
         try {
-            return new BigDecimal(literal, DefaultNumericType.MATH_CONTEXT).stripTrailingZeros();
+            return new BigDecimal(literal, DefaultNumericType.MATH_CONTEXT);
         } catch (Throwable e) {
             String message = String.format("number(%s)", literal);
             logError(message, e);
@@ -538,7 +538,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
 
         try {
             BigDecimal sum = sum(list);
-            return numericDivide(sum, BigDecimal.valueOf(list.size())).stripTrailingZeros();
+            return numericDivide(sum, BigDecimal.valueOf(list.size()));
         } catch (Throwable e) {
             String message = String.format("mean(%s)", list);
             logError(message, e);
@@ -581,7 +581,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
 
     @Override
     public BigDecimal stringLength(String string) {
-        return string == null ? null : BigDecimal.valueOf(string.length()).stripTrailingZeros();
+        return string == null ? null : BigDecimal.valueOf(string.length());
     }
 
     @Override

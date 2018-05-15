@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Assert {
+    private static final int ASSERT_SCALE = 8;
+
     public static void assertEquals(Object expected, Object actual) {
         assertEquals(null, expected, actual);
     }
@@ -145,7 +147,7 @@ public class Assert {
         return object;
     }
 
-    private static Object roundUp(BigDecimal bigDecimal) {
-        return bigDecimal.setScale(6, java.math.BigDecimal.ROUND_UP).stripTrailingZeros();
+    public static Object roundUp(BigDecimal bigDecimal) {
+        return bigDecimal.setScale(ASSERT_SCALE, java.math.BigDecimal.ROUND_UP).stripTrailingZeros();
     }
 }
