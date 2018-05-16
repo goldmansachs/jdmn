@@ -14,7 +14,6 @@ package com.gs.dmn.fitnesse.fixture;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gs.dmn.runtime.Assert;
-import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import fitnesse.slim.Converter;
 
