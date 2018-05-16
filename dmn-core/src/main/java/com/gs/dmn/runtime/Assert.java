@@ -16,6 +16,7 @@ import com.gs.dmn.feel.lib.DateTimeUtil;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -61,20 +62,16 @@ public class Assert {
                 assertEquals(message, expectedMember, actualMember);
             }
         } else if (isComplex(expected)) {
-            if (actual != null) {
-                List<Method> expectedGetters = getters(expected.getClass());
-                for (Method expectedGetter : expectedGetters) {
-                    try {
-                        Object expectedProperty = expectedGetter.invoke(expected);
-                        Method actualGetter = actual.getClass().getDeclaredMethod(expectedGetter.getName());
-                        Object actualProperty = actualGetter.invoke(actual);
-                        assertEquals(message, expectedProperty, actualProperty);
-                    } catch (Exception e) {
-                        throw new DMNRuntimeException(String.format("Error in '%s.%s()' ", expected.getClass().getSimpleName(), expectedGetter.getName()), e);
-                    }
+            List<Method> expectedGetters = getters(expected.getClass());
+            for (Method expectedGetter : expectedGetters) {
+                try {
+                    Object expectedProperty = getProperty(expected, expectedGetter);
+                    Method actualGetter = actual.getClass().getDeclaredMethod(expectedGetter.getName());
+                    Object actualProperty = getProperty(actual, actualGetter);
+                    assertEquals(message, expectedProperty, actualProperty);
+                } catch (Exception e) {
+                    throw new DMNRuntimeException(String.format("Error in '%s.%s()' ", expected.getClass().getSimpleName(), expectedGetter.getName()), e);
                 }
-            } else {
-                org.junit.Assert.assertEquals(message, expected.toString(), actual);
             }
         } else {
             org.junit.Assert.assertEquals(message, expected, actual);
@@ -121,6 +118,10 @@ public class Assert {
             }
         }
         return getters;
+    }
+
+    private static Object getProperty(Object expected, Method expectedGetter) throws IllegalAccessException, InvocationTargetException {
+        return expected == null ? null : expectedGetter.invoke(expected);
     }
 
     private static Object convertDateTime(Object object) {
