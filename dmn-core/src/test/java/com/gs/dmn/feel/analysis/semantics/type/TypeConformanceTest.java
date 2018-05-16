@@ -133,6 +133,28 @@ public class TypeConformanceTest {
 
         checkConformsTo(false, type1, type2);
         checkConformsTo(false, type1, type3);
+        checkConformsTo(true, type3, type1);
+        checkConformsTo(false, type1, NUMBER);
+    }
+
+    @Test
+    public void testItemDefinitionType() {
+        ItemDefinitionType type1 = new ItemDefinitionType("ID1");
+        type1.addMember("m", Arrays.asList(), NUMBER);
+
+        ItemDefinitionType type2 = new ItemDefinitionType("ID2");
+        type2.addMember("m", Arrays.asList(), BOOLEAN);
+
+        ItemDefinitionType type3 = new ItemDefinitionType("ID3");
+        type3.addMember("m", Arrays.asList(), NUMBER);
+        type3.addMember("x", Arrays.asList(), NUMBER);
+
+        checkConformsTo(true, type1, ANY);
+        checkConformsTo(true, type1, type1);
+
+        checkConformsTo(false, type1, type2);
+        checkConformsTo(false, type1, type3);
+        checkConformsTo(true, type3, type1);
         checkConformsTo(false, type1, NUMBER);
     }
 
@@ -154,20 +176,6 @@ public class TypeConformanceTest {
         checkConformsTo(true, type1, ANY);
 
         checkConformsTo(false, type1, type2);
-        checkConformsTo(false, type1, type3);
-        checkConformsTo(false, type1, NUMBER);
-    }
-
-    @Test
-    public void testItemDefinitionType() {
-        ItemDefinitionType type1 = new ItemDefinitionType("ID1");
-        ItemDefinitionType type2 = new ItemDefinitionType("ID1");
-        ItemDefinitionType type3 = new ItemDefinitionType("ID3");
-
-        checkConformsTo(true, type1, type1);
-        checkConformsTo(true, type1, ANY);
-
-        checkConformsTo(true, type1, type2);
         checkConformsTo(false, type1, type3);
         checkConformsTo(false, type1, NUMBER);
     }
