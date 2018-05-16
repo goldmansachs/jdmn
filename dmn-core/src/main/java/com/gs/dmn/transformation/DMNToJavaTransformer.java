@@ -40,10 +40,8 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
     public static final String QUALIFIED_LIST_TYPE = "java.util.List";
     public static final String CONTEXT_CLASS_NAME = Context.class.getName();
 
-    public static final String FEEL_LANGUAGE_URL = "http://www.omg.org/spec/FEEL/20140401";
-    public static final String FEEL_LANGUAGE_PREFIX = "feel";
     public static final String FREE_TEXT_LANGUAGE = "free_text";
-    public static final List<String> SUPPORTED_LANGUAGES = Arrays.asList(FEEL_LANGUAGE_URL, FEEL_LANGUAGE_PREFIX, FREE_TEXT_LANGUAGE);
+    public static final List<String> SUPPORTED_LANGUAGES = Arrays.asList(DMNConstants.FEEL_11_NS, DMNConstants.FEEL_12_NS, DMNConstants.FEEL_12_PREFIX, FREE_TEXT_LANGUAGE);
 
     protected final String dmnVersion;
     protected final String modelVersion;
