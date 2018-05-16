@@ -16,7 +16,6 @@ import com.gs.dmn.feel.lib.DateTimeUtil;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -62,15 +61,27 @@ public class Assert {
                 assertEquals(message, expectedMember, actualMember);
             }
         } else if (isComplex(expected)) {
-            List<Method> expectedGetters = getters(expected.getClass());
-            for (Method expectedGetter : expectedGetters) {
-                try {
-                    Object expectedProperty = getProperty(expected, expectedGetter);
-                    Method actualGetter = actual.getClass().getDeclaredMethod(expectedGetter.getName());
-                    Object actualProperty = getProperty(actual, actualGetter);
-                    assertEquals(message, expectedProperty, actualProperty);
-                } catch (Exception e) {
-                    throw new DMNRuntimeException(String.format("Error in '%s.%s()' ", expected.getClass().getSimpleName(), expectedGetter.getName()), e);
+            if (actual == null) {
+                List<Method> expectedGetters = getters(expected.getClass());
+                for (Method expectedGetter : expectedGetters) {
+                    try {
+                        Object expectedProperty = getProperty(expected, expectedGetter);
+                        assertEquals(message, expectedProperty, null);
+                    } catch (Exception e) {
+                        throw new DMNRuntimeException(String.format("Error in '%s.%s()' ", expected.getClass().getSimpleName(), expectedGetter.getName()), e);
+                    }
+                }
+            } else {
+                List<Method> expectedGetters = getters(expected.getClass());
+                for (Method expectedGetter : expectedGetters) {
+                    try {
+                        Object expectedProperty = getProperty(expected, expectedGetter);
+                        Method actualGetter = actual.getClass().getDeclaredMethod(expectedGetter.getName());
+                        Object actualProperty = getProperty(actual, actualGetter);
+                        assertEquals(message, expectedProperty, actualProperty);
+                    } catch (Exception e) {
+                        throw new DMNRuntimeException(String.format("Error in '%s.%s()' ", expected.getClass().getSimpleName(), expectedGetter.getName()), e);
+                    }
                 }
             }
         } else {
@@ -120,7 +131,7 @@ public class Assert {
         return getters;
     }
 
-    private static Object getProperty(Object expected, Method expectedGetter) throws IllegalAccessException, InvocationTargetException {
+    private static Object getProperty(Object expected, Method expectedGetter) throws Exception {
         return expected == null ? null : expectedGetter.invoke(expected);
     }
 
