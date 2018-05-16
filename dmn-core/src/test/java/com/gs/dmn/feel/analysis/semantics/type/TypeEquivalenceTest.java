@@ -137,6 +137,26 @@ public class TypeEquivalenceTest {
     }
 
     @Test
+    public void testItemDefinitionType() {
+        ItemDefinitionType type1 = new ItemDefinitionType("ID1");
+        type1.addMember("m", Arrays.asList(), NUMBER);
+
+        ItemDefinitionType type2 = new ItemDefinitionType("ID2");
+        type2.addMember("m", Arrays.asList(), BOOLEAN);
+
+        ItemDefinitionType type3 = new ItemDefinitionType("ID3");
+        type3.addMember("m", Arrays.asList(), NUMBER);
+        type3.addMember("x", Arrays.asList(), NUMBER);
+
+        checkEquivalentTo(true, type1, type1);
+
+        checkEquivalentTo(false, type1, ANY);
+        checkEquivalentTo(false, type1, type2);
+        checkEquivalentTo(false, type1, type3);
+        checkEquivalentTo(false, type1, NUMBER);
+    }
+
+    @Test
     public void testRangeType() {
         checkEquivalentTo(true, RangeType.NUMBER_RANGE_TYPE, RangeType.NUMBER_RANGE_TYPE);
 
@@ -149,20 +169,6 @@ public class TypeEquivalenceTest {
         TupleType type1 = new TupleType(Arrays.asList(NUMBER, BOOLEAN, DATE));
         TupleType type2 = new TupleType(Arrays.asList(BOOLEAN, DATE));
         TupleType type3 = new TupleType(Arrays.asList(NUMBER, BOOLEAN));
-
-        checkEquivalentTo(true, type1, type1);
-
-        checkEquivalentTo(false, type1, ANY);
-        checkEquivalentTo(false, type1, type2);
-        checkEquivalentTo(false, type1, type3);
-        checkEquivalentTo(false, type1, NUMBER);
-    }
-
-    @Test
-    public void testItemDefinitionType() {
-        ItemDefinitionType type1 = new ItemDefinitionType("ID1");
-        ItemDefinitionType type2 = new ItemDefinitionType("ID2");
-        ItemDefinitionType type3 = new ItemDefinitionType("ID3");
 
         checkEquivalentTo(true, type1, type1);
 
