@@ -798,6 +798,10 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     // Date functions
     //
     public BigDecimal year(XMLGregorianCalendar date) {
+        if (date == null) {
+            return null;
+        }
+
         try {
             return BigDecimal.valueOf(date.getYear());
         } catch (Exception e) {
@@ -808,6 +812,10 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     }
 
     public BigDecimal month(XMLGregorianCalendar date) {
+        if (date == null) {
+            return null;
+        }
+
         try {
             return BigDecimal.valueOf(date.getMonth());
         } catch (Exception e) {
@@ -818,6 +826,10 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     }
 
     public BigDecimal day(XMLGregorianCalendar date) {
+        if (date == null) {
+            return null;
+        }
+
         try {
             return BigDecimal.valueOf(date.getDay());
         } catch (Exception e) {
