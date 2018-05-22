@@ -61,6 +61,10 @@ public class DMNWriter extends DMNSerializer {
     }
 
     private Marshaller makeMarshaller(DMNNamespacePrefixMapper namespacePrefixMapper) throws JAXBException {
+        if (namespacePrefixMapper == null) {
+            throw new DMNRuntimeException("Missing namespace prefix mapper");
+        }
+
         DMNVersion version = namespacePrefixMapper.getVersion();
         Marshaller marshaller;
         if (version == DMNVersion.DMN_11) {
@@ -71,9 +75,7 @@ public class DMNWriter extends DMNSerializer {
             throw new RuntimeException(String.format("DMN version '%s' is not supported", version));
         }
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        if (namespacePrefixMapper != null) {
-            marshaller.setProperty("com.sun.xml.internal.bind.namespacePrefixMapper", namespacePrefixMapper);
-        }
+        marshaller.setProperty("com.sun.xml.internal.bind.namespacePrefixMapper", namespacePrefixMapper);
         return marshaller;
     }
 
