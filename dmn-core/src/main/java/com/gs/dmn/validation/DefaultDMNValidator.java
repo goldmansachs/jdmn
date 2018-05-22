@@ -163,13 +163,14 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         if (output == null || output.isEmpty()) {
             errors.add("No output clauses for decision " + decisionName);
         }
+        validateHitPolicy(decisionTable, errors);
         List<TDecisionRule> ruleList = decisionTable.getRule();
         if (ruleList == null || ruleList.isEmpty()) {
             errors.add("No rules for decision " + decisionName);
-        }
-        validateHitPolicy(decisionTable, errors);
-        for (TDecisionRule rule : ruleList) {
-            validateRule(rule, errors);
+        } else {
+            for (TDecisionRule rule : ruleList) {
+                validateRule(rule, errors);
+            }
         }
     }
 
