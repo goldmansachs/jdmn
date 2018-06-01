@@ -81,7 +81,7 @@ public class DMNDialectTransformer {
         } else if (element instanceof org.omg.spec.dmn._20151101.model.TExpression) {
             return transformExpression((org.omg.spec.dmn._20151101.model.TExpression) element);
         } else {
-            throw new DMNRuntimeException(String.format("'%s' is not supported"));
+            throw new DMNRuntimeException(String.format("'%s' is not supported", element.getClass()));
         }
     }
 
@@ -104,7 +104,7 @@ public class DMNDialectTransformer {
         } else if (element instanceof org.omg.spec.dmn._20151101.model.TInformationItem) {
             return transform((org.omg.spec.dmn._20151101.model.TInformationItem) element);
         } else {
-            throw new DMNRuntimeException(String.format("'%s' is not supported"));
+            throw new DMNRuntimeException(String.format("'%s' is not supported", element.getClass()));
         }
     }
 

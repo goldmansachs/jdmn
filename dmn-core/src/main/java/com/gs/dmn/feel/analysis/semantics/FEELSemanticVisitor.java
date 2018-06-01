@@ -420,15 +420,16 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
                 // Bind names to types in function type
                 bindNameToTypes(feelFunctionType.getParameters(), arguments);
 
-                // Bind names to types in function type
+                // Process function definition
                 FunctionDefinition functionDefinition = feelFunctionType.getFunctionDefinition();
                 if (functionDefinition != null) {
+                    // Bind names to types in function type
                     bindNameToTypes(functionDefinition.getFormalParameters(), arguments);
-                }
 
-                // Set return type
-                functionDefinition.accept(this, context);
-                feelFunctionType.setReturnType(functionDefinition.getBody().getType());
+                    // Set return type
+                    functionDefinition.accept(this, context);
+                    feelFunctionType.setReturnType(functionDefinition.getBody().getType());
+                }
             }
         }
     }
