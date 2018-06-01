@@ -62,7 +62,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         return new Pair<>(repository, testCases);
     }
 
-    private void transform(TestCases.TestCase testCase) {
+    protected void transform(TestCases.TestCase testCase) {
         // Rename
         for (TestCases.TestCase.InputNode n : testCase.getInputNode()) {
             String newName = transformName(n.getName());
@@ -75,7 +75,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         }
     }
 
-    private void rename(ValueType valueType) {
+    protected void rename(ValueType valueType) {
         if (valueType instanceof ValueType.Component) {
             String newName = transformName(((ValueType.Component) valueType).getName());
             ((ValueType.Component) valueType).setName(newName);
@@ -95,13 +95,13 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         }
     }
 
-    private void transformDefinitions(TDefinitions definitions) {
+    protected void transformDefinitions(TDefinitions definitions) {
         replace(definitions);
         rename(definitions);
     }
 
     // Replace old names with new names in expressions
-    private void replace(TDefinitions definitions) {
+    protected void replace(TDefinitions definitions) {
         for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
             TDRGElement element = jaxbElement.getValue();
             if (element instanceof TInputData) {
@@ -120,7 +120,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     }
 
     // Replace old names with new names in expressions
-    private void replace(TExpression expression, LexicalContext lexicalContext) {
+    protected void replace(TExpression expression, LexicalContext lexicalContext) {
         if (expression instanceof TLiteralExpression) {
             replaceNamesInText((TLiteralExpression) expression, lexicalContext);
         } else if (expression instanceof TDecisionTable) {
@@ -182,7 +182,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         }
     }
 
-    private void rename(TDefinitions definitions) {
+    protected void rename(TDefinitions definitions) {
         for(TItemDefinition itemDefinition: definitions.getItemDefinition()) {
             renameItemDefinitionMembers(itemDefinition);
         }
@@ -215,7 +215,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         }
     }
 
-    private void rename(TExpression expression) {
+    protected void rename(TExpression expression) {
         if (expression instanceof TLiteralExpression) {
         } else if (expression instanceof TDecisionTable) {
         } else if (expression instanceof TFunctionDefinition) {
@@ -245,7 +245,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         }
     }
 
-    private LexicalContext makeLexicalContext(TDRGElement element, TDefinitions definitions) {
+    protected LexicalContext makeLexicalContext(TDRGElement element, TDefinitions definitions) {
         List<String> names = new ArrayList<>();
 
         List<TInformationRequirement> informationRequirement = null;
@@ -286,14 +286,14 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         return new LexicalContext(names);
     }
 
-    private void addName(TDefinitions definitions, List<String> names, String href) {
+    protected void addName(TDefinitions definitions, List<String> names, String href) {
         TDRGElement requiredDRG = findDRGElement(definitions, href);
         if (requiredDRG != null) {
             names.add(requiredDRG.getName());
         }
     }
 
-    private TDRGElement findDRGElement(TDefinitions definitions, String href) {
+    protected TDRGElement findDRGElement(TDefinitions definitions, String href) {
         if (href.startsWith("#")) {
             href = href.substring(1);
         }
@@ -307,7 +307,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         return null;
     }
 
-    private void replaceNamesInText(TLiteralExpression literalExpression, LexicalContext lexicalContext) {
+    protected void replaceNamesInText(TLiteralExpression literalExpression, LexicalContext lexicalContext) {
         if (literalExpression == null) {
             return;
         }
@@ -361,7 +361,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         setField(literalExpression, "text", newText.toString());
     }
 
-    private void renameItemDefinitionMembers(TItemDefinition itemDefinition) {
+    protected void renameItemDefinitionMembers(TItemDefinition itemDefinition) {
         List<TItemDefinition> itemComponent = itemDefinition.getItemComponent();
         if (itemComponent != null) {
             for(TItemDefinition member: itemComponent) {
@@ -371,7 +371,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         }
     }
 
-    private void renameElement(TNamedElement element) {
+    protected void renameElement(TNamedElement element) {
         if (element != null) {
             String fieldName = "name";
             String newValue = transformName(element.getName());
@@ -379,7 +379,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         }
     }
 
-    private void setField(TDMNElement element, String fieldName, String newName) {
+    protected void setField(TDMNElement element, String fieldName, String newName) {
         try {
             Field nameField = FieldUtils.getField(element.getClass(), fieldName, true);
             nameField.set(element, newName);
