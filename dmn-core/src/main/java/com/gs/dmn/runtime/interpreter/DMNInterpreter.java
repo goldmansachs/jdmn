@@ -626,16 +626,9 @@ public class DMNInterpreter {
         );
     }
 
-    protected Arguments makeArguments(TDecision decision, RuntimeEnvironment runtimeEnvironment) {
+    private Arguments makeArguments(TDRGElement element, RuntimeEnvironment runtimeEnvironment) {
         Arguments arguments = new Arguments();
-        List<Pair<String, Type>> parameters = basicDMNTransformer.inputDataParametersClosure(decision);
-        parameters.forEach(p -> arguments.put(p.getLeft(), runtimeEnvironment.lookupBinding(p.getLeft())));
-        return arguments;
-    }
-
-    protected Arguments makeArguments(TBusinessKnowledgeModel bkm, RuntimeEnvironment runtimeEnvironment) {
-        Arguments arguments = new Arguments();
-        List<String> parameters = basicDMNTransformer.drgElementArgumentNameList(bkm);
+        List<String> parameters = basicDMNTransformer.drgElementArgumentNameList(element, false);
         parameters.forEach(p -> arguments.put(p, runtimeEnvironment.lookupBinding(p)));
         return arguments;
     }

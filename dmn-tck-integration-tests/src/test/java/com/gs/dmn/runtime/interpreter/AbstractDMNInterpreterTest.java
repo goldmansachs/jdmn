@@ -118,8 +118,11 @@ public abstract class AbstractDMNInterpreterTest {
                 expectedValue = tckUtil.makeValue(res.getExpected(), decisionType);
                 actualOutput = interpreter.evaluate(decisionName, runtimeEnvironment);
             } catch (Exception e) {
-                DMNRuntimeException dmnRuntimeException = new DMNRuntimeException(message, e);
-                assertTrue(dmnRuntimeException.getMessage() + ". " + e.getMessage() + String.format(".  Expected '%s' actual '%s'", expectedValue, actualOutput), res.isErrorResult());
+                if (!res.isErrorResult()) {
+                    e.printStackTrace();
+                    DMNRuntimeException dmnRuntimeException = new DMNRuntimeException(message, e);
+                    assertTrue(dmnRuntimeException.getMessage() + ". " + e.getMessage() + String.format(".  Expected '%s' actual '%s'", expectedValue, actualOutput), res.isErrorResult());
+                }
             }
             Assert.assertEquals(message, expectedValue, actualOutput);
         }
