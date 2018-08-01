@@ -302,11 +302,15 @@ public class BasicDMN2JavaTransformer {
     }
 
     public List<String> drgElementArgumentNameList(TDRGElement element) {
+        return drgElementArgumentNameList(element, true);
+    }
+
+    public List<String> drgElementArgumentNameList(TDRGElement element, boolean javaFriendlyName) {
         if (element instanceof TBusinessKnowledgeModel) {
-            List<Pair<String, String>> parameters = bkmParameters((TBusinessKnowledgeModel) element);
+            List<Pair<String, String>> parameters = bkmParameters((TBusinessKnowledgeModel) element, javaFriendlyName);
             return parameters.stream().map(Pair::getLeft).collect(Collectors.toList());
         } else if (element instanceof TDecision) {
-            List<Pair<String, Type>> parameters = inputDataParametersClosure((TDecision) element);
+            List<Pair<String, Type>> parameters = inputDataParametersClosure((TDecision) element, javaFriendlyName);
             return parameters.stream().map(Pair::getLeft).collect(Collectors.toList());
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
@@ -538,10 +542,14 @@ public class BasicDMN2JavaTransformer {
     }
 
     private List<Pair<String, String>> bkmParameters(TBusinessKnowledgeModel bkm) {
+        return bkmParameters(bkm, true);
+    }
+
+    private List<Pair<String, String>> bkmParameters(TBusinessKnowledgeModel bkm, boolean javaFriendlyName) {
         List<Pair<String, String>> parameters = new ArrayList<>();
         List<TInformationItem> formalParameters = bkm.getEncapsulatedLogic().getFormalParameter();
         for (TInformationItem parameter : formalParameters) {
-            String parameterName = informationItemVariableName(parameter);
+            String parameterName = javaFriendlyName ? informationItemVariableName(parameter) : parameter.getName();
             String parameterType = informationItemTypeName(parameter);
             parameters.add(new Pair(parameterName, parameterType));
         }
@@ -664,12 +672,16 @@ public class BasicDMN2JavaTransformer {
     }
 
     public List<Pair<String, Type>> inputDataParametersClosure(TDecision decision) {
+        return inputDataParametersClosure(decision, true);
+    }
+
+    public List<Pair<String, Type>> inputDataParametersClosure(TDecision decision, boolean javaFriendlyName) {
         List<TInputData> inputDatas = this.dmnModelRepository.allInputDatas(decision);
         this.dmnModelRepository.sortNamedElements(inputDatas);
 
         List<Pair<String, Type>> parameters = new ArrayList<>();
         for (TInputData inputData : inputDatas) {
-            String parameterName = inputDataVariableName(inputData);
+            String parameterName = javaFriendlyName ? inputDataVariableName(inputData) : inputData.getName();
             Type parameterType = toFEELType(inputData);
             parameters.add(new Pair<>(parameterName, parameterType));
         }
