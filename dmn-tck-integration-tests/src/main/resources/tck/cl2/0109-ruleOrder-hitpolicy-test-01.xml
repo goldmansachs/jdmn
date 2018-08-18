@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelName>0109-ruleOrder-hitpolicy.dmn</modelName>
+	<labels>
+		<label>Compliance Level 2</label>
+		<label>Item Definition</label>
+		<label>Hit Policy: RULE ORDER</label>
+		<label>Decision Table: Multiple Output</label>
+		<label>Data Type: String</label>
+		<label>Data Type: Number</label>
+		<label>Data Type: Boolean</label>
+		<label>Data Type: Structure</label>
+	</labels>
+	<testCase id="001">
+		<inputNode name="Age">
+			<value>19</value>
+		</inputNode>
+		<inputNode name="RiskCategory">
+			<value>Medium</value>
+		</inputNode>
+		<inputNode name="isAffordable">
+			<value>true</value>
+		</inputNode>
+		<resultNode name="Approval" type="decision">
+			<expected>
+			<list>
+				<item>
+				<component name="Status">
+					<value>Approved</value>
+				</component>
+				<component name="Rate">
+					<value>Best</value>
+				</component>
+				</item>
+				<item>
+				<component name="Status">
+					<value>Approved</value>
+				</component>
+				<component name="Rate">
+					<value>Standard</value>
+				</component>
+				</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="002">
+		<inputNode name="Age">
+			<value>13</value>
+		</inputNode>
+		<inputNode name="RiskCategory">
+			<value>Medium</value>
+		</inputNode>
+		<inputNode name="isAffordable">
+			<value>true</value>
+		</inputNode>
+		<resultNode name="Approval" type="decision">
+			<expected>
+			<list>
+				<item>
+				<component name="Status">
+					<value>Approved</value>
+				</component>
+				<component name="Rate">
+					<value>Standard</value>
+				</component>
+				</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="003">
+		<inputNode name="Age">
+			<value>10</value>
+		</inputNode>
+		<inputNode name="RiskCategory">
+			<value>Low</value>
+		</inputNode>
+		<inputNode name="isAffordable">
+			<value>true</value>
+		</inputNode>
+		<resultNode name="Approval" type="decision">
+			<expected>
+			<list>
+				<item>
+				<component name="Status">
+					<value>Declined</value>
+				</component>
+				<component name="Rate">
+					<value>Standard</value>
+				</component>
+				</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>

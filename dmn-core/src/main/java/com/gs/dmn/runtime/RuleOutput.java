@@ -15,7 +15,7 @@ package com.gs.dmn.runtime;
 import java.util.List;
 
 public abstract class RuleOutput {
-    private boolean matched;
+    protected boolean matched;
 
     public RuleOutput(boolean matched) {
         this.matched = matched;

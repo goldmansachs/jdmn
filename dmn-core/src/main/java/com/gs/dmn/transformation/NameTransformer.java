@@ -218,6 +218,9 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     protected void rename(TExpression expression) {
         if (expression instanceof TLiteralExpression) {
         } else if (expression instanceof TDecisionTable) {
+            for(TOutputClause  outputClause: ((TDecisionTable) expression).getOutput()) {
+                renameElement(outputClause);
+            }
         } else if (expression instanceof TFunctionDefinition) {
             for(TInformationItem parameter: ((TFunctionDefinition) expression).getFormalParameter()) {
                 renameElement(parameter);
@@ -372,7 +375,15 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     }
 
     protected void renameElement(TNamedElement element) {
-        if (element != null) {
+        if (element != null && element.getName() != null) {
+            String fieldName = "name";
+            String newValue = transformName(element.getName());
+            setField(element, fieldName, newValue);
+        }
+    }
+
+    protected void renameElement(TOutputClause element) {
+        if (element != null && element.getName() != null) {
             String fieldName = "name";
             String newValue = transformName(element.getName());
             setField(element, fieldName, newValue);

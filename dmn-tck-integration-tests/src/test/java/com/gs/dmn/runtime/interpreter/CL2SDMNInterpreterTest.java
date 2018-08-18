@@ -43,5 +43,17 @@ public abstract class CL2SDMNInterpreterTest extends AbstractDMNInterpreterTest 
         doTestDiagram("0105-feel-math");
         doTestDiagram("0106-feel-ternary-logic");
         doTestDiagram("0107-feel-ternary-logic-not");
+        doTestDiagram("0108-first-hitpolicy");
+        doTestDiagram("0109-ruleOrder-hitpolicy");
+        doTestDiagram("0110-outputOrder-hitpolicy");
+        doTestDiagram("0111-first-hitpolicy-singleoutputcol");
+        doTestDiagram("0112-ruleOrder-hitpolicy-singleinoutcol");
+        doTestDiagram("0113-outputOrder-hitpolicy-singleinoutcol");
+        doTestDiagram("0114-min-collect-hitpolicy");
+        doTestDiagram("0115-sum-collect-hitpolicy");
+        doTestDiagram("0116-count-collect-hitpolicy");
+        doTestDiagram("0117-multi-any-hitpolicy");
+        doTestDiagram("0118-multi-priority-hitpolicy");
+        doTestDiagram("0119-multi-collect-hitpolicy");
     }
 }

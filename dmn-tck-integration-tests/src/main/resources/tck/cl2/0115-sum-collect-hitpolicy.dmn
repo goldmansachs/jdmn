@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dmn11:definitions xmlns="http://www.trisotech.com/definitions/Definitions_11jk5op" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:tc="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" xmlns:trisofeed="http://trisotech.com/feed" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exporter="DMN Modeler" exporterVersion="6.1.3" id="Definitions_11jk5op" name="DRD" namespace="http://www.trisotech.com/definitions/Definitions_11jk5op" triso:logoChoice="Default" xmlns:dmn11="http://www.omg.org/spec/DMN/20151101/dmn.xsd">
+  <dmn11:extensionElements/>
+  <dmn11:decision id="salary" name="Salary">
+    <dmn11:variable id="_d885e484-7fd1-4c6b-8398-13c22eed672f" name="Salary" typeRef="feel:number"/>
+    <dmn11:informationRequirement>
+      <dmn11:requiredInput href="#inputData_input_1"/>
+    </dmn11:informationRequirement>
+    <dmn11:decisionTable aggregation="SUM" hitPolicy="COLLECT" id="decisionTable_1" outputLabel="Salary" typeRef="feel:number">
+      <dmn11:input id="input_1">
+        <dmn11:inputExpression typeRef="feel:number">
+          <dmn11:text>NumOfYears</dmn11:text>
+        </dmn11:inputExpression>
+      </dmn11:input>
+      <dmn11:output id="output_1"/>
+      <dmn11:rule id="DecisionRule_07toq2m">
+        <dmn11:inputEntry id="UnaryTests_1ykf8dp">
+          <dmn11:text>&gt;1</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="LiteralExpression_11o18h7">
+          <dmn11:text>100</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+      <dmn11:rule id="DecisionRule_1q56imi">
+        <dmn11:inputEntry id="UnaryTests_0cxr8yx">
+          <dmn11:text>&gt;2</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="LiteralExpression_15h3amx">
+          <dmn11:text>200</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+      <dmn11:rule id="DecisionRule_1rwxbuf">
+        <dmn11:inputEntry id="UnaryTests_1ej7vqk">
+          <dmn11:text>&gt;3</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="LiteralExpression_1iy5alu">
+          <dmn11:text>300</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+      <dmn11:rule id="DecisionRule_1lwr317">
+        <dmn11:inputEntry id="UnaryTests_0pe8562">
+          <dmn11:text>&gt;5</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="LiteralExpression_19xhxqe">
+          <dmn11:text>500</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+    </dmn11:decisionTable>
+  </dmn11:decision>
+  <dmn11:inputData id="inputData_input_1" name="NumOfYears">
+    <dmn11:variable id="_1e4986a7-eb73-45c8-b47e-a29734468e6b" name="NumOfYears" typeRef="feel:number"/>
+  </dmn11:inputData>
+</dmn11:definitions>

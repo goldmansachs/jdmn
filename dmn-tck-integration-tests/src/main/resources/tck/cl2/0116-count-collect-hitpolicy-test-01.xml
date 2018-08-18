@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelName>0116-count-collect-hitpolicy.dmn</modelName>
+	<labels>
+		<label>Compliance Level 2</label>
+		<label>Item Definition</label>
+		<label>Hit Policy: COLLECT</label>
+		<label>Aggregator: COUNT</label>
+		<label>Decision Table: Single Output</label>
+		<label>Data Type: Number</label>
+	</labels>
+	<testCase id="001">
+		<inputNode name="NumOfYears">
+			<value>6</value>
+		</inputNode>
+		<resultNode name="Salary" type="decision">
+			<expected>
+					<value>4</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="002">
+		<inputNode name="NumOfYears">
+			<value>2</value>
+		</inputNode>
+		<resultNode name="Salary" type="decision">
+			<expected>
+					<value>1</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="003">
+		<inputNode name="NumOfYears">
+			<value>3</value>
+		</inputNode>
+		<resultNode name="Salary" type="decision">
+			<expected>
+					<value>2</value>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>
