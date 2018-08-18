@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tc:testCases xmlns:tc="http://www.omg.org/spec/DMN/20160719/testcase"
+  xmlns:triso="http://www.trisotech.com/2015/triso/modeling"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <tc:modelName>0039-dt-list-semantics.dmn</tc:modelName>
+  <tc:labels>
+    <tc:label>Compliance Level 3</tc:label>
+    <tc:label>Decision Table: Single Output</tc:label>
+    <tc:label>FEEL Special-character Names</tc:label>
+    <tc:label>Hit Policy: COLLECT</tc:label>
+    <tc:label>Item Definition</tc:label>
+    <tc:label>Literal Expression</tc:label>
+    <tc:label>Data Type: String</tc:label>
+    <tc:label>FEEL List Operator</tc:label>
+  </tc:labels>  
+  <tc:testCase id="_a217c840-6ead-4cb7-a3e1-ad9df9c0c584">
+    <tc:description>select 1 and 2</tc:description>
+        <tc:inputNode name="Flu Symtoms">
+          <tc:list>
+            <tc:item>
+              <tc:value xsi:type="xsd:string">fever</tc:value>
+            </tc:item>
+            <tc:item>
+              <tc:value xsi:type="xsd:string">cough</tc:value>
+            </tc:item>
+            <tc:item>
+              <tc:value xsi:type="xsd:string">sore throat</tc:value>
+            </tc:item>
+            <tc:item>
+              <tc:value xsi:type="xsd:string">runny nose</tc:value>
+            </tc:item>
+          </tc:list>
+        </tc:inputNode>
+        <tc:inputNode name="Symptom">
+          <tc:value xsi:type="xsd:string">cough</tc:value>
+        </tc:inputNode>
+        <tc:resultNode name="Symptom Analysis">
+          <tc:expected>
+            <tc:list>
+              <tc:item>
+                <tc:value xsi:type="xsd:string">cough is in the list of Cold symptoms</tc:value>
+              </tc:item>
+              <tc:item>
+                <tc:value xsi:type="xsd:string">cough is in the list of Flu symptoms</tc:value>
+              </tc:item>
+            </tc:list>
+          </tc:expected>
+        </tc:resultNode>
+      </tc:testCase>
+      <tc:testCase id="_07726176-a1a0-4e9e-9de2-16dba51556e2">
+        <tc:description>select 2</tc:description>
+        <tc:inputNode name="Flu Symtoms">
+          <tc:list>
+            <tc:item>
+              <tc:value xsi:type="xsd:string">fever</tc:value>
+            </tc:item>
+            <tc:item>
+              <tc:value xsi:type="xsd:string">cough</tc:value>
+            </tc:item>
+            <tc:item>
+              <tc:value xsi:type="xsd:string">sore throat</tc:value>
+            </tc:item>
+            <tc:item>
+              <tc:value xsi:type="xsd:string">runny nose</tc:value>
+            </tc:item>
+          </tc:list>
+        </tc:inputNode>
+        <tc:inputNode name="Symptom">
+          <tc:value xsi:type="xsd:string">fever</tc:value>
+        </tc:inputNode>
+        <tc:resultNode name="Symptom Analysis">
+          <tc:expected>
+            <tc:list>
+              <tc:item>
+                <tc:value xsi:type="xsd:string">fever is in the list of Flu symptoms</tc:value>
+              </tc:item>
+            </tc:list>
+          </tc:expected>
+        </tc:resultNode>
+      </tc:testCase>
+    </tc:testCases>

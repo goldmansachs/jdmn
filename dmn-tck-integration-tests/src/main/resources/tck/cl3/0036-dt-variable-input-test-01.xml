@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tc:testCases xmlns:tc="http://www.omg.org/spec/DMN/20160719/testcase"
+  xmlns:triso="http://www.trisotech.com/2015/triso/modeling"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <tc:modelName>0036-dt-variable-input.dmn</tc:modelName>
+  <tc:labels>
+    <tc:label>Compliance Level 3</tc:label>
+    <tc:label>Decision Table: Single Output</tc:label>
+    <tc:label>FEEL Special-character Names</tc:label>
+    <tc:label>Hit Policy: UNIQUE</tc:label>
+    <tc:label>Item Definition</tc:label>
+    <tc:label>Literal Expression</tc:label>
+    <tc:label>Data Type: String</tc:label>
+    <tc:label>Data Type: Number</tc:label>
+    <tc:label>Data Type: Structure</tc:label>
+    <tc:label>Data Type: Boolean</tc:label>
+    <tc:label>Data Type: Date</tc:label>
+    <tc:label>Data Type: Time</tc:label>
+    <tc:label>Data Type: Date and Time</tc:label>
+    <tc:label>Data Type: Days and Time Duration</tc:label>
+    <tc:label>Data Type: Years and Months Duration</tc:label>
+  </tc:labels>
+  <tc:testCase id="_20445ee0-744d-4488-a90e-136701510871">
+    <tc:description>Test different, higher values</tc:description>
+        <tc:inputNode name="Complex">
+          <tc:component name="aBoolean">
+            <tc:value xsi:type="xsd:boolean">true</tc:value>
+          </tc:component>
+          <tc:component name="aNumber">
+            <tc:value xsi:type="xsd:double">10</tc:value>
+          </tc:component>
+          <tc:component name="aString">
+            <tc:value xsi:type="xsd:string">"Hi"</tc:value>
+          </tc:component>
+          <tc:component name="aDate">
+            <tc:value xsi:type="xsd:date">2018-07-30</tc:value>
+          </tc:component>
+          <tc:component name="aTime">
+            <tc:value xsi:type="xsd:time">16:11:00</tc:value>
+          </tc:component>
+          <tc:component name="aDateTime">
+            <tc:value xsi:type="xsd:dateTime">2018-07-30T16:12:00Z</tc:value>
+          </tc:component>
+          <tc:component name="aDaysAndTimeDuration">
+            <tc:value xsi:type="xsd:duration">PT10H</tc:value>
+          </tc:component>
+          <tc:component name="aYearsAndMonthsDuration">
+            <tc:value xsi:type="xsd:duration">P5M</tc:value>
+          </tc:component>
+        </tc:inputNode>
+        <tc:inputNode name="Another boolean">
+          <tc:value xsi:type="xsd:boolean">false</tc:value>
+        </tc:inputNode>
+        <tc:inputNode name="Another String">
+          <tc:value xsi:type="xsd:string">"Hello"</tc:value>
+        </tc:inputNode>
+        <tc:inputNode name="Another number">
+          <tc:value xsi:type="xsd:double">15</tc:value>
+        </tc:inputNode>
+        <tc:inputNode name="Another Date">
+          <tc:value xsi:type="xsd:date">2018-07-31</tc:value>
+        </tc:inputNode>
+        <tc:inputNode name="Another Time">
+          <tc:value xsi:type="xsd:time">17:13:00</tc:value>
+        </tc:inputNode>
+        <tc:inputNode name="Another Date and Time">
+          <tc:value xsi:type="xsd:dateTime">2018-07-31T17:13:00Z</tc:value>
+        </tc:inputNode>
+        <tc:inputNode name="Another Days and Time Duration">
+          <tc:value xsi:type="xsd:duration">PT12H</tc:value>
+        </tc:inputNode>
+        <tc:inputNode name="Another Years and Months Duration">
+          <tc:value xsi:type="xsd:duration">P8M</tc:value>
+        </tc:inputNode>
+        <tc:resultNode name="Compare String">
+          <tc:expected>
+            <tc:value xsi:type="xsd:string">Different String</tc:value>
+          </tc:expected>
+        </tc:resultNode>
+        <tc:resultNode name="Compare Date">
+          <tc:expected>
+            <tc:value xsi:type="xsd:string">Future Date</tc:value>
+          </tc:expected>
+        </tc:resultNode>
+        <tc:resultNode name="Compare Number">
+          <tc:expected>
+            <tc:value xsi:type="xsd:string">Bigger</tc:value>
+          </tc:expected>
+        </tc:resultNode>
+        <tc:resultNode name="Compare Date and Time">
+          <tc:expected>
+            <tc:value xsi:type="xsd:string">Future date time</tc:value>
+          </tc:expected>
+        </tc:resultNode>
+        <tc:resultNode name="Compare Days and Time Duration">
+          <tc:expected>
+            <tc:value xsi:type="xsd:string">Longer duration</tc:value>
+          </tc:expected>
+        </tc:resultNode>
+        <tc:resultNode name="Compare Years and Months Duration">
+          <tc:expected>
+            <tc:value xsi:type="xsd:string">Longer duration</tc:value>
+          </tc:expected>
+        </tc:resultNode>
+        <tc:resultNode name="Compare Time">
+          <tc:expected>
+            <tc:value xsi:type="xsd:string">Future Time</tc:value>
+          </tc:expected>
+        </tc:resultNode>
+        <tc:resultNode name="Compare Boolean">
+          <tc:expected>
+            <tc:value xsi:type="xsd:string">Not same boolean</tc:value>
+          </tc:expected>
+        </tc:resultNode>
+      </tc:testCase>
+  <tc:testCase id="_58109f16-2e9b-496e-bfff-5f0adbfa0279">
+    <tc:description>Test different, lower values</tc:description>
+    <tc:inputNode name="Complex">
+          <tc:component name="aBoolean">
+            <tc:value xsi:type="xsd:boolean">true</tc:value>
+          </tc:component>
+          <tc:component name="aNumber">
+            <tc:value xsi:type="xsd:double">10</tc:value>
+          </tc:component>
+          <tc:component name="aString">
+            <tc:value xsi:type="xsd:string">"Hi"</tc:value>
+          </tc:component>
+          <tc:component name="aDate">
+            <tc:value xsi:type="xsd:date">2018-07-30</tc:value>
+          </tc:component>
+          <tc:component name="aTime">
+            <tc:value xsi:type="xsd:time">16:11:00</tc:value>
+          </tc:component>
+          <tc:component name="aDateTime">
+            <tc:value xsi:type="xsd:dateTime">2018-07-30T16:12:00Z</tc:value>
+          </tc:component>
+          <tc:component name="aDaysAndTimeDuration">
+            <tc:value xsi:type="xsd:duration">PT10H</tc:value>
+          </tc:component>
+          <tc:component name="aYearsAndMonthsDuration">
+            <tc:value xsi:type="xsd:duration">P5M</tc:value>
+          </tc:component>
+        </tc:inputNode>
+        <tc:inputNode name="Another boolean">
+          <tc:value xsi:type="xsd:boolean">false</tc:value>
+        </tc:inputNode>
+        <tc:inputNode name="Another String">
+          <tc:value xsi:type="xsd:string">"Hello"</tc:value>
+        </tc:inputNode>
+        <tc:inputNode name="Another number">
+          <tc:value xsi:type="xsd:double">5</tc:value>
+        </tc:inputNode>
+        <tc:inputNode name="Another Date">
+          <tc:value xsi:type="xsd:date">2018-07-29</tc:value>
+        </tc:inputNode>
+        <tc:inputNode name="Another Time">
+          <tc:value xsi:type="xsd:time">15:13:00</tc:value>
+        </tc:inputNode>
+        <tc:inputNode name="Another Date and Time">
+          <tc:value xsi:type="xsd:dateTime">2018-07-29T15:13:00Z</tc:value>
+        </tc:inputNode>
+        <tc:inputNode name="Another Days and Time Duration">
+          <tc:value xsi:type="xsd:duration">PT8H</tc:value>
+        </tc:inputNode>
+        <tc:inputNode name="Another Years and Months Duration">
+          <tc:value xsi:type="xsd:duration">P3M</tc:value>
+        </tc:inputNode>
+        <tc:resultNode name="Compare String">
+          <tc:expected>
+            <tc:value xsi:type="xsd:string">Different String</tc:value>
+          </tc:expected>
+        </tc:resultNode>
+        <tc:resultNode name="Compare Date">
+          <tc:expected>
+            <tc:value xsi:type="xsd:string">Past Date</tc:value>
+          </tc:expected>
+        </tc:resultNode>
+        <tc:resultNode name="Compare Number">
+          <tc:expected>
+            <tc:value xsi:type="xsd:string">Smaller</tc:value>
+          </tc:expected>
+        </tc:resultNode>
+        <tc:resultNode name="Compare Date and Time">
+          <tc:expected>
+            <tc:value xsi:type="xsd:string">Past date time</tc:value>
+          </tc:expected>
+        </tc:resultNode>
+        <tc:resultNode name="Compare Days and Time Duration">
+          <tc:expected>
+            <tc:value xsi:type="xsd:string">Shorter duration</tc:value>
+          </tc:expected>
+        </tc:resultNode>
+        <tc:resultNode name="Compare Years and Months Duration">
+          <tc:expected>
+            <tc:value xsi:type="xsd:string">Shorter duration</tc:value>
+          </tc:expected>
+        </tc:resultNode>
+        <tc:resultNode name="Compare Time">
+          <tc:expected>
+            <tc:value xsi:type="xsd:string">Past Time</tc:value>
+          </tc:expected>
+        </tc:resultNode>
+        <tc:resultNode name="Compare Boolean">
+          <tc:expected>
+            <tc:value xsi:type="xsd:string">Not same boolean</tc:value>
+          </tc:expected>
+        </tc:resultNode>
+      </tc:testCase>
+  <tc:testCase id="_9d09e1a1-d573-42f0-a026-da811bb73eeb">
+    <tc:description>Same values</tc:description>
+    <tc:inputNode name="Complex">
+          <tc:component name="aBoolean">
+            <tc:value xsi:type="xsd:boolean">true</tc:value>
+          </tc:component>
+          <tc:component name="aNumber">
+            <tc:value xsi:type="xsd:double">10</tc:value>
+          </tc:component>
+          <tc:component name="aString">
+            <tc:value xsi:type="xsd:string">"Hi"</tc:value>
+          </tc:component>
+          <tc:component name="aDate">
+            <tc:value xsi:type="xsd:date">2018-07-30</tc:value>
+          </tc:component>
+          <tc:component name="aTime">
+            <tc:value xsi:type="xsd:time">16:11:00</tc:value>
+          </tc:component>
+          <tc:component name="aDateTime">
+            <tc:value xsi:type="xsd:dateTime">2018-07-30T16:12:00Z</tc:value>
+          </tc:component>
+          <tc:component name="aDaysAndTimeDuration">
+            <tc:value xsi:type="xsd:duration">PT10H</tc:value>
+          </tc:component>
+          <tc:component name="aYearsAndMonthsDuration">
+            <tc:value xsi:type="xsd:duration">P5M</tc:value>
+          </tc:component>
+        </tc:inputNode>
+        <tc:inputNode name="Another boolean">
+          <tc:value xsi:type="xsd:boolean">true</tc:value>
+        </tc:inputNode>
+        <tc:inputNode name="Another String">
+          <tc:value xsi:type="xsd:string">"Hi"</tc:value>
+        </tc:inputNode>
+        <tc:inputNode name="Another number">
+          <tc:value xsi:type="xsd:double">10</tc:value>
+        </tc:inputNode>
+        <tc:inputNode name="Another Date">
+          <tc:value xsi:type="xsd:date">2018-07-30</tc:value>
+        </tc:inputNode>
+        <tc:inputNode name="Another Time">
+          <tc:value xsi:type="xsd:time">16:11:00</tc:value>
+        </tc:inputNode>
+        <tc:inputNode name="Another Date and Time">
+          <tc:value xsi:type="xsd:dateTime">2018-07-30T16:12:00Z</tc:value>
+        </tc:inputNode>
+        <tc:inputNode name="Another Days and Time Duration">
+          <tc:value xsi:type="xsd:duration">PT10H</tc:value>
+        </tc:inputNode>
+        <tc:inputNode name="Another Years and Months Duration">
+          <tc:value xsi:type="xsd:duration">P5M</tc:value>
+        </tc:inputNode>
+        <tc:resultNode name="Compare String">
+          <tc:expected>
+            <tc:value xsi:type="xsd:string">Same String</tc:value>
+          </tc:expected>
+        </tc:resultNode>
+        <tc:resultNode name="Compare Date">
+          <tc:expected>
+            <tc:value xsi:type="xsd:string">Same Date</tc:value>
+          </tc:expected>
+        </tc:resultNode>
+        <tc:resultNode name="Compare Number">
+          <tc:expected>
+            <tc:value xsi:type="xsd:string">Equals</tc:value>
+          </tc:expected>
+        </tc:resultNode>
+        <tc:resultNode name="Compare Date and Time">
+          <tc:expected>
+            <tc:value xsi:type="xsd:string">Same date time</tc:value>
+          </tc:expected>
+        </tc:resultNode>
+        <tc:resultNode name="Compare Days and Time Duration">
+          <tc:expected>
+            <tc:value xsi:type="xsd:string">Same duration</tc:value>
+          </tc:expected>
+        </tc:resultNode>
+        <tc:resultNode name="Compare Years and Months Duration">
+          <tc:expected>
+            <tc:value xsi:type="xsd:string">Same duration</tc:value>
+          </tc:expected>
+        </tc:resultNode>
+        <tc:resultNode name="Compare Time">
+          <tc:expected>
+            <tc:value xsi:type="xsd:string">Same Time</tc:value>
+          </tc:expected>
+        </tc:resultNode>
+        <tc:resultNode name="Compare Boolean">
+          <tc:expected>
+            <tc:value xsi:type="xsd:string">Same boolean</tc:value>
+          </tc:expected>
+        </tc:resultNode>
+      </tc:testCase>
+    </tc:testCases>
