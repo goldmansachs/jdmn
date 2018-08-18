@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelName>0114-min-collect-hitpolicy.dmn</modelName>
+	<labels>
+		<label>Compliance Level 2</label>
+		<label>Item Definition</label>
+		<label>Hit Policy: COLLECT</label>
+		<label>Aggregator: MIN</label>
+		<label>Decision Table: Single Output</label>
+		<label>Data Type: Number</label>
+		<label>Data Type: Structure</label>
+	</labels>
+	<testCase id="001">
+		<inputNode name="NumOfYears">
+			<value>5</value>
+		</inputNode>
+		<resultNode name="CarInsurance" type="decision">
+			<expected>
+					<value>64.32</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="002">
+		<inputNode name="NumOfYears">
+			<value>3</value>
+		</inputNode>
+		<resultNode name="CarInsurance" type="decision">
+			<expected>
+					<value>98.83</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="003">
+		<inputNode name="NumOfYears">
+			<value>4</value>
+		</inputNode>
+		<resultNode name="CarInsurance" type="decision">
+			<expected>
+					<value>98.83</value>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dmn11:definitions xmlns="http://www.trisotech.com/definitions/Definitions_0reic0g" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:tc="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" xmlns:trisofeed="http://trisotech.com/feed" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exporter="DMN Modeler" exporterVersion="6.1.3" id="Definitions_0reic0g" name="DRD" namespace="http://www.trisotech.com/definitions/Definitions_0reic0g" triso:logoChoice="Default" xmlns:dmn11="http://www.omg.org/spec/DMN/20151101/dmn.xsd">
+  <dmn11:extensionElements/>
+  <dmn11:decision id="carInsurance" name="CarInsurance">
+    <dmn11:variable id="_a295d2fe-a6db-4154-8295-8bd00def95cb" name="CarInsurance" typeRef="feel:number"/>
+    <dmn11:informationRequirement>
+      <dmn11:requiredInput href="#inputData_input_1"/>
+    </dmn11:informationRequirement>
+    <dmn11:decisionTable aggregation="MIN" hitPolicy="COLLECT" id="decisionTable_1" outputLabel="CarInsurance" typeRef="feel:number">
+      <dmn11:input id="input_1">
+        <dmn11:inputExpression typeRef="feel:number">
+          <dmn11:text>NumOfYears</dmn11:text>
+        </dmn11:inputExpression>
+      </dmn11:input>
+      <dmn11:output id="output_1"/>
+      <dmn11:rule id="DecisionRule_0acwtg0">
+        <dmn11:inputEntry id="UnaryTests_189k6sw">
+          <dmn11:text>&gt;1</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="LiteralExpression_1qymvo3">
+          <dmn11:text>98.83</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+      <dmn11:rule id="DecisionRule_147sotc">
+        <dmn11:inputEntry id="UnaryTests_1wikul2">
+          <dmn11:text>&gt;2</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="LiteralExpression_1evg7ns">
+          <dmn11:text>150.21</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+      <dmn11:rule id="DecisionRule_0gxrx36">
+        <dmn11:inputEntry id="UnaryTests_1ca1yom">
+          <dmn11:text>&gt;3</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="LiteralExpression_0n3hzp6">
+          <dmn11:text>205.43</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+      <dmn11:rule id="DecisionRule_0od3nns">
+        <dmn11:inputEntry id="UnaryTests_02zs33d">
+          <dmn11:text>&gt;4</dmn11:text>
+        </dmn11:inputEntry>
+        <dmn11:outputEntry id="LiteralExpression_15d1ikl">
+          <dmn11:text>64.32</dmn11:text>
+        </dmn11:outputEntry>
+      </dmn11:rule>
+    </dmn11:decisionTable>
+  </dmn11:decision>
+  <dmn11:inputData id="inputData_input_1" name="NumOfYears">
+    <dmn11:variable id="_d59296ad-d1a6-4a5b-aa1b-3fb42766c914" name="NumOfYears" typeRef="feel:number"/>
+  </dmn11:inputData>
+</dmn11:definitions>

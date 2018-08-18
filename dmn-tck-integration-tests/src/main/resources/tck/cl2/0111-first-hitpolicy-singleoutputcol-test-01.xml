@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelName>0111-first-hitpolicy-singleoutputcol.dmn</modelName>
+	<labels>
+		<label>Compliance Level 2</label>
+		<label>Decision Table: Single Output</label>
+		<label>Hit Policy: FIRST</label>
+		<label>Data Type: String</label>
+		<label>Data Type: Number</label>
+	</labels>
+	<testCase id="001">
+		<inputNode name="age">
+			<value>19</value>
+		</inputNode>
+		<resultNode name="Advertisement" type="decision">
+			<expected>
+				<value>Cars</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="002">
+		<inputNode name="age">
+			<value>13</value>
+		</inputNode>
+		<resultNode name="Advertisement" type="decision">
+			<expected>
+				<value>Videogames</value>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="003">
+		<inputNode name="age">
+			<value>5</value>
+		</inputNode>
+		<resultNode name="Advertisement" type="decision">
+			<expected>
+				<value>Toys</value>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>

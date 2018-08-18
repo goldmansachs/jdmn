@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelName>0112-ruleOrder-hitpolicy-singleinoutcol.dmn</modelName>
+	<labels>
+		<label>Compliance Level 2</label>
+		<label>Item Definition</label>
+		<label>Hit Policy: RULE ORDER</label>
+		<label>Decision Table: Single Output</label>
+		<label>Data Type: Number</label>
+		<label>Data Type: Structure</label>
+	</labels>
+	<testCase id="001">
+		<inputNode name="Age">
+			<value>19</value>
+		</inputNode>
+		<resultNode name="Approval" type="decision">
+			<expected>
+			<list>
+				<item>
+					<value>Best</value>
+				</item>
+				<item>
+					<value>Standard</value>
+				</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="002">
+		<inputNode name="Age">
+			<value>13</value>
+		</inputNode>
+		<resultNode name="Approval" type="decision">
+			<expected>
+			<list>
+				<item>
+					<value>Standard</value>
+				</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+	<testCase id="003">
+		<inputNode name="Age">
+			<value>10</value>
+		</inputNode>
+		<resultNode name="Approval" type="decision">
+			<expected>
+			<list>
+				<item>
+					<value>Standard</value>
+				</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>

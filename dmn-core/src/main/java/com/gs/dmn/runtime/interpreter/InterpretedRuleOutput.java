@@ -18,6 +18,7 @@ import com.gs.dmn.runtime.RuleOutput;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class InterpretedRuleOutput extends RuleOutput {
     private final Object result;
@@ -75,6 +76,20 @@ public class InterpretedRuleOutput extends RuleOutput {
         } else {
             return matchedResults;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof InterpretedRuleOutput)) return false;
+        InterpretedRuleOutput that = (InterpretedRuleOutput) o;
+        return matched == that.matched &&
+                Objects.equals(result, that.result);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(matched, result);
     }
 
     @Override
