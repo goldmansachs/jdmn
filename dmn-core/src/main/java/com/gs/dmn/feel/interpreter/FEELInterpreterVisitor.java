@@ -59,6 +59,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.*;
@@ -135,17 +136,30 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     @Override
     public Object visit(OperatorTest element, FEELContext context) {
         String operator = element.getOperator();
+        Type inputExpressionType = context.getEnvironment().getInputExpressionType();
         Expression endpoint = element.getEndpoint();
+        Type endpointType = endpoint.getType();
 
         try {
             if (endpoint instanceof FunctionInvocation) {
                 return endpoint.accept(this, context);
             } else {
-                if (operator == null) {
-                    operator = "=";
-                }
                 Object self = context.lookupRuntimeBinding(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER);
-                return evaluateOperatorTest(element, operator, self, endpoint, context);
+                if (operator == null) {
+                    if (inputExpressionType.equivalentTo(endpointType)) {
+                        return evaluateOperatorTest(element, "=", self, endpoint, context);
+                    } else if (endpointType instanceof ListType && inputExpressionType.equivalentTo(((ListType) endpointType).getElementType())) {
+                        List endpointValueList = (List)endpoint.accept(this, context);
+                        List results = new ArrayList();
+                        for(Object endpointValue: endpointValueList) {
+                            results.add(evaluateOperatorTest(element, "=", self, inputExpressionType, ((ListType) endpointType).getElementType(), endpointValue));
+                        }
+                        return lib.or(results);
+                    }
+                    throw new DMNRuntimeException(String.format("Cannot evaluate test '%s'", element));
+                } else {
+                    return evaluateOperatorTest(element, operator, self, endpoint, context);
+                }
             }
         } catch (Exception e) {
             handleError(String.format("Cannot evaluate '%s'", element), e);
@@ -154,12 +168,16 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     }
 
     private Object evaluateOperatorTest(Expression element, String operator, Object self, Expression endpointExpression, FEELContext context) throws Exception {
-        JavaOperator javaOperator = javaOperator(operator, context.getEnvironment().getInputExpression(), endpointExpression);
+        Object endpointValue = endpointExpression.accept(this, context);
+        return evaluateOperatorTest(element, operator, self, context.getEnvironment().getInputExpressionType(), endpointExpression.getType(), endpointValue);
+    }
+
+    private Object evaluateOperatorTest(Expression element, String operator, Object self, Type inputExpressionType, Type endpointType, Object endpointValue) throws IllegalAccessException, InvocationTargetException {
+        JavaOperator javaOperator = javaOperator(operator, inputExpressionType, endpointType);
         if (javaOperator == null) {
             handleError(String.format("Cannot find method for '%s' '%s'", operator, element));
             return null;
         } else {
-            Object endpointValue = endpointExpression.accept(this, context);
             String methodName = javaOperator.getName();
             if (javaOperator.getAssociativity() == JavaOperator.Associativity.LEFT_RIGHT) {
                 Class[] argumentTypes = {getClass(self), getClass(endpointValue)};
@@ -215,7 +233,13 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     }
 
     protected JavaOperator javaOperator(String feelOperator, Expression leftOperand, Expression rightOperand) {
-        return OperatorDecisionTable.javaOperator(feelOperator, leftOperand.getType(), rightOperand.getType());
+        Type leftOperandType = leftOperand.getType();
+        Type rightOperandType = rightOperand.getType();
+        return javaOperator(feelOperator, leftOperandType, rightOperandType);
+    }
+
+    private JavaOperator javaOperator(String feelOperator, Type leftOperandType, Type rightOperandType) {
+        return OperatorDecisionTable.javaOperator(feelOperator, leftOperandType, rightOperandType);
     }
 
     private Class<?> getClass(Object leftValue) {

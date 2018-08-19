@@ -135,6 +135,14 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                 TLiteralExpression defaultOutputEntry = output.getDefaultOutputEntry();
                 replaceNamesInText(defaultOutputEntry, lexicalContext);
             }
+            for(TDecisionRule rule: ((TDecisionTable) expression).getRule()) {
+                for(TUnaryTests inputEntry: rule.getInputEntry()) {
+                    replaceNamesInText(inputEntry, lexicalContext);
+                }
+                for(TLiteralExpression outputEntry: rule.getOutputEntry()) {
+                    replaceNamesInText(outputEntry, lexicalContext);
+                }
+            }
         } else if (expression instanceof TFunctionDefinition) {
             JAXBElement<? extends TExpression> jaxbElement = ((TFunctionDefinition) expression).getExpression();
             TExpression body = jaxbElement.getValue();
@@ -328,6 +336,21 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         }
 
         String text = literalExpression.getText();
+        String newText = replaceNamesInText(text, lexicalContext);
+        setField(literalExpression, "text", newText);
+    }
+
+    protected void replaceNamesInText(TUnaryTests unaryTests, LexicalContext lexicalContext) {
+        if (unaryTests == null) {
+            return;
+        }
+
+        String text = unaryTests.getText();
+        String newText = replaceNamesInText(text, lexicalContext);
+        setField(unaryTests, "text", newText.toString());
+    }
+
+    private String replaceNamesInText(String text, LexicalContext lexicalContext) {
         StringBuilder newText = new StringBuilder();
 
         int i = 0;
@@ -373,7 +396,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
             }
         }
 
-        setField(literalExpression, "text", newText.toString());
+        return newText.toString();
     }
 
     protected void renameItemDefinitionMembers(TItemDefinition itemDefinition) {
