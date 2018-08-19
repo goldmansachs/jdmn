@@ -25,9 +25,7 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.serialization.DMNConstants;
-import com.gs.dmn.serialization.DMNNamespacePrefixMapper;
 import com.gs.dmn.serialization.DMNReader;
-import com.gs.dmn.serialization.DMNWriter;
 import com.gs.dmn.tck.TCKUtil;
 import com.gs.dmn.tck.TestCasesReader;
 import com.gs.dmn.transformation.DMNTransformer;
@@ -67,7 +65,6 @@ public abstract class AbstractDMNInterpreterTest {
             // Transform definitions
             dmnTransformer = new ToSimpleNameTransformer(LOGGER);
             repository = dmnTransformer.transform(repository);
-            new DMNWriter(LOGGER).write(repository.getDefinitions(), new File("C:/Work/Projects/Temp.dmn"), new DMNNamespacePrefixMapper());
 
             // Set-up execution
             this.interpreter = getDialectDefinition().createDMNInterpreter(repository);
