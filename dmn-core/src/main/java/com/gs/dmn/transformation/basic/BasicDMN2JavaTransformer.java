@@ -1454,7 +1454,7 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    private Environment makeBKMEnvironment(TBusinessKnowledgeModel bkm) {
+    protected Environment makeBKMEnvironment(TBusinessKnowledgeModel bkm) {
         Environment bkmEnvironment = environmentFactory.makeEnvironment(environmentFactory.getRootEnvironment());
         TFunctionDefinition functionDefinition = bkm.getEncapsulatedLogic();
         functionDefinition.getFormalParameter().forEach(
