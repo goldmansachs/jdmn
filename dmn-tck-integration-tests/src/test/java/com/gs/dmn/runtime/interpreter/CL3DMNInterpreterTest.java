@@ -44,7 +44,7 @@ public abstract class CL3DMNInterpreterTest extends AbstractDMNInterpreterTest {
         doTestDiagram("0031-user-defined-functions");
         doTestDiagram("0032-conditionals");
         doTestDiagram("0033-for-loops");
-//        doTestDiagram("0034-drg-scopes");
+        doTestDiagram("0034-drg-scopes");
         doTestDiagram("0035-test-structure-output");
         doTestDiagram("0036-dt-variable-input");
         doTestDiagram("0037-dt-on-bkm-implicit-params");
