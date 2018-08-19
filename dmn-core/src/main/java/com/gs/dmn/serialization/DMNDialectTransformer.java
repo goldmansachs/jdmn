@@ -765,14 +765,20 @@ public class DMNDialectTransformer {
         String prefix = element.getPrefix();
         String localPart = element.getLocalPart();
         this.prefixNamespaceMappings.put(prefix, namespaceURI);
-        if (!StringUtils.isBlank(prefix)) {
-            return String.format("%s.%s", prefix, localPart);
-        } else if (FEEL_11_NS.equals(namespaceURI)) {
+        if (FEEL_11_NS.equals(namespaceURI)) {
             return String.format("%s.%s", FEEL_11_PREFIX, localPart);
         } else if (FEEL_12_NS.equals(namespaceURI)) {
-             return String.format("%s.%s", FEEL_12_PREFIX, localPart);
+            return String.format("%s.%s", FEEL_12_PREFIX, localPart);
         } else {
-            return localPart;
+            if (StringUtils.isBlank(prefix)) {
+                if (localPart.contains(".")) {
+                    return String.format(".%s", localPart);
+                } else {
+                    return localPart;
+                }
+            } else {
+                return String.format("%s.%s", prefix, localPart);
+            }
         }
     }
 
