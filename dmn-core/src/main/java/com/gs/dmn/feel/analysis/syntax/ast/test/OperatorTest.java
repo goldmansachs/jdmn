@@ -18,6 +18,7 @@ import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.NamedExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionInvocation;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
@@ -39,6 +40,7 @@ public class OperatorTest extends SimplePositiveUnaryTest {
     }
 
     @Override
+    // TODO refactor types for Tests
     public void deriveType(Environment environment) {
         setType(BooleanType.BOOLEAN);
         Type inputExpressionType = environment.getInputExpressionType();
@@ -49,6 +51,7 @@ public class OperatorTest extends SimplePositiveUnaryTest {
             return;
         }
         if (endpoint instanceof FunctionInvocation) {
+        } else if (endpoint instanceof NamedExpression) {
         } else {
             if (operator == null) {
                 checkType("=", inputExpressionType, endpoint.getType());
