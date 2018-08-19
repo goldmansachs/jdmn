@@ -417,6 +417,10 @@ public class TCKUtil {
         }
         if (value instanceof String) {
             return (String) value;
+        } else if (value instanceof Float) {
+            return feelLib.string(value);
+        } else if (value instanceof Double) {
+            return feelLib.string(value);
         } else if (value instanceof BigDecimal) {
             return feelLib.string(value);
         } else if (value instanceof Boolean) {
