@@ -14,6 +14,7 @@ package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
+import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.lib.StandardFEELLib;
@@ -30,7 +31,6 @@ import com.gs.dmn.tck.TestCasesReader;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.ToSimpleNameTransformer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
-import com.gs.dmn.transformation.basic.QualifiedName;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase;
 import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase.ResultNode;
@@ -114,7 +114,8 @@ public abstract class AbstractDMNInterpreterTest {
             try {
                 String decisionName = res.getName();
                 TDecision decision = (TDecision) basicTransformer.getDMNModelRepository().findDRGElementByName(decisionName);
-                Type decisionType = basicTransformer.toFEELType(QualifiedName.toQualifiedName(decision.getVariable().getTypeRef()));
+                Environment environment = basicTransformer.makeEnvironment(decision);
+                Type decisionType = basicTransformer.drgElementOutputFEELType(decision, environment);
                 expectedValue = tckUtil.makeValue(res.getExpected(), decisionType);
                 actualOutput = interpreter.evaluate(decisionName, runtimeEnvironment);
             } catch (Exception e) {

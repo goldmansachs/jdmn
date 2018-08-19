@@ -1474,13 +1474,13 @@ public class BasicDMN2JavaTransformer {
 
     private Environment makeDecisionEnvironment(TDecision decision) {
         Environment decisionEnvironment = environmentFactory.makeEnvironment(environmentFactory.getRootEnvironment());
-        decisionEnvironment.addDeclaration(makeVariableDeclaration(decision, decision.getVariable(), decisionEnvironment));
         getDMNModelRepository().allSubDecisions(decision).forEach(
                 d -> decisionEnvironment.addDeclaration(makeVariableDeclaration(d, d.getVariable(), decisionEnvironment)));
         getDMNModelRepository().allInputDatas(decision).forEach(
                 id -> decisionEnvironment.addDeclaration(makeVariableDeclaration(id, id.getVariable(), decisionEnvironment)));
         getDMNModelRepository().allKnowledgeModels(decision).forEach(
                 bkm -> decisionEnvironment.addDeclaration(makeBusinessKnowledgeModelDeclaration(bkm, makeBKMEnvironment(bkm))));
+        decisionEnvironment.addDeclaration(makeVariableDeclaration(decision, decision.getVariable(), decisionEnvironment));
         return decisionEnvironment;
     }
 
@@ -1613,6 +1613,19 @@ public class BasicDMN2JavaTransformer {
             if (type != null) {
                 return type;
             }
+        } else if (expression instanceof TInvocation) {
+            TExpression body = ((TInvocation) expression).getExpression().getValue();
+            if (body instanceof TLiteralExpression) {
+                String bkmName = ((TLiteralExpression) body).getText();
+                TBusinessKnowledgeModel bkm = dmnModelRepository.findKnowledgeModelByName(bkmName);
+                if (bkm == null) {
+                    throw new DMNRuntimeException(String.format("Cannot find BKM for '%s'", bkmName));
+                }
+                Type expressionType = drgElementOutputFEELType(bkm);
+                return expressionType;
+            } else {
+                throw new DMNRuntimeException(String.format("Not supported '%s'", body.getClass().getSimpleName()));
+            }
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported yet", expression.getClass().getSimpleName()));
         }
@@ -1662,25 +1675,34 @@ public class BasicDMN2JavaTransformer {
 
     private VariableDeclaration makeVariableDeclaration(TNamedElement element, TInformationItem variable, Environment environment) {
         String name = element.getName();
+        if (StringUtils.isBlank(name) && variable != null) {
+            name = variable.getName();
+        }
         if (StringUtils.isBlank(name) || variable == null) {
             throw new DMNRuntimeException(String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable));
         }
-        QualifiedName typeRef = QualifiedName.toQualifiedName(variable.getTypeRef());
-        Type variableType = toFEELType(typeRef);
-        if (!variableType.isValid()) {
-            TExpression expression = dmnModelRepository.expression(element);
-            if (expression != null) {
-                variableType = expressionType(expression, environment);
-                variableType.validate();
+        QualifiedName typeRef = this.dmnModelRepository.typeRef(element);
+        // TODO unify the code below (remove if)
+        if (typeRef != null) {
+            Type variableType = toFEELType(typeRef);
+            if (!variableType.isValid()) {
+                TExpression expression = dmnModelRepository.expression(element);
+                if (expression != null) {
+                    variableType = expressionType(expression, environment);
+                    variableType.validate();
+                }
             }
+            return environmentFactory.makeVariableDeclaration(name, variableType);
+        } else {
+            Type variableType = drgElementOutputFEELType(element, environment);
+            return environmentFactory.makeVariableDeclaration(name, variableType);
         }
-        return environmentFactory.makeVariableDeclaration(name, variableType);
     }
 
     private FunctionDeclaration makeBusinessKnowledgeModelDeclaration(TBusinessKnowledgeModel bkm, Environment environment) {
         TInformationItem variable = bkm.getVariable();
         String name = bkm.getName();
-        if (StringUtils.isBlank(name)) {
+        if (StringUtils.isBlank(name) && variable != null) {
             name = variable.getName();
         }
         if (StringUtils.isBlank(name)) {
