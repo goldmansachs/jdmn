@@ -237,6 +237,10 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                 if (variable != null) {
                     renameElement(variable);
                 }
+                JAXBElement<? extends TExpression> jaxbElement = ce.getExpression();
+                if (jaxbElement != null && jaxbElement.getValue() != null) {
+                    rename(jaxbElement.getValue());
+                }
             }
         } else if (expression instanceof TRelation) {
             for(TInformationItem ii: ((TRelation) expression).getColumn()) {

@@ -244,6 +244,22 @@ public class BasicDMN2JavaTransformer {
         return toFEELType(typeRef);
     }
 
+    public Type drgElementOutputFEELType(TNamedElement element, Environment environment) {
+        QualifiedName typeRef = this.dmnModelRepository.typeRef(element);
+        if (typeRef != null) {
+            return toFEELType(typeRef);
+        } else {
+            // Infer type from body
+            if (element instanceof TDecision) {
+                return expressionType(((TDecision) element).getExpression(), environment);
+            } else if (element instanceof TBusinessKnowledgeModel) {
+                Type type = expressionType(((TBusinessKnowledgeModel) element).getEncapsulatedLogic(), environment);
+                return ((FunctionType)type).getReturnType();
+            }
+        }
+        throw new DMNRuntimeException(String.format("Cannot infer the output type of '%s'", element.getName()));
+    }
+
     public String annotation(TDRGElement element, String description) {
         if (StringUtils.isBlank(description)) {
             return "\"\"";
@@ -1440,12 +1456,12 @@ public class BasicDMN2JavaTransformer {
 
     private Environment makeBKMEnvironment(TBusinessKnowledgeModel bkm) {
         Environment bkmEnvironment = environmentFactory.makeEnvironment(environmentFactory.getRootEnvironment());
-        bkmEnvironment.addDeclaration(makeBusinessKnowledgeModelDeclaration(bkm));
         TFunctionDefinition functionDefinition = bkm.getEncapsulatedLogic();
         functionDefinition.getFormalParameter().forEach(
                 p -> bkmEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(p.getName(), toFEELType(QualifiedName.toQualifiedName(p.getTypeRef())))));
         getDMNModelRepository().allKnowledgeModels(bkm).forEach(
-                e -> bkmEnvironment.addDeclaration(makeBusinessKnowledgeModelDeclaration(e)));
+                e -> bkmEnvironment.addDeclaration(makeBusinessKnowledgeModelDeclaration(e, makeBKMEnvironment(e))));
+        bkmEnvironment.addDeclaration(makeBusinessKnowledgeModelDeclaration(bkm, bkmEnvironment));
         return bkmEnvironment;
     }
 
@@ -1464,7 +1480,7 @@ public class BasicDMN2JavaTransformer {
         getDMNModelRepository().allInputDatas(decision).forEach(
                 id -> decisionEnvironment.addDeclaration(makeVariableDeclaration(id, id.getVariable(), decisionEnvironment)));
         getDMNModelRepository().allKnowledgeModels(decision).forEach(
-                bkm -> decisionEnvironment.addDeclaration(makeBusinessKnowledgeModelDeclaration(bkm)));
+                bkm -> decisionEnvironment.addDeclaration(makeBusinessKnowledgeModelDeclaration(bkm, makeBKMEnvironment(bkm))));
         return decisionEnvironment;
     }
 
@@ -1561,18 +1577,33 @@ public class BasicDMN2JavaTransformer {
             return toFEELType(typeRef);
         }
         if (expression instanceof TContext) {
-            List<TContextEntry> contextEntry = ((TContext) expression).getContextEntry();
-            ItemDefinitionType contextType = new ItemDefinitionType("");
-            for(TContextEntry entry: contextEntry) {
+            List<TContextEntry> contextEntryList = ((TContext) expression).getContextEntry();
+            // Collect members & return type
+            List<Pair<String, Type>> members = new ArrayList();
+            Type returnType = null;
+            Environment contextEnvironment = environmentFactory.makeEnvironment(environment);
+            for(TContextEntry entry: contextEntryList) {
                 TInformationItem variable = entry.getVariable();
                 if (variable != null) {
                     String name = variable.getName();
-                    Type entryType = entryType(entry, environment);
-                    contextType.addMember(name, new ArrayList<>(), entryType);
+                    Type entryType = entryType(entry, contextEnvironment);
+                    contextEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(name, entryType));
+                    members.add(new Pair(name, entryType));
+                } else {
+                    returnType = entryType(entry, contextEnvironment);
                 }
             }
-            return contextType;
-        } if (expression instanceof TFunctionDefinition) {
+            // Infer return type
+            if (returnType == null) {
+                ItemDefinitionType contextType = new ItemDefinitionType("");
+                for (Pair<String, Type> member: members) {
+                    contextType.addMember(member.getLeft(), new ArrayList<>(), member.getRight());
+                }
+                return contextType;
+            } else {
+                return returnType;
+            }
+        } else if (expression instanceof TFunctionDefinition) {
             Type type = functionDefinitionType((TFunctionDefinition) expression, environment);
             if (type != null) {
                 return type;
@@ -1632,7 +1663,7 @@ public class BasicDMN2JavaTransformer {
     private VariableDeclaration makeVariableDeclaration(TNamedElement element, TInformationItem variable, Environment environment) {
         String name = element.getName();
         if (StringUtils.isBlank(name) || variable == null) {
-            throw new DMNRuntimeException(String.format("Name and typeRef cannot be null. Found '%s' and '%s'", name, variable));
+            throw new DMNRuntimeException(String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable));
         }
         QualifiedName typeRef = QualifiedName.toQualifiedName(variable.getTypeRef());
         Type variableType = toFEELType(typeRef);
@@ -1646,13 +1677,17 @@ public class BasicDMN2JavaTransformer {
         return environmentFactory.makeVariableDeclaration(name, variableType);
     }
 
-    private FunctionDeclaration makeBusinessKnowledgeModelDeclaration(TBusinessKnowledgeModel bkm) {
+    private FunctionDeclaration makeBusinessKnowledgeModelDeclaration(TBusinessKnowledgeModel bkm, Environment environment) {
+        TInformationItem variable = bkm.getVariable();
         String name = bkm.getName();
         if (StringUtils.isBlank(name)) {
-            name = bkm.getVariable().getName();
+            name = variable.getName();
+        }
+        if (StringUtils.isBlank(name)) {
+            throw new DMNRuntimeException(String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable));
         }
         List<FormalParameter> parameters = bkmFEELParameters(bkm);
-        Type returnType = drgElementOutputFEELType(bkm);
+        Type returnType = drgElementOutputFEELType(bkm, environment);
         return environmentFactory.makeBusinessKnowledgeModelDeclaration(name, new DMNFunctionType(parameters, returnType));
     }
 }
