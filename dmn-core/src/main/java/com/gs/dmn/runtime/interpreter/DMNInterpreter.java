@@ -314,6 +314,7 @@ public class DMNInterpreter {
         FEELContext feelContext = FEELContext.makeContext(contextEnvironment, contextRuntimeEnvironment);
         Object returnValue = null;
         for(TContextEntry entry: context.getContextEntry()) {
+            // Evaluate entry value
             Object entryValue;
             JAXBElement<? extends TExpression> jaxbElement = entry.getExpression();
             if (jaxbElement != null) {

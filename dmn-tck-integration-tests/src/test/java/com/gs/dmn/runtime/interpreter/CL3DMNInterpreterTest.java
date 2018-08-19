@@ -48,7 +48,7 @@ public abstract class CL3DMNInterpreterTest extends AbstractDMNInterpreterTest {
         doTestDiagram("0035-test-structure-output");
         doTestDiagram("0036-dt-variable-input");
         doTestDiagram("0037-dt-on-bkm-implicit-params");
-//        doTestDiagram("0038-dt-on-bkm-explicit-params");
+        doTestDiagram("0038-dt-on-bkm-explicit-params");
 //        doTestDiagram("0039-dt-list-semantics");
         doTestDiagram("0040-singlenestedcontext");
         doTestDiagram("0041-multiple-nestedcontext");

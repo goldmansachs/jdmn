@@ -27,7 +27,9 @@ import org.slf4j.LoggerFactory;
 import javax.xml.bind.JAXBElement;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.gs.dmn.feel.analysis.scanner.ContextDependentFEELLexer.*;
 
@@ -35,6 +37,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     protected static final Logger LOGGER = LoggerFactory.getLogger(NameTransformer.class);
     protected final BuildLogger logger;
     private boolean transformDefinition = true;
+    private final Set<TDMNElement> renamedElements = new LinkedHashSet();
 
     public NameTransformer(BuildLogger logger) {
         this.logger = logger;
@@ -203,6 +206,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                 for(TInformationItem param: formalParameterList) {
                     renameElement(param);
                 }
+                rename(encapsulatedLogic);
             } else if (element instanceof TDecision) {
                 // Rename element and variable
                 renameElement(element);
@@ -224,6 +228,10 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         } else if (expression instanceof TFunctionDefinition) {
             for(TInformationItem parameter: ((TFunctionDefinition) expression).getFormalParameter()) {
                 renameElement(parameter);
+            }
+            JAXBElement<? extends TExpression> jaxbElement = ((TFunctionDefinition) expression).getExpression();
+            if (jaxbElement != null && jaxbElement.getValue() != null) {
+                rename(jaxbElement.getValue());
             }
         } else if (expression instanceof TInvocation) {
             List<TBinding> bindingList = ((TInvocation) expression).getBinding();
@@ -379,6 +387,10 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     }
 
     protected void renameElement(TNamedElement element) {
+        if (renamedElements.contains(element)) {
+            return;
+        }
+        renamedElements.add(element);
         if (element != null && element.getName() != null) {
             String fieldName = "name";
             String newValue = transformName(element.getName());
@@ -387,6 +399,10 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     }
 
     protected void renameElement(TOutputClause element) {
+        if (renamedElements.contains(element)) {
+            return;
+        }
+        renamedElements.add(element);
         if (element != null && element.getName() != null) {
             String fieldName = "name";
             String newValue = transformName(element.getName());
