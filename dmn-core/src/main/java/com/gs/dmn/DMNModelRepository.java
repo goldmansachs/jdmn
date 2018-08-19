@@ -588,9 +588,6 @@ public class DMNModelRepository {
                 }
             }
         }
-        if (typeRef == null) {
-            throw new DMNRuntimeException(String.format("Cannot resolve typeRef for element '%s'", element.getName()));
-        }
         return typeRef;
     }
 

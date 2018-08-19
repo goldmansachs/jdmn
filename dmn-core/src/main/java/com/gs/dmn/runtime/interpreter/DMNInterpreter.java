@@ -253,9 +253,8 @@ public class DMNInterpreter {
         if (element == null) {
             return value;
         } else {
-            QualifiedName typeRef = basicDMNTransformer.drgElementOutputTypeRef(element);
-            if (typeRef != null) {
-                Type expectedType = basicDMNTransformer.toFEELType(typeRef);
+            Type expectedType = basicDMNTransformer.drgElementOutputFEELType(element, environment);
+            if (expectedType != null) {
                 return convertExpression(value, expectedType);
             } else {
                 return null;
