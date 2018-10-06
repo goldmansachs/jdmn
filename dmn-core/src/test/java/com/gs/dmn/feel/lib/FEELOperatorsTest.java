@@ -126,6 +126,9 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertEqualsNumber(makeNumber("1"), getLib().numericExponentiation(makeNumber("2"), makeNumber("0")));
         assertEquals(makeNumber("0.5"), getLib().numericExponentiation(makeNumber("2"), makeNumber("-1")));
         assertEqualsNumber(makeNumber("1024"), getLib().numericExponentiation(makeNumber("2"), makeNumber("10")));
+
+        // DMN spec defines exponentiation as pow(T, int) only; so verify that 2^0.5 ==  2^0 == 1 rather than == sqrt(2)
+        assertEquals(makeNumber("1"), getLib().numericExponentiation(makeNumber("2"), makeNumber("0.5")));
     }
 
     //
