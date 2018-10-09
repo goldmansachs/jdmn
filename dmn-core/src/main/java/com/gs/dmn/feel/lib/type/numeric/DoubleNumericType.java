@@ -105,7 +105,21 @@ public class DoubleNumericType extends BaseType implements NumericType<Double> {
         }
 
         try {
-            return Math.pow(first, second);
+            return numericExponentiation(first, second.intValue());
+        } catch (Throwable e) {
+            String message = String.format("numericExponentiation(%s, %s)", first, second);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    public Double numericExponentiation(Double first, int second) {
+        if (first == null) {
+            return null;
+        }
+
+        try {
+            return Math.pow(first, (double)second);
         } catch (Throwable e) {
             String message = String.format("numericExponentiation(%s, %s)", first, second);
             logError(message, e);
