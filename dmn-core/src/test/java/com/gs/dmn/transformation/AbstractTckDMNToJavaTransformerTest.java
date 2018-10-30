@@ -15,6 +15,8 @@ package com.gs.dmn.transformation;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.serialization.DefaultTypeSerializationConfigurer;
+import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
@@ -41,5 +43,10 @@ public abstract class AbstractTckDMNToJavaTransformerTest extends AbstractDMNToJ
     @Override
     protected LazyEvaluationDetector makeLazyEvaluationDetector(Map<String, String> inputParameters, BuildLogger logger) {
         return new NopLazyEvaluationDetector();
+    }
+
+    @Override
+    protected TypeDeserializationConfigurer makeTypeDeserializationConfigurer(BuildLogger logger) {
+        return new DefaultTypeSerializationConfigurer();
     }
 }

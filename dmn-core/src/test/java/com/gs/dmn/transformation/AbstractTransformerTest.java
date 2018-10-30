@@ -14,6 +14,7 @@ package com.gs.dmn.transformation;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
@@ -53,6 +54,8 @@ public abstract class AbstractTransformerTest extends AbstractFileTransformerTes
     protected abstract TemplateProvider makeTemplateProvider();
 
     protected abstract LazyEvaluationDetector makeLazyEvaluationDetector(Map<String, String> inputParameters, BuildLogger logger);
+
+    protected abstract TypeDeserializationConfigurer makeTypeDeserializationConfigurer(BuildLogger logger);
 
     protected abstract Map<String, String> makeInputParameters();
 
