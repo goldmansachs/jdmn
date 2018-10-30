@@ -18,7 +18,7 @@ import com.gs.dmn.feel.analysis.semantics.environment.DefaultDMNEnvironmentFacto
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DefaultDMNBaseDecision;
 import com.gs.dmn.serialization.DMNConstants;
-import com.gs.dmn.serialization.DefaultTypeSerializationConfigurer;
+import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.AbstractTestTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
@@ -75,7 +75,7 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends Abstrac
 
     @Override
     protected TypeDeserializationConfigurer makeTypeDeserializationConfigurer(BuildLogger logger) {
-        return new DefaultTypeSerializationConfigurer();
+        return new DefaultTypeDeserializationConfigurer();
     }
 
     @Override

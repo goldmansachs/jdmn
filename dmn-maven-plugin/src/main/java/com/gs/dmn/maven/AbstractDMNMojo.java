@@ -14,7 +14,7 @@ package com.gs.dmn.maven;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.serialization.DefaultTypeSerializationConfigurer;
+import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.CompositeDMNTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
@@ -98,7 +98,7 @@ public abstract class AbstractDMNMojo extends AbstractMojo {
 
     protected TypeDeserializationConfigurer makeTypeDeserializationConfigurer(String deserializerClassName, BuildLogger logger) throws Exception {
         if (deserializerClassName == null) {
-            return new DefaultTypeSerializationConfigurer();
+            return new DefaultTypeDeserializationConfigurer();
         }
 
         Class<?> deserializerClass = Class.forName(deserializerClassName);

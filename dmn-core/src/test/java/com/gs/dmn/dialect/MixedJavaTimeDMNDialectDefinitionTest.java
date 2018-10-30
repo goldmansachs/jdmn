@@ -19,7 +19,7 @@ import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
 import com.gs.dmn.feel.synthesis.type.MixedJavaTimeFEELTypeTranslator;
 import com.gs.dmn.runtime.MixedJavaTimeDMNBaseDecision;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
-import com.gs.dmn.serialization.DefaultTypeSerializationConfigurer;
+import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.NopDMNTransformer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
@@ -49,7 +49,7 @@ public class MixedJavaTimeDMNDialectDefinitionTest {
         inputParameters.put("dmnVersion", "1.1");
         inputParameters.put("modelVersion", "1.2");
         inputParameters.put("platformVersion", "3.2");
-        DMNToJavaTransformer dmnToJavaTransformer = dialect.createDMNToJavaTransformer(new NopDMNValidator(), new NopDMNTransformer(), new TreeTemplateProvider(), new NopLazyEvaluationDetector(), new DefaultTypeSerializationConfigurer(), inputParameters, null);
+        DMNToJavaTransformer dmnToJavaTransformer = dialect.createDMNToJavaTransformer(new NopDMNValidator(), new NopDMNTransformer(), new TreeTemplateProvider(), new NopLazyEvaluationDetector(), new DefaultTypeDeserializationConfigurer(), inputParameters, null);
         assertEquals(DMNToJavaTransformer.class.getName(), dmnToJavaTransformer.getClass().getName());
     }
 

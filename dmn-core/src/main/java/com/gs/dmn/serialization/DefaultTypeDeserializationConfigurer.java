@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.serialization;
 
-public class DefaultTypeSerializationConfigurer implements TypeDeserializationConfigurer
+public class DefaultTypeDeserializationConfigurer implements TypeDeserializationConfigurer
 {
     @Override
     public String deserializeTypeAs(String qualifiedInterfaceName) {
