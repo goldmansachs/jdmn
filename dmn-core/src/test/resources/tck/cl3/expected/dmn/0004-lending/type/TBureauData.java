@@ -4,6 +4,7 @@ import java.util.*;
 
 @javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "tBureauData"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
+@com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = type.TBureauDataImpl.class)
 public interface TBureauData extends com.gs.dmn.runtime.DMNType {
     static TBureauData toTBureauData(Object other) {
         if (other == null) {

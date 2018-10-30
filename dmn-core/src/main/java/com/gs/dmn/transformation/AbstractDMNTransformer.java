@@ -16,6 +16,7 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.DMNReader;
+import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
@@ -30,15 +31,17 @@ public abstract class AbstractDMNTransformer extends AbstractTemplateBasedTransf
     protected final DMNValidator dmnValidator;
     protected final DMNTransformer dmnTransformer;
     protected final LazyEvaluationDetector lazyEvaluationDetector;
+    protected final TypeDeserializationConfigurer typeDeserializationConfigurer;
 
     protected final String decisionBaseClass;
     protected final String javaRootPackage;
 
-    public AbstractDMNTransformer(DMNDialectDefinition dialectDefinition, DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters, BuildLogger logger) {
+    public AbstractDMNTransformer(DMNDialectDefinition dialectDefinition, DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
         super(templateProvider, inputParameters, logger);
         this.dialectDefinition = dialectDefinition;
         this.dmnTransformer = dmnTransformer;
         this.lazyEvaluationDetector = lazyEvaluationDetector;
+        this.typeDeserializationConfigurer = typeDeserializationConfigurer;
         boolean xsdValidation = InputParamUtil.getOptionalBooleanParam(inputParameters, "xsdValidation");
         this.dmnReader = new DMNReader(logger, xsdValidation);
         this.dmnValidator = dmnValidator;

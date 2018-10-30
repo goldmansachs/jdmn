@@ -4,6 +4,7 @@ import java.util.*;
 
 @javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "tRow"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
+@com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = type.TRowImpl.class)
 public interface TRow extends com.gs.dmn.runtime.DMNType {
     static TRow toTRow(Object other) {
         if (other == null) {

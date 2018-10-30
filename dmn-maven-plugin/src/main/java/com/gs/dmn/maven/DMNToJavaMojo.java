@@ -14,6 +14,7 @@ package com.gs.dmn.maven;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.InputParamUtil;
@@ -47,6 +48,9 @@ public class DMNToJavaMojo extends AbstractDMNMojo {
     @Parameter(required = false)
     public String[] lazyEvaluationDetectors;
 
+    @Parameter(required = false, defaultValue = "com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer")
+    public String typeDeserializationConfigurer;
+
     @Parameter(required = false)
     public Map<String, String> inputParameters;
 
@@ -72,6 +76,7 @@ public class DMNToJavaMojo extends AbstractDMNMojo {
             DMNTransformer dmnTransformer = makeDMNTransformer(this.dmnTransformers, logger);
             TemplateProvider templateProvider = makeTemplateProvider(this.templateProvider, logger);
             LazyEvaluationDetector lazyEvaluationDetector = makeLazyEvaluationDetector(this.lazyEvaluationDetectors, logger, this.inputParameters);
+            TypeDeserializationConfigurer typeDeserializationConfigurer = makeTypeDeserializationConfigurer(this.typeDeserializationConfigurer, logger);
             validateParameters(dmnDialect, dmnValidator, dmnTransformer, templateProvider, inputParameters);
 
             // Create transformer
@@ -80,6 +85,7 @@ public class DMNToJavaMojo extends AbstractDMNMojo {
                     dmnTransformer,
                     templateProvider,
                     lazyEvaluationDetector,
+                    typeDeserializationConfigurer,
                     inputParameters,
                     logger
             );

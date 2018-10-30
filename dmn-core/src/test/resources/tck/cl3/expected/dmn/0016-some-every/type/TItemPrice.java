@@ -4,6 +4,7 @@ import java.util.*;
 
 @javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "tItemPrice"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
+@com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = type.TItemPriceImpl.class)
 public interface TItemPrice extends com.gs.dmn.runtime.DMNType {
     static TItemPrice toTItemPrice(Object other) {
         if (other == null) {
