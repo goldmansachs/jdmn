@@ -4,6 +4,7 @@ import java.util.*;
 
 @javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "tMetric"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
+@com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = type.TMetricImpl.class)
 public interface TMetric extends com.gs.dmn.runtime.DMNType {
     static TMetric toTMetric(Object other) {
         if (other == null) {

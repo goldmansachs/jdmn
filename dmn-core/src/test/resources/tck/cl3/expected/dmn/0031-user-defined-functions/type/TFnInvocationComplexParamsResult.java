@@ -4,6 +4,7 @@ import java.util.*;
 
 @javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "tFnInvocationComplexParamsResult"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
+@com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = type.TFnInvocationComplexParamsResultImpl.class)
 public interface TFnInvocationComplexParamsResult extends com.gs.dmn.runtime.DMNType {
     static TFnInvocationComplexParamsResult toTFnInvocationComplexParamsResult(Object other) {
         if (other == null) {

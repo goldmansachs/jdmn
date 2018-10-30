@@ -4,6 +4,7 @@ import java.util.*;
 
 @javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "tA"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
+@com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = type.TAImpl.class)
 public interface TA extends com.gs.dmn.runtime.DMNType {
     static TA toTA(Object other) {
         if (other == null) {

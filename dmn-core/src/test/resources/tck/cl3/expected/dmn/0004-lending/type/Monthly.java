@@ -4,6 +4,7 @@ import java.util.*;
 
 @javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "Monthly"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
+@com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = type.MonthlyImpl.class)
 public interface Monthly extends com.gs.dmn.runtime.DMNType {
     static Monthly toMonthly(Object other) {
         if (other == null) {
