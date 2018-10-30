@@ -48,7 +48,7 @@ public class DMNToJavaMojo extends AbstractDMNMojo {
     @Parameter(required = false)
     public String[] lazyEvaluationDetectors;
 
-    @Parameter(required = false, defaultValue = "com.gs.dmn.serialization.DefaultTypeSerializationConfigurer")
+    @Parameter(required = false, defaultValue = "com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer")
     public String typeDeserializationConfigurer;
 
     @Parameter(required = false)
