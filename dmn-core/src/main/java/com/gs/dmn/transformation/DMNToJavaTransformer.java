@@ -18,6 +18,7 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNConstants;
+import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
@@ -47,8 +48,8 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
     protected final String modelVersion;
     protected final String platformVersion;
 
-    public DMNToJavaTransformer(DMNDialectDefinition dialectDefinition, DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters, BuildLogger logger) {
-        super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, inputParameters, logger);
+    public DMNToJavaTransformer(DMNDialectDefinition dialectDefinition, DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
+        super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
 
         this.dmnVersion = InputParamUtil.getRequiredParam(inputParameters, "dmnVersion");
         this.modelVersion = InputParamUtil.getRequiredParam(inputParameters, "modelVersion");
@@ -236,6 +237,11 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
     private Map<String, Object> makeTemplateParams(TItemDefinition itemDefinition, String javaPackageName, String javaClassName, BasicDMN2JavaTransformer dmnTransformer) {
         Map<String, Object> params = new HashMap<>();
         params.put("itemDefinition", itemDefinition);
+
+        String qualifiedName = dmnTransformer.qualifiedName(javaPackageName, dmnTransformer.itemDefinitionJavaInterfaceName(itemDefinition));
+        String serializationClass = typeDeserializationConfigurer.deserializeTypeAs(qualifiedName);
+        params.put("serializationClass", serializationClass);
+
         addCommonParams(params, javaPackageName, javaClassName, dmnTransformer);
         return params;
     }

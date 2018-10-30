@@ -18,6 +18,8 @@ import com.gs.dmn.feel.analysis.semantics.environment.DefaultDMNEnvironmentFacto
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DefaultDMNBaseDecision;
 import com.gs.dmn.serialization.DMNConstants;
+import com.gs.dmn.serialization.DefaultTypeSerializationConfigurer;
+import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.AbstractTestTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.FileTransformer;
@@ -72,6 +74,11 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends Abstrac
     }
 
     @Override
+    protected TypeDeserializationConfigurer makeTypeDeserializationConfigurer(BuildLogger logger) {
+        return new DefaultTypeSerializationConfigurer();
+    }
+
+    @Override
     protected Map<String, String> makeInputParameters() {
         return new LinkedHashMap<String, String>() {{
             put("environmentFactoryClass", DefaultDMNEnvironmentFactory.class.getName());
@@ -81,7 +88,7 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends Abstrac
 
     @Override
     protected FileTransformer makeTransformer(Path inputModelPath, Map<String, String> inputParameters, BuildLogger logger) {
-        return new TCKTestCasesToJUnitTransformer(makeDialectDefinition(), makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, LOGGER), inputModelPath, inputParameters, logger);
+        return new TCKTestCasesToJUnitTransformer(makeDialectDefinition(), makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, LOGGER), makeTypeDeserializationConfigurer(logger), inputModelPath, inputParameters, logger);
     }
 
     protected abstract String getDMNInputPath();
