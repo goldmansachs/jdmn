@@ -4,6 +4,7 @@ import java.util.*;
 
 @javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "tFnLibrary"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
+@com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = type.TFnLibraryImpl.class)
 public interface TFnLibrary extends com.gs.dmn.runtime.DMNType {
     static TFnLibrary toTFnLibrary(Object other) {
         if (other == null) {

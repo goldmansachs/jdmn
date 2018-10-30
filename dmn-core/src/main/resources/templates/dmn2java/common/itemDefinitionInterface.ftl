@@ -6,6 +6,7 @@ import java.util.*;
 
 @javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "${modelRepository.name(itemDefinition)}"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
+@com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = ${serializationClass}.class)
 public interface ${javaClassName} extends ${transformer.dmnTypeClassName()} {
     <@addConvertMethod itemDefinition />
 

@@ -13,6 +13,7 @@
 package com.gs.dmn.maven;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
+import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.tck.TCKTestCasesToJUnitTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.FileTransformer;
@@ -45,6 +46,9 @@ public class TCKToJUnitMojo extends AbstractDMNMojo {
     @Parameter(required = false)
     public String[] lazyEvaluationDetectors;
 
+    @Parameter(required = false, defaultValue = "com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer")
+    public String typeDeserializationConfigurer;
+
     @Parameter(required = false)
     public Map<String, String> inputParameters;
 
@@ -73,10 +77,11 @@ public class TCKToJUnitMojo extends AbstractDMNMojo {
             DMNTransformer dmnTransformer = makeDMNTransformer(this.dmnTransformers, logger);
             TemplateProvider templateProvider = makeTemplateProvider(this.templateProvider, logger);
             LazyEvaluationDetector lazyEvaluationDetector = makeLazyEvaluationDetector(this.lazyEvaluationDetectors, logger, this.inputParameters);
+            TypeDeserializationConfigurer typeDeserializationConfigurer = makeTypeDeserializationConfigurer(this.typeDeserializationConfigurer, logger);
 
             // Create transformer
             FileTransformer transformer = new TCKTestCasesToJUnitTransformer(
-                    dmnDialect, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector,
+                    dmnDialect, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer,
                     inputModelFileDirectory.toPath(), inputParameters,
                     logger
             );

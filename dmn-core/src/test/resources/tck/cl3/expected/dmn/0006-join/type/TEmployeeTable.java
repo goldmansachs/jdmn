@@ -4,6 +4,7 @@ import java.util.*;
 
 @javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "tEmployeeTable"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
+@com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = type.TEmployeeTableImpl.class)
 public interface TEmployeeTable extends com.gs.dmn.runtime.DMNType {
     static TEmployeeTable toTEmployeeTable(Object other) {
         if (other == null) {
