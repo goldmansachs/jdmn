@@ -12,8 +12,7 @@
  */
 package com.gs.dmn.serialization;
 
-public interface TypeDeserializationConfigurer
-{
+public interface TypeDeserializationConfigurer {
     /**
      * Generator method to map a type interface name to the relevant concrete class
      * name during type deserialization.
