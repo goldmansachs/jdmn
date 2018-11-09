@@ -83,10 +83,12 @@
         <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
         <java.version>1.8</java.version>
 
-        <jackson.core.version>2.8.7</jackson.core.version>
-        <jackson.databind.version>2.8.7</jackson.databind.version>
-        <jackson.annotations.version>2.8.0</jackson.annotations.version>
-        <jackson.datatype.version>2.8.7</jackson.datatype.version>
+        <jackson.version>2.9.7</jackson.version>
+        <jackson.core.version>${jackson.version}</jackson.core.version>
+        <jackson.databind.version>${jackson.version}</jackson.databind.version>
+        <jackson.annotations.version>${jackson.version}</jackson.annotations.version>
+        <jackson.datatype.version>${jackson.version}</jackson.datatype.version>
+
         <slf4j.version>1.7.22</slf4j.version>
         <logback.version>1.2.1</logback.version>
 
