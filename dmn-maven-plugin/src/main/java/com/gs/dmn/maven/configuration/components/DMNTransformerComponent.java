@@ -10,16 +10,28 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.transformation;
+package com.gs.dmn.maven.configuration.components;
 
-import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.maven.configuration.OptionallyConfigurableMojoComponent;
 import java.util.Map;
 
-public interface DMNTransformer<T> {
-    DMNModelRepository transform(DMNModelRepository repository);
+public class DMNTransformerComponent extends OptionallyConfigurableMojoComponent {
 
-    Pair<DMNModelRepository, T> transform(DMNModelRepository repository, T testCases);
+    public DMNTransformerComponent() {
+        super();
+    }
 
-    default void configure(Map<String, Object> configuration) { }
+    public DMNTransformerComponent(String name) {
+        super(name);
+    }
+
+    public DMNTransformerComponent(String name, Map<String, Object> configuration) {
+        super(name, configuration);
+    }
+
+
+    @Override
+    public String getElementName() {
+        return "dmnTransformer";
+    }
 }

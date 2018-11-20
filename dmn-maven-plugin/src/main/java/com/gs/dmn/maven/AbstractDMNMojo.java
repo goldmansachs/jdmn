@@ -14,6 +14,7 @@ package com.gs.dmn.maven;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.maven.configuration.components.DMNTransformerComponent;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.CompositeDMNTransformer;
@@ -52,7 +53,7 @@ public abstract class AbstractDMNMojo extends AbstractMojo {
         if (dmnValidatorClassNames == null) {
             return new NopDMNValidator();
         }
-        List<DMNValidator> dmnValidators = new ArrayList();
+        List<DMNValidator> dmnValidators = new ArrayList<>();
         for(String dmnValidatorClassName: dmnValidatorClassNames) {
             Class<?> dmnValidatorClass = Class.forName(dmnValidatorClassName);
             try {
@@ -64,18 +65,22 @@ public abstract class AbstractDMNMojo extends AbstractMojo {
         return new CompositeDMNValidator(dmnValidators);
     }
 
-    protected DMNTransformer makeDMNTransformer(String[] dmnTransformerClassNames, BuildLogger logger) throws Exception {
-        if (dmnTransformerClassNames == null) {
+    protected DMNTransformer makeDMNTransformer(DMNTransformerComponent[] dmnTransformerComponents, BuildLogger logger) throws Exception {
+        if (dmnTransformerComponents == null) {
             return new NopDMNTransformer();
         }
-        List<DMNTransformer> dmnTransformers = new ArrayList();
-        for(String dmnTransformerClassName: dmnTransformerClassNames) {
-            Class<?> dmnTransformerClass = Class.forName(dmnTransformerClassName);
+        List<DMNTransformer> dmnTransformers = new ArrayList<>();
+        for(DMNTransformerComponent dmnTransformerComponent : dmnTransformerComponents) {
+            DMNTransformer transformer;
+            Class<?> dmnTransformerClass = Class.forName(dmnTransformerComponent.getName());
             try {
-                dmnTransformers.add((DMNTransformer) dmnTransformerClass.getConstructor(new Class[]{BuildLogger.class}).newInstance(new Object[]{logger}));
+                transformer = (DMNTransformer) dmnTransformerClass.getConstructor(new Class[]{BuildLogger.class}).newInstance(new Object[]{logger});
             } catch (Exception e) {
-                dmnTransformers.add((DMNTransformer) dmnTransformerClass.newInstance());
+                transformer = (DMNTransformer) dmnTransformerClass.newInstance();
             }
+
+            transformer.configure(dmnTransformerComponent.getConfiguration());
+            dmnTransformers.add(transformer);
         }
         return new CompositeDMNTransformer(dmnTransformers);
     }
@@ -84,7 +89,7 @@ public abstract class AbstractDMNMojo extends AbstractMojo {
         if (detectorClassNames == null) {
             return new NopLazyEvaluationDetector();
         }
-        List<LazyEvaluationDetector> detectors = new ArrayList();
+        List<LazyEvaluationDetector> detectors = new ArrayList<>();
         for(String detectorClassName: detectorClassNames) {
             Class<?> detectorClass = Class.forName(detectorClassName);
             try {

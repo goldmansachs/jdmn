@@ -13,6 +13,7 @@
 package com.gs.dmn.maven;
 
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
+import com.gs.dmn.maven.configuration.components.DMNTransformerComponent;
 import com.gs.dmn.transformation.ToSimpleNameTransformer;
 import com.gs.dmn.transformation.template.TreeTemplateProvider;
 import com.gs.dmn.validation.NopDMNValidator;
@@ -41,7 +42,7 @@ public class TCKToJUnitMojoTest extends AbstractMojoTest {
         mojo.project = project;
         mojo.dmnDialect = StandardDMNDialectDefinition.class.getName();
         mojo.dmnValidators = new String[] {NopDMNValidator.class.getName()};
-        mojo.dmnTransformers = new String[] {ToSimpleNameTransformer.class.getName()};
+        mojo.dmnTransformers = new DMNTransformerComponent[] { new DMNTransformerComponent(ToSimpleNameTransformer.class.getName()) };
         mojo.templateProvider = TreeTemplateProvider.class.getName();
         mojo.inputModelFileDirectory = new File(inputModel);
         mojo.inputTestFileDirectory = new File(inputTest);
