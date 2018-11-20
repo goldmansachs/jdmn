@@ -14,6 +14,7 @@ package com.gs.dmn.maven;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.maven.configuration.components.DMNTransformerComponent;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
@@ -31,7 +32,7 @@ import java.io.File;
 import java.util.Map;
 
 @SuppressWarnings("CanBeFinal")
-@Mojo(name = "dmn-to-java", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
+@Mojo(name = "dmn-to-java", defaultPhase = LifecyclePhase.GENERATE_SOURCES, configurator = "dmn-mojo-configurator")
 public class DMNToJavaMojo extends AbstractDMNMojo {
     @Parameter(required = true, defaultValue = "com.gs.dmn.dialect.DMNStandardDialectDefinition")
     public String dmnDialect;
@@ -40,7 +41,7 @@ public class DMNToJavaMojo extends AbstractDMNMojo {
     public String[] dmnValidators;
 
     @Parameter(required = false)
-    public String[] dmnTransformers;
+    public DMNTransformerComponent[] dmnTransformers;
 
     @Parameter(required = true, defaultValue = "com.gs.dmn.transformation.template.TreeTemplateProvider")
     public String templateProvider;
