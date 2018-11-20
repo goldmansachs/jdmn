@@ -23,6 +23,7 @@ public abstract class OptionallyConfigurableMojoComponent {
     @Parameter(required = false)
     private Map<String, Object> configuration;
 
+
     protected OptionallyConfigurableMojoComponent() {
         this("", new HashMap<>());
     }
@@ -43,6 +44,7 @@ public abstract class OptionallyConfigurableMojoComponent {
      * @return              Expected configuration element name
      */
     public abstract String getElementName();
+
 
     public String getName() {
         return name;
