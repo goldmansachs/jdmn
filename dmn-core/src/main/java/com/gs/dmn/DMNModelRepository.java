@@ -438,7 +438,7 @@ public class DMNModelRepository {
         return lookupItemDefinition(definitions.getItemDefinition(), typeRef);
     }
 
-    TItemDefinition lookupItemDefinition(List<TItemDefinition> itemDefinitionList, QualifiedName typeRef) {
+    protected TItemDefinition lookupItemDefinition(List<TItemDefinition> itemDefinitionList, QualifiedName typeRef) {
         if (typeRef == null || FEEL_12_PREFIX.equals(typeRef.getNamespace())) {
             return null;
         }
@@ -448,6 +448,10 @@ public class DMNModelRepository {
             }
         }
         return null;
+    }
+
+    public TItemDefinition lookupItemDefinition(String name) {
+        return lookupItemDefinition(definitions.getItemDefinition(), name);
     }
 
     protected TItemDefinition lookupItemDefinition(List<TItemDefinition> itemDefinitionList, String name) {
