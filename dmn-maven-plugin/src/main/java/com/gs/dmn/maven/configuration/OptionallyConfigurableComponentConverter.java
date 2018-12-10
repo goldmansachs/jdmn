@@ -19,14 +19,9 @@ import org.codehaus.plexus.component.configurator.converters.lookup.ConverterLoo
 import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluator;
 import org.codehaus.plexus.configuration.PlexusConfiguration;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class OptionallyConfigurableComponentConverter extends AbstractConfigurationConverter {
-
-    private static String ELEMENT_NAME = "name";
-    private static String ELEMENT_CONFIGURATION = "configuration";
-
 
     public OptionallyConfigurableComponentConverter() {
     }
@@ -86,15 +81,15 @@ public class OptionallyConfigurableComponentConverter extends AbstractConfigurat
     private OptionallyConfigurableMojoComponent configureCompoundComponent(OptionallyConfigurableMojoComponent component,
                                                                            PlexusConfiguration configuration) throws ComponentConfigurationException {
 
-        PlexusConfiguration name = configuration.getChild(ELEMENT_NAME, false);
+        PlexusConfiguration name = configuration.getChild(OptionallyConfigurableMojoComponent.ELEMENT_NAME, false);
         if (name == null || name.getValue() == null) {
             throw new ComponentConfigurationException(String.format(
-                    "Cannot configure component; \"%s\" property must be provided", ELEMENT_NAME));
+                    "Cannot configure component; \"%s\" property must be provided", OptionallyConfigurableMojoComponent.ELEMENT_NAME));
         }
 
         component.setName(name.getValue());
 
-        PlexusConfiguration config = configuration.getChild(ELEMENT_CONFIGURATION, false);
+        PlexusConfiguration config = configuration.getChild(OptionallyConfigurableMojoComponent.ELEMENT_CONFIGURATION, false);
         if (config != null) {
             component.setConfiguration(generateConfigurationMap(config));
         }
@@ -102,18 +97,38 @@ public class OptionallyConfigurableComponentConverter extends AbstractConfigurat
         return component;
     }
 
+    @SuppressWarnings("unchecked")
     private Map<String, Object> generateConfigurationMap(PlexusConfiguration configuration) {
         Map<String, Object> node = new HashMap<>();
 
         for (PlexusConfiguration child : configuration.getChildren()) {
-            if (child.getChildCount() != 0) {
-                node.put(child.getName(), generateConfigurationMap(child));
+
+            // Expand node to a list where duplicate keys exist
+            Object existingNode = node.get(child.getName());
+            if (existingNode != null) {
+                if (!(existingNode instanceof List)) {
+                    List<Object> listNode = new ArrayList<>();
+                    listNode.add(existingNode);
+                    node.put(child.getName(), listNode);
+                }
+
+                List<Object> target = ((List)node.get(child.getName()));
+                target.add(generateChildNode(child));
             }
             else {
-                node.put(child.getName(), child.getValue());
+                node.put(child.getName(), generateChildNode(child));
             }
         }
 
         return node;
+    }
+
+    private Object generateChildNode(PlexusConfiguration configuration) {
+        if (configuration.getChildCount() != 0) {
+            return generateConfigurationMap(configuration);
+        }
+        else {
+            return configuration.getValue();
+        }
     }
 }
