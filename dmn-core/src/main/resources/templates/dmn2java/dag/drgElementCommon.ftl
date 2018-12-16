@@ -84,7 +84,7 @@ import static ${transformer.qualifiedName(javaPackageName, transformer.drgElemen
     Decision table
 -->
 <#macro addEvaluateDecisionTableMethod drgElement>
-    ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementEvaluateSignature(drgElement)}) {
+    protected ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementEvaluateSignature(drgElement)}) {
     <#assign expression = modelRepository.expression(drgElement)>
         <@collectRuleResults drgElement expression />
 
@@ -221,7 +221,7 @@ import static ${transformer.qualifiedName(javaPackageName, transformer.drgElemen
 </#macro>
 
 <#macro addEvaluateExpressionMethod drgElement>
-    ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementEvaluateSignature(drgElement)}) {
+    protected ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementEvaluateSignature(drgElement)}) {
     <#assign stm = transformer.expressionToJava(drgElement)>
     <#if transformer.isCompoundStatement(stm)>
         <#list stm.statements as child>

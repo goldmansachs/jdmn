@@ -50,7 +50,7 @@ public class FnLibrary extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    private type.TFnLibrary evaluate(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected type.TFnLibrary evaluate(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> sumFn = new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {public java.math.BigDecimal apply(Object... args) {java.math.BigDecimal a = (java.math.BigDecimal)args[0]; java.math.BigDecimal b = (java.math.BigDecimal)args[1];return numericAdd(a, b);}};
         com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> subFn = new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {public java.math.BigDecimal apply(Object... args) {java.math.BigDecimal a = (java.math.BigDecimal)args[0]; java.math.BigDecimal b = (java.math.BigDecimal)args[1];return numericSubtract(a, b);}};
         com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> multiplyFn = new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {public java.math.BigDecimal apply(Object... args) {java.math.BigDecimal a = (java.math.BigDecimal)args[0]; java.math.BigDecimal b = (java.math.BigDecimal)args[1];return numericMultiply(a, b);}};

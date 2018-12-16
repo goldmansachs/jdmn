@@ -53,7 +53,7 @@ public class Circumference extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    private java.math.BigDecimal evaluate(java.math.BigDecimal radius, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected java.math.BigDecimal evaluate(java.math.BigDecimal radius, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         return numericMultiply(numericMultiply(number("2"), number("3.141592")), radius);
     }
 }
