@@ -71,7 +71,7 @@ public class PriceInRange extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    private String evaluate(java.math.BigDecimal numB, java.math.BigDecimal numC, type.TA structA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected String evaluate(java.math.BigDecimal numB, java.math.BigDecimal numC, type.TA structA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(numB, numC, structA, annotationSet_, eventListener_, externalExecutor_));

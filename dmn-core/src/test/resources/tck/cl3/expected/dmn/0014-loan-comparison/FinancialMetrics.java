@@ -57,7 +57,7 @@ public class FinancialMetrics extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
         }
     }
 
-    private type.TMetric evaluate(type.TLoanProduct product, java.math.BigDecimal requestedAmt, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected type.TMetric evaluate(type.TLoanProduct product, java.math.BigDecimal requestedAmt, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         String lenderName = ((String)(product != null ? product.getLenderName() : null));
         java.math.BigDecimal rate = ((java.math.BigDecimal)(product != null ? product.getRate() : null));
         java.math.BigDecimal points = ((java.math.BigDecimal)(product != null ? product.getPoints() : null));
