@@ -53,7 +53,7 @@ public class FACT extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    private java.math.BigDecimal evaluate(java.math.BigDecimal n, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected java.math.BigDecimal evaluate(java.math.BigDecimal n, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         return (booleanEqual(numericLessThan(n, number("0")), Boolean.TRUE)) ? null : (booleanEqual(numericEqual(n, number("0")), Boolean.TRUE)) ? number("1") : numericMultiply(n, FACT(numericSubtract(n, number("1")), annotationSet_, eventListener_, externalExecutor_));
     }
 }
