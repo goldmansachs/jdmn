@@ -80,7 +80,7 @@ public class BureauCallType extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    private String evaluate(String preBureauRiskCategory, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected String evaluate(String preBureauRiskCategory, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         return BureauCallTypeTable(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_);
     }
 }

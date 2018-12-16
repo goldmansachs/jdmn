@@ -70,7 +70,7 @@ public class DateCompare2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    private Boolean evaluate(javax.xml.datatype.XMLGregorianCalendar dateD, javax.xml.datatype.XMLGregorianCalendar dateE, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected Boolean evaluate(javax.xml.datatype.XMLGregorianCalendar dateD, javax.xml.datatype.XMLGregorianCalendar dateE, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(dateD, dateE, annotationSet_, eventListener_, externalExecutor_));
