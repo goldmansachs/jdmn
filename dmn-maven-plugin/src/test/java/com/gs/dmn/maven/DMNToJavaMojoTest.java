@@ -15,6 +15,7 @@ package com.gs.dmn.maven;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.maven.configuration.components.DMNTransformerComponent;
 import com.gs.dmn.transformation.ToSimpleNameTransformer;
+import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TreeTemplateProvider;
 import com.gs.dmn.validation.NopDMNValidator;
 import org.apache.maven.project.MavenProject;
@@ -24,7 +25,7 @@ import java.io.File;
 
 import static org.junit.Assert.assertTrue;
 
-public class DMN2JavaMojoTest extends AbstractMojoTest {
+public class DMNToJavaMojoTest extends AbstractMojoTest {
     private final DMNToJavaMojo mojo = new DMNToJavaMojo();
     private final MavenProject project = new MavenProject();
 
@@ -42,6 +43,7 @@ public class DMN2JavaMojoTest extends AbstractMojoTest {
         mojo.dmnDialect = StandardDMNDialectDefinition.class.getName();
         mojo.dmnValidators = new String[] {NopDMNValidator.class.getName()};
         mojo.dmnTransformers = new DMNTransformerComponent[] { new DMNTransformerComponent(ToSimpleNameTransformer.class.getName()) };
+        mojo.lazyEvaluationDetectors = new String[] {NopLazyEvaluationDetector.class.getName()};
         mojo.templateProvider = TreeTemplateProvider.class.getName();
         mojo.inputFileDirectory = new File(input);
         mojo.outputFileDirectory = new File("target/output");
