@@ -72,5 +72,8 @@ public abstract class CL3DMNInterpreterTest extends AbstractDMNInterpreterTest {
         doTestDiagram("0030-static-user-defined-functions");
         doTestDiagram("0031-static-user-defined-functions");
         doTestDiagram("9001-recursive-function");
+
+        // DMN 1.2 files
+        doTestDiagram("0034-drg-scopes-2");
     }
 }
