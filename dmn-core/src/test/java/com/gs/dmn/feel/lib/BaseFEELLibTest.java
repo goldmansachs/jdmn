@@ -412,7 +412,10 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     public void testModulo() {
         assertNull(getLib().modulo(null, null));
 
-        assertEqualsNumber(makeNumber("2"), getLib().modulo(makeNumber(12), makeNumber(5)));
+        assertEqualsNumber(makeNumber("2"), getLib().modulo(makeNumber(10), makeNumber(4)));
+        assertEqualsNumber(makeNumber("2"), getLib().modulo(makeNumber(10), makeNumber(-4)));
+        assertEqualsNumber(makeNumber("-2"), getLib().modulo(makeNumber(-10), makeNumber(4)));
+        assertEqualsNumber(makeNumber("-2"), getLib().modulo(makeNumber(-10), makeNumber(-4)));
     }
 
     @Test

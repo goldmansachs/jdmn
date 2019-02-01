@@ -57,7 +57,7 @@ public class BigDecimalUtil {
             return null;
         }
 
-        return new BigDecimal(divident.toBigInteger().mod(divisor.toBigInteger()));
+        return new BigDecimal(divident.toBigInteger().remainder(divisor.toBigInteger()));
     }
 
     public static BigDecimal sqrt(BigDecimal number) {
