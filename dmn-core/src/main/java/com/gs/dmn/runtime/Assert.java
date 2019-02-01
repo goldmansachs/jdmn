@@ -27,6 +27,7 @@ import java.util.List;
 
 public class Assert {
     private static final int ASSERT_SCALE = 8;
+    public static final BigDecimal NUMBER_COMPARISON_PRECISION = new BigDecimal("0.00000001");
 
     public static void assertEquals(Object expected, Object actual) {
         assertEquals(null, expected, actual);
@@ -36,7 +37,14 @@ public class Assert {
         if (expected == null) {
             org.junit.Assert.assertEquals(message, expected, actual);
         } else if (isNumber(expected)) {
-            org.junit.Assert.assertEquals(message, convertNumber(expected), convertNumber(actual));
+            BigDecimal expectedBD = (BigDecimal) convertNumber(expected);
+            BigDecimal actualBD = (BigDecimal) convertNumber(actual);
+            if (actual == null) {
+                org.junit.Assert.assertEquals(message, expected, actual);
+            } else {
+                boolean condition = expectedBD.subtract(actualBD).abs().compareTo(NUMBER_COMPARISON_PRECISION) < 0;
+                org.junit.Assert.assertTrue(String.format("Expected '%s' found '%s'", expectedBD, actualBD), condition);
+            }
         } else if (isBoolean(expected)) {
             org.junit.Assert.assertEquals(message, expected, actual);
         } else if (isString(expected)) {
@@ -152,9 +160,9 @@ public class Assert {
             return null;
         }
         if (object instanceof BigDecimal) {
-            return roundUp((BigDecimal)object);
+            return object;
         } else if (object instanceof Double) {
-            return roundUp(BigDecimal.valueOf((Double)object));
+            return BigDecimal.valueOf((Double)object);
         }
         return object;
     }
