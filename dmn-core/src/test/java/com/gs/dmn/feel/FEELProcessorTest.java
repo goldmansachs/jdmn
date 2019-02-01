@@ -789,6 +789,18 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "booleanOr(Boolean.TRUE, Boolean.TRUE)",
                 lib.booleanOr(Boolean.TRUE, Boolean.TRUE),
                 true);
+        doExpressionTest(entries, "", "true or 123",
+                "Disjunction(BooleanLiteral(true),NumericLiteral(123))",
+                "boolean",
+                "booleanOr(Boolean.TRUE, number(\"123\"))",
+                lib.booleanOr(Boolean.TRUE, lib.number("123")),
+                true);
+        doExpressionTest(entries, "", "false or 123",
+                "Disjunction(BooleanLiteral(false),NumericLiteral(123))",
+                "boolean",
+                "booleanOr(Boolean.FALSE, number(\"123\"))",
+                lib.booleanOr(Boolean.FALSE, lib.number("123")),
+                null);
 
         doExpressionTest(entries, "", "(true) and (true)",
                 "Conjunction(BooleanLiteral(true),BooleanLiteral(true))",
@@ -802,6 +814,18 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "booleanAnd(Boolean.TRUE, Boolean.TRUE)",
                 lib.booleanAnd(Boolean.TRUE, Boolean.TRUE),
                 true);
+        doExpressionTest(entries, "", "false and 123",
+                "Conjunction(BooleanLiteral(false),NumericLiteral(123))",
+                "boolean",
+                "booleanAnd(Boolean.FALSE, number(\"123\"))",
+                lib.booleanAnd(Boolean.FALSE, lib.number("123")),
+                false);
+        doExpressionTest(entries, "", "true and 123",
+                "Conjunction(BooleanLiteral(true),NumericLiteral(123))",
+                "boolean",
+                "booleanAnd(Boolean.TRUE, number(\"123\"))",
+                lib.booleanAnd(Boolean.TRUE, lib.number("123")),
+                null);
 
         doExpressionTest(entries, "", "not (true)",
                 "LogicNegation(BooleanLiteral(true))",

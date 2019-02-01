@@ -20,9 +20,12 @@ import com.gs.dmn.feel.synthesis.JavaOperator;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
+import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
@@ -42,18 +45,9 @@ import static com.gs.dmn.feel.synthesis.JavaOperator.Notation.INFIX;
 public class OperatorDecisionTable {
     private static final Map<OperatorTableInputEntry, Pair<Type, JavaOperator>> MAPPINGS = new LinkedHashMap() {{
         // boolean
-        put(new OperatorTableInputEntry("or", BOOLEAN, BOOLEAN), new Pair(BOOLEAN, new JavaOperator("booleanOr", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("or", BOOLEAN, NULL), new Pair(BOOLEAN, new JavaOperator("booleanOr", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("or", NULL, BOOLEAN), new Pair(BOOLEAN, new JavaOperator("booleanOr", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("or", NULL, NULL), new Pair(BOOLEAN, new JavaOperator("booleanOr", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-
-        put(new OperatorTableInputEntry("and", BOOLEAN, BOOLEAN), new Pair(BOOLEAN, new JavaOperator("booleanAnd", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("and", BOOLEAN, NULL), new Pair(BOOLEAN, new JavaOperator("booleanAnd", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("and", NULL, BOOLEAN), new Pair(BOOLEAN, new JavaOperator("booleanAnd", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("and", NULL, NULL), new Pair(BOOLEAN, new JavaOperator("booleanAnd", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-
-        put(new OperatorTableInputEntry("not", BOOLEAN, null), new Pair(BOOLEAN, new JavaOperator("booleanNot", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("not", NULL, null), new Pair(BOOLEAN, new JavaOperator("booleanNot", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        put(new OperatorTableInputEntry("or", ANY, ANY), new Pair(BOOLEAN, new JavaOperator("booleanOr", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        put(new OperatorTableInputEntry("and", ANY, ANY), new Pair(BOOLEAN, new JavaOperator("booleanAnd", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        put(new OperatorTableInputEntry("not", ANY, null), new Pair(BOOLEAN, new JavaOperator("booleanNot", 2, true, LEFT_RIGHT, FUNCTIONAL)));
 
         // equality
         put(new OperatorTableInputEntry("=", NUMBER, NUMBER), new Pair(BOOLEAN, new JavaOperator("numericEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
@@ -232,11 +226,29 @@ public class OperatorDecisionTable {
 
     public static JavaOperator javaOperator(String name, Type leftType, Type rightType) {
         OperatorTableInputEntry operatorTableEntry = makeOperatorTableEntry(name, leftType, rightType);
-        Pair<Type, JavaOperator> pair = MAPPINGS.get(operatorTableEntry);
-        if (pair == null) {
-            throw new DMNRuntimeException(String.format("Cannot infer java operator for '%s'", operatorTableEntry));
+        List<OperatorTableInputEntry> candidates = new ArrayList();
+        for (OperatorTableInputEntry key: MAPPINGS.keySet()) {
+            if (operatorTableEntry.conformsTo(key)) {
+                candidates.add(key);
+            }
         }
-        return pair.getRight();
+        if (candidates.size() == 1) {
+            Pair<Type, JavaOperator> pair = MAPPINGS.get(candidates.get(0));
+            if (pair == null) {
+                throw new DMNRuntimeException(String.format("Cannot infer java operator for '%s'", operatorTableEntry));
+            }
+            return pair.getRight();
+        } else if (candidates.size() > 1) {
+            // Check exact match
+            if (candidates.contains(operatorTableEntry)) {
+                Pair<Type, JavaOperator> pair = MAPPINGS.get(operatorTableEntry);
+                if (pair == null) {
+                    throw new DMNRuntimeException(String.format("Cannot infer java operator for '%s'", operatorTableEntry));
+                }
+                return pair.getRight();
+            }
+        }
+        throw new DMNRuntimeException(String.format("Cannot infer java operator for '%s'", operatorTableEntry));
     }
 
     public static Type resultType(String name, Type leftType, Type rightType) {
