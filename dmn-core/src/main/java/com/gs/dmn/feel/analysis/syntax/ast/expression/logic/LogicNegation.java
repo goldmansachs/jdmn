@@ -25,12 +25,6 @@ public class LogicNegation extends LogicExpression {
     }
 
     @Override
-    public void deriveType(Environment environment) {
-        setType(BOOLEAN);
-        checkType(getOperator(), getLeftOperand().getType(), null);
-    }
-
-    @Override
     public Object accept(Visitor visitor, FEELContext params) {
         return visitor.visit(this, params);
     }
