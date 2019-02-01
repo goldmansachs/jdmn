@@ -205,7 +205,7 @@ public class BigDecimalUtil {
         }
 
         BigDecimal mean = mean(list);
-        BigDecimal length = BigDecimal.valueOf(list.size());
+        BigDecimal length = BigDecimal.valueOf(list.size() - 1);
         BigDecimal variance = BigDecimal.ZERO;
         for(Object e: list) {
             BigDecimal number = (BigDecimal) e;
@@ -213,7 +213,7 @@ public class BigDecimalUtil {
             BigDecimal dv = dm.multiply(dm);
             variance = variance.add(dv);
         }
-        variance = variance.divide(length);
+        variance = variance.divide(length, MathContext.DECIMAL128);
         BigDecimal stddev = sqrt(variance);
         return stddev;
     }

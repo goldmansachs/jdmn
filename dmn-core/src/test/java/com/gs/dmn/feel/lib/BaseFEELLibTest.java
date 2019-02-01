@@ -329,9 +329,9 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         assertNull(getLib().stddev((List) null));
         assertNull(getLib().stddev(makeNumberList()));
 
-        assertEqualsNumber(makeNumber("1.8027756377319946"), getLib().stddev(makeNumberList(2, 4, 7, 5)));
+        assertEqualsNumber(makeNumber("2.0816659994661"), getLib().stddev(makeNumberList(2, 4, 7, 5)));
 
-        assertEqualsNumber(makeNumber("1.8027756377319946"), getLib().stddev(makeNumber(2), makeNumber(4), makeNumber(7), makeNumber(5)));
+        assertEqualsNumber(makeNumber("2.0816659994661"), getLib().stddev(makeNumber(2), makeNumber(4), makeNumber(7), makeNumber(5)));
     }
 
     @Test

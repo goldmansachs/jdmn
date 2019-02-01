@@ -201,7 +201,7 @@ public class DoubleUtil {
             Double dv = dm * dm;
             variance = variance + dv;
         }
-        variance = variance / length;
+        variance = variance / (length - 1);
         Double stddev = sqrt(variance);
         return stddev;
     }
