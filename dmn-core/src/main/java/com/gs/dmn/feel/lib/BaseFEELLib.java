@@ -94,31 +94,31 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     //
     // Boolean operators
     //
-    public Boolean booleanNot(Boolean operand) {
+    public Boolean booleanNot(Object operand) {
         return booleanType.booleanNot(operand);
     }
 
-    public Boolean booleanOr(List<Boolean> operands) {
+    public Boolean booleanOr(List<Object> operands) {
         return booleanType.booleanOr(operands);
     }
 
-    public Boolean booleanOr(Boolean... operands) {
+    public Boolean booleanOr(Object... operands) {
         return booleanType.booleanOr(operands);
     }
 
-    public Boolean binaryBooleanOr(Boolean first, Boolean second) {
+    public Boolean binaryBooleanOr(Object first, Object second) {
         return booleanType.binaryBooleanOr(first, second);
     }
 
-    public Boolean booleanAnd(List<Boolean> operands) {
+    public Boolean booleanAnd(List<Object> operands) {
         return booleanType.booleanAnd(operands);
     }
 
-    public Boolean booleanAnd(Boolean... operands) {
+    public Boolean booleanAnd(Object... operands) {
         return booleanType.booleanAnd(operands);
     }
 
-    public Boolean binaryBooleanAnd(Boolean first, Boolean second) {
+    public Boolean binaryBooleanAnd(Object first, Object second) {
         return booleanType.binaryBooleanAnd(first, second);
     }
 

@@ -91,7 +91,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         if (positiveUnaryTests.size() == 1) {
             return positiveUnaryTests.get(0);
         } else {
-            return lib.booleanOr(positiveUnaryTests);
+            return lib.booleanOr((List) positiveUnaryTests);
         }
     }
 
@@ -107,7 +107,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         if (simplePositiveUnaryTests.size() == 1) {
             return simplePositiveUnaryTests.get(0);
         } else {
-            return lib.booleanOr(simplePositiveUnaryTests);
+            return lib.booleanOr((List) simplePositiveUnaryTests);
         }
     }
 
@@ -505,7 +505,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         try {
             Object leftOperand = element.getLeftOperand().accept(this, context);
             Object rightOperand = element.getRightOperand().accept(this, context);
-            return lib.or(Arrays.asList((Boolean) leftOperand, (Boolean) rightOperand));
+            return lib.or(Arrays.asList(leftOperand, rightOperand));
         } catch (Exception e) {
             handleError(String.format("Cannot evaluate '%s'", element), e);
             return null;
@@ -517,7 +517,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         try {
             Object leftOperand = element.getLeftOperand().accept(this, context);
             Object rightOperand = element.getRightOperand().accept(this, context);
-            return lib.and(Arrays.asList((Boolean) leftOperand, (Boolean) rightOperand));
+            return lib.and(Arrays.asList(leftOperand, rightOperand));
         } catch (Exception e) {
             handleError(String.format("Cannot evaluate '%s'", element), e);
             return null;
@@ -527,12 +527,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     @Override
     public Object visit(LogicNegation element, FEELContext context) {
         Object leftOperand = element.getLeftOperand().accept(this, context);
-        if (leftOperand instanceof Boolean || leftOperand == null) {
-            return lib.booleanNot((Boolean) leftOperand);
-        } else {
-            handleError(String.format("Expected boolean operand, found '%s'", leftOperand.getClass().getName()));
-            return null;
-        }
+        return lib.booleanNot(leftOperand);
     }
 
     @Override

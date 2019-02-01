@@ -28,86 +28,86 @@ public class DefaultBooleanType extends BaseType implements BooleanType {
     }
 
     @Override
-    public Boolean booleanNot(Boolean operand) {
-        return operand == null ? null : !operand;
+    public Boolean booleanNot(Object operand) {
+        if (operand instanceof Boolean) {
+            return ! (Boolean) operand;
+        } else {
+            return null;
+        }
     }
 
     @Override
-    public Boolean booleanOr(List<Boolean> operands) {
+    public Boolean booleanOr(List<Object> operands) {
         if (operands.size() < 2) {
             return null;
         } else {
-            Boolean result = operands.get(0);
+            Object result = operands.get(0);
             for (int i = 1; i < operands.size(); i++) {
                 result = binaryBooleanOr(result, operands.get(i));
             }
-            return result;
+            return (Boolean) result;
         }
     }
 
     @Override
-    public Boolean booleanOr(Boolean... operands) {
+    public Boolean booleanOr(Object... operands) {
         if (operands.length < 2) {
             return null;
         } else {
-            Boolean result = operands[0];
+            Object result = operands[0];
             for (int i = 1; i < operands.length; i++) {
                 result = binaryBooleanOr(result, operands[i]);
             }
-            return result;
+            return (Boolean) result;
         }
     }
 
     @Override
-    public Boolean binaryBooleanOr(Boolean first, Boolean second) {
-        if (first == null)
-        {
-            return second == TRUE ? TRUE : null;
+    public Boolean binaryBooleanOr(Object first, Object second) {
+        if (isBooleanTrue(first) || isBooleanTrue(second)) {
+            return true;
+        } else if (isBooleanFalse(first) && isBooleanFalse(second)) {
+            return false;
+        } else {
+            return null;
         }
-        if (first)
-        {
-            return TRUE;
-        }
-        return second;
     }
 
     @Override
-    public Boolean booleanAnd(List<Boolean> operands) {
+    public Boolean booleanAnd(List<Object> operands) {
         if (operands.size() < 2) {
             return null;
         } else {
-            Boolean result = operands.get(0);
+            Object result = operands.get(0);
             for (int i = 1; i < operands.size(); i++) {
                 result = binaryBooleanAnd(result, operands.get(i));
             }
-            return result;
+            return (Boolean) result;
         }
     }
 
     @Override
-    public Boolean booleanAnd(Boolean... operands) {
+    public Boolean booleanAnd(Object... operands) {
         if (operands.length < 2) {
             return null;
         } else {
-            Boolean result = operands[0];
+            Object result = operands[0];
             for (int i = 1; i < operands.length; i++) {
                 result = binaryBooleanAnd(result, operands[i]);
             }
-            return result;
+            return (Boolean) result;
         }
     }
 
     @Override
-    public Boolean binaryBooleanAnd(Boolean first, Boolean second) {
-        if (first == null)
-        {
-            return second == null || second ? null : FALSE;
+    public Boolean binaryBooleanAnd(Object first, Object second) {
+        if (isBooleanFalse(first) || isBooleanFalse(second)) {
+            return false;
+        } else if (isBooleanTrue(first) && isBooleanTrue(second)) {
+            return true;
+        } else {
+            return null;
         }
-        if (first)
-        {
-            return second;
-        }
-        return FALSE;
     }
 
     @Override
@@ -126,5 +126,13 @@ public class DefaultBooleanType extends BaseType implements BooleanType {
     @Override
     public Boolean booleanNotEqual(Boolean first, Boolean second) {
         return booleanNot(booleanEqual(first, second));
+    }
+
+    private boolean isBooleanTrue(Object obj) {
+        return obj instanceof Boolean && (Boolean )obj;
+    }
+
+    private boolean isBooleanFalse(Object obj) {
+        return obj instanceof Boolean && ! (Boolean )obj;
     }
 }
