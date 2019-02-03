@@ -308,7 +308,8 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(Context element, FEELContext context) {
-        List<Pair> entries = element.getEntries().stream().map(e -> (Pair) e.accept(this, context)).collect(Collectors.toList());
+        FEELContext entryContext = FEELContext.makeContext(context.getEnvironment(), runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment()));
+        List<Pair> entries = element.getEntries().stream().map(e -> (Pair) e.accept(this, entryContext)).collect(Collectors.toList());
         com.gs.dmn.runtime.Context runtimeContext = new com.gs.dmn.runtime.Context();
         for (Pair p : entries) {
             runtimeContext.put(p.getLeft(), p.getRight());
@@ -320,6 +321,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     public Object visit(ContextEntry element, FEELContext context) {
         Object key = element.getKey().accept(this, context);
         Object value = element.getExpression().accept(this, context);
+        context.getRuntimeEnvironment().bind((String) key, value);
         return new Pair(key, value);
     }
 

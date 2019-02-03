@@ -742,6 +742,31 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 new EnvironmentEntry("dateInput", DATE, dateInput),
                 new EnvironmentEntry("enumerationInput", STRING, enumerationInput));
 
+        doExpressionTest(entries, "", "{a: \"foo\", b: {c: \"bar\", d: {e: \"baz\"}}}",
+                "Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\")),ContextEntry(ContextEntryKey(b) = Context(ContextEntry(ContextEntryKey(c) = StringLiteral(\"bar\")),ContextEntry(ContextEntryKey(d) = Context(ContextEntry(ContextEntryKey(e) = StringLiteral(\"baz\")))))))",
+                "ContextType(a = string, b = ContextType(c = string, d = ContextType(e = string)))",
+                "new com.gs.dmn.runtime.Context().add(\"a\", \"foo\").add(\"b\", new com.gs.dmn.runtime.Context().add(\"c\", \"bar\").add(\"d\", new com.gs.dmn.runtime.Context().add(\"e\", \"baz\")))",
+                new com.gs.dmn.runtime.Context().add("a", "foo").add("b", new com.gs.dmn.runtime.Context().add("c", "bar").add("d", new com.gs.dmn.runtime.Context().add("e", "baz"))),
+                new Context().add("a", "foo").add("b", new com.gs.dmn.runtime.Context().add("c", "bar").add("d", new com.gs.dmn.runtime.Context().add("e", "baz"))));
+        doExpressionTest(entries, "", "{a: 1 + 2, b: 3, c: {d: a + b}}",
+                "Context(ContextEntry(ContextEntryKey(a) = Addition(+,NumericLiteral(1),NumericLiteral(2))),ContextEntry(ContextEntryKey(b) = NumericLiteral(3)),ContextEntry(ContextEntryKey(c) = Context(ContextEntry(ContextEntryKey(d) = Addition(+,Name(a),Name(b))))))",
+                "ContextType(a = number, b = number, c = ContextType(d = number))",
+                null,
+                null,
+                null);
+        doExpressionTest(entries, "", "{\"\": \"foo\"}",
+                "Context(ContextEntry(ContextEntryKey() = StringLiteral(\"foo\")))",
+                "ContextType( = string)",
+                "new com.gs.dmn.runtime.Context().add(\"\", \"foo\")",
+                new com.gs.dmn.runtime.Context().add("", "foo"),
+                new Context().add("", "foo"));
+        doExpressionTest(entries, "", "{\"foo+bar((!!],foo\": \"foo\"}",
+                "Context(ContextEntry(ContextEntryKey(foo+bar((!!],foo) = StringLiteral(\"foo\")))",
+                "ContextType(foo+bar((!!],foo = string)",
+                "new com.gs.dmn.runtime.Context().add(\"foo+bar((!!],foo\", \"foo\")",
+                new com.gs.dmn.runtime.Context().add("foo+bar((!!],foo", "foo"),
+                new Context().add("foo+bar((!!],foo", "foo"));
+
         doExpressionTest(entries, "", "{ k1 : 1, k2 : 2 }",
                 "Context(ContextEntry(ContextEntryKey(k1) = NumericLiteral(1)),ContextEntry(ContextEntryKey(k2) = NumericLiteral(2)))",
                 "ContextType(k1 = number, k2 = number)",
