@@ -347,10 +347,10 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
 
         String text = unaryTests.getText();
         String newText = replaceNamesInText(text, lexicalContext);
-        setField(unaryTests, "text", newText.toString());
+        setField(unaryTests, "text", newText);
     }
 
-    private String replaceNamesInText(String text, LexicalContext lexicalContext) {
+    protected String replaceNamesInText(String text, LexicalContext lexicalContext) {
         StringBuilder newText = new StringBuilder();
 
         int i = 0;
@@ -396,7 +396,88 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
             }
         }
 
+        return transformContext(newText.toString());
+    }
+
+    private String transformContext(String text) {
+        StringBuilder newText = new StringBuilder();
+
+        int i = 0;
+        while (i < text.length()) {
+            if (text.charAt(i) == '"') {
+                // skip strings
+                newText.append(text.charAt(i));
+                i++;
+                while (i < text.length()) {
+                    newText.append(text.charAt(i));
+                    if (text.charAt(i) == '"') {
+                        i++;
+                        break;
+                    } else {
+                        i++;
+                    }
+                }
+            } else if (text.charAt(i) == '{') {
+                i = transformContext(text, i, newText);
+            } else {
+                newText.append(text.charAt(i));
+                i++;
+            }
+        }
+
         return newText.toString();
+    }
+
+    private int transformContext(String text, int i, StringBuilder newText) {
+        // process {
+        newText.append(text.charAt(i));
+        i++;
+
+        // process context
+        while (i < text.length()) {
+            if (text.charAt(i) == '}') {
+                break;
+            }
+            // collect key
+            StringBuilder keyBuilder = new StringBuilder("");
+            while (i < text.length() && text.charAt(i) != ':' && text.charAt(i) != '}') {
+                keyBuilder.append(text.charAt(i));
+                i++;
+            }
+            // transform and add key
+            String key = keyBuilder.toString().trim();
+            if (key.length() != 0) {
+                if (key.startsWith("\"") && key.endsWith("\"")) {
+                    key = key.substring(1, key.length() -1);
+                    newText.append("\"" + transformName(key) + "\"");
+                } else {
+                    newText.append(transformName(key));
+                }
+            }
+            if (i < text.length() && text.charAt(i) == ':') {
+                newText.append(":");
+                i++;
+            }
+            // skip value
+            while (i < text.length() && text.charAt(i) != ',' && text.charAt(i) != '}' ) {
+                if (text.charAt(i) == '{') {
+                    // transform nested contexts
+                    i = transformContext(text, i, newText);
+                } else {
+                    newText.append(text.charAt(i));
+                    i++;
+                }
+            }
+            if (i < text.length() && text.charAt(i) == ',') {
+                newText.append(", ");
+                i++;
+            }
+        }
+        if (i < text.length() && text.charAt(i) == '}') {
+            newText.append('}');
+            i++;
+        }
+        return i;
     }
 
     protected void renameItemDefinitionMembers(TItemDefinition itemDefinition) {

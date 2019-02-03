@@ -351,7 +351,7 @@ public class TCKUtil {
         } else if (valueType.getList() != null) {
             return makeList(valueType, (ListType) type);
         } else if (valueType.getComponent() != null) {
-            return makeContext(valueType, (ItemDefinitionType) type);
+            return makeContext(valueType, (CompositeDataType) type);
         }
         throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
     }
@@ -367,7 +367,7 @@ public class TCKUtil {
         return javaList;
     }
 
-    private Context makeContext(ValueType valueType, ItemDefinitionType type) {
+    private Context makeContext(ValueType valueType, CompositeDataType type) {
         Context context = new Context();
         java.util.List<Component> components = valueType.getComponent();
         for (Component c : components) {

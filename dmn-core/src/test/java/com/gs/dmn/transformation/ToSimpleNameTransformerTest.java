@@ -12,11 +12,10 @@
  */
 package com.gs.dmn.transformation;
 
+import com.gs.dmn.feel.analysis.scanner.LexicalContext;
 import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
-import org.omg.spec.dmn._20180521.model.TDRGElement;
-import org.omg.spec.dmn._20180521.model.TInputData;
 
 import static com.gs.dmn.runtime.Assert.assertEquals;
 
@@ -34,8 +33,6 @@ public class ToSimpleNameTransformerTest extends NameTransformerTest {
     @Test
     public void testQuotedNames() {
         ToSimpleNameTransformer transformer = (ToSimpleNameTransformer) getTransformer();
-        TDRGElement tNamedElement = makeElement("abc ? x");
-        NameMappings nameMappings = new NameMappings();
 
         // Transform first name
         String firstName = transformer.transformName("abc ? x");
@@ -47,10 +44,27 @@ public class ToSimpleNameTransformerTest extends NameTransformerTest {
 
     }
 
-    private TDRGElement makeElement(String name) {
-        TInputData inputData = new TInputData();
-        inputData.setName(name);
-        return inputData;
+    @Test
+    public void testContextKeys() {
+        NameTransformer transformer = (NameTransformer) getTransformer();
+
+        String result = transformer.replaceNamesInText("{foo bar: \"foo\"}", new LexicalContext());
+        assertEquals("{fooBar: \"foo\"}", result);
+
+        result = transformer.replaceNamesInText("{foo+bar: \"foo\"}", new LexicalContext());
+        assertEquals("{fooBar_1: \"foo\"}", result);
+
+        result = transformer.replaceNamesInText("{\"foo+bar((!!],foo\": \"foo\"}", new LexicalContext());
+        assertEquals("{\"fooBarFoo\": \"foo\"}", result);
+
+        result = transformer.replaceNamesInText("{\"\": \"foo\"}", new LexicalContext());
+        assertEquals("{\"\": \"foo\"}", result);
+
+        result = transformer.replaceNamesInText("{a: 1 + 2, b: a + 3}", new LexicalContext());
+        assertEquals("{a: 1 + 2, b: a + 3}", result);
+
+        result = transformer.replaceNamesInText("{a: 1 + 2, b: 3, c: {d e: a + b}}", new LexicalContext());
+        assertEquals("{a: 1 + 2, b: 3, c: {dE: a + b}}", result);
     }
 
     @Override

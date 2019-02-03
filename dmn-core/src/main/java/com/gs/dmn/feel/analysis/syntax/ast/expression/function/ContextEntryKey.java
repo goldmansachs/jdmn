@@ -20,6 +20,10 @@ public class ContextEntryKey extends Element {
     private final String key;
 
     public ContextEntryKey(String key) {
+        // Remove quotes from key if key is string
+        if (key.startsWith("\"") && key.endsWith("\"")) {
+            key = key.substring(1, key.length() - 1);
+        }
         this.key = key;
     }
 

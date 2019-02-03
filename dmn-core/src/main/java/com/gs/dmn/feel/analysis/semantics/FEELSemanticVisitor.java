@@ -163,15 +163,18 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
 
     @Override
     public Object visit(Context element, FEELContext context) {
-        element.getEntries().forEach(ce -> ce.accept(this, context));
-        element.deriveType(context.getEnvironment());
+        Environment entryEnvironment = environmentFactory.makeEnvironment(context.getEnvironment());
+        FEELContext entryContext = FEELContext.makeContext(entryEnvironment);
+        element.getEntries().forEach(ce -> ce.accept(this, entryContext));
+        element.deriveType(entryContext.getEnvironment());
         return element;
     }
 
     @Override
     public Object visit(ContextEntry element, FEELContext context) {
-        element.getKey().accept(this, context);
-        element.getExpression().accept(this, context);
+        ContextEntryKey key = (ContextEntryKey) element.getKey().accept(this, context);
+        Expression expression = (Expression) element.getExpression().accept(this, context);
+        context.getEnvironment().addDeclaration(environmentFactory.makeVariableDeclaration(key.getKey(), expression.getType()));
         return element;
     }
 
