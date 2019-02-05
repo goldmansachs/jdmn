@@ -352,58 +352,13 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
 
     protected String replaceNamesInText(String text, LexicalContext lexicalContext) {
         StringBuilder newText = new StringBuilder();
+        lexicalContext.addName("grouping separator");
+        lexicalContext.addName("decimal separator");
+        lexicalContext.addName("start position");
 
         int i = 0;
         while (i < text.length()) {
             char ch = text.charAt(i);
-            if (isNameStartChar(ch)) {
-                // Check keywords
-                boolean foundKeyword = false;
-                for(String keyword: KEYWORDS.keySet()) {
-                    if (text.startsWith(keyword, i)) {
-                        newText.append(keyword);
-                        i += keyword.length();
-                        foundKeyword = true;
-                        break;
-                    }
-                }
-                if (!foundKeyword) {
-                    // Check names
-                    boolean foundName = false;
-                    for(String name: lexicalContext.orderedNames()) {
-                        if (text.startsWith(name, i)) {
-                            newText.append(transformName(name));
-                            i += name.length();
-                            foundName = true;
-                            break;
-                        }
-                    }
-                    if (!foundName) {
-                        do {
-                            newText.append(ch);
-                            i++;
-                            if (i < text.length()) {
-                                ch = text.charAt(i);
-                            } else {
-                                break;
-                            }
-                        } while (isNamePartChar(ch));
-                    }
-                }
-            } else {
-                newText.append(ch);
-                i++;
-            }
-        }
-
-        return transformContext(newText.toString());
-    }
-
-    private String transformContext(String text) {
-        StringBuilder newText = new StringBuilder();
-
-        int i = 0;
-        while (i < text.length()) {
             if (text.charAt(i) == '"') {
                 // skip strings
                 newText.append(text.charAt(i));
@@ -418,9 +373,11 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                     }
                 }
             } else if (text.charAt(i) == '{') {
-                i = transformContext(text, i, newText);
+                i = replaceContextKeys(text, i, newText);
+            } else if (isNameStartChar(ch)) {
+                i = replaceIdentifiers(text, i, lexicalContext, newText, ch);
             } else {
-                newText.append(text.charAt(i));
+                newText.append(ch);
                 i++;
             }
         }
@@ -428,7 +385,44 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         return newText.toString();
     }
 
-    private int transformContext(String text, int i, StringBuilder newText) {
+    protected int replaceIdentifiers(String text, int i, LexicalContext lexicalContext, StringBuilder newText, char ch) {
+        // Check keywords
+        boolean foundKeyword = false;
+        for(String keyword: KEYWORDS.keySet()) {
+            if (text.startsWith(keyword, i)) {
+                newText.append(keyword);
+                i += keyword.length();
+                foundKeyword = true;
+                break;
+            }
+        }
+        if (!foundKeyword) {
+            // Check names
+            boolean foundName = false;
+            for(String name: lexicalContext.orderedNames()) {
+                if (text.startsWith(name, i)) {
+                    newText.append(transformName(name));
+                    i += name.length();
+                    foundName = true;
+                    break;
+                }
+            }
+            if (!foundName) {
+                do {
+                    newText.append(ch);
+                    i++;
+                    if (i < text.length()) {
+                        ch = text.charAt(i);
+                    } else {
+                        break;
+                    }
+                } while (isNamePartChar(ch));
+            }
+        }
+        return i;
+    }
+
+    protected int replaceContextKeys(String text, int i, StringBuilder newText) {
         // process {
         newText.append(text.charAt(i));
         i++;
@@ -462,7 +456,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
             while (i < text.length() && text.charAt(i) != ',' && text.charAt(i) != '}' ) {
                 if (text.charAt(i) == '{') {
                     // transform nested contexts
-                    i = transformContext(text, i, newText);
+                    i = replaceContextKeys(text, i, newText);
                 } else {
                     newText.append(text.charAt(i));
                     i++;

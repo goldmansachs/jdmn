@@ -80,25 +80,30 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
     @Override
     public Double number(String from, String groupingSeparator, String decimalSeparator) {
-        if (StringUtils.isBlank(from) || groupingSeparator == null || decimalSeparator == null) {
+        if (StringUtils.isBlank(from)) {
+            return null;
+        }
+        if (! (" ".equals(groupingSeparator) || ".".equals(groupingSeparator) || ",".equals(groupingSeparator) || null == groupingSeparator)) {
+            return null;
+        }
+        if (! (".".equals(decimalSeparator) || ",".equals(decimalSeparator) || null == decimalSeparator)) {
+            return null;
+        }
+        if (groupingSeparator != null && groupingSeparator.equals(decimalSeparator)) {
             return null;
         }
 
         try {
-            if (decimalSeparator.equals(".")) {
-                decimalSeparator = "\\" + decimalSeparator;
+            if (groupingSeparator != null) {
+                if (groupingSeparator.equals(".")) {
+                    groupingSeparator = "\\" + groupingSeparator;
+                }
+                from = from.replaceAll(groupingSeparator, "");
             }
-            if (groupingSeparator.equals(".")) {
-                groupingSeparator = "\\" + groupingSeparator;
+            if (decimalSeparator != null && !decimalSeparator.equals(".")) {
+                from = from.replaceAll(decimalSeparator, ".");
             }
-            String[] parts = from.split(decimalSeparator);
-            if (parts.length == 1) {
-                return number(from.replaceAll(groupingSeparator, ""));
-            } else if (parts.length == 2) {
-                return number(parts[0].replaceAll(groupingSeparator, "") + "." + parts[1]);
-            } else {
-                return null;
-            }
+            return number(from);
         } catch (Throwable e) {
             String message = String.format("number(%s, %s, %s)", from, groupingSeparator, decimalSeparator);
             logError(message, e);

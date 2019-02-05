@@ -27,9 +27,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     public void testNumberWithSeparators() {
         assertNull(getLib().number(null, null, null));
         assertNull(getLib().number(null, ".", ","));
-        assertNull(getLib().number("123", null, ","));
-        assertNull(getLib().number("123", ".", null));
-
+        assertNull(getLib().number("1.235.00", ".", "."));
         assertNull(getLib().number("12,356,00", ".", ","));
 
         assertEqualsNumber(makeNumber("12356"), getLib().number("12.356,00", ".", ","));
@@ -39,6 +37,11 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         assertEqualsNumber(makeNumber("12356"), getLib().number("12,356.00", ",", "."));
         assertEqualsNumber(makeNumber("12356"), getLib().number("12,356", ",", "."));
         assertEqualsNumber(makeNumber("12356.01"), getLib().number("12356.01", ",", "."));
+
+        assertEqualsNumber(makeNumber("1000000.01"), getLib().number("1000000.01", null, "."));
+        assertEqualsNumber(makeNumber("1000000.00"), getLib().number("1,000,000", ",", null));
+        assertEqualsNumber(makeNumber("1000000.00"), getLib().number("1,000,000.00", ",", null));
+        assertEqualsNumber(makeNumber("1000000.01"), getLib().number("1.000.000,01", ".", ","));
     }
 
     @Test

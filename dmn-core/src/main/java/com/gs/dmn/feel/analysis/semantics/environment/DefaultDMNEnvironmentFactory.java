@@ -67,7 +67,8 @@ public class DefaultDMNEnvironmentFactory extends EnvironmentFactory {
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("time", new BuiltinFunctionType(TIME, new Parameter("from", DATE))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("time", new BuiltinFunctionType(TIME, new Parameter("from", DATE_AND_TIME))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("time", new BuiltinFunctionType(TIME, new Parameter("hour", NUMBER), new Parameter("minute", NUMBER), new Parameter("second", NUMBER), new Parameter("offset", DAYS_AND_TIME_DURATION, true, false))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("number", new BuiltinFunctionType(NUMBER, new Parameter("from", STRING), new Parameter("grouping separator", STRING), new Parameter("decimal separator", STRING))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("number", new BuiltinFunctionType(NUMBER, new Parameter("from", STRING), new Parameter("'grouping separator'", STRING), new Parameter("'decimal separator'", STRING))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("number", new BuiltinFunctionType(NUMBER, new Parameter("from", STRING), new Parameter("groupingSeparator", STRING), new Parameter("decimalSeparator", STRING))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("string", new BuiltinFunctionType(STRING, new Parameter("from", ANY))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("duration", new BuiltinFunctionType(ANY, new Parameter("from", STRING))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("years and months duration", new BuiltinFunctionType(YEARS_AND_MONTHS_DURATION, new Parameter("from", DATE), new Parameter("to", DATE))));
@@ -81,7 +82,8 @@ public class DefaultDMNEnvironmentFactory extends EnvironmentFactory {
     }
 
     private static void addStringFunctions(Environment environment) {
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("substring", new BuiltinFunctionType(STRING, new Parameter("string", STRING), new Parameter("start position", NUMBER), new Parameter("length", NUMBER, true, false))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("substring", new BuiltinFunctionType(STRING, new Parameter("string", STRING), new Parameter("'start position'", NUMBER), new Parameter("length", NUMBER, true, false))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("substring", new BuiltinFunctionType(STRING, new Parameter("string", STRING), new Parameter("startPosition", NUMBER), new Parameter("length", NUMBER, true, false))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("string length", new BuiltinFunctionType(NUMBER, new Parameter("string", STRING))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("upper case", new BuiltinFunctionType(STRING, new Parameter("string", STRING))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("lower case", new BuiltinFunctionType(STRING, new Parameter("string", STRING))));
