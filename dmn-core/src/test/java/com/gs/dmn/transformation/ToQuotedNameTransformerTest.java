@@ -53,6 +53,17 @@ public class ToQuotedNameTransformerTest extends NameTransformerTest {
         assertEquals("{a: 1 + 2, b: 3, c: {'d e': a + b}}", result);
     }
 
+    @Test
+    public void testBuiltinFunction() {
+        NameTransformer transformer = (NameTransformer) getTransformer();
+
+        String result = transformer.replaceNamesInText("number(from: \"1.000.000,01\", decimal separator:\",\", grouping separator:\".\")", new LexicalContext("decimal separator", "grouping separator"));
+        assertEquals("number(from: \"1.000.000,01\", 'decimal separator':\",\", 'grouping separator':\".\")", result);
+
+        result = transformer.replaceNamesInText("substring(string:\"abc\", starting position:2)", new LexicalContext("starting position"));
+        assertEquals("substring(string:\"abc\", 'starting position':2)", result);
+    }
+
     @Override
     protected DMNTransformer<TestCases> getTransformer() {
         return new ToQuotedNameTransformer(LOGGER);

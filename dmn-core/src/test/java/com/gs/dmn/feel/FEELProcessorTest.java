@@ -1249,6 +1249,18 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "number(\"1 000\", \" \", \".\")",
                 lib.number("1 000", " ", "."),
                 lib.number("1000"));
+        doExpressionTest(entries, "", "number(from: \"1.000.000,01\", 'decimal separator':\",\", 'grouping separator':\".\")",
+                "FunctionInvocation(Name(number) -> NamedParameters(from : StringLiteral(\"1.000.000,01\"), 'decimal separator' : StringLiteral(\",\"), 'grouping separator' : StringLiteral(\".\")))",
+                "number",
+                "number(\"1.000.000,01\", \".\", \",\")",
+                lib.number("1.000.000,01", ".", ","),
+                lib.number("1.000.000,01", ".", ","));
+        doExpressionTest(entries, "", "number(from: \"1.000.000,01\", decimalSeparator:\",\", groupingSeparator:\".\")",
+                "FunctionInvocation(Name(number) -> NamedParameters(from : StringLiteral(\"1.000.000,01\"), decimalSeparator : StringLiteral(\",\"), groupingSeparator : StringLiteral(\".\")))",
+                "number",
+                "number(\"1.000.000,01\", \".\", \",\")",
+                lib.number("1.000.000,01", ".", ","),
+                lib.number("1.000.000,01", ".", ","));
         doExpressionTest(entries, "", "string(1.1)",
                 "FunctionInvocation(Name(string) -> PositionalParameters(NumericLiteral(1.1)))",
                 "string",
@@ -1289,6 +1301,18 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
 
         doExpressionTest(entries, "", "substring(\"abc\", 3)",
                 "FunctionInvocation(Name(substring) -> PositionalParameters(StringLiteral(\"abc\"), NumericLiteral(3)))",
+                "string",
+                "substring(\"abc\", number(\"3\"))",
+                lib.substring("abc", lib.number("3")),
+                "c");
+        doExpressionTest(entries, "", "substring(string: \"abc\", 'start position': 3)",
+                "FunctionInvocation(Name(substring) -> NamedParameters(string : StringLiteral(\"abc\"), 'start position' : NumericLiteral(3)))",
+                "string",
+                "substring(\"abc\", number(\"3\"))",
+                lib.substring("abc", lib.number("3")),
+                "c");
+        doExpressionTest(entries, "", "substring(string: \"abc\", startPosition: 3)",
+                "FunctionInvocation(Name(substring) -> NamedParameters(string : StringLiteral(\"abc\"), startPosition : NumericLiteral(3)))",
                 "string",
                 "substring(\"abc\", number(\"3\"))",
                 lib.substring("abc", lib.number("3")),
