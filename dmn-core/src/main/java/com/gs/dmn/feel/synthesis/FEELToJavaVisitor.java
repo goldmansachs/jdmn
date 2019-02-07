@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.synthesis;
 
+import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.semantics.ReplaceItemFilterVisitor;
 import com.gs.dmn.feel.analysis.semantics.environment.BusinessKnowledgeModelDeclaration;
 import com.gs.dmn.feel.analysis.semantics.environment.Conversion;
@@ -396,9 +397,15 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     @Override
     public Object visit(BetweenExpression element, FEELContext context) {
         String value = (String) element.getValue().accept(this, context);
-        String leftEndpoint = (String) element.getLeftEndpoint().accept(this, context);
-        String rightEndpoint = (String) element.getRightEndpoint().accept(this, context);
-        return String.format("booleanAnd(numericLessEqualThan(%s, %s), numericLessEqualThan(%s, %s))", leftEndpoint, value, value, rightEndpoint);
+        Expression leftEndpoint = element.getLeftEndpoint();
+        Expression rightEndpoint = element.getRightEndpoint();
+        String leftOpd = (String) leftEndpoint.accept(this, context);
+        String rightOpd = (String) rightEndpoint.accept(this, context);
+        String feelOperator = "<=";
+        JavaOperator javaOperator = OperatorDecisionTable.javaOperator(feelOperator, leftEndpoint.getType(), rightEndpoint.getType());
+        String c1 = makeCondition(feelOperator, leftOpd, value, javaOperator);
+        String c2 = makeCondition(feelOperator, value, rightOpd, javaOperator);
+        return String.format("booleanAnd(%s, %s)", c1, c2);
     }
 
     @Override
