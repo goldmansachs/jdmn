@@ -546,9 +546,27 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     public Object visit(BetweenExpression element, FEELContext context) {
         try {
             Object value = element.getValue().accept(this, context);
-            Object leftEndpoint = element.getLeftEndpoint().accept(this, context);
-            Object rightEndpoint = element.getRightEndpoint().accept(this, context);
-            return lib.booleanAnd(lib.numericLessEqualThan(leftEndpoint, value), lib.numericLessEqualThan(value, rightEndpoint));
+            Expression leftEndpoint = element.getLeftEndpoint();
+            Expression rightEndpoint = element.getRightEndpoint();
+            Object leftOpd = leftEndpoint.accept(this, context);
+            Object rightOpd = rightEndpoint.accept(this, context);
+            if (leftEndpoint.getType() == NumberType.NUMBER) {
+                return lib.booleanAnd(lib.numericLessEqualThan(leftOpd, value), lib.numericLessEqualThan(value, rightOpd));
+            } else if (leftEndpoint.getType() == StringType.STRING) {
+                return lib.booleanAnd(lib.stringLessEqualThan((String) leftOpd, (String) value), lib.stringLessEqualThan((String) value, (String) rightOpd));
+            } else if (leftEndpoint.getType() == DateType.DATE) {
+                return lib.booleanAnd(lib.dateLessEqualThan(leftOpd, value), lib.dateLessEqualThan(value, rightOpd));
+            } else if (leftEndpoint.getType() == TimeType.TIME) {
+                return lib.booleanAnd(lib.timeLessEqualThan(leftOpd, value), lib.timeLessEqualThan(value, rightOpd));
+            } else if (leftEndpoint.getType() == DateTimeType.DATE_AND_TIME) {
+                return lib.booleanAnd(lib.dateTimeLessEqualThan(leftOpd, value), lib.dateTimeLessEqualThan(value, rightOpd));
+            } else if (leftEndpoint.getType() == DurationType.YEARS_AND_MONTHS_DURATION) {
+                return lib.booleanAnd(lib.durationLessEqualThan(leftOpd, value), lib.durationLessEqualThan(value, rightOpd));
+            } else if (leftEndpoint.getType() == DurationType.DAYS_AND_TIME_DURATION) {
+                return lib.booleanAnd(lib.durationLessEqualThan(leftOpd, value), lib.durationLessEqualThan(value, rightOpd));
+            } else{
+                throw new DMNRuntimeException(String.format("Type '%s' is not supported yet", leftEndpoint.getType()));
+            }
         } catch (Exception e) {
             handleError(String.format("Cannot evaluate '%s'", element), e);
             return null;

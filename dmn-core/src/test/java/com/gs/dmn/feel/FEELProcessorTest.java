@@ -909,6 +909,43 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "booleanAnd(numericLessEqualThan(number(\"1\"), i), numericLessEqualThan(i, number(\"2\")))",
                 lib.booleanAnd(lib.numericLessEqualThan(lib.number("1"), i), lib.numericLessEqualThan(i, lib.number("2"))),
                 true);
+
+        doExpressionTest(entries, "", "\"a\" between \"b\" and \"d\"",
+                "BetweenExpression(StringLiteral(\"a\"), StringLiteral(\"b\"), StringLiteral(\"d\"))",
+                "boolean",
+                "booleanAnd(stringLessEqualThan(\"b\", \"a\"), stringLessEqualThan(\"a\", \"d\"))",
+                lib.booleanAnd(lib.stringLessEqualThan("b", "a"), lib.stringLessEqualThan("a", "d")),
+                false);
+        doExpressionTest(entries, "", "date(\"2018-12-01\") between date(\"2018-12-02\") and date(\"2018-12-04\")",
+                "BetweenExpression(DateTimeLiteral(date, \"2018-12-01\"), DateTimeLiteral(date, \"2018-12-02\"), DateTimeLiteral(date, \"2018-12-04\"))",
+                "boolean",
+                "booleanAnd(dateLessEqualThan(date(\"2018-12-02\"), date(\"2018-12-01\")), dateLessEqualThan(date(\"2018-12-01\"), date(\"2018-12-04\")))",
+                lib.booleanAnd(lib.dateLessEqualThan(lib.date("2018-12-02"), lib.date("2018-12-01")), lib.dateLessEqualThan(lib.date("2018-12-01"), lib.date("2018-12-04"))),
+                false);
+        doExpressionTest(entries, "", "time(\"10:31:00\") between time(\"10:32:00\") and time(\"10:34:00\")",
+                "BetweenExpression(DateTimeLiteral(time, \"10:31:00\"), DateTimeLiteral(time, \"10:32:00\"), DateTimeLiteral(time, \"10:34:00\"))",
+                "boolean",
+                "booleanAnd(timeLessEqualThan(time(\"10:32:00\"), time(\"10:31:00\")), timeLessEqualThan(time(\"10:31:00\"), time(\"10:34:00\")))",
+                lib.booleanAnd(lib.timeLessEqualThan(lib.time("10:32:00"), lib.time("10:31:00")), lib.timeLessEqualThan(lib.time("10:31:00"), lib.time("10:34:00"))),
+                false);
+        doExpressionTest(entries, "", "date and time(\"2018-12-01T10:30:00\") between date and time(\"2018-12-02T10:30:00\") and date and time(\"2018-12-04T10:30:00\")",
+                "BetweenExpression(DateTimeLiteral(date and time, \"2018-12-01T10:30:00\"), DateTimeLiteral(date and time, \"2018-12-02T10:30:00\"), DateTimeLiteral(date and time, \"2018-12-04T10:30:00\"))",
+                "boolean",
+                "booleanAnd(dateTimeLessEqualThan(dateAndTime(\"2018-12-02T10:30:00\"), dateAndTime(\"2018-12-01T10:30:00\")), dateTimeLessEqualThan(dateAndTime(\"2018-12-01T10:30:00\"), dateAndTime(\"2018-12-04T10:30:00\")))",
+                lib.booleanAnd(lib.dateTimeLessEqualThan(lib.dateAndTime("2018-12-02T10:30:00"), lib.dateAndTime("2018-12-01T10:30:00")), lib.dateTimeLessEqualThan(lib.dateAndTime("2018-12-01T10:30:00"), lib.dateAndTime("2018-12-04T10:30:00"))),
+                false);
+        doExpressionTest(entries, "", "duration(\"P1Y\") between duration(\"P2Y\") and duration(\"P4Y\")",
+                "BetweenExpression(DateTimeLiteral(duration, \"P1Y\"), DateTimeLiteral(duration, \"P2Y\"), DateTimeLiteral(duration, \"P4Y\"))",
+                "boolean",
+                "booleanAnd(durationLessEqualThan(duration(\"P2Y\"), duration(\"P1Y\")), durationLessEqualThan(duration(\"P1Y\"), duration(\"P4Y\")))",
+                lib.booleanAnd(lib.durationLessEqualThan(lib.duration("P2Y"), lib.duration("P1Y")), lib.durationLessEqualThan(lib.duration("P1Y"), lib.duration("P4Y"))),
+                false);
+        doExpressionTest(entries, "", "duration(\"P1D\") between duration(\"P2D\") and duration(\"P4D\")",
+                "BetweenExpression(DateTimeLiteral(duration, \"P1D\"), DateTimeLiteral(duration, \"P2D\"), DateTimeLiteral(duration, \"P4D\"))",
+                "boolean",
+                "booleanAnd(durationLessEqualThan(duration(\"P2D\"), duration(\"P1D\")), durationLessEqualThan(duration(\"P1D\"), duration(\"P4D\")))",
+                lib.booleanAnd(lib.durationLessEqualThan(lib.duration("P2D"), lib.duration("P1D")), lib.durationLessEqualThan(lib.duration("P1D"), lib.duration("P4D"))),
+                false);
     }
 
     @Test
