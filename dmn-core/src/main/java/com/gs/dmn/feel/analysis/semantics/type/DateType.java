@@ -15,6 +15,8 @@ package com.gs.dmn.feel.analysis.semantics.type;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
+
 public class DateType extends DataType {
     public static final DateType DATE = new DateType();
 
@@ -22,6 +24,7 @@ public class DateType extends DataType {
         put("year", NumberType.NUMBER);
         put("month", NumberType.NUMBER);
         put("day", NumberType.NUMBER);
+        put("weekday", NUMBER);
     }};
 
     public static Type getMemberType(String member) {

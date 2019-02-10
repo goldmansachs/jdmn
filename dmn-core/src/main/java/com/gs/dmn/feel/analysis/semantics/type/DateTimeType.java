@@ -29,6 +29,7 @@ public class DateTimeType extends DataType {
         put("year", NUMBER);
         put("month", NUMBER);
         put("day", NUMBER);
+        put("weekday", NUMBER);
         put("hour", NUMBER);
         put("minute", NUMBER);
         put("second", NUMBER);

@@ -1426,6 +1426,32 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "stringLength(((String)(privateFundRequirements != null ? privateFundRequirements.getHierarchyNode() : null)))",
                 null,
                 null);
+
+        doExpressionTest(entries, "", "date(\"2018-12-10\").weekday",
+                "PathExpression(DateTimeLiteral(date, \"2018-12-10\"), weekday)",
+                "number",
+                "weekday(date(\"2018-12-10\"))",
+                lib.weekday(lib.date("2018-12-10")),
+                lib.number("1"));
+        doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:01\").weekday",
+                "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:01\"), weekday)",
+                "number",
+                "weekday(dateAndTime(\"2018-12-10T10:30:01\"))",
+                lib.weekday(lib.dateAndTime("2018-12-10T10:30:01")),
+                lib.number("1"));
+
+        doExpressionTest(entries, "", "time(\"10:30:01\").hour",
+                "PathExpression(DateTimeLiteral(time, \"10:30:01\"), hour)",
+                "number",
+                "hour(time(\"10:30:01\"))",
+                lib.hour(lib.time("10:30:01")),
+                lib.number("10"));
+        doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:01\").hour",
+                "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:01\"), hour)",
+                "number",
+                "hour(dateAndTime(\"2018-12-10T10:30:01\"))",
+                lib.hour(lib.dateAndTime("2018-12-10T10:30:01")),
+                lib.number("10"));
     }
 
     @Override
