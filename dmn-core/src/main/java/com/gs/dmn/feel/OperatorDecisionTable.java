@@ -12,7 +12,10 @@
  */
 package com.gs.dmn.feel;
 
-import com.gs.dmn.feel.analysis.semantics.type.*;
+import com.gs.dmn.feel.analysis.semantics.type.ContextType;
+import com.gs.dmn.feel.analysis.semantics.type.ListType;
+import com.gs.dmn.feel.analysis.semantics.type.NullType;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.synthesis.JavaOperator;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
@@ -32,7 +35,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.ListType.ANY_LIST;
 import static com.gs.dmn.feel.analysis.semantics.type.ContextType.ANY_CONTEXT;
 import static com.gs.dmn.feel.analysis.semantics.type.NullType.NULL;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
-import static com.gs.dmn.feel.analysis.semantics.type.RangeType.NUMBER_RANGE_TYPE;
+import static com.gs.dmn.feel.analysis.semantics.type.RangeType.*;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 import static com.gs.dmn.feel.synthesis.JavaOperator.Associativity.LEFT_RIGHT;
@@ -226,7 +229,13 @@ public class OperatorDecisionTable {
         put(new OperatorTableInputEntry("**", NUMBER, NUMBER), new Pair(NUMBER, new JavaOperator("numericExponentiation", 2, false, LEFT_RIGHT, FUNCTIONAL)));
 
         // Range
-        put(new OperatorTableInputEntry("..", NumberType.NUMBER, NumberType.NUMBER), new Pair(NUMBER_RANGE_TYPE, null));
+        put(new OperatorTableInputEntry("..", NUMBER, NUMBER), new Pair(NUMBER_RANGE_TYPE, null));
+        put(new OperatorTableInputEntry("..", STRING, STRING), new Pair(STRING_RANGE_TYPE, null));
+        put(new OperatorTableInputEntry("..", DATE, DATE), new Pair(DATE_RANGE_TYPE, null));
+        put(new OperatorTableInputEntry("..", TIME, TIME), new Pair(TIME_RANGE_TYPE, null));
+        put(new OperatorTableInputEntry("..", DATE_AND_TIME, DATE_AND_TIME), new Pair(DATE_AND_TIME_RANGE_TYPE, null));
+        put(new OperatorTableInputEntry("..", YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION), new Pair(YEARS_AND_MONTHS_DURATION_RANGE_TYPE, null));
+        put(new OperatorTableInputEntry("..", DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION), new Pair(DAYS_AND_TIME_DURATION_RANGE_TYPE, null));
 
     }};
 

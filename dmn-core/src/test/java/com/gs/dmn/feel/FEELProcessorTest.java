@@ -14,7 +14,7 @@ package com.gs.dmn.feel;
 
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.type.*;
-import com.gs.dmn.feel.interpreter.SFEELInterpreterImpl;
+import com.gs.dmn.feel.interpreter.FEELInterpreterImpl;
 import com.gs.dmn.feel.synthesis.FEELTranslatorImpl;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
@@ -36,7 +36,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
     @Before
     public void setUp() {
         this.feelTranslator = new FEELTranslatorImpl(dmnTransformer);
-        this.feelInterpreter = new SFEELInterpreterImpl(dmnInterpreter);
+        this.feelInterpreter = new FEELInterpreterImpl(dmnInterpreter);
     }
 
     @Test
@@ -1071,6 +1071,87 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "(listContains(asList(number(\"1\"), number(\"2\")), number(\"1\")))",
                 (lib.listContains(Arrays.asList(lib.number("1"), lib.number("2")), lib.number("1"))),
                 true);
+        doExpressionTest(entries, "", "[1, 2, 3] in [1, 2, 3]",
+                "InExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListTest(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))",
+                "boolean",
+                "(listEqual(asList(number(\"1\"), number(\"2\"), number(\"3\")), asList(number(\"1\"), number(\"2\"), number(\"3\"))))",
+                (lib.listEqual(lib.asList(lib.number("1"), lib.number("2"), lib.number("3")), lib.asList(lib.number("1"), lib.number("2"), lib.number("3")))),
+                true);
+        doExpressionTest(entries, "", "[1,2,3] in ([1,2,3,4], [1,2,3])",
+                "InExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListTest(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3),NumericLiteral(4))), ListTest(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))",
+                "boolean",
+                "booleanOr(listEqual(asList(number(\"1\"), number(\"2\"), number(\"3\")), asList(number(\"1\"), number(\"2\"), number(\"3\"), number(\"4\"))), listEqual(asList(number(\"1\"), number(\"2\"), number(\"3\")), asList(number(\"1\"), number(\"2\"), number(\"3\"))))",
+                lib.booleanOr(lib.listEqual(lib.asList(lib.number("1"), lib.number("2"), lib.number("3")), lib.asList(lib.number("1"), lib.number("2"), lib.number("3"), lib.number("4"))), lib.listEqual(lib.asList(lib.number("1"), lib.number("2"), lib.number("3")), lib.asList(lib.number("1"), lib.number("2"), lib.number("3")))),
+                true);
+        doExpressionTest(entries, "", "[1,2,3] in ([[1,2,3,4]], [[1,2,3]])",
+                "InExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListTest(ListLiteral(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3),NumericLiteral(4)))), ListTest(ListLiteral(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)))))",
+                "boolean",
+                "booleanOr(listContains(asList(asList(number(\"1\"), number(\"2\"), number(\"3\"), number(\"4\"))), asList(number(\"1\"), number(\"2\"), number(\"3\"))), listContains(asList(asList(number(\"1\"), number(\"2\"), number(\"3\"))), asList(number(\"1\"), number(\"2\"), number(\"3\"))))",
+                lib.booleanOr(lib.listContains(lib.asList(lib.asList(lib.number("1"), lib.number("2"), lib.number("3"), lib.number("4"))), lib.asList(lib.number("1"), lib.number("2"), lib.number("3"))), lib.listContains(lib.asList(lib.asList(lib.number("1"), lib.number("2"), lib.number("3"))), lib.asList(lib.number("1"), lib.number("2"), lib.number("3")))),
+                true);
+        doExpressionTest(entries, "", "[1,2,3] in ([[1,2,3,4]], [[1,2,3]])",
+                "InExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListTest(ListLiteral(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3),NumericLiteral(4)))), ListTest(ListLiteral(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)))))",
+                "boolean",
+                "booleanOr(listContains(asList(asList(number(\"1\"), number(\"2\"), number(\"3\"), number(\"4\"))), asList(number(\"1\"), number(\"2\"), number(\"3\"))), listContains(asList(asList(number(\"1\"), number(\"2\"), number(\"3\"))), asList(number(\"1\"), number(\"2\"), number(\"3\"))))",
+                lib.booleanOr(lib.listContains(lib.asList(lib.asList(lib.number("1"), lib.number("2"), lib.number("3"), lib.number("4"))), lib.asList(lib.number("1"), lib.number("2"), lib.number("3"))), lib.listContains(lib.asList(lib.asList(lib.number("1"), lib.number("2"), lib.number("3"))), lib.asList(lib.number("1"), lib.number("2"), lib.number("3")))),
+                true);
+        doExpressionTest(entries, "", "[1,2,3] in [[1,2,3,4], [1,2,3]]",
+                "InExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListTest(ListLiteral(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3),NumericLiteral(4)),ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)))))",
+                "boolean",
+                "(listContains(asList(asList(number(\"1\"), number(\"2\"), number(\"3\"), number(\"4\")), asList(number(\"1\"), number(\"2\"), number(\"3\"))), asList(number(\"1\"), number(\"2\"), number(\"3\"))))",
+                (lib.listContains(lib.asList(lib.asList(lib.number("1"), lib.number("2"), lib.number("3"), lib.number("4")), lib.asList(lib.number("1"), lib.number("2"), lib.number("3"))), lib.asList(lib.number("1"), lib.number("2"), lib.number("3")))),
+                true);
+
+        // list test containing IntervalTest
+        doExpressionTest(entries, "", "1 in [[2..4], [1..3]]",
+                "InExpression(NumericLiteral(1), ListTest(ListLiteral(IntervalTest(false,NumericLiteral(2),false,NumericLiteral(4)),IntervalTest(false,NumericLiteral(1),false,NumericLiteral(3)))))",
+                "boolean",
+                "(listContains(asList(booleanAnd(numericGreaterEqualThan(number(\"1\"), number(\"2\")), numericLessEqualThan(number(\"1\"), number(\"4\"))), booleanAnd(numericGreaterEqualThan(number(\"1\"), number(\"1\")), numericLessEqualThan(number(\"1\"), number(\"3\")))), true))",
+                (lib.listContains(lib.asList(lib.booleanAnd(lib.numericGreaterEqualThan(lib.number("1"), lib.number("2")), lib.numericLessEqualThan(lib.number("1"), lib.number("4"))), lib.booleanAnd(lib.numericGreaterEqualThan(lib.number("1"), lib.number("1")), lib.numericLessEqualThan(lib.number("1"), lib.number("3")))), true)),
+                true);
+        doExpressionTest(entries, "", "\"b\" in [[\"f\"..\"h\"], [\"a\"..\"c\"]]",
+                "InExpression(StringLiteral(\"b\"), ListTest(ListLiteral(IntervalTest(false,StringLiteral(\"f\"),false,StringLiteral(\"h\")),IntervalTest(false,StringLiteral(\"a\"),false,StringLiteral(\"c\")))))",
+                "boolean",
+                "(listContains(asList(booleanAnd(stringGreaterEqualThan(\"b\", \"f\"), stringLessEqualThan(\"b\", \"h\")), booleanAnd(stringGreaterEqualThan(\"b\", \"a\"), stringLessEqualThan(\"b\", \"c\"))), true))",
+                (lib.listContains(lib.asList(lib.booleanAnd(lib.stringGreaterEqualThan("b", "f"), lib.stringLessEqualThan("b", "h")), lib.booleanAnd(lib.stringGreaterEqualThan("b", "a"), lib.stringLessEqualThan("b", "c"))), true)),
+                true);
+        doExpressionTest(entries, "", "date(\"2018-12-11\") in [[date(\"2018-12-05\") .. date(\"2018-12-07\")], [date(\"2018-12-10\") .. date(\"2018-12-12\")]]",
+                "InExpression(DateTimeLiteral(date, \"2018-12-11\"), ListTest(ListLiteral(IntervalTest(false,DateTimeLiteral(date, \"2018-12-05\"),false,DateTimeLiteral(date, \"2018-12-07\")),IntervalTest(false,DateTimeLiteral(date, \"2018-12-10\"),false,DateTimeLiteral(date, \"2018-12-12\")))))",
+                "boolean",
+                "(listContains(asList(booleanAnd(dateGreaterEqualThan(date(\"2018-12-11\"), date(\"2018-12-05\")), dateLessEqualThan(date(\"2018-12-11\"), date(\"2018-12-07\"))), booleanAnd(dateGreaterEqualThan(date(\"2018-12-11\"), date(\"2018-12-10\")), dateLessEqualThan(date(\"2018-12-11\"), date(\"2018-12-12\")))), true))",
+                (lib.listContains(lib.asList(lib.booleanAnd(lib.dateGreaterEqualThan(lib.date("2018-12-11"), lib.date("2018-12-05")), lib.dateLessEqualThan(lib.date("2018-12-11"), lib.date("2018-12-07"))), lib.booleanAnd(lib.dateGreaterEqualThan(lib.date("2018-12-11"), lib.date("2018-12-10")), lib.dateLessEqualThan(lib.date("2018-12-11"), lib.date("2018-12-12")))), true)),
+                true);
+        doExpressionTest(entries, "", "time(\"10:30:11\") in [[time(\"10:30:05\") .. time(\"10:30:07\")], [time(\"10:30:10\") .. time(\"10:30:12\")]]",
+                "InExpression(DateTimeLiteral(time, \"10:30:11\"), ListTest(ListLiteral(IntervalTest(false,DateTimeLiteral(time, \"10:30:05\"),false,DateTimeLiteral(time, \"10:30:07\")),IntervalTest(false,DateTimeLiteral(time, \"10:30:10\"),false,DateTimeLiteral(time, \"10:30:12\")))))",
+                "boolean",
+                "(listContains(asList(booleanAnd(timeGreaterEqualThan(time(\"10:30:11\"), time(\"10:30:05\")), timeLessEqualThan(time(\"10:30:11\"), time(\"10:30:07\"))), booleanAnd(timeGreaterEqualThan(time(\"10:30:11\"), time(\"10:30:10\")), timeLessEqualThan(time(\"10:30:11\"), time(\"10:30:12\")))), true))",
+                (lib.listContains(lib.asList(lib.booleanAnd(lib.timeGreaterEqualThan(lib.time("10:30:11"), lib.time("10:30:05")), lib.timeLessEqualThan(lib.time("10:30:11"), lib.time("10:30:07"))), lib.booleanAnd(lib.timeGreaterEqualThan(lib.time("10:30:11"), lib.time("10:30:10")), lib.timeLessEqualThan(lib.time("10:30:11"), lib.time("10:30:12")))), true)),
+                true);
+        doExpressionTest(entries, "", "date and time(\"2018-12-08T10:30:11\") in [[date and time(\"2018-12-08T10:30:05\") .. date and time(\"2018-12-08T10:30:07\")], [date and time(\"2018-12-08T10:30:10\") .. date and time(\"2018-12-08T10:30:12\")]]",
+                "InExpression(DateTimeLiteral(date and time, \"2018-12-08T10:30:11\"), ListTest(ListLiteral(IntervalTest(false,DateTimeLiteral(date and time, \"2018-12-08T10:30:05\"),false,DateTimeLiteral(date and time, \"2018-12-08T10:30:07\")),IntervalTest(false,DateTimeLiteral(date and time, \"2018-12-08T10:30:10\"),false,DateTimeLiteral(date and time, \"2018-12-08T10:30:12\")))))",
+                "boolean",
+                "(listContains(asList(booleanAnd(dateTimeGreaterEqualThan(dateAndTime(\"2018-12-08T10:30:11\"), dateAndTime(\"2018-12-08T10:30:05\")), dateTimeLessEqualThan(dateAndTime(\"2018-12-08T10:30:11\"), dateAndTime(\"2018-12-08T10:30:07\"))), booleanAnd(dateTimeGreaterEqualThan(dateAndTime(\"2018-12-08T10:30:11\"), dateAndTime(\"2018-12-08T10:30:10\")), dateTimeLessEqualThan(dateAndTime(\"2018-12-08T10:30:11\"), dateAndTime(\"2018-12-08T10:30:12\")))), true))",
+                (lib.listContains(lib.asList(lib.booleanAnd(lib.dateTimeGreaterEqualThan(lib.dateAndTime("2018-12-08T10:30:11"), lib.dateAndTime("2018-12-08T10:30:05")), lib.dateTimeLessEqualThan(lib.dateAndTime("2018-12-08T10:30:11"), lib.dateAndTime("2018-12-08T10:30:07"))), lib.booleanAnd(lib.dateTimeGreaterEqualThan(lib.dateAndTime("2018-12-08T10:30:11"), lib.dateAndTime("2018-12-08T10:30:10")), lib.dateTimeLessEqualThan(lib.dateAndTime("2018-12-08T10:30:11"), lib.dateAndTime("2018-12-08T10:30:12")))), true)),
+                true);
+        doExpressionTest(entries, "", "{a: \"foo\"} in [{b: \"bar\"}, {a: \"foo\"}]",
+                "InExpression(Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\"))), ListTest(ListLiteral(Context(ContextEntry(ContextEntryKey(b) = StringLiteral(\"bar\"))),Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\"))))))",
+                "boolean",
+                "(listContains(asList(new com.gs.dmn.runtime.Context().add(\"b\", \"bar\"), new com.gs.dmn.runtime.Context().add(\"a\", \"foo\")), new com.gs.dmn.runtime.Context().add(\"a\", \"foo\")))",
+                (lib.listContains(lib.asList(new com.gs.dmn.runtime.Context().add("b", "bar"), new com.gs.dmn.runtime.Context().add("a", "foo")), new com.gs.dmn.runtime.Context().add("a", "foo"))),
+                true);
+
+        doExpressionTest(entries, "", "{a: \"foo\"} in ({a: \"bar\"}, {a: \"foo\"})",
+                "InExpression(Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\"))), OperatorTest(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"bar\")))), OperatorTest(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\")))))",
+                "boolean",
+                "booleanOr(contextEqual(new com.gs.dmn.runtime.Context().add(\"a\", \"foo\"), new com.gs.dmn.runtime.Context().add(\"a\", \"bar\")), contextEqual(new com.gs.dmn.runtime.Context().add(\"a\", \"foo\"), new com.gs.dmn.runtime.Context().add(\"a\", \"foo\")))",
+                lib.booleanOr(lib.contextEqual(new com.gs.dmn.runtime.Context().add("a", "foo"), new com.gs.dmn.runtime.Context().add("a", "bar")), lib.contextEqual(new com.gs.dmn.runtime.Context().add("a", "foo"), new com.gs.dmn.runtime.Context().add("a", "foo"))),
+                true);
+        doExpressionTest(entries, "", "{a: \"foo\"} in ({a: \"bar\"}, {a: \"baz\"})",
+                "InExpression(Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\"))), OperatorTest(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"bar\")))), OperatorTest(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"baz\")))))",
+                "boolean",
+                "booleanOr(contextEqual(new com.gs.dmn.runtime.Context().add(\"a\", \"foo\"), new com.gs.dmn.runtime.Context().add(\"a\", \"bar\")), contextEqual(new com.gs.dmn.runtime.Context().add(\"a\", \"foo\"), new com.gs.dmn.runtime.Context().add(\"a\", \"baz\")))",
+                lib.booleanOr(lib.contextEqual(new com.gs.dmn.runtime.Context().add("a", "foo"), new com.gs.dmn.runtime.Context().add("a", "bar")), lib.contextEqual(new com.gs.dmn.runtime.Context().add("a", "foo"), new com.gs.dmn.runtime.Context().add("a", "baz"))),
+                false);
 
         // compound test
         doExpressionTest(entries, "", "1 in (1)",
@@ -1082,20 +1163,20 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
         doExpressionTest(entries, "", "1 in (1, 2)",
                 "InExpression(NumericLiteral(1), OperatorTest(null,NumericLiteral(1)), OperatorTest(null,NumericLiteral(2)))",
                 "boolean",
-                "(numericEqual(number(\"1\"), number(\"1\"))) || (numericEqual(number(\"1\"), number(\"2\")))",
-                (lib.numericEqual(lib.number("1"), lib.number("1"))) || (lib.numericEqual(lib.number("1"), lib.number("2"))),
+                "booleanOr(numericEqual(number(\"1\"), number(\"1\")), numericEqual(number(\"1\"), number(\"2\")))",
+                lib.booleanOr(lib.numericEqual(lib.number("1"), lib.number("1")), lib.numericEqual(lib.number("1"), lib.number("2"))),
                 true);
         doExpressionTest(entries, "", "1 in (<1, [1..2], [1, 2])",
                 "InExpression(NumericLiteral(1), OperatorTest(<,NumericLiteral(1)), IntervalTest(false,NumericLiteral(1),false,NumericLiteral(2)), ListTest(ListLiteral(NumericLiteral(1),NumericLiteral(2))))",
                 "boolean",
-                "(numericLessThan(number(\"1\"), number(\"1\"))) || (booleanAnd(numericGreaterEqualThan(number(\"1\"), number(\"1\")), numericLessEqualThan(number(\"1\"), number(\"2\")))) || (listContains(asList(number(\"1\"), number(\"2\")), number(\"1\")))",
-                (lib.numericLessThan(lib.number("1"), lib.number("1"))) || (lib.booleanAnd(lib.numericGreaterEqualThan(lib.number("1"), lib.number("1")), lib.numericLessEqualThan(lib.number("1"), lib.number("2")))) || (lib.listContains(Arrays.asList(lib.number("1"), lib.number("2")), lib.number("1"))),
+                "booleanOr(numericLessThan(number(\"1\"), number(\"1\")), booleanAnd(numericGreaterEqualThan(number(\"1\"), number(\"1\")), numericLessEqualThan(number(\"1\"), number(\"2\"))), listContains(asList(number(\"1\"), number(\"2\")), number(\"1\")))",
+                lib.booleanOr(lib.numericLessThan(lib.number("1"), lib.number("1")), lib.booleanAnd(lib.numericGreaterEqualThan(lib.number("1"), lib.number("1")), lib.numericLessEqualThan(lib.number("1"), lib.number("2"))), lib.listContains(lib.asList(lib.number("1"), lib.number("2")), lib.number("1"))),
                 true);
         doExpressionTest(entries, "", "1 in (<1, [1..2], 3)",
                 "InExpression(NumericLiteral(1), OperatorTest(<,NumericLiteral(1)), IntervalTest(false,NumericLiteral(1),false,NumericLiteral(2)), OperatorTest(null,NumericLiteral(3)))",
                 "boolean",
-                "(numericLessThan(number(\"1\"), number(\"1\"))) || (booleanAnd(numericGreaterEqualThan(number(\"1\"), number(\"1\")), numericLessEqualThan(number(\"1\"), number(\"2\")))) || (numericEqual(number(\"1\"), number(\"3\")))",
-                (lib.numericLessThan(lib.number("1"), lib.number("1"))) || (lib.booleanAnd(lib.numericGreaterEqualThan(lib.number("1"), lib.number("1")), lib.numericLessEqualThan(lib.number("1"), lib.number("2")))) || (lib.numericEqual(lib.number("1"), lib.number("3"))),
+                "booleanOr(numericLessThan(number(\"1\"), number(\"1\")), booleanAnd(numericGreaterEqualThan(number(\"1\"), number(\"1\")), numericLessEqualThan(number(\"1\"), number(\"2\"))), numericEqual(number(\"1\"), number(\"3\")))",
+                lib.booleanOr(lib.numericLessThan(lib.number("1"), lib.number("1")), lib.booleanAnd(lib.numericGreaterEqualThan(lib.number("1"), lib.number("1")), lib.numericLessEqualThan(lib.number("1"), lib.number("2"))), lib.numericEqual(lib.number("1"), lib.number("3"))),
                 true);
     }
 

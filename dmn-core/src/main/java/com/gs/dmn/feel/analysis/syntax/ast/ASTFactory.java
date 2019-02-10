@@ -186,6 +186,8 @@ public class ASTFactory {
             return toOperatorTest(null, expression);
         } else if (expression instanceof NamedExpression || expression instanceof PathExpression) {
             return toOperatorTest(null, expression);
+        } else if (expression instanceof Context) {
+            return toOperatorTest(null, expression);
         } else if (expression instanceof FunctionInvocation) {
             // TODO refactor to use ExpressionTest
             return toOperatorTest(null, expression);
