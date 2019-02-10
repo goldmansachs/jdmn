@@ -28,8 +28,9 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     protected final DateTimeType<DATE_TIME, DURATION> dateTimeType;
     protected final DurationType<DURATION, NUMBER> durationType;
     protected final ListType listType;
+    protected final ContextType contextType;
 
-    public BaseFEELLib(NumericType<NUMBER> numericType, BooleanType booleanType, StringType stringType, DateType<DATE, DURATION> dateType, TimeType<TIME, DURATION> timeType, DateTimeType<DATE_TIME, DURATION> dateTimeType, DurationType<DURATION, NUMBER> durationType, ListType listType) {
+    public BaseFEELLib(NumericType<NUMBER> numericType, BooleanType booleanType, StringType stringType, DateType<DATE, DURATION> dateType, TimeType<TIME, DURATION> timeType, DateTimeType<DATE_TIME, DURATION> dateTimeType, DurationType<DURATION, NUMBER> durationType, ListType listType, ContextType contextType) {
         this.numericType = numericType;
         this.booleanType = booleanType;
         this.stringType = stringType;
@@ -38,6 +39,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         this.dateTimeType = dateTimeType;
         this.durationType = durationType;
         this.listType = listType;
+        this.contextType = contextType;
     }
 
     //
@@ -331,6 +333,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
 
     public Boolean listNotEqual(List list1, List list2) {
         return listType.listNotEqual(list1, list2);
+    }
+
+    //
+    // Context operators
+    //
+    public Boolean contextEqual(Object c1, Object c2) {
+        return contextType.contextEqual(c1, c2);
+    }
+
+    public Boolean contextNotEqual(Object c1, Object c2) {
+        return contextType.contextNotEqual(c1, c2);
     }
 
     //

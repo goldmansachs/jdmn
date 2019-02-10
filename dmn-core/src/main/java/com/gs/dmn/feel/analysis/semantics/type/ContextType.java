@@ -18,6 +18,8 @@ import java.util.stream.Collectors;
 import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 
 public class ContextType extends Type implements CompositeDataType {
+    public static final Type ANY_CONTEXT = new ContextType();
+
     private final Map<String, Type> members = new LinkedHashMap();
 
     public ContextType() {
