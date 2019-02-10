@@ -756,6 +756,27 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 null,
                 null);
 
+        doExpressionTest(expressionPairs, "", "true[0]",
+                "FilterExpression(BooleanLiteral(true), NumericLiteral(0))",
+                "boolean",
+                "(Boolean)(elementAt(asList(Boolean.TRUE), number(\"0\")))",
+                (Boolean)(lib.elementAt(lib.asList(Boolean.TRUE), lib.number("0"))),
+                null);
+
+        doExpressionTest(expressionPairs, "", "100[0]",
+                "FilterExpression(NumericLiteral(100), NumericLiteral(0))",
+                "number",
+                "(java.math.BigDecimal)(elementAt(asList(number(\"100\")), number(\"0\")))",
+                lib.elementAt(lib.asList(lib.number("100")), lib.number("0")),
+                null);
+
+        doExpressionTest(expressionPairs, "", "\"foo\"[0]",
+                "FilterExpression(StringLiteral(\"foo\"), NumericLiteral(0))",
+                "string",
+                "(String)(elementAt(asList(\"foo\"), number(\"0\")))",
+                lib.elementAt(lib.asList("foo"), lib.number("0")),
+                null);
+
         doUnaryTestsTest(testPairs, "list", "[]",
                 "PositiveUnaryTests(ListTest(ListLiteral()))",
                 "TupleType(boolean)",
