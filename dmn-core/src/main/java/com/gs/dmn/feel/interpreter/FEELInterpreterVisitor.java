@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.interpreter;
 
 import com.gs.dmn.feel.OperatorDecisionTable;
+import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.environment.Conversion;
 import com.gs.dmn.feel.analysis.semantics.environment.ConversionKind;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
@@ -269,14 +270,27 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     @Override
     public Object visit(ListTest element, FEELContext context) {
         try {
-            String operator = "=";
-            Expression listLiteral = element.getListLiteral();
-            if (listLiteral instanceof FunctionInvocation) {
-                return listLiteral.accept(this, context);
-            } else {
-                Object self = context.lookupRuntimeBinding(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER);
+            ListLiteral listLiteral = element.getListLiteral();
+            Type listType = listLiteral.getType();
+            Type listElementType = ((ListType) listType).getElementType();
+            Type inputExpressionType = context.getEnvironment().getInputExpressionType();
+            Object self = context.lookupRuntimeBinding(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER);
+
+            Object result = null;
+            if (inputExpressionType.conformsTo(listType)) {
+                String operator = "=";
                 return evaluateOperatorTest(element, operator, self, listLiteral, context);
+            } else if (inputExpressionType.conformsTo(listElementType)) {
+                List list = (List) listLiteral.accept(this, context);
+                result = lib.listContains(list, self);
+            } else if (listElementType instanceof RangeType && inputExpressionType.conformsTo(((RangeType) listElementType).getRangeType())) {
+                List list = (List) listLiteral.accept(this, context);
+                result = lib.listContains(list, true);
+            } else {
+                throw new SemanticError(element, String.format("Cannot compare '%s', '%s'", inputExpressionType, listType));
             }
+
+            return result;
         } catch (Exception e) {
             handleError(String.format("Cannot evaluate '%s'", element), e);
             return null;
@@ -583,19 +597,17 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         FEELContext inParams = FEELContext.makeContext(inEnvironment, inRuntimeEnvironment);
         inParams.runtimeBind(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER, value);
 
-        Boolean result = false;
+        List<Object> result = new ArrayList<>();
         List<PositiveUnaryTest> positiveUnaryTests = element.getTests();
         for (PositiveUnaryTest positiveUnaryTest : positiveUnaryTests) {
-            Boolean test = false;
-            if (positiveUnaryTest instanceof ListTest) {
-                List list = (List) ((ListTest) positiveUnaryTest).getListLiteral().accept(this, inParams);
-                return lib.listContains(list, value);
-            } else {
-                test = (Boolean) positiveUnaryTest.accept(this, inParams);
-            }
-            result = lib.booleanOr(result, test);
+            Object test = positiveUnaryTest.accept(this, inParams);
+            result.add(test);
         }
-        return result;
+        if (result.size() == 1) {
+            return result.get(0);
+        } else {
+            return lib.booleanOr(result);
+        }
     }
 
     @Override

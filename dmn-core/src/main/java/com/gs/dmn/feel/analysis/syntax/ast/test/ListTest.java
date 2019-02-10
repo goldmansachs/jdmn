@@ -15,6 +15,7 @@ package com.gs.dmn.feel.analysis.syntax.ast.test;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
+import com.gs.dmn.feel.analysis.semantics.type.RangeType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
@@ -41,15 +42,14 @@ public class ListTest extends SimplePositiveUnaryTest {
         setType(BOOLEAN);
         List<Expression> expressionList = listLiteral.getExpressionList();
         if (!expressionList.isEmpty()) {
-            Type listElementType = ((ListType) listLiteral.getType()).getElementType();
+            Type listType = listLiteral.getType();
+            Type listElementType = ((ListType) listType).getElementType();
             Type inputExpressionType = environment.getInputExpressionType();
-            if (inputExpressionType instanceof ListType) {
-                if (!((ListType) inputExpressionType).getElementType().conformsTo(listElementType)) {
-                    throw new SemanticError(this, String.format("Operator '=' cannot be applied to '%s', '%s'", inputExpressionType, this.toString()));
-                }
+            if (inputExpressionType.conformsTo(listType)) {
             } else if (inputExpressionType.conformsTo(listElementType)) {
+            } else if (listElementType instanceof RangeType && inputExpressionType.conformsTo(((RangeType) listElementType).getRangeType())) {
             } else {
-                throw new SemanticError(this, String.format("Operator '=' cannot be applied to '%s', '%s'", inputExpressionType, listElementType));
+                throw new SemanticError(this, String.format("Cannot compare '%s', '%s'", inputExpressionType, listType));
             }
         }
 
