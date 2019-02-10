@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.feel.lib.type.context.DefaultContextType;
 import com.gs.dmn.feel.lib.type.list.DefaultListType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
@@ -55,7 +56,8 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Offs
                 new OffsetTimeType(LOGGER),
                 new ZonedDateTimeType(LOGGER),
                 new TemporalAmountDurationType(LOGGER),
-                new DefaultListType(LOGGER)
+                new DefaultListType(LOGGER),
+                new DefaultContextType(LOGGER)
         );
     }
 

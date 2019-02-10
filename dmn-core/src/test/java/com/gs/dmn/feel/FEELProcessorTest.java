@@ -655,6 +655,59 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 null != null,
                 false);
 
+        // list
+        doExpressionTest(entries, "", "[] = []",
+                "Relational(=,ListLiteral(),ListLiteral())",
+                "boolean",
+                "listEqual(asList(), asList())",
+                lib.listEqual(lib.asList(), lib.asList()),
+                true);
+        doExpressionTest(entries, "", "[] = null",
+                "Relational(=,ListLiteral(),NullLiteral())",
+                "boolean",
+                "listEqual(asList(), null)",
+                lib.listEqual(lib.asList(), null),
+                false);
+
+        doExpressionTest(entries, "", "[] != []",
+                "Relational(!=,ListLiteral(),ListLiteral())",
+                "boolean",
+                "listNotEqual(asList(), asList())",
+                lib.listNotEqual(lib.asList(), lib.asList()),
+                false);
+        doExpressionTest(entries, "", "[] != null",
+                "Relational(!=,ListLiteral(),NullLiteral())",
+                "boolean",
+                "listNotEqual(asList(), null)",
+                lib.listNotEqual(lib.asList(), null),
+                true);
+
+        // context
+        doExpressionTest(entries, "", "{} = {}",
+                "Relational(=,Context(),Context())",
+                "boolean",
+                "contextEqual(new com.gs.dmn.runtime.Context(), new com.gs.dmn.runtime.Context())",
+                lib.contextEqual(new com.gs.dmn.runtime.Context(), new com.gs.dmn.runtime.Context()),
+                true);
+        doExpressionTest(entries, "", "{} = null",
+                "Relational(=,Context(),NullLiteral())",
+                "boolean",
+                "contextEqual(new com.gs.dmn.runtime.Context(), null)",
+                lib.contextEqual(new com.gs.dmn.runtime.Context(), null),
+                false);
+
+        doExpressionTest(entries, "", "{} != {}",
+                "Relational(!=,Context(),Context())",
+                "boolean",
+                "contextNotEqual(new com.gs.dmn.runtime.Context(), new com.gs.dmn.runtime.Context())",
+                lib.contextNotEqual(new com.gs.dmn.runtime.Context(), new com.gs.dmn.runtime.Context()),
+                false);
+        doExpressionTest(entries, "", "{} != null",
+                "Relational(!=,Context(),NullLiteral())",
+                "boolean",
+                "contextNotEqual(new com.gs.dmn.runtime.Context(), null)",
+                lib.contextNotEqual(new com.gs.dmn.runtime.Context(), null),
+                true);
     }
 
     @Test

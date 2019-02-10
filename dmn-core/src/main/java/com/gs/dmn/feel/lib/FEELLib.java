@@ -17,7 +17,7 @@ import com.gs.dmn.feel.lib.type.*;
 import java.util.List;
 
 public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
-        NumericType<NUMBER>, StringType, BooleanType, ListType,
+        NumericType<NUMBER>, StringType, BooleanType, ListType, ContextType,
         DateType<DATE, DURATION>, TimeType<TIME, DURATION>, DateTimeType<DATE_TIME, DURATION>, DurationType<DURATION, NUMBER> {
 
     //

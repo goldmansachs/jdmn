@@ -12,10 +12,7 @@
  */
 package com.gs.dmn.feel;
 
-import com.gs.dmn.feel.analysis.semantics.type.ListType;
-import com.gs.dmn.feel.analysis.semantics.type.NullType;
-import com.gs.dmn.feel.analysis.semantics.type.NumberType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.synthesis.JavaOperator;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
@@ -32,6 +29,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DAYS_AND_TIME_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.YEARS_AND_MONTHS_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.ListType.ANY_LIST;
+import static com.gs.dmn.feel.analysis.semantics.type.ContextType.ANY_CONTEXT;
 import static com.gs.dmn.feel.analysis.semantics.type.NullType.NULL;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.RangeType.NUMBER_RANGE_TYPE;
@@ -88,6 +86,10 @@ public class OperatorDecisionTable {
         put(new OperatorTableInputEntry("=", ANY_LIST, NULL), new Pair(BOOLEAN, new JavaOperator("listEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         put(new OperatorTableInputEntry("=", NULL, ANY_LIST), new Pair(BOOLEAN, new JavaOperator("listEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
 
+        put(new OperatorTableInputEntry("=", ANY_CONTEXT, ANY_CONTEXT), new Pair(BOOLEAN, new JavaOperator("contextEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        put(new OperatorTableInputEntry("=", ANY_CONTEXT, NULL), new Pair(BOOLEAN, new JavaOperator("contextEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        put(new OperatorTableInputEntry("=", NULL, ANY_CONTEXT), new Pair(BOOLEAN, new JavaOperator("contextEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+
         put(new OperatorTableInputEntry("!=", NUMBER, NUMBER), new Pair(BOOLEAN, new JavaOperator("numericNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         put(new OperatorTableInputEntry("!=", NUMBER, NULL), new Pair(BOOLEAN, new JavaOperator("numericNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         put(new OperatorTableInputEntry("!=", NULL, NUMBER), new Pair(BOOLEAN, new JavaOperator("numericNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
@@ -123,6 +125,10 @@ public class OperatorDecisionTable {
         put(new OperatorTableInputEntry("!=", ANY_LIST, ANY_LIST), new Pair(BOOLEAN, new JavaOperator("listNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         put(new OperatorTableInputEntry("!=", ANY_LIST, NULL), new Pair(BOOLEAN, new JavaOperator("listNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         put(new OperatorTableInputEntry("!=", NULL, ANY_LIST), new Pair(BOOLEAN, new JavaOperator("listNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+
+        put(new OperatorTableInputEntry("!=", ANY_CONTEXT, ANY_CONTEXT), new Pair(BOOLEAN, new JavaOperator("contextNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        put(new OperatorTableInputEntry("!=", ANY_CONTEXT, NULL), new Pair(BOOLEAN, new JavaOperator("contextNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        put(new OperatorTableInputEntry("!=", NULL, ANY_CONTEXT), new Pair(BOOLEAN, new JavaOperator("contextNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
 
         put(new OperatorTableInputEntry("!=", NULL, NULL), new Pair(BOOLEAN, new JavaOperator("!=", 2, true, LEFT_RIGHT, INFIX)));
 
@@ -275,10 +281,16 @@ public class OperatorDecisionTable {
 
     private static Pair<Type, Type> normalizeTypes(Type leftType, Type rightType) {
         if (leftType instanceof ListType) {
-            leftType = ListType.ANY_LIST;
+            leftType = ANY_LIST;
         }
         if (rightType instanceof ListType) {
-            rightType = ListType.ANY_LIST;
+            rightType = ANY_LIST;
+        }
+        if (leftType instanceof ContextType) {
+            leftType = ANY_CONTEXT;
+        }
+        if (rightType instanceof ContextType) {
+            rightType = ANY_CONTEXT;
         }
         if (leftType instanceof NullType && rightType != null) {
             leftType = rightType;

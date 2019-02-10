@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.feel.lib.type.context.DefaultContextType;
 import com.gs.dmn.feel.lib.type.list.DefaultListType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
@@ -57,7 +58,8 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
                 new DefaultTimeType(LOGGER, DATA_TYPE_FACTORY),
                 new DefaultDateTimeType(LOGGER, DATA_TYPE_FACTORY),
                 new DefaultDurationType(LOGGER),
-                new DefaultListType(LOGGER)
+                new DefaultListType(LOGGER),
+                new DefaultContextType(LOGGER)
         );
     }
 
