@@ -74,6 +74,7 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     NUMBER year(DATE date);
     NUMBER month(DATE date);
     NUMBER day(DATE date);
+    NUMBER weekday(DATE date);
     NUMBER hour(TIME time);
     NUMBER minute(TIME time);
     NUMBER second(TIME time);

@@ -880,6 +880,24 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
             return null;
         }
     }
+    public Double weekday(LocalDate date) {
+        try {
+            return Double.valueOf(date.getDayOfWeek().getValue());
+        } catch (Exception e) {
+            String message = String.format("day(%s)", date);
+            logError(message, e);
+            return null;
+        }
+    }
+    public Double weekday(ZonedDateTime dateTime) {
+        try {
+            return Double.valueOf(dateTime.getDayOfWeek().getValue());
+        } catch (Exception e) {
+            String message = String.format("day(%s)", dateTime);
+            logError(message, e);
+            return null;
+        }
+    }
 
     //
     // Time functions

@@ -797,6 +797,16 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
         }
     }
 
+    public BigDecimal weekday(ZonedDateTime date) {
+        try {
+            return BigDecimal.valueOf(date.getDayOfWeek().getValue());
+        } catch (Exception e) {
+            String message = String.format("day(%s)", date);
+            logError(message, e);
+            return null;
+        }
+    }
+
     //
     // Time functions
     //

@@ -862,6 +862,8 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
             return lib.month(lib.toDate(source));
         } else if ("day".equals(member)) {
             return lib.day(lib.toDate(source));
+        } else if ("weekday".equals(member)) {
+            return lib.weekday(lib.toDate(source));
         } else if ("hour".equals(member)) {
             return lib.hour(lib.toTime(source));
         } else if ("minute".equals(member)) {
