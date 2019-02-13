@@ -29,13 +29,6 @@ public abstract class NamedExpression extends Expression {
             setType(type);
             return;
         }
-        // Lookup for member (used in filters)
-        declaration = environment.lookupMemberDeclaration(name);
-        if (declaration instanceof MemberDeclaration) {
-            type = ((MemberDeclaration) declaration).getType();
-            setType(type);
-            return;
-        }
         // Lookup for functions
         List<Declaration> declarations = environment.lookupFunctionDeclaration(name);
         if (declarations != null && declarations.size() == 1) {

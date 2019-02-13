@@ -17,8 +17,8 @@ import com.gs.dmn.feel.analysis.semantics.type.Type;
 public class VariableDeclaration extends Declaration {
     private final Type type;
 
-    VariableDeclaration(String inputExpression, Type type) {
-        super(inputExpression);
+    VariableDeclaration(String name, Type type) {
+        super(name);
         this.type = type;
     }
 

@@ -49,9 +49,5 @@ public abstract class EnvironmentFactory {
         return new BusinessKnowledgeModelDeclaration(name, type);
     }
 
-    public MemberDeclaration makeMemberDeclaration(String text, Type variableType) {
-        return new MemberDeclaration(text, variableType);
-    }
-
     public abstract Environment getRootEnvironment();
 }

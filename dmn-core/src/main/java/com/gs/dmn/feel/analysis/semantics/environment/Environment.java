@@ -24,7 +24,6 @@ import java.util.Map;
 
 public class Environment {
     private final Environment parent;
-    private final Map<String, Declaration> membersTable = new LinkedHashMap<>();
     private final Map<String, Declaration> variablesTable = new LinkedHashMap<>();
     private final Map<String, List<Declaration>> functionsTable = new LinkedHashMap<>();
 
@@ -57,12 +56,8 @@ public class Environment {
     }
 
     public void addDeclaration(Declaration declaration) {
-        String name = declaration.getInputExpression();
-        if (name != null) {
-            addDeclaration(name, declaration);
-        } else {
-            throw new DMNRuntimeException(String.format("Could not add declaration with missing name %s", declaration));
-        }
+        String name = declaration.getName();
+        addDeclaration(name, declaration);
     }
 
     public void addDeclaration(String name, Declaration declaration) {
@@ -79,17 +74,6 @@ public class Environment {
                 } else {
                     variablesTable.put(name, declaration);
                 }
-            } else if (declaration instanceof MemberDeclaration) {
-                    Declaration existingVariable = membersTable.get(name);
-                    if (existingVariable != null) {
-                        Type existingType = ((MemberDeclaration) existingVariable).getType();
-                        Type type = ((MemberDeclaration) declaration).getType();
-                        if (!existingType.conformsTo(type)) {
-                            throw new DMNRuntimeException(String.format("%s '%s' already exists", declaration.getClass().getSimpleName(), name));
-                        }
-                    } else {
-                        membersTable.put(name, declaration);
-                    }
             } else if (declaration instanceof FunctionDeclaration) {
                 List<Declaration> existingFunctions = functionsTable.get(name);
                 if (existingFunctions == null) {
@@ -100,15 +84,13 @@ public class Environment {
             } else {
                 throw new UnsupportedOperationException(String.format("%s declaration type is not supported", declaration.getClass().getSimpleName()));
             }
+        } else {
+            throw new DMNRuntimeException(String.format("Could not add declaration with missing name %s", declaration));
         }
     }
 
     private Declaration lookupLocalVariableDeclaration(String name) {
         return variablesTable.get(name);
-    }
-
-    private Declaration lookupLocalMemberDeclaration(String name) {
-        return membersTable.get(name);
     }
 
     private List<Declaration> lookupLocalFunctionDeclaration(String name) {
@@ -122,19 +104,6 @@ public class Environment {
         } else {
             if (getParent() != null) {
                 return getParent().lookupVariableDeclaration(name);
-            } else {
-                return null;
-            }
-        }
-    }
-
-    public Declaration lookupMemberDeclaration(String name) {
-        Declaration declaration = lookupLocalMemberDeclaration(name);
-        if (declaration != null) {
-            return declaration;
-        } else {
-            if (getParent() != null) {
-                return getParent().lookupMemberDeclaration(name);
             } else {
                 return null;
             }
