@@ -65,6 +65,11 @@ public class ToSimpleNameTransformerTest extends NameTransformerTest {
 
         result = transformer.replaceNamesInText("{a: 1 + 2, b: 3, c: {d e: a + b}}", new LexicalContext());
         assertEquals("{a: 1 + 2, b: 3, c: {dE: a + b}}", result);
+
+        String text = "function(s1, s2) external {java:{class:\"java.lang.Math\",method signature:\"max(java.lang.String, java.lang.String)\"}}";
+        LexicalContext context = new LexicalContext("mathMaxString");
+        result = transformer.replaceNamesInText(text, context);
+        assertEquals("function(s1, s2) external {java:{class:\"java.lang.Math\", methodSignature:\"max(java.lang.String, java.lang.String)\"}}", result);
     }
 
     @Test
