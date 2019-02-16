@@ -159,10 +159,8 @@ public class Assert {
         if (object == null) {
             return null;
         }
-        if (object instanceof BigDecimal) {
-            return object;
-        } else if (object instanceof Double) {
-            return BigDecimal.valueOf((Double)object);
+        if (object instanceof Number) {
+            return new BigDecimal(object.toString());
         }
         return object;
     }

@@ -37,11 +37,15 @@ public abstract class EnvironmentFactory {
         return new Environment(environment, valueExp);
     }
 
-    public VariableDeclaration makeVariableDeclaration(String text, Type variableType) {
-        return new VariableDeclaration(text, variableType);
+    public Declaration makeVariableDeclaration(String name, Type type) {
+        if (type instanceof FunctionType) {
+            return new FunctionDeclaration(name, (FunctionType) type);
+        } else {
+            return new VariableDeclaration(name, type);
+        }
     }
 
-    public FunctionDeclaration makeFunctionDeclaration(String name, FunctionType type) {
+    public Declaration makeFunctionDeclaration(String name, FunctionType type) {
         return new FunctionDeclaration(name, type);
     }
 

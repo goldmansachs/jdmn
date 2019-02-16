@@ -346,7 +346,7 @@ public class TCKUtil {
             } else if (isDurationTime(type)) {
                 return feelLib.duration(text);
             } else {
-                throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
+                return valueType.getValue().getValue();
             }
         } else if (valueType.getList() != null) {
             return makeList(valueType, (ListType) type);

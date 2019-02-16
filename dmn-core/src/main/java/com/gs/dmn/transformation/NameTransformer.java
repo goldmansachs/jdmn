@@ -452,11 +452,20 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                 newText.append(":");
                 i++;
             }
-            // skip value
+            // process value
             while (i < text.length() && text.charAt(i) != ',' && text.charAt(i) != '}' ) {
                 if (text.charAt(i) == '{') {
                     // transform nested contexts
                     i = replaceContextKeys(text, i, newText);
+                } else if (text.charAt(i) == '\"') {
+                    // Copy text literal
+                    do {
+                        newText.append(text.charAt(i));
+                        i++;
+                    }
+                    while (i < text.length() && text.charAt(i) != '\"');
+                    newText.append(text.charAt(i));
+                    i++;
                 } else {
                     newText.append(text.charAt(i));
                     i++;

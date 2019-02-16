@@ -54,14 +54,14 @@ import com.gs.dmn.runtime.interpreter.PositionalArguments;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
-import org.omg.spec.dmn._20180521.model.TBusinessKnowledgeModel;
-import org.omg.spec.dmn._20180521.model.TFunctionDefinition;
+import org.omg.spec.dmn._20180521.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -662,14 +662,29 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
             if (binding instanceof TBusinessKnowledgeModel) {
                 return dmnInterpreter.evaluateBKM((TBusinessKnowledgeModel) binding, argList, context);
             } else if (binding instanceof TFunctionDefinition) {
-                return dmnInterpreter.evaluateFunctionDefinition((TFunctionDefinition) binding, argList, context);
-            } else if (binding instanceof FunctionDefinition) {
-                FunctionDefinition functionDefinitionBinding = (FunctionDefinition) binding;
-                if (functionType instanceof FEELFunctionType) {
-                    // Use the one with inferred types
-                    functionDefinitionBinding = ((FEELFunctionType) functionType).getFunctionDefinition();
+                TFunctionKind kind = ((TFunctionDefinition) binding).getKind();
+                if (dmnTransformer.isFEELFunction(kind)) {
+                    return dmnInterpreter.evaluateFunctionDefinition((TFunctionDefinition) binding, argList, context);
+                } else if (dmnTransformer.isJavaFunction(kind)) {
+                    return evaluateExternalJavaFunction((TFunctionDefinition) binding, argList, context);
+                } else {
+                    throw new DMNRuntimeException(String.format("Kind '%s' is not supported yet", kind.value()));
                 }
-                return evaluateFunctionDefinition(functionDefinitionBinding, argList, context);
+            } else if (binding instanceof FunctionDefinition) {
+                FunctionDefinition functionDefinition = (FunctionDefinition) binding;
+                if (functionDefinition.isExternal()) {
+                    if (isJavaFunction(((FunctionDefinition) binding).getBody())) {
+                        return evaluateExternalJavaFunction((FunctionDefinition) binding, argList, context);
+                    } else {
+                        throw new DMNRuntimeException(String.format("Not supported external function '%s'", functionDefinition));
+                    }
+                } else {
+                    if (functionType instanceof FEELFunctionType) {
+                        // Use the one with inferred types
+                        functionDefinition = ((FEELFunctionType) functionType).getFunctionDefinition();
+                    }
+                    return evaluateFunctionDefinition(functionDefinition, argList, context);
+                }
             } else if (binding instanceof LambdaExpression) {
                 return evaluateLambdaExpression((LambdaExpression) binding, argList, context);
             } else {
@@ -699,6 +714,99 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
             } else {
                 throw new DMNRuntimeException(String.format("Not supported yet %s", binding.getClass().getSimpleName()));
             }
+        }
+    }
+
+    private boolean isJavaFunction(Expression body) {
+        return  body instanceof Context &&
+                ((Context) body).getEntries().size() == 1 &&
+                "java".equals(((Context) body).getEntries().get(0).getKey().getKey());
+    }
+
+    private Object evaluateExternalJavaFunction(TFunctionDefinition functionDefinition, List<Object> argList, FEELContext context) {
+        JavaFunctionInfo info = extractJavaFunctionInfo(functionDefinition);
+        // Use reflection to evaluate
+        return evaluateExternalJavaFunction(info, argList, context);
+    }
+
+    private Object evaluateExternalJavaFunction(FunctionDefinition functionDefinition, List<Object> argList, FEELContext context) {
+        JavaFunctionInfo info = extractJavaFunctionInfo(functionDefinition);
+        // Use reflection to evaluate
+        return evaluateExternalJavaFunction(info, argList, context);
+    }
+
+    private JavaFunctionInfo extractJavaFunctionInfo(TFunctionDefinition functionDefinition) {
+        // Extract class, method and param types names
+        String className = null;
+        String methodName = null;
+        List<String> paramTypes = new ArrayList<>();
+        TExpression body = functionDefinition.getExpression().getValue();
+        if (body instanceof TContext) {
+            for (TContextEntry entry: ((TContext) body).getContextEntry()) {
+                String name = entry.getVariable().getName();
+                if ("class".equals(name)) {
+                    TExpression value = entry.getExpression().getValue();
+                    if (value instanceof TLiteralExpression) {
+                        className = ((TLiteralExpression) value).getText().replaceAll("\"", "");
+                    }
+                } else if ("methodSignature".equals(name) || "method signature".equals(name)) {
+                    TExpression value = entry.getExpression().getValue();
+                    if (value instanceof TLiteralExpression) {
+                        String signature = ((TLiteralExpression) value).getText().replaceAll("\"", "");
+                        int lpIndex = signature.indexOf('(');
+                        int rpIndex = signature.indexOf(')');
+                        methodName = signature.substring(0, lpIndex);
+                        String[] types = signature.substring(lpIndex + 1, rpIndex).split(",");
+                        for (String t: types) {
+                            paramTypes.add(t.trim());
+                        }
+                    }
+                }
+            }
+        }
+        if (className != null && methodName != null) {
+            return new JavaFunctionInfo(className, methodName, paramTypes);
+        } else {
+            return null;
+        }
+    }
+
+    private JavaFunctionInfo extractJavaFunctionInfo(FunctionDefinition functionDefinition) {
+        // Extract class, method and param types names
+        String className = null;
+        String methodName = null;
+        List<String> paramTypes = new ArrayList<>();
+        Expression body = functionDefinition.getBody();
+        if (body instanceof Context) {
+            body = ((Context) body).getEntries().get(0).getExpression();
+        }
+        if (body instanceof Context) {
+            for (ContextEntry entry: ((Context) body).getEntries()) {
+                String name = entry.getKey().getKey();
+                if ("class".equals(name)) {
+                    Expression value = entry.getExpression();
+                    if (value instanceof StringLiteral) {
+                        className = ((StringLiteral) value).getValue().replaceAll("\"", "");
+                    }
+                } else if ("methodSignature".equals(name) || "method signature".equals(name)) {
+                    Expression value = entry.getExpression();
+                    if (value instanceof StringLiteral) {
+                        String signature = ((StringLiteral) value).getValue().replaceAll("\"", "");
+                        int lpIndex = signature.indexOf('(');
+                        int rpIndex = signature.indexOf(')');
+                        methodName = signature.substring(0, lpIndex);
+                        String[] types = signature.substring(lpIndex + 1, rpIndex).split(",");
+                        for (String t: types) {
+                            paramTypes.add(t.trim());
+                        }
+                    }
+                }
+            }
+        }
+        if (className != null && methodName != null) {
+            return new JavaFunctionInfo(className, methodName, paramTypes);
+        } else {
+            return null;
         }
     }
 
@@ -749,6 +857,56 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
 
     private Object evaluateBuiltInFunction(FEELLib lib, String functionName, List<Object> argList) {
         return evaluateMethod(lib, lib.getClass(), functionName, argList);
+    }
+
+    private Object evaluateExternalJavaFunction(JavaFunctionInfo info, List<Object> argList, FEELContext context) {
+        String className = info.getClassName();
+        String methodName = info.getMethodName();
+        List<String> paramTypes = info.getParamTypes();
+        try {
+            // Convert arguments
+            List<Object> convertedArgList = info.convertArguments(argList);
+
+            // Prepare data for reflection
+            Class cls = Class.forName(className);
+
+            // Method declaredMethod = MethodUtils.resolveMethod(info.getMethodName(), cls, argTypes);
+            Method declaredMethod = null;
+            Method[] declaredMethods = cls.getDeclaredMethods();
+            for (Method m: declaredMethods) {
+                if (m.getName().equals(methodName)) {
+                    if (m.getParameterCount() == paramTypes.size()) {
+                        boolean typesMatch = true;
+                        for (int i=0; i<paramTypes.size(); i++) {
+                            Class javaClass = m.getParameterTypes()[i];
+                            if (! (paramTypes.get(i).equals(javaClass.getSimpleName()) || paramTypes.get(i).equals(javaClass.getName()))) {
+                                typesMatch = false;
+                                break;
+                            }
+                        }
+                        if (typesMatch) {
+                            declaredMethod = m;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (declaredMethod == null) {
+                throw new DMNRuntimeException(String.format("Cannot resolve '%s.%s(%s)", className, methodName, paramTypes.stream().collect(Collectors.joining(", "))));
+            }
+            Object[] args = makeArgs(declaredMethod, convertedArgList);
+
+            // Try both static and instant calls
+            if ((declaredMethod.getModifiers() & Modifier.STATIC) != 0) {
+                return declaredMethod.invoke(null, args);
+            } else {
+                Object obj = cls.newInstance();
+                return declaredMethod.invoke(obj, args);
+            }
+        } catch (Exception e) {
+            handleError(String.format("Cannot evaluate function '%s(%s)'", methodName, paramTypes.stream().collect(Collectors.joining(", "))), e);
+            return null;
+        }
     }
 
     private Object evaluateMethod(Object object, Class<?> cls, String functionName, List<Object> argList) {
