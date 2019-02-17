@@ -196,6 +196,34 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
 
     @Test
     public void testForExpression() {
+        testForExpressionTest("for i in 0..4 return if i = 0 then 1 else i * partial[-1]",
+                "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(0), NumericLiteral(4))) -> IfExpression(Relational(=,Name(i),NumericLiteral(0)), NumericLiteral(1), Multiplication(*,Name(i),FilterExpression(Name(partial), ArithmeticNegation(NumericLiteral(1))))))",
+                "ListType(number)",
+                "rangeToList(number(\"0\"), number(\"4\")).stream().map(i -> (booleanEqual(numericEqual(i, number(\"0\")), Boolean.TRUE)) ? number(\"1\") : numericMultiply(i, (java.math.BigDecimal)(elementAt(partial, numericUnaryMinus(number(\"1\")))))).collect(Collectors.toList())",
+                null,
+                null
+        );
+        testForExpressionTest("for i in 4..2 return i",
+                "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(4), NumericLiteral(2))) -> Name(i))",
+                "ListType(number)",
+                "rangeToList(number(\"4\"), number(\"2\")).stream().map(i -> i).collect(Collectors.toList())",
+                lib.rangeToList(lib.number("4"), lib.number("2")).stream().map(i -> i).collect(Collectors.toList()),
+                lib.asList(lib.number("4"), lib.number("3"), lib.number("2"))
+        );
+        testForExpressionTest("for i in 1..-1 return i",
+                "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(1), ArithmeticNegation(NumericLiteral(1)))) -> Name(i))",
+                "ListType(number)",
+                "rangeToList(number(\"1\"), numericUnaryMinus(number(\"1\"))).stream().map(i -> i).collect(Collectors.toList())",
+                lib.rangeToList(lib.number("1"), lib.numericUnaryMinus(lib.number("1"))).stream().map(i -> i).collect(Collectors.toList()),
+                lib.asList(lib.number("1"), lib.number("0"), lib.number("-1"))
+        );
+
+        testForExpressionTest("for i in 1..2 return for j in [2, 3] return i+j",
+                "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(1), NumericLiteral(2))) -> ForExpression(Iterator(j in ExpressionIteratorDomain(ListLiteral(NumericLiteral(2),NumericLiteral(3)))) -> Addition(+,Name(i),Name(j))))",
+                "ListType(ListType(number))",
+                "rangeToList(number(\"1\"), number(\"2\")).stream().map(i -> asList(number(\"2\"), number(\"3\")).stream().map(j -> numericAdd(i, j)).collect(Collectors.toList())).collect(Collectors.toList())",
+                lib.rangeToList(lib.number("1"), lib.number("2")).stream().map(i -> lib.asList(lib.number("2"), lib.number("3")).stream().map(j -> lib.numericAdd(i, j)).collect(Collectors.toList())).collect(Collectors.toList()),
+                Arrays.asList(Arrays.asList(lib.number("3"), lib.number("4")), Arrays.asList(lib.number("4"), lib.number("5"))));
         testForExpressionTest("for i in [1..2] return i",
                 "ForExpression(Iterator(i in ExpressionIteratorDomain(IntervalTest(false,NumericLiteral(1),false,NumericLiteral(2)))) -> Name(i))",
                 "ListType(number)",
@@ -1738,23 +1766,5 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 null,
                 null,
                 null);
-    }
-
-    @Test
-    @Ignore
-    public void testDMN12Extensions() {
-        testForExpressionTest("for i in 1..2 return for j in 2..3 return i+j",
-                "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(1), NumericLiteral(2))) -> ForExpression(Iterator(j in RangeIteratorDomain(NumericLiteral(2), NumericLiteral(3))) -> Addition(+,Name(i),Name(j))))",
-                "ListType(ListType(number))",
-                "rangeToList(number(\"1\"), number(\"2\")).stream().map(i -> rangeToList(number(\"2\"), number(\"3\")).stream().map(j -> numericAdd(i, j)).collect(Collectors.toList())).collect(Collectors.toList())",
-                lib.rangeToList(lib.number("1"), lib.number("2")).stream().map(i -> lib.rangeToList(lib.number("2"), lib.number("3")).stream().map(j -> lib.numericAdd(i, j)).collect(Collectors.toList())).collect(Collectors.toList()),
-                Arrays.asList(Arrays.asList(lib.number("3"), lib.number("4")), Arrays.asList(lib.number("4"), lib.number("5"))));
-
-        testForExpressionTest("for i in 1..2 return for j in [2, 3] return i+j",
-                "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(1), NumericLiteral(2))) -> ForExpression(Iterator(j in ExpressionIteratorDomain(ListLiteral(NumericLiteral(2),NumericLiteral(3)))) -> Addition(+,Name(i),Name(j))))",
-                "ListType(ListType(number))",
-                "rangeToList(number(\"1\"), number(\"2\")).stream().map(i -> asList(number(\"2\"), number(\"3\")).stream().map(j -> numericAdd(i, j)).collect(Collectors.toList())).collect(Collectors.toList())",
-                lib.rangeToList(lib.number("1"), lib.number("2")).stream().map(i -> lib.asList(lib.number("2"), lib.number("3")).stream().map(j -> lib.numericAdd(i, j)).collect(Collectors.toList())).collect(Collectors.toList()),
-                Arrays.asList(Arrays.asList(lib.number("3"), lib.number("4")), Arrays.asList(lib.number("4"), lib.number("5"))));
     }
 }

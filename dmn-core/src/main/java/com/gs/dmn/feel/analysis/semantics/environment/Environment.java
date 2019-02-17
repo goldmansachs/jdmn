@@ -143,4 +143,12 @@ public class Environment {
             }
         }
     }
+
+    public void updateVariableDeclaration(String name, Type type) {
+        VariableDeclaration declaration = (VariableDeclaration) this.lookupVariableDeclaration(name);
+        if (declaration == null) {
+        } else {
+            declaration.setType(type);
+        }
+    }
 }

@@ -360,6 +360,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         // Loop over domain and evaluate body
         FEELContext forContext = FEELContext.makeContext(context.getEnvironment(), runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment()));
         List result = new ArrayList<>();
+        forContext.getRuntimeEnvironment().bind(ForExpression.PARTIAL_PARAMTER_NAME, result);
         if (expressionDomain instanceof ExpressionIteratorDomain) {
             for (Object value : (List) domain) {
                 forContext.runtimeBind(iterator.getName(), value);
@@ -374,7 +375,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
                     result.add(element.getBody().accept(this, forContext));
                 }
             } else {
-                for(int value = start; value <= end; value--) {
+                for(int value = start; value >= end; value--) {
                     forContext.runtimeBind(iterator.getName(), BigDecimal.valueOf(value));
                     result.add(element.getBody().accept(this, forContext));
                 }

@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ForExpression extends Expression {
+    public static final String PARTIAL_PARAMTER_NAME = "partial";
+
     private final List<Iterator> iterators;
     private final Expression body;
 
