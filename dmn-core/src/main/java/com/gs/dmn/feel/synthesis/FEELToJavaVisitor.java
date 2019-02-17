@@ -219,16 +219,20 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(ForExpression element, FEELContext context) {
+        Environment forEnvironment = environmentFactory.makeEnvironment(context.getEnvironment());
+        FEELContext forContext = FEELContext.makeContext(forEnvironment);
+        forContext.getEnvironment().addDeclaration(environmentFactory.makeVariableDeclaration(ForExpression.PARTIAL_PARAMTER_NAME, element.getType()));
+
         // Add code for each iterator
         StringBuilder result = new StringBuilder();
         List<Iterator> iterators = element.getIterators();
         for (Iterator it : iterators) {
             IteratorDomain expressionDomain = it.getDomain();
-            String domain = (String) expressionDomain.accept(this, context);
+            String domain = (String) expressionDomain.accept(this, forContext);
             result.append(String.format("%s.stream().map(%s -> ", domain, it.getName()));
         }
         // Add body
-        String body = (String) element.getBody().accept(this, context);
+        String body = (String) element.getBody().accept(this, forContext);
         result.append(body);
         // Close parenthesis
         for (int i = 0; i < iterators.size(); i++) {

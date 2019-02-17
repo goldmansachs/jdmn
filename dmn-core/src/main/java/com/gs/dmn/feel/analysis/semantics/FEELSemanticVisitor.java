@@ -187,8 +187,11 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
     public Object visit(ForExpression element, FEELContext context) {
         List<Iterator> iterators = element.getIterators();
         FEELContext qParams = visitIterators(element, context, iterators);
+        qParams.getEnvironment().addDeclaration(environmentFactory.makeVariableDeclaration(ForExpression.PARTIAL_PARAMTER_NAME, new ListType(NullType.NULL)));
         element.getBody().accept(this, qParams);
         element.deriveType(qParams.getEnvironment());
+        qParams.getEnvironment().updateVariableDeclaration(ForExpression.PARTIAL_PARAMTER_NAME, element.getType());
+        element.getBody().accept(new UpdatePartialVisitor(element.getType()), qParams);
         return element;
     }
 

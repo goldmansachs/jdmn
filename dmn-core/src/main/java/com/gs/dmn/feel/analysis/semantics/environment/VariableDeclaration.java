@@ -15,7 +15,7 @@ package com.gs.dmn.feel.analysis.semantics.environment;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 
 public class VariableDeclaration extends Declaration {
-    private final Type type;
+    private Type type;
 
     VariableDeclaration(String name, Type type) {
         super(name);
@@ -24,5 +24,9 @@ public class VariableDeclaration extends Declaration {
 
     public Type getType() {
         return type;
+    }
+
+    void setType(Type type) {
+        this.type = type;
     }
 }

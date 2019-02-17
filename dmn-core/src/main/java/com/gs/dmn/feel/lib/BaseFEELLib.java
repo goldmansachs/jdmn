@@ -372,61 +372,62 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     public List<BigDecimal> rangeToList(boolean isOpenStart, BigDecimal start, boolean isOpenEnd, BigDecimal end) {
-        List<BigDecimal> result = new ArrayList<>();
         if (start == null || end == null) {
-            return result;
+            return new ArrayList<>();
         }
         int startValue = isOpenStart ? start.intValue() + 1 : start.intValue();
         int endValue = isOpenEnd ? end.intValue() - 1 : end.intValue();
-        for (int i = startValue; i <= endValue; i++) {
-            result.add(BigDecimal.valueOf(i));
-        }
-        return result;
+        return decimalRangeToList(startValue, endValue);
     }
+
     public List<Double> rangeToList(boolean isOpenStart, Double start, boolean isOpenEnd, Double end) {
-        List<Double> result = new ArrayList<>();
         if (start == null || end == null) {
-            return result;
+            return new ArrayList<>();
         }
         int startValue = isOpenStart ? start.intValue() + 1 : start.intValue();
         int endValue = isOpenEnd ? end.intValue() - 1 : end.intValue();
-        for (int i = startValue; i <= endValue; i++) {
-            result.add(Double.valueOf(i));
-        }
-        return result;
+        return doubleRangeToList(startValue, endValue);
     }
 
     public List<BigDecimal> rangeToList(BigDecimal start, BigDecimal end) {
-        List<BigDecimal> result = new ArrayList<>();
         if (start == null || end == null) {
-            return result;
+            return new ArrayList<>();
         }
         int startValue = start.intValue();
         int endValue = end.intValue();
+        return decimalRangeToList(startValue, endValue);
+    }
+    public List<Double> rangeToList(Double start, Double end) {
+        if (start == null || end == null) {
+            return new ArrayList<>();
+        }
+        int startValue = start.intValue();
+        int endValue = end.intValue();
+        return doubleRangeToList(startValue, endValue);
+    }
+
+    private List<BigDecimal> decimalRangeToList(int startValue, int endValue) {
+        List<BigDecimal> result = new ArrayList<>();
         if (startValue <= endValue) {
             for (int i = startValue; i <= endValue; i++) {
                 result.add(BigDecimal.valueOf(i));
             }
         } else {
-            for (int i = startValue; i <= endValue; i--) {
+            for (int i = startValue; i >= endValue; i--) {
                 result.add(BigDecimal.valueOf(i));
             }
         }
         return result;
     }
-    public List<Double> rangeToList(Double start, Double end) {
+
+    private List<Double> doubleRangeToList(int startValue, int endValue) {
         List<Double> result = new ArrayList<>();
-        if (start == null || end == null) {
-            return result;
-        }
-        int startValue = start.intValue();
-        int endValue = end.intValue();
         if (startValue <= endValue) {
             for (int i = startValue; i <= endValue; i++) {
                 result.add(Double.valueOf(i));
             }
         } else {
-            for (int i = startValue; i <= endValue; i--) {
+            for (int i = startValue; i >= endValue; i--) {
                 result.add(Double.valueOf(i));
             }
         }
