@@ -39,13 +39,6 @@ public abstract class AbstractAnalysisVisitor extends AbstractVisitor {
             itemType = ((ListType) source.getType()).getElementType();
         }
         environment.addDeclaration(environmentFactory.makeVariableDeclaration(filterVariableName, itemType));
-        if (itemType instanceof CompositeDataType) {
-            Set<String> memberNames = ((CompositeDataType) itemType).getMembers();
-            for (String memberName : memberNames) {
-                Type memberType = ((CompositeDataType) itemType).getMemberType(memberName);
-                environment.addDeclaration(environmentFactory.makeVariableDeclaration(memberName, memberType));
-            }
-        }
         return FEELContext.makeContext(environment);
     }
 }

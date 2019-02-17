@@ -1275,6 +1275,12 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
         );
 
         // boolean filter
+        doExpressionTest(entries, "", "[{item: 1}, {item: 2}, {item: 3}][item >= 2]",
+                "FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(item) = NumericLiteral(1))),Context(ContextEntry(ContextEntryKey(item) = NumericLiteral(2))),Context(ContextEntry(ContextEntryKey(item) = NumericLiteral(3)))), Relational(>=,PathExpression(Name(item), item),NumericLiteral(2)))",
+                "ListType(ContextType(item = number))",
+                "asList(new com.gs.dmn.runtime.Context().add(\"item\", number(\"1\")), new com.gs.dmn.runtime.Context().add(\"item\", number(\"2\")), new com.gs.dmn.runtime.Context().add(\"item\", number(\"3\"))).stream().filter(item -> numericGreaterEqualThan(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"item\")), number(\"2\"))).collect(Collectors.toList())",
+                lib.asList(new com.gs.dmn.runtime.Context().add("item", lib.number("1")), new com.gs.dmn.runtime.Context().add("item", lib.number("2")), new com.gs.dmn.runtime.Context().add("item", lib.number("3"))).stream().filter(item -> lib.numericGreaterEqualThan(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get("item")), lib.number("2"))).collect(Collectors.toList()),
+                lib.asList(new Context().add("item", lib.number("2")), new Context().add("item", lib.number("3"))));
         doExpressionTest(entries, "", "source[true]",
                 "FilterExpression(Name(source), BooleanLiteral(true))",
                 "ListType(number)",
@@ -1302,19 +1308,19 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
         doExpressionTest(entries, "", "employee[item.dept = 20]",
                 "FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20)))",
                 "ListType(ContextType(id = number, dept = number, name = string))",
-                "employee.stream().filter(item -> numericEqual(((java.math.BigDecimal)item.get(\"dept\")), number(\"20\"))).collect(Collectors.toList())",
+                "employee.stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\"))).collect(Collectors.toList())",
                 employeeValue.stream().filter(item -> lib.numericEqual(item.get("dept"), lib.number("20"))).collect(Collectors.toList()),
                 Arrays.asList(employeeValue.get(1), employeeValue.get(2)));
         doExpressionTest(entries, "", "employee[item.dept = 20].name",
                 "PathExpression(FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20))), name)",
                 "ListType(string)",
-                "employee.stream().filter(item -> numericEqual(((java.math.BigDecimal)item.get(\"dept\")), number(\"20\"))).collect(Collectors.toList()).stream().map(x -> ((String)x.get(\"name\"))).collect(Collectors.toList())",
+                "employee.stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\"))).collect(Collectors.toList()).stream().map(x -> ((String)((com.gs.dmn.runtime.Context)x).get(\"name\"))).collect(Collectors.toList())",
                 employeeValue.stream().filter(item -> lib.numericEqual(item.get("dept"), lib.number("20"))).collect(Collectors.toList()).stream().map(x -> x.get("name")).collect(Collectors.toList()),
                 Arrays.asList(employeeValue.get(1).get("name"), employeeValue.get(2).get("name")));
         doExpressionTest(entries, "", "employee[dept = 20].name",
                 "PathExpression(FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20))), name)",
                 "ListType(string)",
-                "employee.stream().filter(item -> numericEqual(((java.math.BigDecimal)item.get(\"dept\")), number(\"20\"))).collect(Collectors.toList()).stream().map(x -> ((String)x.get(\"name\"))).collect(Collectors.toList())",
+                "employee.stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\"))).collect(Collectors.toList()).stream().map(x -> ((String)((com.gs.dmn.runtime.Context)x).get(\"name\"))).collect(Collectors.toList())",
                 employeeValue.stream().filter(item -> lib.numericEqual(item.get("dept"), lib.number("20"))).collect(Collectors.toList()).stream().map(x -> (String) x.get("name")).collect(Collectors.toList()),
                 Arrays.asList(employeeValue.get(1).get("name"), employeeValue.get(2).get("name")));
 
@@ -1323,32 +1329,32 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2)), NumericLiteral(0))",
                 "number",
                 "(java.math.BigDecimal)(elementAt(asList(number(\"1\"), number(\"2\")), number(\"0\")))",
-                lib.elementAt(Arrays.asList(lib.number("1"), lib.number("2")), lib.number("0")),
+                lib.elementAt(lib.asList(lib.number("1"), lib.number("2")), lib.number("0")),
                 null);
         doExpressionTest(entries, "", "[1, 2][-1]",
                 "FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2)), ArithmeticNegation(NumericLiteral(1)))",
                 "number",
                 "(java.math.BigDecimal)(elementAt(asList(number(\"1\"), number(\"2\")), numericUnaryMinus(number(\"1\"))))",
-                lib.elementAt(Arrays.asList(lib.number("1"), lib.number("2")), lib.numericUnaryMinus(lib.number("1"))),
+                lib.elementAt(lib.asList(lib.number("1"), lib.number("2")), lib.numericUnaryMinus(lib.number("1"))),
                 lib.number("2"));
         doExpressionTest(entries, "", "[1, 2][-2]",
                 "FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2)), ArithmeticNegation(NumericLiteral(2)))",
                 "number",
                 "(java.math.BigDecimal)(elementAt(asList(number(\"1\"), number(\"2\")), numericUnaryMinus(number(\"2\"))))",
-                lib.elementAt(Arrays.asList(lib.number("1"), lib.number("2")), lib.numericUnaryMinus(lib.number("2"))),
+                lib.elementAt(lib.asList(lib.number("1"), lib.number("2")), lib.numericUnaryMinus(lib.number("2"))),
                 lib.number("1"));
         doExpressionTest(entries, "", "1[1]",
                 "FilterExpression(NumericLiteral(1), NumericLiteral(1))",
                 "number",
                 "(java.math.BigDecimal)(elementAt(asList(number(\"1\")), number(\"1\")))",
-                lib.elementAt(Arrays.asList(lib.number("1")), lib.number("1")),
+                lib.elementAt(lib.asList(lib.number("1")), lib.number("1")),
                 lib.number("1"));
 
         // context filter
         doExpressionTest(entries, "", "[{x:1, y:2}, {x:2, y:3}] [item.x = 1]",
                 "FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(1)),ContextEntry(ContextEntryKey(y) = NumericLiteral(2))),Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(2)),ContextEntry(ContextEntryKey(y) = NumericLiteral(3)))), Relational(=,PathExpression(Name(item), x),NumericLiteral(1)))",
                 "ListType(ContextType(x = number, y = number))",
-                "asList(new com.gs.dmn.runtime.Context().add(\"x\", number(\"1\")).add(\"y\", number(\"2\")), new com.gs.dmn.runtime.Context().add(\"x\", number(\"2\")).add(\"y\", number(\"3\"))).stream().filter(item -> numericEqual(((java.math.BigDecimal)item.get(\"x\")), number(\"1\"))).collect(Collectors.toList())",
+                "asList(new com.gs.dmn.runtime.Context().add(\"x\", number(\"1\")).add(\"y\", number(\"2\")), new com.gs.dmn.runtime.Context().add(\"x\", number(\"2\")).add(\"y\", number(\"3\"))).stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"x\")), number(\"1\"))).collect(Collectors.toList())",
                 Arrays.asList(new com.gs.dmn.runtime.Context().add("x", lib.number("1")).add("y", lib.number("2")), new com.gs.dmn.runtime.Context().add("x", lib.number("2")).add("y", lib.number("3"))).stream().filter(item -> lib.numericEqual(item.get("x"), lib.number("1"))).collect(Collectors.toList()),
                 Arrays.asList(new com.gs.dmn.runtime.Context().add("x", lib.number("1")).add("y", lib.number("2"))));
     }
