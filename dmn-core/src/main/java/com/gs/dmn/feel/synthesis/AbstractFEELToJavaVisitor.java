@@ -78,7 +78,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         } else if (sourceType instanceof ContextType) {
             Type memberType = ((ContextType) sourceType).getMemberType(memberName);
             String javaType = dmnTransformer.toJavaType(memberType);
-            return String.format("((%s)%s.%s)", javaType, source, dmnTransformer.contextGetter(memberName));
+            return String.format("((%s)((%s)%s).%s)", javaType, dmnTransformer.contextClassName(), source, dmnTransformer.contextGetter(memberName));
         } else if (sourceType instanceof ListType) {
             String filter = makeNavigation(element, ((ListType) sourceType).getElementType(), "x", memberName, memberVariableName);
             return String.format("%s.stream().map(x -> %s).collect(Collectors.toList())", source, filter);
