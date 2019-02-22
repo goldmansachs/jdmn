@@ -227,6 +227,9 @@ public class BigDecimalUtil {
         List modes = new ArrayList();
         Map<Object, Integer> countMap = new HashMap<Object, Integer>();
         for (Object n : list) {
+            if (n == null) {
+                return null;
+            }
             int count = 0;
 
             if (countMap.containsKey(n)) {

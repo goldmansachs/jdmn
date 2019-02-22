@@ -340,7 +340,9 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     @Test
     public void testMode() {
         assertNull(getLib().mode((List) null));
+        assertNull(getLib().mode((Object)null));
         assertNull(getLib().mode(makeNumberList()));
+        assertNull(getLib().mode(getLib().asList(getLib().number("1"), null)));
 
         assertEquals(makeNumberList(6), getLib().mode(makeNumberList(6, 3, 9, 6, 6)));
         assertEquals(makeNumberList(1, 6), getLib().mode(makeNumberList(6, 1, 9, 6, 1)));
