@@ -1224,7 +1224,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Offs
 
     @Override
     public List mode(Object... numbers) {
-        if (numbers == null || numbers.length < 1) {
+        if (numbers == null) {
             return null;
         }
 

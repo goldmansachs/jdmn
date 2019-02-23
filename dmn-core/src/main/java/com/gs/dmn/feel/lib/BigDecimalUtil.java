@@ -219,15 +219,18 @@ public class BigDecimalUtil {
     }
 
     public static List mode(List list) {
-        if (list == null || list.isEmpty()) {
+        if (list == null) {
             return null;
+        }
+        if (list.isEmpty()) {
+            return new ArrayList();
         }
 
         int max = -1;
         List modes = new ArrayList();
         Map<Object, Integer> countMap = new HashMap<Object, Integer>();
         for (Object n : list) {
-            if (n == null) {
+            if (! (n instanceof Number)) {
                 return null;
             }
             int count = 0;
