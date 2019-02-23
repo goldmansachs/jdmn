@@ -165,6 +165,12 @@ public class PureJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalDa
         assertEqualsTime("PT0S", getLib().yearsAndMonthsDuration(getLib().dateAndTime("2015-12-24T12:15:00.000+01:00"), getLib().dateAndTime("2015-12-24T12:15:00.000+01:00")).toString());
     }
 
+    @Test
+    @Ignore
+    public void testDurationProperties() {
+        super.testDurationProperties();
+    }
+
     @Override
     protected void assertEqualsTime(String expected, Object actual) {
         if (actual instanceof LocalDate) {

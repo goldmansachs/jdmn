@@ -28,8 +28,9 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     protected final DateTimeType<DATE_TIME, DURATION> dateTimeType;
     protected final DurationType<DURATION, NUMBER> durationType;
     protected final ListType listType;
+    protected final ContextType contextType;
 
-    public BaseFEELLib(NumericType<NUMBER> numericType, BooleanType booleanType, StringType stringType, DateType<DATE, DURATION> dateType, TimeType<TIME, DURATION> timeType, DateTimeType<DATE_TIME, DURATION> dateTimeType, DurationType<DURATION, NUMBER> durationType, ListType listType) {
+    public BaseFEELLib(NumericType<NUMBER> numericType, BooleanType booleanType, StringType stringType, DateType<DATE, DURATION> dateType, TimeType<TIME, DURATION> timeType, DateTimeType<DATE_TIME, DURATION> dateTimeType, DurationType<DURATION, NUMBER> durationType, ListType listType, ContextType contextType) {
         this.numericType = numericType;
         this.booleanType = booleanType;
         this.stringType = stringType;
@@ -38,6 +39,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         this.dateTimeType = dateTimeType;
         this.durationType = durationType;
         this.listType = listType;
+        this.contextType = contextType;
     }
 
     //
@@ -94,31 +96,31 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     //
     // Boolean operators
     //
-    public Boolean booleanNot(Boolean operand) {
+    public Boolean booleanNot(Object operand) {
         return booleanType.booleanNot(operand);
     }
 
-    public Boolean booleanOr(List<Boolean> operands) {
+    public Boolean booleanOr(List<Object> operands) {
         return booleanType.booleanOr(operands);
     }
 
-    public Boolean booleanOr(Boolean... operands) {
+    public Boolean booleanOr(Object... operands) {
         return booleanType.booleanOr(operands);
     }
 
-    public Boolean binaryBooleanOr(Boolean first, Boolean second) {
+    public Boolean binaryBooleanOr(Object first, Object second) {
         return booleanType.binaryBooleanOr(first, second);
     }
 
-    public Boolean booleanAnd(List<Boolean> operands) {
+    public Boolean booleanAnd(List<Object> operands) {
         return booleanType.booleanAnd(operands);
     }
 
-    public Boolean booleanAnd(Boolean... operands) {
+    public Boolean booleanAnd(Object... operands) {
         return booleanType.booleanAnd(operands);
     }
 
-    public Boolean binaryBooleanAnd(Boolean first, Boolean second) {
+    public Boolean binaryBooleanAnd(Object first, Object second) {
         return booleanType.binaryBooleanAnd(first, second);
     }
 
@@ -334,6 +336,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     //
+    // Context operators
+    //
+    public Boolean contextEqual(Object c1, Object c2) {
+        return contextType.contextEqual(c1, c2);
+    }
+
+    public Boolean contextNotEqual(Object c1, Object c2) {
+        return contextType.contextNotEqual(c1, c2);
+    }
+
+    //
     // Extra functions
     //
     @Override
@@ -359,61 +372,62 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     public List<BigDecimal> rangeToList(boolean isOpenStart, BigDecimal start, boolean isOpenEnd, BigDecimal end) {
-        List<BigDecimal> result = new ArrayList<>();
         if (start == null || end == null) {
-            return result;
+            return new ArrayList<>();
         }
         int startValue = isOpenStart ? start.intValue() + 1 : start.intValue();
         int endValue = isOpenEnd ? end.intValue() - 1 : end.intValue();
-        for (int i = startValue; i <= endValue; i++) {
-            result.add(BigDecimal.valueOf(i));
-        }
-        return result;
+        return decimalRangeToList(startValue, endValue);
     }
+
     public List<Double> rangeToList(boolean isOpenStart, Double start, boolean isOpenEnd, Double end) {
-        List<Double> result = new ArrayList<>();
         if (start == null || end == null) {
-            return result;
+            return new ArrayList<>();
         }
         int startValue = isOpenStart ? start.intValue() + 1 : start.intValue();
         int endValue = isOpenEnd ? end.intValue() - 1 : end.intValue();
-        for (int i = startValue; i <= endValue; i++) {
-            result.add(Double.valueOf(i));
-        }
-        return result;
+        return doubleRangeToList(startValue, endValue);
     }
 
     public List<BigDecimal> rangeToList(BigDecimal start, BigDecimal end) {
-        List<BigDecimal> result = new ArrayList<>();
         if (start == null || end == null) {
-            return result;
+            return new ArrayList<>();
         }
         int startValue = start.intValue();
         int endValue = end.intValue();
+        return decimalRangeToList(startValue, endValue);
+    }
+    public List<Double> rangeToList(Double start, Double end) {
+        if (start == null || end == null) {
+            return new ArrayList<>();
+        }
+        int startValue = start.intValue();
+        int endValue = end.intValue();
+        return doubleRangeToList(startValue, endValue);
+    }
+
+    private List<BigDecimal> decimalRangeToList(int startValue, int endValue) {
+        List<BigDecimal> result = new ArrayList<>();
         if (startValue <= endValue) {
             for (int i = startValue; i <= endValue; i++) {
                 result.add(BigDecimal.valueOf(i));
             }
         } else {
-            for (int i = startValue; i <= endValue; i--) {
+            for (int i = startValue; i >= endValue; i--) {
                 result.add(BigDecimal.valueOf(i));
             }
         }
         return result;
     }
-    public List<Double> rangeToList(Double start, Double end) {
+
+    private List<Double> doubleRangeToList(int startValue, int endValue) {
         List<Double> result = new ArrayList<>();
-        if (start == null || end == null) {
-            return result;
-        }
-        int startValue = start.intValue();
-        int endValue = end.intValue();
         if (startValue <= endValue) {
             for (int i = startValue; i <= endValue; i++) {
                 result.add(Double.valueOf(i));
             }
         } else {
-            for (int i = startValue; i <= endValue; i--) {
+            for (int i = startValue; i >= endValue; i--) {
                 result.add(Double.valueOf(i));
             }
         }

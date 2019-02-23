@@ -347,49 +347,35 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
 
         String text = unaryTests.getText();
         String newText = replaceNamesInText(text, lexicalContext);
-        setField(unaryTests, "text", newText.toString());
+        setField(unaryTests, "text", newText);
     }
 
-    private String replaceNamesInText(String text, LexicalContext lexicalContext) {
+    protected String replaceNamesInText(String text, LexicalContext lexicalContext) {
         StringBuilder newText = new StringBuilder();
+        lexicalContext.addName("grouping separator");
+        lexicalContext.addName("decimal separator");
+        lexicalContext.addName("start position");
 
         int i = 0;
         while (i < text.length()) {
             char ch = text.charAt(i);
-            if (isNameStartChar(ch)) {
-                // Check keywords
-                boolean foundKeyword = false;
-                for(String keyword: KEYWORDS.keySet()) {
-                    if (text.startsWith(keyword, i)) {
-                        newText.append(keyword);
-                        i += keyword.length();
-                        foundKeyword = true;
+            if (text.charAt(i) == '"') {
+                // skip strings
+                newText.append(text.charAt(i));
+                i++;
+                while (i < text.length()) {
+                    newText.append(text.charAt(i));
+                    if (text.charAt(i) == '"') {
+                        i++;
                         break;
+                    } else {
+                        i++;
                     }
                 }
-                if (!foundKeyword) {
-                    // Check names
-                    boolean foundName = false;
-                    for(String name: lexicalContext.orderedNames()) {
-                        if (text.startsWith(name, i)) {
-                            newText.append(transformName(name));
-                            i += name.length();
-                            foundName = true;
-                            break;
-                        }
-                    }
-                    if (!foundName) {
-                        do {
-                            newText.append(ch);
-                            i++;
-                            if (i < text.length()) {
-                                ch = text.charAt(i);
-                            } else {
-                                break;
-                            }
-                        } while (isNamePartChar(ch));
-                    }
-                }
+            } else if (text.charAt(i) == '{') {
+                i = replaceContextKeys(text, i, newText);
+            } else if (isNameStartChar(ch)) {
+                i = replaceIdentifiers(text, i, lexicalContext, newText, ch);
             } else {
                 newText.append(ch);
                 i++;
@@ -397,6 +383,104 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         }
 
         return newText.toString();
+    }
+
+    protected int replaceIdentifiers(String text, int i, LexicalContext lexicalContext, StringBuilder newText, char ch) {
+        // Check keywords
+        boolean foundKeyword = false;
+        for(String keyword: KEYWORDS.keySet()) {
+            if (text.startsWith(keyword, i)) {
+                newText.append(keyword);
+                i += keyword.length();
+                foundKeyword = true;
+                break;
+            }
+        }
+        if (!foundKeyword) {
+            // Check names
+            boolean foundName = false;
+            for(String name: lexicalContext.orderedNames()) {
+                if (text.startsWith(name, i)) {
+                    newText.append(transformName(name));
+                    i += name.length();
+                    foundName = true;
+                    break;
+                }
+            }
+            if (!foundName) {
+                do {
+                    newText.append(ch);
+                    i++;
+                    if (i < text.length()) {
+                        ch = text.charAt(i);
+                    } else {
+                        break;
+                    }
+                } while (isNamePartChar(ch));
+            }
+        }
+        return i;
+    }
+
+    protected int replaceContextKeys(String text, int i, StringBuilder newText) {
+        // process {
+        newText.append(text.charAt(i));
+        i++;
+
+        // process context
+        while (i < text.length()) {
+            if (text.charAt(i) == '}') {
+                break;
+            }
+            // collect key
+            StringBuilder keyBuilder = new StringBuilder("");
+            while (i < text.length() && text.charAt(i) != ':' && text.charAt(i) != '}') {
+                keyBuilder.append(text.charAt(i));
+                i++;
+            }
+            // transform and add key
+            String key = keyBuilder.toString().trim();
+            if (key.length() != 0) {
+                if (key.startsWith("\"") && key.endsWith("\"")) {
+                    key = key.substring(1, key.length() -1);
+                    newText.append("\"" + transformName(key) + "\"");
+                } else {
+                    newText.append(transformName(key));
+                }
+            }
+            if (i < text.length() && text.charAt(i) == ':') {
+                newText.append(":");
+                i++;
+            }
+            // process value
+            while (i < text.length() && text.charAt(i) != ',' && text.charAt(i) != '}' ) {
+                if (text.charAt(i) == '{') {
+                    // transform nested contexts
+                    i = replaceContextKeys(text, i, newText);
+                } else if (text.charAt(i) == '\"') {
+                    // Copy text literal
+                    do {
+                        newText.append(text.charAt(i));
+                        i++;
+                    }
+                    while (i < text.length() && text.charAt(i) != '\"');
+                    newText.append(text.charAt(i));
+                    i++;
+                } else {
+                    newText.append(text.charAt(i));
+                    i++;
+                }
+            }
+            if (i < text.length() && text.charAt(i) == ',') {
+                newText.append(", ");
+                i++;
+            }
+        }
+        if (i < text.length() && text.charAt(i) == '}') {
+            newText.append('}');
+            i++;
+        }
+        return i;
     }
 
     protected void renameItemDefinitionMembers(TItemDefinition itemDefinition) {

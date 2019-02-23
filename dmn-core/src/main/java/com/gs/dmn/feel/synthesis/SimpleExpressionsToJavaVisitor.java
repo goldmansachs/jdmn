@@ -110,21 +110,6 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
     }
 
     @Override
-    public Object visit(Context element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
-    }
-
-    @Override
-    public Object visit(ContextEntry element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
-    }
-
-    @Override
-    public Object visit(ContextEntryKey element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
-    }
-
-    @Override
     public Object visit(ForExpression element, FEELContext context) {
         throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }

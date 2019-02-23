@@ -47,7 +47,7 @@ public class ListLiteral extends Expression {
             if (environment.getInputExpressionType() == null) {
                 setType(new ListType(AnyType.ANY));
             } else {
-                setType(new ListType(environment.getInputExpressionType()));
+                setType(environment.getInputExpressionType());
             }
         } else {
             checkListElementTypes();

@@ -18,8 +18,8 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Signature;
 public class FunctionDeclaration extends Declaration {
     private final FunctionType type;
 
-    FunctionDeclaration(String functionName, FunctionType type) {
-        super(functionName);
+    FunctionDeclaration(String name, FunctionType type) {
+        super(name);
         this.type = type;
     }
 
@@ -32,6 +32,6 @@ public class FunctionDeclaration extends Declaration {
     }
 
     public String toString() {
-        return String.format("%s -> %s ", inputExpression, type);
+        return String.format("%s -> %s ", name, type);
     }
 }

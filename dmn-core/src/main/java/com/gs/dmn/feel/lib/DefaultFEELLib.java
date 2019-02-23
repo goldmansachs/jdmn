@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.feel.lib.type.context.DefaultContextType;
 import com.gs.dmn.feel.lib.type.list.DefaultListType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
@@ -41,10 +42,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> implements StandardFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     public static final DatatypeFactory DATA_TYPE_FACTORY = XMLDatataypeFactory.newInstance();
@@ -57,7 +55,8 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
                 new DefaultTimeType(LOGGER, DATA_TYPE_FACTORY),
                 new DefaultDateTimeType(LOGGER, DATA_TYPE_FACTORY),
                 new DefaultDurationType(LOGGER),
-                new DefaultListType(LOGGER)
+                new DefaultListType(LOGGER),
+                new DefaultContextType(LOGGER)
         );
     }
 
@@ -82,25 +81,30 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
 
     @Override
     public BigDecimal number(String from, String groupingSeparator, String decimalSeparator) {
-        if (StringUtils.isBlank(from) || groupingSeparator == null || decimalSeparator == null) {
+        if (StringUtils.isBlank(from)) {
+            return null;
+        }
+        if (! (" ".equals(groupingSeparator) || ".".equals(groupingSeparator) || ",".equals(groupingSeparator) || null == groupingSeparator)) {
+            return null;
+        }
+        if (! (".".equals(decimalSeparator) || ",".equals(decimalSeparator) || null == decimalSeparator)) {
+            return null;
+        }
+        if (groupingSeparator != null && groupingSeparator.equals(decimalSeparator)) {
             return null;
         }
 
         try {
-            if (decimalSeparator.equals(".")) {
-                decimalSeparator = "\\" + decimalSeparator;
+            if (groupingSeparator != null) {
+                if (groupingSeparator.equals(".")) {
+                    groupingSeparator = "\\" + groupingSeparator;
+                }
+                from = from.replaceAll(groupingSeparator, "");
             }
-            if (groupingSeparator.equals(".")) {
-                groupingSeparator = "\\" + groupingSeparator;
+            if (decimalSeparator != null && !decimalSeparator.equals(".")) {
+                from = from.replaceAll(decimalSeparator, ".");
             }
-            String[] parts = from.split(decimalSeparator);
-            if (parts.length == 1) {
-                return number(from.replaceAll(groupingSeparator, ""));
-            } else if (parts.length == 2) {
-                return number(parts[0].replaceAll(groupingSeparator, "") + "." + parts[1]);
-            } else {
-                return null;
-            }
+            return number(from);
         } catch (Throwable e) {
             String message = String.format("number(%s, %s, %s)", from, groupingSeparator, decimalSeparator);
             logError(message, e);
@@ -832,6 +836,20 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
 
         try {
             return BigDecimal.valueOf(date.getDay());
+        } catch (Exception e) {
+            String message = String.format("day(%s)", date);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    public BigDecimal weekday(XMLGregorianCalendar date) {
+        if (date == null) {
+            return null;
+        }
+
+        try {
+            return BigDecimal.valueOf(date.toGregorianCalendar().get(Calendar.DAY_OF_WEEK) -1);
         } catch (Exception e) {
             String message = String.format("day(%s)", date);
             logError(message, e);

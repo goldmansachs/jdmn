@@ -37,6 +37,12 @@ class OperatorTableInputEntry {
         return rightOperandType;
     }
 
+    public boolean conformsTo(OperatorTableInputEntry other) {
+        return this.operator.equals(other.operator)
+                && this.leftOperandType.conformsTo(other.leftOperandType)
+                && this.rightOperandType.conformsTo(other.rightOperandType);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

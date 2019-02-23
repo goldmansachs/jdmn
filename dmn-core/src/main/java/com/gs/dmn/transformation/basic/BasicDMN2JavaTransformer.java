@@ -13,10 +13,7 @@
 package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
-import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
-import com.gs.dmn.feel.analysis.semantics.environment.FunctionDeclaration;
-import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
+import com.gs.dmn.feel.analysis.semantics.environment.*;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
@@ -1500,8 +1497,8 @@ public class BasicDMN2JavaTransformer {
         return environmentFactory.makeEnvironment(makeEnvironment(element));
     }
 
-    public Pair<Environment, Map<TContextEntry, Expression>> makeContextEnvironment(TContext context, Environment elementEnvironment) {
-        Environment contextEnvironment = environmentFactory.makeEnvironment(elementEnvironment);
+    public Pair<Environment, Map<TContextEntry, Expression>> makeContextEnvironment(TContext context, Environment parentEnvironment) {
+        Environment contextEnvironment = environmentFactory.makeEnvironment(parentEnvironment);
         Map<TContextEntry, Expression> literalExpressionMap = new LinkedHashMap<>();
         for(TContextEntry entry: context.getContextEntry()) {
             TInformationItem variable = entry.getVariable();
@@ -1647,7 +1644,13 @@ public class BasicDMN2JavaTransformer {
                 return toFEELType(typeRef);
             } else {
                 Environment functionDefinitionEnvironment = makeFunctionDefinitionEnvironment(functionDefinition, environment);
-                Type bodyType = expressionType(body, functionDefinitionEnvironment);
+                TFunctionKind kind = functionDefinition.getKind();
+                Type bodyType = null;
+                if (isFEELFunction(kind)) {
+                    bodyType = expressionType(body, functionDefinitionEnvironment);
+                } else if (isJavaFunction(kind)) {
+                    bodyType = AnyType.ANY;
+                }
                 List<FormalParameter> parameters = new ArrayList<>();
                 for(TInformationItem param: functionDefinition.getFormalParameter()) {
                     Type paramType = toFEELType(QualifiedName.toQualifiedName(param.getTypeRef()));
@@ -1659,6 +1662,14 @@ public class BasicDMN2JavaTransformer {
             }
         }
         return null;
+    }
+
+    public boolean isFEELFunction(TFunctionKind kind) {
+        return kind == null || kind == TFunctionKind.FEEL;
+    }
+
+    public boolean isJavaFunction(TFunctionKind kind) {
+        return kind == TFunctionKind.JAVA;
     }
 
     private Type literalExpressionType(TLiteralExpression body, Environment environment) {
@@ -1679,7 +1690,7 @@ public class BasicDMN2JavaTransformer {
         return relationEnvironment;
     }
 
-    private VariableDeclaration makeVariableDeclaration(TNamedElement element, TInformationItem variable, Environment environment) {
+    private Declaration makeVariableDeclaration(TNamedElement element, TInformationItem variable, Environment environment) {
         String name = element.getName();
         if (StringUtils.isBlank(name) && variable != null) {
             name = variable.getName();

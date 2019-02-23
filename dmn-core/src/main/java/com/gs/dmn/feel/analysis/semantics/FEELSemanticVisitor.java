@@ -163,15 +163,18 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
 
     @Override
     public Object visit(Context element, FEELContext context) {
-        element.getEntries().forEach(ce -> ce.accept(this, context));
-        element.deriveType(context.getEnvironment());
+        Environment entryEnvironment = environmentFactory.makeEnvironment(context.getEnvironment());
+        FEELContext entryContext = FEELContext.makeContext(entryEnvironment);
+        element.getEntries().forEach(ce -> ce.accept(this, entryContext));
+        element.deriveType(entryContext.getEnvironment());
         return element;
     }
 
     @Override
     public Object visit(ContextEntry element, FEELContext context) {
-        element.getKey().accept(this, context);
-        element.getExpression().accept(this, context);
+        ContextEntryKey key = (ContextEntryKey) element.getKey().accept(this, context);
+        Expression expression = (Expression) element.getExpression().accept(this, context);
+        context.getEnvironment().addDeclaration(environmentFactory.makeVariableDeclaration(key.getKey(), expression.getType()));
         return element;
     }
 
@@ -184,8 +187,11 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
     public Object visit(ForExpression element, FEELContext context) {
         List<Iterator> iterators = element.getIterators();
         FEELContext qParams = visitIterators(element, context, iterators);
+        qParams.getEnvironment().addDeclaration(environmentFactory.makeVariableDeclaration(ForExpression.PARTIAL_PARAMTER_NAME, new ListType(NullType.NULL)));
         element.getBody().accept(this, qParams);
         element.deriveType(qParams.getEnvironment());
+        qParams.getEnvironment().updateVariableDeclaration(ForExpression.PARTIAL_PARAMTER_NAME, element.getType());
+        element.getBody().accept(new UpdatePartialVisitor(element.getType()), qParams);
         return element;
     }
 

@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.interpreter;
 
 import com.gs.dmn.feel.OperatorDecisionTable;
+import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.environment.Conversion;
 import com.gs.dmn.feel.analysis.semantics.environment.ConversionKind;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
@@ -53,14 +54,14 @@ import com.gs.dmn.runtime.interpreter.PositionalArguments;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
-import org.omg.spec.dmn._20180521.model.TBusinessKnowledgeModel;
-import org.omg.spec.dmn._20180521.model.TFunctionDefinition;
+import org.omg.spec.dmn._20180521.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -91,7 +92,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         if (positiveUnaryTests.size() == 1) {
             return positiveUnaryTests.get(0);
         } else {
-            return lib.booleanOr(positiveUnaryTests);
+            return lib.booleanOr((List) positiveUnaryTests);
         }
     }
 
@@ -107,7 +108,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         if (simplePositiveUnaryTests.size() == 1) {
             return simplePositiveUnaryTests.get(0);
         } else {
-            return lib.booleanOr(simplePositiveUnaryTests);
+            return lib.booleanOr((List) simplePositiveUnaryTests);
         }
     }
 
@@ -269,14 +270,27 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     @Override
     public Object visit(ListTest element, FEELContext context) {
         try {
-            String operator = "=";
-            Expression listLiteral = element.getListLiteral();
-            if (listLiteral instanceof FunctionInvocation) {
-                return listLiteral.accept(this, context);
-            } else {
-                Object self = context.lookupRuntimeBinding(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER);
+            ListLiteral listLiteral = element.getListLiteral();
+            Type listType = listLiteral.getType();
+            Type listElementType = ((ListType) listType).getElementType();
+            Type inputExpressionType = context.getEnvironment().getInputExpressionType();
+            Object self = context.lookupRuntimeBinding(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER);
+
+            Object result = null;
+            if (inputExpressionType.conformsTo(listType)) {
+                String operator = "=";
                 return evaluateOperatorTest(element, operator, self, listLiteral, context);
+            } else if (inputExpressionType.conformsTo(listElementType)) {
+                List list = (List) listLiteral.accept(this, context);
+                result = lib.listContains(list, self);
+            } else if (listElementType instanceof RangeType && inputExpressionType.conformsTo(((RangeType) listElementType).getRangeType())) {
+                List list = (List) listLiteral.accept(this, context);
+                result = lib.listContains(list, true);
+            } else {
+                throw new SemanticError(element, String.format("Cannot compare '%s', '%s'", inputExpressionType, listType));
             }
+
+            return result;
         } catch (Exception e) {
             handleError(String.format("Cannot evaluate '%s'", element), e);
             return null;
@@ -308,7 +322,8 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(Context element, FEELContext context) {
-        List<Pair> entries = element.getEntries().stream().map(e -> (Pair) e.accept(this, context)).collect(Collectors.toList());
+        FEELContext entryContext = FEELContext.makeContext(context.getEnvironment(), runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment()));
+        List<Pair> entries = element.getEntries().stream().map(e -> (Pair) e.accept(this, entryContext)).collect(Collectors.toList());
         com.gs.dmn.runtime.Context runtimeContext = new com.gs.dmn.runtime.Context();
         for (Pair p : entries) {
             runtimeContext.put(p.getLeft(), p.getRight());
@@ -320,6 +335,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     public Object visit(ContextEntry element, FEELContext context) {
         Object key = element.getKey().accept(this, context);
         Object value = element.getExpression().accept(this, context);
+        context.getRuntimeEnvironment().bind((String) key, value);
         return new Pair(key, value);
     }
 
@@ -344,6 +360,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         // Loop over domain and evaluate body
         FEELContext forContext = FEELContext.makeContext(context.getEnvironment(), runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment()));
         List result = new ArrayList<>();
+        forContext.getRuntimeEnvironment().bind(ForExpression.PARTIAL_PARAMTER_NAME, result);
         if (expressionDomain instanceof ExpressionIteratorDomain) {
             for (Object value : (List) domain) {
                 forContext.runtimeBind(iterator.getName(), value);
@@ -358,7 +375,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
                     result.add(element.getBody().accept(this, forContext));
                 }
             } else {
-                for(int value = start; value <= end; value--) {
+                for(int value = start; value >= end; value--) {
                     forContext.runtimeBind(iterator.getName(), BigDecimal.valueOf(value));
                     result.add(element.getBody().accept(this, forContext));
                 }
@@ -505,7 +522,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         try {
             Object leftOperand = element.getLeftOperand().accept(this, context);
             Object rightOperand = element.getRightOperand().accept(this, context);
-            return lib.or(Arrays.asList((Boolean) leftOperand, (Boolean) rightOperand));
+            return lib.or(Arrays.asList(leftOperand, rightOperand));
         } catch (Exception e) {
             handleError(String.format("Cannot evaluate '%s'", element), e);
             return null;
@@ -517,7 +534,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         try {
             Object leftOperand = element.getLeftOperand().accept(this, context);
             Object rightOperand = element.getRightOperand().accept(this, context);
-            return lib.and(Arrays.asList((Boolean) leftOperand, (Boolean) rightOperand));
+            return lib.and(Arrays.asList(leftOperand, rightOperand));
         } catch (Exception e) {
             handleError(String.format("Cannot evaluate '%s'", element), e);
             return null;
@@ -527,12 +544,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     @Override
     public Object visit(LogicNegation element, FEELContext context) {
         Object leftOperand = element.getLeftOperand().accept(this, context);
-        if (leftOperand instanceof Boolean || leftOperand == null) {
-            return lib.booleanNot((Boolean) leftOperand);
-        } else {
-            handleError(String.format("Expected boolean operand, found '%s'", leftOperand.getClass().getName()));
-            return null;
-        }
+        return lib.booleanNot(leftOperand);
     }
 
     @Override
@@ -549,9 +561,27 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     public Object visit(BetweenExpression element, FEELContext context) {
         try {
             Object value = element.getValue().accept(this, context);
-            Object leftEndpoint = element.getLeftEndpoint().accept(this, context);
-            Object rightEndpoint = element.getRightEndpoint().accept(this, context);
-            return lib.booleanAnd(lib.numericLessEqualThan(leftEndpoint, value), lib.numericLessEqualThan(value, rightEndpoint));
+            Expression leftEndpoint = element.getLeftEndpoint();
+            Expression rightEndpoint = element.getRightEndpoint();
+            Object leftOpd = leftEndpoint.accept(this, context);
+            Object rightOpd = rightEndpoint.accept(this, context);
+            if (leftEndpoint.getType() == NumberType.NUMBER) {
+                return lib.booleanAnd(lib.numericLessEqualThan(leftOpd, value), lib.numericLessEqualThan(value, rightOpd));
+            } else if (leftEndpoint.getType() == StringType.STRING) {
+                return lib.booleanAnd(lib.stringLessEqualThan((String) leftOpd, (String) value), lib.stringLessEqualThan((String) value, (String) rightOpd));
+            } else if (leftEndpoint.getType() == DateType.DATE) {
+                return lib.booleanAnd(lib.dateLessEqualThan(leftOpd, value), lib.dateLessEqualThan(value, rightOpd));
+            } else if (leftEndpoint.getType() == TimeType.TIME) {
+                return lib.booleanAnd(lib.timeLessEqualThan(leftOpd, value), lib.timeLessEqualThan(value, rightOpd));
+            } else if (leftEndpoint.getType() == DateTimeType.DATE_AND_TIME) {
+                return lib.booleanAnd(lib.dateTimeLessEqualThan(leftOpd, value), lib.dateTimeLessEqualThan(value, rightOpd));
+            } else if (leftEndpoint.getType() == DurationType.YEARS_AND_MONTHS_DURATION) {
+                return lib.booleanAnd(lib.durationLessEqualThan(leftOpd, value), lib.durationLessEqualThan(value, rightOpd));
+            } else if (leftEndpoint.getType() == DurationType.DAYS_AND_TIME_DURATION) {
+                return lib.booleanAnd(lib.durationLessEqualThan(leftOpd, value), lib.durationLessEqualThan(value, rightOpd));
+            } else{
+                throw new DMNRuntimeException(String.format("Type '%s' is not supported yet", leftEndpoint.getType()));
+            }
         } catch (Exception e) {
             handleError(String.format("Cannot evaluate '%s'", element), e);
             return null;
@@ -568,19 +598,17 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         FEELContext inParams = FEELContext.makeContext(inEnvironment, inRuntimeEnvironment);
         inParams.runtimeBind(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER, value);
 
-        Boolean result = false;
+        List<Object> result = new ArrayList<>();
         List<PositiveUnaryTest> positiveUnaryTests = element.getTests();
         for (PositiveUnaryTest positiveUnaryTest : positiveUnaryTests) {
-            Boolean test = false;
-            if (positiveUnaryTest instanceof ListTest) {
-                List list = (List) ((ListTest) positiveUnaryTest).getListLiteral().accept(this, inParams);
-                return lib.listContains(list, value);
-            } else {
-                test = (Boolean) positiveUnaryTest.accept(this, inParams);
-            }
-            result = lib.booleanOr(result, test);
+            Object test = positiveUnaryTest.accept(this, inParams);
+            result.add(test);
         }
-        return result;
+        if (result.size() == 1) {
+            return result.get(0);
+        } else {
+            return lib.booleanOr(result);
+        }
     }
 
     @Override
@@ -635,14 +663,29 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
             if (binding instanceof TBusinessKnowledgeModel) {
                 return dmnInterpreter.evaluateBKM((TBusinessKnowledgeModel) binding, argList, context);
             } else if (binding instanceof TFunctionDefinition) {
-                return dmnInterpreter.evaluateFunctionDefinition((TFunctionDefinition) binding, argList, context);
-            } else if (binding instanceof FunctionDefinition) {
-                FunctionDefinition functionDefinitionBinding = (FunctionDefinition) binding;
-                if (functionType instanceof FEELFunctionType) {
-                    // Use the one with inferred types
-                    functionDefinitionBinding = ((FEELFunctionType) functionType).getFunctionDefinition();
+                TFunctionKind kind = ((TFunctionDefinition) binding).getKind();
+                if (dmnTransformer.isFEELFunction(kind)) {
+                    return dmnInterpreter.evaluateFunctionDefinition((TFunctionDefinition) binding, argList, context);
+                } else if (dmnTransformer.isJavaFunction(kind)) {
+                    return evaluateExternalJavaFunction((TFunctionDefinition) binding, argList, context);
+                } else {
+                    throw new DMNRuntimeException(String.format("Kind '%s' is not supported yet", kind.value()));
                 }
-                return evaluateFunctionDefinition(functionDefinitionBinding, argList, context);
+            } else if (binding instanceof FunctionDefinition) {
+                FunctionDefinition functionDefinition = (FunctionDefinition) binding;
+                if (functionDefinition.isExternal()) {
+                    if (isJavaFunction(((FunctionDefinition) binding).getBody())) {
+                        return evaluateExternalJavaFunction((FunctionDefinition) binding, argList, context);
+                    } else {
+                        throw new DMNRuntimeException(String.format("Not supported external function '%s'", functionDefinition));
+                    }
+                } else {
+                    if (functionType instanceof FEELFunctionType) {
+                        // Use the one with inferred types
+                        functionDefinition = ((FEELFunctionType) functionType).getFunctionDefinition();
+                    }
+                    return evaluateFunctionDefinition(functionDefinition, argList, context);
+                }
             } else if (binding instanceof LambdaExpression) {
                 return evaluateLambdaExpression((LambdaExpression) binding, argList, context);
             } else {
@@ -672,6 +715,99 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
             } else {
                 throw new DMNRuntimeException(String.format("Not supported yet %s", binding.getClass().getSimpleName()));
             }
+        }
+    }
+
+    private boolean isJavaFunction(Expression body) {
+        return  body instanceof Context &&
+                ((Context) body).getEntries().size() == 1 &&
+                "java".equals(((Context) body).getEntries().get(0).getKey().getKey());
+    }
+
+    private Object evaluateExternalJavaFunction(TFunctionDefinition functionDefinition, List<Object> argList, FEELContext context) {
+        JavaFunctionInfo info = extractJavaFunctionInfo(functionDefinition);
+        // Use reflection to evaluate
+        return evaluateExternalJavaFunction(info, argList, context);
+    }
+
+    private Object evaluateExternalJavaFunction(FunctionDefinition functionDefinition, List<Object> argList, FEELContext context) {
+        JavaFunctionInfo info = extractJavaFunctionInfo(functionDefinition);
+        // Use reflection to evaluate
+        return evaluateExternalJavaFunction(info, argList, context);
+    }
+
+    private JavaFunctionInfo extractJavaFunctionInfo(TFunctionDefinition functionDefinition) {
+        // Extract class, method and param types names
+        String className = null;
+        String methodName = null;
+        List<String> paramTypes = new ArrayList<>();
+        TExpression body = functionDefinition.getExpression().getValue();
+        if (body instanceof TContext) {
+            for (TContextEntry entry: ((TContext) body).getContextEntry()) {
+                String name = entry.getVariable().getName();
+                if ("class".equals(name)) {
+                    TExpression value = entry.getExpression().getValue();
+                    if (value instanceof TLiteralExpression) {
+                        className = ((TLiteralExpression) value).getText().replaceAll("\"", "");
+                    }
+                } else if ("methodSignature".equals(name) || "method signature".equals(name)) {
+                    TExpression value = entry.getExpression().getValue();
+                    if (value instanceof TLiteralExpression) {
+                        String signature = ((TLiteralExpression) value).getText().replaceAll("\"", "");
+                        int lpIndex = signature.indexOf('(');
+                        int rpIndex = signature.indexOf(')');
+                        methodName = signature.substring(0, lpIndex);
+                        String[] types = signature.substring(lpIndex + 1, rpIndex).split(",");
+                        for (String t: types) {
+                            paramTypes.add(t.trim());
+                        }
+                    }
+                }
+            }
+        }
+        if (className != null && methodName != null) {
+            return new JavaFunctionInfo(className, methodName, paramTypes);
+        } else {
+            return null;
+        }
+    }
+
+    private JavaFunctionInfo extractJavaFunctionInfo(FunctionDefinition functionDefinition) {
+        // Extract class, method and param types names
+        String className = null;
+        String methodName = null;
+        List<String> paramTypes = new ArrayList<>();
+        Expression body = functionDefinition.getBody();
+        if (body instanceof Context) {
+            body = ((Context) body).getEntries().get(0).getExpression();
+        }
+        if (body instanceof Context) {
+            for (ContextEntry entry: ((Context) body).getEntries()) {
+                String name = entry.getKey().getKey();
+                if ("class".equals(name)) {
+                    Expression value = entry.getExpression();
+                    if (value instanceof StringLiteral) {
+                        className = ((StringLiteral) value).getValue().replaceAll("\"", "");
+                    }
+                } else if ("methodSignature".equals(name) || "method signature".equals(name)) {
+                    Expression value = entry.getExpression();
+                    if (value instanceof StringLiteral) {
+                        String signature = ((StringLiteral) value).getValue().replaceAll("\"", "");
+                        int lpIndex = signature.indexOf('(');
+                        int rpIndex = signature.indexOf(')');
+                        methodName = signature.substring(0, lpIndex);
+                        String[] types = signature.substring(lpIndex + 1, rpIndex).split(",");
+                        for (String t: types) {
+                            paramTypes.add(t.trim());
+                        }
+                    }
+                }
+            }
+        }
+        if (className != null && methodName != null) {
+            return new JavaFunctionInfo(className, methodName, paramTypes);
+        } else {
+            return null;
         }
     }
 
@@ -722,6 +858,56 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
 
     private Object evaluateBuiltInFunction(FEELLib lib, String functionName, List<Object> argList) {
         return evaluateMethod(lib, lib.getClass(), functionName, argList);
+    }
+
+    private Object evaluateExternalJavaFunction(JavaFunctionInfo info, List<Object> argList, FEELContext context) {
+        String className = info.getClassName();
+        String methodName = info.getMethodName();
+        List<String> paramTypes = info.getParamTypes();
+        try {
+            // Convert arguments
+            List<Object> convertedArgList = info.convertArguments(argList);
+
+            // Prepare data for reflection
+            Class cls = Class.forName(className);
+
+            // Method declaredMethod = MethodUtils.resolveMethod(info.getMethodName(), cls, argTypes);
+            Method declaredMethod = null;
+            Method[] declaredMethods = cls.getDeclaredMethods();
+            for (Method m: declaredMethods) {
+                if (m.getName().equals(methodName)) {
+                    if (m.getParameterCount() == paramTypes.size()) {
+                        boolean typesMatch = true;
+                        for (int i=0; i<paramTypes.size(); i++) {
+                            Class javaClass = m.getParameterTypes()[i];
+                            if (! (paramTypes.get(i).equals(javaClass.getSimpleName()) || paramTypes.get(i).equals(javaClass.getName()))) {
+                                typesMatch = false;
+                                break;
+                            }
+                        }
+                        if (typesMatch) {
+                            declaredMethod = m;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (declaredMethod == null) {
+                throw new DMNRuntimeException(String.format("Cannot resolve '%s.%s(%s)", className, methodName, paramTypes.stream().collect(Collectors.joining(", "))));
+            }
+            Object[] args = makeArgs(declaredMethod, convertedArgList);
+
+            // Try both static and instant calls
+            if ((declaredMethod.getModifiers() & Modifier.STATIC) != 0) {
+                return declaredMethod.invoke(null, args);
+            } else {
+                Object obj = cls.newInstance();
+                return declaredMethod.invoke(obj, args);
+            }
+        } catch (Exception e) {
+            handleError(String.format("Cannot evaluate function '%s(%s)'", methodName, paramTypes.stream().collect(Collectors.joining(", "))), e);
+            return null;
+        }
     }
 
     private Object evaluateMethod(Object object, Class<?> cls, String functionName, List<Object> argList) {
@@ -835,6 +1021,8 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
             return lib.month(lib.toDate(source));
         } else if ("day".equals(member)) {
             return lib.day(lib.toDate(source));
+        } else if ("weekday".equals(member)) {
+            return lib.weekday(lib.toDate(source));
         } else if ("hour".equals(member)) {
             return lib.hour(lib.toTime(source));
         } else if ("minute".equals(member)) {

@@ -60,7 +60,7 @@ public class FilterExpression extends Expression {
                 throw new SemanticError(this, String.format("Cannot resolve type for '%s'", this.toString()));
             }
         } else {
-            if (filter instanceof NumericLiteral && "1".equals(((NumericLiteral) filter).getValue())) {
+            if (filterType == NUMBER) {
                 setType(sourceType);
             } else if (filterType == BOOLEAN) {
                 setType(new ListType(sourceType));

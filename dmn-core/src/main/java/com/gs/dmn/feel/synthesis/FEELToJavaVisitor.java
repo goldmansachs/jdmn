@@ -12,7 +12,9 @@
  */
 package com.gs.dmn.feel.synthesis;
 
+import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.semantics.ReplaceItemFilterVisitor;
+import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.environment.BusinessKnowledgeModelDeclaration;
 import com.gs.dmn.feel.analysis.semantics.environment.Conversion;
 import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
@@ -137,14 +139,24 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(ListTest element, FEELContext context) {
-        String operator = "=";
-        Expression listLiteral = element.getListLiteral();
-        String condition;
-        if (listLiteral instanceof FunctionInvocation) {
-            condition = (String) listLiteral.accept(this, context);
+        ListLiteral listLiteral = element.getListLiteral();
+        Type listType = listLiteral.getType();
+        Type listElementType = ((ListType) listType).getElementType();
+        Type inputExpressionType = context.getEnvironment().getInputExpressionType();
+
+        String condition = null;
+        if (inputExpressionType.conformsTo(listType)) {
+            condition = makeListTestCondition("=", inputExpressionToJava(context), listLiteral, context);
+        } else if (inputExpressionType.conformsTo(listElementType)) {
+            String javaList = (String) listLiteral.accept(this, context);
+            condition = String.format("listContains(%s, %s)", javaList, inputExpressionToJava(context));
+        } else if (listElementType instanceof RangeType && inputExpressionType.conformsTo(((RangeType) listElementType).getRangeType())) {
+            String javaList = (String) listLiteral.accept(this, context);
+            condition = String.format("listContains(%s, %s)", javaList, "true");
         } else {
-            condition = makeListTestCondition(operator, inputExpressionToJava(context), listLiteral, context);
+            throw new SemanticError(element, String.format("Cannot compare '%s', '%s'", inputExpressionType, listType));
         }
+
         return condition;
     }
 
@@ -207,16 +219,20 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(ForExpression element, FEELContext context) {
+        Environment forEnvironment = environmentFactory.makeEnvironment(context.getEnvironment());
+        FEELContext forContext = FEELContext.makeContext(forEnvironment);
+        forContext.getEnvironment().addDeclaration(environmentFactory.makeVariableDeclaration(ForExpression.PARTIAL_PARAMTER_NAME, element.getType()));
+
         // Add code for each iterator
         StringBuilder result = new StringBuilder();
         List<Iterator> iterators = element.getIterators();
         for (Iterator it : iterators) {
             IteratorDomain expressionDomain = it.getDomain();
-            String domain = (String) expressionDomain.accept(this, context);
+            String domain = (String) expressionDomain.accept(this, forContext);
             result.append(String.format("%s.stream().map(%s -> ", domain, it.getName()));
         }
         // Add body
-        String body = (String) element.getBody().accept(this, context);
+        String body = (String) element.getBody().accept(this, forContext);
         result.append(body);
         // Close parenthesis
         for (int i = 0; i < iterators.size(); i++) {
@@ -396,9 +412,15 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     @Override
     public Object visit(BetweenExpression element, FEELContext context) {
         String value = (String) element.getValue().accept(this, context);
-        String leftEndpoint = (String) element.getLeftEndpoint().accept(this, context);
-        String rightEndpoint = (String) element.getRightEndpoint().accept(this, context);
-        return String.format("booleanAnd(numericLessEqualThan(%s, %s), numericLessEqualThan(%s, %s))", leftEndpoint, value, value, rightEndpoint);
+        Expression leftEndpoint = element.getLeftEndpoint();
+        Expression rightEndpoint = element.getRightEndpoint();
+        String leftOpd = (String) leftEndpoint.accept(this, context);
+        String rightOpd = (String) rightEndpoint.accept(this, context);
+        String feelOperator = "<=";
+        JavaOperator javaOperator = OperatorDecisionTable.javaOperator(feelOperator, leftEndpoint.getType(), rightEndpoint.getType());
+        String c1 = makeCondition(feelOperator, leftOpd, value, javaOperator);
+        String c2 = makeCondition(feelOperator, value, rightOpd, javaOperator);
+        return String.format("booleanAnd(%s, %s)", c1, c2);
     }
 
     @Override
@@ -407,25 +429,18 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         List<PositiveUnaryTest> positiveUnaryTests = element.getTests();
 
         Environment inEnvironment = environmentFactory.makeEnvironment(context.getEnvironment(), valueExp);
-        FEELContext inParams = FEELContext.makeContext(inEnvironment);
+        FEELContext inContext = FEELContext.makeContext(inEnvironment);
 
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < positiveUnaryTests.size(); i++) {
-            if (i != 0) {
-                result.append(" || ");
-            }
-            PositiveUnaryTest positiveUnaryTest = positiveUnaryTests.get(i);
-            String test = null;
-            if (positiveUnaryTest instanceof ListTest) {
-                ListLiteral listLiteral = ((ListTest) positiveUnaryTest).getListLiteral();
-                String javaList = (String) listLiteral.accept(this, inParams);
-                test = String.format("listContains(%s, %s)", javaList, inputExpressionToJava(inParams));
-            } else {
-                test = (String) positiveUnaryTest.accept(this, inParams);
-            }
-            result.append(String.format("(%s)", test));
+        List<String> result = new ArrayList<>();
+        for (PositiveUnaryTest positiveUnaryTest: positiveUnaryTests) {
+            String test = (String) positiveUnaryTest.accept(this, inContext);
+            result.add(test);
         }
-        return result.toString();
+        if (result.size() == 1) {
+            return String.format("(%s)", result.get(0));
+        } else {
+            return String.format("booleanOr(%s)", result.stream().collect(Collectors.joining(", ")));
+        }
     }
 
     //
