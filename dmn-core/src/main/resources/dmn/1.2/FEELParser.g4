@@ -499,7 +499,7 @@ primaryExpression returns [Expression ast] :
     )
     |
     (
-        PAREN_OPEN exp = textualExpression PAREN_CLOSE
+        PAREN_OPEN exp = expression PAREN_CLOSE
         {$ast = $exp.ast;}
     )
     |

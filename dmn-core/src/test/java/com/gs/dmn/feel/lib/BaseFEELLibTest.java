@@ -27,9 +27,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     public void testNumberWithSeparators() {
         assertNull(getLib().number(null, null, null));
         assertNull(getLib().number(null, ".", ","));
-        assertNull(getLib().number("123", null, ","));
-        assertNull(getLib().number("123", ".", null));
-
+        assertNull(getLib().number("1.235.00", ".", "."));
         assertNull(getLib().number("12,356,00", ".", ","));
 
         assertEqualsNumber(makeNumber("12356"), getLib().number("12.356,00", ".", ","));
@@ -39,6 +37,11 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         assertEqualsNumber(makeNumber("12356"), getLib().number("12,356.00", ",", "."));
         assertEqualsNumber(makeNumber("12356"), getLib().number("12,356", ",", "."));
         assertEqualsNumber(makeNumber("12356.01"), getLib().number("12356.01", ",", "."));
+
+        assertEqualsNumber(makeNumber("1000000.01"), getLib().number("1000000.01", null, "."));
+        assertEqualsNumber(makeNumber("1000000.00"), getLib().number("1,000,000", ",", null));
+        assertEqualsNumber(makeNumber("1000000.00"), getLib().number("1,000,000.00", ",", null));
+        assertEqualsNumber(makeNumber("1000000.01"), getLib().number("1.000.000,01", ".", ","));
     }
 
     @Test
@@ -329,15 +332,17 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         assertNull(getLib().stddev((List) null));
         assertNull(getLib().stddev(makeNumberList()));
 
-        assertEqualsNumber(makeNumber("1.8027756377319946"), getLib().stddev(makeNumberList(2, 4, 7, 5)));
+        assertEqualsNumber(makeNumber("2.0816659994661"), getLib().stddev(makeNumberList(2, 4, 7, 5)));
 
-        assertEqualsNumber(makeNumber("1.8027756377319946"), getLib().stddev(makeNumber(2), makeNumber(4), makeNumber(7), makeNumber(5)));
+        assertEqualsNumber(makeNumber("2.0816659994661"), getLib().stddev(makeNumber(2), makeNumber(4), makeNumber(7), makeNumber(5)));
     }
 
     @Test
     public void testMode() {
         assertNull(getLib().mode((List) null));
+        assertNull(getLib().mode((Object)null));
         assertNull(getLib().mode(makeNumberList()));
+        assertNull(getLib().mode(getLib().asList(getLib().number("1"), null)));
 
         assertEquals(makeNumberList(6), getLib().mode(makeNumberList(6, 3, 9, 6, 6)));
         assertEquals(makeNumberList(1, 6), getLib().mode(makeNumberList(6, 1, 9, 6, 1)));
@@ -412,7 +417,10 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     public void testModulo() {
         assertNull(getLib().modulo(null, null));
 
-        assertEqualsNumber(makeNumber("2"), getLib().modulo(makeNumber(12), makeNumber(5)));
+        assertEqualsNumber(makeNumber("2"), getLib().modulo(makeNumber(10), makeNumber(4)));
+        assertEqualsNumber(makeNumber("2"), getLib().modulo(makeNumber(10), makeNumber(-4)));
+        assertEqualsNumber(makeNumber("-2"), getLib().modulo(makeNumber(-10), makeNumber(4)));
+        assertEqualsNumber(makeNumber("-2"), getLib().modulo(makeNumber(-10), makeNumber(-4)));
     }
 
     @Test
@@ -450,5 +458,42 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
 
         assertFalse(getLib().even(makeNumber(5)));
         assertTrue(getLib().even(makeNumber(2)));
+    }
+
+    //
+    // Date properties
+    //
+    @Test
+    public void testDateProperties() {
+        assertEqualsNumber(getLib().number("2018"), getLib().year(getLib().date("2018-12-10")));
+        assertEqualsNumber(getLib().number("12"), getLib().month(getLib().date("2018-12-10")));
+        assertEqualsNumber(getLib().number("10"), getLib().day(getLib().date("2018-12-10")));
+        assertEqualsNumber(getLib().number("1"), getLib().weekday(getLib().date("2018-12-10")));
+    }
+
+    //
+    // Time properties
+    //
+    @Test
+    public void testTimeProperties() {
+        assertEqualsNumber(getLib().number("12"), getLib().hour(getLib().time("12:01:02Z")));
+        assertEqualsNumber(getLib().number("1"), getLib().minute(getLib().time("12:01:02Z")));
+        assertEqualsNumber(getLib().number("2"), getLib().second(getLib().time("12:01:02Z")));
+        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timezone(getLib().time("12:01:02Z")));
+        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().time("12:01:02Z")));
+    }
+
+    //
+    // Duration properties
+    //
+    @Test
+    public void testDurationProperties() {
+        assertEqualsNumber(getLib().number("1"), getLib().years(getLib().duration("P1Y2M")));
+        assertEqualsNumber(getLib().number("2"), getLib().months(getLib().duration("P1Y2M")));
+
+        assertEqualsNumber(getLib().number("3"), getLib().days(getLib().duration("P1Y2M3DT4H5M6.700S")));
+        assertEqualsNumber(getLib().number("4"), getLib().hours(getLib().duration("P1Y2M3DT4H5M6.700S")));
+        assertEqualsNumber(getLib().number("5"), getLib().minutes(getLib().duration("P1Y2M3DT4H5M6.700S")));
+        assertEqualsNumber(getLib().number("6"), getLib().seconds(getLib().duration("P1Y2M3DT4H5M6.700S")));
     }
 }

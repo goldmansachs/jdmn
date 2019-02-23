@@ -78,7 +78,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         } else if (sourceType instanceof ContextType) {
             Type memberType = ((ContextType) sourceType).getMemberType(memberName);
             String javaType = dmnTransformer.toJavaType(memberType);
-            return String.format("((%s)%s.%s)", javaType, source, dmnTransformer.contextGetter(memberName));
+            return String.format("((%s)((%s)%s).%s)", javaType, dmnTransformer.contextClassName(), source, dmnTransformer.contextGetter(memberName));
         } else if (sourceType instanceof ListType) {
             String filter = makeNavigation(element, ((ListType) sourceType).getElementType(), "x", memberName, memberVariableName);
             return String.format("%s.stream().map(x -> %s).collect(Collectors.toList())", source, filter);
@@ -110,10 +110,14 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         return dmnTransformer.javaFriendlyName(name.length() == 1 ? firstChar : firstChar + name.substring(1));
     }
 
-    protected Object makeCondition(String feelOperator, Expression leftOperand, Expression rightOperand, FEELContext params) {
-        String leftOpd = (String) leftOperand.accept(this, params);
-        String rightOpd = (String) rightOperand.accept(this, params);
+    protected Object makeCondition(String feelOperator, Expression leftOperand, Expression rightOperand, FEELContext context) {
+        String leftOpd = (String) leftOperand.accept(this, context);
+        String rightOpd = (String) rightOperand.accept(this, context);
         JavaOperator javaOperator = OperatorDecisionTable.javaOperator(feelOperator, leftOperand.getType(), rightOperand.getType());
+        return makeCondition(feelOperator, leftOpd, rightOpd, javaOperator);
+    }
+
+    protected String makeCondition(String feelOperator, String leftOpd, String rightOpd, JavaOperator javaOperator) {
         if (javaOperator == null) {
             throw new DMNRuntimeException(String.format("Operator '%s' cannot be applied to '%s' and '%s'", feelOperator, leftOpd, rightOpd));
         } else {

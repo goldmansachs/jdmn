@@ -201,7 +201,7 @@ public class DoubleUtil {
             Double dv = dm * dm;
             variance = variance + dv;
         }
-        variance = variance / length;
+        variance = variance / (length - 1);
         Double stddev = sqrt(variance);
         return stddev;
     }
@@ -215,6 +215,9 @@ public class DoubleUtil {
         List modes = new ArrayList();
         Map<Object, Integer> countMap = new HashMap<Object, Integer>();
         for (Object n : list) {
+            if (n == null) {
+                return null;
+            }
             int count = 0;
 
             if (countMap.containsKey(n)) {

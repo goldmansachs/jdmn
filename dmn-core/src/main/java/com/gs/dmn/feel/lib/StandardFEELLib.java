@@ -128,6 +128,8 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
 
     NUMBER day(DATE date);
 
+    NUMBER weekday(DATE date);
+
     //
     // Time functions
     //

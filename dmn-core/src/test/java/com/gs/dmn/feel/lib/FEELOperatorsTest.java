@@ -499,6 +499,8 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertTrue(getLib().booleanNot(Boolean.FALSE));
         assertFalse(getLib().booleanNot(Boolean.TRUE));
         assertNull(getLib().booleanNot(null));
+        assertNull(getLib().booleanNot("abc"));
+        assertNull(getLib().booleanNot(getLib().number("123")));
     }
 
     @Test
@@ -511,7 +513,14 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertNull(getLib().booleanOr(null, Boolean.FALSE));
         assertTrue(getLib().booleanOr(Boolean.TRUE, null));
         assertTrue(getLib().booleanOr(null, Boolean.TRUE));
+        assertTrue(getLib().booleanOr(Boolean.TRUE, getLib().number("123")));
+        assertTrue(getLib().booleanOr(getLib().number("123"), Boolean.TRUE));
+        assertTrue(getLib().booleanOr(Boolean.TRUE, "123"));
+        assertTrue(getLib().booleanOr(Boolean.TRUE, null));
+        assertTrue(getLib().booleanOr(null, Boolean.TRUE));
+        assertTrue(getLib().booleanOr("123", Boolean.TRUE));
         assertNull(getLib().booleanOr(null, null));
+        assertNull(getLib().booleanOr("123", "123"));
     }
 
     @Test
@@ -522,9 +531,16 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertTrue(getLib().booleanAnd(Boolean.TRUE, Boolean.TRUE));
         assertFalse(getLib().booleanAnd(Boolean.FALSE, null));
         assertFalse(getLib().booleanAnd(null, Boolean.FALSE));
+        assertFalse(getLib().booleanAnd(Boolean.FALSE, getLib().number("123")));
+        assertFalse(getLib().booleanAnd(getLib().number("123"), Boolean.FALSE));
+        assertFalse(getLib().booleanAnd(Boolean.FALSE, "123"));
+        assertFalse(getLib().booleanAnd(Boolean.FALSE, null));
+        assertFalse(getLib().booleanAnd(null, Boolean.FALSE));
+        assertFalse(getLib().booleanAnd("123", Boolean.FALSE));
         assertNull(getLib().booleanAnd(Boolean.TRUE, null));
         assertNull(getLib().booleanAnd(null, Boolean.TRUE));
         assertNull(getLib().booleanAnd(null, null));
+        assertNull(getLib().booleanAnd("123", "123"));
     }
 
     //

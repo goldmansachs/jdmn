@@ -41,7 +41,7 @@ public abstract class LogicExpression extends Expression {
 
     @Override
     public void deriveType(Environment environment) {
+        // Not need to check the operand types. or, and, not are total functions
         setType(BooleanType.BOOLEAN);
-        checkType(operator, leftOperand.getType(), rightOperand.getType());
     }
 }

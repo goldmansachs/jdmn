@@ -21,6 +21,7 @@ public class TimeType extends DataType {
     public static final TimeType TIME = new TimeType();
 
     private static final Map<String, Type> MEMBERS = new LinkedHashMap() {{
+        put("hour", NUMBER);
         put("minute", NUMBER);
         put("second", NUMBER);
         put("time offset", DurationType.DAYS_AND_TIME_DURATION);

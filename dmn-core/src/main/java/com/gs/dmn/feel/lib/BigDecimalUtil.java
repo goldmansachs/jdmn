@@ -57,7 +57,7 @@ public class BigDecimalUtil {
             return null;
         }
 
-        return new BigDecimal(divident.toBigInteger().mod(divisor.toBigInteger()));
+        return new BigDecimal(divident.toBigInteger().remainder(divisor.toBigInteger()));
     }
 
     public static BigDecimal sqrt(BigDecimal number) {
@@ -205,7 +205,7 @@ public class BigDecimalUtil {
         }
 
         BigDecimal mean = mean(list);
-        BigDecimal length = BigDecimal.valueOf(list.size());
+        BigDecimal length = BigDecimal.valueOf(list.size() - 1);
         BigDecimal variance = BigDecimal.ZERO;
         for(Object e: list) {
             BigDecimal number = (BigDecimal) e;
@@ -213,7 +213,7 @@ public class BigDecimalUtil {
             BigDecimal dv = dm.multiply(dm);
             variance = variance.add(dv);
         }
-        variance = variance.divide(length);
+        variance = variance.divide(length, MathContext.DECIMAL128);
         BigDecimal stddev = sqrt(variance);
         return stddev;
     }
@@ -227,6 +227,9 @@ public class BigDecimalUtil {
         List modes = new ArrayList();
         Map<Object, Integer> countMap = new HashMap<Object, Integer>();
         for (Object n : list) {
+            if (n == null) {
+                return null;
+            }
             int count = 0;
 
             if (countMap.containsKey(n)) {

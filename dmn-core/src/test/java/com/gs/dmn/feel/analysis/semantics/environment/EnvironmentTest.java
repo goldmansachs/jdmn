@@ -29,7 +29,7 @@ public class EnvironmentTest {
         String name = "x";
         environment.addDeclaration(new VariableDeclaration(name, StringType.STRING));
 
-        assertEquals("x", environment.lookupVariableDeclaration(name).getInputExpression());
+        assertEquals("x", environment.lookupVariableDeclaration(name).getName());
     }
 
     @Test
@@ -37,6 +37,6 @@ public class EnvironmentTest {
         Environment environment = environmentFactory.makeEnvironment();
 
         String functionName = "date";
-        assertEquals(functionName, environment.lookupFunctionDeclaration(functionName, new PositionalSignature(Arrays.asList(StringType.STRING))).getInputExpression());
+        assertEquals(functionName, environment.lookupFunctionDeclaration(functionName, new PositionalSignature(Arrays.asList(StringType.STRING))).getName());
     }
 }

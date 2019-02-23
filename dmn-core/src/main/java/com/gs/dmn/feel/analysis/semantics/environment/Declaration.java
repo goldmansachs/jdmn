@@ -13,13 +13,13 @@
 package com.gs.dmn.feel.analysis.semantics.environment;
 
 public abstract class Declaration {
-    protected final String inputExpression;
+    protected final String name;
 
-    Declaration(String inputExpression) {
-        this.inputExpression = inputExpression;
+    Declaration(String name) {
+        this.name = name;
     }
 
-    public String getInputExpression() {
-        return inputExpression;
+    public String getName() {
+        return name;
     }
 }

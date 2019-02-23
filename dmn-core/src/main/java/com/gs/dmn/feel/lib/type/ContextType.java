@@ -10,19 +10,10 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.semantics.environment;
+package com.gs.dmn.feel.lib.type;
 
-import com.gs.dmn.feel.analysis.semantics.type.Type;
+public interface ContextType {
+    Boolean contextEqual(Object c1, Object c2);
 
-public class MemberDeclaration extends Declaration {
-    private final Type type;
-
-    MemberDeclaration(String inputExpression, Type type) {
-        super(inputExpression);
-        this.type = type;
-    }
-
-    public Type getType() {
-        return type;
-    }
+    Boolean contextNotEqual(Object c1, Object c2);
 }

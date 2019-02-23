@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.feel.lib.type.context.DefaultContextType;
 import com.gs.dmn.feel.lib.type.list.DefaultListType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
@@ -55,7 +56,8 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Offs
                 new OffsetTimeType(LOGGER),
                 new ZonedDateTimeType(LOGGER),
                 new TemporalAmountDurationType(LOGGER),
-                new DefaultListType(LOGGER)
+                new DefaultListType(LOGGER),
+                new DefaultContextType(LOGGER)
         );
     }
 
@@ -80,25 +82,30 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Offs
 
     @Override
     public BigDecimal number(String from, String groupingSeparator, String decimalSeparator) {
-        if (StringUtils.isBlank(from) || groupingSeparator == null || decimalSeparator == null) {
+        if (StringUtils.isBlank(from)) {
+            return null;
+        }
+        if (! (" ".equals(groupingSeparator) || ".".equals(groupingSeparator) || ",".equals(groupingSeparator) || null == groupingSeparator)) {
+            return null;
+        }
+        if (! (".".equals(decimalSeparator) || ",".equals(decimalSeparator) || null == decimalSeparator)) {
+            return null;
+        }
+        if (groupingSeparator != null && groupingSeparator.equals(decimalSeparator)) {
             return null;
         }
 
         try {
-            if (decimalSeparator.equals(".")) {
-                decimalSeparator = "\\" + decimalSeparator;
+            if (groupingSeparator != null) {
+                if (groupingSeparator.equals(".")) {
+                    groupingSeparator = "\\" + groupingSeparator;
+                }
+                from = from.replaceAll(groupingSeparator, "");
             }
-            if (groupingSeparator.equals(".")) {
-                groupingSeparator = "\\" + groupingSeparator;
+            if (decimalSeparator != null && !decimalSeparator.equals(".")) {
+                from = from.replaceAll(decimalSeparator, ".");
             }
-            String[] parts = from.split(decimalSeparator);
-            if (parts.length == 1) {
-                return number(from.replaceAll(groupingSeparator, ""));
-            } else if (parts.length == 2) {
-                return number(parts[0].replaceAll(groupingSeparator, "") + "." + parts[1]);
-            } else {
-                return null;
-            }
+            return number(from);
         } catch (Throwable e) {
             String message = String.format("number(%s, %s, %s)", from, groupingSeparator, decimalSeparator);
             logError(message, e);
@@ -802,6 +809,24 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Offs
     public BigDecimal day(ZonedDateTime dateTime) {
         try {
             return BigDecimal.valueOf(dateTime.getDayOfMonth());
+        } catch (Exception e) {
+            String message = String.format("day(%s)", dateTime);
+            logError(message, e);
+            return null;
+        }
+    }
+    public BigDecimal weekday(LocalDate date) {
+        try {
+            return BigDecimal.valueOf(date.getDayOfWeek().getValue());
+        } catch (Exception e) {
+            String message = String.format("day(%s)", date);
+            logError(message, e);
+            return null;
+        }
+    }
+    public BigDecimal weekday(ZonedDateTime dateTime) {
+        try {
+            return BigDecimal.valueOf(dateTime.getDayOfWeek().getValue());
         } catch (Exception e) {
             String message = String.format("day(%s)", dateTime);
             logError(message, e);

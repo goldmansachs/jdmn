@@ -75,5 +75,6 @@ public abstract class CL3DMNInterpreterTest extends AbstractDMNInterpreterTest {
 
         // DMN 1.2 files
         doTestDiagram("0034-drg-scopes-2");
+        doTestDiagram("0076-feel-external-java");
     }
 }
