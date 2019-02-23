@@ -1297,7 +1297,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
     @Override
     public List mode(Object... numbers) {
-        if (numbers == null || numbers.length < 1) {
+        if (numbers == null) {
             return null;
         }
 
