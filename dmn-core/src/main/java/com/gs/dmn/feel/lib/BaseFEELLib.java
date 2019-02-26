@@ -132,6 +132,31 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         return booleanType.booleanNotEqual(first, second);
     }
 
+    @Deprecated
+    public Boolean booleanNot(Boolean operand) {
+        return booleanType.booleanNot(operand);
+    }
+
+    @Deprecated
+    public Boolean booleanOr(Boolean... operands) {
+        return booleanType.booleanOr(operands);
+    }
+
+    @Deprecated
+    public Boolean binaryBooleanOr(Boolean first, Boolean second) {
+        return booleanType.binaryBooleanOr(first, second);
+    }
+
+    @Deprecated
+    public Boolean booleanAnd(Boolean... operands) {
+        return booleanType.booleanAnd(operands);
+    }
+
+    @Deprecated
+    public Boolean binaryBooleanAnd(Boolean first, Boolean second) {
+        return booleanType.binaryBooleanAnd(first, second);
+    }
+
     //
     // String operators
     //
