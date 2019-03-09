@@ -859,21 +859,21 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Offs
     }
 
     public TemporalAmount timeOffset(OffsetTime time) {
-        return timezone(time);
-    }
-    public TemporalAmount timeOffset(ZonedDateTime dateTime) {
-        return timezone(dateTime);
-    }
-
-    public TemporalAmount timezone(OffsetTime time) {
         // timezone offset in seconds
         int secondsOffset = time.getOffset().getTotalSeconds();
         return duration(secondsOffset * 1000);
     }
-    public TemporalAmount timezone(ZonedDateTime dateTime) {
+    public TemporalAmount timeOffset(ZonedDateTime dateTime) {
         // timezone offset in seconds
         int secondsOffset = dateTime.getOffset().getTotalSeconds();
         return duration(secondsOffset * 1000);
+    }
+
+    public String timezone(OffsetTime time) {
+        return time.getOffset().getId();
+    }
+    public String timezone(ZonedDateTime dateTime) {
+        return dateTime.getZone().getId();
     }
 
     //
