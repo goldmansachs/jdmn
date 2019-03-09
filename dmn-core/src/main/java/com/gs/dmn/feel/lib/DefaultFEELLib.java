@@ -873,13 +873,18 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     }
 
     public Duration timeOffset(XMLGregorianCalendar date) {
-        return timezone(date);
-    }
-
-    public Duration timezone(XMLGregorianCalendar date) {
         // timezone offset in seconds
         int secondsOffset = date.getTimezone();
-        return DATA_TYPE_FACTORY.newDuration(secondsOffset * 1000);
+        if (secondsOffset == DatatypeConstants.FIELD_UNDEFINED) {
+            return null;
+        } else {
+            return DATA_TYPE_FACTORY.newDuration(secondsOffset * 1000);
+        }
+    }
+
+    public String timezone(XMLGregorianCalendar date) {
+        // timezone offset in seconds
+        return ((FEELXMLGregorianCalendar)date).getZoneID();
     }
 
     //

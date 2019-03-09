@@ -926,22 +926,21 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
 
     public Duration timeOffset(OffsetTime time) {
-        return timezone(time);
-    }
-    public Duration timeOffset(ZonedDateTime dateTime) {
-        return timezone(dateTime);
-    }
-
-    public Duration timezone(OffsetTime time) {
         // timezone offset in seconds
         int secondsOffset = time.getOffset().getTotalSeconds();
         return computeDuration(secondsOffset);
-
     }
-    public Duration timezone(ZonedDateTime dateTime) {
+    public Duration timeOffset(ZonedDateTime dateTime) {
         // timezone offset in seconds
         int secondsOffset = dateTime.getOffset().getTotalSeconds();
         return computeDuration(secondsOffset);
+    }
+
+    public String timezone(OffsetTime time) {
+        return time.getOffset().getId();
+    }
+    public String timezone(ZonedDateTime dateTime) {
+        return dateTime.getZone().getId();
     }
     private Duration computeDuration(int secondsOffset) {
         return DATA_TYPE_FACTORY.newDuration(secondsOffset * 1000);

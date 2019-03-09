@@ -16,6 +16,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
+import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 
 public class TimeType extends DataType {
     public static final TimeType TIME = new TimeType();
@@ -25,7 +26,7 @@ public class TimeType extends DataType {
         put("minute", NUMBER);
         put("second", NUMBER);
         put("time offset", DurationType.DAYS_AND_TIME_DURATION);
-        put("timezone", DurationType.DAYS_AND_TIME_DURATION);
+        put("timezone", STRING);
     }};
 
     public static Type getMemberType(String member) {

@@ -478,11 +478,15 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     //
     @Test
     public void testTimeProperties() {
-        assertEqualsNumber(getLib().number("12"), getLib().hour(getLib().time("12:01:02Z")));
-        assertEqualsNumber(getLib().number("1"), getLib().minute(getLib().time("12:01:02Z")));
-        assertEqualsNumber(getLib().number("2"), getLib().second(getLib().time("12:01:02Z")));
-        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timezone(getLib().time("12:01:02Z")));
-        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().time("12:01:02Z")));
+        // See each implementation
+    }
+
+    //
+    // Date and time properties
+    //
+    @Test
+    public void testDateAndTimeProperties() {
+        // See each implementation
     }
 
     //

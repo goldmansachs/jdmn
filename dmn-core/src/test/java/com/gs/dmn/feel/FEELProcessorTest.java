@@ -1449,6 +1449,55 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
     }
 
     @Test
+    public void testDateAndTimeProperties() {
+        List<EnvironmentEntry> entries = Arrays.asList(
+        );
+
+        doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:00\").time offset",
+                "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:00\"), time offset)",
+                "days and time duration",
+                "timeOffset(dateAndTime(\"2018-12-10T10:30:00\"))",
+                lib.timeOffset(lib.dateAndTime("2018-12-10T10:30:00")),
+                null
+        );
+        doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:00@Etc/UTC\").timezone",
+                "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:00@Etc/UTC\"), timezone)",
+                "string",
+                "timezone(dateAndTime(\"2018-12-10T10:30:00@Etc/UTC\"))",
+                lib.timezone(lib.dateAndTime("2018-12-10T10:30:00@Etc/UTC")),
+                "Etc/UTC"
+        );
+        doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:00\").timezone",
+                "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:00\"), timezone)",
+                "string",
+                "timezone(dateAndTime(\"2018-12-10T10:30:00\"))",
+                lib.timezone(lib.dateAndTime("2018-12-10T10:30:00")),
+                null
+        );
+        doExpressionTest(entries, "", "time(\"10:30:00\").time offset",
+                "PathExpression(DateTimeLiteral(time, \"10:30:00\"), time offset)",
+                "days and time duration",
+                "timeOffset(time(\"10:30:00\"))",
+                lib.timeOffset(lib.time("10:30:00")),
+                null
+        );
+        doExpressionTest(entries, "", "time(\"10:30:00@Etc/UTC\").timezone",
+                "PathExpression(DateTimeLiteral(time, \"10:30:00@Etc/UTC\"), timezone)",
+                "string",
+                "timezone(time(\"10:30:00@Etc/UTC\"))",
+                lib.timezone(lib.time("10:30:00@Etc/UTC")),
+                "Etc/UTC"
+        );
+        doExpressionTest(entries, "", "time(\"10:30:00\").timezone",
+                "PathExpression(DateTimeLiteral(time, \"10:30:00\"), timezone)",
+                "string",
+                "timezone(time(\"10:30:00\"))",
+                lib.timezone(lib.time("10:30:00")),
+                null
+        );
+    }
+
+    @Test
     public void testPathExpression() {
         ItemDefinitionType type = new ItemDefinitionType("PrivateFundRequirements").addMember("HierarchyNode", Arrays.asList(), STRING);
         List<EnvironmentEntry> entries = Arrays.asList(

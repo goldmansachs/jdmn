@@ -79,7 +79,7 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     NUMBER minute(TIME time);
     NUMBER second(TIME time);
     DURATION timeOffset(TIME time);
-    DURATION timezone(TIME time);
+    String timezone(TIME time);
 
     //
     // Duration functions
