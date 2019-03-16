@@ -53,7 +53,7 @@
     Import required BKMs
 -->
 <#macro importRequiredBKMs drgElement>
-    <#list modelRepository.directSubBKMs(drgElement)>
+    <#list modelRepository.directSubInvocables(drgElement)>
         <#items as subBKM>
 import static ${transformer.qualifiedName(javaPackageName, transformer.drgElementClassName(subBKM))}.${transformer.bkmFunctionName(subBKM)};
         </#items>

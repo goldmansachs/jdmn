@@ -218,7 +218,8 @@ public class TCKUtil {
         TDRGElement element = findDRGElementByName(node.getName());
         QualifiedName typeRef = null;
         if (element instanceof TInputData) {
-            typeRef = QualifiedName.toQualifiedName(((TInputData) element).getVariable().getTypeRef());
+            String varTypeRef = ((TInputData) element).getVariable().getTypeRef();
+            typeRef = QualifiedName.toQualifiedName(varTypeRef);
         } else {
             throw new UnsupportedOperationException(String.format("Cannot resolve FEEL type for node '%s'. '%s' not supported", node.getName(), element.getClass().getSimpleName()));
         }
@@ -314,7 +315,10 @@ public class TCKUtil {
     private Object makeValue(InputNode inputNode) {
         TDRGElement drgElement = dmnTransformer.getDMNModelRepository().findDRGElementByName(inputNode.getName());
         if (drgElement instanceof TInputData) {
-            Type type = dmnTransformer.toFEELType(QualifiedName.toQualifiedName(((TInputData) drgElement).getVariable().getTypeRef()));
+            Type type = dmnTransformer.drgElementOutputFEELType(drgElement);
+            return makeValue(inputNode, type);
+        } else if (drgElement instanceof TDecision) {
+            Type type = dmnTransformer.drgElementOutputFEELType(drgElement);
             return makeValue(inputNode, type);
         } else {
             throw new UnsupportedOperationException(String.format("Not supported DRGElement '%s'", drgElement.getClass().getSimpleName()));

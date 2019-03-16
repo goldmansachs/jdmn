@@ -662,6 +662,8 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
             Object binding = context.lookupRuntimeBinding(feelFunctionName);
             if (binding instanceof TBusinessKnowledgeModel) {
                 return dmnInterpreter.evaluateBKM((TBusinessKnowledgeModel) binding, argList, context);
+            } else if (binding instanceof TDecisionService) {
+                return dmnInterpreter.evaluateDecisionService((TDecisionService) binding, argList, context);
             } else if (binding instanceof TFunctionDefinition) {
                 TFunctionKind kind = ((TFunctionDefinition) binding).getKind();
                 if (dmnTransformer.isFEELFunction(kind)) {
@@ -700,6 +702,8 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         } else {
             Object binding = function.accept(this, context);
             if (binding instanceof TBusinessKnowledgeModel) {
+                return dmnInterpreter.evaluateBKM((TBusinessKnowledgeModel) binding, argList, context);
+            } else if (binding instanceof TDecisionService) {
                 return dmnInterpreter.evaluateBKM((TBusinessKnowledgeModel) binding, argList, context);
             } else if (binding instanceof TFunctionDefinition) {
                 return dmnInterpreter.evaluateFunctionDefinition((TFunctionDefinition) binding, argList, context);
