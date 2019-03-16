@@ -53,5 +53,9 @@ public abstract class EnvironmentFactory {
         return new BusinessKnowledgeModelDeclaration(name, type);
     }
 
+    public DecisionServiceDeclaration makeDecisionServiceDeclaration(String name, FunctionType type) {
+        return new DecisionServiceDeclaration(name, type);
+    }
+
     public abstract Environment getRootEnvironment();
 }

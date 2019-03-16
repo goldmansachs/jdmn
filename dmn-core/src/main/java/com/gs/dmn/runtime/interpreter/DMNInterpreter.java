@@ -19,6 +19,7 @@ import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.feel.interpreter.FEELInterpreter;
 import com.gs.dmn.feel.interpreter.FEELInterpreterImpl;
@@ -80,6 +81,9 @@ public class DMNInterpreter {
     private void evaluate(TDRGElement drgElement, RuntimeEnvironment runtimeEnvironment) {
         if (drgElement instanceof TInputData) {
         } else if (drgElement instanceof TBusinessKnowledgeModel) {
+            evaluateBKM((TBusinessKnowledgeModel) drgElement, runtimeEnvironment);
+        } else if (drgElement instanceof TDecisionService) {
+            evaluateDecisionService((TDecisionService) drgElement, runtimeEnvironment);
         } else if (drgElement instanceof TDecision) {
             evaluateDecision((TDecision) drgElement, runtimeEnvironment);
         } else {
@@ -118,6 +122,50 @@ public class DMNInterpreter {
         return output;
     }
 
+    public Object evaluateDecisionService(TDecisionService service, List<Object> argList, FEELContext context) {
+        RuntimeEnvironment serviceRuntimeEnvironment = runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment());
+
+        // Decision Service start
+        long startTime_ = System.currentTimeMillis();
+        DRGElement drgElementAnnotation = makeDRGElementAnnotation(service, serviceRuntimeEnvironment);
+        com.gs.dmn.runtime.listener.Arguments decisionArguments = makeArguments(service, serviceRuntimeEnvironment);
+        EVENT_LISTENER.startDRGElement(drgElementAnnotation, decisionArguments);
+
+        // Bind parameters
+        Environment serviceEnvironment = environmentFactory.makeEnvironment(context.getEnvironment());
+        List<FormalParameter> formalParameterList = basicDMNTransformer.dsFEELParameters(service);
+        for (int i = 0; i < formalParameterList.size(); i++) {
+            FormalParameter param = formalParameterList.get(i);
+            String name = param.getName();
+            Type type = param.getType();
+            Object value = argList.get(i);
+            serviceEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(name, type));
+            serviceRuntimeEnvironment.bind(name, value);
+        }
+
+        // Evaluate output decisions
+        List<TDecision> outputDecisions = service.getOutputDecision().stream().map(er -> dmnModelRepository.findDecisionById(er.getHref())).collect(Collectors.toList());
+        for (TDecision decision: outputDecisions) {
+            evaluateDecision(decision, serviceRuntimeEnvironment);
+        }
+
+        // Make context result
+        Context output = new Context();
+        for(TDecision decision: outputDecisions) {
+            String key = decision.getName();
+            Object value = serviceRuntimeEnvironment.lookupBinding(key);
+            output.add(key, value);
+        }
+
+        // Set variable
+        serviceRuntimeEnvironment.bind(service.getName(), output);
+
+        // Decision service end
+        EVENT_LISTENER.endDRGElement(drgElementAnnotation, decisionArguments, output, (System.currentTimeMillis() - startTime_));
+
+        return output;
+    }
+
     public Object evaluateFunctionDefinition(TFunctionDefinition functionDefinition, List<Object> argList, FEELContext context) {
         // Create new environments and bind parameters
         Environment functionEnvironment = environmentFactory.makeEnvironment(context.getEnvironment());
@@ -145,26 +193,41 @@ public class DMNInterpreter {
         return output;
     }
 
-    private void evaluateBKMRequirements(List<TKnowledgeRequirement> knowledgeRequirementList, RuntimeEnvironment runtimeEnvironment) {
+    private void evaluateKnowledgeRequirements(List<TKnowledgeRequirement> knowledgeRequirementList, RuntimeEnvironment runtimeEnvironment) {
         for (TKnowledgeRequirement requirement : knowledgeRequirementList) {
             TDMNElementReference requiredKnowledge = requirement.getRequiredKnowledge();
             String href = requiredKnowledge.getHref();
-            TBusinessKnowledgeModel childBKM = this.dmnModelRepository.findKnowledgeModelById(href);
-            evaluateBKM(childBKM, runtimeEnvironment);
+            TInvocable invocable = this.dmnModelRepository.findInvocableById(href);
+            if (invocable instanceof TBusinessKnowledgeModel) {
+                evaluateBKM((TBusinessKnowledgeModel) invocable, runtimeEnvironment);
+            } else if (invocable instanceof TDecisionService) {
+                evaluateDecisionService((TDecisionService) invocable, runtimeEnvironment);
+            } else {
+                throw new UnsupportedOperationException(String.format("Not supported invocable '%s'", invocable.getClass().getSimpleName()));
+            }
         }
     }
 
     private void evaluateBKM(TBusinessKnowledgeModel bkm, RuntimeEnvironment runtimeEnvironment) {
         // Evaluate knowledge requirements
         List<TKnowledgeRequirement> knowledgeRequirement = bkm.getKnowledgeRequirement();
-        evaluateBKMRequirements(knowledgeRequirement, runtimeEnvironment);
+        evaluateKnowledgeRequirements(knowledgeRequirement, runtimeEnvironment);
 
-        // Bind name to
+        // Bind name to DMN definition
         String bkmName = bkm.getName();
         if (bkmName == null) {
             bkmName = bkm.getVariable().getName();
         }
         runtimeEnvironment.bind(bkmName, bkm);
+    }
+
+    private void evaluateDecisionService(TDecisionService service, RuntimeEnvironment runtimeEnvironment) {
+        // Bind name to DMN definition
+        String serviceName = service.getName();
+        if (serviceName == null) {
+            serviceName = service.getVariable().getName();
+        }
+        runtimeEnvironment.bind(serviceName, service);
     }
 
     protected void evaluateDecision(TDecision decision, RuntimeEnvironment runtimeEnvironment) {
@@ -183,7 +246,7 @@ public class DMNInterpreter {
         } else {
             // Evaluate dependencies
             evaluateInformationRequirementList(decision.getInformationRequirement(), runtimeEnvironment);
-            evaluateBKMRequirements(decision.getKnowledgeRequirement(), runtimeEnvironment);
+            evaluateKnowledgeRequirements(decision.getKnowledgeRequirement(), runtimeEnvironment);
 
             // Evaluate expression
             TExpression expression = dmnModelRepository.expression(decision);

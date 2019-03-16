@@ -161,6 +161,20 @@ public class DMNModelRepository {
         return result;
     }
 
+    public List<TDecisionService> decisionServices() {
+        List<TDecisionService> result = new ArrayList<>();
+        if (definitions == null) {
+            return result;
+        }
+        for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
+            TDRGElement element = jaxbElement.getValue();
+            if (element instanceof TDecisionService) {
+                result.add((TDecisionService) element);
+            }
+        }
+        return result;
+    }
+
     public List<TItemDefinition> itemDefinitions() {
         if (definitions == null) {
             return new ArrayList<>();
@@ -235,13 +249,18 @@ public class DMNModelRepository {
         throw new DMNRuntimeException(String.format("Cannot find input data for href='%s'", href));
     }
 
-    public TBusinessKnowledgeModel findKnowledgeModelById(String href) {
+    public TInvocable findInvocableById(String href) {
         for (TBusinessKnowledgeModel knowledgeModel : businessKnowledgeModels()) {
             if (sameId(knowledgeModel, href)) {
                 return knowledgeModel;
             }
         }
-        throw new DMNRuntimeException(String.format("Cannot find business knowledge model for href='%s'", href));
+        for (TDecisionService service : decisionServices()) {
+            if (sameId(service, href)) {
+                return service;
+            }
+        }
+        throw new DMNRuntimeException(String.format("Cannot find invocable (knowledge model or decision service) for href='%s'", href));
     }
 
     public TBusinessKnowledgeModel findKnowledgeModelByName(String name) {
@@ -250,7 +269,16 @@ public class DMNModelRepository {
                 return knowledgeModel;
             }
         }
-        throw new DMNRuntimeException(String.format("Cannot find business knowledge model for href='%s'", name));
+        throw new DMNRuntimeException(String.format("Cannot find business knowledge model for name='%s'", name));
+    }
+
+    public TDecisionService findDecisionServiceByName(String name) {
+        for (TDecisionService service : decisionServices()) {
+            if (sameName(service, name)) {
+                return service;
+            }
+        }
+        throw new DMNRuntimeException(String.format("Cannot find decision service for name='%s'", name));
     }
 
     public TDRGElement findDRGElementByName(String href) {
@@ -347,7 +375,7 @@ public class DMNModelRepository {
     }
 
     public List<TInputData> directInputDatas(TDRGElement element) {
-        if (element != null) {
+        if (element instanceof TDecision) {
             List<TInformationRequirement> informationRequirement = ((TDecision) element).getInformationRequirement();
             return directInputDatas(informationRequirement);
         } else {
@@ -381,15 +409,15 @@ public class DMNModelRepository {
         }
     }
 
-    protected void collectInputDatas(TDRGElement element, Set<TInputData> inputDatas) {
+    public void collectInputDatas(TDRGElement element, Set<TInputData> inputDatas) {
         inputDatas.addAll(directInputDatas(element));
         for (TDecision child : directSubDecisions(element)) {
             collectInputDatas(child, inputDatas);
         }
     }
 
-    public List<TBusinessKnowledgeModel> directSubBKMs(TDRGElement element) {
-        List<TBusinessKnowledgeModel> result = new ArrayList<>();
+    public List<TInvocable> directSubInvocables(TDRGElement element) {
+        List<TInvocable> result = new ArrayList<>();
         List<TKnowledgeRequirement> knowledgeRequirements;
         if (element instanceof TDecision) {
             knowledgeRequirements = ((TDecision) element).getKnowledgeRequirement();
@@ -399,29 +427,88 @@ public class DMNModelRepository {
             knowledgeRequirements = new ArrayList<>();
         }
         for (TKnowledgeRequirement kr : knowledgeRequirements) {
-            TDMNElementReference requiredInput = kr.getRequiredKnowledge();
-            if (requiredInput != null) {
-                TBusinessKnowledgeModel knowledgeModel = findKnowledgeModelById(requiredInput.getHref());
-                if (knowledgeModel != null) {
-                    result.add(knowledgeModel);
+            TDMNElementReference reference = kr.getRequiredKnowledge();
+            if (reference != null) {
+                TInvocable invocable = findInvocableById(reference.getHref());
+                if (invocable != null) {
+                    result.add(invocable);
                 } else {
-                    throw new DMNRuntimeException(String.format("Cannot find BusinessKnowledgeModel for '%s'", requiredInput.getHref()));
+                    throw new DMNRuntimeException(String.format("Cannot find BusinessKnowledgeModel for '%s'", reference.getHref()));
                 }
             }
         }
         return result;
     }
 
-    public List<TBusinessKnowledgeModel> allKnowledgeModels(TDRGElement element) {
-        Set<TBusinessKnowledgeModel> result = new LinkedHashSet<>();
-        collectKnowledgeModels(element, result);
+    public List<TInvocable> allInvocables(TDRGElement element) {
+        Set<TInvocable> result = new LinkedHashSet<>();
+        collectInvocables(element, result);
         return new ArrayList<>(result);
     }
 
-    private void collectKnowledgeModels(TDRGElement element, Set<TBusinessKnowledgeModel> accumulator) {
-        accumulator.addAll(directSubBKMs(element));
-        for (TDRGElement child : directSubBKMs(element)) {
-            collectKnowledgeModels(child, accumulator);
+    private void collectInvocables(TDRGElement element, Set<TInvocable> accumulator) {
+        accumulator.addAll(directSubInvocables(element));
+        for (TDRGElement child : directSubInvocables(element)) {
+            collectInvocables(child, accumulator);
+        }
+    }
+
+    public List<TDRGElement> allDrgElements(TDRGElement element) {
+        List<TDRGElement> result = new ArrayList<>();
+        collectDrgElements(element, result);
+        return result;
+    }
+
+    private void collectDrgElements(TDRGElement element, List<TDRGElement> accumulator) {
+        if (element instanceof TInputData) {
+            // Add input data
+            if (!accumulator.contains(element)) {
+                accumulator.add(element);
+            }
+        } else if (element instanceof TBusinessKnowledgeModel) {
+            // Process knowledge requirements
+            List<TKnowledgeRequirement> krList = ((TBusinessKnowledgeModel) element).getKnowledgeRequirement();
+            for(TKnowledgeRequirement kr: krList) {
+                TInvocable invocable = findInvocableById(kr.getRequiredKnowledge().getHref());
+                collectDrgElements(invocable, accumulator);
+            }
+            // Add BKM
+            if (!accumulator.contains(element)) {
+                accumulator.add(element);
+            }
+        } else if (element instanceof TDecisionService) {
+            // Process output decisions
+            List<TDMNElementReference> decisionRefList = ((TDecisionService) element).getOutputDecision();
+            for(TDMNElementReference ref: decisionRefList) {
+                collectDrgElements(findDecisionById(ref.getHref()), accumulator);
+            }
+            // Add Decision Service
+            if (!accumulator.contains(element)) {
+                accumulator.add(element);
+            }
+        } else if (element instanceof TDecision) {
+            // Process knowledge requirements
+            List<TKnowledgeRequirement> krList = ((TDecision) element).getKnowledgeRequirement();
+            for(TKnowledgeRequirement kr: krList) {
+                TInvocable invocable = findInvocableById(kr.getRequiredKnowledge().getHref());
+                collectDrgElements(invocable, accumulator);
+            }
+            // Process information requirements
+            List<TInformationRequirement> irList = ((TDecision) element).getInformationRequirement();
+            for(TInformationRequirement ir: irList) {
+                TDMNElementReference requiredInput = ir.getRequiredInput();
+                if (requiredInput != null) {
+                    collectDrgElements(findInputDataById(requiredInput.getHref()), accumulator);
+                }
+                TDMNElementReference requiredDecision = ir.getRequiredDecision();
+                if (requiredDecision != null) {
+                    collectDrgElements(findDecisionById(requiredDecision.getHref()), accumulator);
+                }
+            }
+            // Add decision
+            if (!accumulator.contains(element)) {
+                accumulator.add(element);
+            }
         }
     }
 
@@ -496,6 +583,8 @@ public class DMNModelRepository {
                     return expression.getValue();
                 }
             }
+        } else if (element instanceof TDecisionService) {
+            return null;
         } else if (element instanceof TInformationItem) {
             return null;
         } else {
