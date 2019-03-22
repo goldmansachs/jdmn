@@ -1760,7 +1760,7 @@ public class BasicDMN2JavaTransformer {
         return relationEnvironment;
     }
 
-    private Declaration makeVariableDeclaration(TNamedElement element, TInformationItem variable, Environment environment) {
+    protected Declaration makeVariableDeclaration(TNamedElement element, TInformationItem variable, Environment environment) {
         String name = element.getName();
         if (StringUtils.isBlank(name) && variable != null) {
             name = variable.getName();
@@ -1786,7 +1786,7 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    private FunctionDeclaration makeInvocableDeclaration(TInvocable invocable, Environment environment) {
+    protected FunctionDeclaration makeInvocableDeclaration(TInvocable invocable, Environment environment) {
         if (invocable instanceof TBusinessKnowledgeModel) {
             return makeBKMDeclaration((TBusinessKnowledgeModel) invocable, environment);
         } else if (invocable instanceof TDecisionService) {
@@ -1796,7 +1796,7 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    private FunctionDeclaration makeDSDeclaration(TDecisionService ds, Environment environment) {
+    protected FunctionDeclaration makeDSDeclaration(TDecisionService ds, Environment environment) {
         TInformationItem variable = ds.getVariable();
         String name = ds.getName();
         if (StringUtils.isBlank(name) && variable != null) {
@@ -1809,7 +1809,7 @@ public class BasicDMN2JavaTransformer {
         return environmentFactory.makeDecisionServiceDeclaration(name, serviceType);
     }
 
-    private FunctionDeclaration makeBKMDeclaration(TBusinessKnowledgeModel bkm, Environment environment) {
+    protected FunctionDeclaration makeBKMDeclaration(TBusinessKnowledgeModel bkm, Environment environment) {
         TInformationItem variable = bkm.getVariable();
         String name = bkm.getName();
         if (StringUtils.isBlank(name) && variable != null) {
