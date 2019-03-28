@@ -110,7 +110,11 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
         }
 
         try {
-            return numericExponentiation(first, second.intValue());
+            if (second.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
+                return numericExponentiation(first, second.intValue());
+            } else {
+                return new BigDecimal(Math.pow(first.doubleValue(), second.doubleValue()));
+            }
         } catch (Throwable e) {
             String message = String.format("numericExponentiation(%s, %s)", first, second);
             logError(message, e);
@@ -118,7 +122,7 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
         }
     }
 
-    private BigDecimal numericExponentiation(BigDecimal first, int second) {
+    public BigDecimal numericExponentiation(BigDecimal first, int second) {
         if (first == null) {
             return null;
         }
