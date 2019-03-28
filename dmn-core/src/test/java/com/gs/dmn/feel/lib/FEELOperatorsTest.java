@@ -124,11 +124,20 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertNull(getLib().numericExponentiation(makeNumber("10"), null));
 
         assertEqualsNumber(makeNumber("1"), getLib().numericExponentiation(makeNumber("2"), makeNumber("0")));
-        assertEquals(makeNumber("0.5"), getLib().numericExponentiation(makeNumber("2"), makeNumber("-1")));
+        assertEqualsNumber(makeNumber("0.5"), getLib().numericExponentiation(makeNumber("2"), makeNumber("-1")));
         assertEqualsNumber(makeNumber("1024"), getLib().numericExponentiation(makeNumber("2"), makeNumber("10")));
 
-        // DMN spec defines exponentiation as pow(T, int) only; so verify that 2^0.5 ==  2^0 == 1 rather than == sqrt(2)
-        assertEquals(makeNumber("1"), getLib().numericExponentiation(makeNumber("2"), makeNumber("0.5")));
+        assertEqualsNumber(makeNumber("1"), getLib().numericExponentiation(makeNumber("3"), makeNumber("0")));
+
+        assertEqualsNumber(makeNumber("1.41421356"), getLib().numericExponentiation(makeNumber("2"), makeNumber("0.5")));
+        assertEqualsNumber(makeNumber("8"), getLib().numericExponentiation(makeNumber("2"), makeNumber("3")));
+        assertEqualsNumber(makeNumber("11.31370849"), getLib().numericExponentiation(makeNumber("2"), makeNumber("3.5")));
+        assertEqualsNumber(makeNumber("11.84466611"), getLib().numericExponentiation(makeNumber("3"), makeNumber("2.25")));
+        assertEqualsNumber(makeNumber("15.58845726"), getLib().numericExponentiation(makeNumber("3"), makeNumber("2.5")));
+        assertEqualsNumber(makeNumber("20.51556351"), getLib().numericExponentiation(makeNumber("3"), makeNumber("2.75")));
+        assertEqualsNumber(makeNumber("1.73205080"), getLib().numericExponentiation(makeNumber("3"), makeNumber("0.5")));
+        assertEqualsNumber(makeNumber("0.11111111"), getLib().numericExponentiation(makeNumber("3"), makeNumber("-2")));
+        assertEqualsNumber(makeNumber("0.04874348"), getLib().numericExponentiation(makeNumber("3"), makeNumber("-2.75")));
     }
 
     //
