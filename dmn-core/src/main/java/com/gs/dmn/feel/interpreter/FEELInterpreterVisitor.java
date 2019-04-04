@@ -704,7 +704,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
             if (binding instanceof TBusinessKnowledgeModel) {
                 return dmnInterpreter.evaluateBKM((TBusinessKnowledgeModel) binding, argList, context);
             } else if (binding instanceof TDecisionService) {
-                return dmnInterpreter.evaluateBKM((TBusinessKnowledgeModel) binding, argList, context);
+                return dmnInterpreter.evaluateDecisionService((TDecisionService) binding, argList, context);
             } else if (binding instanceof TFunctionDefinition) {
                 return dmnInterpreter.evaluateFunctionDefinition((TFunctionDefinition) binding, argList, context);
             } else if (binding instanceof FunctionDefinition) {
