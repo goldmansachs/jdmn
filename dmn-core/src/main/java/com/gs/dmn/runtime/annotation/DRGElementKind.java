@@ -16,6 +16,7 @@ import org.omg.spec.dmn._20180521.model.*;
 
 public enum DRGElementKind {
     DECISION,
+    DECISION_SERVICE,
     BUSINESS_KNOWLEDGE_MODEL,
     KNOWLEDGE_SOURCE,
     INPUT_DATA,
@@ -24,6 +25,8 @@ public enum DRGElementKind {
     public static DRGElementKind kindByClass(TDRGElement element) {
         if (element instanceof TDecision) {
             return DECISION;
+        } else if (element instanceof TDecisionService) {
+            return DECISION_SERVICE;
         } else if (element instanceof TBusinessKnowledgeModel) {
             return BUSINESS_KNOWLEDGE_MODEL;
         } else if (element instanceof TInputData) {

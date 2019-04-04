@@ -141,7 +141,7 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
 
     DURATION timeOffset(TIME time);
 
-    DURATION timezone(TIME time);
+    String timezone(TIME time);
 
     //
     // Duration functions

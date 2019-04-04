@@ -823,13 +823,13 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     }
 
     public Duration timeOffset(ZonedDateTime date) {
-        return timezone(date);
-    }
-
-    public Duration timezone(ZonedDateTime date) {
         // timezone offset in seconds
         int secondsOffset = date.getOffset().getTotalSeconds();
         return DATA_TYPE_FACTORY.newDuration(secondsOffset * 1000);
+    }
+
+    public String timezone(ZonedDateTime date) {
+        return date.getZone().getId();
     }
 
     //

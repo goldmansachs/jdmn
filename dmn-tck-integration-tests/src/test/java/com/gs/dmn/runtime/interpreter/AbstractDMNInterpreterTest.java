@@ -34,7 +34,7 @@ import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase;
 import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase.ResultNode;
-import org.omg.spec.dmn._20180521.model.TDecision;
+import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
@@ -112,12 +112,12 @@ public abstract class AbstractDMNInterpreterTest {
             Object actualOutput = null;
             String message = String.format("Unexpected result in test case in file '%s' for result node '%s'", testCaseFileName, res.getName());
             try {
-                String decisionName = res.getName();
-                TDecision decision = (TDecision) basicTransformer.getDMNModelRepository().findDRGElementByName(decisionName);
-                Environment environment = basicTransformer.makeEnvironment(decision);
-                Type decisionType = basicTransformer.drgElementOutputFEELType(decision, environment);
+                String drgElementName = res.getName();
+                TDRGElement tdrgElement = basicTransformer.getDMNModelRepository().findDRGElementByName(drgElementName);
+                Environment environment = basicTransformer.makeEnvironment(tdrgElement);
+                Type decisionType = basicTransformer.drgElementOutputFEELType(tdrgElement, environment);
                 expectedValue = tckUtil.makeValue(res.getExpected(), decisionType);
-                actualOutput = interpreter.evaluate(decisionName, runtimeEnvironment);
+                actualOutput = interpreter.evaluate(drgElementName, runtimeEnvironment);
             } catch (Exception e) {
                 if (!res.isErrorResult()) {
                     e.printStackTrace();
