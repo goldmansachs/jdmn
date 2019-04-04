@@ -236,9 +236,8 @@ public class BasicDMN2JavaTransformer {
         return toJavaType(type);
     }
 
-    protected Type drgElementOutputFEELType(TNamedElement element) {
-        QualifiedName typeRef = this.dmnModelRepository.typeRef(element);
-        return toFEELType(typeRef);
+    public Type drgElementOutputFEELType(TNamedElement element) {
+        return drgElementOutputFEELType(element, makeEnvironment((TDRGElement) element));
     }
 
     public Type drgElementOutputFEELType(TNamedElement element, Environment environment) {
@@ -252,6 +251,8 @@ public class BasicDMN2JavaTransformer {
             } else if (element instanceof TBusinessKnowledgeModel) {
                 Type type = expressionType(((TBusinessKnowledgeModel) element).getEncapsulatedLogic(), environment);
                 return ((FunctionType)type).getReturnType();
+            } else if (element instanceof TDecisionService) {
+                return makeDSOutputType((TDecisionService) element, environment);
             }
         }
         throw new DMNRuntimeException(String.format("Cannot infer the output type of '%s'", element.getName()));
@@ -321,6 +322,9 @@ public class BasicDMN2JavaTransformer {
     public List<String> drgElementArgumentNameList(TDRGElement element, boolean javaFriendlyName) {
         if (element instanceof TBusinessKnowledgeModel) {
             List<Pair<String, String>> parameters = bkmParameters((TBusinessKnowledgeModel) element, javaFriendlyName);
+            return parameters.stream().map(Pair::getLeft).collect(Collectors.toList());
+        } else if (element instanceof TDecisionService) {
+            List<Pair<String, String>> parameters = dsParameters((TDecisionService) element, javaFriendlyName);
             return parameters.stream().map(Pair::getLeft).collect(Collectors.toList());
         } else if (element instanceof TDecision) {
             List<Pair<String, Type>> parameters = inputDataParametersClosure((TDecision) element, javaFriendlyName);
@@ -564,6 +568,56 @@ public class BasicDMN2JavaTransformer {
         for (TInformationItem parameter : formalParameters) {
             String parameterName = javaFriendlyName ? informationItemVariableName(parameter) : parameter.getName();
             String parameterType = informationItemTypeName(parameter);
+            parameters.add(new Pair(parameterName, parameterType));
+        }
+        return parameters;
+    }
+
+    //
+    // Decision Service related functions
+    //
+    public String dsFunctionName(TDecisionService service) {
+        String name = service.getName();
+        return dsFunctionName(name);
+    }
+
+    public String dsFunctionName(String name) {
+        return javaFriendlyName(name);
+    }
+
+    public List<FormalParameter> dsFEELParameters(TDecisionService service) {
+        List<FormalParameter> parameters = new ArrayList<>();
+        for (TDMNElementReference er: service.getInputData()) {
+            TInputData inputData = getDMNModelRepository().findInputDataById(er.getHref());
+            parameters.add(new FormalParameter(inputData.getName(), toFEELType(inputData)));
+        }
+        for (TDMNElementReference er: service.getInputDecision()) {
+            TDecision decision = getDMNModelRepository().findDecisionById(er.getHref());
+            parameters.add(new FormalParameter(decision.getName(), drgElementOutputFEELType(decision)));
+        }
+        return parameters;
+    }
+
+    public List<String> dsFEELParameterNames(TDecisionService service) {
+        return dsFEELParameters(service).stream().map(FormalParameter::getName).collect(Collectors.toList());
+    }
+
+    private List<Pair<String, String>> dsParameters(TDecisionService service) {
+        return dsParameters(service, true);
+    }
+
+    private List<Pair<String, String>> dsParameters(TDecisionService service, boolean javaFriendlyName) {
+        List<Pair<String, String>> parameters = new ArrayList<>();
+        for (TDMNElementReference er: service.getInputData()) {
+            TInputData inputData = getDMNModelRepository().findInputDataById(er.getHref());
+            String parameterName = javaFriendlyName ? drgElementVariableName(inputData) : inputData.getName();
+            Type parameterType = toFEELType(inputData);
+            parameters.add(new Pair(parameterName, parameterType));
+        }
+        for (TDMNElementReference er: service.getInputDecision()) {
+            TDecision decision = getDMNModelRepository().findDecisionById(er.getHref());
+            String parameterName = javaFriendlyName ? drgElementVariableName(decision) : decision.getName();
+            Type parameterType = drgElementOutputFEELType(decision);
             parameters.add(new Pair(parameterName, parameterType));
         }
         return parameters;
@@ -1275,7 +1329,7 @@ public class BasicDMN2JavaTransformer {
     }
 
     public String toJavaType(TDecision decision) {
-        Environment environment = makeDecisionEnvironment(decision);
+        Environment environment = makeEnvironment(decision);
         TLiteralExpression expression = (TLiteralExpression) decision.getExpression().getValue();
         Type type = feelTranslator.analyzeExpression(expression.getText(), FEELContext.makeContext(environment)).getType();
         return toJavaType(type);
@@ -1448,24 +1502,27 @@ public class BasicDMN2JavaTransformer {
     // Environment related functions
     //
     public Environment makeEnvironment(TDRGElement element) {
-        if (element instanceof TBusinessKnowledgeModel) {
-            return makeBKMEnvironment((TBusinessKnowledgeModel) element);
-        } else if (element instanceof TDecision) {
-            return makeDecisionEnvironment((TDecision) element);
-        } else {
-            throw new UnsupportedOperationException(String.format("'%s' is not supported yet", element.getClass().getSimpleName()));
-        }
-    }
+        Environment elementEnvironment = environmentFactory.makeEnvironment(environmentFactory.getRootEnvironment());
 
-    protected Environment makeBKMEnvironment(TBusinessKnowledgeModel bkm) {
-        Environment bkmEnvironment = environmentFactory.makeEnvironment(environmentFactory.getRootEnvironment());
-        TFunctionDefinition functionDefinition = bkm.getEncapsulatedLogic();
-        functionDefinition.getFormalParameter().forEach(
-                p -> bkmEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(p.getName(), toFEELType(QualifiedName.toQualifiedName(p.getTypeRef())))));
-        getDMNModelRepository().allKnowledgeModels(bkm).forEach(
-                e -> bkmEnvironment.addDeclaration(makeBusinessKnowledgeModelDeclaration(e, makeBKMEnvironment(e))));
-        bkmEnvironment.addDeclaration(makeBusinessKnowledgeModelDeclaration(bkm, bkmEnvironment));
-        return bkmEnvironment;
+        List<TDRGElement> elements = getDMNModelRepository().allDrgElements(element);
+        for (TDRGElement e: elements) {
+            if (e instanceof TInputData) {
+                elementEnvironment.addDeclaration(makeVariableDeclaration(e, ((TInputData) e).getVariable(), elementEnvironment));
+            } else if (e instanceof TBusinessKnowledgeModel) {
+                TFunctionDefinition functionDefinition = ((TBusinessKnowledgeModel) e).getEncapsulatedLogic();
+                functionDefinition.getFormalParameter().forEach(
+                        p -> elementEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(p.getName(), toFEELType(QualifiedName.toQualifiedName(p.getTypeRef())))));
+                elementEnvironment.addDeclaration(makeInvocableDeclaration((TBusinessKnowledgeModel) e, elementEnvironment));
+            } else if (e instanceof TDecision) {
+                elementEnvironment.addDeclaration(makeVariableDeclaration(e, ((TDecision) e).getVariable(), elementEnvironment));
+            } else if (e instanceof TDecisionService) {
+                elementEnvironment.addDeclaration(makeInvocableDeclaration((TDecisionService)e, elementEnvironment));
+            } else {
+                throw new UnsupportedOperationException(String.format("'%s' is not supported yet", element.getClass().getSimpleName()));
+            }
+        }
+
+        return elementEnvironment;
     }
 
     public Environment makeFunctionDefinitionEnvironment(TFunctionDefinition functionDefinition, Environment parentEnvironment) {
@@ -1475,16 +1532,29 @@ public class BasicDMN2JavaTransformer {
         return environment;
     }
 
-    private Environment makeDecisionEnvironment(TDecision decision) {
-        Environment decisionEnvironment = environmentFactory.makeEnvironment(environmentFactory.getRootEnvironment());
-        getDMNModelRepository().allSubDecisions(decision).forEach(
-                d -> decisionEnvironment.addDeclaration(makeVariableDeclaration(d, d.getVariable(), decisionEnvironment)));
-        getDMNModelRepository().allInputDatas(decision).forEach(
-                id -> decisionEnvironment.addDeclaration(makeVariableDeclaration(id, id.getVariable(), decisionEnvironment)));
-        getDMNModelRepository().allKnowledgeModels(decision).forEach(
-                bkm -> decisionEnvironment.addDeclaration(makeBusinessKnowledgeModelDeclaration(bkm, makeBKMEnvironment(bkm))));
-        decisionEnvironment.addDeclaration(makeVariableDeclaration(decision, decision.getVariable(), decisionEnvironment));
-        return decisionEnvironment;
+    private ContextType makeDSOutputType(TDecisionService decisionService, Environment environment) {
+        ContextType type = new ContextType();
+        for (TDMNElementReference er: decisionService.getOutputDecision()) {
+            TDecision decision = getDMNModelRepository().findDecisionById(er.getHref());
+            String decisionName = decision.getName();
+            VariableDeclaration declaration = (VariableDeclaration) environment.lookupVariableDeclaration(decisionName);
+            type.addMember(decisionName, Arrays.asList(), declaration.getType());
+        }
+        return type;
+    }
+
+    private FunctionType makeDSType(TDecisionService decisionService, Environment environment) {
+        List<FormalParameter> parameters = new ArrayList<>();
+        for (TDMNElementReference er: decisionService.getInputData()) {
+            TInputData inputData = getDMNModelRepository().findInputDataById(er.getHref());
+            parameters.add(new FormalParameter(inputData.getName(), toFEELType(inputData)));
+        }
+        for (TDMNElementReference er: decisionService.getInputDecision()) {
+            TDecision decision = getDMNModelRepository().findDecisionById(er.getHref());
+            parameters.add(new FormalParameter(decision.getName(), drgElementOutputFEELType(decision)));
+        }
+        FunctionType type = new DMNFunctionType(parameters, makeDSOutputType(decisionService, environment));
+        return type;
     }
 
     public Environment makeInputEntryEnvironment(TDRGElement element, Expression inputExpression) {
@@ -1690,7 +1760,7 @@ public class BasicDMN2JavaTransformer {
         return relationEnvironment;
     }
 
-    private Declaration makeVariableDeclaration(TNamedElement element, TInformationItem variable, Environment environment) {
+    protected Declaration makeVariableDeclaration(TNamedElement element, TInformationItem variable, Environment environment) {
         String name = element.getName();
         if (StringUtils.isBlank(name) && variable != null) {
             name = variable.getName();
@@ -1716,7 +1786,30 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    private FunctionDeclaration makeBusinessKnowledgeModelDeclaration(TBusinessKnowledgeModel bkm, Environment environment) {
+    protected FunctionDeclaration makeInvocableDeclaration(TInvocable invocable, Environment environment) {
+        if (invocable instanceof TBusinessKnowledgeModel) {
+            return makeBKMDeclaration((TBusinessKnowledgeModel) invocable, environment);
+        } else if (invocable instanceof TDecisionService) {
+            return makeDSDeclaration((TDecisionService) invocable, environment);
+        } else {
+            throw new UnsupportedOperationException(String.format("'%s' is not supported yet", invocable.getClass().getSimpleName()));
+        }
+    }
+
+    protected FunctionDeclaration makeDSDeclaration(TDecisionService ds, Environment environment) {
+        TInformationItem variable = ds.getVariable();
+        String name = ds.getName();
+        if (StringUtils.isBlank(name) && variable != null) {
+            name = variable.getName();
+        }
+        if (StringUtils.isBlank(name)) {
+            throw new DMNRuntimeException(String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable));
+        }
+        FunctionType serviceType = makeDSType(ds, environment);
+        return environmentFactory.makeDecisionServiceDeclaration(name, serviceType);
+    }
+
+    protected FunctionDeclaration makeBKMDeclaration(TBusinessKnowledgeModel bkm, Environment environment) {
         TInformationItem variable = bkm.getVariable();
         String name = bkm.getName();
         if (StringUtils.isBlank(name) && variable != null) {
