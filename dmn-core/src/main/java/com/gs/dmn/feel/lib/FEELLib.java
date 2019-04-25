@@ -69,6 +69,12 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     NUMBER count(List<NUMBER> numbers);
 
     //
+    // Context functions
+    //
+    List getEntries(Object m);
+    Object getValue(Object m, Object key);
+
+    //
     // Date time functions
     //
     NUMBER year(DATE date);

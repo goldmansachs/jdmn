@@ -331,6 +331,8 @@ public class TCKUtil {
             String text = getTextContent(value);
             if (text == null) {
                 return null;
+            } else if (type == null) {
+                return valueType.getValue().getValue();
             } else if (isNumber(type)) {
                 return feelLib.number(text);
             } else if (isString(type)) {

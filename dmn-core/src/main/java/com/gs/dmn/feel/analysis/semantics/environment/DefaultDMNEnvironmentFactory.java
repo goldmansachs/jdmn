@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.analysis.semantics.environment;
 
 import com.gs.dmn.feel.analysis.semantics.type.BuiltinFunctionType;
+import com.gs.dmn.feel.analysis.semantics.type.ContextType;
 
 import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
@@ -20,8 +21,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DAYS_AND_TIME_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.YEARS_AND_MONTHS_DURATION;
-import static com.gs.dmn.feel.analysis.semantics.type.ListType.ANY_LIST;
-import static com.gs.dmn.feel.analysis.semantics.type.ListType.STRING_LIST;
+import static com.gs.dmn.feel.analysis.semantics.type.ListType.*;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
@@ -53,6 +53,7 @@ public class DefaultDMNEnvironmentFactory extends EnvironmentFactory {
         addNumberFunctions(environment);
         addStringFunctions(environment);
         addListFunctions(environment);
+        addContextFunctions(environment);
     }
 
     private static void addConversionFunctions(Environment environment) {
@@ -137,6 +138,11 @@ public class DefaultDMNEnvironmentFactory extends EnvironmentFactory {
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("mode", new BuiltinFunctionType(NUMBER, new Parameter("n1", ANY), new Parameter("ns", ANY, false, true))));
 
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("sort", new BuiltinFunctionType(ANY_LIST, new Parameter("list", ANY_LIST), new Parameter("function", ANY))));
+    }
+
+    private static void addContextFunctions(Environment environment) {
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("get entries", new BuiltinFunctionType(CONTEXT_LIST, new Parameter("m", ContextType.ANY_CONTEXT))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("get value", new BuiltinFunctionType(ANY, new Parameter("m", ContextType.ANY_CONTEXT), new Parameter("key", STRING))));
     }
 
     private static void addNumberFunctions(Environment environment) {

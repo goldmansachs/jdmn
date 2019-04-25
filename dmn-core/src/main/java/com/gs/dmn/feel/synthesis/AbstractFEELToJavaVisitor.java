@@ -55,6 +55,9 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         put("insert before", "insertBefore");
         put("index of", "indexOf");
         put("distinct values", "distinctValues");
+
+        put("get entries", "getEntries");
+        put("get value", "getValue");
     }};
 
     public AbstractFEELToJavaVisitor(BasicDMN2JavaTransformer dmnTransformer) {
