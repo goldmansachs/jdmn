@@ -13,11 +13,10 @@
 package com.gs.dmn.feel.lib;
 
 import com.gs.dmn.feel.lib.type.*;
+import com.gs.dmn.runtime.Context;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     protected final NumericType<NUMBER> numericType;
@@ -369,6 +368,34 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
 
     public Boolean contextNotEqual(Object c1, Object c2) {
         return contextType.contextNotEqual(c1, c2);
+    }
+
+    //
+    // Context functions
+    //
+    @Override
+    public List getEntries(Object m) {
+        if (m instanceof Context) {
+            List result = new ArrayList<>();
+            Context context = (Context) m;
+            Set keys = context.getBindings().keySet();
+            for (Object key: keys) {
+                Context c = new Context().add("key", key).add("value", context.get(key));
+                result.add(c);
+            }
+            return result;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public Object getValue(Object m, Object key) {
+        if (m instanceof Context) {
+            return ((Context) m).get(key);
+        } else {
+            return null;
+        }
     }
 
     //

@@ -1803,6 +1803,38 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
     }
 
     @Test
+    public void testContextFunctions() {
+        List<EnvironmentEntry> entries = Arrays.asList(
+                new EnvironmentEntry("input", NUMBER, lib.number("1")));
+
+        doExpressionTest(entries, "", "get entries({a: \"foo\", b: \"bar\"})",
+                "FunctionInvocation(Name(get entries) -> PositionalParameters(Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\")),ContextEntry(ContextEntryKey(b) = StringLiteral(\"bar\")))))",
+                "ListType(ContextType())",
+                "getEntries(new com.gs.dmn.runtime.Context().add(\"a\", \"foo\").add(\"b\", \"bar\"))",
+                lib.getEntries(new com.gs.dmn.runtime.Context().add("a", "foo").add("b", "bar")),
+                lib.asList(new com.gs.dmn.runtime.Context().add("key", "a").add("value", "foo"), new com.gs.dmn.runtime.Context().add("key", "b").add("value", "bar")));
+        doExpressionTest(entries, "", "get entries({})",
+                "FunctionInvocation(Name(get entries) -> PositionalParameters(Context()))",
+                "ListType(ContextType())",
+                "getEntries(new com.gs.dmn.runtime.Context())",
+                lib.getEntries(new com.gs.dmn.runtime.Context()),
+                lib.asList());
+
+        doExpressionTest(entries, "", "get value({a: \"foo\"}, \"a\")",
+                "FunctionInvocation(Name(get value) -> PositionalParameters(Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\"))), StringLiteral(\"a\")))",
+                "AnyType",
+                "getValue(new com.gs.dmn.runtime.Context().add(\"a\", \"foo\"), \"a\")",
+                lib.getValue(new com.gs.dmn.runtime.Context().add("a", "foo"), "a"),
+                "foo");
+        doExpressionTest(entries, "", "get value(null, null)",
+                "FunctionInvocation(Name(get value) -> PositionalParameters(NullLiteral(), NullLiteral()))",
+                "AnyType",
+                "getValue(null, null)",
+                lib.getValue(null, null),
+                null);
+    }
+
+    @Test
     public void testQualifiedName() {
         Type bType = new ItemDefinitionType("b").addMember("c", Arrays.asList("C"), STRING);
         Type aType = new ItemDefinitionType("a").addMember("b", Arrays.asList("B"), bType);

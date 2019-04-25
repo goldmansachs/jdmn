@@ -191,6 +191,10 @@ NAME:
     |
     'time offset'
     |
+    'get entries'
+    |
+    'get value'
+    |
     NameStartChar ( NamePartChar )*
     |
     ('\'' ( ~(['] | [\u000A-\u000D]) )*  '\'' )
