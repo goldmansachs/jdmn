@@ -48,7 +48,7 @@ public class DateAndTimeUtil {
 
         try {
             if (literal.contains("T")) {
-                return FEEL_DATE_TIME.parseBest(literal, ZonedDateTime::from, OffsetDateTime::from, LocalDateTime::from);
+                return FEEL_DATE_TIME.parse(literal);
             } else {
                 TemporalAccessor value = DateTimeFormatter.ISO_DATE.parse(literal, LocalDate::from);
                 return LocalDateTime.of((LocalDate) value, LocalTime.of(0, 0));
@@ -88,13 +88,13 @@ public class DateAndTimeUtil {
     }
 
     public static TemporalAccessor dateAndTime(Number year, Number month, Number day,
-                                        Number hour, Number minute, Number second) {
+                                               Number hour, Number minute, Number second) {
         return dateAndTime(year, month, day, hour, minute, second, (Number) null);
     }
 
     public static TemporalAccessor dateAndTime(Number year, Number month, Number day,
-                                        Number hour, Number minute, Number second,
-                                        Number hourOffset) {
+                                               Number hour, Number minute, Number second,
+                                               Number hourOffset) {
         if (year == null) {
             throw new RuntimeException("Year cannot be null");
         }
@@ -129,8 +129,8 @@ public class DateAndTimeUtil {
     }
 
     public static TemporalAccessor dateAndTime(Number year, Number month, Number day,
-                                        Number hour, Number minute, Number second,
-                                        String timezone) {
+                                               Number hour, Number minute, Number second,
+                                               String timezone) {
         if (year == null) {
             throw new RuntimeException("Year cannot be null");
         }

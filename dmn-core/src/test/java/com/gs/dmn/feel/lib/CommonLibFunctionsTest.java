@@ -34,11 +34,11 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
 
     @Test
     public void testDate() {
-        assertNull(getLib().date((String)null));
+        assertNull(getLib().date((String) null));
         assertNull(getLib().date(""));
         assertNull(getLib().date("xxx"));
 
-        assertNull("2017-08-25", getLib().date("2017-08-25T11:00:00"));
+        assertNull(getLib().date("2017-08-25T11:00:00"));
 
         assertEqualsTime("2016-08-01", getLib().date("2016-08-01"));
         assertEqualsTime("2016-08-01", getLib().date("2016-08-01"));
@@ -52,7 +52,7 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
 
     @Test
     public void testTime() {
-        assertNull(getLib().time((String)null));
+        assertNull(getLib().time((String) null));
         assertNull(getLib().time(""));
         assertNull(getLib().time("xxx"));
         assertNull(getLib().time("13:20:00+01:00@Europe/Paris"));
