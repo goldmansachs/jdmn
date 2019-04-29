@@ -15,6 +15,8 @@ package com.gs.dmn.feel.lib.type.time.xml;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.ZoneId;
+import java.time.temporal.*;
 import java.util.TimeZone;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -169,95 +171,55 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
     private static final BigInteger BILLION = new BigInteger("1000000000");
     private static final Date PURE_GREGORIAN_CHANGE = new Date(Long.MIN_VALUE);
 
-    public FEELXMLGregorianCalendar(String lexicalRepresentation) throws IllegalArgumentException {
-        this(lexicalRepresentation, null);
-    }
-
-    public FEELXMLGregorianCalendar(String lexicalRepresentation, String zoneID) throws IllegalArgumentException {
-        this.zoneID = zoneID;
-
-        // compute format string for this lexical representation.
-        String format = null;
-        String lexRep = lexicalRepresentation;
-        final int NOT_FOUND = -1;
-        int lexRepLength = lexRep.length();
-
-        // current parser needs a format string,
-        // use following heuristics to figure out what xml schema date/time
-        // datatype this lexical string could represent.
-        // Fix 4971612: invalid SCCS macro substitution in data string,
-        //   no %{alpha}% to avoid SCCS maco substitution
-        if (lexRep.indexOf('T') != NOT_FOUND) {
-            // found Date Time separater, must be xsd:DateTime
-            format = "%Y-%M-%DT%h:%m:%s" + "%z";
-        } else if (lexRepLength >= 3 && lexRep.charAt(2) == ':') {
-            // found ":", must be xsd:Time
-            format = "%h:%m:%s" + "%z";
-        } else if (lexRep.startsWith("--")) {
-            // check for gDay || gMonth || gMonthDay
-            if (lexRepLength >= 3 && lexRep.charAt(2) == '-') {
-                // gDay, ---DD(z?)
-                format = "---%D" + "%z";
-            } else if (lexRepLength == 4     // --MM
-                    || lexRepLength == 5     // --MMZ
-                    || lexRepLength == 10) { // --MMSHH:MM
-                // gMonth, --MM(z?),
-                // per XML Schema Errata, used to be --MM--(z?)
-                format = "--%M" + "%z";
-            } else {
-                // gMonthDay, --MM-DD(z?), (or invalid lexicalRepresentation)
-                // length should be:
-                //  7: --MM-DD
-                //  8: --MM-DDZ
-                // 13: --MM-DDSHH:MM
-                format = "--%M-%D" + "%z";
-            }
-        } else {
-            // check for Date || GYear | GYearMonth
-            int countSeparator = 0;
-
-            // start at index 1 to skip potential negative sign for year.
-
-
-            int timezoneOffset = lexRep.indexOf(':');
-            if (timezoneOffset != NOT_FOUND) {
-
-                // found timezone, strip it off for distinguishing
-                // between Date, GYear and GYearMonth so possible
-                // negative sign in timezone is not mistaken as
-                // a separator.
-                lexRepLength -= 6;
-            }
-
-            for (int i = 1; i < lexRepLength; i++) {
-                if (lexRep.charAt(i) == '-') {
-                    countSeparator++;
-                }
-            }
-            if (countSeparator == 0) {
-                // GYear
-                format = "%Y" + "%z";
-            } else if (countSeparator == 1) {
-                // GYearMonth
-                format = "%Y-%M" + "%z";
-            } else {
-                // Date or invalid lexicalRepresentation
-                // Fix 4971612: invalid SCCS macro substitution in data string
-                format = "%Y-%M-%D" + "%z";
-            }
-        }
-        FEELXMLParser p = new FEELXMLParser(this, format, lexRep);
-        p.parse();
-
-        // check for validity
-        if (!isValid()) {
-            throw new IllegalArgumentException(
-                    DatatypeMessageFormatter.formatMessage(null, "InvalidXGCRepresentation", new Object[]{lexicalRepresentation})
-            );
-        }
-    }
-
     public FEELXMLGregorianCalendar() {
+    }
+
+    public FEELXMLGregorianCalendar(TemporalAccessor accessor) throws IllegalArgumentException {
+        setEon(null);
+        try {
+            setYear(accessor.get(ChronoField.YEAR));
+        } catch (Exception e) {
+            setYear(DatatypeConstants.FIELD_UNDEFINED);
+        }
+        try {
+            setMonth(accessor.get(ChronoField.MONTH_OF_YEAR));
+        } catch (Exception e) {
+            setMonth(DatatypeConstants.FIELD_UNDEFINED);
+        }
+        try {
+            setDay(accessor.get(ChronoField.DAY_OF_MONTH));
+        } catch (Exception e) {
+            setDay(DatatypeConstants.FIELD_UNDEFINED);
+        }
+        try {
+            setHour(accessor.get(ChronoField.HOUR_OF_DAY));
+        } catch (Exception e) {
+            setHour(DatatypeConstants.FIELD_UNDEFINED);
+        }
+        try {
+            setMinute(accessor.get(ChronoField.MINUTE_OF_HOUR));
+        } catch (Exception e) {
+            setMinute(DatatypeConstants.FIELD_UNDEFINED);
+        }
+        try {
+            setSecond(accessor.get(ChronoField.SECOND_OF_MINUTE));
+        } catch (Exception e) {
+            setSecond(DatatypeConstants.FIELD_UNDEFINED);
+        }
+        try {
+            BigDecimal fractional = BigDecimal.valueOf(accessor.get(ChronoField.NANO_OF_SECOND) / (double) 1000000000);
+            setFractionalSecond(fractional);
+        } catch (Exception e) {
+            setFractionalSecond(null);
+        }
+        try {
+            setTimezone(accessor.get(ChronoField.OFFSET_SECONDS));
+        } catch (Exception e) {
+            setTimezone(DatatypeConstants.FIELD_UNDEFINED);
+        }
+
+        ZoneId zone = accessor.query(TemporalQueries.zoneId());
+        setZoneID(zone == null ? null : zone.getId());
     }
 
     private FEELXMLGregorianCalendar(BigInteger year, int month, int day, int hour, int minute, int second, BigDecimal fractionalSecond, int timezone, String zoneID) {
@@ -645,8 +607,8 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
         int seconds = timezone;
         XMLGregorianCalendar result = (XMLGregorianCalendar) this.clone();
         // normalizing to UTC time negates the timezone offset before addition.
-        seconds = - seconds;
-        Duration d = DefaultFEELLib.DATA_TYPE_FACTORY.newDuration(seconds >= 0, 0, 0, 0, 0, 0, seconds < 0 ? - seconds : seconds);
+        seconds = -seconds;
+        Duration d = DefaultFEELLib.DATA_TYPE_FACTORY.newDuration(seconds >= 0, 0, 0, 0, 0, 0, seconds < 0 ? -seconds : seconds);
         result.add(d);
         // set to zulu UTC time.
         result.setTimezone(0);
@@ -744,11 +706,11 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
     public QName getXMLSchemaType() {
         int mask =
                 (year != DatatypeConstants.FIELD_UNDEFINED ? 0x20 : 0) |
-                (month != DatatypeConstants.FIELD_UNDEFINED ? 0x10 : 0) |
-                (day != DatatypeConstants.FIELD_UNDEFINED ? 0x08 : 0) |
-                (hour != DatatypeConstants.FIELD_UNDEFINED ? 0x04 : 0) |
-                (minute != DatatypeConstants.FIELD_UNDEFINED ? 0x02 : 0) |
-                (second != DatatypeConstants.FIELD_UNDEFINED ? 0x01 : 0);
+                        (month != DatatypeConstants.FIELD_UNDEFINED ? 0x10 : 0) |
+                        (day != DatatypeConstants.FIELD_UNDEFINED ? 0x08 : 0) |
+                        (hour != DatatypeConstants.FIELD_UNDEFINED ? 0x04 : 0) |
+                        (minute != DatatypeConstants.FIELD_UNDEFINED ? 0x02 : 0) |
+                        (second != DatatypeConstants.FIELD_UNDEFINED ? 0x01 : 0);
         switch (mask) {
             case 0x3F:
                 return DatatypeConstants.DATETIME;
@@ -817,28 +779,28 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
     @Override
     public void add(Duration duration) {
         /*
-           * Extracted from
-           * http://www.w3.org/TR/xmlschema-2/#adding-durations-to-dateTimes
-           * to ensure implemented properly. See spec for definitions of methods
-           * used in algorithm.
-           *
-           * Given a dateTime S and a duration D, specifies how to compute a
-           * dateTime E where E is the end of the time period with start S and
-           * duration D i.e. E = S + D.
-           *
-           * The following is the precise specification.
-           * These steps must be followed in the same order.
-           * If a field in D is not specified, it is treated as if it were zero.
-           * If a field in S is not specified, it is treated in the calculation
-           * as if it were the minimum allowed value in that field, however,
-           * after the calculation is concluded, the corresponding field in
-           * E is removed (set to unspecified).
-           *
-           * Months (may be modified additionally below)
-               *  temp := S[month] + D[month]
-               *  E[month] := modulo(temp, 1, 13)
-               *  carry := fQuotient(temp, 1, 13)
-           */
+         * Extracted from
+         * http://www.w3.org/TR/xmlschema-2/#adding-durations-to-dateTimes
+         * to ensure implemented properly. See spec for definitions of methods
+         * used in algorithm.
+         *
+         * Given a dateTime S and a duration D, specifies how to compute a
+         * dateTime E where E is the end of the time period with start S and
+         * duration D i.e. E = S + D.
+         *
+         * The following is the precise specification.
+         * These steps must be followed in the same order.
+         * If a field in D is not specified, it is treated as if it were zero.
+         * If a field in S is not specified, it is treated in the calculation
+         * as if it were the minimum allowed value in that field, however,
+         * after the calculation is concluded, the corresponding field in
+         * E is removed (set to unspecified).
+         *
+         * Months (may be modified additionally below)
+         *  temp := S[month] + D[month]
+         *  E[month] := modulo(temp, 1, 13)
+         *  carry := fQuotient(temp, 1, 13)
+         */
 
         boolean fieldUndefined[] = {
                 false,
@@ -1460,27 +1422,26 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
             int day = this.getDay();
             return String.format("%d-%02d-%02d", year, month, day);
         } else if (kind == DatatypeConstants.TIME) {
+            String result = "";
             int hour = this.getHour();
             int minute = this.getMinute();
             int second = this.getSecond();
             String nanoseconds = getNanoSeconds(this.getFractionalSecond());
-
-            if (zoneID == null) {
-                String offset = makeOffsetString(this.getTimezone());
-                if (nanoseconds == null) {
-                    return String.format("%02d:%02d:%02d%s", hour, minute, second, offset);
-                } else {
-                    return String.format("%02d:%02d:%02d%s%s", hour, minute, second, nanoseconds, offset);
-                }
+            if (nanoseconds == null) {
+                result = String.format("%02d:%02d:%02d", hour, minute, second);
             } else {
-                if (nanoseconds == null) {
-                    return String.format("%02d:%02d:%02d@%s", hour, minute, second, zoneID);
-                } else {
-                    return String.format("%02d:%02d:%02d%s@%s", hour, minute, second, nanoseconds, zoneID);
-                }
+                result = String.format("%02d:%02d:%02d%s", hour, minute, second, nanoseconds);
             }
+            if (zoneID == null) {
+                String offset = makeOffsetString(getTimezone());
+                result += offset;
+            } else {
+                result += "@" + zoneID;
+            }
+            return result;
 
         } else if (kind == DatatypeConstants.DATETIME) {
+            String result = "";
             int year = this.getYear();
             int month = this.getMonth();
             int day = this.getDay();
@@ -1488,21 +1449,18 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
             int minute = this.getMinute();
             int second = this.getSecond();
             String nanoseconds = getNanoSeconds(this.getFractionalSecond());
-
+            if (nanoseconds == null) {
+                result = String.format("%d-%02d-%02dT%02d:%02d:%02d", year, month, day, hour, minute, second);
+            } else {
+                result = String.format("%d-%02d-%02dT%02d:%02d:%02d%s", year, month, day, hour, minute, second, nanoseconds);
+            }
             if (zoneID == null) {
                 String offset = makeOffsetString(this.getTimezone());
-                if (nanoseconds == null) {
-                    return String.format("%d-%02d-%02dT%02d:%02d:%02d%s", year, month, day, hour, minute, second, offset);
-                } else {
-                    return String.format("%d-%02d-%02dT%02d:%02d:%02d%s%s", year, month, day, hour, minute, second, nanoseconds, offset);
-                }
+                result += offset;
             } else {
-                if (nanoseconds == null) {
-                    return String.format("%d-%02d-%02dT%02d:%02d:%02d@%s", year, month, day, hour, minute, second, zoneID);
-                } else {
-                    return String.format("%d-%02d-%02dT%02d:%02d:%02d%s@%s", year, month, day, hour, minute, second, nanoseconds, zoneID);
-                }
+                result += "@" + zoneID;
             }
+            return result;
         } else {
             return super.toString();
         }

@@ -19,6 +19,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class DefaultFEELLibTest extends BaseFEELLibTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     @Override
@@ -32,6 +33,8 @@ public class DefaultFEELLibTest extends BaseFEELLibTest<BigDecimal, XMLGregorian
     @Test
     public void testDate() {
         super.testDate();
+
+        assertNull(getLib().date("01211-12-31"));
 
         assertEqualsTime("2016-08-01", getLib().date(makeDate("2016-08-01")));
         assertEqualsTime("2017-10-11", getLib().date(getLib().date("2017-10-11")));
@@ -73,8 +76,8 @@ public class DefaultFEELLibTest extends BaseFEELLibTest<BigDecimal, XMLGregorian
 
         assertEquals("999999999-12-31", getLib().string(getLib().date("999999999-12-31")));
         assertEquals("-999999999-12-31", getLib().string(getLib().date("-999999999-12-31")));
-        assertEquals("999999999-12-31", getLib().string(getLib().date(makeNumber(999999999), makeNumber(12),makeNumber(31))));
-        assertEquals("-999999999-12-31", getLib().string(getLib().date(makeNumber(-999999999), makeNumber(12),makeNumber(31))));
+        assertEquals("999999999-12-31", getLib().string(getLib().date(makeNumber(999999999), makeNumber(12), makeNumber(31))));
+        assertEquals("-999999999-12-31", getLib().string(getLib().date(makeNumber(-999999999), makeNumber(12), makeNumber(31))));
 
         assertEquals("00:01:00@Etc/UTC", getLib().string(getLib().time("00:01:00@Etc/UTC")));
         assertEquals("00:01:00@Europe/Paris", getLib().string(getLib().time("00:01:00@Europe/Paris")));
@@ -95,7 +98,8 @@ public class DefaultFEELLibTest extends BaseFEELLibTest<BigDecimal, XMLGregorian
         assertEquals("2017-01-01T23:59:01@Europe/Paris", getLib().string(getLib().dateAndTime(getLib().date("2017-01-01"), getLib().time("23:59:01@Europe/Paris"))));
         assertEquals("2017-01-01T23:59:01.123456789@Europe/Paris", getLib().string(getLib().dateAndTime(getLib().date("2017-01-01"), getLib().time("23:59:01.123456789@Europe/Paris"))));
         assertEquals("2017-09-05T09:15:30.987654321@Europe/Paris", getLib().string(getLib().dateAndTime(getLib().dateAndTime("2017-09-05T10:20:00"), getLib().time("09:15:30.987654321@Europe/Paris"))));
-        assertEquals("2017-09-05T09:15:30.987654321@Europe/Paris", getLib().string(getLib().dateAndTime(getLib().dateAndTime("2017-09-05T10:20:00-01:00"), getLib().time("09:15:30.987654321@Europe/Paris"))));        assertEquals("2017-09-05T09:15:30.987654321@Europe/Paris", getLib().string(getLib().dateAndTime(getLib().dateAndTime("2017-09-05T10:20:00@Europe/Paris"), getLib().time("09:15:30.987654321@Europe/Paris"))));
+        assertEquals("2017-09-05T09:15:30.987654321@Europe/Paris", getLib().string(getLib().dateAndTime(getLib().dateAndTime("2017-09-05T10:20:00-01:00"), getLib().time("09:15:30.987654321@Europe/Paris"))));
+        assertEquals("2017-09-05T09:15:30.987654321@Europe/Paris", getLib().string(getLib().dateAndTime(getLib().dateAndTime("2017-09-05T10:20:00@Europe/Paris"), getLib().time("09:15:30.987654321@Europe/Paris"))));
     }
 
     //
@@ -106,10 +110,10 @@ public class DefaultFEELLibTest extends BaseFEELLibTest<BigDecimal, XMLGregorian
         assertEqualsNumber(getLib().number("12"), getLib().hour(getLib().time("12:01:02Z")));
         assertEqualsNumber(getLib().number("1"), getLib().minute(getLib().time("12:01:02Z")));
         assertEqualsNumber(getLib().number("2"), getLib().second(getLib().time("12:01:02Z")));
-        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().time("12:01:02Z@Etc/UTC")));
+        assertEquals(null, getLib().timeOffset(getLib().time("12:01:02Z@Etc/UTC")));
         assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().time("12:01:02Z")));
         assertEquals(null, getLib().timeOffset(getLib().time("12:01:02")));
-        assertEquals("Etc/UTC", getLib().timezone(getLib().time("12:01:02Z@Etc/UTC")));
+        assertEquals(null, getLib().timezone(getLib().time("12:01:02Z@Etc/UTC")));
         assertEquals("Etc/UTC", getLib().timezone(getLib().time("12:01:02@Etc/UTC")));
         assertEquals(null, getLib().timezone(getLib().time("12:01:02")));
     }
@@ -126,10 +130,10 @@ public class DefaultFEELLibTest extends BaseFEELLibTest<BigDecimal, XMLGregorian
         assertEqualsNumber(getLib().number("12"), getLib().hour(getLib().dateAndTime("2018-12-10T12:01:02Z")));
         assertEqualsNumber(getLib().number("1"), getLib().minute(getLib().dateAndTime("2018-12-10T12:01:02Z")));
         assertEqualsNumber(getLib().number("2"), getLib().second(getLib().dateAndTime("2018-12-10T12:01:02Z")));
-        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02Z@Etc/UTC")));
+        assertEquals(null, getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02Z@Etc/UTC")));
         assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02Z")));
         assertEquals(null, getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02")));
-        assertEquals("Etc/UTC", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02Z@Etc/UTC")));
+        assertEquals(null, getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02Z@Etc/UTC")));
         assertEquals("Etc/UTC", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02@Etc/UTC")));
         assertEquals(null, getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02")));
     }
