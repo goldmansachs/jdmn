@@ -18,6 +18,8 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.gs.dmn.feel.lib.DateAndTimeUtil;
+import com.gs.dmn.feel.lib.DateUtil;
+import com.gs.dmn.feel.lib.TimeUtil;
 import com.gs.dmn.feel.lib.type.time.xml.FEELXMLGregorianCalendar;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
@@ -35,7 +37,19 @@ public class XMLGregorianCalendarDeserializer extends JsonDeserializer<XMLGregor
 
         try {
             String literal = node.asText();
-            return new FEELXMLGregorianCalendar(DateAndTimeUtil.dateAndTime(literal));
+            if (literal == null) {
+                return null;
+            } else {
+                if (literal.contains("T")) {
+                    return new FEELXMLGregorianCalendar(DateAndTimeUtil.dateAndTime(literal));
+                } else {
+                    try {
+                        return new FEELXMLGregorianCalendar(DateUtil.date(literal));
+                    } catch (Exception e) {
+                    }
+                    return new FEELXMLGregorianCalendar(TimeUtil.time(literal));
+                }
+            }
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Error deserializing '%s' ", node), e);
         }
