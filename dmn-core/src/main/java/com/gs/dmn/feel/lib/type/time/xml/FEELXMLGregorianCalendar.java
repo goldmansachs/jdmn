@@ -452,6 +452,9 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
 
     @Override
     public void setFractionalSecond(BigDecimal fractional) {
+        if (fractional != null && fractional.compareTo(BigDecimal.ZERO) == 0) {
+            fractional = null;
+        }
         if (fractional != null) {
             if ((fractional.compareTo(DECIMAL_ZERO) < 0) ||
                     (fractional.compareTo(DECIMAL_ONE) > 0)) {
@@ -1340,10 +1343,10 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
                         } else {
                             buf[bufPtr++] = '+';
                         }
-                        int h = offset / 60;
-                        bufPtr = print2Number(buf, bufPtr, offset / 60);
+                        int min = offset / 60;
+                        bufPtr = print2Number(buf, bufPtr, min / 60);
                         buf[bufPtr++] = ':';
-                        bufPtr = print2Number(buf, bufPtr, offset % 60);
+                        bufPtr = print2Number(buf, bufPtr, min % 60);
                     }
                     break;
                 default:
