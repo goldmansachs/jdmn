@@ -17,6 +17,7 @@ import com.gs.dmn.feel.analysis.scanner.LexicalContext;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.dmn.tck.marshaller._20160719.ValueType;
@@ -58,7 +59,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
 
         // Clean each TestCase
         if (testCases != null) {
-            for(TestCases.TestCase testCase: testCases.getTestCase()) {
+            for (TestCases.TestCase testCase : testCases.getTestCase()) {
                 transform(testCase);
             }
         }
@@ -86,13 +87,13 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         JAXBElement<ValueType.List> jaxbList = valueType.getList();
         if (jaxbList != null) {
             ValueType.List list = jaxbList.getValue();
-            for(ValueType vt: list.getItem()) {
+            for (ValueType vt : list.getItem()) {
                 rename(vt);
             }
         }
         List<ValueType.Component> componentList = valueType.getComponent();
         if (componentList != null) {
-            for(ValueType.Component component: componentList) {
+            for (ValueType.Component component : componentList) {
                 rename(component);
             }
         }
@@ -135,11 +136,11 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                 TLiteralExpression defaultOutputEntry = output.getDefaultOutputEntry();
                 replaceNamesInText(defaultOutputEntry, lexicalContext);
             }
-            for(TDecisionRule rule: ((TDecisionTable) expression).getRule()) {
-                for(TUnaryTests inputEntry: rule.getInputEntry()) {
+            for (TDecisionRule rule : ((TDecisionTable) expression).getRule()) {
+                for (TUnaryTests inputEntry : rule.getInputEntry()) {
                     replaceNamesInText(inputEntry, lexicalContext);
                 }
-                for(TLiteralExpression outputEntry: rule.getOutputEntry()) {
+                for (TLiteralExpression outputEntry : rule.getOutputEntry()) {
                     replaceNamesInText(outputEntry, lexicalContext);
                 }
             }
@@ -147,7 +148,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
             JAXBElement<? extends TExpression> jaxbElement = ((TFunctionDefinition) expression).getExpression();
             TExpression body = jaxbElement.getValue();
             LexicalContext bodyContext = new LexicalContext(lexicalContext);
-            for(TInformationItem parameter: ((TFunctionDefinition) expression).getFormalParameter()) {
+            for (TInformationItem parameter : ((TFunctionDefinition) expression).getFormalParameter()) {
                 bodyContext.addName(parameter.getName());
             }
             replace(body, lexicalContext);
@@ -157,13 +158,13 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                 replace(jaxbElement.getValue(), lexicalContext);
             }
             List<TBinding> bindingList = ((TInvocation) expression).getBinding();
-            for(TBinding binding: bindingList) {
+            for (TBinding binding : bindingList) {
                 replace(binding.getExpression().getValue(), lexicalContext);
             }
         } else if (expression instanceof TContext) {
             List<TContextEntry> contextEntry = ((TContext) expression).getContextEntry();
             LexicalContext entryContext = new LexicalContext(lexicalContext);
-            for(TContextEntry ce: contextEntry) {
+            for (TContextEntry ce : contextEntry) {
                 TInformationItem variable = ce.getVariable();
                 if (variable != null) {
                     entryContext.addName(variable.getName());
@@ -176,15 +177,15 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         } else if (expression instanceof TRelation) {
             List<TList> lists = ((TRelation) expression).getRow();
             LexicalContext relationContext = new LexicalContext(lexicalContext);
-            for(TInformationItem ii: ((TRelation) expression).getColumn()) {
+            for (TInformationItem ii : ((TRelation) expression).getColumn()) {
                 relationContext.addName(ii.getName());
             }
-            for(TList list: lists) {
+            for (TList list : lists) {
                 replace(list, relationContext);
             }
         } else if (expression instanceof TList) {
             List<JAXBElement<? extends TExpression>> jaxbElements = ((TList) expression).getExpression();
-            for(JAXBElement<? extends TExpression> jaxbElement: jaxbElements) {
+            for (JAXBElement<? extends TExpression> jaxbElement : jaxbElements) {
                 TExpression subExpression = jaxbElement.getValue();
                 replace(subExpression, lexicalContext);
             }
@@ -194,7 +195,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     }
 
     protected void rename(TDefinitions definitions) {
-        for(TItemDefinition itemDefinition: definitions.getItemDefinition()) {
+        for (TItemDefinition itemDefinition : definitions.getItemDefinition()) {
             renameItemDefinitionMembers(itemDefinition);
         }
         for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
@@ -211,7 +212,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                 // Rename in body
                 TFunctionDefinition encapsulatedLogic = ((TBusinessKnowledgeModel) element).getEncapsulatedLogic();
                 List<TInformationItem> formalParameterList = encapsulatedLogic.getFormalParameter();
-                for(TInformationItem param: formalParameterList) {
+                for (TInformationItem param : formalParameterList) {
                     renameElement(param);
                 }
                 rename(encapsulatedLogic);
@@ -230,11 +231,11 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     protected void rename(TExpression expression) {
         if (expression instanceof TLiteralExpression) {
         } else if (expression instanceof TDecisionTable) {
-            for(TOutputClause  outputClause: ((TDecisionTable) expression).getOutput()) {
+            for (TOutputClause outputClause : ((TDecisionTable) expression).getOutput()) {
                 renameElement(outputClause);
             }
         } else if (expression instanceof TFunctionDefinition) {
-            for(TInformationItem parameter: ((TFunctionDefinition) expression).getFormalParameter()) {
+            for (TInformationItem parameter : ((TFunctionDefinition) expression).getFormalParameter()) {
                 renameElement(parameter);
             }
             JAXBElement<? extends TExpression> jaxbElement = ((TFunctionDefinition) expression).getExpression();
@@ -243,12 +244,12 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
             }
         } else if (expression instanceof TInvocation) {
             List<TBinding> bindingList = ((TInvocation) expression).getBinding();
-            for(TBinding binding: bindingList) {
+            for (TBinding binding : bindingList) {
                 renameElement(binding.getParameter());
             }
         } else if (expression instanceof TContext) {
             List<TContextEntry> contextEntry = ((TContext) expression).getContextEntry();
-            for(TContextEntry ce: contextEntry) {
+            for (TContextEntry ce : contextEntry) {
                 TInformationItem variable = ce.getVariable();
                 if (variable != null) {
                     renameElement(variable);
@@ -259,7 +260,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                 }
             }
         } else if (expression instanceof TRelation) {
-            for(TInformationItem ii: ((TRelation) expression).getColumn()) {
+            for (TInformationItem ii : ((TRelation) expression).getColumn()) {
                 renameElement(ii);
             }
         } else if (expression instanceof TList) {
@@ -281,12 +282,12 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
 
             TFunctionDefinition encapsulatedLogic = ((TBusinessKnowledgeModel) element).getEncapsulatedLogic();
             List<TInformationItem> formalParameterList = encapsulatedLogic.getFormalParameter();
-            for(TInformationItem param: formalParameterList) {
+            for (TInformationItem param : formalParameterList) {
                 names.add(param.getName());
             }
         }
         if (informationRequirement != null) {
-            for(TInformationRequirement tir: informationRequirement) {
+            for (TInformationRequirement tir : informationRequirement) {
                 TDMNElementReference requiredInput = tir.getRequiredInput();
                 TDMNElementReference requiredDecision = tir.getRequiredDecision();
                 if (requiredInput != null) {
@@ -300,7 +301,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
             }
         }
         if (knowledgeRequirement != null) {
-            for(TKnowledgeRequirement tkr: knowledgeRequirement) {
+            for (TKnowledgeRequirement tkr : knowledgeRequirement) {
                 TDMNElementReference requiredKnowledge = tkr.getRequiredKnowledge();
                 addName(definitions, names, requiredKnowledge.getHref());
             }
@@ -321,7 +322,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
             href = href.substring(1);
         }
 
-        for(JAXBElement<? extends TDRGElement> jaxbElement: definitions.getDrgElement()) {
+        for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
             TDRGElement element = jaxbElement.getValue();
             if (element.getId().equals(href)) {
                 return element;
@@ -356,39 +357,136 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         lexicalContext.addName("decimal separator");
         lexicalContext.addName("start position");
 
-        int i = 0;
-        while (i < text.length()) {
-            char ch = text.charAt(i);
-            if (text.charAt(i) == '"') {
-                // skip strings
-                newText.append(text.charAt(i));
-                i++;
-                while (i < text.length()) {
-                    newText.append(text.charAt(i));
-                    if (text.charAt(i) == '"') {
-                        i++;
-                        break;
-                    } else {
-                        i++;
-                    }
-                }
-            } else if (text.charAt(i) == '{') {
-                i = replaceContextKeys(text, i, newText);
-            } else if (isNameStartChar(ch)) {
-                i = replaceIdentifiers(text, i, lexicalContext, newText, ch);
-            } else {
-                newText.append(ch);
-                i++;
-            }
+        if (!StringUtils.isEmpty(text)) {
+            int index = 0;
+            replaceNamesInText(text, index, lexicalContext, newText);
         }
 
         return newText.toString();
     }
 
+    private int replaceNamesInText(String text, int index, LexicalContext lexicalContext, StringBuilder newText) {
+        while (index < text.length()) {
+            char ch = text.charAt(index);
+            if (text.charAt(index) == '"') {
+                index = appendStrings(text, index, newText);
+            } else if (text.charAt(index) == '{') {
+                index = replaceContextKeys(text, index, lexicalContext, newText);
+            } else if (text.charAt(index) == '[') {
+                index = replaceNamesInList(text, index, lexicalContext, newText);
+            } else if (isNameStartChar(ch)) {
+                index = replaceIdentifiers(text, index, lexicalContext, newText, ch);
+            } else {
+                newText.append(ch);
+                index++;
+            }
+        }
+        return index;
+    }
+
+    private int appendStrings(String text, int index, StringBuilder newText) {
+        // skip strings
+        newText.append(text.charAt(index));
+        index++;
+        while (index < text.length()) {
+            newText.append(text.charAt(index));
+            if (text.charAt(index) == '"') {
+                index++;
+                break;
+            } else {
+                index++;
+            }
+        }
+        return index;
+    }
+
+    protected int replaceContextKeys(String text, int index, LexicalContext lexicalContext, StringBuilder newText) {
+        // process {
+        newText.append(text.charAt(index));
+        index++;
+
+        // process context
+        while (index < text.length()) {
+            if (text.charAt(index) == '}') {
+                break;
+            }
+            // collect key
+            StringBuilder keyBuilder = new StringBuilder("");
+            while (index < text.length() && text.charAt(index) != ':' && text.charAt(index) != '}') {
+                keyBuilder.append(text.charAt(index));
+                index++;
+            }
+            // transform and add key
+            String key = keyBuilder.toString().trim();
+            if (key.length() != 0) {
+                if (key.startsWith("\"") && key.endsWith("\"")) {
+                    key = key.substring(1, key.length() - 1);
+                    newText.append("\"" + transformName(key) + "\"");
+                } else {
+                    newText.append(transformName(key));
+                }
+            }
+            if (index < text.length() && text.charAt(index) == ':') {
+                newText.append(":");
+                index++;
+            }
+            // process value
+            while (index < text.length() && text.charAt(index) != ',' && text.charAt(index) != '}') {
+                if (text.charAt(index) == '\"') {
+                    index = appendStrings(text, index, newText);
+                } else if (text.charAt(index) == '{') {
+                    index = replaceContextKeys(text, index, lexicalContext, newText);
+                } else if (text.charAt(index) == '[') {
+                    index = replaceNamesInList(text, index, lexicalContext, newText);
+                } else {
+                    newText.append(text.charAt(index));
+                    index++;
+                }
+            }
+            if (index < text.length() && text.charAt(index) == ',') {
+                newText.append(", ");
+                index++;
+            }
+        }
+        if (index < text.length() && text.charAt(index) == '}') {
+            newText.append('}');
+            index++;
+        }
+        return index;
+    }
+
+    protected int replaceNamesInList(String text, int index, LexicalContext lexicalContext, StringBuilder newText) {
+        // process [
+        newText.append(text.charAt(index));
+        index++;
+
+        // process list
+        while (index < text.length()) {
+            char ch = text.charAt(index);
+            if (ch == ']') {
+                newText.append(']');
+                index++;
+                break;
+            } else if (ch == '\"') {
+                index = appendStrings(text, index, newText);
+            } else if (ch == '{') {
+                index = replaceContextKeys(text, index, lexicalContext, newText);
+            } else if (ch == '[') {
+                index = replaceNamesInList(text, index, lexicalContext, newText);
+            } else if (isNameStartChar(ch)) {
+                index = replaceIdentifiers(text, index, lexicalContext, newText, ch);
+            } else {
+                newText.append(ch);
+                index++;
+            }
+        }
+        return index;
+    }
+
     protected int replaceIdentifiers(String text, int i, LexicalContext lexicalContext, StringBuilder newText, char ch) {
         // Check keywords
         boolean foundKeyword = false;
-        for(String keyword: KEYWORDS.keySet()) {
+        for (String keyword : KEYWORDS.keySet()) {
             if (text.startsWith(keyword, i)) {
                 newText.append(keyword);
                 i += keyword.length();
@@ -399,7 +497,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         if (!foundKeyword) {
             // Check names
             boolean foundName = false;
-            for(String name: lexicalContext.orderedNames()) {
+            for (String name : lexicalContext.orderedNames()) {
                 if (text.startsWith(name, i)) {
                     newText.append(transformName(name));
                     i += name.length();
@@ -422,71 +520,10 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         return i;
     }
 
-    protected int replaceContextKeys(String text, int i, StringBuilder newText) {
-        // process {
-        newText.append(text.charAt(i));
-        i++;
-
-        // process context
-        while (i < text.length()) {
-            if (text.charAt(i) == '}') {
-                break;
-            }
-            // collect key
-            StringBuilder keyBuilder = new StringBuilder("");
-            while (i < text.length() && text.charAt(i) != ':' && text.charAt(i) != '}') {
-                keyBuilder.append(text.charAt(i));
-                i++;
-            }
-            // transform and add key
-            String key = keyBuilder.toString().trim();
-            if (key.length() != 0) {
-                if (key.startsWith("\"") && key.endsWith("\"")) {
-                    key = key.substring(1, key.length() -1);
-                    newText.append("\"" + transformName(key) + "\"");
-                } else {
-                    newText.append(transformName(key));
-                }
-            }
-            if (i < text.length() && text.charAt(i) == ':') {
-                newText.append(":");
-                i++;
-            }
-            // process value
-            while (i < text.length() && text.charAt(i) != ',' && text.charAt(i) != '}' ) {
-                if (text.charAt(i) == '{') {
-                    // transform nested contexts
-                    i = replaceContextKeys(text, i, newText);
-                } else if (text.charAt(i) == '\"') {
-                    // Copy text literal
-                    do {
-                        newText.append(text.charAt(i));
-                        i++;
-                    }
-                    while (i < text.length() && text.charAt(i) != '\"');
-                    newText.append(text.charAt(i));
-                    i++;
-                } else {
-                    newText.append(text.charAt(i));
-                    i++;
-                }
-            }
-            if (i < text.length() && text.charAt(i) == ',') {
-                newText.append(", ");
-                i++;
-            }
-        }
-        if (i < text.length() && text.charAt(i) == '}') {
-            newText.append('}');
-            i++;
-        }
-        return i;
-    }
-
     protected void renameItemDefinitionMembers(TItemDefinition itemDefinition) {
         List<TItemDefinition> itemComponent = itemDefinition.getItemComponent();
         if (itemComponent != null) {
-            for(TItemDefinition member: itemComponent) {
+            for (TItemDefinition member : itemComponent) {
                 renameElement(member);
                 renameItemDefinitionMembers(member);
             }
