@@ -736,6 +736,23 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "contextNotEqual(new com.gs.dmn.runtime.Context(), null)",
                 lib.contextNotEqual(new com.gs.dmn.runtime.Context(), null),
                 true);
+
+        // complex
+        doExpressionTest(entries, "", "[1,2,{a: [3,4]}] = [1,2,{a: [3,4]}]",
+                "Relational(=,ListLiteral(NumericLiteral(1),NumericLiteral(2),Context(ContextEntry(ContextEntryKey(a) = ListLiteral(NumericLiteral(3),NumericLiteral(4))))),ListLiteral(NumericLiteral(1),NumericLiteral(2),Context(ContextEntry(ContextEntryKey(a) = ListLiteral(NumericLiteral(3),NumericLiteral(4))))))",
+                "boolean",
+                "listEqual(asList(number(\"1\"), number(\"2\"), new com.gs.dmn.runtime.Context().add(\"a\", asList(number(\"3\"), number(\"4\")))), asList(number(\"1\"), number(\"2\"), new com.gs.dmn.runtime.Context().add(\"a\", asList(number(\"3\"), number(\"4\")))))",
+                lib.listEqual(lib.asList(lib.number("1"), lib.number("2"), new com.gs.dmn.runtime.Context().add("a", lib.asList(lib.number("3"), lib.number("4")))), lib.asList(lib.number("1"), lib.number("2"), new com.gs.dmn.runtime.Context().add("a", lib.asList(lib.number("3"), lib.number("4"))))),
+                true);
+
+        // complex
+        doExpressionTest(entries, "", "[1,2,{a: [3,4]}] = [1,2,{a: [3,4], b: \"foo\"}]",
+                "Relational(=,ListLiteral(NumericLiteral(1),NumericLiteral(2),Context(ContextEntry(ContextEntryKey(a) = ListLiteral(NumericLiteral(3),NumericLiteral(4))))),ListLiteral(NumericLiteral(1),NumericLiteral(2),Context(ContextEntry(ContextEntryKey(a) = ListLiteral(NumericLiteral(3),NumericLiteral(4))),ContextEntry(ContextEntryKey(b) = StringLiteral(\"foo\")))))",
+                "boolean",
+                "listEqual(asList(number(\"1\"), number(\"2\"), new com.gs.dmn.runtime.Context().add(\"a\", asList(number(\"3\"), number(\"4\")))), asList(number(\"1\"), number(\"2\"), new com.gs.dmn.runtime.Context().add(\"a\", asList(number(\"3\"), number(\"4\"))).add(\"b\", \"foo\")))",
+                lib.listEqual(lib.asList(lib.number("1"), lib.number("2"), new com.gs.dmn.runtime.Context().add("a", lib.asList(lib.number("3"), lib.number("4")))), lib.asList(lib.number("1"), lib.number("2"), new com.gs.dmn.runtime.Context().add("a", lib.asList(lib.number("3"), lib.number("4"))).add("b", "foo"))),
+                false);
+
     }
 
     @Test
