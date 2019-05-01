@@ -41,13 +41,13 @@ public class XMLGregorianCalendarDeserializer extends JsonDeserializer<XMLGregor
                 return null;
             } else {
                 if (literal.contains("T")) {
-                    return new FEELXMLGregorianCalendar(DateAndTimeUtil.dateAndTime(literal));
+                    return FEELXMLGregorianCalendar.makeXMLCalendar(DateAndTimeUtil.dateAndTime(literal));
                 } else {
                     try {
-                        return new FEELXMLGregorianCalendar(DateUtil.date(literal));
+                        return FEELXMLGregorianCalendar.makeXMLCalendar(DateUtil.date(literal));
                     } catch (Exception e) {
                     }
-                    return new FEELXMLGregorianCalendar(TimeUtil.time(literal));
+                    return FEELXMLGregorianCalendar.makeXMLCalendar(TimeUtil.time(literal));
                 }
             }
         } catch (Exception e) {

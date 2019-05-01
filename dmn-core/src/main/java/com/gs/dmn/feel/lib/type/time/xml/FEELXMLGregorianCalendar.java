@@ -141,19 +141,28 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
     }
 
     public static XMLGregorianCalendar makeDate(BigInteger year, int month, int day) {
-        return new FEELXMLGregorianCalendar(year, month, day, DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED, null, DatatypeConstants.FIELD_UNDEFINED, null);
+        return new FEELXMLGregorianCalendar(
+                year, month, day,
+                DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED, null,
+                DatatypeConstants.FIELD_UNDEFINED, null);
     }
 
     public static XMLGregorianCalendar makeTime(int hour, int minute, int second, BigDecimal fractionalSecond, int timezone, String zoneID) {
-        return new FEELXMLGregorianCalendar(null, DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED, hour, minute, second, fractionalSecond, timezone, zoneID);
+        return new FEELXMLGregorianCalendar(
+                null, DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED,
+                hour, minute, second, fractionalSecond,
+                timezone, zoneID);
     }
 
     public static XMLGregorianCalendar makeDateTime(BigInteger year, int month, int day, int hour, int minute, int second, BigDecimal fractionalSecond, int timezone, String zoneID) {
-        return new FEELXMLGregorianCalendar(year, month, day, hour, minute, second, fractionalSecond, timezone, zoneID);
+        return new FEELXMLGregorianCalendar(
+                year, month, day,
+                hour, minute, second, fractionalSecond,
+                timezone, zoneID);
     }
 
-    public static XMLGregorianCalendar makeDateTime(GregorianCalendar cal) {
-        return new FEELXMLGregorianCalendar(cal);
+    public static XMLGregorianCalendar makeXMLCalendar(TemporalAccessor accessor) {
+        return new FEELXMLGregorianCalendar(accessor);
     }
 
     private BigInteger eon = null;
@@ -174,7 +183,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
     public FEELXMLGregorianCalendar() {
     }
 
-    public FEELXMLGregorianCalendar(TemporalAccessor accessor) throws IllegalArgumentException {
+    private FEELXMLGregorianCalendar(TemporalAccessor accessor) throws IllegalArgumentException {
         setEon(null);
         try {
             setYear(accessor.get(ChronoField.YEAR));
