@@ -235,7 +235,6 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
 
         assertTrue(getLib().timeEqual(makeTime("12:00:00"), makeTime("12:00:00")));
         assertTrue(getLib().timeEqual(makeTime("12:00:00+00:00"), makeTime("12:00:00+00:00")));
-        assertTrue(getLib().timeEqual(makeTime("12:00:00"), makeTime("12:00:00+00:00")));
         assertTrue(getLib().timeEqual(makeTime("12:00:00Z"), makeTime("12:00:00+00:00")));
     }
 
