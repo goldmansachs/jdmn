@@ -34,6 +34,9 @@ public class DefaultFEELLibTest extends BaseFEELLibTest<BigDecimal, XMLGregorian
         super.testTimeEqual();
 
         assertFalse(getLib().timeEqual(makeTime("12:00:00"), makeTime("12:00:00+00:00")));
+        assertFalse(getLib().timeEqual(makeTime("00:00:00+00:00"), makeTime("00:00:00@Etc/UTC")));
+        assertTrue(getLib().timeEqual(makeTime("00:00:00Z"), makeTime("00:00:00+00:00")));
+        assertFalse(getLib().timeEqual(makeTime("00:00:00Z"), makeTime("00:00:00@Etc/UTC")));
     }
 
     //
@@ -41,7 +44,12 @@ public class DefaultFEELLibTest extends BaseFEELLibTest<BigDecimal, XMLGregorian
     //
     @Test
     public void testDateTimeEqual() {
-        //assertFalse(getLib().dateTimeEqual(makeDateAndTime("2018-12-08T00:00:00+00:00"), makeDateAndTime("2018-12-08T00:00:00@Etc/UTC")));
+        super.testDateTimeEqual();
+
+        assertFalse(getLib().dateTimeEqual(makeDateAndTime("2018-12-08T12:00:00"), makeDateAndTime("2018-12-08T12:00:00+00:00")));
+        assertFalse(getLib().dateTimeEqual(makeDateAndTime("2018-12-08T00:00:00+00:00"), makeDateAndTime("2018-12-08T00:00:00@Etc/UTC")));
+        assertTrue(getLib().dateTimeEqual(makeDateAndTime("2018-12-08T12:00:00Z"), makeDateAndTime("2018-12-08T12:00:00+00:00")));
+        assertFalse(getLib().dateTimeEqual(makeDateAndTime("2018-12-08T00:00:00Z"), makeDateAndTime("2018-12-08T00:00:00@Etc/UTC")));
     }
 
     //
