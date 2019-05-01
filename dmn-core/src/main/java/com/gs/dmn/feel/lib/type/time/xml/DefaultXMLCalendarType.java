@@ -18,6 +18,8 @@ import org.slf4j.Logger;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import static javax.xml.datatype.DatatypeConstants.*;
+
 public abstract class DefaultXMLCalendarType extends BaseType {
     protected final DatatypeFactory datatypeFactory;
 
@@ -34,8 +36,7 @@ public abstract class DefaultXMLCalendarType extends BaseType {
         } else if (second == null) {
             return false;
         } else {
-            int result = first.compare(second);
-            return result == 0;
+            return ((FEELXMLGregorianCalendar)first).same(second);
         }
     }
 
@@ -48,7 +49,7 @@ public abstract class DefaultXMLCalendarType extends BaseType {
             return null;
         } else {
             int result = first.compare(second);
-            return result < 0;
+            return result == LESSER;
         }
     }
 
@@ -61,7 +62,7 @@ public abstract class DefaultXMLCalendarType extends BaseType {
             return null;
         } else {
             int result = first.compare(second);
-            return result > 0;
+            return result == GREATER;
         }
     }
 
@@ -74,7 +75,7 @@ public abstract class DefaultXMLCalendarType extends BaseType {
             return null;
         } else {
             int result = first.compare(second);
-            return result <= 0;
+            return result == LESSER || result == EQUAL;
         }
     }
 
@@ -87,7 +88,7 @@ public abstract class DefaultXMLCalendarType extends BaseType {
             return null;
         } else {
             int result = first.compare(second);
-            return result >= 0;
+            return result == GREATER || result == EQUAL;
         }
     }
 
