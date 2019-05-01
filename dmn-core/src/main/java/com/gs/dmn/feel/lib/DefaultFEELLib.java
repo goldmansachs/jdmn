@@ -156,7 +156,6 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
 
         FEELXMLGregorianCalendar calendar = (FEELXMLGregorianCalendar) from.clone();
         calendar.setTime(DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED);
-        calendar.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
         calendar.setZoneID(null);
         return DateTimeUtil.isValidDate(calendar) ? calendar : null;
     }
@@ -187,12 +186,18 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
             XMLGregorianCalendar calendar = null;
             if (offset != null) {
                 BigDecimal secondFraction = second.subtract(BigDecimal.valueOf(second.intValue()));
-                int sign = offset.getSign() < 0 ? -1 : +1;
-                int timezone = sign * (((offset.getHours() * 60 + offset.getMinutes()) * 60) + offset.getSeconds());
-                calendar = FEELXMLGregorianCalendar.makeTime(hour.intValue(), minute.intValue(), second.intValue(), secondFraction, timezone, null);
+                String sign = offset.getSign() < 0 ? "-" : "+";
+                int seconds = offset.getSeconds();
+                String zoneId;
+                if (seconds == 0) {
+                    zoneId = String.format("%s%02d:%02d", sign, offset.getHours(), offset.getMinutes());
+                } else {
+                    zoneId = String.format("%s%02d:%02d:%02d", sign, offset.getHours(), offset.getMinutes(), seconds);
+                }
+                calendar = FEELXMLGregorianCalendar.makeTime(hour.intValue(), minute.intValue(), second.intValue(), secondFraction, zoneId);
             } else {
                 BigDecimal secondFraction = second.subtract(BigDecimal.valueOf(second.intValue()));
-                calendar = FEELXMLGregorianCalendar.makeTime(hour.intValue(), minute.intValue(), second.intValue(), secondFraction, DatatypeConstants.FIELD_UNDEFINED, null);
+                calendar = FEELXMLGregorianCalendar.makeTime(hour.intValue(), minute.intValue(), second.intValue(), secondFraction, null);
             }
             return DateTimeUtil.isValidTime(calendar) ? calendar : null;
         } catch (Throwable e) {
@@ -208,14 +213,19 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
             return null;
         }
 
-        XMLGregorianCalendar calendar = (XMLGregorianCalendar) from.clone();
-        calendar.setYear(DatatypeConstants.FIELD_UNDEFINED);
-        calendar.setMonth(DatatypeConstants.FIELD_UNDEFINED);
-        calendar.setDay(DatatypeConstants.FIELD_UNDEFINED);
-
-        calendar = midnightIfDate(calendar);
+        FEELXMLGregorianCalendar calendar = (FEELXMLGregorianCalendar) from.clone();
         if (from.getXMLSchemaType() == DatatypeConstants.DATE) {
-            calendar.setTimezone(0);
+            calendar.setYear(DatatypeConstants.FIELD_UNDEFINED);
+            calendar.setMonth(DatatypeConstants.FIELD_UNDEFINED);
+            calendar.setDay(DatatypeConstants.FIELD_UNDEFINED);
+            calendar.setHour(0);
+            calendar.setMinute(0);
+            calendar.setSecond(0);
+            calendar.setZoneID("Z");
+        } else if (from.getXMLSchemaType() == DatatypeConstants.DATETIME) {
+            calendar.setYear(DatatypeConstants.FIELD_UNDEFINED);
+            calendar.setMonth(DatatypeConstants.FIELD_UNDEFINED);
+            calendar.setDay(DatatypeConstants.FIELD_UNDEFINED);
         }
         return DateTimeUtil.isValidTime(calendar) ? calendar : null;
     }
@@ -246,25 +256,12 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
             XMLGregorianCalendar calendar = FEELXMLGregorianCalendar.makeDateTime(
                     BigInteger.valueOf(date.getYear()), date.getMonth(), date.getDay(),
                     time.getHour(), time.getMinute(), time.getSecond(), time.getFractionalSecond(),
-                    time.getTimezone(), ((FEELXMLGregorianCalendar) time).getZoneID()
+                    ((FEELXMLGregorianCalendar) time).getZoneID()
             );
             return DateTimeUtil.isValidDateTime(calendar) ? calendar : null;
         } catch (Throwable e) {
             return null;
         }
-    }
-
-    private XMLGregorianCalendar midnightIfDate(XMLGregorianCalendar clone) {
-        if (clone == null) {
-            return null;
-        }
-
-        if (clone.getHour() == DatatypeConstants.FIELD_UNDEFINED) {
-            clone.setHour(0);
-            clone.setMinute(0);
-            clone.setSecond(0);
-        }
-        return clone;
     }
 
     @Override

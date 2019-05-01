@@ -15,9 +15,7 @@ package com.gs.dmn.feel.lib.type.time.xml;
 import com.gs.dmn.feel.lib.type.BaseType;
 import org.slf4j.Logger;
 
-import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 public abstract class DefaultXMLCalendarType extends BaseType {
@@ -36,7 +34,7 @@ public abstract class DefaultXMLCalendarType extends BaseType {
         } else if (second == null) {
             return false;
         } else {
-            int result = compare(first, second);
+            int result = first.compare(second);
             return result == 0;
         }
     }
@@ -49,7 +47,7 @@ public abstract class DefaultXMLCalendarType extends BaseType {
         } else if (second == null) {
             return null;
         } else {
-            int result = compare(first, second);
+            int result = first.compare(second);
             return result < 0;
         }
     }
@@ -62,7 +60,7 @@ public abstract class DefaultXMLCalendarType extends BaseType {
         } else if (second == null) {
             return null;
         } else {
-            int result = compare(first, second);
+            int result = first.compare(second);
             return result > 0;
         }
     }
@@ -75,7 +73,7 @@ public abstract class DefaultXMLCalendarType extends BaseType {
         } else if (second == null) {
             return null;
         } else {
-            int result = compare(first, second);
+            int result = first.compare(second);
             return result <= 0;
         }
     }
@@ -88,49 +86,13 @@ public abstract class DefaultXMLCalendarType extends BaseType {
         } else if (second == null) {
             return null;
         } else {
-            int result = compare(first, second);
+            int result = first.compare(second);
             return result >= 0;
         }
     }
 
-    private int compare(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        XMLGregorianCalendar normal1 = normalize(first);
-        XMLGregorianCalendar normal2 = normalize(second);
-        return normal1.compare(normal2);
-    }
-
-    private XMLGregorianCalendar normalize(XMLGregorianCalendar first) {
-        XMLGregorianCalendar normal1 = (XMLGregorianCalendar) first.clone();
-        if (first.getTimezone() == DatatypeConstants.FIELD_UNDEFINED) {
-            normal1 = normalizeToTimezone(first, 0);
-        }
-        return normal1.normalize();
-    }
-
     protected long getDurationInMilliSeconds(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         return first.toGregorianCalendar().getTimeInMillis() - second.toGregorianCalendar().getTimeInMillis();
-    }
-
-    private XMLGregorianCalendar normalizeToTimezone(XMLGregorianCalendar first, int timezone) {
-        int minutes = timezone;
-        XMLGregorianCalendar result = (XMLGregorianCalendar) first.clone();
-
-        // normalizing to UTC time negates the timezone offset before
-        // addition.
-        minutes = -minutes;
-        Duration d = datatypeFactory.newDuration(minutes >= 0, // isPositive
-                0, //years
-                0, //months
-                0, //days
-                0, //hours
-                minutes < 0 ? -minutes : minutes, // absolute
-                0  //seconds
-        );
-        result.add(d);
-
-        // set to zulu UTC time.
-        result.setTimezone(0);
-        return result;
     }
 
 }

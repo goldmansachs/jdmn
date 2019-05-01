@@ -18,13 +18,30 @@ import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 public class DefaultFEELLibTest extends BaseFEELLibTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     @Override
     protected DefaultFEELLib getLib() {
         return new DefaultFEELLib();
+    }
+
+    //
+    // Time operator functions
+    //
+    @Test
+    public void testTimeEqual() {
+        super.testTimeEqual();
+
+        assertFalse(getLib().timeEqual(makeTime("12:00:00"), makeTime("12:00:00+00:00")));
+    }
+
+    //
+    // Date and time operator functions
+    //
+    @Test
+    public void testDateTimeEqual() {
+        //assertFalse(getLib().dateTimeEqual(makeDateAndTime("2018-12-08T00:00:00+00:00"), makeDateAndTime("2018-12-08T00:00:00@Etc/UTC")));
     }
 
     //
