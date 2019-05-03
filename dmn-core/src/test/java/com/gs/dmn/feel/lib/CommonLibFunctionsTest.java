@@ -85,6 +85,7 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
         assertNull(getLib().dateAndTime("xxx"));
         assertNull(getLib().dateAndTime("11:00:00"));
         assertNull(getLib().dateAndTime("2011-12-03T10:15:30+01:00@Europe/Paris"));
+        assertNull(getLib().dateAndTime("2017-12-31T12:20:00+19:00"));
 
         assertNull(getLib().dateAndTime(null, null));
         assertNull(getLib().dateAndTime(null, makeTime("11:00:00Z")));

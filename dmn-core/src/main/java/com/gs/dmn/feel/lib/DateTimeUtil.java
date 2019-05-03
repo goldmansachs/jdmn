@@ -260,8 +260,12 @@ public class DateTimeUtil {
         return isValidYear(year) && isValidMonth(month) && isValidDay(day);
     }
 
-    public static boolean isValidTime(int hour, int minute, int second) {
-        return isValidHour(hour) && isValidMinute(minute) && isValidSecond(second);
+    public static boolean isValidTime(int hour, int minute, int second, Integer secondsOffset) {
+        return isValidHour(hour) && isValidMinute(minute) && isValidSecond(second) && isValidOffset(secondsOffset);
+    }
+
+    public static boolean isValidDateTime(long year, long month, long day, int hour, int minute, int second, Integer secondsOffset) {
+        return isValidDate(year, month, day) && isValidTime(hour, minute, second, secondsOffset);
     }
 
     public static boolean isValidDate(XMLGregorianCalendar calendar) {
@@ -288,7 +292,7 @@ public class DateTimeUtil {
         }
 
         return
-                isValidTime(calendar.getHour(), calendar.getMinute(), calendar.getSecond())
+                isValidTime(calendar.getHour(), calendar.getMinute(), calendar.getSecond(), calendar.getTimezone())
                         && isUndefined(calendar.getYear())
                         && isUndefined(calendar.getMonth())
                         && isUndefined(calendar.getDay())
@@ -300,14 +304,9 @@ public class DateTimeUtil {
             return false;
         }
 
-        long year = calendar.getYear();
-        BigInteger eonAndYear = calendar.getEonAndYear();
-        if (eonAndYear != null) {
-            year = eonAndYear.intValue();
-        }
-        return isValidDate(year, calendar.getMonth(), calendar.getDay())
-                || isValidDate(year, calendar.getMonth(), calendar.getDay()) && isValidTime(calendar.getHour(), calendar.getMinute(), calendar.getSecond())
-                ;
+        return isValidDateTime(
+                calendar.getYear(), calendar.getMonth(), calendar.getDay(),
+                calendar.getHour(), calendar.getMinute(), calendar.getSecond(), calendar.getTimezone());
     }
 
     private static boolean isValidYear(long year) {
@@ -332,6 +331,13 @@ public class DateTimeUtil {
 
     private static boolean isValidSecond(long second) {
         return 0 <= second && second <= 59;
+    }
+
+    private static boolean isValidOffset(Integer secondsOffset) {
+        if (secondsOffset == null || isUndefined(secondsOffset)) {
+            return true;
+        }
+        return -18 * 3600 <= secondsOffset && secondsOffset < 18 * 3600;
     }
 
     private static boolean isUndefined(long value) {
