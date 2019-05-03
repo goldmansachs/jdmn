@@ -457,7 +457,13 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
     }
 
     private void setSecondsOffset(String zoneID) {
-        this.secondsOffset = secondsOffset(zoneID);
+        int offset = secondsOffset(zoneID);
+        if (offset < -18 * 3600 || 18 * 3600 < offset) {
+            if (offset != DatatypeConstants.FIELD_UNDEFINED) {
+                invalidFieldValue(TIMEZONE, offset);
+            }
+        }
+        this.secondsOffset = offset;
     }
 
     public String getZoneID() {
