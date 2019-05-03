@@ -87,7 +87,7 @@ public class OffsetTimeType extends JavaTimeType implements TimeType<OffsetTime,
         try {
             return time.plus(duration);
         } catch (Throwable e) {
-            String message = String.format("timeAdd(%s, %s)", time, duration);
+            String message = String.format("timeAddDuration(%s, %s)", time, duration);
             logError(message, e);
             return null;
         }
@@ -102,7 +102,7 @@ public class OffsetTimeType extends JavaTimeType implements TimeType<OffsetTime,
         try {
             return time.minus(duration);
         } catch (Throwable e) {
-            String message = String.format("timeSubtract(%s, %s)", time, duration);
+            String message = String.format("timeSubtractDuration(%s, %s)", time, duration);
             logError(message, e);
             return null;
         }

@@ -48,7 +48,7 @@ public class DateAndTimeUtil {
 
         try {
             if (literal.contains("T")) {
-                return FEEL_DATE_TIME.parse(literal);
+                return FEEL_DATE_TIME.parseBest(literal, ZonedDateTime::from, OffsetDateTime::from, LocalDateTime::from);
             } else {
                 TemporalAccessor value = DateTimeFormatter.ISO_DATE.parse(literal, LocalDate::from);
                 return LocalDateTime.of((LocalDate) value, LocalTime.of(0, 0));
