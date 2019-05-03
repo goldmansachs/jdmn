@@ -76,7 +76,7 @@ public class ZonedTimeType extends JavaTimeCalendarType implements TimeType<Zone
                 durationInMilliSeconds = - durationInMilliSeconds;
             }
             return datatypeFactory.newDuration(durationInMilliSeconds);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("timeSubtract(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -104,7 +104,7 @@ public class ZonedTimeType extends JavaTimeCalendarType implements TimeType<Zone
                         .plusMinutes(minutes)
                         .plusSeconds(seconds);
             }
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("timeAdd(%s, %s)", time, duration);
             logError(message, e);
             return null;
@@ -132,7 +132,7 @@ public class ZonedTimeType extends JavaTimeCalendarType implements TimeType<Zone
                         .minusMinutes(minutes)
                         .minusSeconds(seconds);
             }
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("timeSubtract(%s, %s)", time, duration);
             logError(message, e);
             return null;

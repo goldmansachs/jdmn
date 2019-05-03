@@ -111,7 +111,7 @@ public class DefaultDurationType extends BaseType implements DurationType<Durati
 
         try {
             return first.add(second);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("durationAdd(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -126,7 +126,7 @@ public class DefaultDurationType extends BaseType implements DurationType<Durati
 
         try {
             return first.subtract(second);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("durationSubtract(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -141,7 +141,7 @@ public class DefaultDurationType extends BaseType implements DurationType<Durati
 
         try {
             return first.multiply(second);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("durationMultiply(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -156,7 +156,7 @@ public class DefaultDurationType extends BaseType implements DurationType<Durati
 
         try {
             return first.multiply(BigDecimal.ONE.divide(second));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("durationDivide(%s, %s)", first, second);
             logError(message, e);
             return null;

@@ -73,7 +73,7 @@ public class ZonedDateTimeType extends JavaTimeType implements DateTimeType<Zone
 
         try {
             return Duration.between(first, second);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("dateTimeSubtract(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -88,7 +88,7 @@ public class ZonedDateTimeType extends JavaTimeType implements DateTimeType<Zone
 
         try {
             return dateTime.plus(duration);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("dateTimeAddDuration(%s, %s)", dateTime, duration);
             logError(message, e);
             return null;
@@ -103,7 +103,7 @@ public class ZonedDateTimeType extends JavaTimeType implements DateTimeType<Zone
 
         try {
             return dateTime.minus(duration);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("dateTimeSubtractDuration(%s, %s)", dateTime, duration);
             logError(message, e);
             return null;

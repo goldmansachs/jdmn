@@ -73,7 +73,7 @@ public class TemporalTimeType extends JavaTimeType implements TimeType<Temporal,
 
         try {
             return java.time.Duration.between(first, second);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("timeSubtract(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -88,7 +88,7 @@ public class TemporalTimeType extends JavaTimeType implements TimeType<Temporal,
 
         try {
             return time.plus(duration);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("timeAddDuration(%s, %s)", time, duration);
             logError(message, e);
             return null;
@@ -103,7 +103,7 @@ public class TemporalTimeType extends JavaTimeType implements TimeType<Temporal,
 
         try {
             return time.minus(duration);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("timeSubtractDuration(%s, %s)", time, duration);
             logError(message, e);
             return null;
@@ -122,7 +122,7 @@ public class TemporalTimeType extends JavaTimeType implements TimeType<Temporal,
                 Integer result = compare(first, second);
                 return result != null && result == 0;
             }
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("=(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -141,7 +141,7 @@ public class TemporalTimeType extends JavaTimeType implements TimeType<Temporal,
                 Integer result = compare(first, second);
                 return result != null && result < 0;
             }
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("<(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -160,7 +160,7 @@ public class TemporalTimeType extends JavaTimeType implements TimeType<Temporal,
                 Integer result = compare(first, second);
                 return result != null && result > 0;
             }
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format(">(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -179,7 +179,7 @@ public class TemporalTimeType extends JavaTimeType implements TimeType<Temporal,
                 Integer result = compare(first, second);
                 return result != null && result <= 0;
             }
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("<=(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -198,7 +198,7 @@ public class TemporalTimeType extends JavaTimeType implements TimeType<Temporal,
                 Integer result = compare(first, second);
                 return result != null && result >= 0;
             }
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format(">=(%s, %s)", first, second);
             logError(message, e);
             return null;

@@ -72,7 +72,7 @@ public class LocalDateType extends JavaTimeCalendarType implements DateType<Loca
 
         try {
             return toDuration(first, second);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("dateSubtract(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -87,7 +87,7 @@ public class LocalDateType extends JavaTimeCalendarType implements DateType<Loca
 
         try {
             return date.plus(toTemporalPeriod(duration));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("dateAdd(%s, %s)", date, duration);
             logError(message, e);
             return null;
@@ -102,7 +102,7 @@ public class LocalDateType extends JavaTimeCalendarType implements DateType<Loca
 
         try {
             return date.minus(toTemporalPeriod(duration));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("dateSubtract(%s, %s)", date, duration);
             logError(message, e);
             return null;

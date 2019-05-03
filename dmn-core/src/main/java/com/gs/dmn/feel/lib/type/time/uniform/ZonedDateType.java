@@ -74,7 +74,7 @@ public class ZonedDateType extends JavaTimeCalendarType implements DateType<Zone
         try {
             long durationInMilliSeconds = getDurationInMilliSeconds(first, second);
             return datatypeFactory.newDuration(durationInMilliSeconds);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("dateSubtract(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -102,7 +102,7 @@ public class ZonedDateType extends JavaTimeCalendarType implements DateType<Zone
                         .plusMonths(months)
                         .plusDays(days);
             }
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("dateAdd(%s, %s)", date, duration);
             logError(message, e);
             return null;
@@ -130,7 +130,7 @@ public class ZonedDateType extends JavaTimeCalendarType implements DateType<Zone
                         .minusMonths(months)
                         .minusDays(days);
             }
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("dateSubtract(%s, %s)", date, duration);
             logError(message, e);
             return null;
