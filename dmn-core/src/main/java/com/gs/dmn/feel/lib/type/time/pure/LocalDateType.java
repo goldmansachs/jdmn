@@ -88,7 +88,7 @@ public class LocalDateType extends JavaTimeType implements DateType<LocalDate, T
         try {
             return date.plus(duration);
         } catch (Throwable e) {
-            String message = String.format("dateAdd(%s, %s)", date, duration);
+            String message = String.format("dateAddDuration(%s, %s)", date, duration);
             logError(message, e);
             return null;
         }
@@ -103,7 +103,7 @@ public class LocalDateType extends JavaTimeType implements DateType<LocalDate, T
         try {
             return date.minus(duration);
         } catch (Throwable e) {
-            String message = String.format("dateSubtract(%s, %s)", date, duration);
+            String message = String.format("dateSubtractDuration(%s, %s)", date, duration);
             logError(message, e);
             return null;
         }

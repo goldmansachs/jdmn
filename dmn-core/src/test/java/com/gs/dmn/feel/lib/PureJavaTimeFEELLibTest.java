@@ -19,11 +19,12 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
+import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 
 import static org.junit.Assert.assertEquals;
 
-public class PureJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, TemporalAmount> {
+public class PureJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> {
     @Override
     protected PureJavaTimeFEELLib getLib() {
         return new PureJavaTimeFEELLib();
@@ -173,12 +174,17 @@ public class PureJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalDa
         assertEqualsNumber(getLib().number("12"), getLib().hour(getLib().time("12:01:02Z")));
         assertEqualsNumber(getLib().number("1"), getLib().minute(getLib().time("12:01:02Z")));
         assertEqualsNumber(getLib().number("2"), getLib().second(getLib().time("12:01:02Z")));
-//        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().time("12:01:02Z@Etc/UTC")));
-        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().time("12:01:02Z")));
+
         assertEquals(null, getLib().timeOffset(getLib().time("12:01:02")));
-//        assertEquals("Etc/UTC", getLib().timezone(getLib().time("12:01:02Z@Etc/UTC")));
-//        assertEquals("Etc/UTC", getLib().timezone(getLib().time("12:01:02@Etc/UTC")));
-        assertEquals("Z", getLib().timezone(getLib().time("12:01:02")));
+        assertEquals(getLib().duration("PT1H"), getLib().timeOffset(getLib().time("12:01:02+01:00")));
+        assertEquals(getLib().duration("PT0S"), getLib().timeOffset(getLib().time("12:01:02Z")));
+        assertEquals(getLib().duration("PT0S"), getLib().timeOffset(getLib().time("12:01:02@Etc/UTC")));
+
+        assertEquals(null, getLib().timezone(getLib().time("12:01:02")));
+        assertEquals("+01:00", getLib().timezone(getLib().time("12:01:02+01:00")));
+        assertEquals("Z", getLib().timezone(getLib().time("12:01:02Z")));
+        assertEquals("Z", getLib().timezone(getLib().time("12:01:02@Etc/UTC")));
+        assertEquals("+01:00", getLib().timezone(getLib().time("12:01:02@Europe/Paris")));
     }
 
     //
@@ -193,12 +199,17 @@ public class PureJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalDa
         assertEqualsNumber(getLib().number("12"), getLib().hour(getLib().dateAndTime("2018-12-10T12:01:02Z")));
         assertEqualsNumber(getLib().number("1"), getLib().minute(getLib().dateAndTime("2018-12-10T12:01:02Z")));
         assertEqualsNumber(getLib().number("2"), getLib().second(getLib().dateAndTime("2018-12-10T12:01:02Z")));
-        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02Z@Etc/UTC")));
-        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02Z")));
+
         assertEquals(null, getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02")));
-        assertEquals("Etc/UTC", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02Z@Etc/UTC")));
+        assertEquals(getLib().duration("PT1H"), getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02+01:00")));
+        assertEquals(getLib().duration("PT0S"), getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02Z")));
+        assertEquals(getLib().duration("PT0S"), getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02@Etc/UTC")));
+
+        assertEquals(null, getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02")));
+        assertEquals("+01:00", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02+01:00")));
+        assertEquals("Z", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02Z")));
         assertEquals("Etc/UTC", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02@Etc/UTC")));
-        assertEquals("Z", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02")));
+        assertEquals("Europe/Paris", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02@Europe/Paris")));
     }
 
     @Test
