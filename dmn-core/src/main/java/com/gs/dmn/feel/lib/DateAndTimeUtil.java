@@ -48,7 +48,20 @@ public class DateAndTimeUtil {
 
         try {
             if (literal.contains("T")) {
-                return FEEL_DATE_TIME.parseBest(literal, ZonedDateTime::from, OffsetDateTime::from, LocalDateTime::from);
+                TemporalAccessor value = FEEL_DATE_TIME.parse(literal);
+
+                if (value.query(TemporalQueries.zoneId()) != null) {
+                    ZonedDateTime asZonedDateTime = value.query(ZonedDateTime::from);
+                    return asZonedDateTime;
+                } else if (value.query(TemporalQueries.offset()) != null) {
+                    OffsetDateTime asOffSetDateTime = value.query(OffsetDateTime::from);
+                    return asOffSetDateTime;
+                } else if (value.query(TemporalQueries.zone()) == null) {
+                    LocalDateTime asLocalDateTime = value.query(LocalDateTime::from);
+                    return asLocalDateTime;
+                }
+
+                return value;
             } else {
                 TemporalAccessor value = DateTimeFormatter.ISO_DATE.parse(literal, LocalDate::from);
                 return LocalDateTime.of((LocalDate) value, LocalTime.of(0, 0));
