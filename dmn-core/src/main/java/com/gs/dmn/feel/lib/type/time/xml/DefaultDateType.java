@@ -71,7 +71,7 @@ public class DefaultDateType extends DefaultXMLCalendarType implements DateType<
 
         try {
             return datatypeFactory.newDuration(getDurationInMilliSeconds(first, second));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("dateSubtract(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -88,7 +88,7 @@ public class DefaultDateType extends DefaultXMLCalendarType implements DateType<
             XMLGregorianCalendar clone = (XMLGregorianCalendar) date.clone();
             clone.add(duration);
             return clone;
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("dateAdd(%s, %s)", date, duration);
             logError(message, e);
             return null;
@@ -105,7 +105,7 @@ public class DefaultDateType extends DefaultXMLCalendarType implements DateType<
             XMLGregorianCalendar clone = (XMLGregorianCalendar) date.clone();
             clone.add(duration.negate());
             return clone;
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("dateSubtract(%s, %s)", date, duration);
             logError(message, e);
             return null;

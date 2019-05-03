@@ -73,7 +73,7 @@ public class OffsetTimeType extends JavaTimeCalendarType implements TimeType<Off
 
         try {
             return toDuration(first, second);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("timeSubtract(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -88,7 +88,7 @@ public class OffsetTimeType extends JavaTimeCalendarType implements TimeType<Off
 
         try {
             return time.plus(toTemporalDuration(duration));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("timeAdd(%s, %s)", time, duration);
             logError(message, e);
             return null;
@@ -103,7 +103,7 @@ public class OffsetTimeType extends JavaTimeCalendarType implements TimeType<Off
 
         try {
             return time.minus(toTemporalDuration(duration));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("timeSubtract(%s, %s)", time, duration);
             logError(message, e);
             return null;

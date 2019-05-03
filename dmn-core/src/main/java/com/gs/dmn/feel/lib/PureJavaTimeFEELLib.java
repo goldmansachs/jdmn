@@ -65,7 +65,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
         try {
             return new BigDecimal(literal, DefaultNumericType.MATH_CONTEXT);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("number(%s)", literal);
             logError(message, e);
             return null;
@@ -98,7 +98,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
                 from = from.replaceAll(decimalSeparator, ".");
             }
             return number(from);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("number(%s, %s, %s)", from, groupingSeparator, decimalSeparator);
             logError(message, e);
             return null;
@@ -189,7 +189,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
             long minutes = offset.get(ChronoUnit.MINUTES);
             ZoneOffset zoneOffset = ZoneOffset.ofHoursMinutes((int)hours, (int)minutes);
             return OffsetTime.of(hour.intValue(), minute.intValue(), second.intValue(), 0, zoneOffset);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("time(%s, %s, %s, %s)", hour, minute, second, offset);
             logError(message, e);
             return null;
@@ -231,7 +231,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
         try {
             literal = DateTimeUtil.fixDateTimeFormat(literal);
             return (Temporal) DateAndTimeUtil.dateAndTime(literal);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("dateAndTime(%s)", literal);
             logError(message, e);
             return null;
@@ -251,7 +251,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
                 return OffsetDateTime.of(date, ((OffsetTime) time).toLocalTime(), ((OffsetTime) time).getOffset());
             }
             throw new IllegalArgumentException(String.format("Cannot convert '%s' and '%s' to date and time", date, time));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("dateAndTime(%s, %s)", date, time);
             logError(message, e);
             return null;
@@ -273,7 +273,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
             }
             ta = Period.parse(from);
             return ta;
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("duration(%s)", from);
             logError(message, e);
             return null;
@@ -283,7 +283,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     private TemporalAmount duration(long milliseconds) {
         try {
             return Duration.ofSeconds(milliseconds / 1000, (milliseconds % 1000) * 1000);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("duration(%d)", milliseconds);
             logError(message, e);
             return null;
@@ -298,7 +298,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
         try {
             return Duration.between(from, to);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
             logError(message, e);
             return null;
@@ -328,7 +328,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     public BigDecimal decimal(BigDecimal n, BigDecimal scale) {
         try {
             return BigDecimalUtil.decimal(n, scale);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("decimal(%s, %s)", n, scale);
             logError(message, e);
             return null;
@@ -339,7 +339,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     public BigDecimal floor(BigDecimal number) {
         try {
             return BigDecimalUtil.floor(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("fllor(%s)", number);
             logError(message, e);
             return null;
@@ -350,7 +350,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     public BigDecimal ceiling(BigDecimal number) {
         try {
             return BigDecimalUtil.ceiling(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("ceiling(%s)", number);
             logError(message, e);
             return null;
@@ -361,7 +361,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     public BigDecimal abs(BigDecimal number) {
         try {
             return BigDecimalUtil.abs(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("abs(%s)", number);
             logError(message, e);
             return null;
@@ -372,7 +372,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     public BigDecimal modulo(BigDecimal divident, BigDecimal divisor) {
         try {
             return BigDecimalUtil.modulo(divident, divisor);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("modulo(%s, %s)", divident, divisor);
             logError(message, e);
             return null;
@@ -383,7 +383,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     public BigDecimal sqrt(BigDecimal number) {
         try {
             return BigDecimalUtil.sqrt(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("sqrt(%s)", number);
             logError(message, e);
             return null;
@@ -394,7 +394,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     public BigDecimal log(BigDecimal number) {
         try {
             return BigDecimalUtil.log(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("log(%s)", number);
             logError(message, e);
             return null;
@@ -405,7 +405,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     public BigDecimal exp(BigDecimal number) {
         try {
             return BigDecimalUtil.exp(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("exp(%s)", number);
             logError(message, e);
             return null;
@@ -416,7 +416,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     public Boolean odd(BigDecimal number) {
         try {
             return BigDecimalUtil.odd(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("odd(%s)", number);
             logError(message, e);
             return null;
@@ -427,7 +427,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     public Boolean even(BigDecimal number) {
         try {
             return BigDecimalUtil.even(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("odd(%s)", number);
             logError(message, e);
             return null;
@@ -442,7 +442,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
         try {
             return min(Arrays.asList(args));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("min(%s)", args);
             logError(message, e);
             return null;
@@ -457,7 +457,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
         try {
             return max(Arrays.asList(args));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("max(%s)", args);
             logError(message, e);
             return null;
@@ -472,7 +472,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
         try {
             return sum(Arrays.asList(args));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("sum(%s)", args);
             logError(message, e);
             return null;
@@ -483,7 +483,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     public BigDecimal mean(List list) {
         try {
             return BigDecimalUtil.mean(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("mean(%s)", list);
             logError(message, e);
             return null;
@@ -498,7 +498,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
         try {
             return mean(Arrays.asList(args));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("mean(%s)", args);
             logError(message, e);
             return null;
@@ -603,7 +603,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
         try {
             String expression = String.format("replace(/root, '%s', '%s', '%s')", pattern, replacement, flags);
             return evaluateXPath(input, expression);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("replace(%s, %s, %s, %s)", input, pattern, replacement, flags);
             logError(message, e);
             return null;
@@ -628,7 +628,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
             String expression = String.format("/root[matches(., '%s', '%s')]", pattern, flags);
             String value = evaluateXPath(input, expression);
             return input.equals(value);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("matches(%s, %s, %s)", input, pattern, flags);
             logError(message, e);
             return null;
@@ -639,7 +639,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     public List split(String string, String delimiter) {
         try {
             return StringUtil.split(string, delimiter);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("split(%s, %s)", string, delimiter);
             logError(message, e);
             return null;
@@ -687,7 +687,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
             } else {
                 return null;
             }
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("and(%s)", list);
             logError(message, e);
             return null;
@@ -702,7 +702,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
         try {
             return all(Arrays.asList(args));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("and(%s)", args);
             logError(message, e);
             return null;
@@ -733,7 +733,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
             } else {
                 return null;
             }
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("or(%s)", list);
             logError(message, e);
             return null;
@@ -748,7 +748,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
         try {
             return any(Arrays.asList(args));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("or(%s)", args);
             logError(message, e);
             return null;
@@ -1004,7 +1004,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     public BigDecimal min(List list) {
         try {
             return BigDecimalUtil.min(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("min(%s)", list);
             logError(message, e);
             return null;
@@ -1015,7 +1015,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     public BigDecimal max(List list) {
         try {
             return BigDecimalUtil.max(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("max(%s)", list);
             logError(message, e);
             return null;
@@ -1026,7 +1026,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     public BigDecimal sum(List list) {
         try {
             return BigDecimalUtil.sum(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("sum(%s)", list);
             logError(message, e);
             return null;
@@ -1201,7 +1201,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     public BigDecimal product(List list) {
         try {
             return BigDecimalUtil.product(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("product(%s)", list);
             logError(message, e);
             return null;
@@ -1216,7 +1216,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
         try {
             return product(Arrays.asList(numbers));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("sum(%s)", numbers);
             logError(message, e);
             return null;
@@ -1227,7 +1227,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     public BigDecimal median(List list) {
         try {
             return BigDecimalUtil.median(list);
-        } catch (Throwable e){
+        } catch (Exception e){
             String message = String.format("median(%s)", list);
             logError(message, e);
             return null;
@@ -1242,7 +1242,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
         try {
             return median(Arrays.asList(numbers));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("median(%s)", numbers);
             logError(message, e);
             return null;
@@ -1253,7 +1253,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     public BigDecimal stddev(List list) {
         try {
             return BigDecimalUtil.stddev(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("stddev(%s)", list);
             logError(message, e);
             return null;
@@ -1268,7 +1268,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
         try {
             return stddev(Arrays.asList(numbers));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("stddev(%s)", numbers);
             logError(message, e);
             return null;
@@ -1279,7 +1279,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     public List mode(List list) {
         try {
             return BigDecimalUtil.mode(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("mode(%s)", list);
             logError(message, e);
             return null;
@@ -1294,7 +1294,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
         try {
             return mode(Arrays.asList(numbers));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("mode(%s)", numbers);
             logError(message, e);
             return null;

@@ -70,7 +70,7 @@ public class DefaultTimeType extends DefaultXMLCalendarType implements TimeType<
 
         try {
             return datatypeFactory.newDuration(getDurationInMilliSeconds(first, second));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("timeSubtract(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -87,7 +87,7 @@ public class DefaultTimeType extends DefaultXMLCalendarType implements TimeType<
             XMLGregorianCalendar clone = (XMLGregorianCalendar) time.clone();
             clone.add(duration);
             return clone;
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("timeAdd(%s, %s)", time, duration);
             logError(message, e);
             return null;
@@ -104,7 +104,7 @@ public class DefaultTimeType extends DefaultXMLCalendarType implements TimeType<
             XMLGregorianCalendar clone = (XMLGregorianCalendar) time.clone();
             clone.add(duration.negate());
             return clone;
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("timeSubtract(%s, %s)", time, duration);
             logError(message, e);
             return null;

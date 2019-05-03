@@ -40,7 +40,7 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
 
         try {
             return first.add(second, MATH_CONTEXT);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("numericAdd(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -55,7 +55,7 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
 
         try {
             return first.subtract(second, MATH_CONTEXT);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("numericSubtract(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -70,7 +70,7 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
 
         try {
             return first.multiply(second, MATH_CONTEXT);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("numericMultiply(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -81,7 +81,7 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
     public BigDecimal numericDivide(BigDecimal first, BigDecimal second) {
         try {
             return BigDecimalUtil.numericDivide(first, second);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("numericDivide(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -96,7 +96,7 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
 
         try {
             return first.negate(MATH_CONTEXT);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("numericUnaryMinus(%s)", first);
             logError(message, e);
             return null;
@@ -115,7 +115,7 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
             } else {
                 return new BigDecimal(Math.pow(first.doubleValue(), second.doubleValue()));
             }
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("numericExponentiation(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -136,7 +136,7 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
                 BigDecimal temp = first.pow(-second, MATH_CONTEXT);
                 return BigDecimal.ONE.divide(temp, MATH_CONTEXT);
             }
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("numericExponentiation(%s, %s)", first, second);
             logError(message, e);
             return null;
