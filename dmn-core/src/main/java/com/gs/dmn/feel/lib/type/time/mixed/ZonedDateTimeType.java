@@ -181,7 +181,7 @@ public class ZonedDateTimeType extends JavaTimeCalendarType implements DateTimeT
     }
 
     private int compare(ZonedDateTime first, ZonedDateTime second) {
-        return first.compareTo(second);
+        return first.withZoneSameInstant(DateTimeUtil.UTC).compareTo(second.withZoneSameInstant(DateTimeUtil.UTC));
     }
 
     private Duration toDuration(ZonedDateTime first, ZonedDateTime second) {
