@@ -416,13 +416,28 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Test
+    public void testIntModulo() {
+        assertNull(getLib().modulo(null, null));
+
+        assertEqualsNumber(makeNumber("2"), getLib().intModulo(makeNumber(10), makeNumber(4)));
+        assertEqualsNumber(makeNumber("2"), getLib().intModulo(makeNumber(10), makeNumber(-4)));
+        assertEqualsNumber(makeNumber("-2"), getLib().intModulo(makeNumber(-10), makeNumber(4)));
+        assertEqualsNumber(makeNumber("-2"), getLib().intModulo(makeNumber(-10), makeNumber(-4)));
+    }
+
+    @Test
     public void testModulo() {
         assertNull(getLib().modulo(null, null));
 
         assertEqualsNumber(makeNumber("2"), getLib().modulo(makeNumber(10), makeNumber(4)));
-        assertEqualsNumber(makeNumber("2"), getLib().modulo(makeNumber(10), makeNumber(-4)));
-        assertEqualsNumber(makeNumber("-2"), getLib().modulo(makeNumber(-10), makeNumber(4)));
+        assertEqualsNumber(makeNumber("-2"), getLib().modulo(makeNumber(10), makeNumber(-4)));
+        assertEqualsNumber(makeNumber("2"), getLib().modulo(makeNumber(-10), makeNumber(4)));
         assertEqualsNumber(makeNumber("-2"), getLib().modulo(makeNumber(-10), makeNumber(-4)));
+
+        assertEqualsNumber(makeNumber("1.1"), getLib().modulo(makeNumber(10.1), makeNumber(4.5)));
+        assertEqualsNumber(makeNumber("3.4"), getLib().modulo(makeNumber(-10.1), makeNumber(4.5)));
+        assertEqualsNumber(makeNumber("-3.4"), getLib().modulo(makeNumber(10.1), makeNumber(-4.5)));
+        assertEqualsNumber(makeNumber("-1.1"), getLib().modulo(makeNumber(-10.1), makeNumber(-4.5)));
     }
 
     @Test

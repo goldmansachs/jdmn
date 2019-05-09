@@ -426,11 +426,22 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     }
 
     @Override
-    public Double modulo(Double divident, Double divisor) {
+    public Double intModulo(Double dividend, Double divisor) {
         try {
-            return DoubleUtil.modulo(divident, divisor);
+            return DoubleUtil.intModulo(dividend, divisor);
         } catch (Exception e) {
-            String message = String.format("modulo(%s, %s)", divident, divisor);
+            String message = String.format("modulo(%s, %s)", dividend, divisor);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Double modulo(Double dividend, Double divisor) {
+        try {
+            return DoubleUtil.modulo(dividend, divisor);
+        } catch (Exception e) {
+            String message = String.format("modulo(%s, %s)", dividend, divisor);
             logError(message, e);
             return null;
         }
