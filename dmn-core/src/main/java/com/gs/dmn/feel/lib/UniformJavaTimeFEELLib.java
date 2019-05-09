@@ -373,11 +373,22 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     }
 
     @Override
-    public BigDecimal modulo(BigDecimal divident, BigDecimal divisor) {
+    public BigDecimal intModulo(BigDecimal dividend, BigDecimal divisor) {
         try {
-            return BigDecimalUtil.modulo(divident, divisor);
+            return BigDecimalUtil.intModulo(dividend, divisor);
         } catch (Exception e) {
-            String message = String.format("modulo(%s, %s)", divident, divisor);
+            String message = String.format("modulo(%s, %s)", dividend, divisor);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public BigDecimal modulo(BigDecimal dividend, BigDecimal divisor) {
+        try {
+            return BigDecimalUtil.modulo(dividend, divisor);
+        } catch (Exception e) {
+            String message = String.format("modulo(%s, %s)", dividend, divisor);
             logError(message, e);
             return null;
         }

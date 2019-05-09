@@ -52,12 +52,21 @@ public class BigDecimalUtil {
         return number.abs();
     }
 
-    public static BigDecimal modulo(BigDecimal divident, BigDecimal divisor) {
-        if (divident == null || divisor == null) {
+    public static BigDecimal intModulo(BigDecimal dividend, BigDecimal divisor) {
+        if (dividend == null || divisor == null) {
             return null;
         }
 
-        return new BigDecimal(divident.toBigInteger().remainder(divisor.toBigInteger()));
+        return new BigDecimal(dividend.toBigInteger().remainder(divisor.toBigInteger()));
+    }
+
+    public static BigDecimal modulo(BigDecimal dividend, BigDecimal divisor) {
+        if (dividend == null || divisor == null) {
+            return null;
+        }
+
+        // dividend - divisor*floor(dividend/divisor)
+        return dividend.subtract(divisor.multiply(floor(numericDivide(dividend, divisor))));
     }
 
     public static BigDecimal sqrt(BigDecimal number) {
