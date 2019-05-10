@@ -1074,7 +1074,7 @@ public class BasicDMN2JavaTransformer {
                     builder.append("\\\"");
                 } else {
                     builder.append('\\');
-                    builder.append(nextChar);
+                    builder.append((char) nextChar);
                 }
                 i = i + 2;
             } else if (ch == '"') {
