@@ -4,7 +4,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
  *
  * You may obtain a copy of the License at
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
@@ -18,6 +18,37 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringUtil {
+    public static long length(String string) {
+        return string.length();
+    }
+
+    public static String substring(String string, Number startPosition) {
+        if (string == null || startPosition == null) {
+            return null;
+        }
+
+        int start = startPosition.intValue();
+        if (start < 0) {
+            start = string.length() + start;
+        } else {
+            --start;
+        }
+        return string.substring(start);
+    }
+
+    public static String substring(String string, Number startPosition, Number length) {
+        if (string == null || startPosition == null || length == null) {
+            return null;
+        }
+        int start = startPosition.intValue();
+        if (start < 0) {
+            start = string.length() + start;
+        } else {
+            --start;
+        }
+        return string.substring(start, start + length.intValue());
+    }
+
     public static List split(String string, String delimiter) {
         if (string == null || delimiter == null) {
             return null;
@@ -42,6 +73,5 @@ public class StringUtil {
             result.add(token);
         }
         return result;
-
     }
 }
