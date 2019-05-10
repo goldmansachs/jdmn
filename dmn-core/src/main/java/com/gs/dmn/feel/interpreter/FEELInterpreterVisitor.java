@@ -54,6 +54,7 @@ import com.gs.dmn.runtime.interpreter.PositionalArguments;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
+import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -1126,6 +1127,9 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     }
 
     private String stripQuotes(String value) {
+        if (StringUtils.isEmpty(value) && !value.startsWith("\"")) {
+            return value;
+        }
         return value.substring(1, value.length() - 1);
     }
 

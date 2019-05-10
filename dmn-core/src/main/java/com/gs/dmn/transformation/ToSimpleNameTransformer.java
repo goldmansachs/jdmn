@@ -20,6 +20,7 @@ import com.gs.dmn.serialization.DMNNamespacePrefixMapper;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.DMNWriter;
 import com.gs.dmn.tck.TestCasesReader;
+import org.apache.commons.lang3.StringUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import java.io.File;
@@ -63,24 +64,24 @@ public class ToSimpleNameTransformer extends NameTransformer {
     }
 
     private String toSimpleName(String name) {
-        if (name == null) {
-            return null;
+        if (StringUtils.isEmpty(name)) {
+            return name;
         }
         StringBuilder result = new StringBuilder();
         boolean skippedPrevious = false;
-        for (int i = 0; i < name.length(); i++) {
-            char ch = name.charAt(i);
-            if (Character.isAlphabetic(ch) || Character.isDigit(ch) || ch == '_') {
+        for (int ch: name.codePoints().toArray()) {
+            if (Character.isJavaIdentifierPart(ch)) {
                 if (skippedPrevious) {
                     ch = Character.toUpperCase(ch);
                 }
-                result.append(ch);
+                result.append((char)ch);
                 skippedPrevious = false;
             } else {
                 skippedPrevious = true;
             }
         }
-        return result.toString();
+        String newName = result.toString();
+        return newName.isEmpty() ? "_" : newName;
     }
 
     public static void main(String[] args) {
