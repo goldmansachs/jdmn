@@ -521,35 +521,17 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
 
     @Override
     public BigDecimal stringLength(String string) {
-        return string == null ? null : BigDecimal.valueOf(string.length());
+        return string == null ? null : BigDecimal.valueOf(StringUtil.length(string));
     }
 
     @Override
     public String substring(String string, BigDecimal startPosition) {
-        return substring(string, startPosition.intValue());
-    }
-
-    private String substring(String string, int startPosition) {
-        if (startPosition < 0) {
-            startPosition = string.length() + startPosition;
-        } else {
-            --startPosition;
-        }
-        return string.substring(startPosition);
+        return StringUtil.substring(string, startPosition);
     }
 
     @Override
     public String substring(String string, BigDecimal startPosition, BigDecimal length) {
-        return substring(string, startPosition.intValue(), length.intValue());
-    }
-
-    private String substring(String string, int startPosition, int length) {
-        if (startPosition < 0) {
-            startPosition = string.length() + startPosition;
-        } else {
-            --startPosition;
-        }
-        return string.substring(startPosition, startPosition + length);
+        return StringUtil.substring(string, startPosition, length);
     }
 
     @Override
