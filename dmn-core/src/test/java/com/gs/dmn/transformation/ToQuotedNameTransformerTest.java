@@ -31,6 +31,23 @@ public class ToQuotedNameTransformerTest extends NameTransformerTest {
     }
 
     @Test
+    public void testTransformName() {
+        ToQuotedNameTransformer transformer = (ToQuotedNameTransformer) getTransformer();
+
+        // Transform first name
+        String firstName = transformer.transformName("abc ? x");
+        assertEquals("'abc ? x'", firstName);
+
+        // Transform second name
+        String secondName = transformer.transformName("abc?x");
+        assertEquals("'abc?x'", secondName);
+
+        // Transform names with unicode
+        String result = transformer.transformName("a \uD83D\uDC0E bc");
+        assertEquals("'a \uD83D\uDC0E bc'", result);
+    }
+
+    @Test
     public void testContextKeys() {
         NameTransformer transformer = (NameTransformer) getTransformer();
 
@@ -51,6 +68,14 @@ public class ToQuotedNameTransformerTest extends NameTransformerTest {
 
         result = transformer.replaceNamesInText("{a: 1 + 2, b: 3, c: {d e: a + b}}", new LexicalContext());
         assertEquals("{a: 1 + 2, b: 3, c: {'d e': a + b}}", result);
+
+        result = transformer.replaceNamesInText("{\uD83D\uDC0E: \"bar\"}", new LexicalContext());
+        assertEquals("{'\uD83D\uDC0E': \"bar\"}", result);
+
+        String text = "function(s1, s2) external {java:{class:\"java.lang.Math\",method signature:\"max(java.lang.String, java.lang.String)\"}}";
+        LexicalContext context = new LexicalContext("mathMaxString");
+        result = transformer.replaceNamesInText(text, context);
+        assertEquals("function(s1, s2) external {java:{class:\"java.lang.Math\", 'method signature':\"max(java.lang.String, java.lang.String)\"}}", result);
     }
 
     @Test

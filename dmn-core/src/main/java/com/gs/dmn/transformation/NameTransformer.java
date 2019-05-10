@@ -36,6 +36,15 @@ import static com.gs.dmn.feel.analysis.scanner.ContextDependentFEELLexer.*;
 
 public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     protected static final Logger LOGGER = LoggerFactory.getLogger(NameTransformer.class);
+
+    public static boolean isSimpleNameStart(int codePoint) {
+        return Character.isJavaIdentifierStart(codePoint);
+    }
+
+    public static boolean isSimpleNamePart(int codePoint) {
+        return Character.isJavaIdentifierPart(codePoint);
+    }
+
     protected final BuildLogger logger;
     private boolean transformDefinition = true;
     private final Set<TDMNElement> renamedElements = new LinkedHashSet();
@@ -367,18 +376,18 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
 
     private int replaceNamesInText(String text, int index, LexicalContext lexicalContext, StringBuilder newText) {
         while (index < text.length()) {
-            char ch = text.charAt(index);
-            if (text.charAt(index) == '"') {
+            int ch = codePointAt(text, index);
+            if (ch == '"') {
                 index = appendStrings(text, index, newText);
-            } else if (text.charAt(index) == '{') {
+            } else if (ch == '{') {
                 index = replaceContextKeys(text, index, lexicalContext, newText);
-            } else if (text.charAt(index) == '[') {
+            } else if (ch == '[') {
                 index = replaceNamesInList(text, index, lexicalContext, newText);
             } else if (isNameStartChar(ch)) {
                 index = replaceIdentifiers(text, index, lexicalContext, newText, ch);
             } else {
-                newText.append(ch);
-                index++;
+                newText.appendCodePoint(ch);
+                index = nextIndex(text, index);
             }
         }
         return index;
@@ -386,15 +395,15 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
 
     private int appendStrings(String text, int index, StringBuilder newText) {
         // skip strings
-        newText.append(text.charAt(index));
-        index++;
+        newText.appendCodePoint(codePointAt(text, index));
+        index = nextIndex(text, index);
         while (index < text.length()) {
-            newText.append(text.charAt(index));
-            if (text.charAt(index) == '"') {
-                index++;
+            newText.appendCodePoint(codePointAt(text, index));
+            if (codePointAt(text, index) == '"') {
+                index = nextIndex(text, index);
                 break;
             } else {
-                index++;
+                index = nextIndex(text, index);
             }
         }
         return index;
@@ -402,19 +411,19 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
 
     protected int replaceContextKeys(String text, int index, LexicalContext lexicalContext, StringBuilder newText) {
         // process {
-        newText.append(text.charAt(index));
-        index++;
+        newText.appendCodePoint(codePointAt(text, index));
+        index = nextIndex(text, index);
 
         // process context
         while (index < text.length()) {
-            if (text.charAt(index) == '}') {
+            if (codePointAt(text, index) == '}') {
                 break;
             }
             // collect key
             StringBuilder keyBuilder = new StringBuilder("");
-            while (index < text.length() && text.charAt(index) != ':' && text.charAt(index) != '}') {
-                keyBuilder.append(text.charAt(index));
-                index++;
+            while (index < text.length() && codePointAt(text, index) != ':' && codePointAt(text, index) != '}') {
+                keyBuilder.appendCodePoint(codePointAt(text, index));
+                index = nextIndex(text, index);
             }
             // transform and add key
             String key = keyBuilder.toString().trim();
@@ -426,46 +435,46 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                     newText.append(transformName(key));
                 }
             }
-            if (index < text.length() && text.charAt(index) == ':') {
+            if (index < text.length() && codePointAt(text, index) == ':') {
                 newText.append(":");
-                index++;
+                index = nextIndex(text, index);
             }
             // process value
-            while (index < text.length() && text.charAt(index) != ',' && text.charAt(index) != '}') {
-                if (text.charAt(index) == '\"') {
+            while (index < text.length() && codePointAt(text, index) != ',' && codePointAt(text, index) != '}') {
+                if (codePointAt(text, index) == '\"') {
                     index = appendStrings(text, index, newText);
-                } else if (text.charAt(index) == '{') {
+                } else if (codePointAt(text, index) == '{') {
                     index = replaceContextKeys(text, index, lexicalContext, newText);
-                } else if (text.charAt(index) == '[') {
+                } else if (codePointAt(text, index) == '[') {
                     index = replaceNamesInList(text, index, lexicalContext, newText);
                 } else {
-                    newText.append(text.charAt(index));
-                    index++;
+                    newText.appendCodePoint(codePointAt(text, index));
+                    index = nextIndex(text, index);
                 }
             }
-            if (index < text.length() && text.charAt(index) == ',') {
+            if (index < text.length() && codePointAt(text, index) == ',') {
                 newText.append(", ");
-                index++;
+                index = nextIndex(text, index);
             }
         }
-        if (index < text.length() && text.charAt(index) == '}') {
+        if (index < text.length() && codePointAt(text, index) == '}') {
             newText.append('}');
-            index++;
+            index = nextIndex(text, index);
         }
         return index;
     }
 
     protected int replaceNamesInList(String text, int index, LexicalContext lexicalContext, StringBuilder newText) {
         // process [
-        newText.append(text.charAt(index));
-        index++;
+        newText.appendCodePoint(codePointAt(text, index));
+        index = nextIndex(text, index);
 
         // process list
         while (index < text.length()) {
-            char ch = text.charAt(index);
+            int ch = codePointAt(text, index);
             if (ch == ']') {
                 newText.append(']');
-                index++;
+                index = nextIndex(text, index);
                 break;
             } else if (ch == '\"') {
                 index = appendStrings(text, index, newText);
@@ -476,20 +485,20 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
             } else if (isNameStartChar(ch)) {
                 index = replaceIdentifiers(text, index, lexicalContext, newText, ch);
             } else {
-                newText.append(ch);
-                index++;
+                newText.appendCodePoint(ch);
+                index = nextIndex(text, index);
             }
         }
         return index;
     }
 
-    protected int replaceIdentifiers(String text, int i, LexicalContext lexicalContext, StringBuilder newText, char ch) {
+    protected int replaceIdentifiers(String text, int index, LexicalContext lexicalContext, StringBuilder newText, int ch) {
         // Check keywords
         boolean foundKeyword = false;
         for (String keyword : KEYWORDS.keySet()) {
-            if (text.startsWith(keyword, i)) {
+            if (text.startsWith(keyword, index)) {
                 newText.append(keyword);
-                i += keyword.length();
+                index += keyword.length();
                 foundKeyword = true;
                 break;
             }
@@ -498,26 +507,26 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
             // Check names
             boolean foundName = false;
             for (String name : lexicalContext.orderedNames()) {
-                if (text.startsWith(name, i)) {
+                if (text.startsWith(name, index)) {
                     newText.append(transformName(name));
-                    i += name.length();
+                    index += name.length();
                     foundName = true;
                     break;
                 }
             }
             if (!foundName) {
                 do {
-                    newText.append(ch);
-                    i++;
-                    if (i < text.length()) {
-                        ch = text.charAt(i);
+                    newText.appendCodePoint(ch);
+                    index = nextIndex(text, index);
+                    if (index < text.length()) {
+                        ch = codePointAt(text, index);
                     } else {
                         break;
                     }
                 } while (isNamePartChar(ch));
             }
         }
-        return i;
+        return index;
     }
 
     protected void renameItemDefinitionMembers(TItemDefinition itemDefinition) {
@@ -564,4 +573,14 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     }
 
     public abstract String transformName(String name);
+
+    private int codePointAt(String text, int index) {
+        return text.codePointAt(index);
+    }
+
+    private int nextIndex(String text, int index) {
+        int codePoint = text.codePointAt(index);
+        index += Character.charCount(codePoint);
+        return index;
+    }
 }

@@ -4,7 +4,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
  *
  * You may obtain a copy of the License at
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
@@ -14,6 +14,7 @@ package com.gs.dmn.transformation;
 
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
+import org.apache.commons.lang3.StringUtils;
 
 public class ToQuotedNameTransformer extends NameTransformer {
     public ToQuotedNameTransformer() {
@@ -26,11 +27,9 @@ public class ToQuotedNameTransformer extends NameTransformer {
 
     @Override
     public String transformName(String name) {
-        if (name == null) {
-            return null;
-        }
-
-        if (isSimpleName(name)) {
+        if (StringUtils.isEmpty(name)) {
+            return name;
+        } else if (isSimpleName(name)) {
             return name;
         } else {
             return "'" + name + "'";
@@ -38,9 +37,11 @@ public class ToQuotedNameTransformer extends NameTransformer {
     }
 
     private boolean isSimpleName(String name) {
-        for(int i=0; i<name.length(); i++) {
-            char ch = name.charAt(i);
-            if (!(Character.isLetter(ch) || Character.isDigit(ch))) {
+        if (!isSimpleNameStart(name.codePointAt(0))) {
+            return false;
+        }
+        for (int cp : name.codePoints().toArray()) {
+            if (!(isSimpleNamePart(cp))) {
                 return false;
             }
         }
