@@ -1009,6 +1009,10 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
                 return evaluateDateTimeMember(source, member);
             } else if (sourceType instanceof DurationType) {
                 return evaluateDateTimeMember(source, member);
+            } else if (sourceType instanceof AnyType) {
+                // source is Context
+                List<String> aliases = Arrays.asList();
+                return ((com.gs.dmn.runtime.Context) source).get(member, aliases.toArray());
             } else {
                 handleError(String.format("Cannot evaluate '%s'.", element));
                 return null;

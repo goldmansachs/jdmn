@@ -1520,6 +1520,13 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("PrivateFundRequirements", type, null));
 
+        doExpressionTest(entries, "", "[{b: 1}, {b: [2.1, 2.2]}, {b: 3}, {b: 4}, {b: 5}].b = [1, [2.1, 2.2], 3, 4, 5]",
+                "Relational(=,PathExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(b) = NumericLiteral(1))),Context(ContextEntry(ContextEntryKey(b) = ListLiteral(NumericLiteral(2.1),NumericLiteral(2.2)))),Context(ContextEntry(ContextEntryKey(b) = NumericLiteral(3))),Context(ContextEntry(ContextEntryKey(b) = NumericLiteral(4))),Context(ContextEntry(ContextEntryKey(b) = NumericLiteral(5)))), b),ListLiteral(NumericLiteral(1),ListLiteral(NumericLiteral(2.1),NumericLiteral(2.2)),NumericLiteral(3),NumericLiteral(4),NumericLiteral(5)))",
+                "boolean",
+                "listEqual(asList(new com.gs.dmn.runtime.Context().add(\"b\", number(\"1\")), new com.gs.dmn.runtime.Context().add(\"b\", asList(number(\"2.1\"), number(\"2.2\"))), new com.gs.dmn.runtime.Context().add(\"b\", number(\"3\")), new com.gs.dmn.runtime.Context().add(\"b\", number(\"4\")), new com.gs.dmn.runtime.Context().add(\"b\", number(\"5\"))).stream().map(x -> ((com.gs.dmn.runtime.Context)(x)).get(\"b\", asList())).collect(Collectors.toList()), asList(number(\"1\"), asList(number(\"2.1\"), number(\"2.2\")), number(\"3\"), number(\"4\"), number(\"5\")))",
+                null,
+                null);
+
         doExpressionTest(entries, "", "string length(PrivateFundRequirements.HierarchyNode)",
                 "FunctionInvocation(Name(string length) -> PositionalParameters(PathExpression(Name(PrivateFundRequirements), HierarchyNode)))",
                 "number",
