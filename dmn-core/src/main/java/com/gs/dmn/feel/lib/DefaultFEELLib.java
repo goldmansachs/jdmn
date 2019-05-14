@@ -19,25 +19,12 @@ import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
 import com.gs.dmn.feel.lib.type.time.xml.*;
 import com.gs.dmn.runtime.LambdaExpression;
-import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
-import net.sf.saxon.xpath.XPathFactoryImpl;
 import org.apache.commons.lang3.StringUtils;
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
@@ -506,22 +493,22 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     //
     @Override
     public Boolean contains(String string, String match) {
-        return (string == null || match == null) ? null : string.contains(match);
+        return StringUtil.contains(string, match);
     }
 
     @Override
     public Boolean startsWith(String string, String match) {
-        return (string == null || match == null) ? null : string.startsWith(match);
+        return StringUtil.startsWith(string, match);
     }
 
     @Override
     public Boolean endsWith(String string, String match) {
-        return (string == null || match == null) ? null : string.endsWith(match);
+        return StringUtil.endsWith(string, match);
     }
 
     @Override
     public BigDecimal stringLength(String string) {
-        return string == null ? null : BigDecimal.valueOf(StringUtil.length(string));
+        return string == null ? null : BigDecimal.valueOf(StringUtil.stringLength(string));
     }
 
     @Override
@@ -536,32 +523,22 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
 
     @Override
     public String upperCase(String string) {
-        return string == null ? null : string.toUpperCase();
+        return StringUtil.upperCase(string);
     }
 
     @Override
     public String lowerCase(String string) {
-        return string == null ? null : string.toLowerCase();
+        return StringUtil.lowerCase(string);
     }
 
     @Override
     public String substringBefore(String string, String match) {
-        if (string != null && match != null) {
-            int i = string.indexOf(match);
-            return i == -1 ? "" : string.substring(0, i);
-        } else {
-            return null;
-        }
+        return StringUtil.substringBefore(string, match);
     }
 
     @Override
     public String substringAfter(String string, String match) {
-        if (string != null && match != null) {
-            int i = string.indexOf(match);
-            return i == -1 ? "" : string.substring(i + match.length());
-        } else {
-            return null;
-        }
+        return StringUtil.substringAfter(string, match);
     }
 
     @Override
@@ -571,16 +548,8 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
 
     @Override
     public String replace(String input, String pattern, String replacement, String flags) {
-        if (input == null || pattern == null || replacement == null) {
-            return null;
-        }
-        if (flags == null) {
-            flags = "";
-        }
-
         try {
-            String expression = String.format("replace(/root, '%s', '%s', '%s')", pattern, replacement, flags);
-            return evaluateXPath(input, expression);
+            return StringUtil.replace(input, pattern, replacement, flags);
         } catch (Exception e) {
             String message = String.format("replace(%s, %s, %s, %s)", input, pattern, replacement, flags);
             logError(message, e);
@@ -595,17 +564,8 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
 
     @Override
     public Boolean matches(String input, String pattern, String flags) {
-        if (input == null || pattern == null) {
-            return false;
-        }
-        if (flags == null) {
-            flags = "";
-        }
-
         try {
-            String expression = String.format("/root[matches(., '%s', '%s')]", pattern, flags);
-            String value = evaluateXPath(input, expression);
-            return input.equals(value);
+            return StringUtil.matches(input, pattern, flags);
         } catch (Exception e) {
             String message = String.format("matches(%s, %s, %s)", input, pattern, flags);
             logError(message, e);
@@ -622,20 +582,6 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
             logError(message, e);
             return null;
         }
-    }
-
-    private String evaluateXPath(String input, String expression) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
-        // Read document
-        String xml = "<root>" + input + "</root>";
-        DocumentBuilderFactory documentBuilderFactory = new DocumentBuilderFactoryImpl();
-        DocumentBuilder docBuilder = documentBuilderFactory.newDocumentBuilder();
-        InputStream inputStream = new ByteArrayInputStream(xml.getBytes());
-        Document document = docBuilder.parse(inputStream);
-
-        // Evaluate xpath
-        XPathFactory xPathFactory = new XPathFactoryImpl();
-        XPath xPath = xPathFactory.newXPath();
-        return xPath.evaluate(expression, document.getDocumentElement());
     }
 
     //
