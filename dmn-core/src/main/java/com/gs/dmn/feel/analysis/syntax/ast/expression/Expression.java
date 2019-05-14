@@ -30,7 +30,7 @@ public abstract class Expression extends Element {
     }
 
     public Type memberType(Type sourceType, String member) {
-        Type memberType = null;
+        Type memberType = AnyType.ANY;
         if (sourceType instanceof ItemDefinitionType) {
             memberType = ((ItemDefinitionType) sourceType).getMemberType(member);
         } else if (sourceType instanceof ContextType) {
@@ -44,11 +44,7 @@ public abstract class Expression extends Element {
         } else if (sourceType instanceof DurationType) {
             memberType = DurationType.getMemberType(sourceType, member);
         }
-        if (memberType == null) {
-            throw new SemanticError(this, String.format("Cannot derive member type for '%s' in element '%s'", member, this));
-        } else {
-            return memberType;
-        }
+        return memberType;
     }
 
     public Type navigationType(Type sourceType, String member) {
