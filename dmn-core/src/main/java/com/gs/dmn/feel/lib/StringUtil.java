@@ -12,13 +12,51 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
+import net.sf.saxon.xpath.XPathFactoryImpl;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringUtil {
-    public static long length(String string) {
+    public static Boolean contains(String string, String match) {
+        if (string == null || match == null) {
+            return null;
+        }
+
+        return string.contains(match);
+    }
+
+    public static Boolean startsWith(String string, String match) {
+        if (string == null || match == null) {
+            return null;
+        }
+
+        return string.startsWith(match);
+    }
+
+    public static Boolean endsWith(String string, String match) {
+        if (string == null || match == null) {
+            return null;
+        }
+
+        return string.endsWith(match);
+    }
+
+    public static long stringLength(String string) {
         return string.length();
     }
 
@@ -49,6 +87,65 @@ public class StringUtil {
         return string.substring(start, start + length.intValue());
     }
 
+    public static String upperCase(String string) {
+        if (string == null) {
+            return null;
+        }
+
+        return string.toUpperCase();
+    }
+
+    public static String lowerCase(String string) {
+        if (string == null) {
+            return null;
+        }
+
+        return string.toLowerCase();
+    }
+
+    public static String substringBefore(String string, String match) {
+        if (string == null || match == null) {
+            return null;
+        }
+
+        int i = string.indexOf(match);
+        return i == -1 ? "" : string.substring(0, i);
+    }
+
+    public static String substringAfter(String string, String match) {
+        if (string == null || match == null) {
+            return null;
+        }
+
+        int i = string.indexOf(match);
+        return i == -1 ? "" : string.substring(i + match.length());
+    }
+
+    public static String replace(String input, String pattern, String replacement, String flags) throws Exception {
+        if (input == null || pattern == null || replacement == null) {
+            return null;
+        }
+        if (flags == null) {
+            flags = "";
+        }
+
+        String expression = String.format("replace(/root, '%s', '%s', '%s')", pattern, replacement, flags);
+        return evaluateXPath(input, expression);
+    }
+
+    public static Boolean matches(String input, String pattern, String flags) throws Exception {
+        if (input == null || pattern == null) {
+            return false;
+        }
+        if (flags == null) {
+            flags = "";
+        }
+
+        String expression = String.format("/root[matches(., '%s', '%s')]", pattern, flags);
+        String value = evaluateXPath(input, expression);
+        return input.equals(value);
+    }
+
     public static List split(String string, String delimiter) {
         if (string == null || delimiter == null) {
             return null;
@@ -73,5 +170,19 @@ public class StringUtil {
             result.add(token);
         }
         return result;
+    }
+
+    private static String evaluateXPath(String input, String expression) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
+        // Read document
+        String xml = "<root>" + input + "</root>";
+        DocumentBuilderFactory documentBuilderFactory = new DocumentBuilderFactoryImpl();
+        DocumentBuilder docBuilder = documentBuilderFactory.newDocumentBuilder();
+        InputStream inputStream = new ByteArrayInputStream(xml.getBytes());
+        Document document = docBuilder.parse(inputStream);
+
+        // Evaluate xpath
+        XPathFactory xPathFactory = new XPathFactoryImpl();
+        XPath xPath = xPathFactory.newXPath();
+        return xPath.evaluate(expression, document.getDocumentElement());
     }
 }
