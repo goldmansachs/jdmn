@@ -122,11 +122,19 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                 // Replace old names with new names in body
                 LexicalContext lexicalContext = makeLexicalContext(element, definitions);
                 TFunctionDefinition encapsulatedLogic = ((TBusinessKnowledgeModel) element).getEncapsulatedLogic();
-                replace(encapsulatedLogic.getExpression().getValue(), lexicalContext);
+                if (encapsulatedLogic != null) {
+                    JAXBElement<? extends TExpression> expression = encapsulatedLogic.getExpression();
+                    if (expression != null) {
+                        replace(expression.getValue(), lexicalContext);
+                    }
+                }
             } else if (element instanceof TDecision) {
                 // Replace old names with new names in body
                 LexicalContext lexicalContext = makeLexicalContext(element, definitions);
-                replace(((TDecision) element).getExpression().getValue(), lexicalContext);
+                JAXBElement<? extends TExpression> expression = ((TDecision) element).getExpression();
+                if (expression != null) {
+                    replace(expression.getValue(), lexicalContext);
+                }
             } else {
             }
         }
@@ -220,18 +228,23 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
 
                 // Rename in body
                 TFunctionDefinition encapsulatedLogic = ((TBusinessKnowledgeModel) element).getEncapsulatedLogic();
-                List<TInformationItem> formalParameterList = encapsulatedLogic.getFormalParameter();
-                for (TInformationItem param : formalParameterList) {
-                    renameElement(param);
+                if (encapsulatedLogic != null) {
+                    List<TInformationItem> formalParameterList = encapsulatedLogic.getFormalParameter();
+                    for (TInformationItem param : formalParameterList) {
+                        renameElement(param);
+                    }
+                    rename(encapsulatedLogic);
                 }
-                rename(encapsulatedLogic);
             } else if (element instanceof TDecision) {
                 // Rename element and variable
                 renameElement(element);
                 renameElement(((TDecision) element).getVariable());
 
                 // Rename in body
-                rename(((TDecision) element).getExpression().getValue());
+                JAXBElement<? extends TExpression> expression = ((TDecision) element).getExpression();
+                if (expression != null) {
+                    rename(expression.getValue());
+                }
             } else {
             }
         }
@@ -540,6 +553,9 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     }
 
     protected void renameElement(TNamedElement element) {
+        if (element == null) {
+            return;
+        }
         if (renamedElements.contains(element)) {
             return;
         }
@@ -552,6 +568,9 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     }
 
     protected void renameElement(TOutputClause element) {
+        if (element == null) {
+            return;
+        }
         if (renamedElements.contains(element)) {
             return;
         }
