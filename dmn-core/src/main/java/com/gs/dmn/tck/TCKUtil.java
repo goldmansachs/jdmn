@@ -331,8 +331,6 @@ public class TCKUtil {
             String text = getTextContent(value);
             if (text == null) {
                 return null;
-            } else if (type == null) {
-                return valueType.getValue().getValue();
             } else if (isNumber(type)) {
                 return feelLib.number(text);
             } else if (isString(type)) {
@@ -352,7 +350,11 @@ public class TCKUtil {
             } else if (isDurationTime(type)) {
                 return feelLib.duration(text);
             } else {
-                return valueType.getValue().getValue();
+                Object obj = valueType.getValue().getValue();
+                if (obj instanceof Number) {
+                    obj = feelLib.number(obj.toString());
+                }
+                return obj;
             }
         } else if (valueType.getList() != null) {
             return makeList(valueType, (ListType) type);
@@ -386,31 +388,54 @@ public class TCKUtil {
     }
 
     private boolean isNumber(Type type) {
+        if (type == null) {
+            return false;
+        }
         return type == NumberType.NUMBER || type.equivalentTo(ListType.NUMBER_LIST);
     }
 
     private boolean isString(Type type) {
+        if (type == null) {
+            return false;
+        }
         return type == StringType.STRING || type.equivalentTo(ListType.STRING_LIST);
     }
 
     private boolean isBoolean(Type type) {
+        if (type == null) {
+            return false;
+        }
         return type == BooleanType.BOOLEAN || type.equivalentTo(ListType.BOOLEAN_LIST);
     }
 
     private boolean isDate(Type type) {
+        if (type == null) {
+            return false;
+        }
         return type == DateType.DATE || type.equivalentTo(ListType.DATE_LIST);
     }
 
     private boolean isTime(Type type) {
+        if (type == null) {
+            return false;
+        }
         return type == TimeType.TIME || type.equivalentTo(ListType.TIME_LIST);
     }
 
     private boolean isDateTime(Type type) {
+        if (type == null) {
+            return false;
+        }
         return type == DateTimeType.DATE_AND_TIME || type.equivalentTo(ListType.DATE_AND_TIME_LIST);
     }
 
     private boolean isDurationTime(Type type) {
-        return type instanceof DurationType;
+        if (type == null) {
+            return false;
+        }
+        return type instanceof DurationType
+                || type.equivalentTo(ListType.DAYS_AND_TIME_DURATION_LIST)
+                || type.equivalentTo(ListType.YEARS_AND_MONTHS_DURATION_LIST);
     }
 
     private String getTextContent(Object value) {
