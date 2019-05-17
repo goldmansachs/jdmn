@@ -19,6 +19,7 @@ import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
@@ -399,7 +400,7 @@ public class DecisionTableToJavaTransformer {
     //
     public String annotationEscapedText(TDecisionRule rule) {
         String description = rule.getDescription();
-        return description == null ? "" : dmnTransformer.escapeInString(description);
+        return description == null ? "" : StringEscapeUtil.escapeInString(description);
     }
 
     public String annotation(TDRGElement element, TDecisionRule rule) {

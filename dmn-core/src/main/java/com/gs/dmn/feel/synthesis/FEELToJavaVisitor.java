@@ -36,6 +36,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Disjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
+import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.interpreter.Arguments;
 import com.gs.dmn.runtime.interpreter.NamedArguments;
@@ -541,7 +542,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(StringLiteral element, FEELContext context) {
-        return String.format("%s", dmnTransformer.escapeInString(element.getLexeme()));
+        return String.format("%s", StringEscapeUtil.escapeInString(element.getLexeme()));
     }
 
     @Override
