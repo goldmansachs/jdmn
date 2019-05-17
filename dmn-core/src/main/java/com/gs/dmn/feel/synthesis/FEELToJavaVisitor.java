@@ -542,7 +542,8 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(StringLiteral element, FEELContext context) {
-        return String.format("%s", StringEscapeUtil.escapeInString(element.getLexeme()));
+        String value = StringEscapeUtil.escapeInString(element.getLexeme());
+        return String.format("%s", value);
     }
 
     @Override

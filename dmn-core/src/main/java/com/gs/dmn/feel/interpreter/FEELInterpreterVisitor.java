@@ -792,12 +792,14 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
                 if ("class".equals(name)) {
                     Expression value = entry.getExpression();
                     if (value instanceof StringLiteral) {
-                        className = ((StringLiteral) value).getLexeme().replaceAll("\"", "");
+                        String lexeme = ((StringLiteral) value).getLexeme();
+                        className = StringUtil.stripQuotes(lexeme);
                     }
                 } else if ("methodSignature".equals(name) || "method signature".equals(name)) {
                     Expression value = entry.getExpression();
                     if (value instanceof StringLiteral) {
-                        String signature = ((StringLiteral) value).getLexeme().replaceAll("\"", "");
+                        String lexeme = ((StringLiteral) value).getLexeme();
+                        String signature = StringUtil.stripQuotes(lexeme);
                         int lpIndex = signature.indexOf('(');
                         int rpIndex = signature.indexOf(')');
                         methodName = signature.substring(0, lpIndex);
