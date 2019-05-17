@@ -792,12 +792,12 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
                 if ("class".equals(name)) {
                     Expression value = entry.getExpression();
                     if (value instanceof StringLiteral) {
-                        className = ((StringLiteral) value).getValue().replaceAll("\"", "");
+                        className = ((StringLiteral) value).getLexeme().replaceAll("\"", "");
                     }
                 } else if ("methodSignature".equals(name) || "method signature".equals(name)) {
                     Expression value = entry.getExpression();
                     if (value instanceof StringLiteral) {
-                        String signature = ((StringLiteral) value).getValue().replaceAll("\"", "");
+                        String signature = ((StringLiteral) value).getLexeme().replaceAll("\"", "");
                         int lpIndex = signature.indexOf('(');
                         int rpIndex = signature.indexOf(')');
                         methodName = signature.substring(0, lpIndex);
@@ -1062,13 +1062,13 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(BooleanLiteral element, FEELContext context) {
-        return Boolean.parseBoolean(element.getValue());
+        return Boolean.parseBoolean(element.getLexeme());
     }
 
     @Override
     public Object visit(DateTimeLiteral element, FEELContext context) {
         Type type = element.getType();
-        String literal = stripQuotes(element.getValue());
+        String literal = stripQuotes(element.getLexeme());
         if (type == DateType.DATE) {
             return lib.date(literal);
         } else if (type == TimeType.TIME) {
@@ -1090,12 +1090,12 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(NumericLiteral element, FEELContext context) {
-        return lib.number(element.getValue());
+        return lib.number(element.getLexeme());
     }
 
     @Override
     public Object visit(StringLiteral element, FEELContext context) {
-        String value = element.getValue();
+        String value = element.getLexeme();
         return stripQuotes(value);
     }
 

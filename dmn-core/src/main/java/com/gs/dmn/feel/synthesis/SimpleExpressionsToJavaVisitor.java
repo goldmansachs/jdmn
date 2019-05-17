@@ -248,17 +248,17 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
     //
     @Override
     public Object visit(NumericLiteral element, FEELContext context) {
-        return String.format("number(\"%s\")", element.getValue());
+        return String.format("number(\"%s\")", element.getLexeme());
     }
 
     @Override
     public Object visit(StringLiteral element, FEELContext context) {
-        return String.format("%s", element.getValue());
+        return String.format("%s", element.getLexeme());
     }
 
     @Override
     public Object visit(BooleanLiteral element, FEELContext context) {
-        String value = element.getValue();
+        String value = element.getLexeme();
         return "true".equals(value) ? "Boolean.TRUE" : "Boolean.FALSE";
     }
 

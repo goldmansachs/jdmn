@@ -167,7 +167,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
 
     protected Object dateTimeLiteralToJava(DateTimeLiteral element) {
         Type type = element.getType();
-        String value = element.getValue();
+        String value = element.getLexeme();
         if (type == DATE) {
             return String.format("date(%s)", value);
         } else if (type == TIME) {
