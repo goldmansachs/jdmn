@@ -36,6 +36,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.feel.lib.FEELLib;
+import com.gs.dmn.feel.lib.StringUtil;
 import com.gs.dmn.feel.synthesis.AbstractFEELToJavaVisitor;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.FEELTranslatorForInterpreter;
@@ -54,7 +55,6 @@ import com.gs.dmn.runtime.interpreter.PositionalArguments;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
-import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -1068,7 +1068,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     @Override
     public Object visit(DateTimeLiteral element, FEELContext context) {
         Type type = element.getType();
-        String literal = stripQuotes(element.getLexeme());
+        String literal = StringUtil.stripQuotes(element.getLexeme());
         if (type == DateType.DATE) {
             return lib.date(literal);
         } else if (type == TimeType.TIME) {
@@ -1096,7 +1096,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     @Override
     public Object visit(StringLiteral element, FEELContext context) {
         String value = element.getLexeme();
-        return stripQuotes(value);
+        return StringUtil.stripQuotes(value);
     }
 
     @Override
@@ -1128,13 +1128,6 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     public Object visit(Name element, FEELContext context) {
         String variableName = element.getName();
         return context.lookupRuntimeBinding(variableName);
-    }
-
-    private String stripQuotes(String value) {
-        if (StringUtils.isEmpty(value) && !value.startsWith("\"")) {
-            return value;
-        }
-        return value.substring(1, value.length() - 1);
     }
 
     private void handleError(String message) {

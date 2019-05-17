@@ -14,6 +14,7 @@ package com.gs.dmn.feel.lib;
 
 import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
 import net.sf.saxon.xpath.XPathFactoryImpl;
+import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
@@ -184,5 +185,12 @@ public class StringUtil {
         XPathFactory xPathFactory = new XPathFactoryImpl();
         XPath xPath = xPathFactory.newXPath();
         return xPath.evaluate(expression, document.getDocumentElement());
+    }
+
+    public static String stripQuotes(String value) {
+        if (StringUtils.isEmpty(value) && !value.startsWith("\"")) {
+            return value;
+        }
+        return value.substring(1, value.length() - 1);
     }
 }

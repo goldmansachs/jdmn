@@ -19,6 +19,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
+import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.FEELTranslatorImpl;
 import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
@@ -1057,40 +1058,7 @@ public class BasicDMN2JavaTransformer {
     }
 
     public String escapeInString(String text) {
-        if (StringUtils.isBlank(text)) {
-            return text;
-        }
-        StringBuilder builder = new StringBuilder();
-        int i = 0;
-        while (i < text.length()) {
-            char ch = text.charAt(i);
-            if (ch == '\\') {
-                int nextChar = nextChar(text, i);
-                if (nextChar == 'd') {
-                    // \d used in regular expressions (see replace)
-                    builder.append("\\\\d");
-                } else if (nextChar == '\"') {
-                    // \"
-                    builder.append("\\\"");
-                } else {
-                    builder.append('\\');
-                    builder.append((char) nextChar);
-                }
-                i = i + 2;
-            } else if (ch == '"') {
-                if (0 < i && i < text.length() - 1) {
-                    // Unescaped inner "
-                    builder.append("\\\"");
-                } else {
-                    builder.append("\"");
-                }
-                i++;
-            } else {
-                builder.append(ch);
-                i++;
-            }
-        }
-        return builder.toString();
+        return StringEscapeUtil.escapeInString(text);
     }
 
     private int nextChar(String text, int i) {
