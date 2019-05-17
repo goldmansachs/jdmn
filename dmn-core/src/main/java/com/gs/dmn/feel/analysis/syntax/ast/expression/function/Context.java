@@ -18,6 +18,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.SimpleLiteral;
+import com.gs.dmn.feel.lib.StringUtil;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.*;
@@ -50,7 +51,8 @@ public class Context extends Expression {
             if (expression instanceof Context) {
                 value = ((Context) expression).toMap();
             } else if (expression instanceof SimpleLiteral) {
-                value = ((SimpleLiteral) expression).getLexeme().replace("\"", "");
+                String lexeme = ((SimpleLiteral) expression).getLexeme();
+                value = StringUtil.stripQuotes(lexeme);
             } else {
                 throw new DMNRuntimeException(String.format("'%s' is not supported", expression.getClass().getSimpleName()));
             }
