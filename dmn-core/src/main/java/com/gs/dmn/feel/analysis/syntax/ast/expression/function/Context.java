@@ -50,7 +50,7 @@ public class Context extends Expression {
             if (expression instanceof Context) {
                 value = ((Context) expression).toMap();
             } else if (expression instanceof SimpleLiteral) {
-                value = ((SimpleLiteral) expression).getValue().replace("\"", "");
+                value = ((SimpleLiteral) expression).getLexeme().replace("\"", "");
             } else {
                 throw new DMNRuntimeException(String.format("'%s' is not supported", expression.getClass().getSimpleName()));
             }

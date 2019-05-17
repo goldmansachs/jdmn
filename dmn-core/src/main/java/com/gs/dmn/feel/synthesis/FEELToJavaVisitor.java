@@ -536,17 +536,17 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     //
     @Override
     public Object visit(NumericLiteral element, FEELContext context) {
-        return String.format("number(\"%s\")", element.getValue());
+        return String.format("number(\"%s\")", element.getLexeme());
     }
 
     @Override
     public Object visit(StringLiteral element, FEELContext context) {
-        return String.format("%s", dmnTransformer.escapeInString(element.getValue()));
+        return String.format("%s", dmnTransformer.escapeInString(element.getLexeme()));
     }
 
     @Override
     public Object visit(BooleanLiteral element, FEELContext context) {
-        String value = element.getValue();
+        String value = element.getLexeme();
         return "true".equals(value) ? "Boolean.TRUE" : "Boolean.FALSE";
     }
 

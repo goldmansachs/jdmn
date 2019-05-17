@@ -34,7 +34,7 @@ public class StringLiteral extends SimpleLiteral {
 
     @Override
     public String toString() {
-        return String.format("StringLiteral(%s)", value);
+        return String.format("StringLiteral(%s)", lexeme);
     }
 }
  

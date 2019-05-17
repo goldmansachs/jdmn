@@ -34,7 +34,7 @@ public class BooleanLiteral extends SimpleLiteral {
 
     @Override
     public String toString() {
-        return String.format("BooleanLiteral(%s)", value);
+        return String.format("BooleanLiteral(%s)", lexeme);
     }
 }
  
