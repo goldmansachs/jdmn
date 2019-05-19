@@ -736,6 +736,23 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "contextNotEqual(new com.gs.dmn.runtime.Context(), null)",
                 lib.contextNotEqual(new com.gs.dmn.runtime.Context(), null),
                 true);
+
+        // complex
+        doExpressionTest(entries, "", "[1,2,{a: [3,4]}] = [1,2,{a: [3,4]}]",
+                "Relational(=,ListLiteral(NumericLiteral(1),NumericLiteral(2),Context(ContextEntry(ContextEntryKey(a) = ListLiteral(NumericLiteral(3),NumericLiteral(4))))),ListLiteral(NumericLiteral(1),NumericLiteral(2),Context(ContextEntry(ContextEntryKey(a) = ListLiteral(NumericLiteral(3),NumericLiteral(4))))))",
+                "boolean",
+                "listEqual(asList(number(\"1\"), number(\"2\"), new com.gs.dmn.runtime.Context().add(\"a\", asList(number(\"3\"), number(\"4\")))), asList(number(\"1\"), number(\"2\"), new com.gs.dmn.runtime.Context().add(\"a\", asList(number(\"3\"), number(\"4\")))))",
+                lib.listEqual(lib.asList(lib.number("1"), lib.number("2"), new com.gs.dmn.runtime.Context().add("a", lib.asList(lib.number("3"), lib.number("4")))), lib.asList(lib.number("1"), lib.number("2"), new com.gs.dmn.runtime.Context().add("a", lib.asList(lib.number("3"), lib.number("4"))))),
+                true);
+
+        // complex
+        doExpressionTest(entries, "", "[1,2,{a: [3,4]}] = [1,2,{a: [3,4], b: \"foo\"}]",
+                "Relational(=,ListLiteral(NumericLiteral(1),NumericLiteral(2),Context(ContextEntry(ContextEntryKey(a) = ListLiteral(NumericLiteral(3),NumericLiteral(4))))),ListLiteral(NumericLiteral(1),NumericLiteral(2),Context(ContextEntry(ContextEntryKey(a) = ListLiteral(NumericLiteral(3),NumericLiteral(4))),ContextEntry(ContextEntryKey(b) = StringLiteral(\"foo\")))))",
+                "boolean",
+                "listEqual(asList(number(\"1\"), number(\"2\"), new com.gs.dmn.runtime.Context().add(\"a\", asList(number(\"3\"), number(\"4\")))), asList(number(\"1\"), number(\"2\"), new com.gs.dmn.runtime.Context().add(\"a\", asList(number(\"3\"), number(\"4\"))).add(\"b\", \"foo\")))",
+                lib.listEqual(lib.asList(lib.number("1"), lib.number("2"), new com.gs.dmn.runtime.Context().add("a", lib.asList(lib.number("3"), lib.number("4")))), lib.asList(lib.number("1"), lib.number("2"), new com.gs.dmn.runtime.Context().add("a", lib.asList(lib.number("3"), lib.number("4"))).add("b", "foo"))),
+                false);
+
     }
 
     @Test
@@ -1503,6 +1520,13 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("PrivateFundRequirements", type, null));
 
+        doExpressionTest(entries, "", "[{b: 1}, {b: [2.1, 2.2]}, {b: 3}, {b: 4}, {b: 5}].b = [1, [2.1, 2.2], 3, 4, 5]",
+                "Relational(=,PathExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(b) = NumericLiteral(1))),Context(ContextEntry(ContextEntryKey(b) = ListLiteral(NumericLiteral(2.1),NumericLiteral(2.2)))),Context(ContextEntry(ContextEntryKey(b) = NumericLiteral(3))),Context(ContextEntry(ContextEntryKey(b) = NumericLiteral(4))),Context(ContextEntry(ContextEntryKey(b) = NumericLiteral(5)))), b),ListLiteral(NumericLiteral(1),ListLiteral(NumericLiteral(2.1),NumericLiteral(2.2)),NumericLiteral(3),NumericLiteral(4),NumericLiteral(5)))",
+                "boolean",
+                "listEqual(asList(new com.gs.dmn.runtime.Context().add(\"b\", number(\"1\")), new com.gs.dmn.runtime.Context().add(\"b\", asList(number(\"2.1\"), number(\"2.2\"))), new com.gs.dmn.runtime.Context().add(\"b\", number(\"3\")), new com.gs.dmn.runtime.Context().add(\"b\", number(\"4\")), new com.gs.dmn.runtime.Context().add(\"b\", number(\"5\"))).stream().map(x -> ((com.gs.dmn.runtime.Context)(x)).get(\"b\", asList())).collect(Collectors.toList()), asList(number(\"1\"), asList(number(\"2.1\"), number(\"2.2\")), number(\"3\"), number(\"4\"), number(\"5\")))",
+                null,
+                null);
+
         doExpressionTest(entries, "", "string length(PrivateFundRequirements.HierarchyNode)",
                 "FunctionInvocation(Name(string length) -> PositionalParameters(PathExpression(Name(PrivateFundRequirements), HierarchyNode)))",
                 "number",
@@ -1606,6 +1630,12 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "substring(\"abc\", number(\"3\"))",
                 lib.substring("abc", lib.number("3")),
                 "c");
+        doExpressionTest(entries, "", "split(\"John Doe\", \"\\s\")",
+                "FunctionInvocation(Name(split) -> PositionalParameters(StringLiteral(\"John Doe\"), StringLiteral(\"\\s\")))",
+                "ListType(string)",
+                "split(\"John Doe\", \"\\\\s\")",
+                lib.split("John Doe", "\\s"),
+                lib.asList("John", "Doe"));
         doExpressionTest(entries, "", "substring(string: \"abc\", 'start position': 3)",
                 "FunctionInvocation(Name(substring) -> NamedParameters(string : StringLiteral(\"abc\"), 'start position' : NumericLiteral(3)))",
                 "string",
@@ -1624,6 +1654,60 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "stringLength(\"abc\")",
                 lib.stringLength("abc"),
                 lib.number("3"));
+        doExpressionTest(entries, "", "string length(\"\\n\")",
+                "FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral(\"\\n\")))",
+                "number",
+                "stringLength(\"\\n\")",
+                lib.stringLength("\n"),
+                lib.number("1"));
+        doExpressionTest(entries, "", "string length(\"\\r\")",
+                "FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral(\"\\r\")))",
+                "number",
+                "stringLength(\"\\r\")",
+                lib.stringLength("\r"),
+                lib.number("1"));
+        doExpressionTest(entries, "", "string length(\"\\t\")",
+                "FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral(\"\\t\")))",
+                "number",
+                "stringLength(\"\\t\")",
+                lib.stringLength("\t"),
+                lib.number("1"));
+        doExpressionTest(entries, "", "string length(\"\\'\")",
+                "FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral(\"\\'\")))",
+                "number",
+                "stringLength(\"'\")",
+                lib.stringLength("\'"),
+                lib.number("1"));
+        doExpressionTest(entries, "", "string length(\"\\\"\")",
+                "FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral(\"\\\"\")))",
+                "number",
+                "stringLength(\"\\\"\")",
+                lib.stringLength("\""),
+                lib.number("1"));
+        doExpressionTest(entries, "", "string length(\"\\\\\")",
+                "FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral(\"\\\\\")))",
+                "number",
+                "stringLength(\"\\\\\")",
+                lib.stringLength("\\"),
+                lib.number("1"));
+        doExpressionTest(entries, "", "string length(\"\u0009\")",
+                "FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral(\"\t\")))",
+                "number",
+                "stringLength(\"\\t\")",
+                lib.stringLength("\t"),
+                lib.number("1"));
+        doExpressionTest(entries, "", "string length(\"\\\\u0009\")",
+                "FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral(\"\\\\u0009\")))",
+                "number",
+                "stringLength(\"\\\\u0009\")",
+                lib.stringLength("\\u0009"),
+                lib.number("6"));
+        doExpressionTest(entries, "", "string length(\"\\uD83D\\uDCA9\")",
+                "FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral(\"\\uD83D\\uDCA9\")))",
+                "number",
+                "stringLength(\"\\uD83D\\uDCA9\")",
+                lib.stringLength("\uD83D\uDCA9"),
+                lib.number("2"));
         doExpressionTest(entries, "", "upper case(\"abc\")",
                 "FunctionInvocation(Name(upper case) -> PositionalParameters(StringLiteral(\"abc\")))",
                 "string",
@@ -1660,6 +1744,12 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "replace(\"abc\", \"b\", \"d\")",
                 lib.replace("abc", "b", "d"),
                 "adc");
+        doExpressionTest(entries, "", "replace(\"0123456789\",\"(\\d{3})(\\d{3})(\\d{4})\",\"($1) $2-$3\")",
+                "FunctionInvocation(Name(replace) -> PositionalParameters(StringLiteral(\"0123456789\"), StringLiteral(\"(\\d{3})(\\d{3})(\\d{4})\"), StringLiteral(\"($1) $2-$3\")))",
+                "string",
+                "replace(\"0123456789\", \"(\\\\d{3})(\\\\d{3})(\\\\d{4})\", \"($1) $2-$3\")",
+                lib.replace("0123456789", "(\\d{3})(\\d{3})(\\d{4})", "($1) $2-$3"),
+                "(012) 345-6789");
         doExpressionTest(entries, "", "contains(\"abc\", \"a\")",
                 "FunctionInvocation(Name(contains) -> PositionalParameters(StringLiteral(\"abc\"), StringLiteral(\"a\")))",
                 "boolean",
@@ -1690,6 +1780,12 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "matches(\"abc\", \"abc\")",
                 lib.matches("abc", "abc"),
                 true);
+        doExpressionTest(entries, "", "matches(\"?\", \"\\p{Nd}+\")",
+                "FunctionInvocation(Name(matches) -> PositionalParameters(StringLiteral(\"?\"), StringLiteral(\"\\p{Nd}+\")))",
+                "boolean",
+                "matches(\"?\", \"\\\\p{Nd}+\")",
+                lib.matches("?", "\\p{Nd}+"),
+                false);
     }
 
     @Test
@@ -1800,6 +1896,38 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "flatten(asList(number(\"1\"), number(\"2\"), number(\"3\")))",
                 lib.flatten(Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3"))),
                 Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3")));
+    }
+
+    @Test
+    public void testContextFunctions() {
+        List<EnvironmentEntry> entries = Arrays.asList(
+                new EnvironmentEntry("input", NUMBER, lib.number("1")));
+
+        doExpressionTest(entries, "", "get entries({a: \"foo\", b: \"bar\"})",
+                "FunctionInvocation(Name(get entries) -> PositionalParameters(Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\")),ContextEntry(ContextEntryKey(b) = StringLiteral(\"bar\")))))",
+                "ListType(ContextType())",
+                "getEntries(new com.gs.dmn.runtime.Context().add(\"a\", \"foo\").add(\"b\", \"bar\"))",
+                lib.getEntries(new com.gs.dmn.runtime.Context().add("a", "foo").add("b", "bar")),
+                lib.asList(new com.gs.dmn.runtime.Context().add("key", "a").add("value", "foo"), new com.gs.dmn.runtime.Context().add("key", "b").add("value", "bar")));
+        doExpressionTest(entries, "", "get entries({})",
+                "FunctionInvocation(Name(get entries) -> PositionalParameters(Context()))",
+                "ListType(ContextType())",
+                "getEntries(new com.gs.dmn.runtime.Context())",
+                lib.getEntries(new com.gs.dmn.runtime.Context()),
+                lib.asList());
+
+        doExpressionTest(entries, "", "get value({a: \"foo\"}, \"a\")",
+                "FunctionInvocation(Name(get value) -> PositionalParameters(Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\"))), StringLiteral(\"a\")))",
+                "AnyType",
+                "getValue(new com.gs.dmn.runtime.Context().add(\"a\", \"foo\"), \"a\")",
+                lib.getValue(new com.gs.dmn.runtime.Context().add("a", "foo"), "a"),
+                "foo");
+        doExpressionTest(entries, "", "get value(null, null)",
+                "FunctionInvocation(Name(get value) -> PositionalParameters(NullLiteral(), NullLiteral()))",
+                "AnyType",
+                "getValue(null, null)",
+                lib.getValue(null, null),
+                null);
     }
 
     @Test

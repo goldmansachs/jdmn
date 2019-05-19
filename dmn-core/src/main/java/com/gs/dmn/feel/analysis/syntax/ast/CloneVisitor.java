@@ -318,12 +318,12 @@ public class CloneVisitor extends AbstractVisitor {
     //
     @Override
     public Object visit(BooleanLiteral element, FEELContext context) {
-        return astFactory.toBooleanLiteral(element.getValue());
+        return astFactory.toBooleanLiteral(element.getLexeme());
     }
 
     @Override
     public Object visit(DateTimeLiteral element, FEELContext context) {
-        return astFactory.toDateTimeLiteral(element.getConversionFunction(), element.getValue());
+        return astFactory.toDateTimeLiteral(element.getConversionFunction(), element.getLexeme());
     }
 
     @Override
@@ -333,12 +333,12 @@ public class CloneVisitor extends AbstractVisitor {
 
     @Override
     public Object visit(NumericLiteral element, FEELContext context) {
-        return astFactory.toNumericLiteral(element.getValue());
+        return astFactory.toNumericLiteral(element.getLexeme());
     }
 
     @Override
     public Object visit(StringLiteral element, FEELContext context) {
-        return astFactory.toStringLiteral(element.getValue());
+        return astFactory.toStringLiteral(element.getLexeme());
     }
 
     @Override

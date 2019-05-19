@@ -78,11 +78,32 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         assertEquals("obar", getLib().substring("foobar", makeNumber("3")));
         assertEquals("oba", getLib().substring("foobar", makeNumber("3"), makeNumber("3")));
         assertEquals("a", getLib().substring("foobar", makeNumber("-2"), makeNumber("1")));
+
+        // horse + grinning face emoji
+        assertEquals("\uD83D\uDE00", getLib().substring("foo\ud83d\udc0ebar\uD83D\uDE00", makeNumber("8")));
+        assertEquals("\uD83D\uDC0E", getLib().substring("foo\ud83d\udc0ebar\uD83D\uDE00", makeNumber("4"), makeNumber("1")));
+        assertEquals("\uD83D\uDC0Ebar", getLib().substring("foo\ud83d\udc0ebar\uD83D\uDE00", makeNumber("4"), makeNumber("4")));
     }
 
     @Test
     public void testStringLength() {
         assertEqualsNumber(makeNumber(3), getLib().stringLength("foo"));
+        assertEqualsNumber(makeNumber(1), getLib().stringLength("\n"));
+        assertEqualsNumber(makeNumber(1), getLib().stringLength("\r"));
+        assertEqualsNumber(makeNumber(1), getLib().stringLength("\t"));
+        assertEqualsNumber(makeNumber(1), getLib().stringLength("\""));
+        assertEqualsNumber(makeNumber(1), getLib().stringLength("\'"));
+        assertEqualsNumber(makeNumber(1), getLib().stringLength("\\"));
+        assertEqualsNumber(makeNumber(1), getLib().stringLength("\u0009"));
+        assertEqualsNumber(makeNumber(6), getLib().stringLength("\\u0009"));
+        // horse emoji
+        assertEqualsNumber(makeNumber(2), getLib().stringLength("\uD83D\uDCA9"));
+        // horse emoji lowercase
+        assertEqualsNumber(makeNumber(2), getLib().stringLength("\ud83d\udca9"));
+        // horse + grinning face emoji
+        assertEqualsNumber(makeNumber(4), getLib().stringLength("\ud83d\udc0e\uD83D\uDE00"));
+        // horse + grinning face emoji
+        assertEqualsNumber(makeNumber(4), getLib().stringLength("🐎😀"));
     }
 
     @Test
@@ -416,13 +437,28 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Test
+    public void testIntModulo() {
+        assertNull(getLib().modulo(null, null));
+
+        assertEqualsNumber(makeNumber("2"), getLib().intModulo(makeNumber(10), makeNumber(4)));
+        assertEqualsNumber(makeNumber("2"), getLib().intModulo(makeNumber(10), makeNumber(-4)));
+        assertEqualsNumber(makeNumber("-2"), getLib().intModulo(makeNumber(-10), makeNumber(4)));
+        assertEqualsNumber(makeNumber("-2"), getLib().intModulo(makeNumber(-10), makeNumber(-4)));
+    }
+
+    @Test
     public void testModulo() {
         assertNull(getLib().modulo(null, null));
 
         assertEqualsNumber(makeNumber("2"), getLib().modulo(makeNumber(10), makeNumber(4)));
-        assertEqualsNumber(makeNumber("2"), getLib().modulo(makeNumber(10), makeNumber(-4)));
-        assertEqualsNumber(makeNumber("-2"), getLib().modulo(makeNumber(-10), makeNumber(4)));
+        assertEqualsNumber(makeNumber("-2"), getLib().modulo(makeNumber(10), makeNumber(-4)));
+        assertEqualsNumber(makeNumber("2"), getLib().modulo(makeNumber(-10), makeNumber(4)));
         assertEqualsNumber(makeNumber("-2"), getLib().modulo(makeNumber(-10), makeNumber(-4)));
+
+        assertEqualsNumber(makeNumber("1.1"), getLib().modulo(makeNumber(10.1), makeNumber(4.5)));
+        assertEqualsNumber(makeNumber("3.4"), getLib().modulo(makeNumber(-10.1), makeNumber(4.5)));
+        assertEqualsNumber(makeNumber("-3.4"), getLib().modulo(makeNumber(10.1), makeNumber(-4.5)));
+        assertEqualsNumber(makeNumber("-1.1"), getLib().modulo(makeNumber(-10.1), makeNumber(-4.5)));
     }
 
     @Test

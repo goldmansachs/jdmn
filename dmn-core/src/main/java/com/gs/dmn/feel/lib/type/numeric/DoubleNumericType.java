@@ -35,7 +35,7 @@ public class DoubleNumericType extends BaseType implements NumericType<Double> {
 
         try {
             return first + second;
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("numericAdd(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -50,7 +50,7 @@ public class DoubleNumericType extends BaseType implements NumericType<Double> {
 
         try {
             return first - second;
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("numericSubtract(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -65,7 +65,7 @@ public class DoubleNumericType extends BaseType implements NumericType<Double> {
 
         try {
             return first * second;
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("numericMultiply(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -76,7 +76,7 @@ public class DoubleNumericType extends BaseType implements NumericType<Double> {
     public Double numericDivide(Double first, Double second) {
         try {
             return DoubleUtil.numericDivide(first, second);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("numericDivide(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -91,7 +91,7 @@ public class DoubleNumericType extends BaseType implements NumericType<Double> {
 
         try {
             return - first;
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("numericUnaryMinus(%s)", first);
             logError(message, e);
             return null;
@@ -106,7 +106,7 @@ public class DoubleNumericType extends BaseType implements NumericType<Double> {
 
         try {
             return Math.pow(first, second);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("numericExponentiation(%s, %s)", first, second);
             logError(message, e);
             return null;

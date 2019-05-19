@@ -36,6 +36,8 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.feel.lib.FEELLib;
+import com.gs.dmn.feel.lib.StringEscapeUtil;
+import com.gs.dmn.feel.lib.StringUtil;
 import com.gs.dmn.feel.synthesis.AbstractFEELToJavaVisitor;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.FEELTranslatorForInterpreter;
@@ -791,12 +793,14 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
                 if ("class".equals(name)) {
                     Expression value = entry.getExpression();
                     if (value instanceof StringLiteral) {
-                        className = ((StringLiteral) value).getValue().replaceAll("\"", "");
+                        String lexeme = ((StringLiteral) value).getLexeme();
+                        className = StringUtil.stripQuotes(lexeme);
                     }
                 } else if ("methodSignature".equals(name) || "method signature".equals(name)) {
                     Expression value = entry.getExpression();
                     if (value instanceof StringLiteral) {
-                        String signature = ((StringLiteral) value).getValue().replaceAll("\"", "");
+                        String lexeme = ((StringLiteral) value).getLexeme();
+                        String signature = StringUtil.stripQuotes(lexeme);
                         int lpIndex = signature.indexOf('(');
                         int rpIndex = signature.indexOf(')');
                         methodName = signature.substring(0, lpIndex);
@@ -1008,6 +1012,10 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
                 return evaluateDateTimeMember(source, member);
             } else if (sourceType instanceof DurationType) {
                 return evaluateDateTimeMember(source, member);
+            } else if (sourceType instanceof AnyType) {
+                // source is Context
+                List<String> aliases = Arrays.asList();
+                return ((com.gs.dmn.runtime.Context) source).get(member, aliases.toArray());
             } else {
                 handleError(String.format("Cannot evaluate '%s'.", element));
                 return null;
@@ -1057,13 +1065,13 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(BooleanLiteral element, FEELContext context) {
-        return Boolean.parseBoolean(element.getValue());
+        return Boolean.parseBoolean(element.getLexeme());
     }
 
     @Override
     public Object visit(DateTimeLiteral element, FEELContext context) {
         Type type = element.getType();
-        String literal = stripQuotes(element.getValue());
+        String literal = StringUtil.stripQuotes(element.getLexeme());
         if (type == DateType.DATE) {
             return lib.date(literal);
         } else if (type == TimeType.TIME) {
@@ -1085,13 +1093,14 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(NumericLiteral element, FEELContext context) {
-        return lib.number(element.getValue());
+        return lib.number(element.getLexeme());
     }
 
     @Override
     public Object visit(StringLiteral element, FEELContext context) {
-        String value = element.getValue();
-        return stripQuotes(value);
+        String lexeme = element.getLexeme();
+        String value = StringEscapeUtil.unescapeFEEL(lexeme);
+        return value;
     }
 
     @Override
@@ -1123,10 +1132,6 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     public Object visit(Name element, FEELContext context) {
         String variableName = element.getName();
         return context.lookupRuntimeBinding(variableName);
-    }
-
-    private String stripQuotes(String value) {
-        return value.substring(1, value.length() - 1);
     }
 
     private void handleError(String message) {

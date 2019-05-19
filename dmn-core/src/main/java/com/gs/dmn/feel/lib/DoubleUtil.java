@@ -49,12 +49,20 @@ public class DoubleUtil {
         return Math.abs(number);
     }
 
-    public static Double modulo(Double divident, Double divisor) {
-        if (divident == null || divisor == null) {
+    public static Double intModulo(Double dividend, Double divisor) {
+        if (dividend == null || divisor == null) {
             return null;
         }
 
-        return Double.valueOf(divident.intValue() % divisor.intValue());
+        return Double.valueOf(dividend.intValue() % divisor.intValue());
+    }
+
+    public static Double modulo(Double dividend, Double divisor) {
+        if (dividend == null || divisor == null) {
+            return null;
+        }
+
+        return dividend - divisor*floor(dividend/divisor);
     }
 
     public static Double sqrt(Double number) {

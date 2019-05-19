@@ -13,14 +13,14 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression.literal;
 
 public abstract class SimpleLiteral extends Literal {
-    protected final String value;
+    protected final String lexeme;
 
     public SimpleLiteral(String lexeme) {
-        this.value = lexeme;
+        this.lexeme = lexeme;
     }
 
-    public String getValue() {
-        return value;
+    public String getLexeme() {
+        return lexeme;
     }
 }
  

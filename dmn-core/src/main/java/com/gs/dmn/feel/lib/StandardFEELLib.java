@@ -69,7 +69,10 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
 
     NUMBER abs(NUMBER number);
 
-    NUMBER modulo(NUMBER divident, NUMBER divisor);
+    NUMBER modulo(NUMBER dividend, NUMBER divisor);
+
+    // Backwards compatibility due to changes in DMN 1.3-125
+    NUMBER intModulo(NUMBER dividend, NUMBER divisor);
 
     NUMBER sqrt(NUMBER number);
 

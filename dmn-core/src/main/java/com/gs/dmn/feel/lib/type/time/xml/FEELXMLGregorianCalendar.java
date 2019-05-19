@@ -15,11 +15,11 @@ package com.gs.dmn.feel.lib.type.time.xml;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.TimeZone;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Date;
-import java.util.Locale;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.temporal.*;
+import java.util.*;
 
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
@@ -27,6 +27,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
 
 import com.gs.dmn.feel.lib.DefaultFEELLib;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.sun.org.apache.xerces.internal.util.DatatypeMessageFormatter;
 
 public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Serializable, Cloneable {
@@ -60,6 +61,8 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
     private static final BigDecimal DECIMAL_ZERO = BigDecimal.ZERO;
     private static final BigDecimal DECIMAL_ONE = BigDecimal.ONE;
     private static final BigDecimal DECIMAL_SIXTY = BigDecimal.valueOf(60);
+    public static final String MIN_OFFSET = "+14:00";
+    public static final String MAX_OFFSET = "-14:00";
 
     private static int daysInMonth[] = {0,  // XML Schema months start at 1.
             31, 28, 31, 30, 31, 30,
@@ -139,19 +142,28 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
     }
 
     public static XMLGregorianCalendar makeDate(BigInteger year, int month, int day) {
-        return new FEELXMLGregorianCalendar(year, month, day, DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED, null, DatatypeConstants.FIELD_UNDEFINED, null);
+        return new FEELXMLGregorianCalendar(
+                year, month, day,
+                DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED, null,
+                null);
     }
 
-    public static XMLGregorianCalendar makeTime(int hour, int minute, int second, BigDecimal fractionalSecond, int timezone, String zoneID) {
-        return new FEELXMLGregorianCalendar(null, DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED, hour, minute, second, fractionalSecond, timezone, zoneID);
+    public static XMLGregorianCalendar makeTime(int hour, int minute, int second, BigDecimal fractionalSecond, String zoneID) {
+        return new FEELXMLGregorianCalendar(
+                null, DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED,
+                hour, minute, second, fractionalSecond,
+                zoneID);
     }
 
-    public static XMLGregorianCalendar makeDateTime(BigInteger year, int month, int day, int hour, int minute, int second, BigDecimal fractionalSecond, int timezone, String zoneID) {
-        return new FEELXMLGregorianCalendar(year, month, day, hour, minute, second, fractionalSecond, timezone, zoneID);
+    public static XMLGregorianCalendar makeDateTime(BigInteger year, int month, int day, int hour, int minute, int second, BigDecimal fractionalSecond, String zoneID) {
+        return new FEELXMLGregorianCalendar(
+                year, month, day,
+                hour, minute, second, fractionalSecond,
+                zoneID);
     }
 
-    public static XMLGregorianCalendar makeDateTime(GregorianCalendar cal) {
-        return new FEELXMLGregorianCalendar(cal);
+    public static XMLGregorianCalendar makeXMLCalendar(TemporalAccessor accessor) {
+        return new FEELXMLGregorianCalendar(accessor);
     }
 
     private BigInteger eon = null;
@@ -162,110 +174,63 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
     private int minute = DatatypeConstants.FIELD_UNDEFINED;
     private int second = DatatypeConstants.FIELD_UNDEFINED;
     private BigDecimal fractionalSecond = null;
-    // in seconds
-    private int timezone = DatatypeConstants.FIELD_UNDEFINED;
+    private int secondsOffset = DatatypeConstants.FIELD_UNDEFINED;
     private String zoneID;
 
     private static final BigInteger BILLION = new BigInteger("1000000000");
     private static final Date PURE_GREGORIAN_CHANGE = new Date(Long.MIN_VALUE);
 
-    public FEELXMLGregorianCalendar(String lexicalRepresentation) throws IllegalArgumentException {
-        this(lexicalRepresentation, null);
-    }
-
-    public FEELXMLGregorianCalendar(String lexicalRepresentation, String zoneID) throws IllegalArgumentException {
-        this.zoneID = zoneID;
-
-        // compute format string for this lexical representation.
-        String format = null;
-        String lexRep = lexicalRepresentation;
-        final int NOT_FOUND = -1;
-        int lexRepLength = lexRep.length();
-
-        // current parser needs a format string,
-        // use following heuristics to figure out what xml schema date/time
-        // datatype this lexical string could represent.
-        // Fix 4971612: invalid SCCS macro substitution in data string,
-        //   no %{alpha}% to avoid SCCS maco substitution
-        if (lexRep.indexOf('T') != NOT_FOUND) {
-            // found Date Time separater, must be xsd:DateTime
-            format = "%Y-%M-%DT%h:%m:%s" + "%z";
-        } else if (lexRepLength >= 3 && lexRep.charAt(2) == ':') {
-            // found ":", must be xsd:Time
-            format = "%h:%m:%s" + "%z";
-        } else if (lexRep.startsWith("--")) {
-            // check for gDay || gMonth || gMonthDay
-            if (lexRepLength >= 3 && lexRep.charAt(2) == '-') {
-                // gDay, ---DD(z?)
-                format = "---%D" + "%z";
-            } else if (lexRepLength == 4     // --MM
-                    || lexRepLength == 5     // --MMZ
-                    || lexRepLength == 10) { // --MMSHH:MM
-                // gMonth, --MM(z?),
-                // per XML Schema Errata, used to be --MM--(z?)
-                format = "--%M" + "%z";
-            } else {
-                // gMonthDay, --MM-DD(z?), (or invalid lexicalRepresentation)
-                // length should be:
-                //  7: --MM-DD
-                //  8: --MM-DDZ
-                // 13: --MM-DDSHH:MM
-                format = "--%M-%D" + "%z";
-            }
-        } else {
-            // check for Date || GYear | GYearMonth
-            int countSeparator = 0;
-
-            // start at index 1 to skip potential negative sign for year.
-
-
-            int timezoneOffset = lexRep.indexOf(':');
-            if (timezoneOffset != NOT_FOUND) {
-
-                // found timezone, strip it off for distinguishing
-                // between Date, GYear and GYearMonth so possible
-                // negative sign in timezone is not mistaken as
-                // a separator.
-                lexRepLength -= 6;
-            }
-
-            for (int i = 1; i < lexRepLength; i++) {
-                if (lexRep.charAt(i) == '-') {
-                    countSeparator++;
-                }
-            }
-            if (countSeparator == 0) {
-                // GYear
-                format = "%Y" + "%z";
-            } else if (countSeparator == 1) {
-                // GYearMonth
-                format = "%Y-%M" + "%z";
-            } else {
-                // Date or invalid lexicalRepresentation
-                // Fix 4971612: invalid SCCS macro substitution in data string
-                format = "%Y-%M-%D" + "%z";
-            }
-        }
-        FEELXMLParser p = new FEELXMLParser(this, format, lexRep);
-        p.parse();
-
-        // check for validity
-        if (!isValid()) {
-            throw new IllegalArgumentException(
-                    DatatypeMessageFormatter.formatMessage(null, "InvalidXGCRepresentation", new Object[]{lexicalRepresentation})
-            );
-        }
-    }
-
     public FEELXMLGregorianCalendar() {
     }
 
-    private FEELXMLGregorianCalendar(BigInteger year, int month, int day, int hour, int minute, int second, BigDecimal fractionalSecond, int timezone, String zoneID) {
+    private FEELXMLGregorianCalendar(TemporalAccessor accessor) throws IllegalArgumentException {
+        setEon(null);
+        try {
+            setYear(accessor.get(ChronoField.YEAR));
+        } catch (Exception e) {
+            setYear(DatatypeConstants.FIELD_UNDEFINED);
+        }
+        try {
+            setMonth(accessor.get(ChronoField.MONTH_OF_YEAR));
+        } catch (Exception e) {
+            setMonth(DatatypeConstants.FIELD_UNDEFINED);
+        }
+        try {
+            setDay(accessor.get(ChronoField.DAY_OF_MONTH));
+        } catch (Exception e) {
+            setDay(DatatypeConstants.FIELD_UNDEFINED);
+        }
+        try {
+            setHour(accessor.get(ChronoField.HOUR_OF_DAY));
+        } catch (Exception e) {
+            setHour(DatatypeConstants.FIELD_UNDEFINED);
+        }
+        try {
+            setMinute(accessor.get(ChronoField.MINUTE_OF_HOUR));
+        } catch (Exception e) {
+            setMinute(DatatypeConstants.FIELD_UNDEFINED);
+        }
+        try {
+            setSecond(accessor.get(ChronoField.SECOND_OF_MINUTE));
+        } catch (Exception e) {
+            setSecond(DatatypeConstants.FIELD_UNDEFINED);
+        }
+        try {
+            BigDecimal fractional = BigDecimal.valueOf(accessor.get(ChronoField.NANO_OF_SECOND) / (double) 1000000000);
+            setFractionalSecond(fractional);
+        } catch (Exception e) {
+            setFractionalSecond(null);
+        }
+
+        ZoneId zone = accessor.query(TemporalQueries.zone());
+        setZoneID(zone == null ? null : zone.getId());
+    }
+
+    private FEELXMLGregorianCalendar(BigInteger year, int month, int day, int hour, int minute, int second, BigDecimal fractionalSecond, String zoneID) {
         setYear(year);
         setMonth(month);
         setDay(day);
         setTime(hour, minute, second, fractionalSecond);
-        setTimezone(timezone);
         setZoneID(zoneID);
         // check for validity
         if (!isValid()) {
@@ -274,31 +239,9 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
                             "InvalidXGCValue-fractional",
                             new Object[]{year, new Integer(month), new Integer(day),
                                     new Integer(hour), new Integer(minute), new Integer(second),
-                                    fractionalSecond, new Integer(timezone)})
+                                    fractionalSecond, zoneID})
             );
         }
-    }
-
-    private FEELXMLGregorianCalendar(GregorianCalendar cal) {
-        int year = cal.get(Calendar.YEAR);
-        if (cal.get(Calendar.ERA) == GregorianCalendar.BC) {
-            year = -year;
-        }
-        this.setYear(year);
-
-        // Calendar.MONTH is zero based, XSD Date datatype's month field starts
-        // with JANUARY as 1.
-        this.setMonth(cal.get(Calendar.MONTH) + 1);
-        this.setDay(cal.get(Calendar.DAY_OF_MONTH));
-        this.setTime(
-                cal.get(Calendar.HOUR_OF_DAY),
-                cal.get(Calendar.MINUTE),
-                cal.get(Calendar.SECOND),
-                cal.get(Calendar.MILLISECOND));
-
-        // Calendar ZONE_OFFSET and DST_OFFSET fields are in milliseconds.
-        int offsetInSeconds = (cal.get(Calendar.ZONE_OFFSET) + cal.get(Calendar.DST_OFFSET)) / 1000;
-        this.setTimezone(offsetInSeconds);
     }
 
     @Override
@@ -490,6 +433,9 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
 
     @Override
     public void setFractionalSecond(BigDecimal fractional) {
+        if (fractional != null && fractional.compareTo(BigDecimal.ZERO) == 0) {
+            fractional = null;
+        }
         if (fractional != null) {
             if ((fractional.compareTo(DECIMAL_ZERO) < 0) ||
                     (fractional.compareTo(DECIMAL_ONE) > 0)) {
@@ -502,16 +448,22 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
 
     @Override
     public int getTimezone() {
-        return timezone;
+        return this.secondsOffset;
     }
 
     @Override
     public void setTimezone(int offset) {
-        if (offset < -14 * 3600 || 14 * 3600 < offset) {
-            if (offset != DatatypeConstants.FIELD_UNDEFINED)
+        throw new DMNRuntimeException("Not supported");
+    }
+
+    private void setSecondsOffset(String zoneID) {
+        int offset = secondsOffset(zoneID);
+        if (offset < -18 * 3600 || 18 * 3600 < offset) {
+            if (offset != DatatypeConstants.FIELD_UNDEFINED) {
                 invalidFieldValue(TIMEZONE, offset);
+            }
         }
-        this.timezone = offset;
+        this.secondsOffset = offset;
     }
 
     public String getZoneID() {
@@ -520,6 +472,22 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
 
     public void setZoneID(String zoneID) {
         this.zoneID = zoneID;
+        // Derive offset from zoneId
+        this.setSecondsOffset(zoneID);
+    }
+
+    private int secondsOffset(String zoneID) {
+        if (zoneID != null) {
+            if (year != DatatypeConstants.FIELD_UNDEFINED) {
+                LocalDateTime ldt = LocalDateTime.of(year, month, day, hour, minute, second);
+                ZoneOffset offset = ldt.atZone(ZoneId.of(zoneID)).getOffset();
+                return offset.get(ChronoField.OFFSET_SECONDS);
+            } else {
+                // milliseconds to seconds
+                return TimeZone.getTimeZone(ZoneId.of(zoneID)).getRawOffset() / 1000;
+            }
+        }
+        return DatatypeConstants.FIELD_UNDEFINED;
     }
 
     @Override
@@ -590,13 +558,13 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
                 lhs = (FEELXMLGregorianCalendar) lhs.normalize();
             }
             // C. step 1
-            XMLGregorianCalendar MinQ = rhs.normalizeToTimezone(DatatypeConstants.MIN_TIMEZONE_OFFSET);
+            XMLGregorianCalendar MinQ = rhs.normalizeToTimezone(MIN_OFFSET);
             result = internalCompare(lhs, MinQ);
             if (result == DatatypeConstants.LESSER) {
                 return result;
             }
             // C. step 2
-            XMLGregorianCalendar MaxQ = rhs.normalizeToTimezone(DatatypeConstants.MAX_TIMEZONE_OFFSET);
+            XMLGregorianCalendar MaxQ = rhs.normalizeToTimezone(MAX_OFFSET);
             result = internalCompare(lhs, MaxQ);
             if (result == DatatypeConstants.GREATER) {
                 return result;
@@ -604,19 +572,20 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
                 // C. step 3
                 return DatatypeConstants.INDETERMINATE;
             }
-        } else { // rhs.getTimezone() != DatatypeConstants.FIELD_UNDEFINED
+        } else {
+            // rhs.getTimezone() != DatatypeConstants.FIELD_UNDEFINED
             // lhs has no timezone and rhs does.
             if (rhs.getTimezone() != 0) {
-                rhs = (FEELXMLGregorianCalendar) rhs.normalizeToTimezone(rhs.getTimezone());
+                rhs = (FEELXMLGregorianCalendar) rhs.normalizeToTimezone(rhs.zoneID);
             }
             // D. step 1
-            XMLGregorianCalendar MaxP = lhs.normalizeToTimezone(DatatypeConstants.MAX_TIMEZONE_OFFSET);
+            XMLGregorianCalendar MaxP = lhs.normalizeToTimezone(MAX_OFFSET);
             result = internalCompare(MaxP, rhs);
             if (result == DatatypeConstants.LESSER) {
                 return result;
             }
             // D. step 2
-            XMLGregorianCalendar MinP = lhs.normalizeToTimezone(DatatypeConstants.MIN_TIMEZONE_OFFSET);
+            XMLGregorianCalendar MinP = lhs.normalizeToTimezone(MIN_OFFSET);
             result = internalCompare(MinP, rhs);
             if (result == DatatypeConstants.GREATER) {
                 return result;
@@ -629,7 +598,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
 
     @Override
     public XMLGregorianCalendar normalize() {
-        XMLGregorianCalendar normalized = normalizeToTimezone(timezone);
+        XMLGregorianCalendar normalized = normalizeToTimezone(zoneID);
         // if timezone was undefined, leave it undefined
         if (getTimezone() == DatatypeConstants.FIELD_UNDEFINED) {
             normalized.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
@@ -641,15 +610,18 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
         return normalized;
     }
 
-    private XMLGregorianCalendar normalizeToTimezone(int timezone) {
-        int seconds = timezone;
-        XMLGregorianCalendar result = (XMLGregorianCalendar) this.clone();
+    public XMLGregorianCalendar normalizeToTimezone(String zoneID) {
+        int seconds = secondsOffset(zoneID);
+        FEELXMLGregorianCalendar result = (FEELXMLGregorianCalendar) this.clone();
         // normalizing to UTC time negates the timezone offset before addition.
-        seconds = - seconds;
-        Duration d = DefaultFEELLib.DATA_TYPE_FACTORY.newDuration(seconds >= 0, 0, 0, 0, 0, 0, seconds < 0 ? - seconds : seconds);
+        seconds = -seconds;
+        Duration d = DefaultFEELLib.DATA_TYPE_FACTORY.newDuration(
+                seconds >= 0,
+                0, 0, 0,
+                0, 0, seconds < 0 ? -seconds : seconds);
         result.add(d);
         // set to zulu UTC time.
-        result.setTimezone(0);
+        result.setZoneID("Z");
         return result;
     }
 
@@ -699,6 +671,22 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
         return result;
     }
 
+    public boolean same(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        FEELXMLGregorianCalendar calendar = (FEELXMLGregorianCalendar) o;
+        return year == calendar.year &&
+                month == calendar.month &&
+                day == calendar.day &&
+                hour == calendar.hour &&
+                minute == calendar.minute &&
+                second == calendar.second &&
+                Objects.equals(eon, calendar.eon) &&
+                Objects.equals(fractionalSecond, calendar.fractionalSecond) &&
+                Objects.equals(zoneID, calendar.zoneID);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null || !(obj instanceof XMLGregorianCalendar)) {
@@ -719,7 +707,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
         }
         XMLGregorianCalendar gc = this;
         if (timezone != 0) {
-            gc = this.normalizeToTimezone(getTimezone());
+            gc = this.normalizeToTimezone(getZoneID());
         }
         return gc.getYear() + gc.getMonth() + gc.getDay() + gc.getHour() + gc.getMinute() + gc.getSecond();
     }
@@ -744,11 +732,11 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
     public QName getXMLSchemaType() {
         int mask =
                 (year != DatatypeConstants.FIELD_UNDEFINED ? 0x20 : 0) |
-                (month != DatatypeConstants.FIELD_UNDEFINED ? 0x10 : 0) |
-                (day != DatatypeConstants.FIELD_UNDEFINED ? 0x08 : 0) |
-                (hour != DatatypeConstants.FIELD_UNDEFINED ? 0x04 : 0) |
-                (minute != DatatypeConstants.FIELD_UNDEFINED ? 0x02 : 0) |
-                (second != DatatypeConstants.FIELD_UNDEFINED ? 0x01 : 0);
+                        (month != DatatypeConstants.FIELD_UNDEFINED ? 0x10 : 0) |
+                        (day != DatatypeConstants.FIELD_UNDEFINED ? 0x08 : 0) |
+                        (hour != DatatypeConstants.FIELD_UNDEFINED ? 0x04 : 0) |
+                        (minute != DatatypeConstants.FIELD_UNDEFINED ? 0x02 : 0) |
+                        (second != DatatypeConstants.FIELD_UNDEFINED ? 0x01 : 0);
         switch (mask) {
             case 0x3F:
                 return DatatypeConstants.DATETIME;
@@ -817,28 +805,28 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
     @Override
     public void add(Duration duration) {
         /*
-           * Extracted from
-           * http://www.w3.org/TR/xmlschema-2/#adding-durations-to-dateTimes
-           * to ensure implemented properly. See spec for definitions of methods
-           * used in algorithm.
-           *
-           * Given a dateTime S and a duration D, specifies how to compute a
-           * dateTime E where E is the end of the time period with start S and
-           * duration D i.e. E = S + D.
-           *
-           * The following is the precise specification.
-           * These steps must be followed in the same order.
-           * If a field in D is not specified, it is treated as if it were zero.
-           * If a field in S is not specified, it is treated in the calculation
-           * as if it were the minimum allowed value in that field, however,
-           * after the calculation is concluded, the corresponding field in
-           * E is removed (set to unspecified).
-           *
-           * Months (may be modified additionally below)
-               *  temp := S[month] + D[month]
-               *  E[month] := modulo(temp, 1, 13)
-               *  carry := fQuotient(temp, 1, 13)
-           */
+         * Extracted from
+         * http://www.w3.org/TR/xmlschema-2/#adding-durations-to-dateTimes
+         * to ensure implemented properly. See spec for definitions of methods
+         * used in algorithm.
+         *
+         * Given a dateTime S and a duration D, specifies how to compute a
+         * dateTime E where E is the end of the time period with start S and
+         * duration D i.e. E = S + D.
+         *
+         * The following is the precise specification.
+         * These steps must be followed in the same order.
+         * If a field in D is not specified, it is treated as if it were zero.
+         * If a field in S is not specified, it is treated in the calculation
+         * as if it were the minimum allowed value in that field, however,
+         * after the calculation is concluded, the corresponding field in
+         * E is removed (set to unspecified).
+         *
+         * Months (may be modified additionally below)
+         *  temp := S[month] + D[month]
+         *  E[month] := modulo(temp, 1, 13)
+         *  carry := fQuotient(temp, 1, 13)
+         */
 
         boolean fieldUndefined[] = {
                 false,
@@ -1251,7 +1239,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
         return new FEELXMLGregorianCalendar(
                 getEonAndYear(), this.month, this.day,
                 this.hour, this.minute, this.second, this.fractionalSecond,
-                this.timezone, this.zoneID);
+                this.zoneID);
     }
 
     @Override
@@ -1260,15 +1248,12 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
         year = DatatypeConstants.FIELD_UNDEFINED;
         month = DatatypeConstants.FIELD_UNDEFINED;
         day = DatatypeConstants.FIELD_UNDEFINED;
-        timezone = DatatypeConstants.FIELD_UNDEFINED;
         hour = DatatypeConstants.FIELD_UNDEFINED;
         minute = DatatypeConstants.FIELD_UNDEFINED;
         second = DatatypeConstants.FIELD_UNDEFINED;
         fractionalSecond = null;
-    }
-
-    static boolean isDigit(char ch) {
-        return '0' <= ch && ch <= '9';
+        secondsOffset = DatatypeConstants.FIELD_UNDEFINED;
+        zoneID = null;
     }
 
     /**
@@ -1378,10 +1363,10 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
                         } else {
                             buf[bufPtr++] = '+';
                         }
-                        int h = offset / 60;
-                        bufPtr = print2Number(buf, bufPtr, offset / 60);
+                        int min = offset / 60;
+                        bufPtr = print2Number(buf, bufPtr, min / 60);
                         buf[bufPtr++] = ':';
-                        bufPtr = print2Number(buf, bufPtr, offset % 60);
+                        bufPtr = print2Number(buf, bufPtr, min % 60);
                     }
                     break;
                 default:
@@ -1460,27 +1445,27 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
             int day = this.getDay();
             return String.format("%d-%02d-%02d", year, month, day);
         } else if (kind == DatatypeConstants.TIME) {
+            String result = "";
             int hour = this.getHour();
             int minute = this.getMinute();
             int second = this.getSecond();
             String nanoseconds = getNanoSeconds(this.getFractionalSecond());
-
-            if (zoneID == null) {
-                String offset = makeOffsetString(this.getTimezone());
-                if (nanoseconds == null) {
-                    return String.format("%02d:%02d:%02d%s", hour, minute, second, offset);
-                } else {
-                    return String.format("%02d:%02d:%02d%s%s", hour, minute, second, nanoseconds, offset);
-                }
+            if (nanoseconds == null) {
+                result = String.format("%02d:%02d:%02d", hour, minute, second);
             } else {
-                if (nanoseconds == null) {
-                    return String.format("%02d:%02d:%02d@%s", hour, minute, second, zoneID);
+                result = String.format("%02d:%02d:%02d%s", hour, minute, second, nanoseconds);
+            }
+            if (zoneID != null) {
+                if (isOffset(zoneID)) {
+                    result += zoneID;
                 } else {
-                    return String.format("%02d:%02d:%02d%s@%s", hour, minute, second, nanoseconds, zoneID);
+                    result += "@" + zoneID;
                 }
             }
+            return result;
 
         } else if (kind == DatatypeConstants.DATETIME) {
+            String result = "";
             int year = this.getYear();
             int month = this.getMonth();
             int day = this.getDay();
@@ -1488,24 +1473,28 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
             int minute = this.getMinute();
             int second = this.getSecond();
             String nanoseconds = getNanoSeconds(this.getFractionalSecond());
-
-            if (zoneID == null) {
-                String offset = makeOffsetString(this.getTimezone());
-                if (nanoseconds == null) {
-                    return String.format("%d-%02d-%02dT%02d:%02d:%02d%s", year, month, day, hour, minute, second, offset);
-                } else {
-                    return String.format("%d-%02d-%02dT%02d:%02d:%02d%s%s", year, month, day, hour, minute, second, nanoseconds, offset);
-                }
+            if (nanoseconds == null) {
+                result = String.format("%d-%02d-%02dT%02d:%02d:%02d", year, month, day, hour, minute, second);
             } else {
-                if (nanoseconds == null) {
-                    return String.format("%d-%02d-%02dT%02d:%02d:%02d@%s", year, month, day, hour, minute, second, zoneID);
+                result = String.format("%d-%02d-%02dT%02d:%02d:%02d%s", year, month, day, hour, minute, second, nanoseconds);
+            }
+            if (zoneID != null) {
+                if (isOffset(zoneID)) {
+                    result += zoneID;
                 } else {
-                    return String.format("%d-%02d-%02dT%02d:%02d:%02d%s@%s", year, month, day, hour, minute, second, nanoseconds, zoneID);
+                    result += "@" + zoneID;
                 }
             }
+            return result;
         } else {
             return super.toString();
         }
+    }
+
+    private boolean isOffset(String zoneID) {
+        return zoneID != null &&
+                ( zoneID.equals("Z") || zoneID.startsWith("+") || zoneID.startsWith("-") )
+                ;
     }
 
     private String getNanoSeconds(BigDecimal fractionalSeconds) {
@@ -1513,31 +1502,5 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
             return null;
         }
         return fractionalSeconds.stripTrailingZeros().toPlainString().substring(1);
-    }
-
-    private String makeOffsetString(int offset) {
-        StringBuilder offsetBuilder = new StringBuilder();
-        if (offset == 0) {
-            offsetBuilder.append('Z');
-        } else if (offset != DatatypeConstants.FIELD_UNDEFINED) {
-            if (offset < 0) {
-                offsetBuilder.append('-');
-                offset *= -1;
-            } else {
-                offsetBuilder.append('+');
-            }
-            int hours = offset / 3600;
-            int seconds = offset % 3600;
-            int minutes = seconds / 60;
-            seconds = seconds - minutes * 60;
-            offsetBuilder.append(String.format("%02d", hours));
-            offsetBuilder.append(':');
-            offsetBuilder.append(String.format("%02d", minutes));
-            if (seconds != 0) {
-                offsetBuilder.append(':');
-                offsetBuilder.append(String.format("%02d", seconds));
-            }
-        }
-        return offsetBuilder.toString();
     }
 }

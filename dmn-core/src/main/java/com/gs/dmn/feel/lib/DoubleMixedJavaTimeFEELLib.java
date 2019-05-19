@@ -22,23 +22,10 @@ import com.gs.dmn.feel.lib.type.time.mixed.OffsetTimeType;
 import com.gs.dmn.feel.lib.type.time.mixed.ZonedDateTimeType;
 import com.gs.dmn.feel.lib.type.time.xml.DoubleDefaultDurationType;
 import com.gs.dmn.runtime.LambdaExpression;
-import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
-import net.sf.saxon.xpath.XPathFactoryImpl;
 import org.apache.commons.lang3.StringUtils;
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.time.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -73,7 +60,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
         try {
             return Double.parseDouble(literal);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("number(%s)", literal);
             logError(message, e);
             return null;
@@ -106,7 +93,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
                 from = from.replaceAll(decimalSeparator, ".");
             }
             return number(from);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("number(%s, %s, %s)", from, groupingSeparator, decimalSeparator);
             logError(message, e);
             return null;
@@ -204,7 +191,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
                 offsetTime = offsetTime.plusNanos((long) nanos);
                 return offsetTime;
             }
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("time(%s, %s, %s, %s)", hour, minute, second, offset);
             logError(message, e);
             return null;
@@ -256,7 +243,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
             ZoneOffset offset = time.getOffset();
             LocalDateTime localDateTime = LocalDateTime.of(date, time.toLocalTime());
             return ZonedDateTime.ofInstant(localDateTime, offset, ZoneId.of(offset.getId()));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("dateAndTime(%s, %s)", date, time);
             logError(message, e);
             return null;
@@ -284,7 +271,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
         try {
             return DATA_TYPE_FACTORY.newDuration(from);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("duration(%s)", from);
             logError(message, e);
             return null;
@@ -299,7 +286,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
         try {
             return DateTimeUtil.toYearsMonthDuration(DATA_TYPE_FACTORY, toDate(to), toDate(from));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
             logError(message, e);
             return null;
@@ -313,7 +300,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
         try {
             return DateTimeUtil.toYearsMonthDuration(DATA_TYPE_FACTORY, to, from);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
             logError(message, e);
             return null;
@@ -327,7 +314,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
         try {
             return DateTimeUtil.toYearsMonthDuration(DATA_TYPE_FACTORY, to, toDate(from));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
             logError(message, e);
             return null;
@@ -341,7 +328,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
         try {
             return DateTimeUtil.toYearsMonthDuration(DATA_TYPE_FACTORY, toDate(to), from);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
             logError(message, e);
             return null;
@@ -355,7 +342,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
         try {
             return DateTimeUtil.makeDateTime(literal);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("makeDateTime(%s)", literal);
             logError(message, e);
             return null;
@@ -385,7 +372,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     public Double decimal(Double n, Double scale) {
         try {
             return DoubleUtil.decimal(n, scale);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("decimal(%s, %s)", n, scale);
             logError(message, e);
             return null;
@@ -396,7 +383,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     public Double floor(Double number) {
         try {
             return DoubleUtil.floor(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("fllor(%s)", number);
             logError(message, e);
             return null;
@@ -407,7 +394,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     public Double ceiling(Double number) {
         try {
             return DoubleUtil.ceiling(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("ceiling(%s)", number);
             logError(message, e);
             return null;
@@ -418,7 +405,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     public Double abs(Double number) {
         try {
             return DoubleUtil.abs(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("abs(%s)", number);
             logError(message, e);
             return null;
@@ -426,11 +413,22 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     }
 
     @Override
-    public Double modulo(Double divident, Double divisor) {
+    public Double intModulo(Double dividend, Double divisor) {
         try {
-            return DoubleUtil.modulo(divident, divisor);
-        } catch (Throwable e) {
-            String message = String.format("modulo(%s, %s)", divident, divisor);
+            return DoubleUtil.intModulo(dividend, divisor);
+        } catch (Exception e) {
+            String message = String.format("modulo(%s, %s)", dividend, divisor);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Double modulo(Double dividend, Double divisor) {
+        try {
+            return DoubleUtil.modulo(dividend, divisor);
+        } catch (Exception e) {
+            String message = String.format("modulo(%s, %s)", dividend, divisor);
             logError(message, e);
             return null;
         }
@@ -440,7 +438,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     public Double sqrt(Double number) {
         try {
             return DoubleUtil.sqrt(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("sqrt(%s)", number);
             logError(message, e);
             return null;
@@ -451,7 +449,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     public Double log(Double number) {
         try {
             return DoubleUtil.log(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("log(%s)", number);
             logError(message, e);
             return null;
@@ -462,7 +460,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     public Double exp(Double number) {
         try {
             return DoubleUtil.exp(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("exp(%s)", number);
             logError(message, e);
             return null;
@@ -473,7 +471,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     public Boolean odd(Double number) {
         try {
             return DoubleUtil.odd(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("odd(%s)", number);
             logError(message, e);
             return null;
@@ -484,7 +482,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     public Boolean even(Double number) {
         try {
             return DoubleUtil.even(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("odd(%s)", number);
             logError(message, e);
             return null;
@@ -499,7 +497,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
         try {
             return min(Arrays.asList(args));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("min(%s)", args);
             logError(message, e);
             return null;
@@ -514,7 +512,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
         try {
             return max(Arrays.asList(args));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("max(%s)", args);
             logError(message, e);
             return null;
@@ -529,7 +527,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
         try {
             return sum(Arrays.asList(args));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("sum(%s)", args);
             logError(message, e);
             return null;
@@ -544,7 +542,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
         try {
             return DoubleUtil.mean(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("mean(%s)", list);
             logError(message, e);
             return null;
@@ -559,7 +557,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
         try {
             return mean(Arrays.asList(args));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("mean(%s)", args);
             logError(message, e);
             return null;
@@ -571,80 +569,52 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     //
     @Override
     public Boolean contains(String string, String match) {
-        return (string == null || match == null) ? null : string.contains(match);
+        return StringUtil.contains(string, match);
     }
 
     @Override
     public Boolean startsWith(String string, String match) {
-        return (string == null || match == null) ? null : string.startsWith(match);
+        return StringUtil.startsWith(string, match);
     }
 
     @Override
     public Boolean endsWith(String string, String match) {
-        return (string == null || match == null) ? null : string.endsWith(match);
+        return StringUtil.endsWith(string, match);
     }
 
     @Override
     public Double stringLength(String string) {
-        return string == null ? null : Double.valueOf(string.length());
+        return string == null ? null : Double.valueOf(StringUtil.stringLength(string));
     }
 
     @Override
     public String substring(String string, Double startPosition) {
-        return substring(string, startPosition.intValue());
-    }
-
-    private String substring(String string, int startPosition) {
-        if (startPosition < 0) {
-            startPosition = string.length() + startPosition;
-        } else {
-            --startPosition;
-        }
-        return string.substring(startPosition);
+        return StringUtil.substring(string, startPosition);
     }
 
     @Override
     public String substring(String string, Double startPosition, Double length) {
-        return substring(string, startPosition.intValue(), length.intValue());
-    }
-
-    private String substring(String string, int startPosition, int length) {
-        if (startPosition < 0) {
-            startPosition = string.length() + startPosition;
-        } else {
-            --startPosition;
-        }
-        return string.substring(startPosition, startPosition + length);
+        return StringUtil.substring(string, startPosition, length);
     }
 
     @Override
     public String upperCase(String string) {
-        return string == null ? null : string.toUpperCase();
+        return StringUtil.upperCase(string);
     }
 
     @Override
     public String lowerCase(String string) {
-        return string == null ? null : string.toLowerCase();
+        return StringUtil.lowerCase(string);
     }
 
     @Override
     public String substringBefore(String string, String match) {
-        if (string != null && match != null) {
-            int i = string.indexOf(match);
-            return i == -1 ? "" : string.substring(0, i);
-        } else {
-            return null;
-        }
+        return StringUtil.substringBefore(string, match);
     }
 
     @Override
     public String substringAfter(String string, String match) {
-        if (string != null && match != null) {
-            int i = string.indexOf(match);
-            return i == -1 ? "" : string.substring(i + match.length());
-        } else {
-            return null;
-        }
+        return StringUtil.substringAfter(string, match);
     }
 
     @Override
@@ -654,17 +624,9 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
     @Override
     public String replace(String input, String pattern, String replacement, String flags) {
-        if (input == null || pattern == null || replacement == null) {
-            return null;
-        }
-        if (flags == null) {
-            flags = "";
-        }
-
         try {
-            String expression = String.format("replace(/root, '%s', '%s', '%s')", pattern, replacement, flags);
-            return evaluateXPath(input, expression);
-        } catch (Throwable e) {
+            return StringUtil.replace(input, pattern, replacement, flags);
+        } catch (Exception e) {
             String message = String.format("replace(%s, %s, %s, %s)", input, pattern, replacement, flags);
             logError(message, e);
             return null;
@@ -678,18 +640,9 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
     @Override
     public Boolean matches(String input, String pattern, String flags) {
-        if (input == null || pattern == null) {
-            return false;
-        }
-        if (flags == null) {
-            flags = "";
-        }
-
         try {
-            String expression = String.format("/root[matches(., '%s', '%s')]", pattern, flags);
-            String value = evaluateXPath(input, expression);
-            return input.equals(value);
-        } catch (Throwable e) {
+            return StringUtil.matches(input, pattern, flags);
+        } catch (Exception e) {
             String message = String.format("matches(%s, %s, %s)", input, pattern, flags);
             logError(message, e);
             return null;
@@ -700,25 +653,11 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     public List split(String string, String delimiter) {
         try {
             return StringUtil.split(string, delimiter);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("split(%s, %s)", string, delimiter);
             logError(message, e);
             return null;
         }
-    }
-
-    private String evaluateXPath(String input, String expression) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
-        // Read document
-        String xml = "<root>" + input + "</root>";
-        DocumentBuilderFactory documentBuilderFactory = new DocumentBuilderFactoryImpl();
-        DocumentBuilder docBuilder = documentBuilderFactory.newDocumentBuilder();
-        InputStream inputStream = new ByteArrayInputStream(xml.getBytes());
-        Document document = docBuilder.parse(inputStream);
-
-        // Evaluate xpath
-        XPathFactory xPathFactory = new XPathFactoryImpl();
-        XPath xPath = xPathFactory.newXPath();
-        return xPath.evaluate(expression, document.getDocumentElement());
     }
 
     //
@@ -748,7 +687,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
             } else {
                 return null;
             }
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("and(%s)", list);
             logError(message, e);
             return null;
@@ -763,7 +702,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
         try {
             return all(Arrays.asList(args));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("and(%s)", args);
             logError(message, e);
             return null;
@@ -794,7 +733,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
             } else {
                 return null;
             }
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("or(%s)", list);
             logError(message, e);
             return null;
@@ -809,7 +748,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
         try {
             return any(Arrays.asList(args));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("or(%s)", args);
             logError(message, e);
             return null;
@@ -1008,7 +947,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     public Double min(List list) {
         try {
             return DoubleUtil.min(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("min(%s)", list);
             logError(message, e);
             return null;
@@ -1023,7 +962,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
         try {
             return DoubleUtil.max(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("max(%s)", list);
             logError(message, e);
             return null;
@@ -1034,7 +973,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     public Double sum(List list) {
         try {
             return DoubleUtil.sum(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("sum(%s)", list);
             logError(message, e);
             return null;
@@ -1209,7 +1148,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     public Double product(List list) {
         try {
             return DoubleUtil.product(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("product(%s)", list);
             logError(message, e);
             return null;
@@ -1224,7 +1163,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
         try {
             return product(Arrays.asList(numbers));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("sum(%s)", numbers);
             logError(message, e);
             return null;
@@ -1235,7 +1174,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     public Double median(List list) {
         try {
             return DoubleUtil.median(list);
-        } catch (Throwable e){
+        } catch (Exception e){
             String message = String.format("median(%s)", list);
             logError(message, e);
             return null;
@@ -1250,7 +1189,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
         try {
             return median(Arrays.asList(numbers));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("median(%s)", numbers);
             logError(message, e);
             return null;
@@ -1261,7 +1200,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     public Double stddev(List list) {
         try {
             return DoubleUtil.stddev(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("stddev(%s)", list);
             logError(message, e);
             return null;
@@ -1276,7 +1215,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
         try {
             return stddev(Arrays.asList(numbers));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("stddev(%s)", numbers);
             logError(message, e);
             return null;
@@ -1287,7 +1226,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     public List mode(List list) {
         try {
             return DoubleUtil.mode(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("mode(%s)", list);
             logError(message, e);
             return null;
@@ -1302,7 +1241,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
         try {
             return mode(Arrays.asList(numbers));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("mode(%s)", numbers);
             logError(message, e);
             return null;
