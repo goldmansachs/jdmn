@@ -113,6 +113,7 @@ public class BasicDMN2JavaTransformerTest {
         assertNull(dmnTransformer.escapeInString(null));
         assertEquals("", dmnTransformer.escapeInString(""));
         assertEquals("abc", dmnTransformer.escapeInString("abc"));
+        assertEquals("ab\\\"abc", dmnTransformer.escapeInString("ab\\\"abc"));
         assertEquals("ab\\\"abc", dmnTransformer.escapeInString("ab\"abc"));
         assertEquals("“£%$&3332", dmnTransformer.escapeInString("“£%$&3332"));
         assertEquals("ab\\\\dc", dmnTransformer.escapeInString("ab\\dc"));

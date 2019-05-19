@@ -1630,6 +1630,12 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "substring(\"abc\", number(\"3\"))",
                 lib.substring("abc", lib.number("3")),
                 "c");
+        doExpressionTest(entries, "", "split(\"John Doe\", \"\\s\")",
+                "FunctionInvocation(Name(split) -> PositionalParameters(StringLiteral(\"John Doe\"), StringLiteral(\"\\s\")))",
+                "ListType(string)",
+                "split(\"John Doe\", \"\\\\s\")",
+                lib.split("John Doe", "\\s"),
+                lib.asList("John", "Doe"));
         doExpressionTest(entries, "", "substring(string: \"abc\", 'start position': 3)",
                 "FunctionInvocation(Name(substring) -> NamedParameters(string : StringLiteral(\"abc\"), 'start position' : NumericLiteral(3)))",
                 "string",
@@ -1648,6 +1654,60 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "stringLength(\"abc\")",
                 lib.stringLength("abc"),
                 lib.number("3"));
+        doExpressionTest(entries, "", "string length(\"\\n\")",
+                "FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral(\"\\n\")))",
+                "number",
+                "stringLength(\"\\n\")",
+                lib.stringLength("\n"),
+                lib.number("1"));
+        doExpressionTest(entries, "", "string length(\"\\r\")",
+                "FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral(\"\\r\")))",
+                "number",
+                "stringLength(\"\\r\")",
+                lib.stringLength("\r"),
+                lib.number("1"));
+        doExpressionTest(entries, "", "string length(\"\\t\")",
+                "FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral(\"\\t\")))",
+                "number",
+                "stringLength(\"\\t\")",
+                lib.stringLength("\t"),
+                lib.number("1"));
+        doExpressionTest(entries, "", "string length(\"\\'\")",
+                "FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral(\"\\'\")))",
+                "number",
+                "stringLength(\"\\'\")",
+                lib.stringLength("\'"),
+                lib.number("1"));
+        doExpressionTest(entries, "", "string length(\"\\\"\")",
+                "FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral(\"\\\"\")))",
+                "number",
+                "stringLength(\"\\\"\")",
+                lib.stringLength("\""),
+                lib.number("1"));
+        doExpressionTest(entries, "", "string length(\"\\\\\")",
+                "FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral(\"\\\\\")))",
+                "number",
+                "stringLength(\"\\\\\")",
+                lib.stringLength("\\"),
+                lib.number("1"));
+        doExpressionTest(entries, "", "string length(\"\u0009\")",
+                "FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral(\"\t\")))",
+                "number",
+                "stringLength(\"\\t\")",
+                lib.stringLength("\t"),
+                lib.number("1"));
+        doExpressionTest(entries, "", "string length(\"\\\\u0009\")",
+                "FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral(\"\\\\u0009\")))",
+                "number",
+                "stringLength(\"\\\\u0009\")",
+                lib.stringLength("\\u0009"),
+                lib.number("6"));
+        doExpressionTest(entries, "", "string length(\"\\uD83D\\uDCA9\")",
+                "FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral(\"\\uD83D\\uDCA9\")))",
+                "number",
+                "stringLength(\"\\uD83D\\uDCA9\")",
+                lib.stringLength("\uD83D\uDCA9"),
+                lib.number("2"));
         doExpressionTest(entries, "", "upper case(\"abc\")",
                 "FunctionInvocation(Name(upper case) -> PositionalParameters(StringLiteral(\"abc\")))",
                 "string",
@@ -1684,6 +1744,12 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "replace(\"abc\", \"b\", \"d\")",
                 lib.replace("abc", "b", "d"),
                 "adc");
+        doExpressionTest(entries, "", "replace(\"0123456789\",\"(\\d{3})(\\d{3})(\\d{4})\",\"($1) $2-$3\")",
+                "FunctionInvocation(Name(replace) -> PositionalParameters(StringLiteral(\"0123456789\"), StringLiteral(\"(\\d{3})(\\d{3})(\\d{4})\"), StringLiteral(\"($1) $2-$3\")))",
+                "string",
+                "replace(\"0123456789\", \"(\\\\d{3})(\\\\d{3})(\\\\d{4})\", \"($1) $2-$3\")",
+                lib.replace("0123456789", "(\\d{3})(\\d{3})(\\d{4})", "($1) $2-$3"),
+                "(012) 345-6789");
         doExpressionTest(entries, "", "contains(\"abc\", \"a\")",
                 "FunctionInvocation(Name(contains) -> PositionalParameters(StringLiteral(\"abc\"), StringLiteral(\"a\")))",
                 "boolean",
@@ -1714,6 +1780,12 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "matches(\"abc\", \"abc\")",
                 lib.matches("abc", "abc"),
                 true);
+        doExpressionTest(entries, "", "matches(\"?\", \"\\p{Nd}+\")",
+                "FunctionInvocation(Name(matches) -> PositionalParameters(StringLiteral(\"?\"), StringLiteral(\"\\p{Nd}+\")))",
+                "boolean",
+                "matches(\"?\", \"\\\\p{Nd}+\")",
+                lib.matches("?", "\\p{Nd}+"),
+                false);
     }
 
     @Test
