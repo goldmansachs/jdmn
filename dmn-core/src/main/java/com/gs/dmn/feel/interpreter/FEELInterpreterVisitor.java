@@ -36,6 +36,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.feel.lib.FEELLib;
+import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.feel.lib.StringUtil;
 import com.gs.dmn.feel.synthesis.AbstractFEELToJavaVisitor;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
@@ -1097,8 +1098,9 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(StringLiteral element, FEELContext context) {
-        String value = element.getLexeme();
-        return StringUtil.stripQuotes(value);
+        String lexeme = element.getLexeme();
+        String value = StringEscapeUtil.unescapeFEEL(lexeme);
+        return value;
     }
 
     @Override

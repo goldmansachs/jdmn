@@ -72,20 +72,38 @@ public class StringUtil {
         } else {
             --start;
         }
-        return string.substring(start);
+
+        int[] cps = string.codePoints().toArray();
+        int end = cps.length;
+        String result = appendCodePoints(cps, start, end);
+        return result;
     }
 
     public static String substring(String string, Number startPosition, Number length) {
         if (string == null || startPosition == null || length == null) {
             return null;
         }
+
         int start = startPosition.intValue();
         if (start < 0) {
             start = string.length() + start;
         } else {
             --start;
         }
-        return string.substring(start, start + length.intValue());
+        int[] cps = string.codePoints().toArray();
+        int end = start + length.intValue();
+        String result = appendCodePoints(cps, start, end);
+        return result;
+    }
+
+    private static String appendCodePoints(int[] cps, int start, int end) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < cps.length; i++) {
+            if (i >= start && i < end) {
+                result.appendCodePoint(cps[i]);
+            }
+        }
+        return result.toString();
     }
 
     public static String upperCase(String string) {
@@ -188,7 +206,7 @@ public class StringUtil {
     }
 
     public static String stripQuotes(String value) {
-        if (StringUtils.isEmpty(value) && !value.startsWith("\"")) {
+        if (StringUtils.isEmpty(value) || !value.startsWith("\"")) {
             return value;
         }
         return value.substring(1, value.length() - 1);

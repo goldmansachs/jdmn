@@ -18,10 +18,58 @@ import static org.junit.Assert.*;
 
 public class StringEscapeUtilTest {
     @Test
+    public void testUnescapeFEEL() {
+        assertNull(StringEscapeUtil.unescapeFEEL(null));
+        assertEquals("", StringEscapeUtil.unescapeFEEL(""));
+
+        assertEquals("abc", StringEscapeUtil.unescapeFEEL("abc"));
+
+        assertEquals("\n", StringEscapeUtil.unescapeFEEL("\\n"));
+        assertEquals("\r", StringEscapeUtil.unescapeFEEL("\\r"));
+        assertEquals("\t", StringEscapeUtil.unescapeFEEL("\\t"));
+        assertEquals("\'", StringEscapeUtil.unescapeFEEL("\\'"));
+        assertEquals("\"", StringEscapeUtil.unescapeFEEL("\\\""));
+        assertEquals("\\", StringEscapeUtil.unescapeFEEL("\\\\"));
+
+        assertEquals("\t", StringEscapeUtil.unescapeFEEL("\\u0009"));
+        assertEquals("\\u0009", StringEscapeUtil.unescapeFEEL("\\\\u0009"));
+
+        assertEquals("\uD83D\uDCA9", StringEscapeUtil.unescapeFEEL("\\uD83D\\uDCA9"));
+        assertEquals("\ud83d\udca9", StringEscapeUtil.unescapeFEEL("\\ud83d\\udca9"));
+        assertEquals("\ud83d\udc0e\uD83D\uDE00", StringEscapeUtil.unescapeFEEL("\\ud83d\\udc0e\\uD83D\\uDE00"));
+        assertEquals("🐎😀", StringEscapeUtil.unescapeFEEL("🐎😀"));
+    }
+
+    @Test
+    public void testEscapeFEEL() {
+        assertNull(StringEscapeUtil.escapeFEEL(null));
+        assertEquals("", StringEscapeUtil.escapeFEEL(""));
+
+        assertEquals("abc", StringEscapeUtil.escapeFEEL("abc"));
+
+        assertEquals("\\n", StringEscapeUtil.escapeFEEL("\n"));
+        assertEquals("\\r", StringEscapeUtil.escapeFEEL("\r"));
+        assertEquals("\\t", StringEscapeUtil.escapeFEEL("\t"));
+        assertEquals("\\'", StringEscapeUtil.escapeFEEL("\'"));
+        assertEquals("\\\"", StringEscapeUtil.escapeFEEL("\""));
+        assertEquals("\\\\", StringEscapeUtil.escapeFEEL("\\"));
+
+        assertEquals("\\t", StringEscapeUtil.escapeFEEL("\u0009"));
+        assertEquals("\\\\u0009", StringEscapeUtil.escapeFEEL("\\u0009"));
+
+        assertEquals("\\uD83D\\uDCA9", StringEscapeUtil.escapeFEEL("\uD83D\uDCA9"));
+        assertEquals("\\uD83D\\uDCA9", StringEscapeUtil.escapeFEEL("\ud83d\udca9"));
+        assertEquals("\\uD83D\\uDC0E\\uD83D\\uDE00", StringEscapeUtil.escapeFEEL("\ud83d\udc0e\uD83D\uDE00"));
+        assertEquals("\\uD83D\\uDC0E\\uD83D\\uDE00", StringEscapeUtil.escapeFEEL("🐎😀"));
+    }
+
+    @Test
     public void testEscapeInString() {
         assertNull(StringEscapeUtil.escapeInString(null));
         assertEquals("", StringEscapeUtil.escapeInString(""));
+
         assertEquals("abc", StringEscapeUtil.escapeInString("abc"));
+        assertEquals("ab\\\"abc", StringEscapeUtil.escapeInString("ab\\\"abc"));
         assertEquals("ab\\\"abc", StringEscapeUtil.escapeInString("ab\"abc"));
         assertEquals("“£%$&3332", StringEscapeUtil.escapeInString("“£%$&3332"));
         assertEquals("ab\\\\dc", StringEscapeUtil.escapeInString("ab\\dc"));
