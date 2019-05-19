@@ -1675,7 +1675,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
         doExpressionTest(entries, "", "string length(\"\\'\")",
                 "FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral(\"\\'\")))",
                 "number",
-                "stringLength(\"\\'\")",
+                "stringLength(\"'\")",
                 lib.stringLength("\'"),
                 lib.number("1"));
         doExpressionTest(entries, "", "string length(\"\\\"\")",

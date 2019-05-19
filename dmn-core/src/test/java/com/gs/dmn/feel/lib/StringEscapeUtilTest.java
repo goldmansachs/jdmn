@@ -50,7 +50,7 @@ public class StringEscapeUtilTest {
         assertEquals("\\n", StringEscapeUtil.escapeFEEL("\n"));
         assertEquals("\\r", StringEscapeUtil.escapeFEEL("\r"));
         assertEquals("\\t", StringEscapeUtil.escapeFEEL("\t"));
-        assertEquals("\\'", StringEscapeUtil.escapeFEEL("\'"));
+        assertEquals("'", StringEscapeUtil.escapeFEEL("\'"));
         assertEquals("\\\"", StringEscapeUtil.escapeFEEL("\""));
         assertEquals("\\\\", StringEscapeUtil.escapeFEEL("\\"));
 
