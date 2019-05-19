@@ -31,7 +31,7 @@ public class ToSimpleNameTransformerTest extends NameTransformerTest {
     }
 
     @Test
-    public void testQuotedNames() {
+    public void testTransformName() {
         ToSimpleNameTransformer transformer = (ToSimpleNameTransformer) getTransformer();
 
         // Transform first name
@@ -42,6 +42,9 @@ public class ToSimpleNameTransformerTest extends NameTransformerTest {
         String secondName = transformer.transformName("abc?x");
         assertEquals("abcX_1", secondName);
 
+        // Transform names with unicode
+        String result = transformer.transformName("a \uD83D\uDC0E bc");
+        assertEquals("aBc", result);
     }
 
     @Test
@@ -65,6 +68,12 @@ public class ToSimpleNameTransformerTest extends NameTransformerTest {
 
         result = transformer.replaceNamesInText("{a: 1 + 2, b: 3, c: {d e: a + b}}", new LexicalContext());
         assertEquals("{a: 1 + 2, b: 3, c: {dE: a + b}}", result);
+
+        result = transformer.replaceNamesInText("[1,2,{a: [3,4]}] = [1,2,{a: [3,4], b: \"foo\"}]", new LexicalContext());
+        assertEquals("[1,2,{a: [3,4]}] = [1,2,{a: [3,4], b: \"foo\"}]", result);
+
+        result = new ToSimpleNameTransformer().replaceNamesInText("{\uD83D\uDC0E: \"bar\"}", new LexicalContext());
+        assertEquals("{_: \"bar\"}", result);
 
         String text = "function(s1, s2) external {java:{class:\"java.lang.Math\",method signature:\"max(java.lang.String, java.lang.String)\"}}";
         LexicalContext context = new LexicalContext("mathMaxString");

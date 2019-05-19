@@ -352,7 +352,7 @@ public class ASTFactory {
                 functionName = ((QualifiedName) function).getQualifiedName();
             }
             StringLiteral stringLiteral = (StringLiteral) ((PositionalParameters) parameters).getParameters().get(0);
-            return new DateTimeLiteral(functionName, stringLiteral.getValue());
+            return new DateTimeLiteral(functionName, stringLiteral.getLexeme());
         } else {
             return new FunctionInvocation(function, parameters);
         }

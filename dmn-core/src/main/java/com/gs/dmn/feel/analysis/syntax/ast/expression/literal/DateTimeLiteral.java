@@ -47,15 +47,15 @@ public class DateTimeLiteral extends SimpleLiteral {
         } else if (DateTimeType.DATE_AND_TIME.hasConversionFunction(conversionFunction)) {
             this.setType(DateTimeType.DATE_AND_TIME);
         } else if (DurationType.CONVERSION_FUNCTION.equals(conversionFunction)) {
-            if (isYearsAndMonthsDuration(getValue())) {
+            if (isYearsAndMonthsDuration(getLexeme())) {
                 this.setType(DurationType.YEARS_AND_MONTHS_DURATION);
-            } else if (isDaysAndTimeDuration(getValue())) {
+            } else if (isDaysAndTimeDuration(getLexeme())) {
                 this.setType(DurationType.DAYS_AND_TIME_DURATION);
             } else {
-                throw new SemanticError(this, String.format("Cannot convert duration '%s(%s)'", conversionFunction, getValue()));
+                throw new SemanticError(this, String.format("Cannot convert duration '%s(%s)'", conversionFunction, getLexeme()));
             }
         } else {
-            throw new SemanticError(this, String.format("Cannot convert date time literal '%s(%s)'", conversionFunction, getValue()));
+            throw new SemanticError(this, String.format("Cannot convert date time literal '%s(%s)'", conversionFunction, getLexeme()));
         }
     }
 
@@ -74,7 +74,7 @@ public class DateTimeLiteral extends SimpleLiteral {
 
     @Override
     public String toString() {
-        return String.format("DateTimeLiteral(%s, %s)", conversionFunction, getValue());
+        return String.format("DateTimeLiteral(%s, %s)", conversionFunction, getLexeme());
     }
 
 }

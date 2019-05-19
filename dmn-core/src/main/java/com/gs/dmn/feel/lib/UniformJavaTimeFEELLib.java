@@ -22,23 +22,10 @@ import com.gs.dmn.feel.lib.type.time.uniform.ZonedDateType;
 import com.gs.dmn.feel.lib.type.time.uniform.ZonedTimeType;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationType;
 import com.gs.dmn.runtime.LambdaExpression;
-import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
-import net.sf.saxon.xpath.XPathFactoryImpl;
 import org.apache.commons.lang3.StringUtils;
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.*;
 import java.util.ArrayList;
@@ -74,7 +61,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
         try {
             return new BigDecimal(literal, DefaultNumericType.MATH_CONTEXT);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("number(%s)", literal);
             logError(message, e);
             return null;
@@ -107,7 +94,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
                 from = from.replaceAll(decimalSeparator, ".");
             }
             return number(from);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("number(%s, %s, %s)", from, groupingSeparator, decimalSeparator);
             logError(message, e);
             return null;
@@ -208,7 +195,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
                 // Make ZonedDateTime
                 return ZonedDateTime.of(LocalDateTime.of(LocalDate.MIN, offsetTime.toLocalTime()), DateTimeUtil.UTC);
             }
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("time(%s, %s, %s, %s)", hour, minute, second, offset);
             logError(message, e);
             return null;
@@ -250,7 +237,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
                     date.getYear(), date.getMonth().getValue(), date.getDayOfMonth(),
                     time.getHour(), time.getMinute(), time.getSecond(), time.getNano(), time.getZone()
             );
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("dateAndTime(%s, %s)", date, time);
             logError(message, e);
             return null;
@@ -265,7 +252,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
         try {
             return DATA_TYPE_FACTORY.newDuration(from);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("duration(%s)", from);
             logError(message, e);
             return null;
@@ -280,7 +267,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
         try {
             return DateTimeUtil.toYearsMonthDuration(DATA_TYPE_FACTORY, to.toLocalDate(), from.toLocalDate());
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
             logError(message, e);
             return null;
@@ -294,7 +281,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
         try {
             return ZonedDateTime.parse(literal, DateTimeUtil.FEEL_DATE_TIME_FORMAT);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("makeXMLCalendar(%s)", literal);
             logError(message, e);
             return null;
@@ -308,7 +295,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
         try {
             return DateTimeUtil.makeDateTime(literal);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("makeDateTime(%s)", literal);
             logError(message, e);
             return null;
@@ -332,7 +319,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     public BigDecimal decimal(BigDecimal n, BigDecimal scale) {
         try {
             return BigDecimalUtil.decimal(n, scale);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("decimal(%s, %s)", n, scale);
             logError(message, e);
             return null;
@@ -343,7 +330,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     public BigDecimal floor(BigDecimal number) {
         try {
             return BigDecimalUtil.floor(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("fllor(%s)", number);
             logError(message, e);
             return null;
@@ -354,7 +341,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     public BigDecimal ceiling(BigDecimal number) {
         try {
             return BigDecimalUtil.ceiling(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("ceiling(%s)", number);
             logError(message, e);
             return null;
@@ -365,7 +352,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     public BigDecimal abs(BigDecimal number) {
         try {
             return BigDecimalUtil.abs(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("abs(%s)", number);
             logError(message, e);
             return null;
@@ -373,11 +360,22 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     }
 
     @Override
-    public BigDecimal modulo(BigDecimal divident, BigDecimal divisor) {
+    public BigDecimal intModulo(BigDecimal dividend, BigDecimal divisor) {
         try {
-            return BigDecimalUtil.modulo(divident, divisor);
-        } catch (Throwable e) {
-            String message = String.format("modulo(%s, %s)", divident, divisor);
+            return BigDecimalUtil.intModulo(dividend, divisor);
+        } catch (Exception e) {
+            String message = String.format("modulo(%s, %s)", dividend, divisor);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public BigDecimal modulo(BigDecimal dividend, BigDecimal divisor) {
+        try {
+            return BigDecimalUtil.modulo(dividend, divisor);
+        } catch (Exception e) {
+            String message = String.format("modulo(%s, %s)", dividend, divisor);
             logError(message, e);
             return null;
         }
@@ -387,7 +385,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     public BigDecimal sqrt(BigDecimal number) {
         try {
             return BigDecimalUtil.sqrt(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("sqrt(%s)", number);
             logError(message, e);
             return null;
@@ -398,7 +396,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     public BigDecimal log(BigDecimal number) {
         try {
             return BigDecimalUtil.log(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("log(%s)", number);
             logError(message, e);
             return null;
@@ -409,7 +407,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     public BigDecimal exp(BigDecimal number) {
         try {
             return BigDecimalUtil.exp(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("exp(%s)", number);
             logError(message, e);
             return null;
@@ -420,7 +418,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     public Boolean odd(BigDecimal number) {
         try {
             return BigDecimalUtil.odd(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("odd(%s)", number);
             logError(message, e);
             return null;
@@ -431,7 +429,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     public Boolean even(BigDecimal number) {
         try {
             return BigDecimalUtil.even(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("odd(%s)", number);
             logError(message, e);
             return null;
@@ -446,7 +444,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
         try {
             return min(Arrays.asList(args));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("min(%s)", args);
             logError(message, e);
             return null;
@@ -461,7 +459,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
         try {
             return max(Arrays.asList(args));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("max(%s)", args);
             logError(message, e);
             return null;
@@ -476,7 +474,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
         try {
             return sum(Arrays.asList(args));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("sum(%s)", args);
             logError(message, e);
             return null;
@@ -487,7 +485,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     public BigDecimal mean(List list) {
         try {
             return BigDecimalUtil.mean(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("mean(%s)", list);
             logError(message, e);
             return null;
@@ -502,7 +500,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
         try {
             return mean(Arrays.asList(args));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("mean(%s)", args);
             logError(message, e);
             return null;
@@ -514,80 +512,52 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     //
     @Override
     public Boolean contains(String string, String match) {
-        return (string == null || match == null) ? null : string.contains(match);
+        return StringUtil.contains(string, match);
     }
 
     @Override
     public Boolean startsWith(String string, String match) {
-        return (string == null || match == null) ? null : string.startsWith(match);
+        return StringUtil.startsWith(string, match);
     }
 
     @Override
     public Boolean endsWith(String string, String match) {
-        return (string == null || match == null) ? null : string.endsWith(match);
+        return StringUtil.endsWith(string, match);
     }
 
     @Override
     public BigDecimal stringLength(String string) {
-        return string == null ? null : BigDecimal.valueOf(string.length());
+        return string == null ? null : BigDecimal.valueOf(StringUtil.stringLength(string));
     }
 
     @Override
     public String substring(String string, BigDecimal startPosition) {
-        return substring(string, startPosition.intValue());
-    }
-
-    private String substring(String string, int startPosition) {
-        if (startPosition < 0) {
-            startPosition = string.length() + startPosition;
-        } else {
-            --startPosition;
-        }
-        return string.substring(startPosition);
+        return StringUtil.substring(string, startPosition);
     }
 
     @Override
     public String substring(String string, BigDecimal startPosition, BigDecimal length) {
-        return substring(string, startPosition.intValue(), length.intValue());
-    }
-
-    private String substring(String string, int startPosition, int length) {
-        if (startPosition < 0) {
-            startPosition = string.length() + startPosition;
-        } else {
-            --startPosition;
-        }
-        return string.substring(startPosition, startPosition + length);
+        return StringUtil.substring(string, startPosition, length);
     }
 
     @Override
     public String upperCase(String string) {
-        return string == null ? null : string.toUpperCase();
+        return StringUtil.upperCase(string);
     }
 
     @Override
     public String lowerCase(String string) {
-        return string == null ? null : string.toLowerCase();
+        return StringUtil.lowerCase(string);
     }
 
     @Override
     public String substringBefore(String string, String match) {
-        if (string != null && match != null) {
-            int i = string.indexOf(match);
-            return i == -1 ? "" : string.substring(0, i);
-        } else {
-            return null;
-        }
+        return StringUtil.substringBefore(string, match);
     }
 
     @Override
     public String substringAfter(String string, String match) {
-        if (string != null && match != null) {
-            int i = string.indexOf(match);
-            return i == -1 ? "" : string.substring(i + match.length());
-        } else {
-            return null;
-        }
+        return StringUtil.substringAfter(string, match);
     }
 
     @Override
@@ -597,17 +567,9 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
     @Override
     public String replace(String input, String pattern, String replacement, String flags) {
-        if (input == null || pattern == null || replacement == null) {
-            return null;
-        }
-        if (flags == null) {
-            flags = "";
-        }
-
         try {
-            String expression = String.format("replace(/root, '%s', '%s', '%s')", pattern, replacement, flags);
-            return evaluateXPath(input, expression);
-        } catch (Throwable e) {
+            return StringUtil.replace(input, pattern, replacement, flags);
+        } catch (Exception e) {
             String message = String.format("replace(%s, %s, %s, %s)", input, pattern, replacement, flags);
             logError(message, e);
             return null;
@@ -621,18 +583,9 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
     @Override
     public Boolean matches(String input, String pattern, String flags) {
-        if (input == null || pattern == null) {
-            return false;
-        }
-        if (flags == null) {
-            flags = "";
-        }
-
         try {
-            String expression = String.format("/root[matches(., '%s', '%s')]", pattern, flags);
-            String value = evaluateXPath(input, expression);
-            return input.equals(value);
-        } catch (Throwable e) {
+            return StringUtil.matches(input, pattern, flags);
+        } catch (Exception e) {
             String message = String.format("matches(%s, %s, %s)", input, pattern, flags);
             logError(message, e);
             return null;
@@ -643,25 +596,11 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     public List split(String string, String delimiter) {
         try {
             return StringUtil.split(string, delimiter);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("split(%s, %s)", string, delimiter);
             logError(message, e);
             return null;
         }
-    }
-
-    private String evaluateXPath(String input, String expression) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
-        // Read document
-        String xml = "<root>" + input + "</root>";
-        DocumentBuilderFactory documentBuilderFactory = new DocumentBuilderFactoryImpl();
-        DocumentBuilder docBuilder = documentBuilderFactory.newDocumentBuilder();
-        InputStream inputStream = new ByteArrayInputStream(xml.getBytes());
-        Document document = docBuilder.parse(inputStream);
-
-        // Evaluate xpath
-        XPathFactory xPathFactory = new XPathFactoryImpl();
-        XPath xPath = xPathFactory.newXPath();
-        return xPath.evaluate(expression, document.getDocumentElement());
     }
 
     //
@@ -691,7 +630,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
             } else {
                 return null;
             }
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("and(%s)", list);
             logError(message, e);
             return null;
@@ -706,7 +645,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
         try {
             return all(Arrays.asList(args));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("and(%s)", args);
             logError(message, e);
             return null;
@@ -737,7 +676,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
             } else {
                 return null;
             }
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("or(%s)", list);
             logError(message, e);
             return null;
@@ -752,7 +691,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
         try {
             return any(Arrays.asList(args));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("or(%s)", args);
             logError(message, e);
             return null;
@@ -896,7 +835,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     public BigDecimal min(List list) {
         try {
             return BigDecimalUtil.min(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("min(%s)", list);
             logError(message, e);
             return null;
@@ -907,7 +846,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     public BigDecimal max(List list) {
         try {
             return BigDecimalUtil.max(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("max(%s)", list);
             logError(message, e);
             return null;
@@ -918,7 +857,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     public BigDecimal sum(List list) {
         try {
             return BigDecimalUtil.sum(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("sum(%s)", list);
             logError(message, e);
             return null;
@@ -1093,7 +1032,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     public BigDecimal product(List list) {
         try {
             return BigDecimalUtil.product(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("product(%s)", list);
             logError(message, e);
             return null;
@@ -1108,7 +1047,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
         try {
             return product(Arrays.asList(numbers));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("sum(%s)", numbers);
             logError(message, e);
             return null;
@@ -1119,7 +1058,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     public BigDecimal median(List list) {
         try {
             return BigDecimalUtil.median(list);
-        } catch (Throwable e){
+        } catch (Exception e){
             String message = String.format("median(%s)", list);
             logError(message, e);
             return null;
@@ -1134,7 +1073,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
         try {
             return median(Arrays.asList(numbers));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("median(%s)", numbers);
             logError(message, e);
             return null;
@@ -1145,7 +1084,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     public BigDecimal stddev(List list) {
         try {
             return BigDecimalUtil.stddev(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("stddev(%s)", list);
             logError(message, e);
             return null;
@@ -1160,7 +1099,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
         try {
             return stddev(Arrays.asList(numbers));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("stddev(%s)", numbers);
             logError(message, e);
             return null;
@@ -1171,7 +1110,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     public List mode(List list) {
         try {
             return BigDecimalUtil.mode(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("mode(%s)", list);
             logError(message, e);
             return null;
@@ -1186,7 +1125,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
         try {
             return mode(Arrays.asList(numbers));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("mode(%s)", numbers);
             logError(message, e);
             return null;

@@ -22,6 +22,9 @@ public class ListType extends Type {
     public static final Type DATE_LIST = new ListType(DateType.DATE);
     public static final Type TIME_LIST = new ListType(TimeType.TIME);
     public static final Type DATE_AND_TIME_LIST = new ListType(DateTimeType.DATE_AND_TIME);
+    public static final Type DAYS_AND_TIME_DURATION_LIST = new ListType(DurationType.DAYS_AND_TIME_DURATION);
+    public static final Type YEARS_AND_MONTHS_DURATION_LIST = new ListType(DurationType.YEARS_AND_MONTHS_DURATION);
+    public static final Type CONTEXT_LIST = new ListType(ContextType.ANY_CONTEXT);
 
     private final Type elementType;
 

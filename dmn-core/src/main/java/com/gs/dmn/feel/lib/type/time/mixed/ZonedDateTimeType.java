@@ -72,7 +72,7 @@ public class ZonedDateTimeType extends JavaTimeCalendarType implements DateTimeT
 
         try {
             return toDuration(first, second);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("dateTimeSubtract(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -90,7 +90,7 @@ public class ZonedDateTimeType extends JavaTimeCalendarType implements DateTimeT
                     .plus(toTemporalPeriod(duration))
                     .plus(toTemporalDuration(duration))
                     ;
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("dateTimeSubtract(%s, %s)", dateTime, duration);
             logError(message, e);
             return null;
@@ -108,7 +108,7 @@ public class ZonedDateTimeType extends JavaTimeCalendarType implements DateTimeT
                     .minus(toTemporalPeriod(duration))
                     .minus(toTemporalDuration(duration))
                     ;
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("dateTimeSubtract(%s, %s)", dateTime, duration);
             logError(message, e);
             return null;

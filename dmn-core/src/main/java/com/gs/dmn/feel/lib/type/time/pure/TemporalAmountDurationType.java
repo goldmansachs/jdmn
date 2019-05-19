@@ -114,7 +114,7 @@ public class TemporalAmountDurationType extends BaseType implements DurationType
 
         try {
             return plus(first, second);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("durationAdd(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -129,7 +129,7 @@ public class TemporalAmountDurationType extends BaseType implements DurationType
 
         try {
             return minus(first, second);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("durationSubtract(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -144,7 +144,7 @@ public class TemporalAmountDurationType extends BaseType implements DurationType
 
         try {
             return multiply(first, second.intValue());
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("durationMultiply(%s, %s)", first, second);
             logError(message, e);
             return null;
@@ -159,7 +159,7 @@ public class TemporalAmountDurationType extends BaseType implements DurationType
 
         try {
             return divide(first, second.intValue());
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("durationDivide(%s, %s)", first, second);
             logError(message, e);
             return null;

@@ -27,10 +27,7 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
@@ -55,6 +52,9 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         put("insert before", "insertBefore");
         put("index of", "indexOf");
         put("distinct values", "distinctValues");
+
+        put("get entries", "getEntries");
+        put("get value", "getValue");
     }};
 
     public AbstractFEELToJavaVisitor(BasicDMN2JavaTransformer dmnTransformer) {
@@ -90,6 +90,9 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
             return String.format("%s(%s)", javaMemberFunctionName(memberName), source);
         } else if (sourceType instanceof DurationType) {
             return String.format("%s(%s)", javaMemberFunctionName(memberName), source);
+        } else if (sourceType instanceof AnyType) {
+            // source is Context
+            return String.format("((%s)(%s)).get(\"%s\", asList())", dmnTransformer.contextClassName(), source, memberName);
         } else {
             throw new SemanticError(element, String.format("Cannot generate navigation path '%s'", element.toString()));
         }
@@ -164,7 +167,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
 
     protected Object dateTimeLiteralToJava(DateTimeLiteral element) {
         Type type = element.getType();
-        String value = element.getValue();
+        String value = element.getLexeme();
         if (type == DATE) {
             return String.format("date(%s)", value);
         } else if (type == TIME) {

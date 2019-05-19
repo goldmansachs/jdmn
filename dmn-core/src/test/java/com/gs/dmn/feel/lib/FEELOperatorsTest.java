@@ -235,7 +235,6 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
 
         assertTrue(getLib().timeEqual(makeTime("12:00:00"), makeTime("12:00:00")));
         assertTrue(getLib().timeEqual(makeTime("12:00:00+00:00"), makeTime("12:00:00+00:00")));
-        assertTrue(getLib().timeEqual(makeTime("12:00:00"), makeTime("12:00:00+00:00")));
         assertTrue(getLib().timeEqual(makeTime("12:00:00Z"), makeTime("12:00:00+00:00")));
     }
 
@@ -320,7 +319,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertFalse(getLib().dateTimeEqual(null, makeDateAndTime("2016-08-01T11:00:00Z")));
         assertFalse(getLib().dateTimeEqual(makeDateAndTime("2016-08-01T11:00:00Z"), null));
         assertTrue(getLib().dateTimeEqual(makeDateAndTime("2016-08-01T11:00:00Z"), makeDateAndTime("2016-08-01T11:00:00Z")));
-        assertFalse(getLib().dateTimeEqual(makeDateAndTime("2016-08-01T11:00:00Z"), makeDateAndTime("2016-08-01T11:00:01")));
+        assertFalse(getLib().dateTimeEqual(makeDateAndTime("2016-08-01T11:00:00Z"), makeDateAndTime("2016-08-01T11:00:01Z")));
     }
 
     @Test
@@ -329,7 +328,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertTrue(getLib().dateTimeNotEqual(null, makeDateAndTime("2016-08-01T11:00:00Z")));
         assertTrue(getLib().dateTimeNotEqual(makeDateAndTime("2016-08-01T11:00:00Z"), null));
         assertFalse(getLib().dateTimeNotEqual(makeDateAndTime("2016-08-01T11:00:00Z"), makeDateAndTime("2016-08-01T11:00:00Z")));
-        assertTrue(getLib().dateTimeNotEqual(makeDateAndTime("2016-08-01T11:00:00Z"), makeDateAndTime("2016-08-01T11:00:01")));
+        assertTrue(getLib().dateTimeNotEqual(makeDateAndTime("2016-08-01T11:00:00Z"), makeDateAndTime("2016-08-01T11:00:01Z")));
     }
 
     @Test
@@ -338,7 +337,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertNull(getLib().dateTimeLessThan(null, makeDateAndTime("2016-08-01T11:00:00Z")));
         assertNull(getLib().dateTimeLessThan(makeDateAndTime("2016-08-01T11:00:00Z"), null));
         assertFalse(getLib().dateTimeLessThan(makeDateAndTime("2016-08-01T11:00:00Z"), makeDateAndTime("2016-08-01T11:00:00Z")));
-        assertTrue(getLib().dateTimeLessThan(makeDateAndTime("2016-08-01T11:00:00Z"), makeDateAndTime("2017-08-01T11:00:01")));
+        assertTrue(getLib().dateTimeLessThan(makeDateAndTime("2016-08-01T11:00:00Z"), makeDateAndTime("2017-08-01T11:00:01Z")));
     }
 
     @Test

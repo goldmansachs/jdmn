@@ -36,6 +36,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Disjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
+import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.interpreter.Arguments;
 import com.gs.dmn.runtime.interpreter.NamedArguments;
@@ -536,17 +537,21 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     //
     @Override
     public Object visit(NumericLiteral element, FEELContext context) {
-        return String.format("number(\"%s\")", element.getValue());
+        return String.format("number(\"%s\")", element.getLexeme());
     }
 
     @Override
     public Object visit(StringLiteral element, FEELContext context) {
-        return String.format("%s", dmnTransformer.escapeInString(element.getValue()));
+        String lexeme = element.getLexeme();
+        String value = StringEscapeUtil.unescapeFEEL(lexeme);
+        value = StringEscapeUtil.escapeFEEL(value);
+        value = String.format("\"%s\"", value);
+        return value;
     }
 
     @Override
     public Object visit(BooleanLiteral element, FEELContext context) {
-        String value = element.getValue();
+        String value = element.getLexeme();
         return "true".equals(value) ? "Boolean.TRUE" : "Boolean.FALSE";
     }
 

@@ -19,29 +19,15 @@ import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
 import com.gs.dmn.feel.lib.type.time.xml.*;
 import com.gs.dmn.runtime.LambdaExpression;
-import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
-import net.sf.saxon.xpath.XPathFactoryImpl;
 import org.apache.commons.lang3.StringUtils;
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.*;
 
 public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> implements StandardFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
@@ -72,7 +58,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
 
         try {
             return new BigDecimal(literal, DefaultNumericType.MATH_CONTEXT);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("number(%s)", literal);
             logError(message, e);
             return null;
@@ -84,10 +70,10 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
         if (StringUtils.isBlank(from)) {
             return null;
         }
-        if (! (" ".equals(groupingSeparator) || ".".equals(groupingSeparator) || ",".equals(groupingSeparator) || null == groupingSeparator)) {
+        if (!(" ".equals(groupingSeparator) || ".".equals(groupingSeparator) || ",".equals(groupingSeparator) || null == groupingSeparator)) {
             return null;
         }
-        if (! (".".equals(decimalSeparator) || ",".equals(decimalSeparator) || null == decimalSeparator)) {
+        if (!(".".equals(decimalSeparator) || ",".equals(decimalSeparator) || null == decimalSeparator)) {
             return null;
         }
         if (groupingSeparator != null && groupingSeparator.equals(decimalSeparator)) {
@@ -105,7 +91,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
                 from = from.replaceAll(decimalSeparator, ".");
             }
             return number(from);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("number(%s, %s, %s)", from, groupingSeparator, decimalSeparator);
             logError(message, e);
             return null;
@@ -129,17 +115,14 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
         if (StringUtils.isBlank(literal)) {
             return null;
         }
-        // Check time
-        if (DateTimeUtil.hasTime(literal)) {
+        try {
+            XMLGregorianCalendar calendar = FEELXMLGregorianCalendar.makeXMLCalendar(DateUtil.date(literal));
+            return DateTimeUtil.isValidDate(calendar) ? calendar : null;
+        } catch (Exception e) {
+            String message = String.format("date(%s)", literal);
+            logError(message, e);
             return null;
         }
-        // Check year
-        if (DateTimeUtil.invalidYear(literal)) {
-            return null;
-        }
-
-        XMLGregorianCalendar calendar = makeXMLCalendar(literal);
-        return DateTimeUtil.isValidDate(calendar) ? calendar : null;
     }
 
     @Override
@@ -158,11 +141,10 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
             return null;
         }
 
-        XMLGregorianCalendar clone = (XMLGregorianCalendar) from.clone();
-        clone.setTime(DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED);
-        clone.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
-
-        return DateTimeUtil.isValidDate(clone) ? clone : null;
+        FEELXMLGregorianCalendar calendar = (FEELXMLGregorianCalendar) from.clone();
+        calendar.setTime(DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED);
+        calendar.setZoneID(null);
+        return DateTimeUtil.isValidDate(calendar) ? calendar : null;
     }
 
     @Override
@@ -170,21 +152,15 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
         if (literal == null) {
             return null;
         }
-        literal = DateTimeUtil.fixDateTimeFormat(literal);
-        if (!DateTimeUtil.isTime(literal)) {
+        try {
+            literal = DateTimeUtil.fixDateTimeFormat(literal);
+            XMLGregorianCalendar calendar = FEELXMLGregorianCalendar.makeXMLCalendar(TimeUtil.time(literal));
+            return DateTimeUtil.isValidTime(calendar) ? calendar : null;
+        } catch (Exception e) {
+            String message = String.format("time(%s)", literal);
+            logError(message, e);
             return null;
         }
-        if (DateTimeUtil.hasZone(literal) && DateTimeUtil.timeHasOffset(literal)) {
-            return null;
-        }
-
-        XMLGregorianCalendar clone = makeXMLCalendar(literal);
-        if (clone != null) {
-            clone.setYear(DatatypeConstants.FIELD_UNDEFINED);
-            clone.setMonth(DatatypeConstants.FIELD_UNDEFINED);
-            clone.setDay(DatatypeConstants.FIELD_UNDEFINED);
-        }
-        return DateTimeUtil.isValidTime(clone) ? clone : null;
     }
 
     @Override
@@ -192,23 +168,26 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
         if (hour == null || minute == null || second == null) {
             return null;
         }
-        if (!DateTimeUtil.isValidTime(hour.intValue(), minute.intValue(), second.intValue())) {
-            return null;
-        }
 
         try {
-            XMLGregorianCalendar xmlGregorianCalendar = null;
+            XMLGregorianCalendar calendar = null;
             if (offset != null) {
                 BigDecimal secondFraction = second.subtract(BigDecimal.valueOf(second.intValue()));
-                int sign = offset.getSign() < 0 ? -1 : +1;
-                int timezone = sign * (((offset.getHours() * 60 + offset.getMinutes()) * 60) + offset.getSeconds());
-                xmlGregorianCalendar = FEELXMLGregorianCalendar.makeTime(hour.intValue(), minute.intValue(), second.intValue(), secondFraction, timezone, null);
+                String sign = offset.getSign() < 0 ? "-" : "+";
+                int seconds = offset.getSeconds();
+                String zoneId;
+                if (seconds == 0) {
+                    zoneId = String.format("%s%02d:%02d", sign, offset.getHours(), offset.getMinutes());
+                } else {
+                    zoneId = String.format("%s%02d:%02d:%02d", sign, offset.getHours(), offset.getMinutes(), seconds);
+                }
+                calendar = FEELXMLGregorianCalendar.makeTime(hour.intValue(), minute.intValue(), second.intValue(), secondFraction, zoneId);
             } else {
                 BigDecimal secondFraction = second.subtract(BigDecimal.valueOf(second.intValue()));
-                xmlGregorianCalendar = FEELXMLGregorianCalendar.makeTime(hour.intValue(), minute.intValue(), second.intValue(), secondFraction, DatatypeConstants.FIELD_UNDEFINED, null);
+                calendar = FEELXMLGregorianCalendar.makeTime(hour.intValue(), minute.intValue(), second.intValue(), secondFraction, null);
             }
-            return xmlGregorianCalendar;
-        } catch (Throwable e) {
+            return DateTimeUtil.isValidTime(calendar) ? calendar : null;
+        } catch (Exception e) {
             String message = String.format("time(%s, %s, %s, %s)", hour, minute, second, offset);
             logError(message, e);
             return null;
@@ -221,33 +200,37 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
             return null;
         }
 
-        XMLGregorianCalendar clone = (XMLGregorianCalendar) from.clone();
-        clone.setYear(DatatypeConstants.FIELD_UNDEFINED);
-        clone.setMonth(DatatypeConstants.FIELD_UNDEFINED);
-        clone.setDay(DatatypeConstants.FIELD_UNDEFINED);
-
-        clone = midnightIfDate(clone);
+        FEELXMLGregorianCalendar calendar = (FEELXMLGregorianCalendar) from.clone();
         if (from.getXMLSchemaType() == DatatypeConstants.DATE) {
-            clone.setTimezone(0);
+            calendar.setYear(DatatypeConstants.FIELD_UNDEFINED);
+            calendar.setMonth(DatatypeConstants.FIELD_UNDEFINED);
+            calendar.setDay(DatatypeConstants.FIELD_UNDEFINED);
+            calendar.setHour(0);
+            calendar.setMinute(0);
+            calendar.setSecond(0);
+            calendar.setZoneID("Z");
+        } else if (from.getXMLSchemaType() == DatatypeConstants.DATETIME) {
+            calendar.setYear(DatatypeConstants.FIELD_UNDEFINED);
+            calendar.setMonth(DatatypeConstants.FIELD_UNDEFINED);
+            calendar.setDay(DatatypeConstants.FIELD_UNDEFINED);
         }
-        return clone;
+        return DateTimeUtil.isValidTime(calendar) ? calendar : null;
     }
 
     @Override
-    public XMLGregorianCalendar dateAndTime(String from) {
-        if (from == null) {
+    public XMLGregorianCalendar dateAndTime(String literal) {
+        if (literal == null) {
             return null;
         }
-        if (DateTimeUtil.hasZone(from) && DateTimeUtil.hasOffset(from)) {
+        try {
+            literal = DateTimeUtil.fixDateTimeFormat(literal);
+            XMLGregorianCalendar calendar = FEELXMLGregorianCalendar.makeXMLCalendar(DateAndTimeUtil.dateAndTime(literal));
+            return DateTimeUtil.isValidDateTime(calendar) ? calendar : null;
+        } catch (Exception e) {
+            String message = String.format("dateAndTime(%s)", literal);
+            logError(message, e);
             return null;
         }
-        if (DateTimeUtil.invalidYear(from)) {
-            return null;
-        }
-
-        XMLGregorianCalendar calendar = makeDateTime(from);
-        calendar = midnightIfDate(calendar);
-        return DateTimeUtil.isValidDateTime(calendar) ? calendar : null;
     }
 
     @Override
@@ -257,27 +240,15 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
         }
 
         try {
-            return FEELXMLGregorianCalendar.makeDateTime(
+            XMLGregorianCalendar calendar = FEELXMLGregorianCalendar.makeDateTime(
                     BigInteger.valueOf(date.getYear()), date.getMonth(), date.getDay(),
                     time.getHour(), time.getMinute(), time.getSecond(), time.getFractionalSecond(),
-                    time.getTimezone(), ((FEELXMLGregorianCalendar)time).getZoneID()
+                    ((FEELXMLGregorianCalendar) time).getZoneID()
             );
-        } catch (Throwable e) {
+            return DateTimeUtil.isValidDateTime(calendar) ? calendar : null;
+        } catch (Exception e) {
             return null;
         }
-    }
-
-    private XMLGregorianCalendar midnightIfDate(XMLGregorianCalendar clone) {
-        if (clone == null) {
-            return null;
-        }
-
-        if (clone.getHour() == DatatypeConstants.FIELD_UNDEFINED) {
-            clone.setHour(0);
-            clone.setMinute(0);
-            clone.setSecond(0);
-        }
-        return clone;
     }
 
     @Override
@@ -288,7 +259,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
 
         try {
             return DATA_TYPE_FACTORY.newDuration(from);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("duration(%s)", from);
             logError(message, e);
             return null;
@@ -305,45 +276,8 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
             LocalDate toLocalDate = LocalDate.of(to.getYear(), to.getMonth(), to.getDay());
             LocalDate fromLocalDate = LocalDate.of(from.getYear(), from.getMonth(), from.getDay());
             return DateTimeUtil.toYearsMonthDuration(DATA_TYPE_FACTORY, toLocalDate, fromLocalDate);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    public XMLGregorianCalendar makeXMLCalendar(String literal) {
-        if (StringUtils.isBlank(literal)) {
-            return null;
-        }
-
-        try {
-            int zoneIdIndex = literal.indexOf("@");
-            if (zoneIdIndex != -1) {
-                String zoneID = literal.substring(zoneIdIndex + 1);
-                ZoneId zone = ZoneId.of(zoneID);
-                XMLGregorianCalendar xmlGregorianCalendar = new FEELXMLGregorianCalendar(literal.substring(0, zoneIdIndex), zoneID);
-                return xmlGregorianCalendar;
-            } else {
-                return new FEELXMLGregorianCalendar(literal);
-            }
-        } catch (Throwable e) {
-            String message = String.format("makeXMLCalendar(%s)", literal);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    private XMLGregorianCalendar makeDateTime(String literal) {
-        if (StringUtils.isBlank(literal)) {
-            return null;
-        }
-
-        try {
-            literal = DateTimeUtil.fixDateTimeFormat(literal);
-            return makeXMLCalendar(literal);
-        } catch (Throwable e) {
-            String message = String.format("makeDateTime(%s)", literal);
             logError(message, e);
             return null;
         }
@@ -351,12 +285,12 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
 
     @Override
     public XMLGregorianCalendar toDate(Object object) {
-        return (XMLGregorianCalendar)object;
+        return (XMLGregorianCalendar) object;
     }
 
     @Override
     public XMLGregorianCalendar toTime(Object object) {
-        return (XMLGregorianCalendar)object;
+        return (XMLGregorianCalendar) object;
     }
 
     //
@@ -366,7 +300,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     public BigDecimal decimal(BigDecimal n, BigDecimal scale) {
         try {
             return BigDecimalUtil.decimal(n, scale);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("decimal(%s, %s)", n, scale);
             logError(message, e);
             return null;
@@ -377,7 +311,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     public BigDecimal floor(BigDecimal number) {
         try {
             return BigDecimalUtil.floor(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("fllor(%s)", number);
             logError(message, e);
             return null;
@@ -388,7 +322,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     public BigDecimal ceiling(BigDecimal number) {
         try {
             return BigDecimalUtil.ceiling(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("ceiling(%s)", number);
             logError(message, e);
             return null;
@@ -399,7 +333,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     public BigDecimal abs(BigDecimal number) {
         try {
             return BigDecimalUtil.abs(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("abs(%s)", number);
             logError(message, e);
             return null;
@@ -407,11 +341,22 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     }
 
     @Override
-    public BigDecimal modulo(BigDecimal divident, BigDecimal divisor) {
+    public BigDecimal intModulo(BigDecimal dividend, BigDecimal divisor) {
         try {
-            return BigDecimalUtil.modulo(divident, divisor);
-        } catch (Throwable e) {
-            String message = String.format("modulo(%s, %s)", divident, divisor);
+            return BigDecimalUtil.intModulo(dividend, divisor);
+        } catch (Exception e) {
+            String message = String.format("modulo(%s, %s)", dividend, divisor);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public BigDecimal modulo(BigDecimal dividend, BigDecimal divisor) {
+        try {
+            return BigDecimalUtil.modulo(dividend, divisor);
+        } catch (Exception e) {
+            String message = String.format("modulo(%s, %s)", dividend, divisor);
             logError(message, e);
             return null;
         }
@@ -421,7 +366,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     public BigDecimal sqrt(BigDecimal number) {
         try {
             return BigDecimalUtil.sqrt(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("sqrt(%s)", number);
             logError(message, e);
             return null;
@@ -432,7 +377,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     public BigDecimal log(BigDecimal number) {
         try {
             return BigDecimalUtil.log(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("log(%s)", number);
             logError(message, e);
             return null;
@@ -443,7 +388,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     public BigDecimal exp(BigDecimal number) {
         try {
             return BigDecimalUtil.exp(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("exp(%s)", number);
             logError(message, e);
             return null;
@@ -454,7 +399,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     public Boolean odd(BigDecimal number) {
         try {
             return BigDecimalUtil.odd(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("odd(%s)", number);
             logError(message, e);
             return null;
@@ -465,7 +410,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     public Boolean even(BigDecimal number) {
         try {
             return BigDecimalUtil.even(number);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("odd(%s)", number);
             logError(message, e);
             return null;
@@ -480,7 +425,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
 
         try {
             return min(Arrays.asList(args));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("min(%s)", args);
             logError(message, e);
             return null;
@@ -495,7 +440,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
 
         try {
             return max(Arrays.asList(args));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("max(%s)", args);
             logError(message, e);
             return null;
@@ -510,7 +455,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
 
         try {
             return sum(Arrays.asList(args));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("sum(%s)", args);
             logError(message, e);
             return null;
@@ -521,7 +466,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     public BigDecimal mean(List list) {
         try {
             return BigDecimalUtil.mean(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("mean(%s)", list);
             logError(message, e);
             return null;
@@ -536,7 +481,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
 
         try {
             return mean(Arrays.asList(args));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("mean(%s)", args);
             logError(message, e);
             return null;
@@ -548,80 +493,52 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     //
     @Override
     public Boolean contains(String string, String match) {
-        return (string == null || match == null) ? null : string.contains(match);
+        return StringUtil.contains(string, match);
     }
 
     @Override
     public Boolean startsWith(String string, String match) {
-        return (string == null || match == null) ? null : string.startsWith(match);
+        return StringUtil.startsWith(string, match);
     }
 
     @Override
     public Boolean endsWith(String string, String match) {
-        return (string == null || match == null) ? null : string.endsWith(match);
+        return StringUtil.endsWith(string, match);
     }
 
     @Override
     public BigDecimal stringLength(String string) {
-        return string == null ? null : BigDecimal.valueOf(string.length());
+        return string == null ? null : BigDecimal.valueOf(StringUtil.stringLength(string));
     }
 
     @Override
     public String substring(String string, BigDecimal startPosition) {
-        return substring(string, startPosition.intValue());
-    }
-
-    private String substring(String string, int startPosition) {
-        if (startPosition < 0) {
-            startPosition = string.length() + startPosition;
-        } else {
-            --startPosition;
-        }
-        return string.substring(startPosition);
+        return StringUtil.substring(string, startPosition);
     }
 
     @Override
     public String substring(String string, BigDecimal startPosition, BigDecimal length) {
-        return substring(string, startPosition.intValue(), length.intValue());
-    }
-
-    private String substring(String string, int startPosition, int length) {
-        if (startPosition < 0) {
-            startPosition = string.length() + startPosition;
-        } else {
-            --startPosition;
-        }
-        return string.substring(startPosition, startPosition + length);
+        return StringUtil.substring(string, startPosition, length);
     }
 
     @Override
     public String upperCase(String string) {
-        return string == null ? null : string.toUpperCase();
+        return StringUtil.upperCase(string);
     }
 
     @Override
     public String lowerCase(String string) {
-        return string == null ? null : string.toLowerCase();
+        return StringUtil.lowerCase(string);
     }
 
     @Override
     public String substringBefore(String string, String match) {
-        if (string != null && match != null) {
-            int i = string.indexOf(match);
-            return i == -1 ? "" : string.substring(0, i);
-        } else {
-            return null;
-        }
+        return StringUtil.substringBefore(string, match);
     }
 
     @Override
     public String substringAfter(String string, String match) {
-        if (string != null && match != null) {
-            int i = string.indexOf(match);
-            return i == -1 ? "" : string.substring(i + match.length());
-        } else {
-            return null;
-        }
+        return StringUtil.substringAfter(string, match);
     }
 
     @Override
@@ -631,17 +548,9 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
 
     @Override
     public String replace(String input, String pattern, String replacement, String flags) {
-        if (input == null || pattern == null || replacement == null) {
-            return null;
-        }
-        if (flags == null) {
-            flags = "";
-        }
-
         try {
-            String expression = String.format("replace(/root, '%s', '%s', '%s')", pattern, replacement, flags);
-            return evaluateXPath(input, expression);
-        } catch (Throwable e) {
+            return StringUtil.replace(input, pattern, replacement, flags);
+        } catch (Exception e) {
             String message = String.format("replace(%s, %s, %s, %s)", input, pattern, replacement, flags);
             logError(message, e);
             return null;
@@ -655,18 +564,9 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
 
     @Override
     public Boolean matches(String input, String pattern, String flags) {
-        if (input == null || pattern == null) {
-            return false;
-        }
-        if (flags == null) {
-            flags = "";
-        }
-
         try {
-            String expression = String.format("/root[matches(., '%s', '%s')]", pattern, flags);
-            String value = evaluateXPath(input, expression);
-            return input.equals(value);
-        } catch (Throwable e) {
+            return StringUtil.matches(input, pattern, flags);
+        } catch (Exception e) {
             String message = String.format("matches(%s, %s, %s)", input, pattern, flags);
             logError(message, e);
             return null;
@@ -677,25 +577,11 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     public List split(String string, String delimiter) {
         try {
             return StringUtil.split(string, delimiter);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("split(%s, %s)", string, delimiter);
             logError(message, e);
             return null;
         }
-    }
-
-    private String evaluateXPath(String input, String expression) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
-        // Read document
-        String xml = "<root>" + input + "</root>";
-        DocumentBuilderFactory documentBuilderFactory = new DocumentBuilderFactoryImpl();
-        DocumentBuilder docBuilder = documentBuilderFactory.newDocumentBuilder();
-        InputStream inputStream = new ByteArrayInputStream(xml.getBytes());
-        Document document = docBuilder.parse(inputStream);
-
-        // Evaluate xpath
-        XPathFactory xPathFactory = new XPathFactoryImpl();
-        XPath xPath = xPathFactory.newXPath();
-        return xPath.evaluate(expression, document.getDocumentElement());
     }
 
     //
@@ -725,7 +611,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
             } else {
                 return null;
             }
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("and(%s)", list);
             logError(message, e);
             return null;
@@ -740,7 +626,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
 
         try {
             return all(Arrays.asList(args));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("and(%s)", args);
             logError(message, e);
             return null;
@@ -771,7 +657,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
             } else {
                 return null;
             }
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("or(%s)", list);
             logError(message, e);
             return null;
@@ -786,7 +672,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
 
         try {
             return any(Arrays.asList(args));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("or(%s)", args);
             logError(message, e);
             return null;
@@ -849,7 +735,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
         }
 
         try {
-            return BigDecimal.valueOf(date.toGregorianCalendar().get(Calendar.DAY_OF_WEEK) -1);
+            return BigDecimal.valueOf(date.toGregorianCalendar().get(Calendar.DAY_OF_WEEK) - 1);
         } catch (Exception e) {
             String message = String.format("day(%s)", date);
             logError(message, e);
@@ -861,19 +747,34 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     // Time functions
     //
     public BigDecimal hour(XMLGregorianCalendar date) {
+        if (date == null) {
+            return null;
+        }
+
         return BigDecimal.valueOf(date.getHour());
     }
 
     public BigDecimal minute(XMLGregorianCalendar date) {
+        if (date == null) {
+            return null;
+        }
+
         return BigDecimal.valueOf(date.getMinute());
     }
 
     public BigDecimal second(XMLGregorianCalendar date) {
+        if (date == null) {
+            return null;
+        }
+
         return BigDecimal.valueOf(date.getSecond());
     }
 
     public Duration timeOffset(XMLGregorianCalendar date) {
-        // timezone offset in seconds
+        if (date == null) {
+            return null;
+        }
+
         int secondsOffset = date.getTimezone();
         if (secondsOffset == DatatypeConstants.FIELD_UNDEFINED) {
             return null;
@@ -883,34 +784,61 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     }
 
     public String timezone(XMLGregorianCalendar date) {
-        // timezone offset in seconds
-        return ((FEELXMLGregorianCalendar)date).getZoneID();
+        if (date == null) {
+            return null;
+        }
+
+        return ((FEELXMLGregorianCalendar) date).getZoneID();
     }
 
     //
     // Duration functions
     //
     public BigDecimal years(Duration duration) {
+        if (duration == null) {
+            return null;
+        }
+
         return BigDecimal.valueOf(duration.getYears());
     }
 
     public BigDecimal months(Duration duration) {
+        if (duration == null) {
+            return null;
+        }
+
         return BigDecimal.valueOf(duration.getMonths());
     }
 
     public BigDecimal days(Duration duration) {
+        if (duration == null) {
+            return null;
+        }
+
         return BigDecimal.valueOf(duration.getDays());
     }
 
     public BigDecimal hours(Duration duration) {
+        if (duration == null) {
+            return null;
+        }
+
         return BigDecimal.valueOf(duration.getHours());
     }
 
     public BigDecimal minutes(Duration duration) {
+        if (duration == null) {
+            return null;
+        }
+
         return BigDecimal.valueOf(duration.getMinutes());
     }
 
     public BigDecimal seconds(Duration duration) {
+        if (duration == null) {
+            return null;
+        }
+
         return BigDecimal.valueOf(duration.getSeconds());
     }
 
@@ -951,7 +879,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     public BigDecimal min(List list) {
         try {
             return BigDecimalUtil.min(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("min(%s)", list);
             logError(message, e);
             return null;
@@ -962,7 +890,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     public BigDecimal max(List list) {
         try {
             return BigDecimalUtil.max(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("max(%s)", list);
             logError(message, e);
             return null;
@@ -973,7 +901,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     public BigDecimal sum(List list) {
         try {
             return BigDecimalUtil.sum(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("sum(%s)", list);
             logError(message, e);
             return null;
@@ -1102,7 +1030,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
         if (list != null) {
             for (int i = 0; i < list.size(); i++) {
                 Object o = list.get(i);
-                if (o == null && match == null || o!= null && o.equals(match)) {
+                if (o == null && match == null || o != null && o.equals(match)) {
                     result.add(BigDecimal.valueOf(i + 1));
                 }
             }
@@ -1148,7 +1076,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     public BigDecimal product(List list) {
         try {
             return BigDecimalUtil.product(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("product(%s)", list);
             logError(message, e);
             return null;
@@ -1163,7 +1091,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
 
         try {
             return product(Arrays.asList(numbers));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("sum(%s)", numbers);
             logError(message, e);
             return null;
@@ -1174,7 +1102,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     public BigDecimal median(List list) {
         try {
             return BigDecimalUtil.median(list);
-        } catch (Throwable e){
+        } catch (Exception e) {
             String message = String.format("median(%s)", list);
             logError(message, e);
             return null;
@@ -1189,7 +1117,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
 
         try {
             return median(Arrays.asList(numbers));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("median(%s)", numbers);
             logError(message, e);
             return null;
@@ -1200,7 +1128,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     public BigDecimal stddev(List list) {
         try {
             return BigDecimalUtil.stddev(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("stddev(%s)", list);
             logError(message, e);
             return null;
@@ -1215,7 +1143,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
 
         try {
             return stddev(Arrays.asList(numbers));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("stddev(%s)", numbers);
             logError(message, e);
             return null;
@@ -1226,7 +1154,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     public List mode(List list) {
         try {
             return BigDecimalUtil.mode(list);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("mode(%s)", list);
             logError(message, e);
             return null;
@@ -1241,7 +1169,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
 
         try {
             return mode(Arrays.asList(numbers));
-        } catch (Throwable e) {
+        } catch (Exception e) {
             String message = String.format("mode(%s)", numbers);
             logError(message, e);
             return null;

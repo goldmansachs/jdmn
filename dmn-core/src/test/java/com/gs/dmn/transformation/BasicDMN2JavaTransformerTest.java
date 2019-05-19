@@ -113,9 +113,16 @@ public class BasicDMN2JavaTransformerTest {
         assertNull(dmnTransformer.escapeInString(null));
         assertEquals("", dmnTransformer.escapeInString(""));
         assertEquals("abc", dmnTransformer.escapeInString("abc"));
+        assertEquals("ab\\\"abc", dmnTransformer.escapeInString("ab\\\"abc"));
         assertEquals("ab\\\"abc", dmnTransformer.escapeInString("ab\"abc"));
         assertEquals("“£%$&3332", dmnTransformer.escapeInString("“£%$&3332"));
         assertEquals("ab\\\\dc", dmnTransformer.escapeInString("ab\\dc"));
+        assertEquals("\u0009", dmnTransformer.escapeInString("\u0009"));
+        assertEquals("\\u0009", dmnTransformer.escapeInString("\\u0009"));
+        assertEquals("\uD83D\uDCA9", dmnTransformer.escapeInString("\uD83D\uDCA9"));
+        assertEquals("\ud83d\udca9", dmnTransformer.escapeInString("\ud83d\udca9"));
+        assertEquals("\ud83d\udc0e\uD83D\uDE00", dmnTransformer.escapeInString("\ud83d\udc0e\uD83D\uDE00"));
+        assertEquals("🐎😀", dmnTransformer.escapeInString("🐎😀"));
     }
 
     private DMNModelRepository readDMN(String pathName) {
