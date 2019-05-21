@@ -13,97 +13,134 @@
 package com.gs.dmn.feel.lib;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.text.translate.*;
 
 import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 public class StringEscapeUtil {
-    private static final Map<Character, String> FEEL_ESCAPED_CHARS = new LinkedHashMap<>();
+    private static final Map<Character, String> FEEL_UNESCAPE_MAP = new LinkedHashMap<>();
     static {
         // control and basic escapes
-        FEEL_ESCAPED_CHARS.put('n', "\n");
-        FEEL_ESCAPED_CHARS.put('r', "\r");
-        FEEL_ESCAPED_CHARS.put('t', "\t");
-        FEEL_ESCAPED_CHARS.put('\'', "\'");
-        FEEL_ESCAPED_CHARS.put('\"', "\"");
-        FEEL_ESCAPED_CHARS.put('\\', "\\");
+        FEEL_UNESCAPE_MAP.put('n', "\n");
+        FEEL_UNESCAPE_MAP.put('r', "\r");
+        FEEL_UNESCAPE_MAP.put('t', "\t");
+        FEEL_UNESCAPE_MAP.put('\'', "\'");
+        FEEL_UNESCAPE_MAP.put('\"', "\"");
+        FEEL_UNESCAPE_MAP.put('\\', "\\");
     }
 
-    private static final Map<Character, String> REGEXP_ESCAPED_CHARS = new LinkedHashMap<>();
+    private static final Map<Character, String> REGEXP_UNESCAPE_MAP = new LinkedHashMap<>();
     static {
         // reg exp escapes
-        REGEXP_ESCAPED_CHARS.put('d', "\\d");
-        REGEXP_ESCAPED_CHARS.put('D', "\\D");
-        REGEXP_ESCAPED_CHARS.put('s', "\\s");
-        REGEXP_ESCAPED_CHARS.put('S', "\\S");
-        REGEXP_ESCAPED_CHARS.put('p', "\\p");
-        REGEXP_ESCAPED_CHARS.put('P', "\\P");
-        REGEXP_ESCAPED_CHARS.put('x', "\\x");
-        REGEXP_ESCAPED_CHARS.put('X', "\\X");
+        FEEL_UNESCAPE_MAP.put('d', "\\d");
+        FEEL_UNESCAPE_MAP.put('D', "\\D");
+        FEEL_UNESCAPE_MAP.put('s', "\\s");
+        FEEL_UNESCAPE_MAP.put('S', "\\S");
+        FEEL_UNESCAPE_MAP.put('p', "\\p");
+        FEEL_UNESCAPE_MAP.put('P', "\\P");
+        FEEL_UNESCAPE_MAP.put('x', "\\x");
+        FEEL_UNESCAPE_MAP.put('X', "\\X");
     }
 
-    // Translator for unescaping.
-    private static final CharSequenceTranslator UNESCAPE_FEEL =
-            new AggregateTranslator(
-                    new UnicodeUnescaper(),
-                    new LookupTranslator(
-                            new String[][] {
-                                    {"\\n", "\n"},
-                                    {"\\r", "\r"},
-                                    {"\\t", "\t"},
-                                    {"\\\'", "\'"},
-                                    {"\\\"", "\""},
-                                    {"\\s", "\\s"},
-                                    {"\\S", "\\S"},
-                                    {"\\d", "\\d"},
-                                    {"\\D", "\\D"},
-                                    {"\\x", "\\x"},
-                                    {"\\X", "\\X"},
-                                    {"\\p", "\\p"},
-                                    {"\\P", "\\P"},
-                                    {"\\\\", "\\"},
-                            })
-            );
+    private static final Map<Character, String> FEEL_ESCAPE_MAP = new LinkedHashMap<>();
+    static {
+        // control and basic escapes
+        FEEL_ESCAPE_MAP.put('\n', "\\n");
+        FEEL_ESCAPE_MAP.put('\r', "\\r");
+        FEEL_ESCAPE_MAP.put('\t', "\\t");
+        FEEL_ESCAPE_MAP.put('\'', "\'");
+        FEEL_ESCAPE_MAP.put('\"', "\\\"");
+        FEEL_ESCAPE_MAP.put('\\', "\\\\");
+    }
 
-    // Translator for replacing escape sequences with character codes
-    private static final CharSequenceTranslator ESCAPE_FEEL =
-            new AggregateTranslator(
-                    new LookupTranslator(
-                        new String[][] {
-                                {"\n", "\\n"},
-                                {"\r", "\\r"},
-                                {"\t", "\\t"},
-                                {"'", "'"},
-                                {"\"", "\\\""},
-                                {"\\s", "\\\\s"},
-                                {"\\S", "\\\\S"},
-                                {"\\d", "\\\\d"},
-                                {"\\D", "\\\\D"},
-                                {"\\x", "\\\\x"},
-                                {"\\X", "\\\\X"},
-                                {"\\p", "\\\\p"},
-                                {"\\P", "\\\\P"},
-                                {"\\", "\\\\"},
-                        }
-                ),
-                FEELUnicodeEscaper.outsideOf(32, 0x7f)
-            );
-
+    private static final Map<Character, String> REGEXP_ESCAPE_MAP = new LinkedHashMap<>();
+    static {
+        // reg exp escapes
+        REGEXP_ESCAPE_MAP.put('d', "\\d");
+        REGEXP_ESCAPE_MAP.put('D', "\\D");
+        REGEXP_ESCAPE_MAP.put('s', "\\s");
+        REGEXP_ESCAPE_MAP.put('S', "\\S");
+        REGEXP_ESCAPE_MAP.put('p', "\\p");
+        REGEXP_ESCAPE_MAP.put('P', "\\P");
+        REGEXP_ESCAPE_MAP.put('x', "\\x");
+        REGEXP_ESCAPE_MAP.put('X', "\\X");
+    }
 
     // Replace the FEEL escape sequences in lexeme with their values
-    public static final String unescapeFEEL(String lexeme) {
+    public static String unescapeFEEL(String lexeme) {
         if (StringUtils.isEmpty(lexeme)) {
             return lexeme;
         }
 
         String value = StringUtil.stripQuotes(lexeme);
-        return UNESCAPE_FEEL.translate(value);
+        StringBuilder builder = new StringBuilder();
+        int index = 0;
+        while (index < value.length()) {
+            char ch = value.charAt(index);
+            if (ch == '\\') {
+                if (contains(FEEL_UNESCAPE_MAP.keySet(), value, index + 1)) {
+                    // \n \r \t \' \" \\
+                    // patterns (e.g. \d) used in regular expressions (see replace)
+                    builder.append(FEEL_UNESCAPE_MAP.get(value.charAt(index + 1)));
+                    index += 2;
+                } else if (contains(REGEXP_UNESCAPE_MAP.keySet(), value, index + 1)) {
+                        // \n \r \t \' \" \\
+                        // patterns (e.g. \d) used in regular expressions (see replace)
+                        builder.append(REGEXP_UNESCAPE_MAP.get(value.charAt(index + 1)));
+                        index += 2;
+                } else if (isUnicodeEscape(value, index + 1)) {
+                    // unicode escapes
+                    String hexCode = value.substring(index + 2, index + 6);
+                    builder.appendCodePoint(Integer.parseInt(hexCode, 16));
+                    index = index + 6;
+                } else {
+                    builder.append('\\');
+                    index = index + 1;
+                }
+            } else {
+                builder.append(ch);
+                index++;
+            }
+        }
+        return builder.toString();
     }
 
     // Translates a FEEL String to a Java String
-    public static final String escapeFEEL(String value) {
-        return ESCAPE_FEEL.translate(value);
+    public static String escapeFEEL(String value) {
+        if (StringUtils.isEmpty(value)) {
+            return value;
+        }
+
+        StringBuilder builder = new StringBuilder();
+        int index = 0;
+        while (index < value.length()) {
+            char ch = value.charAt(index);
+            if (ch == '\\') {
+                if (contains(REGEXP_ESCAPE_MAP.keySet(), value, index + 1)) {
+                    // patterns (e.g. \d) used in regular expressions (see replace)
+                    builder.append('\\');
+                    builder.append(REGEXP_ESCAPE_MAP.get(value.charAt(index + 1)));
+                    index = index + 2;
+                } else {
+                    builder.append('\\');
+                    builder.append('\\');
+                    index = index + 1;
+                }
+            } else if (FEEL_ESCAPE_MAP.keySet().contains(ch)) {
+                // \n \r \t \' \" \\
+                builder.append(FEEL_ESCAPE_MAP.get(ch));
+                index += 2;
+            } else if (Character.isSurrogate(ch)) {
+                builder.append("\\u" + hex(ch));
+                index = index + 1;
+            } else {
+                builder.append(ch);
+                index = index + 1;
+            }
+        }
+        return builder.toString();
     }
 
     public static String escapeInString(String text) {
@@ -116,12 +153,12 @@ public class StringEscapeUtil {
         while (index < text.length()) {
             char ch = text.charAt(index);
             if (ch == '\\') {
-                if (isEscapedChar(text, index + 1)) {
+                if (contains(FEEL_ESCAPE_MAP.keySet(), text, index + 1)) {
                     // \n \r \t \' \" \\
                     builder.append("\\");
                     builder.append(text.charAt(index + 1));
                     index += 2;
-                } else if (isRegExpChar(text, index + 1)) {
+                } else if (contains(REGEXP_ESCAPE_MAP.keySet(), text, index + 1)) {
                     // patterns (e.g. \d) used in regular expressions (see replace)
                     builder.append("\\");
                     builder.append("\\");
@@ -151,14 +188,6 @@ public class StringEscapeUtil {
         return builder.toString();
     }
 
-    private static boolean isRegExpChar(String text, int index) {
-        return index < text.length() && REGEXP_ESCAPED_CHARS.keySet().contains(text.charAt(index));
-    }
-
-    private static boolean isEscapedChar(String text, int index) {
-        return index < text.length() && FEEL_ESCAPED_CHARS.keySet().contains(text.charAt(index));
-    }
-
     private static boolean isUnicodeEscape(String text, int index) {
         return isChar(text, index, 'u') &&
                 isHexChar(text, index + 1) &&
@@ -177,5 +206,13 @@ public class StringEscapeUtil {
         }
         char ch = text.charAt(index);
         return '0' <= ch && ch <= '9' || 'a' <= ch && ch <= 'f' || 'A' <= ch && ch <= 'F';
+    }
+
+    private static boolean contains(Set<Character> set, String value, int index) {
+        return index < value.length() && set.contains(value.charAt(index));
+    }
+
+    private static String hex(int codepoint) {
+        return Integer.toHexString(codepoint).toUpperCase(Locale.ENGLISH);
     }
 }
