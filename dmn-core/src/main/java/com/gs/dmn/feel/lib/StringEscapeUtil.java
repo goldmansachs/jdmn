@@ -58,14 +58,14 @@ public class StringEscapeUtil {
     private static final Map<Character, String> REGEXP_ESCAPE_MAP = new LinkedHashMap<>();
     static {
         // reg exp escapes
-        REGEXP_ESCAPE_MAP.put('d', "\\d");
-        REGEXP_ESCAPE_MAP.put('D', "\\D");
-        REGEXP_ESCAPE_MAP.put('s', "\\s");
-        REGEXP_ESCAPE_MAP.put('S', "\\S");
-        REGEXP_ESCAPE_MAP.put('p', "\\p");
-        REGEXP_ESCAPE_MAP.put('P', "\\P");
-        REGEXP_ESCAPE_MAP.put('x', "\\x");
-        REGEXP_ESCAPE_MAP.put('X', "\\X");
+        REGEXP_ESCAPE_MAP.put('d', "\\\\d");
+        REGEXP_ESCAPE_MAP.put('D', "\\\\D");
+        REGEXP_ESCAPE_MAP.put('s', "\\\\s");
+        REGEXP_ESCAPE_MAP.put('S', "\\\\S");
+        REGEXP_ESCAPE_MAP.put('p', "\\\\p");
+        REGEXP_ESCAPE_MAP.put('P', "\\\\P");
+        REGEXP_ESCAPE_MAP.put('x', "\\\\x");
+        REGEXP_ESCAPE_MAP.put('X', "\\\\X");
     }
 
     // Replace the FEEL escape sequences in lexeme with their values
@@ -94,10 +94,10 @@ public class StringEscapeUtil {
                     // unicode escapes
                     String hexCode = value.substring(index + 2, index + 6);
                     builder.appendCodePoint(Integer.parseInt(hexCode, 16));
-                    index = index + 6;
+                    index += 6;
                 } else {
                     builder.append('\\');
-                    index = index + 1;
+                    index++;
                 }
             } else {
                 builder.append(ch);
@@ -120,24 +120,23 @@ public class StringEscapeUtil {
             if (ch == '\\') {
                 if (contains(REGEXP_ESCAPE_MAP.keySet(), value, index + 1)) {
                     // patterns (e.g. \d) used in regular expressions (see replace)
-                    builder.append('\\');
                     builder.append(REGEXP_ESCAPE_MAP.get(value.charAt(index + 1)));
-                    index = index + 2;
+                    index += 2;
                 } else {
                     builder.append('\\');
                     builder.append('\\');
-                    index = index + 1;
+                    index++;
                 }
             } else if (FEEL_ESCAPE_MAP.keySet().contains(ch)) {
                 // \n \r \t \' \" \\
                 builder.append(FEEL_ESCAPE_MAP.get(ch));
-                index += 2;
+                index++;
             } else if (Character.isSurrogate(ch)) {
                 builder.append("\\u" + hex(ch));
-                index = index + 1;
+                index++;
             } else {
                 builder.append(ch);
-                index = index + 1;
+                index++;
             }
         }
         return builder.toString();

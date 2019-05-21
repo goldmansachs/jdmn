@@ -23,6 +23,8 @@ public class StringEscapeUtilTest {
         assertEquals("", StringEscapeUtil.unescapeFEEL(""));
 
         assertEquals("abc", StringEscapeUtil.unescapeFEEL("abc"));
+        assertEquals("abc", StringEscapeUtil.unescapeFEEL("abc"));
+        assertEquals("Don't consider", StringEscapeUtil.unescapeFEEL("\"Don't consider\""));
 
         assertEquals("\n", StringEscapeUtil.unescapeFEEL("\\n"));
         assertEquals("\r", StringEscapeUtil.unescapeFEEL("\\r"));
@@ -30,6 +32,9 @@ public class StringEscapeUtilTest {
         assertEquals("\'", StringEscapeUtil.unescapeFEEL("\\'"));
         assertEquals("\"", StringEscapeUtil.unescapeFEEL("\\\""));
         assertEquals("\\", StringEscapeUtil.unescapeFEEL("\\\\"));
+
+        assertEquals("\\s", StringEscapeUtil.unescapeFEEL("\\s"));
+        assertEquals("\\d", StringEscapeUtil.unescapeFEEL("\\d"));
 
         assertEquals("\t", StringEscapeUtil.unescapeFEEL("\\u0009"));
         assertEquals("\\u0009", StringEscapeUtil.unescapeFEEL("\\\\u0009"));
@@ -46,6 +51,7 @@ public class StringEscapeUtilTest {
         assertEquals("", StringEscapeUtil.escapeFEEL(""));
 
         assertEquals("abc", StringEscapeUtil.escapeFEEL("abc"));
+        assertEquals("Don't consider", StringEscapeUtil.escapeFEEL("Don't consider"));
 
         assertEquals("\\n", StringEscapeUtil.escapeFEEL("\n"));
         assertEquals("\\r", StringEscapeUtil.escapeFEEL("\r"));
@@ -53,6 +59,9 @@ public class StringEscapeUtilTest {
         assertEquals("'", StringEscapeUtil.escapeFEEL("\'"));
         assertEquals("\\\"", StringEscapeUtil.escapeFEEL("\""));
         assertEquals("\\\\", StringEscapeUtil.escapeFEEL("\\"));
+
+        assertEquals("\\\\s", StringEscapeUtil.escapeFEEL("\\s"));
+        assertEquals("\\\\d", StringEscapeUtil.escapeFEEL("\\d"));
 
         assertEquals("\\t", StringEscapeUtil.escapeFEEL("\u0009"));
         assertEquals("\\\\u0009", StringEscapeUtil.escapeFEEL("\\u0009"));
