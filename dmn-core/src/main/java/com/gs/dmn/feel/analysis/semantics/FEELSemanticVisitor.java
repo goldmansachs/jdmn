@@ -260,8 +260,9 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
 
     @Override
     public Object visit(InstanceOfExpression element, FEELContext context) {
-        element.getValue().accept(this, context);
+        element.getLeftOperand().accept(this, context);
         element.deriveType(context.getEnvironment());
+        element.setRightOperandType(dmnTransformer.toFEELType(element.getRightOperand().getQualifiedName()));
         return element;
     }
 

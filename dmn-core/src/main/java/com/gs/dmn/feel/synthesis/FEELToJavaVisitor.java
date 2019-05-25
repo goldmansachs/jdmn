@@ -359,10 +359,10 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(InstanceOfExpression element, FEELContext context) {
-        String opd = (String) element.getValue().accept(this, context);
-        String qTypeName = element.getQTypeName().getQualifiedName();
-        String javaType = feelTypeTranslator.toJavaType(qTypeName);
-        return String.format("%s instanceof %s", opd, javaType);
+        String leftOperand = (String) element.getLeftOperand().accept(this, context);
+        String rightOperandType = element.getRightOperand().getQualifiedName();
+        String javaType = feelTypeTranslator.toJavaType(rightOperandType);
+        return String.format("%s instanceof %s", leftOperand, javaType);
     }
 
     //

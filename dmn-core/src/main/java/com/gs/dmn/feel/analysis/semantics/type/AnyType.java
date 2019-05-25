@@ -12,8 +12,12 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
-public class AnyType extends Type {
+public class AnyType extends NamedType {
     public static final AnyType ANY = new AnyType();
+
+    public AnyType() {
+        super("Any");
+    }
 
     @Override
     public boolean equivalentTo(Type other) {

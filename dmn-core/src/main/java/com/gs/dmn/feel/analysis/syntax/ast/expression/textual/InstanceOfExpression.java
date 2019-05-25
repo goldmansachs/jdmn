@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression.textual;
 
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
@@ -21,20 +22,29 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.QualifiedName;
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 
 public class InstanceOfExpression extends Expression {
-    private final Expression value;
-    private final QualifiedName qTypeName;
+    private final Expression leftOperand;
+    private final QualifiedName rightOperand;
+    private Type rightOperandType;
 
-    public InstanceOfExpression(Expression value, QualifiedName expressionType) {
-        this.value = value;
-        this.qTypeName = expressionType;
+    public InstanceOfExpression(Expression leftOperand, QualifiedName rightOperand) {
+        this.leftOperand = leftOperand;
+        this.rightOperand = rightOperand;
     }
 
-    public Expression getValue() {
-        return value;
+    public Expression getLeftOperand() {
+        return leftOperand;
     }
 
-    public QualifiedName getQTypeName() {
-        return qTypeName;
+    public QualifiedName getRightOperand() {
+        return rightOperand;
+    }
+
+    public Type getRightOperandType() {
+        return rightOperandType;
+    }
+
+    public void setRightOperandType(Type rightOperandType) {
+        this.rightOperandType = rightOperandType;
     }
 
     @Override
@@ -49,7 +59,6 @@ public class InstanceOfExpression extends Expression {
 
     @Override
     public String toString() {
-        return String.format("InstanceOfExpression(%s, %s)", value.toString(), qTypeName.toString());
+        return String.format("InstanceOfExpression(%s, %s)", leftOperand.toString(), rightOperand.toString());
     }
-
 }
