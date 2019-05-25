@@ -19,6 +19,7 @@ import java.util.Map;
 
 public class FEELTypes {
     public static final Map<String, Type> FEEL_NAME_TO_FEEL_TYPE = new HashMap<String, Type>() {{
+        put(AnyType.ANY.getName(), AnyType.ANY);
         put(NumberType.NUMBER.getName(), NumberType.NUMBER);
         put(BooleanType.BOOLEAN.getName(), BooleanType.BOOLEAN);
         put(StringType.STRING.getName(), StringType.STRING);
@@ -34,11 +35,13 @@ public class FEELTypes {
         put(DurationType.YEAR_MONTH_DURATION.getName(), DurationType.YEARS_AND_MONTHS_DURATION);
     }};
 
-    public static final List<String> FEEL_TYPE_NAMES = Arrays.asList(NumberType.NUMBER.getName(), BooleanType.BOOLEAN.getName(), StringType.STRING.getName(),
+    public static final List<String> FEEL_TYPE_NAMES = Arrays.asList(
+            AnyType.ANY.getName(), NumberType.NUMBER.getName(), BooleanType.BOOLEAN.getName(), StringType.STRING.getName(),
             DateType.DATE.getName(), TimeType.TIME.getName(), DateTimeType.DATE_TIME_CAMEL.getName(), DateTimeType.DATE_TIME.getName(), DateTimeType.DATE_AND_TIME.getName(),
             DurationType.DAYS_AND_TIME_DURATION.getName(), DurationType.YEARS_AND_MONTHS_DURATION.getName(), EnumerationType.ENUMERATION.getName());
 
     public static final List<Type> FEEL_PRIMITIVE_TYPES = Arrays.asList(new Type[]{
+            AnyType.ANY,
             NumberType.NUMBER,
             BooleanType.BOOLEAN,
             StringType.STRING,
@@ -50,7 +53,8 @@ public class FEELTypes {
             DurationType.YEARS_AND_MONTHS_DURATION
     });
 
-    public static final List<String> FEEL_LITERAL_DATE_TIME_NAMES = Arrays.asList(NumberType.NUMBER.getConversionFunction(),
+    public static final List<String> FEEL_LITERAL_DATE_TIME_NAMES = Arrays.asList(
+            NumberType.NUMBER.getConversionFunction(),
             DateType.DATE.getConversionFunction(),
             TimeType.TIME.getConversionFunction(),
             DateTimeType.DATE_AND_TIME.getConversionFunction(),

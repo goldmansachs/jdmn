@@ -52,6 +52,7 @@ public abstract class CL3DMNInterpreterTest extends AbstractDMNInterpreterTest {
         doTestDiagram("0039-dt-list-semantics");
         doTestDiagram("0040-singlenestedcontext");
         doTestDiagram("0041-multiple-nestedcontext");
+        doTestDiagram("0070-feel-instance-of");
         doTestDiagram("1100-feel-decimal-function");
         doTestDiagram("1101-feel-floor-function");
         doTestDiagram("1102-feel-ceiling-function");

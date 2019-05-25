@@ -186,9 +186,9 @@ public class CloneVisitor extends AbstractVisitor {
 
     @Override
     public Object visit(InstanceOfExpression element, FEELContext context) {
-        Expression value = (Expression) element.getValue().accept(this, context);
-        QualifiedName qName = (QualifiedName) element.getQTypeName().accept(this, context);
-        return astFactory.toInstanceOf(value, qName);
+        Expression leftOperand = (Expression) element.getLeftOperand().accept(this, context);
+        QualifiedName rightOperand = (QualifiedName) element.getRightOperand().accept(this, context);
+        return astFactory.toInstanceOf(leftOperand, rightOperand);
     }
 
     //

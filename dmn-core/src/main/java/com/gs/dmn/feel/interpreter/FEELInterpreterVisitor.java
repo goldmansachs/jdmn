@@ -498,15 +498,12 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     @Override
     public Object visit(InstanceOfExpression element, FEELContext context) {
         try {
-            Object opd = element.getValue().accept(this, context);
-            if (opd != null) {
-                Class opdClass = opd.getClass();
-                String qTypeName = element.getQTypeName().getQualifiedName();
-                String javaType = typeTranslator.toQualifiedJavaType(qTypeName);
-                Class cls = Class.forName(javaType);
-                return cls.isAssignableFrom(opdClass);
+            Object e1 = element.getLeftOperand().accept(this, context);
+            Type e2 = element.getRightOperandType();
+            if (e1 == null) {
+                return e2 == NullType.NULL;
             } else {
-                return true;
+                return element.getLeftOperand().getType().conformsTo(e2);
             }
         } catch (Exception e) {
             handleError("Cannot evaluate instanceof", e);

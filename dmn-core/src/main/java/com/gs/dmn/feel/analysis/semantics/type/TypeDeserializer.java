@@ -33,8 +33,6 @@ public class TypeDeserializer {
                 stack.push(EnumerationType.ENUMERATION);
             } else if (FEELTypes.FEEL_NAME_TO_FEEL_TYPE.get(token) != null) {
                 stack.push(FEELTypes.FEEL_NAME_TO_FEEL_TYPE.get(token));
-            } else if (AnyType.class.getSimpleName().equals(token)) {
-                stack.push(AnyType.ANY);
             } else if (NullType.class.getSimpleName().equals(token)) {
                 stack.push(NullType.NULL);
             } else if (ContextType.class.getSimpleName().equals(token)) {
