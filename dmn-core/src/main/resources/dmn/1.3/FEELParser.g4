@@ -5,6 +5,8 @@ options { tokenVocab=FEELLexer; }
 @header {
 package com.gs.dmn.feel.analysis.syntax.antlrv4;
 
+import java.util.*;
+
 import com.gs.dmn.feel.analysis.syntax.ast.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.*;
@@ -13,9 +15,10 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
-
-import java.util.*;
+import com.gs.dmn.feel.analysis.semantics.type.*;
+import com.gs.dmn.runtime.Pair;
 }
 
 @parser::members {
@@ -272,9 +275,9 @@ functionDefinition returns [Expression ast] :
 ;
 
 formalParameter returns [FormalParameter ast]:
-    {String typeName = null; }
-    name = parameterName (COLON type = typeName {typeName = $type.ast;})?
-    {$ast = astFactory.toFormalParameter($name.ast, typeName);}
+    {TypeExpression typeExp = null; }
+    name = parameterName (COLON type {typeExp = $type.ast;})?
+    {$ast = astFactory.toFormalParameter($name.ast, typeExp);}
 ;
 
 forExpression returns [Expression ast] :
@@ -407,11 +410,41 @@ instanceOf returns [Expression ast] :
     (
         INSTANCE_OF
         (
-            qualifiedName
-            {$ast = astFactory.toInstanceOf($ast, $qualifiedName.ast);}
+            type
+            {$ast = astFactory.toInstanceOf($ast, $type.ast);}
         )
     )?
 ;
+
+type returns [TypeExpression ast] :
+    (
+        qName = qualifiedName {$ast = astFactory.toNamedTypeExpression($qName.ast);}
+    )
+    |
+    (
+        identifier LT type GT {$ast = astFactory.toListTypeExpression($type.ast);}
+    )
+    |
+    (
+        {List<Pair<String, TypeExpression>> members = new ArrayList<>();}
+        identifier LT
+        id1 = identifier COLON t1 = type {members.add(new Pair<String, TypeExpression>($id1.ast.getText(), $t1.ast));}
+        ( COMMA id2 = identifier COLON t2 = type {members.add(new Pair<String, TypeExpression>($id2.ast.getText(), $t2.ast));})*
+        GT
+        {$ast = astFactory.toContextTypeExpression(members);}
+    )
+    |
+    (
+        {List<TypeExpression> parameters = new ArrayList<>();}
+        identifier LT
+        (
+            t1 = type {parameters.add($t1.ast);}
+            ( COMMA t2 = type )* {parameters.add($t2.ast);}
+        )?
+        GT ARROW returnType = type
+        {$ast = astFactory.toFunctionTypeExpression(parameters, $returnType.ast);}
+    )
+    ;
 
 postfixExpression returns [Expression ast] :
     (
@@ -466,11 +499,6 @@ namedParameters returns [NamedParameters ast]:
 
 parameterName returns [String ast]:
     name = identifier
-    {$ast = $name.text;}
-;
-
-typeName returns [String ast]:
-    name = qualifiedName
     {$ast = $name.text;}
 ;
 
@@ -671,6 +699,11 @@ identifier returns [Token ast] :
     |
     (
         token = AND
+        {$ast = $token;}
+    )
+    |
+    (
+        token = FUNCTION
         {$ast = $token;}
     )
 ;

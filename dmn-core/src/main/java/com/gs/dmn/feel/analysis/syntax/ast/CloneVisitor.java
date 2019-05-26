@@ -26,6 +26,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Conjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Disjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 
 import java.util.LinkedHashMap;
@@ -187,7 +188,7 @@ public class CloneVisitor extends AbstractVisitor {
     @Override
     public Object visit(InstanceOfExpression element, FEELContext context) {
         Expression leftOperand = (Expression) element.getLeftOperand().accept(this, context);
-        QualifiedName rightOperand = (QualifiedName) element.getRightOperand().accept(this, context);
+        TypeExpression rightOperand = (TypeExpression) element.getRightOperand().accept(this, context);
         return astFactory.toInstanceOf(leftOperand, rightOperand);
     }
 
@@ -355,5 +356,25 @@ public class CloneVisitor extends AbstractVisitor {
     @Override
     public Object visit(Name element, FEELContext context) {
          return astFactory.toName(element.getName());
+    }
+
+    @Override
+    public Object visit(NamedTypeExpression element, FEELContext params) {
+        return astFactory.toNamedTypeExpression(element.getQualifiedName());
+    }
+
+    @Override
+    public Object visit(ListTypeExpression element, FEELContext params) {
+        return astFactory.toListTypeExpression(element.getElementTypeExpression());
+    }
+
+    @Override
+    public Object visit(ContextTypeExpression element, FEELContext params) {
+        return astFactory.toContextTypeExpression(element.getMembers());
+    }
+
+    @Override
+    public Object visit(FunctionTypeExpression element, FEELContext params) {
+        return astFactory.toFunctionTypeExpression(element.getParameters(), element.getReturnType());
     }
 }

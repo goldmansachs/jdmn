@@ -52,7 +52,6 @@ public abstract class CL3DMNInterpreterTest extends AbstractDMNInterpreterTest {
         doTestDiagram("0039-dt-list-semantics");
         doTestDiagram("0040-singlenestedcontext");
         doTestDiagram("0041-multiple-nestedcontext");
-        doTestDiagram("0070-feel-instance-of");
         doTestDiagram("1100-feel-decimal-function");
         doTestDiagram("1101-feel-floor-function");
         doTestDiagram("1102-feel-ceiling-function");
@@ -78,5 +77,6 @@ public abstract class CL3DMNInterpreterTest extends AbstractDMNInterpreterTest {
         doTestDiagram("0034-drg-scopes-2");
         doTestDiagram("0076-feel-external-java");
         doTestDiagram("0085-decision-services");
+        doTestDiagram("0070-feel-instance-of");
     }
 }

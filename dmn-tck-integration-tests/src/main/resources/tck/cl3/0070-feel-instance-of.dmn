@@ -651,6 +651,27 @@
         </literalExpression>
     </decision>
 
+    <decision name="list_018" id="_list_018">
+        <variable name="list_018"/>
+        <literalExpression>
+            <text>[1] instance of list&lt;number&gt;</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="list_019" id="_list_019">
+        <variable name="list_019"/>
+        <literalExpression>
+            <text>["123"] instance of list&lt;number&gt;</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="list_020" id="_list_020">
+        <variable name="list_020"/>
+        <literalExpression>
+            <text>[1, "123"] instance of list&lt;Any&gt;</text>
+        </literalExpression>
+    </decision>
+
     <decision name="ym_duration_001" id="_ym_duration_001">
         <variable name="ym_duration_001"/>
         <literalExpression>
@@ -933,6 +954,19 @@
         </literalExpression>
     </decision>
 
+    <decision name="context_017" id="_context_017">
+        <variable name="context_017"/>
+        <literalExpression>
+            <text>{a: "foo", b: [1,2,3]} instance of context&lt;a: string&gt;</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="context_018" id="_context_018">
+        <variable name="context_018"/>
+        <literalExpression>
+            <text>{a: "foo", b: [1,2,3]} instance of context&lt;a: string, b: list&lt;number&gt;&gt;</text>
+        </literalExpression>
+    </decision>
 
     <decision name="function_001" id="_function_001">
         <variable name="function_001"/>
@@ -1018,7 +1052,11 @@
         </literalExpression>
     </decision>
 
-
-
+    <decision name="function_013" id="_function_013">
+        <variable name="function_013"/>
+        <literalExpression>
+            <text>(function() "foo") instance of function&lt;&gt; -&gt; string</text>
+        </literalExpression>
+    </decision>
 </definitions>
 

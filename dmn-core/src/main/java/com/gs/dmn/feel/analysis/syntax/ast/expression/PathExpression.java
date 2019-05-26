@@ -34,6 +34,21 @@ public class PathExpression extends Expression {
         return source;
     }
 
+    public String getPath() {
+        return getPath(this);
+    }
+
+    private String getPath(Expression exp) {
+        if (exp instanceof Name) {
+            return ((Name) exp).getName();
+        } else if (exp instanceof QualifiedName) {
+            return ((QualifiedName) exp).getQualifiedName();
+        } else if (exp instanceof PathExpression) {
+            return String.format("%s.%s", getPath(source), member);
+        }
+        return String.format("%s.%s", getPath(source), member);
+    }
+
     @Override
     public void deriveType(Environment environment) {
         Type sourceType = source.getType();

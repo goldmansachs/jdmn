@@ -10,36 +10,25 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.syntax.ast.expression.textual;
+package com.gs.dmn.feel.analysis.syntax.ast.expression.type;
 
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.type.TypeExpression;
 
-import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
+public class NamedTypeExpression extends TypeExpression {
+    private final String qualifiedName;
 
-public class InstanceOfExpression extends Expression {
-    private final Expression leftOperand;
-    private final TypeExpression rightOperand;
-
-    public InstanceOfExpression(Expression leftOperand, TypeExpression rightOperand) {
-        this.leftOperand = leftOperand;
-        this.rightOperand = rightOperand;
+    public NamedTypeExpression(String qualifiedName) {
+        this.qualifiedName = qualifiedName;
     }
 
-    public Expression getLeftOperand() {
-        return leftOperand;
-    }
-
-    public TypeExpression getRightOperand() {
-        return rightOperand;
+    public String getQualifiedName() {
+        return qualifiedName;
     }
 
     @Override
     public void deriveType(Environment environment) {
-        setType(BOOLEAN);
     }
 
     @Override
@@ -49,6 +38,6 @@ public class InstanceOfExpression extends Expression {
 
     @Override
     public String toString() {
-        return String.format("InstanceOfExpression(%s, %s)", leftOperand.toString(), rightOperand.toString());
+        return String.format("NamedTypeExpression(%s)", qualifiedName);
     }
 }

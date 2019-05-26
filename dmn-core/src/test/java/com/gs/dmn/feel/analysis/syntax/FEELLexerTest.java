@@ -186,12 +186,12 @@ public class FEELLexerTest extends AbstractLexerTest {
 
     @Test
     public void testPunctuation() {
-        String text = "( ) [ ] { } . .. , :";
+        String text = "( ) [ ] { } . .. , : ->";
         checkTokenList(
                 text, new Integer[] {
                         PAREN_OPEN, PAREN_CLOSE, BRACKET_OPEN, BRACKET_CLOSE,
-                        BRACE_OPEN, BRACE_CLOSE, DOT, DOT_DOT, COMMA, COLON},
-                new String[] {"(", ")", "[", "]", "{", "}", ".", "..", ",", ":"}
+                        BRACE_OPEN, BRACE_CLOSE, DOT, DOT_DOT, COMMA, COLON, ARROW},
+                new String[] {"(", ")", "[", "]", "{", "}", ".", "..", ",", ":", "->"}
         );
     }
 
