@@ -15,10 +15,8 @@ package com.gs.dmn.dialect;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.interpreter.FEELInterpreter;
 import com.gs.dmn.feel.interpreter.FEELInterpreterImpl;
-import com.gs.dmn.feel.interpreter.SFEELInterpreterImpl;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.FEELTranslatorImpl;
-import com.gs.dmn.feel.synthesis.SFEELTranslatorImpl;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 
@@ -37,16 +35,5 @@ public abstract class AbstractDMNDialectDefinition implements DMNDialectDefiniti
     @Override
     public FEELTranslator createFEELTranslator(DMNModelRepository repository, Map<String, String> inputParameters) {
         return new FEELTranslatorImpl(createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters));
-    }
-
-    @Override
-    public FEELInterpreter createSFEELInterpreter(DMNModelRepository repository) {
-        DMNInterpreter dmnInterpreter = createDMNInterpreter(repository);
-        return new SFEELInterpreterImpl(dmnInterpreter);
-    }
-
-    @Override
-    public FEELTranslator createSFEELTranslator(DMNModelRepository repository, Map<String, String> inputParameters) {
-        return new SFEELTranslatorImpl(createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters));
     }
 }
