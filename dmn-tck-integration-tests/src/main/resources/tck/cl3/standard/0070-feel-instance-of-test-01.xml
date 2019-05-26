@@ -824,6 +824,33 @@
         </resultNode>
     </testCase>
 
+    <testCase id="list_018">
+        <description>primitive list is an instance of list of same type</description>
+        <resultNode name="list_018" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="list_019">
+        <description>primitive list is not an instance of list of different type</description>
+        <resultNode name="list_019" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="list_020">
+        <description>heterogeneous list is an instance of list of Any</description>
+        <resultNode name="list_020" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
     <testCase id="ym_duration_001">
         <description>years and months duration instance of Any is true</description>
         <resultNode name="ym_duration_001" type="decision">
@@ -1184,6 +1211,24 @@
         </resultNode>
     </testCase>
 
+    <testCase id="context_017">
+        <description>context instance with properties subset of right properties is true</description>
+        <resultNode name="context_017" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_018">
+        <description>context instance with same property names is true</description>
+        <resultNode name="context_018" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
     <testCase id="function_001">
         <description>function instance of Any is true</description>
         <resultNode name="function_001" type="decision">
@@ -1288,6 +1333,15 @@
         <resultNode name="function_012" type="decision">
             <expected>
                 <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="function_013">
+        <description>function returning string instance of &lt;&gt; -&gt; string is true</description>
+        <resultNode name="function_013" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
             </expected>
         </resultNode>
     </testCase>

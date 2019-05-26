@@ -26,6 +26,10 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Conjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Disjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.type.ContextTypeExpression;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.type.FunctionTypeExpression;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.type.ListTypeExpression;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.type.NamedTypeExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 
 public interface Visitor {
@@ -144,4 +148,15 @@ public interface Visitor {
     Object visit(QualifiedName element, FEELContext params);
 
     Object visit(Name element, FEELContext params);
+
+    //
+    // Type expressions
+    //
+    Object visit(NamedTypeExpression element, FEELContext params);
+
+    Object visit(ListTypeExpression element, FEELContext params);
+
+    Object visit(ContextTypeExpression element, FEELContext params);
+
+    Object visit(FunctionTypeExpression element, FEELContext params);
 }

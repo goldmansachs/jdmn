@@ -387,53 +387,59 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 new EnvironmentEntry("input", NUMBER, lib.number("1")));
 
         doExpressionTest(entries, "", "3 instance of number",
-                "InstanceOfExpression(NumericLiteral(3), QualifiedName(number, 1))",
+                "InstanceOfExpression(NumericLiteral(3), NamedTypeExpression(number))",
                 "boolean",
                 "number(\"3\") instanceof java.math.BigDecimal",
                 lib.number("3") instanceof java.math.BigDecimal,
                 true);
         doExpressionTest(entries, "", "\"abc\" instance of string",
-                "InstanceOfExpression(StringLiteral(\"abc\"), QualifiedName(string, 1))",
+                "InstanceOfExpression(StringLiteral(\"abc\"), NamedTypeExpression(string))",
                 "boolean",
                 "\"abc\" instanceof String",
                 "abc" instanceof String,
                 true);
         doExpressionTest(entries, "", "true instance of boolean",
-                "InstanceOfExpression(BooleanLiteral(true), QualifiedName(boolean, 1))",
+                "InstanceOfExpression(BooleanLiteral(true), NamedTypeExpression(boolean))",
                 "boolean",
                 "Boolean.TRUE instanceof Boolean",
                 Boolean.TRUE instanceof Boolean,
                 true);
         doExpressionTest(entries, "", "date(\"2011-01-03\") instance of date",
-                "InstanceOfExpression(DateTimeLiteral(date, \"2011-01-03\"), QualifiedName(date, 1))",
+                "InstanceOfExpression(DateTimeLiteral(date, \"2011-01-03\"), NamedTypeExpression(date))",
                 "boolean",
                 "date(\"2011-01-03\") instanceof javax.xml.datatype.XMLGregorianCalendar",
                 lib.date("2011-01-03") instanceof javax.xml.datatype.XMLGregorianCalendar,
                 true);
         doExpressionTest(entries, "", "time(\"12:00:00Z\") instance of time",
-                "InstanceOfExpression(DateTimeLiteral(time, \"12:00:00Z\"), QualifiedName(time, 1))",
+                "InstanceOfExpression(DateTimeLiteral(time, \"12:00:00Z\"), NamedTypeExpression(time))",
                 "boolean",
                 "time(\"12:00:00Z\") instanceof javax.xml.datatype.XMLGregorianCalendar",
                 lib.time("12:00:00Z") instanceof javax.xml.datatype.XMLGregorianCalendar,
                 true);
         doExpressionTest(entries, "", "date and time(\"2016-03-01T12:00:00Z\") instance of date and time",
-                "InstanceOfExpression(DateTimeLiteral(date and time, \"2016-03-01T12:00:00Z\"), QualifiedName(date and time, 1))",
+                "InstanceOfExpression(DateTimeLiteral(date and time, \"2016-03-01T12:00:00Z\"), NamedTypeExpression(date and time))",
                 "boolean",
                 "dateAndTime(\"2016-03-01T12:00:00Z\") instanceof javax.xml.datatype.XMLGregorianCalendar",
                 lib.dateAndTime("2016-03-01T12:00:00Z") instanceof javax.xml.datatype.XMLGregorianCalendar,
                 true);
         doExpressionTest(entries, "", "duration(\"P1Y1M\") instance of years and months duration",
-                "InstanceOfExpression(DateTimeLiteral(duration, \"P1Y1M\"), QualifiedName(years and months duration, 1))",
+                "InstanceOfExpression(DateTimeLiteral(duration, \"P1Y1M\"), NamedTypeExpression(years and months duration))",
                 "boolean",
                 "duration(\"P1Y1M\") instanceof javax.xml.datatype.Duration",
                 lib.duration("P1Y1M") instanceof javax.xml.datatype.Duration,
                 true);
         doExpressionTest(entries, "", "duration(\"P1DT1H\") instance of days and time duration",
-                "InstanceOfExpression(DateTimeLiteral(duration, \"P1DT1H\"), QualifiedName(days and time duration, 1))",
+                "InstanceOfExpression(DateTimeLiteral(duration, \"P1DT1H\"), NamedTypeExpression(days and time duration))",
                 "boolean",
                 "duration(\"P1DT1H\") instanceof javax.xml.datatype.Duration",
                 lib.duration("P1Y1M") instanceof javax.xml.datatype.Duration,
                 true);
+        doExpressionTest(entries, "", "(function () 4) instance of function <> -> number",
+                "InstanceOfExpression(FunctionDefinition(, NumericLiteral(4), false), FunctionTypeExpression( -> NamedTypeExpression(number)))",
+                "boolean",
+                null,
+                null,
+                null);
     }
 
     @Test

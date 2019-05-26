@@ -19,8 +19,8 @@ import com.gs.dmn.feel.analysis.semantics.environment.ConversionKind;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.ArithmeticNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Exponentiation;
@@ -34,6 +34,10 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Conjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Disjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.type.ContextTypeExpression;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.type.FunctionTypeExpression;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.type.ListTypeExpression;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.type.NamedTypeExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
@@ -499,7 +503,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     public Object visit(InstanceOfExpression element, FEELContext context) {
         try {
             Object e1 = element.getLeftOperand().accept(this, context);
-            Type e2 = element.getRightOperandType();
+            Type e2 = element.getRightOperand().getType();
             if (e1 == null) {
                 return e2 == NullType.NULL;
             } else {
@@ -1129,6 +1133,29 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     public Object visit(Name element, FEELContext context) {
         String variableName = element.getName();
         return context.lookupRuntimeBinding(variableName);
+    }
+
+    //
+    // Type expressions
+    //
+    @Override
+    public Object visit(NamedTypeExpression element, FEELContext params) {
+        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+    }
+
+    @Override
+    public Object visit(ListTypeExpression element, FEELContext params) {
+        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+    }
+
+    @Override
+    public Object visit(ContextTypeExpression element, FEELContext params) {
+        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+    }
+
+    @Override
+    public Object visit(FunctionTypeExpression element, FEELContext params) {
+        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
 
     private void handleError(String message) {

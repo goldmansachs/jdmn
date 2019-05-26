@@ -98,6 +98,9 @@ BRACE_CLOSE:
 COLON:
     ':'
     ;
+ARROW:
+    '->'
+    ;
 
 // Keywords
 NOT:

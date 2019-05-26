@@ -35,6 +35,10 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Conjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Disjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.type.ContextTypeExpression;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.type.FunctionTypeExpression;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.type.ListTypeExpression;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.type.NamedTypeExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.runtime.DMNRuntimeException;
@@ -360,8 +364,8 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     @Override
     public Object visit(InstanceOfExpression element, FEELContext context) {
         String leftOperand = (String) element.getLeftOperand().accept(this, context);
-        String rightOperandType = element.getRightOperand().getQualifiedName();
-        String javaType = feelTypeTranslator.toJavaType(rightOperandType);
+        Type rightOperandType = element.getRightOperand().getType();
+        String javaType = feelTypeTranslator.toJavaType(rightOperandType.toString());
         return String.format("%s instanceof %s", leftOperand, javaType);
     }
 
@@ -585,6 +589,29 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     public Object visit(Name element, FEELContext context) {
         String name = element.getName();
         return nameToJava(name, context);
+    }
+
+    //
+    // Type expressions
+    //
+    @Override
+    public Object visit(NamedTypeExpression element, FEELContext params) {
+        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+    }
+
+    @Override
+    public Object visit(ListTypeExpression element, FEELContext params) {
+        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+    }
+
+    @Override
+    public Object visit(ContextTypeExpression element, FEELContext params) {
+        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+    }
+
+    @Override
+    public Object visit(FunctionTypeExpression element, FEELContext params) {
+        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
 
     protected Object nameToJava(String name, FEELContext context) {

@@ -26,6 +26,10 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Conjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Disjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.type.ContextTypeExpression;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.type.FunctionTypeExpression;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.type.ListTypeExpression;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.type.NamedTypeExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 
 public class NopVisitor extends AbstractVisitor {
@@ -285,6 +289,29 @@ public class NopVisitor extends AbstractVisitor {
 
     @Override
     public Object visit(Name element, FEELContext context) {
+        return element;
+    }
+
+    //
+    // Type expressions
+    //
+    @Override
+    public Object visit(NamedTypeExpression element, FEELContext params) {
+        return element;
+    }
+
+    @Override
+    public Object visit(ListTypeExpression element, FEELContext params) {
+        return element;
+    }
+
+    @Override
+    public Object visit(ContextTypeExpression element, FEELContext params) {
+        return element;
+    }
+
+    @Override
+    public Object visit(FunctionTypeExpression element, FEELContext params) {
         return element;
     }
 }

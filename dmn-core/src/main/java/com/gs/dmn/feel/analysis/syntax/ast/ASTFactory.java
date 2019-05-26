@@ -26,8 +26,10 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Conjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Disjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -238,8 +240,8 @@ public class ASTFactory {
         return new PositiveUnaryTests(positiveUnaryTests);
     }
 
-    public FormalParameter toFormalParameter(String parameterName, String typeName) {
-        return new FormalParameter(parameterName, typeName);
+    public FormalParameter toFormalParameter(String parameterName, TypeExpression typeExpression) {
+        return new FormalParameter(parameterName, typeExpression);
     }
 
     public Expression toFunctionDefinition(List<FormalParameter> formalParameters, Expression body, boolean external) {
@@ -316,15 +318,8 @@ public class ASTFactory {
         }
     }
 
-    public Expression toInstanceOf(Expression value, Expression qName) {
-        if (qName instanceof QualifiedName) {
-            return new InstanceOfExpression(value, (QualifiedName) qName);
-        } else if (qName instanceof Name) {
-            String name = ((Name) qName).getName();
-            return new InstanceOfExpression(value, new QualifiedName(Arrays.asList(name)));
-        } else {
-            throw new DMNRuntimeException(String.format("Not supported qName '%s'", qName));
-        }
+    public Expression toInstanceOf(Expression expression, TypeExpression typeExpresion) {
+        return new InstanceOfExpression(expression, typeExpresion);
     }
 
     public Expression toPathExpression(Expression source, String member) {
@@ -375,5 +370,33 @@ public class ASTFactory {
 
     public PositionalParameters toPositionalParameters(List<Expression> params) {
         return new PositionalParameters(params);
+    }
+
+    public TypeExpression toNamedTypeExpression(String qualifiedName) {
+        return new NamedTypeExpression(qualifiedName);
+    }
+
+    public TypeExpression toNamedTypeExpression(Expression exp) {
+        if (exp instanceof Name) {
+            return toNamedTypeExpression(((Name) exp).getName());
+        } else if (exp instanceof QualifiedName) {
+            return toNamedTypeExpression(((QualifiedName) exp).getQualifiedName());
+        } else if (exp instanceof PathExpression) {
+            return toNamedTypeExpression(((PathExpression) exp).getPath());
+        } else {
+            throw new UnsupportedOperationException("Not supported" + exp.toString());
+        }
+    }
+
+    public TypeExpression toListTypeExpression(TypeExpression elementType) {
+        return new ListTypeExpression(elementType);
+    }
+
+    public TypeExpression toContextTypeExpression(List<Pair<String, TypeExpression>> members) {
+        return new ContextTypeExpression(members);
+    }
+
+    public TypeExpression toFunctionTypeExpression(List<TypeExpression> parameters, TypeExpression returnType) {
+        return new FunctionTypeExpression(parameters, returnType);
     }
 }
