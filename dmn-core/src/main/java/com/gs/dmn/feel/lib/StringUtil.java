@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.lib;
 
-import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
 import net.sf.saxon.xpath.XPathFactoryImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Document;
@@ -194,10 +193,10 @@ public class StringUtil {
     private static String evaluateXPath(String input, String expression) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
         // Read document
         String xml = "<root>" + input + "</root>";
-        DocumentBuilderFactory documentBuilderFactory = new DocumentBuilderFactoryImpl();
-        DocumentBuilder docBuilder = documentBuilderFactory.newDocumentBuilder();
+        DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = builderFactory.newDocumentBuilder();
         InputStream inputStream = new ByteArrayInputStream(xml.getBytes());
-        Document document = docBuilder.parse(inputStream);
+        Document document = builder.parse(inputStream);
 
         // Evaluate xpath
         XPathFactory xPathFactory = new XPathFactoryImpl();
