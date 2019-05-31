@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.serialization;
 
-import com.sun.xml.internal.bind.marshaller.NamespacePrefixMapper;
+import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.LinkedHashMap;

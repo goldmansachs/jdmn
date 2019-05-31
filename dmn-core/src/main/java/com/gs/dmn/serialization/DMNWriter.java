@@ -75,7 +75,7 @@ public class DMNWriter extends DMNSerializer {
             throw new RuntimeException(String.format("DMN version '%s' is not supported", version));
         }
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        marshaller.setProperty("com.sun.xml.internal.bind.namespacePrefixMapper", namespacePrefixMapper);
+        marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", namespacePrefixMapper);
         return marshaller;
     }
 
