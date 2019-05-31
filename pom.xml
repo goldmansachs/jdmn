@@ -83,6 +83,10 @@
         <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
         <java.version>1.8</java.version>
 
+        <jaxb.version>2.3.0</jaxb.version>
+        <jaxb.plugin.version>2.4</jaxb.plugin.version>
+        <antlr4.version>4.7.2</antlr4.version>
+
         <jackson.version>2.9.7</jackson.version>
         <jackson.core.version>${jackson.version}</jackson.core.version>
         <jackson.databind.version>${jackson.version}</jackson.databind.version>
@@ -497,7 +501,7 @@ specific language governing permissions and limitations under the License.]]></i
                 <plugin>
                     <groupId>org.apache.rat</groupId>
                     <artifactId>apache-rat-plugin</artifactId>
-                    <version>0.12</version>
+                    <version>0.13</version>
                 </plugin>
 
                 <plugin>
@@ -509,13 +513,13 @@ specific language governing permissions and limitations under the License.]]></i
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>2.10</version>
+                    <version>3.1.1</version>
                 </plugin>
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>1.4</version>
+                    <version>3.0.0-M2</version>
                     <executions>
                         <execution>
                             <id>enforce-java</id>
@@ -532,6 +536,7 @@ specific language governing permissions and limitations under the License.]]></i
                                         <banLatest>true</banLatest>
                                         <banRelease>true</banRelease>
                                         <banSnapshots>${ban.snapshot}</banSnapshots>
+                                        <unCheckedPluginList>com.goldmansachs.jdmn:jdmn-maven-plugin</unCheckedPluginList>
                                     </requirePluginVersions>
                                 </rules>
                             </configuration>
@@ -542,13 +547,13 @@ specific language governing permissions and limitations under the License.]]></i
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
-                    <version>2.3</version>
+                    <version>2.7</version>
                 </plugin>
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.0</version>
                 </plugin>
 
                 <plugin>
@@ -560,13 +565,25 @@ specific language governing permissions and limitations under the License.]]></i
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.0.1</version>
+                    <version>3.1.0</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>jaxb2-maven-plugin</artifactId>
+                    <version>${jaxb.plugin.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.antlr</groupId>
+                    <artifactId>antlr4-maven-plugin</artifactId>
+                    <version>${antlr4.version}</version>
                 </plugin>
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.5.1</version>
+                    <version>3.8.1</version>
                     <configuration>
                         <source>${java.version}</source>
                         <target>${java.version}</target>
@@ -576,7 +593,7 @@ specific language governing permissions and limitations under the License.]]></i
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.19.1</version>
+                    <version>3.0.0-M3</version>
                     <configuration>
                         <!-- for integration w/ sonar unit coverage -->
                         <argLine>${surefire.argLine} -Dfile.encoding=UTF-8</argLine>
@@ -589,7 +606,7 @@ specific language governing permissions and limitations under the License.]]></i
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>2.19.1</version>
+                    <version>3.0.0-M3</version>
                     <configuration>
                         <!-- for integration w/ sonar integration coverage -->
                         <argLine>${failsafe.argLine}</argLine>
@@ -610,13 +627,13 @@ specific language governing permissions and limitations under the License.]]></i
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.0.2</version>
+                    <version>3.1.2</version>
                 </plugin>
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>3.0.1</version>
+                    <version>3.1.0</version>
                     <executions>
                         <execution>
                             <id>attach-sources</id>
@@ -631,7 +648,7 @@ specific language governing permissions and limitations under the License.]]></i
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.0</version>
                 </plugin>
 
                 <plugin>
@@ -643,13 +660,13 @@ specific language governing permissions and limitations under the License.]]></i
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.8.2</version>
+                    <version>3.0.0-M1</version>
                 </plugin>
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-install-plugin</artifactId>
-                    <version>2.5.2</version>
+                    <version>3.0.0-M1</version>
                 </plugin>
 
                 <plugin>
@@ -661,7 +678,7 @@ specific language governing permissions and limitations under the License.]]></i
                 <plugin>
                     <groupId>org.sonarsource.scanner.maven</groupId>
                     <artifactId>sonar-maven-plugin</artifactId>
-                    <version>3.3.0.603</version>
+                    <version>3.6.0.1398</version>
                 </plugin>
 
             </plugins>
@@ -731,17 +748,6 @@ specific language governing permissions and limitations under the License.]]></i
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <configuration>
-                    <doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
-
-                    <docletArtifact>
-                        <groupId>org.umlgraph</groupId>
-                        <artifactId>doclet</artifactId>
-                        <version>5.1</version>
-                    </docletArtifact>
-                    <additionalparam>-views</additionalparam>
-                    <useStandardDocletOptions>true</useStandardDocletOptions>
-                </configuration>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -772,7 +778,6 @@ specific language governing permissions and limitations under the License.]]></i
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
             </plugin>
-
         </plugins>
     </build>
 
