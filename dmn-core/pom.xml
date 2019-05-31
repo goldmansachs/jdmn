@@ -26,11 +26,9 @@
         <dmn12.schema>${project.basedir}/src/main/resources/dmn/1.2/dmn.xsd</dmn12.schema>
         <tck.schema>${project.basedir}/src/main/resources/tck/testCases.xsd</tck.schema>
 
-        <jaxb.version>2.2</jaxb.version>
         <jaxb.generated.dmn>${project.basedir}/target/generated-sources/jaxb</jaxb.generated.dmn>
         <jaxb.generated.tck>${project.basedir}/target/generated-sources/jaxb</jaxb.generated.tck>
 
-        <antlr4.version>4.7.1</antlr4.version>
         <antlr.source.directory>${project.basedir}/src/main/resources/dmn/${dmn.version}</antlr.source.directory>
         <antlr.generated>${project.basedir}/target/generated-sources/antlrv4</antlr.generated>
         <antlr.target.directory>${antlr.generated}/com/gs/dmn/feel/analysis/syntax/antlrv4</antlr.target.directory>
@@ -169,7 +167,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxb2-maven-plugin</artifactId>
-                <version>${jaxb.version}</version>
                 <executions>
                     <execution>
                         <id>dmn-11</id>
@@ -224,7 +221,6 @@
             <plugin>
                 <groupId>org.antlr</groupId>
                 <artifactId>antlr4-maven-plugin</artifactId>
-                <version>${antlr4.version}</version>
                 <executions>
                     <execution>
                         <configuration>
