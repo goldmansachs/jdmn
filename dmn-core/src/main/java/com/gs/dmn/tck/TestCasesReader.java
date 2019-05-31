@@ -77,7 +77,7 @@ public class TestCasesReader {
             Marshaller marshaller = JAXB_CONTEXT.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             if (namespacePrefixMapper != null) {
-                marshaller.setProperty("com.sun.xml.internal.bind.namespacePrefixMapper", namespacePrefixMapper);
+                marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", namespacePrefixMapper);
             }
 
             QName qName = new QName(TCK_NS, "testCases");
