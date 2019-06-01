@@ -13,6 +13,7 @@
 package com.gs.dmn.runtime;
 
 import com.gs.dmn.feel.lib.DateTimeUtil;
+import com.gs.dmn.feel.lib.DurationUtil;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -113,6 +114,7 @@ public class Assert {
 
     private static boolean isDateTime(Object object) {
         return object instanceof XMLGregorianCalendar
+                || object instanceof java.time.Duration
                 || object instanceof Duration
                 || object instanceof ZonedDateTime
                 || object instanceof LocalDate
@@ -147,7 +149,9 @@ public class Assert {
         if (object == null) {
             return null;
         }
-        if (object instanceof ZonedDateTime) {
+        if (object instanceof Duration) {
+            return DurationUtil.normalize((Duration) object);
+        } else if (object instanceof ZonedDateTime) {
             return ((ZonedDateTime) object).withZoneSameInstant(DateTimeUtil.UTC);
         } else if (object instanceof OffsetTime) {
             return ((OffsetTime) object).withOffsetSameInstant(ZoneOffset.UTC);

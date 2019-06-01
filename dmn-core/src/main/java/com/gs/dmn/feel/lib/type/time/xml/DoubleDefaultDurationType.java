@@ -12,12 +12,14 @@
  */
 package com.gs.dmn.feel.lib.type.time.xml;
 
+import com.gs.dmn.feel.lib.DurationUtil;
 import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.DurationType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import org.slf4j.Logger;
 
+import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
 
@@ -42,7 +44,7 @@ public class DoubleDefaultDurationType extends BaseType implements DurationType<
         } else if (second == null) {
             return false;
         } else {
-            return first.equals(second);
+            return DurationUtil.compare(first, second) == DatatypeConstants.EQUAL;
         }
     }
 
@@ -60,7 +62,7 @@ public class DoubleDefaultDurationType extends BaseType implements DurationType<
         } else if (second == null) {
             return null;
         } else {
-            return first.compare(second) < 0;
+            return DurationUtil.compare(first, second) == DatatypeConstants.LESSER;
         }
     }
 
@@ -73,7 +75,7 @@ public class DoubleDefaultDurationType extends BaseType implements DurationType<
         } else if (second == null) {
             return null;
         } else {
-            return first.compare(second) > 0;
+            return DurationUtil.compare(first, second) == DatatypeConstants.GREATER;
         }
     }
 
@@ -86,7 +88,8 @@ public class DoubleDefaultDurationType extends BaseType implements DurationType<
         } else if (second == null) {
             return null;
         } else {
-            return first.compare(second) <= 0;
+            int compare = DurationUtil.compare(first, second);
+            return compare == DatatypeConstants.LESSER || compare == DatatypeConstants.EQUAL;
         }
     }
 
@@ -99,7 +102,8 @@ public class DoubleDefaultDurationType extends BaseType implements DurationType<
         } else if (second == null) {
             return null;
         } else {
-            return first.compare(second) >= 0;
+            int compare = DurationUtil.compare(first, second);
+            return compare == DatatypeConstants.GREATER || compare == DatatypeConstants.EQUAL;
         }
     }
 
