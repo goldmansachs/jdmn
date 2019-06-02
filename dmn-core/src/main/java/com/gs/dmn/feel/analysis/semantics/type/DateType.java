@@ -42,7 +42,7 @@ public class DateType extends DataType {
 
     @Override
     public boolean conformsTo(Type other) {
-        return equivalentTo(other) || other == AnyType.ANY || other == DateTimeType.DATE_AND_TIME;
+        return equivalentTo(other) || other == AnyType.ANY;
     }
 
 }

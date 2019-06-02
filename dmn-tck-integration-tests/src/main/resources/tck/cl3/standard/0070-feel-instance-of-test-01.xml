@@ -497,14 +497,10 @@
     </testCase>
 
     <testCase id="date_007">
-        <description>date instance of date and time is false - spec 1.2 "Examples of equivalence
-            and conformance relations" table shows date and confirming to date
-            and time. This is because "Where necessary, including the valuedt function (see 10.3.2.3.6), a date value is
-            considered to be equivalent to a date time value in which the time of day is UTC midnight (00:00:00).
-        </description>
+        <description>date instance of date and time is false</description>
         <resultNode name="date_007" type="decision">
             <expected>
-                <value xsi:type="xsd:boolean">true</value>
+                <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
     </testCase>
