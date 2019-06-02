@@ -40,13 +40,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.googlecode.jaxb-namespaceprefixmapper-interfaces</groupId>
-            <artifactId>JAXBNamespacePrefixMapper</artifactId>
-            <version>2.2.4</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
             <version>2.3.23</version>
@@ -112,7 +105,7 @@
         <dependency>
             <groupId>org.fitnesse</groupId>
             <artifactId>fitnesse</artifactId>
-            <version>20180127</version>
+            <version>20190428</version>
             <scope>test</scope>
         </dependency>
 
@@ -133,8 +126,7 @@
         <dependency>
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
-            <version>3.21.0-GA</version>
-        </dependency>
+sss        </dependency>
 
         <dependency>
             <groupId>junit</groupId>
