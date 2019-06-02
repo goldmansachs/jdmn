@@ -427,6 +427,18 @@ specific language governing permissions and limitations under the License.]]></i
                 <groupId>org.reflections</groupId>
                 <artifactId>reflections</artifactId>
                 <version>0.9.11</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.javassist</groupId>
+                        <artifactId>javassist</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.javassist</groupId>
+                <artifactId>javassist</artifactId>
+                <version>3.25.0-GA</version>
             </dependency>
 
             <dependency>
@@ -560,6 +572,9 @@ specific language governing permissions and limitations under the License.]]></i
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
                     <version>2.7</version>
+                    <configuration>
+                        <generateBackupPoms>false</generateBackupPoms>
+                    </configuration>
                 </plugin>
 
                 <plugin>
