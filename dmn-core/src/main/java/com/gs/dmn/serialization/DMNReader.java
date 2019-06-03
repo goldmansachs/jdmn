@@ -16,12 +16,19 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.xml.sax.InputSource;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import java.io.File;
@@ -29,16 +36,16 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.net.URI;
 import java.net.URL;
-
-import static com.gs.dmn.serialization.DMNConstants.DMN_11_PACKAGE;
-import static com.gs.dmn.serialization.DMNConstants.DMN_12_PACKAGE;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class DMNReader extends DMNSerializer {
-    protected static final JAXBContext JAXB_DMN_CONTEXT;
+    protected static final Map<DMNVersion, JAXBContext> JAXB_CONTEXTS = new LinkedHashMap<>();
 
     static {
         try {
-            JAXB_DMN_CONTEXT = JAXBContext.newInstance(String.format("%s:%s", DMN_12_PACKAGE, DMN_11_PACKAGE));
+            JAXB_CONTEXTS.put(DMNVersion.DMN_11, JAXBContext.newInstance(DMNVersion.DMN_11.getJavaPackage()));
+            JAXB_CONTEXTS.put(DMNVersion.DMN_12, JAXBContext.newInstance(DMNVersion.DMN_12.getJavaPackage()));
         } catch (JAXBException e) {
             throw new DMNRuntimeException("Cannot create JAXB Context", e);
         }
@@ -104,38 +111,6 @@ public class DMNReader extends DMNSerializer {
         }
     }
 
-    private Unmarshaller makeUnmarshaller() throws Exception {
-        Unmarshaller u = JAXB_DMN_CONTEXT.createUnmarshaller();
-        if (validateSchema) {
-            setSchema(u);
-        }
-        return u;
-    }
-
-    Object readObject(File input) throws Exception {
-        Unmarshaller unmarshaller = makeUnmarshaller();
-        JAXBElement<?> jaxbElement = (JAXBElement<?>) unmarshaller.unmarshal(input);
-        return jaxbElement.getValue();
-    }
-
-    Object readObject(URL input) throws Exception {
-        Unmarshaller unmarshaller = makeUnmarshaller();
-        JAXBElement<?> jaxbElement = (JAXBElement<?>) unmarshaller.unmarshal(input);
-        return jaxbElement.getValue();
-    }
-
-    Object readObject(InputStream input) throws Exception {
-        Unmarshaller unmarshaller = makeUnmarshaller();
-        JAXBElement<?> jaxbElement = (JAXBElement<?>) unmarshaller.unmarshal(input);
-        return jaxbElement.getValue();
-    }
-
-    Object readObject(Reader input) throws Exception {
-        Unmarshaller unmarshaller = makeUnmarshaller();
-        JAXBElement<?> jaxbElement = (JAXBElement<?>) unmarshaller.unmarshal(input);
-        return jaxbElement.getValue();
-    }
-
     private DMNModelRepository transform(Object value) {
         if (value == null) {
             return null;
@@ -150,10 +125,85 @@ public class DMNReader extends DMNSerializer {
         }
     }
 
-    private void setSchema(Unmarshaller u) throws Exception {
-        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        URI schemaURI = getClass().getClassLoader().getResource("dmn/dmn.xsd").toURI();
-        Schema schema = sf.newSchema(schemaURI.toURL());
-        u.setSchema(schema);
+    Object readObject(File input) throws Exception {
+        DocumentBuilder builder = makeDocumentBuilder();
+        Document doc = builder.parse(input);
+        return readObject(doc);
     }
+
+    Object readObject(URL input) throws Exception {
+        DocumentBuilder builder = makeDocumentBuilder();
+        Document doc = builder.parse(input.openStream());
+        return readObject(doc);
+    }
+
+    Object readObject(InputStream input) throws Exception {
+        DocumentBuilder builder = makeDocumentBuilder();
+        Document doc = builder.parse(input);
+        return readObject(doc);
+    }
+
+    Object readObject(Reader input) throws Exception {
+        DocumentBuilder builder = makeDocumentBuilder();
+        Document doc = builder.parse(new InputSource(input));
+        return readObject(doc);
+    }
+
+    private DocumentBuilder makeDocumentBuilder() throws Exception {
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        dbFactory.setNamespaceAware(true);
+        return dbFactory.newDocumentBuilder();
+    }
+
+    Object readObject(Document doc) throws Exception {
+        DMNVersion dmnVersion = inferDMNVersion(doc);
+        Unmarshaller unmarshaller = makeUnmarshaller(dmnVersion);
+        JAXBElement<?> jaxbElement = (JAXBElement<?>) unmarshaller.unmarshal(doc);
+        return jaxbElement.getValue();
+    }
+
+    private DMNVersion inferDMNVersion(Document doc) {
+        DMNVersion dmnVersion = null;
+        Element definitions = doc.getDocumentElement();
+        NamedNodeMap attributes = definitions.getAttributes();
+        for (int i = 0; i < attributes.getLength(); i++) {
+            Node item = attributes.item(i);
+            String nodeValue = item.getNodeValue();
+            for(DMNVersion version: DMNVersion.VALUES) {
+                if (version.getNamespace().equals(nodeValue)) {
+                    dmnVersion = version;
+                    break;
+                }
+            }
+        }
+        if (dmnVersion == null) {
+            throw new IllegalArgumentException(String.format("Cannot infer DMN version for input '%s'", doc.getDocumentURI()));
+        }
+
+        return dmnVersion;
+    }
+
+    private Unmarshaller makeUnmarshaller(DMNVersion dmnVersion) throws Exception {
+        JAXBContext context = JAXB_CONTEXTS.get(dmnVersion);
+        if (context == null) {
+            throw new IllegalArgumentException(String.format("Cannot find context for '%s'", dmnVersion.getVersion()));
+        }
+        Unmarshaller u = context.createUnmarshaller();
+        if (validateSchema) {
+            setSchema(u, dmnVersion);
+        }
+        return u;
+    }
+
+    private void setSchema(Unmarshaller u, DMNVersion dmnVersion) throws Exception {
+        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        for (DMNVersion version: DMNVersion.VALUES) {
+            if (version == dmnVersion) {
+                URI schemaURI = getClass().getClassLoader().getResource(version.getSchemaLocation()).toURI();
+                Schema schema = sf.newSchema(schemaURI.toURL());
+                u.setSchema(schema);
+                break;
+            }
+        }
+   }
 }

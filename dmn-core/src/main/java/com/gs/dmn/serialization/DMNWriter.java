@@ -22,17 +22,19 @@ import javax.xml.bind.Marshaller;
 import javax.xml.namespace.QName;
 import java.io.File;
 import java.io.OutputStream;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-import static com.gs.dmn.serialization.DMNConstants.*;
+import static com.gs.dmn.serialization.DMNVersion.DMN_11;
+import static com.gs.dmn.serialization.DMNVersion.DMN_12;
 
 public class DMNWriter extends DMNSerializer {
-    protected static final JAXBContext JAXB_DMN_11_CONTEXT;
-    protected static final JAXBContext JAXB_DMN_12_CONTEXT;
+    protected static final Map<DMNVersion, JAXBContext> JAXB_CONTEXTS = new LinkedHashMap<>();
 
     static {
         try {
-            JAXB_DMN_11_CONTEXT = JAXBContext.newInstance(DMN_11_PACKAGE);
-            JAXB_DMN_12_CONTEXT = JAXBContext.newInstance(DMN_12_PACKAGE);
+            JAXB_CONTEXTS.put(DMN_11, JAXBContext.newInstance(DMN_11.getJavaPackage()));
+            JAXB_CONTEXTS.put(DMN_12, JAXBContext.newInstance(DMN_12.getJavaPackage()));
         } catch (JAXBException e) {
             throw new DMNRuntimeException("Cannot create JAXB Context", e);
         }
@@ -66,14 +68,11 @@ public class DMNWriter extends DMNSerializer {
         }
 
         DMNVersion version = namespacePrefixMapper.getVersion();
-        Marshaller marshaller;
-        if (version == DMNVersion.DMN_11) {
-            marshaller = JAXB_DMN_11_CONTEXT.createMarshaller();
-        } else if (version == DMNVersion.DMN_12) {
-            marshaller = JAXB_DMN_12_CONTEXT.createMarshaller();
-        } else {
-            throw new RuntimeException(String.format("DMN version '%s' is not supported", version));
+        JAXBContext context = JAXB_CONTEXTS.get(version);
+        if (context == null) {
+            throw new IllegalArgumentException(String.format("Cannot find context for '%s'", version.getVersion()));
         }
+        Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", namespacePrefixMapper);
         return marshaller;
@@ -81,11 +80,11 @@ public class DMNWriter extends DMNSerializer {
 
     private void write(Marshaller marshaller, Object definitions, File output) throws JAXBException {
         if (definitions instanceof org.omg.spec.dmn._20151101.model.TDefinitions) {
-            QName qName = new QName(DMN_11_NS, "definitions");
+            QName qName = new QName(DMN_11.getNamespace(), "definitions");
             JAXBElement<org.omg.spec.dmn._20151101.model.TDefinitions> root = new JAXBElement<org.omg.spec.dmn._20151101.model.TDefinitions>(qName, org.omg.spec.dmn._20151101.model.TDefinitions.class, (org.omg.spec.dmn._20151101.model.TDefinitions) definitions);
             marshaller.marshal(root, output);
         } else if (definitions instanceof org.omg.spec.dmn._20180521.model.TDefinitions) {
-            QName qName = new QName(DMN_12_NS, "definitions");
+            QName qName = new QName(DMN_12.getNamespace(), "definitions");
             JAXBElement<org.omg.spec.dmn._20180521.model.TDefinitions> root = new JAXBElement<org.omg.spec.dmn._20180521.model.TDefinitions>(qName, org.omg.spec.dmn._20180521.model.TDefinitions.class, (org.omg.spec.dmn._20180521.model.TDefinitions) definitions);
             marshaller.marshal(root, output);
         } else {
@@ -95,11 +94,11 @@ public class DMNWriter extends DMNSerializer {
 
     private void write(Marshaller marshaller, Object definitions, OutputStream output) throws JAXBException {
         if (definitions instanceof org.omg.spec.dmn._20151101.model.TDefinitions) {
-            QName qName = new QName(DMN_11_NS, "definitions");
+            QName qName = new QName(DMN_11.getNamespace(), "definitions");
             JAXBElement<org.omg.spec.dmn._20151101.model.TDefinitions> root = new JAXBElement<org.omg.spec.dmn._20151101.model.TDefinitions>(qName, org.omg.spec.dmn._20151101.model.TDefinitions.class, (org.omg.spec.dmn._20151101.model.TDefinitions) definitions);
             marshaller.marshal(root, output);
         } else if (definitions instanceof org.omg.spec.dmn._20180521.model.TDefinitions) {
-            QName qName = new QName(DMN_12_NS, "definitions");
+            QName qName = new QName(DMN_12.getNamespace(), "definitions");
             JAXBElement<org.omg.spec.dmn._20180521.model.TDefinitions> root = new JAXBElement<org.omg.spec.dmn._20180521.model.TDefinitions>(qName, org.omg.spec.dmn._20180521.model.TDefinitions.class, (org.omg.spec.dmn._20180521.model.TDefinitions) definitions);
             marshaller.marshal(root, output);
         } else {
