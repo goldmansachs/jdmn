@@ -18,6 +18,7 @@ import com.gs.dmn.feel.lib.MixedJavaTimeFEELLib;
 import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
 import com.gs.dmn.feel.synthesis.type.MixedJavaTimeFEELTypeTranslator;
 import com.gs.dmn.runtime.MixedJavaTimeDMNBaseDecision;
+import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
@@ -39,7 +40,7 @@ public class MixedJavaTimeDMNDialectDefinitionTest {
 
     @Test
     public void testCreateDMNInterpreter() {
-        StandardDMNInterpreter dmnInterpreter = dialect.createDMNInterpreter(REPOSITORY);
+        DMNInterpreter dmnInterpreter = dialect.createDMNInterpreter(REPOSITORY);
         assertEquals(StandardDMNInterpreter.class.getName(), dmnInterpreter.getClass().getName());
     }
 

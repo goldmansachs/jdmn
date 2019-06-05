@@ -16,13 +16,13 @@ import com.gs.dmn.feel.analysis.FEELAnalyzer;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
-import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
+import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 
 abstract class AbstractFEELInterpreter implements FEELInterpreter {
     private final FEELAnalyzer feelAnalyzer;
     private final FEELInterpreterVisitor visitor;
 
-    protected AbstractFEELInterpreter(StandardDMNInterpreter dmnInterpreter, FEELAnalyzer feelAnalyzer) {
+    protected AbstractFEELInterpreter(DMNInterpreter dmnInterpreter, FEELAnalyzer feelAnalyzer) {
         this.feelAnalyzer = feelAnalyzer;
         this.visitor = new FEELInterpreterVisitor(dmnInterpreter);
     }
