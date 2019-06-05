@@ -17,7 +17,7 @@ import com.gs.dmn.feel.interpreter.FEELInterpreter;
 import com.gs.dmn.feel.interpreter.FEELInterpreterImpl;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.FEELTranslatorImpl;
-import com.gs.dmn.runtime.interpreter.DMNInterpreter;
+import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 
 import java.util.Map;
@@ -28,7 +28,7 @@ public abstract class AbstractDMNDialectDefinition implements DMNDialectDefiniti
     //
     @Override
     public FEELInterpreter createFEELInterpreter(DMNModelRepository repository) {
-        DMNInterpreter dmnInterpreter = createDMNInterpreter(repository);
+        StandardDMNInterpreter dmnInterpreter = createDMNInterpreter(repository);
         return new FEELInterpreterImpl(dmnInterpreter);
     }
 

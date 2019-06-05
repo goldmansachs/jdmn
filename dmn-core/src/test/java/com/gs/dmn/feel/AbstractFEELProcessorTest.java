@@ -27,7 +27,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.feel.interpreter.FEELInterpreter;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
-import com.gs.dmn.runtime.interpreter.DMNInterpreter;
+import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
@@ -48,7 +48,7 @@ public abstract class AbstractFEELProcessorTest {
 
     private final RuntimeEnvironmentFactory runtimeEnvironmentFactory = RuntimeEnvironmentFactory.instance();
 
-    protected final DMNInterpreter dmnInterpreter = dialectDefinition.createDMNInterpreter(new DMNModelRepository());
+    protected final StandardDMNInterpreter dmnInterpreter = dialectDefinition.createDMNInterpreter(new DMNModelRepository());
     protected final BasicDMN2JavaTransformer dmnTransformer = dmnInterpreter.getBasicDMNTransformer();
     protected final EnvironmentFactory environmentFactory = dmnTransformer.getEnvironmentFactory();
     protected final StandardFEELLib lib = (StandardFEELLib) dmnInterpreter.getFeelLib();

@@ -41,8 +41,8 @@ import javax.xml.bind.JAXBElement;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class DMNInterpreter {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DMNInterpreter.class);
+public class StandardDMNInterpreter {
+    private static final Logger LOGGER = LoggerFactory.getLogger(StandardDMNInterpreter.class);
     protected static EventListener EVENT_LISTENER = new LoggingEventListener(LOGGER);
     protected final RuntimeEnvironmentFactory runtimeEnvironmentFactory = RuntimeEnvironmentFactory.instance();
     private final DMNModelRepository dmnModelRepository;
@@ -56,7 +56,7 @@ public class DMNInterpreter {
     private final FEELLib feelLib;
     private final FEELInterpreter feelInterpreter;
 
-    public DMNInterpreter(BasicDMN2JavaTransformer basicDMNTransformer, FEELLib feelLib) {
+    public StandardDMNInterpreter(BasicDMN2JavaTransformer basicDMNTransformer, FEELLib feelLib) {
         this.basicDMNTransformer = basicDMNTransformer;
         this.dmnModelRepository = basicDMNTransformer.getDMNModelRepository();
         this.environmentFactory = basicDMNTransformer.getEnvironmentFactory();

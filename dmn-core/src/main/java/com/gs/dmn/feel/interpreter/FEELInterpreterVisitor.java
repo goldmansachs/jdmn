@@ -54,7 +54,7 @@ import com.gs.dmn.runtime.compiler.ClassData;
 import com.gs.dmn.runtime.compiler.JavaCompiler;
 import com.gs.dmn.runtime.compiler.JavaxToolsCompiler;
 import com.gs.dmn.runtime.interpreter.Arguments;
-import com.gs.dmn.runtime.interpreter.DMNInterpreter;
+import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
 import com.gs.dmn.runtime.interpreter.NamedArguments;
 import com.gs.dmn.runtime.interpreter.PositionalArguments;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
@@ -76,7 +76,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     private static final RuntimeEnvironmentFactory runtimeEnvironmentFactory = RuntimeEnvironmentFactory.instance();
     private static final Logger LOGGER = LoggerFactory.getLogger(FEELInterpreterVisitor.class);
 
-    private final DMNInterpreter dmnInterpreter;
+    private final StandardDMNInterpreter dmnInterpreter;
     private final FEELLib lib;
     private final FEELTypeTranslator typeTranslator;
     private final FEELTranslator feelTranslator;
@@ -84,7 +84,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
 //    private final static JavaCompiler JAVA_COMPILER = new JavaAssistCompiler();
     private final static JavaCompiler JAVA_COMPILER = new JavaxToolsCompiler(new File("."));
 
-    FEELInterpreterVisitor(DMNInterpreter dmnInterpreter) {
+    FEELInterpreterVisitor(StandardDMNInterpreter dmnInterpreter) {
         super(dmnInterpreter.getBasicDMNTransformer());
         this.dmnInterpreter = dmnInterpreter;
         this.feelTranslator = new FEELTranslatorForInterpreter(dmnInterpreter.getBasicDMNTransformer());

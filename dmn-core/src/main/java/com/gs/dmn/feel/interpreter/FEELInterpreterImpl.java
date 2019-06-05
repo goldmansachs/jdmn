@@ -13,10 +13,10 @@
 package com.gs.dmn.feel.interpreter;
 
 import com.gs.dmn.feel.analysis.FEELAnalyzerImpl;
-import com.gs.dmn.runtime.interpreter.DMNInterpreter;
+import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
 
 public class FEELInterpreterImpl extends AbstractFEELInterpreter {
-    public FEELInterpreterImpl(DMNInterpreter dmnInterpreter) {
+    public FEELInterpreterImpl(StandardDMNInterpreter dmnInterpreter) {
         super(dmnInterpreter, new FEELAnalyzerImpl(dmnInterpreter.getBasicDMNTransformer()));
     }
 }
