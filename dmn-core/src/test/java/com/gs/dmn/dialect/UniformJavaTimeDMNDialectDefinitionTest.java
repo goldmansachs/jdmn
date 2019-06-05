@@ -18,7 +18,7 @@ import com.gs.dmn.feel.lib.UniformJavaTimeFEELLib;
 import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
 import com.gs.dmn.feel.synthesis.type.UniformJavaTimeFEELTypeTranslator;
 import com.gs.dmn.runtime.UniformJavaTimeDMNBaseDecision;
-import com.gs.dmn.runtime.interpreter.DMNInterpreter;
+import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.NopDMNTransformer;
@@ -39,8 +39,8 @@ public class UniformJavaTimeDMNDialectDefinitionTest {
 
     @Test
     public void testCreateDMNInterpreter() {
-        DMNInterpreter dmnInterpreter = dialect.createDMNInterpreter(REPOSITORY);
-        assertEquals(DMNInterpreter.class.getName(), dmnInterpreter.getClass().getName());
+        StandardDMNInterpreter dmnInterpreter = dialect.createDMNInterpreter(REPOSITORY);
+        assertEquals(StandardDMNInterpreter.class.getName(), dmnInterpreter.getClass().getName());
     }
 
     @Test

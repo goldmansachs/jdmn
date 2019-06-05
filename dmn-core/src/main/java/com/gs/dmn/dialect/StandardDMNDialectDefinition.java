@@ -21,7 +21,7 @@ import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
 import com.gs.dmn.feel.synthesis.type.StandardFEELTypeTranslator;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DefaultDMNBaseDecision;
-import com.gs.dmn.runtime.interpreter.DMNInterpreter;
+import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
@@ -39,8 +39,8 @@ public class StandardDMNDialectDefinition extends AbstractDMNDialectDefinition {
     // DMN Processors
     //
     @Override
-    public DMNInterpreter createDMNInterpreter(DMNModelRepository repository) {
-        return new DMNInterpreter(createBasicTransformer(repository, new NopLazyEvaluationDetector(), new LinkedHashMap<>()), createFEELLib());
+    public StandardDMNInterpreter createDMNInterpreter(DMNModelRepository repository) {
+        return new StandardDMNInterpreter(createBasicTransformer(repository, new NopLazyEvaluationDetector(), new LinkedHashMap<>()), createFEELLib());
     }
 
     @Override
