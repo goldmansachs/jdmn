@@ -41,7 +41,7 @@ import javax.xml.bind.JAXBElement;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class StandardDMNInterpreter {
+public class StandardDMNInterpreter implements DMNInterpreter {
     private static final Logger LOGGER = LoggerFactory.getLogger(StandardDMNInterpreter.class);
     protected static EventListener EVENT_LISTENER = new LoggingEventListener(LOGGER);
     protected final RuntimeEnvironmentFactory runtimeEnvironmentFactory = RuntimeEnvironmentFactory.instance();
@@ -64,14 +64,17 @@ public class StandardDMNInterpreter {
         this.feelInterpreter = new FEELInterpreterImpl(this);
     }
 
+    @Override
     public BasicDMN2JavaTransformer getBasicDMNTransformer() {
         return basicDMNTransformer;
     }
 
+    @Override
     public FEELLib getFeelLib() {
         return feelLib;
     }
 
+    @Override
     public Object evaluate(String drgElementName, RuntimeEnvironment runtimeEnvironment) {
         TDRGElement drgElement = dmnModelRepository.findDRGElementByName(drgElementName);
         evaluate(drgElement, runtimeEnvironment);
@@ -91,6 +94,7 @@ public class StandardDMNInterpreter {
         }
     }
 
+    @Override
     public Object evaluateBKM(TBusinessKnowledgeModel bkm, List<Object> argList, FEELContext context) {
         RuntimeEnvironment bkmRuntimeEnvironment = runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment());
 
@@ -122,6 +126,7 @@ public class StandardDMNInterpreter {
         return output;
     }
 
+    @Override
     public Object evaluateDecisionService(TDecisionService service, List<Object> argList, FEELContext context) {
         RuntimeEnvironment serviceRuntimeEnvironment = runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment());
 
@@ -166,6 +171,7 @@ public class StandardDMNInterpreter {
         return output;
     }
 
+    @Override
     public Object evaluateFunctionDefinition(TFunctionDefinition functionDefinition, List<Object> argList, FEELContext context) {
         // Create new environments and bind parameters
         Environment functionEnvironment = environmentFactory.makeEnvironment(context.getEnvironment());
@@ -282,6 +288,7 @@ public class StandardDMNInterpreter {
     //
     // Expression evaluation
     //
+    @Override
     public Object evaluateLiteralExpression(String text, Environment environment, RuntimeEnvironment runtimeEnvironment) {
         return this.evaluateLiteralExpression(text, environment, runtimeEnvironment, null);
     }

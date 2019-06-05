@@ -51,7 +51,7 @@ public abstract class AbstractDMNInterpreterTest {
     private final DMNReader reader = new DMNReader(LOGGER, false);
     private final TestCasesReader testCasesReader = new TestCasesReader(LOGGER);
 
-    protected StandardDMNInterpreter interpreter;
+    protected DMNInterpreter interpreter;
     private DMNTransformer dmnTransformer;
     private BasicDMN2JavaTransformer basicTransformer;
     private FEELLib lib;
@@ -96,7 +96,7 @@ public abstract class AbstractDMNInterpreterTest {
         }
     }
 
-    protected void doTest(String testCaseFileName, StandardDMNInterpreter interpreter, DMNModelRepository repository, TestCases testCases) {
+    protected void doTest(String testCaseFileName, DMNInterpreter interpreter, DMNModelRepository repository, TestCases testCases) {
         // Check all TestCases
         Pair<DMNModelRepository, TestCases> result = dmnTransformer.transform(repository, testCases);
         for (TestCase testCase : result.getRight().getTestCase()) {
@@ -104,7 +104,7 @@ public abstract class AbstractDMNInterpreterTest {
         }
     }
 
-    private void doTest(String testCaseFileName, StandardDMNInterpreter interpreter, DMNModelRepository repository, TestCase testCase) {
+    private void doTest(String testCaseFileName, DMNInterpreter interpreter, DMNModelRepository repository, TestCase testCase) {
         TCKUtil tckUtil = new TCKUtil(basicTransformer, (StandardFEELLib) lib);
         RuntimeEnvironment runtimeEnvironment = tckUtil.makeEnvironment(testCase);
 

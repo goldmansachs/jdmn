@@ -19,7 +19,7 @@ import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.log.NopBuildLogger;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
-import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
+import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.NameTransformer;
@@ -64,7 +64,7 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
         String pathName = "tck/cl3/0020-vacation-days.dmn";
         DMNModelRepository repository = readDMN(pathName);
         nameTransformer.transform(repository);
-        StandardDMNInterpreter interpreter = this.dialectDefinition.createDMNInterpreter(repository);
+        DMNInterpreter interpreter = this.dialectDefinition.createDMNInterpreter(repository);
 
         RuntimeEnvironment environment = RuntimeEnvironmentFactory.instance().makeEnvironment();
         environment.bind("Age", lib.number(i1));
