@@ -17,8 +17,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
-import org.omg.spec.dmn._20180521.model.TBusinessKnowledgeModel;
-import org.omg.spec.dmn._20180521.model.TDecisionService;
+import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TFunctionDefinition;
 
 import java.util.List;
@@ -30,11 +29,11 @@ public interface DMNInterpreter {
 
     Object evaluate(String drgElementName, RuntimeEnvironment runtimeEnvironment);
 
-    Object evaluateBKM(TBusinessKnowledgeModel bkm, List<Object> argList, FEELContext context);
+    Object evaluateInvocation(String drgElementName, List<Object> args, RuntimeEnvironment context);
 
-    Object evaluateDecisionService(TDecisionService service, List<Object> argList, FEELContext context);
+    Object evaluateInvocation(TDRGElement drgElement, List<Object> args, FEELContext context);
 
-    Object evaluateFunctionDefinition(TFunctionDefinition functionDefinition, List<Object> argList, FEELContext context);
+    Object evaluateInvocation(TFunctionDefinition functionDefinition, List<Object> args, FEELContext context);
 
     //
     // Expression evaluation
