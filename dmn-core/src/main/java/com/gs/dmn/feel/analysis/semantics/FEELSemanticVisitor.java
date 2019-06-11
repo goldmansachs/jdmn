@@ -31,11 +31,15 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Conjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Disjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
     public FEELSemanticVisitor(BasicDMN2JavaTransformer dmnTransformer) {
@@ -149,12 +153,12 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
     @Override
     public Object visit(FormalParameter element, FEELContext context) {
         if (element.getType() == null) {
-            String typeName = element.getTypeName();
-            if (typeName == null) {
+            TypeExpression typeExpression = element.getTypeExpression();
+            if (typeExpression == null) {
                 element.setType(AnyType.ANY);
             } else {
-                Type type = dmnTransformer.toFEELType(com.gs.dmn.transformation.basic.QualifiedName.toQualifiedName(typeName));
-                element.setType(type);
+                typeExpression.accept(this, context);
+                element.setType(typeExpression.getType());
             }
 
         }
@@ -260,7 +264,8 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
 
     @Override
     public Object visit(InstanceOfExpression element, FEELContext context) {
-        element.getValue().accept(this, context);
+        element.getLeftOperand().accept(this, context);
+        element.getRightOperand().accept(this, context);
         element.deriveType(context.getEnvironment());
         return element;
     }
@@ -538,6 +543,47 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
     @Override
     public Object visit(Name element, FEELContext context) {
         element.deriveType(context.getEnvironment());
+        return element;
+    }
+
+    //
+    // Type expressions
+    //
+
+    @Override
+    public Object visit(NamedTypeExpression element, FEELContext context) {
+        com.gs.dmn.transformation.basic.QualifiedName typeRef = com.gs.dmn.transformation.basic.QualifiedName.toQualifiedName(element.getQualifiedName());
+        element.setType(dmnTransformer.toFEELType(typeRef));
+        return element;
+    }
+
+    @Override
+    public Object visit(ListTypeExpression element, FEELContext context) {
+        element.getElementTypeExpression().accept(this, context);
+        element.setType(new ListType(element.getElementTypeExpression().getType()));
+        return element;
+    }
+
+    @Override
+    public Object visit(ContextTypeExpression element, FEELContext context) {
+        ContextType contextType = new ContextType();
+        for (Pair<String, TypeExpression> member: element.getMembers()) {
+            member.getRight().accept(this, context);
+            contextType.addMember(member.getLeft(), new ArrayList<>(), member.getRight().getType());
+        }
+        element.setType(contextType);
+        return element;
+    }
+
+    @Override
+    public Object visit(FunctionTypeExpression element, FEELContext context) {
+        element.getParameters().forEach(e -> e.accept(this, context));
+        element.getReturnType().accept(this, context);
+
+        List<FormalParameter> parameters = element.getParameters().stream().map(e -> new FormalParameter(null, e.getType())).collect(Collectors.toList());
+        Type returnType = element.getReturnType().getType();
+        FunctionType functionType = new FEELFunctionType(parameters, returnType, false);
+        element.setType(functionType);
         return element;
     }
 

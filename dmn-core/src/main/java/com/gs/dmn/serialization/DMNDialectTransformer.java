@@ -22,7 +22,7 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 import java.util.*;
 
-import static com.gs.dmn.serialization.DMNConstants.*;
+import static com.gs.dmn.serialization.DMNVersion.*;
 
 public class DMNDialectTransformer {
     private static final ObjectFactory DMN_12_OBJECT_FACTORY = new ObjectFactory();
@@ -249,7 +249,7 @@ public class DMNDialectTransformer {
         for(Object extension: element.getAny()) {
             if (extension instanceof JAXBElement) {
                 extensions.add(transformJAXBElement((JAXBElement) extension));
-            } else if (DMNConstants.DMN_11_PACKAGE.equals(extension.getClass().getPackage().getName())) {
+            } else if (DMN_11.getJavaPackage().equals(extension.getClass().getPackage().getName())) {
                 extensions.add(transformElement((org.omg.spec.dmn._20151101.model.TDMNElement)extension));
             } else {
                 extensions.add(extension);
@@ -765,36 +765,37 @@ public class DMNDialectTransformer {
         String prefix = element.getPrefix();
         String localPart = element.getLocalPart();
         this.prefixNamespaceMappings.put(prefix, namespaceURI);
-        if (FEEL_11_NS.equals(namespaceURI)) {
-            return String.format("%s.%s", FEEL_11_PREFIX, localPart);
-        } else if (FEEL_12_NS.equals(namespaceURI)) {
-            return String.format("%s.%s", FEEL_12_PREFIX, localPart);
-        } else {
-            if (StringUtils.isBlank(prefix)) {
-                if (localPart.contains(".")) {
-                    return String.format(".%s", localPart);
-                } else {
-                    return localPart;
-                }
-            } else {
-                return String.format("%s.%s", prefix, localPart);
+        for (DMNVersion version: VALUES) {
+            if (version.getFeelNamespace().equals(namespaceURI)) {
+                return String.format("%s.%s", DMN_11.getFeelPrefix(), localPart);
             }
+        }
+        if (StringUtils.isBlank(prefix)) {
+            if (localPart.contains(".")) {
+                return String.format(".%s", localPart);
+            } else {
+                return localPart;
+            }
+        } else {
+            return String.format("%s.%s", prefix, localPart);
         }
     }
 
     private String transformLanguage(String expressionLanguage) {
-        if (FEEL_11_NS.equals(expressionLanguage)) {
-            return FEEL_12_NS;
-        } else {
-            return expressionLanguage;
+        for (DMNVersion version: VALUES) {
+            if (version.getFeelNamespace().equals(expressionLanguage)) {
+                return LATEST.getFeelNamespace();
+            }
         }
+        return expressionLanguage;
     }
 
     private String transformNamespace(String namespace) {
-        if (DMN_11_NS.equals(namespace)) {
-            return DMN_12_NS;
-        } else {
-            return namespace;
+        for (DMNVersion version: VALUES) {
+            if (version.getNamespace().equals(namespace)) {
+                return LATEST.getNamespace();
+            }
         }
+        return namespace;
     }
 }

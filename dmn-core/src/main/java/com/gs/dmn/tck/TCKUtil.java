@@ -12,16 +12,19 @@
  */
 package com.gs.dmn.tck;
 
+import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import org.apache.commons.lang3.StringUtils;
+import org.omg.dmn.tck.marshaller._20160719.TestCaseType;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase;
 import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase.InputNode;
@@ -38,6 +41,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class TCKUtil {
@@ -310,6 +314,50 @@ public class TCKUtil {
             }
         }
         return runtimeEnvironment;
+    }
+
+    public List<Object> makeArgs(TestCase testCase) {
+        List<Object> args = new ArrayList<>();
+        java.util.List<TestCase.InputNode> inputNode = testCase.getInputNode();
+        for (int i = 0; i < inputNode.size(); i++) {
+            TestCase.InputNode input = inputNode.get(i);
+            try {
+                Object value = makeValue(input);
+                args.add(value);
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new DMNRuntimeException(String.format("Cannot process input node '%s' at position %d", input.getName(), i), e);
+            }
+        }
+        return args;
+    }
+
+    private String drgElementName(TestCase testCase, ResultNode resultNode) {
+        String elementToEvaluate = null;
+        if (testCase.getType() == TestCaseType.DECISION) {
+            elementToEvaluate = resultNode.getName();
+        } else if (testCase.getType() == TestCaseType.DECISION_SERVICE) {
+            elementToEvaluate = testCase.getInvocableName();
+        } else if (testCase.getType() == TestCaseType.BKM) {
+            elementToEvaluate = testCase.getInvocableName();
+        } else {
+            throw new IllegalArgumentException(String.format("Not supported type '%s'", testCase.getType()));
+        }
+        return elementToEvaluate;
+    }
+
+    public Object expectedValue(TestCase testCase, ResultNode resultNode) {
+        String drgElementName = drgElementName(testCase, resultNode);
+        TDRGElement drgElement = dmnTransformer.getDMNModelRepository().findDRGElementByName(drgElementName);
+        Environment environment = dmnTransformer.makeEnvironment(drgElement);
+        Type elementType = dmnTransformer.drgElementOutputFEELType(drgElement, environment);
+        Object expectedValue = makeValue(resultNode.getExpected(), elementType);
+        return expectedValue;
+    }
+
+    public Object evaluate(DMNInterpreter interpreter, TestCase testCase, ResultNode resultNode) {
+        String drgElementName = drgElementName(testCase, resultNode);
+        return interpreter.evaluateInvocation(drgElementName, makeArgs(testCase), makeEnvironment(testCase));
     }
 
     private Object makeValue(InputNode inputNode) {

@@ -5,6 +5,7 @@
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="decision"/>
 			<xs:enumeration value="bkm"/>
+			<xs:enumeration value="decisionService"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:element name="testCases">
@@ -43,33 +44,53 @@
 									<xs:attribute name="cast" type="xs:string"/>
 								</xs:complexType>
 							</xs:element>
+							<xs:element name="extensionElements" minOccurs="0" maxOccurs="1">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
 						</xs:sequence>
 						<xs:attribute name="id" type="xs:string"/>
 						<xs:attribute name="type" type="testCaseType" default="decision"/>
+						<xs:attribute name="invocableName" type="xs:string"/> <!-- if type==decisionService, this attribute will point at which DS to invoke. -->
+						<xs:attribute name="name" type="xs:string"/>
+						<xs:anyAttribute namespace="##other" processContents="lax"/>
 					</xs:complexType>
 				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 	<xs:complexType name="valueType">
-		<xs:choice>
-			<xs:element name="value" type="xs:anySimpleType" nillable="true"/>
-			<xs:element name="component" nillable="true" minOccurs="0" maxOccurs="unbounded">
-				<xs:complexType>
-					<xs:complexContent>
-						<xs:extension base="valueType">
-							<xs:attribute name="name" />
-						</xs:extension>
-					</xs:complexContent>
-				</xs:complexType>
-			</xs:element>
-			<xs:element name="list" nillable="true">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="value" type="xs:anySimpleType" nillable="true"/>
+				<xs:element name="component" nillable="true" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="valueType">
+								<xs:attribute name="name" />
+							</xs:extension>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="list" nillable="true">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="item" type="valueType" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+			<xs:element name="extensionElements" minOccurs="0" maxOccurs="1">
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="item" type="valueType" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-		</xs:choice>
+		</xs:sequence>
+		<xs:anyAttribute namespace="##other" processContents="lax"/>
 	</xs:complexType>
 </xs:schema>
