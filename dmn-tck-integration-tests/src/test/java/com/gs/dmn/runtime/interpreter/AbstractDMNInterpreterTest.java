@@ -14,8 +14,6 @@ package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.log.BuildLogger;
@@ -31,10 +29,10 @@ import com.gs.dmn.tck.TestCasesReader;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.ToSimpleNameTransformer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase;
 import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase.ResultNode;
-import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
@@ -45,6 +43,7 @@ import static org.junit.Assert.assertTrue;
 
 public abstract class AbstractDMNInterpreterTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractDMNInterpreterTest.class));
+    private static final boolean IGNORE_ERROR_RESULT = true;
 
     private final DMNReader reader = new DMNReader(LOGGER, false);
     private final TestCasesReader testCasesReader = new TestCasesReader(LOGGER);
@@ -104,28 +103,24 @@ public abstract class AbstractDMNInterpreterTest {
 
     private void doTest(String testCaseFileName, DMNInterpreter interpreter, DMNModelRepository repository, TestCase testCase) {
         TCKUtil tckUtil = new TCKUtil(basicTransformer, (StandardFEELLib) lib);
-        RuntimeEnvironment runtimeEnvironment = tckUtil.makeEnvironment(testCase);
 
         List<ResultNode> resultNode = testCase.getResultNode();
         for (ResultNode res : resultNode) {
             Object expectedValue = null;
-            Object actualOutput = null;
+            Object actualValue = null;
             String message = String.format("Unexpected result in test case in file '%s' for result node '%s'", testCaseFileName, res.getName());
             try {
-                String drgElementName = res.getName();
-                TDRGElement tdrgElement = basicTransformer.getDMNModelRepository().findDRGElementByName(drgElementName);
-                Environment environment = basicTransformer.makeEnvironment(tdrgElement);
-                Type decisionType = basicTransformer.drgElementOutputFEELType(tdrgElement, environment);
-                expectedValue = tckUtil.makeValue(res.getExpected(), decisionType);
-                actualOutput = interpreter.evaluate(drgElementName, runtimeEnvironment);
+                expectedValue = tckUtil.expectedValue(testCase, res);
+                actualValue = tckUtil.evaluate(interpreter, testCase, res);
             } catch (Exception e) {
-                if (!res.isErrorResult()) {
+                LOGGER.error(ExceptionUtils.getStackTrace(e));
+                if (!IGNORE_ERROR_RESULT && !res.isErrorResult()) {
                     e.printStackTrace();
                     DMNRuntimeException dmnRuntimeException = new DMNRuntimeException(message, e);
-                    assertTrue(dmnRuntimeException.getMessage() + ". " + e.getMessage() + String.format(".  Expected '%s' actual '%s'", expectedValue, actualOutput), res.isErrorResult());
+                    assertTrue(dmnRuntimeException.getMessage() + ". " + e.getMessage() + String.format(".  Expected '%s' actual '%s'", expectedValue, actualValue), res.isErrorResult());
                 }
             }
-            Assert.assertEquals(message, expectedValue, actualOutput);
+            Assert.assertEquals(message, expectedValue, actualValue);
         }
     }
 

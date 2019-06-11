@@ -12,44 +12,35 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
-import com.gs.dmn.feel.analysis.semantics.type.NamedType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.type.TypeExpression;
+
+import java.util.Objects;
 
 public class FormalParameter extends Element {
     protected final String name;
-    private String typeName;
+    private TypeExpression typeExpression;
     protected Type type;
 
-    public FormalParameter(String name, String typeName) {
+    public FormalParameter(String name, TypeExpression typeExpression) {
         this.name = name;
-        this.typeName = typeName;
+        this.typeExpression = typeExpression;
     }
 
     public FormalParameter(String name, Type type) {
         this.name = name;
         this.type = type;
-        setTypeName(type);
-    }
-
-    private void setTypeName(Type type) {
-        if (type != null) {
-            if (type instanceof NamedType) {
-                this.typeName = ((NamedType) type).getName();
-            } else {
-                this.typeName = type.toString();
-            }
-        }
     }
 
     public String getName() {
         return name;
     }
 
-    public String getTypeName() {
-        return this.typeName;
+    public TypeExpression getTypeExpression() {
+        return this.typeExpression;
     }
 
     public Type getType() {
@@ -58,25 +49,21 @@ public class FormalParameter extends Element {
 
     public void setType(Type type) {
         this.type = type;
-        setTypeName(type);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         FormalParameter that = (FormalParameter) o;
-
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        return type != null ? type.equals(that.type) : that.type == null;
+        return Objects.equals(name, that.name) &&
+                Objects.equals(typeExpression, that.typeExpression) &&
+                Objects.equals(type, that.type);
     }
 
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + (type != null ? type.hashCode() : 0);
-        return result;
+        return Objects.hash(name, typeExpression, type);
     }
 
     @Override

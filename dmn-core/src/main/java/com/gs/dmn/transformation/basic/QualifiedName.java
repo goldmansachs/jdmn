@@ -12,9 +12,9 @@
  */
 package com.gs.dmn.transformation.basic;
 
-import javax.xml.namespace.QName;
+import com.gs.dmn.serialization.DMNVersion;
 
-import static com.gs.dmn.serialization.DMNConstants.*;
+import javax.xml.namespace.QName;
 
 public class QualifiedName {
     public static QualifiedName toQualifiedName(QName qName) {
@@ -23,14 +23,13 @@ public class QualifiedName {
         }
 
         String namespaceURI = qName.getNamespaceURI();
-        if (FEEL_11_NS.equals(namespaceURI)) {
-            return new QualifiedName(FEEL_11_PREFIX, qName.getLocalPart());
-        } else if (FEEL_12_NS.equals(namespaceURI)) {
-            return new QualifiedName(FEEL_12_PREFIX, qName.getLocalPart());
-        } else {
-            String prefix = qName.getPrefix();
-            return new QualifiedName(prefix, qName.getLocalPart());
+        for (DMNVersion  version: DMNVersion.VALUES) {
+            if (version.getFeelNamespace().equals(namespaceURI)) {
+                return new QualifiedName(version.getFeelPrefix(), qName.getLocalPart());
+            }
         }
+        String prefix = qName.getPrefix();
+        return new QualifiedName(prefix, qName.getLocalPart());
     }
 
     public static QualifiedName toQualifiedName(String qName) {

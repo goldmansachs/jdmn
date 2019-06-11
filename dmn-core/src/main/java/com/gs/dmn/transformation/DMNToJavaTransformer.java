@@ -18,6 +18,7 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNConstants;
+import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
@@ -42,7 +43,7 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
     public static final String CONTEXT_CLASS_NAME = Context.class.getName();
 
     public static final String FREE_TEXT_LANGUAGE = "free_text";
-    public static final List<String> SUPPORTED_LANGUAGES = Arrays.asList(DMNConstants.FEEL_11_NS, DMNConstants.FEEL_12_NS, DMNConstants.FEEL_12_PREFIX, FREE_TEXT_LANGUAGE);
+    public static final List<String> SUPPORTED_LANGUAGES = Arrays.asList(DMNVersion.LATEST.getFeelPrefix(), FREE_TEXT_LANGUAGE);
 
     protected final String dmnVersion;
     protected final String modelVersion;

@@ -37,10 +37,6 @@ public interface DMNDialectDefinition {
 
     FEELTranslator createFEELTranslator(DMNModelRepository repository, Map<String, String> inputParameters);
 
-    FEELInterpreter createSFEELInterpreter(DMNModelRepository repository);
-
-    FEELTranslator createSFEELTranslator(DMNModelRepository repository, Map<String, String> inputParameters);
-
     //
     // DMN Processors
     //

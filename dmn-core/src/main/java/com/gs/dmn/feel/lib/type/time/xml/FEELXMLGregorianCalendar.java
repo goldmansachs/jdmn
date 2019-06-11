@@ -28,7 +28,6 @@ import javax.xml.namespace.QName;
 
 import com.gs.dmn.feel.lib.DefaultFEELLib;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.sun.org.apache.xerces.internal.util.DatatypeMessageFormatter;
 
 public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Serializable, Cloneable {
     private static final long serialVersionUID = 1L;
@@ -234,13 +233,8 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
         setZoneID(zoneID);
         // check for validity
         if (!isValid()) {
-            throw new IllegalArgumentException(
-                    DatatypeMessageFormatter.formatMessage(null,
-                            "InvalidXGCValue-fractional",
-                            new Object[]{year, new Integer(month), new Integer(day),
-                                    new Integer(hour), new Integer(minute), new Integer(second),
-                                    fractionalSecond, zoneID})
-            );
+            Object[] arguments = {year, month, day, hour, minute, second, fractionalSecond, zoneID};
+            throw new IllegalArgumentException(errorMessage("InvalidXGCValue-fractional", arguments));
         }
     }
 
@@ -439,8 +433,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
         if (fractional != null) {
             if ((fractional.compareTo(DECIMAL_ZERO) < 0) ||
                     (fractional.compareTo(DECIMAL_ONE) > 0)) {
-                throw new IllegalArgumentException(DatatypeMessageFormatter.formatMessage(null,
-                        "InvalidFractional", new Object[]{fractional}));
+                throw new IllegalArgumentException(errorMessage("InvalidFractional", new Object[]{fractional}));
             }
         }
         this.fractionalSecond = fractional;
@@ -527,10 +520,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
     }
 
     private void invalidFieldValue(int field, int value) {
-        throw new IllegalArgumentException(
-                DatatypeMessageFormatter.formatMessage(null, "InvalidFieldValue",
-                        new Object[]{new Integer(value), FIELD_NAME[field]})
-        );
+        throw new IllegalArgumentException(errorMessage("InvalidFieldValue", new Object[]{value, FIELD_NAME[field]}));
     }
 
     @Override
@@ -746,9 +736,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
                 return DatatypeConstants.TIME;
             default:
                 throw new IllegalStateException(
-                        this.getClass().getName()
-                                + "#getXMLSchemaType() :"
-                                + DatatypeMessageFormatter.formatMessage(null, "InvalidXGCFields", null)
+                        errorMessage("InvalidXGCFields", new Object[] {this.getClass().getName() + "#getXMLSchemaType() :"})
                 );
         }
     }
@@ -1502,5 +1490,14 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
             return null;
         }
         return fractionalSeconds.stripTrailingZeros().toPlainString().substring(1);
+    }
+
+    private String errorMessage(String text, Object[] arguments) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(text);
+        for(Object arg: arguments) {
+            builder.append(arg.toString());
+        }
+        return builder.toString();
     }
 }

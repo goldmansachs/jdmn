@@ -15,6 +15,7 @@ package com.gs.dmn.feel.synthesis.type;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
@@ -27,6 +28,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
 public class PureJavaTimeFEELTypeTranslator implements FEELTypeTranslator {
     private static final Map<String, String> TIME_FEEL_TO_JAVA_TYPE = new HashMap() {{
+        put(ANY.getName(), java.lang.Object.class.getSimpleName());
         put(NUMBER.getName(), java.math.BigDecimal.class.getName());
         put(BOOLEAN.getName(), Boolean.class.getSimpleName());
         put(STRING.getName(), String.class.getSimpleName());
@@ -39,6 +41,7 @@ public class PureJavaTimeFEELTypeTranslator implements FEELTypeTranslator {
     }};
 
     private static final Map<String, String> TIME_FEEL_TO_QUALIFIED_JAVA_TYPE = new HashMap() {{
+        put(ANY.getName(), java.lang.Object.class.getName());
         put(NUMBER.getName(), java.math.BigDecimal.class.getName());
         put(BOOLEAN.getName(), Boolean.class.getName());
         put(STRING.getName(), String.class.getName());

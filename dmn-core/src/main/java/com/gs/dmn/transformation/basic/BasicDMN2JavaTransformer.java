@@ -36,6 +36,7 @@ import com.gs.dmn.runtime.listener.Arguments;
 import com.gs.dmn.runtime.listener.EventListener;
 import com.gs.dmn.runtime.listener.LoggingEventListener;
 import com.gs.dmn.runtime.listener.NopEventListener;
+import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.JsonSerializer;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.InputParamUtil;
@@ -52,8 +53,6 @@ import org.slf4j.LoggerFactory;
 import javax.xml.bind.JAXBElement;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import static com.gs.dmn.serialization.DMNConstants.FEEL_12_PREFIX;
 
 public class BasicDMN2JavaTransformer {
     protected static final Logger LOGGER = LoggerFactory.getLogger(BasicDMN2JavaTransformer.class);
@@ -1210,7 +1209,7 @@ public class BasicDMN2JavaTransformer {
             return null;
         }
         // Lookup primitive types
-        Type primitiveType = lookupPrimitiveType(new QualifiedName(FEEL_12_PREFIX, typeName));
+        Type primitiveType = lookupPrimitiveType(new QualifiedName(DMNVersion.LATEST.getFeelPrefix(), typeName));
         if (primitiveType != null) {
             return primitiveType;
         }
@@ -1273,7 +1272,7 @@ public class BasicDMN2JavaTransformer {
 
     Type lookupPrimitiveType(QualifiedName typeRef) {
         String namespace = typeRef.getNamespace();
-        if (FEEL_12_PREFIX.equals(namespace)) {
+        if (DMNVersion.LATEST.getFeelPrefix().equals(namespace)) {
             String typeName = typeRef.getLocalPart();
             return FEELTypes.FEEL_NAME_TO_FEEL_TYPE.get(typeName);
         } else if (StringUtils.isBlank(namespace)) {

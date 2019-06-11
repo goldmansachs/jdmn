@@ -53,7 +53,7 @@ DMN models can be transformed by implementing the ```DMNTransformer``` interface
 ## What is a jDMN dialect?
 
 A dialect is a jDMN abstraction introduced to support variations both of source (DMN) and target (Java). For example, 
-* FEEL or SFEEL inputs
+* FEEL inputs
 * Various mappings of the FEEL/DMN types (e.g. one dialect maps FEEL:number to BigDecimal, other maps FEEL:number to Double)
 
 ## How many dialects are supported?

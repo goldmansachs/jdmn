@@ -12,13 +12,14 @@
  */
 package com.gs.dmn.serialization;
 
-import com.sun.xml.internal.bind.marshaller.NamespacePrefixMapper;
+import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static com.gs.dmn.serialization.DMNConstants.*;
+import static com.gs.dmn.serialization.DMNConstants.XSD_NS;
+import static com.gs.dmn.serialization.DMNConstants.XSD_PREFIX;
 
 public class DMNNamespacePrefixMapper extends NamespacePrefixMapper {
     private final String userNamespace;
@@ -41,15 +42,7 @@ public class DMNNamespacePrefixMapper extends NamespacePrefixMapper {
         this.version = version;
 
         this.namespaceMap.put(XSD_NS, XSD_PREFIX);
-        if (version == DMNVersion.DMN_11) {
-            this.namespaceMap.put(FEEL_11_NS, FEEL_11_PREFIX);
-        } else if (version == DMNVersion.DMN_12) {
-            this.namespaceMap.put(DMN_12_NS, DMN_12_PREFIX);
-            this.namespaceMap.put(DMN_12_DI_NS, DMN_12_DI_PREFIX);
-            this.namespaceMap.put(DMN_12_DMNDI_NS, DMN_12_DMNDI_PREFIX);
-            this.namespaceMap.put(DMN_12_DC_NS, DMN_12_DC_PREFIX);
-            this.namespaceMap.put(FEEL_12_NS, FEEL_12_PREFIX);
-        }
+        this.namespaceMap.putAll(version.getNamespaceMap());
         if (!StringUtils.isEmpty(userNamespace) && !StringUtils.isEmpty(userPrefix)) {
             this.namespaceMap.put(userNamespace, userPrefix);
         }

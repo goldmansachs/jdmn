@@ -10,36 +10,26 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.syntax.ast.expression.textual;
+package com.gs.dmn.feel.analysis.syntax.ast.expression.type;
 
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.type.TypeExpression;
 
-import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
+public class ListTypeExpression extends TypeExpression {
+    private final TypeExpression elementTypeExpression;
 
-public class InstanceOfExpression extends Expression {
-    private final Expression leftOperand;
-    private final TypeExpression rightOperand;
-
-    public InstanceOfExpression(Expression leftOperand, TypeExpression rightOperand) {
-        this.leftOperand = leftOperand;
-        this.rightOperand = rightOperand;
+    public ListTypeExpression(TypeExpression listType) {
+        this.elementTypeExpression = listType;
     }
 
-    public Expression getLeftOperand() {
-        return leftOperand;
-    }
-
-    public TypeExpression getRightOperand() {
-        return rightOperand;
+    public TypeExpression getElementTypeExpression() {
+        return elementTypeExpression;
     }
 
     @Override
     public void deriveType(Environment environment) {
-        setType(BOOLEAN);
+        this.setType(elementTypeExpression.getType());
     }
 
     @Override
@@ -49,6 +39,6 @@ public class InstanceOfExpression extends Expression {
 
     @Override
     public String toString() {
-        return String.format("InstanceOfExpression(%s, %s)", leftOperand.toString(), rightOperand.toString());
+        return String.format("ListTypeExpression(%s)", elementTypeExpression.toString());
     }
 }

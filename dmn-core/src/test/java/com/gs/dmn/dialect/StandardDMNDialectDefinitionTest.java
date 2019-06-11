@@ -19,6 +19,7 @@ import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
 import com.gs.dmn.feel.synthesis.type.StandardFEELTypeTranslator;
 import com.gs.dmn.runtime.DefaultDMNBaseDecision;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
+import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.NopDMNTransformer;
@@ -40,7 +41,7 @@ public class StandardDMNDialectDefinitionTest {
     @Test
     public void testCreateDMNInterpreter() {
         DMNInterpreter dmnInterpreter = dialect.createDMNInterpreter(REPOSITORY);
-        assertEquals(DMNInterpreter.class.getName(), dmnInterpreter.getClass().getName());
+        assertEquals(StandardDMNInterpreter.class.getName(), dmnInterpreter.getClass().getName());
     }
 
     @Test

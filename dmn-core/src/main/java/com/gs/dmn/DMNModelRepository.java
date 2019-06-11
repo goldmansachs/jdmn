@@ -13,6 +13,7 @@
 package com.gs.dmn;
 
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
@@ -24,8 +25,6 @@ import org.slf4j.LoggerFactory;
 import javax.xml.bind.JAXBElement;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import static com.gs.dmn.serialization.DMNConstants.FEEL_12_PREFIX;
 
 public class DMNModelRepository {
     private static final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
@@ -526,7 +525,7 @@ public class DMNModelRepository {
     }
 
     protected TItemDefinition lookupItemDefinition(List<TItemDefinition> itemDefinitionList, QualifiedName typeRef) {
-        if (typeRef == null || FEEL_12_PREFIX.equals(typeRef.getNamespace())) {
+        if (typeRef == null || DMNVersion.LATEST.getFeelPrefix().equals(typeRef.getNamespace())) {
             return null;
         }
         for (TItemDefinition itemDefinition : itemDefinitionList) {
