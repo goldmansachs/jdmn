@@ -12,28 +12,33 @@
  */
 package com.gs.dmn.feel.analysis.semantics.environment;
 
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 public class Conversion {
     private final ConversionKind kind;
-    private final String elementType;
+    private final Type targetType;
 
-    public Conversion(ConversionKind kind, String elementType) {
+    public Conversion(ConversionKind kind, Type elementType) {
         this.kind = kind;
-        this.elementType = elementType;
+        this.targetType = elementType;
     }
 
     public ConversionKind getKind() {
         return kind;
     }
 
-    public String conversionFunction(Conversion conversion) {
+    public Type getTargetType() {
+        return targetType;
+    }
+
+    public String conversionFunction(Conversion conversion, String javaType) {
         if (conversion.kind == ConversionKind.NONE) {
             return null;
         } else if (conversion.kind == ConversionKind.ELEMENT_TO_LIST) {
             return "asList";
         } else if (conversion.kind == ConversionKind.LIST_TO_ELEMENT) {
-            return String.format("this.<%s>asElement", elementType);
+            return String.format("this.<%s>asElement", javaType);
         } else {
             throw new DMNRuntimeException(String.format("Conversion '%s' is not supported yet", conversion));
         }
