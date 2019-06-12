@@ -1499,15 +1499,23 @@ public class BasicDMN2JavaTransformer {
         return environment;
     }
 
-    private ContextType makeDSOutputType(TDecisionService decisionService, Environment environment) {
-        ContextType type = new ContextType();
-        for (TDMNElementReference er: decisionService.getOutputDecision()) {
-            TDecision decision = getDMNModelRepository().findDecisionById(er.getHref());
+    private Type makeDSOutputType(TDecisionService decisionService, Environment environment) {
+        List<TDMNElementReference> outputDecisions = decisionService.getOutputDecision();
+        if (outputDecisions.size() == 1) {
+            TDecision decision = getDMNModelRepository().findDecisionById(outputDecisions.get(0).getHref());
             String decisionName = decision.getName();
             VariableDeclaration declaration = (VariableDeclaration) environment.lookupVariableDeclaration(decisionName);
-            type.addMember(decisionName, Arrays.asList(), declaration.getType());
+            return declaration.getType();
+        } else {
+            ContextType type = new ContextType();
+            for (TDMNElementReference er: outputDecisions) {
+                TDecision decision = getDMNModelRepository().findDecisionById(er.getHref());
+                String decisionName = decision.getName();
+                VariableDeclaration declaration = (VariableDeclaration) environment.lookupVariableDeclaration(decisionName);
+                type.addMember(decisionName, Arrays.asList(), declaration.getType());
+            }
+            return type;
         }
-        return type;
     }
 
     private FunctionType makeDSType(TDecisionService decisionService, Environment environment) {

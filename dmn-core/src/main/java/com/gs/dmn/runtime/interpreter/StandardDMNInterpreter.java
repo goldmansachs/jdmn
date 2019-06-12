@@ -164,11 +164,17 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         }
 
         // Make context result
-        Object output = new Context();
-        for(TDecision decision: outputDecisions) {
-            String key = decision.getName();
-            Object value = serviceRuntimeEnvironment.lookupBinding(key);
-            ((Context) output).add(key, value);
+        Object output = null;
+        if (outputDecisions.size() == 1) {
+            String key = outputDecisions.get(0).getName();
+            output = serviceRuntimeEnvironment.lookupBinding(key);
+        } else {
+            output = new Context();
+            for(TDecision decision: outputDecisions) {
+                String key = decision.getName();
+                Object value = serviceRuntimeEnvironment.lookupBinding(key);
+                ((Context) output).add(key, value);
+            }
         }
 
         // Set variable
