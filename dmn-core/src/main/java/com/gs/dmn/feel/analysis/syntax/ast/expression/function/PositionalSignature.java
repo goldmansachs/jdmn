@@ -12,10 +12,15 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
+import com.gs.dmn.feel.analysis.semantics.environment.Conversion;
+import com.gs.dmn.feel.analysis.semantics.environment.ConversionKind;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
+import com.gs.dmn.feel.analysis.semantics.type.NamedType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.runtime.Pair;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,7 +47,7 @@ public class PositionalSignature extends Signature {
         if (size() != parameters.size()) {
             return false;
         }
-        for(int i=0; i<parameters.size(); i++) {
+        for (int i = 0; i < parameters.size(); i++) {
             if (!types.get(i).conformsTo(parameters.get(i).getType())) {
                 return false;
             }
@@ -51,16 +56,20 @@ public class PositionalSignature extends Signature {
     }
 
     @Override
-    public Signature listToSingletonSignature() {
+    public List<Pair<Signature, List<Conversion>>> candidates() {
+        // TODO extends to all parameters and conversions
         if (size() == 1) {
             Type type = types.get(0);
             if (type instanceof ListType) {
+                Type elementType = ((ListType) type).getElementType();
+                List<Conversion> conversions = Arrays.asList(new Conversion(ConversionKind.LIST_TO_ELEMENT, elementType));
                 List<Type> newSig = new ArrayList<>();
-                newSig.add(((ListType) type).getElementType());
-                return new PositionalSignature(newSig);
+                newSig.add(elementType);
+                PositionalSignature newSignature = new PositionalSignature(newSig);
+                return Arrays.asList(new Pair(newSignature, conversions));
             }
         }
-        return null;
+        return new ArrayList<>();
     }
 
     @Override

@@ -12,6 +12,9 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
+import com.gs.dmn.feel.analysis.semantics.environment.Conversion;
+import com.gs.dmn.runtime.Pair;
+
 import java.util.List;
 
 public abstract class Signature {
@@ -19,5 +22,6 @@ public abstract class Signature {
 
     public abstract boolean compatible(List<FormalParameter> parameters);
 
-    public abstract Signature listToSingletonSignature();
+    public abstract List<Pair<Signature, List<Conversion>>> candidates();
 }
+

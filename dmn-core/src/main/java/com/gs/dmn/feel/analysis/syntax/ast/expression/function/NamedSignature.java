@@ -12,12 +12,14 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
+import com.gs.dmn.feel.analysis.semantics.environment.Conversion;
+import com.gs.dmn.feel.analysis.semantics.environment.ConversionKind;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
+import com.gs.dmn.feel.analysis.semantics.type.NamedType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.runtime.Pair;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class NamedSignature extends Signature {
@@ -48,18 +50,22 @@ public class NamedSignature extends Signature {
     }
 
     @Override
-    public Signature listToSingletonSignature() {
+    public List<Pair<Signature, List<Conversion>>> candidates() {
+        // TODO extends to all parameters and conversions
         if (size() == 1) {
             Map.Entry<String, Type> entry = namedTypes.entrySet().iterator().next();
             String name = entry.getKey();
             Type type = entry.getValue();
             if (type instanceof ListType) {
+                Type elementType = ((ListType) type).getElementType();
+                List<Conversion> conversions = Arrays.asList(new Conversion(ConversionKind.LIST_TO_ELEMENT, elementType));
                 Map<String, Type> newSig = new LinkedHashMap<>();
                 newSig.put(name, type);
-                return new NamedSignature(newSig);
+                NamedSignature newSignature = new NamedSignature(newSig);
+                return Arrays.asList(new Pair(newSignature, conversions));
             }
         }
-        return null;
+        return new ArrayList<>();
     }
 
     public Type getType(String name) {

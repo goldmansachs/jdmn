@@ -529,7 +529,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object convertArgument(Object param, Conversion conversion) {
-        String conversionFunction = conversion.conversionFunction(conversion);
+        String conversionFunction = conversion.conversionFunction(conversion, dmnTransformer.toJavaType(conversion.getTargetType()));
         if (conversionFunction != null) {
             param = String.format("%s(%s)", conversionFunction, param);
         }

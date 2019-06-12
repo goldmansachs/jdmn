@@ -21,9 +21,9 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.QualifiedName;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.Pair;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class FunctionInvocation extends Expression {
@@ -97,21 +97,23 @@ public class FunctionInvocation extends Expression {
 
     private List<DeclarationMatch> findFunctionMatches(Environment environment, String name, Signature signature) {
         List<DeclarationMatch> matches = new ArrayList<>();
-        Declaration exactMatch = environment.lookupFunctionDeclaration(name, signature);
-        if (exactMatch != null) {
-            List<Conversion> conversions = new ArrayList<>();
-            for(int i=0; i<signature.size(); i++) {
-                conversions.add(new Conversion(ConversionKind.NONE, null));
-            }
-            matches.add(new DeclarationMatch(exactMatch, conversions));
-        } else {
-            // Try conversion from List
-            Signature newSignature = signature.listToSingletonSignature();
-            if (newSignature != null) {
-                Declaration match = environment.lookupFunctionDeclaration(name, newSignature);
-                if (match != null) {
-                    String javaElementType = "String";
-                    matches.add(new DeclarationMatch(match, Arrays.asList(new Conversion(ConversionKind.LIST_TO_ELEMENT, javaElementType))));
+        List<Declaration> declarations = environment.lookupFunctionDeclaration(name);
+        for (Declaration declaration : declarations) {
+            FunctionDeclaration functionDeclaration = (FunctionDeclaration) declaration;
+            if (functionDeclaration.match(signature)) {
+                // Exact match. no conversion required
+                List<Conversion> conversions = new ArrayList<>();
+                for (int i = 0; i < signature.size(); i++) {
+                    conversions.add(new Conversion(ConversionKind.NONE, null));
+                }
+                matches.add(new DeclarationMatch(declaration, conversions));
+                break;
+            } else {
+                List<Pair<Signature, List<Conversion>>> candidates = signature.candidates();
+                for (Pair<Signature, List<Conversion>> candidate : candidates) {
+                    if (functionDeclaration.match(candidate.getLeft())) {
+                        matches.add(new DeclarationMatch(declaration, candidate.getRight()));
+                    }
                 }
             }
         }
