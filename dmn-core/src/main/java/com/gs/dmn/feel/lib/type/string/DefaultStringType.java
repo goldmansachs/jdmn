@@ -43,12 +43,8 @@ public class DefaultStringType extends BaseType implements StringType {
 
     @Override
     public String stringAdd(String first, String second) {
-        if (first == null && second == null) {
-            return "";
-        } else if (first == null) {
-            return second;
-        } else if (second == null) {
-            return first;
+        if (first == null || second == null) {
+            return null;
         } else {
             return first + second;
         }
