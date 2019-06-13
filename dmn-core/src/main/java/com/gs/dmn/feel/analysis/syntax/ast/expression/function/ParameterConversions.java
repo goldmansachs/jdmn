@@ -10,24 +10,11 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.semantics.environment;
+package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 import java.util.List;
 
-public class DeclarationMatch {
-    private final Declaration declaration;
-    private final List<Conversion> parameterConversions;
-
-    public DeclarationMatch(Declaration declaration, List<Conversion> parameterConversions) {
-        this.declaration = declaration;
-        this.parameterConversions = parameterConversions;
-    }
-
-    public Declaration getDeclaration() {
-        return declaration;
-    }
-
-    public List<Conversion> getParameterConversions() {
-        return parameterConversions;
-    }
+public abstract class ParameterConversions {
+    public abstract List<Conversion> getConversions(List<FormalParameter> formalParameters);
 }
+

@@ -35,8 +35,8 @@ public class PositionalParameters extends Parameters {
     }
 
     @Override
-    public PositionalSignature getSignature() {
-        return new PositionalSignature(parameters.stream().map(Expression::getType).collect(Collectors.toList()));
+    public PositionalParameterTypes getSignature() {
+        return new PositionalParameterTypes(parameters.stream().map(Expression::getType).collect(Collectors.toList()));
     }
 
     public List<Expression> getParameters() {

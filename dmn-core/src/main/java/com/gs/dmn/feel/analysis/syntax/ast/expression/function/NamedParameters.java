@@ -38,10 +38,10 @@ public class NamedParameters extends Parameters {
     }
 
     @Override
-    public Signature getSignature() {
+    public ParameterTypes getSignature() {
         Map<String, Type> signature = new LinkedHashMap<>();
         parameters.keySet().forEach(k -> signature.put(k, parameters.get(k).getType()));
-        return new NamedSignature(signature);
+        return new NamedParameterTypes(signature);
     }
 
     @Override

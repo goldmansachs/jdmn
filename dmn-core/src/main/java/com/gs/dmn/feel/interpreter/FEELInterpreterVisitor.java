@@ -14,8 +14,6 @@ package com.gs.dmn.feel.interpreter;
 
 import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
-import com.gs.dmn.feel.analysis.semantics.environment.Conversion;
-import com.gs.dmn.feel.analysis.semantics.environment.ConversionKind;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
@@ -53,7 +51,10 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.compiler.ClassData;
 import com.gs.dmn.runtime.compiler.JavaCompiler;
 import com.gs.dmn.runtime.compiler.JavaxToolsCompiler;
-import com.gs.dmn.runtime.interpreter.*;
+import com.gs.dmn.runtime.interpreter.Arguments;
+import com.gs.dmn.runtime.interpreter.DMNInterpreter;
+import com.gs.dmn.runtime.interpreter.NamedArguments;
+import com.gs.dmn.runtime.interpreter.PositionalArguments;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
@@ -655,7 +656,8 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         List<FormalParameter> formalParameters = functionType.getParameters();
         List<Object> argList = arguments.argumentList(formalParameters);
         if (!argList.isEmpty()) {
-            argList = convertArguments(argList, element.getParameterConversions());
+            ParameterConversions parameterConversions = element.getParameterConversions();
+            argList = convertArguments(argList, parameterConversions.getConversions(formalParameters));
         }
         if (function instanceof Name || function instanceof QualifiedName && ((QualifiedName) function).getNames().size() == 1) {
             String feelFunctionName = functionName(function);
