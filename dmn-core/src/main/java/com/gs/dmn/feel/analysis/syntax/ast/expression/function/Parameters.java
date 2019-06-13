@@ -17,5 +17,5 @@ import com.gs.dmn.feel.analysis.syntax.ast.Element;
 public abstract class Parameters extends Element {
     public abstract boolean isEmpty();
 
-    public abstract Signature getSignature();
+    public abstract ParameterTypes getSignature();
 }

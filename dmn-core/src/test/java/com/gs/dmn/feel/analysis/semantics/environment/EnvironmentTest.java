@@ -13,7 +13,7 @@
 package com.gs.dmn.feel.analysis.semantics.environment;
 
 import com.gs.dmn.feel.analysis.semantics.type.StringType;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.PositionalSignature;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.PositionalParameterTypes;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -37,6 +37,6 @@ public class EnvironmentTest {
         Environment environment = environmentFactory.makeEnvironment();
 
         String functionName = "date";
-        assertEquals(functionName, environment.lookupFunctionDeclaration(functionName, new PositionalSignature(Arrays.asList(StringType.STRING))).getName());
+        assertEquals(functionName, environment.lookupFunctionDeclaration(functionName, new PositionalParameterTypes(Arrays.asList(StringType.STRING))).getName());
     }
 }

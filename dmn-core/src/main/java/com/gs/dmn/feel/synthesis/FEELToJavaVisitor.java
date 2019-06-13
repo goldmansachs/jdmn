@@ -16,7 +16,6 @@ import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.semantics.ReplaceItemFilterVisitor;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.environment.BusinessKnowledgeModelDeclaration;
-import com.gs.dmn.feel.analysis.semantics.environment.Conversion;
 import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.*;
@@ -502,13 +501,14 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         List<FormalParameter> formalParameters = functionType.getParameters();
         List<Object> argList = arguments.argumentList(formalParameters);
         if (!argList.isEmpty()) {
-            argList = convertArguments(argList, element.getParameterConversions());
+            ParameterConversions parameterConversions = element.getParameterConversions();
+            argList = convertArguments(argList, parameterConversions.getConversions(formalParameters));
         }
         String argumentsText = argList.stream().map(Object::toString).collect(Collectors.joining(", "));
         if (function instanceof Name || function instanceof QualifiedName && ((QualifiedName) function).getNames().size() == 1) {
             String feelFunctionName = functionName(function);
-            Signature signature = element.getParameters().getSignature();
-            Declaration declaration = context.getEnvironment().lookupFunctionDeclaration(feelFunctionName, signature);
+            ParameterTypes parameterTypes = element.getParameters().getSignature();
+            Declaration declaration = context.getEnvironment().lookupFunctionDeclaration(feelFunctionName, parameterTypes);
             if (declaration instanceof BusinessKnowledgeModelDeclaration) {
                 argumentsText = dmnTransformer.drgElementArgumentsExtra(dmnTransformer.augmentArgumentList(argumentsText));
                 String javaFunctionName = dmnTransformer.bkmFunctionName(feelFunctionName);

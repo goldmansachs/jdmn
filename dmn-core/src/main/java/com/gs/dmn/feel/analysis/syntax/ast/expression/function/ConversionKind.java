@@ -12,16 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Conversion;
-import com.gs.dmn.runtime.Pair;
-
-import java.util.List;
-
-public abstract class Signature {
-    public abstract int size();
-
-    public abstract boolean compatible(List<FormalParameter> parameters);
-
-    public abstract List<Pair<Signature, List<Conversion>>> candidates();
+public enum ConversionKind {
+    NONE, ELEMENT_TO_LIST, LIST_TO_ELEMENT
 }
-

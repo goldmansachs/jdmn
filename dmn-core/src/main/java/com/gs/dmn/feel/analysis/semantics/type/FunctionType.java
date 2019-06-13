@@ -13,7 +13,7 @@
 package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Signature;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +48,7 @@ public abstract class FunctionType extends Type {
         this.returnType = returnType;
     }
 
-    public abstract boolean match(Signature signature);
+    public abstract boolean match(ParameterTypes parameterTypes);
 
     @Override
     public boolean isValid() {

@@ -12,7 +12,9 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
-import com.gs.dmn.feel.analysis.semantics.environment.*;
+import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
+import com.gs.dmn.feel.analysis.semantics.environment.Environment;
+import com.gs.dmn.feel.analysis.semantics.environment.FunctionDeclaration;
 import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
@@ -29,7 +31,9 @@ import java.util.List;
 public class FunctionInvocation extends Expression {
     private final Expression function;
     private final Parameters parameters;
-    private List<Conversion> parameterConversions;
+
+    private ParameterTypes parameterTypes;
+    private ParameterConversions parameterConversions;
 
     public FunctionInvocation(Expression function, Parameters parameters) {
         this.function = function;
@@ -44,27 +48,49 @@ public class FunctionInvocation extends Expression {
         return parameters;
     }
 
-    public List<Conversion> getParameterConversions() {
+    public ParameterTypes getParameterTypes() {
+        return parameterTypes;
+    }
+
+    public void setParameterTypes(ParameterTypes parameterTypes) {
+        this.parameterTypes = parameterTypes;
+    }
+
+    public ParameterConversions getParameterConversions() {
         return parameterConversions;
     }
 
-    private void setParameterConversions(List<Conversion> parameterConversions) {
+    private void setParameterConversions(ParameterConversions parameterConversions) {
         this.parameterConversions = parameterConversions;
     }
 
     @Override
     public void deriveType(Environment environment) {
         if (function instanceof Name) {
-            checkFunction(environment, ((Name) function).getName());
+            DeclarationMatch declarationMatch = functionResolution(environment, ((Name) function).getName());
+            FunctionDeclaration functionDeclaration = (FunctionDeclaration) declarationMatch.getDeclaration();
+            FunctionType functionType = functionDeclaration.getType();
+            this.function.setType(functionType);
+
+            setInvocationType(functionType);
+            setParameterTypes(declarationMatch.getParameterTypes());
+            setParameterConversions(declarationMatch.getParameterConversions());
         } else if (function instanceof QualifiedName && ((QualifiedName) function).getNames().size() == 1) {
-            checkFunction(environment, ((QualifiedName) function).getQualifiedName());
+            DeclarationMatch declarationMatch = functionResolution(environment, ((QualifiedName) function).getQualifiedName());
+            FunctionDeclaration functionDeclaration = (FunctionDeclaration) declarationMatch.getDeclaration();
+            FunctionType functionType = functionDeclaration.getType();
+            this.function.setType(functionType);
+
+            setInvocationType(functionType);
+            setParameterTypes(declarationMatch.getParameterTypes());
+            setParameterConversions(declarationMatch.getParameterConversions());
         } else {
-            Type type = function.getType();
-            if (type instanceof FunctionType) {
-                setType(((FunctionType) type).getReturnType());
-            } else {
-                throw new DMNRuntimeException(String.format("Expected function type for '%s'. Found '%s'", function, type));
-            }
+            Type functionType = function.getType();
+            List<Type> parameterTypes = ((FunctionType) functionType).getParameterTypes();
+
+            setInvocationType(functionType);
+            setParameterTypes(new PositionalParameterTypes(parameterTypes));
+            setParameterConversions(new PositionalParameterConversions(parameterTypes));
         }
     }
 
@@ -78,41 +104,43 @@ public class FunctionInvocation extends Expression {
         return String.format("FunctionInvocation(%s -> %s)", function.toString(), parameters.toString());
     }
 
-    private void checkFunction(Environment environment, String name) {
-        Signature signature = parameters.getSignature();
-        List<DeclarationMatch> functionMatches = findFunctionMatches(environment, name, signature);
+    private DeclarationMatch functionResolution(Environment environment, String name) {
+        ParameterTypes parameterTypes = parameters.getSignature();
+        List<DeclarationMatch> functionMatches = findFunctionMatches(environment, name, parameterTypes);
         if (functionMatches.isEmpty()) {
-            throw new DMNRuntimeException(String.format("Cannot resolve function '%s(%s)'", name, signature));
+            throw new DMNRuntimeException(String.format("Cannot resolve function '%s(%s)'", name, parameterTypes));
         } else if (functionMatches.size() == 1) {
-            DeclarationMatch declarationMatch = functionMatches.get(0);
-            FunctionDeclaration functionDeclaration = (FunctionDeclaration) declarationMatch.getDeclaration();
-            FunctionType functionType = functionDeclaration.getType();
-            this.function.setType(functionType);
-            setType(functionType.getReturnType());
-            setParameterConversions(declarationMatch.getParameterConversions());
+            return functionMatches.get(0);
         } else {
-            throw new DMNRuntimeException(String.format("Multiple matches for function '%s(%s)'", name, signature));
+            throw new DMNRuntimeException(String.format("Multiple matches for function '%s(%s)'", name, parameterTypes));
         }
     }
 
-    private List<DeclarationMatch> findFunctionMatches(Environment environment, String name, Signature signature) {
+    private void setInvocationType(Type functionType) {
+        if (functionType instanceof FunctionType) {
+            setType(((FunctionType) functionType).getReturnType());
+        } else {
+            throw new DMNRuntimeException(String.format("Expected function type for '%s'. Found '%s'", function, functionType));
+        }
+    }
+
+    private List<DeclarationMatch> findFunctionMatches(Environment environment, String name, ParameterTypes parameterTypes) {
         List<DeclarationMatch> matches = new ArrayList<>();
         List<Declaration> declarations = environment.lookupFunctionDeclaration(name);
         for (Declaration declaration : declarations) {
             FunctionDeclaration functionDeclaration = (FunctionDeclaration) declaration;
-            if (functionDeclaration.match(signature)) {
+            if (functionDeclaration.match(parameterTypes)) {
                 // Exact match. no conversion required
-                List<Conversion> conversions = new ArrayList<>();
-                for (int i = 0; i < signature.size(); i++) {
-                    conversions.add(new Conversion(ConversionKind.NONE, null));
-                }
-                matches.add(new DeclarationMatch(declaration, conversions));
+                PositionalParameterConversions conversions = new PositionalParameterConversions(functionDeclaration.getType().getParameterTypes());
+                matches.add(new DeclarationMatch(declaration, parameterTypes, conversions));
                 break;
             } else {
-                List<Pair<Signature, List<Conversion>>> candidates = signature.candidates();
-                for (Pair<Signature, List<Conversion>> candidate : candidates) {
-                    if (functionDeclaration.match(candidate.getLeft())) {
-                        matches.add(new DeclarationMatch(declaration, candidate.getRight()));
+                List<Pair<ParameterTypes, ParameterConversions>> candidates = parameterTypes.candidates();
+                for (Pair<ParameterTypes, ParameterConversions> candidate : candidates) {
+                    ParameterTypes newParameterTypes = candidate.getLeft();
+                    ParameterConversions parameterConversions = candidate.getRight();
+                    if (functionDeclaration.match(newParameterTypes)) {
+                        matches.add(new DeclarationMatch(declaration, newParameterTypes, parameterConversions));
                     }
                 }
             }

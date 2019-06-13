@@ -14,9 +14,9 @@ package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.feel.analysis.semantics.environment.Parameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.NamedSignature;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.PositionalSignature;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Signature;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.NamedParameterTypes;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.PositionalParameterTypes;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,12 +44,12 @@ public class BuiltinFunctionType extends FunctionType {
     }
 
     @Override
-    public boolean match(Signature signature) {
-        if (signature instanceof PositionalSignature) {
-            List<Type> argumentTypes = ((PositionalSignature)signature).getTypes();
+    public boolean match(ParameterTypes parameterTypes) {
+        if (parameterTypes instanceof PositionalParameterTypes) {
+            List<Type> argumentTypes = ((PositionalParameterTypes) parameterTypes).getTypes();
             return match(argumentTypes);
         } else {
-            NamedSignature namedSignature = (NamedSignature)signature;
+            NamedParameterTypes namedSignature = (NamedParameterTypes) parameterTypes;
             List<Type> argumentTypes = new ArrayList<>();
             for(FormalParameter parameter: parameters) {
                 Type type = namedSignature.getType(parameter.getName());
