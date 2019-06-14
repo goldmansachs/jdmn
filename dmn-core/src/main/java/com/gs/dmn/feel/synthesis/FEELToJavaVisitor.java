@@ -499,11 +499,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         Expression function = element.getFunction();
         FunctionType functionType = (FunctionType) function.getType();
         List<FormalParameter> formalParameters = functionType.getParameters();
-        List<Object> argList = arguments.argumentList(formalParameters);
-        if (!argList.isEmpty()) {
-            ParameterConversions parameterConversions = element.getParameterConversions();
-            argList = convertArguments(argList, parameterConversions.getConversions(formalParameters));
-        }
+        List<Object> argList = arguments.convertArguments(formalParameters, element.getParameterConversions(), this::convertArgument);
         String argumentsText = argList.stream().map(Object::toString).collect(Collectors.joining(", "));
         if (function instanceof Name || function instanceof QualifiedName && ((QualifiedName) function).getNames().size() == 1) {
             String feelFunctionName = functionName(function);
@@ -527,8 +523,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         }
     }
 
-    @Override
-    public Object convertArgument(Object param, Conversion conversion) {
+    protected Object convertArgument(Object param, Conversion conversion) {
         String conversionFunction = conversion.conversionFunction(conversion, dmnTransformer.toJavaType(conversion.getTargetType()));
         if (conversionFunction != null) {
             param = String.format("%s(%s)", conversionFunction, param);

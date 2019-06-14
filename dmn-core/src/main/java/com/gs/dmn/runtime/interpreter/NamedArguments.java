@@ -27,18 +27,9 @@ public class NamedArguments extends Arguments {
         this.arguments = arguments;
     }
 
-    public Object getArgument(String name) {
-        return arguments.get(name);
-    }
-
     @Override
-    public boolean isEmpty() {
-        return arguments == null || arguments.isEmpty();
-    }
-
-    @Override
-    public List<Object> argumentList(List<FormalParameter> formalParameters) {
-        List<Object> argList = new ArrayList();
+    protected List<Object> argumentList(List<FormalParameter> formalParameters) {
+        List<Object> argList = new ArrayList<>();
         if (arguments == null) {
             return argList;
         }

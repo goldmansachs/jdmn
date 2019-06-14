@@ -12,9 +12,14 @@
  */
 package com.gs.dmn.runtime.interpreter;
 
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Conversion;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterConversions;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiFunction;
 
 public class PositionalArguments extends Arguments {
     private final List<Object> arguments;
@@ -24,12 +29,7 @@ public class PositionalArguments extends Arguments {
     }
 
     @Override
-    public boolean isEmpty() {
-        return arguments == null || arguments.isEmpty();
-    }
-
-    @Override
-    public List<Object> argumentList(List<FormalParameter> formalParameters) {
+    protected List<Object> argumentList(List<FormalParameter> formalParameters) {
         return arguments;
     }
 }
