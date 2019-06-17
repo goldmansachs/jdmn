@@ -13,9 +13,22 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
+import com.gs.dmn.runtime.interpreter.Arguments;
+
+import java.util.function.BiFunction;
 
 public abstract class Parameters extends Element {
+    // API for initial status
     public abstract boolean isEmpty();
-
     public abstract ParameterTypes getSignature();
+    public abstract Arguments getOriginalArguments();
+    abstract void setOriginalArguments(Arguments originalArguments);
+
+    // API during and after conversion
+    public abstract ParameterConversions getParameterConversions();
+    abstract void setParameterConversions(ParameterConversions parameterConversions);
+    public abstract ParameterTypes getConvertedParameterTypes();
+    abstract void setConvertedParameterTypes(ParameterTypes parameterTypes);
+    public abstract Arguments getConvertedArguments();
+    public abstract Arguments convertArguments(BiFunction<Object, Conversion, Object> convertArgument);
 }

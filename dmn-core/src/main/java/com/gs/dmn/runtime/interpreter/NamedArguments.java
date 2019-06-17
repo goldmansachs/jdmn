@@ -17,18 +17,34 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class NamedArguments extends Arguments {
     private final Map<String, Object> arguments;
 
+    public NamedArguments() {
+        this(new LinkedHashMap<>());
+    }
+
     public NamedArguments(Map<String, Object> arguments) {
+        if (arguments == null) {
+            arguments = new LinkedHashMap<>();
+        }
         this.arguments = arguments;
     }
 
+    public Map<String, Object> getArguments() {
+        return arguments;
+    }
+
+    public void add(String name, Object arg) {
+        this.arguments.put(name, arg);
+    }
+
     @Override
-    protected List<Object> argumentList(List<FormalParameter> formalParameters) {
+    public List<Object> argumentList(List<FormalParameter> formalParameters) {
         List<Object> argList = new ArrayList<>();
         if (arguments == null) {
             return argList;

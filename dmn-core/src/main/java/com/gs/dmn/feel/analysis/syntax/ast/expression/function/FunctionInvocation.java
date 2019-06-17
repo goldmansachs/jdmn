@@ -32,9 +32,6 @@ public class FunctionInvocation extends Expression {
     private final Expression function;
     private final Parameters parameters;
 
-    private ParameterTypes parameterTypes;
-    private ParameterConversions parameterConversions;
-
     public FunctionInvocation(Expression function, Parameters parameters) {
         this.function = function;
         this.parameters = parameters;
@@ -48,22 +45,6 @@ public class FunctionInvocation extends Expression {
         return parameters;
     }
 
-    public ParameterTypes getParameterTypes() {
-        return parameterTypes;
-    }
-
-    public void setParameterTypes(ParameterTypes parameterTypes) {
-        this.parameterTypes = parameterTypes;
-    }
-
-    public ParameterConversions getParameterConversions() {
-        return parameterConversions;
-    }
-
-    private void setParameterConversions(ParameterConversions parameterConversions) {
-        this.parameterConversions = parameterConversions;
-    }
-
     @Override
     public void deriveType(Environment environment) {
         if (function instanceof Name) {
@@ -73,8 +54,8 @@ public class FunctionInvocation extends Expression {
             this.function.setType(functionType);
 
             setInvocationType(functionType);
-            setParameterTypes(declarationMatch.getParameterTypes());
-            setParameterConversions(declarationMatch.getParameterConversions());
+            parameters.setParameterConversions(declarationMatch.getParameterConversions());
+            parameters.setConvertedParameterTypes(declarationMatch.getParameterTypes());
         } else if (function instanceof QualifiedName && ((QualifiedName) function).getNames().size() == 1) {
             DeclarationMatch declarationMatch = functionResolution(environment, ((QualifiedName) function).getQualifiedName());
             FunctionDeclaration functionDeclaration = (FunctionDeclaration) declarationMatch.getDeclaration();
@@ -82,15 +63,20 @@ public class FunctionInvocation extends Expression {
             this.function.setType(functionType);
 
             setInvocationType(functionType);
-            setParameterTypes(declarationMatch.getParameterTypes());
-            setParameterConversions(declarationMatch.getParameterConversions());
+            parameters.setParameterConversions(declarationMatch.getParameterConversions());
+            parameters.setConvertedParameterTypes(declarationMatch.getParameterTypes());
         } else {
-            Type functionType = function.getType();
-            List<Type> parameterTypes = ((FunctionType) functionType).getParameterTypes();
+            FunctionType functionType = (FunctionType) function.getType();
 
             setInvocationType(functionType);
-            setParameterTypes(new PositionalParameterTypes(parameterTypes));
-            setParameterConversions(new PositionalParameterConversions(parameterTypes));
+            if (parameters instanceof NamedParameters) {
+                ParameterConversions parameterConversions = new NamedParameterConversions(functionType.getParameters());
+                parameters.setParameterConversions(parameterConversions);
+            } else {
+                ParameterConversions parameterConversions = new PositionalParameterConversions(functionType.getParameterTypes());
+                parameters.setParameterConversions(parameterConversions);
+            }
+            parameters.setConvertedParameterTypes(parameters.getSignature());
         }
     }
 
@@ -131,8 +117,8 @@ public class FunctionInvocation extends Expression {
             FunctionDeclaration functionDeclaration = (FunctionDeclaration) declaration;
             if (functionDeclaration.match(parameterTypes)) {
                 // Exact match. no conversion required
-                PositionalParameterConversions conversions = new PositionalParameterConversions(functionDeclaration.getType().getParameterTypes());
-                matches.add(new DeclarationMatch(declaration, parameterTypes, conversions));
+                DeclarationMatch declarationMatch = makeDeclarationMatch(functionDeclaration);
+                matches.add(declarationMatch);
                 break;
             } else {
                 List<Pair<ParameterTypes, ParameterConversions>> candidates = parameterTypes.candidates();
@@ -140,11 +126,28 @@ public class FunctionInvocation extends Expression {
                     ParameterTypes newParameterTypes = candidate.getLeft();
                     ParameterConversions parameterConversions = candidate.getRight();
                     if (functionDeclaration.match(newParameterTypes)) {
-                        matches.add(new DeclarationMatch(declaration, newParameterTypes, parameterConversions));
+                        matches.add(makeDeclarationMatch(declaration, newParameterTypes, parameterConversions));
                     }
                 }
             }
         }
         return matches;
+    }
+
+    private DeclarationMatch makeDeclarationMatch(FunctionDeclaration functionDeclaration) {
+        FunctionType functionType = functionDeclaration.getType();
+        if (parameters instanceof NamedParameters) {
+            NamedParameterConversions parameterConversions = new NamedParameterConversions(functionType.getParameters());
+            ParameterTypes newParameterTypes = parameters.getSignature();
+            return makeDeclarationMatch(functionDeclaration, newParameterTypes, parameterConversions);
+        } else {
+            PositionalParameterConversions parameterConversions = new PositionalParameterConversions(functionType.getParameterTypes());
+            ParameterTypes newParameterTypes = parameters.getSignature();
+            return makeDeclarationMatch(functionDeclaration, newParameterTypes, parameterConversions);
+        }
+    }
+
+    private DeclarationMatch makeDeclarationMatch(Declaration declaration, ParameterTypes newParameterTypes, ParameterConversions parameterConversions) {
+        return new DeclarationMatch(declaration, newParameterTypes, parameterConversions);
     }
 }
