@@ -16,15 +16,25 @@ import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.runtime.interpreter.Arguments;
+import com.gs.dmn.runtime.interpreter.NamedArguments;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 public class NamedParameters extends Parameters {
     private final Map<String, Expression> parameters;
+    private NamedArguments originalArguments;
+    private NamedParameterConversions parameterConversions;
+    private NamedParameterTypes parameterTypes;
+    private NamedArguments convertedArguments;
 
     public NamedParameters(Map<String, Expression> params) {
+        if (params == null) {
+            params = new LinkedHashMap<>();
+        }
         this.parameters = params;
     }
 
@@ -42,6 +52,64 @@ public class NamedParameters extends Parameters {
         Map<String, Type> signature = new LinkedHashMap<>();
         parameters.keySet().forEach(k -> signature.put(k, parameters.get(k).getType()));
         return new NamedParameterTypes(signature);
+    }
+
+    @Override
+    public Arguments getOriginalArguments() {
+        return originalArguments;
+    }
+
+    @Override
+    public void setOriginalArguments(Arguments originalArguments) {
+        this.originalArguments = (NamedArguments) originalArguments;
+    }
+
+    @Override
+    public ParameterConversions getParameterConversions() {
+        return parameterConversions;
+    }
+
+    @Override
+    void setParameterConversions(ParameterConversions parameterConversions) {
+        this.parameterConversions = (NamedParameterConversions) parameterConversions;
+    }
+
+    @Override
+    public ParameterTypes getConvertedParameterTypes() {
+        return this.parameterTypes;
+    }
+
+    @Override
+    void setConvertedParameterTypes(ParameterTypes parameterTypes) {
+        this.parameterTypes = (NamedParameterTypes) parameterTypes;
+    }
+
+    @Override
+    public Arguments getConvertedArguments() {
+        return convertedArguments;
+    }
+
+    @Override
+    public Arguments convertArguments(BiFunction<Object, Conversion, Object> convertArgument) {
+        if (requiresConversion()) {
+            this.convertedArguments = new NamedArguments();
+            for (String key : parameterConversions.getConversions().keySet()) {
+                Object arg = originalArguments.getArguments().get(key);
+                Conversion conversion = parameterConversions.getConversions().get(key);
+                Object convertedArg = convertArgument.apply(arg, conversion);
+                convertedArguments.add(key, convertedArg);
+            }
+        } else {
+            this.convertedArguments = originalArguments;
+        }
+        return convertedArguments;
+    }
+
+    private boolean requiresConversion() {
+        if (parameterConversions == null) {
+            return false;
+        }
+        return parameterConversions.getConversions().values().stream().anyMatch(c -> c.getKind() != ConversionKind.NONE);
     }
 
     @Override

@@ -31,6 +31,10 @@ public class PositionalParameterTypes extends ParameterTypes {
         }
     }
 
+    public List<Type> getTypes() {
+        return this.types;
+    }
+
     @Override
     public int size() {
         return types.size();
@@ -47,10 +51,6 @@ public class PositionalParameterTypes extends ParameterTypes {
             }
         }
         return true;
-    }
-
-    public List<Type> getTypes() {
-        return this.types;
     }
 
     @Override

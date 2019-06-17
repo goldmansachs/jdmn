@@ -15,15 +15,28 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 import java.util.*;
 
 public class NamedParameterConversions extends ParameterConversions {
-    private Map<String, Conversion> conversions = new LinkedHashMap<>();
+    private Map<String, Conversion> conversions;
 
     public NamedParameterConversions() {
+        this(new LinkedHashMap<>());
     }
 
     public NamedParameterConversions(Map<String, Conversion> conversions) {
-        if (conversions != null) {
-            this.conversions = conversions;
+        if (conversions == null) {
+            conversions = new LinkedHashMap<>();
         }
+        this.conversions = conversions;
+    }
+
+    public NamedParameterConversions(List<FormalParameter> parameters) {
+        this.conversions = new LinkedHashMap<>();
+        for (FormalParameter parameter: parameters) {
+            conversions.put(parameter.getName(), new Conversion(ConversionKind.NONE, parameter.getType()));
+        }
+    }
+
+    public Map<String, Conversion> getConversions() {
+        return conversions;
     }
 
     public void add(String key, Conversion conversion) {

@@ -85,7 +85,7 @@ public class BuiltinFunctionType extends FunctionType {
                 return false;
             }
             for (int i = mandatoryParamsCount; i < argumentTypes.size(); i++) {
-                if (!conformsTo(argumentTypes, getParameterTypes(), i)) {
+                if (!conformsTo(argumentTypes, this.parameterTypes, i)) {
                     return false;
                 }
             }

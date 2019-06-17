@@ -30,6 +30,10 @@ public class PositionalParameterConversions extends ParameterConversions {
         }
     }
 
+    public List<Conversion> getConversions() {
+        return conversions;
+    }
+
     public void add(Conversion conversion) {
         this.conversions.add(conversion);
     }
