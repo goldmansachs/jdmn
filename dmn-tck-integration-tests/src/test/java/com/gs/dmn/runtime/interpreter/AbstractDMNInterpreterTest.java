@@ -108,7 +108,7 @@ public abstract class AbstractDMNInterpreterTest {
         for (ResultNode res : resultNode) {
             Object expectedValue = null;
             Object actualValue = null;
-            String message = String.format("Unexpected result in test case in file '%s' for result node '%s'", testCaseFileName, res.getName());
+            String message = String.format("Unexpected result in test case in file '%s' test case '%s' for result node '%s'", testCaseFileName, testCase.getId(), res.getName());
             try {
                 expectedValue = tckUtil.expectedValue(testCase, res);
                 actualValue = tckUtil.evaluate(interpreter, testCase, res);

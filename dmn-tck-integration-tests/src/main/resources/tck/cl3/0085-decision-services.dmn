@@ -10,6 +10,7 @@
     <!-- Direct invocation: no params -->
 
     <decisionService name="decisionService_001" id="_decisionService_001">
+        <variable name="decisionService_001"/>
         <outputDecision href="#_decision_001"/>
         <encapsulatedDecision href="#_decision_001"/>
     </decisionService>
@@ -24,6 +25,7 @@
     <!-- Direct invocation: an input decision param -->
 
     <decisionService name="decisionService_002" id="_decisionService_002">
+        <variable name="decisionService_002"/>
         <outputDecision href="#_decision_002"/>
         <encapsulatedDecision href="#_decision_002"/>
         <inputDecision href="#_decision_002_input"/>
@@ -40,7 +42,7 @@
     </decision>
 
     <decision name="decision_002_input" id="_decision_002_input">
-        <variable name="decision_002_input" typeRef="string"/>
+        <variable name="decision_002_input"/>
         <literalExpression>
             <text>"bar"</text>
         </literalExpression>
@@ -49,6 +51,7 @@
     <!-- Direct invocation: with multiple input decision params and an input data -->
 
     <decisionService name="decisionService_003" id="_decisionService_003">
+        <variable name="decisionService_003"/>
         <outputDecision href="#_decision_003"/>
         <encapsulatedDecision href="#_decision_003"/>
         <inputDecision href="#_decision_003_input_1"/>
@@ -93,6 +96,7 @@
     <!-- with no params, when none are expected -->
 
     <decisionService name="decisionService_004" id="_decisionService_004">
+        <variable name="decisionService_004"/>
         <outputDecision href="#_decision_004_2"/>
         <encapsulatedDecision href="#_decision_004_2"/>
     </decisionService>
@@ -117,6 +121,7 @@
     <!-- passing a param when DS accepts none -->
 
     <decisionService name="decisionService_005" id="_decisionService_005">
+        <variable name="decisionService_005"/>
         <outputDecision href="#_decision_005_2"/>
         <encapsulatedDecision href="#_decision_005_2"/>
     </decisionService>
@@ -141,6 +146,7 @@
     <!-- passing a single input decision param -->
 
     <decisionService name="decisionService_006" id="_decisionService_006">
+        <variable name="decisionService_006"/>
         <outputDecision href="#_decision_006_2"/>
         <encapsulatedDecision href="#_decision_006_2"/>
         <inputDecision href="#_decision_006_3"/>
@@ -178,6 +184,7 @@
     <!-- passing an incorrect type value as single input decision param -->
 
     <decisionService name="decisionService_007" id="_decisionService_007">
+        <variable name="decisionService_007"/>
         <outputDecision href="#_decision_007_2"/>
         <encapsulatedDecision href="#_decision_007_2"/>
         <inputDecision href="#_decision_007_3"/>
@@ -215,6 +222,7 @@
     <!-- passing no params when expects a single param -->
 
     <decisionService name="decisionService_008" id="_decisionService_008">
+        <variable name="decisionService_008"/>
         <outputDecision href="#_decision_008_2"/>
         <encapsulatedDecision href="#_decision_008_2"/>
         <inputDecision href="#_decision_008_3"/>
@@ -251,6 +259,7 @@
     <!-- passing named param -->
 
     <decisionService name="decisionService_009" id="_decisionService_009">
+        <variable name="decisionService_009"/>
         <outputDecision href="#_decision_009_2"/>
         <encapsulatedDecision href="#_decision_009_2"/>
         <inputDecision href="#_decision_009_3"/>
@@ -287,6 +296,7 @@
     <!-- passing badly named param -->
 
     <decisionService name="decisionService_010" id="_decisionService_010">
+        <variable name="decisionService_010"/>
         <outputDecision href="#_decision_010_2"/>
         <encapsulatedDecision href="#_decision_010_2"/>
         <inputDecision href="#_decision_010_3"/>
@@ -323,6 +333,7 @@
     <!-- verify params accepted in correct order : passing two input decision and two input data -->
 
     <decisionService name="decisionService_011" id="_decisionService_011">
+        <variable name="decisionService_011"/>
         <outputDecision href="#_decision_011_2"/>
         <encapsulatedDecision href="#_decision_011_2"/>
         <inputDecision href="#_decision_011_3"/>
@@ -389,6 +400,7 @@
     <!-- verify named params accepted in correct order : passing two input decision and two input data -->
 
     <decisionService name="decisionService_012" id="_decisionService_012">
+        <variable name="decisionService_012"/>
         <outputDecision href="#_decision_012_2"/>
         <encapsulatedDecision href="#_decision_012_2"/>
         <inputDecision href="#_decision_012_3"/>
@@ -460,6 +472,7 @@
     on the global usage, and the other way around - global first to assert it had no effect on DS usage. -->
 
     <decisionService name="decisionService_013" id="_decisionService_013">
+        <variable name="decisionService_013"/>
         <outputDecision href="#_decision_013_2"/>
         <encapsulatedDecision href="#_decision_013_2"/>
         <inputDecision href="#_decision_013_3"/>
@@ -528,6 +541,7 @@
 
     <!-- same as 013 but with order of execution of DS /glocal reversed -->
     <decisionService name="decisionService_014" id="_decisionService_014">
+        <variable name="decisionService_014"/>
         <outputDecision href="#_decision_014_2"/>
         <encapsulatedDecision href="#_decision_014_2"/>
         <inputDecision href="#_decision_014_3"/>
