@@ -537,6 +537,19 @@ public class BasicDMN2JavaTransformer {
     }
 
     //
+    // Invocable  related functions
+    //
+    public List<FormalParameter> invFEELParameters(TDRGElement invocable) {
+        if (invocable instanceof TBusinessKnowledgeModel) {
+            return bkmFEELParameters((TBusinessKnowledgeModel) invocable);
+        } else if (invocable instanceof TDecisionService) {
+            return dsFEELParameters((TDecisionService) invocable);
+        } else {
+            throw new DMNRuntimeException(String.format("Illegal invocable '%s'", invocable.getClass().getSimpleName()));
+        }
+    }
+
+    //
     // BKM related functions
     //
     public String bkmFunctionName(TBusinessKnowledgeModel bkm) {
@@ -1519,15 +1532,7 @@ public class BasicDMN2JavaTransformer {
     }
 
     private FunctionType makeDSType(TDecisionService decisionService, Environment environment) {
-        List<FormalParameter> parameters = new ArrayList<>();
-        for (TDMNElementReference er: decisionService.getInputData()) {
-            TInputData inputData = getDMNModelRepository().findInputDataById(er.getHref());
-            parameters.add(new FormalParameter(inputData.getName(), toFEELType(inputData)));
-        }
-        for (TDMNElementReference er: decisionService.getInputDecision()) {
-            TDecision decision = getDMNModelRepository().findDecisionById(er.getHref());
-            parameters.add(new FormalParameter(decision.getName(), drgElementOutputFEELType(decision)));
-        }
+        List<FormalParameter> parameters = dsFEELParameters(decisionService);
         FunctionType type = new DMNFunctionType(parameters, makeDSOutputType(decisionService, environment));
         return type;
     }

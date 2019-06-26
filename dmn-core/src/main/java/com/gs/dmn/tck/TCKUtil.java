@@ -14,6 +14,7 @@ package com.gs.dmn.tck;
 
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.*;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
@@ -31,17 +32,13 @@ import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase.InputNode;
 import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase.ResultNode;
 import org.omg.dmn.tck.marshaller._20160719.ValueType;
 import org.omg.dmn.tck.marshaller._20160719.ValueType.Component;
-import org.omg.spec.dmn._20180521.model.TDRGElement;
-import org.omg.spec.dmn._20180521.model.TDecision;
-import org.omg.spec.dmn._20180521.model.TInputData;
+import org.omg.spec.dmn._20180521.model.*;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class TCKUtil {
@@ -316,17 +313,25 @@ public class TCKUtil {
         return runtimeEnvironment;
     }
 
-    public List<Object> makeArgs(TestCase testCase) {
+    public List<Object> makeArgs(TDRGElement drgElement, TestCase testCase) {
         List<Object> args = new ArrayList<>();
-        List<InputNode> inputNode = testCase.getInputNode();
-        for (int i = 0; i < inputNode.size(); i++) {
-            TestCase.InputNode input = inputNode.get(i);
-            try {
-                Object value = makeValue(input);
-                args.add(value);
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw new DMNRuntimeException(String.format("Cannot process input node '%s' at position %d", input.getName(), i), e);
+        if (drgElement instanceof TInvocable) {
+            // Preserve de order in the call
+            List<FormalParameter> formalParameters = dmnTransformer.invFEELParameters(drgElement);
+            Map<String, Object> map = new LinkedHashMap<>();
+            List<InputNode> inputNode = testCase.getInputNode();
+            for (int i = 0; i < inputNode.size(); i++) {
+                TestCase.InputNode input = inputNode.get(i);
+                try {
+                    Object value = makeValue(input);
+                    map.put(input.getName(), value);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throw new DMNRuntimeException(String.format("Cannot process input node '%s' at position %d", input.getName(), i), e);
+                }
+            }
+            for (FormalParameter parameter: formalParameters) {
+                args.add(map.get(parameter.getName()));
             }
         }
         return args;
@@ -357,7 +362,8 @@ public class TCKUtil {
 
     public Object evaluate(DMNInterpreter interpreter, TestCase testCase, ResultNode resultNode) {
         String drgElementName = drgElementName(testCase, resultNode);
-        return interpreter.evaluateInvocation(drgElementName, makeArgs(testCase), makeEnvironment(testCase));
+        TDRGElement drgElement = dmnTransformer.getDMNModelRepository().findDRGElementByName(drgElementName);
+        return interpreter.evaluateInvocation(drgElementName, makeArgs(drgElement, testCase), makeEnvironment(testCase));
     }
 
     private Object makeValue(InputNode inputNode) {
