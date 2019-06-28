@@ -240,6 +240,24 @@ public class OperatorDecisionTable {
     }};
 
     public static JavaOperator javaOperator(String name, Type leftType, Type rightType) {
+        OperatorTableInputEntry entry = resolveOperator(name, leftType, rightType);
+        if (entry == null) {
+            throw new DMNRuntimeException(String.format("Cannot infer java operator for '%s'", entry));
+        } else {
+            return MAPPINGS.get(entry).getRight();
+        }
+    }
+
+    public static Type resultType(String name, Type leftType, Type rightType) {
+        OperatorTableInputEntry entry = resolveOperator(name, leftType, rightType);
+        if (entry == null) {
+            throw new DMNRuntimeException(String.format("Cannot infer java operator for '%s'", entry));
+        } else {
+            return MAPPINGS.get(entry).getLeft();
+        }
+    }
+
+    private static OperatorTableInputEntry resolveOperator(String name, Type leftType, Type rightType) {
         OperatorTableInputEntry operatorTableEntry = makeOperatorTableEntry(name, leftType, rightType);
         List<OperatorTableInputEntry> candidates = new ArrayList();
         for (OperatorTableInputEntry key: MAPPINGS.keySet()) {
@@ -248,31 +266,14 @@ public class OperatorDecisionTable {
             }
         }
         if (candidates.size() == 1) {
-            Pair<Type, JavaOperator> pair = MAPPINGS.get(candidates.get(0));
-            if (pair == null) {
-                throw new DMNRuntimeException(String.format("Cannot infer java operator for '%s'", operatorTableEntry));
-            }
-            return pair.getRight();
+            return candidates.get(0);
         } else if (candidates.size() > 1) {
             // Check exact match
             if (candidates.contains(operatorTableEntry)) {
-                Pair<Type, JavaOperator> pair = MAPPINGS.get(operatorTableEntry);
-                if (pair == null) {
-                    throw new DMNRuntimeException(String.format("Cannot infer java operator for '%s'", operatorTableEntry));
-                }
-                return pair.getRight();
+                return operatorTableEntry;
             }
         }
-        throw new DMNRuntimeException(String.format("Cannot infer java operator for '%s'", operatorTableEntry));
-    }
-
-    public static Type resultType(String name, Type leftType, Type rightType) {
-        OperatorTableInputEntry operatorTableEntry = makeOperatorTableEntry(name, leftType, rightType);
-        Pair<Type, JavaOperator> pair = MAPPINGS.get(operatorTableEntry);
-        if (pair == null) {
-            throw new DMNRuntimeException(String.format("Cannot infer result type for '%s'", operatorTableEntry));
-        }
-        return pair.getLeft();
+        return null;
     }
 
     private static String normalizeJavaOperator(String name) {
