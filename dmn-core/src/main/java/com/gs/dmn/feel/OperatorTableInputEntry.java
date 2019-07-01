@@ -37,6 +37,12 @@ class OperatorTableInputEntry {
         return rightOperandType;
     }
 
+    public boolean equivalentTo(OperatorTableInputEntry other) {
+        return this.operator.equals(other.operator)
+                && this.leftOperandType.equivalentTo(other.leftOperandType)
+                && this.rightOperandType.equivalentTo(other.rightOperandType);
+    }
+
     public boolean conformsTo(OperatorTableInputEntry other) {
         return this.operator.equals(other.operator)
                 && this.leftOperandType.conformsTo(other.leftOperandType)
