@@ -12,10 +12,7 @@
  */
 package com.gs.dmn.feel;
 
-import com.gs.dmn.feel.analysis.semantics.type.ContextType;
-import com.gs.dmn.feel.analysis.semantics.type.ListType;
-import com.gs.dmn.feel.analysis.semantics.type.NullType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.synthesis.JavaOperator;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
@@ -52,88 +49,32 @@ public class OperatorDecisionTable {
 
         // equality
         put(new OperatorTableInputEntry("=", NUMBER, NUMBER), new Pair(BOOLEAN, new JavaOperator("numericEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("=", NUMBER, NULL), new Pair(BOOLEAN, new JavaOperator("numericEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("=", NULL, NUMBER), new Pair(BOOLEAN, new JavaOperator("numericEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-
         put(new OperatorTableInputEntry("=", BOOLEAN, BOOLEAN), new Pair(BOOLEAN, new JavaOperator("booleanEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("=", BOOLEAN, NULL), new Pair(BOOLEAN, new JavaOperator("booleanEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("=", NULL, BOOLEAN), new Pair(BOOLEAN, new JavaOperator("booleanEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-
         put(new OperatorTableInputEntry("=", STRING, STRING), new Pair(BOOLEAN, new JavaOperator("stringEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("=", STRING, NULL), new Pair(BOOLEAN, new JavaOperator("stringEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("=", NULL, STRING), new Pair(BOOLEAN, new JavaOperator("stringEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-
         put(new OperatorTableInputEntry("=", DATE, DATE), new Pair(BOOLEAN, new JavaOperator("dateEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("=", DATE, NULL), new Pair(BOOLEAN, new JavaOperator("dateEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("=", NULL, DATE), new Pair(BOOLEAN, new JavaOperator("dateEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-
         put(new OperatorTableInputEntry("=", TIME, TIME), new Pair(BOOLEAN, new JavaOperator("timeEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("=", TIME, NULL), new Pair(BOOLEAN, new JavaOperator("timeEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("=", NULL, TIME), new Pair(BOOLEAN, new JavaOperator("timeEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-
         put(new OperatorTableInputEntry("=", DATE_AND_TIME, DATE_AND_TIME), new Pair(BOOLEAN, new JavaOperator("dateTimeEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("=", DATE_AND_TIME, NULL), new Pair(BOOLEAN, new JavaOperator("dateTimeEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("=", NULL, DATE_AND_TIME), new Pair(BOOLEAN, new JavaOperator("dateTimeEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-
         put(new OperatorTableInputEntry("=", YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION), new Pair(BOOLEAN, new JavaOperator("durationEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("=", YEARS_AND_MONTHS_DURATION, NULL), new Pair(BOOLEAN, new JavaOperator("durationEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("=", NULL, YEARS_AND_MONTHS_DURATION), new Pair(BOOLEAN, new JavaOperator("durationEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        put(new OperatorTableInputEntry("=", DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION), new Pair(BOOLEAN, new JavaOperator("durationEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        put(new OperatorTableInputEntry("=", ANY_LIST, ANY_LIST), new Pair(BOOLEAN, new JavaOperator("listEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        put(new OperatorTableInputEntry("=", ANY_CONTEXT, ANY_CONTEXT), new Pair(BOOLEAN, new JavaOperator("contextEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
 
         put(new OperatorTableInputEntry("=", NULL, NULL), new Pair(BOOLEAN, new JavaOperator("==", 2, true, LEFT_RIGHT, INFIX)));
-
-        put(new OperatorTableInputEntry("=", DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION), new Pair(BOOLEAN, new JavaOperator("durationEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("=", DAYS_AND_TIME_DURATION, NULL), new Pair(BOOLEAN, new JavaOperator("durationEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("=", NULL, DAYS_AND_TIME_DURATION), new Pair(BOOLEAN, new JavaOperator("durationEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-
-        put(new OperatorTableInputEntry("=", ANY_LIST, ANY_LIST), new Pair(BOOLEAN, new JavaOperator("listEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("=", ANY_LIST, NULL), new Pair(BOOLEAN, new JavaOperator("listEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("=", NULL, ANY_LIST), new Pair(BOOLEAN, new JavaOperator("listEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-
-        put(new OperatorTableInputEntry("=", ANY_CONTEXT, ANY_CONTEXT), new Pair(BOOLEAN, new JavaOperator("contextEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("=", ANY_CONTEXT, NULL), new Pair(BOOLEAN, new JavaOperator("contextEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("=", NULL, ANY_CONTEXT), new Pair(BOOLEAN, new JavaOperator("contextEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        put(new OperatorTableInputEntry("=", ANY, ANY), new Pair(BOOLEAN, new JavaOperator("==", 2, true, LEFT_RIGHT, INFIX)));
 
         put(new OperatorTableInputEntry("!=", NUMBER, NUMBER), new Pair(BOOLEAN, new JavaOperator("numericNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("!=", NUMBER, NULL), new Pair(BOOLEAN, new JavaOperator("numericNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("!=", NULL, NUMBER), new Pair(BOOLEAN, new JavaOperator("numericNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-
         put(new OperatorTableInputEntry("!=", BOOLEAN, BOOLEAN), new Pair(BOOLEAN, new JavaOperator("booleanNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("!=", BOOLEAN, NULL), new Pair(BOOLEAN, new JavaOperator("booleanNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("!=", NULL, BOOLEAN), new Pair(BOOLEAN, new JavaOperator("booleanNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-
         put(new OperatorTableInputEntry("!=", STRING, STRING), new Pair(BOOLEAN, new JavaOperator("stringNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("!=", STRING, NULL), new Pair(BOOLEAN, new JavaOperator("stringNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("!=", NULL, STRING), new Pair(BOOLEAN, new JavaOperator("stringNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-
         put(new OperatorTableInputEntry("!=", DATE, DATE), new Pair(BOOLEAN, new JavaOperator("dateNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("!=", DATE, NULL), new Pair(BOOLEAN, new JavaOperator("dateNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("!=", NULL, DATE), new Pair(BOOLEAN, new JavaOperator("dateNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-
         put(new OperatorTableInputEntry("!=", TIME, TIME), new Pair(BOOLEAN, new JavaOperator("timeNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("!=", TIME, NULL), new Pair(BOOLEAN, new JavaOperator("timeNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("!=", NULL, TIME), new Pair(BOOLEAN, new JavaOperator("timeNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-
         put(new OperatorTableInputEntry("!=", DATE_AND_TIME, DATE_AND_TIME), new Pair(BOOLEAN, new JavaOperator("dateTimeNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("!=", DATE_AND_TIME, NULL), new Pair(BOOLEAN, new JavaOperator("dateTimeNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("!=", NULL, DATE_AND_TIME), new Pair(BOOLEAN, new JavaOperator("dateTimeNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-
         put(new OperatorTableInputEntry("!=", YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION), new Pair(BOOLEAN, new JavaOperator("durationNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("!=", YEARS_AND_MONTHS_DURATION, NULL), new Pair(BOOLEAN, new JavaOperator("durationNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("!=", NULL, YEARS_AND_MONTHS_DURATION), new Pair(BOOLEAN, new JavaOperator("durationNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-
         put(new OperatorTableInputEntry("!=", DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION), new Pair(BOOLEAN, new JavaOperator("durationNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("!=", DAYS_AND_TIME_DURATION, NULL), new Pair(BOOLEAN, new JavaOperator("durationNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("!=", NULL, DAYS_AND_TIME_DURATION), new Pair(BOOLEAN, new JavaOperator("durationNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-
         put(new OperatorTableInputEntry("!=", ANY_LIST, ANY_LIST), new Pair(BOOLEAN, new JavaOperator("listNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("!=", ANY_LIST, NULL), new Pair(BOOLEAN, new JavaOperator("listNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("!=", NULL, ANY_LIST), new Pair(BOOLEAN, new JavaOperator("listNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-
         put(new OperatorTableInputEntry("!=", ANY_CONTEXT, ANY_CONTEXT), new Pair(BOOLEAN, new JavaOperator("contextNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("!=", ANY_CONTEXT, NULL), new Pair(BOOLEAN, new JavaOperator("contextNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        put(new OperatorTableInputEntry("!=", NULL, ANY_CONTEXT), new Pair(BOOLEAN, new JavaOperator("contextNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
 
         put(new OperatorTableInputEntry("!=", NULL, NULL), new Pair(BOOLEAN, new JavaOperator("!=", 2, true, LEFT_RIGHT, INFIX)));
+        put(new OperatorTableInputEntry("!=", ANY, ANY), new Pair(BOOLEAN, new JavaOperator("!=", 2, true, LEFT_RIGHT, INFIX)));
 
         // Relational
         put(new OperatorTableInputEntry("<", NUMBER, NUMBER), new Pair(BOOLEAN, new JavaOperator("numericLessThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
@@ -242,7 +183,7 @@ public class OperatorDecisionTable {
     public static JavaOperator javaOperator(String name, Type leftType, Type rightType) {
         OperatorTableInputEntry entry = resolveOperator(name, leftType, rightType);
         if (entry == null) {
-            throw new DMNRuntimeException(String.format("Cannot infer java operator for '%s'", entry));
+            throw new DMNRuntimeException(String.format("Cannot infer java operator for '(%s, %s, %s)'", name, leftType, rightType));
         } else {
             return MAPPINGS.get(entry).getRight();
         }
@@ -251,27 +192,39 @@ public class OperatorDecisionTable {
     public static Type resultType(String name, Type leftType, Type rightType) {
         OperatorTableInputEntry entry = resolveOperator(name, leftType, rightType);
         if (entry == null) {
-            throw new DMNRuntimeException(String.format("Cannot infer java operator for '%s'", entry));
+            throw new DMNRuntimeException(String.format("Cannot infer result type for '(%s, %s, %s)'", name, leftType, rightType));
         } else {
-            return MAPPINGS.get(entry).getLeft();
+            Pair<Type, JavaOperator> pair = MAPPINGS.get(entry);
+            return pair.getLeft();
         }
     }
 
     private static OperatorTableInputEntry resolveOperator(String name, Type leftType, Type rightType) {
-        OperatorTableInputEntry operatorTableEntry = makeOperatorTableEntry(name, leftType, rightType);
+        // Normalize operator and operands
+        String operator = normalizeJavaOperator(name);
+        Pair<Type, Type> pair = normalizeTypes(leftType, rightType);
+
+        // Check if operator can be applied
+        if (!validOperator(name, pair.getLeft(), pair.getRight())) {
+            throw new DMNRuntimeException(String.format("Operator '%s' cannot be applied to '%s', '%s'", name, leftType, rightType));
+        }
+
+        // Resolve operator
+        OperatorTableInputEntry operatorTableEntry = new OperatorTableInputEntry(operator, pair.getLeft(), pair.getRight());
+        OperatorTableInputEntry exactMatch = null;
         List<OperatorTableInputEntry> candidates = new ArrayList();
         for (OperatorTableInputEntry key: MAPPINGS.keySet()) {
-            if (operatorTableEntry.conformsTo(key)) {
+            if (operatorTableEntry.equivalentTo(key)) {
+                exactMatch = key;
+                break;
+            } else if (operatorTableEntry.conformsTo(key)) {
                 candidates.add(key);
             }
         }
-        if (candidates.size() == 1) {
+        if (exactMatch != null) {
+            return exactMatch;
+        } else if (candidates.size() == 1) {
             return candidates.get(0);
-        } else if (candidates.size() > 1) {
-            // Check exact match
-            if (candidates.contains(operatorTableEntry)) {
-                return operatorTableEntry;
-            }
         }
         return null;
     }
@@ -283,13 +236,8 @@ public class OperatorDecisionTable {
         return name;
     }
 
-    private static OperatorTableInputEntry makeOperatorTableEntry(String name, Type leftType, Type rightType) {
-        name = normalizeJavaOperator(name);
-        Pair<Type, Type> pair = normalizeTypes(leftType, rightType);
-        return new OperatorTableInputEntry(name, pair.getLeft(), pair.getRight());
-    }
-
     private static Pair<Type, Type> normalizeTypes(Type leftType, Type rightType) {
+        // Normalize lists & contexts
         if (leftType instanceof ListType) {
             leftType = ANY_LIST;
         }
@@ -302,13 +250,37 @@ public class OperatorDecisionTable {
         if (rightType instanceof ContextType) {
             rightType = ANY_CONTEXT;
         }
-        if (leftType instanceof NullType && rightType != null) {
+
+        // Normalize data types
+        if (leftType instanceof DataType && (rightType == NULL || rightType == ANY)) {
+            rightType = leftType;
+        } else if (rightType instanceof DataType && (leftType == NULL || leftType == ANY)) {
+            leftType = rightType;
+        } else if (leftType instanceof ListType && (rightType == NULL || rightType == ANY)) {
+            rightType = leftType;
+        } else if (rightType instanceof ListType && (leftType == NULL || leftType == ANY)) {
+            leftType = rightType;
+        } else if (leftType instanceof ContextType && (rightType == NULL || rightType == ANY)) {
+            rightType = leftType;
+        } else if (rightType instanceof ContextType && (leftType == NULL || leftType == ANY)) {
             leftType = rightType;
         }
-        if (rightType instanceof NullType && leftType != null) {
-            rightType = leftType;
-        }
         return new Pair<>(leftType, rightType);
+    }
+
+    private static boolean validOperator(String operator, Type leftType, Type rightType) {
+        if (operator.equals("=") || operator.equals("!=")) {
+            if (leftType instanceof DataType && rightType instanceof DataType && leftType != rightType) {
+                return false;
+            }
+            if (leftType instanceof ListType && ! (rightType instanceof ListType)) {
+                return false;
+            }
+            if (leftType instanceof ContextType && ! (rightType instanceof ContextType)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
