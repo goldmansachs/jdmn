@@ -28,6 +28,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DAYS_AND_TIME_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.YEARS_AND_MONTHS_DURATION;
+import static com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType.ANY_ITEM_DEFINITION;
 import static com.gs.dmn.feel.analysis.semantics.type.ListType.ANY_LIST;
 import static com.gs.dmn.feel.analysis.semantics.type.ContextType.ANY_CONTEXT;
 import static com.gs.dmn.feel.analysis.semantics.type.NullType.NULL;
@@ -58,6 +59,7 @@ public class OperatorDecisionTable {
         put(new OperatorTableInputEntry("=", DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION), new Pair(BOOLEAN, new JavaOperator("durationEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         put(new OperatorTableInputEntry("=", ANY_LIST, ANY_LIST), new Pair(BOOLEAN, new JavaOperator("listEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         put(new OperatorTableInputEntry("=", ANY_CONTEXT, ANY_CONTEXT), new Pair(BOOLEAN, new JavaOperator("contextEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        put(new OperatorTableInputEntry("=", ANY_ITEM_DEFINITION, ANY_ITEM_DEFINITION), new Pair(BOOLEAN, new JavaOperator("contextEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
 
         put(new OperatorTableInputEntry("=", NULL, NULL), new Pair(BOOLEAN, new JavaOperator("==", 2, true, LEFT_RIGHT, INFIX)));
         put(new OperatorTableInputEntry("=", ANY, ANY), new Pair(BOOLEAN, new JavaOperator("==", 2, true, LEFT_RIGHT, INFIX)));
@@ -72,6 +74,7 @@ public class OperatorDecisionTable {
         put(new OperatorTableInputEntry("!=", DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION), new Pair(BOOLEAN, new JavaOperator("durationNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         put(new OperatorTableInputEntry("!=", ANY_LIST, ANY_LIST), new Pair(BOOLEAN, new JavaOperator("listNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         put(new OperatorTableInputEntry("!=", ANY_CONTEXT, ANY_CONTEXT), new Pair(BOOLEAN, new JavaOperator("contextNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        put(new OperatorTableInputEntry("!=", ANY_ITEM_DEFINITION, ANY_ITEM_DEFINITION), new Pair(BOOLEAN, new JavaOperator("contextNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
 
         put(new OperatorTableInputEntry("!=", NULL, NULL), new Pair(BOOLEAN, new JavaOperator("!=", 2, true, LEFT_RIGHT, INFIX)));
         put(new OperatorTableInputEntry("!=", ANY, ANY), new Pair(BOOLEAN, new JavaOperator("!=", 2, true, LEFT_RIGHT, INFIX)));
@@ -250,6 +253,12 @@ public class OperatorDecisionTable {
         if (rightType instanceof ContextType) {
             rightType = ANY_CONTEXT;
         }
+        if (leftType instanceof ItemDefinitionType) {
+            leftType = ANY_ITEM_DEFINITION;
+        }
+        if (rightType instanceof ItemDefinitionType) {
+            rightType = ANY_ITEM_DEFINITION;
+        }
 
         // Normalize data types
         if (leftType instanceof DataType && (rightType == NULL || rightType == ANY)) {
@@ -263,6 +272,10 @@ public class OperatorDecisionTable {
         } else if (leftType instanceof ContextType && (rightType == NULL || rightType == ANY)) {
             rightType = leftType;
         } else if (rightType instanceof ContextType && (leftType == NULL || leftType == ANY)) {
+            leftType = rightType;
+        } else if (leftType instanceof ItemDefinitionType && (rightType == NULL || rightType == ANY)) {
+            rightType = leftType;
+        } else if (rightType instanceof ItemDefinitionType && (leftType == NULL || leftType == ANY)) {
             leftType = rightType;
         }
         return new Pair<>(leftType, rightType);

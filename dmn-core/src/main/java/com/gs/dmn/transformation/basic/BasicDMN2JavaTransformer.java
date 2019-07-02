@@ -1284,6 +1284,9 @@ public class BasicDMN2JavaTransformer {
     }
 
     Type lookupPrimitiveType(QualifiedName typeRef) {
+        if (typeRef == null) {
+            return null;
+        }
         String namespace = typeRef.getNamespace();
         if (DMNVersion.LATEST.getFeelPrefix().equals(namespace)) {
             String typeName = typeRef.getLocalPart();
