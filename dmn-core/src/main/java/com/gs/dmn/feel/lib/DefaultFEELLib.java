@@ -799,7 +799,11 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
             return null;
         }
 
-        return BigDecimal.valueOf(duration.getYears());
+        if (isYearMonthsTime(duration)) {
+            return BigDecimal.valueOf(duration.getYears());
+        } else {
+            return null;
+        }
     }
 
     public BigDecimal months(Duration duration) {
@@ -807,7 +811,11 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
             return null;
         }
 
-        return BigDecimal.valueOf(duration.getMonths());
+        if (isYearMonthsTime(duration)) {
+            return BigDecimal.valueOf(duration.getMonths());
+        } else {
+            return null;
+        }
     }
 
     public BigDecimal days(Duration duration) {
@@ -815,7 +823,11 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
             return null;
         }
 
-        return BigDecimal.valueOf(duration.getDays());
+        if (isDayTime(duration)) {
+            return BigDecimal.valueOf(duration.getDays());
+        } else {
+            return null;
+        }
     }
 
     public BigDecimal hours(Duration duration) {
@@ -823,7 +835,11 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
             return null;
         }
 
-        return BigDecimal.valueOf(duration.getHours());
+        if (isDayTime(duration)) {
+            return BigDecimal.valueOf(duration.getHours());
+        } else {
+            return null;
+        }
     }
 
     public BigDecimal minutes(Duration duration) {
@@ -831,7 +847,11 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
             return null;
         }
 
-        return BigDecimal.valueOf(duration.getMinutes());
+        if (isDayTime(duration)) {
+            return BigDecimal.valueOf(duration.getMinutes());
+        } else {
+            return null;
+        }
     }
 
     public BigDecimal seconds(Duration duration) {
@@ -839,11 +859,25 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
             return null;
         }
 
-        return BigDecimal.valueOf(duration.getSeconds());
+        if (isDayTime(duration)) {
+            return BigDecimal.valueOf(duration.getSeconds());
+        } else {
+            return null;
+        }
     }
 
-    private int months(XMLGregorianCalendar calendar) {
-        return calendar.getYear() * 12 + calendar.getMonth();
+    private boolean isYearMonthsTime(Duration duration) {
+        return duration.isSet(DatatypeConstants.YEARS)
+                || duration.isSet(DatatypeConstants.MONTHS)
+                ;
+    }
+
+    private boolean isDayTime(Duration duration) {
+        return duration.isSet(DatatypeConstants.DAYS)
+                || duration.isSet(DatatypeConstants.HOURS)
+                || duration.isSet(DatatypeConstants.MINUTES)
+                || duration.isSet(DatatypeConstants.SECONDS)
+                ;
     }
 
     //

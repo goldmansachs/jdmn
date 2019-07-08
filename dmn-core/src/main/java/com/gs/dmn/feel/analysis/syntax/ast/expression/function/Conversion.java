@@ -10,32 +10,58 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.semantics.environment;
+package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.runtime.DMNRuntimeException;
+
+import java.util.Objects;
 
 public class Conversion {
     private final ConversionKind kind;
-    private final String elementType;
+    private final Type targetType;
 
-    public Conversion(ConversionKind kind, String elementType) {
+    public Conversion(ConversionKind kind, Type elementType) {
         this.kind = kind;
-        this.elementType = elementType;
+        this.targetType = elementType;
     }
 
     public ConversionKind getKind() {
         return kind;
     }
 
-    public String conversionFunction(Conversion conversion) {
+    public Type getTargetType() {
+        return targetType;
+    }
+
+    public String conversionFunction(Conversion conversion, String javaType) {
         if (conversion.kind == ConversionKind.NONE) {
             return null;
         } else if (conversion.kind == ConversionKind.ELEMENT_TO_LIST) {
             return "asList";
         } else if (conversion.kind == ConversionKind.LIST_TO_ELEMENT) {
-            return String.format("this.<%s>asElement", elementType);
+            return String.format("this.<%s>asElement", javaType);
         } else {
             throw new DMNRuntimeException(String.format("Conversion '%s' is not supported yet", conversion));
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Conversion that = (Conversion) o;
+        return kind == that.kind &&
+                Objects.equals(targetType, that.targetType);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(kind, targetType);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Conversion(%s, %s)", kind, targetType);
     }
 }

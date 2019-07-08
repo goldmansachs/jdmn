@@ -12,12 +12,17 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
-import java.util.List;
+import org.junit.Test;
 
-public abstract class Signature {
-    public abstract int size();
+public abstract class ParameterTypesTest {
+    @Test
+    public void sequenceGeneration() {
+        ParameterTypes pt = getParameterTypes();
+        int[] actual = pt.init(2);
+        while (actual != null) {
+            actual = pt.next(actual, 2, 2);
+        }
+    }
 
-    public abstract boolean compatible(List<FormalParameter> parameters);
-
-    public abstract Signature listToSingletonSignature();
+    protected abstract ParameterTypes getParameterTypes();
 }

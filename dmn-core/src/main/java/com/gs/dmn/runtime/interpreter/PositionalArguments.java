@@ -14,18 +14,29 @@ package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PositionalArguments extends Arguments {
     private final List<Object> arguments;
 
+    public PositionalArguments() {
+        this(new ArrayList<>());
+    }
+
     public PositionalArguments(List<Object> arguments) {
+        if (arguments == null) {
+            arguments = new ArrayList<>();
+        }
         this.arguments = arguments;
     }
 
-    @Override
-    public boolean isEmpty() {
-        return arguments == null || arguments.isEmpty();
+    public List<Object> getArguments() {
+        return arguments;
+    }
+
+    public void add(Object arg) {
+        this.arguments.add(arg);
     }
 
     @Override

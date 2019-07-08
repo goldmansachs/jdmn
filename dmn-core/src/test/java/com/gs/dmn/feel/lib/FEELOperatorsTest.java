@@ -474,9 +474,9 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
 
     @Test
     public void testStringAdd() {
-        assertEquals("", getLib().stringAdd(null, null));
-        assertEquals("a", getLib().stringAdd("a", null));
-        assertEquals("b", getLib().stringAdd(null, "b"));
+        assertEquals(null, getLib().stringAdd(null, null));
+        assertEquals(null, getLib().stringAdd("a", null));
+        assertEquals(null, getLib().stringAdd(null, "b"));
         assertEquals("ab", getLib().stringAdd("a", "b"));
         assertEquals("ba", getLib().stringAdd("b", "a"));
     }

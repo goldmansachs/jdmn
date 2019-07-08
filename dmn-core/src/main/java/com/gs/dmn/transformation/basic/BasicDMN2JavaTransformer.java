@@ -537,6 +537,19 @@ public class BasicDMN2JavaTransformer {
     }
 
     //
+    // Invocable  related functions
+    //
+    public List<FormalParameter> invFEELParameters(TDRGElement invocable) {
+        if (invocable instanceof TBusinessKnowledgeModel) {
+            return bkmFEELParameters((TBusinessKnowledgeModel) invocable);
+        } else if (invocable instanceof TDecisionService) {
+            return dsFEELParameters((TDecisionService) invocable);
+        } else {
+            throw new DMNRuntimeException(String.format("Illegal invocable '%s'", invocable.getClass().getSimpleName()));
+        }
+    }
+
+    //
     // BKM related functions
     //
     public String bkmFunctionName(TBusinessKnowledgeModel bkm) {
@@ -1271,6 +1284,9 @@ public class BasicDMN2JavaTransformer {
     }
 
     Type lookupPrimitiveType(QualifiedName typeRef) {
+        if (typeRef == null) {
+            return null;
+        }
         String namespace = typeRef.getNamespace();
         if (DMNVersion.LATEST.getFeelPrefix().equals(namespace)) {
             String typeName = typeRef.getLocalPart();
@@ -1499,27 +1515,27 @@ public class BasicDMN2JavaTransformer {
         return environment;
     }
 
-    private ContextType makeDSOutputType(TDecisionService decisionService, Environment environment) {
-        ContextType type = new ContextType();
-        for (TDMNElementReference er: decisionService.getOutputDecision()) {
-            TDecision decision = getDMNModelRepository().findDecisionById(er.getHref());
+    private Type makeDSOutputType(TDecisionService decisionService, Environment environment) {
+        List<TDMNElementReference> outputDecisions = decisionService.getOutputDecision();
+        if (outputDecisions.size() == 1) {
+            TDecision decision = getDMNModelRepository().findDecisionById(outputDecisions.get(0).getHref());
             String decisionName = decision.getName();
             VariableDeclaration declaration = (VariableDeclaration) environment.lookupVariableDeclaration(decisionName);
-            type.addMember(decisionName, Arrays.asList(), declaration.getType());
+            return declaration.getType();
+        } else {
+            ContextType type = new ContextType();
+            for (TDMNElementReference er: outputDecisions) {
+                TDecision decision = getDMNModelRepository().findDecisionById(er.getHref());
+                String decisionName = decision.getName();
+                VariableDeclaration declaration = (VariableDeclaration) environment.lookupVariableDeclaration(decisionName);
+                type.addMember(decisionName, Arrays.asList(), declaration.getType());
+            }
+            return type;
         }
-        return type;
     }
 
     private FunctionType makeDSType(TDecisionService decisionService, Environment environment) {
-        List<FormalParameter> parameters = new ArrayList<>();
-        for (TDMNElementReference er: decisionService.getInputData()) {
-            TInputData inputData = getDMNModelRepository().findInputDataById(er.getHref());
-            parameters.add(new FormalParameter(inputData.getName(), toFEELType(inputData)));
-        }
-        for (TDMNElementReference er: decisionService.getInputDecision()) {
-            TDecision decision = getDMNModelRepository().findDecisionById(er.getHref());
-            parameters.add(new FormalParameter(decision.getName(), drgElementOutputFEELType(decision)));
-        }
+        List<FormalParameter> parameters = dsFEELParameters(decisionService);
         FunctionType type = new DMNFunctionType(parameters, makeDSOutputType(decisionService, environment));
         return type;
     }

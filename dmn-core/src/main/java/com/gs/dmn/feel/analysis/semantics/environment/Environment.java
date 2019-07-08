@@ -14,7 +14,7 @@ package com.gs.dmn.feel.analysis.semantics.environment;
 
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Signature;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.ArrayList;
@@ -126,18 +126,18 @@ public class Environment {
         return declarations;
     }
 
-    public Declaration lookupFunctionDeclaration(String name, Signature signature) {
+    public Declaration lookupFunctionDeclaration(String name, ParameterTypes parameterTypes) {
         List<Declaration> declarations = lookupLocalFunctionDeclaration(name);
         if (declarations != null) {
             for (Declaration declaration : declarations) {
-                if (((FunctionDeclaration) declaration).match(signature)) {
+                if (((FunctionDeclaration) declaration).match(parameterTypes)) {
                     return declaration;
                 }
             }
             return null;
         } else {
             if (getParent() != null) {
-                return getParent().lookupFunctionDeclaration(name, signature);
+                return getParent().lookupFunctionDeclaration(name, parameterTypes);
             } else {
                 return null;
             }

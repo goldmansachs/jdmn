@@ -14,6 +14,7 @@ package com.gs.dmn.tck;
 
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.*;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
@@ -31,17 +32,13 @@ import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase.InputNode;
 import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase.ResultNode;
 import org.omg.dmn.tck.marshaller._20160719.ValueType;
 import org.omg.dmn.tck.marshaller._20160719.ValueType.Component;
-import org.omg.spec.dmn._20180521.model.TDRGElement;
-import org.omg.spec.dmn._20180521.model.TDecision;
-import org.omg.spec.dmn._20180521.model.TInputData;
+import org.omg.spec.dmn._20180521.model.*;
 
 import javax.xml.bind.JAXBElement;
+import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class TCKUtil {
@@ -191,7 +188,7 @@ public class TCKUtil {
         return toJavaExpression(resultNode.getExpected(), outputType);
     }
 
-    private java.util.List<Pair<String, String>> sortParameters(java.util.List<Pair<String, String>> parameters) {
+    private List<Pair<String, String>> sortParameters(List<Pair<String, String>> parameters) {
         parameters.sort(Comparator.comparing(Pair::getLeft));
         return parameters;
     }
@@ -246,23 +243,23 @@ public class TCKUtil {
     //
     private String toJavaExpression(ValueType valueType, Type type) {
         if (valueType.getValue() != null) {
-            Object value = valueType.getValue();
+            Object value = jaxbElementValue(valueType.getValue());
             String text = getTextContent(value);
             if (text == null || "null".equals(text)) {
                 return "null";
-            } else if (isNumber(type)) {
+            } else if (isNumber(value, type)) {
                 return String.format("number(\"%s\")", text);
-            } else if (isString(type)) {
+            } else if (isString(value, type)) {
                 return String.format("\"%s\"", text);
-            } else if (isBoolean(type)) {
+            } else if (isBoolean(value, type)) {
                 return text;
-            } else if (isDate(type)) {
+            } else if (isDate(value, type)) {
                 return String.format("date(\"%s\")", text);
-            } else if (isTime(type)) {
+            } else if (isTime(value, type)) {
                 return String.format("time(\"%s\")", text);
-            } else if (isDateTime(type)) {
+            } else if (isDateTime(value, type)) {
                 return String.format("dateAndTime(\"%s\")", text);
-            } else if (isDurationTime(type)) {
+            } else if (isDurationTime(value, type)) {
                 return String.format("duration(\"%s\")", text);
             } else {
                 throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
@@ -276,7 +273,7 @@ public class TCKUtil {
     }
 
     private String toJavaExpression(ValueType.List list, ListType listType) {
-        java.util.List<String> javaList = new ArrayList<>();
+        List<String> javaList = new ArrayList<>();
         for (ValueType listValueType : list.getItem()) {
             Type elementType = listType.getElementType();
             String value = toJavaExpression(listValueType, elementType);
@@ -285,8 +282,8 @@ public class TCKUtil {
         return String.format("asList(%s)", javaList.stream().collect(Collectors.joining(", ")));
     }
 
-    private String toJavaExpression(java.util.List<Component> components, ItemDefinitionType type) {
-        java.util.List<Pair<String, String>> argumentList = new ArrayList<>();
+    private String toJavaExpression(List<Component> components, ItemDefinitionType type) {
+        List<Pair<String, String>> argumentList = new ArrayList<>();
         for (Component c : components) {
             String name = c.getName();
             Type memberType = type.getMemberType(name);
@@ -301,7 +298,7 @@ public class TCKUtil {
 
     public RuntimeEnvironment makeEnvironment(TestCase testCase) {
         RuntimeEnvironment runtimeEnvironment = RuntimeEnvironmentFactory.instance().makeEnvironment();
-        java.util.List<InputNode> inputNode = testCase.getInputNode();
+        List<InputNode> inputNode = testCase.getInputNode();
         for (int i = 0; i < inputNode.size(); i++) {
             InputNode input = inputNode.get(i);
             try {
@@ -316,17 +313,25 @@ public class TCKUtil {
         return runtimeEnvironment;
     }
 
-    public List<Object> makeArgs(TestCase testCase) {
+    public List<Object> makeArgs(TDRGElement drgElement, TestCase testCase) {
         List<Object> args = new ArrayList<>();
-        java.util.List<TestCase.InputNode> inputNode = testCase.getInputNode();
-        for (int i = 0; i < inputNode.size(); i++) {
-            TestCase.InputNode input = inputNode.get(i);
-            try {
-                Object value = makeValue(input);
-                args.add(value);
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw new DMNRuntimeException(String.format("Cannot process input node '%s' at position %d", input.getName(), i), e);
+        if (drgElement instanceof TInvocable) {
+            // Preserve de order in the call
+            List<FormalParameter> formalParameters = dmnTransformer.invFEELParameters(drgElement);
+            Map<String, Object> map = new LinkedHashMap<>();
+            List<InputNode> inputNode = testCase.getInputNode();
+            for (int i = 0; i < inputNode.size(); i++) {
+                TestCase.InputNode input = inputNode.get(i);
+                try {
+                    Object value = makeValue(input);
+                    map.put(input.getName(), value);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throw new DMNRuntimeException(String.format("Cannot process input node '%s' at position %d", input.getName(), i), e);
+                }
+            }
+            for (FormalParameter parameter: formalParameters) {
+                args.add(map.get(parameter.getName()));
             }
         }
         return args;
@@ -357,7 +362,8 @@ public class TCKUtil {
 
     public Object evaluate(DMNInterpreter interpreter, TestCase testCase, ResultNode resultNode) {
         String drgElementName = drgElementName(testCase, resultNode);
-        return interpreter.evaluateInvocation(drgElementName, makeArgs(testCase), makeEnvironment(testCase));
+        TDRGElement drgElement = dmnTransformer.getDMNModelRepository().findDRGElementByName(drgElementName);
+        return interpreter.evaluateInvocation(drgElementName, makeArgs(drgElement, testCase), makeEnvironment(testCase));
     }
 
     private Object makeValue(InputNode inputNode) {
@@ -375,27 +381,27 @@ public class TCKUtil {
 
     public Object makeValue(ValueType valueType, Type type) {
         if (valueType.getValue() != null) {
-            Object value = valueType.getValue();
+            Object value = jaxbElementValue(valueType.getValue());
             String text = getTextContent(value);
             if (text == null) {
                 return null;
-            } else if (isNumber(type)) {
+            } else if (isNumber(value, type)) {
                 return feelLib.number(text);
-            } else if (isString(type)) {
+            } else if (isString(value, type)) {
                 return text;
-            } else if (isBoolean(type)) {
+            } else if (isBoolean(value, type)) {
                 if (StringUtils.isBlank(text)) {
                     return null;
                 } else {
                     return Boolean.parseBoolean(text);
                 }
-            } else if (isDate(type)) {
+            } else if (isDate(value, type)) {
                 return feelLib.date(text);
-            } else if (isTime(type)) {
+            } else if (isTime(value, type)) {
                 return feelLib.time(text);
-            } else if (isDateTime(type)) {
+            } else if (isDateTime(value, type)) {
                 return feelLib.dateAndTime(text);
-            } else if (isDurationTime(type)) {
+            } else if (isDurationTime(value, type)) {
                 return feelLib.duration(text);
             } else {
                 Object obj = valueType.getValue().getValue();
@@ -412,8 +418,8 @@ public class TCKUtil {
         throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
     }
 
-    private java.util.List makeList(ValueType valueType, ListType listType) {
-        java.util.List<Object> javaList = new ArrayList<>();
+    private List makeList(ValueType valueType, ListType listType) {
+        List<Object> javaList = new ArrayList<>();
         ValueType.List list = valueType.getList().getValue();
         for (ValueType listValueType : list.getItem()) {
             Type elementType = listType.getElementType();
@@ -425,7 +431,7 @@ public class TCKUtil {
 
     private Context makeContext(ValueType valueType, CompositeDataType type) {
         Context context = new Context();
-        java.util.List<Component> components = valueType.getComponent();
+        List<Component> components = valueType.getComponent();
         for (Component c : components) {
             String name = c.getName();
             Type memberType = type.getMemberType(name);
@@ -435,49 +441,70 @@ public class TCKUtil {
         return context;
     }
 
-    private boolean isNumber(Type type) {
+    private boolean isNumber(Object value, Type type) {
+        if (value instanceof Number) {
+            return true;
+        }
         if (type == null) {
             return false;
         }
         return type == NumberType.NUMBER || type.equivalentTo(ListType.NUMBER_LIST);
     }
 
-    private boolean isString(Type type) {
+    private boolean isString(Object value, Type type) {
+        if (value instanceof String) {
+            return true;
+        }
         if (type == null) {
             return false;
         }
         return type == StringType.STRING || type.equivalentTo(ListType.STRING_LIST);
     }
 
-    private boolean isBoolean(Type type) {
+    private boolean isBoolean(Object value, Type type) {
+        if (value instanceof Boolean) {
+            return true;
+        }
         if (type == null) {
             return false;
         }
         return type == BooleanType.BOOLEAN || type.equivalentTo(ListType.BOOLEAN_LIST);
     }
 
-    private boolean isDate(Type type) {
+    private boolean isDate(Object value, Type type) {
+        if (value instanceof XMLGregorianCalendar) {
+            return ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.DATE;
+        }
         if (type == null) {
             return false;
         }
         return type == DateType.DATE || type.equivalentTo(ListType.DATE_LIST);
     }
 
-    private boolean isTime(Type type) {
+    private boolean isTime(Object value, Type type) {
+        if (value instanceof XMLGregorianCalendar) {
+            return ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.TIME;
+        }
         if (type == null) {
             return false;
         }
         return type == TimeType.TIME || type.equivalentTo(ListType.TIME_LIST);
     }
 
-    private boolean isDateTime(Type type) {
+    private boolean isDateTime(Object value, Type type) {
+        if (value instanceof XMLGregorianCalendar) {
+            return ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.DATETIME;
+        }
         if (type == null) {
             return false;
         }
         return type == DateTimeType.DATE_AND_TIME || type.equivalentTo(ListType.DATE_AND_TIME_LIST);
     }
 
-    private boolean isDurationTime(Type type) {
+    private boolean isDurationTime(Object value, Type type) {
+        if (value instanceof Duration) {
+            return true;
+        }
         if (type == null) {
             return false;
         }
@@ -487,20 +514,9 @@ public class TCKUtil {
     }
 
     private String getTextContent(Object value) {
-        if (value instanceof JAXBElement) {
-            if (((JAXBElement) value).isNil()) {
-                return null;
-            } else {
-                value = ((JAXBElement) value).getValue();
-            }
-        }
         if (value instanceof String) {
             return (String) value;
-        } else if (value instanceof Float) {
-            return feelLib.string(value);
-        } else if (value instanceof Double) {
-            return feelLib.string(value);
-        } else if (value instanceof BigDecimal) {
+        } else if (value instanceof Number) {
             return feelLib.string(value);
         } else if (value instanceof Boolean) {
             return value.toString();
@@ -513,5 +529,16 @@ public class TCKUtil {
         } else {
             return null;
         }
+    }
+
+    private Object jaxbElementValue(Object value) {
+        if (value instanceof JAXBElement) {
+            if (((JAXBElement) value).isNil()) {
+                return null;
+            } else {
+                value = ((JAXBElement) value).getValue();
+            }
+        }
+        return value;
     }
 }
