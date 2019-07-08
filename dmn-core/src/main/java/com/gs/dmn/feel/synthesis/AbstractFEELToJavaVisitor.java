@@ -14,8 +14,6 @@ package com.gs.dmn.feel.synthesis;
 
 import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
-import com.gs.dmn.feel.analysis.semantics.environment.Conversion;
-import com.gs.dmn.feel.analysis.semantics.environment.ConversionKind;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.AbstractAnalysisVisitor;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
@@ -27,7 +25,8 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
@@ -179,30 +178,6 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         } else {
             throw new DMNRuntimeException("Illegal date literal kind '" + type + "'. Expected 'date', 'time', 'date and time' or 'duration'.");
         }
-    }
-
-    protected List<Object> convertArguments(List<Object> argList, List<Conversion> parameterConversions) {
-        if (requiresConversion(parameterConversions)) {
-            List<Object> convertedArgList = new ArrayList<>();
-            for(int i=0; i<parameterConversions.size(); i++) {
-                Object arg = argList.get(i);
-                Conversion conversion = parameterConversions.get(i);
-                Object convertedArg = convertArgument(arg, conversion);
-                convertedArgList.add(convertedArg);
-            }
-            return convertedArgList;
-        } else {
-            return argList;
-        }
-    }
-
-    protected abstract Object convertArgument(Object arg, Conversion conversion);
-
-    protected boolean requiresConversion(List<Conversion> parameterConversions) {
-        if (parameterConversions == null) {
-            return false;
-        }
-        return parameterConversions.stream().anyMatch(c -> c.getKind() != ConversionKind.NONE);
     }
 
     protected String functionName(Expression function) {

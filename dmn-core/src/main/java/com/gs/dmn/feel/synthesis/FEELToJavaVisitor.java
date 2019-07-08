@@ -16,7 +16,6 @@ import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.semantics.ReplaceItemFilterVisitor;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.environment.BusinessKnowledgeModelDeclaration;
-import com.gs.dmn.feel.analysis.semantics.environment.Conversion;
 import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.*;
@@ -200,14 +199,16 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
             Object value = expression.accept(this, context);
             arguments.put(key, value);
         }
-        return new NamedArguments(arguments);
+        element.setOriginalArguments(new NamedArguments(arguments));
+        return element;
     }
 
     @Override
     public Object visit(PositionalParameters element, FEELContext context) {
         List<Object> arguments = new ArrayList<>();
         element.getParameters().forEach(p -> arguments.add(p.accept(this, context)));
-        return new PositionalArguments(arguments);
+        element.setOriginalArguments(new PositionalArguments(arguments));
+        return element;
     }
 
     @Override
@@ -496,19 +497,20 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(FunctionInvocation element, FEELContext context) {
-        Arguments arguments = (Arguments) element.getParameters().accept(this, context);
+        // Evaluate and convert actual parameters
+        Parameters parameters = element.getParameters();
+        parameters.accept(this, context);
+        Arguments arguments = parameters.convertArguments(this::convertArgument);
+
         Expression function = element.getFunction();
         FunctionType functionType = (FunctionType) function.getType();
         List<FormalParameter> formalParameters = functionType.getParameters();
         List<Object> argList = arguments.argumentList(formalParameters);
-        if (!argList.isEmpty()) {
-            argList = convertArguments(argList, element.getParameterConversions());
-        }
         String argumentsText = argList.stream().map(Object::toString).collect(Collectors.joining(", "));
         if (function instanceof Name || function instanceof QualifiedName && ((QualifiedName) function).getNames().size() == 1) {
             String feelFunctionName = functionName(function);
-            Signature signature = element.getParameters().getSignature();
-            Declaration declaration = context.getEnvironment().lookupFunctionDeclaration(feelFunctionName, signature);
+            ParameterTypes parameterTypes = element.getParameters().getSignature();
+            Declaration declaration = context.getEnvironment().lookupFunctionDeclaration(feelFunctionName, parameterTypes);
             if (declaration instanceof BusinessKnowledgeModelDeclaration) {
                 argumentsText = dmnTransformer.drgElementArgumentsExtra(dmnTransformer.augmentArgumentList(argumentsText));
                 String javaFunctionName = dmnTransformer.bkmFunctionName(feelFunctionName);
@@ -527,9 +529,8 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         }
     }
 
-    @Override
-    public Object convertArgument(Object param, Conversion conversion) {
-        String conversionFunction = conversion.conversionFunction(conversion);
+    protected Object convertArgument(Object param, Conversion conversion) {
+        String conversionFunction = conversion.conversionFunction(conversion, dmnTransformer.toJavaType(conversion.getTargetType()));
         if (conversionFunction != null) {
             param = String.format("%s(%s)", conversionFunction, param);
         }

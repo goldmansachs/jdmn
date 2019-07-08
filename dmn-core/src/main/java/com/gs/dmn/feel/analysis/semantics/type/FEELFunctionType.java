@@ -14,7 +14,7 @@ package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Signature;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,12 +49,12 @@ public class FEELFunctionType extends FunctionType {
     }
 
     @Override
-    public boolean match(Signature signature) {
+    public boolean match(ParameterTypes parameterTypes) {
         List<FormalParameter> parameters = getParameters();
-        if (parameters.size() != signature.size()) {
+        if (parameters.size() != parameterTypes.size()) {
             return false;
         }
-        return signature.compatible(parameters);
+        return parameterTypes.compatible(parameters);
     }
 
     @Override

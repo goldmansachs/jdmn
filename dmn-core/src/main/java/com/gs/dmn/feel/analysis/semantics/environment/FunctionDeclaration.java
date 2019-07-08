@@ -13,7 +13,7 @@
 package com.gs.dmn.feel.analysis.semantics.environment;
 
 import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Signature;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
 
 public class FunctionDeclaration extends Declaration {
     private final FunctionType type;
@@ -27,8 +27,8 @@ public class FunctionDeclaration extends Declaration {
         return type;
     }
 
-    public boolean match(Signature signature) {
-        return type.match(signature);
+    public boolean match(ParameterTypes parameterTypes) {
+        return type.match(parameterTypes);
     }
 
     public String toString() {

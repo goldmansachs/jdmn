@@ -14,8 +14,6 @@ package com.gs.dmn.feel.interpreter;
 
 import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
-import com.gs.dmn.feel.analysis.semantics.environment.Conversion;
-import com.gs.dmn.feel.analysis.semantics.environment.ConversionKind;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
@@ -53,7 +51,10 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.compiler.ClassData;
 import com.gs.dmn.runtime.compiler.JavaCompiler;
 import com.gs.dmn.runtime.compiler.JavaxToolsCompiler;
-import com.gs.dmn.runtime.interpreter.*;
+import com.gs.dmn.runtime.interpreter.Arguments;
+import com.gs.dmn.runtime.interpreter.DMNInterpreter;
+import com.gs.dmn.runtime.interpreter.NamedArguments;
+import com.gs.dmn.runtime.interpreter.PositionalArguments;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
@@ -649,14 +650,15 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(FunctionInvocation element, FEELContext context) {
-        Arguments arguments = (Arguments) element.getParameters().accept(this, context);
+        // Evaluate and convert actual parameters
+        Parameters parameters = element.getParameters();
+        parameters.accept(this, context);
+        Arguments arguments = parameters.convertArguments(this::convertArgument);
+
         Expression function = element.getFunction();
         FunctionType functionType = (FunctionType) element.getFunction().getType();
         List<FormalParameter> formalParameters = functionType.getParameters();
         List<Object> argList = arguments.argumentList(formalParameters);
-        if (!argList.isEmpty()) {
-            argList = convertArguments(argList, element.getParameterConversions());
-        }
         if (function instanceof Name || function instanceof QualifiedName && ((QualifiedName) function).getNames().size() == 1) {
             String feelFunctionName = functionName(function);
             Object binding = context.lookupRuntimeBinding(feelFunctionName);
@@ -844,8 +846,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         return output;
     }
 
-    @Override
-    protected Object convertArgument(Object value, Conversion conversion) {
+    public Object convertArgument(Object value, Conversion conversion) {
         ConversionKind kind = conversion.getKind();
         if (kind == ConversionKind.NONE) {
             return value;
@@ -957,14 +958,16 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
             Object value = expression.accept(this, context);
             arguments.put(key, value);
         }
-        return new NamedArguments(arguments);
+        element.setOriginalArguments(new NamedArguments(arguments));
+        return element;
     }
 
     @Override
     public Object visit(PositionalParameters element, FEELContext context) {
         List<Object> arguments = new ArrayList<>();
         element.getParameters().forEach(p -> arguments.add(p.accept(this, context)));
-        return new PositionalArguments(arguments);
+        element.setOriginalArguments(new PositionalArguments(arguments));
+        return element;
     }
 
     @Override

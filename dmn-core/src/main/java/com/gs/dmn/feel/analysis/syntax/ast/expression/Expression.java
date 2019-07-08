@@ -19,14 +19,16 @@ import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 
 public abstract class Expression extends Element {
-    private Type type;
+    private Type type = AnyType.ANY;
 
     public Type getType() {
         return type;
     }
 
     public void setType(Type type) {
-        this.type = type;
+        if (type != null) {
+            this.type = type;
+        }
     }
 
     public Type memberType(Type sourceType, String member) {
