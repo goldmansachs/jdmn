@@ -28,6 +28,7 @@ import com.gs.dmn.feel.interpreter.FEELInterpreter;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
+import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
@@ -1243,13 +1244,12 @@ public abstract class AbstractFEELProcessorTest {
         assertEquals("Evaluated and generated value mismatch", expectedEvaluatedValue, expectedGeneratedValue);
     }
 
-    private Object evaluateInputEntry(Expression inputExpression, FEELContext inputExpressionContext, UnaryTests inputEntryTest, FEELContext inputEntryContext) {
+    private Result evaluateInputEntry(Expression inputExpression, FEELContext inputExpressionContext, UnaryTests inputEntryTest, FEELContext inputEntryContext) {
         // Evaluate input expression
-        Object inputExpressionValue = feelInterpreter.evaluateExpression(inputExpression, inputExpressionContext);
-
+        Result inputExpressionResult = feelInterpreter.evaluateExpression(inputExpression, inputExpressionContext);
+        Object inputExpressionValue = Result.value(inputExpressionResult);
         // Evaluate input entry
         inputEntryContext.runtimeBind(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER, inputExpressionValue);
-        feelInterpreter.evaluateUnaryTests(inputEntryTest, inputEntryContext);
         return feelInterpreter.evaluateUnaryTests(inputEntryTest, inputEntryContext);
     }
 
@@ -1269,14 +1269,16 @@ public abstract class AbstractFEELProcessorTest {
 
     private void doEvaluationTest(Expression inputExpression, FEELContext inputExpressionContext, UnaryTests inputEntry, FEELContext inputEntryContext, Object expectedEvaluatedValue) {
         if (expectedEvaluatedValue != null) {
-            Object actualValue = evaluateInputEntry(inputExpression, inputExpressionContext, inputEntry, inputEntryContext);
+            Result actualResult = evaluateInputEntry(inputExpression, inputExpressionContext, inputEntry, inputEntryContext);
+            Object actualValue = Result.value(actualResult);
             assertEquals("Evaluated value mismatch", expectedEvaluatedValue, actualValue);
         }
     }
 
     private void doEvaluationTest(Expression expression, FEELContext context, Object expectedEvaluatedValue) {
         if (expectedEvaluatedValue != null) {
-            Object actualValue = feelInterpreter.evaluateExpression(expression, context);
+            Result actualResult = feelInterpreter.evaluateExpression(expression, context);
+            Object actualValue = Result.value(actualResult);
             assertEquals(expectedEvaluatedValue, actualValue);
         }
     }

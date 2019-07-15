@@ -15,9 +15,10 @@ package com.gs.dmn.feel.interpreter;
 import com.gs.dmn.feel.analysis.FEELExpressionsAnalyzer;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.runtime.interpreter.Result;
 
 interface FEELExpressionsInterpreter extends FEELExpressionsAnalyzer {
-    Object evaluateExpression(String text, FEELContext context);
+    Result evaluateExpression(String text, FEELContext context);
 
-    Object evaluateExpression(Expression expression, FEELContext context);
+    Result evaluateExpression(Expression expression, FEELContext context);
 }

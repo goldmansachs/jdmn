@@ -51,10 +51,7 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.compiler.ClassData;
 import com.gs.dmn.runtime.compiler.JavaCompiler;
 import com.gs.dmn.runtime.compiler.JavaxToolsCompiler;
-import com.gs.dmn.runtime.interpreter.Arguments;
-import com.gs.dmn.runtime.interpreter.DMNInterpreter;
-import com.gs.dmn.runtime.interpreter.NamedArguments;
-import com.gs.dmn.runtime.interpreter.PositionalArguments;
+import com.gs.dmn.runtime.interpreter.*;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
@@ -663,13 +660,16 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
             String feelFunctionName = functionName(function);
             Object binding = context.lookupRuntimeBinding(feelFunctionName);
             if (binding instanceof TBusinessKnowledgeModel) {
-                return dmnInterpreter.evaluateInvocation((TBusinessKnowledgeModel) binding, argList, context);
+                Result result = dmnInterpreter.evaluateInvocation((TBusinessKnowledgeModel) binding, argList, context);
+                return Result.value(result);
             } else if (binding instanceof TDecisionService) {
-                return dmnInterpreter.evaluateInvocation((TDecisionService) binding, argList, context);
+                Result result = dmnInterpreter.evaluateInvocation((TDecisionService) binding, argList, context);
+                return Result.value(result);
             } else if (binding instanceof TFunctionDefinition) {
                 TFunctionKind kind = ((TFunctionDefinition) binding).getKind();
                 if (dmnTransformer.isFEELFunction(kind)) {
-                    return dmnInterpreter.evaluateInvocation((TFunctionDefinition) binding, argList, context);
+                    Result result = dmnInterpreter.evaluateInvocation((TFunctionDefinition) binding, argList, context);
+                    return Result.value(result);
                 } else if (dmnTransformer.isJavaFunction(kind)) {
                     return evaluateExternalJavaFunction((TFunctionDefinition) binding, argList, context);
                 } else {
@@ -704,11 +704,14 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         } else {
             Object binding = function.accept(this, context);
             if (binding instanceof TBusinessKnowledgeModel) {
-                return dmnInterpreter.evaluateInvocation((TBusinessKnowledgeModel) binding, argList, context);
+                Result result = dmnInterpreter.evaluateInvocation((TBusinessKnowledgeModel) binding, argList, context);
+                return Result.value(result);
             } else if (binding instanceof TDecisionService) {
-                return dmnInterpreter.evaluateInvocation((TDecisionService) binding, argList, context);
+                Result result = dmnInterpreter.evaluateInvocation((TDecisionService) binding, argList, context);
+                return Result.value(result);
             } else if (binding instanceof TFunctionDefinition) {
-                return dmnInterpreter.evaluateInvocation((TFunctionDefinition) binding, argList, context);
+                Result result = dmnInterpreter.evaluateInvocation((TFunctionDefinition) binding, argList, context);
+                return Result.value(result);
             } else if (binding instanceof FunctionDefinition) {
                 FunctionDefinition functionDefinitionBinding = (FunctionDefinition) binding;
                 if (functionType instanceof FEELFunctionType) {

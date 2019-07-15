@@ -15,8 +15,7 @@ package com.gs.dmn.runtime.interpreter;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
-import com.gs.dmn.feel.analysis.semantics.type.ListType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
@@ -40,6 +39,8 @@ import org.slf4j.LoggerFactory;
 import javax.xml.bind.JAXBElement;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 
 public class StandardDMNInterpreter implements DMNInterpreter {
     private static final Logger LOGGER = LoggerFactory.getLogger(StandardDMNInterpreter.class);
@@ -75,22 +76,23 @@ public class StandardDMNInterpreter implements DMNInterpreter {
     }
 
     @Override
-    public Object evaluate(String drgElementName, RuntimeEnvironment runtimeEnvironment) {
+    public Result evaluate(String drgElementName, RuntimeEnvironment runtimeEnvironment) {
         TDRGElement drgElement = dmnModelRepository.findDRGElementByName(drgElementName);
         evaluate(drgElement, runtimeEnvironment);
-        return runtimeEnvironment.lookupBinding(drgElementName);
+        Object value = runtimeEnvironment.lookupBinding(drgElementName);
+        return new Result(value, basicDMNTransformer.drgElementOutputFEELType(drgElement));
     }
 
     @Override
-    public Object evaluateInvocation(String drgElementName, List<Object> args, RuntimeEnvironment runtimeEnvironment) {
+    public Result evaluateInvocation(String drgElementName, List<Object> args, RuntimeEnvironment runtimeEnvironment) {
         TDRGElement drgElement = dmnModelRepository.findDRGElementByName(drgElementName);
         Environment environment = basicDMNTransformer.makeEnvironment(drgElement);
         return evaluateInvocation(drgElement, args, FEELContext.makeContext(environment, runtimeEnvironment));
     }
 
     @Override
-    public Object evaluateInvocation(TDRGElement drgElement, List<Object> args, FEELContext context) {
-        Object actualOutput;
+    public Result evaluateInvocation(TDRGElement drgElement, List<Object> args, FEELContext context) {
+        Result actualOutput;
         if (drgElement instanceof TInputData) {
             actualOutput = evaluate(drgElement.getName(), context.getRuntimeEnvironment());
         } else if (drgElement instanceof TDecision) {
@@ -105,7 +107,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         return actualOutput;
     }
 
-    private Object evaluateInvocation(TBusinessKnowledgeModel bkm, List<Object> argList, FEELContext context) {
+    private Result evaluateInvocation(TBusinessKnowledgeModel bkm, List<Object> argList, FEELContext context) {
         RuntimeEnvironment bkmRuntimeEnvironment = runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment());
 
         // BKM start
@@ -128,15 +130,16 @@ public class StandardDMNInterpreter implements DMNInterpreter {
 
         // Execute function body
         TExpression expression = dmnModelRepository.expression(bkm);
-        Object output = evaluateExpression(expression, bkmEnvironment, bkmRuntimeEnvironment, bkm, drgElementAnnotation);
+        Result result = evaluateExpression(expression, bkmEnvironment, bkmRuntimeEnvironment, bkm, drgElementAnnotation);
+        Object value = Result.value(result);
 
         // Decision end
-        EVENT_LISTENER.endDRGElement(drgElementAnnotation, decisionArguments, output, (System.currentTimeMillis() - startTime_));
+        EVENT_LISTENER.endDRGElement(drgElementAnnotation, decisionArguments, value, (System.currentTimeMillis() - startTime_));
 
-        return output;
+        return result;
     }
 
-    private Object evaluateInvocation(TDecisionService service, List<Object> argList, FEELContext context) {
+    private Result evaluateInvocation(TDecisionService service, List<Object> argList, FEELContext context) {
         RuntimeEnvironment serviceRuntimeEnvironment = runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment());
 
         // Decision Service start
@@ -183,11 +186,11 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         // Decision service end
         EVENT_LISTENER.endDRGElement(drgElementAnnotation, decisionArguments, output, (System.currentTimeMillis() - startTime_));
 
-        return output;
+        return new Result(output, basicDMNTransformer.drgElementOutputFEELType(service));
     }
 
     @Override
-    public Object evaluateInvocation(TFunctionDefinition functionDefinition, List<Object> argList, FEELContext context) {
+    public Result evaluateInvocation(TFunctionDefinition functionDefinition, List<Object> argList, FEELContext context) {
         // Create new environments and bind parameters
         Environment functionEnvironment = environmentFactory.makeEnvironment(context.getEnvironment());
         RuntimeEnvironment functionRuntimeEnvironment = runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment());
@@ -203,7 +206,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
 
         // Execute function body
         JAXBElement<? extends TExpression> expressionElement = functionDefinition.getExpression();
-        Object output;
+        Result output;
         if (expressionElement == null) {
             output = null;
         } else {
@@ -285,9 +288,14 @@ public class StandardDMNInterpreter implements DMNInterpreter {
             // Evaluate expression
             TExpression expression = dmnModelRepository.expression(decision);
             Environment environment = basicDMNTransformer.makeEnvironment(decision);
-            output = evaluateExpression(expression, environment, runtimeEnvironment, decision, drgElementAnnotation);
+            Result result = evaluateExpression(expression, environment, runtimeEnvironment, decision, drgElementAnnotation);
+            output = Result.value(result);
 
-            // Set variable
+            // Convert value
+            Type expectedType = basicDMNTransformer.drgElementOutputFEELType(decision, environment);
+            result = convertExpression(result, expectedType);
+            output = Result.value(result);
+
             runtimeEnvironment.bind(decisionName, output);
         }
 
@@ -317,61 +325,54 @@ public class StandardDMNInterpreter implements DMNInterpreter {
     // Expression evaluation
     //
     @Override
-    public Object evaluateLiteralExpression(String text, Environment environment, RuntimeEnvironment runtimeEnvironment) {
+    public Result evaluateLiteralExpression(String text, Environment environment, RuntimeEnvironment runtimeEnvironment) {
         return this.evaluateLiteralExpression(text, environment, runtimeEnvironment, null);
     }
 
-    protected Object evaluateExpression(TExpression expression, Environment environment, RuntimeEnvironment runtimeEnvironment, TDRGElement element, DRGElement elementAnnotation) {
-        Object output = null;
+    protected Result evaluateExpression(TExpression expression, Environment environment, RuntimeEnvironment runtimeEnvironment, TDRGElement element, DRGElement elementAnnotation) {
+        Result result = null;
         if (expression == null) {
             handleError(String.format("Missing expression for element '%s'", element == null ? null : element.getName()));
         } else if (expression instanceof TContext) {
-            output = evaluateContextExpression((TContext) expression, environment, runtimeEnvironment, element, elementAnnotation);
+            result = evaluateContextExpression((TContext) expression, environment, runtimeEnvironment, element, elementAnnotation);
         } else if (expression instanceof TDecisionTable) {
-            output = evaluateDecisionTable((TDecisionTable)expression, environment, runtimeEnvironment, element, elementAnnotation);
+            result = evaluateDecisionTable((TDecisionTable)expression, environment, runtimeEnvironment, element, elementAnnotation);
         } else if (expression instanceof TFunctionDefinition) {
-            output = evaluateFunctionDefinitionExpression((TFunctionDefinition)expression, environment, runtimeEnvironment, element, elementAnnotation);
+            result = evaluateFunctionDefinitionExpression((TFunctionDefinition)expression, environment, runtimeEnvironment, element, elementAnnotation);
         } else if (expression instanceof TInvocation) {
-            output = evaluateInvocationExpression((TInvocation) expression, environment, runtimeEnvironment, element, elementAnnotation);
+            result = evaluateInvocationExpression((TInvocation) expression, environment, runtimeEnvironment, element, elementAnnotation);
         } else if (expression instanceof TLiteralExpression) {
-            output = evaluateLiteralExpression((TLiteralExpression) expression, environment, runtimeEnvironment, element, elementAnnotation);
+            result = evaluateLiteralExpression((TLiteralExpression) expression, environment, runtimeEnvironment, element, elementAnnotation);
         } else if (expression instanceof TList) {
-            output = evaluateListExpression((TList) expression, environment, runtimeEnvironment, element, elementAnnotation);
+            result = evaluateListExpression((TList) expression, environment, runtimeEnvironment, element, elementAnnotation);
         } else if (expression instanceof TRelation) {
-            output = evaluateRelationExpression((TRelation) expression, environment, runtimeEnvironment, element, elementAnnotation);
+            result = evaluateRelationExpression((TRelation) expression, environment, runtimeEnvironment, element, elementAnnotation);
         } else {
             handleError(String.format("Expression '%s' not supported yet", expression.getClass().getSimpleName()));
         }
-        return output;
+        return result;
     }
 
-    private Object evaluateLiteralExpression(TLiteralExpression expression, Environment environment, RuntimeEnvironment runtimeEnvironment, TDRGElement element, DRGElement elementAnnotation) {
+    private Result evaluateLiteralExpression(TLiteralExpression expression, Environment environment, RuntimeEnvironment runtimeEnvironment, TDRGElement element, DRGElement elementAnnotation) {
         String text = expression.getText();
-        Object value = evaluateLiteralExpression(text, environment, runtimeEnvironment, element);
-        if (element == null) {
-            return value;
-        } else {
-            Type expectedType = basicDMNTransformer.drgElementOutputFEELType(element, environment);
-            if (expectedType != null) {
-                return convertExpression(value, expectedType);
-            } else {
-                return null;
-            }
-        }
+        Result result = evaluateLiteralExpression(text, environment, runtimeEnvironment, element);
+        return result;
     }
 
-    protected Object evaluateLiteralExpression(String text, Environment environment, RuntimeEnvironment runtimeEnvironment, TDRGElement element) {
+    protected Result evaluateLiteralExpression(String text, Environment environment, RuntimeEnvironment runtimeEnvironment, TDRGElement element) {
         FEELContext context = FEELContext.makeContext(environment, runtimeEnvironment);
-        return feelInterpreter.evaluateExpression(text, context);
+        Result result = feelInterpreter.evaluateExpression(text, context);
+        return result;
     }
 
-    private Object evaluateInvocationExpression(TInvocation invocation, Environment environment, RuntimeEnvironment runtimeEnvironment, TDRGElement element, DRGElement elementAnnotation) {
+    private Result evaluateInvocationExpression(TInvocation invocation, Environment environment, RuntimeEnvironment runtimeEnvironment, TDRGElement element, DRGElement elementAnnotation) {
         // Compute name-java binding for arguments
         Map<String, Object> argBinding = new LinkedHashMap<>();
         for(TBinding binding: invocation.getBinding()) {
-            String argName= binding.getParameter().getName();
+            String argName = binding.getParameter().getName();
             TExpression argExpression = binding.getExpression().getValue();
-            Object argJava = evaluateExpression(argExpression, environment, runtimeEnvironment, element, elementAnnotation);
+            Result argResult = evaluateExpression(argExpression, environment, runtimeEnvironment, element, elementAnnotation);
+            Object argJava = Result.value(argResult);
             argBinding.put(argName, argJava);
         }
 
@@ -401,7 +402,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         }
     }
 
-    private Object evaluateContextExpression(TContext context, Environment environment, RuntimeEnvironment runtimeEnvironment, TDRGElement element, DRGElement elementAnnotation) {
+    private Result evaluateContextExpression(TContext context, Environment environment, RuntimeEnvironment runtimeEnvironment, TDRGElement element, DRGElement elementAnnotation) {
         // Make context environment
         Pair<Environment, Map<TContextEntry, Expression>> pair = basicDMNTransformer.makeContextEnvironment(context, environment);
         Environment contextEnvironment = pair.getLeft();
@@ -410,22 +411,23 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         // Evaluate entries
         RuntimeEnvironment contextRuntimeEnvironment = runtimeEnvironmentFactory.makeEnvironment(runtimeEnvironment);
         FEELContext feelContext = FEELContext.makeContext(contextEnvironment, contextRuntimeEnvironment);
-        Object returnValue = null;
+        Result returnResult = null;
         for(TContextEntry entry: context.getContextEntry()) {
             // Evaluate entry value
-            Object entryValue;
+            Result entryResult;
             JAXBElement<? extends TExpression> jaxbElement = entry.getExpression();
             if (jaxbElement != null) {
                 TExpression expression = jaxbElement.getValue();
                 if (expression instanceof TLiteralExpression) {
                     Expression feelExpression = literalExpressionMap.get(entry);
-                    entryValue = this.feelInterpreter.evaluateExpression(feelExpression, feelContext);
+                    entryResult = this.feelInterpreter.evaluateExpression(feelExpression, feelContext);
                 } else {
-                    entryValue = evaluateExpression(expression, contextEnvironment, contextRuntimeEnvironment, element, elementAnnotation);
+                    entryResult = evaluateExpression(expression, contextEnvironment, contextRuntimeEnvironment, element, elementAnnotation);
                 }
             } else {
-                entryValue = null;
+                entryResult = null;
             }
+            Object entryValue = Result.value(entryResult);
 
             // Add runtime binding
             TInformationItem variable = entry.getVariable();
@@ -433,47 +435,52 @@ public class StandardDMNInterpreter implements DMNInterpreter {
                 String entryName = variable.getName();
                 contextRuntimeEnvironment.bind(entryName, entryValue);
             } else {
-                returnValue = entryValue;
+                returnResult = entryResult;
             }
         }
 
         // Return result
-        if (returnValue != null) {
-            return returnValue;
+        if (returnResult != null) {
+            return returnResult;
         } else {
             // Make complex type value
             Context output = new Context();
+            ContextType type = new ContextType();
             // Add entries
             for(TContextEntry entry: context.getContextEntry()) {
                 TInformationItem variable = entry.getVariable();
                 if (variable != null) {
                     String entryName = variable.getName();
                     output.add(entryName, contextRuntimeEnvironment.lookupBinding(entryName));
+                    type.addMember(entryName, new ArrayList<>(), basicDMNTransformer.toFEELType(variable.getTypeRef()));
                 }
             }
             // Return value
-            return output;
+            return new Result(output, type);
         }
     }
 
-    private Object evaluateListExpression(TList list, Environment environment, RuntimeEnvironment runtimeEnvironment, TDRGElement element, DRGElement elementAnnotation) {
+    private Result evaluateListExpression(TList list, Environment environment, RuntimeEnvironment runtimeEnvironment, TDRGElement element, DRGElement elementAnnotation) {
         if (list.getExpression() == null) {
             return null;
         }
-        List<Object> result = new ArrayList<>();
+        List<Object> resultValue = new ArrayList<>();
+        Type elementType = ANY;
         for(JAXBElement<? extends TExpression> expElement: list.getExpression()) {
-            Object expValue;
+            Result expResult;
             if (expElement == null) {
-                expValue = null;
+                expResult = null;
             } else {
-                expValue = evaluateExpression(expElement.getValue(), environment, runtimeEnvironment, element, elementAnnotation);
+                TExpression exp = expElement.getValue();
+                expResult = evaluateExpression(exp, environment, runtimeEnvironment, element, elementAnnotation);
+                elementType = basicDMNTransformer.toFEELType(exp.getTypeRef());
             }
-            result.add(expValue);
+            resultValue.add(Result.value(expResult));
         }
-        return result;
+        return new Result(resultValue, new ListType(elementType));
     }
 
-    private Object evaluateRelationExpression(TRelation relation, Environment environment, RuntimeEnvironment runtimeEnvironment, TDRGElement element, DRGElement elementAnnotation) {
+    private Result evaluateRelationExpression(TRelation relation, Environment environment, RuntimeEnvironment runtimeEnvironment, TDRGElement element, DRGElement elementAnnotation) {
         if (relation.getRow() == null || relation.getColumn() == null) {
             return null;
         }
@@ -486,29 +493,34 @@ public class StandardDMNInterpreter implements DMNInterpreter {
 
         // Scan relation and evaluate each row
         List<Object> relationValue = new ArrayList<>();
+        ContextType relationType = new ContextType();
         for(TList row: relation.getRow()) {
             Object rowValue = null;
             List<JAXBElement<? extends TExpression>> jaxbElementList = row.getExpression();
             if (jaxbElementList != null) {
-                Context context = new Context();
+                Context contextValue = new Context();
+                ContextType contextType = new ContextType();
                 for(int i = 0; i < jaxbElementList.size(); i++) {
                     JAXBElement<? extends TExpression> jaxbElement = jaxbElementList.get(i);
                     TExpression expression = jaxbElement == null ? null : jaxbElement.getValue();
-                    Object columnValue = expression == null ? null : evaluateExpression(expression, relationEnvironment, runtimeEnvironment, element, elementAnnotation);
-                    context.add(columnNameList.get(i), columnValue);
+                    Result columnResult = expression == null ? null : evaluateExpression(expression, relationEnvironment, runtimeEnvironment, element, elementAnnotation);
+                    Object columnValue = Result.value(columnResult);
+                    contextValue.add(columnNameList.get(i), columnValue);
+                    contextType.addMember(columnNameList.get(i), new ArrayList<>(), columnResult.getType());
+                    relationType = contextType;
                 }
-                rowValue = context;
+                rowValue = contextValue;
             }
             relationValue.add(rowValue);
         }
-        return relationValue;
+        return new Result(relationValue, new ListType(relationType));
     }
 
-    private Object evaluateFunctionDefinitionExpression(TFunctionDefinition expression, Environment environment, RuntimeEnvironment runtimeEnvironment, TDRGElement element, DRGElement elementAnnotation) {
-        return expression;
+    private Result evaluateFunctionDefinitionExpression(TFunctionDefinition expression, Environment environment, RuntimeEnvironment runtimeEnvironment, TDRGElement element, DRGElement elementAnnotation) {
+        return new Result(expression, ANY);
     }
 
-    private Object evaluateDecisionTable(TDecisionTable decisionTable, Environment environment, RuntimeEnvironment runtimeEnvironment, TDRGElement element, DRGElement elementAnnotation) {
+    private Result evaluateDecisionTable(TDecisionTable decisionTable, Environment environment, RuntimeEnvironment runtimeEnvironment, TDRGElement element, DRGElement elementAnnotation) {
         // Evaluate InputClauses
         List<InputClausePair> inputClauseList = new ArrayList<>();
         for (TInputClause inputClause : decisionTable.getInput()) {
@@ -516,7 +528,8 @@ public class StandardDMNInterpreter implements DMNInterpreter {
             String inputExpressionText = inputExpression.getText();
             FEELContext feelContext = FEELContext.makeContext(environment, runtimeEnvironment);
             Expression expression = feelInterpreter.analyzeExpression(inputExpressionText, feelContext);
-            Object inputExpressionValue = feelInterpreter.evaluateExpression(expression, feelContext);
+            Result inputExpressionResult = feelInterpreter.evaluateExpression(expression, feelContext);
+            Object inputExpressionValue = Result.value(inputExpressionResult);
             inputClauseList.add(new InputClausePair(expression, inputExpressionValue));
         }
 
@@ -538,7 +551,8 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         }
 
         // Return results based on hit policy
-        return applyHitPolicy(element, decisionTable, ruleOutputList, environment, runtimeEnvironment, elementAnnotation);
+        Object value = applyHitPolicy(element, decisionTable, ruleOutputList, environment, runtimeEnvironment, elementAnnotation);
+        return new Result(value, basicDMNTransformer.drgElementOutputFEELType(element));
     }
 
     private InterpretedRuleOutput evaluateRule(TDRGElement element, TDecisionTable decisionTable, TDecisionRule rule, List<InputClausePair> inputClauseList, Environment environment, RuntimeEnvironment runtimeEnvironment, DRGElement elementAnnotation, Rule ruleAnnotation) {
@@ -552,7 +566,8 @@ public class StandardDMNInterpreter implements DMNInterpreter {
             RuntimeEnvironment inputEntryRuntimeEnvironment = runtimeEnvironmentFactory.makeInputEntryEnvironment(inputClauseList, runtimeEnvironment, index);
             FEELContext context = FEELContext.makeContext(inputEntryEnvironment, inputEntryRuntimeEnvironment);
             Expression ast = feelInterpreter.analyzeUnaryTests(text, context);
-            Object testMatched = feelInterpreter.evaluateUnaryTests((UnaryTests) ast, context);
+            Result result = feelInterpreter.evaluateUnaryTests((UnaryTests) ast, context);
+            Object testMatched = Result.value(result);
             if (isFalse(testMatched)) {
                 ruleMatched = false;
                 break;
@@ -571,7 +586,8 @@ public class StandardDMNInterpreter implements DMNInterpreter {
                 for (int i = 0; i < outputEntry.size(); i++) {
                     TLiteralExpression literalExpression = outputEntry.get(i);
                     String key = decisionTable.getOutput().get(i).getName();
-                    Object value = evaluateLiteralExpression(literalExpression, environment, runtimeEnvironment, element, elementAnnotation);
+                    Result result = evaluateLiteralExpression(literalExpression, environment, runtimeEnvironment, element, elementAnnotation);
+                    Object value = Result.value(result);
                     if (dmnModelRepository.isOutputOrderHit(hitPolicy)) {
                         Object priority = basicDMNTransformer.priority(element, rule.getOutputEntry().get(i), i);
                         output.put(key, new Pair<>(value, priority));
@@ -584,7 +600,8 @@ public class StandardDMNInterpreter implements DMNInterpreter {
                 List<TLiteralExpression> outputEntry = rule.getOutputEntry();
                 TLiteralExpression literalExpression = outputEntry.get(0);
                 Object output = null;
-                Object value = evaluateLiteralExpression(literalExpression, environment, runtimeEnvironment, element, elementAnnotation);
+                Result result = evaluateLiteralExpression(literalExpression, environment, runtimeEnvironment, element, elementAnnotation);
+                Object value = Result.value(result);
                 if (dmnModelRepository.isOutputOrderHit(hitPolicy)) {
                     Object priority = basicDMNTransformer.priority(element, rule.getOutputEntry().get(0), 0);
                     output = new Pair(value, priority);
@@ -599,14 +616,15 @@ public class StandardDMNInterpreter implements DMNInterpreter {
 
     }
 
-    private Object convertExpression(Object value, Type expectedType) {
+    private Result convertExpression(Result result, Type expectedType) {
+        Object value = Result.value(result);
         if (value == null) {
             return null;
         }
         if (value instanceof List && ((List) value).size() == 1 && !(expectedType instanceof ListType)) {
-            return feelLib.asElement((List)value);
+            value = feelLib.asElement((List)value);
         }
-        return value;
+        return new Result(value, expectedType);
     }
 
     private boolean isFalse(Object o) {
@@ -670,7 +688,8 @@ public class StandardDMNInterpreter implements DMNInterpreter {
                 if (defaultOutputEntry == null) {
                     defaultValue.put(key, null);
                 } else {
-                    Object value = evaluateLiteralExpression(defaultOutputEntry, environment, runtimeEnvironment, element, elementAnnotation);
+                    Result result = evaluateLiteralExpression(defaultOutputEntry, environment, runtimeEnvironment, element, elementAnnotation);
+                    Object value = Result.value(result);
                     defaultValue.put(key, value);
                 }
             }

@@ -114,7 +114,7 @@ public class ContextType extends Type implements CompositeDataType {
             for (String name : otherNames) {
                 Type thisType = this.getMemberType(name);
                 Type otherType = ((ItemDefinitionType) other).getMemberType(name);
-                if (!thisType.conformsTo(otherType)) {
+                if (thisType == null || !thisType.conformsTo(otherType)) {
                     return false;
                 }
             }

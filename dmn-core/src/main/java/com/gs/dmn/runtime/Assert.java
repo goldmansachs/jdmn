@@ -44,7 +44,7 @@ public class Assert {
                 org.junit.Assert.assertEquals(message, expected, actual);
             } else {
                 boolean condition = expectedBD.subtract(actualBD).abs().compareTo(NUMBER_COMPARISON_PRECISION) < 0;
-                org.junit.Assert.assertTrue(String.format("Expected '%s' found '%s'", expectedBD, actualBD), condition);
+                org.junit.Assert.assertTrue(String.format(message + ". Expected '%s' found '%s'", expectedBD, actualBD), condition);
             }
         } else if (isBoolean(expected)) {
             org.junit.Assert.assertEquals(message, expected, actual);

@@ -1222,18 +1222,23 @@ public class BasicDMN2JavaTransformer {
             return null;
         }
         // Lookup primitive types
-        Type primitiveType = lookupPrimitiveType(new QualifiedName(DMNVersion.LATEST.getFeelPrefix(), typeName));
+        QualifiedName qName = QualifiedName.toQualifiedName(typeName);
+        Type primitiveType = lookupPrimitiveType(qName);
         if (primitiveType != null) {
             return primitiveType;
         }
         // Lookup item definitions
+        TItemDefinition itemDefinition = this.dmnModelRepository.lookupItemDefinition(qName);
+        if (itemDefinition != null) {
+            return toFEELType(itemDefinition);
+        }
         String namespace = dmnModelRepository.getDefinitions().getNamespace();
-        QualifiedName typeRef = new QualifiedName(namespace, typeName);
-        TItemDefinition itemDefinition = this.dmnModelRepository.lookupItemDefinition(typeRef);
+        qName = new QualifiedName(namespace, typeName);
+        itemDefinition = this.dmnModelRepository.lookupItemDefinition(qName);
         if (itemDefinition != null) {
             return toFEELType(itemDefinition);
         } else {
-            throw new DMNRuntimeException(String.format("Cannot map type '%s' to FEEL", typeRef.toString()));
+            throw new DMNRuntimeException(String.format("Cannot map type '%s' to FEEL", qName.toString()));
         }
     }
 
