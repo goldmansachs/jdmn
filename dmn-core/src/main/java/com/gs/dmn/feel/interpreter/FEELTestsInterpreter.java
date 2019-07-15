@@ -15,13 +15,14 @@ package com.gs.dmn.feel.interpreter;
 import com.gs.dmn.feel.analysis.FEELTestsAnalyzer;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
+import com.gs.dmn.runtime.interpreter.Result;
 
 interface FEELTestsInterpreter extends FEELTestsAnalyzer {
-    Object evaluateUnaryTests(String text, FEELContext context);
+    Result evaluateUnaryTests(String text, FEELContext context);
 
-    Object evaluateSimpleUnaryTests(String text, FEELContext context);
+    Result evaluateSimpleUnaryTests(String text, FEELContext context);
 
-    Object evaluateUnaryTests(UnaryTests expression, FEELContext context);
+    Result evaluateUnaryTests(UnaryTests expression, FEELContext context);
 
-    Object evaluateSimpleUnaryTests(UnaryTests expression, FEELContext context);
+    Result evaluateSimpleUnaryTests(UnaryTests expression, FEELContext context);
 }

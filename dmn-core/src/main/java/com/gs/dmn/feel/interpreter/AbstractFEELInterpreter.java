@@ -17,6 +17,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
+import com.gs.dmn.runtime.interpreter.Result;
 
 abstract class AbstractFEELInterpreter implements FEELInterpreter {
     private final FEELAnalyzer feelAnalyzer;
@@ -88,35 +89,37 @@ abstract class AbstractFEELInterpreter implements FEELInterpreter {
     }
 
     @Override
-    public Object evaluateUnaryTests(String text, FEELContext context) {
+    public Result evaluateUnaryTests(String text, FEELContext context) {
         UnaryTests expression = analyzeUnaryTests(text, context);
         return evaluateUnaryTests(expression, context);
     }
 
     @Override
-    public Object evaluateUnaryTests(UnaryTests expression, FEELContext context) {
-        return expression.accept(visitor, context);
+    public Result evaluateUnaryTests(UnaryTests expression, FEELContext context) {
+        Object value = expression.accept(visitor, context);
+        return new Result(value, expression.getType());
     }
 
     @Override
-    public Object evaluateSimpleUnaryTests(String text, FEELContext context) {
+    public Result evaluateSimpleUnaryTests(String text, FEELContext context) {
         UnaryTests expression = analyzeSimpleUnaryTests(text, context);
         return evaluateUnaryTests(expression, context);
     }
 
     @Override
-    public Object evaluateSimpleUnaryTests(UnaryTests expression, FEELContext context) {
+    public Result evaluateSimpleUnaryTests(UnaryTests expression, FEELContext context) {
         return evaluateUnaryTests(expression, context);
     }
 
     @Override
-    public Object evaluateExpression(String text, FEELContext context) {
+    public Result evaluateExpression(String text, FEELContext context) {
         Expression expression = analyzeExpression(text, context);
         return evaluateExpression(expression, context);
     }
 
     @Override
-    public Object evaluateExpression(Expression expression, FEELContext context) {
-        return expression.accept(visitor, context);
+    public Result evaluateExpression(Expression expression, FEELContext context) {
+        Object object = expression.accept(visitor, context);
+        return new Result(object, expression.getType());
     }
 }

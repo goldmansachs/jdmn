@@ -16,6 +16,7 @@ import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
+import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 
@@ -48,12 +49,13 @@ public class FEELSimpleUnaryTestsFixture extends FEELFixture {
         UnaryTests inputEntryTest = feelInterpreter.analyzeSimpleUnaryTests(inputEntry, inputEntryContext);
 
         // Evaluate input expression
-        Object inputExpressionValue = feelInterpreter.evaluateExpression(inputExpression, inputExpressionContext);
+        Result inputExpressionResult = feelInterpreter.evaluateExpression(inputExpression, inputExpressionContext);
+        Object inputExpressionValue = Result.value(inputExpressionResult);
 
         // Evaluate input entry
         inputEntryContext.runtimeBind(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER, inputExpressionValue);
-        feelInterpreter.evaluateUnaryTests(inputEntryTest, inputEntryContext);
-        return feelInterpreter.evaluateUnaryTests(inputEntryTest, inputEntryContext);
+        Result result = feelInterpreter.evaluateUnaryTests(inputEntryTest, inputEntryContext);
+        return Result.value(result);
     }
 
 }

@@ -20,6 +20,7 @@ import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.log.NopBuildLogger;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
+import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.NameTransformer;
@@ -70,7 +71,8 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
         environment.bind("Age", lib.number(i1));
         environment.bind(nameTransformer.transformName("Years of Service"), lib.number(i2));
 
-        Object actual = interpreter.evaluate(nameTransformer.transformName("Total Vacation Days"), environment);
+        Result result = interpreter.evaluate(nameTransformer.transformName("Total Vacation Days"), environment);
+        Object actual = Result.value(result);
 
         assertEquals(expected, ((BigDecimal) actual).toPlainString());
     }
