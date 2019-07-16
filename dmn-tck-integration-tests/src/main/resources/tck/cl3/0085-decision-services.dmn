@@ -12,7 +12,6 @@
     <decisionService name="decisionService_001" id="_decisionService_001">
         <variable name="decisionService_001"/>
         <outputDecision href="#_decision_001"/>
-        <encapsulatedDecision href="#_decision_001"/>
     </decisionService>
 
     <decision name="decision_001" id="_decision_001">
@@ -27,7 +26,6 @@
     <decisionService name="decisionService_002" id="_decisionService_002">
         <variable name="decisionService_002"/>
         <outputDecision href="#_decision_002"/>
-        <encapsulatedDecision href="#_decision_002"/>
         <inputDecision href="#_decision_002_input"/>
     </decisionService>
 
@@ -53,7 +51,6 @@
     <decisionService name="decisionService_003" id="_decisionService_003">
         <variable name="decisionService_003"/>
         <outputDecision href="#_decision_003"/>
-        <encapsulatedDecision href="#_decision_003"/>
         <inputDecision href="#_decision_003_input_1"/>
         <inputDecision href="#_decision_003_input_2"/>
         <inputData href="#_inputData_003"/>
@@ -98,7 +95,6 @@
     <decisionService name="decisionService_004" id="_decisionService_004">
         <variable name="decisionService_004"/>
         <outputDecision href="#_decision_004_2"/>
-        <encapsulatedDecision href="#_decision_004_2"/>
     </decisionService>
 
     <decision name="decision_004_1" id="_decision_004_1">
@@ -123,7 +119,6 @@
     <decisionService name="decisionService_005" id="_decisionService_005">
         <variable name="decisionService_005"/>
         <outputDecision href="#_decision_005_2"/>
-        <encapsulatedDecision href="#_decision_005_2"/>
     </decisionService>
 
     <decision name="decision_005_1" id="_decision_005_1">
@@ -148,7 +143,6 @@
     <decisionService name="decisionService_006" id="_decisionService_006">
         <variable name="decisionService_006"/>
         <outputDecision href="#_decision_006_2"/>
-        <encapsulatedDecision href="#_decision_006_2"/>
         <inputDecision href="#_decision_006_3"/>
     </decisionService>
 
@@ -186,7 +180,6 @@
     <decisionService name="decisionService_007" id="_decisionService_007">
         <variable name="decisionService_007"/>
         <outputDecision href="#_decision_007_2"/>
-        <encapsulatedDecision href="#_decision_007_2"/>
         <inputDecision href="#_decision_007_3"/>
     </decisionService>
 
@@ -224,7 +217,6 @@
     <decisionService name="decisionService_008" id="_decisionService_008">
         <variable name="decisionService_008"/>
         <outputDecision href="#_decision_008_2"/>
-        <encapsulatedDecision href="#_decision_008_2"/>
         <inputDecision href="#_decision_008_3"/>
     </decisionService>
 
@@ -261,7 +253,6 @@
     <decisionService name="decisionService_009" id="_decisionService_009">
         <variable name="decisionService_009"/>
         <outputDecision href="#_decision_009_2"/>
-        <encapsulatedDecision href="#_decision_009_2"/>
         <inputDecision href="#_decision_009_3"/>
     </decisionService>
 
@@ -298,7 +289,6 @@
     <decisionService name="decisionService_010" id="_decisionService_010">
         <variable name="decisionService_010"/>
         <outputDecision href="#_decision_010_2"/>
-        <encapsulatedDecision href="#_decision_010_2"/>
         <inputDecision href="#_decision_010_3"/>
     </decisionService>
 
@@ -335,7 +325,6 @@
     <decisionService name="decisionService_011" id="_decisionService_011">
         <variable name="decisionService_011"/>
         <outputDecision href="#_decision_011_2"/>
-        <encapsulatedDecision href="#_decision_011_2"/>
         <inputDecision href="#_decision_011_3"/>
         <inputDecision href="#_decision_011_4"/>
         <inputData href="#_inputData_011_1"/>
@@ -402,7 +391,6 @@
     <decisionService name="decisionService_012" id="_decisionService_012">
         <variable name="decisionService_012"/>
         <outputDecision href="#_decision_012_2"/>
-        <encapsulatedDecision href="#_decision_012_2"/>
         <inputDecision href="#_decision_012_3"/>
         <inputDecision href="#_decision_012_4"/>
         <inputData href="#_inputData_012_1"/>
@@ -474,7 +462,6 @@
     <decisionService name="decisionService_013" id="_decisionService_013">
         <variable name="decisionService_013"/>
         <outputDecision href="#_decision_013_2"/>
-        <encapsulatedDecision href="#_decision_013_2"/>
         <inputDecision href="#_decision_013_3"/>
         <inputData href="#_inputData_013_1"/>
     </decisionService>
@@ -543,7 +530,6 @@
     <decisionService name="decisionService_014" id="_decisionService_014">
         <variable name="decisionService_014"/>
         <outputDecision href="#_decision_014_2"/>
-        <encapsulatedDecision href="#_decision_014_2"/>
         <inputDecision href="#_decision_014_3"/>
         <inputData href="#_inputData_014_1"/>
     </decisionService>
