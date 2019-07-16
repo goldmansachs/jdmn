@@ -22,6 +22,7 @@ public abstract class CL3DMNInterpreterTest extends AbstractDMNInterpreterTest {
 
     @Test
     public void testCL3() {
+        // DMN 1.1 files
         doTestDiagram("0001-filter");
         doTestDiagram("0002-string-functions");
         doTestDiagram("0003-iteration");
@@ -33,7 +34,6 @@ public abstract class CL3DMNInterpreterTest extends AbstractDMNInterpreterTest {
         doTestDiagram("0009-append-flatten");
         doTestDiagram("0010-concatenate");
         doTestDiagram("0011-insert-remove");
-        doTestDiagram("0012-list-functions");
         doTestDiagram("0013-sort");
         doTestDiagram("0014-loan-comparison");
         doTestDiagram("0016-some-every");
@@ -74,12 +74,13 @@ public abstract class CL3DMNInterpreterTest extends AbstractDMNInterpreterTest {
         doTestDiagram("9001-recursive-function");
 
         // DMN 1.2 files
+        doTestDiagram("0012-list-functions");
         doTestDiagram("0034-drg-scopes-2");
         doTestDiagram("0068-feel-equality");
         doTestDiagram("0070-feel-instance-of");
         doTestDiagram("0074-feel-properties");
         doTestDiagram("0076-feel-external-java");
-//        doTestDiagram("0082-feel-coercion");
+        doTestDiagram("0082-feel-coercion");
         doTestDiagram("0085-decision-services");
     }
 }

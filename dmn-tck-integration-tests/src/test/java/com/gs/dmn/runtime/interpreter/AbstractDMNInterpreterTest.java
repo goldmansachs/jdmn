@@ -43,7 +43,7 @@ import static org.junit.Assert.assertTrue;
 
 public abstract class AbstractDMNInterpreterTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractDMNInterpreterTest.class));
-    private static final boolean IGNORE_ERROR_RESULT = true;
+    private static final boolean IGNORE_ERROR_RESULT = false;
 
     private final DMNReader reader = new DMNReader(LOGGER, false);
     private final TestCasesReader testCasesReader = new TestCasesReader(LOGGER);

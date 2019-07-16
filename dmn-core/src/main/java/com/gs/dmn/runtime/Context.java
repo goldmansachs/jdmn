@@ -85,7 +85,7 @@ public class Context {
         }
     }
 
-    public Iterable<?> keySet() {
+    public Set keySet() {
         return map.keySet();
     }
 

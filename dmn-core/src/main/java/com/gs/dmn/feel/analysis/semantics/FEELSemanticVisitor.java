@@ -442,6 +442,13 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
                     feelFunctionType.setReturnType(functionDefinition.getBody().getType());
                 }
             }
+        } else if (functionType instanceof BuiltinFunctionType) {
+            if (function instanceof Name) {
+                String name = ((Name) function).getName();
+                if ("duration".equals(name)) {
+                    int i = 4;
+                }
+            }
         }
     }
 

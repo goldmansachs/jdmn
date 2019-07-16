@@ -37,10 +37,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBElement;
+import javax.xml.datatype.Duration;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
+import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
+import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
+import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 
 public class StandardDMNInterpreter implements DMNInterpreter {
     private static final Logger LOGGER = LoggerFactory.getLogger(StandardDMNInterpreter.class);
@@ -124,6 +128,11 @@ public class StandardDMNInterpreter implements DMNInterpreter {
             String name = param.getName();
             Type type = basicDMNTransformer.toFEELType(QualifiedName.toQualifiedName(param.getTypeRef()));
             Object value = argList.get(i);
+
+            // Check value and apply implicit conversions
+            Result result = convertValue(value, type);
+            value = Result.value(result);
+
             bkmEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(name, type));
             bkmRuntimeEnvironment.bind(name, value);
         }
@@ -132,6 +141,11 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         TExpression expression = dmnModelRepository.expression(bkm);
         Result result = evaluateExpression(expression, bkmEnvironment, bkmRuntimeEnvironment, bkm, drgElementAnnotation);
         Object value = Result.value(result);
+
+        // Check value and apply implicit conversions
+        Type expectedType = basicDMNTransformer.drgElementOutputFEELType(bkm, bkmEnvironment);
+        result = convertResult(result, expectedType);
+        value = Result.value(result);
 
         // Decision end
         EVENT_LISTENER.endDRGElement(drgElementAnnotation, decisionArguments, value, (System.currentTimeMillis() - startTime_));
@@ -156,6 +170,11 @@ public class StandardDMNInterpreter implements DMNInterpreter {
             String name = param.getName();
             Type type = param.getType();
             Object value = argList.get(i);
+
+            // Check value and apply implicit conversions
+            Result result = convertValue(value, type);
+            value = Result.value(result);
+
             serviceEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(name, type));
             serviceRuntimeEnvironment.bind(name, value);
         }
@@ -179,6 +198,11 @@ public class StandardDMNInterpreter implements DMNInterpreter {
                 ((Context) output).add(key, value);
             }
         }
+
+        // Check value and apply implicit conversions
+        Type expectedType = basicDMNTransformer.drgElementOutputFEELType(service, serviceEnvironment);
+        Result result = convertValue(output, expectedType);
+        output = Result.value(result);
 
         // Set variable
         serviceRuntimeEnvironment.bind(service.getName(), output);
@@ -291,11 +315,12 @@ public class StandardDMNInterpreter implements DMNInterpreter {
             Result result = evaluateExpression(expression, environment, runtimeEnvironment, decision, drgElementAnnotation);
             output = Result.value(result);
 
-            // Convert value
+            // Check value and apply implicit conversions
             Type expectedType = basicDMNTransformer.drgElementOutputFEELType(decision, environment);
-            result = convertExpression(result, expectedType);
+            result = convertResult(result, expectedType);
             output = Result.value(result);
 
+            // Bind value
             runtimeEnvironment.bind(decisionName, output);
         }
 
@@ -616,15 +641,65 @@ public class StandardDMNInterpreter implements DMNInterpreter {
 
     }
 
-    private Result convertExpression(Result result, Type expectedType) {
+    private Result convertResult(Result result, Type expectedType) {
         Object value = Result.value(result);
-        if (value == null) {
-            return null;
+        Type actualType = Result.type(result);
+        // Static conversion
+        if (expectedType == null || expectedType == ANY) {
+            return new Result(value, ANY);
+        } else if (actualType != null && actualType.conformsTo(expectedType)) {
+            return new Result(value, expectedType);
         }
-        if (value instanceof List && ((List) value).size() == 1 && !(expectedType instanceof ListType)) {
-            value = feelLib.asElement((List)value);
+        // Dynamic conversion
+        return convertValue(value, expectedType);
+    }
+
+    private Result convertValue(Object value, Type expectedType) {
+        // Dynamic conversion
+        if (conformsTo(value, expectedType)) {
+            return new Result(value, expectedType);
+        } else if (value instanceof List && ((List) value).size() == 1 && !(expectedType instanceof ListType)) {
+            if (conformsTo(((List) value).get(0), expectedType)) {
+                // from-singleton-list conversion
+                value = feelLib.asElement((List)value);
+                return new Result(value, expectedType);
+            } else {
+                return new Result(null, expectedType);
+            }
         }
-        return new Result(value, expectedType);
+        return new Result(null, expectedType);
+    }
+
+    private boolean conformsTo(Object value, Type expectedType) {
+        if (expectedType == ANY) {
+            return true;
+        } else if (value instanceof Number && expectedType == NUMBER) {
+            return true;
+        } else if (value instanceof String && expectedType == STRING) {
+            return true;
+        } else if (value instanceof Boolean && expectedType == BOOLEAN) {
+            return true;
+        } else if (value instanceof Duration && expectedType instanceof DurationType) {
+            return true;
+        } else if (value instanceof Context && (expectedType instanceof ContextType || expectedType instanceof ItemDefinitionType)) {
+            Context context = (Context) value;
+            CompositeDataType contextType = (CompositeDataType) expectedType;
+            for (String member: contextType.getMembers()) {
+                if (!conformsTo(context.get(member), contextType.getMemberType(member))) {
+                    return false;
+                }
+            }
+            return true;
+        } else if (value instanceof List && expectedType instanceof ListType) {
+            for (Object obj : (List) value) {
+                if (!conformsTo(obj, ((ListType) expectedType).getElementType())) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private boolean isFalse(Object o) {

@@ -19,6 +19,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 
 public class DurationType extends DataType {
     // Main types
+    public static final DurationType ANY_DURATION = new DurationType("duration");
     public static final DurationType DAYS_AND_TIME_DURATION = new DurationType("days and time duration");
     public static final DurationType YEARS_AND_MONTHS_DURATION = new DurationType("years and months duration");
 
@@ -36,7 +37,15 @@ public class DurationType extends DataType {
     public boolean equivalentTo(Type other) {
         return (this == DAYS_AND_TIME_DURATION || this == DAY_TIME_DURATION) && (other == DAYS_AND_TIME_DURATION || other == DAY_TIME_DURATION)
                 ||
-                (this == YEARS_AND_MONTHS_DURATION || this == YEAR_MONTH_DURATION) && (other == YEARS_AND_MONTHS_DURATION || other == YEAR_MONTH_DURATION);
+                (this == YEARS_AND_MONTHS_DURATION || this == YEAR_MONTH_DURATION) && (other == YEARS_AND_MONTHS_DURATION || other == YEAR_MONTH_DURATION)
+                ||
+                (this == ANY_DURATION && other == ANY_DURATION)
+                ;
+    }
+
+    @Override
+    public boolean conformsTo(Type other) {
+        return equivalentTo(other) || other == AnyType.ANY;
     }
 
     private static final Map<String, Type> YEARS_AND_MONTHS_DURATION_MEMBERS = new LinkedHashMap() {{
