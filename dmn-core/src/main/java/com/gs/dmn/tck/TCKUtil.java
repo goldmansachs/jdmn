@@ -412,7 +412,12 @@ public class TCKUtil {
                 return obj;
             }
         } else if (valueType.getList() != null) {
-            return makeList(valueType, (ListType) type);
+            if (type instanceof ListType) {
+                return makeList(valueType, (ListType) type);
+            } else {
+                // Try singleton
+                return makeList(valueType, new ListType(type));
+            }
         } else if (valueType.getComponent() != null) {
             return makeContext(valueType, (CompositeDataType) type);
         }

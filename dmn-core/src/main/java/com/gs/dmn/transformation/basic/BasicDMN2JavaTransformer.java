@@ -1254,15 +1254,17 @@ public class BasicDMN2JavaTransformer {
             return toFEELType(itemDefinition);
         }
         // Try to recover for types with dot in name
-        String namespace = typeRef.getNamespace();
-        if (!StringUtils.isBlank(namespace)) {
-            QualifiedName typeRef1 = new QualifiedName(null,  namespace + "." + typeRef.getLocalPart());
-            itemDefinition = this.dmnModelRepository.lookupItemDefinition(typeRef1);
-            if (itemDefinition != null) {
-                return toFEELType(itemDefinition);
+        if (typeRef != null) {
+            String namespace = typeRef.getNamespace();
+            if (!StringUtils.isBlank(namespace)) {
+                QualifiedName typeRef1 = new QualifiedName(null,  namespace + "." + typeRef.getLocalPart());
+                itemDefinition = this.dmnModelRepository.lookupItemDefinition(typeRef1);
+                if (itemDefinition != null) {
+                    return toFEELType(itemDefinition);
+                }
             }
         }
-        throw new DMNRuntimeException(String.format("Cannot map type '%s' to FEEL", typeRef.toString()));
+        throw new DMNRuntimeException(String.format("Cannot map type '%s' to FEEL", typeRef));
     }
 
     Type toFEELType(TItemDefinition itemDefinition) {
@@ -1521,6 +1523,10 @@ public class BasicDMN2JavaTransformer {
     }
 
     private Type makeDSOutputType(TDecisionService decisionService, Environment environment) {
+        TInformationItem variable = decisionService.getVariable();
+        if (variable != null && variable.getTypeRef() != null) {
+            return toFEELType(variable.getTypeRef());
+        }
         List<TDMNElementReference> outputDecisions = decisionService.getOutputDecision();
         if (outputDecisions.size() == 1) {
             TDecision decision = getDMNModelRepository().findDecisionById(outputDecisions.get(0).getHref());
