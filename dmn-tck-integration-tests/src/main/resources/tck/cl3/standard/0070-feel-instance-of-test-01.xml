@@ -72,7 +72,7 @@
 
     <testCase id="null_008">
         <description>null instance of list is null</description>
-        <resultNode name="null_008" type="decision">
+        <resultNode errorResult="true" name="null_008" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -99,7 +99,7 @@
 
     <testCase id="null_011">
         <description>null instance of context is null</description>
-        <resultNode name="null_011" type="decision">
+        <resultNode errorResult="true" name="null_011" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -108,7 +108,7 @@
 
     <testCase id="null_012">
         <description>null instance of function is null</description>
-        <resultNode name="null_012" type="decision">
+        <resultNode errorResult="true" name="null_012" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -180,7 +180,7 @@
 
     <testCase id="number_008">
         <description>number instance of list is null</description>
-        <resultNode name="number_008" type="decision">
+        <resultNode errorResult="true" name="number_008" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -207,7 +207,7 @@
 
     <testCase id="number_011">
         <description>number instance of context is null</description>
-        <resultNode name="number_011" type="decision">
+        <resultNode errorResult="true" name="number_011" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -216,7 +216,7 @@
 
     <testCase id="number_012">
         <description>number instance of function is null</description>
-        <resultNode name="number_012" type="decision">
+        <resultNode errorResult="true" name="number_012" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -289,7 +289,7 @@
 
     <testCase id="string_008">
         <description>string instance of list is null</description>
-        <resultNode name="string_008" type="decision">
+        <resultNode errorResult="true" name="string_008" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -316,7 +316,7 @@
 
     <testCase id="string_011">
         <description>string instance of context is null</description>
-        <resultNode name="string_011" type="decision">
+        <resultNode errorResult="true" name="string_011" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -325,7 +325,7 @@
 
     <testCase id="string_012">
         <description>string instance of function is null</description>
-        <resultNode name="string_012" type="decision">
+        <resultNode errorResult="true" name="string_012" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -398,7 +398,7 @@
 
     <testCase id="boolean_008">
         <description>boolean instance of list is null</description>
-        <resultNode name="boolean_008" type="decision">
+        <resultNode errorResult="true" name="boolean_008" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -425,7 +425,7 @@
 
     <testCase id="boolean_011">
         <description>boolean instance of context is null</description>
-        <resultNode name="boolean_011" type="decision">
+        <resultNode errorResult="true" name="boolean_011" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -434,7 +434,7 @@
 
     <testCase id="boolean_012">
         <description>boolean instance of function is null</description>
-        <resultNode name="boolean_012" type="decision">
+        <resultNode errorResult="true" name="boolean_012" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -507,7 +507,7 @@
 
     <testCase id="date_008">
         <description>date instance of list is null</description>
-        <resultNode name="date_008" type="decision">
+        <resultNode errorResult="true" name="date_008" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -534,7 +534,7 @@
 
     <testCase id="date_011">
         <description>date instance of context is null</description>
-        <resultNode name="date_011" type="decision">
+        <resultNode errorResult="true" name="date_011" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -543,7 +543,7 @@
 
     <testCase id="date_012">
         <description>date instance of function is null</description>
-        <resultNode name="date_012" type="decision">
+        <resultNode errorResult="true" name="date_012" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -615,7 +615,7 @@
 
     <testCase id="time_008">
         <description>time instance of list is null</description>
-        <resultNode name="time_008" type="decision">
+        <resultNode errorResult="true" name="time_008" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -642,7 +642,7 @@
 
     <testCase id="time_011">
         <description>time instance of context is null</description>
-        <resultNode name="time_011" type="decision">
+        <resultNode errorResult="true" name="time_011" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -651,7 +651,7 @@
 
     <testCase id="time_012">
         <description>time instance of function is null</description>
-        <resultNode name="time_012" type="decision">
+        <resultNode errorResult="true" name="time_012" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -723,7 +723,7 @@
 
     <testCase id="list_008">
         <description>list instance of list is null</description>
-        <resultNode name="list_008" type="decision">
+        <resultNode errorResult="true" name="list_008" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -750,7 +750,7 @@
 
     <testCase id="list_011">
         <description>list instance of context is null</description>
-        <resultNode name="list_011" type="decision">
+        <resultNode errorResult="true" name="list_011" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -759,7 +759,7 @@
 
     <testCase id="list_012">
         <description>list instance of function is null</description>
-        <resultNode name="list_012" type="decision">
+        <resultNode errorResult="true" name="list_012" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -912,7 +912,7 @@
 
     <testCase id="ym_duration_008">
         <description>years and months duration instance of list is null</description>
-        <resultNode name="ym_duration_008" type="decision">
+        <resultNode errorResult="true" name="ym_duration_008" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -939,7 +939,7 @@
 
     <testCase id="ym_duration_011">
         <description>years and months duration instance of context is null</description>
-        <resultNode name="ym_duration_011" type="decision">
+        <resultNode errorResult="true" name="ym_duration_011" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -948,7 +948,7 @@
 
     <testCase id="ym_duration_012">
         <description>years and months duration instance of function is null</description>
-        <resultNode name="ym_duration_012" type="decision">
+        <resultNode errorResult="true" name="ym_duration_012" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -1020,7 +1020,7 @@
 
     <testCase id="dt_duration_008">
         <description>days and time durationinstance of list is null</description>
-        <resultNode name="dt_duration_008" type="decision">
+        <resultNode errorResult="true" name="dt_duration_008" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -1047,7 +1047,7 @@
 
     <testCase id="dt_duration_011">
         <description>days and time duration instance of context is null</description>
-        <resultNode name="dt_duration_011" type="decision">
+        <resultNode errorResult="true" name="dt_duration_011" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -1056,7 +1056,7 @@
 
     <testCase id="dt_duration_012">
         <description>days and time duration instance of function is null</description>
-        <resultNode name="dt_duration_012" type="decision">
+        <resultNode errorResult="true" name="dt_duration_012" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -1128,7 +1128,7 @@
 
     <testCase id="context_008">
         <description>context instance of list is null</description>
-        <resultNode name="context_008" type="decision">
+        <resultNode errorResult="true" name="context_008" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -1155,7 +1155,7 @@
 
     <testCase id="context_011">
         <description>context instance of context is null</description>
-        <resultNode name="context_011" type="decision">
+        <resultNode errorResult="true" name="context_011" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -1164,7 +1164,7 @@
 
     <testCase id="context_012">
         <description>context instance of function is null</description>
-        <resultNode name="context_012" type="decision">
+        <resultNode errorResult="true" name="context_012" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -1290,7 +1290,7 @@
 
     <testCase id="function_008">
         <description>function instance of list is null</description>
-        <resultNode name="function_008" type="decision">
+        <resultNode errorResult="true" name="function_008" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -1317,7 +1317,7 @@
 
     <testCase id="function_011">
         <description>function instance of context is null</description>
-        <resultNode name="function_011" type="decision">
+        <resultNode errorResult="true" name="function_011" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -1326,7 +1326,7 @@
 
     <testCase id="function_012">
         <description>function instance of function is null</description>
-        <resultNode name="function_012" type="decision">
+        <resultNode errorResult="true" name="function_012" type="decision">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
