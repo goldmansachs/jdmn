@@ -443,18 +443,8 @@
 				</item>
 			</list>
 		</inputNode>
-		<inputNode name="list2">
-			<list>
-				<item>
-					<value>x</value>
-				</item>
-				<item>
-					<value>y</value>
-				</item>
-				<item>
-					<value>z</value>
-				</item>
-			</list>
+		<inputNode name="string1">
+			<value>x</value>
 		</inputNode>
 		<resultNode name="appendListItem" type="decision">
 			<expected>
@@ -469,17 +459,7 @@
 						<value>c</value>
 					</item>
 					<item>
-						<list>
-							<item>
-								<value>x</value>
-							</item>
-							<item>
-								<value>y</value>
-							</item>
-							<item>
-								<value>z</value>
-							</item>
-						</list>
+						<value>x</value>
 					</item>
 				</list>
 			</expected>
