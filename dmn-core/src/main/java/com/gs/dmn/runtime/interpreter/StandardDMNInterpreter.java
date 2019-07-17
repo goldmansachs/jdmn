@@ -58,7 +58,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
     }
 
     private final BasicDMN2JavaTransformer basicDMNTransformer;
-    private final FEELLib feelLib;
+    protected final FEELLib feelLib;
     private final FEELInterpreter feelInterpreter;
 
     public StandardDMNInterpreter(BasicDMN2JavaTransformer basicDMNTransformer, FEELLib feelLib) {
@@ -641,7 +641,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
 
     }
 
-    private Result convertResult(Result result, Type expectedType) {
+    protected Result convertResult(Result result, Type expectedType) {
         Object value = Result.value(result);
         Type actualType = Result.type(result);
         // Static conversion
@@ -654,7 +654,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         return convertValue(value, expectedType);
     }
 
-    private Result convertValue(Object value, Type expectedType) {
+    protected Result convertValue(Object value, Type expectedType) {
         // Dynamic conversion
         if (conformsTo(value, expectedType)) {
             return new Result(value, expectedType);
