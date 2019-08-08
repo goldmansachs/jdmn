@@ -689,6 +689,9 @@ public class StandardDMNInterpreter implements DMNInterpreter {
 
     protected Result convertValue(Object value, Type expectedType) {
         // Dynamic conversion
+        if (expectedType == null) {
+            expectedType = ANY;
+        }
         if (conformsTo(value, expectedType)) {
             return new Result(value, expectedType);
         } else if (value instanceof List && ((List) value).size() == 1 && !(expectedType instanceof ListType)) {
