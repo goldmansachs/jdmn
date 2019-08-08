@@ -71,7 +71,8 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
         environment.bind("Age", lib.number(i1));
         environment.bind(nameTransformer.transformName("Years of Service"), lib.number(i2));
 
-        Result result = interpreter.evaluate(nameTransformer.transformName("Total Vacation Days"), environment);
+        String drgElementName = nameTransformer.transformName("Total Vacation Days");
+        Result result = interpreter.evaluate(null, drgElementName, environment);
         Object actual = Result.value(result);
 
         assertEquals(expected, ((BigDecimal) actual).toPlainString());

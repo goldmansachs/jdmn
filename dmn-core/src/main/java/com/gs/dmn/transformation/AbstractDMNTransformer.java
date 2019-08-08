@@ -16,12 +16,15 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.DMNReader;
+import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
+import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -51,7 +54,24 @@ public abstract class AbstractDMNTransformer extends AbstractTemplateBasedTransf
     }
 
     protected DMNModelRepository readDMN(File file) {
-        return dmnReader.read(file);
+        List<TDefinitions> definitionsList = new ArrayList<>();
+        if (isDMNFile(file)) {
+            TDefinitions definitions = dmnReader.read(file);
+            definitionsList.add(definitions);
+        } else {
+            for (File child: file.listFiles()) {
+                if (isDMNFile(child)) {
+                    TDefinitions definitions = dmnReader.read(file);
+                    definitionsList.add(definitions);
+                }
+            }
+        }
+        DMNModelRepository repository = new DMNModelRepository(definitionsList, new PrefixNamespaceMappings());
+        return repository;
+    }
+
+    private boolean isDMNFile(File file) {
+        return file.isFile() && file.getName().endsWith(".dmn");
     }
 
     protected void handleValidationErrors(List<String> errors) {

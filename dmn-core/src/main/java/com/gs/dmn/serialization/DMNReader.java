@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.serialization;
 
-import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
@@ -59,67 +58,67 @@ public class DMNReader extends DMNSerializer {
         this.validateSchema = validateSchema;
     }
 
-    public DMNModelRepository read(File input) {
+    public TDefinitions read(File input) {
         try {
             logger.info(String.format("Reading DMN '%s' ...", input.getAbsolutePath()));
 
-            DMNModelRepository repository = transform(readObject(input));
+            TDefinitions definitions = transform(readObject(input));
 
             logger.info("DMN read.");
-            return repository;
+            return definitions;
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.getAbsolutePath()), e);
         }
     }
 
-    public DMNModelRepository read(InputStream input) {
+    public TDefinitions read(InputStream input) {
         try {
             logger.info(String.format("Reading DMN '%s' ...", input.toString()));
 
-            DMNModelRepository repository = transform(readObject(input));
+            TDefinitions definitions = transform(readObject(input));
 
             logger.info("DMN read.");
-            return repository;
+            return definitions;
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.toString()), e);
         }
     }
 
-    public DMNModelRepository read(URL input) {
+    public TDefinitions read(URL input) {
         try {
             logger.info(String.format("Reading DMN '%s' ...", input.toString()));
 
-            DMNModelRepository repository = transform(readObject(input));
+            TDefinitions definitions = transform(readObject(input));
 
             logger.info("DMN read.");
-            return repository;
+            return definitions;
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.toString()), e);
         }
     }
 
-    public DMNModelRepository read(Reader input) {
+    public TDefinitions read(Reader input) {
         try {
             logger.info(String.format("Reading DMN '%s' ...", input.toString()));
 
-            DMNModelRepository repository = transform(readObject(input));
+            TDefinitions definitions = transform(readObject(input));
 
             logger.info("DMN read.");
-            return repository;
+            return definitions;
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.toString()), e);
         }
     }
 
-    private DMNModelRepository transform(Object value) {
+    private TDefinitions transform(Object value) {
         if (value == null) {
             return null;
         }
 
         if (value instanceof org.omg.spec.dmn._20151101.model.TDefinitions) {
-            return transformer.transformRepository((org.omg.spec.dmn._20151101.model.TDefinitions) value);
+            return transformer.transform((org.omg.spec.dmn._20151101.model.TDefinitions) value);
         } else if (value instanceof TDefinitions) {
-            return new DMNModelRepository((TDefinitions) value, new PrefixNamespaceMappings());
+            return (TDefinitions) value;
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported", value.getClass()));
         }

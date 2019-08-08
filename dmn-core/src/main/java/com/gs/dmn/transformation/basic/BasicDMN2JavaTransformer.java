@@ -1232,14 +1232,16 @@ public class BasicDMN2JavaTransformer {
         if (itemDefinition != null) {
             return toFEELType(itemDefinition);
         }
-        String namespace = dmnModelRepository.getDefinitions().getNamespace();
-        qName = new QualifiedName(namespace, typeName);
-        itemDefinition = this.dmnModelRepository.lookupItemDefinition(qName);
-        if (itemDefinition != null) {
-            return toFEELType(itemDefinition);
-        } else {
-            throw new DMNRuntimeException(String.format("Cannot map type '%s' to FEEL", qName.toString()));
+        List<TDefinitions> definitionsList = dmnModelRepository.getDefinitionsList();
+        for (TDefinitions definitions: definitionsList) {
+            String namespace = definitions.getNamespace();
+            qName = new QualifiedName(namespace, typeName);
+            itemDefinition = this.dmnModelRepository.lookupItemDefinition(qName);
+            if (itemDefinition != null) {
+                return toFEELType(itemDefinition);
+            }
         }
+        throw new DMNRuntimeException(String.format("Cannot map type '%s' to FEEL", qName.toString()));
     }
 
     public Type toFEELType(QualifiedName typeRef) {
@@ -1497,22 +1499,95 @@ public class BasicDMN2JavaTransformer {
         List<TDRGElement> elements = getDMNModelRepository().allDrgElements(element);
         for (TDRGElement e: elements) {
             if (e instanceof TInputData) {
-                elementEnvironment.addDeclaration(makeVariableDeclaration(e, ((TInputData) e).getVariable(), elementEnvironment));
+                Declaration declaration = makeVariableDeclaration(e, ((TInputData) e).getVariable(), elementEnvironment);
+                addDeclaration(elementEnvironment, (VariableDeclaration) declaration, element, e);
             } else if (e instanceof TBusinessKnowledgeModel) {
                 TFunctionDefinition functionDefinition = ((TBusinessKnowledgeModel) e).getEncapsulatedLogic();
                 functionDefinition.getFormalParameter().forEach(
                         p -> elementEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(p.getName(), toFEELType(QualifiedName.toQualifiedName(p.getTypeRef())))));
-                elementEnvironment.addDeclaration(makeInvocableDeclaration((TBusinessKnowledgeModel) e, elementEnvironment));
+                FunctionDeclaration declaration = makeInvocableDeclaration((TBusinessKnowledgeModel) e, elementEnvironment);
+                addDeclaration(elementEnvironment, declaration, element, e);
             } else if (e instanceof TDecision) {
-                elementEnvironment.addDeclaration(makeVariableDeclaration(e, ((TDecision) e).getVariable(), elementEnvironment));
+                Declaration declaration = makeVariableDeclaration(e, ((TDecision) e).getVariable(), elementEnvironment);
+                addDeclaration(elementEnvironment, (VariableDeclaration) declaration, element, e);
             } else if (e instanceof TDecisionService) {
-                elementEnvironment.addDeclaration(makeInvocableDeclaration((TDecisionService)e, elementEnvironment));
+                FunctionDeclaration declaration = makeInvocableDeclaration((TDecisionService) e, elementEnvironment);
+                addDeclaration(elementEnvironment, declaration, element, e);
             } else {
                 throw new UnsupportedOperationException(String.format("'%s' is not supported yet", element.getClass().getSimpleName()));
             }
         }
 
         return elementEnvironment;
+    }
+
+    private void addDeclaration(Environment elementEnvironment, VariableDeclaration declaration, TDRGElement parent, TDRGElement child) {
+        String namespacePrefix = childNamespacePrefix(parent, child);
+        if (namespacePrefix == null) {
+            elementEnvironment.addDeclaration(declaration);
+        } else {
+            ContextType contextType = new ContextType();
+            contextType.addMember(declaration.getName(), new ArrayList<>(), declaration.getType());
+            Declaration importDeclaration = environmentFactory.makeVariableDeclaration(namespacePrefix, contextType);
+            elementEnvironment.addDeclaration(importDeclaration);
+        }
+    }
+
+    private void addDeclaration(Environment elementEnvironment, FunctionDeclaration declaration, TDRGElement parent, TDRGElement child) {
+        String namespacePrefix = childNamespacePrefix(parent, child);
+        if (namespacePrefix == null) {
+            elementEnvironment.addDeclaration(declaration);
+        } else {
+            ContextType contextType = new ContextType();
+            contextType.addMember(declaration.getName(), new ArrayList<>(), declaration.getType());
+            Declaration importDeclaration = environmentFactory.makeVariableDeclaration(namespacePrefix, contextType);
+            elementEnvironment.addDeclaration(importDeclaration);
+        }
+    }
+
+    private String childNamespacePrefix(TDRGElement parent, TDRGElement child) {
+        // Collect references
+        List<TDMNElementReference> references = new ArrayList<>();
+        if (parent instanceof TDecision) {
+            for (TInformationRequirement ir: ((TDecision) parent).getInformationRequirement()) {
+                TDMNElementReference reference = ir.getRequiredDecision();
+                if (reference != null) {
+                    references.add(reference);
+                }
+                reference = ir.getRequiredInput();
+                if (reference != null) {
+                    references.add(reference);
+                }
+            }
+            for (TKnowledgeRequirement bkr: ((TDecision) parent).getKnowledgeRequirement()) {
+                TDMNElementReference reference = bkr.getRequiredKnowledge();
+                if (reference != null) {
+                    references.add(reference);
+                }
+            }
+        } else if (parent instanceof TBusinessKnowledgeModel) {
+            for (TKnowledgeRequirement bkr: ((TBusinessKnowledgeModel) parent).getKnowledgeRequirement()) {
+                TDMNElementReference reference = bkr.getRequiredKnowledge();
+                if (reference != null) {
+                    references.add(reference);
+                }
+            }
+        } else if (parent instanceof TDecisionService) {
+            references.addAll(((TDecisionService) parent).getInputData());
+            references.addAll(((TDecisionService) parent).getInputDecision());
+            references.addAll(((TDecisionService) parent).getOutputDecision());
+            references.addAll(((TDecisionService) parent).getEncapsulatedDecision());
+        }
+
+        // Find namespace prefix for child
+        String id = child.getId();
+        for (TDMNElementReference reference: references) {
+            String namespacePrefix = dmnModelRepository.namespacePrefixForId(reference, id);
+            if (namespacePrefix != null) {
+                return namespacePrefix;
+            }
+        }
+        return null;
     }
 
     public Environment makeFunctionDefinitionEnvironment(TFunctionDefinition functionDefinition, Environment parentEnvironment) {

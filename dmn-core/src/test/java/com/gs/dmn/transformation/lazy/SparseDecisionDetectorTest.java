@@ -21,6 +21,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TDecisionTable;
+import org.omg.spec.dmn._20180521.model.TDefinitions;
 import org.omg.spec.dmn._20180521.model.TExpression;
 import org.slf4j.LoggerFactory;
 
@@ -69,6 +70,7 @@ public class SparseDecisionDetectorTest {
 
     private DMNModelRepository readDMN(String pathName) {
         File input = new File(DMNModelRepositoryTest.class.getClassLoader().getResource(pathName).getFile());
-        return dmnReader.read(input);
+        TDefinitions definitions = dmnReader.read(input);
+        return new DMNModelRepository(definitions);
     }
 }

@@ -1,5 +1,6 @@
 package com.gs.dmn.serialization;
 
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import org.junit.Test;
@@ -24,7 +25,8 @@ public class DMNDialectTransformerTest extends AbstractFileTransformerTest {
         org.omg.spec.dmn._20151101.model.TDefinitions dmn11Definitions = (org.omg.spec.dmn._20151101.model.TDefinitions) object;
 
         // Transform
-        org.omg.spec.dmn._20180521.model.TDefinitions dmn12Definitions = transformer.transformRepository(dmn11Definitions).getDefinitions();
+        DMNModelRepository dmnModelRepository = transformer.transformRepository(dmn11Definitions);
+        org.omg.spec.dmn._20180521.model.TDefinitions dmn12Definitions = dmnModelRepository.getDefinitionsList().get(0);
 
         // Write
         File targetFolder = new File(getTargetPath());

@@ -19,6 +19,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.omg.spec.dmn._20180521.model.TDMNElement;
 import org.omg.spec.dmn._20180521.model.TDecision;
+import org.omg.spec.dmn._20180521.model.TDefinitions;
 import org.omg.spec.dmn._20180521.model.TNamedElement;
 import org.slf4j.LoggerFactory;
 
@@ -70,7 +71,8 @@ public class DMNModelRepositoryTest {
 
     private DMNModelRepository readDMN(String pathName) {
         File input = new File(DMNModelRepositoryTest.class.getClassLoader().getResource(pathName).getFile());
-        return dmnReader.read(input);
+        TDefinitions definitions = dmnReader.read(input);
+        return new DMNModelRepository(definitions);
     }
 
 }

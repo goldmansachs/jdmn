@@ -660,10 +660,10 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
             String feelFunctionName = functionName(function);
             Object binding = context.lookupRuntimeBinding(feelFunctionName);
             if (binding instanceof TBusinessKnowledgeModel) {
-                Result result = dmnInterpreter.evaluateInvocation((TBusinessKnowledgeModel) binding, argList, context);
+                Result result = dmnInterpreter.evaluateInvocation(null, (TBusinessKnowledgeModel) binding, argList, context);
                 return Result.value(result);
             } else if (binding instanceof TDecisionService) {
-                Result result = dmnInterpreter.evaluateInvocation((TDecisionService) binding, argList, context);
+                Result result = dmnInterpreter.evaluateInvocation( null, (TDecisionService) binding, argList, context);
                 return Result.value(result);
             } else if (binding instanceof TFunctionDefinition) {
                 TFunctionKind kind = ((TFunctionDefinition) binding).getKind();
@@ -704,10 +704,10 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         } else {
             Object binding = function.accept(this, context);
             if (binding instanceof TBusinessKnowledgeModel) {
-                Result result = dmnInterpreter.evaluateInvocation((TBusinessKnowledgeModel) binding, argList, context);
+                Result result = dmnInterpreter.evaluateInvocation(null, (TBusinessKnowledgeModel) binding, argList, context);
                 return Result.value(result);
             } else if (binding instanceof TDecisionService) {
-                Result result = dmnInterpreter.evaluateInvocation((TDecisionService) binding, argList, context);
+                Result result = dmnInterpreter.evaluateInvocation(null, (TDecisionService) binding, argList, context);
                 return Result.value(result);
             } else if (binding instanceof TFunctionDefinition) {
                 Result result = dmnInterpreter.evaluateInvocation((TFunctionDefinition) binding, argList, context);

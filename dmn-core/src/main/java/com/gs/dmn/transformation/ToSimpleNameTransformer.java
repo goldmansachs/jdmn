@@ -22,6 +22,7 @@ import com.gs.dmn.serialization.DMNWriter;
 import com.gs.dmn.tck.TestCasesReader;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
+import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -114,7 +115,8 @@ public class ToSimpleNameTransformer extends NameTransformer {
     private static DMNModelRepository transformDefinitions(ToSimpleNameTransformer transformer, File inputFile, File outputFile, BuildLogger logger) {
         // Read
         DMNReader reader = new DMNReader(logger, false);
-        DMNModelRepository repository = reader.read(inputFile);
+        TDefinitions definitions = reader.read(inputFile);
+        DMNModelRepository repository = new DMNModelRepository(definitions);
 
         // Transform
         transformer.transform(repository);

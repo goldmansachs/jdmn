@@ -31,18 +31,34 @@ public class DMNModelRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DMNModelRepository.class);
 
-    private final TDefinitions definitions;
+    private final List<TDefinitions> definitionsList = new ArrayList<>();
 
     private final PrefixNamespaceMappings prefixNamespaceMappings;
 
     public DMNModelRepository() {
-        this(OBJECT_FACTORY.createTDefinitions(), new PrefixNamespaceMappings() );
+        this(OBJECT_FACTORY.createTDefinitions(), new PrefixNamespaceMappings());
+    }
+
+    public DMNModelRepository(TDefinitions definitions) {
+        this(definitions, new PrefixNamespaceMappings());
     }
 
     public DMNModelRepository(TDefinitions definitions, PrefixNamespaceMappings prefixNamespaceMappings) {
-        this.definitions = definitions;
+        this(Arrays.asList(definitions), prefixNamespaceMappings);
+    }
+
+    public DMNModelRepository(List<TDefinitions> definitions, PrefixNamespaceMappings prefixNamespaceMappings) {
+        if (definitions != null) {
+            this.definitionsList.addAll(definitions);
+        }
         this.prefixNamespaceMappings = prefixNamespaceMappings;
-        normalize(definitions);
+        for(TDefinitions def: definitions) {
+            List<TImport> imports = def.getImport();
+            for(TImport imp: imports) {
+                this.prefixNamespaceMappings.put(imp.getName(), imp.getNamespace());
+            }
+            normalize(def);
+        }
     }
 
     private void normalize(TDefinitions definitions) {
@@ -101,8 +117,8 @@ public class DMNModelRepository {
         return name != null && name.startsWith("'") && name.endsWith("'");
     }
 
-    public TDefinitions getDefinitions() {
-        return definitions;
+    public List<TDefinitions> getDefinitionsList() {
+        return definitionsList;
     }
 
     public PrefixNamespaceMappings getPrefixNamespaceMappings() {
@@ -111,22 +127,23 @@ public class DMNModelRepository {
 
     public List<TDRGElement> drgElements() {
         List<TDRGElement> result = new ArrayList<>();
-        for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
-            TDRGElement element = jaxbElement.getValue();
-            result.add(element);
+        for (TDefinitions definitions: this.definitionsList) {
+            for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
+                TDRGElement element = jaxbElement.getValue();
+                result.add(element);
+            }
         }
         return result;
     }
 
     public List<TDecision> decisions() {
         List<TDecision> result = new ArrayList<>();
-        if (definitions == null) {
-            return result;
-        }
-        for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
-            TDRGElement element = jaxbElement.getValue();
-            if (element instanceof TDecision) {
-                result.add((TDecision) element);
+        for (TDefinitions definitions: this.definitionsList) {
+            for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
+                TDRGElement element = jaxbElement.getValue();
+                if (element instanceof TDecision) {
+                    result.add((TDecision) element);
+                }
             }
         }
         return result;
@@ -134,13 +151,12 @@ public class DMNModelRepository {
 
     public List<TInputData> inputDatas() {
         List<TInputData> result = new ArrayList<>();
-        if (definitions == null) {
-            return result;
-        }
-        for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
-            TDRGElement element = jaxbElement.getValue();
-            if (element instanceof TInputData) {
-                result.add((TInputData) element);
+        for (TDefinitions definitions: this.definitionsList) {
+            for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
+                TDRGElement element = jaxbElement.getValue();
+                if (element instanceof TInputData) {
+                    result.add((TInputData) element);
+                }
             }
         }
         return result;
@@ -148,13 +164,12 @@ public class DMNModelRepository {
 
     public List<TBusinessKnowledgeModel> businessKnowledgeModels() {
         List<TBusinessKnowledgeModel> result = new ArrayList<>();
-        if (definitions == null) {
-            return result;
-        }
-        for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
-            TDRGElement element = jaxbElement.getValue();
-            if (element instanceof TBusinessKnowledgeModel) {
-                result.add((TBusinessKnowledgeModel) element);
+        for (TDefinitions definitions: this.definitionsList) {
+            for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
+                TDRGElement element = jaxbElement.getValue();
+                if (element instanceof TBusinessKnowledgeModel) {
+                    result.add((TBusinessKnowledgeModel) element);
+                }
             }
         }
         return result;
@@ -162,23 +177,23 @@ public class DMNModelRepository {
 
     public List<TDecisionService> decisionServices() {
         List<TDecisionService> result = new ArrayList<>();
-        if (definitions == null) {
-            return result;
-        }
-        for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
-            TDRGElement element = jaxbElement.getValue();
-            if (element instanceof TDecisionService) {
-                result.add((TDecisionService) element);
+        for (TDefinitions definitions: this.definitionsList) {
+            for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
+                TDRGElement element = jaxbElement.getValue();
+                if (element instanceof TDecisionService) {
+                    result.add((TDecisionService) element);
+                }
             }
         }
         return result;
     }
 
     public List<TItemDefinition> itemDefinitions() {
-        if (definitions == null) {
-            return new ArrayList<>();
+        List<TItemDefinition> result = new ArrayList<>();
+        for (TDefinitions definitions: this.definitionsList) {
+            result.addAll(definitions.getItemDefinition());
         }
-        return definitions.getItemDefinition();
+        return result;
     }
 
     public List<TItemDefinition> sortItemComponent(TItemDefinition itemDefinition) {
@@ -290,10 +305,8 @@ public class DMNModelRepository {
     }
 
     public boolean sameId(TDMNElement element, String href) {
-        if (href.startsWith("#")) {
-            href = href.substring(1);
-        }
-        return element.getId().equals(href);
+        String id = extractId(href);
+        return element.getId().equals(id);
     }
 
     private boolean sameName(TNamedElement element, String href) {
@@ -521,7 +534,7 @@ public class DMNModelRepository {
     }
 
     public TItemDefinition lookupItemDefinition(QualifiedName typeRef) {
-        return lookupItemDefinition(definitions.getItemDefinition(), typeRef);
+        return lookupItemDefinition(itemDefinitions(), typeRef);
     }
 
     protected TItemDefinition lookupItemDefinition(List<TItemDefinition> itemDefinitionList, QualifiedName typeRef) {
@@ -537,7 +550,7 @@ public class DMNModelRepository {
     }
 
     public TItemDefinition lookupItemDefinition(String name) {
-        return lookupItemDefinition(definitions.getItemDefinition(), name);
+        return lookupItemDefinition(itemDefinitions(), name);
     }
 
     protected TItemDefinition lookupItemDefinition(List<TItemDefinition> itemDefinitionList, String name) {
@@ -787,5 +800,57 @@ public class DMNModelRepository {
             throw new DMNRuntimeException(String.format("Display name cannot be null for element '%s'", element.getId()));
         }
         return name;
+    }
+
+    public String namespacePrefix(TDMNElementReference reference) {
+        if (reference != null) {
+            String href = reference.getHref();
+            String namespace = extractNamespace(href);
+            if (namespace != null) {
+                String prefix = this.prefixNamespaceMappings.getPrefix(namespace);
+                if (prefix != null) {
+                    return prefix;
+                }
+            }
+        }
+        return  null;
+    }
+
+    public String namespacePrefixForId(TDMNElementReference reference, String id) {
+        if (reference != null) {
+            String href = reference.getHref();
+            if (href.contains(id)) {
+                String namespace = extractNamespace(href);
+                if (namespace != null) {
+                    String prefix = this.prefixNamespaceMappings.getPrefix(namespace);
+                    if (prefix != null) {
+                        return prefix;
+                    }
+                }
+            }
+        }
+        return  null;
+    }
+
+    public static String extractId(String href) {
+        if (hasNamespace(href)) {
+            href = href.substring(href.indexOf('#') + 1);
+        }
+        if (href.startsWith("#")) {
+            href = href.substring(1);
+        }
+        return href;
+    }
+
+    private String extractNamespace(String href) {
+        String namespace = null;
+        if (hasNamespace(href)) {
+            namespace = href.substring(0, href.indexOf('#'));
+        }
+        return namespace;
+    }
+
+    private static boolean hasNamespace(String href) {
+        return href.startsWith("http://");
     }
 }

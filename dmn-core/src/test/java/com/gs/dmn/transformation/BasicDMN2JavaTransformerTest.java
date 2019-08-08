@@ -23,6 +23,7 @@ import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.junit.Before;
 import org.junit.Test;
 import org.omg.spec.dmn._20180521.model.TDecision;
+import org.omg.spec.dmn._20180521.model.TDefinitions;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
@@ -127,7 +128,8 @@ public class BasicDMN2JavaTransformerTest {
 
     private DMNModelRepository readDMN(String pathName) {
         File input = new File(BasicDMN2JavaTransformerTest.class.getClassLoader().getResource(pathName).getFile());
-        return dmnReader.read(input);
+        TDefinitions definitions = dmnReader.read(input);
+        return new DMNModelRepository(definitions);
     }
 
 }
