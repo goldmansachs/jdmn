@@ -34,4 +34,10 @@ public class PrefixNamespaceMappings {
         }
         return null;
     }
+
+    public void merge(PrefixNamespaceMappings other) {
+        if (other != null) {
+            this.mappings.putAll(other.mappings);
+        }
+    }
 }

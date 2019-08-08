@@ -14,6 +14,7 @@ package com.gs.dmn.serialization;
 
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
+import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 import org.omg.spec.dmn._20180521.model.*;
 import org.slf4j.LoggerFactory;
@@ -33,7 +34,8 @@ public class DMNReaderTest {
     public void testRead() {
         File input = new File(DMNReaderTest.class.getClassLoader().getResource("dmn/input/test-dmn.dmn").getFile());
 
-        TDefinitions definitions = dmnReader.read(input);
+        Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(input);
+        TDefinitions definitions = pair.getLeft();
         List<JAXBElement<? extends TDRGElement>> drgElementList = definitions.getDrgElement();
         assertEquals(1, drgElementList.size());
 

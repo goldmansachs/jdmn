@@ -15,6 +15,7 @@ package com.gs.dmn.transformation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
@@ -55,18 +56,21 @@ public abstract class AbstractDMNTransformer extends AbstractTemplateBasedTransf
 
     protected DMNModelRepository readDMN(File file) {
         List<TDefinitions> definitionsList = new ArrayList<>();
+        PrefixNamespaceMappings prefixNamespaceMappings = new PrefixNamespaceMappings();
         if (isDMNFile(file)) {
-            TDefinitions definitions = dmnReader.read(file);
-            definitionsList.add(definitions);
+            Pair<TDefinitions, PrefixNamespaceMappings> result = dmnReader.read(file);
+            definitionsList.add(result.getLeft());
+            prefixNamespaceMappings = result.getRight();
         } else {
             for (File child: file.listFiles()) {
                 if (isDMNFile(child)) {
-                    TDefinitions definitions = dmnReader.read(file);
-                    definitionsList.add(definitions);
+                    Pair<TDefinitions, PrefixNamespaceMappings> result = dmnReader.read(file);
+                    definitionsList.add(result.getLeft());
+                    prefixNamespaceMappings.merge(result.getRight());
                 }
             }
         }
-        DMNModelRepository repository = new DMNModelRepository(definitionsList, new PrefixNamespaceMappings());
+        DMNModelRepository repository = new DMNModelRepository(definitionsList, prefixNamespaceMappings);
         return repository;
     }
 

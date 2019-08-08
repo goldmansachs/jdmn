@@ -13,6 +13,7 @@
 package com.gs.dmn;
 
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
@@ -59,6 +60,10 @@ public class DMNModelRepository {
             }
             normalize(def);
         }
+    }
+
+    public DMNModelRepository(Pair<TDefinitions, PrefixNamespaceMappings> pair) {
+        this(pair.getLeft(), pair.getRight());
     }
 
     private void normalize(TDefinitions definitions) {

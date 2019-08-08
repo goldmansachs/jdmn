@@ -16,7 +16,9 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DMNModelRepositoryTest;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
+import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNReader;
+import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import org.junit.Before;
 import org.junit.Test;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
@@ -70,7 +72,7 @@ public class SparseDecisionDetectorTest {
 
     private DMNModelRepository readDMN(String pathName) {
         File input = new File(DMNModelRepositoryTest.class.getClassLoader().getResource(pathName).getFile());
-        TDefinitions definitions = dmnReader.read(input);
-        return new DMNModelRepository(definitions);
+        Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(input);
+        return new DMNModelRepository(pair);
     }
 }

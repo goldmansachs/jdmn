@@ -15,6 +15,7 @@ package com.gs.dmn.serialization;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.Pair;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.*;
 
@@ -38,7 +39,12 @@ public class DMNDialectTransformer {
         return new DMNModelRepository(definitions, prefixNamespaceMappings);
     }
 
-    TDefinitions transform(org.omg.spec.dmn._20151101.model.TDefinitions dmn11Definitions) {
+    public Pair<TDefinitions, PrefixNamespaceMappings> transformDefinitions(org.omg.spec.dmn._20151101.model.TDefinitions dmn11Definitions) {
+        TDefinitions definitions = transform(dmn11Definitions);
+        return new Pair(definitions, this.prefixNamespaceMappings);
+    }
+
+    private TDefinitions transform(org.omg.spec.dmn._20151101.model.TDefinitions dmn11Definitions) {
         logger.info(String.format("Transforming '%s' to DMN 1.2 ...", dmn11Definitions.getName()));
 
         TDefinitions definitions = DMN_12_OBJECT_FACTORY.createTDefinitions();
