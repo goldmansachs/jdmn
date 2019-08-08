@@ -15,6 +15,7 @@ package com.gs.dmn.serialization;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
+import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.DefaultDMNValidator;
 import org.junit.Test;
@@ -66,8 +67,8 @@ public class DMNValidatorTest {
     }
 
     private DMNModelRepository makeRepository(File input) {
-        TDefinitions definitions = reader.read(input);
-        return new DMNModelRepository(definitions);
+        Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(input);
+        return new DMNModelRepository(pair);
     }
 
 }

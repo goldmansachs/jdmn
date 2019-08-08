@@ -16,9 +16,11 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.NopBuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
+import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNNamespacePrefixMapper;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.DMNWriter;
+import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.tck.TestCasesReader;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
@@ -115,8 +117,8 @@ public class ToSimpleNameTransformer extends NameTransformer {
     private static DMNModelRepository transformDefinitions(ToSimpleNameTransformer transformer, File inputFile, File outputFile, BuildLogger logger) {
         // Read
         DMNReader reader = new DMNReader(logger, false);
-        TDefinitions definitions = reader.read(inputFile);
-        DMNModelRepository repository = new DMNModelRepository(definitions);
+        Pair<TDefinitions, PrefixNamespaceMappings> result = reader.read(inputFile);
+        DMNModelRepository repository = new DMNModelRepository(result);
 
         // Transform
         transformer.transform(repository);

@@ -17,6 +17,7 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNNamespacePrefixMapper;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.DMNWriter;
+import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.tck.TestCasesReader;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
@@ -36,8 +37,8 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
 
         // Transform DMN
         File inputDmnFile = new File(CLASS_LOADER.getResource(path + dmnFileName).getFile());
-        TDefinitions definitions = dmnReader.read(inputDmnFile);
-        DMNModelRepository repository = new DMNModelRepository(definitions);
+        Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(inputDmnFile);
+        DMNModelRepository repository = new DMNModelRepository(pair);
         TDefinitions actualDefinitions = transformer.transform(repository).getDefinitionsList().get(0);
 
         // Transform Tests

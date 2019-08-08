@@ -14,6 +14,7 @@ package com.gs.dmn.serialization;
 
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.Pair;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -58,67 +59,67 @@ public class DMNReader extends DMNSerializer {
         this.validateSchema = validateSchema;
     }
 
-    public TDefinitions read(File input) {
+    public Pair<TDefinitions, PrefixNamespaceMappings> read(File input) {
         try {
             logger.info(String.format("Reading DMN '%s' ...", input.getAbsolutePath()));
 
-            TDefinitions definitions = transform(readObject(input));
+            Pair<TDefinitions, PrefixNamespaceMappings> result = transform(readObject(input));
 
             logger.info("DMN read.");
-            return definitions;
+            return result;
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.getAbsolutePath()), e);
         }
     }
 
-    public TDefinitions read(InputStream input) {
+    public Pair<TDefinitions, PrefixNamespaceMappings> read(InputStream input) {
         try {
             logger.info(String.format("Reading DMN '%s' ...", input.toString()));
 
-            TDefinitions definitions = transform(readObject(input));
+            Pair<TDefinitions, PrefixNamespaceMappings> result = transform(readObject(input));
 
             logger.info("DMN read.");
-            return definitions;
+            return result;
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.toString()), e);
         }
     }
 
-    public TDefinitions read(URL input) {
+    public Pair<TDefinitions, PrefixNamespaceMappings> read(URL input) {
         try {
             logger.info(String.format("Reading DMN '%s' ...", input.toString()));
 
-            TDefinitions definitions = transform(readObject(input));
+            Pair<TDefinitions, PrefixNamespaceMappings> result = transform(readObject(input));
 
             logger.info("DMN read.");
-            return definitions;
+            return result;
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.toString()), e);
         }
     }
 
-    public TDefinitions read(Reader input) {
+    public Pair<TDefinitions, PrefixNamespaceMappings> read(Reader input) {
         try {
             logger.info(String.format("Reading DMN '%s' ...", input.toString()));
 
-            TDefinitions definitions = transform(readObject(input));
+            Pair<TDefinitions, PrefixNamespaceMappings> result = transform(readObject(input));
 
             logger.info("DMN read.");
-            return definitions;
+            return result;
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.toString()), e);
         }
     }
 
-    private TDefinitions transform(Object value) {
+    private Pair<TDefinitions, PrefixNamespaceMappings> transform(Object value) {
         if (value == null) {
             return null;
         }
 
         if (value instanceof org.omg.spec.dmn._20151101.model.TDefinitions) {
-            return transformer.transform((org.omg.spec.dmn._20151101.model.TDefinitions) value);
+            return transformer.transformDefinitions((org.omg.spec.dmn._20151101.model.TDefinitions) value);
         } else if (value instanceof TDefinitions) {
-            return (TDefinitions) value;
+            return new Pair<>((TDefinitions) value, new PrefixNamespaceMappings());
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported", value.getClass()));
         }

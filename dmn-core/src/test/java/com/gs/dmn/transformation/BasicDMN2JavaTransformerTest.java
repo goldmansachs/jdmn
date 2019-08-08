@@ -17,7 +17,9 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
+import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNReader;
+import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.junit.Before;
@@ -128,8 +130,8 @@ public class BasicDMN2JavaTransformerTest {
 
     private DMNModelRepository readDMN(String pathName) {
         File input = new File(BasicDMN2JavaTransformerTest.class.getClassLoader().getResource(pathName).getFile());
-        TDefinitions definitions = dmnReader.read(input);
-        return new DMNModelRepository(definitions);
+        Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(input);
+        return new DMNModelRepository(pair);
     }
 
 }
