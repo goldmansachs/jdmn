@@ -364,7 +364,8 @@ public class TCKUtil {
     public Result evaluate(DMNInterpreter interpreter, TestCase testCase, ResultNode resultNode) {
         String drgElementName = drgElementName(testCase, resultNode);
         TDRGElement drgElement = dmnTransformer.getDMNModelRepository().findDRGElementByName(drgElementName);
-        return interpreter.evaluateInvocation(drgElementName, makeArgs(drgElement, testCase), makeEnvironment(testCase));
+        String namespacePrefix = null;
+        return interpreter.evaluateInvocation(namespacePrefix, drgElementName, makeArgs(drgElement, testCase), makeEnvironment(testCase));
     }
 
     private Object makeValue(InputNode inputNode) {

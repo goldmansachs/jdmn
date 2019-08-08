@@ -21,9 +21,9 @@ import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Assert;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DMNReader;
+import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.tck.TCKUtil;
 import com.gs.dmn.tck.TestCasesReader;
 import com.gs.dmn.transformation.DMNTransformer;
@@ -33,10 +33,12 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase;
 import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase.ResultNode;
+import org.omg.spec.dmn._20180521.model.TDefinitions;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
@@ -54,12 +56,21 @@ public abstract class AbstractDMNInterpreterTest {
     private FEELLib lib;
 
     protected void doTestDiagram(String dmnFileName, String... testSuffixes) {
+        this.doTestDiagram(dmnFileName, new ArrayList<>(), testSuffixes);
+    }
+
+    protected void doTestDiagram(String dmnFileName, List<String> additionalDMNFileNames, String... testSuffixes) {
         String errorMessage = String.format("Tested failed for diagram '%s'", dmnFileName);
         try {
-            // Read DMN file
-            String dmnPathName = getDMNInputPath() + "/" + dmnFileName + DMNConstants.DMN_FILE_EXTENSION;
-            URL dmnFileURL = getClass().getClassLoader().getResource(dmnPathName).toURI().toURL();
-            DMNModelRepository repository = reader.read(dmnFileURL);
+            // Read DMN files
+            List<TDefinitions> definitionsList = new ArrayList<>();
+            TDefinitions definitions = readModel(dmnFileName);
+            definitionsList.add(definitions);
+            for (String fileName: additionalDMNFileNames) {
+                definitions = readModel(fileName);
+                definitionsList.add(definitions);
+            }
+            DMNModelRepository repository = new DMNModelRepository(definitionsList, new PrefixNamespaceMappings());
 
             // Transform definitions
             dmnTransformer = new ToSimpleNameTransformer(LOGGER);
@@ -131,4 +142,10 @@ public abstract class AbstractDMNInterpreterTest {
     protected abstract String getDMNInputPath();
 
     protected abstract String getTestCasesInputPath();
+
+    private TDefinitions readModel(String dmnFileName) throws Exception {
+        String dmnPathName = getDMNInputPath() + "/" + dmnFileName + DMNConstants.DMN_FILE_EXTENSION;
+        URL dmnFileURL = getClass().getClassLoader().getResource(dmnPathName).toURI().toURL();
+        return reader.read(dmnFileURL);
+    }
 }

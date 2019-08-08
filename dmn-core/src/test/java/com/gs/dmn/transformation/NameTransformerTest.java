@@ -36,8 +36,9 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
 
         // Transform DMN
         File inputDmnFile = new File(CLASS_LOADER.getResource(path + dmnFileName).getFile());
-        DMNModelRepository repository = dmnReader.read(inputDmnFile);
-        TDefinitions actualDefinitions = transformer.transform(repository).getDefinitions();
+        TDefinitions definitions = dmnReader.read(inputDmnFile);
+        DMNModelRepository repository = new DMNModelRepository(definitions);
+        TDefinitions actualDefinitions = transformer.transform(repository).getDefinitionsList().get(0);
 
         // Transform Tests
         File inputTestsFile = new File(CLASS_LOADER.getResource(path + testsFileName).getFile());

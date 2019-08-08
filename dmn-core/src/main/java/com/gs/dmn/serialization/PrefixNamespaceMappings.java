@@ -25,4 +25,13 @@ public class PrefixNamespaceMappings {
     public String get(String prefix) {
         return mappings.get(prefix);
     }
+
+    public String getPrefix(String namespace) {
+        for (Map.Entry<String, String> entry: mappings.entrySet()) {
+            if (entry.getValue().equals(namespace)) {
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
 }

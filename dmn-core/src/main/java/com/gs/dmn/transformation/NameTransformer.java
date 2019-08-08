@@ -55,7 +55,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
 
     @Override
     public DMNModelRepository transform(DMNModelRepository repository) {
-        transformDefinitions(repository.getDefinitions());
+        transformDefinitions(repository);
         this.transformDefinition = false;
         return repository;
     }
@@ -108,19 +108,18 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         }
     }
 
-    protected void transformDefinitions(TDefinitions definitions) {
-        replace(definitions);
-        rename(definitions);
+    protected void transformDefinitions(DMNModelRepository repository) {
+        replace(repository);
+        rename(repository);
     }
 
     // Replace old names with new names in expressions
-    protected void replace(TDefinitions definitions) {
-        for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
-            TDRGElement element = jaxbElement.getValue();
+    protected void replace(DMNModelRepository repository) {
+        for (TDRGElement element : repository.drgElements()) {
             if (element instanceof TInputData) {
             } else if (element instanceof TBusinessKnowledgeModel) {
                 // Replace old names with new names in body
-                LexicalContext lexicalContext = makeLexicalContext(element, definitions);
+                LexicalContext lexicalContext = makeLexicalContext(element, repository.getDefinitionsList());
                 TFunctionDefinition encapsulatedLogic = ((TBusinessKnowledgeModel) element).getEncapsulatedLogic();
                 if (encapsulatedLogic != null) {
                     JAXBElement<? extends TExpression> expression = encapsulatedLogic.getExpression();
@@ -130,7 +129,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                 }
             } else if (element instanceof TDecision) {
                 // Replace old names with new names in body
-                LexicalContext lexicalContext = makeLexicalContext(element, definitions);
+                LexicalContext lexicalContext = makeLexicalContext(element, repository.getDefinitionsList());
                 JAXBElement<? extends TExpression> expression = ((TDecision) element).getExpression();
                 if (expression != null) {
                     replace(expression.getValue(), lexicalContext);
@@ -211,12 +210,11 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         }
     }
 
-    protected void rename(TDefinitions definitions) {
-        for (TItemDefinition itemDefinition : definitions.getItemDefinition()) {
+    protected void rename(DMNModelRepository repository) {
+        for (TItemDefinition itemDefinition : repository.itemDefinitions()) {
             renameItemDefinitionMembers(itemDefinition);
         }
-        for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
-            TDRGElement element = jaxbElement.getValue();
+        for (TDRGElement element : repository.drgElements()) {
             if (element instanceof TInputData) {
                 // Rename element and variable
                 renameElement(element);
@@ -291,7 +289,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         }
     }
 
-    protected LexicalContext makeLexicalContext(TDRGElement element, TDefinitions definitions) {
+    protected LexicalContext makeLexicalContext(TDRGElement element, List<TDefinitions> definitions) {
         List<String> names = new ArrayList<>();
 
         List<TInformationRequirement> informationRequirement = null;
@@ -332,22 +330,22 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         return new LexicalContext(names);
     }
 
-    protected void addName(TDefinitions definitions, List<String> names, String href) {
+    protected void addName(List<TDefinitions> definitions, List<String> names, String href) {
         TDRGElement requiredDRG = findDRGElement(definitions, href);
         if (requiredDRG != null) {
             names.add(requiredDRG.getName());
         }
     }
 
-    protected TDRGElement findDRGElement(TDefinitions definitions, String href) {
-        if (href.startsWith("#")) {
-            href = href.substring(1);
-        }
+    protected TDRGElement findDRGElement(List<TDefinitions> definitionsList, String href) {
+        String id = DMNModelRepository.extractId(href);
 
-        for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
-            TDRGElement element = jaxbElement.getValue();
-            if (element.getId().equals(href)) {
-                return element;
+        for (TDefinitions definitions: definitionsList) {
+            for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
+                TDRGElement element = jaxbElement.getValue();
+                if (element.getId().equals(id)) {
+                    return element;
+                }
             }
         }
         return null;

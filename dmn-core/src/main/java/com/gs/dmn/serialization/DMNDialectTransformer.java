@@ -38,7 +38,7 @@ public class DMNDialectTransformer {
         return new DMNModelRepository(definitions, prefixNamespaceMappings);
     }
 
-    private TDefinitions transform(org.omg.spec.dmn._20151101.model.TDefinitions dmn11Definitions) {
+    TDefinitions transform(org.omg.spec.dmn._20151101.model.TDefinitions dmn11Definitions) {
         logger.info(String.format("Transforming '%s' to DMN 1.2 ...", dmn11Definitions.getName()));
 
         TDefinitions definitions = DMN_12_OBJECT_FACTORY.createTDefinitions();

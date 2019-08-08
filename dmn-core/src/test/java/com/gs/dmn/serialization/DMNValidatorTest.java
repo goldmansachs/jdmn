@@ -18,6 +18,7 @@ import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.DefaultDMNValidator;
 import org.junit.Test;
+import org.omg.spec.dmn._20180521.model.TDefinitions;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
@@ -39,7 +40,7 @@ public class DMNValidatorTest {
     @Test
     public void testValidateDefinitionsWhenNotUniqueNames() {
         File input = new File(DMNValidatorTest.class.getClassLoader().getResource("dmn/input/test-dmn-with-duplicates.dmn").getFile());
-        DMNModelRepository repository = reader.read(input);
+        DMNModelRepository repository = makeRepository(input);
         List<String> errors = validator.validate(repository);
         assertTrue(!errors.isEmpty());
     }
@@ -47,7 +48,7 @@ public class DMNValidatorTest {
     @Test
     public void testValidateDefinitionsWithError() {
         File input = new File(DMNValidatorTest.class.getClassLoader().getResource("dmn/input/test-dmn.dmn").getFile());
-        DMNModelRepository repository = reader.read(input);
+        DMNModelRepository repository = makeRepository(input);
         List<String> errors = validator.validate(repository);
         assertTrue(!errors.isEmpty());
     }
@@ -59,8 +60,14 @@ public class DMNValidatorTest {
 
     private void validate(String path) {
         File input = new File(DMNValidatorTest.class.getClassLoader().getResource(path).getFile());
-        DMNModelRepository repository = reader.read(input);
+        DMNModelRepository repository = makeRepository(input);
         List<String> erros = validator.validate(repository);
         assertTrue(erros.isEmpty());
     }
+
+    private DMNModelRepository makeRepository(File input) {
+        TDefinitions definitions = reader.read(input);
+        return new DMNModelRepository(definitions);
+    }
+
 }

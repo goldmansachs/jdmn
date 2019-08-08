@@ -14,6 +14,8 @@ package com.gs.dmn.runtime.interpreter;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+
 public abstract class CL3DMNInterpreterTest extends AbstractDMNInterpreterTest {
     @Override
     protected String getDMNInputPath() {
@@ -82,5 +84,6 @@ public abstract class CL3DMNInterpreterTest extends AbstractDMNInterpreterTest {
         doTestDiagram("0076-feel-external-java");
         doTestDiagram("0082-feel-coercion");
         doTestDiagram("0085-decision-services");
+        doTestDiagram("0086-import", Arrays.asList("0086-imported-model"));
     }
 }
