@@ -1232,7 +1232,7 @@ public class BasicDMN2JavaTransformer {
         if (itemDefinition != null) {
             return toFEELType(itemDefinition);
         }
-        List<TDefinitions> definitionsList = dmnModelRepository.getDefinitionsList();
+        List<TDefinitions> definitionsList = dmnModelRepository.getAllDefinitions();
         for (TDefinitions definitions: definitionsList) {
             String namespace = definitions.getNamespace();
             qName = new QualifiedName(namespace, typeName);

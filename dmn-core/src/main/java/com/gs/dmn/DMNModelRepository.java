@@ -32,7 +32,11 @@ public class DMNModelRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DMNModelRepository.class);
 
-    private final List<TDefinitions> definitionsList = new ArrayList<>();
+    private final TDefinitions rootDefinitions;
+
+    private final List<TDefinitions> importedDefinitions = new ArrayList<>();
+
+    private final List<TDefinitions> allDefinitions = new ArrayList<>();
 
     private final PrefixNamespaceMappings prefixNamespaceMappings;
 
@@ -44,16 +48,23 @@ public class DMNModelRepository {
         this(definitions, new PrefixNamespaceMappings());
     }
 
-    public DMNModelRepository(TDefinitions definitions, PrefixNamespaceMappings prefixNamespaceMappings) {
-        this(Arrays.asList(definitions), prefixNamespaceMappings);
+    public DMNModelRepository(TDefinitions rootDefinitions, PrefixNamespaceMappings prefixNamespaceMappings) {
+        this(rootDefinitions, Arrays.asList(), prefixNamespaceMappings);
     }
 
-    public DMNModelRepository(List<TDefinitions> definitions, PrefixNamespaceMappings prefixNamespaceMappings) {
-        if (definitions != null) {
-            this.definitionsList.addAll(definitions);
+    public DMNModelRepository(TDefinitions rootDefinitions, List<TDefinitions> importedDefinitions, PrefixNamespaceMappings prefixNamespaceMappings) {
+        this.rootDefinitions = rootDefinitions;
+        if (rootDefinitions != null) {
+            normalize(this.rootDefinitions);
+            this.allDefinitions.add(rootDefinitions);
         }
+        if (importedDefinitions != null) {
+            this.importedDefinitions.addAll(importedDefinitions);
+            this.allDefinitions.addAll(importedDefinitions);
+        }
+        // Normalize all definitions
         this.prefixNamespaceMappings = prefixNamespaceMappings;
-        for(TDefinitions def: definitions) {
+        for(TDefinitions def: allDefinitions) {
             List<TImport> imports = def.getImport();
             for(TImport imp: imports) {
                 this.prefixNamespaceMappings.put(imp.getName(), imp.getNamespace());
@@ -122,8 +133,12 @@ public class DMNModelRepository {
         return name != null && name.startsWith("'") && name.endsWith("'");
     }
 
-    public List<TDefinitions> getDefinitionsList() {
-        return definitionsList;
+    public TDefinitions getRootDefinitions() {
+        return rootDefinitions;
+    }
+
+    public List<TDefinitions> getAllDefinitions() {
+        return this.allDefinitions;
     }
 
     public PrefixNamespaceMappings getPrefixNamespaceMappings() {
@@ -132,7 +147,7 @@ public class DMNModelRepository {
 
     public List<TDRGElement> drgElements() {
         List<TDRGElement> result = new ArrayList<>();
-        for (TDefinitions definitions: this.definitionsList) {
+        for (TDefinitions definitions: this.allDefinitions) {
             for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
                 TDRGElement element = jaxbElement.getValue();
                 result.add(element);
@@ -143,7 +158,7 @@ public class DMNModelRepository {
 
     public List<TDecision> decisions() {
         List<TDecision> result = new ArrayList<>();
-        for (TDefinitions definitions: this.definitionsList) {
+        for (TDefinitions definitions: this.allDefinitions) {
             for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
                 TDRGElement element = jaxbElement.getValue();
                 if (element instanceof TDecision) {
@@ -156,7 +171,7 @@ public class DMNModelRepository {
 
     public List<TInputData> inputDatas() {
         List<TInputData> result = new ArrayList<>();
-        for (TDefinitions definitions: this.definitionsList) {
+        for (TDefinitions definitions: this.allDefinitions) {
             for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
                 TDRGElement element = jaxbElement.getValue();
                 if (element instanceof TInputData) {
@@ -169,7 +184,7 @@ public class DMNModelRepository {
 
     public List<TBusinessKnowledgeModel> businessKnowledgeModels() {
         List<TBusinessKnowledgeModel> result = new ArrayList<>();
-        for (TDefinitions definitions: this.definitionsList) {
+        for (TDefinitions definitions: this.allDefinitions) {
             for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
                 TDRGElement element = jaxbElement.getValue();
                 if (element instanceof TBusinessKnowledgeModel) {
@@ -182,7 +197,7 @@ public class DMNModelRepository {
 
     public List<TDecisionService> decisionServices() {
         List<TDecisionService> result = new ArrayList<>();
-        for (TDefinitions definitions: this.definitionsList) {
+        for (TDefinitions definitions: this.allDefinitions) {
             for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
                 TDRGElement element = jaxbElement.getValue();
                 if (element instanceof TDecisionService) {
@@ -195,7 +210,7 @@ public class DMNModelRepository {
 
     public List<TItemDefinition> itemDefinitions() {
         List<TItemDefinition> result = new ArrayList<>();
-        for (TDefinitions definitions: this.definitionsList) {
+        for (TDefinitions definitions: this.allDefinitions) {
             result.addAll(definitions.getItemDefinition());
         }
         return result;

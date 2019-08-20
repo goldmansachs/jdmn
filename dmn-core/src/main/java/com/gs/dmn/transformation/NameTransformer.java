@@ -119,7 +119,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
             if (element instanceof TInputData) {
             } else if (element instanceof TBusinessKnowledgeModel) {
                 // Replace old names with new names in body
-                LexicalContext lexicalContext = makeLexicalContext(element, repository.getDefinitionsList());
+                LexicalContext lexicalContext = makeLexicalContext(element, repository.getAllDefinitions());
                 TFunctionDefinition encapsulatedLogic = ((TBusinessKnowledgeModel) element).getEncapsulatedLogic();
                 if (encapsulatedLogic != null) {
                     JAXBElement<? extends TExpression> expression = encapsulatedLogic.getExpression();
@@ -129,7 +129,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                 }
             } else if (element instanceof TDecision) {
                 // Replace old names with new names in body
-                LexicalContext lexicalContext = makeLexicalContext(element, repository.getDefinitionsList());
+                LexicalContext lexicalContext = makeLexicalContext(element, repository.getAllDefinitions());
                 JAXBElement<? extends TExpression> expression = ((TDecision) element).getExpression();
                 if (expression != null) {
                     replace(expression.getValue(), lexicalContext);
