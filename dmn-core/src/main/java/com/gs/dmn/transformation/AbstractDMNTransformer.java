@@ -15,6 +15,7 @@ package com.gs.dmn.transformation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
@@ -55,23 +56,13 @@ public abstract class AbstractDMNTransformer extends AbstractTemplateBasedTransf
     }
 
     protected DMNModelRepository readDMN(File file) {
-        List<TDefinitions> definitionsList = new ArrayList<>();
-        PrefixNamespaceMappings prefixNamespaceMappings = new PrefixNamespaceMappings();
         if (isDMNFile(file)) {
             Pair<TDefinitions, PrefixNamespaceMappings> result = dmnReader.read(file);
-            definitionsList.add(result.getLeft());
-            prefixNamespaceMappings = result.getRight();
+            DMNModelRepository repository = new DMNModelRepository(result.getLeft(), result.getRight());
+            return repository;
         } else {
-            for (File child: file.listFiles()) {
-                if (isDMNFile(child)) {
-                    Pair<TDefinitions, PrefixNamespaceMappings> result = dmnReader.read(file);
-                    definitionsList.add(result.getLeft());
-                    prefixNamespaceMappings.merge(result.getRight());
-                }
-            }
+            throw new DMNRuntimeException(String.format("Invalid DMN file %s", file.getAbsoluteFile()));
         }
-        DMNModelRepository repository = new DMNModelRepository(definitionsList, prefixNamespaceMappings);
-        return repository;
     }
 
     private boolean isDMNFile(File file) {

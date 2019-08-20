@@ -63,14 +63,13 @@ public abstract class AbstractDMNInterpreterTest {
         String errorMessage = String.format("Tested failed for diagram '%s'", dmnFileName);
         try {
             // Read DMN files
-            List<TDefinitions> definitionsList = new ArrayList<>();
-            TDefinitions definitions = readModel(dmnFileName);
-            definitionsList.add(definitions);
+            TDefinitions rootDefinitions = readModel(dmnFileName);
+            List<TDefinitions> importedDefinitions = new ArrayList<>();
             for (String fileName: additionalDMNFileNames) {
-                definitions = readModel(fileName);
-                definitionsList.add(definitions);
+                TDefinitions definitions = readModel(fileName);
+                importedDefinitions.add(definitions);
             }
-            DMNModelRepository repository = new DMNModelRepository(definitionsList, new PrefixNamespaceMappings());
+            DMNModelRepository repository = new DMNModelRepository(rootDefinitions, importedDefinitions, new PrefixNamespaceMappings());
 
             // Transform definitions
             dmnTransformer = new ToSimpleNameTransformer(LOGGER);

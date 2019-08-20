@@ -26,7 +26,7 @@ public class DMNDialectTransformerTest extends AbstractFileTransformerTest {
 
         // Transform
         DMNModelRepository dmnModelRepository = transformer.transformRepository(dmn11Definitions);
-        org.omg.spec.dmn._20180521.model.TDefinitions dmn12Definitions = dmnModelRepository.getDefinitionsList().get(0);
+        org.omg.spec.dmn._20180521.model.TDefinitions dmn12Definitions = dmnModelRepository.getRootDefinitions();
 
         // Write
         File targetFolder = new File(getTargetPath());
