@@ -354,7 +354,7 @@ public class TCKUtil {
 
     public Object expectedValue(TestCase testCase, ResultNode resultNode) {
         String drgElementName = drgElementName(testCase, resultNode);
-        TDRGElement drgElement = dmnTransformer.getDMNModelRepository().findDRGElementByName(drgElementName);
+        TDRGElement drgElement = findDRGElementByName(drgElementName);
         Environment environment = dmnTransformer.makeEnvironment(drgElement);
         Type elementType = dmnTransformer.drgElementOutputFEELType(drgElement, environment);
         Object expectedValue = makeValue(resultNode.getExpected(), elementType);
@@ -363,13 +363,13 @@ public class TCKUtil {
 
     public Result evaluate(DMNInterpreter interpreter, TestCase testCase, ResultNode resultNode) {
         String drgElementName = drgElementName(testCase, resultNode);
-        TDRGElement drgElement = dmnTransformer.getDMNModelRepository().findDRGElementByName(drgElementName);
+        TDRGElement drgElement = findDRGElementByName(drgElementName);
         String namespacePrefix = null;
         return interpreter.evaluateInvocation(namespacePrefix, drgElementName, makeArgs(drgElement, testCase), makeEnvironment(testCase));
     }
 
     private Object makeValue(InputNode inputNode) {
-        TDRGElement drgElement = dmnTransformer.getDMNModelRepository().findDRGElementByName(inputNode.getName());
+        TDRGElement drgElement = findDRGElementByName(inputNode.getName());
         if (drgElement instanceof TInputData) {
             Type type = dmnTransformer.drgElementOutputFEELType(drgElement);
             return makeValue(inputNode, type);
