@@ -300,13 +300,13 @@ public class DMNModelRepository {
         throw new DMNRuntimeException(String.format("Cannot find decision service for name='%s'", name));
     }
 
-    public TDRGElement findDRGElementByName(String href) {
+    public TDRGElement findDRGElementByName(String name) {
         for (TDRGElement element : drgElements()) {
-            if (sameName(element, href)) {
+            if (sameName(element, name)) {
                 return element;
             }
         }
-        throw new DMNRuntimeException(String.format("Cannot find element for href='%s'", href));
+        throw new DMNRuntimeException(String.format("Cannot find element for name='%s'", name));
     }
 
     public boolean sameId(TDMNElement element, String href) {
