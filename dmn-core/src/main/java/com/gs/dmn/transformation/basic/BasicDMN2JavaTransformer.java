@@ -601,11 +601,11 @@ public class BasicDMN2JavaTransformer {
     public List<FormalParameter> dsFEELParameters(TDecisionService service) {
         List<FormalParameter> parameters = new ArrayList<>();
         for (TDMNElementReference er: service.getInputData()) {
-            TInputData inputData = getDMNModelRepository().findInputDataById(er.getHref());
+            TInputData inputData = getDMNModelRepository().findInputDataByRef(service, er.getHref());
             parameters.add(new FormalParameter(inputData.getName(), toFEELType(inputData)));
         }
         for (TDMNElementReference er: service.getInputDecision()) {
-            TDecision decision = getDMNModelRepository().findDecisionById(er.getHref());
+            TDecision decision = getDMNModelRepository().findDecisionByRef(service, er.getHref());
             parameters.add(new FormalParameter(decision.getName(), drgElementOutputFEELType(decision)));
         }
         return parameters;
@@ -622,13 +622,13 @@ public class BasicDMN2JavaTransformer {
     private List<Pair<String, String>> dsParameters(TDecisionService service, boolean javaFriendlyName) {
         List<Pair<String, String>> parameters = new ArrayList<>();
         for (TDMNElementReference er: service.getInputData()) {
-            TInputData inputData = getDMNModelRepository().findInputDataById(er.getHref());
+            TInputData inputData = getDMNModelRepository().findInputDataByRef(service, er.getHref());
             String parameterName = javaFriendlyName ? drgElementVariableName(inputData) : inputData.getName();
             Type parameterType = toFEELType(inputData);
             parameters.add(new Pair(parameterName, parameterType));
         }
         for (TDMNElementReference er: service.getInputDecision()) {
-            TDecision decision = getDMNModelRepository().findDecisionById(er.getHref());
+            TDecision decision = getDMNModelRepository().findDecisionByRef(service, er.getHref());
             String parameterName = javaFriendlyName ? drgElementVariableName(decision) : decision.getName();
             Type parameterType = drgElementOutputFEELType(decision);
             parameters.add(new Pair(parameterName, parameterType));
@@ -1604,14 +1604,14 @@ public class BasicDMN2JavaTransformer {
         }
         List<TDMNElementReference> outputDecisions = decisionService.getOutputDecision();
         if (outputDecisions.size() == 1) {
-            TDecision decision = getDMNModelRepository().findDecisionById(outputDecisions.get(0).getHref());
+            TDecision decision = getDMNModelRepository().findDecisionByRef(decisionService, outputDecisions.get(0).getHref());
             String decisionName = decision.getName();
             VariableDeclaration declaration = (VariableDeclaration) environment.lookupVariableDeclaration(decisionName);
             return declaration.getType();
         } else {
             ContextType type = new ContextType();
             for (TDMNElementReference er: outputDecisions) {
-                TDecision decision = getDMNModelRepository().findDecisionById(er.getHref());
+                TDecision decision = getDMNModelRepository().findDecisionByRef(decisionService, er.getHref());
                 String decisionName = decision.getName();
                 VariableDeclaration declaration = (VariableDeclaration) environment.lookupVariableDeclaration(decisionName);
                 type.addMember(decisionName, Arrays.asList(), declaration.getType());
