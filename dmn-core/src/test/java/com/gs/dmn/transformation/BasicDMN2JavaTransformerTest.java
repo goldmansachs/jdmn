@@ -40,12 +40,13 @@ public class BasicDMN2JavaTransformerTest {
     private final DMNDialectDefinition dialectDefinition = new StandardDMNDialectDefinition();
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
     private BasicDMN2JavaTransformer dmnTransformer;
-    private final String href = "d_RequiredMonthlyInstallment";
+    private String href;
 
     @Before
     public void setUp() {
         String pathName = "dmn/input/0004-lending.dmn";
         DMNModelRepository repository = readDMN(pathName);
+        href = repository.getRootDefinitions().getNamespace() + "#d_RequiredMonthlyInstallment";
         this.dmnTransformer = dialectDefinition.createBasicTransformer(repository, new NopLazyEvaluationDetector(), new LinkedHashMap<>());
     }
 
@@ -90,7 +91,7 @@ public class BasicDMN2JavaTransformerTest {
 
     @Test
     public void testAnnotationWithOneString() {
-        TDecision decision = dmnTransformer.getDMNModelRepository().findDecisionById(href);
+        TDecision decision = dmnTransformer.getDMNModelRepository().findDecisionByRef(null, href);
         assertEquals("string(\"plain text\")", dmnTransformer.annotation(decision, "string(\"plain text\")"));
         assertEquals("string(((java.math.BigDecimal)(requestedProduct != null ? requestedProduct.getTerm() : null)))", dmnTransformer.annotation(decision, "string(RequestedProduct.Term)"));
         assertEquals("\"\"", dmnTransformer.annotation(decision, "string(-)"));
@@ -98,13 +99,13 @@ public class BasicDMN2JavaTransformerTest {
 
     @Test
     public void testAnnotationWithExpression() {
-        TDecision decision = dmnTransformer.getDMNModelRepository().findDecisionById(href);
+        TDecision decision = dmnTransformer.getDMNModelRepository().findDecisionByRef(null, href);
         assertEquals("string(numericAdd(((java.math.BigDecimal)(requestedProduct != null ? requestedProduct.getRate() : null)), number(\"2\")))", dmnTransformer.annotation(decision, "string(RequestedProduct.Rate + 2)"));
     }
 
     @Test
     public void testAnnotationWithSeveralStrings() {
-        TDecision decision = dmnTransformer.getDMNModelRepository().findDecisionById(href);
+        TDecision decision = dmnTransformer.getDMNModelRepository().findDecisionByRef(null, href);
         String expected = "stringAdd(stringAdd(stringAdd(stringAdd(string(\"Rate is \"), string(((java.math.BigDecimal)(requestedProduct != null ? requestedProduct.getRate() : null)))), " +
                 "string(\". And term is \")), string(((java.math.BigDecimal)(requestedProduct != null ? requestedProduct.getTerm() : null)))), string(\"!\"))";
         assertEquals(expected, dmnTransformer.annotation(decision, "string(\"Rate is \") + string(RequestedProduct.Rate) + string(\". And term is \") + string(RequestedProduct.Term) + string(\"!\")"));

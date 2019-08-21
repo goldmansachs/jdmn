@@ -184,7 +184,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         List<String> outputDecisionPrefixes = new ArrayList<>();
         for (TDMNElementReference reference: service.getOutputDecision()) {
             String childNamespacePrefix = dmnModelRepository.namespacePrefix(reference);
-            TDecision decision = dmnModelRepository.findDecisionById(reference.getHref());
+            TDecision decision = dmnModelRepository.findDecisionByRef(service, reference.getHref());
             outputDecisions.add(decision);
             outputDecisionPrefixes.add(childNamespacePrefix);
             evaluateDecision(childNamespacePrefix, decision, serviceRuntimeEnvironment);
@@ -262,11 +262,11 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         }
     }
 
-    private void evaluateKnowledgeRequirements(List<TKnowledgeRequirement> knowledgeRequirementList, RuntimeEnvironment runtimeEnvironment) {
+    private void evaluateKnowledgeRequirements(TDRGElement parent, List<TKnowledgeRequirement> knowledgeRequirementList, RuntimeEnvironment runtimeEnvironment) {
         for (TKnowledgeRequirement requirement : knowledgeRequirementList) {
             TDMNElementReference requiredKnowledge = requirement.getRequiredKnowledge();
             String href = requiredKnowledge.getHref();
-            TInvocable invocable = this.dmnModelRepository.findInvocableById(href);
+            TInvocable invocable = this.dmnModelRepository.findInvocableByRef(parent, href);
             String namespacePrefix = dmnModelRepository.namespacePrefix(requiredKnowledge);
             if (invocable instanceof TBusinessKnowledgeModel) {
                 evaluateBKM(namespacePrefix, (TBusinessKnowledgeModel) invocable, runtimeEnvironment);
@@ -281,7 +281,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
     private void evaluateBKM(String namespacePrefix, TBusinessKnowledgeModel bkm, RuntimeEnvironment runtimeEnvironment) {
         // Evaluate knowledge requirements
         List<TKnowledgeRequirement> knowledgeRequirement = bkm.getKnowledgeRequirement();
-        evaluateKnowledgeRequirements(knowledgeRequirement, runtimeEnvironment);
+        evaluateKnowledgeRequirements(bkm, knowledgeRequirement, runtimeEnvironment);
 
         // Bind name to DMN definition
         String bkmName = bkm.getName();
@@ -315,8 +315,8 @@ public class StandardDMNInterpreter implements DMNInterpreter {
             output = lookupBinding(runtimeEnvironment, namespacePrefix, decisionName);
         } else {
             // Evaluate dependencies
-            evaluateInformationRequirementList(decision.getInformationRequirement(), runtimeEnvironment);
-            evaluateKnowledgeRequirements(decision.getKnowledgeRequirement(), runtimeEnvironment);
+            evaluateInformationRequirementList(decision, decision.getInformationRequirement(), runtimeEnvironment);
+            evaluateKnowledgeRequirements(decision, decision.getKnowledgeRequirement(), runtimeEnvironment);
 
             // Evaluate expression
             TExpression expression = dmnModelRepository.expression(decision);
@@ -364,14 +364,14 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         return true;
     }
 
-    private void evaluateInformationRequirementList(List<TInformationRequirement> informationRequirementList, RuntimeEnvironment runtimeEnvironment) {
+    private void evaluateInformationRequirementList(TDRGElement parent, List<TInformationRequirement> informationRequirementList, RuntimeEnvironment runtimeEnvironment) {
         for (TInformationRequirement informationRequirement : informationRequirementList) {
             TDMNElementReference requiredInput = informationRequirement.getRequiredInput();
             TDMNElementReference requiredDecision = informationRequirement.getRequiredDecision();
             if (requiredInput != null) {
             } else if (requiredDecision != null) {
                 String namespacePrefix = dmnModelRepository.namespacePrefix(requiredDecision);
-                TDecision child = dmnModelRepository.findDecisionById(requiredDecision.getHref());
+                TDecision child = dmnModelRepository.findDecisionByRef(parent, requiredDecision.getHref());
                 evaluateDecision(namespacePrefix, child, runtimeEnvironment);
             } else {
                 handleError("Incorrect InformationRequirement. Missing required input and decision");
