@@ -214,6 +214,15 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     }
 
     protected void rename(DMNModelRepository repository) {
+        for (TDefinitions definitions: repository.getAllDefinitions()) {
+            for (TImport imp: definitions.getImport()) {
+                if (imp != null && imp.getName() != null) {
+                    String fieldName = "name";
+                    String newValue = transformName(imp.getName());
+                    setField(imp, fieldName, newValue);
+                }
+            }
+        }
         for (TItemDefinition itemDefinition : repository.itemDefinitions()) {
             renameItemDefinitionMembers(itemDefinition);
         }
