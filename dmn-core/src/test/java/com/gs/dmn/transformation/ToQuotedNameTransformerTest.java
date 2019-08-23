@@ -17,17 +17,41 @@ import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+
 import static com.gs.dmn.runtime.Assert.assertEquals;
 
 public class ToQuotedNameTransformerTest extends NameTransformerTest {
     @Test
     public void testTransform() throws Exception {
-        doTest("0004-lending.dmn", new Pair<>("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b", "tns"),
-                "0004-lending-test-01.xml", new Pair<>("http://www.w3.org/2001/XMLSchema-instance", "xsi"));
-        doTest("0007-date-time.dmn", new Pair<>("http://www.trisotech.com/definitions/_69430b3e-17b8-430d-b760-c505bf6469f9", "tns"),
-                "0007-date-time-test-01.xml", new Pair<>("http://www.w3.org/2001/XMLSchema-instance", "xsi"));
-        doTest("0034-drg-scopes.dmn", new Pair<>("http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes", "tns"),
-                "0034-drg-scopes-test-01.xml", new Pair<>("http://www.w3.org/2001/XMLSchema-instance", "xsi"));
+        doTest("0004-lending.dmn", Arrays.asList(),
+                "0004-lending-test-01.xml", new LinkedHashMap<String, Pair<String, String>>() {{
+                    put("0004-lending.dmn", new Pair<String, String>("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b", "tns"));
+                    put("0004-lending-test-01.xml", new Pair<>("http://www.w3.org/2001/XMLSchema-instance", "xsi"));
+                }}
+        );
+        doTest("0007-date-time.dmn", Arrays.asList(),
+                "0007-date-time-test-01.xml", new LinkedHashMap<String, Pair<String, String>>() {{
+                    put("0007-date-time.dmn", new Pair<>("http://www.trisotech.com/definitions/_69430b3e-17b8-430d-b760-c505bf6469f9", "tns"));
+                    put("0007-date-time-test-01.xml",  new Pair<>("http://www.w3.org/2001/XMLSchema-instance", "xsi"));
+                }}
+        );
+        doTest("0034-drg-scopes.dmn", Arrays.asList() ,
+                "0034-drg-scopes-test-01.xml", new LinkedHashMap<String, Pair<String, String>>() {{
+                    put("0034-drg-scopes.dmn", new Pair<>("http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes", "tns"));
+                    put("0034-drg-scopes-test-01.xml", new Pair<>("http://www.w3.org/2001/XMLSchema-instance", "xsi"));
+                }}
+        );
+        doTest("0089-nested-inputdata-imports.dmn", Arrays.asList("0089-model-a.dmn", "0089-model-b.dmn", "0089-model-b2.dmn"),
+                "0089-nested-inputdata-imports-test-01.xml", new LinkedHashMap<String, Pair<String, String>>() {{
+                    put("0089-nested-inputdata-imports.dmn", new Pair<>("http://www.trisotech.com/definitions/_10435dcd-8774-4575-a338-49dd554a0928", null));
+                    put("0089-model-a.dmn", new Pair<>("http://www.trisotech.com/definitions/_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9", null));
+                    put("0089-model-b.dmn", new Pair<>("http://www.trisotech.com/definitions/_2a1d771a-a899-4fef-abd6-fc894332337c", null));
+                    put("0089-model-b2.dmn", new Pair<>("http://www.trisotech.com/definitions/_9d46ece4-a96c-4cb0-abc0-0ca121ac3768", null));
+                    put("0089-nested-inputdata-imports-test-01.xml", new Pair<>("http://www.w3.org/2001/XMLSchema-instance", "xsi"));
+                }}
+        );
     }
 
     @Test

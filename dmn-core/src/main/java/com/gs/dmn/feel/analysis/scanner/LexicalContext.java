@@ -38,6 +38,12 @@ public class LexicalContext {
         this(lexicalContext.names);
     }
 
+    public void addNames(List<String> names) {
+        for (String name: names) {
+            this.addName(name);
+        }
+    }
+
     public void addName(String name) {
         this.ordered = false;
         this.names.add(name);
