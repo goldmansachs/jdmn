@@ -163,9 +163,19 @@ public class DMNModelRepository {
         return prefixNamespaceMappings;
     }
 
+    public List<String> getImportedNames() {
+        List<String> names = new ArrayList<>();
+        for (TDefinitions definitions: this.allDefinitions) {
+            for (TImport imp: definitions.getImport()) {
+                names.add(imp.getName());
+            }
+        }
+        return names;
+    }
+
     public List<TDRGElement> drgElements() {
         List<TDRGElement> result = new ArrayList<>();
-        for (TDefinitions definitions: this.getAllDefinitions()) {
+        for (TDefinitions definitions: this.allDefinitions) {
             drgElements(definitions, result);
         }
         return result;
@@ -173,7 +183,7 @@ public class DMNModelRepository {
 
     public List<TDecision> decisions() {
         List<TDecision> result = new ArrayList<>();
-        for (TDefinitions definitions: this.getAllDefinitions()) {
+        for (TDefinitions definitions: this.allDefinitions) {
             decisions(definitions, result);
         }
         return result;
@@ -181,7 +191,7 @@ public class DMNModelRepository {
 
     public List<TInputData> inputDatas() {
         List<TInputData> result = new ArrayList<>();
-        for (TDefinitions definitions: this.getAllDefinitions()) {
+        for (TDefinitions definitions: this.allDefinitions) {
             inputDatas(definitions, result);
         }
         return result;
@@ -189,7 +199,7 @@ public class DMNModelRepository {
 
     public List<TBusinessKnowledgeModel> businessKnowledgeModels() {
         List<TBusinessKnowledgeModel> result = new ArrayList<>();
-        for (TDefinitions definitions: this.getAllDefinitions()) {
+        for (TDefinitions definitions: this.allDefinitions) {
             businessKnowledgeModels(definitions, result);
         }
         return result;
@@ -197,7 +207,7 @@ public class DMNModelRepository {
 
     public List<TDecisionService> decisionServices() {
         List<TDecisionService> result = new ArrayList<>();
-        for (TDefinitions definitions: this.getAllDefinitions()) {
+        for (TDefinitions definitions: this.allDefinitions) {
             decisionServices(definitions, result);
         }
         return result;
@@ -205,7 +215,7 @@ public class DMNModelRepository {
 
     public List<TItemDefinition> itemDefinitions() {
         List<TItemDefinition> result = new ArrayList<>();
-        for (TDefinitions definitions: this.getAllDefinitions()) {
+        for (TDefinitions definitions: this.allDefinitions) {
             result.addAll(definitions.getItemDefinition());
         }
         return result;
@@ -335,6 +345,16 @@ public class DMNModelRepository {
 
     public void sortNamedElements(List<? extends TNamedElement> result) {
         result.sort(Comparator.comparing((TNamedElement o) -> removeSingleQuotes(o.getName())));
+    }
+
+    public TDRGElement findDRGElementByRef(TDRGElement parent, String href) {
+        TDefinitions definitions = findChildDefinitions(parent, href);
+        for (TDRGElement element : drgElements(definitions)) {
+            if (sameId(element, href)) {
+                return element;
+            }
+        }
+        throw new DMNRuntimeException(String.format("Cannot find DRG element for href='%s'", href));
     }
 
     public TDecision findDecisionByRef(TDRGElement parent, String href) {
