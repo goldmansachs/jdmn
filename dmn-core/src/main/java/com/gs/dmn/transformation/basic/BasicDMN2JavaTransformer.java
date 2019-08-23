@@ -1522,30 +1522,30 @@ public class BasicDMN2JavaTransformer {
     }
 
     private void addDeclaration(Environment elementEnvironment, VariableDeclaration declaration, TDRGElement parent, TDRGElement child) {
-        String namespacePrefix = childNamespacePrefix(parent, child);
-        if (namespacePrefix == null) {
+        String importPath = childImportPath(parent, child);
+        if (importPath == null) {
             elementEnvironment.addDeclaration(declaration);
         } else {
             ContextType contextType = new ContextType();
             contextType.addMember(declaration.getName(), new ArrayList<>(), declaration.getType());
-            Declaration importDeclaration = environmentFactory.makeVariableDeclaration(namespacePrefix, contextType);
+            Declaration importDeclaration = environmentFactory.makeVariableDeclaration(importPath, contextType);
             elementEnvironment.addDeclaration(importDeclaration);
         }
     }
 
     private void addDeclaration(Environment elementEnvironment, FunctionDeclaration declaration, TDRGElement parent, TDRGElement child) {
-        String namespacePrefix = childNamespacePrefix(parent, child);
-        if (namespacePrefix == null) {
+        String importPath = childImportPath(parent, child);
+        if (importPath == null) {
             elementEnvironment.addDeclaration(declaration);
         } else {
             ContextType contextType = new ContextType();
             contextType.addMember(declaration.getName(), new ArrayList<>(), declaration.getType());
-            Declaration importDeclaration = environmentFactory.makeVariableDeclaration(namespacePrefix, contextType);
+            Declaration importDeclaration = environmentFactory.makeVariableDeclaration(importPath, contextType);
             elementEnvironment.addDeclaration(importDeclaration);
         }
     }
 
-    private String childNamespacePrefix(TDRGElement parent, TDRGElement child) {
+    private String childImportPath(TDRGElement parent, TDRGElement child) {
         // Collect references
         List<TDMNElementReference> references = new ArrayList<>();
         if (parent instanceof TDecision) {
@@ -1582,9 +1582,9 @@ public class BasicDMN2JavaTransformer {
         // Find namespace prefix for child
         String id = child.getId();
         for (TDMNElementReference reference: references) {
-            String namespacePrefix = dmnModelRepository.namespacePrefixForId(reference, id);
-            if (namespacePrefix != null) {
-                return namespacePrefix;
+            String importPath = dmnModelRepository.importPathForId(reference, id);
+            if (importPath != null) {
+                return importPath;
             }
         }
         return null;
