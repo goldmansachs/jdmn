@@ -364,8 +364,8 @@ public class TCKUtil {
     public Result evaluate(DMNInterpreter interpreter, TestCase testCase, ResultNode resultNode) {
         String drgElementName = drgElementName(testCase, resultNode);
         TDRGElement drgElement = findDRGElementByName(drgElementName);
-        String namespacePrefix = null;
-        return interpreter.evaluateInvocation(namespacePrefix, drgElementName, makeArgs(drgElement, testCase), makeEnvironment(testCase));
+        String importPath = null;
+        return interpreter.evaluateInvocation(importPath, drgElementName, makeArgs(drgElement, testCase), makeEnvironment(testCase));
     }
 
     private Object makeValue(InputNode inputNode) {
