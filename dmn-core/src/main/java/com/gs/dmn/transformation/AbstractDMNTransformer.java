@@ -65,7 +65,7 @@ public abstract class AbstractDMNTransformer extends AbstractTemplateBasedTransf
         }
     }
 
-    private boolean isDMNFile(File file) {
+    protected boolean isDMNFile(File file) {
         return file.isFile() && file.getName().endsWith(".dmn");
     }
 

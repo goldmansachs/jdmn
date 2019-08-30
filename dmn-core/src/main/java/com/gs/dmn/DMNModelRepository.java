@@ -163,6 +163,10 @@ public class DMNModelRepository {
         return prefixNamespaceMappings;
     }
 
+    public void addElementMap(TDRGElement element, TDefinitions definitions) {
+        this.elementMap.put(element, definitions);
+    }
+
     public List<String> getImportedNames() {
         List<String> names = new ArrayList<>();
         for (TDefinitions definitions: this.allDefinitions) {
