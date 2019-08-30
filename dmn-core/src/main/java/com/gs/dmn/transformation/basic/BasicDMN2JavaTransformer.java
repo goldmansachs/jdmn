@@ -1494,7 +1494,12 @@ public class BasicDMN2JavaTransformer {
     // Environment related functions
     //
     public Environment makeEnvironment(TDRGElement element) {
-        Environment elementEnvironment = environmentFactory.makeEnvironment(environmentFactory.getRootEnvironment());
+        Environment parentEnvironment = environmentFactory.getRootEnvironment();
+        return makeEnvironment(element, parentEnvironment);
+    }
+
+    public Environment makeEnvironment(TDRGElement element, Environment parentEnvironment) {
+        Environment elementEnvironment = environmentFactory.makeEnvironment(parentEnvironment);
 
         List<TDRGElement> elements = getDMNModelRepository().allDrgElements(element);
         for (TDRGElement e: elements) {

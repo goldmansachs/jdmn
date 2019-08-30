@@ -18,12 +18,20 @@ import java.util.Map;
 public class PrefixNamespaceMappings {
     Map<String, String> mappings = new LinkedHashMap<>();
 
+    public String get(String prefix) {
+        return mappings.get(prefix);
+    }
+
     public void put(String prefix, String namespace) {
         mappings.put(prefix, namespace);
     }
 
-    public String get(String prefix) {
-        return mappings.get(prefix);
+    public void renameKey(String oldKey, String newKey) {
+        if (mappings.containsKey(oldKey)) {
+            String value = this.mappings.get(oldKey);
+            this.mappings.remove(oldKey);
+            this.mappings.put(newKey, value);
+        }
     }
 
     public String getPrefix(String namespace) {

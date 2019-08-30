@@ -17,6 +17,7 @@ import com.gs.dmn.feel.analysis.scanner.LexicalContext;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
@@ -218,8 +219,13 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
             for (TImport imp: definitions.getImport()) {
                 if (imp != null && imp.getName() != null) {
                     String fieldName = "name";
-                    String newValue = transformName(imp.getName());
-                    setField(imp, fieldName, newValue);
+                    String oldName = imp.getName();
+                    String newName = transformName(oldName);
+                    if (!oldName.equals(newName)) {
+                        setField(imp, fieldName, newName);
+                        PrefixNamespaceMappings prefixNamespaceMappings = repository.getPrefixNamespaceMappings();
+                        prefixNamespaceMappings.renameKey(oldName, newName);
+                    }
                 }
             }
         }
