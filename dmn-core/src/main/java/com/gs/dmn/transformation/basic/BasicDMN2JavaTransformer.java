@@ -1538,26 +1538,36 @@ public class BasicDMN2JavaTransformer {
     }
 
     private void addDeclaration(Environment elementEnvironment, VariableDeclaration declaration, TDRGElement parent, TDRGElement child) {
-        String importName = childImportName(parent, child);
-        if (ImportPath.isEmpty(importName)) {
-            elementEnvironment.addDeclaration(declaration);
-        } else {
-            ContextType contextType = new ContextType();
-            contextType.addMember(declaration.getName(), new ArrayList<>(), declaration.getType());
-            Declaration importDeclaration = environmentFactory.makeVariableDeclaration(importName, contextType);
-            elementEnvironment.addDeclaration(importDeclaration);
-        }
+        Type type = declaration.getType();
+        addDeclaration(elementEnvironment, declaration, type, parent, child);
     }
 
     private void addDeclaration(Environment elementEnvironment, FunctionDeclaration declaration, TDRGElement parent, TDRGElement child) {
+        FunctionType type = declaration.getType();
+        addDeclaration(elementEnvironment, declaration, type, parent, child);
+    }
+
+    private void addDeclaration(Environment elementEnvironment, Declaration declaration, Type type, TDRGElement parent, TDRGElement child) {
         String importName = childImportName(parent, child);
         if (ImportPath.isEmpty(importName)) {
             elementEnvironment.addDeclaration(declaration);
         } else {
-            ContextType contextType = new ContextType();
-            contextType.addMember(declaration.getName(), new ArrayList<>(), declaration.getType());
-            Declaration importDeclaration = environmentFactory.makeVariableDeclaration(importName, contextType);
-            elementEnvironment.addDeclaration(importDeclaration);
+            Declaration importDeclaration = elementEnvironment.lookupVariableDeclaration(importName);
+            if (importDeclaration == null) {
+                ContextType contextType = new ContextType();
+                contextType.addMember(declaration.getName(), new ArrayList<>(), type);
+                importDeclaration = environmentFactory.makeVariableDeclaration(importName, contextType);
+                elementEnvironment.addDeclaration(importDeclaration);
+            } else if (importDeclaration instanceof VariableDeclaration) {
+                Type importType = ((VariableDeclaration) importDeclaration).getType();
+                if (importType instanceof ContextType) {
+                    ((ContextType) importType).addMember(declaration.getName(), new ArrayList<>(), type);
+                } else {
+                    throw new DMNRuntimeException(String.format("Cannot process declaration for '%s.%s'", importName, declaration.getName()));
+                }
+            } else {
+                throw new DMNRuntimeException(String.format("Cannot process declaration for '%s.%s'", importName, declaration.getName()));
+            }
         }
     }
 

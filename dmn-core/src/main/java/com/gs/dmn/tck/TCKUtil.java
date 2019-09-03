@@ -196,7 +196,11 @@ public class TCKUtil {
     }
 
     private TDRGElement findDRGElementByName(String name) {
-        return dmnTransformer.getDMNModelRepository().findDRGElementByName(name);
+        try {
+            return dmnTransformer.getDMNModelRepository().findDRGElementByName(name);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private Type toFEELType(InputNode inputNode) {
@@ -378,7 +382,7 @@ public class TCKUtil {
             Type type = dmnTransformer.drgElementOutputFEELType(drgElement);
             return makeValue(inputNode, type);
         } else {
-            throw new UnsupportedOperationException(String.format("Not supported DRGElement '%s'", drgElement.getClass().getSimpleName()));
+            return makeValue(inputNode, null);
         }
     }
 
@@ -442,7 +446,7 @@ public class TCKUtil {
         List<Component> components = valueType.getComponent();
         for (Component c : components) {
             String name = c.getName();
-            Type memberType = type.getMemberType(name);
+            Type memberType = type == null ? null : type.getMemberType(name);
             Object value = makeValue(c, memberType);
             context.add(name, value);
         }

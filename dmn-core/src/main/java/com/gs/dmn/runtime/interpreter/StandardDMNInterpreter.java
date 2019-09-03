@@ -415,13 +415,41 @@ public class StandardDMNInterpreter implements DMNInterpreter {
             TDMNElementReference requiredInput = informationRequirement.getRequiredInput();
             TDMNElementReference requiredDecision = informationRequirement.getRequiredDecision();
             if (requiredInput != null) {
+                TInputData child = dmnModelRepository.findInputDataByRef(parent, requiredInput.getHref());
+                String importName = dmnModelRepository.importName(requiredInput);
+                ImportPath childImportPath = new ImportPath(importPath, importName);
+                String inputName = child.getName();
+
+                // Add new binding to match path in parent
+                addBinding(runtimeEnvironment, childImportPath, importName, inputName);
             } else if (requiredDecision != null) {
-                String childImportName = dmnModelRepository.importName(requiredDecision);
-                ImportPath childImportPath = new ImportPath(importPath, childImportName);
                 TDecision child = dmnModelRepository.findDecisionByRef(parent, requiredDecision.getHref());
+                String importName = dmnModelRepository.importName(requiredDecision);
+                ImportPath childImportPath = new ImportPath(importPath, importName);
                 evaluateDecision(childImportPath, child, runtimeEnvironment);
+                String inputName = child.getName();
+
+                // Add new binding to match path in parent
+                addBinding(runtimeEnvironment, childImportPath, importName, inputName);
             } else {
                 handleError("Incorrect InformationRequirement. Missing required input and decision");
+            }
+        }
+    }
+
+    private void addBinding(RuntimeEnvironment runtimeEnvironment, ImportPath importPath, String importName, String name) {
+        if (!ImportPath.isEmpty(importPath)) {
+            List<String> pathElements = importPath.getPathElements();
+            String rootName = pathElements.get(0);
+            Object value = runtimeEnvironment.lookupBinding(rootName);
+            for (int i = 1; i < pathElements.size(); i++) {
+                value = ((Context) value).get(pathElements.get(i));
+            }
+            value = ((Context) value).get(name);
+            if (ImportPath.isEmpty(importName)) {
+                runtimeEnvironment.bind(name, value);
+            } else {
+                bind(runtimeEnvironment, new ImportPath(importName), name, value);
             }
         }
     }
