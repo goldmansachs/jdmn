@@ -121,7 +121,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         EVENT_LISTENER.startDRGElement(drgElementAnnotation, decisionArguments);
 
         // Bind parameters
-        Environment bkmEnvironment = environmentFactory.makeEnvironment(context.getEnvironment());
+        Environment bkmEnvironment = basicDMNTransformer.makeEnvironment(bkm, context.getEnvironment());
         List<TInformationItem> formalParameterList = bkm.getEncapsulatedLogic().getFormalParameter();
         for (int i = 0; i < formalParameterList.size(); i++) {
             TInformationItem param = formalParameterList.get(i);
