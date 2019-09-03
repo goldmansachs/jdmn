@@ -930,7 +930,7 @@ public class DMNModelRepository {
         return name;
     }
 
-    public String importPath(TDMNElementReference reference) {
+    public String importName(TDMNElementReference reference) {
         if (reference != null) {
             String href = reference.getHref();
             String namespace = extractNamespace(href);
@@ -944,7 +944,7 @@ public class DMNModelRepository {
         return  null;
     }
 
-    public String importPathForId(TDMNElementReference reference, String id) {
+    public String importNameForId(TDMNElementReference reference, String id) {
         if (reference != null) {
             String href = reference.getHref();
             if (href.contains(id)) {

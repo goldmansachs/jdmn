@@ -663,7 +663,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
                 Result result = dmnInterpreter.evaluateInvocation(null, (TBusinessKnowledgeModel) binding, argList, context);
                 return Result.value(result);
             } else if (binding instanceof TDecisionService) {
-                Result result = dmnInterpreter.evaluateInvocation( null, (TDecisionService) binding, argList, context);
+                Result result = dmnInterpreter.evaluateInvocation(null, (TDecisionService) binding, argList, context);
                 return Result.value(result);
             } else if (binding instanceof TFunctionDefinition) {
                 TFunctionKind kind = ((TFunctionDefinition) binding).getKind();

@@ -1587,7 +1587,7 @@ public class BasicDMN2JavaTransformer {
         // Find namespace prefix for child
         String id = child.getId();
         for (TDMNElementReference reference: references) {
-            String importPath = dmnModelRepository.importPathForId(reference, id);
+            String importPath = dmnModelRepository.importNameForId(reference, id);
             if (importPath != null) {
                 return importPath;
             }
