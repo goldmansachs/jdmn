@@ -1507,47 +1507,34 @@ public class BasicDMN2JavaTransformer {
         for (TDRGElement e: elements) {
             // Create child environment to infer type if needed
             Environment childEnvironment = makeEnvironment(e, elementEnvironment);
-            if (e instanceof TInputData) {
-                Declaration declaration = makeVariableDeclaration(e, ((TInputData) e).getVariable(), childEnvironment);
-                addDeclaration(elementEnvironment, (VariableDeclaration) declaration, element, e);
-            } else if (e instanceof TBusinessKnowledgeModel) {
-                TFunctionDefinition functionDefinition = ((TBusinessKnowledgeModel) e).getEncapsulatedLogic();
-                functionDefinition.getFormalParameter().forEach(
-                        p -> elementEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(p.getName(), toFEELType(QualifiedName.toQualifiedName(p.getTypeRef())))));
-                FunctionDeclaration declaration = makeInvocableDeclaration((TBusinessKnowledgeModel) e, childEnvironment);
-                addDeclaration(elementEnvironment, declaration, element, e);
-            } else if (e instanceof TDecision) {
-                Declaration declaration = makeVariableDeclaration(e, ((TDecision) e).getVariable(), childEnvironment);
-                addDeclaration(elementEnvironment, (VariableDeclaration) declaration, element, e);
-            } else if (e instanceof TDecisionService) {
-                FunctionDeclaration declaration = makeInvocableDeclaration((TDecisionService) e, childEnvironment);
-                addDeclaration(elementEnvironment, declaration, element, e);
-            } else {
-                throw new UnsupportedOperationException(String.format("'%s' is not supported yet", element.getClass().getSimpleName()));
-            }
+            addDeclaration(element, elementEnvironment, e, childEnvironment);
         }
 
         // Add declaration of element to support recursion
-        if (element instanceof TInputData) {
-            Declaration declaration = makeVariableDeclaration(element, ((TInputData) element).getVariable(), elementEnvironment);
-            addDeclaration(elementEnvironment, (VariableDeclaration) declaration, element, element);
-        } else if (element instanceof TBusinessKnowledgeModel) {
-            TFunctionDefinition functionDefinition = ((TBusinessKnowledgeModel) element).getEncapsulatedLogic();
-            functionDefinition.getFormalParameter().forEach(
-                    p -> elementEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(p.getName(), toFEELType(QualifiedName.toQualifiedName(p.getTypeRef())))));
-            FunctionDeclaration declaration = makeInvocableDeclaration((TBusinessKnowledgeModel) element, elementEnvironment);
-            addDeclaration(elementEnvironment, declaration, element, element);
-        } else if (element instanceof TDecision) {
-            Declaration declaration = makeVariableDeclaration(element, ((TDecision) element).getVariable(), elementEnvironment);
-            addDeclaration(elementEnvironment, (VariableDeclaration) declaration, element, element);
-        } else if (element instanceof TDecisionService) {
-            FunctionDeclaration declaration = makeInvocableDeclaration((TDecisionService) element, elementEnvironment);
-            addDeclaration(elementEnvironment, declaration, element, element);
-        } else {
-            throw new UnsupportedOperationException(String.format("'%s' is not supported yet", element.getClass().getSimpleName()));
-        }
+        addDeclaration(element, elementEnvironment, element, elementEnvironment);
 
         return elementEnvironment;
+    }
+
+    private void addDeclaration(TDRGElement parent, Environment parentEnvironment, TDRGElement child, Environment childEnvironment) {
+        if (child instanceof TInputData) {
+            Declaration declaration = makeVariableDeclaration(child, ((TInputData) child).getVariable(), childEnvironment);
+            addDeclaration(parentEnvironment, (VariableDeclaration) declaration, parent, child);
+        } else if (child instanceof TBusinessKnowledgeModel) {
+            TFunctionDefinition functionDefinition = ((TBusinessKnowledgeModel) child).getEncapsulatedLogic();
+            functionDefinition.getFormalParameter().forEach(
+                    p -> parentEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(p.getName(), toFEELType(QualifiedName.toQualifiedName(p.getTypeRef())))));
+            FunctionDeclaration declaration = makeInvocableDeclaration((TBusinessKnowledgeModel) child, childEnvironment);
+            addDeclaration(parentEnvironment, declaration, parent, child);
+        } else if (child instanceof TDecision) {
+            Declaration declaration = makeVariableDeclaration(child, ((TDecision) child).getVariable(), childEnvironment);
+            addDeclaration(parentEnvironment, (VariableDeclaration) declaration, parent, child);
+        } else if (child instanceof TDecisionService) {
+            FunctionDeclaration declaration = makeInvocableDeclaration((TDecisionService) child, childEnvironment);
+            addDeclaration(parentEnvironment, declaration, parent, child);
+        } else {
+            throw new UnsupportedOperationException(String.format("'%s' is not supported yet", parent.getClass().getSimpleName()));
+        }
     }
 
     private void addDeclaration(Environment elementEnvironment, VariableDeclaration declaration, TDRGElement parent, TDRGElement child) {
