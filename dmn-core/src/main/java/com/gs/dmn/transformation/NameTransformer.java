@@ -47,6 +47,18 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         return Character.isJavaIdentifierPart(codePoint);
     }
 
+    public static boolean isSimpleName(String name) {
+        if (!isSimpleNameStart(name.codePointAt(0))) {
+            return false;
+        }
+        for (int cp : name.codePoints().toArray()) {
+            if (!(isSimpleNamePart(cp))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     protected final BuildLogger logger;
     private boolean transformDefinition = true;
     private final Set<TDMNElement> renamedElements = new LinkedHashSet();
