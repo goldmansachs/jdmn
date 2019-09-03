@@ -660,11 +660,9 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
             String feelFunctionName = functionName(function);
             Object binding = context.lookupRuntimeBinding(feelFunctionName);
             if (binding instanceof TBusinessKnowledgeModel) {
-                Result result = dmnInterpreter.evaluateInvocation(null, (TBusinessKnowledgeModel) binding, argList, context);
-                return Result.value(result);
+                return evaluateInvocable(argList, context, (TInvocable) binding);
             } else if (binding instanceof TDecisionService) {
-                Result result = dmnInterpreter.evaluateInvocation(null, (TDecisionService) binding, argList, context);
-                return Result.value(result);
+                return evaluateInvocable(argList, context, (TInvocable) binding);
             } else if (binding instanceof TFunctionDefinition) {
                 TFunctionKind kind = ((TFunctionDefinition) binding).getKind();
                 if (dmnTransformer.isFEELFunction(kind)) {
@@ -704,11 +702,9 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         } else {
             Object binding = function.accept(this, context);
             if (binding instanceof TBusinessKnowledgeModel) {
-                Result result = dmnInterpreter.evaluateInvocation(null, (TBusinessKnowledgeModel) binding, argList, context);
-                return Result.value(result);
+                return evaluateInvocable(argList, context, (TInvocable) binding);
             } else if (binding instanceof TDecisionService) {
-                Result result = dmnInterpreter.evaluateInvocation(null, (TDecisionService) binding, argList, context);
-                return Result.value(result);
+                return evaluateInvocable(argList, context, (TInvocable) binding);
             } else if (binding instanceof TFunctionDefinition) {
                 Result result = dmnInterpreter.evaluateInvocation((TFunctionDefinition) binding, argList, context);
                 return Result.value(result);
@@ -725,6 +721,13 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
                 throw new DMNRuntimeException(String.format("Not supported yet %s", binding.getClass().getSimpleName()));
             }
         }
+    }
+
+    private Object evaluateInvocable(List<Object> argList, FEELContext context, TInvocable invocable) {
+        Environment environment = dmnTransformer.makeEnvironment(invocable, context.getEnvironment());
+        FEELContext boundContext = FEELContext.makeContext(environment, context.getRuntimeEnvironment());
+        Result result = dmnInterpreter.evaluateInvocation(null, invocable, argList, boundContext);
+        return Result.value(result);
     }
 
     private boolean isJavaFunction(Expression body) {

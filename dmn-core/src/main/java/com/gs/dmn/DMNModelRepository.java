@@ -447,11 +447,17 @@ public class DMNModelRepository {
             for (TInformationRequirement ir : ((TDecision) element).getInformationRequirement()) {
                 TDMNElementReference requiredDecision = ir.getRequiredDecision();
                 if (requiredDecision != null) {
-                    decisions.add(findDecisionByRef(element, requiredDecision.getHref()));
+                    TDecision childDecision = findDecisionByRef(element, requiredDecision.getHref());
+                    decisions.add(childDecision);
                 }
             }
-            sortNamedElements(decisions);
+        } else if (element instanceof TDecisionService) {
+            for (TDMNElementReference outputDecisionRef : ((TDecisionService) element).getOutputDecision()) {
+                TDecision childDecision = findDecisionByRef(element, outputDecisionRef.getHref());
+                decisions.add(childDecision);
+            }
         }
+        sortNamedElements(decisions);
         return decisions;
     }
 
@@ -593,63 +599,12 @@ public class DMNModelRepository {
         }
     }
 
-    public List<TDRGElement> allDrgElements(TDRGElement element) {
+    public List<TDRGElement> directDRGElements(TDRGElement element) {
         List<TDRGElement> result = new ArrayList<>();
-        collectDrgElements(element, result);
+        result.addAll(directInputDatas(element));
+        result.addAll(directSubDecisions(element));
+        result.addAll(directSubInvocables(element));
         return result;
-    }
-
-    private void collectDrgElements(TDRGElement element, List<TDRGElement> accumulator) {
-        if (element instanceof TInputData) {
-            // Add input data
-            if (!accumulator.contains(element)) {
-                accumulator.add(element);
-            }
-        } else if (element instanceof TBusinessKnowledgeModel) {
-            // Process knowledge requirements
-            List<TKnowledgeRequirement> krList = ((TBusinessKnowledgeModel) element).getKnowledgeRequirement();
-            for(TKnowledgeRequirement kr: krList) {
-                TInvocable invocable = findInvocableByRef(element, kr.getRequiredKnowledge().getHref());
-                collectDrgElements(invocable, accumulator);
-            }
-            // Add BKM
-            if (!accumulator.contains(element)) {
-                accumulator.add(element);
-            }
-        } else if (element instanceof TDecisionService) {
-            // Process output decisions
-            List<TDMNElementReference> decisionRefList = ((TDecisionService) element).getOutputDecision();
-            for(TDMNElementReference ref: decisionRefList) {
-                collectDrgElements(findDecisionByRef(element, ref.getHref()), accumulator);
-            }
-            // Add Decision Service
-            if (!accumulator.contains(element)) {
-                accumulator.add(element);
-            }
-        } else if (element instanceof TDecision) {
-            // Process knowledge requirements
-            List<TKnowledgeRequirement> krList = ((TDecision) element).getKnowledgeRequirement();
-            for(TKnowledgeRequirement kr: krList) {
-                TInvocable invocable = findInvocableByRef(element, kr.getRequiredKnowledge().getHref());
-                collectDrgElements(invocable, accumulator);
-            }
-            // Process information requirements
-            List<TInformationRequirement> irList = ((TDecision) element).getInformationRequirement();
-            for(TInformationRequirement ir: irList) {
-                TDMNElementReference requiredInput = ir.getRequiredInput();
-                if (requiredInput != null) {
-                    collectDrgElements(findInputDataByRef(element, requiredInput.getHref()), accumulator);
-                }
-                TDMNElementReference requiredDecision = ir.getRequiredDecision();
-                if (requiredDecision != null) {
-                    collectDrgElements(findDecisionByRef(element, requiredDecision.getHref()), accumulator);
-                }
-            }
-            // Add decision
-            if (!accumulator.contains(element)) {
-                accumulator.add(element);
-            }
-        }
     }
 
     public TDecisionTable decisionTable(TDRGElement element) {
