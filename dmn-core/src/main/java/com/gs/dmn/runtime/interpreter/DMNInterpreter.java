@@ -27,11 +27,11 @@ public interface DMNInterpreter {
 
     FEELLib getFeelLib();
 
-    Result evaluate(String importPath, String drgElementName, RuntimeEnvironment runtimeEnvironment);
+    Result evaluate(ImportPath importPath, String drgElementName, RuntimeEnvironment runtimeEnvironment);
 
-    Result evaluateInvocation(String importPath, String drgElementName, List<Object> args, RuntimeEnvironment context);
+    Result evaluateInvocation(ImportPath importPath, String drgElementName, List<Object> args, RuntimeEnvironment context);
 
-    Result evaluateInvocation(String importPath, TDRGElement drgElement, List<Object> args, FEELContext context);
+    Result evaluateInvocation(ImportPath importPath, TDRGElement drgElement, List<Object> args, FEELContext context);
 
     Result evaluateInvocation(TFunctionDefinition functionDefinition, List<Object> args, FEELContext context);
 

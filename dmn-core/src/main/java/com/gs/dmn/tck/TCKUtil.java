@@ -20,6 +20,7 @@ import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
+import com.gs.dmn.runtime.interpreter.ImportPath;
 import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
@@ -364,7 +365,7 @@ public class TCKUtil {
     public Result evaluate(DMNInterpreter interpreter, TestCase testCase, ResultNode resultNode) {
         String drgElementName = drgElementName(testCase, resultNode);
         TDRGElement drgElement = findDRGElementByName(drgElementName);
-        String importPath = null;
+        ImportPath importPath = null;
         return interpreter.evaluateInvocation(importPath, drgElementName, makeArgs(drgElement, testCase), makeEnvironment(testCase));
     }
 

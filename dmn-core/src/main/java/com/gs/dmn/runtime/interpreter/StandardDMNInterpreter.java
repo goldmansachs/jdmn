@@ -80,7 +80,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
     }
 
     @Override
-    public Result evaluate(String importPath, String drgElementName, RuntimeEnvironment runtimeEnvironment) {
+    public Result evaluate(ImportPath importPath, String drgElementName, RuntimeEnvironment runtimeEnvironment) {
         TDRGElement drgElement = dmnModelRepository.findDRGElementByName(drgElementName);
         evaluate(importPath, drgElement, runtimeEnvironment);
         Object value = lookupBinding(runtimeEnvironment, importPath, drgElementName);
@@ -88,14 +88,14 @@ public class StandardDMNInterpreter implements DMNInterpreter {
     }
 
     @Override
-    public Result evaluateInvocation(String importPath, String drgElementName, List<Object> args, RuntimeEnvironment runtimeEnvironment) {
+    public Result evaluateInvocation(ImportPath importPath, String drgElementName, List<Object> args, RuntimeEnvironment runtimeEnvironment) {
         TDRGElement drgElement = dmnModelRepository.findDRGElementByName(drgElementName);
         Environment environment = basicDMNTransformer.makeEnvironment(drgElement);
         return evaluateInvocation(importPath, drgElement, args, FEELContext.makeContext(environment, runtimeEnvironment));
     }
 
     @Override
-    public Result evaluateInvocation(String importPath, TDRGElement drgElement, List<Object> args, FEELContext context) {
+    public Result evaluateInvocation(ImportPath importPath, TDRGElement drgElement, List<Object> args, FEELContext context) {
         Result actualOutput;
         if (drgElement instanceof TInputData) {
             actualOutput = evaluate(importPath, drgElement.getName(), context.getRuntimeEnvironment());
@@ -111,7 +111,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         return actualOutput;
     }
 
-    private Result evaluateInvocation(String importPath, TBusinessKnowledgeModel bkm, List<Object> argList, FEELContext context) {
+    private Result evaluateInvocation(ImportPath importPath, TBusinessKnowledgeModel bkm, List<Object> argList, FEELContext context) {
         RuntimeEnvironment bkmRuntimeEnvironment = runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment());
 
         // BKM start
@@ -153,7 +153,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         return result;
     }
 
-    private Result evaluateInvocation(String importPath, TDecisionService service, List<Object> argList, FEELContext context) {
+    private Result evaluateInvocation(ImportPath importPath, TDecisionService service, List<Object> argList, FEELContext context) {
         RuntimeEnvironment serviceRuntimeEnvironment = runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment());
 
         // Decision Service start
@@ -181,28 +181,31 @@ public class StandardDMNInterpreter implements DMNInterpreter {
 
         // Evaluate output decisions
         List<TDecision> outputDecisions = new ArrayList<>();
-        List<String> outputDecisionPrefixes = new ArrayList<>();
+        List<ImportPath> outputDecisionImportPaths = new ArrayList<>();
         for (TDMNElementReference reference: service.getOutputDecision()) {
-            String childImportPath = dmnModelRepository.importPath(reference);
             TDecision decision = dmnModelRepository.findDecisionByRef(service, reference.getHref());
             outputDecisions.add(decision);
-            outputDecisionPrefixes.add(childImportPath);
-            evaluateDecision(childImportPath, decision, serviceRuntimeEnvironment);
+
+            String importName = dmnModelRepository.importName(reference);
+            ImportPath decisionImportPath = new ImportPath(importPath, importName);
+            outputDecisionImportPaths.add(decisionImportPath);
+
+            evaluateDecision(decisionImportPath, decision, serviceRuntimeEnvironment);
         }
 
         // Make context result
         Object output = null;
         if (outputDecisions.size() == 1) {
             String key = outputDecisions.get(0).getName();
-            String prefix = outputDecisionPrefixes.get(0);
-            output = lookupBinding(serviceRuntimeEnvironment, prefix, key);
+            ImportPath childImportPath = outputDecisionImportPaths.get(0);
+            output = lookupBinding(serviceRuntimeEnvironment, childImportPath, key);
         } else {
             output = new Context();
             for(int i=0; i < outputDecisions.size(); i++) {
                 TDecision decision = outputDecisions.get(i);
-                String prefix = outputDecisionPrefixes.get(i);
+                ImportPath decisionImportPath = outputDecisionImportPaths.get(i);
                 String key = decision.getName();
-                Object value = lookupBinding(serviceRuntimeEnvironment, prefix, key);
+                Object value = lookupBinding(serviceRuntimeEnvironment, decisionImportPath, key);
                 ((Context) output).add(key, value);
             }
         }
@@ -249,7 +252,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         return output;
     }
 
-    private void evaluate(String importPath, TDRGElement drgElement, RuntimeEnvironment runtimeEnvironment) {
+    private void evaluate(ImportPath importPath, TDRGElement drgElement, RuntimeEnvironment runtimeEnvironment) {
         if (drgElement instanceof TInputData) {
         } else if (drgElement instanceof TBusinessKnowledgeModel) {
             evaluateBKM(importPath, (TBusinessKnowledgeModel) drgElement, runtimeEnvironment);
@@ -262,26 +265,32 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         }
     }
 
-    private void evaluateKnowledgeRequirements(TDRGElement parent, List<TKnowledgeRequirement> knowledgeRequirementList, RuntimeEnvironment runtimeEnvironment) {
+    private void evaluateKnowledgeRequirements(ImportPath importPath, TDRGElement parent, List<TKnowledgeRequirement> knowledgeRequirementList, RuntimeEnvironment runtimeEnvironment) {
         for (TKnowledgeRequirement requirement : knowledgeRequirementList) {
+            // Find invocable
             TDMNElementReference requiredKnowledge = requirement.getRequiredKnowledge();
             String href = requiredKnowledge.getHref();
             TInvocable invocable = this.dmnModelRepository.findInvocableByRef(parent, href);
-            String importPath = dmnModelRepository.importPath(requiredKnowledge);
+
+            // Calculate import path
+            String importName = dmnModelRepository.importName(requiredKnowledge);
+            ImportPath invocableImportPath = new ImportPath(importPath, importName);
+
+            // Evaluate invocable
             if (invocable instanceof TBusinessKnowledgeModel) {
-                evaluateBKM(importPath, (TBusinessKnowledgeModel) invocable, runtimeEnvironment);
+                evaluateBKM(invocableImportPath, (TBusinessKnowledgeModel) invocable, runtimeEnvironment);
             } else if (invocable instanceof TDecisionService) {
-                evaluateDecisionService(importPath, (TDecisionService) invocable, runtimeEnvironment);
+                evaluateDecisionService(invocableImportPath, (TDecisionService) invocable, runtimeEnvironment);
             } else {
                 throw new UnsupportedOperationException(String.format("Not supported invocable '%s'", invocable.getClass().getSimpleName()));
             }
         }
     }
 
-    private void evaluateBKM(String importPath, TBusinessKnowledgeModel bkm, RuntimeEnvironment runtimeEnvironment) {
+    private void evaluateBKM(ImportPath importPath, TBusinessKnowledgeModel bkm, RuntimeEnvironment runtimeEnvironment) {
         // Evaluate knowledge requirements
         List<TKnowledgeRequirement> knowledgeRequirement = bkm.getKnowledgeRequirement();
-        evaluateKnowledgeRequirements(bkm, knowledgeRequirement, runtimeEnvironment);
+        evaluateKnowledgeRequirements(importPath, bkm, knowledgeRequirement, runtimeEnvironment);
 
         // Bind name to DMN definition
         String bkmName = bkm.getName();
@@ -291,7 +300,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         bind(runtimeEnvironment, importPath, bkmName, bkm);
     }
 
-    private void evaluateDecisionService(String importPath, TDecisionService service, RuntimeEnvironment runtimeEnvironment) {
+    private void evaluateDecisionService(ImportPath importPath, TDecisionService service, RuntimeEnvironment runtimeEnvironment) {
         // Bind name to DMN definition
         String serviceName = service.getName();
         if (serviceName == null) {
@@ -300,7 +309,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         bind(runtimeEnvironment, importPath, serviceName, service);
     }
 
-    protected void evaluateDecision(String importPath, TDecision decision, RuntimeEnvironment runtimeEnvironment) {
+    protected void evaluateDecision(ImportPath importPath, TDecision decision, RuntimeEnvironment runtimeEnvironment) {
         // Decision start
         long startTime_ = System.currentTimeMillis();
         DRGElement drgElementAnnotation = makeDRGElementAnnotation(decision, runtimeEnvironment);
@@ -315,8 +324,8 @@ public class StandardDMNInterpreter implements DMNInterpreter {
             output = lookupBinding(runtimeEnvironment, importPath, decisionName);
         } else {
             // Evaluate dependencies
-            evaluateInformationRequirementList(decision, decision.getInformationRequirement(), runtimeEnvironment);
-            evaluateKnowledgeRequirements(decision, decision.getKnowledgeRequirement(), runtimeEnvironment);
+            evaluateInformationRequirementList(importPath, decision, decision.getInformationRequirement(), runtimeEnvironment);
+            evaluateKnowledgeRequirements(importPath, decision, decision.getKnowledgeRequirement(), runtimeEnvironment);
 
             // Evaluate expression
             TExpression expression = dmnModelRepository.expression(decision);
@@ -337,25 +346,62 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         EVENT_LISTENER.endDRGElement(drgElementAnnotation, decisionArguments, output, (System.currentTimeMillis() - startTime_));
     }
 
-    private void bind(RuntimeEnvironment runtimeEnvironment, String importPath, String name, Object value) {
-        if (importPath == null) {
+    private void bind(RuntimeEnvironment runtimeEnvironment, ImportPath importPath, String name, Object value) {
+        if (ImportPath.isEmpty(importPath)) {
             runtimeEnvironment.bind(name, value);
         } else {
-            Context context = (Context) runtimeEnvironment.lookupBinding(importPath);
-            if (context == null) {
-                context = new Context();
-                runtimeEnvironment.bind(importPath, context);
+            try {
+                List<String> pathElements = importPath.getPathElements();
+                // lookup or bind root context
+                String rootName = pathElements.get(0);
+                Context parentContext = (Context) runtimeEnvironment.lookupBinding(rootName);
+                if (parentContext == null) {
+                    parentContext = new Context();
+                    runtimeEnvironment.bind(rootName, parentContext);
+                }
+                // lookup or bind inner contexts
+                for (int i = 1; i < pathElements.size(); i++) {
+                    String childName = pathElements.get(i);
+                    Context childContext = (Context) parentContext.get(childName);
+                    if (childContext == null) {
+                        childContext = new Context();
+                        parentContext.put(childName, childContext);
+                    }
+                    parentContext = childContext;
+                }
+                // bind name -> value
+                parentContext.put(name, value);
+            } catch (Exception e) {
+                throw new DMNRuntimeException(String.format("cannot bind value to '%s.%s'", importPath.asString(), name));
             }
-            context.put(name, value);
         }
     }
 
-    private Object lookupBinding(RuntimeEnvironment runtimeEnvironment, String importPath, String drgElementName) {
-        if (importPath == null) {
-            return runtimeEnvironment.lookupBinding(drgElementName);
+    private Object lookupBinding(RuntimeEnvironment runtimeEnvironment, ImportPath importPath, String name) {
+        if (ImportPath.isEmpty(importPath)) {
+            return runtimeEnvironment.lookupBinding(name);
         } else {
-            Context context = (Context) runtimeEnvironment.lookupBinding(importPath);
-            return context.get(drgElementName);
+            List<String> pathElements = importPath.getPathElements();
+            // Lookup root context
+            String rootName = pathElements.get(0);
+            Object obj = runtimeEnvironment.lookupBinding(rootName);
+            if (obj instanceof Context) {
+                // Lookup inner contexts
+                Context parentContext = (Context) obj;
+                for (int i = 1; i < pathElements.size(); i++) {
+                    String childName = pathElements.get(i);
+                    Context childContext = (Context) parentContext.get(childName);
+                    if (childContext == null) {
+                        childContext = new Context();
+                        parentContext.put(childName, childContext);
+                    }
+                    parentContext = childContext;
+                }
+                // lookup name
+                return parentContext.get(name);
+            } else {
+                throw new DMNRuntimeException(String.format("Context value expected, found '%s'", obj.getClass().getSimpleName()));
+            }
         }
     }
 
@@ -364,15 +410,16 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         return true;
     }
 
-    private void evaluateInformationRequirementList(TDRGElement parent, List<TInformationRequirement> informationRequirementList, RuntimeEnvironment runtimeEnvironment) {
+    private void evaluateInformationRequirementList(ImportPath importPath, TDRGElement parent, List<TInformationRequirement> informationRequirementList, RuntimeEnvironment runtimeEnvironment) {
         for (TInformationRequirement informationRequirement : informationRequirementList) {
             TDMNElementReference requiredInput = informationRequirement.getRequiredInput();
             TDMNElementReference requiredDecision = informationRequirement.getRequiredDecision();
             if (requiredInput != null) {
             } else if (requiredDecision != null) {
-                String importPath = dmnModelRepository.importPath(requiredDecision);
+                String childImportName = dmnModelRepository.importName(requiredDecision);
+                ImportPath childImportPath = new ImportPath(importPath, childImportName);
                 TDecision child = dmnModelRepository.findDecisionByRef(parent, requiredDecision.getHref());
-                evaluateDecision(importPath, child, runtimeEnvironment);
+                evaluateDecision(childImportPath, child, runtimeEnvironment);
             } else {
                 handleError("Incorrect InformationRequirement. Missing required input and decision");
             }
