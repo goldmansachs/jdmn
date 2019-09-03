@@ -32,6 +32,7 @@ import com.gs.dmn.runtime.cache.Cache;
 import com.gs.dmn.runtime.cache.DefaultCache;
 import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
 import com.gs.dmn.runtime.external.ExternalFunctionExecutor;
+import com.gs.dmn.runtime.interpreter.ImportPath;
 import com.gs.dmn.runtime.listener.Arguments;
 import com.gs.dmn.runtime.listener.EventListener;
 import com.gs.dmn.runtime.listener.LoggingEventListener;
@@ -1527,30 +1528,30 @@ public class BasicDMN2JavaTransformer {
     }
 
     private void addDeclaration(Environment elementEnvironment, VariableDeclaration declaration, TDRGElement parent, TDRGElement child) {
-        String importPath = childImportPath(parent, child);
-        if (importPath == null) {
+        String importName = childImportName(parent, child);
+        if (ImportPath.isEmpty(importName)) {
             elementEnvironment.addDeclaration(declaration);
         } else {
             ContextType contextType = new ContextType();
             contextType.addMember(declaration.getName(), new ArrayList<>(), declaration.getType());
-            Declaration importDeclaration = environmentFactory.makeVariableDeclaration(importPath, contextType);
+            Declaration importDeclaration = environmentFactory.makeVariableDeclaration(importName, contextType);
             elementEnvironment.addDeclaration(importDeclaration);
         }
     }
 
     private void addDeclaration(Environment elementEnvironment, FunctionDeclaration declaration, TDRGElement parent, TDRGElement child) {
-        String importPath = childImportPath(parent, child);
-        if (importPath == null) {
+        String importName = childImportName(parent, child);
+        if (ImportPath.isEmpty(importName)) {
             elementEnvironment.addDeclaration(declaration);
         } else {
             ContextType contextType = new ContextType();
             contextType.addMember(declaration.getName(), new ArrayList<>(), declaration.getType());
-            Declaration importDeclaration = environmentFactory.makeVariableDeclaration(importPath, contextType);
+            Declaration importDeclaration = environmentFactory.makeVariableDeclaration(importName, contextType);
             elementEnvironment.addDeclaration(importDeclaration);
         }
     }
 
-    private String childImportPath(TDRGElement parent, TDRGElement child) {
+    private String childImportName(TDRGElement parent, TDRGElement child) {
         // Collect references
         List<TDMNElementReference> references = new ArrayList<>();
         if (parent instanceof TDecision) {
@@ -1587,9 +1588,9 @@ public class BasicDMN2JavaTransformer {
         // Find namespace prefix for child
         String id = child.getId();
         for (TDMNElementReference reference: references) {
-            String importPath = dmnModelRepository.importNameForId(reference, id);
-            if (importPath != null) {
-                return importPath;
+            String importName = dmnModelRepository.importNameForId(reference, id);
+            if (importName != null) {
+                return importName;
             }
         }
         return null;
