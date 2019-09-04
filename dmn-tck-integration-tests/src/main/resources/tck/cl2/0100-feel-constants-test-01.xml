@@ -11,12 +11,12 @@
 		<description>Tests FEEL boolean constants</description>
 		<resultNode name="Decision1" type="decision">
 			<expected>
-				<value>true</value>
+				<value xsi:type="xsd:boolean">true</value>
 			</expected>
 		</resultNode>
 		<resultNode name="Decision2" type="decision">
 			<expected>
-				<value>false</value>
+				<value xsi:type="xsd:boolean">false</value>
 			</expected>
 		</resultNode>
 	</testCase>

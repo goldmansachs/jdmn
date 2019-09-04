@@ -20,42 +20,42 @@
 	</labels>
 	<testCase id="001">
 		<inputNode name="R Value">
-			<value>0</value>
+			<value xsi:type="xsd:decimal">0</value>
 		</inputNode>
 		<inputNode name="G Value">
-			<value>65</value>
+			<value xsi:type="xsd:decimal">65</value>
 		</inputNode>
 		<inputNode name="B Value">
-			<value>83</value>
+			<value xsi:type="xsd:decimal">83</value>
 		</inputNode>
 		<resultNode name="Profile of Color" type="decision">
 			<expected>
 				<component name="RGB notation">
 					<component name="R">
-						<value>0</value>
+						<value xsi:type="xsd:decimal">0</value>
 					</component>
 					<component name="G">
-						<value>65</value>
+						<value xsi:type="xsd:decimal">65</value>
 					</component>
 					<component name="B">
-						<value>83</value>
+						<value xsi:type="xsd:decimal">83</value>
 					</component>
 				</component>
 				<component name="Hex notation">
-					<value>#004153</value>
+					<value xsi:type="xsd:string">#004153</value>
 				</component>
 				<component name="CMYK notation">
 					<component name="C">
-						<value>100</value>
+						<value xsi:type="xsd:decimal">100</value>
 					</component>
 					<component name="M">
-						<value>22</value>
+						<value xsi:type="xsd:decimal">22</value>
 					</component>
 					<component name="Y">
-						<value>0</value>
+						<value xsi:type="xsd:decimal">0</value>
 					</component>
 					<component name="K">
-						<value>67</value>
+						<value xsi:type="xsd:decimal">67</value>
 					</component>
 				</component>
 			</expected>
@@ -63,42 +63,42 @@
 	</testCase>
 	<testCase id="002">
 		<inputNode name="R Value">
-			<value>0</value>
+			<value xsi:type="xsd:decimal">0</value>
 		</inputNode>
 		<inputNode name="G Value">
-			<value>0</value>
+			<value xsi:type="xsd:decimal">0</value>
 		</inputNode>
 		<inputNode name="B Value">
-			<value>0</value>
+			<value xsi:type="xsd:decimal">0</value>
 		</inputNode>
 		<resultNode name="Profile of Color" type="decision">
 			<expected>
 				<component name="RGB notation">
 					<component name="R">
-						<value>0</value>
+						<value xsi:type="xsd:decimal">0</value>
 					</component>
 					<component name="G">
-						<value>0</value>
+						<value xsi:type="xsd:decimal">0</value>
 					</component>
 					<component name="B">
-						<value>0</value>
+						<value xsi:type="xsd:decimal">0</value>
 					</component>
 				</component>
 				<component name="Hex notation">
-					<value>#000000</value>
+					<value xsi:type="xsd:string">#000000</value>
 				</component>
 				<component name="CMYK notation">
 					<component name="C">
-						<value>0</value>
+						<value xsi:type="xsd:decimal">0</value>
 					</component>
 					<component name="M">
-						<value>0</value>
+						<value xsi:type="xsd:decimal">0</value>
 					</component>
 					<component name="Y">
-						<value>0</value>
+						<value xsi:type="xsd:decimal">0</value>
 					</component>
 					<component name="K">
-						<value>100</value>
+						<value xsi:type="xsd:decimal">100</value>
 					</component>
 				</component>
 			</expected>
@@ -106,42 +106,42 @@
 	</testCase>
 	<testCase id="003">
 		<inputNode name="R Value">
-			<value>204</value>
+			<value xsi:type="xsd:decimal">204</value>
 		</inputNode>
 		<inputNode name="G Value">
-			<value>0</value>
+			<value xsi:type="xsd:decimal">0</value>
 		</inputNode>
 		<inputNode name="B Value">
-			<value>0</value>
+			<value xsi:type="xsd:decimal">0</value>
 		</inputNode>
 		<resultNode name="Profile of Color" type="decision">
 			<expected>
 				<component name="RGB notation">
 					<component name="R">
-						<value>204</value>
+						<value xsi:type="xsd:decimal">204</value>
 					</component>
 					<component name="G">
-						<value>0</value>
+						<value xsi:type="xsd:decimal">0</value>
 					</component>
 					<component name="B">
-						<value>0</value>
+						<value xsi:type="xsd:decimal">0</value>
 					</component>
 				</component>
 				<component name="Hex notation">
-					<value>#CC0000</value>
+					<value xsi:type="xsd:string">#CC0000</value>
 				</component>
 				<component name="CMYK notation">
 					<component name="C">
-						<value>0</value>
+						<value xsi:type="xsd:decimal">0</value>
 					</component>
 					<component name="M">
-						<value>100</value>
+						<value xsi:type="xsd:decimal">100</value>
 					</component>
 					<component name="Y">
-						<value>100</value>
+						<value xsi:type="xsd:decimal">100</value>
 					</component>
 					<component name="K">
-						<value>20</value>
+						<value xsi:type="xsd:decimal">20</value>
 					</component>
 				</component>
 			</expected>

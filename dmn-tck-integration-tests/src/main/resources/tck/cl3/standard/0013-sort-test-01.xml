@@ -17,16 +17,16 @@
 		<inputNode name="listA">
 			<list>
 				<item>
-					<value>3</value>
+					<value xsi:type="xsd:decimal">3</value>
 				</item>
 				<item>
-					<value>1</value>
+					<value xsi:type="xsd:decimal">1</value>
 				</item>
 				<item>
-					<value>5</value>
+					<value xsi:type="xsd:decimal">5</value>
 				</item>
 				<item>
-					<value>4</value>
+					<value xsi:type="xsd:decimal">4</value>
 				</item>
 			</list>
 		</inputNode>
@@ -56,44 +56,44 @@
 			<list>
 				<item>
 					<component name="col1">
-						<value>16</value>
+						<value xsi:type="xsd:decimal">16</value>
 					</component>
 					<component name="col2">
-						<value>4</value>
+						<value xsi:type="xsd:decimal">4</value>
 					</component>
 					<component name="col3">
-						<value>25</value>
+						<value xsi:type="xsd:decimal">25</value>
 					</component>
 					<component name="col4">
-						<value>1</value>
+						<value xsi:type="xsd:decimal">1</value>
 					</component>
 				</item>
 				<item>
 					<component name="col1">
-						<value>16</value>
+						<value xsi:type="xsd:decimal">16</value>
 					</component>
 					<component name="col2">
-						<value>43</value>
+						<value xsi:type="xsd:decimal">43</value>
 					</component>
 					<component name="col3">
-						<value>2</value>
+						<value xsi:type="xsd:decimal">2</value>
 					</component>
 					<component name="col4">
-						<value>10</value>
+						<value xsi:type="xsd:decimal">10</value>
 					</component>
 				</item>
 				<item>
 					<component name="col1">
-						<value>1</value>
+						<value xsi:type="xsd:decimal">1</value>
 					</component>
 					<component name="col2">
-						<value>0</value>
+						<value xsi:type="xsd:decimal">0</value>
 					</component>
 					<component name="col3">
-						<value>1</value>
+						<value xsi:type="xsd:decimal">1</value>
 					</component>
 					<component name="col4">
-						<value>1</value>
+						<value xsi:type="xsd:decimal">1</value>
 					</component>
 				</item>
 			</list>
@@ -102,16 +102,16 @@
 			<expected>
 				<list>
 					<item>
-						<value>5</value>
+						<value xsi:type="xsd:decimal">5</value>
 					</item>
 					<item>
-						<value>4</value>
+						<value xsi:type="xsd:decimal">4</value>
 					</item>
 					<item>
-						<value>3</value>
+						<value xsi:type="xsd:decimal">3</value>
 					</item>
 					<item>
-						<value>1</value>
+						<value xsi:type="xsd:decimal">1</value>
 					</item>
 				</list>
 			</expected>
@@ -121,44 +121,44 @@
 				<list>
 					<item>
 						<component name="col1">
-							<value>1</value>
+							<value xsi:type="xsd:decimal">1</value>
 						</component>
 						<component name="col2">
-							<value>0</value>
+							<value xsi:type="xsd:decimal">0</value>
 						</component>
 						<component name="col3">
-							<value>1</value>
+							<value xsi:type="xsd:decimal">1</value>
 						</component>
 						<component name="col4">
-							<value>1</value>
+							<value xsi:type="xsd:decimal">1</value>
 						</component>
 					</item>
 					<item>
 						<component name="col1">
-							<value>16</value>
+							<value xsi:type="xsd:decimal">16</value>
 						</component>
 						<component name="col2">
-							<value>4</value>
+							<value xsi:type="xsd:decimal">4</value>
 						</component>
 						<component name="col3">
-							<value>25</value>
+							<value xsi:type="xsd:decimal">25</value>
 						</component>
 						<component name="col4">
-							<value>1</value>
+							<value xsi:type="xsd:decimal">1</value>
 						</component>
 					</item>
 					<item>
 						<component name="col1">
-							<value>16</value>
+							<value xsi:type="xsd:decimal">16</value>
 						</component>
 						<component name="col2">
-							<value>43</value>
+							<value xsi:type="xsd:decimal">43</value>
 						</component>
 						<component name="col3">
-							<value>2</value>
+							<value xsi:type="xsd:decimal">2</value>
 						</component>
 						<component name="col4">
-							<value>10</value>
+							<value xsi:type="xsd:decimal">10</value>
 						</component>
 					</item>
 				</list>

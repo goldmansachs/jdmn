@@ -10,87 +10,87 @@
     </labels>
     <testCase id="001">
 		<inputNode name="a">
-			<value>10</value>
+			<value xsi:type="xsd:decimal">10</value>
 		</inputNode>
 		<inputNode name="b">
-			<value>9</value>
+			<value xsi:type="xsd:decimal">9</value>
 		</inputNode>
 		<inputNode name="c">
-			<value>1</value>
+			<value xsi:type="xsd:decimal">1</value>
 		</inputNode>
 		<resultNode name="and1" type="decision">
 			<expected>
-				<value>true</value>
+				<value xsi:type="xsd:boolean">true</value>
 			</expected>
 		</resultNode>
 		<resultNode name="or1" type="decision">
 			<expected>
-				<value>true</value>
+				<value xsi:type="xsd:boolean">true</value>
 			</expected>
 		</resultNode>
 		<resultNode name="literalList" type="decision">
 			<expected>
 				<list>
 					<item>
-						<value>true</value>
+						<value xsi:type="xsd:boolean">true</value>
 					</item>
 					<item>
-						<value>true</value>
+						<value xsi:type="xsd:boolean">true</value>
 					</item>
 				</list>
 			</expected>
 		</resultNode>
 		<resultNode name="and2" type="decision">
 			<expected>
-				<value>true</value>
+				<value xsi:type="xsd:boolean">true</value>
 			</expected>
 		</resultNode>
 		<resultNode name="or2" type="decision">
 			<expected>
-				<value>true</value>
+				<value xsi:type="xsd:boolean">true</value>
 			</expected>
 		</resultNode>
 	</testCase>
 	<testCase id="002">
 		<inputNode name="a">
-			<value>10</value>
+			<value xsi:type="xsd:decimal">10</value>
 		</inputNode>
 		<inputNode name="b">
-			<value>11</value>
+			<value xsi:type="xsd:decimal">11</value>
 		</inputNode>
 		<inputNode name="c">
-			<value>1</value>
+			<value xsi:type="xsd:decimal">1</value>
 		</inputNode>
 		<resultNode name="and1" type="decision">
 			<expected>
-				<value>false</value>
+				<value xsi:type="xsd:boolean">false</value>
 			</expected>
 		</resultNode>
 		<resultNode name="or1" type="decision">
 			<expected>
-				<value>true</value>
+				<value xsi:type="xsd:boolean">true</value>
 			</expected>
 		</resultNode>
 		<resultNode name="literalList" type="decision">
 			<expected>
 				<list>
 					<item>
-						<value>false</value>
+						<value xsi:type="xsd:boolean">false</value>
 					</item>
 					<item>
-						<value>true</value>
+						<value xsi:type="xsd:boolean">true</value>
 					</item>
 				</list>
 			</expected>
 		</resultNode>
 		<resultNode name="and2" type="decision">
 			<expected>
-				<value>false</value>
+				<value xsi:type="xsd:boolean">false</value>
 			</expected>
 		</resultNode>
 		<resultNode name="or2" type="decision">
 			<expected>
-				<value>true</value>
+				<value xsi:type="xsd:boolean">true</value>
 			</expected>
 		</resultNode>
 	</testCase>

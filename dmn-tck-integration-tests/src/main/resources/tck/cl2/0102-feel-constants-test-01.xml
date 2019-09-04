@@ -12,7 +12,7 @@
 		<description>Tests FEEL string constants</description>
 		<resultNode name="Decision1" type="decision">
 			<expected>
-				<value>foo bar</value>
+				<value xsi:type="xsd:string">foo bar</value>
 			</expected>
 		</resultNode>
 	</testCase>
@@ -20,7 +20,7 @@
 		<description>Tests FEEL unicode string constant</description>
 		<resultNode name="Decision2" type="decision">
 			<expected>
-				<value>šomeÚnicodeŠtriňg</value>
+				<value xsi:type="xsd:string">šomeÚnicodeŠtriňg</value>
 			</expected>
 		</resultNode>
 	</testCase>
@@ -28,7 +28,7 @@
 		<description>Tests FEEL unicode string constant</description>
 		<resultNode name="Decision3" type="decision">
 			<expected>
-				<value>横綱</value>
+				<value xsi:type="xsd:string">横綱</value>
 			</expected>
 		</resultNode>
 	</testCase>
@@ -36,7 +36,7 @@
 		<description>Tests FEEL long string constant</description>
 		<resultNode name="Decision4" type="decision">
 			<expected>
-				<value>thisIsSomeLongStringThatMustBeProcessedSoHopefullyThisTestPassWithItAndIMustWriteSomethingMoreSoItIsLongerAndLongerAndLongerAndLongerAndLongerTillItIsReallyLong</value>
+				<value xsi:type="xsd:string">thisIsSomeLongStringThatMustBeProcessedSoHopefullyThisTestPassWithItAndIMustWriteSomethingMoreSoItIsLongerAndLongerAndLongerAndLongerAndLongerTillItIsReallyLong</value>
 			</expected>
 		</resultNode>
 	</testCase>

@@ -11,11 +11,11 @@
 	<testCase id="001">
 		<description>Testing valid input</description>
 		<inputNode name="Monthly Salary">
-			<value>10000</value>
+			<value xsi:type="xsd:decimal">10000</value>
 		</inputNode>
 		<resultNode name="Yearly Salary" type="decision">
 			<expected>
-				<value>120000</value>
+				<value xsi:type="xsd:decimal">120000</value>
 			</expected>
 		</resultNode>
 	</testCase>

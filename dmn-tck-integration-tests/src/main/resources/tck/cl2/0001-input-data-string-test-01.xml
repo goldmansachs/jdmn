@@ -10,11 +10,11 @@
 	<testCase id="001">
 		<description>Testing valid input</description>
 		<inputNode name="Full Name">
-			<value>John Doe</value>
+			<value xsi:type="xsd:string">John Doe</value>
 		</inputNode>
 		<resultNode name="Greeting Message" type="decision">
 			<expected>
-				<value>Hello John Doe</value>
+				<value xsi:type="xsd:string">Hello John Doe</value>
 			</expected>
 		</resultNode>
 	</testCase>
