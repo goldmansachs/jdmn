@@ -19,51 +19,51 @@
 	<testCase id="001">
 		<description>Tests FEEL built-in functions on string literals (starts_with, ends_with, contains, substring, string_length, upper_case, lower_case, substring_before, substring_after)</description>
 		<inputNode name="A">
-			<value>banana</value>
+			<value xsi:type="xsd:string">banana</value>
 		</inputNode>
 		<inputNode name="B">
-			<value>a</value>
+			<value xsi:type="xsd:string">a</value>
 		</inputNode>
 		<inputNode name="NumC">
-			<value>2</value>
+			<value xsi:type="xsd:decimal">2</value>
 		</inputNode>
 		<resultNode name="Basic" type="decision">
 			<expected>
 				<component name="startsWithX">
-					<value>false</value>
+					<value xsi:type="xsd:boolean">false</value>
 				</component>
 				<component name="startsWithB">
-					<value>false</value>
+					<value xsi:type="xsd:boolean">false</value>
 				</component>
 				<component name="endsWithX">
-					<value>false</value>
+					<value xsi:type="xsd:boolean">false</value>
 				</component>
 				<component name="endsWithB">
-					<value>true</value>
+					<value xsi:type="xsd:boolean">true</value>
 				</component>
 				<component name="containsX">
-					<value>false</value>
+					<value xsi:type="xsd:boolean">false</value>
 				</component>
 				<component name="containsB">
-					<value>true</value>
+					<value xsi:type="xsd:boolean">true</value>
 				</component>
 				<component name="substringC1">
-					<value>a</value>
+					<value xsi:type="xsd:string">a</value>
 				</component>
 				<component name="stringlength">
-					<value>6</value>
+					<value xsi:type="xsd:decimal">6</value>
 				</component>
 				<component name="uppercase">
-					<value>BANANA</value>
+					<value xsi:type="xsd:string">BANANA</value>
 				</component>
 				<component name="lowercase">
-					<value>a</value>
+					<value xsi:type="xsd:string">a</value>
 				</component>
 				<component name="substringBeforeB">
-					<value>b</value>
+					<value xsi:type="xsd:string">b</value>
 				</component>
 				<component name="substringAfterB">
-					<value>nana</value>
+					<value xsi:type="xsd:string">nana</value>
 				</component>
 			</expected>
 		</resultNode>
@@ -71,29 +71,29 @@
 	<testCase id="002">
 		<description>Tests FEEL built-in function for regular expresssion matching (matches)</description>
 		<inputNode name="A">
-			<value>banana</value>
+			<value xsi:type="xsd:string">banana</value>
 		</inputNode>
 		<resultNode name="Matches" type="decision">
 			<expected>
-				<value>true</value>
+				<value xsi:type="xsd:boolean">true</value>
 			</expected>
 		</resultNode>
 	</testCase>
 	<testCase id="003">
 		<description>Tests FEEL built-in function 'replace' on string literals</description>
 		<inputNode name="A">
-			<value>banana</value>
+			<value xsi:type="xsd:string">banana</value>
 		</inputNode>
 		<resultNode name="Replace" type="decision">
 			<expected>
 				<component name="Aao">
-					<value>bonono</value>
+					<value xsi:type="xsd:string">bonono</value>
 				</component>
 				<component name="AanplusStarstar">
-					<value>b**a</value>
+					<value xsi:type="xsd:string">b**a</value>
 				</component>
 				<component name="encloseVowels">
-					<value>b[a]n[a]n[a]</value>
+					<value xsi:type="xsd:string">b[a]n[a]n[a]</value>
 				</component>
 			</expected>
 		</resultNode>
@@ -101,7 +101,7 @@
 	<testCase id="004">
 		<description>Tests FEEL built-in function for converting a number to a string</description>
 		<inputNode name="NumC">
-			<value>2</value>
+			<value xsi:type="xsd:decimal">2</value>
 		</inputNode>
 		<resultNode name="Constructor" type="decision">
 			<expected>

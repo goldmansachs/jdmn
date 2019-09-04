@@ -14,16 +14,16 @@
 		<inputNode name="Employees">
 			<list>
 				<item>
-				    <value>Jack</value>
+				    <value xsi:type="xsd:string">Jack</value>
 				</item>
 			    <item>
-			        <value>John</value>
+			        <value xsi:type="xsd:string">John</value>
 			    </item>
 			    <item>
-			        <value>Bob</value>
+			        <value xsi:type="xsd:string">Bob</value>
 			    </item>
 			    <item>
-			        <value>Zack</value>
+			        <value xsi:type="xsd:string">Zack</value>
 			    </item>
 			</list>
 		</inputNode>
@@ -31,33 +31,33 @@
 			<expected>
 				<list>
 					<item>
-						<value>John</value>
+						<value xsi:type="xsd:string">John</value>
 					</item>
 				</list>
 			</expected>
 		</resultNode>
 	    <resultNode name="decision2" type="decision">
 	        <expected>
-	            <value>John</value>
+	            <value xsi:type="xsd:string">John</value>
 	        </expected>
 	    </resultNode>
 	    <resultNode name="decision3" type="decision">
 	        <expected>
 	            <list>
 	                <item>
-	                    <value>Bob</value>
+	                    <value xsi:type="xsd:string">Bob</value>
 	                </item>
 	            </list>
 	        </expected>
 	    </resultNode>
 	    <resultNode name="decision4" type="decision">
 	        <expected>
-	            <value>Bob</value>
+	            <value xsi:type="xsd:string">Bob</value>
 	        </expected>
 	    </resultNode>
 	    <resultNode name="decision5" type="decision">
 	        <expected>
-	            <value>BOB</value>
+	            <value xsi:type="xsd:string">BOB</value>
 	        </expected>
 	    </resultNode>
 	</testCase>

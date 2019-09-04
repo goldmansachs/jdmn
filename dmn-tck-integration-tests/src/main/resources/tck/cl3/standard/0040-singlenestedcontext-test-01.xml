@@ -8,10 +8,10 @@
 	</labels>
 	<testCase id="001">
 	    <inputNode name="Principal">
-			<value>600000</value>
+			<value xsi:type="xsd:decimal">600000</value>
 		</inputNode>
 		<inputNode name="Term">
-			<value>360</value>
+			<value xsi:type="xsd:decimal">360</value>
 		</inputNode>
 		<resultNode name="Boxed Context" type="decision">
 			<expected>
@@ -21,10 +21,10 @@
 	</testCase>
 	<testCase id="002">
 	    <inputNode name="Principal">
-			<value>30000</value>
+			<value xsi:type="xsd:decimal">30000</value>
 		</inputNode>
 		<inputNode name="Term">
-			<value>60</value>
+			<value xsi:type="xsd:decimal">60</value>
 		</inputNode>
 		<resultNode name="Boxed Context" type="decision">
 			<expected>
@@ -34,10 +34,10 @@
 	</testCase>
 	<testCase id="003">
 	    <inputNode name="Principal">
-			<value>600000</value>
+			<value xsi:type="xsd:decimal">600000</value>
 		</inputNode>
 		<inputNode name="Term">
-			<value>365</value>
+			<value xsi:type="xsd:decimal">365</value>
 		</inputNode>
 		<resultNode name="Boxed Context" type="decision">
 			<expected>

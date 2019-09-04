@@ -17,40 +17,40 @@
 	</labels>
 	<testCase id="001">
 		<inputNode name="dateString">
-			<value>2015-12-24</value>
+			<value xsi:type="xsd:string">2015-12-24</value>
 		</inputNode>
 		<inputNode name="timeString">
-			<value>00:00:01-01:00</value>
+			<value xsi:type="xsd:string">00:00:01-01:00</value>
 		</inputNode>
 		<inputNode name="dateTimeString">
-			<value>2016-12-24T23:59:00-08:00</value>
+			<value xsi:type="xsd:string">2016-12-24T23:59:00-08:00</value>
 		</inputNode>
 		<inputNode name="Hours">
-			<value>12</value>
+			<value xsi:type="xsd:decimal">12</value>
 		</inputNode>
 		<inputNode name="Minutes">
-			<value>59</value>
+			<value xsi:type="xsd:decimal">59</value>
 		</inputNode>
 		<inputNode name="Seconds">
-			<value>01.3</value>
+			<value xsi:type="xsd:decimal">01.3</value>
 		</inputNode>
 		<inputNode name="Timezone">
 			<value xsi:type="xsd:duration">-PT1H</value>
 		</inputNode>
 		<inputNode name="Year">
-			<value>1999</value>
+			<value xsi:type="xsd:decimal">1999</value>
 		</inputNode>
 		<inputNode name="Month">
-			<value>11</value>
+			<value xsi:type="xsd:decimal">11</value>
 		</inputNode>
 		<inputNode name="Day">
-			<value>22</value>
+			<value xsi:type="xsd:decimal">22</value>
 		</inputNode>
 		<inputNode name="oneHour">
 			<value xsi:type="xsd:duration">PT1H</value>
 		</inputNode>
 		<inputNode name="durationString">
-			<value>P13DT2H14S</value>
+			<value xsi:type="xsd:string">P13DT2H14S</value>
 		</inputNode>
 		<resultNode name="Date-Time" type="decision">
 			<expected>
@@ -112,32 +112,32 @@
 		</resultNode>
 		<resultNode name="cDay" type="decision">
 			<expected>
-				<value>24</value>
+				<value xsi:type="xsd:decimal">24</value>
 			</expected>
 		</resultNode>
 		<resultNode name="cYear" type="decision">
 			<expected>
-				<value>2015</value>
+				<value xsi:type="xsd:decimal">2015</value>
 			</expected>
 		</resultNode>
 		<resultNode name="cMonth" type="decision">
 			<expected>
-				<value>12</value>
+				<value xsi:type="xsd:decimal">12</value>
 			</expected>
 		</resultNode>
 		<resultNode name="cHour" type="decision">
 			<expected>
-				<value>0</value>
+				<value xsi:type="xsd:decimal">0</value>
 			</expected>
 		</resultNode>
 		<resultNode name="cMinute" type="decision">
 			<expected>
-				<value>0</value>
+				<value xsi:type="xsd:decimal">0</value>
 			</expected>
 		</resultNode>
 		<resultNode name="cSecond" type="decision">
 			<expected>
-				<value>1</value>
+				<value xsi:type="xsd:decimal">1</value>
 			</expected>
 		</resultNode>
 		<resultNode name="cOffset" type="decision">
@@ -147,12 +147,12 @@
 		</resultNode>
 		<resultNode name="years" type="decision">
 			<expected>
-				<value>1</value>
+				<value xsi:type="xsd:decimal">1</value>
 			</expected>
 		</resultNode>
 		<resultNode name="seconds" type="decision">
 			<expected>
-				<value>14</value>
+				<value xsi:type="xsd:decimal">14</value>
 			</expected>
 		</resultNode>
 	</testCase>

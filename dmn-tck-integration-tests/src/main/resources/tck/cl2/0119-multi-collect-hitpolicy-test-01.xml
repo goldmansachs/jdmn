@@ -13,31 +13,31 @@
 	</labels>
 	<testCase id="001">
 		<inputNode name="Age">
-			<value>17</value>
+			<value xsi:type="xsd:decimal">17</value>
 		</inputNode>
 		<inputNode name="RiskCategory">
-			<value>High</value>
+			<value xsi:type="xsd:string">High</value>
 		</inputNode>
 		<inputNode name="isAffordable">
-			<value>true</value>
+			<value xsi:type="xsd:boolean">true</value>
 		</inputNode>
 		<resultNode name="Approval Status" type="decision">
 			<expected>
 			<list>
 				<item>
 				<component name="Approved/Declined">
-					<value>Declined</value>
+					<value xsi:type="xsd:string">Declined</value>
 				</component>
 				<component name="Rate">
-					<value>Standard</value>
+					<value xsi:type="xsd:string">Standard</value>
 				</component>
 				</item>
 				<item>
 				<component name="Approved/Declined">
-					<value>Approved</value>
+					<value xsi:type="xsd:string">Approved</value>
 				</component>
 				<component name="Rate">
-					<value>Standard</value>
+					<value xsi:type="xsd:string">Standard</value>
 				</component>
 				</item>
 				</list>
@@ -46,23 +46,23 @@
 	</testCase>
 	<testCase id="002">
 		<inputNode name="Age">
-			<value>19</value>
+			<value xsi:type="xsd:decimal">19</value>
 		</inputNode>
 		<inputNode name="RiskCategory">
-			<value>Low</value>
+			<value xsi:type="xsd:string">Low</value>
 		</inputNode>
 		<inputNode name="isAffordable">
-			<value>true</value>
+			<value xsi:type="xsd:boolean">true</value>
 		</inputNode>
 		<resultNode name="Approval Status" type="decision">
 			<expected>
 			<list>
 				<item>
 				<component name="Approved/Declined">
-					<value>Approved</value>
+					<value xsi:type="xsd:string">Approved</value>
 				</component>
 				<component name="Rate">
-					<value>Basic</value>
+					<value xsi:type="xsd:string">Basic</value>
 				</component>
 				</item>
 				</list>
@@ -71,23 +71,23 @@
 	</testCase>
 	<testCase id="003">
 		<inputNode name="Age">
-			<value>10</value>
+			<value xsi:type="xsd:decimal">10</value>
 		</inputNode>
 		<inputNode name="RiskCategory">
-			<value>Low</value>
+			<value xsi:type="xsd:string">Low</value>
 		</inputNode>
 		<inputNode name="isAffordable">
-			<value>true</value>
+			<value xsi:type="xsd:boolean">true</value>
 		</inputNode>
 		<resultNode name="Approval Status" type="decision">
 			<expected>
 			<list>
 				<item>
 				<component name="Approved/Declined">
-					<value>Declined</value>
+					<value xsi:type="xsd:string">Declined</value>
 				</component>
 				<component name="Rate">
-					<value>Standard</value>
+					<value xsi:type="xsd:string">Standard</value>
 				</component>
 				</item>
 				</list>

@@ -12,11 +12,11 @@
 	<testCase id="001">
 		<description>Testing valid input</description>
 		<inputNode name="Employment Status">
-			<value>EMPLOYED</value>
+			<value xsi:type="xsd:string">EMPLOYED</value>
 		</inputNode>
 		<resultNode name="Employment Status Statement" type="decision">
 			<expected>
-				<value>You are EMPLOYED</value>
+				<value xsi:type="xsd:string">You are EMPLOYED</value>
 			</expected>
 		</resultNode>
 	</testCase>
