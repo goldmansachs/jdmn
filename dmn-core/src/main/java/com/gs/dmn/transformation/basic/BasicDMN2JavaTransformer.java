@@ -1516,7 +1516,7 @@ public class BasicDMN2JavaTransformer {
         return elementEnvironment;
     }
 
-    private void addDeclaration(TDRGElement parent, Environment parentEnvironment, TDRGElement child, Environment childEnvironment) {
+    protected void addDeclaration(TDRGElement parent, Environment parentEnvironment, TDRGElement child, Environment childEnvironment) {
         if (child instanceof TInputData) {
             Declaration declaration = makeVariableDeclaration(child, ((TInputData) child).getVariable(), childEnvironment);
             addDeclaration(parentEnvironment, (VariableDeclaration) declaration, parent, child);
@@ -1533,21 +1533,21 @@ public class BasicDMN2JavaTransformer {
             FunctionDeclaration declaration = makeInvocableDeclaration((TDecisionService) child, childEnvironment);
             addDeclaration(parentEnvironment, declaration, parent, child);
         } else {
-            throw new UnsupportedOperationException(String.format("'%s' is not supported yet", parent.getClass().getSimpleName()));
+            throw new UnsupportedOperationException(String.format("'%s' is not supported yet", child.getClass().getSimpleName()));
         }
     }
 
-    private void addDeclaration(Environment elementEnvironment, VariableDeclaration declaration, TDRGElement parent, TDRGElement child) {
+    protected void addDeclaration(Environment elementEnvironment, VariableDeclaration declaration, TDRGElement parent, TDRGElement child) {
         Type type = declaration.getType();
         addDeclaration(elementEnvironment, declaration, type, parent, child);
     }
 
-    private void addDeclaration(Environment elementEnvironment, FunctionDeclaration declaration, TDRGElement parent, TDRGElement child) {
+    protected void addDeclaration(Environment elementEnvironment, FunctionDeclaration declaration, TDRGElement parent, TDRGElement child) {
         FunctionType type = declaration.getType();
         addDeclaration(elementEnvironment, declaration, type, parent, child);
     }
 
-    private void addDeclaration(Environment elementEnvironment, Declaration declaration, Type type, TDRGElement parent, TDRGElement child) {
+    protected void addDeclaration(Environment elementEnvironment, Declaration declaration, Type type, TDRGElement parent, TDRGElement child) {
         String importName = childImportName(parent, child);
         if (ImportPath.isEmpty(importName)) {
             elementEnvironment.addDeclaration(declaration);
