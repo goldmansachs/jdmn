@@ -54,11 +54,12 @@ public class Assert {
             org.junit.Assert.assertEquals(message, convertDateTime(expected), convertDateTime(actual));
         } else if (isList(expected)) {
             if (actual == null) {
-                actual = new ArrayList<>();
-            }
-            org.junit.Assert.assertEquals((message == null ? "" : message)  + expected.toString() + " vs " + actual.toString(), ((List) expected).size(), ((List) actual).size());
-            for (int i = 0; i < ((List) expected).size(); i++) {
-                assertEquals(message, ((List) expected).get(i), ((List) actual).get(i));
+                org.junit.Assert.assertEquals(message, expected, actual);
+            } else {
+                org.junit.Assert.assertEquals((message == null ? "" : message)  + expected.toString() + " vs " + actual.toString(), ((List) expected).size(), ((List) actual).size());
+                for (int i = 0; i < ((List) expected).size(); i++) {
+                    assertEquals(message, ((List) expected).get(i), ((List) actual).get(i));
+                }
             }
         } else if (expected instanceof Context) {
             if (actual == null) {
