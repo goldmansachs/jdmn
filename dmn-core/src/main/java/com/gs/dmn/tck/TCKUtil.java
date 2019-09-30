@@ -20,6 +20,7 @@ import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
+import com.gs.dmn.runtime.interpreter.ImportPath;
 import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
@@ -33,7 +34,10 @@ import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase.InputNode;
 import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase.ResultNode;
 import org.omg.dmn.tck.marshaller._20160719.ValueType;
 import org.omg.dmn.tck.marshaller._20160719.ValueType.Component;
-import org.omg.spec.dmn._20180521.model.*;
+import org.omg.spec.dmn._20180521.model.TDRGElement;
+import org.omg.spec.dmn._20180521.model.TDecision;
+import org.omg.spec.dmn._20180521.model.TInputData;
+import org.omg.spec.dmn._20180521.model.TInvocable;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.datatype.DatatypeConstants;
@@ -45,6 +49,7 @@ import java.util.stream.Collectors;
 public class TCKUtil {
     private final BasicDMN2JavaTransformer dmnTransformer;
     private final StandardFEELLib feelLib;
+    private static final boolean IGNORE_ELEMENT_TYPE = false;
 
     public TCKUtil(BasicDMN2JavaTransformer dmnTransformer, StandardFEELLib feelLib) {
         this.dmnTransformer = dmnTransformer;
@@ -195,7 +200,11 @@ public class TCKUtil {
     }
 
     private TDRGElement findDRGElementByName(String name) {
-        return dmnTransformer.getDMNModelRepository().findDRGElementByName(name);
+        try {
+            return dmnTransformer.getDMNModelRepository().findDRGElementByName(name);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private Type toFEELType(InputNode inputNode) {
@@ -303,7 +312,7 @@ public class TCKUtil {
         for (int i = 0; i < inputNode.size(); i++) {
             InputNode input = inputNode.get(i);
             try {
-                Object value = makeValue(input);
+                Object value = makeInputValue(input);
                 String name = input.getName();
                 runtimeEnvironment.bind(name, value);
             } catch (Exception e) {
@@ -353,32 +362,141 @@ public class TCKUtil {
     }
 
     public Object expectedValue(TestCase testCase, ResultNode resultNode) {
-        String drgElementName = drgElementName(testCase, resultNode);
-        TDRGElement drgElement = dmnTransformer.getDMNModelRepository().findDRGElementByName(drgElementName);
-        Environment environment = dmnTransformer.makeEnvironment(drgElement);
-        Type elementType = dmnTransformer.drgElementOutputFEELType(drgElement, environment);
-        Object expectedValue = makeValue(resultNode.getExpected(), elementType);
-        return expectedValue;
+        if (IGNORE_ELEMENT_TYPE) {
+            Object expectedValue = makeValue(resultNode.getExpected());
+            return expectedValue;
+        } else {
+            String drgElementName = drgElementName(testCase, resultNode);
+            TDRGElement drgElement = findDRGElementByName(drgElementName);
+            Environment environment = dmnTransformer.makeEnvironment(drgElement);
+            Type elementType = dmnTransformer.drgElementOutputFEELType(drgElement, environment);
+            Object expectedValue = makeValue(resultNode.getExpected(), elementType);
+            return expectedValue;
+        }
     }
 
     public Result evaluate(DMNInterpreter interpreter, TestCase testCase, ResultNode resultNode) {
         String drgElementName = drgElementName(testCase, resultNode);
-        TDRGElement drgElement = dmnTransformer.getDMNModelRepository().findDRGElementByName(drgElementName);
-        String namespacePrefix = null;
-        return interpreter.evaluateInvocation(namespacePrefix, drgElementName, makeArgs(drgElement, testCase), makeEnvironment(testCase));
+        TDRGElement drgElement = findDRGElementByName(drgElementName);
+        ImportPath importPath = null;
+        return interpreter.evaluateInvocation(importPath, drgElementName, makeArgs(drgElement, testCase), makeEnvironment(testCase));
     }
 
-    private Object makeValue(InputNode inputNode) {
-        TDRGElement drgElement = dmnTransformer.getDMNModelRepository().findDRGElementByName(inputNode.getName());
-        if (drgElement instanceof TInputData) {
-            Type type = dmnTransformer.drgElementOutputFEELType(drgElement);
-            return makeValue(inputNode, type);
-        } else if (drgElement instanceof TDecision) {
-            Type type = dmnTransformer.drgElementOutputFEELType(drgElement);
-            return makeValue(inputNode, type);
+    private Object makeInputValue(InputNode inputNode) {
+        if (IGNORE_ELEMENT_TYPE) {
+            return makeValue(inputNode);
         } else {
-            throw new UnsupportedOperationException(String.format("Not supported DRGElement '%s'", drgElement.getClass().getSimpleName()));
+            TDRGElement drgElement = findDRGElementByName(inputNode.getName());
+            if (drgElement instanceof TInputData) {
+                Type type = dmnTransformer.drgElementOutputFEELType(drgElement);
+                return makeValue(inputNode, type);
+            } else if (drgElement instanceof TDecision) {
+                Type type = dmnTransformer.drgElementOutputFEELType(drgElement);
+                return makeValue(inputNode, type);
+            } else {
+                return makeValue(inputNode, null);
+            }
         }
+    }
+
+    public Object makeValue(ValueType valueType) {
+        if (valueType.getValue() != null) {
+            Object value = jaxbElementValue(valueType.getValue());
+            String text = getTextContent(value);
+            if (text == null) {
+                return null;
+            } else if (isNumber(value)) {
+                return feelLib.number(text);
+            } else if (isString(value)) {
+                return text;
+            } else if (isBoolean(value)) {
+                if (StringUtils.isBlank(text)) {
+                    return null;
+                } else {
+                    return Boolean.parseBoolean(text);
+                }
+            } else if (isDate(value)) {
+                return feelLib.date(text);
+            } else if (isTime(value)) {
+                return feelLib.time(text);
+            } else if (isDateTime(value)) {
+                return feelLib.dateAndTime(text);
+            } else if (isDurationTime(value)) {
+                return feelLib.duration(text);
+            } else {
+                Object obj = valueType.getValue().getValue();
+                if (obj instanceof Number) {
+                    obj = feelLib.number(obj.toString());
+                }
+                return obj;
+            }
+        } else if (valueType.getList() != null) {
+            return makeList(valueType);
+        } else if (valueType.getComponent() != null) {
+            return makeContext(valueType);
+        }
+        throw new DMNRuntimeException(String.format("Cannot make value for input '%s'", valueType));
+    }
+
+    private List makeList(ValueType valueType) {
+        List<Object> javaList = new ArrayList<>();
+        ValueType.List list = valueType.getList().getValue();
+        for (ValueType listValueType : list.getItem()) {
+            Object value = makeValue(listValueType);
+            javaList.add(value);
+        }
+        return javaList;
+    }
+
+    private Context makeContext(ValueType valueType) {
+        Context context = new Context();
+        List<Component> components = valueType.getComponent();
+        for (Component c : components) {
+            String name = c.getName();
+            Object value = makeValue(c);
+            context.add(name, value);
+        }
+        return context;
+    }
+
+    private boolean isNumber(Object value) {
+        return value instanceof Number;
+    }
+
+    private boolean isString(Object value) {
+        return value instanceof String;
+    }
+
+    private boolean isBoolean(Object value) {
+        return value instanceof Boolean;
+    }
+
+    private boolean isDate(Object value) {
+        if (value instanceof XMLGregorianCalendar) {
+            return ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.DATE;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean isTime(Object value) {
+        if (value instanceof XMLGregorianCalendar) {
+            return ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.TIME;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean isDateTime(Object value) {
+        if (value instanceof XMLGregorianCalendar) {
+            return ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.DATETIME;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean isDurationTime(Object value) {
+        return value instanceof Duration;
     }
 
     public Object makeValue(ValueType valueType, Type type) {
@@ -441,7 +559,7 @@ public class TCKUtil {
         List<Component> components = valueType.getComponent();
         for (Component c : components) {
             String name = c.getName();
-            Type memberType = type.getMemberType(name);
+            Type memberType = type == null ? null : type.getMemberType(name);
             Object value = makeValue(c, memberType);
             context.add(name, value);
         }

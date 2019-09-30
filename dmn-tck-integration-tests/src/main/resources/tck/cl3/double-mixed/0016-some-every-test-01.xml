@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<modelName>0016-some-every.dmn</modelName>
 	<labels>
 		<label>Compliance Level 3</label>
@@ -19,26 +19,26 @@
 			<list>
 				<item>
 					<component name="itemName">
-						<value>widget</value>
+						<value xsi:type="xsd:string">widget</value>
 					</component>
 					<component name="price">
-						<value>25</value>
+						<value xsi:type="xsd:decimal">25</value>
 					</component>
 				</item>
 				<item>
 					<component name="itemName">
-						<value>sprocket</value>
+						<value xsi:type="xsd:string">sprocket</value>
 					</component>
 					<component name="price">
-						<value>15</value>
+						<value xsi:type="xsd:decimal">15</value>
 					</component>
 				</item>
 				<item>
 					<component name="itemName">
-						<value>trinket</value>
+						<value xsi:type="xsd:string">trinket</value>
 					</component>
 					<component name="price">
-						<value>1.5</value>
+						<value xsi:type="xsd:decimal">1.5</value>
 					</component>
 				</item>
 			</list>
@@ -48,26 +48,26 @@
 				<list>
 					<item>
 						<component name="itemName">
-							<value>widget</value>
+							<value xsi:type="xsd:string">widget</value>
 						</component>
 						<component name="price">
-							<value>25</value>
+							<value xsi:type="xsd:decimal">25</value>
 						</component>
 					</item>
 					<item>
 						<component name="itemName">
-							<value>sprocket</value>
+							<value xsi:type="xsd:string">sprocket</value>
 						</component>
 						<component name="price">
-							<value>15</value>
+							<value xsi:type="xsd:decimal">15</value>
 						</component>
 					</item>
 					<item>
 						<component name="itemName">
-							<value>trinket</value>
+							<value xsi:type="xsd:string">trinket</value>
 						</component>
 						<component name="price">
-							<value>1.5</value>
+							<value xsi:type="xsd:decimal">1.5</value>
 						</component>
 					</item>
 				</list>
@@ -75,27 +75,27 @@
 		</resultNode>
 		<resultNode name="everyGtTen1" type="decision">
 			<expected>
-				<value>false</value>
+				<value xsi:type="xsd:boolean">false</value>
 			</expected>
 		</resultNode>
 		<resultNode name="everyGtTen2" type="decision">
 			<expected>
-				<value>false</value>
+				<value xsi:type="xsd:boolean">false</value>
 			</expected>
 		</resultNode>
 		<resultNode name="someGtTen1" type="decision">
 			<expected>
-				<value>true</value>
+				<value xsi:type="xsd:boolean">true</value>
 			</expected>
 		</resultNode>
 		<resultNode name="someGtTen2" type="decision">
 			<expected>
-				<value>true</value>
+				<value xsi:type="xsd:boolean">true</value>
 			</expected>
 		</resultNode>
 		<resultNode name="everyGtTen3" type="decision">
 			<expected>
-				<value>false</value>
+				<value xsi:type="xsd:boolean">false</value>
 			</expected>
 		</resultNode>
 	</testCase>

@@ -55,7 +55,7 @@ public class SparseDecisionDetector extends SimpleLazyEvaluationDetector {
                     TDMNElementReference requiredDecision = ir.getRequiredDecision();
                     if (requiredDecision != null) {
                         String href = requiredDecision.getHref();
-                        TDecision drgElement = modelRepository.findDecisionById(href);
+                        TDecision drgElement = modelRepository.findDecisionByRef(decision, href);
                         if (drgElement != null) {
                             lazyEvaluationOptimisation.addLazyEvaluatedDecision(drgElement.getName());
                         }

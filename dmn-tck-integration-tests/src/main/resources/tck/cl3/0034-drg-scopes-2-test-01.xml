@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <modelName>0034-drg-scopes.dmn</modelName>
     <labels>
         <label>Compliance Level 3</label>
@@ -16,18 +16,18 @@
         <description>Tests information requirements of decisions and knowledge requirements of business knowledge models
         </description>
         <inputNode name="A">
-            <value>A</value>
+            <value xsi:type="xsd:string">A</value>
         </inputNode>
         <inputNode name="B">
-            <value>B</value>
+            <value xsi:type="xsd:string">B</value>
         </inputNode>
         <inputNode name="C">
-            <value>C</value>
+            <value xsi:type="xsd:string">C</value>
         </inputNode>
         <resultNode name="decision A 1" type="decision">
             <expected>
                 <component name="resolve A">
-                    <value>A</value>
+                    <value xsi:type="xsd:string">A</value>
                 </component>
             </expected>
         </resultNode>
@@ -35,7 +35,7 @@
             <expected>
                 <component name="resolve A 1">
                     <component name="resolve A">
-                        <value>A</value>
+                        <value xsi:type="xsd:string">A</value>
                     </component>
                 </component>
             </expected>
@@ -44,7 +44,7 @@
             <expected>
                 <component name="resolve A 1">
                     <component name="resolve A">
-                        <value>A</value>
+                        <value xsi:type="xsd:string">A</value>
                     </component>
                 </component>
             </expected>
@@ -54,14 +54,14 @@
                 <component name="resolve A 2.1">
                     <component name="resolve A 1">
                         <component name="resolve A">
-                            <value>A</value>
+                            <value xsi:type="xsd:string">A</value>
                         </component>
                     </component>
                 </component>
                 <component name="resolve A 2.2">
                     <component name="resolve A 1">
                         <component name="resolve A">
-                            <value>A</value>
+                            <value xsi:type="xsd:string">A</value>
                         </component>
                     </component>
                 </component>
@@ -70,10 +70,10 @@
         <resultNode name="decision B 1" type="decision">
             <expected>
                 <component name="resolve B">
-                    <value>B</value>
+                    <value xsi:type="xsd:string">B</value>
                 </component>
                 <component name="resolve A">
-                    <value>A</value>
+                    <value xsi:type="xsd:string">A</value>
                 </component>
             </expected>
         </resultNode>
@@ -81,10 +81,10 @@
             <expected>
                 <component name="resolve B 1">
                     <component name="resolve B">
-                        <value>B</value>
+                        <value xsi:type="xsd:string">B</value>
                     </component>
                     <component name="resolve A">
-                        <value>A</value>
+                        <value xsi:type="xsd:string">A</value>
                     </component>
                 </component>
             </expected>
@@ -93,10 +93,10 @@
             <expected>
                 <component name="resolve B 1">
                     <component name="resolve B">
-                        <value>B</value>
+                        <value xsi:type="xsd:string">B</value>
                     </component>
                     <component name="resolve A">
-                        <value>A</value>
+                        <value xsi:type="xsd:string">A</value>
                     </component>
                 </component>
             </expected>
@@ -106,20 +106,20 @@
                 <component name="resolve B 2.1">
                     <component name="resolve B 1">
                         <component name="resolve B">
-                            <value>B</value>
+                            <value xsi:type="xsd:string">B</value>
                         </component>
                         <component name="resolve A">
-                            <value>A</value>
+                            <value xsi:type="xsd:string">A</value>
                         </component>
                     </component>
                 </component>
                 <component name="resolve B 2.2">
                     <component name="resolve B 1">
                         <component name="resolve B">
-                            <value>B</value>
+                            <value xsi:type="xsd:string">B</value>
                         </component>
                         <component name="resolve A">
-                            <value>A</value>
+                            <value xsi:type="xsd:string">A</value>
                         </component>
                     </component>
                 </component>
@@ -127,14 +127,14 @@
                     <component name="resolve A 2.1">
                         <component name="resolve A 1">
                             <component name="resolve A">
-                                <value>A</value>
+                                <value xsi:type="xsd:string">A</value>
                             </component>
                         </component>
                     </component>
                     <component name="resolve A 2.2">
                         <component name="resolve A 1">
                             <component name="resolve A">
-                                <value>A</value>
+                                <value xsi:type="xsd:string">A</value>
                             </component>
                         </component>
                     </component>
@@ -144,20 +144,20 @@
         <resultNode name="decision C 1" type="decision">
             <expected>
                 <component name="resolve C">
-                    <value>C</value>
+                    <value xsi:type="xsd:string">C</value>
                 </component>
                 <component name="resolve A 3">
                     <component name="resolve A 2.1">
                         <component name="resolve A 1">
                             <component name="resolve A">
-                                <value>A</value>
+                                <value xsi:type="xsd:string">A</value>
                             </component>
                         </component>
                     </component>
                     <component name="resolve A 2.2">
                         <component name="resolve A 1">
                             <component name="resolve A">
-                                <value>A</value>
+                                <value xsi:type="xsd:string">A</value>
                             </component>
                         </component>
                     </component>
@@ -166,20 +166,20 @@
                     <component name="resolve B 2.1">
                         <component name="resolve B 1">
                             <component name="resolve B">
-                                <value>B</value>
+                                <value xsi:type="xsd:string">B</value>
                             </component>
                             <component name="resolve A">
-                                <value>A</value>
+                                <value xsi:type="xsd:string">A</value>
                             </component>
                         </component>
                     </component>
                     <component name="resolve B 2.2">
                         <component name="resolve B 1">
                             <component name="resolve B">
-                                <value>B</value>
+                                <value xsi:type="xsd:string">B</value>
                             </component>
                             <component name="resolve A">
-                                <value>A</value>
+                                <value xsi:type="xsd:string">A</value>
                             </component>
                         </component>
                     </component>
@@ -187,14 +187,14 @@
                         <component name="resolve A 2.1">
                             <component name="resolve A 1">
                                 <component name="resolve A">
-                                    <value>A</value>
+                                    <value xsi:type="xsd:string">A</value>
                                 </component>
                             </component>
                         </component>
                         <component name="resolve A 2.2">
                             <component name="resolve A 1">
                                 <component name="resolve A">
-                                    <value>A</value>
+                                    <value xsi:type="xsd:string">A</value>
                                 </component>
                             </component>
                         </component>
@@ -204,18 +204,18 @@
         </resultNode>
         <resultNode name="decision C 2" type="decision">
             <expected>
-                <value>BKM I # BKM II # BKM III # decision C 2 # BKM IV # BKM III # decision C 2</value>
+                <value xsi:type="xsd:string">BKM I # BKM II # BKM III # decision C 2 # BKM IV # BKM III # decision C 2</value>
             </expected>
         </resultNode>
         <resultNode name="decision C 3" type="decision">
             <expected>
-                <value>BKM II # BKM III # decision C 3 # BKM IV # BKM III # decision C 3</value>
+                <value xsi:type="xsd:string">BKM II # BKM III # decision C 3 # BKM IV # BKM III # decision C 3</value>
             </expected>
         </resultNode>
         <resultNode name="decision C 4" type="decision">
             <expected>
                 <component name="resolve C 3">
-                    <value>BKM II # BKM III # decision C 3 # BKM IV # BKM III # decision C 3</value>
+                    <value xsi:type="xsd:string">BKM II # BKM III # decision C 3 # BKM IV # BKM III # decision C 3</value>
                 </component>
             </expected>
         </resultNode>

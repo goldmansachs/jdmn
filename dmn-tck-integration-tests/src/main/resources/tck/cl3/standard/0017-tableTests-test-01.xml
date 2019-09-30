@@ -20,36 +20,36 @@
 	<testCase id="001">
 		<inputNode name="structA">
 			<component name="name">
-				<value>widget</value>
+				<value xsi:type="xsd:string">widget</value>
 			</component>
 			<component name="price">
-				<value>20</value>
+				<value xsi:type="xsd:decimal">20</value>
 			</component>
 		</inputNode>
 		<resultNode name="priceGt10" type="decision">
 			<expected>
-				<value>true</value>
+				<value xsi:type="xsd:boolean">true</value>
 			</expected>
 		</resultNode>
 	</testCase>
 	<testCase id="002">
 		<inputNode name="structA">
 			<component name="name">
-				<value>widget</value>
+				<value xsi:type="xsd:string">widget</value>
 			</component>
 			<component name="price">
-				<value>20</value>
+				<value xsi:type="xsd:decimal">20</value>
 			</component>
 		</inputNode>
 		<inputNode name="numB">
-			<value>9</value>
+			<value xsi:type="xsd:decimal">9</value>
 		</inputNode>
 		<inputNode name="numC">
-			<value>10</value>
+			<value xsi:type="xsd:decimal">10</value>
 		</inputNode>
 		<resultNode name="priceInRange" type="decision">
 			<expected>
-				<value>Not in range</value>
+				<value xsi:type="xsd:string">Not in range</value>
 			</expected>
 		</resultNode>
 	</testCase>
@@ -59,7 +59,7 @@
 		</inputNode>
 		<resultNode name="dateCompare1" type="decision">
 			<expected>
-				<value>true</value>
+				<value xsi:type="xsd:boolean">true</value>
 			</expected>
 		</resultNode>
 	</testCase>
@@ -72,7 +72,7 @@
 		</inputNode>
 		<resultNode name="dateCompare2" type="decision">
 			<expected>
-				<value>false</value>
+				<value xsi:type="xsd:boolean">false</value>
 			</expected>
 		</resultNode>
 	</testCase>

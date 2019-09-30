@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<modelName>0003-iteration.dmn</modelName>
 	<labels>
 		<label>Compliance Level 3</label>
@@ -17,24 +17,24 @@
 			<list>
 				<item>
 					<component name="amount">
-						<value>200000</value>
+						<value xsi:type="xsd:decimal">200000</value>
 					</component>
 					<component name="rate">
-						<value>.041</value>
+						<value xsi:type="xsd:decimal">.041</value>
 					</component>
 					<component name="term">
-						<value>360</value>
+						<value xsi:type="xsd:decimal">360</value>
 					</component>
 				</item>
 				<item>
 					<component name="amount">
-						<value>20000</value>
+						<value xsi:type="xsd:decimal">20000</value>
 					</component>
 					<component name="rate">
-						<value>.049</value>
+						<value xsi:type="xsd:decimal">.049</value>
 					</component>
 					<component name="term">
-						<value>60</value>
+						<value xsi:type="xsd:decimal">60</value>
 					</component>
 				</item>
 			</list>
@@ -43,10 +43,10 @@
 			<expected>
 				<list>
 					<item>
-						<value>966.396742204988</value>
+						<value xsi:type="xsd:decimal">966.396742204988</value>
 					</item>
 					<item>
-						<value>376.509070632494</value>
+						<value xsi:type="xsd:decimal">376.509070632494</value>
 					</item>
 				</list>
 			</expected>

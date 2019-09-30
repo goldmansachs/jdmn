@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<modelName>0031-user-defined-functions.dmn</modelName>
 	<labels>
 		<label>Compliance Level 3</label>
@@ -18,22 +18,22 @@
 			parameters
 		</description>
 		<inputNode name="inputA">
-			<value>10</value>
+			<value xsi:type="xsd:decimal">10</value>
 		</inputNode>
 		<inputNode name="inputB">
-			<value>5</value>
+			<value xsi:type="xsd:decimal">5</value>
 		</inputNode>
 		<resultNode name="fn invocation positional parameters"
 			type="decision">
 			<expected>
 				<component name="sumResult">
-					<value>15</value>
+					<value xsi:type="xsd:decimal">15</value>
 				</component>
 				<component name="divisionResultPositional">
-					<value>2</value>
+					<value xsi:type="xsd:decimal">2</value>
 				</component>
 				<component name="multiplicationResultPositional">
-					<value>50</value>
+					<value xsi:type="xsd:decimal">50</value>
 				</component>
 			</expected>
 		</resultNode>
@@ -43,24 +43,24 @@
 			parameters
 		</description>
 		<inputNode name="inputA">
-			<value>10</value>
+			<value xsi:type="xsd:decimal">10</value>
 		</inputNode>
 		<inputNode name="inputB">
-			<value>5</value>
+			<value xsi:type="xsd:decimal">5</value>
 		</inputNode>
 		<resultNode name="fn invocation named parameters" type="decision">
 			<expected>
 				<component name="subResult">
-					<value>5</value>
+					<value xsi:type="xsd:decimal">5</value>
 				</component>
 				<component name="subResultMixed">
-					<value>-5</value>
+					<value xsi:type="xsd:decimal">-5</value>
 				</component>
 				<component name="divisionResultNamed">
-					<value>2</value>
+					<value xsi:type="xsd:decimal">2</value>
 				</component>
 				<component name="multiplicationResultNamed">
-					<value>50</value>
+					<value xsi:type="xsd:decimal">50</value>
 				</component>
 			</expected>
 		</resultNode>
@@ -70,21 +70,21 @@
 			parameters
 		</description>
 		<inputNode name="inputA">
-			<value>10</value>
+			<value xsi:type="xsd:decimal">10</value>
 		</inputNode>
 		<inputNode name="inputB">
-			<value>5</value>
+			<value xsi:type="xsd:decimal">5</value>
 		</inputNode>
 		<resultNode name="fn invocation complex parameters" type="decision">
 			<expected>
 				<component name="functionInvocationLiteralExpressionInParameter">
-					<value>500</value>
+					<value xsi:type="xsd:decimal">500</value>
 				</component>
 				<component name="functionInvocationInParameter">
-					<value>200</value>
+					<value xsi:type="xsd:decimal">200</value>
 				</component>
 				<component name="circumference">
-					<value>94.247760</value>
+					<value xsi:type="xsd:decimal">94.247760</value>
 				</component>
 			</expected>
 		</resultNode>

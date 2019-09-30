@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<modelName>0011-insert-remove.dmn</modelName>
 	<labels>
 		<label>Compliance Level 3</label>
@@ -16,13 +16,13 @@
 		<inputNode name="simpleList">
 			<list>
 				<item>
-					<value>a</value>
+					<value xsi:type="xsd:string">a</value>
 				</item>
 				<item>
-					<value>b</value>
+					<value xsi:type="xsd:string">b</value>
 				</item>
 				<item>
-					<value>c</value>
+					<value xsi:type="xsd:string">c</value>
 				</item>
 			</list>
 		</inputNode>
@@ -31,24 +31,24 @@
 				<item>
 					<list>
 						<item>
-							<value>o</value>
+							<value xsi:type="xsd:string">o</value>
 						</item>
 					</list>
 				</item>
 				<item>
 					<list>
 						<item>
-							<value>p</value>
+							<value xsi:type="xsd:string">p</value>
 						</item>
 						<item>
-							<value>q</value>
+							<value xsi:type="xsd:string">q</value>
 						</item>
 					</list>
 				</item>
 			</list>
 		</inputNode>
 		<inputNode name="position">
-			<value>2</value>
+			<value xsi:type="xsd:decimal">2</value>
 		</inputNode>
 		<resultNode name="literalNestedList" type="decision">
 			<expected>
@@ -56,20 +56,20 @@
 					<item>
 						<list>
 							<item>
-								<value>a</value>
+								<value xsi:type="xsd:string">a</value>
 							</item>
 							<item>
-								<value>b</value>
+								<value xsi:type="xsd:string">b</value>
 							</item>
 						</list>
 					</item>
 					<item>
 						<list>
 							<item>
-								<value>b</value>
+								<value xsi:type="xsd:string">b</value>
 							</item>
 							<item>
-								<value>c</value>
+								<value xsi:type="xsd:string">c</value>
 							</item>
 						</list>
 					</item>
@@ -80,10 +80,10 @@
 			<expected>
 				<list>
 					<item>
-						<value>a</value>
+						<value xsi:type="xsd:string">a</value>
 					</item>
 					<item>
-						<value>c</value>
+						<value xsi:type="xsd:string">c</value>
 					</item>
 				</list>
 			</expected>
@@ -94,30 +94,30 @@
 					<item>
 						<list>
 							<item>
-								<value>o</value>
+								<value xsi:type="xsd:string">o</value>
 							</item>
 						</list>
 					</item>
 					<item>
 						<list>
 							<item>
-								<value>a</value>
+								<value xsi:type="xsd:string">a</value>
 							</item>
 							<item>
-								<value>b</value>
+								<value xsi:type="xsd:string">b</value>
 							</item>
 							<item>
-								<value>c</value>
+								<value xsi:type="xsd:string">c</value>
 							</item>
 						</list>
 					</item>
 					<item>
 						<list>
 							<item>
-								<value>p</value>
+								<value xsi:type="xsd:string">p</value>
 							</item>
 							<item>
-								<value>q</value>
+								<value xsi:type="xsd:string">q</value>
 							</item>
 						</list>
 					</item>
@@ -130,33 +130,33 @@
 					<item>
 						<list>
 							<item>
-								<value>a</value>
+								<value xsi:type="xsd:string">a</value>
 							</item>
 							<item>
-								<value>b</value>
-							</item>
-						</list>
-					</item>
-					<item>
-						<list>
-							<item>
-								<value>a</value>
-							</item>
-							<item>
-								<value>b</value>
-							</item>
-							<item>
-								<value>c</value>
+								<value xsi:type="xsd:string">b</value>
 							</item>
 						</list>
 					</item>
 					<item>
 						<list>
 							<item>
-								<value>b</value>
+								<value xsi:type="xsd:string">a</value>
 							</item>
 							<item>
-								<value>c</value>
+								<value xsi:type="xsd:string">b</value>
+							</item>
+							<item>
+								<value xsi:type="xsd:string">c</value>
+							</item>
+						</list>
+					</item>
+					<item>
+						<list>
+							<item>
+								<value xsi:type="xsd:string">b</value>
+							</item>
+							<item>
+								<value xsi:type="xsd:string">c</value>
 							</item>
 						</list>
 					</item>
@@ -169,10 +169,10 @@
 					<item>
 						<list>
 							<item>
-								<value>a</value>
+								<value xsi:type="xsd:string">a</value>
 							</item>
 							<item>
-								<value>b</value>
+								<value xsi:type="xsd:string">b</value>
 							</item>
 						</list>
 					</item>
@@ -183,16 +183,16 @@
 			<expected>
 				<list>
 					<item>
-						<value>a</value>
+						<value xsi:type="xsd:string">a</value>
 					</item>
 					<item>
-						<value>x</value>
+						<value xsi:type="xsd:string">x</value>
 					</item>
 					<item>
-						<value>b</value>
+						<value xsi:type="xsd:string">b</value>
 					</item>
 					<item>
-						<value>c</value>
+						<value xsi:type="xsd:string">c</value>
 					</item>
 				</list>
 			</expected>

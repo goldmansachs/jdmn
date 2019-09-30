@@ -32,6 +32,7 @@ import com.gs.dmn.runtime.cache.Cache;
 import com.gs.dmn.runtime.cache.DefaultCache;
 import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
 import com.gs.dmn.runtime.external.ExternalFunctionExecutor;
+import com.gs.dmn.runtime.interpreter.ImportPath;
 import com.gs.dmn.runtime.listener.Arguments;
 import com.gs.dmn.runtime.listener.EventListener;
 import com.gs.dmn.runtime.listener.LoggingEventListener;
@@ -601,11 +602,11 @@ public class BasicDMN2JavaTransformer {
     public List<FormalParameter> dsFEELParameters(TDecisionService service) {
         List<FormalParameter> parameters = new ArrayList<>();
         for (TDMNElementReference er: service.getInputData()) {
-            TInputData inputData = getDMNModelRepository().findInputDataById(er.getHref());
+            TInputData inputData = getDMNModelRepository().findInputDataByRef(service, er.getHref());
             parameters.add(new FormalParameter(inputData.getName(), toFEELType(inputData)));
         }
         for (TDMNElementReference er: service.getInputDecision()) {
-            TDecision decision = getDMNModelRepository().findDecisionById(er.getHref());
+            TDecision decision = getDMNModelRepository().findDecisionByRef(service, er.getHref());
             parameters.add(new FormalParameter(decision.getName(), drgElementOutputFEELType(decision)));
         }
         return parameters;
@@ -622,13 +623,13 @@ public class BasicDMN2JavaTransformer {
     private List<Pair<String, String>> dsParameters(TDecisionService service, boolean javaFriendlyName) {
         List<Pair<String, String>> parameters = new ArrayList<>();
         for (TDMNElementReference er: service.getInputData()) {
-            TInputData inputData = getDMNModelRepository().findInputDataById(er.getHref());
+            TInputData inputData = getDMNModelRepository().findInputDataByRef(service, er.getHref());
             String parameterName = javaFriendlyName ? drgElementVariableName(inputData) : inputData.getName();
             Type parameterType = toFEELType(inputData);
             parameters.add(new Pair(parameterName, parameterType));
         }
         for (TDMNElementReference er: service.getInputDecision()) {
-            TDecision decision = getDMNModelRepository().findDecisionById(er.getHref());
+            TDecision decision = getDMNModelRepository().findDecisionByRef(service, er.getHref());
             String parameterName = javaFriendlyName ? drgElementVariableName(decision) : decision.getName();
             Type parameterType = drgElementOutputFEELType(decision);
             parameters.add(new Pair(parameterName, parameterType));
@@ -1232,7 +1233,7 @@ public class BasicDMN2JavaTransformer {
         if (itemDefinition != null) {
             return toFEELType(itemDefinition);
         }
-        List<TDefinitions> definitionsList = dmnModelRepository.getDefinitionsList();
+        List<TDefinitions> definitionsList = dmnModelRepository.getAllDefinitions();
         for (TDefinitions definitions: definitionsList) {
             String namespace = definitions.getNamespace();
             qName = new QualifiedName(namespace, typeName);
@@ -1494,58 +1495,83 @@ public class BasicDMN2JavaTransformer {
     // Environment related functions
     //
     public Environment makeEnvironment(TDRGElement element) {
-        Environment elementEnvironment = environmentFactory.makeEnvironment(environmentFactory.getRootEnvironment());
+        Environment parentEnvironment = environmentFactory.getRootEnvironment();
+        return makeEnvironment(element, parentEnvironment);
+    }
 
-        List<TDRGElement> elements = getDMNModelRepository().allDrgElements(element);
+    public Environment makeEnvironment(TDRGElement element, Environment parentEnvironment) {
+        Environment elementEnvironment = environmentFactory.makeEnvironment(parentEnvironment);
+
+        // Add declaration for each direct child
+        List<TDRGElement> elements = getDMNModelRepository().directDRGElements(element);
         for (TDRGElement e: elements) {
-            if (e instanceof TInputData) {
-                Declaration declaration = makeVariableDeclaration(e, ((TInputData) e).getVariable(), elementEnvironment);
-                addDeclaration(elementEnvironment, (VariableDeclaration) declaration, element, e);
-            } else if (e instanceof TBusinessKnowledgeModel) {
-                TFunctionDefinition functionDefinition = ((TBusinessKnowledgeModel) e).getEncapsulatedLogic();
-                functionDefinition.getFormalParameter().forEach(
-                        p -> elementEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(p.getName(), toFEELType(QualifiedName.toQualifiedName(p.getTypeRef())))));
-                FunctionDeclaration declaration = makeInvocableDeclaration((TBusinessKnowledgeModel) e, elementEnvironment);
-                addDeclaration(elementEnvironment, declaration, element, e);
-            } else if (e instanceof TDecision) {
-                Declaration declaration = makeVariableDeclaration(e, ((TDecision) e).getVariable(), elementEnvironment);
-                addDeclaration(elementEnvironment, (VariableDeclaration) declaration, element, e);
-            } else if (e instanceof TDecisionService) {
-                FunctionDeclaration declaration = makeInvocableDeclaration((TDecisionService) e, elementEnvironment);
-                addDeclaration(elementEnvironment, declaration, element, e);
-            } else {
-                throw new UnsupportedOperationException(String.format("'%s' is not supported yet", element.getClass().getSimpleName()));
-            }
+            // Create child environment to infer type if needed
+            Environment childEnvironment = makeEnvironment(e, elementEnvironment);
+            addDeclaration(element, elementEnvironment, e, childEnvironment);
         }
+
+        // Add declaration of element to support recursion
+        addDeclaration(element, elementEnvironment, element, elementEnvironment);
 
         return elementEnvironment;
     }
 
-    private void addDeclaration(Environment elementEnvironment, VariableDeclaration declaration, TDRGElement parent, TDRGElement child) {
-        String namespacePrefix = childNamespacePrefix(parent, child);
-        if (namespacePrefix == null) {
-            elementEnvironment.addDeclaration(declaration);
+    protected void addDeclaration(TDRGElement parent, Environment parentEnvironment, TDRGElement child, Environment childEnvironment) {
+        if (child instanceof TInputData) {
+            Declaration declaration = makeVariableDeclaration(child, ((TInputData) child).getVariable(), childEnvironment);
+            addDeclaration(parentEnvironment, (VariableDeclaration) declaration, parent, child);
+        } else if (child instanceof TBusinessKnowledgeModel) {
+            TFunctionDefinition functionDefinition = ((TBusinessKnowledgeModel) child).getEncapsulatedLogic();
+            functionDefinition.getFormalParameter().forEach(
+                    p -> parentEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(p.getName(), toFEELType(QualifiedName.toQualifiedName(p.getTypeRef())))));
+            FunctionDeclaration declaration = makeInvocableDeclaration((TBusinessKnowledgeModel) child, childEnvironment);
+            addDeclaration(parentEnvironment, declaration, parent, child);
+        } else if (child instanceof TDecision) {
+            Declaration declaration = makeVariableDeclaration(child, ((TDecision) child).getVariable(), childEnvironment);
+            addDeclaration(parentEnvironment, (VariableDeclaration) declaration, parent, child);
+        } else if (child instanceof TDecisionService) {
+            FunctionDeclaration declaration = makeInvocableDeclaration((TDecisionService) child, childEnvironment);
+            addDeclaration(parentEnvironment, declaration, parent, child);
         } else {
-            ContextType contextType = new ContextType();
-            contextType.addMember(declaration.getName(), new ArrayList<>(), declaration.getType());
-            Declaration importDeclaration = environmentFactory.makeVariableDeclaration(namespacePrefix, contextType);
-            elementEnvironment.addDeclaration(importDeclaration);
+            throw new UnsupportedOperationException(String.format("'%s' is not supported yet", child.getClass().getSimpleName()));
         }
     }
 
-    private void addDeclaration(Environment elementEnvironment, FunctionDeclaration declaration, TDRGElement parent, TDRGElement child) {
-        String namespacePrefix = childNamespacePrefix(parent, child);
-        if (namespacePrefix == null) {
+    protected void addDeclaration(Environment elementEnvironment, VariableDeclaration declaration, TDRGElement parent, TDRGElement child) {
+        Type type = declaration.getType();
+        addDeclaration(elementEnvironment, declaration, type, parent, child);
+    }
+
+    protected void addDeclaration(Environment elementEnvironment, FunctionDeclaration declaration, TDRGElement parent, TDRGElement child) {
+        FunctionType type = declaration.getType();
+        addDeclaration(elementEnvironment, declaration, type, parent, child);
+    }
+
+    protected void addDeclaration(Environment elementEnvironment, Declaration declaration, Type type, TDRGElement parent, TDRGElement child) {
+        String importName = childImportName(parent, child);
+        if (ImportPath.isEmpty(importName)) {
             elementEnvironment.addDeclaration(declaration);
         } else {
-            ContextType contextType = new ContextType();
-            contextType.addMember(declaration.getName(), new ArrayList<>(), declaration.getType());
-            Declaration importDeclaration = environmentFactory.makeVariableDeclaration(namespacePrefix, contextType);
-            elementEnvironment.addDeclaration(importDeclaration);
+            Declaration importDeclaration = elementEnvironment.lookupVariableDeclaration(importName);
+            if (importDeclaration == null) {
+                ContextType contextType = new ContextType();
+                contextType.addMember(declaration.getName(), new ArrayList<>(), type);
+                importDeclaration = environmentFactory.makeVariableDeclaration(importName, contextType);
+                elementEnvironment.addDeclaration(importDeclaration);
+            } else if (importDeclaration instanceof VariableDeclaration) {
+                Type importType = ((VariableDeclaration) importDeclaration).getType();
+                if (importType instanceof ContextType) {
+                    ((ContextType) importType).addMember(declaration.getName(), new ArrayList<>(), type);
+                } else {
+                    throw new DMNRuntimeException(String.format("Cannot process declaration for '%s.%s'", importName, declaration.getName()));
+                }
+            } else {
+                throw new DMNRuntimeException(String.format("Cannot process declaration for '%s.%s'", importName, declaration.getName()));
+            }
         }
     }
 
-    private String childNamespacePrefix(TDRGElement parent, TDRGElement child) {
+    private String childImportName(TDRGElement parent, TDRGElement child) {
         // Collect references
         List<TDMNElementReference> references = new ArrayList<>();
         if (parent instanceof TDecision) {
@@ -1582,9 +1608,9 @@ public class BasicDMN2JavaTransformer {
         // Find namespace prefix for child
         String id = child.getId();
         for (TDMNElementReference reference: references) {
-            String namespacePrefix = dmnModelRepository.namespacePrefixForId(reference, id);
-            if (namespacePrefix != null) {
-                return namespacePrefix;
+            String importName = dmnModelRepository.importNameForId(reference, id);
+            if (importName != null) {
+                return importName;
             }
         }
         return null;
@@ -1604,14 +1630,14 @@ public class BasicDMN2JavaTransformer {
         }
         List<TDMNElementReference> outputDecisions = decisionService.getOutputDecision();
         if (outputDecisions.size() == 1) {
-            TDecision decision = getDMNModelRepository().findDecisionById(outputDecisions.get(0).getHref());
+            TDecision decision = getDMNModelRepository().findDecisionByRef(decisionService, outputDecisions.get(0).getHref());
             String decisionName = decision.getName();
             VariableDeclaration declaration = (VariableDeclaration) environment.lookupVariableDeclaration(decisionName);
             return declaration.getType();
         } else {
             ContextType type = new ContextType();
             for (TDMNElementReference er: outputDecisions) {
-                TDecision decision = getDMNModelRepository().findDecisionById(er.getHref());
+                TDecision decision = getDMNModelRepository().findDecisionByRef(decisionService, er.getHref());
                 String decisionName = decision.getName();
                 VariableDeclaration declaration = (VariableDeclaration) environment.lookupVariableDeclaration(decisionName);
                 type.addMember(decisionName, Arrays.asList(), declaration.getType());

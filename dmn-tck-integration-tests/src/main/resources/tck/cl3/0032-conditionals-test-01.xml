@@ -14,28 +14,28 @@
 	<testCase id="001">
 	    <description>Tests simple 'if' condition for true</description>
 		<inputNode name="bool">
-		    <value>true</value>
+		    <value xsi:type="xsd:boolean">true</value>
 		</inputNode>
 	    <inputNode name="num">
-	        <value>100</value>
+	        <value xsi:type="xsd:decimal">100</value>
 	    </inputNode>
 	    <resultNode name="simpleIf" type="decision">
 			<expected>
-			    <value>110</value>
+			    <value xsi:type="xsd:decimal">110</value>
 			</expected>
 		</resultNode>
 	</testCase>
     <testCase id="002">
         <description>Tests simple 'if' condition for false</description>
         <inputNode name="bool">
-            <value>false</value>
+            <value xsi:type="xsd:boolean">false</value>
         </inputNode>
         <inputNode name="num">
-            <value>100</value>
+            <value xsi:type="xsd:decimal">100</value>
         </inputNode>
         <resultNode name="simpleIf" type="decision">
             <expected>
-                <value>90</value>
+                <value xsi:type="xsd:decimal">90</value>
             </expected>
         </resultNode>
     </testCase>
@@ -45,11 +45,11 @@
             <value xsi:nil="true"/>
         </inputNode>
         <inputNode name="num">
-            <value>100</value>
+            <value xsi:type="xsd:decimal">100</value>
         </inputNode>
         <resultNode name="simpleIf" type="decision">
             <expected>
-            	<value>90</value>
+            	<value xsi:type="xsd:decimal">90</value>
             </expected>
         </resultNode>
     </testCase>
@@ -59,11 +59,11 @@
             <value xsi:type="xsd:date">2017-01-02</value>
         </inputNode>
         <inputNode name="aString">
-            <value>Hello World</value>
+            <value xsi:type="xsd:string">Hello World</value>
         </inputNode>
         <resultNode name="conditionWithFunctions" type="decision">
             <expected>
-                <value>Hello</value>
+                <value xsi:type="xsd:string">Hello</value>
             </expected>
         </resultNode>
     </testCase>
@@ -73,11 +73,11 @@
             <value xsi:type="xsd:date">2017-01-01</value>
         </inputNode>
         <inputNode name="aString">
-            <value>Hello World</value>
+            <value xsi:type="xsd:string">Hello World</value>
         </inputNode>
         <resultNode name="conditionWithFunctions" type="decision">
             <expected>
-                <value>World</value>
+                <value xsi:type="xsd:string">World</value>
             </expected>
         </resultNode>
     </testCase>
@@ -87,11 +87,11 @@
             <value xsi:nil="true"/>
         </inputNode>
         <inputNode name="aString">
-            <value>Hello World</value>
+            <value xsi:type="xsd:string">Hello World</value>
         </inputNode>
         <resultNode name="conditionWithFunctions" type="decision">
             <expected>
-            	<value>World</value>
+            	<value xsi:type="xsd:string">World</value>
             </expected>
         </resultNode>
     </testCase>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dmn:definitions xmlns:dmn="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" namespace="http://www.trisotech.com/definitions/_9d46ece4-a96c-4cb0-abc0-0ca121ac3768" exporter="DMN Modeler" exporterVersion="6.2.4.2" name="Model B2" id="_9d46ece4-a96c-4cb0-abc0-0ca121ac3768" triso:logoChoice="Default">
+    <dmn:import namespace="http://www.trisotech.com/definitions/_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9" importType="http://www.omg.org/spec/DMN/20180521/MODEL/" name="modelA"/>
+    <dmn:decision name="EvaluatingB2SayHello" id="_96df766e-23e1-4aa6-9d5d-545fbe2f1e23" triso:useOutputTypeAsAnswer="false">
+        <dmn:variable typeRef="string" name="EvaluatingB2SayHello" id="_0a5ade68-3746-4022-99e3-e15e42216725"/>
+        <dmn:informationRequirement id="_3eb95d84-08de-4497-9827-5dcd5cb5927e">
+            <dmn:requiredDecision href="http://www.trisotech.com/definitions/_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9#_f7fdaec4-d669-4797-b3b4-12b860de2eb5"/>
+        </dmn:informationRequirement>
+        <dmn:literalExpression typeRef="string" id="_026e05fb-6c07-4046-9c52-716ba5619a69" triso:expressionId="_8ff85959-661b-4674-8a9a-f20ca598f7b1">
+            <dmn:text>"Evaluating Say Hello to: "+modelA.GreetThePerson</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+</dmn:definitions>
