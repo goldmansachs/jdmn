@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<modelName>0008-listGen.dmn</modelName>
 	<labels>
 		<label>Compliance Level 3</label>
@@ -17,13 +17,13 @@
 			<expected>
 				<list>
 					<item>
-						<value>a</value>
+						<value xsi:type="xsd:string">a</value>
 					</item>
 					<item>
-						<value>b</value>
+						<value xsi:type="xsd:string">b</value>
 					</item>
 					<item>
-						<value>c</value>
+						<value xsi:type="xsd:string">c</value>
 					</item>
 				</list>
 			</expected>
@@ -31,25 +31,25 @@
 	</testCase>
 	<testCase id="002">
 		<inputNode name="a">
-			<value>a</value>
+			<value xsi:type="xsd:string">a</value>
 		</inputNode>
 		<inputNode name="b">
-			<value>b</value>
+			<value xsi:type="xsd:string">b</value>
 		</inputNode>
 		<inputNode name="c">
-			<value>c</value>
+			<value xsi:type="xsd:string">c</value>
 		</inputNode>
 		<resultNode name="listGen2" type="decision">
 			<expected>
 				<list>
 					<item>
-						<value>a</value>
+						<value xsi:type="xsd:string">a</value>
 					</item>
 					<item>
-						<value>b</value>
+						<value xsi:type="xsd:string">b</value>
 					</item>
 					<item>
-						<value>c</value>
+						<value xsi:type="xsd:string">c</value>
 					</item>
 				</list>
 			</expected>
@@ -57,22 +57,22 @@
 	</testCase>
 	<testCase id="003">
 		<inputNode name="b">
-			<value>b</value>
+			<value xsi:type="xsd:string">b</value>
 		</inputNode>
 		<inputNode name="c">
-			<value>c</value>
+			<value xsi:type="xsd:string">c</value>
 		</inputNode>
 		<resultNode name="listGen3" type="decision">
 			<expected>
 				<list>
 					<item>
-						<value>a</value>
+						<value xsi:type="xsd:string">a</value>
 					</item>
 					<item>
-						<value>b</value>
+						<value xsi:type="xsd:string">b</value>
 					</item>
 					<item>
-						<value>c</value>
+						<value xsi:type="xsd:string">c</value>
 					</item>
 				</list>
 			</expected>
@@ -80,19 +80,19 @@
 	</testCase>
 	<testCase id="004">
 		<inputNode name="c">
-			<value>c</value>
+			<value xsi:type="xsd:string">c</value>
 		</inputNode>
 		<resultNode name="listGen4" type="decision">
 			<expected>
 				<list>
 					<item>
-						<value>a</value>
+						<value xsi:type="xsd:string">a</value>
 					</item>
 					<item>
-						<value>b</value>
+						<value xsi:type="xsd:string">b</value>
 					</item>
 					<item>
-						<value>c</value>
+						<value xsi:type="xsd:string">c</value>
 					</item>
 				</list>
 			</expected>
@@ -100,25 +100,25 @@
 	</testCase>
 	<testCase id="005">
 		<inputNode name="a">
-			<value>a</value>
+			<value xsi:type="xsd:string">a</value>
 		</inputNode>
 		<inputNode name="b">
-			<value>b</value>
+			<value xsi:type="xsd:string">b</value>
 		</inputNode>
 		<inputNode name="c">
-			<value>c</value>
+			<value xsi:type="xsd:string">c</value>
 		</inputNode>
 		<resultNode name="listGen5" type="decision">
 			<expected>
 				<list>
 					<item>
-						<value>a</value>
+						<value xsi:type="xsd:string">a</value>
 					</item>
 					<item>
-						<value>b</value>
+						<value xsi:type="xsd:string">b</value>
 					</item>
 					<item>
-						<value>c</value>
+						<value xsi:type="xsd:string">c</value>
 					</item>
 				</list>
 			</expected>
@@ -129,16 +129,16 @@
 			<expected>
 				<list>
 					<item>
-						<value>w</value>
+						<value xsi:type="xsd:string">w</value>
 					</item>
 					<item>
-						<value>x</value>
+						<value xsi:type="xsd:string">x</value>
 					</item>
 					<item>
-						<value>y</value>
+						<value xsi:type="xsd:string">y</value>
 					</item>
 					<item>
-						<value>z</value>
+						<value xsi:type="xsd:string">z</value>
 					</item>
 				</list>
 			</expected>
@@ -148,10 +148,10 @@
 		<inputNode name="wx">
 			<list>
 				<item>
-					<value>w</value>
+					<value xsi:type="xsd:string">w</value>
 				</item>
 				<item>
-					<value>x</value>
+					<value xsi:type="xsd:string">x</value>
 				</item>
 			</list>
 		</inputNode>
@@ -159,16 +159,16 @@
 			<expected>
 				<list>
 					<item>
-						<value>w</value>
+						<value xsi:type="xsd:string">w</value>
 					</item>
 					<item>
-						<value>x</value>
+						<value xsi:type="xsd:string">x</value>
 					</item>
 					<item>
-						<value>y</value>
+						<value xsi:type="xsd:string">y</value>
 					</item>
 					<item>
-						<value>z</value>
+						<value xsi:type="xsd:string">z</value>
 					</item>
 				</list>
 			</expected>
@@ -176,31 +176,31 @@
 	</testCase>
 	<testCase id="008">
 		<inputNode name="a">
-			<value>a</value>
+			<value xsi:type="xsd:string">a</value>
 		</inputNode>
 		<inputNode name="b">
-			<value>b</value>
+			<value xsi:type="xsd:string">b</value>
 		</inputNode>
 		<resultNode name="listGen8" type="decision">
 			<expected>
 				<list>
 					<item>
-						<value>a</value>
+						<value xsi:type="xsd:string">a</value>
 					</item>
 					<item>
-						<value>b</value>
+						<value xsi:type="xsd:string">b</value>
 					</item>
 					<item>
-						<value>w</value>
+						<value xsi:type="xsd:string">w</value>
 					</item>
 					<item>
-						<value>x</value>
+						<value xsi:type="xsd:string">x</value>
 					</item>
 					<item>
-						<value>y</value>
+						<value xsi:type="xsd:string">y</value>
 					</item>
 					<item>
-						<value>z</value>
+						<value xsi:type="xsd:string">z</value>
 					</item>
 				</list>
 			</expected>
@@ -208,18 +208,18 @@
 	</testCase>
 	<testCase id="009">
 		<inputNode name="a">
-			<value>a</value>
+			<value xsi:type="xsd:string">a</value>
 		</inputNode>
 		<inputNode name="b">
-			<value>b</value>
+			<value xsi:type="xsd:string">b</value>
 		</inputNode>
 		<inputNode name="wx">
 			<list>
 				<item>
-					<value>w</value>
+					<value xsi:type="xsd:string">w</value>
 				</item>
 				<item>
-					<value>x</value>
+					<value xsi:type="xsd:string">x</value>
 				</item>
 			</list>
 		</inputNode>
@@ -227,22 +227,22 @@
 			<expected>
 				<list>
 					<item>
-						<value>a</value>
+						<value xsi:type="xsd:string">a</value>
 					</item>
 					<item>
-						<value>b</value>
+						<value xsi:type="xsd:string">b</value>
 					</item>
 					<item>
-						<value>w</value>
+						<value xsi:type="xsd:string">w</value>
 					</item>
 					<item>
-						<value>x</value>
+						<value xsi:type="xsd:string">x</value>
 					</item>
 					<item>
-						<value>y</value>
+						<value xsi:type="xsd:string">y</value>
 					</item>
 					<item>
-						<value>z</value>
+						<value xsi:type="xsd:string">z</value>
 					</item>
 				</list>
 			</expected>
@@ -250,15 +250,15 @@
 	</testCase>
 	<testCase id="010">
 		<inputNode name="c">
-			<value>c</value>
+			<value xsi:type="xsd:string">c</value>
 		</inputNode>
 		<inputNode name="wx">
 			<list>
 				<item>
-					<value>w</value>
+					<value xsi:type="xsd:string">w</value>
 				</item>
 				<item>
-					<value>x</value>
+					<value xsi:type="xsd:string">x</value>
 				</item>
 			</list>
 		</inputNode>
@@ -266,25 +266,25 @@
 			<expected>
 				<list>
 					<item>
-						<value>a</value>
+						<value xsi:type="xsd:string">a</value>
 					</item>
 					<item>
-						<value>b</value>
+						<value xsi:type="xsd:string">b</value>
 					</item>
 					<item>
-						<value>c</value>
+						<value xsi:type="xsd:string">c</value>
 					</item>
 					<item>
-						<value>w</value>
+						<value xsi:type="xsd:string">w</value>
 					</item>
 					<item>
-						<value>x</value>
+						<value xsi:type="xsd:string">x</value>
 					</item>
 					<item>
-						<value>y</value>
+						<value xsi:type="xsd:string">y</value>
 					</item>
 					<item>
-						<value>z</value>
+						<value xsi:type="xsd:string">z</value>
 					</item>
 				</list>
 			</expected>

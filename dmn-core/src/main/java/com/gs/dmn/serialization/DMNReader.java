@@ -125,41 +125,41 @@ public class DMNReader extends DMNSerializer {
         }
     }
 
-    Object readObject(File input) throws Exception {
+    public Object readObject(File input) throws Exception {
         DocumentBuilder builder = makeDocumentBuilder();
         Document doc = builder.parse(input);
         return readObject(doc);
     }
 
-    Object readObject(URL input) throws Exception {
+    public Object readObject(URL input) throws Exception {
         DocumentBuilder builder = makeDocumentBuilder();
         Document doc = builder.parse(input.openStream());
         return readObject(doc);
     }
 
-    Object readObject(InputStream input) throws Exception {
+    public Object readObject(InputStream input) throws Exception {
         DocumentBuilder builder = makeDocumentBuilder();
         Document doc = builder.parse(input);
         return readObject(doc);
     }
 
-    Object readObject(Reader input) throws Exception {
+    public Object readObject(Reader input) throws Exception {
         DocumentBuilder builder = makeDocumentBuilder();
         Document doc = builder.parse(new InputSource(input));
         return readObject(doc);
+    }
+
+    public Object readObject(Document doc) throws Exception {
+        DMNVersion dmnVersion = inferDMNVersion(doc);
+        Unmarshaller unmarshaller = makeUnmarshaller(dmnVersion);
+        JAXBElement<?> jaxbElement = (JAXBElement<?>) unmarshaller.unmarshal(doc);
+        return jaxbElement.getValue();
     }
 
     private DocumentBuilder makeDocumentBuilder() throws Exception {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         dbFactory.setNamespaceAware(true);
         return dbFactory.newDocumentBuilder();
-    }
-
-    Object readObject(Document doc) throws Exception {
-        DMNVersion dmnVersion = inferDMNVersion(doc);
-        Unmarshaller unmarshaller = makeUnmarshaller(dmnVersion);
-        JAXBElement<?> jaxbElement = (JAXBElement<?>) unmarshaller.unmarshal(doc);
-        return jaxbElement.getValue();
     }
 
     private DMNVersion inferDMNVersion(Document doc) {

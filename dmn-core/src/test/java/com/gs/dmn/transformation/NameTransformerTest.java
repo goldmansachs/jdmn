@@ -23,6 +23,9 @@ import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public abstract class NameTransformerTest extends AbstractFileTransformerTest {
     protected static final ClassLoader CLASS_LOADER = NameTransformerTest.class.getClassLoader();
@@ -31,15 +34,19 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
     protected final DMNWriter dmnWriter = new DMNWriter(LOGGER);
     protected final TestCasesReader testReader = new TestCasesReader(LOGGER);
 
-    protected void doTest(String dmnFileName, Pair<String, String> dmnNamespacePrefixMapping, String testsFileName, Pair<String, String> testsNamespacePrefixMapping) throws Exception {
+    protected void doTest(String rootDMNFileName, List<String> additionalDMNFileNames, String testsFileName, Map<String, Pair<String, String>> namespacePrefixMapping) throws Exception {
         DMNTransformer<TestCases> transformer = getTransformer();
         String path = getInputPath();
 
-        // Transform DMN
-        File inputDmnFile = new File(CLASS_LOADER.getResource(path + dmnFileName).getFile());
-        Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(inputDmnFile);
-        DMNModelRepository repository = new DMNModelRepository(pair);
-        TDefinitions actualDefinitions = transformer.transform(repository).getDefinitionsList().get(0);
+        // Transform DMN files
+        PrefixNamespaceMappings prefixMapper = new PrefixNamespaceMappings();
+        TDefinitions rootDefinitions = readModel(rootDMNFileName, prefixMapper);
+        List<TDefinitions> importedDefinitionsList = new ArrayList<>();
+        for (String fileName: additionalDMNFileNames) {
+            TDefinitions importedDefinitions = readModel(fileName, prefixMapper);
+            importedDefinitionsList.add(importedDefinitions);
+        }
+        DMNModelRepository repository = new DMNModelRepository(rootDefinitions, importedDefinitionsList, prefixMapper);
 
         // Transform Tests
         File inputTestsFile = new File(CLASS_LOADER.getResource(path + testsFileName).getFile());
@@ -49,13 +56,25 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
         // Check output
         File targetFolder = new File(getTargetPath());
         targetFolder.mkdirs();
-        DMNNamespacePrefixMapper dmnNamespacePrefixMapper = new DMNNamespacePrefixMapper(dmnNamespacePrefixMapping.getLeft(), dmnNamespacePrefixMapping.getRight());
-        check(actualDefinitions, dmnFileName, dmnNamespacePrefixMapper);
-        DMNNamespacePrefixMapper testsNamespacePrefixMapper = new DMNNamespacePrefixMapper(testsNamespacePrefixMapping.getLeft(), testsNamespacePrefixMapping.getRight());
-        check(actualTestCases, testsFileName, testsNamespacePrefixMapper);
+        check(rootDefinitions, rootDMNFileName, namespacePrefixMapping.get(rootDMNFileName));
+        for (int i = 0; i < additionalDMNFileNames.size(); i++) {
+            String fileName = additionalDMNFileNames.get(i);
+            TDefinitions definitions = importedDefinitionsList.get(i);
+            check(definitions, fileName, namespacePrefixMapping.get(rootDMNFileName));
+        }
+        Pair<String, String> testsNamespacePrefixMapping = namespacePrefixMapping.get(testsFileName);
+        check(actualTestCases, testsFileName, testsNamespacePrefixMapping);
     }
 
-    private void check(TDefinitions actualDefinitions, String fileName, DMNNamespacePrefixMapper dmnNamespacePrefixMapper) throws Exception {
+    private TDefinitions readModel(String fileName, PrefixNamespaceMappings prefixNamespaceMappings) {
+        File dmnFile = new File(CLASS_LOADER.getResource(getInputPath() + fileName).getFile());
+        Pair<TDefinitions, PrefixNamespaceMappings> pair = this.dmnReader.read(dmnFile);
+        prefixNamespaceMappings.merge(pair.getRight());
+        return pair.getLeft();
+    }
+
+    private void check(TDefinitions actualDefinitions, String fileName, Pair<String, String> namespacePrefixMapping) throws Exception {
+        DMNNamespacePrefixMapper dmnNamespacePrefixMapper = new DMNNamespacePrefixMapper(namespacePrefixMapping.getLeft(), namespacePrefixMapping.getRight());
         File actualDMNFile = new File(getTargetPath() + fileName);
         dmnWriter.write(actualDefinitions, actualDMNFile, dmnNamespacePrefixMapper);
         File expectedDMNFile = new File(CLASS_LOADER.getResource(getExpectedPath() + fileName).getFile());
@@ -63,8 +82,9 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
         compareFile(expectedDMNFile, actualDMNFile);
     }
 
-    private void check(TestCases actualTestCases, String fileName, DMNNamespacePrefixMapper testsNamespacePrefixMapper) throws Exception {
+    private void check(TestCases actualTestCases, String fileName, Pair<String, String> namespacePrefixMapping) throws Exception {
         File actualTestsFile = new File(getTargetPath() + fileName);
+        DMNNamespacePrefixMapper testsNamespacePrefixMapper = new DMNNamespacePrefixMapper(namespacePrefixMapping.getLeft(), namespacePrefixMapping.getRight());
         testReader.write(actualTestCases, actualTestsFile, testsNamespacePrefixMapper);
         File expectedTestLabFile = new File(CLASS_LOADER.getResource(getExpectedPath() + fileName).getFile());
 

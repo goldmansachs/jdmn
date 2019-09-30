@@ -21,10 +21,10 @@
 						<value xsi:type="xsd:string">7792</value>
 					</component>
 					<component name="deptNum">
-						<value>10</value>
+						<value xsi:type="xsd:decimal">10</value>
 					</component>
 					<component name="name">
-						<value>Clark</value>
+						<value xsi:type="xsd:string">Clark</value>
 					</component>
 				</item>
 				<item>
@@ -32,10 +32,10 @@
 						<value xsi:type="xsd:string">7934</value>
 					</component>
 					<component name="deptNum">
-						<value>10</value>
+						<value xsi:type="xsd:decimal">10</value>
 					</component>
 					<component name="name">
-						<value>Miller</value>
+						<value xsi:type="xsd:string">Miller</value>
 					</component>
 				</item>
 				<item>
@@ -43,10 +43,10 @@
 						<value xsi:type="xsd:string">7976</value>
 					</component>
 					<component name="deptNum">
-						<value>20</value>
+						<value xsi:type="xsd:decimal">20</value>
 					</component>
 					<component name="name">
-						<value>Adams</value>
+						<value xsi:type="xsd:string">Adams</value>
 					</component>
 				</item>
 				<item>
@@ -54,10 +54,10 @@
 						<value xsi:type="xsd:string">7902</value>
 					</component>
 					<component name="deptNum">
-						<value>20</value>
+						<value xsi:type="xsd:decimal">20</value>
 					</component>
 					<component name="name">
-						<value>Ford</value>
+						<value xsi:type="xsd:string">Ford</value>
 					</component>
 				</item>
 				<item>
@@ -65,10 +65,10 @@
 						<value xsi:type="xsd:string">7900</value>
 					</component>
 					<component name="deptNum">
-						<value>30</value>
+						<value xsi:type="xsd:decimal">30</value>
 					</component>
 					<component name="name">
-						<value>James</value>
+						<value xsi:type="xsd:string">James</value>
 					</component>
 				</item>
 			</list>
@@ -77,45 +77,45 @@
 			<list>
 				<item>
 					<component name="number">
-						<value>10</value>
+						<value xsi:type="xsd:decimal">10</value>
 					</component>
 					<component name="name">
-						<value>Sales</value>
+						<value xsi:type="xsd:string">Sales</value>
 					</component>
 					<component name="manager">
-						<value>Smith</value>
+						<value xsi:type="xsd:string">Smith</value>
 					</component>
 				</item>
 				<item>
 					<component name="number">
-						<value>20</value>
+						<value xsi:type="xsd:decimal">20</value>
 					</component>
 					<component name="name">
-						<value>Finance</value>
+						<value xsi:type="xsd:string">Finance</value>
 					</component>
 					<component name="manager">
-						<value>Jones</value>
+						<value xsi:type="xsd:string">Jones</value>
 					</component>
 				</item>
 				<item>
 					<component name="number">
-						<value>30</value>
+						<value xsi:type="xsd:decimal">30</value>
 					</component>
 					<component name="name">
-						<value>Engineering</value>
+						<value xsi:type="xsd:string">Engineering</value>
 					</component>
 					<component name="manager">
-						<value>King</value>
+						<value xsi:type="xsd:string">King</value>
 					</component>
 				</item>
 			</list>
 		</inputNode>
 		<inputNode name="LastName">
-			<value>Clark</value>
+			<value xsi:type="xsd:string">Clark</value>
 		</inputNode>
 		<resultNode name="Join" type="decision">
 			<expected>
-				<value>Smith</value>
+				<value xsi:type="xsd:string">Smith</value>
 			</expected>
 		</resultNode>
 	</testCase>

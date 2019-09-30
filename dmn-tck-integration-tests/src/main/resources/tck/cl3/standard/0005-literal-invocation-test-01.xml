@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<modelName>0005-literal-invocation.dmn</modelName>
 	<labels>
 		<label>Compliance Level 3</label>
@@ -14,63 +14,63 @@
 	<testCase id="001">
 		<inputNode name="Loan">
 			<component name="amount">
-				<value>600000</value>
+				<value xsi:type="xsd:decimal">600000</value>
 			</component>
 			<component name="rate">
-				<value>0.0375</value>
+				<value xsi:type="xsd:decimal">0.0375</value>
 			</component>
 			<component name="term">
-				<value>360</value>
+				<value xsi:type="xsd:decimal">360</value>
 			</component>
 		</inputNode>
 		<inputNode name="fee">
-			<value>100</value>
+			<value xsi:type="xsd:decimal">100</value>
 		</inputNode>
 		<resultNode name="MonthlyPayment" type="decision">
 			<expected>
-				<value>2878.69354943277</value>
+				<value xsi:type="xsd:decimal">2878.69354943277</value>
 			</expected>
 		</resultNode>
 	</testCase>
 	<testCase id="002">
 		<inputNode name="Loan">
 			<component name="amount">
-				<value>30000</value>
+				<value xsi:type="xsd:decimal">30000</value>
 			</component>
 			<component name="rate">
-				<value>0.0475</value>
+				<value xsi:type="xsd:decimal">0.0475</value>
 			</component>
 			<component name="term">
-				<value>60</value>
+				<value xsi:type="xsd:decimal">60</value>
 			</component>
 		</inputNode>
 		<inputNode name="fee">
-			<value>100</value>
+			<value xsi:type="xsd:decimal">100</value>
 		</inputNode>
 		<resultNode name="MonthlyPayment" type="decision">
 			<expected>
-				<value>662.707359373292</value>
+				<value xsi:type="xsd:decimal">662.707359373292</value>
 			</expected>
 		</resultNode>
 	</testCase>
 	<testCase id="003">
 		<inputNode name="Loan">
 			<component name="amount">
-				<value>600000</value>
+				<value xsi:type="xsd:decimal">600000</value>
 			</component>
 			<component name="rate">
-				<value>0.0399</value>
+				<value xsi:type="xsd:decimal">0.0399</value>
 			</component>
 			<component name="term">
-				<value>360</value>
+				<value xsi:type="xsd:decimal">360</value>
 			</component>
 		</inputNode>
 		<inputNode name="fee">
-			<value>100</value>
+			<value xsi:type="xsd:decimal">100</value>
 		</inputNode>
 		<resultNode name="MonthlyPayment" type="decision">
 			<expected>
-				<value>2961.03377700389</value>
+				<value xsi:type="xsd:decimal">2961.03377700389</value>
 			</expected>
 		</resultNode>
 	</testCase>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<modelName>0030-user-defined-functions.dmn</modelName>
 	<labels>
 		<label>Compliance Level 3</label>
@@ -15,19 +15,19 @@
 			invocation
 		</description>
 		<inputNode name="stringInputA">
-			<value>feel</value>
+			<value xsi:type="xsd:string">feel</value>
 		</inputNode>
 		<inputNode name="stringInputB">
-			<value>#</value>
+			<value xsi:type="xsd:string">#</value>
 		</inputNode>
 		<resultNode name="simple function invocation" type="decision">
 			<expected>
-				<value>feel#feel#</value>
+				<value xsi:type="xsd:string">feel#feel#</value>
 			</expected>
 		</resultNode>
 		<resultNode name="named function invocation" type="decision">
 			<expected>
-				<value>#feel#feel</value>
+				<value xsi:type="xsd:string">#feel#feel</value>
 			</expected>
 		</resultNode>
 	</testCase>

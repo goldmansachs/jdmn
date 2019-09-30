@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<modelName>0109-ruleOrder-hitpolicy.dmn</modelName>
 	<labels>
 		<label>Compliance Level 2</label>
@@ -13,31 +13,31 @@
 	</labels>
 	<testCase id="001">
 		<inputNode name="Age">
-			<value>19</value>
+			<value xsi:type="xsd:decimal">19</value>
 		</inputNode>
 		<inputNode name="RiskCategory">
-			<value>Medium</value>
+			<value xsi:type="xsd:string">Medium</value>
 		</inputNode>
 		<inputNode name="isAffordable">
-			<value>true</value>
+			<value xsi:type="xsd:boolean">true</value>
 		</inputNode>
 		<resultNode name="Approval" type="decision">
 			<expected>
 			<list>
 				<item>
 				<component name="Status">
-					<value>Approved</value>
+					<value xsi:type="xsd:string">Approved</value>
 				</component>
 				<component name="Rate">
-					<value>Best</value>
+					<value xsi:type="xsd:string">Best</value>
 				</component>
 				</item>
 				<item>
 				<component name="Status">
-					<value>Approved</value>
+					<value xsi:type="xsd:string">Approved</value>
 				</component>
 				<component name="Rate">
-					<value>Standard</value>
+					<value xsi:type="xsd:string">Standard</value>
 				</component>
 				</item>
 				</list>
@@ -46,23 +46,23 @@
 	</testCase>
 	<testCase id="002">
 		<inputNode name="Age">
-			<value>13</value>
+			<value xsi:type="xsd:decimal">13</value>
 		</inputNode>
 		<inputNode name="RiskCategory">
-			<value>Medium</value>
+			<value xsi:type="xsd:string">Medium</value>
 		</inputNode>
 		<inputNode name="isAffordable">
-			<value>true</value>
+			<value xsi:type="xsd:boolean">true</value>
 		</inputNode>
 		<resultNode name="Approval" type="decision">
 			<expected>
 			<list>
 				<item>
 				<component name="Status">
-					<value>Approved</value>
+					<value xsi:type="xsd:string">Approved</value>
 				</component>
 				<component name="Rate">
-					<value>Standard</value>
+					<value xsi:type="xsd:string">Standard</value>
 				</component>
 				</item>
 				</list>
@@ -71,23 +71,23 @@
 	</testCase>
 	<testCase id="003">
 		<inputNode name="Age">
-			<value>10</value>
+			<value xsi:type="xsd:decimal">10</value>
 		</inputNode>
 		<inputNode name="RiskCategory">
-			<value>Low</value>
+			<value xsi:type="xsd:string">Low</value>
 		</inputNode>
 		<inputNode name="isAffordable">
-			<value>true</value>
+			<value xsi:type="xsd:boolean">true</value>
 		</inputNode>
 		<resultNode name="Approval" type="decision">
 			<expected>
 			<list>
 				<item>
 				<component name="Status">
-					<value>Declined</value>
+					<value xsi:type="xsd:string">Declined</value>
 				</component>
 				<component name="Rate">
-					<value>Standard</value>
+					<value xsi:type="xsd:string">Standard</value>
 				</component>
 				</item>
 				</list>

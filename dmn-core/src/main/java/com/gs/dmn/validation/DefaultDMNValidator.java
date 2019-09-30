@@ -143,7 +143,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         // Validate requirements
         List<TInformationRequirement> informationRequirement = decision.getInformationRequirement();
         List<TNamedElement> references = informationRequirement.stream()
-                .map(ir -> ir.getRequiredDecision() != null ? dmnModelRepository.findDecisionById(ir.getRequiredDecision().getHref()) : dmnModelRepository.findInputDataById(ir.getRequiredInput().getHref())).collect(Collectors.toList());
+                .map(ir -> ir.getRequiredDecision() != null ? dmnModelRepository.findDecisionByRef(decision, ir.getRequiredDecision().getHref()) : dmnModelRepository.findInputDataByRef(decision, ir.getRequiredInput().getHref())).collect(Collectors.toList());
         validateUnique("DRGElement", "name", false,
                 references, TNamedElement::getName, decision.getName(), errors);
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<modelName>0008-LX-arithmetic.dmn</modelName>
 	<labels>
 		<label>Compliance Level 2</label>
@@ -12,54 +12,54 @@
 	<testCase id="001">
 		<inputNode name="loan">
 			<component name="principal">
-				<value>600000</value>
+				<value xsi:type="xsd:decimal">600000</value>
 			</component>
 			<component name="rate">
-				<value>0.0375</value>
+				<value xsi:type="xsd:decimal">0.0375</value>
 			</component>
 			<component name="termMonths">
-				<value>360</value>
+				<value xsi:type="xsd:decimal">360</value>
 			</component>
 		</inputNode>
 		<resultNode name="payment" type="decision">
 			<expected>
-				<value>2778.69354943277</value>
+				<value xsi:type="xsd:decimal">2778.69354943277</value>
 			</expected>
 		</resultNode>
 	</testCase>
 	<testCase id="002">
 		<inputNode name="loan">
 			<component name="principal">
-				<value>30000</value>
+				<value xsi:type="xsd:decimal">30000</value>
 			</component>
 			<component name="rate">
-				<value>0.0475</value>
+				<value xsi:type="xsd:decimal">0.0475</value>
 			</component>
 			<component name="termMonths">
-				<value>60</value>
+				<value xsi:type="xsd:decimal">60</value>
 			</component>
 		</inputNode>
 		<resultNode name="payment" type="decision">
 			<expected>
-				<value>562.707359373292</value>
+				<value xsi:type="xsd:decimal">562.707359373292</value>
 			</expected>
 		</resultNode>
 	</testCase>
 	<testCase id="003">
 		<inputNode name="loan">
 			<component name="principal">
-				<value>600000</value>
+				<value xsi:type="xsd:decimal">600000</value>
 			</component>
 			<component name="rate">
-				<value>0.0399</value>
+				<value xsi:type="xsd:decimal">0.0399</value>
 			</component>
 			<component name="termMonths">
-				<value>360</value>
+				<value xsi:type="xsd:decimal">360</value>
 			</component>
 		</inputNode>
 		<resultNode name="payment" type="decision">
 			<expected>
-				<value>2861.03377700389</value>
+				<value xsi:type="xsd:decimal">2861.03377700389</value>
 			</expected>
 		</resultNode>
 	</testCase>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<modelName>0001-filter.dmn</modelName>
     <labels>
         <label>Compliance Level 3</label>
@@ -20,57 +20,57 @@
 			<list>
 				<item>
 					<component name="id">
-						<value>7792</value>
+						<value xsi:type="xsd:decimal">7792</value>
 					</component>
 					<component name="dept">
-						<value>10</value>
+						<value xsi:type="xsd:decimal">10</value>
 					</component>
 					<component name="name">
-						<value>Clark</value>
+						<value xsi:type="xsd:string">Clark</value>
 					</component>
 				</item>
 				<item>
 					<component name="id">
-						<value>7934</value>
+						<value xsi:type="xsd:decimal">7934</value>
 					</component>
 					<component name="dept">
-						<value>10</value>
+						<value xsi:type="xsd:decimal">10</value>
 					</component>
 					<component name="name">
-						<value>Miller</value>
+						<value xsi:type="xsd:string">Miller</value>
 					</component>
 				</item>
 				<item>
 					<component name="id">
-						<value>7976</value>
+						<value xsi:type="xsd:decimal">7976</value>
 					</component>
 					<component name="dept">
-						<value>20</value>
+						<value xsi:type="xsd:decimal">20</value>
 					</component>
 					<component name="name">
-						<value>Adams</value>
+						<value xsi:type="xsd:string">Adams</value>
 					</component>
 				</item>
 				<item>
 					<component name="id">
-						<value>7902</value>
+						<value xsi:type="xsd:decimal">7902</value>
 					</component>
 					<component name="dept">
-						<value>20</value>
+						<value xsi:type="xsd:decimal">20</value>
 					</component>
 					<component name="name">
-						<value>Ford</value>
+						<value xsi:type="xsd:string">Ford</value>
 					</component>
 				</item>
 				<item>
 					<component name="id">
-						<value>7900</value>
+						<value xsi:type="xsd:decimal">7900</value>
 					</component>
 					<component name="dept">
-						<value>30</value>
+						<value xsi:type="xsd:decimal">30</value>
 					</component>
 					<component name="name">
-						<value>James</value>
+						<value xsi:type="xsd:string">James</value>
 					</component>
 				</item>
 			</list>
@@ -79,10 +79,10 @@
 			<expected>
 				<list>
 					<item>
-						<value>Adams</value>
+						<value xsi:type="xsd:string">Adams</value>
 					</item>
 					<item>
-						<value>Ford</value>
+						<value xsi:type="xsd:string">Ford</value>
 					</item>
 				</list>
 			</expected>

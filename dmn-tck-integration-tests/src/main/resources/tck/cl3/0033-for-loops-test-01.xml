@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<modelName>0033-for-loops.dmn</modelName>
 	<labels>
 		<label>Compliance Level 3</label>
@@ -21,13 +21,13 @@
 		<inputNode name="heights">
 			<list>
 				<item>
-					<value>10</value>
+					<value xsi:type="xsd:decimal">10</value>
 				</item>
 				<item>
-					<value>20</value>
+					<value xsi:type="xsd:decimal">20</value>
 				</item>
 				<item>
-					<value>30</value>
+					<value xsi:type="xsd:decimal">30</value>
 				</item>
 			</list>
 		</inputNode>
@@ -35,13 +35,13 @@
 			<expected>
 				<list>
 					<item>
-						<value>11</value>
+						<value xsi:type="xsd:decimal">11</value>
 					</item>
 					<item>
-						<value>21</value>
+						<value xsi:type="xsd:decimal">21</value>
 					</item>
 					<item>
-						<value>31</value>
+						<value xsi:type="xsd:decimal">31</value>
 					</item>
 				</list>
 			</expected>
@@ -52,23 +52,23 @@
 		<inputNode name="heights">
 			<list>
 				<item>
-					<value>10</value>
+					<value xsi:type="xsd:decimal">10</value>
 				</item>
 				<item>
-					<value>20</value>
+					<value xsi:type="xsd:decimal">20</value>
 				</item>
 				<item>
-					<value>30</value>
+					<value xsi:type="xsd:decimal">30</value>
 				</item>
 			</list>
 		</inputNode>
 		<inputNode name="widths">
 			<list>
 				<item>
-					<value>2</value>
+					<value xsi:type="xsd:decimal">2</value>
 				</item>
 				<item>
-					<value>3</value>
+					<value xsi:type="xsd:decimal">3</value>
 				</item>
 			</list>
 		</inputNode>
@@ -76,22 +76,22 @@
 			<expected>
 				<list>
 					<item>
-						<value>20</value>
+						<value xsi:type="xsd:decimal">20</value>
 					</item>
 					<item>
-						<value>30</value>
+						<value xsi:type="xsd:decimal">30</value>
 					</item>
 					<item>
-						<value>40</value>
+						<value xsi:type="xsd:decimal">40</value>
 					</item>
 					<item>
-						<value>60</value>
+						<value xsi:type="xsd:decimal">60</value>
 					</item>
 					<item>
-						<value>60</value>
+						<value xsi:type="xsd:decimal">60</value>
 					</item>
 					<item>
-						<value>90</value>
+						<value xsi:type="xsd:decimal">90</value>
 					</item>
 				</list>
 			</expected>
@@ -100,24 +100,24 @@
 	<testCase id="003">
 		<description>Tests single variable iteration with BKM call</description>
 		<inputNode name="value">
-			<value>35</value>
+			<value xsi:type="xsd:decimal">35</value>
 		</inputNode>
 		<inputNode name="factors">
 			<list>
 				<item>
-					<value>2</value>
+					<value xsi:type="xsd:decimal">2</value>
 				</item>
 				<item>
-					<value>3</value>
+					<value xsi:type="xsd:decimal">3</value>
 				</item>
 				<item>
-					<value>5</value>
+					<value xsi:type="xsd:decimal">5</value>
 				</item>
 				<item>
-					<value>7</value>
+					<value xsi:type="xsd:decimal">7</value>
 				</item>
 				<item>
-					<value>11</value>
+					<value xsi:type="xsd:decimal">11</value>
 				</item>
 			</list>
 		</inputNode>
@@ -125,19 +125,19 @@
 			<expected>
 				<list>
 					<item>
-						<value>false</value>
+						<value xsi:type="xsd:boolean">false</value>
 					</item>
 					<item>
-						<value>false</value>
+						<value xsi:type="xsd:boolean">false</value>
 					</item>
 					<item>
-						<value>true</value>
+						<value xsi:type="xsd:boolean">true</value>
 					</item>
 					<item>
-						<value>true</value>
+						<value xsi:type="xsd:boolean">true</value>
 					</item>
 					<item>
-						<value>false</value>
+						<value xsi:type="xsd:boolean">false</value>
 					</item>
 				</list>
 			</expected>
@@ -146,22 +146,22 @@
 	<testCase id="004">
 		<description>Tests single variable iteration with inline list</description>
 		<inputNode name="value">
-			<value>10</value>
+			<value xsi:type="xsd:decimal">10</value>
 		</inputNode>
 		<resultNode name="multiples" type="decision">
 			<expected>
 				<list>
 					<item>
-						<value>20</value>
+						<value xsi:type="xsd:decimal">20</value>
 					</item>
 					<item>
-						<value>30</value>
+						<value xsi:type="xsd:decimal">30</value>
 					</item>
 					<item>
-						<value>40</value>
+						<value xsi:type="xsd:decimal">40</value>
 					</item>
 					<item>
-						<value>50</value>
+						<value xsi:type="xsd:decimal">50</value>
 					</item>
 				</list>
 			</expected>

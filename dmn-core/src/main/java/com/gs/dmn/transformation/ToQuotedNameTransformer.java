@@ -35,16 +35,4 @@ public class ToQuotedNameTransformer extends NameTransformer {
             return "'" + name + "'";
         }
     }
-
-    private boolean isSimpleName(String name) {
-        if (!isSimpleNameStart(name.codePointAt(0))) {
-            return false;
-        }
-        for (int cp : name.codePoints().toArray()) {
-            if (!(isSimpleNamePart(cp))) {
-                return false;
-            }
-        }
-        return true;
-    }
 }
