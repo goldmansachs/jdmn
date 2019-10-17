@@ -48,17 +48,19 @@ public class DurationType extends DataType {
         return equivalentTo(other) || other == AnyType.ANY;
     }
 
-    private static final Map<String, Type> YEARS_AND_MONTHS_DURATION_MEMBERS = new LinkedHashMap() {{
-        put("years", NUMBER);
-        put("months", NUMBER);
-    }};
+    private static final Map<String, Type> YEARS_AND_MONTHS_DURATION_MEMBERS = new LinkedHashMap<>();
+    static {
+        YEARS_AND_MONTHS_DURATION_MEMBERS.put("years", NUMBER);
+        YEARS_AND_MONTHS_DURATION_MEMBERS.put("months", NUMBER);
+    };
 
-    private static final Map<String, Type> DAYS_AND_TIME_DURATION_MEMBERS = new LinkedHashMap() {{
-        put("days", NUMBER);
-        put("hours", NUMBER);
-        put("minutes", NUMBER);
-        put("seconds", NUMBER);
-    }};
+    private static final Map<String, Type> DAYS_AND_TIME_DURATION_MEMBERS = new LinkedHashMap<>();
+    static {
+        DAYS_AND_TIME_DURATION_MEMBERS.put("seconds", NUMBER);
+        DAYS_AND_TIME_DURATION_MEMBERS.put("minutes", NUMBER);
+        DAYS_AND_TIME_DURATION_MEMBERS.put("hours", NUMBER);
+        DAYS_AND_TIME_DURATION_MEMBERS.put("days", NUMBER);
+    }
 
     public static Type getMemberType(Type sourceType, String member) {
         if (YEAR_MONTH_DURATION.equivalentTo(sourceType)) {
