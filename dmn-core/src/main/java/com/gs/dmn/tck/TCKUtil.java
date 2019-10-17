@@ -85,7 +85,9 @@ public class TCKUtil {
 
     public String inputDataVariableName(InputNode inputNode) {
         TDRGElement element = findDRGElementByName(inputNode.getName());
-        if (element instanceof TInputData) {
+        if (element == null) {
+            throw new DMNRuntimeException(String.format("Cannot find element '%s'", inputNode.getName()));
+        } else if (element instanceof TInputData) {
             return dmnTransformer.inputDataVariableName((TInputData) element);
         } else {
             throw new UnsupportedOperationException(String.format("'%s' not supported", element.getClass().getSimpleName()));
@@ -228,7 +230,9 @@ public class TCKUtil {
     private QualifiedName getTypeRef(InputNode node) {
         TDRGElement element = findDRGElementByName(node.getName());
         QualifiedName typeRef = null;
-        if (element instanceof TInputData) {
+        if (element == null) {
+            throw new DMNRuntimeException(String.format("Cannot find element '%s'.", node.getName()));
+        } else if (element instanceof TInputData) {
             String varTypeRef = ((TInputData) element).getVariable().getTypeRef();
             typeRef = QualifiedName.toQualifiedName(varTypeRef);
         } else {
@@ -240,7 +244,9 @@ public class TCKUtil {
     private QualifiedName getTypeRef(ResultNode node) {
         TDRGElement element = findDRGElementByName(node.getName());
         QualifiedName typeRef = null;
-        if (element instanceof TDecision) {
+        if (element == null) {
+            throw new DMNRuntimeException(String.format("Cannot find element '%s'.", node.getName()));
+        } else if (element instanceof TDecision) {
             typeRef = QualifiedName.toQualifiedName(((TDecision) element).getVariable().getTypeRef());
         } else {
             throw new UnsupportedOperationException(String.format("Cannot resolve FEEL type for node '%s'. '%s' not supported", node.getName(), element.getClass().getSimpleName()));

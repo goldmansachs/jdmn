@@ -880,7 +880,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         return dateTime.getZone().getId();
     }
     private Duration computeDuration(int secondsOffset) {
-        return DATA_TYPE_FACTORY.newDuration(secondsOffset * 1000);
+        return DATA_TYPE_FACTORY.newDuration((long) secondsOffset * 1000);
     }
 
     //
@@ -1103,7 +1103,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
             for (int i = 0; i < list.size(); i++) {
                 Object o = list.get(i);
                 if (o == null && match == null || o!= null && o.equals(match)) {
-                    result.add(Double.valueOf(i + 1));
+                    result.add(Double.valueOf((double) i + 1));
                 }
             }
         }
