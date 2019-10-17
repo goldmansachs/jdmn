@@ -158,6 +158,7 @@ public class DMNReader extends DMNSerializer {
 
     private DocumentBuilder makeDocumentBuilder() throws Exception {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        dbFactory.setExpandEntityReferences(false);
         dbFactory.setNamespaceAware(true);
         return dbFactory.newDocumentBuilder();
     }

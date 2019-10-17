@@ -194,6 +194,7 @@ public class StringUtil {
         // Read document
         String xml = "<root>" + input + "</root>";
         DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
+        builderFactory.setExpandEntityReferences(false);
         DocumentBuilder builder = builderFactory.newDocumentBuilder();
         InputStream inputStream = new ByteArrayInputStream(xml.getBytes());
         Document document = builder.parse(inputStream);
