@@ -639,7 +639,8 @@ public class StandardDMNInterpreter implements DMNInterpreter {
                     Result columnResult = expression == null ? null : evaluateExpression(expression, relationEnvironment, runtimeEnvironment, element, elementAnnotation);
                     Object columnValue = Result.value(columnResult);
                     contextValue.add(columnNameList.get(i), columnValue);
-                    contextType.addMember(columnNameList.get(i), new ArrayList<>(), columnResult.getType());
+                    Type type = columnResult == null ? ANY : columnResult.getType();
+                    contextType.addMember(columnNameList.get(i), new ArrayList<>(), type);
                     relationType = contextType;
                 }
                 rowValue = contextValue;
