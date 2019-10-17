@@ -35,26 +35,27 @@ import static com.gs.dmn.feel.analysis.semantics.type.DurationType.YEARS_AND_MON
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
 public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor {
-    private static final Map<String, String> FEEL_2_JAVA_FUNCTION = new LinkedHashMap() {{
-        put("date and time", "dateAndTime");
-        put("years and months duration", "yearsAndMonthsDuration");
+    private static final Map<String, String> FEEL_2_JAVA_FUNCTION = new LinkedHashMap<>();
+    static {
+        FEEL_2_JAVA_FUNCTION.put("get value", "getValue");
+        FEEL_2_JAVA_FUNCTION.put("get entries", "getEntries");
 
-        put("string length", "stringLength");
-        put("upper case", "upperCase");
-        put("lower case", "lowerCase");
-        put("substring before", "substringBefore");
-        put("substring after", "substringAfter");
-        put("starts with", "startsWith");
-        put("ends with", "endsWith");
+        FEEL_2_JAVA_FUNCTION.put("distinct values", "distinctValues");
+        FEEL_2_JAVA_FUNCTION.put("index of", "indexOf");
+        FEEL_2_JAVA_FUNCTION.put("insert before", "insertBefore");
+        FEEL_2_JAVA_FUNCTION.put("list contains", "listContains");
 
-        put("list contains", "listContains");
-        put("insert before", "insertBefore");
-        put("index of", "indexOf");
-        put("distinct values", "distinctValues");
+        FEEL_2_JAVA_FUNCTION.put("ends with", "endsWith");
+        FEEL_2_JAVA_FUNCTION.put("starts with", "startsWith");
+        FEEL_2_JAVA_FUNCTION.put("substring after", "substringAfter");
+        FEEL_2_JAVA_FUNCTION.put("substring before", "substringBefore");
+        FEEL_2_JAVA_FUNCTION.put("lower case", "lowerCase");
+        FEEL_2_JAVA_FUNCTION.put("upper case", "upperCase");
+        FEEL_2_JAVA_FUNCTION.put("string length", "stringLength");
 
-        put("get entries", "getEntries");
-        put("get value", "getValue");
-    }};
+        FEEL_2_JAVA_FUNCTION.put("years and months duration", "yearsAndMonthsDuration");
+        FEEL_2_JAVA_FUNCTION.put("date and time", "dateAndTime");
+    }
 
     public AbstractFEELToJavaVisitor(BasicDMN2JavaTransformer dmnTransformer) {
         super(dmnTransformer);

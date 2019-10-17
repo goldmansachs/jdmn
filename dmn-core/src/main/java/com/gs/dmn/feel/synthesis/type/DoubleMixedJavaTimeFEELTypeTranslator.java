@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.synthesis.type;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
@@ -27,31 +27,33 @@ import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
 public class DoubleMixedJavaTimeFEELTypeTranslator implements FEELTypeTranslator {
-    private static final Map<String, String> TIME_FEEL_TO_JAVA_TYPE = new HashMap() {{
-        put(ANY.getName(), java.lang.Object.class.getSimpleName());
-        put(NUMBER.getName(), java.lang.Double.class.getName());
-        put(BOOLEAN.getName(), Boolean.class.getSimpleName());
-        put(STRING.getName(), String.class.getSimpleName());
-        put(DATE.getName(), java.time.LocalDate.class.getName());
-        put(TIME.getName(), java.time.OffsetTime.class.getName());
-        put(DATE_AND_TIME.getName(), java.time.ZonedDateTime.class.getName());
-        put(DAYS_AND_TIME_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
-        put(YEARS_AND_MONTHS_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
-        put(ENUMERATION.getName(), String.class.getSimpleName());
-    }};
+    private static final Map<String, String> TIME_FEEL_TO_JAVA_TYPE = new LinkedHashMap<>();
+    static {
+        TIME_FEEL_TO_JAVA_TYPE.put(ENUMERATION.getName(), String.class.getSimpleName());
+        TIME_FEEL_TO_JAVA_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
+        TIME_FEEL_TO_JAVA_TYPE.put(DAYS_AND_TIME_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
+        TIME_FEEL_TO_JAVA_TYPE.put(DATE_AND_TIME.getName(), java.time.ZonedDateTime.class.getName());
+        TIME_FEEL_TO_JAVA_TYPE.put(TIME.getName(), java.time.OffsetTime.class.getName());
+        TIME_FEEL_TO_JAVA_TYPE.put(DATE.getName(), java.time.LocalDate.class.getName());
+        TIME_FEEL_TO_JAVA_TYPE.put(STRING.getName(), String.class.getSimpleName());
+        TIME_FEEL_TO_JAVA_TYPE.put(BOOLEAN.getName(), Boolean.class.getSimpleName());
+        TIME_FEEL_TO_JAVA_TYPE.put(NUMBER.getName(), Double.class.getName());
+        TIME_FEEL_TO_JAVA_TYPE.put(ANY.getName(), Object.class.getSimpleName());
+    }
 
-    private static final Map<String, String> TIME_FEEL_TO_QUALIFIED_JAVA_TYPE = new HashMap() {{
-        put(ANY.getName(), java.lang.Object.class.getName());
-        put(NUMBER.getName(), java.lang.Double.class.getName());
-        put(BOOLEAN.getName(), Boolean.class.getName());
-        put(STRING.getName(), String.class.getName());
-        put(DATE.getName(), java.time.LocalDate.class.getName());
-        put(TIME.getName(), java.time.OffsetTime.class.getName());
-        put(DATE_AND_TIME.getName(), java.time.ZonedDateTime.class.getName());
-        put(DAYS_AND_TIME_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
-        put(YEARS_AND_MONTHS_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
-        put(ENUMERATION.getName(), String.class.getName());
-    }};
+    private static final Map<String, String> TIME_FEEL_TO_QUALIFIED_JAVA_TYPE = new LinkedHashMap<>();
+    static {
+        TIME_FEEL_TO_QUALIFIED_JAVA_TYPE.put(ENUMERATION.getName(), String.class.getName());
+        TIME_FEEL_TO_QUALIFIED_JAVA_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
+        TIME_FEEL_TO_QUALIFIED_JAVA_TYPE.put(DAYS_AND_TIME_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
+        TIME_FEEL_TO_QUALIFIED_JAVA_TYPE.put(DATE_AND_TIME.getName(), java.time.ZonedDateTime.class.getName());
+        TIME_FEEL_TO_QUALIFIED_JAVA_TYPE.put(TIME.getName(), java.time.OffsetTime.class.getName());
+        TIME_FEEL_TO_QUALIFIED_JAVA_TYPE.put(DATE.getName(), java.time.LocalDate.class.getName());
+        TIME_FEEL_TO_QUALIFIED_JAVA_TYPE.put(STRING.getName(), String.class.getName());
+        TIME_FEEL_TO_QUALIFIED_JAVA_TYPE.put(BOOLEAN.getName(), Boolean.class.getName());
+        TIME_FEEL_TO_QUALIFIED_JAVA_TYPE.put(NUMBER.getName(), Double.class.getName());
+        TIME_FEEL_TO_QUALIFIED_JAVA_TYPE.put(ANY.getName(), Object.class.getName());
+    }
 
     @Override
     public String toJavaType(String feelType) {

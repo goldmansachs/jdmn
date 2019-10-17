@@ -12,28 +12,26 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class FEELTypes {
-    public static final Map<String, Type> FEEL_NAME_TO_FEEL_TYPE = new HashMap<String, Type>() {{
-        put(AnyType.ANY.getName(), AnyType.ANY);
-        put(NumberType.NUMBER.getName(), NumberType.NUMBER);
-        put(BooleanType.BOOLEAN.getName(), BooleanType.BOOLEAN);
-        put(StringType.STRING.getName(), StringType.STRING);
-        put(EnumerationType.ENUMERATION.getName(), StringType.STRING);
-        put(DateType.DATE.getName(), DateType.DATE);
-        put(TimeType.TIME.getName(), TimeType.TIME);
-        put(DateTimeType.DATE_TIME_CAMEL.getName(), DateTimeType.DATE_AND_TIME);
-        put(DateTimeType.DATE_TIME.getName(), DateTimeType.DATE_AND_TIME);
-        put(DateTimeType.DATE_AND_TIME.getName(), DateTimeType.DATE_AND_TIME);
-        put(DurationType.DAYS_AND_TIME_DURATION.getName(), DurationType.DAYS_AND_TIME_DURATION);
-        put(DurationType.DAY_TIME_DURATION.getName(), DurationType.DAYS_AND_TIME_DURATION);
-        put(DurationType.YEARS_AND_MONTHS_DURATION.getName(), DurationType.YEARS_AND_MONTHS_DURATION);
-        put(DurationType.YEAR_MONTH_DURATION.getName(), DurationType.YEARS_AND_MONTHS_DURATION);
-    }};
+    public static final Map<String, Type> FEEL_NAME_TO_FEEL_TYPE = new LinkedHashMap<>();
+    static {
+        FEEL_NAME_TO_FEEL_TYPE.put(AnyType.ANY.getName(), AnyType.ANY);
+        FEEL_NAME_TO_FEEL_TYPE.put(NumberType.NUMBER.getName(), NumberType.NUMBER);
+        FEEL_NAME_TO_FEEL_TYPE.put(BooleanType.BOOLEAN.getName(), BooleanType.BOOLEAN);
+        FEEL_NAME_TO_FEEL_TYPE.put(StringType.STRING.getName(), StringType.STRING);
+        FEEL_NAME_TO_FEEL_TYPE.put(EnumerationType.ENUMERATION.getName(), StringType.STRING);
+        FEEL_NAME_TO_FEEL_TYPE.put(DateType.DATE.getName(), DateType.DATE);
+        FEEL_NAME_TO_FEEL_TYPE.put(TimeType.TIME.getName(), TimeType.TIME);
+        FEEL_NAME_TO_FEEL_TYPE.put(DateTimeType.DATE_TIME_CAMEL.getName(), DateTimeType.DATE_AND_TIME);
+        FEEL_NAME_TO_FEEL_TYPE.put(DateTimeType.DATE_TIME.getName(), DateTimeType.DATE_AND_TIME);
+        FEEL_NAME_TO_FEEL_TYPE.put(DateTimeType.DATE_AND_TIME.getName(), DateTimeType.DATE_AND_TIME);
+        FEEL_NAME_TO_FEEL_TYPE.put(DurationType.DAYS_AND_TIME_DURATION.getName(), DurationType.DAYS_AND_TIME_DURATION);
+        FEEL_NAME_TO_FEEL_TYPE.put(DurationType.DAY_TIME_DURATION.getName(), DurationType.DAYS_AND_TIME_DURATION);
+        FEEL_NAME_TO_FEEL_TYPE.put(DurationType.YEARS_AND_MONTHS_DURATION.getName(), DurationType.YEARS_AND_MONTHS_DURATION);
+        FEEL_NAME_TO_FEEL_TYPE.put(DurationType.YEAR_MONTH_DURATION.getName(), DurationType.YEARS_AND_MONTHS_DURATION);
+    };
 
     public static final List<String> FEEL_TYPE_NAMES = Arrays.asList(
             AnyType.ANY.getName(), NumberType.NUMBER.getName(), BooleanType.BOOLEAN.getName(), StringType.STRING.getName(),
@@ -61,16 +59,17 @@ public class FEELTypes {
             DurationType.DAYS_AND_TIME_DURATION.getConversionFunction(),
             DurationType.YEARS_AND_MONTHS_DURATION.getConversionFunction());
 
-    public static final Map<Type, String> FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION = new HashMap<Type, String>() {{
-        put(NumberType.NUMBER, "number");
-        put(BooleanType.BOOLEAN, null);
-        put(StringType.STRING, null);
-        put(DateType.DATE, "date");
-        put(TimeType.TIME, "time");
-        put(DateTimeType.DATE_TIME, "dateAndTime");
-        put(DateTimeType.DATE_AND_TIME, "dateAndTime");
-        put(DateTimeType.DATE_TIME_CAMEL, "dateAndTime");
-        put(DurationType.DAYS_AND_TIME_DURATION, "duration");
-        put(DurationType.YEARS_AND_MONTHS_DURATION, "duration");
-    }};
+    public static final Map<Type, String> FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION = new LinkedHashMap<>();
+    static {
+        FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.put(NumberType.NUMBER, "number");
+        FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.put(BooleanType.BOOLEAN, null);
+        FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.put(StringType.STRING, null);
+        FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.put(DateType.DATE, "date");
+        FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.put(TimeType.TIME, "time");
+        FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.put(DateTimeType.DATE_TIME, "dateAndTime");
+        FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.put(DateTimeType.DATE_AND_TIME, "dateAndTime");
+        FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.put(DateTimeType.DATE_TIME_CAMEL, "dateAndTime");
+        FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.put(DurationType.DAYS_AND_TIME_DURATION, "duration");
+        FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.put(DurationType.YEARS_AND_MONTHS_DURATION, "duration");
+    };
 }
