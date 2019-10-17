@@ -5,10 +5,21 @@ before_install:
   - export MAVEN_OPTS="-Dmaven.repo.local=$HOME/.m2/repository -Xmx2g"
 
 install:
-  -
+  - true
 
 env:
   - JAVA7_HOME=/usr/lib/jvm/java-7-openjdk-amd64
 
 #script: mvn -T 1C -Dorg.slf4j.simpleLogger.showDateTime=true -Dorg.slf4j.simpleLogger.dateTimeFormat=HH:mm:ss:SSS -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean install
-script: mvn -B -Dorg.slf4j.simpleLogger.showDateTime=true -Dorg.slf4j.simpleLogger.dateTimeFormat=HH:mm:ss:SSS -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean install
+#script: mvn -B -Dorg.slf4j.simpleLogger.showDateTime=true -Dorg.slf4j.simpleLogger.dateTimeFormat=HH:mm:ss:SSS -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean install
+
+addons:
+  sonarcloud:
+    organization: "goldmansachs"
+    token:
+      # encrypted value of your token
+      secure: "VQpzwdI8VCFnhFu2HTq8VeIaQif21knrsrB+fB0DtxRpBOU3k8omB+TdhI4JyqzNT/MhHW7QIq3ZFJLmxVK6ND5qv0RXwAeTnbR3cXstHnxJRyIcUqyEdjs7vWcDnQepPIcrxhyMu0haJc0p0ABbLILA5UVo9pBJcuYEEg4wBge/7GjL23gOnKzBfDyRKTKe/qvzXILmv8lvbOFdIIRCW+7EJmX79HQhM3J6/6G8khBOZThDQBNPN1kNFQVXsGvVh8ABUWcsK2S/DNj+0PbKVH5pIrPJweicUPFf2R0o1ICZOH8v7cfmCud3IUD8WJk1j2QqyxrMYqUNV6kXmKV7RlKXucgsYbVi+sDQ3oHR78WpksHl4WXJqeN8hkCQ5wbxtqjLtPSgnujFW4+xr5IoYr4gJQb7ws1B5jOiGMOL3971oaJn29EH2ZEXWikrEnZaxdcpmAfderTGUpvnyMhU3DDQrBjxcfhnAHrSF5joxwTSsmLNS5i/j4SWhlYJnoE2RcQwMSrPD4Uv2/nIE4VfQ5F7mieCY8PwZk1+3/qlhNQjkmrVn4EOxqT5T9bzCrnAau5dye9L2GpGEkT/qsE3GJmIeJKfw4GKN2oMVB2ONRy/+g6xVPlFtK89/lZlqjxjNQRkfJrznH0BguaHMwR+5Eu1pH25PVF0Ao7cko8jAns="
+
+script:
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - mvn -B -Dorg.slf4j.simpleLogger.showDateTime=true -Dorg.slf4j.simpleLogger.dateTimeFormat=HH:mm:ss:SSS -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=goldmansachs_jdmn -Psonar-coverage
