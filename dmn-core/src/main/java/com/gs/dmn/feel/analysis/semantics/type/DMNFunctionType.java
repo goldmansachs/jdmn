@@ -16,6 +16,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class DMNFunctionType extends FunctionType {
@@ -46,10 +47,10 @@ public class DMNFunctionType extends FunctionType {
 
         DMNFunctionType that = (DMNFunctionType) o;
 
-        if (parameters != null ? !parameters.equals(that.parameters) : that.parameters != null)
+        if (parameters != null ? !parameters.equals(that.parameters) : that.parameters != null) {
             return false;
-        return returnType != null ? returnType.equals(that.returnType) : that.returnType == null;
-
+        }
+        return Objects.equals(returnType, that.returnType);
     }
 
     @Override

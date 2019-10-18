@@ -37,7 +37,7 @@ public class DateTimeType extends DataType {
         MEMBERS.put("second", NUMBER);
         MEMBERS.put("time offset", DurationType.DAYS_AND_TIME_DURATION);
         MEMBERS.put("timezone", STRING);
-    };
+    }
 
     public static Type getMemberType(String member) {
         return MEMBERS.get(member);

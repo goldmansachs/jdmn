@@ -20,10 +20,10 @@ import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 public class ContextType extends Type implements CompositeDataType {
     public static final Type ANY_CONTEXT = new ContextType();
 
-    private final Map<String, Type> members = new LinkedHashMap();
+    private final Map<String, Type> members = new LinkedHashMap<>();
 
     public ContextType() {
-        this(new LinkedHashMap());
+        this(new LinkedHashMap<>());
     }
 
     public ContextType(Map<String, Type> namedTypes) {
@@ -48,7 +48,7 @@ public class ContextType extends Type implements CompositeDataType {
 
     @Override
     public List<String> getAliases(String name) {
-        return Arrays.asList();
+        return Collections.emptyList();
     }
 
     @Override
@@ -126,7 +126,7 @@ public class ContextType extends Type implements CompositeDataType {
 
     @Override
     public boolean isValid() {
-        if (members == null || members.isEmpty()) {
+        if (members.isEmpty()) {
             return false;
         }
         return members.values().stream().allMatch(t -> t.isValid() && t != AnyType.ANY);

@@ -442,13 +442,6 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
                     feelFunctionType.setReturnType(functionDefinition.getBody().getType());
                 }
             }
-        } else if (functionType instanceof BuiltinFunctionType) {
-            if (function instanceof Name) {
-                String name = ((Name) function).getName();
-                if ("duration".equals(name)) {
-                    int i = 4;
-                }
-            }
         }
     }
 
@@ -530,10 +523,12 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
     @Override
     public Object visit(QualifiedName element, FEELContext context) {
         List<String> names = element.getNames();
-        if (names.size() == 1) {
+        if (names ==  null || names.isEmpty()) {
+            throw new SemanticError(element, "Illegal qualified name.");
+        } else if (names.size() == 1) {
             element.deriveType(context.getEnvironment());
             return element;
-        } else if (names.size() > 0) {
+        } else {
             VariableDeclaration source = (VariableDeclaration) context.getEnvironment().lookupVariableDeclaration(names.get(0));
             Type sourceType = source.getType();
             for (int i = 1; i < names.size(); i++) {
@@ -541,8 +536,6 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
                 sourceType = element.navigationType(sourceType, member);
             }
             element.setType(sourceType);
-        } else {
-            throw new SemanticError(element, "Illegal qualified name.");
         }
         return element;
     }
