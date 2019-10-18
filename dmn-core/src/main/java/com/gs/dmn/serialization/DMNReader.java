@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2016 Goldman Sachs.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
@@ -157,8 +157,7 @@ public class DMNReader extends DMNSerializer {
     }
 
     private DocumentBuilder makeDocumentBuilder() throws Exception {
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        dbFactory.setExpandEntityReferences(false);
+        DocumentBuilderFactory dbFactory = XMLUtil.makeDocumentBuilderFactory();
         dbFactory.setNamespaceAware(true);
         return dbFactory.newDocumentBuilder();
     }

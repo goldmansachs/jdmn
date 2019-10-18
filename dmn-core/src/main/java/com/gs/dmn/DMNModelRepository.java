@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2016 Goldman Sachs.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
@@ -124,28 +124,14 @@ public class DMNModelRepository {
         Map<String, TDecision> parentMap = new LinkedHashMap<>();
         for (TDefinitions definitions: this.getAllDefinitions()) {
             for (TDecision decision : decisions(definitions)) {
-                for (TInformationRequirement ir : decision.getInformationRequirement()) {
-                    TDMNElementReference requiredDecision = ir.getRequiredDecision();
-                    if (requiredDecision != null) {
-                        String href = requiredDecision.getHref();
-                        if (!hasNamespace(href)) {
-                            href = makeRef(definitions.getNamespace(), href);
-                        }
-                        Integer counter = map.get(href);
-                        if (counter == null) {
-                            counter = Integer.valueOf(0);
-                        }
-                        counter++;
-                        map.put(href, counter);
-                        parentMap.put(href, decision);
-                    }
-                }
+                addCachedChildren(definitions, decision, parentMap, map);
             }
         }
 
         Set<String> result = new LinkedHashSet<>();
-        for(String key: map.keySet()) {
-            if (map.get(key) > 1) {
+        for(Map.Entry<String, Integer> entry: map.entrySet()) {
+            if (entry.getValue() > 1) {
+                String key = entry.getKey();
                 TDecision drgElement = this.findDecisionByRef(parentMap.get(key), key);
                 if (drgElement != null) {
                     result.add(name(drgElement));
@@ -153,9 +139,28 @@ public class DMNModelRepository {
             }
         }
 
-        LOGGER.info(String.format("Decisions to be cached: %s", result.stream().collect(Collectors.joining(", "))));
+        LOGGER.info("Decisions to be cached: {}", String.join(", ", result));
 
         return result;
+    }
+
+    private void addCachedChildren(TDefinitions definitions, TDecision decision, Map<String, TDecision> parentMap, Map<String, Integer> map) {
+        for (TInformationRequirement ir : decision.getInformationRequirement()) {
+            TDMNElementReference requiredDecision = ir.getRequiredDecision();
+            if (requiredDecision != null) {
+                String href = requiredDecision.getHref();
+                if (!hasNamespace(href)) {
+                    href = makeRef(definitions.getNamespace(), href);
+                }
+                Integer counter = map.get(href);
+                if (counter == null) {
+                    counter = 0;
+                }
+                counter++;
+                map.put(href, counter);
+                parentMap.put(href, decision);
+            }
+        }
     }
 
     public String removeSingleQuotes(String name) {

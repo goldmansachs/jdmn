@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2016 Goldman Sachs.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
@@ -987,7 +987,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
             for (int i = 0; i < list.size(); i++) {
                 Object o = list.get(i);
                 if (o == null && match == null || o != null && o.equals(match)) {
-                    result.add(BigDecimal.valueOf(i + 1));
+                    result.add(BigDecimal.valueOf((long) i + 1));
                 }
             }
         }

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2016 Goldman Sachs.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.serialization.XMLUtil;
 import net.sf.saxon.xpath.XPathFactoryImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Document;
@@ -193,8 +194,7 @@ public class StringUtil {
     private static String evaluateXPath(String input, String expression) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
         // Read document
         String xml = "<root>" + input + "</root>";
-        DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
-        builderFactory.setExpandEntityReferences(false);
+        DocumentBuilderFactory builderFactory = XMLUtil.makeDocumentBuilderFactory();
         DocumentBuilder builder = builderFactory.newDocumentBuilder();
         InputStream inputStream = new ByteArrayInputStream(xml.getBytes());
         Document document = builder.parse(inputStream);
