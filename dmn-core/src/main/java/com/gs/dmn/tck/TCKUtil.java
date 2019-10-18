@@ -38,6 +38,8 @@ import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TDecision;
 import org.omg.spec.dmn._20180521.model.TInputData;
 import org.omg.spec.dmn._20180521.model.TInvocable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.datatype.DatatypeConstants;
@@ -47,6 +49,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class TCKUtil {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TCKUtil.class);
+
     private final BasicDMN2JavaTransformer dmnTransformer;
     private final StandardFEELLib feelLib;
     private static final boolean IGNORE_ELEMENT_TYPE = false;
@@ -322,7 +326,7 @@ public class TCKUtil {
                 String name = input.getName();
                 runtimeEnvironment.bind(name, value);
             } catch (Exception e) {
-                e.printStackTrace();
+                LOGGER.error("Cannot make environment ", e);
                 throw new DMNRuntimeException(String.format("Cannot process input node '%s' at position %d", input.getName(), i), e);
             }
         }
@@ -342,7 +346,7 @@ public class TCKUtil {
                     Object value = makeValue(input);
                     map.put(input.getName(), value);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    LOGGER.error("Cannot make arguments", e);
                     throw new DMNRuntimeException(String.format("Cannot process input node '%s' at position %d", input.getName(), i), e);
                 }
             }
