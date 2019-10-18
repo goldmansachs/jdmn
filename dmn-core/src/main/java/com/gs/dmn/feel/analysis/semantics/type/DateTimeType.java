@@ -26,17 +26,18 @@ public class DateTimeType extends DataType {
     public static final DateTimeType DATE_TIME_CAMEL = new DateTimeType("dateTime");
     public static final DateTimeType DATE_TIME = new DateTimeType("datetime");
 
-    private static final Map<String, Type> MEMBERS = new LinkedHashMap() {{
-        put("year", NUMBER);
-        put("month", NUMBER);
-        put("day", NUMBER);
-        put("weekday", NUMBER);
-        put("hour", NUMBER);
-        put("minute", NUMBER);
-        put("second", NUMBER);
-        put("time offset", DurationType.DAYS_AND_TIME_DURATION);
-        put("timezone", STRING);
-    }};
+    private static final Map<String, Type> MEMBERS = new LinkedHashMap<>();
+    static {
+        MEMBERS.put("year", NUMBER);
+        MEMBERS.put("month", NUMBER);
+        MEMBERS.put("day", NUMBER);
+        MEMBERS.put("weekday", NUMBER);
+        MEMBERS.put("hour", NUMBER);
+        MEMBERS.put("minute", NUMBER);
+        MEMBERS.put("second", NUMBER);
+        MEMBERS.put("time offset", DurationType.DAYS_AND_TIME_DURATION);
+        MEMBERS.put("timezone", STRING);
+    };
 
     public static Type getMemberType(String member) {
         return MEMBERS.get(member);

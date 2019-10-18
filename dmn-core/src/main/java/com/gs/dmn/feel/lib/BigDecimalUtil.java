@@ -75,7 +75,7 @@ public class BigDecimalUtil {
         }
 
         double sqrt = Math.sqrt(number.doubleValue());
-        return new BigDecimal(sqrt);
+        return BigDecimal.valueOf(sqrt);
     }
 
     public static BigDecimal log(BigDecimal number) {
@@ -84,7 +84,7 @@ public class BigDecimalUtil {
         }
 
         double sqrt = Math.log(number.doubleValue());
-        return new BigDecimal(sqrt, DefaultNumericType.MATH_CONTEXT);
+        return BigDecimal.valueOf(sqrt);
     }
 
     public static BigDecimal exp(BigDecimal number) {
@@ -93,7 +93,7 @@ public class BigDecimalUtil {
         }
 
         double sqrt = Math.exp(number.doubleValue());
-        return new BigDecimal(sqrt, DefaultNumericType.MATH_CONTEXT);
+        return BigDecimal.valueOf(sqrt);
     }
 
     public static Boolean odd(BigDecimal number) {
@@ -214,7 +214,7 @@ public class BigDecimalUtil {
         }
 
         BigDecimal mean = mean(list);
-        BigDecimal length = BigDecimal.valueOf(list.size() - 1);
+        BigDecimal length = BigDecimal.valueOf((long) list.size() - 1);
         BigDecimal variance = BigDecimal.ZERO;
         for(Object e: list) {
             BigDecimal number = (BigDecimal) e;

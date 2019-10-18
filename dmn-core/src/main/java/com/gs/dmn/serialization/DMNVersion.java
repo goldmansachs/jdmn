@@ -20,20 +20,24 @@ import java.util.List;
 import java.util.Map;
 
 public class DMNVersion {
+    public static final LinkedHashMap<String, String> DMN_11_OTHER_NAMESPACES = new LinkedHashMap<>();
     public static final DMNVersion DMN_11 = new DMNVersion("1.1", "dmn/1.1/dmn.xsd",
             null, "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
             "feel", "http://www.omg.org/spec/FEEL/20140401",
-            new LinkedHashMap<>(),
+            DMN_11_OTHER_NAMESPACES,
             "org.omg.spec.dmn._20151101.model"
     );
+
+    public static final LinkedHashMap<String, String> DMN_12_OTHER_NAMESPACES = new LinkedHashMap<>();
+    static {
+        DMN_12_OTHER_NAMESPACES.put("http://www.omg.org/spec/DMN/20180521/DC/", "dc");
+        DMN_12_OTHER_NAMESPACES.put("http://www.omg.org/spec/DMN/20180521/DMNDI/", "dmndi");
+        DMN_12_OTHER_NAMESPACES.put("http://www.omg.org/spec/DMN/20180521/DI/", "di");
+    }
     public static final DMNVersion DMN_12 = new DMNVersion("1.2", "dmn/1.2/dmn.xsd",
             "dmn", "http://www.omg.org/spec/DMN/20180521/MODEL/",
             "feel", "http://www.omg.org/spec/DMN/20180521/FEEL/",
-            new LinkedHashMap<String, String>() {{
-                this.put("http://www.omg.org/spec/DMN/20180521/DI/", "di");
-                this.put("http://www.omg.org/spec/DMN/20180521/DMNDI/", "dmndi");
-                this.put("http://www.omg.org/spec/DMN/20180521/DC/", "dc");
-            }},
+            DMN_12_OTHER_NAMESPACES,
             "org.omg.spec.dmn._20180521.model"
     );
 

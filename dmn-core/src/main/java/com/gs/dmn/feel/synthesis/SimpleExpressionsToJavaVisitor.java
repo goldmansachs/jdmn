@@ -230,20 +230,6 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
     }
 
     //
-    // Postfix expressions
-    //
-    @Override
-    public Object visit(PathExpression element, FEELContext context) {
-        Expression sourceExpression = element.getSource();
-        if (sourceExpression instanceof Name) {
-            String sourceName = ((Name) sourceExpression).getName();
-            String memberName = element.getMember();
-            return makeNavigationPath(element, sourceName, memberName, context);
-        }
-        throw new SemanticError(element, String.format("Cannot compute navigation path '%s'", element.toString()));
-    }
-
-    //
     // Primary expressions
     //
     @Override

@@ -735,7 +735,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
         }
 
         try {
-            return BigDecimal.valueOf(date.toGregorianCalendar().get(Calendar.DAY_OF_WEEK) - 1);
+            return BigDecimal.valueOf((long) date.toGregorianCalendar().get(Calendar.DAY_OF_WEEK) - 1);
         } catch (Exception e) {
             String message = String.format("day(%s)", date);
             logError(message, e);
@@ -779,7 +779,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
         if (secondsOffset == DatatypeConstants.FIELD_UNDEFINED) {
             return null;
         } else {
-            return DATA_TYPE_FACTORY.newDuration(secondsOffset * 1000);
+            return DATA_TYPE_FACTORY.newDuration((long) secondsOffset * 1000);
         }
     }
 
@@ -1065,7 +1065,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
             for (int i = 0; i < list.size(); i++) {
                 Object o = list.get(i);
                 if (o == null && match == null || o != null && o.equals(match)) {
-                    result.add(BigDecimal.valueOf(i + 1));
+                    result.add(BigDecimal.valueOf((long) i + 1));
                 }
             }
         }
