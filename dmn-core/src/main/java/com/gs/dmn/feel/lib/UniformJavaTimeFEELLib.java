@@ -987,7 +987,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
             for (int i = 0; i < list.size(); i++) {
                 Object o = list.get(i);
                 if (o == null && match == null || o != null && o.equals(match)) {
-                    result.add(BigDecimal.valueOf(i + 1));
+                    result.add(BigDecimal.valueOf((long) i + 1));
                 }
             }
         }

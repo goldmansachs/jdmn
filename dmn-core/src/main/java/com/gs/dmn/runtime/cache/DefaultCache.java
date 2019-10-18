@@ -25,14 +25,12 @@ public class DefaultCache implements Cache {
 
     @Override
     public boolean contains(String key) {
-        return bindings.keySet().contains(key);
+        return bindings.containsKey(key);
     }
 
     @Override
     public void bind(String key, Object value) {
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug(String.format("Bind '%s' to '%s'", key, value));
-        }
+        LOGGER.debug("Bind '{}' to '{}'", key, value);
 
         bindings.put(key, value);
     }
@@ -41,9 +39,7 @@ public class DefaultCache implements Cache {
     public Object lookup(String key) {
         Object value = bindings.get(key);
 
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug(String.format("Retrieve '%s' = '%s'", key, value));
-        }
+        LOGGER.debug("Retrieve '{}' = '{}'", key, value);
 
         return value;
     }

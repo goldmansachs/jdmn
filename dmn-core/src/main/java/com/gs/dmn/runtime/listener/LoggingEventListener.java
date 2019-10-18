@@ -23,16 +23,12 @@ public class LoggingEventListener implements SimpleEventListener {
 
     @Override
     public void startDRGElement(DRGElement element, Arguments arguments) {
-        if (logger.isInfoEnabled()) {
-            logger.info(String.format("Start element '%s' with inputs %s", element.getName(), arguments));
-        }
+        logger.info("Start element '{}' with inputs {}", element.getName(), arguments);
     }
 
     @Override
     public void endDRGElement(DRGElement element, Arguments arguments, Object output, long duration) {
-        if (logger.isInfoEnabled()) {
-            logger.info(String.format("End element '%s' with output '%s' in %dms", element.getName(), output, duration));
-        }
+        logger.info("End element '{}' with output '{}' in {}ms", element.getName(), output, duration);
     }
 
     @Override
@@ -45,8 +41,6 @@ public class LoggingEventListener implements SimpleEventListener {
 
     @Override
     public void endRule(DRGElement element, Rule rule, Object output) {
-        if (logger.isDebugEnabled()) {
-            logger.debug(String.format("Rule %d fired with output '%s'", rule.getIndex(), output));
-        }
+        logger.debug("Rule {} fired with output '{}'", rule.getIndex(), output);
     }
 }
