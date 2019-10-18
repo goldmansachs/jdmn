@@ -52,7 +52,7 @@ public class DurationType extends DataType {
     static {
         YEARS_AND_MONTHS_DURATION_MEMBERS.put("years", NUMBER);
         YEARS_AND_MONTHS_DURATION_MEMBERS.put("months", NUMBER);
-    };
+    }
 
     private static final Map<String, Type> DAYS_AND_TIME_DURATION_MEMBERS = new LinkedHashMap<>();
     static {

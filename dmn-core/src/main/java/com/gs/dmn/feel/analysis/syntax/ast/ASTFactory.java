@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.analysis.syntax.ast;
 
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.ArithmeticNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Exponentiation;
@@ -31,10 +32,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.gs.dmn.feel.analysis.semantics.type.FEELTypes.FEEL_LITERAL_DATE_TIME_NAMES;
 
@@ -87,7 +85,7 @@ public class ASTFactory {
                 if (size % 2 == 0) {
                     return new ArrayList<>();
                 } else {
-                    ArrayList arrayList = new ArrayList();
+                    List<String> arrayList = new ArrayList<>();
                     arrayList.add(op);
                     return arrayList;
                 }
@@ -130,7 +128,7 @@ public class ASTFactory {
     }
 
     public Expression toDateTimeLiteral(String kind, Expression stringLiteral) {
-        return toFunctionInvocation(toName(kind), new PositionalParameters(Arrays.asList(stringLiteral)));
+        return toFunctionInvocation(toName(kind), new PositionalParameters(Collections.singletonList(stringLiteral)));
     }
 
     public Expression toDateTimeLiteral(String kind, String lexeme) {
@@ -328,7 +326,7 @@ public class ASTFactory {
 
     public Expression toPathExpression(List<String> names) {
         Expression source = toName(names.get(0));
-        for(int i = 1; i<names.size(); i++) {
+        for(int i = 1; i < names.size(); i++) {
             source = toPathExpression(source, names.get(i));
         }
         return source;
@@ -340,7 +338,7 @@ public class ASTFactory {
 
     public Expression toFunctionInvocation(Expression function, Parameters parameters) {
         if (isDateTimeLiteral(function, parameters)) {
-            String functionName = null;
+            String functionName;
             if (function instanceof Name) {
                 functionName = ((Name) function).getName();
             } else {

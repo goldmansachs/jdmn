@@ -25,7 +25,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBElement;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class DMNModelRepository {
     private static final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
@@ -152,12 +151,7 @@ public class DMNModelRepository {
                 if (!hasNamespace(href)) {
                     href = makeRef(definitions.getNamespace(), href);
                 }
-                Integer counter = map.get(href);
-                if (counter == null) {
-                    counter = 0;
-                }
-                counter++;
-                map.put(href, counter);
+                map.compute(href, (k, v) -> v == null ? 1 : v + 1);
                 parentMap.put(href, decision);
             }
         }
@@ -339,15 +333,15 @@ public class DMNModelRepository {
 
     public List<TItemDefinition> sortItemComponent(TItemDefinition itemDefinition) {
         if (itemDefinition == null || itemDefinition.getItemComponent() == null) {
-            return null;
+            return new ArrayList<>();
         }
         List<TItemDefinition> children = new ArrayList<>(itemDefinition.getItemComponent());
         children.sort((o1, o2) -> {
             if (o1 == null && o2 == null) {
                 return 0;
-            } if (o1 == null) {
+            } else if (o1 == null) {
                 return 1;
-            } if (o2 == null) {
+            } else if (o2 == null) {
                 return -1;
             } else {
                 return o1.getName().compareTo(o2.getName());
@@ -560,29 +554,29 @@ public class DMNModelRepository {
     }
 
     public List<TDecision> directSubDecisions(TDRGElement element) {
-        List<TDecision> decisions = new ArrayList<>();
+        List<TDecision> result = new ArrayList<>();
         if (element instanceof TDecision) {
             for (TInformationRequirement ir : ((TDecision) element).getInformationRequirement()) {
                 TDMNElementReference requiredDecision = ir.getRequiredDecision();
                 if (requiredDecision != null) {
                     TDecision childDecision = findDecisionByRef(element, requiredDecision.getHref());
-                    decisions.add(childDecision);
+                    result.add(childDecision);
                 }
             }
         } else if (element instanceof TDecisionService) {
             for (TDMNElementReference outputDecisionRef : ((TDecisionService) element).getOutputDecision()) {
                 TDecision childDecision = findDecisionByRef(element, outputDecisionRef.getHref());
-                decisions.add(childDecision);
+                result.add(childDecision);
             }
         }
-        sortNamedElements(decisions);
-        return decisions;
+        sortNamedElements(result);
+        return result;
     }
 
     public Collection<TDecision> allSubDecisions(TDRGElement element) {
-        Set<TDecision> decisions = new LinkedHashSet<>();
-        collectSubDecisions(element, decisions);
-        return decisions;
+        Set<TDecision> result = new LinkedHashSet<>();
+        collectSubDecisions(element, result);
+        return result;
     }
 
     protected void collectSubDecisions(TDRGElement element, Collection<TDecision> decisions) {
@@ -593,10 +587,10 @@ public class DMNModelRepository {
     }
 
     public List<TDecision> topologicalSort(TDRGElement decision) {
-        List<TDecision> decisions = new ArrayList<>();
-        topologicalSort((TDecision)decision, decisions);
-        decisions.remove(decision);
-        return decisions;
+        List<TDecision> result = new ArrayList<>();
+        topologicalSort((TDecision)decision, result);
+        result.remove(decision);
+        return result;
     }
 
     protected void topologicalSort(TDecision parent, List<TDecision> decisions) {
@@ -975,7 +969,7 @@ public class DMNModelRepository {
     public TInformationItem variable(TNamedElement element) {
         if (element instanceof TInputData) {
             return ((TInputData) element).getVariable();
-        } if (element instanceof TDecision) {
+        } else if (element instanceof TDecision) {
             return ((TDecision) element).getVariable();
         } else if (element instanceof TBusinessKnowledgeModel) {
             return ((TBusinessKnowledgeModel) element).getVariable();

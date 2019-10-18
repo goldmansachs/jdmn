@@ -31,7 +31,7 @@ public class FEELTypes {
         FEEL_NAME_TO_FEEL_TYPE.put(DurationType.DAY_TIME_DURATION.getName(), DurationType.DAYS_AND_TIME_DURATION);
         FEEL_NAME_TO_FEEL_TYPE.put(DurationType.YEARS_AND_MONTHS_DURATION.getName(), DurationType.YEARS_AND_MONTHS_DURATION);
         FEEL_NAME_TO_FEEL_TYPE.put(DurationType.YEAR_MONTH_DURATION.getName(), DurationType.YEARS_AND_MONTHS_DURATION);
-    };
+    }
 
     public static final List<String> FEEL_TYPE_NAMES = Arrays.asList(
             AnyType.ANY.getName(), NumberType.NUMBER.getName(), BooleanType.BOOLEAN.getName(), StringType.STRING.getName(),
@@ -71,5 +71,5 @@ public class FEELTypes {
         FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.put(DateTimeType.DATE_TIME_CAMEL, "dateAndTime");
         FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.put(DurationType.DAYS_AND_TIME_DURATION, "duration");
         FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.put(DurationType.YEARS_AND_MONTHS_DURATION, "duration");
-    };
+    }
 }

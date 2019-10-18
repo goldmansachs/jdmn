@@ -66,22 +66,4 @@ abstract class AbstractFEELAnalyzer implements FEELAnalyzer {
         FEELSemanticVisitor visitor = new FEELSemanticVisitor(dmnTransformer);
         return (Expression) expression.accept(visitor, context);
     }
-
-    @Override
-    public abstract UnaryTests parseUnaryTests(String text);
-
-    @Override
-    public abstract UnaryTests parseSimpleUnaryTests(String text);
-
-    @Override
-    public abstract Expression parseExpression(String text);
-
-    @Override
-    public abstract Expression parseSimpleExpressions(String text);
-
-    @Override
-    public abstract Expression parseTextualExpressions(String text);
-
-    @Override
-    public abstract Expression parseBoxedExpression(String text);
 }
