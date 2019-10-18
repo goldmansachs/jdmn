@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.synthesis.type;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
@@ -27,31 +27,33 @@ import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
 public class StandardFEELTypeTranslator implements FEELTypeTranslator {
-    private static final Map<String, String> STANDARD_FEEL_TO_JAVA_TYPE = new HashMap() {{
-        put(ANY.getName(), java.lang.Object.class.getSimpleName());
-        put(NUMBER.getName(), java.math.BigDecimal.class.getName());
-        put(BOOLEAN.getName(), java.lang.Boolean.class.getSimpleName());
-        put(STRING.getName(), java.lang.String.class.getSimpleName());
-        put(DATE.getName(), javax.xml.datatype.XMLGregorianCalendar.class.getName());
-        put(TIME.getName(), javax.xml.datatype.XMLGregorianCalendar.class.getName());
-        put(DATE_AND_TIME.getName(), javax.xml.datatype.XMLGregorianCalendar.class.getName());
-        put(DAYS_AND_TIME_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
-        put(YEARS_AND_MONTHS_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
-        put(ENUMERATION.getName(), java.lang.String.class.getSimpleName());
-    }};
+    private static final Map<String, String> STANDARD_FEEL_TO_JAVA_TYPE = new LinkedHashMap<>();
+    static {
+        STANDARD_FEEL_TO_JAVA_TYPE.put(ENUMERATION.getName(), String.class.getSimpleName());
+        STANDARD_FEEL_TO_JAVA_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
+        STANDARD_FEEL_TO_JAVA_TYPE.put(DAYS_AND_TIME_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
+        STANDARD_FEEL_TO_JAVA_TYPE.put(DATE_AND_TIME.getName(), javax.xml.datatype.XMLGregorianCalendar.class.getName());
+        STANDARD_FEEL_TO_JAVA_TYPE.put(TIME.getName(), javax.xml.datatype.XMLGregorianCalendar.class.getName());
+        STANDARD_FEEL_TO_JAVA_TYPE.put(DATE.getName(), javax.xml.datatype.XMLGregorianCalendar.class.getName());
+        STANDARD_FEEL_TO_JAVA_TYPE.put(STRING.getName(), String.class.getSimpleName());
+        STANDARD_FEEL_TO_JAVA_TYPE.put(BOOLEAN.getName(), Boolean.class.getSimpleName());
+        STANDARD_FEEL_TO_JAVA_TYPE.put(NUMBER.getName(), java.math.BigDecimal.class.getName());
+        STANDARD_FEEL_TO_JAVA_TYPE.put(ANY.getName(), Object.class.getSimpleName());
+    }
 
-    private static final Map<String, String> STANDARD_FEEL_TO_QUALIFIED_JAVA_TYPE = new HashMap() {{
-        put(ANY.getName(), java.lang.Object.class.getName());
-        put(NUMBER.getName(), java.math.BigDecimal.class.getName());
-        put(BOOLEAN.getName(), java.lang.Boolean.class.getName());
-        put(STRING.getName(), java.lang.String.class.getName());
-        put(DATE.getName(), javax.xml.datatype.XMLGregorianCalendar.class.getName());
-        put(TIME.getName(), javax.xml.datatype.XMLGregorianCalendar.class.getName());
-        put(DATE_AND_TIME.getName(), javax.xml.datatype.XMLGregorianCalendar.class.getName());
-        put(DAYS_AND_TIME_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
-        put(YEARS_AND_MONTHS_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
-        put(ENUMERATION.getName(), java.lang.String.class.getName());
-    }};
+    private static final Map<String, String> STANDARD_FEEL_TO_QUALIFIED_JAVA_TYPE = new LinkedHashMap<>();
+    static {
+        STANDARD_FEEL_TO_QUALIFIED_JAVA_TYPE.put(ENUMERATION.getName(), String.class.getName());
+        STANDARD_FEEL_TO_QUALIFIED_JAVA_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
+        STANDARD_FEEL_TO_QUALIFIED_JAVA_TYPE.put(DAYS_AND_TIME_DURATION.getName(), javax.xml.datatype.Duration.class.getName());
+        STANDARD_FEEL_TO_QUALIFIED_JAVA_TYPE.put(DATE_AND_TIME.getName(), javax.xml.datatype.XMLGregorianCalendar.class.getName());
+        STANDARD_FEEL_TO_QUALIFIED_JAVA_TYPE.put(TIME.getName(), javax.xml.datatype.XMLGregorianCalendar.class.getName());
+        STANDARD_FEEL_TO_QUALIFIED_JAVA_TYPE.put(DATE.getName(), javax.xml.datatype.XMLGregorianCalendar.class.getName());
+        STANDARD_FEEL_TO_QUALIFIED_JAVA_TYPE.put(STRING.getName(), String.class.getName());
+        STANDARD_FEEL_TO_QUALIFIED_JAVA_TYPE.put(BOOLEAN.getName(), Boolean.class.getName());
+        STANDARD_FEEL_TO_QUALIFIED_JAVA_TYPE.put(NUMBER.getName(), java.math.BigDecimal.class.getName());
+        STANDARD_FEEL_TO_QUALIFIED_JAVA_TYPE.put(ANY.getName(), Object.class.getName());
+    }
 
     @Override
     public String toJavaType(String feelType) {

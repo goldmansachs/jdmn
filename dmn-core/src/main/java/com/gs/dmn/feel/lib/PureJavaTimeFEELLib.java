@@ -822,7 +822,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     public TemporalAmount timeOffset(Temporal time) {
         try {
             int secondsOffset = time.get(ChronoField.OFFSET_SECONDS);
-            return duration(secondsOffset * 1000);
+            return duration((long) secondsOffset * 1000);
         } catch (Exception e) {
             String message = String.format("offset(%s)", time);
             logError(message, e);
@@ -1095,7 +1095,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
             for (int i = 0; i < list.size(); i++) {
                 Object o = list.get(i);
                 if (o == null && match == null || o!= null && o.equals(match)) {
-                    result.add(BigDecimal.valueOf(i + 1));
+                    result.add(BigDecimal.valueOf((long) i + 1));
                 }
             }
         }

@@ -113,7 +113,7 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
             if (second.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
                 return numericExponentiation(first, second.intValue());
             } else {
-                return new BigDecimal(Math.pow(first.doubleValue(), second.doubleValue()));
+                return BigDecimal.valueOf(Math.pow(first.doubleValue(), second.doubleValue()));
             }
         } catch (Exception e) {
             String message = String.format("numericExponentiation(%s, %s)", first, second);

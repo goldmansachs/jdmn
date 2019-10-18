@@ -119,7 +119,7 @@ public class DefaultBooleanType extends BaseType implements BooleanType {
         } else if (second == null) {
             return false;
         } else {
-            return first == second;
+            return first.equals(second);
         }
     }
 

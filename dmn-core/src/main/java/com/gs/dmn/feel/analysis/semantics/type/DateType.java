@@ -20,12 +20,13 @@ import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 public class DateType extends DataType {
     public static final DateType DATE = new DateType();
 
-    private static final Map<String, Type> MEMBERS = new LinkedHashMap() {{
-        put("year", NumberType.NUMBER);
-        put("month", NumberType.NUMBER);
-        put("day", NumberType.NUMBER);
-        put("weekday", NUMBER);
-    }};
+    private static final Map<String, Type> MEMBERS = new LinkedHashMap<>();
+    static {
+        MEMBERS.put("year", NumberType.NUMBER);
+        MEMBERS.put("month", NumberType.NUMBER);
+        MEMBERS.put("day", NumberType.NUMBER);
+        MEMBERS.put("weekday", NUMBER);
+    };
 
     public static Type getMemberType(String member) {
         return MEMBERS.get(member);
