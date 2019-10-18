@@ -48,7 +48,7 @@ public class TupleType extends Type {
 
     @Override
     public boolean isValid() {
-        if (types == null || types.isEmpty()) {
+        if (types.isEmpty()) {
             return false;
         }
         return types.stream().allMatch(Type::isValid);

@@ -181,7 +181,7 @@ public class OperatorDecisionTable {
         MAPPINGS.put(new OperatorTableInputEntry("..", DATE_AND_TIME, DATE_AND_TIME), new Pair(DATE_AND_TIME_RANGE_TYPE, null));
         MAPPINGS.put(new OperatorTableInputEntry("..", YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION), new Pair(YEARS_AND_MONTHS_DURATION_RANGE_TYPE, null));
         MAPPINGS.put(new OperatorTableInputEntry("..", DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION), new Pair(DAYS_AND_TIME_DURATION_RANGE_TYPE, null));
-    };
+    }
 
     public static JavaOperator javaOperator(String name, Type leftType, Type rightType) {
         OperatorTableInputEntry entry = resolveOperator(name, leftType, rightType);
