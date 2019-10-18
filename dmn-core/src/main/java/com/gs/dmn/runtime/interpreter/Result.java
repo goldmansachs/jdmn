@@ -27,9 +27,6 @@ public class Result {
     private final Type type;
 
     public Result(Object value, Type type) {
-        if (value instanceof Result) {
-            int i = 4;
-        }
         this.value = value;
         this.type = type;
     }

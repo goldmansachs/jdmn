@@ -26,7 +26,7 @@ public class DateType extends DataType {
         MEMBERS.put("month", NumberType.NUMBER);
         MEMBERS.put("day", NumberType.NUMBER);
         MEMBERS.put("weekday", NUMBER);
-    };
+    }
 
     public static Type getMemberType(String member) {
         return MEMBERS.get(member);

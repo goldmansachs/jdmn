@@ -122,10 +122,12 @@ public class ContextDependentFEELLexer {
             String nameLexeme = makeLexeme(nameSegments);
 
             // Check if it starts with a keyword
-            for(String keyword: KEYWORDS.keySet()) {
+            for(Map.Entry<String, Integer> entry: KEYWORDS.entrySet()) {
+                String keyword = entry.getKey();
+                Integer value = entry.getValue();
                 if (nameLexeme.startsWith(keyword)) {
                     rewind(inputTape, nameLexeme.length() - keyword.length());
-                    return new CommonToken(KEYWORDS.get(keyword), keyword);
+                    return new CommonToken(value, keyword);
                 }
             }
 
@@ -171,7 +173,7 @@ public class ContextDependentFEELLexer {
             } while (ch != '"' && ch != '\r' && ch != '\n' && ch != -1);
             if (ch == '"') {
                 lexeme.append((char) ch);
-                ch = nextChar(inputTape);
+                nextChar(inputTape);
             } else {
                 code = BAD;
             }
@@ -182,11 +184,11 @@ public class ContextDependentFEELLexer {
         if (ch == '+') {
             code = PLUS;
             lexeme.append((char) ch);
-            ch = nextChar(inputTape);
+            nextChar(inputTape);
         } else if (ch == '-') {
             code = MINUS;
             lexeme.append((char) ch);
-            ch = nextChar(inputTape);
+            nextChar(inputTape);
         } else if (ch == '*') {
             code = STAR;
             lexeme.append((char) ch);
@@ -194,16 +196,16 @@ public class ContextDependentFEELLexer {
             if (ch == '*') {
                 code = STAR_STAR;
                 lexeme.append((char) ch);
-                ch = nextChar(inputTape);
+                nextChar(inputTape);
             }
         } else if (ch == '/') {
             code = FORWARD_SLASH;
             lexeme.append((char) ch);
-            ch = nextChar(inputTape);
+            nextChar(inputTape);
         } else if (ch == '=') {
             code = EQ;
             lexeme.append((char) ch);
-            ch = nextChar(inputTape);
+            nextChar(inputTape);
         } else if (ch == '!') {
             code = EQ;
             lexeme.append((char) ch);
@@ -211,7 +213,7 @@ public class ContextDependentFEELLexer {
             if (ch == '=') {
                 code = NE;
                 lexeme.append((char) ch);
-                ch = nextChar(inputTape);
+                nextChar(inputTape);
             }
         } else if (ch == '<') {
             code = LT;
@@ -220,7 +222,7 @@ public class ContextDependentFEELLexer {
             if (currentChar(inputTape) == '=') {
                 code = LE;
                 lexeme.append((char) ch);
-                ch = nextChar(inputTape);
+                nextChar(inputTape);
             }
         } else if (ch == '>') {
             code = GT;
@@ -229,7 +231,7 @@ public class ContextDependentFEELLexer {
             if (currentChar(inputTape) == '=') {
                 code = GE;
                 lexeme.append((char) ch);
-                ch = nextChar(inputTape);
+                nextChar(inputTape);
             }
         // Punctuation
         } else if (ch == '.') {
@@ -239,7 +241,7 @@ public class ContextDependentFEELLexer {
             if (ch == '.') {
                 code = DOT_DOT;
                 lexeme.append((char) ch);
-                ch = nextChar(inputTape);
+                nextChar(inputTape);
             } else if (isDigit(ch)) {
                 // Number
                 code = NUMBER;
@@ -255,11 +257,11 @@ public class ContextDependentFEELLexer {
         } else if (ch == ')') {
             code = PAREN_CLOSE;
             lexeme.append((char) ch);
-            ch = nextChar(inputTape);
+            nextChar(inputTape);
         } else if (ch == '[') {
             code = BRACKET_OPEN;
             lexeme.append((char) ch);
-            ch = nextChar(inputTape);
+            nextChar(inputTape);
         } else if (ch == ']') {
             code = BRACKET_CLOSE;
             lexeme.append((char) ch);
@@ -267,15 +269,15 @@ public class ContextDependentFEELLexer {
         } else if (ch == '{') {
             code = BRACE_OPEN;
             lexeme.append((char) ch);
-            ch = nextChar(inputTape);
+            nextChar(inputTape);
         } else if (ch == '}') {
             code = BRACE_CLOSE;
             lexeme.append((char) ch);
-            ch = nextChar(inputTape);
+            nextChar(inputTape);
         } else if (ch == ':') {
             code = COLON;
             lexeme.append((char) ch);
-            ch = nextChar(inputTape);
+            nextChar(inputTape);
         }
 
         return new CommonToken(code, lexeme.toString());
@@ -313,14 +315,6 @@ public class ContextDependentFEELLexer {
 
     private String makeLexeme(List<String> nameSegments) {
         return nameSegments.stream().collect(Collectors.joining(""));
-    }
-
-    private Integer makeCode(String nameLexeme) {
-        Integer code = KEYWORDS.get(nameLexeme);
-        if (code == null) {
-            code = NAME;
-        }
-        return code;
     }
 
     private boolean isBeginLineComment(int ch) {
