@@ -12,12 +12,9 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.logic;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-
-import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 
 public class LogicNegation extends LogicExpression {
     public LogicNegation(Expression operand) {

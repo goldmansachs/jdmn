@@ -37,9 +37,6 @@ import java.util.stream.Collectors;
 public class CloneVisitor extends AbstractVisitor {
     private final ASTFactory astFactory = new ASTFactory();
 
-    public CloneVisitor() {
-    }
-
     //
     // Tests
     //

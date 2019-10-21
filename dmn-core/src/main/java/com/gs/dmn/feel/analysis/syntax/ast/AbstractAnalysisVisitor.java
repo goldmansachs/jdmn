@@ -14,12 +14,12 @@ package com.gs.dmn.feel.analysis.syntax.ast;
 
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
-import com.gs.dmn.feel.analysis.semantics.type.*;
+import com.gs.dmn.feel.analysis.semantics.type.AnyType;
+import com.gs.dmn.feel.analysis.semantics.type.ListType;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
-
-import java.util.Set;
 
 public abstract class AbstractAnalysisVisitor extends AbstractVisitor {
     protected final BasicDMN2JavaTransformer dmnTransformer;
