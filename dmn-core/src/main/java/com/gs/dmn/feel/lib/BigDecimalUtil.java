@@ -12,8 +12,6 @@
  */
 package com.gs.dmn.feel.lib;
 
-import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
-
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
@@ -237,20 +235,12 @@ public class BigDecimalUtil {
 
         int max = -1;
         List modes = new ArrayList();
-        Map<Object, Integer> countMap = new HashMap<Object, Integer>();
+        Map<Object, Integer> countMap = new HashMap<>();
         for (Object n : list) {
             if (! (n instanceof Number)) {
                 return null;
             }
-            int count = 0;
-
-            if (countMap.containsKey(n)) {
-                count = countMap.get(n) + 1;
-            } else {
-                count = 1;
-            }
-            countMap.put(n, count);
-
+            int count = countMap.compute(n, (k, v) -> v == null ? 1 : v + 1);
             if (count > max) {
                 max = count;
             }

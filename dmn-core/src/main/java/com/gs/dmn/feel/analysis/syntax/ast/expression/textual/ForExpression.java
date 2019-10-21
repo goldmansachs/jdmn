@@ -56,11 +56,11 @@ public class ForExpression extends Expression {
         if (iterators.size() == 1) {
             return this;
         } else {
-            Expression body = this.body;
+            Expression newBody = this.body;
             for(int i=iterators.size()-1; i>=0; i--) {
-                body = new ForExpression(Arrays.asList(iterators.get(i)), body);
+                newBody = new ForExpression(Arrays.asList(iterators.get(i)), newBody);
             }
-            return (ForExpression) body;
+            return (ForExpression) newBody;
         }
     }
 

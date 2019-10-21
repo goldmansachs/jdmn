@@ -160,8 +160,8 @@ public class ItemDefinitionType extends NamedType implements CompositeDataType {
 
     @Override
     public String toString() {
-        String membersStr = this.members.keySet().stream().map(k -> String.format("%s = %s", toList(k, this.aliases.get(k)), this.members.get(k))).collect(Collectors.joining(", "));
-        return String.format("ItemDefinitionType(%s)", membersStr);
+        String members = this.members.keySet().stream().map(k -> String.format("%s = %s", toList(k, this.aliases.get(k)), this.members.get(k))).collect(Collectors.joining(", "));
+        return String.format("ItemDefinitionType(%s)", members);
     }
 
     private String toList(String name, List<String> aliases) {

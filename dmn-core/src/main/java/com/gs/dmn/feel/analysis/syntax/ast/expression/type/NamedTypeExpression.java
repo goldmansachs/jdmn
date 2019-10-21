@@ -28,10 +28,6 @@ public class NamedTypeExpression extends TypeExpression {
     }
 
     @Override
-    public void deriveType(Environment environment) {
-    }
-
-    @Override
     public Object accept(Visitor visitor, FEELContext params) {
         return visitor.visit(this, params);
     }

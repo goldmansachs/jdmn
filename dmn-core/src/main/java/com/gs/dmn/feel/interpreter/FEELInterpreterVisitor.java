@@ -76,8 +76,8 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     private final FEELTypeTranslator typeTranslator;
     private final FEELTranslator feelTranslator;
 
-//    private final static JavaCompiler JAVA_COMPILER = new JavaAssistCompiler();
-    private final static JavaCompiler JAVA_COMPILER = new JavaxToolsCompiler(new File("."));
+//    private static final JavaCompiler JAVA_COMPILER = new JavaAssistCompiler();
+    private static final JavaCompiler JAVA_COMPILER = new JavaxToolsCompiler(new File("."));
 
     FEELInterpreterVisitor(DMNInterpreter dmnInterpreter) {
         super(dmnInterpreter.getBasicDMNTransformer());
