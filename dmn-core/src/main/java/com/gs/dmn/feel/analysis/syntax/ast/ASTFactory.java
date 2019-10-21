@@ -12,8 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast;
 
-import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.ArithmeticNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Exponentiation;
@@ -37,9 +37,6 @@ import java.util.*;
 import static com.gs.dmn.feel.analysis.semantics.type.FEELTypes.FEEL_LITERAL_DATE_TIME_NAMES;
 
 public class ASTFactory {
-    public ASTFactory() {
-    }
-
     //
     // Expressions
     //
