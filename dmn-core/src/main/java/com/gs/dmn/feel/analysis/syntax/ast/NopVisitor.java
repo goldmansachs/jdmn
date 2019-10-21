@@ -33,11 +33,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.type.NamedTypeExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 
 public class NopVisitor extends AbstractVisitor {
-    private ASTFactory astFactory = new ASTFactory();
-
-    public NopVisitor() {
-    }
-
     //
     // Tests
     //

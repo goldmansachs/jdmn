@@ -77,7 +77,7 @@ public class Environment {
             } else if (declaration instanceof FunctionDeclaration) {
                 List<Declaration> existingFunctions = functionsTable.get(name);
                 if (existingFunctions == null) {
-                    existingFunctions = new ArrayList<Declaration>();
+                    existingFunctions = new ArrayList<>();
                 }
                 existingFunctions.add(declaration);
                 functionsTable.put(name, existingFunctions);
@@ -115,13 +115,13 @@ public class Environment {
         if (declarations == null) {
             declarations = new ArrayList<>();
         }
-        Environment parent = getParent();
-        while (parent != null) {
-            List<Declaration> parentDeclarations = parent.lookupLocalFunctionDeclaration(name);
+        Environment environment = this.parent;
+        while (environment != null) {
+            List<Declaration> parentDeclarations = environment.lookupLocalFunctionDeclaration(name);
             if (parentDeclarations != null) {
                 declarations.addAll(parentDeclarations);
             }
-            parent = parent.getParent();
+            environment = environment.parent;
         }
         return declarations;
     }
@@ -146,8 +146,7 @@ public class Environment {
 
     public void updateVariableDeclaration(String name, Type type) {
         VariableDeclaration declaration = (VariableDeclaration) this.lookupVariableDeclaration(name);
-        if (declaration == null) {
-        } else {
+        if (declaration != null) {
             declaration.setType(type);
         }
     }

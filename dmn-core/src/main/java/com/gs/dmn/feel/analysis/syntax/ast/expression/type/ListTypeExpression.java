@@ -28,11 +28,6 @@ public class ListTypeExpression extends TypeExpression {
     }
 
     @Override
-    public void deriveType(Environment environment) {
-        this.setType(elementTypeExpression.getType());
-    }
-
-    @Override
     public Object accept(Visitor visitor, FEELContext params) {
         return visitor.visit(this, params);
     }

@@ -253,7 +253,7 @@ public class ContextDependentFEELLexer {
         } else if (ch == '(') {
             code = PAREN_OPEN;
             lexeme.append((char) ch);
-            ch = nextChar(inputTape);
+            nextChar(inputTape);
         } else if (ch == ')') {
             code = PAREN_CLOSE;
             lexeme.append((char) ch);
@@ -265,7 +265,7 @@ public class ContextDependentFEELLexer {
         } else if (ch == ']') {
             code = BRACKET_CLOSE;
             lexeme.append((char) ch);
-            ch = nextChar(inputTape);
+            nextChar(inputTape);
         } else if (ch == '{') {
             code = BRACE_OPEN;
             lexeme.append((char) ch);
@@ -306,8 +306,7 @@ public class ContextDependentFEELLexer {
     private void rewind(CharStream inputTape, int offset) {
         if (offset < 0) {
             throw new IllegalArgumentException(String.format("Offset should be positive. Got %d", offset));
-        } else if (offset == 0) {
-        } else {
+        } else if (offset > 0) {
             int rewindIndex = inputTape.index() - offset;
             inputTape.seek(rewindIndex);
         }

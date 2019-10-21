@@ -17,7 +17,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import java.util.*;
 
 public class TypeDeserializer {
-    private final static TypeDeserializer INSTANCE = new TypeDeserializer();
+    private static final TypeDeserializer INSTANCE = new TypeDeserializer();
 
     public static TypeDeserializer instance() {
         return INSTANCE;
@@ -25,7 +25,7 @@ public class TypeDeserializer {
 
     public Type deserialize(String text) {
         StringTokenizer tokenizer = new StringTokenizer(text, "(,=)", true);
-        Stack<Object> stack = new Stack<>();
+        Deque<Object> stack = new ArrayDeque<>();
         int n = tokenizer.countTokens();
         for (int i = 0; i < n; i++) {
             String token = tokenizer.nextToken().trim();

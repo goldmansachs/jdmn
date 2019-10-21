@@ -12,7 +12,10 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
-import com.gs.dmn.feel.analysis.semantics.environment.*;
+import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
+import com.gs.dmn.feel.analysis.semantics.environment.Environment;
+import com.gs.dmn.feel.analysis.semantics.environment.FunctionDeclaration;
+import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 
 import java.util.List;
@@ -35,9 +38,7 @@ public abstract class NamedExpression extends Expression {
             declaration = declarations.get(0);
             type = ((FunctionDeclaration) declaration).getType();
             setType(type);
-            return;
         }
-
     }
 
     protected abstract String getName();

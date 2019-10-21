@@ -36,7 +36,7 @@ abstract class MemberUtils {
     static int compareParameterTypes(final Class<?>[] left, final Class<?>[] right, final Class<?>[] actual) {
         final float leftCost = getTotalTransformationCost(actual, left);
         final float rightCost = getTotalTransformationCost(actual, right);
-        return leftCost < rightCost ? -1 : rightCost < leftCost ? 1 : 0;
+        return Float.compare(leftCost, rightCost);
     }
 
     /**
@@ -50,9 +50,8 @@ abstract class MemberUtils {
     private static float getTotalTransformationCost(final Class<?>[] srcArgs, final Class<?>[] destArgs) {
         float totalCost = 0.0f;
         for (int i = 0; i < srcArgs.length; i++) {
-            Class<?> srcClass, destClass;
-            srcClass = srcArgs[i];
-            destClass = destArgs[i];
+            Class<?> srcClass = srcArgs[i];
+            Class<?> destClass = destArgs[i];
             totalCost += getObjectTransformationCost(srcClass, destClass);
         }
         return totalCost;
