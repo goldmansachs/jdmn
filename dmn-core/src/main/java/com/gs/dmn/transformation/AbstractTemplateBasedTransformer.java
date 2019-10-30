@@ -64,6 +64,7 @@ public abstract class AbstractTemplateBasedTransformer extends AbstractFileTrans
         cfg.setIncompatibleImprovements(VERSION);
         cfg.setDefaultEncoding("UTF-8");
         cfg.setLocale(Locale.US);
+        cfg.setNumberFormat("#");
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
 
         // Where do we load the templates from:
