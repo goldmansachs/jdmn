@@ -113,6 +113,8 @@
         <module>dmn-tck-integration-tests</module>
         <module>dmn-reladomo-integration-tests</module>
         <module>dmn-jpa-integration-tests</module>
+
+        <module>dmn-signavio</module>
     </modules>
 
     <profiles>
@@ -372,6 +374,12 @@ specific language governing permissions and limitations under the License.]]></i
             <dependency>
                 <groupId>com.goldmansachs.jdmn</groupId>
                 <artifactId>jdmn-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.goldmansachs.jdmn</groupId>
+                <artifactId>jdmn-signavio</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
