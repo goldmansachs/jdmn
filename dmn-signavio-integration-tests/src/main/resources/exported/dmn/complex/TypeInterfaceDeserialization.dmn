@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.provider.com/dmn/1.1/diagram/8e85ac2cc9c241e4bf22fec7c1e0d096.xml" exporterVersion="10.15.11" name="Determine ESMA Equity Option Indicator (Copy)" id="id-4ef3f0c39ea846bea4f885d3fb21292b" sigExt:revisionId="891d929b0a3645a1b6133b0f3ad0bfb0" sigExt:revisionNumber="1" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:sig="http://www.provider.com/dmn/1.1/diagram/8e85ac2cc9c241e4bf22fec7c1e0d096.xml" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" xmlns:feel="http://www.omg.org/spec/FEEL/20140401">
+    <extensionElements/>
+    <itemDefinition isCollection="false" name="marginEquityOptionTradableProfile" id="id-b5f90afe1bb7fd6551019c707a508faa" label="Margin Equity Option Tradable Profile" sigExt:glossaryId="b9052aa298ad4bad8cca476cf858fb64">
+        <itemComponent isCollection="false" name="tradableName" id="id-b5f90afe1bb7fd6551019c707a508faa-relation-0" label="Tradable Name" sigExt:slotId="0">
+            <typeRef>sig:marginEquityOptionTradableName</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="eligibleTradableFlag" id="id-b5f90afe1bb7fd6551019c707a508faa-relation-1" label="Eligible Tradable Flag" sigExt:slotId="1">
+            <typeRef>sig:eligibleLoprTradableFlag</typeRef>
+        </itemComponent>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="esmaEquityOptionIndicator2" id="id-6236697ecc72febf3da3d6d456992d66" label="ESMA Equity Option Indicator">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"Yes","No"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="esmaEquityOptionIndicator" id="id-05714cde4d69f2774306c70011ffa27a" label="ESMA Equity Option Indicator">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"Yes","No"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="marginEquityOptionTradableName" id="id-ecd5aca5a1a0c47701012fb5a743fe5b" label="Margin Equity Option Tradable Name" sigExt:glossaryId="e22b35bffe5844bd938755985d2b1e37">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="eligibleLoprTradableFlag" id="id-2197382447939ec7a1076a20d779cd63" label="Eligible LOPR Tradable Flag" sigExt:glossaryId="adf70950a19e4ff7b41cbe5092926e30">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="marginEquityOptionTradableProfile2" id="id-77c99c9dbd0b162797efccf82939e256" label="Margin Equity Option Tradable Profile">
+        <itemComponent isCollection="false" name="tradableName" id="id-77c99c9dbd0b162797efccf82939e256-relation-0" label="Tradable Name" sigExt:slotId="0">
+            <typeRef>sig:marginEquityOptionTradableName</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="eligibleTradableFlag" id="id-77c99c9dbd0b162797efccf82939e256-relation-1" label="Eligible Tradable Flag" sigExt:slotId="1">
+            <typeRef>sig:eligibleLoprTradableFlag</typeRef>
+        </itemComponent>
+    </itemDefinition>
+    <itemDefinition isCollection="true" name="determineTradableExemptionFlag" id="id-a37462d43902d27a994e7ce940570a2a" label="Determine Tradable Exemption Flag">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"Exempt","Not Exempt"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="tradableExmeptionStatus" id="id-6c3a9882101ad92d9f1fd197e5ce2b19" label="Tradable Exmeption Status">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"Exempt","Not Exempt"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="tradableExemptionFlag" id="id-42ab1a07f1df0be899892f243da677cf" label="Tradable Exemption Flag">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"Exempt","Not Exempt"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="marginEquityOptionTradableProfiles" id="id-3dbe7b8f49730c85d22480489ec371f3" label="Margin Equity Option Tradable Profiles" sigExt:glossaryId="c4118d33b01545c19da30292c5f7b06f">
+        <itemComponent isCollection="true" name="marginEquityOptionTradableProfile" id="id-3dbe7b8f49730c85d22480489ec371f3-relation-0" label="Margin Equity Option Tradable Profile" sigExt:slotId="0">
+            <typeRef>sig:marginEquityOptionTradableProfile</typeRef>
+        </itemComponent>
+    </itemDefinition>
+    <inputData name="marginEquityOptionTradableProfiles" id="id-f50c634154a845f9eb79889b76a1c328" label="Margin Equity Option Tradable Profiles" sigExt:shapeId="sid-A7013330-0D1D-437C-9320-B6460C783C75" sigExt:diagramId="8e85ac2cc9c241e4bf22fec7c1e0d096">
+        <variable typeRef="sig:marginEquityOptionTradableProfiles" name="marginEquityOptionTradableProfiles" id="id-f50c634154a845f9eb79889b76a1c328_variable"/>
+    </inputData>
+    <inputData name="marginEquityOptionTradableProfile4_iterator" id="id-d0cf25011805466913e21b8ab1cb0267" label="Margin Equity Option Tradable Profile" sigExt:shapeId="sid-FB0A517C-660D-4F14-8F87-3195B9940687" sigExt:diagramId="8e85ac2cc9c241e4bf22fec7c1e0d096">
+        <variable typeRef="sig:marginEquityOptionTradableProfile2" name="marginEquityOptionTradableProfile4_iterator" id="id-d0cf25011805466913e21b8ab1cb0267_variable"/>
+    </inputData>
+    <decision name="determineTradableExemptionFlag" id="id-fdcb55e255b6b038b8975695776a567d" label="Determine Tradable Exemption Flag" sigExt:shapeId="sid-E2810B24-7DC1-4404-A300-7709B5C76E1E" sigExt:diagramId="8e85ac2cc9c241e4bf22fec7c1e0d096">
+        <extensionElements>
+            <sigExt:MultiInstanceDecisionLogic>
+                <sigExt:iterationExpression>marginEquityOptionTradableProfiles.marginEquityOptionTradableProfile</sigExt:iterationExpression>
+                <sigExt:iteratorShapeId>id-d0cf25011805466913e21b8ab1cb0267</sigExt:iteratorShapeId>
+                <sigExt:aggregationFunction>COLLECT</sigExt:aggregationFunction>
+                <sigExt:topLevelDecisionId>id-ef0cf76944c74a69816af38a1561384b</sigExt:topLevelDecisionId>
+            </sigExt:MultiInstanceDecisionLogic>
+        </extensionElements>
+        <variable typeRef="sig:determineTradableExemptionFlag" name="Determine Tradable Exemption Flag" id="id-fdcb55e255b6b038b8975695776a567d_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-f50c634154a845f9eb79889b76a1c328"/>
+        </informationRequirement>
+    </decision>
+    <decision name="esmaEquityOptionIndicator" id="id-53f232e92885190a9a157092b2e0fa04" label="ESMA Equity Option Indicator" sigExt:shapeId="sid-E7D48AF6-B53A-487C-B96A-57083326CF26" sigExt:diagramId="8e85ac2cc9c241e4bf22fec7c1e0d096">
+        <variable typeRef="sig:esmaEquityOptionIndicator" name="ESMA Equity Option Indicator" id="id-53f232e92885190a9a157092b2e0fa04_variable"/>
+        <informationRequirement>
+            <requiredDecision href="#id-fdcb55e255b6b038b8975695776a567d"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="UNIQUE">
+            <input id="id-27ea26dc95dde8c71587a7c6bc33b777" label="Determine Tradable Exemption Flag">
+                <inputExpression>
+                    <text>determineTradableExemptionFlag</text>
+                </inputExpression>
+            </input>
+            <output name="esmaEquityOptionIndicator" typeRef="sig:esmaEquityOptionIndicator2" id="id-737780f79c082228d283b0d53467cde7" label="ESMA Equity Option Indicator"/>
+            <rule id="id-7d0d9f7943511a224f294e51fc96cdab">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>containsOnly(?, ["Exempt"])</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Yes"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-717f80ae3c34ddf54f09e6528ec51c06">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>not(notContainsAny(?, ["Not Exempt"]))</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"No"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="tradableExemptionFlag" id="id-ef0cf76944c74a69816af38a1561384b" label="Tradable Exemption Flag" sigExt:shapeId="sid-E27B8F10-F458-4B64-9123-7245A7A80FC7" sigExt:diagramId="8e85ac2cc9c241e4bf22fec7c1e0d096">
+        <variable typeRef="sig:tradableExemptionFlag" name="Tradable Exemption Flag" id="id-ef0cf76944c74a69816af38a1561384b_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-d0cf25011805466913e21b8ab1cb0267"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="ANY">
+            <input id="id-1c4975ca725d52cadefd461825535f42" label="Eligible LOPR Tradable Flag">
+                <inputExpression>
+                    <text>marginEquityOptionTradableProfile4_iterator.eligibleTradableFlag</text>
+                </inputExpression>
+            </input>
+            <output name="tradableExemptionFlag" typeRef="sig:tradableExmeptionStatus" id="id-833a0715ae7f6a50e6895811f380f73e" label="Tradable Exemption Flag"/>
+            <rule id="id-3023c33b00a66addfd8991da543d9515">
+                <description>string("S_US274471 | The Tradable (") + string(marginEquityOptionTradableProfile4_iterator.tradableName) + string(") is part of the LOPR List")</description>
+                <inputEntry>
+                    <text>true</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Exempt"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-7534f7a8379bd254bb1da83f3089f3f4">
+                <description>string("S_US274471| The Tradable (") + string(marginEquityOptionTradableProfile4_iterator.tradableName) + string(") is not a part of the LOPR List")</description>
+                <inputEntry>
+                    <text>false</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Not Exempt"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+</definitions>

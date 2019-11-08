@@ -1,0 +1,1404 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.provider.com/dmn/1.1/diagram/4eceef0c40bc47e1ae02388005661eb3.xml" exporterVersion="10.15.11" name="FINRA 4210 Transaction Eligibility Data Acceptance v1.0" id="id-f02438ce28f249d6bf667946295d7142" sigExt:revisionId="e3b0d3eaa3f34affb31a639167732be4" sigExt:revisionNumber="6" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:sig="http://www.provider.com/dmn/1.1/diagram/4eceef0c40bc47e1ae02388005661eb3.xml" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" xmlns:feel="http://www.omg.org/spec/FEEL/20140401">
+    <extensionElements/>
+    <itemDefinition isCollection="false" name="determineFinra4210TransactionEligibilityDataAcceptance2" id="id-ddf4571c4fc1acc28142010fca3a3f86" label="Determine FINRA 4210 Transaction Eligibility Data Acceptance">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"Accept","Reject"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="determineFinra4210EntityEligibilityDomainValidity" id="id-b19c91cce695b5141fb6501f99bf96b4" label="Determine FINRA 4210 Entity Eligibility Domain Validity">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"Valid","Invalid"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="true" name="determineDateDomainValidity" id="id-11d4d30ec86409c8bfcb11188b2107a2" label="Determine Date Domain Validity">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"Valid","Invalid"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="cmoCategory" id="id-5acbfbfc04aba2e004a7fd18d389f0dc" label="CMO Category" sigExt:glossaryId="41f0b925171a48e58f1a40f62a79503d">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="determineFinra4210ProductEligibilityDataAcceptance" id="id-60d5d68213890721cb2810f9d2694186" label="Determine FINRA 4210 Product Eligibility Data Acceptance">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"Accept","Reject"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="determineDateDomainValidity2" id="id-58fd0a63b366b2fca0f3d9001ef64cc7" label="Determine Date Domain Validity">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"Valid","Invalid"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="finra4210CashAccountExemption" id="id-9dc4a11a2da462fbea532032e179f60f" label="FINRA 4210 CASH ACCOUNT EXEMPTION" sigExt:glossaryId="4b89fb35b32c4d4c8dc8d6d6a5516c05">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"CASH ACCOUNT EXEMPT","10MM GROSS CASH ACCOUNT EXEMPT","NOT EXEMPT"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="clearingAgent" id="id-095f84df9c73c79fd961d19315b743dc" label="Clearing Agent" sigExt:glossaryId="9ed126039b9b44dd95bf235fb4fee98a">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="true" name="finra4210EntityEligibility" id="id-ffef486425d191e96bc37d8df50c3fb5" label="FINRA 4210 Entity Eligibility">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"IM Post: Party 1","IM Collect: Party 1","VM: Party 1","Not Eligible"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="series" id="id-52514ef8883ff3d7a64e07b7aa05045f" label="Series" sigExt:glossaryId="c686b6ad00ea46cf80075b21d34fa716">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="tradeDate" id="id-9202e351823d56a8126e666cd8fa7a69" label="Trade Date" sigExt:glossaryId="6a31cdd5a0c74b3f968d964c9b1ffdae">
+        <typeRef>feel:date</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="determineFinra4210EntityEligibilityDomainValidity2" id="id-7832379614b0f30ece4412bd8c9b2854" label="Determine FINRA 4210 Entity Eligibility Domain Validity">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"Valid","Invalid"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="buySellPartyAccountNumber" id="id-92b6a85193fbcf3807b7a6ef9f7dbec7" label="Buy / Sell Party Account Number" sigExt:glossaryId="682b1b01ba5946a697baee3c57ad3e5d">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="determineCashAccountExemptionDomainValidity" id="id-8f5bd24ed72122108704c9fadf341ab0" label="Determine Cash Account Exemption Domain Validity">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"Valid","Invalid"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="settlementDate" id="id-2699c12e2d2771bfaff9ff9dd70f28ef" label="Settlement Date" sigExt:glossaryId="6177b93e64b9420593d9a52e3fbd759d">
+        <typeRef>feel:date</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="determineProductTypeDomainValidity2" id="id-b2f46a115a101d091395e4722254c233" label="Determine Product Type Domain Validity">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"Valid","Invalid"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="determineProductEligibilityDataAcceptance" id="id-46e65fd04b62543fbfe138cac246c7bf" label="Determine Product Eligibility Data Acceptance">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"Accept","Reject"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="true" name="determineProductTypeDomainValidity" id="id-082bb405ba7627bf61a86d4f67986b1f" label="Determine Product Type Domain Validity">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"Valid","Invalid"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="determineCashAccountExemptionDomainValidity2" id="id-784386103bf8eb6be6499f001abf3ff5" label="Determine Cash Account Exemption Domain Validity">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"Valid","Invalid"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="determineClearingEligibilityDomainValidity2" id="id-2d1ae5e2eeed53e0970e85d20b1d98a9" label="Determine Clearing Eligibility Domain Validity">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"Valid","Invalid"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="productInstrumentSubType" id="id-3b62ed0f01aa8d5a4f7bed3205c4d419" label="Product Instrument Sub Type" sigExt:glossaryId="b17c7d1f448e4b67a13bc7c8a96e65f9">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="productInstrumentType" id="id-59e93e9a3424be65b958c32b9b71ec4b" label="Product Instrument Type" sigExt:glossaryId="9d968cdd588f4db6b3ab95f6564a807e">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="determineFinra4210TransactionEligibilityDataAcceptance" id="id-44fbe17b816e5cbbf52810e893e69161" label="Determine FINRA 4210 Transaction Eligibility Data Acceptance">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"Accept","Reject"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="issuer" id="id-72829e0236ebd002ec6b6615d9607227" label="Issuer" sigExt:glossaryId="e9de2fd1014b49529d1ff2df6ed84cf8">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="securityType" id="id-d81cc72d8e264e53ba2d7326d75c430f" label="Security Type" sigExt:glossaryId="88c082162f5846b7946c1cd0b7e8a369">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="cUSIP" id="id-a32d433bd4d448cdace8ab9907fb5a6a" label="CUSIP" sigExt:glossaryId="1bc92edfc8224b37b82d06589bcaaf94">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="true" name="determineClearingEligibilityDomainValidity" id="id-9d49edf3fd84e9dc84781a2d6d395568" label="Determine Clearing Eligibility Domain Validity">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"Valid","Invalid"</text>
+        </allowedValues>
+    </itemDefinition>
+    <inputData name="finra4210EntityEligibility" id="id-ac639a55917ebda08cc9bc2060dc252d" label="FINRA 4210 Entity Eligibility" sigExt:shapeId="sid-7B037F34-D5D0-4411-A6E8-626AA2584DB8" sigExt:diagramId="4eceef0c40bc47e1ae02388005661eb3">
+        <variable typeRef="sig:finra4210EntityEligibility" name="finra4210EntityEligibility" id="id-ac639a55917ebda08cc9bc2060dc252d_variable"/>
+    </inputData>
+    <inputData name="finra4210CashAccountExemption" id="id-87674c300eae4bb72edf9966a1cbb7ab" label="FINRA 4210 CASH ACCOUNT EXEMPTION" sigExt:shapeId="sid-3C428A1F-E6D1-4850-8D87-5A18FC882E34" sigExt:diagramId="4eceef0c40bc47e1ae02388005661eb3">
+        <variable typeRef="sig:finra4210CashAccountExemption" name="finra4210CashAccountExemption" id="id-87674c300eae4bb72edf9966a1cbb7ab_variable"/>
+    </inputData>
+    <decision name="determineCashAccountExemptionDomainValidity" id="id-1ee80444b3d43738cb60c67d28a1b38a" label="Determine Cash Account Exemption Domain Validity" sigExt:shapeId="sid-964FC1AF-6862-499E-BD7A-BE2C90500E55" sigExt:diagramId="4eceef0c40bc47e1ae02388005661eb3">
+        <variable typeRef="sig:determineCashAccountExemptionDomainValidity" name="Determine Cash Account Exemption Domain Validity" id="id-1ee80444b3d43738cb60c67d28a1b38a_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-87674c300eae4bb72edf9966a1cbb7ab"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="UNIQUE">
+            <input id="id-c53bac4bc19702048919e04216a1015d" label="FINRA 4210 CASH ACCOUNT EXEMPTION">
+                <inputExpression>
+                    <text>finra4210CashAccountExemption</text>
+                </inputExpression>
+            </input>
+            <input id="id-915797d14f2d583c924fe2411ee39a94" label="FINRA 4210 CASH ACCOUNT EXEMPTION">
+                <inputExpression>
+                    <text>finra4210CashAccountExemption</text>
+                </inputExpression>
+            </input>
+            <output name="determineCashAccountExemptionDomainValidity" typeRef="sig:determineCashAccountExemptionDomainValidity2" id="id-2e465791780d626c24bba132d148c2ad" label="Determine Cash Account Exemption Domain Validity"/>
+            <rule id="id-01e03961ed6dbc817b90757ea062dca7">
+                <description>string("Valid based on FINRA 4210 Cash Account Exemption ") + string(finra4210CashAccountExemption) + string(".")</description>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"CASH ACCOUNT EXEMPT","10MM GROSS CASH ACCOUNT EXEMPT","NOT EXEMPT"</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-8ccb99b27c46456716ca3a03c06496db">
+                <description>string("Invalid based on FINRA 4210 Cash Account Exemption ") + string(finra4210CashAccountExemption) + string(".")</description>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not("CASH ACCOUNT EXEMPT","10MM GROSS CASH ACCOUNT EXEMPT","NOT EXEMPT")</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Invalid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-8393896402493bf0794790bf2136f7f3">
+                <description>string("Valid based on FINRA 4210 Cash Account Exemption ") + string(finra4210CashAccountExemption) + string(".")</description>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="finra4210ProductEligibilityDataAcceptanceV10" id="id-66a3e1d0d13d59a2bd601bc05da31955" label="FINRA 4210 Product Eligibility Data Acceptance v1.0" sigExt:shapeId="sid-19E20E67-FD94-4B3D-B0D1-B4F09A98D6C9" sigExt:diagramId="4eceef0c40bc47e1ae02388005661eb3">
+        <variable typeRef="sig:determineFinra4210ProductEligibilityDataAcceptance" name="FINRA 4210 Product Eligibility Data Acceptance v1.0" id="id-66a3e1d0d13d59a2bd601bc05da31955_variable"/>
+        <informationRequirement>
+            <requiredDecision href="#id-30a30da79ee250cdc243fa9efddd779d"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>determineFinra4210ProductEligibilityDataAcceptance</text>
+        </literalExpression>
+    </decision>
+    <decision name="determineFinra4210EntityEligibilityDomainValidity" id="id-a3d8dfedd16d76ee1cc9025b09f26022" label="Determine FINRA 4210 Entity Eligibility Domain Validity" sigExt:shapeId="sid-8B17F529-ECF0-48F8-9D4C-4F2780814F2E" sigExt:diagramId="4eceef0c40bc47e1ae02388005661eb3">
+        <variable typeRef="sig:determineFinra4210EntityEligibilityDomainValidity" name="Determine FINRA 4210 Entity Eligibility Domain Validity" id="id-a3d8dfedd16d76ee1cc9025b09f26022_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-ac639a55917ebda08cc9bc2060dc252d"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="ANY">
+            <input id="id-e409f7743ad66b6b04a4535c30e2cb3a" label="">
+                <inputExpression>
+                    <text>count(finra4210EntityEligibility)</text>
+                </inputExpression>
+            </input>
+            <input id="id-dcf2e79691a10f8cbb57d99b26441112" label="FINRA 4210 Entity Eligibility">
+                <inputExpression>
+                    <text>finra4210EntityEligibility</text>
+                </inputExpression>
+            </input>
+            <output name="determineFinra4210EntityEligibilityDomainValidity" typeRef="sig:determineFinra4210EntityEligibilityDomainValidity2" id="id-0fc30d4417babe71c35efa5cf237efbf" label="Determine FINRA 4210 Entity Eligibility Domain Validity"/>
+            <rule id="id-1b9dfea407727faedf1b022e9b21db4a">
+                <description>string("Valid based on FINRA 4210 Entity Eligibility ") + string(finra4210EntityEligibility) + string(".")</description>
+                <inputEntry>
+                    <text>&gt; 0</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(notContainsAny(?, ["IM Post: Party 1","IM Collect: Party 1","VM: Party 1","Not Eligible"]))</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-04316244c81c53f40263fba125b83e31">
+                <description>string("Invalid based on FINRA 4210 Entity Eligibility ") + string(finra4210EntityEligibility) + string(".")</description>
+                <inputEntry>
+                    <text>&gt; 0</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>notContainsAny(?, ["IM Post: Party 1","IM Collect: Party 1","VM: Party 1","Not Eligible"])</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Invalid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-ce5342330fd91dc389eeb5b094e20fcd">
+                <description>string("Invalid based on FINRA 4210 Entity Eligibility ") + string(finra4210EntityEligibility) + string(".")</description>
+                <inputEntry>
+                    <text>0</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Invalid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-dd2ba7239ab93b3173b75ae74b0eb68e">
+                <description>string("Invalid based on FINRA 4210 Entity Eligibility ") + string(finra4210EntityEligibility) + string(".")</description>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Invalid"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="determineFinra4210TransactionEligibilityDataAcceptance" id="id-8fe35a5194928087f3aca8d31caf10ff" label="Determine FINRA 4210 Transaction Eligibility Data Acceptance" sigExt:shapeId="sid-926783CC-6601-4B91-BAED-720A038596B0" sigExt:diagramId="4eceef0c40bc47e1ae02388005661eb3">
+        <variable typeRef="sig:determineFinra4210TransactionEligibilityDataAcceptance" name="Determine FINRA 4210 Transaction Eligibility Data Acceptance" id="id-8fe35a5194928087f3aca8d31caf10ff_variable"/>
+        <informationRequirement>
+            <requiredDecision href="#id-1ee80444b3d43738cb60c67d28a1b38a"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#id-66a3e1d0d13d59a2bd601bc05da31955"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#id-a3d8dfedd16d76ee1cc9025b09f26022"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="ANY">
+            <input id="id-bcf8e552684a0c455d932d68a73545fa" label="Determine FINRA 4210 Product Eligibility Data Acceptance">
+                <inputExpression>
+                    <text>finra4210ProductEligibilityDataAcceptanceV10</text>
+                </inputExpression>
+            </input>
+            <input id="id-c4c643def74fccd7283661c1a64552f1" label="Determine Cash Account Exemption Domain Validity">
+                <inputExpression>
+                    <text>determineCashAccountExemptionDomainValidity</text>
+                </inputExpression>
+            </input>
+            <input id="id-60c643fff1bdae10521ab7b5792fa4f2" label="Determine FINRA 4210 Entity Eligibility Domain Validity">
+                <inputExpression>
+                    <text>determineFinra4210EntityEligibilityDomainValidity</text>
+                </inputExpression>
+            </input>
+            <output name="determineFinra4210TransactionEligibilityDataAcceptance" typeRef="sig:determineFinra4210TransactionEligibilityDataAcceptance2" id="id-a06a4d924c464aba2c9b6c2940e284d1" label="Determine FINRA 4210 Transaction Eligibility Data Acceptance"/>
+            <rule id="id-db69fedd047b35511c563d28f76c547d">
+                <description>string("Reject based on FINRA 4210 Product Eligibility Data Acceptance ") + string(finra4210ProductEligibilityDataAcceptanceV10) + string(".")</description>
+                <inputEntry>
+                    <text>"Reject"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Reject"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-e2517db74a6836fa37cd6d70df02c289">
+                <description>string("Reject based on Cash Account Exemption Domain Validity ") + string(determineCashAccountExemptionDomainValidity) + string(".")</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"Invalid"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Reject"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-b0ef8c8b4c54da620b48981cc6c53dd3">
+                <description>string("Reject based on FINRA 4210 Entity Eligibility Domain Validity ") + string(determineFinra4210EntityEligibilityDomainValidity) + string(".")</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"Invalid"</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Reject"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-8ece3074bd28265a2b34483cb0750510">
+                <description>string("Accept based on FINRA 4210 Product Eligibility Data Acceptance ") + string(finra4210ProductEligibilityDataAcceptanceV10) + string(", Cash Account Exemption Domain Validity ") + string(determineCashAccountExemptionDomainValidity) + string(", and FINRA 4210 Entity Eligibility Domain Validity ") + string(determineFinra4210EntityEligibilityDomainValidity) + string(".")</description>
+                <inputEntry>
+                    <text>"Accept"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"Valid"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"Valid"</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Accept"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <inputData name="cmoCategory" id="id-088d004c1ba8ff691ffd552b42147069" label="CMO Category" sigExt:shapeId="sid-68AA9477-F9AF-420E-B176-64B161C6C308" sigExt:diagramId="ba7af8c8430e46dca333c5b45d1bc48a">
+        <variable typeRef="sig:cmoCategory" name="cmoCategory" id="id-088d004c1ba8ff691ffd552b42147069_variable"/>
+    </inputData>
+    <inputData name="productInstrumentSubType" id="id-d7a7716c73fac9e16ae12b7c4ba3ec30" label="Product Instrument Sub Type" sigExt:shapeId="sid-FA8AAFF7-A890-4CE9-A2ED-EA19E47554C6" sigExt:diagramId="ba7af8c8430e46dca333c5b45d1bc48a">
+        <variable typeRef="sig:productInstrumentSubType" name="productInstrumentSubType" id="id-d7a7716c73fac9e16ae12b7c4ba3ec30_variable"/>
+    </inputData>
+    <inputData name="clearingAgent" id="id-db2142d0e922f5238654b49a5cc14ffc" label="Clearing Agent" sigExt:shapeId="sid-3846A87B-C58E-49A9-9A49-7A448AB3BEB2" sigExt:diagramId="ba7af8c8430e46dca333c5b45d1bc48a">
+        <variable typeRef="sig:clearingAgent" name="clearingAgent" id="id-db2142d0e922f5238654b49a5cc14ffc_variable"/>
+    </inputData>
+    <inputData name="issuer" id="id-ae43d9fed4cc451fddea11617cae7275" label="Issuer" sigExt:shapeId="sid-9318E5F4-497E-4664-8A47-5438F9FF8B87" sigExt:diagramId="ba7af8c8430e46dca333c5b45d1bc48a">
+        <variable typeRef="sig:issuer" name="issuer" id="id-ae43d9fed4cc451fddea11617cae7275_variable"/>
+    </inputData>
+    <inputData name="tradeDate" id="id-b4eb236e5b7bf37f937b5d1563fab005" label="Trade Date" sigExt:shapeId="sid-D2625EDE-DAB9-4115-ABFE-BF9C2D9A30EB" sigExt:diagramId="ba7af8c8430e46dca333c5b45d1bc48a">
+        <variable typeRef="sig:tradeDate" name="tradeDate" id="id-b4eb236e5b7bf37f937b5d1563fab005_variable"/>
+    </inputData>
+    <inputData name="tradeParty2AccountNumber" id="id-935094aa7b8cbec5cc3d8218d6f09495" label="Trade Party 2 Account Number" sigExt:shapeId="sid-294E7232-A84E-425A-A40D-CD88706A9048" sigExt:diagramId="ba7af8c8430e46dca333c5b45d1bc48a">
+        <variable typeRef="sig:buySellPartyAccountNumber" name="tradeParty2AccountNumber" id="id-935094aa7b8cbec5cc3d8218d6f09495_variable"/>
+    </inputData>
+    <inputData name="cUSIP" id="id-cd999567818117006d496437ff948e80" label="CUSIP" sigExt:shapeId="sid-5C78BE76-7CD1-4752-B482-F9704F4F063B" sigExt:diagramId="ba7af8c8430e46dca333c5b45d1bc48a">
+        <variable typeRef="sig:cUSIP" name="cUSIP" id="id-cd999567818117006d496437ff948e80_variable"/>
+    </inputData>
+    <inputData name="productInstrumentType" id="id-66e5f5c9b0a0a5eeca7c3ba21133ef18" label="Product Instrument Type" sigExt:shapeId="sid-C0918173-443E-4B32-BABC-40DD2ED724B8" sigExt:diagramId="ba7af8c8430e46dca333c5b45d1bc48a">
+        <variable typeRef="sig:productInstrumentType" name="productInstrumentType" id="id-66e5f5c9b0a0a5eeca7c3ba21133ef18_variable"/>
+    </inputData>
+    <inputData name="settlementDate" id="id-20952e04b0ef4a3078ce492ee83e4f12" label="Settlement Date" sigExt:shapeId="sid-6378BB40-CED8-46D8-8292-D71983913B8B" sigExt:diagramId="ba7af8c8430e46dca333c5b45d1bc48a">
+        <variable typeRef="sig:settlementDate" name="settlementDate" id="id-20952e04b0ef4a3078ce492ee83e4f12_variable"/>
+    </inputData>
+    <inputData name="securityType" id="id-a2c08ca6e9019d193db27feaa71930c0" label="Security Type" sigExt:shapeId="sid-CFF5FB25-D4AC-489F-BE19-9C57F03879A8" sigExt:diagramId="ba7af8c8430e46dca333c5b45d1bc48a">
+        <variable typeRef="sig:securityType" name="securityType" id="id-a2c08ca6e9019d193db27feaa71930c0_variable"/>
+    </inputData>
+    <inputData name="series" id="id-eac86c9429e6d3f522f51ca9a833f4e9" label="Series" sigExt:shapeId="sid-5FEF1A2D-91C6-44DA-9693-AE6610C477E2" sigExt:diagramId="ba7af8c8430e46dca333c5b45d1bc48a">
+        <variable typeRef="sig:series" name="series" id="id-eac86c9429e6d3f522f51ca9a833f4e9_variable"/>
+    </inputData>
+    <inputData name="tradeParty1AccountNumber" id="id-fd1d62bafa7f8e03a5e4887ee2c21499" label="Trade Party 1 Account Number" sigExt:shapeId="sid-B5601090-B181-40F3-AEEC-7D5877F4518A" sigExt:diagramId="ba7af8c8430e46dca333c5b45d1bc48a">
+        <variable typeRef="sig:buySellPartyAccountNumber" name="tradeParty1AccountNumber" id="id-fd1d62bafa7f8e03a5e4887ee2c21499_variable"/>
+    </inputData>
+    <decision name="determineProductTypeDomainValidity" id="id-2ad1fe7ca8deb463bd339afcce27aab8" label="Determine Product Type Domain Validity" sigExt:shapeId="sid-0A5A2EF5-09FC-49B9-A11F-CFBB0149FD38" sigExt:diagramId="ba7af8c8430e46dca333c5b45d1bc48a">
+        <variable typeRef="sig:determineProductTypeDomainValidity" name="Determine Product Type Domain Validity" id="id-2ad1fe7ca8deb463bd339afcce27aab8_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-66e5f5c9b0a0a5eeca7c3ba21133ef18"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-ae43d9fed4cc451fddea11617cae7275"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-a2c08ca6e9019d193db27feaa71930c0"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-eac86c9429e6d3f522f51ca9a833f4e9"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-088d004c1ba8ff691ffd552b42147069"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-cd999567818117006d496437ff948e80"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-d7a7716c73fac9e16ae12b7c4ba3ec30"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="COLLECT">
+            <input id="id-9b01af81252fb981e648c64fe33befaa" label="Product Instrument Type">
+                <inputExpression>
+                    <text>productInstrumentType</text>
+                </inputExpression>
+            </input>
+            <input id="id-50949249b6599d758c18c6078eae81a7" label="Product Instrument Sub Type">
+                <inputExpression>
+                    <text>productInstrumentSubType</text>
+                </inputExpression>
+            </input>
+            <input id="id-d73419e2d391315b12f6f6e2153c89f7" label="CMO Category">
+                <inputExpression>
+                    <text>cmoCategory</text>
+                </inputExpression>
+            </input>
+            <input id="id-e9e1b9c12119e7caaf4466cd55b82fa5" label="Issuer">
+                <inputExpression>
+                    <text>issuer</text>
+                </inputExpression>
+            </input>
+            <input id="id-e178d63a99ccd922ad8ab894fca2c140" label="CUSIP">
+                <inputExpression>
+                    <text>cUSIP</text>
+                </inputExpression>
+            </input>
+            <input id="id-d905a094588bb19c67e83bdeb734dc56" label="Series">
+                <inputExpression>
+                    <text>series</text>
+                </inputExpression>
+            </input>
+            <input id="id-23da3bba3116a65bda142cb4fb659cb9" label="">
+                <inputExpression>
+                    <text>isAlphanumeric(series)</text>
+                </inputExpression>
+            </input>
+            <input id="id-32e1a3be0a5b755a3878c76cf4533b4d" label="Security Type">
+                <inputExpression>
+                    <text>securityType</text>
+                </inputExpression>
+            </input>
+            <output name="determineProductTypeDomainValidity" typeRef="sig:determineProductTypeDomainValidity2" id="id-beee5f5d80963757dd90021978ee67ef" label="Determine Product Type Domain Validity"/>
+            <rule id="id-20125c75571b7668e0bf89997819f59d">
+                <description>string("Valid based on Product Instrument Type ") + string(productInstrumentType) + string(".")</description>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-328cff352ad8c89d11aff5fc4ce64dcb">
+                <description>string("Valid based on Product Instrument Type ") + string(productInstrumentType) + string(".")</description>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-b3ba3971e58c1f222606c9f70f7141ba">
+                <description>string("Valid based on Product Instrument SubType ") + string(productInstrumentSubType) + string(".")</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-76820747a19f3510ceebcc27e533b222">
+                <description>string("Valid based on Product Instrument SubType ") + string(productInstrumentSubType) + string(".")</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-f1c534c8e6c17ac8b506298a4a91fff3">
+                <description>string("Valid based on CMO Category ") + string(cmoCategory) + string(".")</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-c8db84abf3286267a6b59600a4981b5b">
+                <description>string("Valid based on CMO Category ") + string(cmoCategory) + string(".")</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-3740fbae422a20b93ad6d6c1be9c650e">
+                <description>string("Valid based on Issuer ") + string(issuer) + string(".")</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-7d339538a8a1798dbe62b0f354769a50">
+                <description>string("Valid based on Issuer ") + string(issuer) + string(".")</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-1129a2fcdcfda38bc2dd23cebec0fda6">
+                <description>string("Valid based on CUSIP ") + string(cUSIP) + string(".")</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-4e98d91e365687ff8093e96d2b3e6a57">
+                <description>string("Valid based on CUSIP ") + string(cUSIP) + string(".")</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-aa020600ea234e385e0d541e7c494eb9">
+                <description>string("Valid based on Series ") + string(series) + string(".")</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>true</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-5c9edd9fa244517c1cc4acd9f944b873">
+                <description>string("Invalid based on Series ") + string(series) + string(".")</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>false</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Invalid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-866490b4412ca7eda5e6a4a843fad803">
+                <description>string("Invalid based on Series ") + string(series) + string(".")</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-de2f1c04f23a327ab2ace4c675e94442">
+                <description>string("Valid based on Security Type ") + string(securityType) + string(".")</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-8f57204b5db867faca05e12aa1127675">
+                <description>string("Valid based on Security Type ") + string(securityType) + string(".")</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="determineFinra4210ProductEligibilityDataAcceptance" id="id-30a30da79ee250cdc243fa9efddd779d" label="Determine FINRA 4210 Product Eligibility Data Acceptance" sigExt:shapeId="sid-926783CC-6601-4B91-BAED-720A038596B0" sigExt:diagramId="ba7af8c8430e46dca333c5b45d1bc48a">
+        <variable typeRef="sig:determineFinra4210ProductEligibilityDataAcceptance" name="Determine FINRA 4210 Product Eligibility Data Acceptance" id="id-30a30da79ee250cdc243fa9efddd779d_variable"/>
+        <informationRequirement>
+            <requiredDecision href="#id-2ad1fe7ca8deb463bd339afcce27aab8"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#id-2ff95debf02673cfeeb3b677a69c0dba"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#id-7b6e05c003856a32738a0a9e3f54c209"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="ANY">
+            <input id="id-801fd871368d7a0b3f3d10822ab152c7" label="Determine Date Domain Validity">
+                <inputExpression>
+                    <text>determineDateDomainValidity</text>
+                </inputExpression>
+            </input>
+            <input id="id-279ed807ff637eec88edf5f461a1938e" label="Determine Product Type Domain Validity">
+                <inputExpression>
+                    <text>determineProductTypeDomainValidity</text>
+                </inputExpression>
+            </input>
+            <input id="id-55dd18a5297bfd71f5b0f2fc9ed96877" label="Determine Clearing Eligibility Domain Validity">
+                <inputExpression>
+                    <text>determineClearingEligibilityDomainValidity</text>
+                </inputExpression>
+            </input>
+            <output name="determineFinra4210ProductEligibilityDataAcceptance" typeRef="sig:determineProductEligibilityDataAcceptance" id="id-b317a72825e4e08c57a6a2c546242636" label="Determine FINRA 4210 Product Eligibility Data Acceptance"/>
+            <rule id="id-084800bc3aa7bd958529b3885c7257bf">
+                <description>string("Reject based on Date Domain Validity ") + string(determineDateDomainValidity) + string(".")</description>
+                <inputEntry>
+                    <text>not(notContainsAny(?, ["Invalid"]))</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Reject"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-7d71de83d9c8c1594342a7656759572d">
+                <description>string("Reject based on Product Type Domain Validity ") + string(determineProductTypeDomainValidity) + string(".")</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(notContainsAny(?, ["Invalid"]))</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Reject"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-da2f601ffde2ecbe482461d011cdaa38">
+                <description>string("Reject based on Clearing Eligibility Domain Validity ") + string(determineClearingEligibilityDomainValidity) + string(".")</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(notContainsAny(?, ["Invalid"]))</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Reject"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-7871cc3bba71dfcc0f5eafcf7ab7da23">
+                <description>string("Accept based on Date Domain Validity ") + string(determineDateDomainValidity) + string(", Product Type Domain Validity ") + string(determineProductTypeDomainValidity) + string(", and Clearing Eligibility Domain Validity ") + string(determineClearingEligibilityDomainValidity) + string(".")</description>
+                <inputEntry>
+                    <text>containsOnly(?, ["Valid"])</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>containsOnly(?, ["Valid"])</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>containsOnly(?, ["Valid"])</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Accept"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="determineClearingEligibilityDomainValidity" id="id-2ff95debf02673cfeeb3b677a69c0dba" label="Determine Clearing Eligibility Domain Validity" sigExt:shapeId="sid-C570D6E9-E845-41C5-BE6D-6AD4B2D9E6E3" sigExt:diagramId="ba7af8c8430e46dca333c5b45d1bc48a">
+        <variable typeRef="sig:determineClearingEligibilityDomainValidity" name="Determine Clearing Eligibility Domain Validity" id="id-2ff95debf02673cfeeb3b677a69c0dba_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-fd1d62bafa7f8e03a5e4887ee2c21499"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-935094aa7b8cbec5cc3d8218d6f09495"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-db2142d0e922f5238654b49a5cc14ffc"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="COLLECT">
+            <input id="id-25f87e9c858b0fe2a991f8976e28bd41" label="Clearing Agent">
+                <inputExpression>
+                    <text>clearingAgent</text>
+                </inputExpression>
+            </input>
+            <input id="id-56a35a38254f445b42306fd22b9f96ab" label="">
+                <inputExpression>
+                    <text>isAlpha(clearingAgent)</text>
+                </inputExpression>
+            </input>
+            <input id="id-543fea30806337e6a3153c3e86f75ffa" label="Buy / Sell Party Account Number">
+                <inputExpression>
+                    <text>tradeParty1AccountNumber</text>
+                </inputExpression>
+            </input>
+            <input id="id-74f20848d81a83a43efd71a27bce2798" label="">
+                <inputExpression>
+                    <text>isAlpha(tradeParty1AccountNumber)</text>
+                </inputExpression>
+            </input>
+            <input id="id-64edf3fdcaa2ee3d252d5f36d7a8198a" label="Buy / Sell Party Account Number">
+                <inputExpression>
+                    <text>tradeParty2AccountNumber</text>
+                </inputExpression>
+            </input>
+            <input id="id-39c99c7ef8eb27645563eae50c427022" label="">
+                <inputExpression>
+                    <text>isAlpha(tradeParty2AccountNumber)</text>
+                </inputExpression>
+            </input>
+            <output name="determineClearingEligibilityDomainValidity" typeRef="sig:determineClearingEligibilityDomainValidity2" id="id-3037bd95de9701f95fd360a6b54f94bb" label="Determine Clearing Eligibility Domain Validity"/>
+            <rule id="id-7adc7cb02b0266dad1b5b41e82dee3e1">
+                <description>string("Valid based on Clearing Agent ") + string(clearingAgent) + string(".")</description>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>true</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-58bff93f21f8a6cda1a12742d4826ef6">
+                <description>string("Invalid based on Clearing Agent ") + string(clearingAgent) + string(".")</description>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>false</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Invalid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-c70aa849ecc76ac76db24721a2ab1a86">
+                <description>string("Valid based on Clearing Agent ") + string(clearingAgent) + string(".")</description>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-cae382934e595836dd3689b34f638a17">
+                <description>string("Valid based on Trade Party 1 Account Number ") + string(tradeParty1AccountNumber) + string(".")</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>false</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-052f9467e9b9f41b765d0d89eac6a507">
+                <description>string("Invalid based on Trade Party 1 Account Number ") + string(tradeParty1AccountNumber) + string(".")</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>true</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Invalid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-646b40bf48dd7d853614964b8648ab8b">
+                <description>string("Invalid based on Trade Party 1 Account Number ") + string(tradeParty1AccountNumber) + string(".")</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Invalid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-40a5062e62072605bd0c6efde7861ea7">
+                <description>string("Valid based on Trade Party 2 Account Number ") + string(tradeParty2AccountNumber) + string(".")</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>false</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-15d1d363bd21ff3008eb9460fc2e5887">
+                <description>string("Invalid based on Trade Party 2 Account Number ") + string(tradeParty2AccountNumber) + string(".")</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>true</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Invalid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-bddc48bf98f6e98dd37e2f5bb0334fce">
+                <description>string("Invalid based on Trade Party 2 Account Number ") + string(tradeParty2AccountNumber) + string(".")</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Invalid"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="determineDateDomainValidity" id="id-7b6e05c003856a32738a0a9e3f54c209" label="Determine Date Domain Validity" sigExt:shapeId="sid-E82D36DC-DC97-4491-9450-46950CA7F309" sigExt:diagramId="ba7af8c8430e46dca333c5b45d1bc48a">
+        <variable typeRef="sig:determineDateDomainValidity" name="Determine Date Domain Validity" id="id-7b6e05c003856a32738a0a9e3f54c209_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-b4eb236e5b7bf37f937b5d1563fab005"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-20952e04b0ef4a3078ce492ee83e4f12"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="COLLECT">
+            <input id="id-34d42c397284b867d3999a4fe3ac26f0" label="Trade Date">
+                <inputExpression>
+                    <text>tradeDate</text>
+                </inputExpression>
+            </input>
+            <input id="id-1d356a82ad6ac5968d38d6c53c80d8a4" label="Trade Date">
+                <inputExpression>
+                    <text>tradeDate</text>
+                </inputExpression>
+            </input>
+            <input id="id-9cc6faac083c99eedbdd728fcd81aeb7" label="Settlement Date">
+                <inputExpression>
+                    <text>settlementDate</text>
+                </inputExpression>
+            </input>
+            <input id="id-f26c47e537613faea55bbdb75ce1d255" label="Settlement Date">
+                <inputExpression>
+                    <text>settlementDate</text>
+                </inputExpression>
+            </input>
+            <output name="determineDateDomainValidity" typeRef="sig:determineDateDomainValidity2" id="id-2378f5298a1acc8d6ae49dd52b6afb94" label="Determine Date Domain Validity"/>
+            <rule id="id-82aa8166756cf0e4de5537ff2baf86de">
+                <description>string("Valid based on Trade Date ") + string(tradeDate) + string(".")</description>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-fb758b0afc4d6a1f68dd07d8a8eaad1a">
+                <description>string("Invalid based on Trade Date ") + string(tradeDate) + string(".")</description>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Invalid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-03408dd421e60ec96e1f3db3a57db684">
+                <description>string("Invalid based on Trade Date ") + string(tradeDate) + string(".")</description>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Invalid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-2b176126f722ff1bda40828cddf7c720">
+                <description>string("Valid based on Settlement Date ") + string(settlementDate) + string(".")</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Valid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-91ac0c28cfb6744ce07d82a99ebe98b6">
+                <description>string("Invalid based on Settlement Date ") + string(settlementDate) + string(".")</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Invalid"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-b011958bc5fdcf3e72ab8f17a331257a">
+                <description>string("Invalid based on Settlement Date ") + string(settlementDate) + string(".")</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Invalid"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+</definitions>

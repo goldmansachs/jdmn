@@ -1,0 +1,181 @@
+{
+  "inputParameterDefinitions": [
+    {
+      "id": "8e85ac2cc9c241e4bf22fec7c1e0d096/sid-A7013330-0D1D-437C-9320-B6460C783C75",
+      "modelName": "Determine ESMA Equity Option Indicator (Copy)",
+      "requirementName": "Margin Equity Option Tradable Profiles",
+      "diagramId": "8e85ac2cc9c241e4bf22fec7c1e0d096",
+      "shapeId": "sid-A7013330-0D1D-437C-9320-B6460C783C75"
+    }
+  ],
+  "outputParameterDefinitions": [
+    {
+      "id": "8e85ac2cc9c241e4bf22fec7c1e0d096/sid-E7D48AF6-B53A-487C-B96A-57083326CF26",
+      "modelName": "Determine ESMA Equity Option Indicator (Copy)",
+      "requirementName": "ESMA Equity Option Indicator",
+      "diagramId": "8e85ac2cc9c241e4bf22fec7c1e0d096",
+      "shapeId": "sid-E7D48AF6-B53A-487C-B96A-57083326CF26"
+    }
+  ],
+  "testCases": [
+    {
+      "inputValues": [
+        {
+          "type": "complex",
+          "slots": [
+            {
+              "id": "0",
+              "name": "Margin Equity Option Tradable Profile",
+              "value": {
+                "type": "list",
+                "value": [
+                  {
+                    "type": "complex",
+                    "slots": [
+                      {
+                        "id": "0",
+                        "name": "Tradable Name",
+                        "value": {
+                          "type": "string",
+                          "value": "abc"
+                        }
+                      },
+                      {
+                        "id": "1",
+                        "name": "Eligible Tradable Flag",
+                        "value": {
+                          "type": "boolean",
+                          "value": false
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "complex",
+                    "slots": [
+                      {
+                        "id": "0",
+                        "name": "Tradable Name",
+                        "value": {
+                          "type": "string",
+                          "value": "def"
+                        }
+                      },
+                      {
+                        "id": "1",
+                        "name": "Eligible Tradable Flag",
+                        "value": {
+                          "type": "boolean",
+                          "value": true
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "expectedValues": [
+        {
+          "type": "enumeration",
+          "value": "1",
+          "name": "No"
+        }
+      ]
+    },
+    {
+      "inputValues": [
+        {
+          "type": "complex",
+          "slots": [
+            {
+              "id": "0",
+              "name": "Margin Equity Option Tradable Profile",
+              "value": {
+                "type": "list",
+                "value": [
+                  {
+                    "type": "complex",
+                    "slots": [
+                      {
+                        "id": "0",
+                        "name": "Tradable Name",
+                        "value": {
+                          "type": "string",
+                          "value": "abc"
+                        }
+                      },
+                      {
+                        "id": "1",
+                        "name": "Eligible Tradable Flag",
+                        "value": {
+                          "type": "boolean",
+                          "value": true
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "expectedValues": [
+        {
+          "type": "enumeration",
+          "value": "0",
+          "name": "Yes"
+        }
+      ]
+    },
+    {
+      "inputValues": [
+        {
+          "type": "complex",
+          "slots": [
+            {
+              "id": "0",
+              "name": "Margin Equity Option Tradable Profile",
+              "value": {
+                "type": "list",
+                "value": [
+                  {
+                    "type": "complex",
+                    "slots": [
+                      {
+                        "id": "0",
+                        "name": "Tradable Name",
+                        "value": {
+                          "type": "string",
+                          "value": "def"
+                        }
+                      },
+                      {
+                        "id": "1",
+                        "name": "Eligible Tradable Flag",
+                        "value": {
+                          "type": "boolean",
+                          "value": false
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "expectedValues": [
+        {
+          "type": "enumeration",
+          "value": "1",
+          "name": "No"
+        }
+      ]
+    }
+  ]
+}

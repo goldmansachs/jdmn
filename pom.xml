@@ -115,6 +115,7 @@
         <module>dmn-jpa-integration-tests</module>
 
         <module>dmn-signavio</module>
+        <module>dmn-signavio-integration-tests</module>
     </modules>
 
     <profiles>

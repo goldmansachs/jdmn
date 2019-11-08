@@ -29,6 +29,7 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.metadata.ExtensionElement;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
+import com.gs.dmn.transformation.InputParamUtil;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import com.gs.dmn.transformation.java.ExpressionStatement;

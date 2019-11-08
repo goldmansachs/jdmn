@@ -24,10 +24,12 @@ import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
+import com.gs.dmn.transformation.InputParamUtil;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
+import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 import java.io.File;
@@ -36,16 +38,21 @@ import java.util.Map;
 
 public class SignavioDMNToJavaTransformer extends DMNToJavaTransformer {
     private static final String DMN_METADATA_FILE_NAME = "DMNMetadata";
+    private String schemaNamespace;
 
     public SignavioDMNToJavaTransformer(DMNDialectDefinition dialectDefinition, DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
         super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
+        this.schemaNamespace = InputParamUtil.getOptionalParam(inputParameters, "signavioSchemaNamespace");
+        if (StringUtils.isEmpty(this.schemaNamespace)) {
+            this.schemaNamespace = "http://www.signavio.com/schema/dmn/1.1/";
+        }
     }
 
     @Override
     protected DMNModelRepository readDMN(File file) {
         if (isDMNFile(file)) {
             Pair<TDefinitions, PrefixNamespaceMappings> result = dmnReader.read(file);
-            DMNModelRepository repository = new SignavioDMNModelRepository(result.getLeft(), result.getRight());
+            DMNModelRepository repository = new SignavioDMNModelRepository(result, this.schemaNamespace);
             return repository;
         } else {
             throw new DMNRuntimeException(String.format("Invalid DMN file %s", file.getAbsoluteFile()));

@@ -1,0 +1,595 @@
+{
+  "inputParameterDefinitions": [
+    {
+      "id": "3e06efd3571e4ef692b62ff41cabefcf/sid-4EB97036-C7F4-4E1A-9E69-6E5CA0CF4455",
+      "shapeId": "sid-4EB97036-C7F4-4E1A-9E69-6E5CA0CF4455",
+      "diagramId": "3e06efd3571e4ef692b62ff41cabefcf",
+      "modelName": "IteratorExample - Returning multiple",
+      "requirementName": "Criteria"
+    },
+    {
+      "id": "3e06efd3571e4ef692b62ff41cabefcf/sid-9A53AD00-198E-48D9-A1A8-E88FC84FFB4F",
+      "shapeId": "sid-9A53AD00-198E-48D9-A1A8-E88FC84FFB4F",
+      "diagramId": "3e06efd3571e4ef692b62ff41cabefcf",
+      "modelName": "IteratorExample - Returning multiple",
+      "requirementName": "WithholdingAccounts"
+    }
+  ],
+  "outputParameterDefinitions": [
+    {
+      "id": "3e06efd3571e4ef692b62ff41cabefcf/sid-1664306E-9F37-4E2F-BFCB-EE27F40507B9",
+      "shapeId": "sid-1664306E-9F37-4E2F-BFCB-EE27F40507B9",
+      "diagramId": "3e06efd3571e4ef692b62ff41cabefcf",
+      "modelName": "IteratorExample - Returning multiple",
+      "requirementName": "ProcessElements"
+    }
+  ],
+  "testCases": [
+    {
+      "inputValues": [
+        {
+          "type": "complex",
+          "slots": [
+            {
+              "id": "0",
+              "name": "DomicileCode",
+              "value": {
+                "type": "enumeration",
+                "value": "0",
+                "name": "00001"
+              }
+            },
+            {
+              "id": "2",
+              "name": "ForeignTIN",
+              "value": {
+                "type": "string",
+                "value": "123"
+              }
+            }
+          ]
+        },
+        {
+          "type": "complex",
+          "slots": [
+            {
+              "id": "0",
+              "name": "AccountList",
+              "value": {
+                "type": "list",
+                "value": [
+                  {
+                    "type": "complex",
+                    "slots": [
+                      {
+                        "id": "0",
+                        "name": "First Trade Date",
+                        "value": {
+                          "type": "date",
+                          "value": null
+                        }
+                      },
+                      {
+                        "id": "1",
+                        "name": "Tax Domicile",
+                        "value": {
+                          "type": "enumeration",
+                          "value": "0",
+                          "name": "00001"
+                        }
+                      },
+                      {
+                        "id": "2",
+                        "name": "Bank Industry",
+                        "value": {
+                          "type": "boolean",
+                          "value": null
+                        }
+                      },
+                      {
+                        "id": "3",
+                        "name": "Foreign TIN",
+                        "value": {
+                          "type": "string",
+                          "value": "123"
+                        }
+                      },
+                      {
+                        "id": "4",
+                        "name": "Intercompany Indicator",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      },
+                      {
+                        "id": "5",
+                        "name": "PFS",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      },
+                      {
+                        "id": "6",
+                        "name": "QSL Flag",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      },
+                      {
+                        "id": "7",
+                        "name": "Doc Status",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      },
+                      {
+                        "id": "8",
+                        "name": "Payee Type",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      },
+                      {
+                        "id": "9",
+                        "name": "Treaty Indicator",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      },
+                      {
+                        "id": "10",
+                        "name": "Paper Type",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      },
+                      {
+                        "id": "11",
+                        "name": "Reporting Status",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      },
+                      {
+                        "id": "12",
+                        "name": "US TIN",
+                        "value": {
+                          "type": "string",
+                          "value": null
+                        }
+                      },
+                      {
+                        "id": "13",
+                        "name": "TIN Sworn Date",
+                        "value": {
+                          "type": "date",
+                          "value": null
+                        }
+                      },
+                      {
+                        "id": "14",
+                        "name": "Withholding Status",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      },
+                      {
+                        "id": "15",
+                        "name": "GPED",
+                        "value": {
+                          "type": "date",
+                          "value": null
+                        }
+                      },
+                      {
+                        "id": "16",
+                        "name": "GSLE Type",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "complex",
+                    "slots": [
+                      {
+                        "id": "0",
+                        "name": "First Trade Date",
+                        "value": {
+                          "type": "date",
+                          "value": null
+                        }
+                      },
+                      {
+                        "id": "1",
+                        "name": "Tax Domicile",
+                        "value": {
+                          "type": "enumeration",
+                          "value": "0",
+                          "name": "00001"
+                        }
+                      },
+                      {
+                        "id": "2",
+                        "name": "Bank Industry",
+                        "value": {
+                          "type": "boolean",
+                          "value": null
+                        }
+                      },
+                      {
+                        "id": "3",
+                        "name": "Foreign TIN",
+                        "value": {
+                          "type": "string",
+                          "value": "234"
+                        }
+                      },
+                      {
+                        "id": "4",
+                        "name": "Intercompany Indicator",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      },
+                      {
+                        "id": "5",
+                        "name": "PFS",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      },
+                      {
+                        "id": "6",
+                        "name": "QSL Flag",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      },
+                      {
+                        "id": "7",
+                        "name": "Doc Status",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      },
+                      {
+                        "id": "8",
+                        "name": "Payee Type",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      },
+                      {
+                        "id": "9",
+                        "name": "Treaty Indicator",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      },
+                      {
+                        "id": "10",
+                        "name": "Paper Type",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      },
+                      {
+                        "id": "11",
+                        "name": "Reporting Status",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      },
+                      {
+                        "id": "12",
+                        "name": "US TIN",
+                        "value": {
+                          "type": "string",
+                          "value": null
+                        }
+                      },
+                      {
+                        "id": "13",
+                        "name": "TIN Sworn Date",
+                        "value": {
+                          "type": "date",
+                          "value": null
+                        }
+                      },
+                      {
+                        "id": "14",
+                        "name": "Withholding Status",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      },
+                      {
+                        "id": "15",
+                        "name": "GPED",
+                        "value": {
+                          "type": "date",
+                          "value": null
+                        }
+                      },
+                      {
+                        "id": "16",
+                        "name": "GSLE Type",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "complex",
+                    "slots": [
+                      {
+                        "id": "0",
+                        "name": "First Trade Date",
+                        "value": {
+                          "type": "date",
+                          "value": null
+                        }
+                      },
+                      {
+                        "id": "1",
+                        "name": "Tax Domicile",
+                        "value": {
+                          "type": "enumeration",
+                          "value": "0",
+                          "name": "00001"
+                        }
+                      },
+                      {
+                        "id": "2",
+                        "name": "Bank Industry",
+                        "value": {
+                          "type": "boolean",
+                          "value": null
+                        }
+                      },
+                      {
+                        "id": "3",
+                        "name": "Foreign TIN",
+                        "value": {
+                          "type": "string",
+                          "value": "123"
+                        }
+                      },
+                      {
+                        "id": "4",
+                        "name": "Intercompany Indicator",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      },
+                      {
+                        "id": "5",
+                        "name": "PFS",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      },
+                      {
+                        "id": "6",
+                        "name": "QSL Flag",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      },
+                      {
+                        "id": "7",
+                        "name": "Doc Status",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      },
+                      {
+                        "id": "8",
+                        "name": "Payee Type",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      },
+                      {
+                        "id": "9",
+                        "name": "Treaty Indicator",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      },
+                      {
+                        "id": "10",
+                        "name": "Paper Type",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      },
+                      {
+                        "id": "11",
+                        "name": "Reporting Status",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      },
+                      {
+                        "id": "12",
+                        "name": "US TIN",
+                        "value": {
+                          "type": "string",
+                          "value": null
+                        }
+                      },
+                      {
+                        "id": "13",
+                        "name": "TIN Sworn Date",
+                        "value": {
+                          "type": "date",
+                          "value": null
+                        }
+                      },
+                      {
+                        "id": "14",
+                        "name": "Withholding Status",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      },
+                      {
+                        "id": "15",
+                        "name": "GPED",
+                        "value": {
+                          "type": "date",
+                          "value": null
+                        }
+                      },
+                      {
+                        "id": "16",
+                        "name": "GSLE Type",
+                        "value": {
+                          "type": "enumeration",
+                          "value": null,
+                          "name": null
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "expectedValues": [
+        {
+          "type": "list",
+          "value": [
+            {
+              "type": "complex",
+              "slots": [
+                {
+                  "id": "EA5FF6FC-94A4-4CB3-9A22-C20FF48D8833",
+                  "name": "Foreign TIN",
+                  "value": {
+                    "type": "string",
+                    "value": "123"
+                  }
+                },
+                {
+                  "id": "B762E17C-8FCE-4750-97CB-2CB17C7C65CB",
+                  "name": "Output 2",
+                  "value": {
+                    "type": "string",
+                    "value": "Test"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "complex",
+              "slots": [
+                {
+                  "id": "EA5FF6FC-94A4-4CB3-9A22-C20FF48D8833",
+                  "name": "Foreign TIN",
+                  "value": {
+                    "type": "string",
+                    "value": null
+                  }
+                },
+                {
+                  "id": "B762E17C-8FCE-4750-97CB-2CB17C7C65CB",
+                  "name": "Output 2",
+                  "value": {
+                    "type": "string",
+                    "value": null
+                  }
+                }
+              ]
+            },
+            {
+              "type": "complex",
+              "slots": [
+                {
+                  "id": "EA5FF6FC-94A4-4CB3-9A22-C20FF48D8833",
+                  "name": "Foreign TIN",
+                  "value": {
+                    "type": "string",
+                    "value": "123"
+                  }
+                },
+                {
+                  "id": "B762E17C-8FCE-4750-97CB-2CB17C7C65CB",
+                  "name": "Output 2",
+                  "value": {
+                    "type": "string",
+                    "value": "Test"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
