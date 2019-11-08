@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.provider.com/dmn/1.1/diagram/2642e41283ff4ead84af2d238ad421ed.xml" exporterVersion="10.15.11" name="simple-decision-complex-type-inputs-feel-input-entries-single-output-collect-hit-policy" id="id-9440ce9b07a243f2901be0b6cdbed253" sigExt:revisionId="e8caf64ce50748a987d5f8fbea4b4929" sigExt:revisionNumber="3" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:sig="http://www.provider.com/dmn/1.1/diagram/2642e41283ff4ead84af2d238ad421ed.xml" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" xmlns:feel="http://www.omg.org/spec/FEEL/20140401">
+    <extensionElements/>
+    <itemDefinition isCollection="false" name="person" id="id-6bdac3d0baefc29985869a336d9c79d0" label="Person">
+        <itemComponent isCollection="false" name="firstName" id="id-6bdac3d0baefc29985869a336d9c79d0-relation-0" label="firstName" sigExt:slotId="0">
+            <typeRef>feel:string</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="lastName" id="id-6bdac3d0baefc29985869a336d9c79d0-relation-1" label="lastName" sigExt:slotId="1">
+            <typeRef>feel:string</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="id" id="id-6bdac3d0baefc29985869a336d9c79d0-relation-2" label="id" sigExt:slotId="2">
+            <typeRef>feel:number</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="gender" id="id-6bdac3d0baefc29985869a336d9c79d0-relation-3" label="gender" sigExt:slotId="3">
+            <typeRef>feel:string</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="dateOfBirth" id="id-6bdac3d0baefc29985869a336d9c79d0-relation-4" label="dateOfBirth" sigExt:slotId="4">
+            <typeRef>feel:date</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="timeOfBirth" id="id-6bdac3d0baefc29985869a336d9c79d0-relation-5" label="timeOfBirth" sigExt:slotId="5">
+            <typeRef>feel:time</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="dateTimeOfBirth" id="id-6bdac3d0baefc29985869a336d9c79d0-relation-6" label="dateTimeOfBirth" sigExt:slotId="6">
+            <typeRef>feel:date and time</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="true" name="list" id="id-6bdac3d0baefc29985869a336d9c79d0-relation-7" label="list" sigExt:slotId="7">
+            <typeRef>feel:string</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="married" id="id-6bdac3d0baefc29985869a336d9c79d0-relation-8" label="married" sigExt:slotId="8">
+            <typeRef>feel:boolean</typeRef>
+        </itemComponent>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="result" id="id-495739496add9b1c3a9edad8739a5c3f" label="Result">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="true" name="decision" id="id-feb7b758af0fcdd1bd7d4ca3b26c13a3" label="Decision">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="employed" id="id-e3ffa59f17aaa9f60b0f63c0ee180b01" label="Employed">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <inputData name="person" id="id-b7bf9669e8c5bba0840c08253addea72" label="Person" sigExt:shapeId="sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264" sigExt:diagramId="2642e41283ff4ead84af2d238ad421ed">
+        <variable typeRef="sig:person" name="person" id="id-b7bf9669e8c5bba0840c08253addea72_variable"/>
+    </inputData>
+    <inputData name="employed" id="id-b9ddadc39d567ff6fc8b5fc6753d7b1a" label="Employed" sigExt:shapeId="sid-B180B170-4226-4CB8-B6EE-51D4307DCA61" sigExt:diagramId="2642e41283ff4ead84af2d238ad421ed">
+        <variable typeRef="sig:employed" name="employed" id="id-b9ddadc39d567ff6fc8b5fc6753d7b1a_variable"/>
+    </inputData>
+    <decision name="decision" id="id-c461a9c308bcf53668bf8687f778c849" label="Decision" sigExt:shapeId="sid-C52224F3-4EC1-4AAC-88AE-F5F51F285ED0" sigExt:diagramId="2642e41283ff4ead84af2d238ad421ed">
+        <variable typeRef="sig:decision" name="Decision" id="id-c461a9c308bcf53668bf8687f778c849_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-b9ddadc39d567ff6fc8b5fc6753d7b1a"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-b7bf9669e8c5bba0840c08253addea72"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="COLLECT">
+            <input id="id-3e8255437153445ebf2acbbabd62217b" label="id">
+                <inputExpression>
+                    <text>person.id</text>
+                </inputExpression>
+            </input>
+            <input id="id-bb8be0b040aeee8b0c949f2f01628a67" label="firstName">
+                <inputExpression>
+                    <text>person.firstName</text>
+                </inputExpression>
+            </input>
+            <input id="id-6de4bfec08eccbcd45813c911cf94828" label="lastName">
+                <inputExpression>
+                    <text>person.lastName</text>
+                </inputExpression>
+            </input>
+            <input id="id-2315af2f914b26ab91de1ef80ac5a210" label="gender">
+                <inputExpression>
+                    <text>person.gender</text>
+                </inputExpression>
+            </input>
+            <input id="id-23d0c748cdceff0eeec822d0bcd51bf0" label="dateOfBirth">
+                <inputExpression>
+                    <text>person.dateOfBirth</text>
+                </inputExpression>
+            </input>
+            <input id="id-3cf1f4869aee6c0fe1eb3f08f4d4d936" label="timeOfBirth">
+                <inputExpression>
+                    <text>person.timeOfBirth</text>
+                </inputExpression>
+            </input>
+            <input id="id-9f4c52abdc8916ab125089a22659db1a" label="dateTimeOfBirth">
+                <inputExpression>
+                    <text>person.dateTimeOfBirth</text>
+                </inputExpression>
+            </input>
+            <input id="id-69505f004c45949f245aa287bfa802cd" label="list">
+                <inputExpression>
+                    <text>person.list</text>
+                </inputExpression>
+            </input>
+            <input id="id-2b6ffdc47d823104f2e54b1a7fb10e97" label="married">
+                <inputExpression>
+                    <text>person.married</text>
+                </inputExpression>
+            </input>
+            <input id="id-ee835dc52063c2c7735078f0da802d4b" label="Employed">
+                <inputExpression>
+                    <text>employed</text>
+                </inputExpression>
+            </input>
+            <output name="decision" typeRef="sig:result" id="id-e449554175b9ee0bb30b0108675fddaf" label="Decision"/>
+            <rule id="id-5463abe94aa7ea7d79f941ac7e50e148">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>4</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"Peter"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"Sellers"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"male"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>date("2016-10-01")</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>["abc"]</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>false</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>true</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"3"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+</definitions>

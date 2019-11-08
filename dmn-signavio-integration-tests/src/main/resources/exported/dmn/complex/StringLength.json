@@ -1,0 +1,47 @@
+{
+  "inputParameterDefinitions" : [ {
+    "id" : "1d2ed3ccdf6442d68005199f0e3eecb0/sid-4EB69756-C59F-46BE-961F-FE34194E70B8",
+    "shapeId" : "sid-4EB69756-C59F-46BE-961F-FE34194E70B8",
+    "diagramId" : "1d2ed3ccdf6442d68005199f0e3eecb0",
+    "modelName" : "StringLength",
+    "requirementName" : "InputString"
+  }, {
+    "id" : "1d2ed3ccdf6442d68005199f0e3eecb0/sid-E3EC8BE3-641E-4624-B335-E6618FA4EB90",
+    "shapeId" : "sid-E3EC8BE3-641E-4624-B335-E6618FA4EB90",
+    "diagramId" : "1d2ed3ccdf6442d68005199f0e3eecb0",
+    "modelName" : "StringLength",
+    "requirementName" : "AddedToForceSignavioToEvaluateNullTestCases"
+  } ],
+  "outputParameterDefinitions" : [ {
+    "id" : "1d2ed3ccdf6442d68005199f0e3eecb0/sid-27BD49F2-67CE-432F-84A7-AEDF89833D84",
+    "shapeId" : "sid-27BD49F2-67CE-432F-84A7-AEDF89833D84",
+    "diagramId" : "1d2ed3ccdf6442d68005199f0e3eecb0",
+    "modelName" : "StringLength",
+    "requirementName" : "StringLength"
+  } ],
+  "testCases" : [ {
+    "inputValues" : [ {
+      "type" : "string",
+      "value" : "abc"
+    }, {
+      "type" : "string",
+      "value" : "a"
+    } ],
+    "expectedValues" : [ {
+      "type" : "string",
+      "value" : "String length is 3"
+    } ]
+  }, {
+    "inputValues" : [ {
+      "type" : "string",
+      "value" : null
+    }, {
+      "type" : "string",
+      "value" : "a"
+    } ],
+    "expectedValues" : [ {
+      "type" : "string",
+      "value" : "Output is null"
+    } ]
+  } ]
+}

@@ -1,0 +1,181 @@
+{
+  "inputParameterDefinitions" : [ {
+    "id" : "2642e41283ff4ead84af2d238ad421ed/sid-B180B170-4226-4CB8-B6EE-51D4307DCA61",
+    "shapeId" : "sid-B180B170-4226-4CB8-B6EE-51D4307DCA61",
+    "diagramId" : "2642e41283ff4ead84af2d238ad421ed",
+    "modelName" : "simple-decision-complex-type-inputs-feel-input-entries-single-output-collect-hit-policy",
+    "requirementName" : "Employed"
+  }, {
+    "id" : "2642e41283ff4ead84af2d238ad421ed/sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264",
+    "shapeId" : "sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264",
+    "diagramId" : "2642e41283ff4ead84af2d238ad421ed",
+    "modelName" : "simple-decision-complex-type-inputs-sfeel-input-entries-single-output-collect-hit-policy",
+    "requirementName" : "Person"
+  } ],
+  "outputParameterDefinitions" : [ {
+    "id" : "2642e41283ff4ead84af2d238ad421ed/sid-C52224F3-4EC1-4AAC-88AE-F5F51F285ED0",
+    "shapeId" : "sid-C52224F3-4EC1-4AAC-88AE-F5F51F285ED0",
+    "diagramId" : "2642e41283ff4ead84af2d238ad421ed",
+    "modelName" : "simple-decision-complex-type-inputs-feel-input-entries-single-output-collect-hit-policy",
+    "requirementName" : "Decision"
+  } ],
+  "testCases" : [ {
+    "inputValues" : [ {
+      "type" : "boolean",
+      "value" : true
+    }, {
+      "type" : "complex",
+      "slots" : [ {
+        "id" : "0",
+        "name" : "firstName",
+        "value" : {
+          "type" : "string",
+          "value" : null
+        }
+      }, {
+        "id" : "1",
+        "name" : "lastName",
+        "value" : {
+          "type" : "string",
+          "value" : null
+        }
+      }, {
+        "id" : "2",
+        "name" : "id",
+        "value" : {
+          "type" : "number",
+          "value" : 5
+        }
+      }, {
+        "id" : "3",
+        "name" : "gender",
+        "value" : {
+          "type" : "enumeration",
+          "value" : null,
+          "name" : null
+        }
+      }, {
+        "id" : "4",
+        "name" : "dateOfBirth",
+        "value" : {
+          "type" : "date",
+          "value" : null
+        }
+      }, {
+        "id" : "5",
+        "name" : "timeOfBirth",
+        "value" : {
+          "type" : "time",
+          "value" : null
+        }
+      }, {
+        "id" : "6",
+        "name" : "dateTimeOfBirth",
+        "value" : {
+          "type" : "datetime",
+          "value" : null
+        }
+      }, {
+        "id" : "7",
+        "name" : "list",
+        "value" : {
+          "type" : "list",
+          "value" : [ ]
+        }
+      }, {
+        "id" : "8",
+        "name" : "married",
+        "value" : {
+          "type" : "boolean",
+          "value" : null
+        }
+      } ]
+    } ],
+    "expectedValues" : [ {
+      "type" : "list",
+      "value" : [ ]
+    } ]
+  }, {
+    "inputValues" : [ {
+      "type" : "boolean",
+      "value" : true
+    }, {
+      "type" : "complex",
+      "slots" : [ {
+        "id" : "0",
+        "name" : "firstName",
+        "value" : {
+          "type" : "string",
+          "value" : "Peter"
+        }
+      }, {
+        "id" : "1",
+        "name" : "lastName",
+        "value" : {
+          "type" : "string",
+          "value" : "Sellers"
+        }
+      }, {
+        "id" : "2",
+        "name" : "id",
+        "value" : {
+          "type" : "number",
+          "value" : 4
+        }
+      }, {
+        "id" : "3",
+        "name" : "gender",
+        "value" : {
+          "type" : "enumeration",
+          "value" : "0",
+          "name" : "male"
+        }
+      }, {
+        "id" : "4",
+        "name" : "dateOfBirth",
+        "value" : {
+          "type" : "date",
+          "value" : "2016-10-01"
+        }
+      }, {
+        "id" : "5",
+        "name" : "timeOfBirth",
+        "value" : {
+          "type" : "time",
+          "value" : null
+        }
+      }, {
+        "id" : "6",
+        "name" : "dateTimeOfBirth",
+        "value" : {
+          "type" : "datetime",
+          "value" : null
+        }
+      }, {
+        "id" : "7",
+        "name" : "list",
+        "value" : {
+          "type" : "list",
+          "value" : [ {
+            "type" : "string",
+            "value" : "abc"
+          } ]
+        }
+      }, {
+        "id" : "8",
+        "name" : "married",
+        "value" : {
+          "type" : "boolean",
+          "value" : false
+        }
+      } ]
+    } ],
+    "expectedValues" : [ {
+      "type" : "list",
+      "value" : [ {
+        "type" : "string",
+        "value" : "3"
+      } ]
+    } ]
+  } ]
+}

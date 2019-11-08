@@ -1,0 +1,61 @@
+{
+  "inputParameterDefinitions": [
+    {
+      "id": "055772ca13bd41dea49e5a76275dc585/3b6420419b5848aaaa5c466392e3ffd6",
+      "modelName": "collapsed",
+      "requirementName": "Trade Asset Class Taxonomy",
+      "diagramId": "055772ca13bd41dea49e5a76275dc585",
+      "shapeId": "3b6420419b5848aaaa5c466392e3ffd6"
+    },
+    {
+      "id": "055772ca13bd41dea49e5a76275dc585/870a107378fb4d0195098c7ad625ab85",
+      "modelName": "collapsed",
+      "requirementName": "Trade Asset Class",
+      "diagramId": "055772ca13bd41dea49e5a76275dc585",
+      "shapeId": "870a107378fb4d0195098c7ad625ab85"
+    },
+    {
+      "id": "055772ca13bd41dea49e5a76275dc585/897622097b0044c4886e82b02270cfea",
+      "modelName": "collapsed",
+      "requirementName": "Trade Currency Code Enumeration",
+      "diagramId": "055772ca13bd41dea49e5a76275dc585",
+      "shapeId": "897622097b0044c4886e82b02270cfea"
+    }
+  ],
+  "outputParameterDefinitions": [
+    {
+      "id": "055772ca13bd41dea49e5a76275dc585/7964ca5941ef44adba198ee8844371b8",
+      "modelName": "collapsed",
+      "requirementName": "Determine Trade Exchanged Payment First Currency Exception Indicator",
+      "diagramId": "055772ca13bd41dea49e5a76275dc585",
+      "shapeId": "7964ca5941ef44adba198ee8844371b8"
+    }
+  ],
+  "testCases": [
+    {
+      "inputValues": [
+        {
+          "type": "enumeration",
+          "value": "CommodityAgriculturalDairyLoanleaseCash",
+          "name": "Commodity:Agricultural:Dairy:LoanLease:Cash"
+        },
+        {
+          "type": "enumeration",
+          "value": "Credit",
+          "name": "Credit"
+        },
+        {
+          "type": "enumeration",
+          "value": "All",
+          "name": "ALL"
+        }
+      ],
+      "expectedValues": [
+        {
+          "type": "boolean",
+          "value": false
+        }
+      ]
+    }
+  ]
+}

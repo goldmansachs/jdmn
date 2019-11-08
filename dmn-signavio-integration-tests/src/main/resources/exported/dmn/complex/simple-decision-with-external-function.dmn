@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.provider.com/dmn/1.1/diagram/c5718c9e0d74413e9371e1c26c4ebef9.xml" exporterVersion="10.15.8" name="simple-decision-with-external-function" id="id-a5a4152d9cf34ca79f36200447f8e5e1" sigExt:revisionId="809914930a2d4313b12c5729d5263033" sigExt:revisionNumber="1" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:sig="http://www.provider.com/dmn/1.1/diagram/c5718c9e0d74413e9371e1c26c4ebef9.xml" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" xmlns:feel="http://www.omg.org/spec/FEEL/20140401">
+    <extensionElements/>
+    <itemDefinition isCollection="false" name="decision" id="id-028f1243d02d7dbfe98813969d4f6a19" label="Decision">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="b" id="id-0b3fb377439b3c54772591ba3475ee73" label="B">
+        <typeRef>feel:number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="a" id="id-df984ee0568058421c514368c18c9d6c" label="A">
+        <typeRef>feel:number</typeRef>
+    </itemDefinition>
+    <inputData name="a" id="id-10403bb637fc37587a8a51587a70d76a" label="A" sigExt:shapeId="sid-EADD432B-B8C6-4BDE-8871-A5116FD4799E" sigExt:diagramId="c5718c9e0d74413e9371e1c26c4ebef9">
+        <variable typeRef="sig:a" name="a" id="id-10403bb637fc37587a8a51587a70d76a_variable"/>
+    </inputData>
+    <inputData name="b" id="id-03d7d97de170aa50fc00252ea2e72589" label="B" sigExt:shapeId="sid-C5197E11-164E-4B17-8B41-BFF1E70B8C7A" sigExt:diagramId="c5718c9e0d74413e9371e1c26c4ebef9">
+        <variable typeRef="sig:b" name="b" id="id-03d7d97de170aa50fc00252ea2e72589_variable"/>
+    </inputData>
+    <decision name="decision" id="id-04494bc9ee85e8ee15276fe57dfd7504" label="Decision" sigExt:shapeId="sid-34774408-727B-4808-B8AC-5AEDDE49C190" sigExt:diagramId="c5718c9e0d74413e9371e1c26c4ebef9">
+        <variable typeRef="sig:decision" name="Decision" id="id-04494bc9ee85e8ee15276fe57dfd7504_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-10403bb637fc37587a8a51587a70d76a"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-03d7d97de170aa50fc00252ea2e72589"/>
+        </informationRequirement>
+        <literalExpression expressionLanguage="free_text">
+            <text>function(a: number, b: number) external {
+java: {
+       class: "com.gs.dmn.simple_decision_with_external_function.Sum",
+       methodSignature: "add(a, b)",
+       returnType : "number",
+       technicalAttributes : {
+            aString: "val1",
+            aNumber: 123,
+            aBoolean: true,
+            nested: {
+                simple: "val2",
+                nested: {
+                      simple: "val2"
+                }
+            }
+      }
+}}</text>
+        </literalExpression>
+    </decision>
+</definitions>

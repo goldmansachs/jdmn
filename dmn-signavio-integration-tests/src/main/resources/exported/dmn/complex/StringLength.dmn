@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.provider.com/dmn/1.1/diagram/1d2ed3ccdf6442d68005199f0e3eecb0.xml" exporterVersion="10.15.11" name="StringLength" id="id-c04b5d13878d44d99a3053bae22d4d20" sigExt:revisionId="efcc6b5adaa64bfeb666c0c1f59cf7f8" sigExt:revisionNumber="5" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:sig="http://www.provider.com/dmn/1.1/diagram/1d2ed3ccdf6442d68005199f0e3eecb0.xml" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" xmlns:feel="http://www.omg.org/spec/FEEL/20140401">
+    <extensionElements/>
+    <itemDefinition isCollection="false" name="addedToForceSignavioToEvaluateNullTestCases" id="id-65dc96a3a6bc7c9f6471a1ab5dc23bb4" label="AddedToForceSignavioToEvaluateNullTestCases">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="newElement" id="id-cf7fa6620ffa900579c7f4b0b271966a" label="">
+        <typeRef>feel:number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="inputString" id="id-3d0e907ac63e75c540334c35cfe722d1" label="InputString">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="stringLength" id="id-6d7910a139526140a67036f1548a2954" label="StringLength">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="stringLength2" id="id-51cdc942898d06dc7218452ddda6fad5" label="StringLength">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="outputStringLength" id="id-3439148ccc6ff59322822e1de583c9f5" label="OutputStringLength">
+        <typeRef>feel:number</typeRef>
+    </itemDefinition>
+    <inputData name="addedToForceSignavioToEvaluateNullTestCases" id="id-93d137dfa8146594c8e0bd7df9e7041b" label="AddedToForceSignavioToEvaluateNullTestCases" sigExt:shapeId="sid-E3EC8BE3-641E-4624-B335-E6618FA4EB90" sigExt:diagramId="1d2ed3ccdf6442d68005199f0e3eecb0">
+        <variable typeRef="sig:addedToForceSignavioToEvaluateNullTestCases" name="addedToForceSignavioToEvaluateNullTestCases" id="id-93d137dfa8146594c8e0bd7df9e7041b_variable"/>
+    </inputData>
+    <inputData name="inputString" id="id-13216bd85ab5ac7ee926ae1e467072ad" label="InputString" sigExt:shapeId="sid-4EB69756-C59F-46BE-961F-FE34194E70B8" sigExt:diagramId="1d2ed3ccdf6442d68005199f0e3eecb0">
+        <variable typeRef="sig:inputString" name="inputString" id="id-13216bd85ab5ac7ee926ae1e467072ad_variable"/>
+    </inputData>
+    <decision name="outputStringLength" id="id-44953907cf5c50f591b26f9f6b405dea" label="OutputStringLength" sigExt:shapeId="sid-36147751-419D-4FC5-A152-0318019F91F7" sigExt:diagramId="1d2ed3ccdf6442d68005199f0e3eecb0">
+        <variable typeRef="sig:outputStringLength" name="OutputStringLength" id="id-44953907cf5c50f591b26f9f6b405dea_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-93d137dfa8146594c8e0bd7df9e7041b"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-13216bd85ab5ac7ee926ae1e467072ad"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="UNIQUE">
+            <input id="id-4c42f7838e0e1d46b6c36672189bde48" label="InputString">
+                <inputExpression>
+                    <text>inputString</text>
+                </inputExpression>
+            </input>
+            <output name="outputStringLength" typeRef="sig:newElement" id="id-2a5aadcc1199c4bbf3ec289cd98aeb35" label="OutputStringLength"/>
+            <rule id="id-0c56b582587660c13da7259aaadd4c89">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>len(inputString)</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="stringLength" id="id-5c0960008d5f4ec6c1090d31355448d6" label="StringLength" sigExt:shapeId="sid-27BD49F2-67CE-432F-84A7-AEDF89833D84" sigExt:diagramId="1d2ed3ccdf6442d68005199f0e3eecb0">
+        <variable typeRef="sig:stringLength" name="StringLength" id="id-5c0960008d5f4ec6c1090d31355448d6_variable"/>
+        <informationRequirement>
+            <requiredDecision href="#id-44953907cf5c50f591b26f9f6b405dea"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="UNIQUE">
+            <input id="id-8b6178824560aeef33e2baf2b4ea0dc2" label="OutputStringLength">
+                <inputExpression>
+                    <text>outputStringLength</text>
+                </inputExpression>
+            </input>
+            <output name="stringLength" typeRef="sig:stringLength2" id="id-88a3244a8c429f79e90ece20e449aa28" label="StringLength"/>
+            <rule id="id-3f1cc6074b44d0754bded01948078a3c">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Output is null"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-74b7e053f7ace58e15f9e1afd53def4a">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>concat(["String length is ", text(outputStringLength, "0")])</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+</definitions>

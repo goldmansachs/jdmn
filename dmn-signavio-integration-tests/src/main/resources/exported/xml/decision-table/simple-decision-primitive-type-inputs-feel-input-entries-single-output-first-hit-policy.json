@@ -1,0 +1,109 @@
+{
+  "inputParameterDefinitions" : [ {
+    "id" : "5ff5ae2753f243228181ffedc9fd418c/sid-404A0FC2-6787-4210-BB30-2E7964835E99",
+    "shapeId" : "sid-404A0FC2-6787-4210-BB30-2E7964835E99",
+    "diagramId" : "5ff5ae2753f243228181ffedc9fd418c",
+    "modelName" : "simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy",
+    "requirementName" : "TextInput"
+  }, {
+    "id" : "5ff5ae2753f243228181ffedc9fd418c/sid-D16E1277-6037-4066-A21B-42F761A4B427",
+    "shapeId" : "sid-D16E1277-6037-4066-A21B-42F761A4B427",
+    "diagramId" : "5ff5ae2753f243228181ffedc9fd418c",
+    "modelName" : "simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy",
+    "requirementName" : "DateAndTimeInput"
+  }, {
+    "id" : "5ff5ae2753f243228181ffedc9fd418c/sid-3247220B-9F67-48DB-8CB5-33C5FCDCEC20",
+    "shapeId" : "sid-3247220B-9F67-48DB-8CB5-33C5FCDCEC20",
+    "diagramId" : "5ff5ae2753f243228181ffedc9fd418c",
+    "modelName" : "simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy",
+    "requirementName" : "EnumerationInput"
+  }, {
+    "id" : "5ff5ae2753f243228181ffedc9fd418c/sid-DD33B3B6-0C84-4568-A0ED-424855D08836",
+    "shapeId" : "sid-DD33B3B6-0C84-4568-A0ED-424855D08836",
+    "diagramId" : "5ff5ae2753f243228181ffedc9fd418c",
+    "modelName" : "simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy",
+    "requirementName" : "BooleanInput"
+  }, {
+    "id" : "5ff5ae2753f243228181ffedc9fd418c/sid-6E98EF23-49A8-44BE-82BB-06CF5AC860A0",
+    "shapeId" : "sid-6E98EF23-49A8-44BE-82BB-06CF5AC860A0",
+    "diagramId" : "5ff5ae2753f243228181ffedc9fd418c",
+    "modelName" : "simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy",
+    "requirementName" : "DateInput"
+  }, {
+    "id" : "5ff5ae2753f243228181ffedc9fd418c/sid-3F148E87-DF6E-42AF-B209-4D532421A2F9",
+    "shapeId" : "sid-3F148E87-DF6E-42AF-B209-4D532421A2F9",
+    "diagramId" : "5ff5ae2753f243228181ffedc9fd418c",
+    "modelName" : "simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy",
+    "requirementName" : "NumberInput"
+  }, {
+    "id" : "5ff5ae2753f243228181ffedc9fd418c/sid-F687D89A-8FBD-4414-BCF4-BBBF353ABBC2",
+    "shapeId" : "sid-F687D89A-8FBD-4414-BCF4-BBBF353ABBC2",
+    "diagramId" : "5ff5ae2753f243228181ffedc9fd418c",
+    "modelName" : "simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy",
+    "requirementName" : "TimeInput"
+  } ],
+  "outputParameterDefinitions" : [ {
+    "id" : "5ff5ae2753f243228181ffedc9fd418c/sid-4A7C793A-882C-4867-94B9-AD88D6D6970D",
+    "shapeId" : "sid-4A7C793A-882C-4867-94B9-AD88D6D6970D",
+    "diagramId" : "5ff5ae2753f243228181ffedc9fd418c",
+    "modelName" : "simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy",
+    "requirementName" : "Decision"
+  } ],
+  "testCases" : [ {
+    "inputValues" : [ {
+      "type" : "string",
+      "value" : null
+    }, {
+      "type" : "datetime",
+      "value" : null
+    }, {
+      "type" : "enumeration",
+      "value" : "0",
+      "name" : "e1"
+    }, {
+      "type" : "boolean",
+      "value" : true
+    }, {
+      "type" : "date",
+      "value" : "2016-08-01"
+    }, {
+      "type" : "number",
+      "value" : -1
+    }, {
+      "type" : "time",
+      "value" : null
+    } ],
+    "expectedValues" : [ {
+      "type" : "string",
+      "value" : "r7"
+    } ]
+  }, {
+    "inputValues" : [ {
+      "type" : "string",
+      "value" : null
+    }, {
+      "type" : "datetime",
+      "value" : null
+    }, {
+      "type" : "enumeration",
+      "value" : null,
+      "name" : null
+    }, {
+      "type" : "boolean",
+      "value" : null
+    }, {
+      "type" : "date",
+      "value" : null
+    }, {
+      "type" : "number",
+      "value" : null
+    }, {
+      "type" : "time",
+      "value" : null
+    } ],
+    "expectedValues" : [ {
+      "type" : "string",
+      "value" : "r2"
+    } ]
+  } ]
+}
