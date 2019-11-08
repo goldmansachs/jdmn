@@ -16,6 +16,7 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.InputParameterDefinition;
 import com.gs.dmn.signavio.testlab.TestCase;
 import com.gs.dmn.signavio.testlab.TestLab;
@@ -27,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -72,8 +74,10 @@ public class MergeInputDataTransformer extends SimpleDMNTransformer<TestLab> {
             } else {
                 labels.add(requirementName);
                 TInputData representative = this.inputDataClasses.get(requirementName).getLeft();
-                String representativeDiagramId = representative.getOtherAttributes().get(TestLabUtil.DIAGRAM_ID);
-                String representativeShapeId = representative.getOtherAttributes().get(TestLabUtil.SHAPE_ID);
+                QName diagramIdQName = ((SignavioDMNModelRepository) repository).getDiagramIdQName();
+                String representativeDiagramId = representative.getOtherAttributes().get(diagramIdQName);
+                QName shapeIdQName = ((SignavioDMNModelRepository) repository).getShapeIdQName();
+                String representativeShapeId = representative.getOtherAttributes().get(shapeIdQName);
                 ipd.setDiagramId(representativeDiagramId);
                 ipd.setShapeId(representativeShapeId);
             }

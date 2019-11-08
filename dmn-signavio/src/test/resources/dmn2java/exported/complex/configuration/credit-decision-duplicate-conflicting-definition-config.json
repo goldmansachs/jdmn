@@ -1,0 +1,22 @@
+{
+  "definitions": {
+    "definition": [
+      {
+        "name": "assessIssue",
+        "type": "feel.number"
+      },
+      {
+        "name": "lendingThreshold",
+        "type": "feel.number"
+      },
+      {
+        "name": "assessIssueRisk",
+        "type": "feel.number"
+      },
+      {
+        "name": "assessIssueRisk",
+        "type": "feel.string"
+      }
+    ]
+  }
+}

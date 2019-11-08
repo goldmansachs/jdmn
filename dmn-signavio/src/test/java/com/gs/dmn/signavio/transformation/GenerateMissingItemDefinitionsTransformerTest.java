@@ -29,7 +29,6 @@ import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Ignore
 public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileTransformerTest {
     private static final ClassLoader CLASS_LOADER = GenerateMissingItemDefinitionsTransformerTest.class.getClassLoader();
     private static final ObjectMapper MAPPER = new ObjectMapper();

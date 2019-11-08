@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-@Ignore
 public class TestLabReaderTest {
     private final TestLabReader reader = new TestLabReader();
 

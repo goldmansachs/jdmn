@@ -45,18 +45,10 @@ public abstract class LabelDuplicationValidator extends SimpleDMNValidator {
                 errors.add(String.format("Found %d %s with duplicated label '%s'", elementList.size(), elementKind, key));
                 for(TDMNElement e: elementList) {
                     if (e instanceof TDRGElement) {
-                        errors.add(String.format("Label = '%s' DiagramId = '%s' shapeId = '%s'", key, getDiagramId(e), getShapeId(e)));
+                        errors.add(String.format("Label = '%s' Id = '%s'", key, e.getId()));
                     }
                 }
             }
         }
-    }
-
-    private String getDiagramId(TDMNElement element) {
-        return element.getOtherAttributes().get(TestLabUtil.DIAGRAM_ID);
-    }
-
-    private String getShapeId(TDMNElement element) {
-        return element.getOtherAttributes().get(TestLabUtil.SHAPE_ID);
     }
 }

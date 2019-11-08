@@ -51,7 +51,7 @@ public abstract class AbstractSignavioDMNInterpreterTest {
             String pathName = getInputPath() + "/" + diagramName + DMNConstants.DMN_FILE_EXTENSION;
             URL url = getClass().getClassLoader().getResource(pathName).toURI().toURL();
             Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(url);
-            DMNModelRepository repository = new SignavioDMNModelRepository(pair);
+            DMNModelRepository repository = new SignavioDMNModelRepository(pair, "http://www.provider.com/schema/dmn/1.1/");
             DMNInterpreter interpreter = dialectDefinition.createDMNInterpreter(repository);
 
             Result actualResult = interpreter.evaluate(null, decisionName, runtimeContext);

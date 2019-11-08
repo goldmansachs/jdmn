@@ -1,0 +1,170 @@
+{
+  "inputParameterDefinitions" : [ {
+    "id" : "9acf44f2b05343d79fc35140c493c1e0/sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
+    "shapeId" : "sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
+    "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
+    "modelName" : "Linked Decision Test",
+    "requirementName" : "Current risk appetite"
+  }, {
+    "id" : "9acf44f2b05343d79fc35140c493c1e0/sid-6CFB0C31-B181-4606-BE51-1960E8B86487",
+    "shapeId" : "sid-6CFB0C31-B181-4606-BE51-1960E8B86487",
+    "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
+    "modelName" : "Linked Decision Test",
+    "requirementName" : "Lending threshold"
+  }, {
+    "id" : "9acf44f2b05343d79fc35140c493c1e0/sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
+    "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
+    "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
+    "modelName" : "Linked Decision Test",
+    "requirementName" : "Applicant"
+  } ],
+  "outputParameterDefinitions" : [ {
+    "id" : "b4fc99dd0b044cf1b31b6e60d01c50fa/sid-C6975AA4-A145-4B35-95B4-C0E28E19D84A",
+    "shapeId" : "sid-C6975AA4-A145-4B35-95B4-C0E28E19D84A",
+    "diagramId" : "b4fc99dd0b044cf1b31b6e60d01c50fa",
+    "modelName" : "Linked Decision Test",
+    "requirementName" : "Root"
+  } ],
+  "testCases" : [ {
+    "inputValues" : [ {
+      "type" : "number",
+      "value" : 0.5
+    }, {
+      "type" : "number",
+      "value" : 0.5
+    }, {
+      "type" : "complex",
+      "slots" : [ {
+        "id" : "0",
+        "name" : "Name",
+        "value" : {
+          "type" : "string",
+          "value" : "John"
+        }
+      }, {
+        "id" : "1",
+        "name" : "Age",
+        "value" : {
+          "type" : "number",
+          "value" : 25
+        }
+      }, {
+        "id" : "2",
+        "name" : "Credit score",
+        "value" : {
+          "type" : "number",
+          "value" : 100
+        }
+      }, {
+        "id" : "4",
+        "name" : "Prior issues",
+        "value" : {
+          "type" : "list",
+          "value" : [ {
+            "type" : "enumeration",
+            "value" : "0",
+            "name" : "Card rejection"
+          } ]
+        }
+      } ]
+    } ],
+    "expectedValues" : [ {
+      "type" : "string",
+      "value" : "A"
+    } ]
+  }, {
+    "inputValues" : [ {
+      "type" : "number",
+      "value" : null
+    }, {
+      "type" : "number",
+      "value" : null
+    }, {
+      "type" : "complex",
+      "slots" : [ {
+        "id" : "0",
+        "name" : "Name",
+        "value" : {
+          "type" : "string",
+          "value" : null
+        }
+      }, {
+        "id" : "1",
+        "name" : "Age",
+        "value" : {
+          "type" : "number",
+          "value" : null
+        }
+      }, {
+        "id" : "2",
+        "name" : "Credit score",
+        "value" : {
+          "type" : "number",
+          "value" : null
+        }
+      }, {
+        "id" : "4",
+        "name" : "Prior issues",
+        "value" : {
+          "type" : "list",
+          "value" : [ ]
+        }
+      } ]
+    } ],
+    "expectedValues" : [ {
+      "type" : "string",
+      "value" : "R"
+    } ]
+  }, {
+    "inputValues" : [ {
+      "type" : "number",
+      "value" : 0.5
+    }, {
+      "type" : "number",
+      "value" : 100
+    }, {
+      "type" : "complex",
+      "slots" : [ {
+        "id" : "0",
+        "name" : "Name",
+        "value" : {
+          "type" : "string",
+          "value" : "Peter"
+        }
+      }, {
+        "id" : "1",
+        "name" : "Age",
+        "value" : {
+          "type" : "number",
+          "value" : 65
+        }
+      }, {
+        "id" : "2",
+        "name" : "Credit score",
+        "value" : {
+          "type" : "number",
+          "value" : 20
+        }
+      }, {
+        "id" : "4",
+        "name" : "Prior issues",
+        "value" : {
+          "type" : "list",
+          "value" : [ {
+            "type" : "enumeration",
+            "value" : "1",
+            "name" : "Late payment"
+          }, {
+            "type" : "enumeration",
+            "value" : "0",
+            "name" : "Card rejection"
+          } ]
+        }
+      } ]
+    } ],
+    "expectedValues" : [ {
+      "type" : "string",
+      "value" : "R"
+    } ]
+  } ]
+}

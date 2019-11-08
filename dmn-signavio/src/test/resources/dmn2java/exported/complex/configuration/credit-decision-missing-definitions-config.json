@@ -1,0 +1,43 @@
+{
+  "definitions": {
+    "definition": [
+      {
+        "name": "assessIssue",
+        "type": "feel.number"
+      },
+      {
+        "name": "lendingThreshold",
+        "type": "feel.number"
+      },
+      {
+        "name": "currentRiskAppetite",
+        "type": "feel.number"
+      },
+      {
+        "name": "processPriorIssues",
+        "type": "feel.number",
+        "isCollection": "true"
+      },
+      {
+        "name": "creditIssueType",
+        "type": "feel.string"
+      },
+      {
+        "name": "assessApplicantAge",
+        "type": "feel.number"
+      },
+      {
+        "name": "priorIssue",
+        "type": "feel.number"
+      },
+      {
+        "name": "makeCreditDecision",
+        "type": "feel.string"
+      },
+      {
+        "name": "assessIssueRisk",
+        "type": "feel.number"
+      }
+    ]
+  }
+}

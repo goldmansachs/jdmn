@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.provider.com/dmn/1.1/diagram/eb202d55c5af4c35b003091cb9a445dd.xml" exporterVersion="10.3.3-gs" name="simple-decision-primitive-type-inputs-single-output-collect-hit-policy" id="id-b0c5edbb03454cca93807ddee9cadf64" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:signavio="http://www.provider.com/schema/dmn/1.1/">
+    <itemDefinition isCollection="false" name="numberInput" id="diagram-eb202d55c5af4c35b003091cb9a445dd-itemDefinition-sid-3F148E87-DF6E-42AF-B209-4D532421A2F9" label="NumberInput">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="textInput" id="diagram-eb202d55c5af4c35b003091cb9a445dd-itemDefinition-sid-404A0FC2-6787-4210-BB30-2E7964835E99" label="TextInput">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="true" name="decision" id="sid-4A7C793A-882C-4867-94B9-AD88D6D6970D" label="Decision">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:string</typeRef>
+        <allowedValues>
+            <text>"r1","r2","r3","r4","r5","r6","r7","r8","r9","r10"</text>
+        </allowedValues>
+    </itemDefinition>
+    <inputData name="numberInput" id="diagram-eb202d55c5af4c35b003091cb9a445dd-inputdata-sid-3F148E87-DF6E-42AF-B209-4D532421A2F9" label="NumberInput">
+        <variable typeRef="numberInput" name="numberInput" id="diagram-eb202d55c5af4c35b003091cb9a445dd-inputdata-sid-3F148E87-DF6E-42AF-B209-4D532421A2F9_variable"/>
+    </inputData>
+    <inputData name="textInput" id="diagram-eb202d55c5af4c35b003091cb9a445dd-inputdata-sid-404A0FC2-6787-4210-BB30-2E7964835E99" label="TextInput">
+        <variable typeRef="textInput" name="textInput" id="diagram-eb202d55c5af4c35b003091cb9a445dd-inputdata-sid-404A0FC2-6787-4210-BB30-2E7964835E99_variable"/>
+    </inputData>
+    <decision name="decision" id="diagram-eb202d55c5af4c35b003091cb9a445dd-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D" label="Decision">
+        <variable typeRef="decision" name="decision" id="diagram-eb202d55c5af4c35b003091cb9a445dd-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D_variable"/>
+        <informationRequirement>
+            <requiredInput href="#diagram-eb202d55c5af4c35b003091cb9a445dd-inputdata-sid-3F148E87-DF6E-42AF-B209-4D532421A2F9"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#diagram-eb202d55c5af4c35b003091cb9a445dd-inputdata-sid-404A0FC2-6787-4210-BB30-2E7964835E99"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="COLLECT">
+            <input id="diagram-eb202d55c5af4c35b003091cb9a445dd-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-clause-9A964D45-663B-4B27-9ACD-259D07D8F156" label="NumberInput">
+                <inputExpression typeRef="numberInput">
+                    <text>numberInput</text>
+                </inputExpression>
+            </input>
+            <input id="diagram-eb202d55c5af4c35b003091cb9a445dd-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-clause-C8770B97-9AC5-4AA6-85ED-C8E87B4CB4A2" label="TextInput">
+                <inputExpression typeRef="textInput">
+                    <text>textInput</text>
+                </inputExpression>
+            </input>
+            <output name="decision" typeRef="feel:string" id="diagram-eb202d55c5af4c35b003091cb9a445dd-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-clause-4F178C17-6132-475B-BB01-FCF62DA216F4" label="Decision" xmlns:feel="http://www.omg.org/spec/FEEL/20140401"/>
+            <rule id="diagram-eb202d55c5af4c35b003091cb9a445dd-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-rule-1201">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>1</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"1"</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"r5"</text>
+                </outputEntry>
+            </rule>
+            <rule id="diagram-eb202d55c5af4c35b003091cb9a445dd-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-rule-1320">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>1</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"r4"</text>
+                </outputEntry>
+            </rule>
+            <rule id="diagram-eb202d55c5af4c35b003091cb9a445dd-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-rule-1343">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"1"</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"r3"</text>
+                </outputEntry>
+            </rule>
+            <rule id="diagram-eb202d55c5af4c35b003091cb9a445dd-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-rule-1355">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"r2"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+</definitions>

@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:admin="http://webns.net/mvcb/" xmlns:doap="http://usefulinc.com/ns/doap#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+<rdf:Description rdf:about="">
+<admin:generatorAgent rdf:resource="http://purl.org/NET/erdf/extract"/>
+</rdf:Description>
+<rdf:Description rdf:about=""/>
+<rdf:Description rdf:about="#sid-0CAB779F-DE89-4101-AA57-2D411114B965">
+<type xmlns="http://oryx-editor.org/">Decision</type>
+<bounds xmlns="http://oryx-editor.org/">559.7272278021201,231.00000000000006,458.72722780212,150</bounds>
+<entry xmlns="http://oryx-editor.org/"/>
+<bgcolor xmlns="http://oryx-editor.org/">#FFFFCC</bgcolor>
+<decision xmlns="http://oryx-editor.org/">{"version":"1.0","type":"decisionTable","hitPolicy":"noOrder","isComplete":true,"aggregation":"","inputClauses":[{"expression":{"id":"","expressionType":"reference","shapeId":"sid-7AE4A830-DCB9-4CF4-8A39-5D6344E060D9"},"id":"EC394A55-FD99-427F-8031-7F3881BE301E","width":160},{"expression":{"id":"","expressionType":"reference","shapeId":"sid-709AE25E-D444-4180-86CB-D8D2679442B7"},"id":"C60BF56C-76D5-44A9-954D-42FAA8C005FC","width":160},{"expression":{"id":"","expressionType":"reference","shapeId":"sid-45CDBAC7-6CEC-45D0-8195-98105A8632AF"},"id":"F7C5008D-122D-422D-BB06-ECD47E2E1757","width":160},{"expression":{"id":"","expressionType":"reference","shapeId":"sid-CB13F221-25A9-4123-8C97-77A2EB4FEDA6"},"id":"90B82185-350B-4703-AB25-8BB0AF1CD4AD","width":160},{"expression":{"id":"","expressionType":"reference","shapeId":"sid-6FC06D2B-3185-4B84-8DA3-C94549869D89"},"id":"DFB374C9-676B-4014-8665-42226FCE78E0","width":160},{"expression":{"id":"","expressionType":"reference","shapeId":"sid-5D67B1C1-5195-46A2-9479-A26F042A5E71"},"id":"1D067530-A325-47BD-AAF6-134433ECCE20","width":160},{"expression":{"id":"","expressionType":"reference","shapeId":"sid-26884F49-8D2F-487B-95DA-80BD94E07BF0"},"id":"FD5C1E9C-401F-42DE-BE1C-19F26D64DBB0","width":160},{"expression":{"id":"","expressionType":"reference","shapeId":"sid-9838A34E-BDAC-40B2-BB82-E0084B18C724"},"id":"F2DC71AD-196F-4BEE-89C9-89B38A90399B","width":160},{"expression":{"id":"","expressionType":"reference","shapeId":"sid-7ECEC41A-9FAA-4D24-AF74-EFC387C17E7A"},"id":"0865DBFF-FB17-47B4-82E5-2DB6BB6C9C98","width":160}],"outputClauses":[{"itemDefinition":{"definitionType":"default","type":"enumeration","isList":false,"name":"Set Requirement Optional","width":274,"enumItems":[{"id":"0","title":"Principal Place of Business - Verify"},{"id":"1","title":"F2F Meeting"},{"id":"2","title":"Primary Client Contact"},{"id":"3","title":"Registered Address"},{"id":"4","title":"Controller"},{"id":"5","title":"Beneficial Owner"},{"id":"6","title":"Corporate Officers"},{"id":"7","title":"Board Director"},{"id":"8","title":"Evidence of Good Standing"}]},"id":"F17BDB72-9A08-4D5D-B415-720D868C2D4C","width":274}],"annotations":[{"id":"218F9CD5-023B-45D3-B171-8F0B4F6BD1D1","name":"","category":"info","width":200}],"rules":[{"id":"2643","condition":[{"expressionType":"enumeration","itemId":"0"},{"expressionType":"enumeration","itemId":"1"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"}],"conclusion":[{"expressionType":"enumeration","itemId":"0"}],"annotation":[{"expressionType":"any"}]},{"id":"1336","condition":[{"expressionType":"enumeration","itemId":"0"},{"expressionType":"enumeration","itemId":"1"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"}],"conclusion":[{"expressionType":"enumeration","itemId":"1"}],"annotation":[{"expressionType":"any"}]},{"id":"1439","condition":[{"expressionType":"any"},{"expressionType":"enumeration","itemId":"2"},{"expressionType":"enumeration","itemId":"2"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"}],"conclusion":[{"expressionType":"enumeration","itemId":"2"}],"annotation":[{"expressionType":"any"}]},{"id":"3946","condition":[{"expressionType":"any"},{"expressionType":"enumeration","itemId":"2"},{"expressionType":"enumeration","itemId":"3"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"}],"conclusion":[{"expressionType":"enumeration","itemId":"2"}],"annotation":[{"expressionType":"any"}]},{"id":"3949","condition":[{"expressionType":"any"},{"expressionType":"enumeration","itemId":"2"},{"expressionType":"enumeration","itemId":"4"},{"expressionType":"simpleLiteral","value":true,"type":"boolean"},{"expressionType":"simpleLiteral","value":true,"type":"boolean"},{"expressionType":"simpleLiteral","value":true,"type":"boolean"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"}],"conclusion":[{"expressionType":"enumeration","itemId":"0"}],"annotation":[{"expressionType":"any"}]},{"id":"4062","condition":[{"expressionType":"any"},{"expressionType":"enumeration","itemId":"2"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"simpleLiteral","value":true,"type":"boolean"},{"expressionType":"simpleLiteral","value":true,"type":"boolean"},{"expressionType":"any"}],"conclusion":[{"expressionType":"enumeration","itemId":"3"}],"annotation":[{"expressionType":"any"}]},{"id":"1499","condition":[{"expressionType":"any"},{"expressionType":"enumeration","itemId":"2"},{"expressionType":"enumeration","itemId":"4"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"}],"conclusion":[{"expressionType":"enumeration","itemId":"3"}],"annotation":[{"expressionType":"any"}]},{"id":"1534","condition":[{"expressionType":"any"},{"expressionType":"enumeration","itemId":"2"},{"expressionType":"enumeration","itemId":"4"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"}],"conclusion":[{"expressionType":"enumeration","itemId":"3"}],"annotation":[{"expressionType":"any"}]},{"id":"4064","condition":[{"expressionType":"any"},{"expressionType":"enumeration","itemId":"1"},{"expressionType":"enumeration","itemId":"2"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"}],"conclusion":[{"expressionType":"enumeration","itemId":"6"}],"annotation":[{"expressionType":"any"}]},{"id":"4071","condition":[{"expressionType":"any"},{"expressionType":"negation","operand":{"expressionType":"enumeration","itemId":"1"}},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"},{"expressionType":"any"}],"conclusion":[{"expressionType":"enumeration","itemId":"8"}],"annotation":[{"expressionType":"any"}]}]}</decision>
+<question xmlns="http://oryx-editor.org/"/>
+<anwers xmlns="http://oryx-editor.org/">[]</anwers>
+<name xmlns="http://oryx-editor.org/">Client Level Requirement Rules</name>
+<meta-blueprintid2 xmlns="http://oryx-editor.org/"/>
+<decisionowner xmlns="http://oryx-editor.org/"/>
+<decisionmaker xmlns="http://oryx-editor.org/"/>
+<bordercolor xmlns="http://oryx-editor.org/">#000000</bordercolor>
+<docker xmlns="http://oryx-editor.org/"> # </docker>
+<outgoing xmlns="http://raziel.org/" rdf:resource="#sid-C006CDCB-019E-45BA-9980-7FB699C4F95E"/>
+<target xmlns="http://raziel.org/" rdf:resource="#sid-C006CDCB-019E-45BA-9980-7FB699C4F95E"/>
+<outgoing xmlns="http://raziel.org/" rdf:resource="#sid-EBA34FCF-2E98-428D-A504-502006525E3C"/>
+<target xmlns="http://raziel.org/" rdf:resource="#sid-EBA34FCF-2E98-428D-A504-502006525E3C"/>
+<outgoing xmlns="http://raziel.org/" rdf:resource="#sid-625DCDD5-5E85-4755-B90B-0B6B6DAD1B4A"/>
+<target xmlns="http://raziel.org/" rdf:resource="#sid-625DCDD5-5E85-4755-B90B-0B6B6DAD1B4A"/>
+<outgoing xmlns="http://raziel.org/" rdf:resource="#sid-9EBCE07A-E029-421B-8926-907D548C2E0E"/>
+<target xmlns="http://raziel.org/" rdf:resource="#sid-9EBCE07A-E029-421B-8926-907D548C2E0E"/>
+<outgoing xmlns="http://raziel.org/" rdf:resource="#sid-2A910DDC-DD56-4600-A746-D9BE7368D1D1"/>
+<target xmlns="http://raziel.org/" rdf:resource="#sid-2A910DDC-DD56-4600-A746-D9BE7368D1D1"/>
+<outgoing xmlns="http://raziel.org/" rdf:resource="#sid-28B67548-BA58-4CF1-AEC8-705C9BA362A4"/>
+<target xmlns="http://raziel.org/" rdf:resource="#sid-28B67548-BA58-4CF1-AEC8-705C9BA362A4"/>
+<outgoing xmlns="http://raziel.org/" rdf:resource="#sid-A07FC14E-1D95-4318-8391-6D61660E7A0E"/>
+<target xmlns="http://raziel.org/" rdf:resource="#sid-A07FC14E-1D95-4318-8391-6D61660E7A0E"/>
+<outgoing xmlns="http://raziel.org/" rdf:resource="#sid-CE7DC779-BB6F-4D7E-873F-AECEB70B745F"/>
+<target xmlns="http://raziel.org/" rdf:resource="#sid-CE7DC779-BB6F-4D7E-873F-AECEB70B745F"/>
+<outgoing xmlns="http://raziel.org/" rdf:resource="#sid-5409FA63-CD3F-406A-9C1D-05102C64C04E"/>
+<target xmlns="http://raziel.org/" rdf:resource="#sid-5409FA63-CD3F-406A-9C1D-05102C64C04E"/>
+<parent xmlns="http://raziel.org/" rdf:resource="#canvas"/>
+</rdf:Description>
+<rdf:Description rdf:about="#sid-45CDBAC7-6CEC-45D0-8195-98105A8632AF">
+<type xmlns="http://oryx-editor.org/">InputData</type>
+<bounds xmlns="http://oryx-editor.org/">270,369.54545661437606,170,309.54545661437606</bounds>
+<ignorecase xmlns="http://oryx-editor.org/">false</ignorecase>
+<datetype xmlns="http://oryx-editor.org/">date</datetype>
+<meta-purereference xmlns="http://oryx-editor.org/"/>
+<max xmlns="http://oryx-editor.org/"/>
+<enumitems xmlns="http://oryx-editor.org/">[{"id":"2","title":"Private Investment Vehicles / Personal Holding Companies"},{"id":"3","title":"Special Purpose Vehicle"},{"id":"4","title":"Private Operating Company"},{"id":"5","title":"Unregistered Investment Advisor"},{"id":"6","title":"Money Transmitter and Currency Dealers"}]</enumitems>
+<length xmlns="http://oryx-editor.org/">m</length>
+<weight xmlns="http://oryx-editor.org/">kg</weight>
+<meta-technicalreference xmlns="http://oryx-editor.org/"/>
+<meta-blueprintid2 xmlns="http://oryx-editor.org/"/>
+<type xmlns="http://oryx-editor.org/">enumeration</type>
+<hierarchyitems xmlns="http://oryx-editor.org/"/>
+<typedef xmlns="http://oryx-editor.org/">simple</typedef>
+<bordercolor xmlns="http://oryx-editor.org/">#000000</bordercolor>
+<meta-datasource xmlns="http://oryx-editor.org/"/>
+<unit xmlns="http://oryx-editor.org/"/>
+<bgcolor xmlns="http://oryx-editor.org/">#FFFFCC</bgcolor>
+<min xmlns="http://oryx-editor.org/"/>
+<meta-sourcesystem xmlns="http://oryx-editor.org/"/>
+<name xmlns="http://oryx-editor.org/">CIP Classification</name>
+<temperature xmlns="http://oryx-editor.org/">C</temperature>
+<currency xmlns="http://oryx-editor.org/">EUR</currency>
+<relations xmlns="http://oryx-editor.org/"/>
+<islist xmlns="http://oryx-editor.org/">false</islist>
+<docker xmlns="http://oryx-editor.org/"> # </docker>
+<parent xmlns="http://raziel.org/" rdf:resource="#canvas"/>
+</rdf:Description>
+<rdf:Description rdf:about="#sid-CB13F221-25A9-4123-8C97-77A2EB4FEDA6">
+<type xmlns="http://oryx-editor.org/">InputData</type>
+<bounds xmlns="http://oryx-editor.org/">413.72722780212,429.54545661437606,313.72722780212,369.54545661437606</bounds>
+<ignorecase xmlns="http://oryx-editor.org/">false</ignorecase>
+<datetype xmlns="http://oryx-editor.org/">date</datetype>
+<meta-purereference xmlns="http://oryx-editor.org/"/>
+<max xmlns="http://oryx-editor.org/"/>
+<enumitems xmlns="http://oryx-editor.org/"/>
+<length xmlns="http://oryx-editor.org/">m</length>
+<weight xmlns="http://oryx-editor.org/">kg</weight>
+<meta-technicalreference xmlns="http://oryx-editor.org/"/>
+<meta-blueprintid2 xmlns="http://oryx-editor.org/"/>
+<type xmlns="http://oryx-editor.org/">boolean</type>
+<hierarchyitems xmlns="http://oryx-editor.org/"/>
+<typedef xmlns="http://oryx-editor.org/">simple</typedef>
+<bordercolor xmlns="http://oryx-editor.org/">#000000</bordercolor>
+<meta-datasource xmlns="http://oryx-editor.org/"/>
+<unit xmlns="http://oryx-editor.org/"/>
+<bgcolor xmlns="http://oryx-editor.org/">#FFFFCC</bgcolor>
+<min xmlns="http://oryx-editor.org/"/>
+<meta-sourcesystem xmlns="http://oryx-editor.org/"/>
+<name xmlns="http://oryx-editor.org/">Parent Public Ind</name>
+<temperature xmlns="http://oryx-editor.org/">C</temperature>
+<currency xmlns="http://oryx-editor.org/">EUR</currency>
+<relations xmlns="http://oryx-editor.org/"/>
+<islist xmlns="http://oryx-editor.org/">false</islist>
+<docker xmlns="http://oryx-editor.org/"> # </docker>
+<parent xmlns="http://raziel.org/" rdf:resource="#canvas"/>
+</rdf:Description>
+<rdf:Description rdf:about="#sid-5D67B1C1-5195-46A2-9479-A26F042A5E71">
+<type xmlns="http://oryx-editor.org/">InputData</type>
+<bounds xmlns="http://oryx-editor.org/">704.7272278021201,429.54545661437606,604.7272278021201,369.54545661437606</bounds>
+<ignorecase xmlns="http://oryx-editor.org/">false</ignorecase>
+<datetype xmlns="http://oryx-editor.org/">date</datetype>
+<meta-purereference xmlns="http://oryx-editor.org/"/>
+<max xmlns="http://oryx-editor.org/"/>
+<enumitems xmlns="http://oryx-editor.org/"/>
+<length xmlns="http://oryx-editor.org/">m</length>
+<weight xmlns="http://oryx-editor.org/">kg</weight>
+<meta-technicalreference xmlns="http://oryx-editor.org/"/>
+<meta-blueprintid2 xmlns="http://oryx-editor.org/"/>
+<type xmlns="http://oryx-editor.org/">boolean</type>
+<hierarchyitems xmlns="http://oryx-editor.org/"/>
+<typedef xmlns="http://oryx-editor.org/">simple</typedef>
+<bordercolor xmlns="http://oryx-editor.org/">#000000</bordercolor>
+<meta-datasource xmlns="http://oryx-editor.org/"/>
+<unit xmlns="http://oryx-editor.org/"/>
+<bgcolor xmlns="http://oryx-editor.org/">#FFFFCC</bgcolor>
+<min xmlns="http://oryx-editor.org/"/>
+<meta-sourcesystem xmlns="http://oryx-editor.org/"/>
+<name xmlns="http://oryx-editor.org/">Parent Gov Entity Designation</name>
+<temperature xmlns="http://oryx-editor.org/">C</temperature>
+<currency xmlns="http://oryx-editor.org/">EUR</currency>
+<relations xmlns="http://oryx-editor.org/"/>
+<islist xmlns="http://oryx-editor.org/">false</islist>
+<docker xmlns="http://oryx-editor.org/"> # </docker>
+<parent xmlns="http://raziel.org/" rdf:resource="#canvas"/>
+</rdf:Description>
+<rdf:Description rdf:about="#sid-26884F49-8D2F-487B-95DA-80BD94E07BF0">
+<type xmlns="http://oryx-editor.org/">InputData</type>
+<bounds xmlns="http://oryx-editor.org/">878,369.54545661437606,778,309.54545661437606</bounds>
+<ignorecase xmlns="http://oryx-editor.org/">false</ignorecase>
+<datetype xmlns="http://oryx-editor.org/">date</datetype>
+<meta-purereference xmlns="http://oryx-editor.org/"/>
+<max xmlns="http://oryx-editor.org/"/>
+<enumitems xmlns="http://oryx-editor.org/"/>
+<length xmlns="http://oryx-editor.org/">m</length>
+<weight xmlns="http://oryx-editor.org/">kg</weight>
+<meta-technicalreference xmlns="http://oryx-editor.org/"/>
+<meta-blueprintid2 xmlns="http://oryx-editor.org/"/>
+<type xmlns="http://oryx-editor.org/">boolean</type>
+<hierarchyitems xmlns="http://oryx-editor.org/"/>
+<typedef xmlns="http://oryx-editor.org/">simple</typedef>
+<bordercolor xmlns="http://oryx-editor.org/">#000000</bordercolor>
+<meta-datasource xmlns="http://oryx-editor.org/"/>
+<unit xmlns="http://oryx-editor.org/"/>
+<bgcolor xmlns="http://oryx-editor.org/">#FFFFCC</bgcolor>
+<min xmlns="http://oryx-editor.org/"/>
+<meta-sourcesystem xmlns="http://oryx-editor.org/"/>
+<name xmlns="http://oryx-editor.org/">Regulated</name>
+<temperature xmlns="http://oryx-editor.org/">C</temperature>
+<currency xmlns="http://oryx-editor.org/">EUR</currency>
+<relations xmlns="http://oryx-editor.org/"/>
+<islist xmlns="http://oryx-editor.org/">false</islist>
+<docker xmlns="http://oryx-editor.org/"> # </docker>
+<parent xmlns="http://raziel.org/" rdf:resource="#canvas"/>
+</rdf:Description>
+<rdf:Description rdf:about="#sid-C006CDCB-019E-45BA-9980-7FB699C4F95E">
+<type xmlns="http://oryx-editor.org/">InformationRequirement</type>
+<bounds xmlns="http://oryx-editor.org/">458.2142737678264,318.05570948081737,261.49022816547745,216.16304265275804</bounds>
+<bordercolor xmlns="http://oryx-editor.org/">#000000</bordercolor>
+<docker xmlns="http://oryx-editor.org/">50 30 50.000000000000036 40.000000000000036  # </docker>
+<outgoing xmlns="http://raziel.org/" rdf:resource="#sid-45CDBAC7-6CEC-45D0-8195-98105A8632AF"/>
+<target xmlns="http://raziel.org/" rdf:resource="#sid-45CDBAC7-6CEC-45D0-8195-98105A8632AF"/>
+<parent xmlns="http://raziel.org/" rdf:resource="#canvas"/>
+</rdf:Description>
+<rdf:Description rdf:about="#sid-EBA34FCF-2E98-428D-A504-502006525E3C">
+<type xmlns="http://oryx-editor.org/">InformationRequirement</type>
+<bounds xmlns="http://oryx-editor.org/">480.9707033542519,369.25580617278445,384.68687724998824,230.11209372039056</bounds>
+<bordercolor xmlns="http://oryx-editor.org/">#000000</bordercolor>
+<docker xmlns="http://oryx-editor.org/">50.00000000000001 30 50.000000000000036 40.000000000000036  # </docker>
+<outgoing xmlns="http://raziel.org/" rdf:resource="#sid-CB13F221-25A9-4123-8C97-77A2EB4FEDA6"/>
+<target xmlns="http://raziel.org/" rdf:resource="#sid-CB13F221-25A9-4123-8C97-77A2EB4FEDA6"/>
+<parent xmlns="http://raziel.org/" rdf:resource="#canvas"/>
+</rdf:Description>
+<rdf:Description rdf:about="#sid-625DCDD5-5E85-4755-B90B-0B6B6DAD1B4A">
+<type xmlns="http://oryx-editor.org/">InformationRequirement</type>
+<bounds xmlns="http://oryx-editor.org/">633.6243085701569,369.2576425982254,536.6738970340832,230.11025729494963</bounds>
+<bordercolor xmlns="http://oryx-editor.org/">#000000</bordercolor>
+<docker xmlns="http://oryx-editor.org/">50 30 50.000000000000036 40.000000000000036  # </docker>
+<outgoing xmlns="http://raziel.org/" rdf:resource="#sid-5D67B1C1-5195-46A2-9479-A26F042A5E71"/>
+<target xmlns="http://raziel.org/" rdf:resource="#sid-5D67B1C1-5195-46A2-9479-A26F042A5E71"/>
+<parent xmlns="http://raziel.org/" rdf:resource="#canvas"/>
+</rdf:Description>
+<rdf:Description rdf:about="#sid-9EBCE07A-E029-421B-8926-907D548C2E0E">
+<type xmlns="http://oryx-editor.org/">InformationRequirement</type>
+<bounds xmlns="http://oryx-editor.org/">784.6910021554492,319.2597810975167,559.5191812450586,213.7906471562589</bounds>
+<bordercolor xmlns="http://oryx-editor.org/">#000000</bordercolor>
+<docker xmlns="http://oryx-editor.org/">50 30 50.000000000000036 40.000000000000036  # </docker>
+<outgoing xmlns="http://raziel.org/" rdf:resource="#sid-26884F49-8D2F-487B-95DA-80BD94E07BF0"/>
+<target xmlns="http://raziel.org/" rdf:resource="#sid-26884F49-8D2F-487B-95DA-80BD94E07BF0"/>
+<parent xmlns="http://raziel.org/" rdf:resource="#canvas"/>
+</rdf:Description>
+<rdf:Description rdf:about="#sid-709AE25E-D444-4180-86CB-D8D2679442B7">
+<type xmlns="http://oryx-editor.org/">InputData</type>
+<bounds xmlns="http://oryx-editor.org/">270,240.54545661437606,170,180.54545661437606</bounds>
+<ignorecase xmlns="http://oryx-editor.org/">false</ignorecase>
+<datetype xmlns="http://oryx-editor.org/">date</datetype>
+<meta-purereference xmlns="http://oryx-editor.org/"/>
+<max xmlns="http://oryx-editor.org/"/>
+<enumitems xmlns="http://oryx-editor.org/">[{"id":"1","title":"FW"},{"id":"2","title":"UK"},{"id":"3","title":"HK"}]</enumitems>
+<length xmlns="http://oryx-editor.org/">m</length>
+<weight xmlns="http://oryx-editor.org/">kg</weight>
+<meta-technicalreference xmlns="http://oryx-editor.org/"/>
+<meta-blueprintid2 xmlns="http://oryx-editor.org/"/>
+<type xmlns="http://oryx-editor.org/">enumeration</type>
+<hierarchyitems xmlns="http://oryx-editor.org/"/>
+<typedef xmlns="http://oryx-editor.org/">simple</typedef>
+<bordercolor xmlns="http://oryx-editor.org/">#000000</bordercolor>
+<meta-datasource xmlns="http://oryx-editor.org/"/>
+<unit xmlns="http://oryx-editor.org/"/>
+<bgcolor xmlns="http://oryx-editor.org/">#FFFFCC</bgcolor>
+<min xmlns="http://oryx-editor.org/"/>
+<meta-sourcesystem xmlns="http://oryx-editor.org/"/>
+<name xmlns="http://oryx-editor.org/">Policy</name>
+<temperature xmlns="http://oryx-editor.org/">C</temperature>
+<currency xmlns="http://oryx-editor.org/">EUR</currency>
+<relations xmlns="http://oryx-editor.org/"/>
+<islist xmlns="http://oryx-editor.org/">false</islist>
+<docker xmlns="http://oryx-editor.org/"> # </docker>
+<parent xmlns="http://raziel.org/" rdf:resource="#canvas"/>
+</rdf:Description>
+<rdf:Description rdf:about="#sid-2A910DDC-DD56-4600-A746-D9BE7368D1D1">
+<type xmlns="http://oryx-editor.org/">InformationRequirement</type>
+<bounds xmlns="http://oryx-editor.org/">458.1047577300429,206.94322702731677,270.6224700720772,193.60222958705936</bounds>
+<bordercolor xmlns="http://oryx-editor.org/">#000000</bordercolor>
+<docker xmlns="http://oryx-editor.org/">50 30 50.000000000000036 40.000000000000036  # </docker>
+<outgoing xmlns="http://raziel.org/" rdf:resource="#sid-709AE25E-D444-4180-86CB-D8D2679442B7"/>
+<target xmlns="http://raziel.org/" rdf:resource="#sid-709AE25E-D444-4180-86CB-D8D2679442B7"/>
+<parent xmlns="http://raziel.org/" rdf:resource="#canvas"/>
+</rdf:Description>
+<rdf:Description rdf:about="#sid-9838A34E-BDAC-40B2-BB82-E0084B18C724">
+<type xmlns="http://oryx-editor.org/">InputData</type>
+<bounds xmlns="http://oryx-editor.org/">878,240.54545661437606,778,180.54545661437606</bounds>
+<ignorecase xmlns="http://oryx-editor.org/">false</ignorecase>
+<datetype xmlns="http://oryx-editor.org/">date</datetype>
+<meta-purereference xmlns="http://oryx-editor.org/"/>
+<max xmlns="http://oryx-editor.org/"/>
+<enumitems xmlns="http://oryx-editor.org/"/>
+<length xmlns="http://oryx-editor.org/">m</length>
+<weight xmlns="http://oryx-editor.org/">kg</weight>
+<meta-technicalreference xmlns="http://oryx-editor.org/"/>
+<meta-blueprintid2 xmlns="http://oryx-editor.org/"/>
+<type xmlns="http://oryx-editor.org/">boolean</type>
+<hierarchyitems xmlns="http://oryx-editor.org/"/>
+<typedef xmlns="http://oryx-editor.org/">simple</typedef>
+<bordercolor xmlns="http://oryx-editor.org/">#000000</bordercolor>
+<meta-datasource xmlns="http://oryx-editor.org/"/>
+<unit xmlns="http://oryx-editor.org/"/>
+<bgcolor xmlns="http://oryx-editor.org/">#FFFFCC</bgcolor>
+<min xmlns="http://oryx-editor.org/"/>
+<meta-sourcesystem xmlns="http://oryx-editor.org/"/>
+<name xmlns="http://oryx-editor.org/">Regulator</name>
+<temperature xmlns="http://oryx-editor.org/">C</temperature>
+<currency xmlns="http://oryx-editor.org/">EUR</currency>
+<relations xmlns="http://oryx-editor.org/"/>
+<islist xmlns="http://oryx-editor.org/">false</islist>
+<docker xmlns="http://oryx-editor.org/"> # </docker>
+<parent xmlns="http://raziel.org/" rdf:resource="#canvas"/>
+</rdf:Description>
+<rdf:Description rdf:about="#sid-7ECEC41A-9FAA-4D24-AF74-EFC387C17E7A">
+<type xmlns="http://oryx-editor.org/">InputData</type>
+<bounds xmlns="http://oryx-editor.org/">865.54542085159,105,765.54542085159,45</bounds>
+<ignorecase xmlns="http://oryx-editor.org/">false</ignorecase>
+<datetype xmlns="http://oryx-editor.org/">date</datetype>
+<meta-purereference xmlns="http://oryx-editor.org/"/>
+<max xmlns="http://oryx-editor.org/"/>
+<enumitems xmlns="http://oryx-editor.org/"/>
+<length xmlns="http://oryx-editor.org/">m</length>
+<weight xmlns="http://oryx-editor.org/">kg</weight>
+<meta-technicalreference xmlns="http://oryx-editor.org/"/>
+<meta-blueprintid2 xmlns="http://oryx-editor.org/"/>
+<type xmlns="http://oryx-editor.org/">boolean</type>
+<hierarchyitems xmlns="http://oryx-editor.org/"/>
+<typedef xmlns="http://oryx-editor.org/">simple</typedef>
+<bordercolor xmlns="http://oryx-editor.org/">#000000</bordercolor>
+<meta-datasource xmlns="http://oryx-editor.org/"/>
+<unit xmlns="http://oryx-editor.org/"/>
+<bgcolor xmlns="http://oryx-editor.org/">#FFFFCC</bgcolor>
+<min xmlns="http://oryx-editor.org/"/>
+<meta-sourcesystem xmlns="http://oryx-editor.org/"/>
+<name xmlns="http://oryx-editor.org/">Linked to List 1 and 2 Approved Regulator</name>
+<temperature xmlns="http://oryx-editor.org/">C</temperature>
+<currency xmlns="http://oryx-editor.org/">EUR</currency>
+<relations xmlns="http://oryx-editor.org/"/>
+<islist xmlns="http://oryx-editor.org/">false</islist>
+<docker xmlns="http://oryx-editor.org/"> # </docker>
+<parent xmlns="http://raziel.org/" rdf:resource="#canvas"/>
+</rdf:Description>
+<rdf:Description rdf:about="#sid-28B67548-BA58-4CF1-AEC8-705C9BA362A4">
+<type xmlns="http://oryx-editor.org/">InformationRequirement</type>
+<bounds xmlns="http://oryx-editor.org/">770.2642177081465,171.2310598504722,558.8024652119615,91.97206514952782</bounds>
+<bordercolor xmlns="http://oryx-editor.org/">#000000</bordercolor>
+<docker xmlns="http://oryx-editor.org/">50 30 50.000000000000036 40.00000000000003  # </docker>
+<outgoing xmlns="http://raziel.org/" rdf:resource="#sid-7ECEC41A-9FAA-4D24-AF74-EFC387C17E7A"/>
+<target xmlns="http://raziel.org/" rdf:resource="#sid-7ECEC41A-9FAA-4D24-AF74-EFC387C17E7A"/>
+<parent xmlns="http://raziel.org/" rdf:resource="#canvas"/>
+</rdf:Description>
+<rdf:Description rdf:about="#sid-A07FC14E-1D95-4318-8391-6D61660E7A0E">
+<type xmlns="http://oryx-editor.org/">InformationRequirement</type>
+<bounds xmlns="http://oryx-editor.org/">777.7392730812473,207.31113889536863,559.6115343540716,193.27444556395744</bounds>
+<bordercolor xmlns="http://oryx-editor.org/">#000000</bordercolor>
+<docker xmlns="http://oryx-editor.org/">50 30 50.000000000000036 40.00000000000003  # </docker>
+<outgoing xmlns="http://raziel.org/" rdf:resource="#sid-9838A34E-BDAC-40B2-BB82-E0084B18C724"/>
+<target xmlns="http://raziel.org/" rdf:resource="#sid-9838A34E-BDAC-40B2-BB82-E0084B18C724"/>
+<parent xmlns="http://raziel.org/" rdf:resource="#canvas"/>
+</rdf:Description>
+<rdf:Description rdf:about="#sid-6FC06D2B-3185-4B84-8DA3-C94549869D89">
+<type xmlns="http://oryx-editor.org/">InputData</type>
+<bounds xmlns="http://oryx-editor.org/">565,429.54545661437606,465,369.54545661437606</bounds>
+<ignorecase xmlns="http://oryx-editor.org/">false</ignorecase>
+<datetype xmlns="http://oryx-editor.org/">date</datetype>
+<meta-purereference xmlns="http://oryx-editor.org/"/>
+<meta-technicalreference xmlns="http://oryx-editor.org/"/>
+<type xmlns="http://oryx-editor.org/">boolean</type>
+<hierarchyitems xmlns="http://oryx-editor.org/"/>
+<meta-datasource xmlns="http://oryx-editor.org/"/>
+<min xmlns="http://oryx-editor.org/"/>
+<percentage xmlns="http://oryx-editor.org/"/>
+<temperature xmlns="http://oryx-editor.org/">C</temperature>
+<currency xmlns="http://oryx-editor.org/">EUR</currency>
+<max xmlns="http://oryx-editor.org/"/>
+<enumitems xmlns="http://oryx-editor.org/"/>
+<length xmlns="http://oryx-editor.org/">m</length>
+<weight xmlns="http://oryx-editor.org/">kg</weight>
+<meta-blueprintid2 xmlns="http://oryx-editor.org/"/>
+<typedef xmlns="http://oryx-editor.org/">simple</typedef>
+<bordercolor xmlns="http://oryx-editor.org/">#000000</bordercolor>
+<unit xmlns="http://oryx-editor.org/"/>
+<bgcolor xmlns="http://oryx-editor.org/">#FFFFCC</bgcolor>
+<meta-sourcesystem xmlns="http://oryx-editor.org/"/>
+<name xmlns="http://oryx-editor.org/">Parent Exchange</name>
+<serviceid xmlns="http://oryx-editor.org/"/>
+<relations xmlns="http://oryx-editor.org/"/>
+<islist xmlns="http://oryx-editor.org/">false</islist>
+<docker xmlns="http://oryx-editor.org/"> # </docker>
+<parent xmlns="http://raziel.org/" rdf:resource="#canvas"/>
+</rdf:Description>
+<rdf:Description rdf:about="#sid-CE7DC779-BB6F-4D7E-873F-AECEB70B745F">
+<type xmlns="http://oryx-editor.org/">InformationRequirement</type>
+<bounds xmlns="http://oryx-editor.org/">514.0879696751153,369.0785745333214,509.9332943237804,230.2893253598536</bounds>
+<bordercolor xmlns="http://oryx-editor.org/">#000000</bordercolor>
+<docker xmlns="http://oryx-editor.org/">50 30 50 39.99999999999999  # </docker>
+<outgoing xmlns="http://raziel.org/" rdf:resource="#sid-6FC06D2B-3185-4B84-8DA3-C94549869D89"/>
+<target xmlns="http://raziel.org/" rdf:resource="#sid-6FC06D2B-3185-4B84-8DA3-C94549869D89"/>
+<parent xmlns="http://raziel.org/" rdf:resource="#canvas"/>
+</rdf:Description>
+<rdf:Description rdf:about="#sid-7AE4A830-DCB9-4CF4-8A39-5D6344E060D9">
+<type xmlns="http://oryx-editor.org/">InputData</type>
+<bounds xmlns="http://oryx-editor.org/">270,105,170,45</bounds>
+<ignorecase xmlns="http://oryx-editor.org/">false</ignorecase>
+<datetype xmlns="http://oryx-editor.org/">date</datetype>
+<meta-purereference xmlns="http://oryx-editor.org/"/>
+<max xmlns="http://oryx-editor.org/"/>
+<enumitems xmlns="http://oryx-editor.org/">[{"id":"0","title":"Client Group"},{"id":"1","title":"Private Company Group"},{"id":"2","title":"Private Operating Company Group"},{"id":"3","title":"Special Purpose Vehicle"}]</enumitems>
+<length xmlns="http://oryx-editor.org/">m</length>
+<weight xmlns="http://oryx-editor.org/">kg</weight>
+<meta-technicalreference xmlns="http://oryx-editor.org/"/>
+<meta-blueprintid2 xmlns="http://oryx-editor.org/"/>
+<type xmlns="http://oryx-editor.org/">enumeration</type>
+<hierarchyitems xmlns="http://oryx-editor.org/"/>
+<typedef xmlns="http://oryx-editor.org/">simple</typedef>
+<bordercolor xmlns="http://oryx-editor.org/">#000000</bordercolor>
+<meta-datasource xmlns="http://oryx-editor.org/"/>
+<unit xmlns="http://oryx-editor.org/"/>
+<bgcolor xmlns="http://oryx-editor.org/">#FFFFCC</bgcolor>
+<min xmlns="http://oryx-editor.org/"/>
+<meta-sourcesystem xmlns="http://oryx-editor.org/"/>
+<name xmlns="http://oryx-editor.org/">Classification Group</name>
+<temperature xmlns="http://oryx-editor.org/">C</temperature>
+<currency xmlns="http://oryx-editor.org/">EUR</currency>
+<relations xmlns="http://oryx-editor.org/"/>
+<islist xmlns="http://oryx-editor.org/">false</islist>
+<docker xmlns="http://oryx-editor.org/"> # </docker>
+<parent xmlns="http://raziel.org/" rdf:resource="#canvas"/>
+</rdf:Description>
+<rdf:Description rdf:about="#sid-5409FA63-CD3F-406A-9C1D-05102C64C04E">
+<type xmlns="http://oryx-editor.org/">InformationRequirement</type>
+<bounds xmlns="http://oryx-editor.org/">458.17321517222405,169.8643463704695,264.91480896188585,92.88955987953052</bounds>
+<bordercolor xmlns="http://oryx-editor.org/">#000000</bordercolor>
+<docker xmlns="http://oryx-editor.org/">50 30 50.000000000000036 40.00000000000003  # </docker>
+<outgoing xmlns="http://raziel.org/" rdf:resource="#sid-7AE4A830-DCB9-4CF4-8A39-5D6344E060D9"/>
+<target xmlns="http://raziel.org/" rdf:resource="#sid-7AE4A830-DCB9-4CF4-8A39-5D6344E060D9"/>
+<parent xmlns="http://raziel.org/" rdf:resource="#canvas"/>
+</rdf:Description>
+<rdf:Description rdf:about="#canvas">
+<rdf:type rdf:resource="http://oryx-editor.org/canvas"/>
+<type xmlns="http://oryx-editor.org/">Diagram</type>
+<bounds xmlns="http://oryx-editor.org/">1485,1050,0,0</bounds>
+<orientation xmlns="http://oryx-editor.org/">horizontal</orientation>
+<documentation xmlns="http://oryx-editor.org/"/>
+<render xmlns="http://oryx-editor.org/" rdf:resource="#sid-0CAB779F-DE89-4101-AA57-2D411114B965"/>
+<render xmlns="http://oryx-editor.org/" rdf:resource="#sid-45CDBAC7-6CEC-45D0-8195-98105A8632AF"/>
+<render xmlns="http://oryx-editor.org/" rdf:resource="#sid-CB13F221-25A9-4123-8C97-77A2EB4FEDA6"/>
+<render xmlns="http://oryx-editor.org/" rdf:resource="#sid-5D67B1C1-5195-46A2-9479-A26F042A5E71"/>
+<render xmlns="http://oryx-editor.org/" rdf:resource="#sid-26884F49-8D2F-487B-95DA-80BD94E07BF0"/>
+<render xmlns="http://oryx-editor.org/" rdf:resource="#sid-C006CDCB-019E-45BA-9980-7FB699C4F95E"/>
+<render xmlns="http://oryx-editor.org/" rdf:resource="#sid-EBA34FCF-2E98-428D-A504-502006525E3C"/>
+<render xmlns="http://oryx-editor.org/" rdf:resource="#sid-625DCDD5-5E85-4755-B90B-0B6B6DAD1B4A"/>
+<render xmlns="http://oryx-editor.org/" rdf:resource="#sid-9EBCE07A-E029-421B-8926-907D548C2E0E"/>
+<render xmlns="http://oryx-editor.org/" rdf:resource="#sid-709AE25E-D444-4180-86CB-D8D2679442B7"/>
+<render xmlns="http://oryx-editor.org/" rdf:resource="#sid-2A910DDC-DD56-4600-A746-D9BE7368D1D1"/>
+<render xmlns="http://oryx-editor.org/" rdf:resource="#sid-9838A34E-BDAC-40B2-BB82-E0084B18C724"/>
+<render xmlns="http://oryx-editor.org/" rdf:resource="#sid-7ECEC41A-9FAA-4D24-AF74-EFC387C17E7A"/>
+<render xmlns="http://oryx-editor.org/" rdf:resource="#sid-28B67548-BA58-4CF1-AEC8-705C9BA362A4"/>
+<render xmlns="http://oryx-editor.org/" rdf:resource="#sid-A07FC14E-1D95-4318-8391-6D61660E7A0E"/>
+<render xmlns="http://oryx-editor.org/" rdf:resource="#sid-6FC06D2B-3185-4B84-8DA3-C94549869D89"/>
+<render xmlns="http://oryx-editor.org/" rdf:resource="#sid-CE7DC779-BB6F-4D7E-873F-AECEB70B745F"/>
+<render xmlns="http://oryx-editor.org/" rdf:resource="#sid-7AE4A830-DCB9-4CF4-8A39-5D6344E060D9"/>
+<render xmlns="http://oryx-editor.org/" rdf:resource="#sid-5409FA63-CD3F-406A-9C1D-05102C64C04E"/>
+<stencilset xmlns="http://oryx-editor.org/" rdf:resource="/stencilsets/dmn-1.0/dmn-1.0.json?version=9.8.1"/>
+</rdf:Description>
+</rdf:RDF>

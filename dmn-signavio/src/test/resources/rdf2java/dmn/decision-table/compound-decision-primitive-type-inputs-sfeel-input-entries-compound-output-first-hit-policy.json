@@ -1,0 +1,77 @@
+{
+  "inputParameterDefinitions": [
+    {
+      "id": "adc9746fc84f49ceabcfad773a2cb4b2/sid-3C445DAC-1B0D-4D22-9FD3-EB4E617D00CF",
+      "modelName": "compound-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy",
+      "requirementName": "DD2 Number Input"
+    },
+    {
+      "id": "adc9746fc84f49ceabcfad773a2cb4b2/sid-3247220B-9F67-48DB-8CB5-33C5FCDCEC20",
+      "modelName": "compound-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy",
+      "requirementName": "EnumerationInput"
+    },
+    {
+      "id": "adc9746fc84f49ceabcfad773a2cb4b2/sid-DD33B3B6-0C84-4568-A0ED-424855D08836",
+      "modelName": "compound-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy",
+      "requirementName": "BooleanInput"
+    },
+    {
+      "id": "adc9746fc84f49ceabcfad773a2cb4b2/sid-6DEE5C38-4409-4A43-8E10-A759DF55056E",
+      "modelName": "compound-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy",
+      "requirementName": "DD1 Text Input"
+    }
+  ],
+  "outputParameterDefinitions": [
+    {
+      "id": "adc9746fc84f49ceabcfad773a2cb4b2/sid-4A7C793A-882C-4867-94B9-AD88D6D6970D",
+      "modelName": "compound-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy",
+      "requirementName": "Compound Output Compound Decision"
+    }
+  ],
+  "testCases": [
+    {
+      "inputValues": [
+        {
+          "type": "number",
+          "value": 1
+        },
+        {
+          "type": "enumeration",
+          "value": "0",
+          "name": "e1"
+        },
+        {
+          "type": "boolean",
+          "value": true
+        },
+        {
+          "type": "string",
+          "value": "a"
+        }
+      ],
+      "expectedValues": [
+        {
+          "type": "complex",
+          "slots": [
+            {
+              "id": "4F178C17-6132-475B-BB01-FCF62DA216F4",
+              "name": "First Output",
+              "value": {
+                "type": "string",
+                "value": "r11"
+              }
+            },
+            {
+              "id": "825839B7-47CB-4A7A-BC5F-5242E1449A2F",
+              "name": "Second Output",
+              "value": {
+                "type": "string",
+                "value": "r12"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

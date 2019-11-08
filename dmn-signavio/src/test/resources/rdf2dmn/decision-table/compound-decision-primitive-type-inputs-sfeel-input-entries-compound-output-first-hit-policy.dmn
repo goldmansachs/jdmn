@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:cip="http://www.gs.com/cip" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:xsd="http://www.w3.org/2001/XMLSchema" namespace="http://www.omg.org/spec/DMN/20151101/dmn.xsd" name="compound-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy">
+    <itemDefinition isCollection="false" name="compoundOutputCompoundDecision" id="item-definition-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D" label="Compound Output Compound Decision">
+        <itemComponent isCollection="false" name="firstOutput" id="item-definition-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-4F178C17-6132-475B-BB01-FCF62DA216F4" label="First Output">
+            <typeRef>feel:string</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="secondOutput" id="item-definition-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-825839B7-47CB-4A7A-BC5F-5242E1449A2F" label="Second Output">
+            <typeRef>feel:string</typeRef>
+        </itemComponent>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="dependentDecision1" id="item-definition-sid-64E0500E-ADE8-4CB3-8E4F-894A4BD3EDE9" label="Dependent Decision 1">
+        <itemComponent isCollection="false" name="dD1O1" id="item-definition-sid-64E0500E-ADE8-4CB3-8E4F-894A4BD3EDE9-3919D1AE-3F5C-434F-930A-D1E350DD4B77" label="DD1O1">
+            <typeRef>feel:string</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="dD1O2" id="item-definition-sid-64E0500E-ADE8-4CB3-8E4F-894A4BD3EDE9-8043CED3-C66A-4D50-B806-E3DC53D4A8D5" label="DD1O2">
+            <typeRef>feel:string</typeRef>
+        </itemComponent>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="dependentDecision2" id="item-definition-sid-957FCF3A-3662-440C-ADB4-2AEB91ED7AA8" label="Dependent Decision 2">
+        <itemComponent isCollection="false" name="dD2O1" id="item-definition-sid-957FCF3A-3662-440C-ADB4-2AEB91ED7AA8-D0794FEE-197A-47AC-9DB5-5F3786827926" label="DD2O1">
+            <typeRef>feel:string</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="dD2O2" id="item-definition-sid-957FCF3A-3662-440C-ADB4-2AEB91ED7AA8-80A43548-BA1B-4911-A938-D2BAA3905100" label="DD2O2">
+            <typeRef>feel:string</typeRef>
+        </itemComponent>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="enumerationInput" id="item-definition-sid-3247220B-9F67-48DB-8CB5-33C5FCDCEC20" label="EnumerationInput">
+        <typeRef>feel:enumeration</typeRef>
+        <allowedValues>
+            <text>"e1", "e2", "e3"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="booleanInput" id="item-definition-sid-DD33B3B6-0C84-4568-A0ED-424855D08836" label="BooleanInput">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="dD1TextInput" id="item-definition-sid-6DEE5C38-4409-4A43-8E10-A759DF55056E" label="DD1 Text Input">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="dD2NumberInput" id="item-definition-sid-3C445DAC-1B0D-4D22-9FD3-EB4E617D00CF" label="DD2 Number Input">
+        <typeRef>feel:number</typeRef>
+    </itemDefinition>
+    <decision name="compoundOutputCompoundDecision" id="sid-4A7C793A-882C-4867-94B9-AD88D6D6970D" label="Compound Output Compound Decision">
+        <variable typeRef="cip:compoundOutputCompoundDecision" name="compoundOutputCompoundDecision" id="decision-variable-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D" label="compoundOutputCompoundDecision"/>
+        <informationRequirement>
+            <requiredInput href="sid-DD33B3B6-0C84-4568-A0ED-424855D08836"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="sid-3247220B-9F67-48DB-8CB5-33C5FCDCEC20"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="sid-64E0500E-ADE8-4CB3-8E4F-894A4BD3EDE9"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="sid-957FCF3A-3662-440C-ADB4-2AEB91ED7AA8"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="FIRST" id="decision-expression-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D">
+            <input id="input-clause-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-364A73E5-0C55-4C84-8EA5-8A72AC84F3FC">
+                <inputExpression typeRef="cip:booleanInput" id="input-clause-exp-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-364A73E5-0C55-4C84-8EA5-8A72AC84F3FC">
+                    <text>booleanInput</text>
+                </inputExpression>
+            </input>
+            <input id="input-clause-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-1F56B66A-B7C5-4F3A-80A0-79972043B8E7">
+                <inputExpression typeRef="cip:enumerationInput" id="input-clause-exp-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-1F56B66A-B7C5-4F3A-80A0-79972043B8E7">
+                    <text>enumerationInput</text>
+                </inputExpression>
+            </input>
+            <input id="input-clause-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-A8B7CB83-206F-4D40-90B3-1822C6ADB6EA">
+                <inputExpression typeRef="cip:dependentDecision1" id="input-clause-exp-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-A8B7CB83-206F-4D40-90B3-1822C6ADB6EA">
+                    <text>dependentDecision1.dD1O1</text>
+                </inputExpression>
+            </input>
+            <input id="input-clause-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-85944560-07D4-4EE6-881A-AB050BCAC526">
+                <inputExpression typeRef="cip:dependentDecision1" id="input-clause-exp-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-85944560-07D4-4EE6-881A-AB050BCAC526">
+                    <text>dependentDecision1.dD1O2</text>
+                </inputExpression>
+            </input>
+            <input id="input-clause-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-D269A4DC-F931-4380-9A07-B62DCC6E4B6C">
+                <inputExpression typeRef="cip:dependentDecision2" id="input-clause-exp-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-D269A4DC-F931-4380-9A07-B62DCC6E4B6C">
+                    <text>dependentDecision2.dD2O1</text>
+                </inputExpression>
+            </input>
+            <input id="input-clause-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-7141F530-1814-4E54-8CD6-C46E28C12FC0">
+                <inputExpression typeRef="cip:dependentDecision2" id="input-clause-exp-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-7141F530-1814-4E54-8CD6-C46E28C12FC0">
+                    <text>dependentDecision2.dD2O2</text>
+                </inputExpression>
+            </input>
+            <output name="firstOutput" typeRef="feel:string" id="output-clause-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-4F178C17-6132-475B-BB01-FCF62DA216F4" label="First Output"/>
+            <output name="secondOutput" typeRef="feel:string" id="output-clause-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-825839B7-47CB-4A7A-BC5F-5242E1449A2F" label="Second Output"/>
+            <rule id="rule-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-1201">
+                <inputEntry>
+                    <text>true</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"e1"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"dd1o1"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"dd1o2"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"dd2o1"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"dd2o2"</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"r11"</text>
+                </outputEntry>
+                <outputEntry>
+                    <text>"r12"</text>
+                </outputEntry>
+            </rule>
+            <rule id="rule-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-1320">
+                <inputEntry>
+                    <text>not (false)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not ("e1")</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"dd1o1"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"dd1o2"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"dd2o1"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"dd2o2"</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"r21"</text>
+                </outputEntry>
+                <outputEntry>
+                    <text>"r22"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="dependentDecision1" id="sid-64E0500E-ADE8-4CB3-8E4F-894A4BD3EDE9" label="Dependent Decision 1">
+        <variable typeRef="cip:dependentDecision1" name="dependentDecision1" id="decision-variable-sid-64E0500E-ADE8-4CB3-8E4F-894A4BD3EDE9" label="dependentDecision1"/>
+        <informationRequirement>
+            <requiredInput href="sid-6DEE5C38-4409-4A43-8E10-A759DF55056E"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="FIRST" id="decision-expression-sid-64E0500E-ADE8-4CB3-8E4F-894A4BD3EDE9">
+            <input id="input-clause-sid-64E0500E-ADE8-4CB3-8E4F-894A4BD3EDE9-4E8CF4D1-DCAF-421A-9E40-7E6C028A4787">
+                <inputExpression typeRef="cip:dD1TextInput" id="input-clause-exp-sid-64E0500E-ADE8-4CB3-8E4F-894A4BD3EDE9-4E8CF4D1-DCAF-421A-9E40-7E6C028A4787">
+                    <text>dD1TextInput</text>
+                </inputExpression>
+            </input>
+            <output name="dD1O1" typeRef="feel:string" id="output-clause-sid-64E0500E-ADE8-4CB3-8E4F-894A4BD3EDE9-3919D1AE-3F5C-434F-930A-D1E350DD4B77" label="DD1O1"/>
+            <output name="dD1O2" typeRef="feel:string" id="output-clause-sid-64E0500E-ADE8-4CB3-8E4F-894A4BD3EDE9-8043CED3-C66A-4D50-B806-E3DC53D4A8D5" label="DD1O2"/>
+            <rule id="rule-sid-64E0500E-ADE8-4CB3-8E4F-894A4BD3EDE9-1735">
+                <inputEntry>
+                    <text>"a"</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"dd1o1"</text>
+                </outputEntry>
+                <outputEntry>
+                    <text>"dd1o2"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="dependentDecision2" id="sid-957FCF3A-3662-440C-ADB4-2AEB91ED7AA8" label="Dependent Decision 2">
+        <variable typeRef="cip:dependentDecision2" name="dependentDecision2" id="decision-variable-sid-957FCF3A-3662-440C-ADB4-2AEB91ED7AA8" label="dependentDecision2"/>
+        <informationRequirement>
+            <requiredInput href="sid-3C445DAC-1B0D-4D22-9FD3-EB4E617D00CF"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="FIRST" id="decision-expression-sid-957FCF3A-3662-440C-ADB4-2AEB91ED7AA8">
+            <input id="input-clause-sid-957FCF3A-3662-440C-ADB4-2AEB91ED7AA8-38E1EFC0-E5C4-45E0-8511-62B61E2CF115">
+                <inputExpression typeRef="cip:dD2NumberInput" id="input-clause-exp-sid-957FCF3A-3662-440C-ADB4-2AEB91ED7AA8-38E1EFC0-E5C4-45E0-8511-62B61E2CF115">
+                    <text>dD2NumberInput</text>
+                </inputExpression>
+            </input>
+            <output name="dD2O1" typeRef="feel:string" id="output-clause-sid-957FCF3A-3662-440C-ADB4-2AEB91ED7AA8-D0794FEE-197A-47AC-9DB5-5F3786827926" label="DD2O1"/>
+            <output name="dD2O2" typeRef="feel:string" id="output-clause-sid-957FCF3A-3662-440C-ADB4-2AEB91ED7AA8-80A43548-BA1B-4911-A938-D2BAA3905100" label="DD2O2"/>
+            <rule id="rule-sid-957FCF3A-3662-440C-ADB4-2AEB91ED7AA8-3060">
+                <inputEntry>
+                    <text>1</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"dd2o1"</text>
+                </outputEntry>
+                <outputEntry>
+                    <text>"dd2o2"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <inputData name="enumerationInput" id="sid-3247220B-9F67-48DB-8CB5-33C5FCDCEC20" label="EnumerationInput">
+        <variable typeRef="cip:enumerationInput" name="enumerationInput" id="input-data-variable-sid-3247220B-9F67-48DB-8CB5-33C5FCDCEC20" label="enumerationInput"/>
+    </inputData>
+    <inputData name="booleanInput" id="sid-DD33B3B6-0C84-4568-A0ED-424855D08836" label="BooleanInput">
+        <variable typeRef="cip:booleanInput" name="booleanInput" id="input-data-variable-sid-DD33B3B6-0C84-4568-A0ED-424855D08836" label="booleanInput"/>
+    </inputData>
+    <inputData name="dD1TextInput" id="sid-6DEE5C38-4409-4A43-8E10-A759DF55056E" label="DD1 Text Input">
+        <variable typeRef="cip:dD1TextInput" name="dD1TextInput" id="input-data-variable-sid-6DEE5C38-4409-4A43-8E10-A759DF55056E" label="dD1TextInput"/>
+    </inputData>
+    <inputData name="dD2NumberInput" id="sid-3C445DAC-1B0D-4D22-9FD3-EB4E617D00CF" label="DD2 Number Input">
+        <variable typeRef="cip:dD2NumberInput" name="dD2NumberInput" id="input-data-variable-sid-3C445DAC-1B0D-4D22-9FD3-EB4E617D00CF" label="dD2NumberInput"/>
+    </inputData>
+</definitions>

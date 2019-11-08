@@ -18,7 +18,6 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
-@Ignore
 public class ComplexDecisionRDFToDMNTransformerTest extends AbstractRDFToDMNTransformerTest {
     @Override
     protected String getTestFolder() {
@@ -33,8 +32,6 @@ public class ComplexDecisionRDFToDMNTransformerTest extends AbstractRDFToDMNTran
     @Test
     public void testAllDiagrams() throws Exception {
         List<String> diagrams = Arrays.asList(
-                "CIP Requirements Exception based Test",
-                "Client Level Requirement Rules Test",
                 "NPEValidation2",
                 "Null Safe Tests"
         );
