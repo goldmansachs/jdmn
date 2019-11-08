@@ -21,25 +21,25 @@ import com.gs.dmn.serialization.DMNWriter;
 import org.junit.Ignore;
 import org.junit.Test;
 
-@Ignore
 public class SignavioDMNDialectTransformerTest extends DMNDialectTransformerTest {
     private final DMNDialectTransformer transformer = new DMNDialectTransformer(LOGGER);
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
     private final DMNWriter dmnWriter = new DMNWriter(LOGGER);
+    private static final String DIAGRAM_NAMESPACE = "http://www.provider.com/dmn/1.1/diagram/";
 
     @Test
     public void testTransform() throws Exception {
-        doTest("Example credit decision.dmn", new Pair<>("http://www.signavio.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml", "sig"));
+        doTest("Example credit decision.dmn", new Pair<>(DIAGRAM_NAMESPACE + "9acf44f2b05343d79fc35140c493c1e0.xml", "sig"));
     }
 
     @Test(expected = DMNRuntimeException.class)
     public void testTransformWithBKM() throws Exception {
-        doTest("simple-decision-with-bkm.dmn", new Pair<>("http://www.signavio.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml", "sig"));
+        doTest("simple-decision-with-bkm.dmn", new Pair<>(DIAGRAM_NAMESPACE + "2521256910f54d44b0a90fa88a1aa917.xml", "sig"));
     }
 
     @Test
     public void testTransformWithMID() throws Exception {
-        doTest("simpleMID.dmn", new Pair<>("http://www.signavio.com/dmn/1.1/diagram/9e53b9fc18f94da39241c0319c532c9a.xml", "sig"));
+        doTest("simpleMID.dmn", new Pair<>(DIAGRAM_NAMESPACE + "9e53b9fc18f94da39241c0319c532c9a.xml", "sig"));
     }
 
     private String getInputPath() {

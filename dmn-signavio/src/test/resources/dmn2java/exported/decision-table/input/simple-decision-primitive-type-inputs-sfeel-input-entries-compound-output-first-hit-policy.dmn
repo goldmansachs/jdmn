@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml" exporterVersion="10.3.3-gs" name="simple-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy" id="id-5b2741c66e684e2c924be97911ce7048" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:signavio="http://www.provider.com/schema/dmn/1.1/">
+    <itemDefinition isCollection="false" name="timeInput" id="diagram-0d0e36d84e6b4838a08437bc729dd66a-itemDefinition-sid-F687D89A-8FBD-4414-BCF4-BBBF353ABBC2" label="TimeInput">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:time</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="dateAndTimeInput" id="diagram-0d0e36d84e6b4838a08437bc729dd66a-itemDefinition-sid-D16E1277-6037-4066-A21B-42F761A4B427" label="DateAndTimeInput">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:date and time</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="numberInput" id="diagram-0d0e36d84e6b4838a08437bc729dd66a-itemDefinition-sid-3F148E87-DF6E-42AF-B209-4D532421A2F9" label="NumberInput">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="textInput" id="diagram-0d0e36d84e6b4838a08437bc729dd66a-itemDefinition-sid-404A0FC2-6787-4210-BB30-2E7964835E99" label="TextInput">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="enumerationInput" id="diagram-0d0e36d84e6b4838a08437bc729dd66a-itemDefinition-sid-3247220B-9F67-48DB-8CB5-33C5FCDCEC20" label="EnumerationInput">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:string</typeRef>
+        <allowedValues>
+            <text>"e1","e2","e3"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="dateInput" id="diagram-0d0e36d84e6b4838a08437bc729dd66a-itemDefinition-sid-6E98EF23-49A8-44BE-82BB-06CF5AC860A0" label="DateInput">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:date</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="booleanInput" id="diagram-0d0e36d84e6b4838a08437bc729dd66a-itemDefinition-sid-DD33B3B6-0C84-4568-A0ED-424855D08836" label="BooleanInput">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="compoundOutputDecision" id="sid-4A7C793A-882C-4867-94B9-AD88D6D6970D" label="Compound Output Decision">
+        <itemComponent isCollection="false" name="firstOutput" id="sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-relation-4F178C17-6132-475B-BB01-FCF62DA216F4" label="First Output">
+            <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:string</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="secondOutput" id="sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-relation-825839B7-47CB-4A7A-BC5F-5242E1449A2F" label="Second Output">
+            <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:string</typeRef>
+        </itemComponent>
+    </itemDefinition>
+    <inputData name="dateAndTimeInput" id="diagram-0d0e36d84e6b4838a08437bc729dd66a-inputdata-sid-D16E1277-6037-4066-A21B-42F761A4B427" label="DateAndTimeInput">
+        <variable typeRef="dateAndTimeInput" name="dateAndTimeInput" id="diagram-0d0e36d84e6b4838a08437bc729dd66a-inputdata-sid-D16E1277-6037-4066-A21B-42F761A4B427_variable"/>
+    </inputData>
+    <inputData name="booleanInput" id="diagram-0d0e36d84e6b4838a08437bc729dd66a-inputdata-sid-DD33B3B6-0C84-4568-A0ED-424855D08836" label="BooleanInput">
+        <variable typeRef="booleanInput" name="booleanInput" id="diagram-0d0e36d84e6b4838a08437bc729dd66a-inputdata-sid-DD33B3B6-0C84-4568-A0ED-424855D08836_variable"/>
+    </inputData>
+    <inputData name="numberInput" id="diagram-0d0e36d84e6b4838a08437bc729dd66a-inputdata-sid-3F148E87-DF6E-42AF-B209-4D532421A2F9" label="NumberInput">
+        <variable typeRef="numberInput" name="numberInput" id="diagram-0d0e36d84e6b4838a08437bc729dd66a-inputdata-sid-3F148E87-DF6E-42AF-B209-4D532421A2F9_variable"/>
+    </inputData>
+    <inputData name="enumerationInput" id="diagram-0d0e36d84e6b4838a08437bc729dd66a-inputdata-sid-3247220B-9F67-48DB-8CB5-33C5FCDCEC20" label="EnumerationInput">
+        <variable typeRef="enumerationInput" name="enumerationInput" id="diagram-0d0e36d84e6b4838a08437bc729dd66a-inputdata-sid-3247220B-9F67-48DB-8CB5-33C5FCDCEC20_variable"/>
+    </inputData>
+    <inputData name="timeInput" id="diagram-0d0e36d84e6b4838a08437bc729dd66a-inputdata-sid-F687D89A-8FBD-4414-BCF4-BBBF353ABBC2" label="TimeInput">
+        <variable typeRef="timeInput" name="timeInput" id="diagram-0d0e36d84e6b4838a08437bc729dd66a-inputdata-sid-F687D89A-8FBD-4414-BCF4-BBBF353ABBC2_variable"/>
+    </inputData>
+    <inputData name="textInput" id="diagram-0d0e36d84e6b4838a08437bc729dd66a-inputdata-sid-404A0FC2-6787-4210-BB30-2E7964835E99" label="TextInput">
+        <variable typeRef="textInput" name="textInput" id="diagram-0d0e36d84e6b4838a08437bc729dd66a-inputdata-sid-404A0FC2-6787-4210-BB30-2E7964835E99_variable"/>
+    </inputData>
+    <inputData name="dateInput" id="diagram-0d0e36d84e6b4838a08437bc729dd66a-inputdata-sid-6E98EF23-49A8-44BE-82BB-06CF5AC860A0" label="DateInput">
+        <variable typeRef="dateInput" name="dateInput" id="diagram-0d0e36d84e6b4838a08437bc729dd66a-inputdata-sid-6E98EF23-49A8-44BE-82BB-06CF5AC860A0_variable"/>
+    </inputData>
+    <decision name="compoundOutputDecision" id="diagram-0d0e36d84e6b4838a08437bc729dd66a-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D" label="Compound Output Decision">
+        <variable typeRef="compoundOutputDecision" name="compoundOutputDecision" id="diagram-0d0e36d84e6b4838a08437bc729dd66a-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D_variable"/>
+        <informationRequirement>
+            <requiredInput href="#diagram-0d0e36d84e6b4838a08437bc729dd66a-inputdata-sid-D16E1277-6037-4066-A21B-42F761A4B427"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#diagram-0d0e36d84e6b4838a08437bc729dd66a-inputdata-sid-DD33B3B6-0C84-4568-A0ED-424855D08836"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#diagram-0d0e36d84e6b4838a08437bc729dd66a-inputdata-sid-3F148E87-DF6E-42AF-B209-4D532421A2F9"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#diagram-0d0e36d84e6b4838a08437bc729dd66a-inputdata-sid-F687D89A-8FBD-4414-BCF4-BBBF353ABBC2"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#diagram-0d0e36d84e6b4838a08437bc729dd66a-inputdata-sid-3247220B-9F67-48DB-8CB5-33C5FCDCEC20"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#diagram-0d0e36d84e6b4838a08437bc729dd66a-inputdata-sid-404A0FC2-6787-4210-BB30-2E7964835E99"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#diagram-0d0e36d84e6b4838a08437bc729dd66a-inputdata-sid-6E98EF23-49A8-44BE-82BB-06CF5AC860A0"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="FIRST">
+            <input id="diagram-0d0e36d84e6b4838a08437bc729dd66a-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-clause-2F0DFEA1-3BBF-4C18-826A-16C5D779C8C9" label="DateInput">
+                <inputExpression typeRef="dateInput">
+                    <text>dateInput</text>
+                </inputExpression>
+            </input>
+            <input id="diagram-0d0e36d84e6b4838a08437bc729dd66a-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-clause-0C044D1F-1CA6-4525-A4E8-02FF1CED25BD" label="TimeInput">
+                <inputExpression typeRef="timeInput">
+                    <text>timeInput</text>
+                </inputExpression>
+            </input>
+            <input id="diagram-0d0e36d84e6b4838a08437bc729dd66a-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-clause-A8F42CC6-6C5E-4860-8633-6197FEB341A3" label="DateAndTimeInput">
+                <inputExpression typeRef="dateAndTimeInput">
+                    <text>dateAndTimeInput</text>
+                </inputExpression>
+            </input>
+            <input id="diagram-0d0e36d84e6b4838a08437bc729dd66a-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-clause-9A964D45-663B-4B27-9ACD-259D07D8F156" label="NumberInput">
+                <inputExpression typeRef="numberInput">
+                    <text>numberInput</text>
+                </inputExpression>
+            </input>
+            <input id="diagram-0d0e36d84e6b4838a08437bc729dd66a-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-clause-C8770B97-9AC5-4AA6-85ED-C8E87B4CB4A2" label="TextInput">
+                <inputExpression typeRef="textInput">
+                    <text>textInput</text>
+                </inputExpression>
+            </input>
+            <input id="diagram-0d0e36d84e6b4838a08437bc729dd66a-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-clause-364A73E5-0C55-4C84-8EA5-8A72AC84F3FC" label="BooleanInput">
+                <inputExpression typeRef="booleanInput">
+                    <text>booleanInput</text>
+                </inputExpression>
+            </input>
+            <input id="diagram-0d0e36d84e6b4838a08437bc729dd66a-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-clause-1F56B66A-B7C5-4F3A-80A0-79972043B8E7" label="EnumerationInput">
+                <inputExpression typeRef="enumerationInput">
+                    <text>enumerationInput</text>
+                </inputExpression>
+            </input>
+            <output name="firstOutput" typeRef="feel:string" id="diagram-0d0e36d84e6b4838a08437bc729dd66a-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-clause-4F178C17-6132-475B-BB01-FCF62DA216F4" label="First Output" xmlns:feel="http://www.omg.org/spec/FEEL/20140401"/>
+            <output name="secondOutput" typeRef="feel:string" id="diagram-0d0e36d84e6b4838a08437bc729dd66a-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-clause-825839B7-47CB-4A7A-BC5F-5242E1449A2F" label="Second Output" xmlns:feel="http://www.omg.org/spec/FEEL/20140401"/>
+            <rule id="diagram-0d0e36d84e6b4838a08437bc729dd66a-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-rule-1201">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>date("2016-08-01")</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>time("12:00:00+0000")</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>date and time("2016-08-01T11:00:00+0000")</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-1</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"abc"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>true</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"e1"</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"r11"</text>
+                </outputEntry>
+                <outputEntry>
+                    <text>"r12"</text>
+                </outputEntry>
+            </rule>
+            <rule id="diagram-0d0e36d84e6b4838a08437bc729dd66a-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-rule-1320">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>not(date("2016-08-01"))</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(time("12:00:00+0000"))</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(date and time("2016-08-01T11:00:00+0000"))</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(-1)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not("abc")</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not(false)</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>not("e1")</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"r21"</text>
+                </outputEntry>
+                <outputEntry>
+                    <text>"r22"</text>
+                </outputEntry>
+            </rule>
+            <rule id="diagram-0d0e36d84e6b4838a08437bc729dd66a-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-rule-1343">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>&lt; date("2016-08-01")</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>&lt; time("12:00:00+0000")</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>&lt; date and time("2016-08-01T11:00:00+0000")</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>&lt; -1</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"r31"</text>
+                </outputEntry>
+                <outputEntry>
+                    <text>"r32"</text>
+                </outputEntry>
+            </rule>
+            <rule id="diagram-0d0e36d84e6b4838a08437bc729dd66a-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-rule-1355">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>&lt;= date("2016-08-01")</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>&lt;= time("12:00:00+0000")</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>&lt;= date and time("2016-08-01T11:00:00+0000")</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>&gt;= -1</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"r41"</text>
+                </outputEntry>
+                <outputEntry>
+                    <text>"r42"</text>
+                </outputEntry>
+            </rule>
+            <rule id="diagram-0d0e36d84e6b4838a08437bc729dd66a-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-rule-1367">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>&gt; date("2016-08-01")</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>&gt; time("12:00:00+0000")</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>&gt; date and time("2016-08-01T11:00:00+0000")</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>&gt; -1</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"r51"</text>
+                </outputEntry>
+                <outputEntry>
+                    <text>"r52"</text>
+                </outputEntry>
+            </rule>
+            <rule id="diagram-0d0e36d84e6b4838a08437bc729dd66a-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-rule-1379">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>&gt;= date("2016-08-01")</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>&gt;= time("12:00:00+0000")</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>&gt;= date and time("2016-08-01T11:00:00+0000")</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"r61"</text>
+                </outputEntry>
+                <outputEntry>
+                    <text>"r62"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+</definitions>

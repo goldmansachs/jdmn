@@ -21,7 +21,6 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-@Ignore
 public class ExportedLiteralDMNInterpreterTest extends AbstractSignavioDMNInterpreterTest {
     private final DefaultSignavioBaseDecision decision = new DefaultSignavioBaseDecision();
 

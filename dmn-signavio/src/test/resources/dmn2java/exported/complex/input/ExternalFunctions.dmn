@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml" exporterVersion="10.15.11" name="ExternalFunctions" id="id-d398ec58fe91400d86e3447ad1a4c2d9" sigExt:revisionId="2c1bec812d164d6491cb81dcd87c6331" sigExt:revisionNumber="9" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:sig="http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" xmlns:feel="http://www.omg.org/spec/FEEL/20140401">
+    <extensionElements/>
+    <itemDefinition isCollection="false" name="transaction" id="id-be754680052cab3cbc460b9d49c26cc8" label="Transaction" sigExt:glossaryId="532fb78ec585442fa833acf619f3f3f7">
+        <itemComponent isCollection="false" name="tradeDate" id="id-be754680052cab3cbc460b9d49c26cc8-relation-0" label="tradeDate" sigExt:slotId="0">
+            <typeRef>feel:date</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="buySellIndicator" id="id-be754680052cab3cbc460b9d49c26cc8-relation-1" label="buySellIndicator" sigExt:slotId="1">
+            <typeRef>sig:buySellIndicator</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="offeringType" id="id-be754680052cab3cbc460b9d49c26cc8-relation-2" label="offeringType" sigExt:slotId="2">
+            <typeRef>sig:offeringType</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="exerciseAssign" id="id-be754680052cab3cbc460b9d49c26cc8-relation-4" label="exerciseAssign" sigExt:slotId="4">
+            <typeRef>feel:boolean</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="settlementDate" id="id-be754680052cab3cbc460b9d49c26cc8-relation-5" label="settlementDate" sigExt:slotId="5">
+            <typeRef>feel:date</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="clearingAgent" id="id-be754680052cab3cbc460b9d49c26cc8-relation-6" label="clearingAgent" sigExt:slotId="6">
+            <typeRef>feel:string</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="deliveryInstruction" id="id-be754680052cab3cbc460b9d49c26cc8-relation-7" label="deliveryInstruction" sigExt:slotId="7">
+            <typeRef>feel:boolean</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="executionCapacity" id="id-be754680052cab3cbc460b9d49c26cc8-relation-8" label="executionCapacity" sigExt:slotId="8">
+            <typeRef>sig:executionCapacity</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="quantity" id="id-be754680052cab3cbc460b9d49c26cc8-relation-9" label="quantity" sigExt:slotId="9">
+            <typeRef>feel:number</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="price" id="id-be754680052cab3cbc460b9d49c26cc8-relation-10" label="price" sigExt:slotId="10">
+            <typeRef>feel:number</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="commision" id="id-be754680052cab3cbc460b9d49c26cc8-relation-11" label="commision" sigExt:slotId="11">
+            <typeRef>feel:number</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="executionMarket" id="id-be754680052cab3cbc460b9d49c26cc8-relation-12" label="executionMarket" sigExt:slotId="12">
+            <typeRef>feel:string</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="currencyCode" id="id-be754680052cab3cbc460b9d49c26cc8-relation-13" label="currencyCode" sigExt:slotId="13">
+            <typeRef>feel:string</typeRef>
+        </itemComponent>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="buySellIndicator" id="id-4c750a5676f8aee0a4ee560ce0a1b0a4" label="BuySellIndicator" sigExt:glossaryId="6c0f69cbc8e744aea4e7637c4009ff24">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"BUY","SELL"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="derivativeType" id="id-cf14ce3326da55ab0c96401e30297287" label="DerivativeType" sigExt:glossaryId="4171eba4ab71459fb61e7baccaf1a770">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"RIGHTS_WARRANTS"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="taxType" id="id-44e09470f31c9875534108e00edaffea" label="TaxType" sigExt:glossaryId="11b64b4d0d754b70b395ad96f0e1219a">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"FTT","STAMP","TRANSFER_TAX"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="offeringType" id="id-ab5b01ddf84484e3f1b609838779b983" label="OfferingType" sigExt:glossaryId="b890d539f4104059a945ee45aecd6eb9">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"PRIMARY","SECONDARY","SECONDARY_EXEMPT"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="jurisdiction" id="id-89e32d4ae555fa7edadb9f295430a514" label="Jurisdiction" sigExt:glossaryId="402a036fab0b4070b14bd70f5b868f29">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"FRANCE","ITALY","UK","IRELAND","SOUTH_AFRICA"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="executionCapacity" id="id-0220169ce44f48b35740db7b6a85234b" label="ExecutionCapacity" sigExt:glossaryId="900ba6bc2680486fb57066e57525fd88">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"AGENCY","CROSS_AS_AGENCY","PRINCIPAL","RISKLESS_PRINCIPAL","MIXED","OTHER"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="taxChargeType" id="id-2abc0e3c45a66f5c63fe09aa1b7f986d" label="TaxChargeType" sigExt:glossaryId="73a1b2f8a21c4e549d9974b1bf335082">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="transactionTaxMetaData" id="id-e084a745b70b5346d1e25a2ff40ffcbb" label="TransactionTaxMetaData" sigExt:glossaryId="46eaa5edd68b4c1b8b990ed4671bd5a6">
+        <itemComponent isCollection="false" name="taxType" id="id-e084a745b70b5346d1e25a2ff40ffcbb-relation-1" label="taxType" sigExt:slotId="1">
+            <typeRef>sig:taxType</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="jurisdiction" id="id-e084a745b70b5346d1e25a2ff40ffcbb-relation-3" label="jurisdiction" sigExt:slotId="3">
+            <typeRef>sig:jurisdiction</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="assetClass" id="id-e084a745b70b5346d1e25a2ff40ffcbb-relation-4" label="assetClass" sigExt:slotId="4">
+            <typeRef>sig:assetClass</typeRef>
+        </itemComponent>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="fetchForexRate" id="id-b7a901cd8a62b411508d6009ad035fa3" label="FetchForexRate">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="isForexRateRequired" id="id-3e59f08bb6f957f7a7397815e0a7e19c" label="IsForexRateRequired">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="assetClass" id="id-633239ed63f2c69580191da436e4799e" label="AssetClass" sigExt:glossaryId="45e7473ce25141ae850a3b5f4faf170f">
+        <typeRef>feel:string</typeRef>
+        <allowedValues>
+            <text>"EQUITIES","DERIVATIVES"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="isForexRateRquired" id="id-f5d6e5f1e9501ebd74b2eaf8185d97b9" label="IsForexRateRquired">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <inputData name="taxChargeType" id="id-7acb1164f0150d3768556594816682ea" label="TaxChargeType" sigExt:shapeId="sid-142C3BE5-CBAD-4FDE-B256-114E217FFDDC" sigExt:diagramId="1b49e2cbacaf470fb5d093be73afd27e">
+        <variable typeRef="sig:taxChargeType" name="taxChargeType" id="id-7acb1164f0150d3768556594816682ea_variable"/>
+    </inputData>
+    <inputData name="derivativeType" id="id-cd18a7511e0016ba97f30d8448473110" label="DerivativeType" sigExt:shapeId="sid-67EA63E3-0F40-42DA-BD7E-9760D9C9937C" sigExt:diagramId="1b49e2cbacaf470fb5d093be73afd27e">
+        <variable typeRef="sig:derivativeType" name="derivativeType" id="id-cd18a7511e0016ba97f30d8448473110_variable"/>
+    </inputData>
+    <inputData name="transaction" id="id-2f33ede6cf73874d2adc0c7b93b1f310" label="Transaction" sigExt:shapeId="sid-7BA09DF1-5D8E-412D-A3F3-072F5005755A" sigExt:diagramId="1b49e2cbacaf470fb5d093be73afd27e">
+        <variable typeRef="sig:transaction" name="transaction" id="id-2f33ede6cf73874d2adc0c7b93b1f310_variable"/>
+    </inputData>
+    <inputData name="transactionTaxMetaData" id="id-891be9d7cc75911daea588a9a342b6af" label="TransactionTaxMetaData" sigExt:shapeId="sid-31E24965-CB4B-4E6C-9471-64CDAF957DAF" sigExt:diagramId="1b49e2cbacaf470fb5d093be73afd27e">
+        <variable typeRef="sig:transactionTaxMetaData" name="transactionTaxMetaData" id="id-891be9d7cc75911daea588a9a342b6af_variable"/>
+    </inputData>
+    <decision name="fetchForexRate" id="id-4f18f3443d3d744beac363432b71a024" label="FetchForexRate" sigExt:shapeId="sid-F740C68E-AC6E-4788-9290-94F1098DEB48" sigExt:diagramId="1b49e2cbacaf470fb5d093be73afd27e">
+        <variable typeRef="sig:fetchForexRate" name="FetchForexRate" id="id-4f18f3443d3d744beac363432b71a024_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-2f33ede6cf73874d2adc0c7b93b1f310"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#id-9bc027574845882aabcbef16b9124927"/>
+        </informationRequirement>
+        <literalExpression expressionLanguage="free_text">
+            <text>function(a:transaction, b:boolean) external {
+java: {
+       class: "com.gs.opstech.rto.tax.transaction_tax.calculator.ForexRateService",
+       methodSignature: "fetchECBForexRateFor(a, b)",
+       returnType : "fetchForexRate"
+}}</text>
+        </literalExpression>
+    </decision>
+    <decision name="isForexRateRequired" id="id-9bc027574845882aabcbef16b9124927" label="IsForexRateRequired" sigExt:shapeId="sid-005E834B-D602-4C88-A803-053528C9DF64" sigExt:diagramId="1b49e2cbacaf470fb5d093be73afd27e">
+        <variable typeRef="sig:isForexRateRequired" name="IsForexRateRequired" id="id-9bc027574845882aabcbef16b9124927_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-891be9d7cc75911daea588a9a342b6af"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-7acb1164f0150d3768556594816682ea"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-cd18a7511e0016ba97f30d8448473110"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="UNIQUE">
+            <input id="id-7596464644518da2f905c43fa604f7a2" label="DerivativeType">
+                <inputExpression>
+                    <text>derivativeType</text>
+                </inputExpression>
+            </input>
+            <input id="id-33593056d440371889135a33673dc5d5" label="TaxChargeType">
+                <inputExpression>
+                    <text>taxChargeType</text>
+                </inputExpression>
+            </input>
+            <input id="id-64ffd1db04e5ff4d1141c1a861f03ec5" label="TaxType">
+                <inputExpression>
+                    <text>transactionTaxMetaData.taxType</text>
+                </inputExpression>
+            </input>
+            <input id="id-a01440325ad8bd2b6346f5a8b7da7b98" label="Jurisdiction">
+                <inputExpression>
+                    <text>transactionTaxMetaData.jurisdiction</text>
+                </inputExpression>
+            </input>
+            <input id="id-8f72af7ec93fc2d8981fd05f454fa861" label="AssetClass">
+                <inputExpression>
+                    <text>transactionTaxMetaData.assetClass</text>
+                </inputExpression>
+            </input>
+            <output name="isForexRateRequired" typeRef="sig:isForexRateRquired" id="id-47b33c472cb67e104c28637db574aecd" label="IsForexRateRequired"/>
+            <rule id="id-876e3aeca5b2b3d308f874b166dca6bb">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>"RIGHTS_WARRANTS"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"2"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"FTT"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"ITALY"</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>"DERIVATIVES"</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>true</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-bebf1a9a874da70a673ea9171e3183e4">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>false</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+</definitions>

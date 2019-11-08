@@ -18,7 +18,6 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
-@Ignore
 public class DecisionTableRDFToDMNTransformerTest extends AbstractRDFToDMNTransformerTest {
     @Override
     protected String getTestFolder() {

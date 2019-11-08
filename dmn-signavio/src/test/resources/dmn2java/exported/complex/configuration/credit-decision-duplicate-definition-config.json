@@ -1,0 +1,27 @@
+{
+  "definitions": {
+    "definition": [
+      {
+        "name": "assessIssue",
+        "type": "feel.number"
+      },
+      {
+        "name": "lendingThreshold",
+        "type": "feel.number"
+      },
+      {
+        "name": "currentRiskAppetite",
+        "type": "feel.number"
+      },
+      {
+        "name": "lendingThreshold",
+        "type": "feel.number"
+      },
+      {
+        "name": "processPriorIssues",
+        "type": "feel.number",
+        "isCollection": "true"
+      }
+    ]
+  }
+}

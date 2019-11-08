@@ -29,7 +29,6 @@ import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 import java.io.File;
 
-@Ignore
 public class SimplifyTypesForMIDTransformerTest extends AbstractFileTransformerTest {
     private final DMNTransformer<TestLab> transformer = new SimplifyTypesForMIDTransformer(LOGGER);
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
@@ -44,9 +43,8 @@ public class SimplifyTypesForMIDTransformerTest extends AbstractFileTransformerT
         // Transform DMN
         File dmnFile = new File(CLASS_LOADER.getResource(path + "IteratorExampleReturningMultiple.dmn").getFile());
         Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(dmnFile);
-        DMNModelRepository repository = new SignavioDMNModelRepository(pair);
-
-        DMNModelRepository actualRepository = transformer.transform(new SignavioDMNModelRepository(repository.getRootDefinitions(), repository.getPrefixNamespaceMappings()));
+        DMNModelRepository repository = new SignavioDMNModelRepository(pair, "http://www.provider.com/schema/dmn/1.1/");
+        DMNModelRepository actualRepository = transformer.transform(repository);
 
         // Check output
         checkDefinitions(actualRepository, "IteratorExampleReturningMultiple.dmn");

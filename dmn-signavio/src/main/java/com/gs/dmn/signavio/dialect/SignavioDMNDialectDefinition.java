@@ -49,15 +49,6 @@ public class SignavioDMNDialectDefinition extends AbstractDMNDialectDefinition {
         return new SignavioDMNInterpreter(createBasicTransformer(repository, new NopLazyEvaluationDetector(), new LinkedHashMap<>()), createFEELLib());
     }
 
-    private DMNModelRepository createModelRepository(DMNModelRepository repository) {
-        if (repository == null) {
-            return new SignavioDMNModelRepository();
-        } else {
-            TDefinitions definitions = repository.getRootDefinitions();
-            return new SignavioDMNModelRepository(definitions, repository.getPrefixNamespaceMappings());
-        }
-    }
-
     @Override
     public DMNToJavaTransformer createDMNToJavaTransformer(DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
         return new SignavioDMNToJavaTransformer(this, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
@@ -66,7 +57,7 @@ public class SignavioDMNDialectDefinition extends AbstractDMNDialectDefinition {
     @Override
     public BasicDMN2JavaTransformer createBasicTransformer(DMNModelRepository repository, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         EnvironmentFactory environmentFactory = createEnvironmentFactory();
-        return new BasicSignavioDMN2JavaTransformer(createModelRepository(repository), environmentFactory, createTypeTranslator(), lazyEvaluationDetector, inputParameters);
+        return new BasicSignavioDMN2JavaTransformer(repository, environmentFactory, createTypeTranslator(), lazyEvaluationDetector, inputParameters);
     }
 
     //

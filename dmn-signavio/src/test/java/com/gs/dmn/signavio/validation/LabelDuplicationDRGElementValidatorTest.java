@@ -29,7 +29,6 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-@Ignore
 public class LabelDuplicationDRGElementValidatorTest extends AbstractFileTransformerTest {
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
     private static final ClassLoader CLASS_LOADER = LabelDuplicationDRGElementValidatorTest.class.getClassLoader();
@@ -48,12 +47,13 @@ public class LabelDuplicationDRGElementValidatorTest extends AbstractFileTransfo
         List<String> actualErrors = validator.validate(repository);
         List<String> expectedErrors = Arrays.asList(
                 "Found 2 Decision with duplicated label 'Assess applicant age'",
-                "Label = 'Assess applicant age' DiagramId = '9acf44f2b05343d79fc35140c493c1e0' shapeId = 'sid-0C363FE4-468D-4273-9416-D1BCACB6248A'",
-                "Label = 'Assess applicant age' DiagramId = 'b4fc99dd0b044cf1b31b6e60d01c50fa' shapeId = 'sid-CB90CCF4-4F53-458D-9574-692EC86300A9'",
+                "Label = 'Assess applicant age' Id = 'id-98f1b72e74edaaae8d7fd9043f7e1bc4'",
+                "Label = 'Assess applicant age' Id = 'id-06eb38446e6385a69e74fcd503660971'",
                 "Found 3 Decision with duplicated label 'Make credit decision'",
-                "Label = 'Make credit decision' DiagramId = '9acf44f2b05343d79fc35140c493c1e0' shapeId = 'sid-31214799-6743-4B69-98A5-8C4D9C1BE010'",
-                "Label = 'Make credit decision' DiagramId = 'b4fc99dd0b044cf1b31b6e60d01c50fa' shapeId = 'sid-B2BA5182-2675-4804-BB0B-F09B7B2F062E'",
-                "Label = 'Make credit decision' DiagramId = 'b4fc99dd0b044cf1b31b6e60d01c50fa' shapeId = 'sid-F398BC97-C058-495D-A3E7-DE6637825589'");
+                "Label = 'Make credit decision' Id = 'id-5b83918d6fc820d73123e7ca0e6d3ca6'",
+                "Label = 'Make credit decision' Id = 'id-53305251d2d6fb14173b439b019adeda'",
+                "Label = 'Make credit decision' Id = 'id-75d5270913befc4881b90708206b1e9e'"
+        );
         assertEquals(expectedErrors, actualErrors);
     }
 

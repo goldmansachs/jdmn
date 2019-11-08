@@ -35,12 +35,6 @@ import java.util.Optional;
 import static com.gs.dmn.serialization.DMNVersion.DMN_12;
 
 public class SignavioExtension {
-    public static final String SIGNAVIO_NS = "http://www.signavio.com/schema/dmn/1.1/";
-
-    private static final String[] prefixes = new String[] {
-            "signavio", "sigExt"
-    };
-
     private final SignavioDMNModelRepository dmnModelRepository;
 
     public SignavioExtension(SignavioDMNModelRepository dmnModelRepository) {
@@ -52,7 +46,7 @@ public class SignavioExtension {
     //
     public TDecisionService referencedService(TBusinessKnowledgeModel bkm) {
         TDMNElement.ExtensionElements extensionElements = bkm.getExtensionElements();
-        List<Object> extensions = findExtensions(extensionElements, SIGNAVIO_NS, "referencedService");
+        List<Object> extensions = findExtensions(extensionElements, dmnModelRepository.getSchemaNamespace(), "referencedService");
         if (extensions.isEmpty()) {
             return null;
         } else {
@@ -95,7 +89,7 @@ public class SignavioExtension {
     //
     public boolean isMultiInstanceDecision(TDRGElement element) {
         try {
-            List<Object> extensions = findExtensions(element.getExtensionElements(), SIGNAVIO_NS, "MultiInstanceDecisionLogic");
+            List<Object> extensions = findExtensions(element.getExtensionElements(), dmnModelRepository.getSchemaNamespace(), "MultiInstanceDecisionLogic");
             return extensions != null && extensions.size() == 1;
         } catch (Exception e) {
             return false;
@@ -103,7 +97,7 @@ public class SignavioExtension {
     }
 
     public MultiInstanceDecisionLogic multiInstanceDecisionLogic(TDRGElement element) {
-        List<Object> extensions = findExtensions(element.getExtensionElements(), SIGNAVIO_NS, "MultiInstanceDecisionLogic");
+        List<Object> extensions = findExtensions(element.getExtensionElements(), dmnModelRepository.getSchemaNamespace(), "MultiInstanceDecisionLogic");
         Element decisionElement = (Element) extensions.get(0);
         String iterationExpression = getElementsByTagName(decisionElement, "iterationExpression").item(0).getTextContent();
         String iteratorShapeId = getElementsByTagName(decisionElement, "iteratorShapeId").item(0).getTextContent();
@@ -185,7 +179,7 @@ public class SignavioExtension {
     }
 
     private NodeList getElementsByTagName(Element element, String tagName) {
-        for(String prefix: prefixes) {
+        for(String prefix: dmnModelRepository.getSchemaPrefixes()) {
             NodeList nodeList = element.getElementsByTagName(String.format("%s:%s", prefix, tagName));
             if (nodeList != null && nodeList.getLength() == 1) {
                 return nodeList;

@@ -20,12 +20,21 @@ import com.gs.dmn.signavio.extension.SignavioExtension;
 import org.omg.spec.dmn._20180521.model.*;
 
 import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
 import java.util.List;
 import java.util.Set;
 
 import static com.gs.dmn.serialization.DMNVersion.DMN_12;
 
 public class SignavioDMNModelRepository extends DMNModelRepository {
+    private String schemaNamespace = "http://www.signavio.com/schema/dmn/1.1/";
+    private String[] schemaPrefixes = new String[] {
+            "signavio", "sigExt"
+    };
+
+    private QName diagramId = new QName(schemaNamespace, "diagramId");
+    private QName shapeId = new QName(schemaNamespace, "shapeId");
+
     public final SignavioExtension extension = new SignavioExtension(this);
 
     public SignavioDMNModelRepository() {
@@ -45,6 +54,29 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
                 this.addElementMap((TDecisionService)value, definitions);
             }
         }
+    }
+
+    public SignavioDMNModelRepository(Pair<TDefinitions, PrefixNamespaceMappings> pair, String schemaNamespace) {
+        this(pair);
+        this.schemaNamespace = schemaNamespace;
+        this.diagramId = new QName(schemaNamespace, "diagramId");
+        this.shapeId = new QName(schemaNamespace, "shapeId");
+    }
+
+    public String getSchemaNamespace() {
+        return schemaNamespace;
+    }
+
+    public String[] getSchemaPrefixes() {
+        return schemaPrefixes;
+    }
+
+    public QName getDiagramIdQName() {
+        return diagramId;
+    }
+
+    public QName getShapeIdQName() {
+        return shapeId;
     }
 
     public SignavioExtension getExtension() {

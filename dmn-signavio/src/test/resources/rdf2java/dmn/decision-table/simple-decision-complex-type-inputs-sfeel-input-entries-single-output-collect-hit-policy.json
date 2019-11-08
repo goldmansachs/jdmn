@@ -1,0 +1,304 @@
+{
+  "inputParameterDefinitions": [
+    {
+      "id": "bd1194901b2149b8a8251ab2cc298992/sid-B180B170-4226-4CB8-B6EE-51D4307DCA61",
+      "modelName": "simple-decision-complex-type-inputs-sfeel-input-entries-single-output-collect-hit-policy",
+      "requirementName": "Employed"
+    },
+    {
+      "id": "bd1194901b2149b8a8251ab2cc298992/sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264",
+      "modelName": "simple-decision-complex-type-inputs-sfeel-input-entries-single-output-collect-hit-policy",
+      "requirementName": "Person"
+    }
+  ],
+  "outputParameterDefinitions": [
+    {
+      "id": "bd1194901b2149b8a8251ab2cc298992/sid-C52224F3-4EC1-4AAC-88AE-F5F51F285ED0",
+      "modelName": "simple-decision-complex-type-inputs-sfeel-input-entries-single-output-collect-hit-policy",
+      "requirementName": "Decision"
+    }
+  ],
+  "testCases": [
+    {
+      "inputValues": [
+        {
+          "type": "boolean",
+          "value": null
+        },
+        {
+          "type": "complex",
+          "slots": [
+            {
+              "id": "0",
+              "name": "firstName",
+              "value": {
+                "type": "string",
+                "value": null
+              }
+            },
+            {
+              "id": "1",
+              "name": "lastName",
+              "value": {
+                "type": "string",
+                "value": null
+              }
+            },
+            {
+              "id": "2",
+              "name": "id",
+              "value": {
+                "type": "number",
+                "value": null
+              }
+            },
+            {
+              "id": "3",
+              "name": "gender",
+              "value": {
+                "type": "enumeration",
+                "value": null,
+                "name": null
+              }
+            },
+            {
+              "id": "4",
+              "name": "dateOfBirth",
+              "value": {
+                "type": "date",
+                "value": null
+              }
+            },
+            {
+              "id": "5",
+              "name": "timeOfBirth",
+              "value": {
+                "type": "time",
+                "value": null
+              }
+            },
+            {
+              "id": "6",
+              "name": "dateTimeOfBirth",
+              "value": {
+                "type": "datetime",
+                "value": null
+              }
+            },
+            {
+              "id": "7",
+              "name": "list",
+              "value": {
+                "type": "list",
+                "value": []
+              }
+            },
+            {
+              "id": "8",
+              "name": "married",
+              "value": {
+                "type": "boolean",
+                "value": null
+              }
+            }
+          ]
+        }
+      ],
+      "expectedValues": [
+        {
+          "type": "list",
+          "value": []
+        }
+      ]
+    },
+    {
+      "inputValues": [
+        {
+          "type": "boolean",
+          "value": true
+        },
+        {
+          "type": "complex",
+          "slots": [
+            {
+              "id": "0",
+              "name": "firstName",
+              "value": {
+                "type": "string",
+                "value": "John"
+              }
+            },
+            {
+              "id": "1",
+              "name": "lastName",
+              "value": {
+                "type": "string",
+                "value": "Smith"
+              }
+            },
+            {
+              "id": "2",
+              "name": "id",
+              "value": {
+                "type": "number",
+                "value": 1
+              }
+            },
+            {
+              "id": "3",
+              "name": "gender",
+              "value": {
+                "type": "enumeration",
+                "value": "0",
+                "name": "male"
+              }
+            },
+            {
+              "id": "4",
+              "name": "dateOfBirth",
+              "value": {
+                "type": "date",
+                "value": "2016-11-01"
+              }
+            },
+            {
+              "id": "5",
+              "name": "timeOfBirth",
+              "value": {
+                "type": "time",
+                "value": null
+              }
+            },
+            {
+              "id": "6",
+              "name": "dateTimeOfBirth",
+              "value": {
+                "type": "datetime",
+                "value": null
+              }
+            },
+            {
+              "id": "7",
+              "name": "list",
+              "value": {
+                "type": "list",
+                "value": []
+              }
+            },
+            {
+              "id": "8",
+              "name": "married",
+              "value": {
+                "type": "boolean",
+                "value": true
+              }
+            }
+          ]
+        }
+      ],
+      "expectedValues": [
+        {
+          "type": "list",
+          "value": []
+        }
+      ]
+    },
+    {
+      "inputValues": [
+        {
+          "type": "boolean",
+          "value": true
+        },
+        {
+          "type": "complex",
+          "slots": [
+            {
+              "id": "0",
+              "name": "firstName",
+              "value": {
+                "type": "string",
+                "value": "Peter"
+              }
+            },
+            {
+              "id": "1",
+              "name": "lastName",
+              "value": {
+                "type": "string",
+                "value": "Sellers"
+              }
+            },
+            {
+              "id": "2",
+              "name": "id",
+              "value": {
+                "type": "number",
+                "value": 4
+              }
+            },
+            {
+              "id": "3",
+              "name": "gender",
+              "value": {
+                "type": "enumeration",
+                "value": "0",
+                "name": "male"
+              }
+            },
+            {
+              "id": "4",
+              "name": "dateOfBirth",
+              "value": {
+                "type": "date",
+                "value": "2016-10-01"
+              }
+            },
+            {
+              "id": "5",
+              "name": "timeOfBirth",
+              "value": {
+                "type": "time",
+                "value": "T01:00:00+00:00"
+              }
+            },
+            {
+              "id": "6",
+              "name": "dateTimeOfBirth",
+              "value": {
+                "type": "datetime",
+                "value": "2016-10-01T01:00:00+01:00"
+              }
+            },
+            {
+              "id": "7",
+              "name": "list",
+              "value": {
+                "type": "list",
+                "value": [
+                  {
+                    "type": "string",
+                    "value": "abc"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "8",
+              "name": "married",
+              "value": {
+                "type": "boolean",
+                "value": false
+              }
+            }
+          ]
+        }
+      ],
+      "expectedValues": [
+        {
+          "type": "list",
+          "value": []
+        }
+      ]
+    }
+  ]
+}

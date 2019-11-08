@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.provider.com/dmn/1.1/diagram/bf9e1e5a0be94a8c9d4ff786d99acc08.xml" exporterVersion="10.3.3-gs" name="simple-decision-free-text-boolean-literal-expression" id="id-1fdd69816fea4bc0b99635fb043977ef" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:signavio="http://www.provider.com/schema/dmn/1.1/">
+    <itemDefinition isCollection="false" name="numberInput" id="diagram-bf9e1e5a0be94a8c9d4ff786d99acc08-itemDefinition-sid-4657A97A-419B-4840-B8CA-9EA10827657F" label="NumberInput">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="enumerationInput" id="diagram-bf9e1e5a0be94a8c9d4ff786d99acc08-itemDefinition-sid-26EA5751-0546-4206-B549-F5EA641AFC98" label="EnumerationInput">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:string</typeRef>
+        <allowedValues>
+            <text>"E1","E2","E3"</text>
+        </allowedValues>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="decision" id="diagram-bf9e1e5a0be94a8c9d4ff786d99acc08-itemDefinition-sid-499DBFB1-F584-4B70-8B41-F00CC0810584" label="Decision">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="dateInput" id="diagram-bf9e1e5a0be94a8c9d4ff786d99acc08-itemDefinition-sid-A1FC6D04-6C80-46D7-902E-FD9F9B80DEDC" label="DateInput">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:date</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="stringInput" id="diagram-bf9e1e5a0be94a8c9d4ff786d99acc08-itemDefinition-sid-8D942955-A64E-461F-A4A7-41487C9F6D7A" label="StringInput">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="booleanInput" id="diagram-bf9e1e5a0be94a8c9d4ff786d99acc08-itemDefinition-sid-F533656C-76C6-4D10-9786-7FE2A4E9141A" label="BooleanInput">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:boolean</typeRef>
+    </itemDefinition>
+    <inputData name="stringInput" id="diagram-bf9e1e5a0be94a8c9d4ff786d99acc08-inputdata-sid-8D942955-A64E-461F-A4A7-41487C9F6D7A" label="StringInput">
+        <variable typeRef="stringInput" name="stringInput" id="diagram-bf9e1e5a0be94a8c9d4ff786d99acc08-inputdata-sid-8D942955-A64E-461F-A4A7-41487C9F6D7A_variable"/>
+    </inputData>
+    <inputData name="dateInput" id="diagram-bf9e1e5a0be94a8c9d4ff786d99acc08-inputdata-sid-A1FC6D04-6C80-46D7-902E-FD9F9B80DEDC" label="DateInput">
+        <variable typeRef="dateInput" name="dateInput" id="diagram-bf9e1e5a0be94a8c9d4ff786d99acc08-inputdata-sid-A1FC6D04-6C80-46D7-902E-FD9F9B80DEDC_variable"/>
+    </inputData>
+    <inputData name="booleanInput" id="diagram-bf9e1e5a0be94a8c9d4ff786d99acc08-inputdata-sid-F533656C-76C6-4D10-9786-7FE2A4E9141A" label="BooleanInput">
+        <variable typeRef="booleanInput" name="booleanInput" id="diagram-bf9e1e5a0be94a8c9d4ff786d99acc08-inputdata-sid-F533656C-76C6-4D10-9786-7FE2A4E9141A_variable"/>
+    </inputData>
+    <inputData name="numberInput" id="diagram-bf9e1e5a0be94a8c9d4ff786d99acc08-inputdata-sid-4657A97A-419B-4840-B8CA-9EA10827657F" label="NumberInput">
+        <variable typeRef="numberInput" name="numberInput" id="diagram-bf9e1e5a0be94a8c9d4ff786d99acc08-inputdata-sid-4657A97A-419B-4840-B8CA-9EA10827657F_variable"/>
+    </inputData>
+    <inputData name="enumerationInput" id="diagram-bf9e1e5a0be94a8c9d4ff786d99acc08-inputdata-sid-26EA5751-0546-4206-B549-F5EA641AFC98" label="EnumerationInput">
+        <variable typeRef="enumerationInput" name="enumerationInput" id="diagram-bf9e1e5a0be94a8c9d4ff786d99acc08-inputdata-sid-26EA5751-0546-4206-B549-F5EA641AFC98_variable"/>
+    </inputData>
+    <decision name="decision" id="diagram-bf9e1e5a0be94a8c9d4ff786d99acc08-decision-sid-499DBFB1-F584-4B70-8B41-F00CC0810584" label="Decision">
+        <variable typeRef="decision" name="decision" id="diagram-bf9e1e5a0be94a8c9d4ff786d99acc08-decision-sid-499DBFB1-F584-4B70-8B41-F00CC0810584_variable"/>
+        <informationRequirement>
+            <requiredInput href="#diagram-bf9e1e5a0be94a8c9d4ff786d99acc08-inputdata-sid-8D942955-A64E-461F-A4A7-41487C9F6D7A"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#diagram-bf9e1e5a0be94a8c9d4ff786d99acc08-inputdata-sid-F533656C-76C6-4D10-9786-7FE2A4E9141A"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#diagram-bf9e1e5a0be94a8c9d4ff786d99acc08-inputdata-sid-4657A97A-419B-4840-B8CA-9EA10827657F"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#diagram-bf9e1e5a0be94a8c9d4ff786d99acc08-inputdata-sid-A1FC6D04-6C80-46D7-902E-FD9F9B80DEDC"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#diagram-bf9e1e5a0be94a8c9d4ff786d99acc08-inputdata-sid-26EA5751-0546-4206-B549-F5EA641AFC98"/>
+        </informationRequirement>
+        <literalExpression expressionLanguage="free_text">
+            <text>true and booleanInput</text>
+        </literalExpression>
+    </decision>
+</definitions>

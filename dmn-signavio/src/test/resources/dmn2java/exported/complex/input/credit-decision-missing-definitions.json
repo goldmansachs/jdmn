@@ -1,0 +1,261 @@
+{
+  "inputParameterDefinitions" : [ {
+    "id" : "ae3c0e4e8dab4f8fb28dd36f96c934a1/sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
+    "shapeId" : "sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
+    "diagramId" : "ae3c0e4e8dab4f8fb28dd36f96c934a1",
+    "modelName" : "Example credit decision",
+    "requirementName" : "Current risk appetite"
+  }, {
+    "id" : "ae3c0e4e8dab4f8fb28dd36f96c934a1/sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
+    "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
+    "diagramId" : "ae3c0e4e8dab4f8fb28dd36f96c934a1",
+    "modelName" : "Example credit decision",
+    "requirementName" : "Applicant"
+  }, {
+    "id" : "ae3c0e4e8dab4f8fb28dd36f96c934a1/sid-6CFB0C31-B181-4606-BE51-1960E8B86487",
+    "shapeId" : "sid-6CFB0C31-B181-4606-BE51-1960E8B86487",
+    "diagramId" : "ae3c0e4e8dab4f8fb28dd36f96c934a1",
+    "modelName" : "Example credit decision",
+    "requirementName" : "Lending threshold"
+  } ],
+  "outputParameterDefinitions" : [ {
+    "id" : "ae3c0e4e8dab4f8fb28dd36f96c934a1/sid-8DBE416B-B1CA-43EC-BFE6-7D5DFA296EB6",
+    "shapeId" : "sid-8DBE416B-B1CA-43EC-BFE6-7D5DFA296EB6",
+    "diagramId" : "ae3c0e4e8dab4f8fb28dd36f96c934a1",
+    "modelName" : "Example credit decision",
+    "requirementName" : "Example Credit Decision Output"
+  } ],
+  "testCases" : [ {
+    "inputValues" : [ {
+      "type" : "number",
+      "value" : 1
+    }, {
+      "type" : "complex",
+      "slots" : [ {
+        "id" : "0",
+        "name" : "Name",
+        "value" : {
+          "type" : "string",
+          "value" : "Amy"
+        }
+      }, {
+        "id" : "1",
+        "name" : "Age",
+        "value" : {
+          "type" : "number",
+          "value" : 30
+        }
+      }, {
+        "id" : "2",
+        "name" : "Credit score",
+        "value" : {
+          "type" : "number",
+          "value" : 80
+        }
+      }, {
+        "id" : "4",
+        "name" : "Prior issues",
+        "value" : {
+          "type" : "list",
+          "value" : [ {
+            "type" : "enumeration",
+            "value" : "1",
+            "name" : "Late payment"
+          }, {
+            "type" : "enumeration",
+            "value" : "0",
+            "name" : "Card rejection"
+          } ]
+        }
+      } ]
+    }, {
+      "type" : "number",
+      "value" : 55
+    } ],
+    "expectedValues" : [ {
+      "type" : "list",
+      "value" : [ {
+        "type" : "complex",
+        "slots" : [ {
+          "id" : "Decision",
+          "name" : "Decision",
+          "value" : {
+            "type" : "enumeration",
+            "value" : "0",
+            "name" : "Accept"
+          }
+        }, {
+          "id" : "Assessment",
+          "name" : "Assessment",
+          "value" : {
+            "type" : "number",
+            "value" : 5
+          }
+        }, {
+          "id" : "Issue",
+          "name" : "Issue",
+          "value" : {
+            "type" : "number",
+            "value" : 0
+          }
+        } ]
+      } ]
+    } ]
+  }, {
+    "inputValues" : [ {
+      "type" : "number",
+      "value" : 0.1
+    }, {
+      "type" : "complex",
+      "slots" : [ {
+        "id" : "0",
+        "name" : "Name",
+        "value" : {
+          "type" : "string",
+          "value" : "Bill"
+        }
+      }, {
+        "id" : "1",
+        "name" : "Age",
+        "value" : {
+          "type" : "number",
+          "value" : 18
+        }
+      }, {
+        "id" : "2",
+        "name" : "Credit score",
+        "value" : {
+          "type" : "number",
+          "value" : 65
+        }
+      }, {
+        "id" : "4",
+        "name" : "Prior issues",
+        "value" : {
+          "type" : "list",
+          "value" : [ {
+            "type" : "enumeration",
+            "value" : "0",
+            "name" : "Card rejection"
+          }, {
+            "type" : "enumeration",
+            "value" : "2",
+            "name" : "Default on obligations"
+          } ]
+        }
+      } ]
+    }, {
+      "type" : "number",
+      "value" : 25
+    } ],
+    "expectedValues" : [ {
+      "type" : "list",
+      "value" : [ {
+        "type" : "complex",
+        "slots" : [ {
+          "id" : "Decision",
+          "name" : "Decision",
+          "value" : {
+            "type" : "enumeration",
+            "value" : "2",
+            "name" : "Reject"
+          }
+        }, {
+          "id" : "Assessment",
+          "name" : "Assessment",
+          "value" : {
+            "type" : "number",
+            "value" : -30
+          }
+        }, {
+          "id" : "Issue",
+          "name" : "Issue",
+          "value" : {
+            "type" : "number",
+            "value" : -45
+          }
+        } ]
+      } ]
+    } ]
+  }, {
+    "inputValues" : [ {
+      "type" : "number",
+      "value" : 0.5
+    }, {
+      "type" : "complex",
+      "slots" : [ {
+        "id" : "0",
+        "name" : "Name",
+        "value" : {
+          "type" : "string",
+          "value" : "Charlie"
+        }
+      }, {
+        "id" : "1",
+        "name" : "Age",
+        "value" : {
+          "type" : "number",
+          "value" : 65
+        }
+      }, {
+        "id" : "2",
+        "name" : "Credit score",
+        "value" : {
+          "type" : "number",
+          "value" : 110
+        }
+      }, {
+        "id" : "4",
+        "name" : "Prior issues",
+        "value" : {
+          "type" : "list",
+          "value" : [ {
+            "type" : "enumeration",
+            "value" : "1",
+            "name" : "Late payment"
+          }, {
+            "type" : "enumeration",
+            "value" : "2",
+            "name" : "Default on obligations"
+          }, {
+            "type" : "enumeration",
+            "value" : "3",
+            "name" : "Bankruptcy"
+          } ]
+        }
+      } ]
+    }, {
+      "type" : "number",
+      "value" : 25
+    } ],
+    "expectedValues" : [ {
+      "type" : "list",
+      "value" : [ {
+        "type" : "complex",
+        "slots" : [ {
+          "id" : "Decision",
+          "name" : "Decision",
+          "value" : {
+            "type" : "enumeration",
+            "value" : "2",
+            "name" : "Reject"
+          }
+        }, {
+          "id" : "Assessment",
+          "name" : "Assessment",
+          "value" : {
+            "type" : "number",
+            "value" : -42.5
+          }
+        }, {
+          "id" : "Issue",
+          "name" : "Issue",
+          "value" : {
+            "type" : "number",
+            "value" : -77.5
+          }
+        } ]
+      } ]
+    } ]
+  } ]
+}

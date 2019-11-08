@@ -17,6 +17,7 @@ import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.expression.*;
 import com.gs.dmn.signavio.transformation.BasicSignavioDMN2JavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
@@ -35,9 +36,6 @@ import java.util.stream.Collectors;
 public class TestLabUtil {
     protected static final Logger LOGGER = LoggerFactory.getLogger(TestLabUtil.class);
 
-    private static final String SIGNAVIO_NS = "http://www.signavio.com/schema/dmn/1.1/";
-    public static final QName DIAGRAM_ID = new QName(SIGNAVIO_NS, "diagramId");
-    public static final QName SHAPE_ID = new QName(SIGNAVIO_NS, "shapeId");
     private final BasicDMN2JavaTransformer dmnTransformer;
     private final Map<String, TDRGElement> cache = new LinkedHashMap<>();
 
@@ -349,7 +347,8 @@ public class TestLabUtil {
                 result = elements.get(0);
             } else {
                 List<TDRGElement> sameShapeIdElements = elements.stream().filter(e -> sameShapeId(e, shapeId)).collect(Collectors.toList());
-                String newDiagramID = elements.stream().filter(e -> sameShapeId(e, shapeId)).map(e -> e.getOtherAttributes().get(DIAGRAM_ID)).collect(Collectors.joining(", "));
+                QName diagramQName = ((SignavioDMNModelRepository)dmnTransformer.getDMNModelRepository()).getDiagramIdQName();
+                String newDiagramID = elements.stream().filter(e -> sameShapeId(e, shapeId)).map(e -> e.getOtherAttributes().get(diagramQName)).collect(Collectors.joining(", "));
                 if (sameShapeIdElements.size() == 1) {
                     LOGGER.warn(String.format("Incorrect diagramId for test input with label '%s' diagramId='%s' shapeId='%s'. DiagramId should be '%s'", label, diagramId, shapeId, newDiagramID));
                     result = sameShapeIdElements.get(0);
@@ -375,7 +374,8 @@ public class TestLabUtil {
             return false;
         }
         Map<QName, String> otherAttributes = element.getOtherAttributes();
-        String shapeId = otherAttributes.get(DIAGRAM_ID);
+        QName diagramIdQName = ((SignavioDMNModelRepository) this.dmnTransformer.getDMNModelRepository()).getDiagramIdQName();
+        String shapeId = otherAttributes.get(diagramIdQName);
         return id.equals(shapeId);
     }
 
@@ -384,7 +384,8 @@ public class TestLabUtil {
             return false;
         }
         Map<QName, String> otherAttributes = element.getOtherAttributes();
-        String shapeId = otherAttributes.get(SHAPE_ID);
+        QName shapeIdQName = ((SignavioDMNModelRepository) this.dmnTransformer.getDMNModelRepository()).getShapeIdQName();
+        String shapeId = otherAttributes.get(shapeIdQName);
         return id.equals(shapeId);
     }
 

@@ -28,16 +28,6 @@ public class FromRDFComplexDMNToJavaTransformerTest extends AbstractSignavioDMNT
     }
 
     @Test
-    public void testCipRequirement() throws Exception {
-        doTest("CIP Requirements Exception based Test");
-    }
-
-    @Test
-    public void testClientLevel() throws Exception {
-        doTest("Client Level Requirement Rules Test");
-    }
-
-    @Test
     public void testNPEValidation2() throws Exception {
         doTest("NPEValidation2");
     }
