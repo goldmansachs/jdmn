@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:cip="http://www.gs.com/cip" namespace="http://www.omg.org/spec/DMN/20151101/dmn.xsd" name="NPEValidation2">
+    <itemDefinition isCollection="false" name="generateTemporalObjects" id="item-definition-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767" label="generateTemporalObjects">
+        <itemComponent isCollection="false" name="date" id="item-definition-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767-E9BD5C28-E92A-4BC5-BC7E-49327A0EE1F2" label="date">
+            <typeRef>feel:date</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="datetime" id="item-definition-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767-EFD96D34-5FD3-4E2A-93D4-FBBB037E3EB6" label="datetime">
+            <typeRef>feel:datetime</typeRef>
+        </itemComponent>
+    </itemDefinition>
+    <itemDefinition isCollection="true" name="temporalDiffs" id="item-definition-sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12" label="temporalDiffs">
+        <itemComponent isCollection="false" name="dateDiff" id="item-definition-sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12-8B4B1873-E167-4850-8046-288DF48F5F0C" label="dateDiff">
+            <typeRef>feel:number</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="dateTimeDiff" id="item-definition-sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12-8BFCCBC6-9B20-456E-A18F-45DD04BA64F8" label="dateTimeDiff">
+            <typeRef>feel:number</typeRef>
+        </itemComponent>
+    </itemDefinition>
+    <itemDefinition isCollection="true" name="accessCertainTemporalUnits" id="item-definition-sid-613407DB-766F-458F-8430-6F31DDFD82B1" label="accessCertainTemporalUnits">
+        <typeRef>feel:number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="true" name="zip" id="item-definition-sid-DB470E83-401F-4E28-BCA7-8E8FA641E93F" label="zip">
+        <itemComponent isCollection="false" name="names" id="names" label="names">
+            <typeRef>feel:string</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="ages" id="ages" label="ages">
+            <typeRef>feel:number</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="dateDiffs" id="dateDiffs" label="dateDiffs">
+            <typeRef>feel:number</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="dateTimeDiffs" id="dateTimeDiffs" label="dateTimeDiffs">
+            <typeRef>feel:number</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="temporalUnits" id="temporalUnits" label="temporalUnits">
+            <typeRef>feel:number</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="agesListDescription" id="agesListDescription" label="agesListDescription">
+            <typeRef>feel:string</typeRef>
+        </itemComponent>
+    </itemDefinition>
+    <itemDefinition isCollection="true" name="describeAgesList" id="item-definition-sid-646B21D4-0CD2-48E1-98EE-DF09F8F2993B" label="describeAgesList">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="negateSecond" id="item-definition-sid-955F0BB7-C215-4403-B055-AC3814C6764E" label="negateSecond">
+        <typeRef>feel:number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="noRuleMatchesSingleHit" id="item-definition-sid-DEE756F7-83CB-4493-9004-F943DB18EF5D" label="noRuleMatchesSingleHit">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="buildDateStringInAnnotation" id="item-definition-sid-FE7B81A7-CACD-434C-BE9D-81FF98769536" label="buildDateStringInAnnotation">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="true" name="noRuleMatchesMultiHit" id="item-definition-sid-AEACF1C7-512D-4230-96A8-AC49528D080C" label="noRuleMatchesMultiHit">
+        <typeRef>feel:boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="second" id="item-definition-sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9" label="second">
+        <typeRef>feel:number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="minute" id="item-definition-sid-63B08562-861C-40D7-BE83-710748DD1C0F" label="minute">
+        <typeRef>feel:number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="hour" id="item-definition-sid-E84C6443-C574-46D2-ACE6-7C04E9570047" label="hour">
+        <typeRef>feel:number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="day" id="item-definition-sid-76B31FC4-A5D7-48A6-BD27-BD85D9739FFA" label="day">
+        <typeRef>feel:number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="month" id="item-definition-sid-54C8F12C-6DF1-462C-8FF7-EE7A6C8C2BB9" label="month">
+        <typeRef>feel:number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="year" id="item-definition-sid-C8EE5C3A-1C1C-42D7-B596-92E4DA21A125" label="year">
+        <typeRef>feel:number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="true" name="names" id="item-definition-sid-9C64E736-E1EB-4344-93B5-79722CEB6D89" label="names">
+        <typeRef>feel:string</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="true" name="ages" id="item-definition-sid-3C16E501-7619-4B2F-9770-7E1A7F66A33D" label="ages">
+        <typeRef>feel:number</typeRef>
+    </itemDefinition>
+    <decision name="generateTemporalObjects" id="sid-6BEA84C5-B6D6-4823-B145-CC9039E79767" label="generateTemporalObjects">
+        <variable typeRef="cip:generateTemporalObjects" name="generateTemporalObjects" id="decision-variable-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767" label="generateTemporalObjects"/>
+        <informationRequirement>
+            <requiredInput href="sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="sid-E84C6443-C574-46D2-ACE6-7C04E9570047"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="sid-76B31FC4-A5D7-48A6-BD27-BD85D9739FFA"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="sid-54C8F12C-6DF1-462C-8FF7-EE7A6C8C2BB9"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="sid-C8EE5C3A-1C1C-42D7-B596-92E4DA21A125"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="sid-63B08562-861C-40D7-BE83-710748DD1C0F"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="UNIQUE" id="decision-expression-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767">
+            <input id="input-clause-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767-672A57C7-2000-4469-B748-D6F32C9E8367">
+                <inputExpression typeRef="cip:second" id="input-clause-exp-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767-672A57C7-2000-4469-B748-D6F32C9E8367">
+                    <text>second</text>
+                </inputExpression>
+            </input>
+            <input id="input-clause-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767-08A9F511-7C4C-4C4E-ADA7-9D29C6370A75">
+                <inputExpression typeRef="cip:minute" id="input-clause-exp-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767-08A9F511-7C4C-4C4E-ADA7-9D29C6370A75">
+                    <text>minute</text>
+                </inputExpression>
+            </input>
+            <input id="input-clause-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767-3F98D318-3CB1-48E5-9846-6A92EC41F2C7">
+                <inputExpression typeRef="cip:hour" id="input-clause-exp-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767-3F98D318-3CB1-48E5-9846-6A92EC41F2C7">
+                    <text>hour</text>
+                </inputExpression>
+            </input>
+            <input id="input-clause-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767-E38D3A7D-3F45-461F-B960-661CAE283ADF">
+                <inputExpression typeRef="cip:day" id="input-clause-exp-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767-E38D3A7D-3F45-461F-B960-661CAE283ADF">
+                    <text>day</text>
+                </inputExpression>
+            </input>
+            <input id="input-clause-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767-76192386-6121-42C9-8C10-E73BB0F43C2F">
+                <inputExpression typeRef="cip:month" id="input-clause-exp-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767-76192386-6121-42C9-8C10-E73BB0F43C2F">
+                    <text>month</text>
+                </inputExpression>
+            </input>
+            <input id="input-clause-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767-C17C1E54-5B11-493D-BA59-891D6BA2E839">
+                <inputExpression typeRef="cip:year" id="input-clause-exp-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767-C17C1E54-5B11-493D-BA59-891D6BA2E839">
+                    <text>year</text>
+                </inputExpression>
+            </input>
+            <output name="date" typeRef="feel:date" id="output-clause-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767-E9BD5C28-E92A-4BC5-BC7E-49327A0EE1F2" label="date"/>
+            <output name="datetime" typeRef="feel:datetime" id="output-clause-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767-EFD96D34-5FD3-4E2A-93D4-FBBB037E3EB6" label="datetime"/>
+            <rule id="rule-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767-1704">
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>date(year, month, day)</text>
+                </outputEntry>
+                <outputEntry>
+                    <text>dateTime(day, month, year, hour, minute, second)</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="temporalDiffs" id="sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12" label="temporalDiffs">
+        <variable typeRef="cip:temporalDiffs" name="temporalDiffs" id="decision-variable-sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12" label="temporalDiffs"/>
+        <informationRequirement>
+            <requiredDecision href="sid-6BEA84C5-B6D6-4823-B145-CC9039E79767"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="COLLECT" id="decision-expression-sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12">
+            <input id="input-clause-sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12-A69978A8-980F-4EB6-ACBB-54CC270812A3">
+                <inputExpression typeRef="cip:generateTemporalObjects" id="input-clause-exp-sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12-A69978A8-980F-4EB6-ACBB-54CC270812A3">
+                    <text>generateTemporalObjects.date</text>
+                </inputExpression>
+            </input>
+            <input id="input-clause-sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12-A84B6219-B595-41F5-A60A-A96F735B7576">
+                <inputExpression typeRef="cip:generateTemporalObjects" id="input-clause-exp-sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12-A84B6219-B595-41F5-A60A-A96F735B7576">
+                    <text>generateTemporalObjects.datetime</text>
+                </inputExpression>
+            </input>
+            <output name="dateDiff" typeRef="feel:number" id="output-clause-sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12-8B4B1873-E167-4850-8046-288DF48F5F0C" label="dateDiff"/>
+            <output name="dateTimeDiff" typeRef="feel:number" id="output-clause-sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12-8BFCCBC6-9B20-456E-A18F-45DD04BA64F8" label="dateTimeDiff"/>
+            <rule id="rule-sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12-3669">
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>dayDiff(generateTemporalObjects.date, generateTemporalObjects.date)</text>
+                </outputEntry>
+                <outputEntry>
+                    <text>minutesDiff(generateTemporalObjects.datetime, generateTemporalObjects.datetime)</text>
+                </outputEntry>
+            </rule>
+            <rule id="rule-sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12-3738">
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>monthDiff(generateTemporalObjects.date, generateTemporalObjects.date)</text>
+                </outputEntry>
+                <outputEntry>
+                    <text>hourDiff(generateTemporalObjects.datetime, generateTemporalObjects.datetime)</text>
+                </outputEntry>
+            </rule>
+            <rule id="rule-sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12-3742">
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>yearDiff(generateTemporalObjects.date, generateTemporalObjects.date)</text>
+                </outputEntry>
+                <outputEntry>
+                    <text>minutesDiff(generateTemporalObjects.datetime, generateTemporalObjects.datetime)</text>
+                </outputEntry>
+            </rule>
+            <rule id="rule-sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12-1907">
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>dayDiff(generateTemporalObjects.date, date(2016, 1, 1))</text>
+                </outputEntry>
+                <outputEntry>
+                    <text>hourDiff(generateTemporalObjects.datetime, dateTime(1, 1, 2016, 11, 11, 11))</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="accessCertainTemporalUnits" id="sid-613407DB-766F-458F-8430-6F31DDFD82B1" label="accessCertainTemporalUnits">
+        <variable typeRef="cip:accessCertainTemporalUnits" name="accessCertainTemporalUnits" id="decision-variable-sid-613407DB-766F-458F-8430-6F31DDFD82B1" label="accessCertainTemporalUnits"/>
+        <informationRequirement>
+            <requiredDecision href="sid-6BEA84C5-B6D6-4823-B145-CC9039E79767"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="COLLECT" id="decision-expression-sid-613407DB-766F-458F-8430-6F31DDFD82B1">
+            <input id="input-clause-sid-613407DB-766F-458F-8430-6F31DDFD82B1-722A2E5C-248E-4CE4-B787-62663762B10F">
+                <inputExpression typeRef="cip:generateTemporalObjects" id="input-clause-exp-sid-613407DB-766F-458F-8430-6F31DDFD82B1-722A2E5C-248E-4CE4-B787-62663762B10F">
+                    <text>generateTemporalObjects.date</text>
+                </inputExpression>
+            </input>
+            <input id="input-clause-sid-613407DB-766F-458F-8430-6F31DDFD82B1-74BC614E-385C-4498-A3CE-B80FA4B9B9BA">
+                <inputExpression typeRef="cip:generateTemporalObjects" id="input-clause-exp-sid-613407DB-766F-458F-8430-6F31DDFD82B1-74BC614E-385C-4498-A3CE-B80FA4B9B9BA">
+                    <text>generateTemporalObjects.datetime</text>
+                </inputExpression>
+            </input>
+            <output name="value" typeRef="feel:number" id="output-clause-sid-613407DB-766F-458F-8430-6F31DDFD82B1-59C87491-9F18-417B-93A4-9266DECA3E51" label="accessCertainTemporalUnits"/>
+            <rule id="rule-sid-613407DB-766F-458F-8430-6F31DDFD82B1-1626">
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>month(generateTemporalObjects.date)</text>
+                </outputEntry>
+            </rule>
+            <rule id="rule-sid-613407DB-766F-458F-8430-6F31DDFD82B1-1683">
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>year(generateTemporalObjects.date)</text>
+                </outputEntry>
+            </rule>
+            <rule id="rule-sid-613407DB-766F-458F-8430-6F31DDFD82B1-1684">
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>weekday(generateTemporalObjects.date)</text>
+                </outputEntry>
+            </rule>
+            <rule id="rule-sid-613407DB-766F-458F-8430-6F31DDFD82B1-3477">
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>day(generateTemporalObjects.date)</text>
+                </outputEntry>
+            </rule>
+            <rule id="rule-sid-613407DB-766F-458F-8430-6F31DDFD82B1-3478">
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>minute(generateTemporalObjects.datetime)</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="zip" id="sid-DB470E83-401F-4E28-BCA7-8E8FA641E93F" label="zip">
+        <variable typeRef="cip:zip" name="zip" id="decision-variable-sid-DB470E83-401F-4E28-BCA7-8E8FA641E93F" label="zip"/>
+        <informationRequirement>
+            <requiredInput href="sid-9C64E736-E1EB-4344-93B5-79722CEB6D89"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="sid-3C16E501-7619-4B2F-9770-7E1A7F66A33D"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="sid-613407DB-766F-458F-8430-6F31DDFD82B1"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="sid-646B21D4-0CD2-48E1-98EE-DF09F8F2993B"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="sid-955F0BB7-C215-4403-B055-AC3814C6764E"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="sid-DEE756F7-83CB-4493-9004-F943DB18EF5D"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="sid-AEACF1C7-512D-4230-96A8-AC49528D080C"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="sid-FE7B81A7-CACD-434C-BE9D-81FF98769536"/>
+        </informationRequirement>
+        <literalExpression id="decision-expression-sid-DB470E83-401F-4E28-BCA7-8E8FA641E93F">
+            <text>zip(["names", "ages", "dateDiffs", "dateTimeDiffs", "temporalUnits", "agesListDescription"], [names, ages, temporalDiffs.dateDiff, temporalDiffs.dateTimeDiff, accessCertainTemporalUnits, describeAgesList])</text>
+        </literalExpression>
+    </decision>
+    <decision name="describeAgesList" id="sid-646B21D4-0CD2-48E1-98EE-DF09F8F2993B" label="describeAgesList">
+        <variable typeRef="cip:describeAgesList" name="describeAgesList" id="decision-variable-sid-646B21D4-0CD2-48E1-98EE-DF09F8F2993B" label="describeAgesList"/>
+        <informationRequirement>
+            <requiredInput href="sid-3C16E501-7619-4B2F-9770-7E1A7F66A33D"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="COLLECT" id="decision-expression-sid-646B21D4-0CD2-48E1-98EE-DF09F8F2993B">
+            <input id="input-clause-sid-646B21D4-0CD2-48E1-98EE-DF09F8F2993B-5806F078-02FC-4BE1-A2FF-73CDEAC90FCC">
+                <inputExpression typeRef="cip:ages" id="input-clause-exp-sid-646B21D4-0CD2-48E1-98EE-DF09F8F2993B-5806F078-02FC-4BE1-A2FF-73CDEAC90FCC">
+                    <text>ages</text>
+                </inputExpression>
+            </input>
+            <output name="listDescription" typeRef="feel:string" id="output-clause-sid-646B21D4-0CD2-48E1-98EE-DF09F8F2993B-1FFA7A39-D406-4309-AE85-E19DC55470E9" label="describeAgesList"/>
+            <rule id="rule-sid-646B21D4-0CD2-48E1-98EE-DF09F8F2993B-1118">
+                <inputEntry>
+                    <text>[1, 2, 3, 4, 5]</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"exactly 1 to 5"</text>
+                </outputEntry>
+            </rule>
+            <rule id="rule-sid-646B21D4-0CD2-48E1-98EE-DF09F8F2993B-1134">
+                <inputEntry>
+                    <text>not ([1, 2, 3, 4, 5])</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"not exactly 1 to 5"</text>
+                </outputEntry>
+            </rule>
+            <rule id="rule-sid-646B21D4-0CD2-48E1-98EE-DF09F8F2993B-1149">
+                <inputEntry>
+                    <text>elementOf(?, [1, 2, 3, 4, 5])</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"only numbers between 1 and 5"</text>
+                </outputEntry>
+            </rule>
+            <rule id="rule-sid-646B21D4-0CD2-48E1-98EE-DF09F8F2993B-1157">
+                <inputEntry>
+                    <text>not (notContainsAny(?, [1, 2, 3, 4, 5]))</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"at least one number betwen 1 and 5"</text>
+                </outputEntry>
+            </rule>
+            <rule id="rule-sid-646B21D4-0CD2-48E1-98EE-DF09F8F2993B-1165">
+                <inputEntry>
+                    <text>containsOnly(?, [1, 2, 3, 4, 5])</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"only numbers between 1 and 5"</text>
+                </outputEntry>
+            </rule>
+            <rule id="rule-sid-646B21D4-0CD2-48E1-98EE-DF09F8F2993B-1180">
+                <inputEntry>
+                    <text>notContainsAny(?, [1, 2, 3, 4, 5])</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"non of the numbers 1 to 5"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="negateSecond" id="sid-955F0BB7-C215-4403-B055-AC3814C6764E" label="negateSecond">
+        <variable typeRef="cip:negateSecond" name="negateSecond" id="decision-variable-sid-955F0BB7-C215-4403-B055-AC3814C6764E" label="negateSecond"/>
+        <informationRequirement>
+            <requiredInput href="sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9"/>
+        </informationRequirement>
+        <literalExpression id="decision-expression-sid-955F0BB7-C215-4403-B055-AC3814C6764E">
+            <text>- (second)</text>
+        </literalExpression>
+    </decision>
+    <decision name="noRuleMatchesSingleHit" id="sid-DEE756F7-83CB-4493-9004-F943DB18EF5D" label="noRuleMatchesSingleHit">
+        <variable typeRef="cip:noRuleMatchesSingleHit" name="noRuleMatchesSingleHit" id="decision-variable-sid-DEE756F7-83CB-4493-9004-F943DB18EF5D" label="noRuleMatchesSingleHit"/>
+        <informationRequirement>
+            <requiredInput href="sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="UNIQUE" id="decision-expression-sid-DEE756F7-83CB-4493-9004-F943DB18EF5D">
+            <input id="input-clause-sid-DEE756F7-83CB-4493-9004-F943DB18EF5D-BED2EBC4-A420-406A-AC52-985F52CD0EF0">
+                <inputExpression typeRef="cip:second" id="input-clause-exp-sid-DEE756F7-83CB-4493-9004-F943DB18EF5D-BED2EBC4-A420-406A-AC52-985F52CD0EF0">
+                    <text>second</text>
+                </inputExpression>
+            </input>
+            <output name="noRuleMatches" typeRef="feel:boolean" id="output-clause-sid-DEE756F7-83CB-4493-9004-F943DB18EF5D-6331A804-EB61-4C94-AF26-F8DB8CBC9BD9" label="noRuleMatchesSingleHit"/>
+            <rule id="rule-sid-DEE756F7-83CB-4493-9004-F943DB18EF5D-1188">
+                <inputEntry>
+                    <text>1</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>true</text>
+                </outputEntry>
+            </rule>
+            <rule id="rule-sid-DEE756F7-83CB-4493-9004-F943DB18EF5D-1271">
+                <inputEntry>
+                    <text>2</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>true</text>
+                </outputEntry>
+            </rule>
+            <rule id="rule-sid-DEE756F7-83CB-4493-9004-F943DB18EF5D-1275">
+                <inputEntry>
+                    <text>3</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>true</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="buildDateStringInAnnotation" id="sid-FE7B81A7-CACD-434C-BE9D-81FF98769536" label="buildDateStringInAnnotation">
+        <variable typeRef="cip:buildDateStringInAnnotation" name="buildDateStringInAnnotation" id="decision-variable-sid-FE7B81A7-CACD-434C-BE9D-81FF98769536" label="buildDateStringInAnnotation"/>
+        <informationRequirement>
+            <requiredInput href="sid-C8EE5C3A-1C1C-42D7-B596-92E4DA21A125"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="sid-54C8F12C-6DF1-462C-8FF7-EE7A6C8C2BB9"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="sid-76B31FC4-A5D7-48A6-BD27-BD85D9739FFA"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="UNIQUE" id="decision-expression-sid-FE7B81A7-CACD-434C-BE9D-81FF98769536">
+            <input id="input-clause-sid-FE7B81A7-CACD-434C-BE9D-81FF98769536-67FBAD9A-6E19-494D-864C-3C1DD90E2A3D">
+                <inputExpression typeRef="cip:year" id="input-clause-exp-sid-FE7B81A7-CACD-434C-BE9D-81FF98769536-67FBAD9A-6E19-494D-864C-3C1DD90E2A3D">
+                    <text>year</text>
+                </inputExpression>
+            </input>
+            <input id="input-clause-sid-FE7B81A7-CACD-434C-BE9D-81FF98769536-7AB62635-96D2-41C6-9D4E-BD24660838C3">
+                <inputExpression typeRef="cip:day" id="input-clause-exp-sid-FE7B81A7-CACD-434C-BE9D-81FF98769536-7AB62635-96D2-41C6-9D4E-BD24660838C3">
+                    <text>day</text>
+                </inputExpression>
+            </input>
+            <input id="input-clause-sid-FE7B81A7-CACD-434C-BE9D-81FF98769536-2C043D80-213E-4ADE-9617-38189B1EFFF0">
+                <inputExpression typeRef="cip:month" id="input-clause-exp-sid-FE7B81A7-CACD-434C-BE9D-81FF98769536-2C043D80-213E-4ADE-9617-38189B1EFFF0">
+                    <text>month</text>
+                </inputExpression>
+            </input>
+            <output name="allDefined" typeRef="feel:boolean" id="output-clause-sid-FE7B81A7-CACD-434C-BE9D-81FF98769536-2BF55E4A-6DD7-432C-89B4-2A8296FAD8A3" label="buildDateStringInAnnotation"/>
+            <rule id="rule-sid-FE7B81A7-CACD-434C-BE9D-81FF98769536-1576">
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>true</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="noRuleMatchesMultiHit" id="sid-AEACF1C7-512D-4230-96A8-AC49528D080C" label="noRuleMatchesMultiHit">
+        <variable typeRef="cip:noRuleMatchesMultiHit" name="noRuleMatchesMultiHit" id="decision-variable-sid-AEACF1C7-512D-4230-96A8-AC49528D080C" label="noRuleMatchesMultiHit"/>
+        <informationRequirement>
+            <requiredInput href="sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="RULE ORDER" id="decision-expression-sid-AEACF1C7-512D-4230-96A8-AC49528D080C">
+            <input id="input-clause-sid-AEACF1C7-512D-4230-96A8-AC49528D080C-9BAA6617-0874-4A7B-ACDE-9CE0FC7816D8">
+                <inputExpression typeRef="cip:second" id="input-clause-exp-sid-AEACF1C7-512D-4230-96A8-AC49528D080C-9BAA6617-0874-4A7B-ACDE-9CE0FC7816D8">
+                    <text>second</text>
+                </inputExpression>
+            </input>
+            <output name="noRuleMatchesMultiHit" typeRef="feel:boolean" id="output-clause-sid-AEACF1C7-512D-4230-96A8-AC49528D080C-B53770DB-9A07-4FC3-B34E-6DC42C7F9425" label="noRuleMatchesMultiHit"/>
+            <rule id="rule-sid-AEACF1C7-512D-4230-96A8-AC49528D080C-1630">
+                <inputEntry>
+                    <text>1</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>true</text>
+                </outputEntry>
+            </rule>
+            <rule id="rule-sid-AEACF1C7-512D-4230-96A8-AC49528D080C-1646">
+                <inputEntry>
+                    <text>2</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>true</text>
+                </outputEntry>
+            </rule>
+            <rule id="rule-sid-AEACF1C7-512D-4230-96A8-AC49528D080C-1660">
+                <inputEntry>
+                    <text>3</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>true</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <inputData name="second" id="sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9" label="second">
+        <variable typeRef="cip:second" name="second" id="input-data-variable-sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9" label="second"/>
+    </inputData>
+    <inputData name="minute" id="sid-63B08562-861C-40D7-BE83-710748DD1C0F" label="minute">
+        <variable typeRef="cip:minute" name="minute" id="input-data-variable-sid-63B08562-861C-40D7-BE83-710748DD1C0F" label="minute"/>
+    </inputData>
+    <inputData name="hour" id="sid-E84C6443-C574-46D2-ACE6-7C04E9570047" label="hour">
+        <variable typeRef="cip:hour" name="hour" id="input-data-variable-sid-E84C6443-C574-46D2-ACE6-7C04E9570047" label="hour"/>
+    </inputData>
+    <inputData name="day" id="sid-76B31FC4-A5D7-48A6-BD27-BD85D9739FFA" label="day">
+        <variable typeRef="cip:day" name="day" id="input-data-variable-sid-76B31FC4-A5D7-48A6-BD27-BD85D9739FFA" label="day"/>
+    </inputData>
+    <inputData name="month" id="sid-54C8F12C-6DF1-462C-8FF7-EE7A6C8C2BB9" label="month">
+        <variable typeRef="cip:month" name="month" id="input-data-variable-sid-54C8F12C-6DF1-462C-8FF7-EE7A6C8C2BB9" label="month"/>
+    </inputData>
+    <inputData name="year" id="sid-C8EE5C3A-1C1C-42D7-B596-92E4DA21A125" label="year">
+        <variable typeRef="cip:year" name="year" id="input-data-variable-sid-C8EE5C3A-1C1C-42D7-B596-92E4DA21A125" label="year"/>
+    </inputData>
+    <inputData name="names" id="sid-9C64E736-E1EB-4344-93B5-79722CEB6D89" label="names">
+        <variable typeRef="cip:names" name="names" id="input-data-variable-sid-9C64E736-E1EB-4344-93B5-79722CEB6D89" label="names"/>
+    </inputData>
+    <inputData name="ages" id="sid-3C16E501-7619-4B2F-9770-7E1A7F66A33D" label="ages">
+        <variable typeRef="cip:ages" name="ages" id="input-data-variable-sid-3C16E501-7619-4B2F-9770-7E1A7F66A33D" label="ages"/>
+    </inputData>
+</definitions>
