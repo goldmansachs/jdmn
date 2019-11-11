@@ -12,13 +12,11 @@
  */
 package com.gs.dmn.signavio.transformation;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-@Ignore
 public class ExportedLiteralDMNToJavaTransformerTest extends AbstractSignavioDMNToJavaTest {
     @Test
     public void testAll() throws Exception {

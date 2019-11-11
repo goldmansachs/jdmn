@@ -74,11 +74,12 @@ public abstract class AbstractTestLabToJUnitTransformerTest extends AbstractTest
 
     @Override
     protected Map<String, String> makeInputParameters() {
-        return new LinkedHashMap<String, String>() {{
-            put("environmentFactoryClass", SignavioEnvironmentFactory.class.getName());
-            put("decisionBaseClass", DefaultSignavioBaseDecision.class.getName());
-        }};
-    }
+        Map<String, String> inputParams = new LinkedHashMap<>();
+        inputParams.put("environmentFactoryClass", SignavioEnvironmentFactory.class.getName());
+        inputParams.put("decisionBaseClass", DefaultSignavioBaseDecision.class.getName());
+        inputParams.put("signavioSchemaNamespace", "http://www.provider.com/schema/dmn/1.1/");
+        return inputParams;
+   }
 
     public void doTest(String name) throws Exception {
         String path = getInputPath() + "/";

@@ -1,0 +1,57 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-943ec7bf40aa94e2393d76932fb16bcd",
+    "isCollection" : false,
+    "label" : "Age",
+    "name" : "age",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-45a52f4c1355c1d61f98c2af8407aa0c",
+    "isCollection" : false,
+    "label" : "Decision",
+    "name" : "decision",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "id-8b2dfaff5fd0522dcd630c363d26c907",
+    "javaParameterName" : "age",
+    "javaTypeName" : "java.math.BigDecimal",
+    "label" : "Age",
+    "name" : "age",
+    "typeRef" : {
+      "localName" : "age",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/de7a0645edac43999154e9b141c9d66a.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-bbddb8a0fd9791e12ae899b179c6eeb3",
+    "informationReferences" : [ {
+      "reference" : "id-8b2dfaff5fd0522dcd630c363d26c907"
+    } ],
+    "javaOutputTypeName" : "Boolean",
+    "javaParameterName" : "decision",
+    "javaTypeName" : "Decision",
+    "knowledgeReferences" : [ ],
+    "label" : "Decision",
+    "name" : "decision",
+    "typeRef" : {
+      "localName" : "decision",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/de7a0645edac43999154e9b141c9d66a.xml"
+    }
+  } ]
+}

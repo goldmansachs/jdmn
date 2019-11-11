@@ -1,0 +1,239 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "diagram-b1489a504a724a1caf493a6cb5187c2c-itemDefinition-sid-DD33B3B6-0C84-4568-A0ED-424855D08836",
+    "isCollection" : false,
+    "label" : "BooleanInput",
+    "name" : "booleanInput",
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "compositeType",
+    "id" : "sid-4A7C793A-882C-4867-94B9-AD88D6D6970D",
+    "isCollection" : false,
+    "label" : "Compound Output Compound Decision",
+    "name" : "compoundOutputCompoundDecision",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-relation-4F178C17-6132-475B-BB01-FCF62DA216F4",
+      "isCollection" : false,
+      "label" : "First Output",
+      "name" : "firstOutput",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-relation-825839B7-47CB-4A7A-BC5F-5242E1449A2F",
+      "isCollection" : false,
+      "label" : "Second Output",
+      "name" : "secondOutput",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "diagram-b1489a504a724a1caf493a6cb5187c2c-itemDefinition-sid-6DEE5C38-4409-4A43-8E10-A759DF55056E",
+    "isCollection" : false,
+    "label" : "DD1 Text Input",
+    "name" : "dd1TextInput",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "diagram-b1489a504a724a1caf493a6cb5187c2c-itemDefinition-sid-3C445DAC-1B0D-4D22-9FD3-EB4E617D00CF",
+    "isCollection" : false,
+    "label" : "DD2 Number Input",
+    "name" : "dd2NumberInput",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "compositeType",
+    "id" : "sid-64E0500E-ADE8-4CB3-8E4F-894A4BD3EDE9",
+    "isCollection" : false,
+    "label" : "Dependent Decision 1",
+    "name" : "dependentDecision1",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "sid-64E0500E-ADE8-4CB3-8E4F-894A4BD3EDE9-relation-3919D1AE-3F5C-434F-930A-D1E350DD4B77",
+      "isCollection" : false,
+      "label" : "DD1O1",
+      "name" : "dD1O1",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "sid-64E0500E-ADE8-4CB3-8E4F-894A4BD3EDE9-relation-8043CED3-C66A-4D50-B806-E3DC53D4A8D5",
+      "isCollection" : false,
+      "label" : "DD1O2",
+      "name" : "dD1O2",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "compositeType",
+    "id" : "sid-957FCF3A-3662-440C-ADB4-2AEB91ED7AA8",
+    "isCollection" : false,
+    "label" : "Dependent Decision 2",
+    "name" : "dependentDecision2",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "sid-957FCF3A-3662-440C-ADB4-2AEB91ED7AA8-relation-D0794FEE-197A-47AC-9DB5-5F3786827926",
+      "isCollection" : false,
+      "label" : "DD2O1",
+      "name" : "dD2O1",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "sid-957FCF3A-3662-440C-ADB4-2AEB91ED7AA8-relation-80A43548-BA1B-4911-A938-D2BAA3905100",
+      "isCollection" : false,
+      "label" : "DD2O2",
+      "name" : "dD2O2",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"e1\",\"e2\",\"e3\"",
+    "id" : "diagram-b1489a504a724a1caf493a6cb5187c2c-itemDefinition-sid-3247220B-9F67-48DB-8CB5-33C5FCDCEC20",
+    "isCollection" : false,
+    "label" : "EnumerationInput",
+    "name" : "enumerationInput",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "diagram-b1489a504a724a1caf493a6cb5187c2c-inputdata-sid-DD33B3B6-0C84-4568-A0ED-424855D08836",
+    "javaParameterName" : "booleanInput",
+    "javaTypeName" : "Boolean",
+    "label" : "BooleanInput",
+    "name" : "booleanInput",
+    "typeRef" : {
+      "localName" : "booleanInput",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "diagram-b1489a504a724a1caf493a6cb5187c2c-inputdata-sid-6DEE5C38-4409-4A43-8E10-A759DF55056E",
+    "javaParameterName" : "dd1TextInput",
+    "javaTypeName" : "String",
+    "label" : "DD1 Text Input",
+    "name" : "dd1TextInput",
+    "typeRef" : {
+      "localName" : "dd1TextInput",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "diagram-b1489a504a724a1caf493a6cb5187c2c-inputdata-sid-3C445DAC-1B0D-4D22-9FD3-EB4E617D00CF",
+    "javaParameterName" : "dd2NumberInput",
+    "javaTypeName" : "java.math.BigDecimal",
+    "label" : "DD2 Number Input",
+    "name" : "dd2NumberInput",
+    "typeRef" : {
+      "localName" : "dd2NumberInput",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "diagram-b1489a504a724a1caf493a6cb5187c2c-inputdata-sid-3247220B-9F67-48DB-8CB5-33C5FCDCEC20",
+    "javaParameterName" : "enumerationInput",
+    "javaTypeName" : "String",
+    "label" : "EnumerationInput",
+    "name" : "enumerationInput",
+    "typeRef" : {
+      "localName" : "enumerationInput",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "diagram-b1489a504a724a1caf493a6cb5187c2c-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D",
+    "informationReferences" : [ {
+      "reference" : "diagram-b1489a504a724a1caf493a6cb5187c2c-inputdata-sid-DD33B3B6-0C84-4568-A0ED-424855D08836"
+    }, {
+      "reference" : "diagram-b1489a504a724a1caf493a6cb5187c2c-inputdata-sid-3247220B-9F67-48DB-8CB5-33C5FCDCEC20"
+    }, {
+      "reference" : "diagram-b1489a504a724a1caf493a6cb5187c2c-decision-sid-64E0500E-ADE8-4CB3-8E4F-894A4BD3EDE9"
+    }, {
+      "reference" : "diagram-b1489a504a724a1caf493a6cb5187c2c-decision-sid-957FCF3A-3662-440C-ADB4-2AEB91ED7AA8"
+    } ],
+    "javaOutputTypeName" : "type.CompoundOutputCompoundDecision",
+    "javaParameterName" : "compoundOutputCompoundDecision",
+    "javaTypeName" : "CompoundOutputCompoundDecision",
+    "knowledgeReferences" : [ ],
+    "label" : "Compound Output Compound Decision",
+    "name" : "compoundOutputCompoundDecision",
+    "typeRef" : {
+      "localName" : "compoundOutputCompoundDecision",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "diagram-b1489a504a724a1caf493a6cb5187c2c-decision-sid-64E0500E-ADE8-4CB3-8E4F-894A4BD3EDE9",
+    "informationReferences" : [ {
+      "reference" : "diagram-b1489a504a724a1caf493a6cb5187c2c-inputdata-sid-6DEE5C38-4409-4A43-8E10-A759DF55056E"
+    } ],
+    "javaOutputTypeName" : "type.DependentDecision1",
+    "javaParameterName" : "dependentDecision1",
+    "javaTypeName" : "DependentDecision1",
+    "knowledgeReferences" : [ ],
+    "label" : "Dependent Decision 1",
+    "name" : "dependentDecision1",
+    "typeRef" : {
+      "localName" : "dependentDecision1",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "diagram-b1489a504a724a1caf493a6cb5187c2c-decision-sid-957FCF3A-3662-440C-ADB4-2AEB91ED7AA8",
+    "informationReferences" : [ {
+      "reference" : "diagram-b1489a504a724a1caf493a6cb5187c2c-inputdata-sid-3C445DAC-1B0D-4D22-9FD3-EB4E617D00CF"
+    } ],
+    "javaOutputTypeName" : "type.DependentDecision2",
+    "javaParameterName" : "dependentDecision2",
+    "javaTypeName" : "DependentDecision2",
+    "knowledgeReferences" : [ ],
+    "label" : "Dependent Decision 2",
+    "name" : "dependentDecision2",
+    "typeRef" : {
+      "localName" : "dependentDecision2",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  } ]
+}

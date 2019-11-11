@@ -1,0 +1,193 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-83cde38cae6fb88fa2b0b60d889edc7f",
+    "isCollection" : false,
+    "label" : "CompareLists",
+    "name" : "compareLists",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-68963481b22658309fd42c897c073179",
+    "isCollection" : true,
+    "label" : "L1",
+    "name" : "l1",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-bd134e2aee1e38ec68713df525f3c803",
+    "isCollection" : false,
+    "label" : "L1",
+    "name" : "l12",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-6bc6b348ba2839e23331a7b199827083",
+    "isCollection" : false,
+    "label" : "L2",
+    "name" : "l2",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-3e4b1ab9080c10718b462486a8b53b10",
+    "isCollection" : true,
+    "label" : "L2",
+    "name" : "l22",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-24c3c4b31f9c9b30cf6903a94a463940",
+    "isCollection" : true,
+    "label" : "ProcessL1",
+    "name" : "processL1",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-fffc3923579df8b2213338522a4ba887",
+    "isCollection" : false,
+    "label" : "ProcessL2",
+    "name" : "processL2",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "id-443c5fd59a4562199fb2274772bed1e0",
+    "javaParameterName" : "l1",
+    "javaTypeName" : "List<java.math.BigDecimal>",
+    "label" : "L1",
+    "name" : "l1",
+    "typeRef" : {
+      "localName" : "l1",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-25e971f05b702ab8597bbb1f3b75cf07",
+    "javaParameterName" : "l12_iterator",
+    "javaTypeName" : "java.math.BigDecimal",
+    "label" : "L1",
+    "name" : "l12_iterator",
+    "typeRef" : {
+      "localName" : "l12",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-dc4c9d01f9fbcd564f1aaf2a9d2bc649",
+    "javaParameterName" : "l23",
+    "javaTypeName" : "List<java.math.BigDecimal>",
+    "label" : "L2",
+    "name" : "l23",
+    "typeRef" : {
+      "localName" : "l22",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-7f96d0514cd87698d0599338ff82ebaa",
+    "javaParameterName" : "l2_iterator",
+    "javaTypeName" : "java.math.BigDecimal",
+    "label" : "L2",
+    "name" : "l2_iterator",
+    "typeRef" : {
+      "localName" : "l2",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-7ce5a28270591ab6ea62106c41a4fb00",
+    "informationReferences" : [ {
+      "reference" : "id-25e971f05b702ab8597bbb1f3b75cf07"
+    }, {
+      "reference" : "id-7f96d0514cd87698d0599338ff82ebaa"
+    } ],
+    "javaOutputTypeName" : "java.math.BigDecimal",
+    "javaParameterName" : "compareLists",
+    "javaTypeName" : "CompareLists",
+    "knowledgeReferences" : [ ],
+    "label" : "CompareLists",
+    "name" : "compareLists",
+    "typeRef" : {
+      "localName" : "compareLists",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ {
+      "@kind" : "multiInstanceDecisionLogic",
+      "aggregationFunction" : "COLLECT",
+      "iterationExpression" : "l1",
+      "iteratorShapeId" : "id-25e971f05b702ab8597bbb1f3b75cf07",
+      "topLevelDecisionId" : "id-a3c62ff45f0bd75a182001a4d02db12d"
+    } ],
+    "id" : "id-02d5100f5bf2c2cd802d2113b1b69bea",
+    "informationReferences" : [ {
+      "reference" : "id-443c5fd59a4562199fb2274772bed1e0"
+    } ],
+    "javaOutputTypeName" : "List<java.math.BigDecimal>",
+    "javaParameterName" : "processL1",
+    "javaTypeName" : "ProcessL1",
+    "knowledgeReferences" : [ ],
+    "label" : "ProcessL1",
+    "name" : "processL1",
+    "typeRef" : {
+      "localName" : "processL1",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ {
+      "@kind" : "multiInstanceDecisionLogic",
+      "aggregationFunction" : "SUM",
+      "iterationExpression" : "l23",
+      "iteratorShapeId" : "id-7f96d0514cd87698d0599338ff82ebaa",
+      "topLevelDecisionId" : "id-7ce5a28270591ab6ea62106c41a4fb00"
+    } ],
+    "id" : "id-a3c62ff45f0bd75a182001a4d02db12d",
+    "informationReferences" : [ {
+      "reference" : "id-dc4c9d01f9fbcd564f1aaf2a9d2bc649"
+    } ],
+    "javaOutputTypeName" : "java.math.BigDecimal",
+    "javaParameterName" : "processL2",
+    "javaTypeName" : "ProcessL2",
+    "knowledgeReferences" : [ ],
+    "label" : "ProcessL2",
+    "name" : "processL2",
+    "typeRef" : {
+      "localName" : "processL2",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml"
+    }
+  } ]
+}

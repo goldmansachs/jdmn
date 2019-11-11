@@ -1,0 +1,86 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "types" : [ {
+    "@kind" : "compositeType",
+    "id" : "diagram-701a4e318a6d4d4f823018c5feaa8f81-itemDefinition-sid-AD811598-1741-4206-A9FC-280EF77B0B23",
+    "isCollection" : false,
+    "label" : "Loan",
+    "name" : "loan",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "sid-AD811598-1741-4206-A9FC-280EF77B0B23-relation-0",
+      "isCollection" : false,
+      "label" : "principal",
+      "name" : "principal",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "sid-AD811598-1741-4206-A9FC-280EF77B0B23-relation-1",
+      "isCollection" : false,
+      "label" : "rate",
+      "name" : "rate",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "sid-AD811598-1741-4206-A9FC-280EF77B0B23-relation-2",
+      "isCollection" : false,
+      "label" : "term",
+      "name" : "term",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "diagram-701a4e318a6d4d4f823018c5feaa8f81-itemDefinition-sid-60E9B6E8-6251-4E45-86C4-4E46A3D9F64E",
+    "isCollection" : false,
+    "label" : "Monthly",
+    "name" : "monthly",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "diagram-701a4e318a6d4d4f823018c5feaa8f81-inputdata-sid-AD811598-1741-4206-A9FC-280EF77B0B23",
+    "javaParameterName" : "loan",
+    "javaTypeName" : "type.Loan",
+    "label" : "Loan",
+    "name" : "loan",
+    "typeRef" : {
+      "localName" : "loan",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "diagram-701a4e318a6d4d4f823018c5feaa8f81-decision-sid-60E9B6E8-6251-4E45-86C4-4E46A3D9F64E",
+    "informationReferences" : [ {
+      "reference" : "diagram-701a4e318a6d4d4f823018c5feaa8f81-inputdata-sid-AD811598-1741-4206-A9FC-280EF77B0B23"
+    } ],
+    "javaOutputTypeName" : "java.math.BigDecimal",
+    "javaParameterName" : "monthly",
+    "javaTypeName" : "Monthly",
+    "knowledgeReferences" : [ ],
+    "label" : "Monthly",
+    "name" : "monthly",
+    "typeRef" : {
+      "localName" : "monthly",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  } ]
+}

@@ -1,0 +1,57 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-6ce42a8c0eea3bbe6ab0bada9ba7c8ee",
+    "isCollection" : false,
+    "label" : "InputValue",
+    "name" : "inputValue",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-97fec8c8fd84bcb52ab0b71518b67b1b",
+    "isCollection" : true,
+    "label" : "OutputExecutionAnalysisResult",
+    "name" : "outputExecutionAnalysisResult",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "id-6930c8ee3021fb2c24a1d2caefc53607",
+    "javaParameterName" : "inputValue",
+    "javaTypeName" : "java.math.BigDecimal",
+    "label" : "InputValue",
+    "name" : "inputValue",
+    "typeRef" : {
+      "localName" : "inputValue",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/afb776a3dcf84f12b17e44405f5c80c5.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-ee3f38c075678c97d13964afb28201c0",
+    "informationReferences" : [ {
+      "reference" : "id-6930c8ee3021fb2c24a1d2caefc53607"
+    } ],
+    "javaOutputTypeName" : "List<String>",
+    "javaParameterName" : "outputExecutionAnalysisResult",
+    "javaTypeName" : "OutputExecutionAnalysisResult",
+    "knowledgeReferences" : [ ],
+    "label" : "OutputExecutionAnalysisResult",
+    "name" : "outputExecutionAnalysisResult",
+    "typeRef" : {
+      "localName" : "outputExecutionAnalysisResult",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/afb776a3dcf84f12b17e44405f5c80c5.xml"
+    }
+  } ]
+}

@@ -1,0 +1,176 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "sid-C52224F3-4EC1-4AAC-88AE-F5F51F285ED0",
+    "isCollection" : true,
+    "label" : "Decision",
+    "name" : "decision",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "diagram-2798baf8f6de4bd3b984e599fa9ff016-itemDefinition-sid-B180B170-4226-4CB8-B6EE-51D4307DCA61",
+    "isCollection" : false,
+    "label" : "Employed",
+    "name" : "employed",
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "compositeType",
+    "id" : "diagram-2798baf8f6de4bd3b984e599fa9ff016-itemDefinition-sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264",
+    "isCollection" : false,
+    "label" : "Person",
+    "name" : "person",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264-relation-4",
+      "isCollection" : false,
+      "label" : "dateOfBirth",
+      "name" : "dateOfBirth",
+      "typeRef" : {
+        "localName" : "date",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264-relation-6",
+      "isCollection" : false,
+      "label" : "dateTimeOfBirth",
+      "name" : "dateTimeOfBirth",
+      "typeRef" : {
+        "localName" : "date and time",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264-relation-0",
+      "isCollection" : false,
+      "label" : "firstName",
+      "name" : "firstName",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264-relation-3",
+      "isCollection" : false,
+      "label" : "gender",
+      "name" : "gender",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264-relation-2",
+      "isCollection" : false,
+      "label" : "id",
+      "name" : "id",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264-relation-1",
+      "isCollection" : false,
+      "label" : "lastName",
+      "name" : "lastName",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264-relation-7",
+      "isCollection" : true,
+      "label" : "list",
+      "name" : "list",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264-relation-8",
+      "isCollection" : false,
+      "label" : "married",
+      "name" : "married",
+      "typeRef" : {
+        "localName" : "boolean",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264-relation-5",
+      "isCollection" : false,
+      "label" : "timeOfBirth",
+      "name" : "timeOfBirth",
+      "typeRef" : {
+        "localName" : "time",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "diagram-2798baf8f6de4bd3b984e599fa9ff016-inputdata-sid-B180B170-4226-4CB8-B6EE-51D4307DCA61",
+    "javaParameterName" : "employed",
+    "javaTypeName" : "Boolean",
+    "label" : "Employed",
+    "name" : "employed",
+    "typeRef" : {
+      "localName" : "employed",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "diagram-2798baf8f6de4bd3b984e599fa9ff016-inputdata-sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264",
+    "javaParameterName" : "person",
+    "javaTypeName" : "type.Person",
+    "label" : "Person",
+    "name" : "person",
+    "typeRef" : {
+      "localName" : "person",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "diagram-2798baf8f6de4bd3b984e599fa9ff016-decision-sid-C52224F3-4EC1-4AAC-88AE-F5F51F285ED0",
+    "informationReferences" : [ {
+      "reference" : "diagram-2798baf8f6de4bd3b984e599fa9ff016-inputdata-sid-B180B170-4226-4CB8-B6EE-51D4307DCA61"
+    }, {
+      "reference" : "diagram-2798baf8f6de4bd3b984e599fa9ff016-inputdata-sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264"
+    } ],
+    "javaOutputTypeName" : "List<String>",
+    "javaParameterName" : "decision",
+    "javaTypeName" : "Decision",
+    "knowledgeReferences" : [ ],
+    "label" : "Decision",
+    "name" : "decision",
+    "typeRef" : {
+      "localName" : "decision",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  } ]
+}

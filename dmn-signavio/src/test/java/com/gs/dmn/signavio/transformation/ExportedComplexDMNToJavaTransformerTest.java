@@ -12,10 +12,8 @@
  */
 package com.gs.dmn.signavio.transformation;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
-@Ignore
 public class ExportedComplexDMNToJavaTransformerTest extends AbstractSignavioDMNToJavaTest {
     @Test
     public void testCompareLists() throws Exception {

@@ -1,0 +1,402 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"EQUITIES\",\"DERIVATIVES\"",
+    "id" : "id-633239ed63f2c69580191da436e4799e",
+    "isCollection" : false,
+    "label" : "AssetClass",
+    "name" : "assetClass",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"BUY\",\"SELL\"",
+    "id" : "id-4c750a5676f8aee0a4ee560ce0a1b0a4",
+    "isCollection" : false,
+    "label" : "BuySellIndicator",
+    "name" : "buySellIndicator",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"RIGHTS_WARRANTS\"",
+    "id" : "id-cf14ce3326da55ab0c96401e30297287",
+    "isCollection" : false,
+    "label" : "DerivativeType",
+    "name" : "derivativeType",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"AGENCY\",\"CROSS_AS_AGENCY\",\"PRINCIPAL\",\"RISKLESS_PRINCIPAL\",\"MIXED\",\"OTHER\"",
+    "id" : "id-0220169ce44f48b35740db7b6a85234b",
+    "isCollection" : false,
+    "label" : "ExecutionCapacity",
+    "name" : "executionCapacity",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-b7a901cd8a62b411508d6009ad035fa3",
+    "isCollection" : false,
+    "label" : "FetchForexRate",
+    "name" : "fetchForexRate",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-3e59f08bb6f957f7a7397815e0a7e19c",
+    "isCollection" : false,
+    "label" : "IsForexRateRequired",
+    "name" : "isForexRateRequired",
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-f5d6e5f1e9501ebd74b2eaf8185d97b9",
+    "isCollection" : false,
+    "label" : "IsForexRateRquired",
+    "name" : "isForexRateRquired",
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"FRANCE\",\"ITALY\",\"UK\",\"IRELAND\",\"SOUTH_AFRICA\"",
+    "id" : "id-89e32d4ae555fa7edadb9f295430a514",
+    "isCollection" : false,
+    "label" : "Jurisdiction",
+    "name" : "jurisdiction",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"PRIMARY\",\"SECONDARY\",\"SECONDARY_EXEMPT\"",
+    "id" : "id-ab5b01ddf84484e3f1b609838779b983",
+    "isCollection" : false,
+    "label" : "OfferingType",
+    "name" : "offeringType",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-2abc0e3c45a66f5c63fe09aa1b7f986d",
+    "isCollection" : false,
+    "label" : "TaxChargeType",
+    "name" : "taxChargeType",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"FTT\",\"STAMP\",\"TRANSFER_TAX\"",
+    "id" : "id-44e09470f31c9875534108e00edaffea",
+    "isCollection" : false,
+    "label" : "TaxType",
+    "name" : "taxType",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "compositeType",
+    "id" : "id-be754680052cab3cbc460b9d49c26cc8",
+    "isCollection" : false,
+    "label" : "Transaction",
+    "name" : "transaction",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-be754680052cab3cbc460b9d49c26cc8-relation-1",
+      "isCollection" : false,
+      "label" : "buySellIndicator",
+      "name" : "buySellIndicator",
+      "typeRef" : {
+        "localName" : "buySellIndicator",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-be754680052cab3cbc460b9d49c26cc8-relation-6",
+      "isCollection" : false,
+      "label" : "clearingAgent",
+      "name" : "clearingAgent",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-be754680052cab3cbc460b9d49c26cc8-relation-11",
+      "isCollection" : false,
+      "label" : "commision",
+      "name" : "commision",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-be754680052cab3cbc460b9d49c26cc8-relation-13",
+      "isCollection" : false,
+      "label" : "currencyCode",
+      "name" : "currencyCode",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-be754680052cab3cbc460b9d49c26cc8-relation-7",
+      "isCollection" : false,
+      "label" : "deliveryInstruction",
+      "name" : "deliveryInstruction",
+      "typeRef" : {
+        "localName" : "boolean",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-be754680052cab3cbc460b9d49c26cc8-relation-8",
+      "isCollection" : false,
+      "label" : "executionCapacity",
+      "name" : "executionCapacity",
+      "typeRef" : {
+        "localName" : "executionCapacity",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-be754680052cab3cbc460b9d49c26cc8-relation-12",
+      "isCollection" : false,
+      "label" : "executionMarket",
+      "name" : "executionMarket",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-be754680052cab3cbc460b9d49c26cc8-relation-4",
+      "isCollection" : false,
+      "label" : "exerciseAssign",
+      "name" : "exerciseAssign",
+      "typeRef" : {
+        "localName" : "boolean",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-be754680052cab3cbc460b9d49c26cc8-relation-2",
+      "isCollection" : false,
+      "label" : "offeringType",
+      "name" : "offeringType",
+      "typeRef" : {
+        "localName" : "offeringType",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-be754680052cab3cbc460b9d49c26cc8-relation-10",
+      "isCollection" : false,
+      "label" : "price",
+      "name" : "price",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-be754680052cab3cbc460b9d49c26cc8-relation-9",
+      "isCollection" : false,
+      "label" : "quantity",
+      "name" : "quantity",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-be754680052cab3cbc460b9d49c26cc8-relation-5",
+      "isCollection" : false,
+      "label" : "settlementDate",
+      "name" : "settlementDate",
+      "typeRef" : {
+        "localName" : "date",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-be754680052cab3cbc460b9d49c26cc8-relation-0",
+      "isCollection" : false,
+      "label" : "tradeDate",
+      "name" : "tradeDate",
+      "typeRef" : {
+        "localName" : "date",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "compositeType",
+    "id" : "id-e084a745b70b5346d1e25a2ff40ffcbb",
+    "isCollection" : false,
+    "label" : "TransactionTaxMetaData",
+    "name" : "transactionTaxMetaData",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-e084a745b70b5346d1e25a2ff40ffcbb-relation-4",
+      "isCollection" : false,
+      "label" : "assetClass",
+      "name" : "assetClass",
+      "typeRef" : {
+        "localName" : "assetClass",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-e084a745b70b5346d1e25a2ff40ffcbb-relation-3",
+      "isCollection" : false,
+      "label" : "jurisdiction",
+      "name" : "jurisdiction",
+      "typeRef" : {
+        "localName" : "jurisdiction",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-e084a745b70b5346d1e25a2ff40ffcbb-relation-1",
+      "isCollection" : false,
+      "label" : "taxType",
+      "name" : "taxType",
+      "typeRef" : {
+        "localName" : "taxType",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
+      }
+    } ]
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "id-cd18a7511e0016ba97f30d8448473110",
+    "javaParameterName" : "derivativeType",
+    "javaTypeName" : "String",
+    "label" : "DerivativeType",
+    "name" : "derivativeType",
+    "typeRef" : {
+      "localName" : "derivativeType",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-7acb1164f0150d3768556594816682ea",
+    "javaParameterName" : "taxChargeType",
+    "javaTypeName" : "String",
+    "label" : "TaxChargeType",
+    "name" : "taxChargeType",
+    "typeRef" : {
+      "localName" : "taxChargeType",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-2f33ede6cf73874d2adc0c7b93b1f310",
+    "javaParameterName" : "transaction",
+    "javaTypeName" : "type.Transaction",
+    "label" : "Transaction",
+    "name" : "transaction",
+    "typeRef" : {
+      "localName" : "transaction",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-891be9d7cc75911daea588a9a342b6af",
+    "javaParameterName" : "transactionTaxMetaData",
+    "javaTypeName" : "type.TransactionTaxMetaData",
+    "label" : "TransactionTaxMetaData",
+    "name" : "transactionTaxMetaData",
+    "typeRef" : {
+      "localName" : "transactionTaxMetaData",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-4f18f3443d3d744beac363432b71a024",
+    "informationReferences" : [ {
+      "reference" : "id-2f33ede6cf73874d2adc0c7b93b1f310"
+    }, {
+      "reference" : "id-9bc027574845882aabcbef16b9124927"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "fetchForexRate",
+    "javaTypeName" : "FetchForexRate",
+    "knowledgeReferences" : [ ],
+    "label" : "FetchForexRate",
+    "name" : "fetchForexRate",
+    "typeRef" : {
+      "localName" : "fetchForexRate",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-9bc027574845882aabcbef16b9124927",
+    "informationReferences" : [ {
+      "reference" : "id-891be9d7cc75911daea588a9a342b6af"
+    }, {
+      "reference" : "id-7acb1164f0150d3768556594816682ea"
+    }, {
+      "reference" : "id-cd18a7511e0016ba97f30d8448473110"
+    } ],
+    "javaOutputTypeName" : "Boolean",
+    "javaParameterName" : "isForexRateRequired",
+    "javaTypeName" : "IsForexRateRequired",
+    "knowledgeReferences" : [ ],
+    "label" : "IsForexRateRequired",
+    "name" : "isForexRateRequired",
+    "typeRef" : {
+      "localName" : "isForexRateRequired",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
+    }
+  } ]
+}

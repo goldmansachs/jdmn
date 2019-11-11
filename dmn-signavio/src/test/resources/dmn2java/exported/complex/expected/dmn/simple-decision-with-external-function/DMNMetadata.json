@@ -1,0 +1,94 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-df984ee0568058421c514368c18c9d6c",
+    "isCollection" : false,
+    "label" : "A",
+    "name" : "a",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-0b3fb377439b3c54772591ba3475ee73",
+    "isCollection" : false,
+    "label" : "B",
+    "name" : "b",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-028f1243d02d7dbfe98813969d4f6a19",
+    "isCollection" : false,
+    "label" : "Decision",
+    "name" : "decision",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "id-10403bb637fc37587a8a51587a70d76a",
+    "javaParameterName" : "a",
+    "javaTypeName" : "java.math.BigDecimal",
+    "label" : "A",
+    "name" : "a",
+    "typeRef" : {
+      "localName" : "a",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/c5718c9e0d74413e9371e1c26c4ebef9.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-03d7d97de170aa50fc00252ea2e72589",
+    "javaParameterName" : "b",
+    "javaTypeName" : "java.math.BigDecimal",
+    "label" : "B",
+    "name" : "b",
+    "typeRef" : {
+      "localName" : "b",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/c5718c9e0d74413e9371e1c26c4ebef9.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ {
+      "@kind" : "technicalAttributes",
+      "technicalAttributes" : {
+        "aString" : "val1",
+        "aNumber" : "123",
+        "aBoolean" : "true",
+        "nested" : {
+          "simple" : "val2",
+          "nested" : {
+            "simple" : "val2"
+          }
+        }
+      }
+    } ],
+    "id" : "id-04494bc9ee85e8ee15276fe57dfd7504",
+    "informationReferences" : [ {
+      "reference" : "id-10403bb637fc37587a8a51587a70d76a"
+    }, {
+      "reference" : "id-03d7d97de170aa50fc00252ea2e72589"
+    } ],
+    "javaOutputTypeName" : "java.math.BigDecimal",
+    "javaParameterName" : "decision",
+    "javaTypeName" : "Decision",
+    "knowledgeReferences" : [ ],
+    "label" : "Decision",
+    "name" : "decision",
+    "typeRef" : {
+      "localName" : "decision",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/c5718c9e0d74413e9371e1c26c4ebef9.xml"
+    }
+  } ]
+}
