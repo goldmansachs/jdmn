@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:cip="http://www.gs.com/cip" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:xsd="http://www.w3.org/2001/XMLSchema" namespace="http://www.omg.org/spec/DMN/20151101/dmn.xsd" name="Null Safe Tests">
-    <itemDefinition isCollection="true" name="comparator" id="item-definition-sid-9A7FCA4C-1E83-4971-8CB7-58AB96AB6BDA" label="comparator&#xA;">
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:cip="http://www.gs.com/cip" namespace="http://www.omg.org/spec/DMN/20151101/dmn.xsd" name="Null Safe Tests">
+    <itemDefinition isCollection="true" name="comparator" id="item-definition-sid-9A7FCA4C-1E83-4971-8CB7-58AB96AB6BDA" label="comparator&#10;">
         <typeRef>feel:string</typeRef>
     </itemDefinition>
     <itemDefinition isCollection="false" name="arithmetic" id="item-definition-sid-09794EF5-BBC7-4B29-BCA1-12225A55818C" label="arithmetic">
         <typeRef>feel:number</typeRef>
     </itemDefinition>
-    <itemDefinition isCollection="false" name="logical" id="item-definition-sid-22C033FA-B0F9-45E3-B5E4-BDE3B04F9511" label="logical&#xA;">
+    <itemDefinition isCollection="false" name="logical" id="item-definition-sid-22C033FA-B0F9-45E3-B5E4-BDE3B04F9511" label="logical&#10;">
         <typeRef>feel:boolean</typeRef>
     </itemDefinition>
     <itemDefinition isCollection="false" name="temporal" id="item-definition-sid-5511B0A1-6D8F-4084-897D-51B89D5B653C" label="temporal">
         <typeRef>feel:boolean</typeRef>
     </itemDefinition>
-    <itemDefinition isCollection="true" name="temporalComparator" id="item-definition-sid-394B1A70-6206-4407-9FE4-64635EFB5260" label="temporalComparator&#xA;">
+    <itemDefinition isCollection="true" name="temporalComparator" id="item-definition-sid-394B1A70-6206-4407-9FE4-64635EFB5260" label="temporalComparator&#10;">
         <typeRef>feel:string</typeRef>
     </itemDefinition>
     <itemDefinition isCollection="false" name="temporalDiff" id="item-definition-sid-D4DCD084-82D7-4757-9D39-911AFB33CC9A" label="temporalDiff">
@@ -60,16 +60,16 @@
     <itemDefinition isCollection="false" name="booleanA" id="item-definition-sid-B7AE6C6F-A660-4E62-A8D6-7B80E266DCE6" label="booleanA">
         <typeRef>feel:boolean</typeRef>
     </itemDefinition>
-    <itemDefinition isCollection="false" name="booleanB" id="item-definition-sid-C3B7F0FF-382F-495B-B247-11D18BDF8224" label="booleanB&#xA;">
+    <itemDefinition isCollection="false" name="booleanB" id="item-definition-sid-C3B7F0FF-382F-495B-B247-11D18BDF8224" label="booleanB&#10;">
         <typeRef>feel:boolean</typeRef>
     </itemDefinition>
     <itemDefinition isCollection="false" name="dateTime" id="item-definition-sid-C64815EC-ABA5-4B82-9B9B-3BF6FB925209" label="dateTime">
         <typeRef>feel:date</typeRef>
     </itemDefinition>
-    <itemDefinition isCollection="false" name="date" id="item-definition-sid-83E25A6C-9951-44AB-B243-BF07D5565E0C" label="date&#xA;">
+    <itemDefinition isCollection="false" name="date" id="item-definition-sid-83E25A6C-9951-44AB-B243-BF07D5565E0C" label="date&#10;">
         <typeRef>feel:date</typeRef>
     </itemDefinition>
-    <itemDefinition isCollection="false" name="time" id="item-definition-sid-926E953C-2785-4E99-B7BD-C2CB9FA1EDB6" label="time&#xA;">
+    <itemDefinition isCollection="false" name="time" id="item-definition-sid-926E953C-2785-4E99-B7BD-C2CB9FA1EDB6" label="time&#10;">
         <typeRef>feel:date</typeRef>
     </itemDefinition>
     <itemDefinition isCollection="false" name="numberB" id="item-definition-sid-5D0278E6-05A5-4C90-B532-85F85A7AB627" label="numberB">
@@ -96,7 +96,7 @@
     <itemDefinition isCollection="false" name="string" id="item-definition-sid-8B600728-8DA5-4921-92EB-96A77787E515" label="string">
         <typeRef>feel:string</typeRef>
     </itemDefinition>
-    <decision name="comparator" id="sid-9A7FCA4C-1E83-4971-8CB7-58AB96AB6BDA" label="comparator&#xA;">
+    <decision name="comparator" id="sid-9A7FCA4C-1E83-4971-8CB7-58AB96AB6BDA" label="comparator&#10;">
         <variable typeRef="cip:comparator" name="comparator" id="decision-variable-sid-9A7FCA4C-1E83-4971-8CB7-58AB96AB6BDA" label="comparator"/>
         <informationRequirement>
             <requiredInput href="sid-AA1757F1-99A9-416C-B74A-F53791DADB66"/>
@@ -107,7 +107,7 @@
                     <text>numberA</text>
                 </inputExpression>
             </input>
-            <output name="result" typeRef="feel:string" id="output-clause-sid-9A7FCA4C-1E83-4971-8CB7-58AB96AB6BDA-D8687EA6-1BBE-45D8-9DDA-430CF3EB084C" label="comparator&#xA;"/>
+            <output name="result" typeRef="feel:string" id="output-clause-sid-9A7FCA4C-1E83-4971-8CB7-58AB96AB6BDA-D8687EA6-1BBE-45D8-9DDA-430CF3EB084C" label="comparator&#10;"/>
             <rule id="rule-sid-9A7FCA4C-1E83-4971-8CB7-58AB96AB6BDA-1150">
                 <inputEntry>
                     <text>&gt; 0</text>
@@ -173,7 +173,7 @@
             <text>((((((((((((((((((numberA) + (2)) - (2)) * (2)) / ((numberA) + (1))) + (abs(numberB))) + (count(numberList))) + (round(numberB, 2))) + (roundDown(numberB, 2))) + (roundUp(numberB, 2))) + (ceiling(numberB))) + (floor(numberB))) + (integer(numberB))) + (modulo(numberB, numberA))) + (modulo(numberB, 2))) + (power(numberB, 2))) + (percent(numberB))) + (product(numberList))) + (sum(numberList))</text>
         </literalExpression>
     </decision>
-    <decision name="logical" id="sid-22C033FA-B0F9-45E3-B5E4-BDE3B04F9511" label="logical&#xA;">
+    <decision name="logical" id="sid-22C033FA-B0F9-45E3-B5E4-BDE3B04F9511" label="logical&#10;">
         <variable typeRef="cip:logical" name="logical" id="decision-variable-sid-22C033FA-B0F9-45E3-B5E4-BDE3B04F9511" label="logical"/>
         <informationRequirement>
             <requiredInput href="sid-B7AE6C6F-A660-4E62-A8D6-7B80E266DCE6"/>
@@ -194,7 +194,7 @@
             <text>(dateTime) = (dateTime(day(dateTime), month(dateTime), year(dateTime), hour(dateTime), minute(dateTime), 0))</text>
         </literalExpression>
     </decision>
-    <decision name="temporalComparator" id="sid-394B1A70-6206-4407-9FE4-64635EFB5260" label="temporalComparator&#xA;">
+    <decision name="temporalComparator" id="sid-394B1A70-6206-4407-9FE4-64635EFB5260" label="temporalComparator&#10;">
         <variable typeRef="cip:temporalComparator" name="temporalComparator" id="decision-variable-sid-394B1A70-6206-4407-9FE4-64635EFB5260" label="temporalComparator"/>
         <informationRequirement>
             <requiredInput href="sid-C64815EC-ABA5-4B82-9B9B-3BF6FB925209"/>
@@ -205,7 +205,7 @@
                     <text>dateTime</text>
                 </inputExpression>
             </input>
-            <output name="temporalComparator" typeRef="feel:string" id="output-clause-sid-394B1A70-6206-4407-9FE4-64635EFB5260-B65FD0FC-333E-4DBC-9594-C4E06D65A5A2" label="temporalComparator&#xA;"/>
+            <output name="temporalComparator" typeRef="feel:string" id="output-clause-sid-394B1A70-6206-4407-9FE4-64635EFB5260-B65FD0FC-333E-4DBC-9594-C4E06D65A5A2" label="temporalComparator&#10;"/>
             <rule id="rule-sid-394B1A70-6206-4407-9FE4-64635EFB5260-1528">
                 <inputEntry>
                     <text>&lt; date and time("2015-12-31T23:00:00Z")</text>
@@ -581,16 +581,16 @@
     <inputData name="booleanA" id="sid-B7AE6C6F-A660-4E62-A8D6-7B80E266DCE6" label="booleanA">
         <variable typeRef="cip:booleanA" name="booleanA" id="input-data-variable-sid-B7AE6C6F-A660-4E62-A8D6-7B80E266DCE6" label="booleanA"/>
     </inputData>
-    <inputData name="booleanB" id="sid-C3B7F0FF-382F-495B-B247-11D18BDF8224" label="booleanB&#xA;">
+    <inputData name="booleanB" id="sid-C3B7F0FF-382F-495B-B247-11D18BDF8224" label="booleanB&#10;">
         <variable typeRef="cip:booleanB" name="booleanB" id="input-data-variable-sid-C3B7F0FF-382F-495B-B247-11D18BDF8224" label="booleanB"/>
     </inputData>
     <inputData name="dateTime" id="sid-C64815EC-ABA5-4B82-9B9B-3BF6FB925209" label="dateTime">
         <variable typeRef="cip:dateTime" name="dateTime" id="input-data-variable-sid-C64815EC-ABA5-4B82-9B9B-3BF6FB925209" label="dateTime"/>
     </inputData>
-    <inputData name="date" id="sid-83E25A6C-9951-44AB-B243-BF07D5565E0C" label="date&#xA;">
+    <inputData name="date" id="sid-83E25A6C-9951-44AB-B243-BF07D5565E0C" label="date&#10;">
         <variable typeRef="cip:date" name="date" id="input-data-variable-sid-83E25A6C-9951-44AB-B243-BF07D5565E0C" label="date"/>
     </inputData>
-    <inputData name="time" id="sid-926E953C-2785-4E99-B7BD-C2CB9FA1EDB6" label="time&#xA;">
+    <inputData name="time" id="sid-926E953C-2785-4E99-B7BD-C2CB9FA1EDB6" label="time&#10;">
         <variable typeRef="cip:time" name="time" id="input-data-variable-sid-926E953C-2785-4E99-B7BD-C2CB9FA1EDB6" label="time"/>
     </inputData>
     <inputData name="numberB" id="sid-5D0278E6-05A5-4C90-B532-85F85A7AB627" label="numberB">

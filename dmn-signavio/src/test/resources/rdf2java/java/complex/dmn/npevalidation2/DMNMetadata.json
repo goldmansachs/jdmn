@@ -1,0 +1,563 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "item-definition-sid-613407DB-766F-458F-8430-6F31DDFD82B1",
+    "isCollection" : true,
+    "label" : "accessCertainTemporalUnits",
+    "name" : "accessCertainTemporalUnits",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "item-definition-sid-3C16E501-7619-4B2F-9770-7E1A7F66A33D",
+    "isCollection" : true,
+    "label" : "ages",
+    "name" : "ages",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "item-definition-sid-FE7B81A7-CACD-434C-BE9D-81FF98769536",
+    "isCollection" : false,
+    "label" : "buildDateStringInAnnotation",
+    "name" : "buildDateStringInAnnotation",
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "item-definition-sid-76B31FC4-A5D7-48A6-BD27-BD85D9739FFA",
+    "isCollection" : false,
+    "label" : "day",
+    "name" : "day",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "item-definition-sid-646B21D4-0CD2-48E1-98EE-DF09F8F2993B",
+    "isCollection" : true,
+    "label" : "describeAgesList",
+    "name" : "describeAgesList",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "compositeType",
+    "id" : "item-definition-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767",
+    "isCollection" : false,
+    "label" : "generateTemporalObjects",
+    "name" : "generateTemporalObjects",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "item-definition-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767-E9BD5C28-E92A-4BC5-BC7E-49327A0EE1F2",
+      "isCollection" : false,
+      "label" : "date",
+      "name" : "date",
+      "typeRef" : {
+        "localName" : "date",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "item-definition-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767-EFD96D34-5FD3-4E2A-93D4-FBBB037E3EB6",
+      "isCollection" : false,
+      "label" : "datetime",
+      "name" : "datetime",
+      "typeRef" : {
+        "localName" : "datetime",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "item-definition-sid-E84C6443-C574-46D2-ACE6-7C04E9570047",
+    "isCollection" : false,
+    "label" : "hour",
+    "name" : "hour",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "item-definition-sid-63B08562-861C-40D7-BE83-710748DD1C0F",
+    "isCollection" : false,
+    "label" : "minute",
+    "name" : "minute",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "item-definition-sid-54C8F12C-6DF1-462C-8FF7-EE7A6C8C2BB9",
+    "isCollection" : false,
+    "label" : "month",
+    "name" : "month",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "item-definition-sid-9C64E736-E1EB-4344-93B5-79722CEB6D89",
+    "isCollection" : true,
+    "label" : "names",
+    "name" : "names",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "item-definition-sid-955F0BB7-C215-4403-B055-AC3814C6764E",
+    "isCollection" : false,
+    "label" : "negateSecond",
+    "name" : "negateSecond",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "item-definition-sid-AEACF1C7-512D-4230-96A8-AC49528D080C",
+    "isCollection" : true,
+    "label" : "noRuleMatchesMultiHit",
+    "name" : "noRuleMatchesMultiHit",
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "item-definition-sid-DEE756F7-83CB-4493-9004-F943DB18EF5D",
+    "isCollection" : false,
+    "label" : "noRuleMatchesSingleHit",
+    "name" : "noRuleMatchesSingleHit",
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "item-definition-sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9",
+    "isCollection" : false,
+    "label" : "second",
+    "name" : "second",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "compositeType",
+    "id" : "item-definition-sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12",
+    "isCollection" : true,
+    "label" : "temporalDiffs",
+    "name" : "temporalDiffs",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "item-definition-sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12-8B4B1873-E167-4850-8046-288DF48F5F0C",
+      "isCollection" : false,
+      "label" : "dateDiff",
+      "name" : "dateDiff",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "item-definition-sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12-8BFCCBC6-9B20-456E-A18F-45DD04BA64F8",
+      "isCollection" : false,
+      "label" : "dateTimeDiff",
+      "name" : "dateTimeDiff",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "item-definition-sid-C8EE5C3A-1C1C-42D7-B596-92E4DA21A125",
+    "isCollection" : false,
+    "label" : "year",
+    "name" : "year",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "compositeType",
+    "id" : "item-definition-sid-DB470E83-401F-4E28-BCA7-8E8FA641E93F",
+    "isCollection" : true,
+    "label" : "zip",
+    "name" : "zip",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "ages",
+      "isCollection" : false,
+      "label" : "ages",
+      "name" : "ages",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "agesListDescription",
+      "isCollection" : false,
+      "label" : "agesListDescription",
+      "name" : "agesListDescription",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "dateDiffs",
+      "isCollection" : false,
+      "label" : "dateDiffs",
+      "name" : "dateDiffs",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "dateTimeDiffs",
+      "isCollection" : false,
+      "label" : "dateTimeDiffs",
+      "name" : "dateTimeDiffs",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "names",
+      "isCollection" : false,
+      "label" : "names",
+      "name" : "names",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "temporalUnits",
+      "isCollection" : false,
+      "label" : "temporalUnits",
+      "name" : "temporalUnits",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "sid-3C16E501-7619-4B2F-9770-7E1A7F66A33D",
+    "javaParameterName" : "ages",
+    "javaTypeName" : "List<java.math.BigDecimal>",
+    "label" : "ages",
+    "name" : "ages",
+    "typeRef" : {
+      "localName" : "ages",
+      "namespace" : "http://www.gs.com/cip"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "sid-76B31FC4-A5D7-48A6-BD27-BD85D9739FFA",
+    "javaParameterName" : "day",
+    "javaTypeName" : "java.math.BigDecimal",
+    "label" : "day",
+    "name" : "day",
+    "typeRef" : {
+      "localName" : "day",
+      "namespace" : "http://www.gs.com/cip"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "sid-E84C6443-C574-46D2-ACE6-7C04E9570047",
+    "javaParameterName" : "hour",
+    "javaTypeName" : "java.math.BigDecimal",
+    "label" : "hour",
+    "name" : "hour",
+    "typeRef" : {
+      "localName" : "hour",
+      "namespace" : "http://www.gs.com/cip"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "sid-63B08562-861C-40D7-BE83-710748DD1C0F",
+    "javaParameterName" : "minute",
+    "javaTypeName" : "java.math.BigDecimal",
+    "label" : "minute",
+    "name" : "minute",
+    "typeRef" : {
+      "localName" : "minute",
+      "namespace" : "http://www.gs.com/cip"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "sid-54C8F12C-6DF1-462C-8FF7-EE7A6C8C2BB9",
+    "javaParameterName" : "month",
+    "javaTypeName" : "java.math.BigDecimal",
+    "label" : "month",
+    "name" : "month",
+    "typeRef" : {
+      "localName" : "month",
+      "namespace" : "http://www.gs.com/cip"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "sid-9C64E736-E1EB-4344-93B5-79722CEB6D89",
+    "javaParameterName" : "names",
+    "javaTypeName" : "List<String>",
+    "label" : "names",
+    "name" : "names",
+    "typeRef" : {
+      "localName" : "names",
+      "namespace" : "http://www.gs.com/cip"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9",
+    "javaParameterName" : "second",
+    "javaTypeName" : "java.math.BigDecimal",
+    "label" : "second",
+    "name" : "second",
+    "typeRef" : {
+      "localName" : "second",
+      "namespace" : "http://www.gs.com/cip"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "sid-C8EE5C3A-1C1C-42D7-B596-92E4DA21A125",
+    "javaParameterName" : "year",
+    "javaTypeName" : "java.math.BigDecimal",
+    "label" : "year",
+    "name" : "year",
+    "typeRef" : {
+      "localName" : "year",
+      "namespace" : "http://www.gs.com/cip"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "sid-613407DB-766F-458F-8430-6F31DDFD82B1",
+    "informationReferences" : [ {
+      "reference" : "sid-6BEA84C5-B6D6-4823-B145-CC9039E79767"
+    } ],
+    "javaOutputTypeName" : "List<java.math.BigDecimal>",
+    "javaParameterName" : "accessCertainTemporalUnits",
+    "javaTypeName" : "AccessCertainTemporalUnits",
+    "knowledgeReferences" : [ ],
+    "label" : "accessCertainTemporalUnits",
+    "name" : "accessCertainTemporalUnits",
+    "typeRef" : {
+      "localName" : "accessCertainTemporalUnits",
+      "namespace" : "http://www.gs.com/cip"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "sid-FE7B81A7-CACD-434C-BE9D-81FF98769536",
+    "informationReferences" : [ {
+      "reference" : "sid-C8EE5C3A-1C1C-42D7-B596-92E4DA21A125"
+    }, {
+      "reference" : "sid-54C8F12C-6DF1-462C-8FF7-EE7A6C8C2BB9"
+    }, {
+      "reference" : "sid-76B31FC4-A5D7-48A6-BD27-BD85D9739FFA"
+    } ],
+    "javaOutputTypeName" : "Boolean",
+    "javaParameterName" : "buildDateStringInAnnotation",
+    "javaTypeName" : "BuildDateStringInAnnotation",
+    "knowledgeReferences" : [ ],
+    "label" : "buildDateStringInAnnotation",
+    "name" : "buildDateStringInAnnotation",
+    "typeRef" : {
+      "localName" : "buildDateStringInAnnotation",
+      "namespace" : "http://www.gs.com/cip"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "sid-646B21D4-0CD2-48E1-98EE-DF09F8F2993B",
+    "informationReferences" : [ {
+      "reference" : "sid-3C16E501-7619-4B2F-9770-7E1A7F66A33D"
+    } ],
+    "javaOutputTypeName" : "List<String>",
+    "javaParameterName" : "describeAgesList",
+    "javaTypeName" : "DescribeAgesList",
+    "knowledgeReferences" : [ ],
+    "label" : "describeAgesList",
+    "name" : "describeAgesList",
+    "typeRef" : {
+      "localName" : "describeAgesList",
+      "namespace" : "http://www.gs.com/cip"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "sid-6BEA84C5-B6D6-4823-B145-CC9039E79767",
+    "informationReferences" : [ {
+      "reference" : "sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9"
+    }, {
+      "reference" : "sid-E84C6443-C574-46D2-ACE6-7C04E9570047"
+    }, {
+      "reference" : "sid-76B31FC4-A5D7-48A6-BD27-BD85D9739FFA"
+    }, {
+      "reference" : "sid-54C8F12C-6DF1-462C-8FF7-EE7A6C8C2BB9"
+    }, {
+      "reference" : "sid-C8EE5C3A-1C1C-42D7-B596-92E4DA21A125"
+    }, {
+      "reference" : "sid-63B08562-861C-40D7-BE83-710748DD1C0F"
+    } ],
+    "javaOutputTypeName" : "type.GenerateTemporalObjects",
+    "javaParameterName" : "generateTemporalObjects",
+    "javaTypeName" : "GenerateTemporalObjects",
+    "knowledgeReferences" : [ ],
+    "label" : "generateTemporalObjects",
+    "name" : "generateTemporalObjects",
+    "typeRef" : {
+      "localName" : "generateTemporalObjects",
+      "namespace" : "http://www.gs.com/cip"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "sid-955F0BB7-C215-4403-B055-AC3814C6764E",
+    "informationReferences" : [ {
+      "reference" : "sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9"
+    } ],
+    "javaOutputTypeName" : "java.math.BigDecimal",
+    "javaParameterName" : "negateSecond",
+    "javaTypeName" : "NegateSecond",
+    "knowledgeReferences" : [ ],
+    "label" : "negateSecond",
+    "name" : "negateSecond",
+    "typeRef" : {
+      "localName" : "negateSecond",
+      "namespace" : "http://www.gs.com/cip"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "sid-AEACF1C7-512D-4230-96A8-AC49528D080C",
+    "informationReferences" : [ {
+      "reference" : "sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9"
+    } ],
+    "javaOutputTypeName" : "List<Boolean>",
+    "javaParameterName" : "noRuleMatchesMultiHit",
+    "javaTypeName" : "NoRuleMatchesMultiHit",
+    "knowledgeReferences" : [ ],
+    "label" : "noRuleMatchesMultiHit",
+    "name" : "noRuleMatchesMultiHit",
+    "typeRef" : {
+      "localName" : "noRuleMatchesMultiHit",
+      "namespace" : "http://www.gs.com/cip"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "sid-DEE756F7-83CB-4493-9004-F943DB18EF5D",
+    "informationReferences" : [ {
+      "reference" : "sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9"
+    } ],
+    "javaOutputTypeName" : "Boolean",
+    "javaParameterName" : "noRuleMatchesSingleHit",
+    "javaTypeName" : "NoRuleMatchesSingleHit",
+    "knowledgeReferences" : [ ],
+    "label" : "noRuleMatchesSingleHit",
+    "name" : "noRuleMatchesSingleHit",
+    "typeRef" : {
+      "localName" : "noRuleMatchesSingleHit",
+      "namespace" : "http://www.gs.com/cip"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12",
+    "informationReferences" : [ {
+      "reference" : "sid-6BEA84C5-B6D6-4823-B145-CC9039E79767"
+    } ],
+    "javaOutputTypeName" : "List<type.TemporalDiffs>",
+    "javaParameterName" : "temporalDiffs",
+    "javaTypeName" : "TemporalDiffs",
+    "knowledgeReferences" : [ ],
+    "label" : "temporalDiffs",
+    "name" : "temporalDiffs",
+    "typeRef" : {
+      "localName" : "temporalDiffs",
+      "namespace" : "http://www.gs.com/cip"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "sid-DB470E83-401F-4E28-BCA7-8E8FA641E93F",
+    "informationReferences" : [ {
+      "reference" : "sid-9C64E736-E1EB-4344-93B5-79722CEB6D89"
+    }, {
+      "reference" : "sid-3C16E501-7619-4B2F-9770-7E1A7F66A33D"
+    }, {
+      "reference" : "sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12"
+    }, {
+      "reference" : "sid-613407DB-766F-458F-8430-6F31DDFD82B1"
+    }, {
+      "reference" : "sid-646B21D4-0CD2-48E1-98EE-DF09F8F2993B"
+    }, {
+      "reference" : "sid-955F0BB7-C215-4403-B055-AC3814C6764E"
+    }, {
+      "reference" : "sid-DEE756F7-83CB-4493-9004-F943DB18EF5D"
+    }, {
+      "reference" : "sid-AEACF1C7-512D-4230-96A8-AC49528D080C"
+    }, {
+      "reference" : "sid-FE7B81A7-CACD-434C-BE9D-81FF98769536"
+    } ],
+    "javaOutputTypeName" : "List<type.Zip>",
+    "javaParameterName" : "zip",
+    "javaTypeName" : "Zip",
+    "knowledgeReferences" : [ ],
+    "label" : "zip",
+    "name" : "zip",
+    "typeRef" : {
+      "localName" : "zip",
+      "namespace" : "http://www.gs.com/cip"
+    }
+  } ]
+}

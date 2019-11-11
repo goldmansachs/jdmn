@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:cip="http://www.gs.com/cip" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:xsd="http://www.w3.org/2001/XMLSchema" namespace="http://www.omg.org/spec/DMN/20151101/dmn.xsd" name="simple-decision-free-text-complex-literal-expression">
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:cip="http://www.gs.com/cip" namespace="http://www.omg.org/spec/DMN/20151101/dmn.xsd" name="simple-decision-free-text-complex-literal-expression">
     <itemDefinition isCollection="false" name="monthly" id="item-definition-sid-60E9B6E8-6251-4E45-86C4-4E46A3D9F64E" label="Monthly">
         <typeRef>feel:string</typeRef>
     </itemDefinition>

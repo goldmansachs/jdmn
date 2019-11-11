@@ -12,10 +12,8 @@
  */
 package com.gs.dmn.signavio.testlab;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
-@Ignore
 public class FromRDFTestLabToJUnitTransformerTest extends AbstractTestLabToJUnitTransformerTest {
     @Override
     protected String getInputPath() {
