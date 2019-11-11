@@ -1,0 +1,563 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-84291715d65602fd9b10b2c56f8be43c",
+    "isCollection" : true,
+    "label" : "accessCertainTemporalUnits",
+    "name" : "accessCertainTemporalUnits",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-dbae2a4bdfd5a41dccc6120e3c34fc73",
+    "isCollection" : true,
+    "label" : "ages",
+    "name" : "ages",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-c94502c16226a212a739a89706866bdd",
+    "isCollection" : false,
+    "label" : "buildDateStringInAnnotation",
+    "name" : "buildDateStringInAnnotation",
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-7bc60c39d0f8fb9a9f5c0735e830196d",
+    "isCollection" : false,
+    "label" : "day",
+    "name" : "day",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-f00d13a795789b6f3aa31d4a830fa5bb",
+    "isCollection" : true,
+    "label" : "describeAgesList",
+    "name" : "describeAgesList",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "compositeType",
+    "id" : "id-9a6cde3460b63379a2b6b1975c71a962",
+    "isCollection" : false,
+    "label" : "generateTemporalObjects",
+    "name" : "generateTemporalObjects",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-9a6cde3460b63379a2b6b1975c71a962-relation-E9BD5C28-E92A-4BC5-BC7E-49327A0EE1F2",
+      "isCollection" : false,
+      "label" : "date",
+      "name" : "date",
+      "typeRef" : {
+        "localName" : "date",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-9a6cde3460b63379a2b6b1975c71a962-relation-EFD96D34-5FD3-4E2A-93D4-FBBB037E3EB6",
+      "isCollection" : false,
+      "label" : "datetime",
+      "name" : "datetime",
+      "typeRef" : {
+        "localName" : "date and time",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-4605f9af9fc8f0f3a6e95ccab70c8d86",
+    "isCollection" : false,
+    "label" : "hour",
+    "name" : "hour",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-d3146fe44546fe51058649d51dbf0b5e",
+    "isCollection" : false,
+    "label" : "minute",
+    "name" : "minute",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-d26a5bc335ee8f2c7b901208bb065221",
+    "isCollection" : false,
+    "label" : "month",
+    "name" : "month",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-b74e094e716a3f25c739985c993ab62e",
+    "isCollection" : true,
+    "label" : "names",
+    "name" : "names",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-7d58e0cd86828258cfc1bf6cfbdf62a2",
+    "isCollection" : false,
+    "label" : "negateSecond",
+    "name" : "negateSecond",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-b887e8de51c1d0e42e01c9612594aee7",
+    "isCollection" : true,
+    "label" : "noRuleMatchesMultiHit",
+    "name" : "noRuleMatchesMultiHit",
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-e61c037b1838b818c2cb1b4f3365c05e",
+    "isCollection" : false,
+    "label" : "noRuleMatchesSingleHit",
+    "name" : "noRuleMatchesSingleHit",
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-f5fd1d4856d5557b1616b2a953cfd433",
+    "isCollection" : false,
+    "label" : "second",
+    "name" : "second",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "compositeType",
+    "id" : "id-4112719dfdd7e3c70cca71905be01f13",
+    "isCollection" : true,
+    "label" : "temporalDiffs",
+    "name" : "temporalDiffs",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-4112719dfdd7e3c70cca71905be01f13-relation-8B4B1873-E167-4850-8046-288DF48F5F0C",
+      "isCollection" : false,
+      "label" : "dateDiff",
+      "name" : "dateDiff",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-4112719dfdd7e3c70cca71905be01f13-relation-8BFCCBC6-9B20-456E-A18F-45DD04BA64F8",
+      "isCollection" : false,
+      "label" : "dateTimeDiff",
+      "name" : "dateTimeDiff",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-e334c76d86614a9e29544828ee6f408b",
+    "isCollection" : false,
+    "label" : "year",
+    "name" : "year",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "compositeType",
+    "id" : "id-e062979c36671bb3ba9768fcb54a1f4a",
+    "isCollection" : true,
+    "label" : "zip",
+    "name" : "zip",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-e062979c36671bb3ba9768fcb54a1f4a-relation-ages",
+      "isCollection" : false,
+      "label" : "ages",
+      "name" : "ages",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-e062979c36671bb3ba9768fcb54a1f4a-relation-agesListDescription",
+      "isCollection" : false,
+      "label" : "agesListDescription",
+      "name" : "agesListDescription",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-e062979c36671bb3ba9768fcb54a1f4a-relation-dateDiffs",
+      "isCollection" : false,
+      "label" : "dateDiffs",
+      "name" : "dateDiffs",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-e062979c36671bb3ba9768fcb54a1f4a-relation-dateTimeDiffs",
+      "isCollection" : false,
+      "label" : "dateTimeDiffs",
+      "name" : "dateTimeDiffs",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-e062979c36671bb3ba9768fcb54a1f4a-relation-names",
+      "isCollection" : false,
+      "label" : "names",
+      "name" : "names",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-e062979c36671bb3ba9768fcb54a1f4a-relation-temporalUnits",
+      "isCollection" : false,
+      "label" : "temporalUnits",
+      "name" : "temporalUnits",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "id-6d8d1e429666b8ff1897bf3f6ac82986",
+    "javaParameterName" : "ages",
+    "javaTypeName" : "List<java.math.BigDecimal>",
+    "label" : "ages",
+    "name" : "ages",
+    "typeRef" : {
+      "localName" : "ages",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-9de6cc37e6380e7743b7d769992639c3",
+    "javaParameterName" : "day",
+    "javaTypeName" : "java.math.BigDecimal",
+    "label" : "day",
+    "name" : "day",
+    "typeRef" : {
+      "localName" : "day",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-667112c8090bedf91b822d488b301493",
+    "javaParameterName" : "hour",
+    "javaTypeName" : "java.math.BigDecimal",
+    "label" : "hour",
+    "name" : "hour",
+    "typeRef" : {
+      "localName" : "hour",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-bf9d1bad55646f55a50b5507e83ba998",
+    "javaParameterName" : "minute",
+    "javaTypeName" : "java.math.BigDecimal",
+    "label" : "minute",
+    "name" : "minute",
+    "typeRef" : {
+      "localName" : "minute",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-3c359baf642219c42113142c6b442d79",
+    "javaParameterName" : "month",
+    "javaTypeName" : "java.math.BigDecimal",
+    "label" : "month",
+    "name" : "month",
+    "typeRef" : {
+      "localName" : "month",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-3407ab927ec873fbdc3c8ac0d7bfdfca",
+    "javaParameterName" : "names",
+    "javaTypeName" : "List<String>",
+    "label" : "names",
+    "name" : "names",
+    "typeRef" : {
+      "localName" : "names",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-5ca7d94b08d7732cd963c2a10e2488b5",
+    "javaParameterName" : "second",
+    "javaTypeName" : "java.math.BigDecimal",
+    "label" : "second",
+    "name" : "second",
+    "typeRef" : {
+      "localName" : "second",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-9ca60c7d715a2606bbd2efb76548af3b",
+    "javaParameterName" : "year",
+    "javaTypeName" : "java.math.BigDecimal",
+    "label" : "year",
+    "name" : "year",
+    "typeRef" : {
+      "localName" : "year",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-33b38ba8b896a9204958529ad488d8ac",
+    "informationReferences" : [ {
+      "reference" : "id-3ca7d494cdd72647ecd98949e80d821e"
+    } ],
+    "javaOutputTypeName" : "List<java.math.BigDecimal>",
+    "javaParameterName" : "accessCertainTemporalUnits",
+    "javaTypeName" : "AccessCertainTemporalUnits",
+    "knowledgeReferences" : [ ],
+    "label" : "accessCertainTemporalUnits",
+    "name" : "accessCertainTemporalUnits",
+    "typeRef" : {
+      "localName" : "accessCertainTemporalUnits",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-0720f23b4aa8e0e34802e93c84775319",
+    "informationReferences" : [ {
+      "reference" : "id-9ca60c7d715a2606bbd2efb76548af3b"
+    }, {
+      "reference" : "id-3c359baf642219c42113142c6b442d79"
+    }, {
+      "reference" : "id-9de6cc37e6380e7743b7d769992639c3"
+    } ],
+    "javaOutputTypeName" : "Boolean",
+    "javaParameterName" : "buildDateStringInAnnotation",
+    "javaTypeName" : "BuildDateStringInAnnotation",
+    "knowledgeReferences" : [ ],
+    "label" : "buildDateStringInAnnotation",
+    "name" : "buildDateStringInAnnotation",
+    "typeRef" : {
+      "localName" : "buildDateStringInAnnotation",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-7535944522df431ce0f2814e96991193",
+    "informationReferences" : [ {
+      "reference" : "id-6d8d1e429666b8ff1897bf3f6ac82986"
+    } ],
+    "javaOutputTypeName" : "List<String>",
+    "javaParameterName" : "describeAgesList",
+    "javaTypeName" : "DescribeAgesList",
+    "knowledgeReferences" : [ ],
+    "label" : "describeAgesList",
+    "name" : "describeAgesList",
+    "typeRef" : {
+      "localName" : "describeAgesList",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-3ca7d494cdd72647ecd98949e80d821e",
+    "informationReferences" : [ {
+      "reference" : "id-9ca60c7d715a2606bbd2efb76548af3b"
+    }, {
+      "reference" : "id-5ca7d94b08d7732cd963c2a10e2488b5"
+    }, {
+      "reference" : "id-bf9d1bad55646f55a50b5507e83ba998"
+    }, {
+      "reference" : "id-3c359baf642219c42113142c6b442d79"
+    }, {
+      "reference" : "id-667112c8090bedf91b822d488b301493"
+    }, {
+      "reference" : "id-9de6cc37e6380e7743b7d769992639c3"
+    } ],
+    "javaOutputTypeName" : "type.GenerateTemporalObjects",
+    "javaParameterName" : "generateTemporalObjects",
+    "javaTypeName" : "GenerateTemporalObjects",
+    "knowledgeReferences" : [ ],
+    "label" : "generateTemporalObjects",
+    "name" : "generateTemporalObjects",
+    "typeRef" : {
+      "localName" : "generateTemporalObjects",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-28993e328332eed1a055cf5d390c813c",
+    "informationReferences" : [ {
+      "reference" : "id-5ca7d94b08d7732cd963c2a10e2488b5"
+    } ],
+    "javaOutputTypeName" : "java.math.BigDecimal",
+    "javaParameterName" : "negateSecond",
+    "javaTypeName" : "NegateSecond",
+    "knowledgeReferences" : [ ],
+    "label" : "negateSecond",
+    "name" : "negateSecond",
+    "typeRef" : {
+      "localName" : "negateSecond",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-2a03a3567af4c8c0c2a3ece074212d8e",
+    "informationReferences" : [ {
+      "reference" : "id-5ca7d94b08d7732cd963c2a10e2488b5"
+    } ],
+    "javaOutputTypeName" : "List<Boolean>",
+    "javaParameterName" : "noRuleMatchesMultiHit",
+    "javaTypeName" : "NoRuleMatchesMultiHit",
+    "knowledgeReferences" : [ ],
+    "label" : "noRuleMatchesMultiHit",
+    "name" : "noRuleMatchesMultiHit",
+    "typeRef" : {
+      "localName" : "noRuleMatchesMultiHit",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-40a629b73fd6d126e856925937ad32e0",
+    "informationReferences" : [ {
+      "reference" : "id-5ca7d94b08d7732cd963c2a10e2488b5"
+    } ],
+    "javaOutputTypeName" : "Boolean",
+    "javaParameterName" : "noRuleMatchesSingleHit",
+    "javaTypeName" : "NoRuleMatchesSingleHit",
+    "knowledgeReferences" : [ ],
+    "label" : "noRuleMatchesSingleHit",
+    "name" : "noRuleMatchesSingleHit",
+    "typeRef" : {
+      "localName" : "noRuleMatchesSingleHit",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-993ac52eeceddf3affb202a39903c2c8",
+    "informationReferences" : [ {
+      "reference" : "id-3ca7d494cdd72647ecd98949e80d821e"
+    } ],
+    "javaOutputTypeName" : "List<type.TemporalDiffs>",
+    "javaParameterName" : "temporalDiffs",
+    "javaTypeName" : "TemporalDiffs",
+    "knowledgeReferences" : [ ],
+    "label" : "temporalDiffs",
+    "name" : "temporalDiffs",
+    "typeRef" : {
+      "localName" : "temporalDiffs",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-149048fe2cdc6e00767dc7404c469504",
+    "informationReferences" : [ {
+      "reference" : "id-6d8d1e429666b8ff1897bf3f6ac82986"
+    }, {
+      "reference" : "id-3407ab927ec873fbdc3c8ac0d7bfdfca"
+    }, {
+      "reference" : "id-40a629b73fd6d126e856925937ad32e0"
+    }, {
+      "reference" : "id-33b38ba8b896a9204958529ad488d8ac"
+    }, {
+      "reference" : "id-0720f23b4aa8e0e34802e93c84775319"
+    }, {
+      "reference" : "id-28993e328332eed1a055cf5d390c813c"
+    }, {
+      "reference" : "id-7535944522df431ce0f2814e96991193"
+    }, {
+      "reference" : "id-2a03a3567af4c8c0c2a3ece074212d8e"
+    }, {
+      "reference" : "id-993ac52eeceddf3affb202a39903c2c8"
+    } ],
+    "javaOutputTypeName" : "List<type.Zip>",
+    "javaParameterName" : "zip",
+    "javaTypeName" : "Zip",
+    "knowledgeReferences" : [ ],
+    "label" : "zip",
+    "name" : "zip",
+    "typeRef" : {
+      "localName" : "zip",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+    }
+  } ]
+}

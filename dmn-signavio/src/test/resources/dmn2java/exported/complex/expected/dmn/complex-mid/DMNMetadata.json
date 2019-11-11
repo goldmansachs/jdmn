@@ -1,0 +1,263 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-106c441cd62367c88758962cff427424",
+    "isCollection" : true,
+    "label" : "Big mid",
+    "name" : "bigMid",
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"Accept\",\"Warn\",\"Reject\"",
+    "id" : "id-306ccf7d369d2bba5c4423e805066cad",
+    "isCollection" : false,
+    "label" : "decide",
+    "name" : "decide",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"Consider\",\"Don't Consider\"",
+    "id" : "id-2eb6c4f478feb0cd7d3d6a8322f6b13c",
+    "isCollection" : false,
+    "label" : "decision",
+    "name" : "decision",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"Accept\",\"Warn\",\"Reject\"",
+    "id" : "id-c1b623d28c7f2f9ecef3a5864ba995a0",
+    "isCollection" : true,
+    "label" : "small mid",
+    "name" : "smallMid",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "compositeType",
+    "id" : "id-509d57e00a823edb6857ed145d1f0b4b",
+    "isCollection" : false,
+    "label" : "TestPeopleType",
+    "name" : "testPeopleType",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-509d57e00a823edb6857ed145d1f0b4b-relation-0",
+      "isCollection" : true,
+      "label" : "TestPersonType",
+      "name" : "testPersonType",
+      "typeRef" : {
+        "localName" : "testPersonType",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
+      }
+    } ]
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"Happy\",\"Sad\",\"Tall\",\"Short\",\"Loud\",\"Quiet\"",
+    "id" : "id-9a9e53ad8c13f4bd055babfca1d4e21c",
+    "isCollection" : false,
+    "label" : "TestPersonProperties",
+    "name" : "testPersonProperties",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "compositeType",
+    "id" : "id-9187b71a2091ed5d0030ddaaf4b0b07d",
+    "isCollection" : false,
+    "label" : "TestPersonType",
+    "name" : "testPersonType",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-9187b71a2091ed5d0030ddaaf4b0b07d-relation-1",
+      "isCollection" : false,
+      "label" : "Age",
+      "name" : "age",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-9187b71a2091ed5d0030ddaaf4b0b07d-relation-0",
+      "isCollection" : false,
+      "label" : "Name",
+      "name" : "name",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-9187b71a2091ed5d0030ddaaf4b0b07d-relation-2",
+      "isCollection" : true,
+      "label" : "Properties",
+      "name" : "properties",
+      "typeRef" : {
+        "localName" : "testPersonProperties",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
+      }
+    } ]
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-9da1e1e3140d3a13da9fbd3b77d85666",
+    "isCollection" : false,
+    "label" : "top decision",
+    "name" : "topDecision",
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "id-66be7cc5d14947682f8a060a30da5fa0",
+    "javaParameterName" : "properties_iterator",
+    "javaTypeName" : "String",
+    "label" : "Properties",
+    "name" : "properties_iterator",
+    "typeRef" : {
+      "localName" : "testPersonProperties",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-76acfc10261ddc2fe0ac3081483133ad",
+    "javaParameterName" : "testPeopleType",
+    "javaTypeName" : "type.TestPeopleType",
+    "label" : "TestPeopleType",
+    "name" : "testPeopleType",
+    "typeRef" : {
+      "localName" : "testPeopleType",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-e801f20a6a898682c3b5e22db82de47b",
+    "javaParameterName" : "testPersonType6_iterator",
+    "javaTypeName" : "type.TestPersonType",
+    "label" : "TestPersonType",
+    "name" : "testPersonType6_iterator",
+    "typeRef" : {
+      "localName" : "testPersonType",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ {
+      "@kind" : "multiInstanceDecisionLogic",
+      "aggregationFunction" : "COLLECT",
+      "iterationExpression" : "testPeopleType.testPersonType",
+      "iteratorShapeId" : "id-e801f20a6a898682c3b5e22db82de47b",
+      "topLevelDecisionId" : "id-b4717b9aa316e3d6266365a4ae6cf873"
+    } ],
+    "id" : "id-519b91fe7a0fd84ede349e72ff1344e8",
+    "informationReferences" : [ {
+      "reference" : "id-76acfc10261ddc2fe0ac3081483133ad"
+    } ],
+    "javaOutputTypeName" : "List<Boolean>",
+    "javaParameterName" : "bigMid",
+    "javaTypeName" : "BigMid",
+    "knowledgeReferences" : [ ],
+    "label" : "Big mid",
+    "name" : "bigMid",
+    "typeRef" : {
+      "localName" : "bigMid",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-54e777f1b3e48362bf9e79c6d305e91d",
+    "informationReferences" : [ {
+      "reference" : "id-66be7cc5d14947682f8a060a30da5fa0"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "decide",
+    "javaTypeName" : "Decide",
+    "knowledgeReferences" : [ ],
+    "label" : "decide",
+    "name" : "decide",
+    "typeRef" : {
+      "localName" : "decide",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-db8a303073ca6775c192503c81230235",
+    "informationReferences" : [ {
+      "reference" : "id-e801f20a6a898682c3b5e22db82de47b"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "decision",
+    "javaTypeName" : "Decision",
+    "knowledgeReferences" : [ ],
+    "label" : "decision",
+    "name" : "decision",
+    "typeRef" : {
+      "localName" : "decision",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ {
+      "@kind" : "multiInstanceDecisionLogic",
+      "aggregationFunction" : "COLLECT",
+      "iterationExpression" : "testPersonType6_iterator.properties",
+      "iteratorShapeId" : "id-66be7cc5d14947682f8a060a30da5fa0",
+      "topLevelDecisionId" : "id-54e777f1b3e48362bf9e79c6d305e91d"
+    } ],
+    "id" : "id-dfce3b29b4d620c67860613f0681a5c0",
+    "informationReferences" : [ {
+      "reference" : "id-e801f20a6a898682c3b5e22db82de47b"
+    } ],
+    "javaOutputTypeName" : "List<String>",
+    "javaParameterName" : "smallMid",
+    "javaTypeName" : "SmallMid",
+    "knowledgeReferences" : [ ],
+    "label" : "small mid",
+    "name" : "smallMid",
+    "typeRef" : {
+      "localName" : "smallMid",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-b4717b9aa316e3d6266365a4ae6cf873",
+    "informationReferences" : [ {
+      "reference" : "id-db8a303073ca6775c192503c81230235"
+    }, {
+      "reference" : "id-dfce3b29b4d620c67860613f0681a5c0"
+    } ],
+    "javaOutputTypeName" : "Boolean",
+    "javaParameterName" : "topDecision",
+    "javaTypeName" : "TopDecision",
+    "knowledgeReferences" : [ ],
+    "label" : "top decision",
+    "name" : "topDecision",
+    "typeRef" : {
+      "localName" : "topDecision",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
+    }
+  } ]
+}

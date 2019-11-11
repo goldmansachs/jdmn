@@ -22,12 +22,13 @@ public abstract class AbstractTestTransformerTest extends AbstractTransformerTes
     protected void doTest(String inputTestFilePath, String inputModelFilePath, String expectedOutputPath) throws Exception {
         File outputFolder = new File("target/" + expectedOutputPath);
         outputFolder.mkdirs();
-        File expectedOutputFolder = new File(resource(expectedOutputPath));
 
         Path inputPath = new File(inputTestFilePath).toPath();
         Path inputModelPath = new File(inputModelFilePath).toPath();
         FileTransformer transformer = makeTransformer(inputModelPath, makeInputParameters(), LOGGER);
         transformer.transform(inputPath, outputFolder.toPath());
+
+        File expectedOutputFolder = new File(resource(expectedOutputPath));
         compareFile(expectedOutputFolder, outputFolder);
     }
 

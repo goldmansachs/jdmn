@@ -1,0 +1,136 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-036f5df10a02fc4f4e16de67b34f3618",
+    "isCollection" : false,
+    "label" : "a",
+    "name" : "a",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-454c54ab23301f00dd5186779a80d786",
+    "isCollection" : false,
+    "label" : "b",
+    "name" : "b",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-251ab0dcbaed195dcd42f54db23b9466",
+    "isCollection" : false,
+    "label" : "bb",
+    "name" : "bb",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "compositeType",
+    "id" : "id-03a762b8be79b9820f82ca915536cabb",
+    "isCollection" : false,
+    "label" : "IncompleteDecisionTable",
+    "name" : "incompleteDecisionTable",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-03a762b8be79b9820f82ca915536cabb-relation-3611E9FC-EF9C-4B4A-A32B-CFD57AE625A8",
+      "isCollection" : false,
+      "label" : "a",
+      "name" : "a",
+      "typeRef" : {
+        "localName" : "a",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-03a762b8be79b9820f82ca915536cabb-relation-01DFD749-1DF4-4791-B631-4848A1F04D44",
+      "isCollection" : false,
+      "label" : "b",
+      "name" : "b",
+      "typeRef" : {
+        "localName" : "b",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml"
+      }
+    } ]
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-a360c1bdbf6f006dd5490c42d12a6da3",
+    "isCollection" : false,
+    "label" : "InputString",
+    "name" : "inputString",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-6638960da9b1c3664d33d9e1cde4324a",
+    "isCollection" : false,
+    "label" : "TestNullComplexTypeAccess",
+    "name" : "testNullComplexTypeAccess",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "id-0ff9eb79f707e780099161b4b4c56746",
+    "javaParameterName" : "inputString",
+    "javaTypeName" : "String",
+    "label" : "InputString",
+    "name" : "inputString",
+    "typeRef" : {
+      "localName" : "inputString",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-a396af58800e8f6a8de6c4d8ba8f4236",
+    "informationReferences" : [ {
+      "reference" : "id-0ff9eb79f707e780099161b4b4c56746"
+    } ],
+    "javaOutputTypeName" : "type.IncompleteDecisionTable",
+    "javaParameterName" : "incompleteDecisionTable",
+    "javaTypeName" : "IncompleteDecisionTable",
+    "knowledgeReferences" : [ ],
+    "label" : "IncompleteDecisionTable",
+    "name" : "incompleteDecisionTable",
+    "typeRef" : {
+      "localName" : "incompleteDecisionTable",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-00afd29eedb73034d4c3726f1f77ad54",
+    "informationReferences" : [ {
+      "reference" : "id-a396af58800e8f6a8de6c4d8ba8f4236"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "testNullComplexTypeAccess",
+    "javaTypeName" : "TestNullComplexTypeAccess",
+    "knowledgeReferences" : [ ],
+    "label" : "TestNullComplexTypeAccess",
+    "name" : "testNullComplexTypeAccess",
+    "typeRef" : {
+      "localName" : "testNullComplexTypeAccess",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml"
+    }
+  } ]
+}

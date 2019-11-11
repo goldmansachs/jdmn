@@ -1,0 +1,81 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"r1\",\"r2\",\"r3\",\"r4\",\"r5\",\"r6\",\"r7\",\"r8\",\"r9\",\"r10\"",
+    "id" : "sid-4A7C793A-882C-4867-94B9-AD88D6D6970D",
+    "isCollection" : false,
+    "label" : "Decision",
+    "name" : "decision",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "diagram-9818e019232d45c28b25d9dd648b4f01-itemDefinition-sid-3F148E87-DF6E-42AF-B209-4D532421A2F9",
+    "isCollection" : false,
+    "label" : "NumberInput",
+    "name" : "numberInput",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "diagram-9818e019232d45c28b25d9dd648b4f01-itemDefinition-sid-404A0FC2-6787-4210-BB30-2E7964835E99",
+    "isCollection" : false,
+    "label" : "TextInput",
+    "name" : "textInput",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "diagram-9818e019232d45c28b25d9dd648b4f01-inputdata-sid-3F148E87-DF6E-42AF-B209-4D532421A2F9",
+    "javaParameterName" : "numberInput",
+    "javaTypeName" : "java.math.BigDecimal",
+    "label" : "NumberInput",
+    "name" : "numberInput",
+    "typeRef" : {
+      "localName" : "numberInput",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "diagram-9818e019232d45c28b25d9dd648b4f01-inputdata-sid-404A0FC2-6787-4210-BB30-2E7964835E99",
+    "javaParameterName" : "textInput",
+    "javaTypeName" : "String",
+    "label" : "TextInput",
+    "name" : "textInput",
+    "typeRef" : {
+      "localName" : "textInput",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "diagram-9818e019232d45c28b25d9dd648b4f01-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D",
+    "informationReferences" : [ {
+      "reference" : "diagram-9818e019232d45c28b25d9dd648b4f01-inputdata-sid-3F148E87-DF6E-42AF-B209-4D532421A2F9"
+    }, {
+      "reference" : "diagram-9818e019232d45c28b25d9dd648b4f01-inputdata-sid-404A0FC2-6787-4210-BB30-2E7964835E99"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "decision",
+    "javaTypeName" : "Decision",
+    "knowledgeReferences" : [ ],
+    "label" : "Decision",
+    "name" : "decision",
+    "typeRef" : {
+      "localName" : "decision",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  } ]
+}

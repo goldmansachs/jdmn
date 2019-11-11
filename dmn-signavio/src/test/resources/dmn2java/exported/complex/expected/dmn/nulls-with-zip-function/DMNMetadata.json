@@ -1,0 +1,201 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-c45ea1e81f294d1f76a0eb10009ead0a",
+    "isCollection" : false,
+    "label" : "do something",
+    "name" : "doSomething",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-52de484b6bcbe3d7f1fa7fdabd31dbf5",
+    "isCollection" : true,
+    "label" : "inputA",
+    "name" : "inputA",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-398f2c4664180c9b2b696444d7ccd6c3",
+    "isCollection" : true,
+    "label" : "inputB",
+    "name" : "inputB",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-db263452d6ebb807f0ad1fdafc9398f9",
+    "isCollection" : true,
+    "label" : "mid",
+    "name" : "mid",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "compositeType",
+    "id" : "id-63ce85051c606c9854e624874392899b",
+    "isCollection" : true,
+    "label" : "zip",
+    "name" : "zip",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-63ce85051c606c9854e624874392899b-relation-inputA",
+      "isCollection" : false,
+      "label" : "inputA",
+      "name" : "inputA",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-63ce85051c606c9854e624874392899b-relation-inputB",
+      "isCollection" : false,
+      "label" : "inputB",
+      "name" : "inputB",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "compositeType",
+    "id" : "id-1b4b35ce9f961726ac5d267843377e53",
+    "isCollection" : false,
+    "label" : "zip",
+    "name" : "zip3",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-1b4b35ce9f961726ac5d267843377e53-relation-inputA",
+      "isCollection" : false,
+      "label" : "inputA",
+      "name" : "inputA",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-1b4b35ce9f961726ac5d267843377e53-relation-inputB",
+      "isCollection" : false,
+      "label" : "inputB",
+      "name" : "inputB",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "id-58adb0c8c137e2f5cdd9c6b8672cde12",
+    "javaParameterName" : "inputA",
+    "javaTypeName" : "List<String>",
+    "label" : "inputA",
+    "name" : "inputA",
+    "typeRef" : {
+      "localName" : "inputA",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-c61c27abaa767fde9e3094fa04adddf5",
+    "javaParameterName" : "inputB",
+    "javaTypeName" : "List<java.math.BigDecimal>",
+    "label" : "inputB",
+    "name" : "inputB",
+    "typeRef" : {
+      "localName" : "inputB",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-d4987419a2b1fc654221251bbec3102e",
+    "javaParameterName" : "zip4_iterator",
+    "javaTypeName" : "type.Zip3",
+    "label" : "zip",
+    "name" : "zip4_iterator",
+    "typeRef" : {
+      "localName" : "zip3",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-187b2eb75bfbb6c127a12941ba205766",
+    "informationReferences" : [ {
+      "reference" : "id-d4987419a2b1fc654221251bbec3102e"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "doSomething",
+    "javaTypeName" : "DoSomething",
+    "knowledgeReferences" : [ ],
+    "label" : "do something",
+    "name" : "doSomething",
+    "typeRef" : {
+      "localName" : "doSomething",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ {
+      "@kind" : "multiInstanceDecisionLogic",
+      "aggregationFunction" : "COLLECT",
+      "iterationExpression" : "zip",
+      "iteratorShapeId" : "id-d4987419a2b1fc654221251bbec3102e",
+      "topLevelDecisionId" : "id-187b2eb75bfbb6c127a12941ba205766"
+    } ],
+    "id" : "id-98462c7836419969c81cf315b2ac7d43",
+    "informationReferences" : [ {
+      "reference" : "id-2541b6ae8c42dcbb7520840fa5766842"
+    } ],
+    "javaOutputTypeName" : "List<String>",
+    "javaParameterName" : "mid",
+    "javaTypeName" : "Mid",
+    "knowledgeReferences" : [ ],
+    "label" : "mid",
+    "name" : "mid",
+    "typeRef" : {
+      "localName" : "mid",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-2541b6ae8c42dcbb7520840fa5766842",
+    "informationReferences" : [ {
+      "reference" : "id-58adb0c8c137e2f5cdd9c6b8672cde12"
+    }, {
+      "reference" : "id-c61c27abaa767fde9e3094fa04adddf5"
+    } ],
+    "javaOutputTypeName" : "List<type.Zip>",
+    "javaParameterName" : "zip",
+    "javaTypeName" : "Zip",
+    "knowledgeReferences" : [ ],
+    "label" : "zip",
+    "name" : "zip",
+    "typeRef" : {
+      "localName" : "zip",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml"
+    }
+  } ]
+}

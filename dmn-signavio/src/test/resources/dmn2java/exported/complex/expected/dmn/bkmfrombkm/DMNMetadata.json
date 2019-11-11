@@ -1,0 +1,581 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-d3511d979e1a6102d0ae5b5034548a79",
+    "isCollection" : false,
+    "label" : "d",
+    "name" : "d",
+    "typeRef" : {
+      "localName" : "date",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-625818e1d9698c8571030551007e11cd",
+    "isCollection" : false,
+    "label" : "date",
+    "name" : "date",
+    "typeRef" : {
+      "localName" : "date",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-8620b54ef01371b34a9b595524377df0",
+    "isCollection" : true,
+    "label" : "date formula",
+    "name" : "dateFormula",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-524d3740b1b7c6ca8d96761707be6cc2",
+    "isCollection" : false,
+    "label" : "date input",
+    "name" : "dateInput",
+    "typeRef" : {
+      "localName" : "date",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-ed40fa7086eb55f685aecd4d3e967715",
+    "isCollection" : true,
+    "label" : "date operators",
+    "name" : "dateOperators",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-6c2042cac154ecdf69796fb6830f6a4d",
+    "isCollection" : false,
+    "label" : "datetime",
+    "name" : "datetime",
+    "typeRef" : {
+      "localName" : "date and time",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-2e86f546a454ab9c359fe81c2ae62fc9",
+    "isCollection" : true,
+    "label" : "datetime formula",
+    "name" : "datetimeFormula",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-b66c57221477a778ba352d6a75b5e362",
+    "isCollection" : true,
+    "label" : "datetime operators",
+    "name" : "datetimeOperators",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-ac984fcc92ce261ac864bc3cc578b8a0",
+    "isCollection" : false,
+    "label" : "decide",
+    "name" : "decide",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-a41c25033284ed36338bbd16aa1a0c66",
+    "isCollection" : false,
+    "label" : "final decision",
+    "name" : "finalDecision",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-b1eecadc91133fbcdeafeb845a8fa18c",
+    "isCollection" : false,
+    "label" : "pick",
+    "name" : "pick",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-9fa5a1c91a673bbe7d29ce8954cace64",
+    "isCollection" : false,
+    "label" : "sum",
+    "name" : "sum",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-1c03bb6329adf7ed49ec1c2e43c202cb",
+    "isCollection" : false,
+    "label" : "t",
+    "name" : "t",
+    "typeRef" : {
+      "localName" : "time",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-0f66dfb51b4590f1bbb199c8cba31e0b",
+    "isCollection" : false,
+    "label" : "time",
+    "name" : "time",
+    "typeRef" : {
+      "localName" : "time",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-423de30cf97b14350a84d8adbbaa7a9a",
+    "isCollection" : false,
+    "label" : "time 2",
+    "name" : "time2",
+    "typeRef" : {
+      "localName" : "time",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-5c3ea7caaa4392612044ad738d737916",
+    "isCollection" : true,
+    "label" : "time formula",
+    "name" : "timeFormula",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-5c16baceefdefc717204a488d2215234",
+    "isCollection" : false,
+    "label" : "time input",
+    "name" : "timeInput",
+    "typeRef" : {
+      "localName" : "time",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-01b5ed4317631ed94dd66d0694d39ea3",
+    "isCollection" : true,
+    "label" : "time operators",
+    "name" : "timeOperators",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "id-af6656a611e2260222a95ad81cd00918",
+    "javaParameterName" : "d",
+    "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+    "label" : "d",
+    "name" : "d",
+    "typeRef" : {
+      "localName" : "d",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-dd85852f8845e2ef306e65974c8926ce",
+    "javaParameterName" : "date",
+    "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+    "label" : "date",
+    "name" : "date",
+    "typeRef" : {
+      "localName" : "date",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-d377d9806b9371d4738a769442dcad86",
+    "javaParameterName" : "dateInput",
+    "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+    "label" : "date input",
+    "name" : "dateInput",
+    "typeRef" : {
+      "localName" : "dateInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-f6f7cf95c788b905c4a684e273c1a8cb",
+    "javaParameterName" : "datetime",
+    "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+    "label" : "datetime",
+    "name" : "datetime",
+    "typeRef" : {
+      "localName" : "datetime",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-889f4d0596091ce3a3499de047a7cda8",
+    "javaParameterName" : "t",
+    "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+    "label" : "t",
+    "name" : "t",
+    "typeRef" : {
+      "localName" : "t",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-1c021e3eeddf5997e55573482372124e",
+    "javaParameterName" : "time",
+    "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+    "label" : "time",
+    "name" : "time",
+    "typeRef" : {
+      "localName" : "time",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-b65d014e4d3d09e33a141cb5dacf40e9",
+    "javaParameterName" : "time2",
+    "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+    "label" : "time 2",
+    "name" : "time2",
+    "typeRef" : {
+      "localName" : "time2",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-a74f217c55ddf7ff6b0b3bb039b6c159",
+    "javaParameterName" : "timeInput",
+    "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+    "label" : "time input",
+    "name" : "timeInput",
+    "typeRef" : {
+      "localName" : "timeInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml"
+    }
+  }, {
+    "@kind" : "bkm",
+    "id" : "id-54abdc8cd2a3bf611355cb527afdee76",
+    "javaOutputTypeName" : "List<String>",
+    "javaParameterName" : "importedLogicDates",
+    "javaTypeName" : "ImportedLogicDates",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "importedLogicDates",
+    "typeRef" : {
+      "localName" : "dateOperators",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml"
+    }
+  }, {
+    "@kind" : "bkm",
+    "id" : "id-e69096ed8b4cc8e1792af85e0354305e",
+    "javaOutputTypeName" : "List<String>",
+    "javaParameterName" : "importedLogicTime",
+    "javaTypeName" : "ImportedLogicTime",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "importedLogicTime",
+    "typeRef" : {
+      "localName" : "timeOperators",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml"
+    }
+  }, {
+    "@kind" : "bkm",
+    "id" : "id-eda600519e4faa40c5130e00f1de55da",
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "logic",
+    "javaTypeName" : "Logic",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "logic",
+    "typeRef" : {
+      "localName" : "finalDecision",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-1543aa52b5d4185035045b104fa815f2",
+    "informationReferences" : [ {
+      "reference" : "id-dd85852f8845e2ef306e65974c8926ce"
+    } ],
+    "javaOutputTypeName" : "List<java.math.BigDecimal>",
+    "javaParameterName" : "dateFormula",
+    "javaTypeName" : "DateFormula",
+    "knowledgeReferences" : [ ],
+    "label" : "date formula",
+    "name" : "dateFormula",
+    "typeRef" : {
+      "localName" : "dateFormula",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-87769fde5d56837ec2ee380eac24606a",
+    "informationReferences" : [ {
+      "reference" : "id-dd85852f8845e2ef306e65974c8926ce"
+    } ],
+    "javaOutputTypeName" : "List<String>",
+    "javaParameterName" : "dateOperators",
+    "javaTypeName" : "DateOperators",
+    "knowledgeReferences" : [ ],
+    "label" : "date operators",
+    "name" : "dateOperators",
+    "typeRef" : {
+      "localName" : "dateOperators",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-f620185ec9fdf81fe951dbaecaa5b0ef",
+    "informationReferences" : [ {
+      "reference" : "id-f6f7cf95c788b905c4a684e273c1a8cb"
+    } ],
+    "javaOutputTypeName" : "List<java.math.BigDecimal>",
+    "javaParameterName" : "datetimeFormula",
+    "javaTypeName" : "DatetimeFormula",
+    "knowledgeReferences" : [ ],
+    "label" : "datetime formula",
+    "name" : "datetimeFormula",
+    "typeRef" : {
+      "localName" : "datetimeFormula",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-6cbafc16177989848019c8827a9eff2b",
+    "informationReferences" : [ {
+      "reference" : "id-f6f7cf95c788b905c4a684e273c1a8cb"
+    } ],
+    "javaOutputTypeName" : "List<String>",
+    "javaParameterName" : "datetimeOperators",
+    "javaTypeName" : "DatetimeOperators",
+    "knowledgeReferences" : [ ],
+    "label" : "datetime operators",
+    "name" : "datetimeOperators",
+    "typeRef" : {
+      "localName" : "datetimeOperators",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-5441c3b27f8f18e44d483f7b83fc2e71",
+    "informationReferences" : [ {
+      "reference" : "id-eea61a93f3a2d565213a29f0e7adfc35"
+    }, {
+      "reference" : "id-74af98ad18a65d77b3516e4851bb98d5"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "decide",
+    "javaTypeName" : "Decide",
+    "knowledgeReferences" : [ ],
+    "label" : "decide",
+    "name" : "decide",
+    "typeRef" : {
+      "localName" : "decide",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-8a57c9f0da820fe8d95116c7f371000c",
+    "informationReferences" : [ {
+      "reference" : "id-889f4d0596091ce3a3499de047a7cda8"
+    }, {
+      "reference" : "id-af6656a611e2260222a95ad81cd00918"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "decision",
+    "javaTypeName" : "Decision",
+    "knowledgeReferences" : [ {
+      "reference" : "id-eda600519e4faa40c5130e00f1de55da"
+    }, {
+      "reference" : "id-eda600519e4faa40c5130e00f1de55da"
+    } ],
+    "label" : "decision",
+    "name" : "decision",
+    "typeRef" : {
+      "localName" : "finalDecision",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-627d52dc77f9f49546680eea3c86ac99",
+    "informationReferences" : [ {
+      "reference" : "id-d377d9806b9371d4738a769442dcad86"
+    } ],
+    "javaOutputTypeName" : "List<String>",
+    "javaParameterName" : "decisionDate",
+    "javaTypeName" : "DecisionDate",
+    "knowledgeReferences" : [ {
+      "reference" : "id-54abdc8cd2a3bf611355cb527afdee76"
+    }, {
+      "reference" : "id-54abdc8cd2a3bf611355cb527afdee76"
+    } ],
+    "label" : "decision date",
+    "name" : "decisionDate",
+    "typeRef" : {
+      "localName" : "dateOperators",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-dd9df4daf2704f1fe3ec955ae5205714",
+    "informationReferences" : [ {
+      "reference" : "id-a74f217c55ddf7ff6b0b3bb039b6c159"
+    } ],
+    "javaOutputTypeName" : "List<String>",
+    "javaParameterName" : "decisionTime",
+    "javaTypeName" : "DecisionTime",
+    "knowledgeReferences" : [ {
+      "reference" : "id-e69096ed8b4cc8e1792af85e0354305e"
+    }, {
+      "reference" : "id-e69096ed8b4cc8e1792af85e0354305e"
+    } ],
+    "label" : "decision time",
+    "name" : "decisionTime",
+    "typeRef" : {
+      "localName" : "timeOperators",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-cb2b53f8a8c905a87a5ee8f5011c784f",
+    "informationReferences" : [ {
+      "reference" : "id-dd9df4daf2704f1fe3ec955ae5205714"
+    }, {
+      "reference" : "id-627d52dc77f9f49546680eea3c86ac99"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "finalDecision",
+    "javaTypeName" : "FinalDecision",
+    "knowledgeReferences" : [ ],
+    "label" : "final decision",
+    "name" : "finalDecision",
+    "typeRef" : {
+      "localName" : "finalDecision",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-eea61a93f3a2d565213a29f0e7adfc35",
+    "informationReferences" : [ {
+      "reference" : "id-87769fde5d56837ec2ee380eac24606a"
+    }, {
+      "reference" : "id-61674927aa39072b58f3c83404c7afe8"
+    }, {
+      "reference" : "id-6cbafc16177989848019c8827a9eff2b"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "pick",
+    "javaTypeName" : "Pick",
+    "knowledgeReferences" : [ ],
+    "label" : "pick",
+    "name" : "pick",
+    "typeRef" : {
+      "localName" : "pick",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-74af98ad18a65d77b3516e4851bb98d5",
+    "informationReferences" : [ {
+      "reference" : "id-f620185ec9fdf81fe951dbaecaa5b0ef"
+    }, {
+      "reference" : "id-1543aa52b5d4185035045b104fa815f2"
+    }, {
+      "reference" : "id-b408b591374d084218a55a6a94a6e9b2"
+    } ],
+    "javaOutputTypeName" : "java.math.BigDecimal",
+    "javaParameterName" : "sum",
+    "javaTypeName" : "Sum",
+    "knowledgeReferences" : [ ],
+    "label" : "sum",
+    "name" : "sum",
+    "typeRef" : {
+      "localName" : "sum",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-b408b591374d084218a55a6a94a6e9b2",
+    "informationReferences" : [ {
+      "reference" : "id-b65d014e4d3d09e33a141cb5dacf40e9"
+    }, {
+      "reference" : "id-1c021e3eeddf5997e55573482372124e"
+    } ],
+    "javaOutputTypeName" : "List<java.math.BigDecimal>",
+    "javaParameterName" : "timeFormula",
+    "javaTypeName" : "TimeFormula",
+    "knowledgeReferences" : [ ],
+    "label" : "time formula",
+    "name" : "timeFormula",
+    "typeRef" : {
+      "localName" : "timeFormula",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-61674927aa39072b58f3c83404c7afe8",
+    "informationReferences" : [ {
+      "reference" : "id-1c021e3eeddf5997e55573482372124e"
+    } ],
+    "javaOutputTypeName" : "List<String>",
+    "javaParameterName" : "timeOperators",
+    "javaTypeName" : "TimeOperators",
+    "knowledgeReferences" : [ ],
+    "label" : "time operators",
+    "name" : "timeOperators",
+    "typeRef" : {
+      "localName" : "timeOperators",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml"
+    }
+  } ]
+}

@@ -1,0 +1,597 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-cfb183c0dff64e7be9bf40eaa7d7e24f",
+    "isCollection" : true,
+    "label" : "AddExtraValues",
+    "name" : "addExtraValues",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"Red\",\"Green\",\"Blue\"",
+    "id" : "id-9790db0f9fd258baf782ea38774a4899",
+    "isCollection" : true,
+    "label" : "RGB",
+    "name" : "append",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"Red\",\"Green\",\"Blue\"",
+    "id" : "id-4c0aadc6b41e4f0f6b431cc0995b5c38",
+    "isCollection" : true,
+    "label" : "RGB",
+    "name" : "appendall",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-d9300bf45dca08d13616bb8a4170713f",
+    "isCollection" : true,
+    "label" : "blacklist",
+    "name" : "blacklist",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-347228e999de5473563937e8d3e53f6f",
+    "isCollection" : true,
+    "label" : "censored",
+    "name" : "censored",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-fafd23830cc56e6ff675eede684fade9",
+    "isCollection" : true,
+    "label" : "labels",
+    "name" : "labels",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-46ced4f5b1d812afb211821c5fcb6f88",
+    "isCollection" : true,
+    "label" : "ListOfNumbers ",
+    "name" : "listOfNumbers",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-19ea86e4f092a06d72b61d2df96cee63",
+    "isCollection" : true,
+    "label" : "names",
+    "name" : "names",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-69279c742ad4e325bab8eb13f7eeb7b1",
+    "isCollection" : true,
+    "label" : "numz",
+    "name" : "numz",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"Red\",\"Green\",\"Blue\"",
+    "id" : "id-43b80194ce47b0efb3c03a861291a761",
+    "isCollection" : false,
+    "label" : "RGB",
+    "name" : "rGB",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"Red\",\"Green\",\"Blue\"",
+    "id" : "id-ce8881badd15a25a486c3194b45e8c93",
+    "isCollection" : true,
+    "label" : "RGB",
+    "name" : "rGB2",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"Red\",\"Green\",\"Blue\"",
+    "id" : "id-5ac15b29ab7d1d0fbb7c8903f71cc1f5",
+    "isCollection" : true,
+    "label" : "RGB",
+    "name" : "rGB3",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"Red\",\"Green\",\"Blue\"",
+    "id" : "id-74bf9856ff461960b5012810c4668edb",
+    "isCollection" : true,
+    "label" : "RGB",
+    "name" : "rGB4",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"Red\",\"Green\",\"Blue\"",
+    "id" : "id-cff3aadd335434ad6ed3d40402513bcb",
+    "isCollection" : true,
+    "label" : "RGB",
+    "name" : "rGB5",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"Red\",\"Green\",\"Blue\"",
+    "id" : "id-050c4e931f5f842ce4da18da0417db83",
+    "isCollection" : true,
+    "label" : "RGB",
+    "name" : "remove",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-bbb3994480399c21530a7552b5dbe378",
+    "isCollection" : true,
+    "label" : "RemoveValues",
+    "name" : "removeValues",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-e398cfc28beb4535a6a7941a4c6a0906",
+    "isCollection" : true,
+    "label" : "removeall",
+    "name" : "removeall",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"Red\",\"Green\",\"Blue\"",
+    "id" : "id-cf2b74c66cae5daf4be1031990b1add7",
+    "isCollection" : true,
+    "label" : "RGB",
+    "name" : "removeall2",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "compositeType",
+    "id" : "id-1cc592260665a3398ca58ba543890435",
+    "isCollection" : true,
+    "label" : "zip",
+    "name" : "zip",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-1cc592260665a3398ca58ba543890435-relation-e",
+      "isCollection" : false,
+      "label" : "e",
+      "name" : "e",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-1cc592260665a3398ca58ba543890435-relation-n",
+      "isCollection" : false,
+      "label" : "n",
+      "name" : "n",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-1cc592260665a3398ca58ba543890435-relation-t",
+      "isCollection" : false,
+      "label" : "t",
+      "name" : "t",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "id-f3e6c25ca841af737ce5aae0c99e4a18",
+    "javaParameterName" : "blacklist",
+    "javaTypeName" : "List<String>",
+    "label" : "blacklist",
+    "name" : "blacklist",
+    "typeRef" : {
+      "localName" : "blacklist",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-3c7a037ef88b841b839912e30e0b88db",
+    "javaParameterName" : "censored",
+    "javaTypeName" : "List<String>",
+    "label" : "censored",
+    "name" : "censored",
+    "typeRef" : {
+      "localName" : "censored",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-56b1a6a297cc92034538927584917a9d",
+    "javaParameterName" : "labels",
+    "javaTypeName" : "List<String>",
+    "label" : "labels",
+    "name" : "labels",
+    "typeRef" : {
+      "localName" : "labels",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-49a0b1514526cc5c351725952b97cf88",
+    "javaParameterName" : "listOfNumbers",
+    "javaTypeName" : "List<java.math.BigDecimal>",
+    "label" : "ListOfNumbers ",
+    "name" : "listOfNumbers",
+    "typeRef" : {
+      "localName" : "listOfNumbers",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-407d01264274ff56720d727ceaa37a58",
+    "javaParameterName" : "names",
+    "javaTypeName" : "List<String>",
+    "label" : "names",
+    "name" : "names",
+    "typeRef" : {
+      "localName" : "names",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-9d0294a387dcdb1422df828374bb99a4",
+    "javaParameterName" : "numz",
+    "javaTypeName" : "List<java.math.BigDecimal>",
+    "label" : "numz",
+    "name" : "numz",
+    "typeRef" : {
+      "localName" : "numz",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-1abc24c257ae1c27045107f7f1e9abaa",
+    "javaParameterName" : "redgreenblue1",
+    "javaTypeName" : "String",
+    "label" : "redgreenblue1",
+    "name" : "redgreenblue1",
+    "typeRef" : {
+      "localName" : "rGB",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-7fb8cb4f45c3afc5215b67ea566a1195",
+    "javaParameterName" : "redgreenblue2",
+    "javaTypeName" : "String",
+    "label" : "redgreenblue2",
+    "name" : "redgreenblue2",
+    "typeRef" : {
+      "localName" : "rGB",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-523c68b3cfbc5e136ee5ea4759aeece5",
+    "javaParameterName" : "redgreenbluelist1",
+    "javaTypeName" : "List<String>",
+    "label" : "redgreenbluelist1",
+    "name" : "redgreenbluelist1",
+    "typeRef" : {
+      "localName" : "rGB5",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-060541c312a88a854f952f95a9ad391f",
+    "javaParameterName" : "redgreenbluelist2",
+    "javaTypeName" : "List<String>",
+    "label" : "redgreenbluelist2",
+    "name" : "redgreenbluelist2",
+    "typeRef" : {
+      "localName" : "rGB4",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-4235e531a37ca0c26448f1ca856b2bcb",
+    "javaParameterName" : "rgb1",
+    "javaTypeName" : "String",
+    "label" : "rgb1",
+    "name" : "rgb1",
+    "typeRef" : {
+      "localName" : "rGB",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-4b4f366aa8841be4c01b4d148feb88bb",
+    "javaParameterName" : "rgb1List",
+    "javaTypeName" : "List<String>",
+    "label" : "rgb1 list",
+    "name" : "rgb1List",
+    "typeRef" : {
+      "localName" : "rGB2",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-5625da51edf477244d62662a1ded6503",
+    "javaParameterName" : "rgb2",
+    "javaTypeName" : "String",
+    "label" : "rgb2",
+    "name" : "rgb2",
+    "typeRef" : {
+      "localName" : "rGB",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-5aee1aa56098e702d77defcfaf0a657b",
+    "javaParameterName" : "rgb2List",
+    "javaTypeName" : "List<String>",
+    "label" : "rgb2 list",
+    "name" : "rgb2List",
+    "typeRef" : {
+      "localName" : "rGB3",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+    }
+  }, {
+    "@kind" : "bkm",
+    "id" : "id-4ecc9fcbcbc3e186853a8eda0fcc6152",
+    "javaOutputTypeName" : "List<type.Zip>",
+    "javaParameterName" : "litexpLogic",
+    "javaTypeName" : "LitexpLogic",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "litexpLogic",
+    "typeRef" : {
+      "localName" : "zip",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-152912036c3a6ec96d94e14df468121d",
+    "informationReferences" : [ {
+      "reference" : "id-49a0b1514526cc5c351725952b97cf88"
+    } ],
+    "javaOutputTypeName" : "List<java.math.BigDecimal>",
+    "javaParameterName" : "addExtraValues",
+    "javaTypeName" : "AddExtraValues",
+    "knowledgeReferences" : [ ],
+    "label" : "AddExtraValues",
+    "name" : "addExtraValues",
+    "typeRef" : {
+      "localName" : "addExtraValues",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-eaf5b49a5e2c1d7de51e8ae6511e7208",
+    "informationReferences" : [ {
+      "reference" : "id-5625da51edf477244d62662a1ded6503"
+    }, {
+      "reference" : "id-4235e531a37ca0c26448f1ca856b2bcb"
+    } ],
+    "javaOutputTypeName" : "List<String>",
+    "javaParameterName" : "append",
+    "javaTypeName" : "Append",
+    "knowledgeReferences" : [ ],
+    "label" : "append",
+    "name" : "append",
+    "typeRef" : {
+      "localName" : "append",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-e4404fa72a2b8c4b8769b37da79907d1",
+    "informationReferences" : [ {
+      "reference" : "id-fac22fa67c8f3f94341bdb53501e3d24"
+    }, {
+      "reference" : "id-eaf5b49a5e2c1d7de51e8ae6511e7208"
+    }, {
+      "reference" : "id-13ff0a6716e4b5fc477d1ea94c1610ba"
+    } ],
+    "javaOutputTypeName" : "List<String>",
+    "javaParameterName" : "appendall",
+    "javaTypeName" : "Appendall",
+    "knowledgeReferences" : [ ],
+    "label" : "appendall",
+    "name" : "appendall",
+    "typeRef" : {
+      "localName" : "appendall",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-31f4b9e68dbee2c424d8ce3be8bd9a26",
+    "informationReferences" : [ {
+      "reference" : "id-56b1a6a297cc92034538927584917a9d"
+    }, {
+      "reference" : "id-7fb8cb4f45c3afc5215b67ea566a1195"
+    }, {
+      "reference" : "id-060541c312a88a854f952f95a9ad391f"
+    }, {
+      "reference" : "id-1abc24c257ae1c27045107f7f1e9abaa"
+    }, {
+      "reference" : "id-9d0294a387dcdb1422df828374bb99a4"
+    }, {
+      "reference" : "id-523c68b3cfbc5e136ee5ea4759aeece5"
+    }, {
+      "reference" : "id-3c7a037ef88b841b839912e30e0b88db"
+    } ],
+    "javaOutputTypeName" : "List<type.Zip>",
+    "javaParameterName" : "decisionLitexp",
+    "javaTypeName" : "DecisionLitexp",
+    "knowledgeReferences" : [ {
+      "reference" : "id-4ecc9fcbcbc3e186853a8eda0fcc6152"
+    }, {
+      "reference" : "id-4ecc9fcbcbc3e186853a8eda0fcc6152"
+    } ],
+    "label" : "decision litexp",
+    "name" : "decisionLitexp",
+    "typeRef" : {
+      "localName" : "zip",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-13ff0a6716e4b5fc477d1ea94c1610ba",
+    "informationReferences" : [ {
+      "reference" : "id-5625da51edf477244d62662a1ded6503"
+    }, {
+      "reference" : "id-5aee1aa56098e702d77defcfaf0a657b"
+    } ],
+    "javaOutputTypeName" : "List<String>",
+    "javaParameterName" : "remove",
+    "javaTypeName" : "Remove",
+    "knowledgeReferences" : [ ],
+    "label" : "remove",
+    "name" : "remove",
+    "typeRef" : {
+      "localName" : "remove",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-1e5f881bbedf7e9d52113f4e8c0cacbd",
+    "informationReferences" : [ {
+      "reference" : "id-152912036c3a6ec96d94e14df468121d"
+    } ],
+    "javaOutputTypeName" : "List<java.math.BigDecimal>",
+    "javaParameterName" : "removeValues",
+    "javaTypeName" : "RemoveValues",
+    "knowledgeReferences" : [ ],
+    "label" : "RemoveValues",
+    "name" : "removeValues",
+    "typeRef" : {
+      "localName" : "removeValues",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-83c46ce653e47a796a6ab6e02fcc60c6",
+    "informationReferences" : [ {
+      "reference" : "id-f3e6c25ca841af737ce5aae0c99e4a18"
+    }, {
+      "reference" : "id-407d01264274ff56720d727ceaa37a58"
+    } ],
+    "javaOutputTypeName" : "List<String>",
+    "javaParameterName" : "removeall",
+    "javaTypeName" : "Removeall",
+    "knowledgeReferences" : [ ],
+    "label" : "removeall",
+    "name" : "removeall",
+    "typeRef" : {
+      "localName" : "removeall",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-fac22fa67c8f3f94341bdb53501e3d24",
+    "informationReferences" : [ {
+      "reference" : "id-4b4f366aa8841be4c01b4d148feb88bb"
+    }, {
+      "reference" : "id-4235e531a37ca0c26448f1ca856b2bcb"
+    } ],
+    "javaOutputTypeName" : "List<String>",
+    "javaParameterName" : "removeall2",
+    "javaTypeName" : "Removeall2",
+    "knowledgeReferences" : [ ],
+    "label" : "removeall",
+    "name" : "removeall2",
+    "typeRef" : {
+      "localName" : "removeall2",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-902bd3c70ca2f8cc65dc57c27d3fe133",
+    "informationReferences" : [ {
+      "reference" : "id-1e5f881bbedf7e9d52113f4e8c0cacbd"
+    }, {
+      "reference" : "id-e4404fa72a2b8c4b8769b37da79907d1"
+    }, {
+      "reference" : "id-83c46ce653e47a796a6ab6e02fcc60c6"
+    } ],
+    "javaOutputTypeName" : "List<type.Zip>",
+    "javaParameterName" : "zip",
+    "javaTypeName" : "Zip",
+    "knowledgeReferences" : [ ],
+    "label" : "zip",
+    "name" : "zip",
+    "typeRef" : {
+      "localName" : "zip",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+    }
+  } ]
+}

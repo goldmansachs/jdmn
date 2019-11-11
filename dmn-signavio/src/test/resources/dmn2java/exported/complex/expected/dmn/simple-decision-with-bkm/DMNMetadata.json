@@ -1,0 +1,161 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-d8d2409326ca95ebc06b54a4f32d82b9",
+    "isCollection" : false,
+    "label" : "A",
+    "name" : "a",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-7529a16fb8fb3ac44ab132893d08aabc",
+    "isCollection" : false,
+    "label" : "A",
+    "name" : "a2",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-5c3a857c933c219de1462d611ecf644b",
+    "isCollection" : false,
+    "label" : "B",
+    "name" : "b",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-bbd21642e140be5214da01c35869ad84",
+    "isCollection" : false,
+    "label" : "B",
+    "name" : "b2",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-b8bf75fc98d4d6a0e0e8cb2ce9fcfee8",
+    "isCollection" : false,
+    "label" : "SUM",
+    "name" : "sUM",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "id-6941daac7dedcf760459bef259f2b83c",
+    "javaParameterName" : "a",
+    "javaTypeName" : "java.math.BigDecimal",
+    "label" : "A",
+    "name" : "a",
+    "typeRef" : {
+      "localName" : "a",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-f1336e666ce4588d576ac630e3a0935c",
+    "javaParameterName" : "a2",
+    "javaTypeName" : "java.math.BigDecimal",
+    "label" : "A",
+    "name" : "a2",
+    "typeRef" : {
+      "localName" : "a2",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-3448371157c12df721ef54d01a2a01e0",
+    "javaParameterName" : "b",
+    "javaTypeName" : "java.math.BigDecimal",
+    "label" : "B",
+    "name" : "b",
+    "typeRef" : {
+      "localName" : "b",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-dd388ae24612b67597f5220a2c6a1985",
+    "javaParameterName" : "b3",
+    "javaTypeName" : "java.math.BigDecimal",
+    "label" : "B",
+    "name" : "b3",
+    "typeRef" : {
+      "localName" : "b2",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml"
+    }
+  }, {
+    "@kind" : "bkm",
+    "id" : "id-74659018eb94601d9ccd8bcb2443688e",
+    "javaOutputTypeName" : "java.math.BigDecimal",
+    "javaParameterName" : "bKM",
+    "javaTypeName" : "BKM",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "bKM",
+    "typeRef" : {
+      "localName" : "sUM",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-806148ab1843f34bf4e461a8ed442b97",
+    "informationReferences" : [ {
+      "reference" : "id-6941daac7dedcf760459bef259f2b83c"
+    }, {
+      "reference" : "id-3448371157c12df721ef54d01a2a01e0"
+    } ],
+    "javaOutputTypeName" : "java.math.BigDecimal",
+    "javaParameterName" : "sUM",
+    "javaTypeName" : "SUM",
+    "knowledgeReferences" : [ ],
+    "label" : "SUM",
+    "name" : "sUM",
+    "typeRef" : {
+      "localName" : "sUM",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-c9af84da6920472f7e8311c719099aac",
+    "informationReferences" : [ {
+      "reference" : "id-f1336e666ce4588d576ac630e3a0935c"
+    }, {
+      "reference" : "id-dd388ae24612b67597f5220a2c6a1985"
+    } ],
+    "javaOutputTypeName" : "java.math.BigDecimal",
+    "javaParameterName" : "sign",
+    "javaTypeName" : "Sign",
+    "knowledgeReferences" : [ {
+      "reference" : "id-74659018eb94601d9ccd8bcb2443688e"
+    }, {
+      "reference" : "id-74659018eb94601d9ccd8bcb2443688e"
+    } ],
+    "label" : "Sign",
+    "name" : "sign",
+    "typeRef" : {
+      "localName" : "sUM",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml"
+    }
+  } ]
+}

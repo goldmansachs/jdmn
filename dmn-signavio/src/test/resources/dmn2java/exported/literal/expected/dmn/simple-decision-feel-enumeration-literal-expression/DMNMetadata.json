@@ -1,0 +1,153 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "diagram-c385f501a4704dec9c5763fff203089a-itemDefinition-sid-F533656C-76C6-4D10-9786-7FE2A4E9141A",
+    "isCollection" : false,
+    "label" : "BooleanInput",
+    "name" : "booleanInput",
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "diagram-c385f501a4704dec9c5763fff203089a-itemDefinition-sid-A1FC6D04-6C80-46D7-902E-FD9F9B80DEDC",
+    "isCollection" : false,
+    "label" : "DateInput",
+    "name" : "dateInput",
+    "typeRef" : {
+      "localName" : "date",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"E1\",\"E2\",\"E3\"",
+    "id" : "diagram-c385f501a4704dec9c5763fff203089a-itemDefinition-sid-499DBFB1-F584-4B70-8B41-F00CC0810584",
+    "isCollection" : false,
+    "label" : "Decision",
+    "name" : "decision",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"E1\",\"E2\",\"E3\"",
+    "id" : "diagram-c385f501a4704dec9c5763fff203089a-itemDefinition-sid-8A33F7F8-5A9F-49D1-B511-FCDC838AADA3",
+    "isCollection" : false,
+    "label" : "EnumerationInput",
+    "name" : "enumerationInput",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "diagram-c385f501a4704dec9c5763fff203089a-itemDefinition-sid-4657A97A-419B-4840-B8CA-9EA10827657F",
+    "isCollection" : false,
+    "label" : "NumberInput",
+    "name" : "numberInput",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "diagram-c385f501a4704dec9c5763fff203089a-itemDefinition-sid-8D942955-A64E-461F-A4A7-41487C9F6D7A",
+    "isCollection" : false,
+    "label" : "StringInput",
+    "name" : "stringInput",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "diagram-c385f501a4704dec9c5763fff203089a-inputdata-sid-F533656C-76C6-4D10-9786-7FE2A4E9141A",
+    "javaParameterName" : "booleanInput",
+    "javaTypeName" : "Boolean",
+    "label" : "BooleanInput",
+    "name" : "booleanInput",
+    "typeRef" : {
+      "localName" : "booleanInput",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "diagram-c385f501a4704dec9c5763fff203089a-inputdata-sid-A1FC6D04-6C80-46D7-902E-FD9F9B80DEDC",
+    "javaParameterName" : "dateInput",
+    "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+    "label" : "DateInput",
+    "name" : "dateInput",
+    "typeRef" : {
+      "localName" : "dateInput",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "diagram-c385f501a4704dec9c5763fff203089a-inputdata-sid-8A33F7F8-5A9F-49D1-B511-FCDC838AADA3",
+    "javaParameterName" : "enumerationInput",
+    "javaTypeName" : "String",
+    "label" : "EnumerationInput",
+    "name" : "enumerationInput",
+    "typeRef" : {
+      "localName" : "enumerationInput",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "diagram-c385f501a4704dec9c5763fff203089a-inputdata-sid-4657A97A-419B-4840-B8CA-9EA10827657F",
+    "javaParameterName" : "numberInput",
+    "javaTypeName" : "java.math.BigDecimal",
+    "label" : "NumberInput",
+    "name" : "numberInput",
+    "typeRef" : {
+      "localName" : "numberInput",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "diagram-c385f501a4704dec9c5763fff203089a-inputdata-sid-8D942955-A64E-461F-A4A7-41487C9F6D7A",
+    "javaParameterName" : "stringInput",
+    "javaTypeName" : "String",
+    "label" : "StringInput",
+    "name" : "stringInput",
+    "typeRef" : {
+      "localName" : "stringInput",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "diagram-c385f501a4704dec9c5763fff203089a-decision-sid-499DBFB1-F584-4B70-8B41-F00CC0810584",
+    "informationReferences" : [ {
+      "reference" : "diagram-c385f501a4704dec9c5763fff203089a-inputdata-sid-8D942955-A64E-461F-A4A7-41487C9F6D7A"
+    }, {
+      "reference" : "diagram-c385f501a4704dec9c5763fff203089a-inputdata-sid-8A33F7F8-5A9F-49D1-B511-FCDC838AADA3"
+    }, {
+      "reference" : "diagram-c385f501a4704dec9c5763fff203089a-inputdata-sid-F533656C-76C6-4D10-9786-7FE2A4E9141A"
+    }, {
+      "reference" : "diagram-c385f501a4704dec9c5763fff203089a-inputdata-sid-4657A97A-419B-4840-B8CA-9EA10827657F"
+    }, {
+      "reference" : "diagram-c385f501a4704dec9c5763fff203089a-inputdata-sid-A1FC6D04-6C80-46D7-902E-FD9F9B80DEDC"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "decision",
+    "javaTypeName" : "Decision",
+    "knowledgeReferences" : [ ],
+    "label" : "Decision",
+    "name" : "decision",
+    "typeRef" : {
+      "localName" : "decision",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+    }
+  } ]
+}

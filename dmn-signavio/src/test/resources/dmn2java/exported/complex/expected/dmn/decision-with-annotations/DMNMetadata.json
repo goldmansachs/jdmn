@@ -1,0 +1,195 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-b44e259629dcec308db23011ab8ac3d0",
+    "isCollection" : false,
+    "label" : "BooleanInput",
+    "name" : "booleanInput",
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-f3470367f2f5354c448fd2551e889508",
+    "isCollection" : false,
+    "label" : "DateInput",
+    "name" : "dateInput",
+    "typeRef" : {
+      "localName" : "date",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-71dbbea6c716212dcc667644c5b7487a",
+    "isCollection" : false,
+    "label" : "Decision",
+    "name" : "decision",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"E1\",\"E2\",\"E3\"",
+    "id" : "id-358567c9173afa81082412c23a9b4362",
+    "isCollection" : false,
+    "label" : "EnumerationInput",
+    "name" : "enumerationInput",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-91d1a0779c6062d480c5944150aab8e2",
+    "isCollection" : false,
+    "label" : "NumberInput",
+    "name" : "numberInput",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "compositeType",
+    "id" : "id-10edc449ea7a601271d9bdea97cf4d59",
+    "isCollection" : false,
+    "label" : "Person",
+    "name" : "person",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-10edc449ea7a601271d9bdea97cf4d59-relation-1",
+      "isCollection" : false,
+      "label" : "age",
+      "name" : "age",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-10edc449ea7a601271d9bdea97cf4d59-relation-0",
+      "isCollection" : false,
+      "label" : "name",
+      "name" : "name",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-97edc0210ca71740e7606073aaf27a5f",
+    "isCollection" : false,
+    "label" : "StringInput",
+    "name" : "stringInput",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "id-6de05e420c65c68c6d7ff492fb543761",
+    "javaParameterName" : "booleanInput",
+    "javaTypeName" : "Boolean",
+    "label" : "BooleanInput",
+    "name" : "booleanInput",
+    "typeRef" : {
+      "localName" : "booleanInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-77020aefc44a7244cad671c17e1a1b84",
+    "javaParameterName" : "dateInput",
+    "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+    "label" : "DateInput",
+    "name" : "dateInput",
+    "typeRef" : {
+      "localName" : "dateInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-a1e8f3d765e603fd24f7e3c3e5e393e7",
+    "javaParameterName" : "enumerationInput",
+    "javaTypeName" : "String",
+    "label" : "EnumerationInput",
+    "name" : "enumerationInput",
+    "typeRef" : {
+      "localName" : "enumerationInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-22ae16971705e9cc9b1251061f15b3c6",
+    "javaParameterName" : "numberInput",
+    "javaTypeName" : "java.math.BigDecimal",
+    "label" : "NumberInput",
+    "name" : "numberInput",
+    "typeRef" : {
+      "localName" : "numberInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-6493a3aaf6459b653b4f4cc87872cdf5",
+    "javaParameterName" : "person",
+    "javaTypeName" : "type.Person",
+    "label" : "Person",
+    "name" : "person",
+    "typeRef" : {
+      "localName" : "person",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-cd14ac0ab8dac842af523d81d629ddf2",
+    "javaParameterName" : "stringInput",
+    "javaTypeName" : "String",
+    "label" : "StringInput",
+    "name" : "stringInput",
+    "typeRef" : {
+      "localName" : "stringInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-0f0801a66fe697bff21186134406da6e",
+    "informationReferences" : [ {
+      "reference" : "id-22ae16971705e9cc9b1251061f15b3c6"
+    }, {
+      "reference" : "id-a1e8f3d765e603fd24f7e3c3e5e393e7"
+    }, {
+      "reference" : "id-cd14ac0ab8dac842af523d81d629ddf2"
+    }, {
+      "reference" : "id-77020aefc44a7244cad671c17e1a1b84"
+    }, {
+      "reference" : "id-6de05e420c65c68c6d7ff492fb543761"
+    }, {
+      "reference" : "id-6493a3aaf6459b653b4f4cc87872cdf5"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "decision",
+    "javaTypeName" : "Decision",
+    "knowledgeReferences" : [ ],
+    "label" : "Decision",
+    "name" : "decision",
+    "typeRef" : {
+      "localName" : "decision",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml"
+    }
+  } ]
+}

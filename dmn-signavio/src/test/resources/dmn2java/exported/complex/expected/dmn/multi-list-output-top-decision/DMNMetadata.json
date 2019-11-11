@@ -1,0 +1,134 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "types" : [ {
+    "@kind" : "compositeType",
+    "id" : "id-38d39468f927e30338568ce127ca32ce",
+    "isCollection" : true,
+    "label" : "compile",
+    "name" : "compile",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-38d39468f927e30338568ce127ca32ce-relation-FB2519CA-D8C5-4B12-95A3-459DE0620707",
+      "isCollection" : false,
+      "label" : "avg of numbers",
+      "name" : "avgOfNumbers",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-38d39468f927e30338568ce127ca32ce-relation-23505F12-A51D-4951-8043-CB7FEABACB2A",
+      "isCollection" : false,
+      "label" : "name",
+      "name" : "name",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-38d39468f927e30338568ce127ca32ce-relation-7A604A9E-F65E-4397-9F48-7DFEA129340B",
+      "isCollection" : false,
+      "label" : "Next traffic light",
+      "name" : "nextTrafficLight",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-35d74b55c04d0bf1caaa7dfdfc3b897a",
+    "isCollection" : false,
+    "label" : "name",
+    "name" : "name",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-26e02236d62542bd188c0240077d40e7",
+    "isCollection" : true,
+    "label" : "numbers",
+    "name" : "numbers",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"Red\",\"Yellow\",\"Green\"",
+    "id" : "id-5af1138f9a908eb4be3ba47432a9e038",
+    "isCollection" : true,
+    "label" : "Traffic Light",
+    "name" : "trafficLight",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "id-9ccd4200c3b95ffce6699c8de1fe952a",
+    "javaParameterName" : "name",
+    "javaTypeName" : "String",
+    "label" : "name",
+    "name" : "name",
+    "typeRef" : {
+      "localName" : "name",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-eda9a62921689bf55854716017ad1d80",
+    "javaParameterName" : "numbers",
+    "javaTypeName" : "List<java.math.BigDecimal>",
+    "label" : "numbers",
+    "name" : "numbers",
+    "typeRef" : {
+      "localName" : "numbers",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-c0237273c0ebfd8069dc25efc55db05a",
+    "javaParameterName" : "trafficLight",
+    "javaTypeName" : "List<String>",
+    "label" : "Traffic Light",
+    "name" : "trafficLight",
+    "typeRef" : {
+      "localName" : "trafficLight",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-c234d0eaf09115adcd0ae840adeb1055",
+    "informationReferences" : [ {
+      "reference" : "id-c0237273c0ebfd8069dc25efc55db05a"
+    }, {
+      "reference" : "id-9ccd4200c3b95ffce6699c8de1fe952a"
+    }, {
+      "reference" : "id-eda9a62921689bf55854716017ad1d80"
+    } ],
+    "javaOutputTypeName" : "List<type.Compile>",
+    "javaParameterName" : "compile",
+    "javaTypeName" : "Compile",
+    "knowledgeReferences" : [ ],
+    "label" : "compile",
+    "name" : "compile",
+    "typeRef" : {
+      "localName" : "compile",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml"
+    }
+  } ]
+}

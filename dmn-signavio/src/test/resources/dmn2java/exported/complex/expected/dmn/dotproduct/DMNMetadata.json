@@ -1,0 +1,251 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-1e9e162eba639b50f06952097d940e71",
+    "isCollection" : true,
+    "label" : "A",
+    "name" : "a",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-352c907696a8ab0cc447e936250bdaf0",
+    "isCollection" : true,
+    "label" : "B",
+    "name" : "b",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-7b8af19dd27e9c0f4888173b313847dd",
+    "isCollection" : false,
+    "label" : "CalculateDotProduct",
+    "name" : "calculateDotProduct",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "compositeType",
+    "id" : "id-ee77256def8518b808e5146468faa79a",
+    "isCollection" : true,
+    "label" : "Componentwise",
+    "name" : "componentwise",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-ee77256def8518b808e5146468faa79a-relation-A",
+      "isCollection" : false,
+      "label" : "A",
+      "name" : "a",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-ee77256def8518b808e5146468faa79a-relation-B",
+      "isCollection" : false,
+      "label" : "B",
+      "name" : "b",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "compositeType",
+    "id" : "id-3a255d41c38b03f9f153b7aee466a3d8",
+    "isCollection" : false,
+    "label" : "Componentwise",
+    "name" : "componentwise3",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-3a255d41c38b03f9f153b7aee466a3d8-relation-A",
+      "isCollection" : false,
+      "label" : "A",
+      "name" : "a",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-3a255d41c38b03f9f153b7aee466a3d8-relation-B",
+      "isCollection" : false,
+      "label" : "B",
+      "name" : "b",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "compositeType",
+    "id" : "id-db4a017c02c6d05e82a4ec69018994e5",
+    "isCollection" : false,
+    "label" : "DotProduct",
+    "name" : "dotProduct",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-db4a017c02c6d05e82a4ec69018994e5-relation-33D4DAAE-6A47-4341-A786-0FDBCFDE69B9",
+      "isCollection" : false,
+      "label" : "DotProduct",
+      "name" : "dotProduct2",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "id-db4a017c02c6d05e82a4ec69018994e5-relation-EF300D73-8FDC-477B-AB45-3D7C5377C4D3",
+      "isCollection" : false,
+      "label" : "Output Message",
+      "name" : "outputMessage",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "id-a7af705c8200b580a7a8dc0019f5e4c0",
+    "isCollection" : false,
+    "label" : "Product",
+    "name" : "product",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "id-1a6f60b2f3c2867788cc350ac900ebef",
+    "javaParameterName" : "a",
+    "javaTypeName" : "List<java.math.BigDecimal>",
+    "label" : "A",
+    "name" : "a",
+    "typeRef" : {
+      "localName" : "a",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-bc00e56f88a2f91ed150a0b28b321f86",
+    "javaParameterName" : "b",
+    "javaTypeName" : "List<java.math.BigDecimal>",
+    "label" : "B",
+    "name" : "b",
+    "typeRef" : {
+      "localName" : "b",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-54f8e155f1f2006935392fe9388aecd8",
+    "javaParameterName" : "componentwise4_iterator",
+    "javaTypeName" : "type.Componentwise3",
+    "label" : "Componentwise",
+    "name" : "componentwise4_iterator",
+    "typeRef" : {
+      "localName" : "componentwise3",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ {
+      "@kind" : "multiInstanceDecisionLogic",
+      "aggregationFunction" : "SUM",
+      "iterationExpression" : "componentwise",
+      "iteratorShapeId" : "id-54f8e155f1f2006935392fe9388aecd8",
+      "topLevelDecisionId" : "id-f81df5fbf8c656c93161473592b57cd7"
+    } ],
+    "id" : "id-e000d735a85c259cf896f9950c114272",
+    "informationReferences" : [ {
+      "reference" : "id-7df618c5da17b151ff28d2fd28831a50"
+    } ],
+    "javaOutputTypeName" : "java.math.BigDecimal",
+    "javaParameterName" : "calculateDotProduct",
+    "javaTypeName" : "CalculateDotProduct",
+    "knowledgeReferences" : [ ],
+    "label" : "CalculateDotProduct",
+    "name" : "calculateDotProduct",
+    "typeRef" : {
+      "localName" : "calculateDotProduct",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-7df618c5da17b151ff28d2fd28831a50",
+    "informationReferences" : [ {
+      "reference" : "id-bc00e56f88a2f91ed150a0b28b321f86"
+    }, {
+      "reference" : "id-1a6f60b2f3c2867788cc350ac900ebef"
+    } ],
+    "javaOutputTypeName" : "List<type.Componentwise>",
+    "javaParameterName" : "componentwise",
+    "javaTypeName" : "Componentwise",
+    "knowledgeReferences" : [ ],
+    "label" : "Componentwise",
+    "name" : "componentwise",
+    "typeRef" : {
+      "localName" : "componentwise",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-a437bbbbccd004f9881b74dc21fa058c",
+    "informationReferences" : [ {
+      "reference" : "id-bc00e56f88a2f91ed150a0b28b321f86"
+    }, {
+      "reference" : "id-1a6f60b2f3c2867788cc350ac900ebef"
+    }, {
+      "reference" : "id-e000d735a85c259cf896f9950c114272"
+    } ],
+    "javaOutputTypeName" : "type.DotProduct",
+    "javaParameterName" : "dotProduct",
+    "javaTypeName" : "DotProduct",
+    "knowledgeReferences" : [ ],
+    "label" : "DotProduct",
+    "name" : "dotProduct",
+    "typeRef" : {
+      "localName" : "dotProduct",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "id-f81df5fbf8c656c93161473592b57cd7",
+    "informationReferences" : [ {
+      "reference" : "id-54f8e155f1f2006935392fe9388aecd8"
+    } ],
+    "javaOutputTypeName" : "java.math.BigDecimal",
+    "javaParameterName" : "product",
+    "javaTypeName" : "Product",
+    "knowledgeReferences" : [ ],
+    "label" : "Product",
+    "name" : "product",
+    "typeRef" : {
+      "localName" : "product",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
+    }
+  } ]
+}

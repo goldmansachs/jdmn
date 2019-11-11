@@ -47,11 +47,12 @@ public abstract class AbstractDMNToJavaTest extends AbstractTransformerTest {
     protected void doTest(String inputFilePath, String expectedOutputPath) throws Exception {
         File outputFolder = new File("target/" + expectedOutputPath);
         outputFolder.mkdirs();
-        File expectedOutputFolder = new File(resource(expectedOutputPath));
 
         Path inputPath = new File(inputFilePath).toPath();
         FileTransformer transformer = makeTransformer(makeInputParameters(), LOGGER);
         transformer.transform(inputPath, outputFolder.toPath());
+
+        File expectedOutputFolder = new File(resource(expectedOutputPath));
         compareFile(expectedOutputFolder, outputFolder);
     }
 
@@ -71,11 +72,11 @@ public abstract class AbstractDMNToJavaTest extends AbstractTransformerTest {
 
     @Override
     protected Map<String, String> makeInputParameters() {
-        return new LinkedHashMap<String, String>() {{
-            put("dmnVersion", "1.1");
-            put("modelVersion", "2.0");
-            put("platformVersion", "1.0");
-        }};
+        Map<String, String> inputParams = new LinkedHashMap<String, String>();
+        inputParams.put("dmnVersion", "1.1");
+        inputParams.put("modelVersion", "2.0");
+        inputParams.put("platformVersion", "1.0");
+        return inputParams;
     }
 
     private String diagramName(File file) {
