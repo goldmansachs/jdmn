@@ -12,10 +12,8 @@
  */
 package com.gs.dmn.signavio.transformation;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
-@Ignore
 public class FromRDFDecisionTableDMNToJavaTransformerTest extends AbstractSignavioDMNToJavaTest {
     @Override
     protected String getInputPath() {

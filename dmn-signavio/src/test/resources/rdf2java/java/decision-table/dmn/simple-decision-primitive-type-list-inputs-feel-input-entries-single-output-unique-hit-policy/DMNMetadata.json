@@ -1,0 +1,201 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "item-definition-sid-DD33B3B6-0C84-4568-A0ED-424855D08836",
+    "isCollection" : true,
+    "label" : "BooleanInput",
+    "name" : "booleanInput",
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "item-definition-sid-D16E1277-6037-4066-A21B-42F761A4B427",
+    "isCollection" : true,
+    "label" : "DateAndTimeInput",
+    "name" : "dateAndTimeInput",
+    "typeRef" : {
+      "localName" : "datetime",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "item-definition-sid-6E98EF23-49A8-44BE-82BB-06CF5AC860A0",
+    "isCollection" : true,
+    "label" : "DateInput",
+    "name" : "dateInput",
+    "typeRef" : {
+      "localName" : "date",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "item-definition-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D",
+    "isCollection" : false,
+    "label" : "Decision",
+    "name" : "decision",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"e1\", \"e2\", \"e3\"",
+    "id" : "item-definition-sid-3247220B-9F67-48DB-8CB5-33C5FCDCEC20",
+    "isCollection" : true,
+    "label" : "EnumerationInput",
+    "name" : "enumerationInput",
+    "typeRef" : {
+      "localName" : "enumeration",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "item-definition-sid-3F148E87-DF6E-42AF-B209-4D532421A2F9",
+    "isCollection" : true,
+    "label" : "NumberInput",
+    "name" : "numberInput",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "item-definition-sid-404A0FC2-6787-4210-BB30-2E7964835E99",
+    "isCollection" : true,
+    "label" : "TextInput",
+    "name" : "textInput",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "item-definition-sid-F687D89A-8FBD-4414-BCF4-BBBF353ABBC2",
+    "isCollection" : true,
+    "label" : "TimeInput",
+    "name" : "timeInput",
+    "typeRef" : {
+      "localName" : "time",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "sid-DD33B3B6-0C84-4568-A0ED-424855D08836",
+    "javaParameterName" : "booleanInput",
+    "javaTypeName" : "List<Boolean>",
+    "label" : "BooleanInput",
+    "name" : "booleanInput",
+    "typeRef" : {
+      "localName" : "booleanInput",
+      "namespace" : "http://www.gs.com/cip"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "sid-D16E1277-6037-4066-A21B-42F761A4B427",
+    "javaParameterName" : "dateAndTimeInput",
+    "javaTypeName" : "List<javax.xml.datatype.XMLGregorianCalendar>",
+    "label" : "DateAndTimeInput",
+    "name" : "dateAndTimeInput",
+    "typeRef" : {
+      "localName" : "dateAndTimeInput",
+      "namespace" : "http://www.gs.com/cip"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "sid-6E98EF23-49A8-44BE-82BB-06CF5AC860A0",
+    "javaParameterName" : "dateInput",
+    "javaTypeName" : "List<javax.xml.datatype.XMLGregorianCalendar>",
+    "label" : "DateInput",
+    "name" : "dateInput",
+    "typeRef" : {
+      "localName" : "dateInput",
+      "namespace" : "http://www.gs.com/cip"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "sid-3247220B-9F67-48DB-8CB5-33C5FCDCEC20",
+    "javaParameterName" : "enumerationInput",
+    "javaTypeName" : "List<String>",
+    "label" : "EnumerationInput",
+    "name" : "enumerationInput",
+    "typeRef" : {
+      "localName" : "enumerationInput",
+      "namespace" : "http://www.gs.com/cip"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "sid-3F148E87-DF6E-42AF-B209-4D532421A2F9",
+    "javaParameterName" : "numberInput",
+    "javaTypeName" : "List<java.math.BigDecimal>",
+    "label" : "NumberInput",
+    "name" : "numberInput",
+    "typeRef" : {
+      "localName" : "numberInput",
+      "namespace" : "http://www.gs.com/cip"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "sid-404A0FC2-6787-4210-BB30-2E7964835E99",
+    "javaParameterName" : "textInput",
+    "javaTypeName" : "List<String>",
+    "label" : "TextInput",
+    "name" : "textInput",
+    "typeRef" : {
+      "localName" : "textInput",
+      "namespace" : "http://www.gs.com/cip"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "sid-F687D89A-8FBD-4414-BCF4-BBBF353ABBC2",
+    "javaParameterName" : "timeInput",
+    "javaTypeName" : "List<javax.xml.datatype.XMLGregorianCalendar>",
+    "label" : "TimeInput",
+    "name" : "timeInput",
+    "typeRef" : {
+      "localName" : "timeInput",
+      "namespace" : "http://www.gs.com/cip"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "sid-4A7C793A-882C-4867-94B9-AD88D6D6970D",
+    "informationReferences" : [ {
+      "reference" : "sid-6E98EF23-49A8-44BE-82BB-06CF5AC860A0"
+    }, {
+      "reference" : "sid-DD33B3B6-0C84-4568-A0ED-424855D08836"
+    }, {
+      "reference" : "sid-3F148E87-DF6E-42AF-B209-4D532421A2F9"
+    }, {
+      "reference" : "sid-404A0FC2-6787-4210-BB30-2E7964835E99"
+    }, {
+      "reference" : "sid-3247220B-9F67-48DB-8CB5-33C5FCDCEC20"
+    }, {
+      "reference" : "sid-F687D89A-8FBD-4414-BCF4-BBBF353ABBC2"
+    }, {
+      "reference" : "sid-D16E1277-6037-4066-A21B-42F761A4B427"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "decision",
+    "javaTypeName" : "Decision",
+    "knowledgeReferences" : [ ],
+    "label" : "Decision",
+    "name" : "decision",
+    "typeRef" : {
+      "localName" : "decision",
+      "namespace" : "http://www.gs.com/cip"
+    }
+  } ]
+}
