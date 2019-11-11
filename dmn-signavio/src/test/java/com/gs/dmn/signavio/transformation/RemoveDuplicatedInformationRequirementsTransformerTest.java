@@ -32,7 +32,6 @@ import java.util.List;
 
 import static org.junit.Assert.fail;
 
-@Ignore
 public class RemoveDuplicatedInformationRequirementsTransformerTest extends AbstractFileTransformerTest {
     private final DMNTransformer<TestLab> transformer = new RemoveDuplicatedInformationRequirementsTransformer(LOGGER);
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
@@ -41,16 +40,16 @@ public class RemoveDuplicatedInformationRequirementsTransformerTest extends Abst
 
     @Test
     public void testDMNTransform() throws Exception {
-        String path = "dmn2java/exported/complex/input/";
+        String path = "dmn/input/";
 
         // Transform DMN
-        File dmnFile = new File(CLASS_LOADER.getResource(path + "m2-pttr-38.dmn").getFile());
+        File dmnFile = new File(CLASS_LOADER.getResource(path + "simpleMID-with-ir-duplicates.dmn").getFile());
         Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(dmnFile);
         DMNModelRepository repository = new SignavioDMNModelRepository(pair);
         DMNModelRepository actualRepository = transformer.transform(repository);
 
         // Check output
-        checkDefinitions(actualRepository.getRootDefinitions(), "m2-pttr-38.dmn");
+        checkDefinitions(actualRepository.getRootDefinitions(), "simpleMID-with-ir-duplicates.dmn");
     }
 
     private void checkDefinitions(TDefinitions actualDefinitions, String fileName) throws Exception {

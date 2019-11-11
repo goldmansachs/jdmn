@@ -1,0 +1,48 @@
+{
+  "source" : "simple-decision-with-bkm-clone.json",
+  "inputParameterDefinitions" : [ {
+    "id" : "2521256910f54d44b0a90fa88a1aa917/sid-51423E05-DA13-44BF-9227-7AA7B88C67AC",
+    "shapeId" : null,
+    "diagramId" : null,
+    "modelName" : "simple-decision-with-bkm",
+    "requirementName" : "A"
+  }, {
+    "id" : "2521256910f54d44b0a90fa88a1aa917/sid-8D4FB4D7-6503-4FC2-B91A-A12B8C72FA3B",
+    "shapeId" : null,
+    "diagramId" : null,
+    "modelName" : "simple-decision-with-bkm",
+    "requirementName" : "B"
+  } ],
+  "outputParameterDefinitions" : [ {
+    "id" : "2521256910f54d44b0a90fa88a1aa917/sid-D8E2188A-C75B-406C-85C9-3C1B2E1B149D",
+    "shapeId" : "sid-D8E2188A-C75B-406C-85C9-3C1B2E1B149D",
+    "diagramId" : "2521256910f54d44b0a90fa88a1aa917",
+    "modelName" : "simple-decision-with-bkm",
+    "requirementName" : "Sign"
+  } ],
+  "testCases" : [ {
+    "inputValues" : [ {
+      "type" : "number",
+      "value" : "2"
+    }, {
+      "type" : "number",
+      "value" : "3"
+    } ],
+    "expectedValues" : [ {
+      "type" : "number",
+      "value" : "5"
+    } ]
+  }, {
+    "inputValues" : [ {
+      "type" : "number",
+      "value" : "3"
+    }, {
+      "type" : "number",
+      "value" : "-2"
+    } ],
+    "expectedValues" : [ {
+      "type" : "number",
+      "value" : "1"
+    } ]
+  } ]
+}

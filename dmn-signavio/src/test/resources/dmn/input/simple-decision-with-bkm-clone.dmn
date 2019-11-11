@@ -81,4 +81,42 @@
             </binding>
         </invocation>
     </decision>
+
+    <!-- Clone of sign -->
+    <decision name="sign1" id="id-c9af84da6920472f7e8311c719099aac-1" label="Sign" sigExt:shapeId="sid-D8E2188A-C75B-406C-85C9-3C1B2E1B149D-1" sigExt:diagramId="2521256910f54d44b0a90fa88a1aa917">
+        <variable xmlns:sig="http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml" typeRef="sig:sUM" name="Sign" id="id-c9af84da6920472f7e8311c719099aac_variable-1"/>
+        <informationRequirement>
+            <requiredInput href="#id-f1336e666ce4588d576ac630e3a0935c-1"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-dd388ae24612b67597f5220a2c6a1985-1"/>
+        </informationRequirement>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#id-74659018eb94601d9ccd8bcb2443688e"/>
+        </knowledgeRequirement>
+        <invocation>
+            <literalExpression>
+                <text>bKM</text>
+            </literalExpression>
+            <binding>
+                <parameter name="b"/>
+                <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+                    <text>a2</text>
+                </literalExpression>
+            </binding>
+            <binding>
+                <parameter name="a"/>
+                <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+                    <text>b3</text>
+                </literalExpression>
+            </binding>
+        </invocation>
+    </decision>
+    <inputData name="b31" id="id-dd388ae24612b67597f5220a2c6a1985-1" label="B" sigExt:shapeId="sid-8D4FB4D7-6503-4FC2-B91A-A12B8C72FA3B-1" sigExt:diagramId="2521256910f54d44b0a90fa88a1aa917">
+        <variable xmlns:sig="http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml" typeRef="sig:b2" name="b3" id="id-dd388ae24612b67597f5220a2c6a1985_variable-1"/>
+    </inputData>
+    <inputData name="a21" id="id-f1336e666ce4588d576ac630e3a0935c-1" label="A" sigExt:shapeId="sid-51423E05-DA13-44BF-9227-7AA7B88C67AC-1" sigExt:diagramId="2521256910f54d44b0a90fa88a1aa917">
+        <variable xmlns:sig="http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml" typeRef="sig:a2" name="a2" id="id-f1336e666ce4588d576ac630e3a0935c_variable-1"/>
+    </inputData>
+
 </definitions>

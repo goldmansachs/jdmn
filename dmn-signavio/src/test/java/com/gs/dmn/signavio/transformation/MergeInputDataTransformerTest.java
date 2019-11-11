@@ -23,7 +23,6 @@ import com.gs.dmn.signavio.testlab.InputParameterDefinition;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.testlab.TestLabReader;
 import com.gs.dmn.transformation.AbstractFileTransformerTest;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
 import org.omg.spec.dmn._20180521.model.TInputData;
@@ -34,26 +33,28 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-@Ignore
 public class MergeInputDataTransformerTest extends AbstractFileTransformerTest {
+    private static final ClassLoader CLASS_LOADER = MergeInputDataTransformerTest.class.getClassLoader();
+
     private final MergeInputDataTransformer transformer = new MergeInputDataTransformer(LOGGER);
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
     private DMNWriter dmnWriter = new DMNWriter(LOGGER);
     private final TestLabReader testReader = new TestLabReader();
-    private static final ClassLoader CLASS_LOADER = MergeInputDataTransformerTest.class.getClassLoader();
+    private String dmnFile = "simple-decision-with-bkm-clone.dmn";
+    private String testLabFile = "simple-decision-with-bkm-clone.json";
 
     @Test
     public void testDMNTransform() throws Exception {
-        String path = "dmn2java/exported/complex/input/";
+        String path = "dmn/input/";
 
         // Transform DMN
-        File dmnFile = new File(CLASS_LOADER.getResource(path + "m2-pttr-38.dmn").getFile());
+        File dmnFile = new File(CLASS_LOADER.getResource(path + this.dmnFile).getFile());
         Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(dmnFile);
         DMNModelRepository repository = new SignavioDMNModelRepository(pair);
         DMNModelRepository actualRepository = transformer.transform(repository);
 
         // Transform TestLab
-        File testLabFile = new File(CLASS_LOADER.getResource(path + "m2-pttr-38.json").getFile());
+        File testLabFile = new File(CLASS_LOADER.getResource(path + this.testLabFile).getFile());
         TestLab testLab = testReader.read(testLabFile);
         TestLab actualTestLab = transformer.transform(actualRepository, testLab).getRight();
 
@@ -90,31 +91,30 @@ public class MergeInputDataTransformerTest extends AbstractFileTransformerTest {
             }
         }
 
-
-        checkDefinitions(actualDefinitions, "m2-pttr-38.dmn");
-        checkTestLab(actualTestLab, "m2-pttr-38.json");
+        checkDefinitions(actualDefinitions, dmnFile);
+        checkTestLab(actualTestLab, testLabFile);
     }
 
     private void checkDefinitions(TDefinitions actualDefinitions, String fileName) throws Exception {
-        assertEquals(146, new SignavioDMNModelRepository(actualDefinitions, new PrefixNamespaceMappings()).inputDatas().size());
+        assertEquals(2, new SignavioDMNModelRepository(actualDefinitions, new PrefixNamespaceMappings()).inputDatas().size());
 
         File actualDMNFile = new File("target/" + fileName);
         dmnWriter.write(actualDefinitions, actualDMNFile, new DMNNamespacePrefixMapper(actualDefinitions.getNamespace(), "sig"));
 
-        String path = "dmn2java/exported/complex/expected/";
+        String path = "dmn/expected/";
         File expectedDMNFile = new File(CLASS_LOADER.getResource(path + fileName).getFile());
 
         compareFile(expectedDMNFile, actualDMNFile);
     }
 
     private void checkTestLab(TestLab actualTestLab, String fileName) throws Exception {
-        assertEquals(146, actualTestLab.getInputParameterDefinitions().size());
-        assertEquals(146, actualTestLab.getTestCases().get(0).getInputValues().size());
+        assertEquals(2, actualTestLab.getInputParameterDefinitions().size());
+        assertEquals(2, actualTestLab.getTestCases().get(0).getInputValues().size());
 
         File actualTestLabFile = new File("target/" + fileName);
         testReader.write(actualTestLab, actualTestLabFile);
 
-        String path = "dmn2java/exported/complex/expected/";
+        String path = "dmn/expected/";
         File expectedTestLabFile = new File(CLASS_LOADER.getResource(path + fileName).getFile());
 
         compareFile(expectedTestLabFile, actualTestLabFile);
