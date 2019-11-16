@@ -13,14 +13,10 @@
 package com.gs.dmn.signavio.feel.lib;
 
 import com.gs.dmn.feel.lib.FEELLib;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
-    static final Logger LOGGER = LoggerFactory.getLogger(SignavioLib.class);
-
     default void logError(String message) {
         LOGGER.error(message);
     }

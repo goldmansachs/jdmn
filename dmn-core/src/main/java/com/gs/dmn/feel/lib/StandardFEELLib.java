@@ -13,14 +13,10 @@
 package com.gs.dmn.feel.lib;
 
 import com.gs.dmn.runtime.LambdaExpression;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
-    static final Logger LOGGER = LoggerFactory.getLogger(StandardFEELLib.class);
-
     default void logError(String message) {
         LOGGER.error(message);
     }
