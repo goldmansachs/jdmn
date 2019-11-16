@@ -13,10 +13,14 @@
 package com.gs.dmn.feel.lib;
 
 import com.gs.dmn.feel.lib.type.*;
+import com.gs.dmn.feel.lib.type.context.DefaultContextType;
 import com.gs.dmn.runtime.Context;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     protected final NumericType<NUMBER> numericType;
@@ -28,6 +32,12 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     protected final DurationType<DURATION, NUMBER> durationType;
     protected final ListType listType;
     protected final ContextType contextType;
+
+    @Deprecated
+    // Backwards compatibility with 5.3.0
+    public BaseFEELLib(NumericType<NUMBER> numericType, BooleanType booleanType, StringType stringType, DateType<DATE, DURATION> dateType, TimeType<TIME, DURATION> timeType, DateTimeType<DATE_TIME, DURATION> dateTimeType, DurationType<DURATION, NUMBER> durationType, ListType listType) {
+        this(numericType, booleanType, stringType, dateType, timeType, dateTimeType, durationType, listType, new DefaultContextType(LOGGER));
+    }
 
     public BaseFEELLib(NumericType<NUMBER> numericType, BooleanType booleanType, StringType stringType, DateType<DATE, DURATION> dateType, TimeType<TIME, DURATION> timeType, DateTimeType<DATE_TIME, DURATION> dateTimeType, DurationType<DURATION, NUMBER> durationType, ListType listType, ContextType contextType) {
         this.numericType = numericType;
