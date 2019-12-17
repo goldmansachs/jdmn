@@ -10,14 +10,14 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.serialization;
+package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.validation.DMNValidator;
-import com.gs.dmn.validation.DefaultDMNValidator;
+import com.gs.dmn.serialization.DMNReader;
+import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import org.junit.Test;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
 import org.slf4j.LoggerFactory;
@@ -27,11 +27,8 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public class DMNValidatorTest {
-    private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(DMNValidatorTest.class));
-
+public class DefaultDMNValidatorTest extends AbstractValidatorTest {
     private final DMNValidator validator = new DefaultDMNValidator();
-    private final DMNReader reader = new DMNReader(LOGGER, false);
 
     @Test
     public void testValidateDefinitions() {
@@ -40,7 +37,7 @@ public class DMNValidatorTest {
 
     @Test
     public void testValidateDefinitionsWhenNotUniqueNames() {
-        File input = new File(DMNValidatorTest.class.getClassLoader().getResource("dmn/input/test-dmn-with-duplicates.dmn").getFile());
+        File input = new File(DefaultDMNValidatorTest.class.getClassLoader().getResource("dmn/input/test-dmn-with-duplicates.dmn").getFile());
         DMNModelRepository repository = makeRepository(input);
         List<String> errors = validator.validate(repository);
         assertTrue(!errors.isEmpty());
@@ -48,7 +45,7 @@ public class DMNValidatorTest {
 
     @Test
     public void testValidateDefinitionsWithError() {
-        File input = new File(DMNValidatorTest.class.getClassLoader().getResource("dmn/input/test-dmn.dmn").getFile());
+        File input = new File(DefaultDMNValidatorTest.class.getClassLoader().getResource("dmn/input/test-dmn.dmn").getFile());
         DMNModelRepository repository = makeRepository(input);
         List<String> errors = validator.validate(repository);
         assertTrue(!errors.isEmpty());
@@ -60,15 +57,9 @@ public class DMNValidatorTest {
     }
 
     private void validate(String path) {
-        File input = new File(DMNValidatorTest.class.getClassLoader().getResource(path).getFile());
+        File input = new File(DefaultDMNValidatorTest.class.getClassLoader().getResource(path).getFile());
         DMNModelRepository repository = makeRepository(input);
         List<String> erros = validator.validate(repository);
         assertTrue(erros.isEmpty());
     }
-
-    private DMNModelRepository makeRepository(File input) {
-        Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(input);
-        return new DMNModelRepository(pair);
-    }
-
 }

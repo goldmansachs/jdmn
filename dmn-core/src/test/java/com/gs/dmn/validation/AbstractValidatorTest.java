@@ -1,0 +1,35 @@
+/*
+ Copyright 2016.
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+   http://www.apache.org/licenses/LICENSE-2.0
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License.
+*/
+package com.gs.dmn.validation;
+
+import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.log.Slf4jBuildLogger;
+import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.serialization.DMNReader;
+import com.gs.dmn.serialization.PrefixNamespaceMappings;
+import org.omg.spec.dmn._20180521.model.TDefinitions;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+
+public class AbstractValidatorTest {
+    private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractValidatorTest.class));
+    private final DMNReader reader = new DMNReader(LOGGER, false);
+
+    protected DMNModelRepository makeRepository(File input) {
+        Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(input);
+        return new DMNModelRepository(pair);
+    }
+}
