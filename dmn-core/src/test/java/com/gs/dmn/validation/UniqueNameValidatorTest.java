@@ -12,43 +12,32 @@
  */
 package com.gs.dmn.validation;
 
-import com.gs.dmn.DMNModelRepository;
 import org.junit.Test;
 
-import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class UniqueNameValidatorTest extends AbstractValidatorTest {
     private final UniqueNameValidator validator = new UniqueNameValidator();
 
     @Test
-    public void testValidateDefinitions() {
-        File input = new File(UniqueNameValidatorTest.class.getClassLoader().getResource("tck/cl3/input/0020-vacation-days.dmn").getFile());
-        DMNModelRepository repository = makeRepository(input);
-        List<String> erros = validator.validate(repository);
-        assertTrue(erros.isEmpty());
+    public void testValidateWhenCorrect() {
+        validate(validator, "tck/cl3/input/0020-vacation-days.dmn", new ArrayList<>());
     }
 
     @Test
     public void testValidateDefinitionsWhenNotUniqueNames() {
-        File input = new File(UniqueNameValidatorTest.class.getClassLoader().getResource("dmn/input/test-dmn-with-duplicates.dmn").getFile());
-        DMNModelRepository repository = makeRepository(input);
-        List<String> actualErrors = validator.validate(repository);
-
         List<String> expectedErrors = Arrays.asList(
                 "The 'name' of a 'DRGElement' must be unique. Found 3 duplicates for 'CIP Assessments'.",
                 "The 'name' of a 'DRGElement' must be unique. Found 2 duplicates for 'Input'.",
                 "The 'name' of a 'ItemDefinition' must be unique. Found 2 duplicates for 'itemDefinition'."
         );
-        assertEquals(expectedErrors, actualErrors);
+        validate(validator, "dmn/input/test-dmn-with-duplicates.dmn", expectedErrors);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testValidateDefinitionsWhenNull() {
         validator.validate(null);
     }
-
 }

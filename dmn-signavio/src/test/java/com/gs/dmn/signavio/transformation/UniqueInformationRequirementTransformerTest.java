@@ -21,7 +21,6 @@ import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.testlab.TestLabReader;
 import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.omg.spec.dmn._20180521.model.*;
 
@@ -32,8 +31,8 @@ import java.util.List;
 
 import static org.junit.Assert.fail;
 
-public class RemoveDuplicatedInformationRequirementsTransformerTest extends AbstractFileTransformerTest {
-    private final DMNTransformer<TestLab> transformer = new RemoveDuplicatedInformationRequirementsTransformer(LOGGER);
+public class UniqueInformationRequirementTransformerTest extends AbstractFileTransformerTest {
+    private final DMNTransformer<TestLab> transformer = new UniqueInformationRequirementTransformer(LOGGER);
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
     private TestLabReader testReader = new TestLabReader();
     private static final ClassLoader CLASS_LOADER = MergeInputDataTransformerTest.class.getClassLoader();

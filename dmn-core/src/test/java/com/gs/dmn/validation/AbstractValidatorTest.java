@@ -23,12 +23,23 @@ import org.omg.spec.dmn._20180521.model.TDefinitions;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public class AbstractValidatorTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractValidatorTest.class));
     private final DMNReader reader = new DMNReader(LOGGER, false);
 
-    protected DMNModelRepository makeRepository(File input) {
+    protected void validate(DMNValidator validator, String path, List<String> expectedErrors) {
+        DMNModelRepository repository = makeRepository(path);
+        List<String> actualErrors = validator.validate(repository);
+
+        assertEquals(expectedErrors, actualErrors);
+    }
+
+    private DMNModelRepository makeRepository(String path) {
+        File input = new File(DefaultDMNValidatorTest.class.getClassLoader().getResource(path).getFile());
         Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(input);
         return new DMNModelRepository(pair);
     }

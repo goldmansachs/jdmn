@@ -13,33 +13,30 @@
 */
 package com.gs.dmn.validation;
 
-import com.gs.dmn.DMNModelRepository;
 import org.junit.Test;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class TypeRefValidatorTest extends AbstractValidatorTest {
     private final TypeRefValidator validator = new TypeRefValidator();
 
     @Test
-    public void validate() {
-        File input = new File(DefaultDMNValidatorTest.class.getClassLoader().getResource("dmn/input/test-dmn-with-missing-type-ref.dmn").getFile());
-        DMNModelRepository repository = makeRepository(input);
-        List<String> actualErrors = validator.validate(repository);
+    public void testValidateWhenCorrect() {
+        List<String> expectedErrors = Arrays.asList();
+        validate(validator, "tck/cl3/input/0020-vacation-days.dmn", expectedErrors);
+    }
 
+    @Test
+    public void validate() {
         List<String> expectedErrors = Arrays.asList(
            "Cannot find type 'QualifiedName(sig, applicant)' for DRGElement 'applicant'"
         );
-        assertEquals(expectedErrors, actualErrors);
+        validate(validator, "dmn/input/test-dmn-with-missing-type-ref.dmn", expectedErrors);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testValidateDefinitionsWhenNull() {
         validator.validate(null);
     }
-
 }

@@ -30,17 +30,17 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RemoveDuplicatedInformationRequirementsTransformer extends SimpleDMNTransformer<TestLab> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RemoveDuplicatedInformationRequirementsTransformer.class);
+public class UniqueInformationRequirementTransformer extends SimpleDMNTransformer<TestLab> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UniqueInformationRequirementTransformer.class);
 
     private final BuildLogger logger;
     private Map<String, Pair<TInputData, List<TInputData>>> inputDataClasses;
 
-    public RemoveDuplicatedInformationRequirementsTransformer() {
+    public UniqueInformationRequirementTransformer() {
         this(new Slf4jBuildLogger(LOGGER));
     }
 
-    public RemoveDuplicatedInformationRequirementsTransformer(BuildLogger logger) {
+    public UniqueInformationRequirementTransformer(BuildLogger logger) {
         this.logger = logger;
     }
 
