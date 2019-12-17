@@ -262,9 +262,9 @@ public class TestLabUtil {
                 return memberType;
             }
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot find member '(name='%s' label='%s' id='%s') in complexType '%s'", name, label, id, itemDefinition.getName()), e);
+            throw new DMNRuntimeException(String.format("Cannot find member '(name='%s' label='%s' id='%s') in ItemDefinition '%s'", name, label, id, itemDefinition.getName()), e);
         }
-        throw new DMNRuntimeException(String.format("Cannot find member '(name='%s' label='%s' id='%s') in complexType '%s'", name, label, id, itemDefinition.getName()));
+        throw new DMNRuntimeException(String.format("Cannot find member '(name='%s' label='%s' id='%s') in ItemDefinition '%s'", name, label, id, itemDefinition.getName()));
     }
 
     private boolean sameSlotId(TItemDefinition child, String id) {
@@ -402,7 +402,7 @@ public class TestLabUtil {
             String typeRef = getTypeRef(parameterDefinition);
             return dmnTransformer.toFEELType(QualifiedName.toQualifiedName(typeRef));
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot resolve FEEL type for requirementId requirement '%s'", parameterDefinition.getId()));
+            throw new DMNRuntimeException(String.format("Cannot resolve FEEL type for requirementId requirement '%s' in DM '%s'", parameterDefinition.getId(), parameterDefinition.getModelName()));
         }
     }
 
