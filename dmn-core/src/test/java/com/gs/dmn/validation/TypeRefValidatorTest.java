@@ -36,4 +36,10 @@ public class TypeRefValidatorTest extends AbstractValidatorTest {
         );
         assertEquals(expectedErrors, actualErrors);
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testValidateDefinitionsWhenNull() {
+        validator.validate(null);
+    }
+
 }

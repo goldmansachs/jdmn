@@ -15,6 +15,7 @@ package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.analysis.semantics.type.FEELTypes;
+import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import org.apache.commons.lang3.StringUtils;
@@ -28,6 +29,10 @@ public class TypeRefValidator extends SimpleDMNValidator {
         super(new Slf4jBuildLogger(LOGGER));
     }
 
+    public TypeRefValidator(BuildLogger logger) {
+        super(logger);
+    }
+
     @Override
     public List<String> validate(DMNModelRepository dmnModelRepository) {
         List<String> errors = new ArrayList<>();
@@ -38,6 +43,7 @@ public class TypeRefValidator extends SimpleDMNValidator {
 
         List<TDRGElement> drgElements = dmnModelRepository.drgElements();
         for (TDRGElement element: drgElements) {
+            logger.debug(String.format("Validate element '%s'", element.getName()));
             if (element instanceof TInputData) {
                 TInformationItem variable = ((TInputData) element).getVariable();
                 validate(variable, element, dmnModelRepository, errors);
