@@ -53,7 +53,7 @@ public class SchemaValidator {
 
             u.unmarshal(file.toURI().toURL());
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Invalid schema for '%s'", file.getName()), e);
+            throw new DMNRuntimeException(String.format("'%s' does not comply with the XSD schema", file.getName()), e);
         }
     }
 

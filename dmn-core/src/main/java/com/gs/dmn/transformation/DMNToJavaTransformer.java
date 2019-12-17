@@ -211,7 +211,7 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
             // Process template
             processTemplate(baseTemplatePath, templateName, params, outputFile, true);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot process template '%s' for BKMs", templateName), e);
+            throw new DMNRuntimeException(String.format("Cannot process template '%s' for BKM '%s'", templateName, bkm.getName()), e);
         }
     }
 

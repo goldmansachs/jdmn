@@ -312,7 +312,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
             // Create instance
             return cls.newInstance();
         } catch (Exception e) {
-            throw new DMNRuntimeException("Execution error", e);
+            throw new DMNRuntimeException(String.format("Execution error for FunctionDefinition %s", element.toString()), e);
         }
     }
 
