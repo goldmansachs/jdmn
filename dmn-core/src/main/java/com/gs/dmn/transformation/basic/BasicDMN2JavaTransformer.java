@@ -264,6 +264,9 @@ public class BasicDMN2JavaTransformer {
             return "\"\"";
         }
         description = description.trim().replace("string(-)", "\"\"");
+        description = description.replaceAll("\\u00A0", " ");
+        description = description.replaceAll("\\[ ,", "[");
+        description = description.replaceAll(",  ,", ",");
         try {
             Environment environment = makeEnvironment(element);
             Statement statement = literalExpressionToJavaTransformer.literalExpressionToJava(description, environment, element);
