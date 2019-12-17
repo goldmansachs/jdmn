@@ -129,6 +129,19 @@ public class BasicDMN2JavaTransformerTest {
         assertEquals("🐎😀", dmnTransformer.escapeInString("🐎😀"));
     }
 
+    @Test
+    public void testAnnotationWithIncorrectList() {
+        TDecision decision = dmnTransformer.getDMNModelRepository().findDecisionByRef(null, href);
+        assertEquals("asList(\"\", string(\"abc\"))", dmnTransformer.annotation(decision, "[ , string(-) , string(\"abc\")]"));
+        assertEquals("asList(\"\", string(\"abc\"))", dmnTransformer.annotation(decision, "[ string(-) ,  , string(\"abc\")]"));
+    }
+
+    @Test
+    public void testAnnotationWithNoBreakSpace() {
+        TDecision decision = dmnTransformer.getDMNModelRepository().findDecisionByRef(null, href);
+        assertEquals("asList(string(\"text\"), string(\"Section 1;   Section 2\"))", dmnTransformer.annotation(decision, "[string(\"text\") , string(\"Section 1; \u00A0 Section 2\")]"));
+    }
+
     private DMNModelRepository readDMN(String pathName) {
         File input = new File(BasicDMN2JavaTransformerTest.class.getClassLoader().getResource(pathName).getFile());
         Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(input);

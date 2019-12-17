@@ -28,6 +28,8 @@ public class DecisionTableToJavaTransformerTest {
     public void testAnnotationEscapedText() {
         assertEquals("", transformer.annotationEscapedText(makeDecisionRule(null)));
         assertEquals("", transformer.annotationEscapedText(makeDecisionRule("")));
+        assertEquals("[ string(-) , string(-)]", transformer.annotationEscapedText(makeDecisionRule("[ , string(-) ,  , string(-)]")));
+        assertEquals("[ string(\\\"text\\\") , string(\\\"Section 1;  Section 2\\\")]", transformer.annotationEscapedText(makeDecisionRule("[ , string(\"text\") ,  , string(\"Section 1; \u00A0Section 2\")]")));
         assertEquals("string(-)", transformer.annotationEscapedText(makeDecisionRule("string(-)")));
         assertEquals("[string(-) , string(-) , string(-) , string(-)]", transformer.annotationEscapedText(makeDecisionRule("[string(-) , string(-) , string(-) , string(-)]")));
         assertEquals("string(\\\"abc\\\")", transformer.annotationEscapedText(makeDecisionRule("string(\"abc\")")));
