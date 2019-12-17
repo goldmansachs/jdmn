@@ -14,35 +14,25 @@ package com.gs.dmn.validation;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class DefaultDMNValidatorTest extends AbstractValidatorTest {
-    private final DMNValidator validator = new DefaultDMNValidator();
+public class UniqueInformationRequirementValidatorTest extends AbstractValidatorTest {
+    private final UniqueInformationRequirementValidator validator = new UniqueInformationRequirementValidator();
 
     @Test
     public void testValidateWhenCorrect() {
-        List<String> expectedErrors = Arrays.asList();
-        validate(validator, "tck/cl3/input/0020-vacation-days.dmn", expectedErrors);
+        validate(validator, "tck/cl3/input/0020-vacation-days.dmn", new ArrayList<>());
     }
 
     @Test
     public void testValidateDefinitionsWhenNotUniqueNames() {
         List<String> expectedErrors = Arrays.asList(
-                "The 'name' of a 'DRGElement' must be unique. Found duplicates for 'CIP Assessments, Input'.",
-                "The 'name' of a 'ItemDefinition' must be unique. Found duplicates for 'itemDefinition'.",
-                "Missing variable for 'CIP Assessments'",
-                "Missing variable for 'CIP Assessments'"
+                "Duplicated InformationRequirement 'decision-1' in element 'CIP Assessments'",
+                "Duplicated InformationRequirement 'input-1' in element 'CIP Assessments'"
         );
-        validate(validator, "dmn/input/test-dmn-with-duplicates.dmn", expectedErrors);
-    }
-
-    @Test
-    public void testValidateDefinitionsWithError() {
-        List<String> expectedErrors = Arrays.asList(
-                "Missing variable for 'CIP Assessments'"
-        );
-        validate(validator, "dmn/input/test-dmn.dmn", expectedErrors);
+        validate(validator, "dmn/input/test-dmn-with-duplicated-information-requirements.dmn", expectedErrors);
     }
 
     @Test(expected = IllegalArgumentException.class)

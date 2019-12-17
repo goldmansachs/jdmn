@@ -17,6 +17,7 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.analysis.semantics.type.FEELTypes;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
+import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.*;
@@ -71,6 +72,6 @@ public class TypeRefValidator extends SimpleDMNValidator {
     }
 
     private boolean isPrimitiveType(String name) {
-        return FEELTypes.FEEL_TYPE_NAMES.contains(name);
+        return FEELTypes.FEEL_TYPE_NAMES.contains(name) || name.startsWith(DMNVersion.DMN_12.getFeelPrefix());
     }
 }
