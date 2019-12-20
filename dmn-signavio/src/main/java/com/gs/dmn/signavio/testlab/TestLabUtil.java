@@ -97,6 +97,11 @@ public class TestLabUtil {
         return dmnTransformer.annotationSetVariableName();
     }
 
+    public boolean hasListType(ParameterDefinition parameterDefinition) {
+        TDRGElement element = findDRGElement(parameterDefinition);
+        return this.dmnTransformer.isList(element);
+    }
+
     public boolean isSimple(Expression expression) {
         return expression instanceof SimpleExpression;
     }
