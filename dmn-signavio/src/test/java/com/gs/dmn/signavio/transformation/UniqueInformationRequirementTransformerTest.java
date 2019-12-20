@@ -38,7 +38,7 @@ public class UniqueInformationRequirementTransformerTest extends AbstractFileTra
     private static final ClassLoader CLASS_LOADER = MergeInputDataTransformerTest.class.getClassLoader();
 
     @Test
-    public void testDMNTransform() throws Exception {
+    public void testTransform() throws Exception {
         String path = "dmn/input/";
 
         // Transform DMN

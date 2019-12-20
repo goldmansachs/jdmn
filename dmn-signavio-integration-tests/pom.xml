@@ -72,6 +72,9 @@
                 <version>${project.parent.version}</version>
                 <configuration>
                     <dmnDialect>com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition</dmnDialect>
+                    <dmnTransformers>
+                        <dmnTransformer>com.gs.dmn.signavio.transformation.RuleDescriptionTransformer</dmnTransformer>
+                    </dmnTransformers>
                     <templateProvider>com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider</templateProvider>
                     <inputParameters>
                         <dmnVersion>${dmn.version}</dmnVersion>
@@ -1513,6 +1516,7 @@
                                 <javaRootPackage>com.gs.dmn.mid_with_complex_output</javaRootPackage>
                             </inputParameters>
                             <dmnTransformers>
+                                <dmnTransformer>com.gs.dmn.signavio.transformation.RuleDescriptionTransformer</dmnTransformer>
                                 <dmnTransformer>com.gs.dmn.signavio.transformation.SimplifyTypesForMIDTransformer</dmnTransformer>
                             </dmnTransformers>
                         </configuration>
@@ -1532,6 +1536,7 @@
                                 <javaRootPackage>com.gs.dmn.mid_with_complex_output</javaRootPackage>
                             </inputParameters>
                             <dmnTransformers>
+                                <dmnTransformer>com.gs.dmn.signavio.transformation.RuleDescriptionTransformer</dmnTransformer>
                                 <dmnTransformer>com.gs.dmn.signavio.transformation.SimplifyTypesForMIDTransformer</dmnTransformer>
                             </dmnTransformers>
                         </configuration>
@@ -1583,6 +1588,7 @@
                                 <javaRootPackage>com.gs.dmn.missing_definition_transformation</javaRootPackage>
                             </inputParameters>
                             <dmnTransformers>
+                                <dmnTransformer>com.gs.dmn.signavio.transformation.RuleDescriptionTransformer</dmnTransformer>
                                 <dmnTransformer>
                                     <name>com.gs.dmn.signavio.transformation.GenerateMissingItemDefinitionsTransformer</name>
                                     <configuration>
@@ -1622,6 +1628,7 @@
                                 <javaRootPackage>com.gs.dmn.missing_definition_transformation</javaRootPackage>
                             </inputParameters>
                             <dmnTransformers>
+                                <dmnTransformer>com.gs.dmn.signavio.transformation.RuleDescriptionTransformer</dmnTransformer>
                                 <dmnTransformer>
                                     <name>com.gs.dmn.signavio.transformation.GenerateMissingItemDefinitionsTransformer</name>
                                     <configuration>
@@ -1761,7 +1768,6 @@
                     </archive>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 </project>

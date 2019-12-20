@@ -21,6 +21,7 @@ import com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision;
 import com.gs.dmn.signavio.runtime.SignavioEnvironmentFactory;
 import com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider;
 import com.gs.dmn.transformation.AbstractDMNToJavaTest;
+import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
@@ -39,6 +40,11 @@ public abstract class AbstractSignavioDMNToJavaTest extends AbstractDMNToJavaTes
     @Override
     protected DMNValidator makeDMNValidator(BuildLogger logger) {
         return new NopDMNValidator();
+    }
+
+    @Override
+    protected DMNTransformer makeDMNTransformer(BuildLogger logger) {
+        return new RuleDescriptionTransformer();
     }
 
     @Override
