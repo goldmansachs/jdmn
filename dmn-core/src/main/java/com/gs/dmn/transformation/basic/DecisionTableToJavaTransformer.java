@@ -400,14 +400,7 @@ public class DecisionTableToJavaTransformer {
     //
     public String annotationEscapedText(TDecisionRule rule) {
         String description = rule.getDescription();
-        if (description == null) {
-            return "";
-        } else {
-            description = description.replaceAll("\\u00A0", " ");
-            description = description.replaceAll("\\[ ,", "[");
-            description = description.replaceAll(",  ,", ",");
-            return StringEscapeUtil.escapeInString(description);
-        }
+        return description == null ? "" : StringEscapeUtil.escapeInString(description);
     }
 
     public String annotation(TDRGElement element, TDecisionRule rule) {

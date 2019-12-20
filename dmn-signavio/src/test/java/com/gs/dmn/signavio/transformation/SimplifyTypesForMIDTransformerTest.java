@@ -37,7 +37,7 @@ public class SimplifyTypesForMIDTransformerTest extends AbstractFileTransformerT
     private static final ClassLoader CLASS_LOADER = SimplifyTypesForMIDTransformerTest.class.getClassLoader();
 
     @Test
-    public void testDMNTransform() throws Exception {
+    public void testTransform() throws Exception {
         String path = "dmn2java/exported/complex/input/";
 
         // Transform DMN
