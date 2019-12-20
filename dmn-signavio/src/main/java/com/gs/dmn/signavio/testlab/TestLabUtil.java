@@ -184,8 +184,21 @@ public class TestLabUtil {
         } else if (isComplex(inputExpression)) {
             List<Slot> slots = ((ComplexExpression) inputExpression).getSlots();
             if (slots != null) {
-                List<Pair<String, Expression>> pairs = slots
-                        .stream().map((s -> (Pair<String, Expression>) new ImmutablePair(s.getItemComponentName(), s.getValue()))).collect(Collectors.toList());
+                Set<String> members = members(inputType);
+                List<Pair<String, Expression>> pairs = new ArrayList<>();
+                Set<String> present = new LinkedHashSet<>();
+                for (Slot s: slots) {
+                    ImmutablePair<String, Expression> pair = new ImmutablePair<>(s.getItemComponentName(), s.getValue());
+                    pairs.add(pair);
+                    present.add(pair.getLeft());
+                }
+                // Top-upo the missing ones
+                for (String member: members) {
+                    if (!present.contains(member)) {
+                        ImmutablePair<String, Expression> pair = new ImmutablePair<>(member, null);
+                        pairs.add(pair);
+                    }
+                }
                 sortParameters(pairs);
                 List<String> args = new ArrayList<>();
                 for(Pair<String, Expression> p: pairs) {
@@ -286,6 +299,16 @@ public class TestLabUtil {
             throw new DMNRuntimeException(String.format("Cannot find element type of type '%s'", type));
         } else {
             return elementType;
+        }
+    }
+
+    private Set<String> members(Type type) {
+        if (type instanceof ItemDefinitionType) {
+            return ((ItemDefinitionType) type).getMembers();
+        } else if (type instanceof ContextType) {
+            return ((ContextType) type).getMembers();
+        } else {
+            return new LinkedHashSet<>();
         }
     }
 
