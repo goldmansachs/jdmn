@@ -112,6 +112,8 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
 
         // Complex type
         if (!dmnTransformer.getDMNModelRepository().isEmpty(itemDefinition.getItemComponent())) {
+            logger.debug(String.format("Generating code for ItemDefinition '%s'", itemDefinition.getName()));
+
             String typePackageName = dmnTransformer.javaTypePackageName();
 
             // Generate interface and class
@@ -141,6 +143,8 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
     }
 
     private void transformBKM(TBusinessKnowledgeModel bkm, BasicDMN2JavaTransformer dmnTransformer, List<String> generatedClasses, Path outputPath, String decisionBaseClass) {
+        logger.debug(String.format("Generating code for BKM '%s'", bkm.getName()));
+
         String bkmPackageName = dmnTransformer.javaRootPackageName();
         String bkmClassName = dmnTransformer.drgElementClassName(bkm);
         checkDuplicate(generatedClasses, bkmPackageName, bkmClassName, dmnTransformer);
@@ -160,6 +164,8 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
     }
 
     private void transformDecision(TDecision decision, BasicDMN2JavaTransformer dmnTransformer, List<String> generatedClasses, Path outputPath, String decisionBaseClass) {
+        logger.debug(String.format("Generating code for Decision '%s'", decision.getName()));
+
         String decisionPackageName = dmnTransformer.javaRootPackageName();
         String decisionClassName = dmnTransformer.drgElementClassName(decision);
         checkDuplicate(generatedClasses, decisionPackageName, decisionClassName, dmnTransformer);
