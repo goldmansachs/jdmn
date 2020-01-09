@@ -98,7 +98,7 @@ public class TimeUtil {
 
         try {
             if (!date.isSupported(ChronoField.HOUR_OF_DAY)) {
-                return new DateAndTimeUtil().dateAndTime(date, OffsetTime.of(0, 0, 0, 0, ZoneOffset.UTC));
+                return new DateTimeUtil().dateAndTime(date, OffsetTime.of(0, 0, 0, 0, ZoneOffset.UTC));
             } else if (date.query(TemporalQueries.offset()) == null) {
                 return LocalTime.from(date);
             } else {

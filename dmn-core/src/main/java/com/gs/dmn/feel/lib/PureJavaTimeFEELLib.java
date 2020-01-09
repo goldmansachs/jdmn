@@ -217,7 +217,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
         try {
             literal = DateTimeUtil.fixDateTimeFormat(literal);
-            return (Temporal) DateAndTimeUtil.dateAndTime(literal);
+            return (Temporal) DateTimeUtil.dateAndTime(literal);
         } catch (Exception e) {
             String message = String.format("dateAndTime(%s)", literal);
             logError(message, e);

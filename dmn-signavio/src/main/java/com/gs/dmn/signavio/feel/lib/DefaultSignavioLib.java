@@ -12,10 +12,7 @@
  */
 package com.gs.dmn.signavio.feel.lib;
 
-import com.gs.dmn.feel.lib.BaseFEELLib;
-import com.gs.dmn.feel.lib.DateAndTimeUtil;
-import com.gs.dmn.feel.lib.DateUtil;
-import com.gs.dmn.feel.lib.DefaultFEELLib;
+import com.gs.dmn.feel.lib.*;
 import com.gs.dmn.feel.lib.type.context.DefaultContextType;
 import com.gs.dmn.feel.lib.type.list.DefaultListType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
@@ -262,7 +259,7 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
     public XMLGregorianCalendar dateTime(BigDecimal day, BigDecimal month, BigDecimal year, BigDecimal hour, BigDecimal minute, BigDecimal second) {
         String literal = String.format("%04d-%02d-%02dT%02d:%02d:%02dZ",
                 year.intValue(), month.intValue(), day.intValue(), hour.intValue(), minute.intValue(), second.intValue());
-        return FEELXMLGregorianCalendar.makeXMLCalendar(DateAndTimeUtil.dateAndTime(literal));
+        return FEELXMLGregorianCalendar.makeXMLCalendar(DateTimeUtil.dateAndTime(literal));
     }
 
     @Override
