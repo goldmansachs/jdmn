@@ -44,7 +44,7 @@ public class MergeInputDataTransformerTest extends AbstractFileTransformerTest {
     private String testLabFile = "simple-decision-with-bkm-clone.json";
 
     @Test
-    public void testDMNTransform() throws Exception {
+    public void testTransform() throws Exception {
         String path = "dmn/input/";
 
         // Transform DMN

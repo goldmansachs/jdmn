@@ -86,7 +86,7 @@ public class TCKTestCasesToJUnitTransformer extends AbstractDMNTransformer {
             // Process template
             processTemplate(baseTemplatePath, templateName, params, outputFile, true);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot process template '%s' for testCases '%s'", templateName, testCases.getModelName()), e);
+            throw new DMNRuntimeException(String.format("Cannot process template '%s' for testCases of '%s'", templateName, testCases.getModelName()), e);
         }
     }
 

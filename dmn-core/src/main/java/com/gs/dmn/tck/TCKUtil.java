@@ -327,7 +327,7 @@ public class TCKUtil {
                 runtimeEnvironment.bind(name, value);
             } catch (Exception e) {
                 LOGGER.error("Cannot make environment ", e);
-                throw new DMNRuntimeException(String.format("Cannot process input node '%s' at position %d", input.getName(), i), e);
+                throw new DMNRuntimeException(String.format("Cannot process input node '%s' for TestCase %d for DM '%s'", input.getName(), i, testCase.getName()), e);
             }
         }
         return runtimeEnvironment;
@@ -347,7 +347,7 @@ public class TCKUtil {
                     map.put(input.getName(), value);
                 } catch (Exception e) {
                     LOGGER.error("Cannot make arguments", e);
-                    throw new DMNRuntimeException(String.format("Cannot process input node '%s' at position %d", input.getName(), i), e);
+                    throw new DMNRuntimeException(String.format("Cannot process input node '%s' for TestCase %d for DRGElement '%s'", input.getName(), i, drgElement.getName()), e);
                 }
             }
             for (FormalParameter parameter: formalParameters) {

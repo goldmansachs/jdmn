@@ -18,29 +18,36 @@ import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.SimpleDMNTransformer;
-import org.omg.spec.dmn._20180521.model.TDMNElementReference;
-import org.omg.spec.dmn._20180521.model.TDecision;
-import org.omg.spec.dmn._20180521.model.TInformationRequirement;
-import org.omg.spec.dmn._20180521.model.TInputData;
+import org.apache.commons.lang3.StringUtils;
+import org.omg.spec.dmn._20180521.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RemoveDuplicatedInformationRequirementsTransformer extends SimpleDMNTransformer<TestLab> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RemoveDuplicatedInformationRequirementsTransformer.class);
+public class RuleDescriptionTransformer extends SimpleDMNTransformer<TestLab> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RuleDescriptionTransformer.class);
+    private static final Map<String, String> PATTERNS = new LinkedHashMap<>();
+    static {
+        PATTERNS.put("[ ,", "[");
+        PATTERNS.put(",  ,", ",");
+        PATTERNS.put(", ]", "]");
+
+        PATTERNS.put("string(-)", "\"\"");
+
+        PATTERNS.put("\u00A0", " ");
+    }
 
     private final BuildLogger logger;
     private Map<String, Pair<TInputData, List<TInputData>>> inputDataClasses;
 
-    public RemoveDuplicatedInformationRequirementsTransformer() {
+    public RuleDescriptionTransformer() {
         this(new Slf4jBuildLogger(LOGGER));
     }
 
-    public RemoveDuplicatedInformationRequirementsTransformer(BuildLogger logger) {
+    public RuleDescriptionTransformer(BuildLogger logger) {
         this.logger = logger;
     }
 
@@ -48,7 +55,7 @@ public class RemoveDuplicatedInformationRequirementsTransformer extends SimpleDM
     public DMNModelRepository transform(DMNModelRepository repository) {
         this.inputDataClasses = new LinkedHashMap<>();
 
-        return removeDuplicateInformationRequirements(repository, logger);
+        return cleanRuleDescription(repository, logger);
     }
 
     @Override
@@ -60,29 +67,28 @@ public class RemoveDuplicatedInformationRequirementsTransformer extends SimpleDM
         return new Pair<>(repository, testLab);
     }
 
-    private DMNModelRepository removeDuplicateInformationRequirements(DMNModelRepository repository, BuildLogger logger) {
+    private DMNModelRepository cleanRuleDescription(DMNModelRepository repository, BuildLogger logger) {
         for(TDecision decision: repository.decisions()) {
-            List<String> hrefs = new ArrayList<>();
-            List<TInformationRequirement> newList = new ArrayList<>();
-            for(TInformationRequirement ir: decision.getInformationRequirement()) {
-                String href = null;
-                TDMNElementReference requiredInput = ir.getRequiredInput();
-                TDMNElementReference requiredDecision = ir.getRequiredDecision();
-                if (requiredInput != null) {
-                    href = requiredInput.getHref();
-                }
-                if (requiredDecision != null) {
-                    href = requiredDecision.getHref();
-                }
-                if (!hrefs.contains(href)) {
-                    newList.add(ir);
-                    hrefs.add(href);
+            TExpression expression = repository.expression(decision);
+            if (expression instanceof TDecisionTable) {
+                LOGGER.debug("Cleaning descriptions for '{}'", decision.getName());
+                List<TDecisionRule> rules = ((TDecisionTable) expression).getRule();
+                for (TDecisionRule rule: rules) {
+                    cleanRuleDescription(rule);
                 }
             }
-            decision.getInformationRequirement().clear();
-            decision.getInformationRequirement().addAll(newList);
         }
 
         return repository;
+    }
+
+    void cleanRuleDescription(TDecisionRule rule) {
+        String description = rule.getDescription();
+        if (StringUtils.isNotBlank(description)) {
+            for (Map.Entry<String, String> entry : PATTERNS.entrySet()) {
+                description = description.replace(entry.getKey(), entry.getValue());
+            }
+            rule.setDescription(description);
+        }
     }
 }

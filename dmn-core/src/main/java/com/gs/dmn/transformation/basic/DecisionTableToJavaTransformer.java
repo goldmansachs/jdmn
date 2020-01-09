@@ -360,7 +360,7 @@ public class DecisionTableToJavaTransformer {
         try {
             return inputEntryToJava(element, inputExpressionText, inputEntryText);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot build condition for input clause '%s' for entry '%s'", inputExpressionText, inputEntryText), e);
+            throw new DMNRuntimeException(String.format("Cannot build condition for input clause '%s' for entry '%s' in element '%s'", inputExpressionText, inputEntryText, element.getName()), e);
         }
     }
 
