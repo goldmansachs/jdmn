@@ -62,9 +62,9 @@ public class ${testClassName} extends ${decisionBaseClass} {
                 <#list expectedValue.slots>
                     <#items as slot>
                     <#if testLabUtil.hasListType(rootOutputParameter)>
-        checkValues(${testLabUtil.toJavaExpression(testLab, slot.value)}, ${testLabUtil.drgElementVariableName(rootOutputParameter)}.get(${expectedValue?index}).${testLabUtil.getter(testLabUtil.drgElementOutputFieldName(testLab, slot?index))});
+        checkValues(${testLabUtil.toJavaExpression(testLab, slot.value)}, ${testLabUtil.drgElementVariableName(rootOutputParameter)} == null ? null : ${testLabUtil.drgElementVariableName(rootOutputParameter)}.get(${expectedValue?index}).${testLabUtil.getter(testLabUtil.drgElementOutputFieldName(testLab, slot?index))});
                     <#else>
-        checkValues(${testLabUtil.toJavaExpression(testLab, slot.value)}, ${testLabUtil.drgElementVariableName(rootOutputParameter)}.${testLabUtil.getter(testLabUtil.drgElementOutputFieldName(testLab, slot?index))});
+        checkValues(${testLabUtil.toJavaExpression(testLab, slot.value)}, ${testLabUtil.drgElementVariableName(rootOutputParameter)} == null ? null : ${testLabUtil.drgElementVariableName(rootOutputParameter)}.${testLabUtil.getter(testLabUtil.drgElementOutputFieldName(testLab, slot?index))});
                     </#if>
                     </#items>
                 </#list>

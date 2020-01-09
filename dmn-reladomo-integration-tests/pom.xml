@@ -94,11 +94,11 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <property name="plugin_classpath" refid="maven.plugin.classpath" />
                                 <taskdef name="gen-reladomo" classpath="plugin_classpath" classname="com.gs.fw.common.mithra.generator.MithraGenerator" />
                                 <gen-reladomo xml="${reladomo.resources.folder}/MithraTestAppClassList.xml" generateGscListMethod="true" generatedDir="${reladomono.generated.java.folder}" nonGeneratedDir="${project.basedir}/src/main/java" />
-                            </tasks>
+                            </target>
                         </configuration>
                     </execution>
                     <execution>
@@ -108,11 +108,11 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <property name="plugin_classpath" refid="maven.plugin.classpath" />
                                 <taskdef name="gen-reladomo-db" classpath="plugin_classpath" classname="com.gs.fw.common.mithra.generator.dbgenerator.MithraDbDefinitionGenerator" />
                                 <gen-reladomo-db xml="${reladomo.resources.folder}/MithraTestAppClassList.xml" generatedDir="${reladomono.generated.resources.folder}" databaseType="UDB82" />
-                            </tasks>
+                            </target>
                         </configuration>
                     </execution>
                 </executions>
