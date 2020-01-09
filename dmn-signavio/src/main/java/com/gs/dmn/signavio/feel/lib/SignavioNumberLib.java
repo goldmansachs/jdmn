@@ -14,8 +14,8 @@ package com.gs.dmn.signavio.feel.lib;
 
 import java.math.BigDecimal;
 
-public class SignavioNumberUtil {
-    public static BigDecimal round(BigDecimal number, BigDecimal digits) {
+public class SignavioNumberLib {
+    public BigDecimal round(BigDecimal number, BigDecimal digits) {
         if (number == null || digits == null) {
             return null;
         }
@@ -23,7 +23,7 @@ public class SignavioNumberUtil {
         return number.setScale(digits.intValue(), BigDecimal.ROUND_HALF_UP);
     }
 
-    public static BigDecimal roundDown(BigDecimal number, BigDecimal digits) {
+    public BigDecimal roundDown(BigDecimal number, BigDecimal digits) {
         if (number == null || digits == null) {
             return null;
         }
@@ -31,7 +31,7 @@ public class SignavioNumberUtil {
         return number.setScale(digits.intValue(), BigDecimal.ROUND_DOWN);
     }
 
-    public static BigDecimal roundUp(BigDecimal number, BigDecimal digits) {
+    public BigDecimal roundUp(BigDecimal number, BigDecimal digits) {
         if (number == null || digits == null) {
             return null;
         }

@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.lib.type.numeric;
 
-import com.gs.dmn.feel.lib.DoubleUtil;
 import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.NumericType;
@@ -21,6 +20,17 @@ import org.slf4j.Logger;
 
 public class DoubleNumericType extends BaseType implements NumericType<Double> {
     private final BooleanType booleanType;
+
+    public static Double doubleNumericDivide(Double first, Double second) {
+        if (first == null || second == null) {
+            return null;
+        }
+        if (second == 0.0) {
+            return null;
+        }
+
+        return first / second;
+    }
 
     public DoubleNumericType(Logger logger) {
         super(logger);
@@ -75,7 +85,7 @@ public class DoubleNumericType extends BaseType implements NumericType<Double> {
     @Override
     public Double numericDivide(Double first, Double second) {
         try {
-            return DoubleUtil.numericDivide(first, second);
+            return doubleNumericDivide(first, second);
         } catch (Exception e) {
             String message = String.format("numericDivide(%s, %s)", first, second);
             logError(message, e);

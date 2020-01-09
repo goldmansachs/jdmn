@@ -12,12 +12,14 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.feel.lib.type.numeric.DoubleNumericType;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
 
-public class DoubleUtil {
-    public static Double decimal(Double n, Double scale) {
+public class DoubleLib {
+    public Double decimal(Double n, Double scale) {
         if (n == null || scale == null) {
             return null;
         }
@@ -25,7 +27,7 @@ public class DoubleUtil {
         return BigDecimal.valueOf(n).setScale(scale.intValue(), RoundingMode.HALF_EVEN).doubleValue();
     }
 
-    public static Double floor(Double number) {
+    public Double floor(Double number) {
         if (number == null) {
             return null;
         }
@@ -33,7 +35,7 @@ public class DoubleUtil {
         return BigDecimal.valueOf(number).setScale(0, BigDecimal.ROUND_FLOOR).doubleValue();
     }
 
-    public static Double ceiling(Double number) {
+    public Double ceiling(Double number) {
         if (number == null) {
             return null;
         }
@@ -41,7 +43,7 @@ public class DoubleUtil {
         return BigDecimal.valueOf(number).setScale(0, BigDecimal.ROUND_CEILING).doubleValue();
     }
 
-    public static Double abs(Double number) {
+    public Double abs(Double number) {
         if (number == null) {
             return null;
         }
@@ -49,7 +51,7 @@ public class DoubleUtil {
         return Math.abs(number);
     }
 
-    public static Double intModulo(Double dividend, Double divisor) {
+    public Double intModulo(Double dividend, Double divisor) {
         if (dividend == null || divisor == null) {
             return null;
         }
@@ -57,7 +59,7 @@ public class DoubleUtil {
         return Double.valueOf(dividend.intValue() % divisor.intValue());
     }
 
-    public static Double modulo(Double dividend, Double divisor) {
+    public Double modulo(Double dividend, Double divisor) {
         if (dividend == null || divisor == null) {
             return null;
         }
@@ -65,7 +67,7 @@ public class DoubleUtil {
         return dividend - divisor*floor(dividend/divisor);
     }
 
-    public static Double sqrt(Double number) {
+    public Double sqrt(Double number) {
         if (number == null) {
             return null;
         }
@@ -73,7 +75,7 @@ public class DoubleUtil {
         return Math.sqrt(number);
     }
 
-    public static Double log(Double number) {
+    public Double log(Double number) {
         if (number == null) {
             return null;
         }
@@ -81,7 +83,7 @@ public class DoubleUtil {
         return Math.log(number);
     }
 
-    public static Double exp(Double number) {
+    public Double exp(Double number) {
         if (number == null) {
             return null;
         }
@@ -89,7 +91,7 @@ public class DoubleUtil {
         return Math.exp(number);
     }
 
-    public static Boolean odd(Double number) {
+    public Boolean odd(Double number) {
         if (number == null || !isIntegerValue(number)) {
             return null;
         }
@@ -97,7 +99,7 @@ public class DoubleUtil {
         return number.intValue() % 2 != 0;
     }
 
-    public static Boolean even(Double number) {
+    public Boolean even(Double number) {
         if (number == null || !isIntegerValue(number)) {
             return null;
         }
@@ -105,7 +107,7 @@ public class DoubleUtil {
         return number.intValue() % 2 == 0;
     }
 
-    private static boolean isIntegerValue(Double d) {
+    private boolean isIntegerValue(Double d) {
         if (d == null) {
             return false;
         } else {
@@ -116,7 +118,7 @@ public class DoubleUtil {
     //
     // List functions
     //
-    public static Double min(List list) {
+    public Double min(List list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -131,7 +133,7 @@ public class DoubleUtil {
         return result;
     }
 
-    public static Double max(List list) {
+    public Double max(List list) {
         Double result = (Double) list.get(0);
         for (int i = 1; i < list.size(); i++) {
             Double x = (Double) list.get(i);
@@ -142,7 +144,7 @@ public class DoubleUtil {
         return result;
     }
 
-    public static Double sum(List list) {
+    public Double sum(List list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -155,16 +157,16 @@ public class DoubleUtil {
         return result;
     }
 
-    public static Double mean(List list) {
+    public Double mean(List list) {
         if (list == null) {
             return null;
         }
 
         Double sum = sum(list);
-        return numericDivide(sum, Double.valueOf(list.size()));
+        return DoubleNumericType.doubleNumericDivide(sum, Double.valueOf(list.size()));
     }
 
-    public static Double product(List list) {
+    public Double product(List list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -177,7 +179,7 @@ public class DoubleUtil {
         return result;
     }
 
-    public static Double median(List list) {
+    public Double median(List list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -195,7 +197,7 @@ public class DoubleUtil {
         return median;
     }
 
-    public static Double stddev(List list) {
+    public Double stddev(List list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -214,7 +216,7 @@ public class DoubleUtil {
         return stddev;
     }
 
-    public static List mode(List list) {
+    public List mode(List list) {
         if (list == null) {
             return null;
         }
@@ -253,14 +255,4 @@ public class DoubleUtil {
         return modes;
     }
 
-    public static Double numericDivide(Double first, Double second) {
-        if (first == null || second == null) {
-            return null;
-        }
-        if (second == 0.0) {
-            return null;
-        }
-
-        return first / second;
-    }
 }
