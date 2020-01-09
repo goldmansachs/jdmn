@@ -263,7 +263,6 @@ public class BasicDMN2JavaTransformer {
         if (StringUtils.isBlank(description)) {
             return "\"\"";
         }
-        description = description.trim().replace("string(-)", "\"\"");
         try {
             Environment environment = makeEnvironment(element);
             Statement statement = literalExpressionToJavaTransformer.literalExpressionToJava(description, environment, element);

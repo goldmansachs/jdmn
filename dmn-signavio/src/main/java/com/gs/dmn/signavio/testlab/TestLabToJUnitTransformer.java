@@ -121,7 +121,7 @@ public class TestLabToJUnitTransformer extends AbstractDMNTransformer {
             // Process template
             processTemplate(baseTemplatePath, templateName, params, outputFile, true);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot process template '%s' for testLab '%s'", templateName, testLab.getRootDecisionId()), e);
+            throw new DMNRuntimeException(String.format("Cannot process TestLab template '%s' for '%s'", templateName, testLab.getRootDecisionId()), e);
         }
     }
 
@@ -137,7 +137,7 @@ public class TestLabToJUnitTransformer extends AbstractDMNTransformer {
             String requirementName = decision.getName();
             return dmnTransformer.upperCaseFirst(requirementName + "Test");
         } else {
-            throw new IllegalArgumentException(String.format("Output should be a decision '%s'", outputParameterDefinition.getId()));
+            throw new IllegalArgumentException(String.format("The DRGElement '%s' should be a decision, is output of TestLab.", outputParameterDefinition.getId()));
         }
     }
 

@@ -604,7 +604,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
             Field nameField = FieldUtils.getField(element.getClass(), fieldName, true);
             nameField.set(element, newName);
         } catch (Exception e) {
-            throw new DMNRuntimeException("Cannot set field 'name'", e);
+            throw new DMNRuntimeException(String.format("Cannot set field 'name' of element '%s'", element.getClass().getSimpleName()), e);
         }
     }
 

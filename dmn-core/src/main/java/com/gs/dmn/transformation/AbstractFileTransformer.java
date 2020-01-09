@@ -59,7 +59,7 @@ public abstract class AbstractFileTransformer implements FileTransformer {
                     transformFile(inputFile, inputRoot, outputPath);
                 }
             } catch (Exception e) {
-                throw new DMNRuntimeException(String.format("Failed to process diagram '%s'", inputFile.getPath()), e);
+                throw new DMNRuntimeException(String.format("Failed to transform diagram '%s'", inputFile.getPath()), e);
             }
         }
     }

@@ -73,10 +73,14 @@ public class TestLabEnhancer extends NopTestLabVisitor implements TestLabVisitor
         TestLab testLab = getTestLab(params);
         TItemDefinition listType = getType(params);
         List<Expression> elements = element.getElements();
-        if (elements != null)
-            elements.forEach(
-                e -> e.accept(this, testLab, testLabUtil.elementType(listType))
-        );
+        if (elements != null) {
+            TItemDefinition elementType = testLabUtil.elementType(listType);
+            for (Expression e: elements) {
+                if (e != null) {
+                    e.accept(this, testLab, elementType);
+                }
+            }
+        }
         return element;
     }
 

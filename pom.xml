@@ -636,6 +636,7 @@ specific language governing permissions and limitations under the License.]]></i
                         <excludes>
                             <exclude>**/*IT.java</exclude>
                         </excludes>
+                        <redirectTestOutputToFile>true</redirectTestOutputToFile>
                     </configuration>
                 </plugin>
 
@@ -649,6 +650,7 @@ specific language governing permissions and limitations under the License.]]></i
                         <includes>
                             <include>**/*IT.java</include>
                         </includes>
+                        <redirectTestOutputToFile>true</redirectTestOutputToFile>
                     </configuration>
                     <executions>
                         <execution>

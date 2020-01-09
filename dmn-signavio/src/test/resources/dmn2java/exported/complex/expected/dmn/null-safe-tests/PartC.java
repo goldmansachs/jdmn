@@ -109,10 +109,10 @@ public class PartC extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "string(-)")
+    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
     public com.gs.dmn.runtime.RuleOutput rule0(Boolean logical, Boolean temporal, List<String> temporalComparator, Boolean temporalDiff, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "string(-)");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
 
         // Rule start
         eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

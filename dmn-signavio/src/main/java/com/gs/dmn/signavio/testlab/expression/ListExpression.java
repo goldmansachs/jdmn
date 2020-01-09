@@ -15,6 +15,7 @@ package com.gs.dmn.signavio.testlab.expression;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.signavio.testlab.TestLabVisitor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,7 +32,15 @@ public class ListExpression extends Expression {
         if (value == null) {
             return "null";
         } else {
-            String elements = value.stream().map(Expression::toFEELExpression).collect(Collectors.joining(", "));
+            List<String> elementsList = new ArrayList<>();
+            for (Expression e: value) {
+                if (e != null) {
+                    elementsList.add(e.toFEELExpression());
+                } else {
+                    elementsList.add("null");
+                }
+            }
+            String elements = elementsList.stream().collect(Collectors.joining(", "));
             return String.format("[%s]", elements);
         }
     }

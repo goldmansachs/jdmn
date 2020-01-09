@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" id="definitions" name="definitions"
              namespace="http://camunda.org/schema/1.0/dmn">
+    <itemDefinition isCollection="false" name="itemDefinition" id="id-item-definition" label="Item Definition">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:number</typeRef>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="itemDefinition" id="id-itemDefinition" label="Item Definition">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:string</typeRef>
+    </itemDefinition>
+
     <decision id="cip-assessments" name="CIP Assessments">
         <decisionTable id="decisionTable">
             <input id="input1" label="Gender">
@@ -141,4 +148,14 @@
             </rule>
         </decisionTable>
     </decision>
+    <inputData name="CIP Assessments" id="id-input-1" label="String">
+        <variable typeRef="string" name="string" id="id-input-1_variable"/>
+    </inputData>
+    <inputData name="Input" id="id-input-2" label="String">
+        <variable typeRef="string" name="Input" id="id-input-2_variable"/>
+    </inputData>
+    <inputData name="Input" id="id-input-3" label="String">
+        <variable typeRef="string" name="Input" id="id-input-3_variable"/>
+    </inputData>
+
 </definitions>
