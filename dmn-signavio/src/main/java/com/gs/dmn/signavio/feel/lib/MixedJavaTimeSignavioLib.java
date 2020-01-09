@@ -40,6 +40,10 @@ import static com.gs.dmn.feel.lib.DefaultFEELLib.DATA_TYPE_FACTORY;
 public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> implements SignavioLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     private final MixedJavaTimeFEELLib feelLib = new MixedJavaTimeFEELLib();
 
+    private final SignavioNumberLib numberLib = new SignavioNumberLib();
+    private final SignavioStringLib stringLib = new SignavioStringLib();
+    private final SignavioListLib listLib = new SignavioListLib();
+    
     public MixedJavaTimeSignavioLib() {
         super(new DefaultNumericType(LOGGER),
                 new DefaultBooleanType(LOGGER),
@@ -99,7 +103,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     @Override
     public BigDecimal round(BigDecimal number, BigDecimal digits) {
         try {
-            return SignavioNumberUtil.round(number, digits);
+            return this.numberLib.round(number, digits);
         } catch (Exception e) {
             String message = String.format("round(%s, %s)", number, digits);
             logError(message, e);
@@ -179,7 +183,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     @Override
     public BigDecimal roundDown(BigDecimal number, BigDecimal digits) {
         try {
-            return SignavioNumberUtil.roundDown(number, digits);
+            return this.numberLib.roundDown(number, digits);
         } catch (Exception e) {
             String message = String.format("roundDown(%s, %s)", number, digits);
             logError(message, e);
@@ -190,7 +194,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     @Override
     public BigDecimal roundUp(BigDecimal number, BigDecimal digits) {
         try {
-            return SignavioNumberUtil.roundUp(number, digits);
+            return this.numberLib.roundUp(number, digits);
         } catch (Exception e) {
             String message = String.format("roundUp(%s, %s)", number, digits);
             logError(message, e);
@@ -698,32 +702,32 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
 
     @Override
     public List appendAll(List list1, List list2) {
-        return SignavioListUtil.appendAll(list1, list2);
+        return this.listLib.appendAll(list1, list2);
     }
 
     @Override
     public List remove(List list, Object element) {
-        return SignavioListUtil.remove(list, element);
+        return this.listLib.remove(list, element);
     }
 
     @Override
     public List removeAll(List list1, List list2) {
-        return SignavioListUtil.removeAll(list1, list2);
+        return this.listLib.removeAll(list1, list2);
     }
 
     @Override
     public Boolean notContainsAny(List list1, List list2) {
-        return SignavioListUtil.notContainsAny(list1, list2);
+        return this.listLib.notContainsAny(list1, list2);
     }
 
     @Override
     public Boolean containsOnly(List list1, List list2) {
-        return SignavioListUtil.containsOnly(list1, list2);
+        return this.listLib.containsOnly(list1, list2);
     }
 
     @Override
     public Boolean areElementsOf(List list1, List list2) {
-        return SignavioListUtil.areElementsOf(list1, list2);
+        return this.listLib.areElementsOf(list1, list2);
     }
 
     @Override
@@ -734,7 +738,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     @Override
     public List<?> zip(List attributes, List values) {
         try {
-            return SignavioListUtil.zip(attributes, values);
+            return this.listLib.zip(attributes, values);
         } catch (Exception e) {
             String message = String.format("zip(%s, %s)", attributes, values);
             logError(message, e);
@@ -781,7 +785,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     @Override
     public BigDecimal mode(List numbers) {
         try {
-            return (BigDecimal) SignavioListUtil.mode(numbers);
+            return (BigDecimal) this.listLib.mode(numbers);
         } catch (Exception e) {
             String message = String.format("mode(%s)", numbers);
             logError(message, e);
@@ -795,7 +799,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     @Override
     public String stringAdd(String first, String second) {
         try {
-            return SignavioStringUtil.stringAdd(first, second);
+            return this.stringLib.stringAdd(first, second);
         } catch (Exception e) {
             String message = String.format("+(%s, %s)", first, second);
             logError(message, e);
@@ -806,7 +810,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     @Override
     public String concat(List<String> texts) {
         try {
-            return SignavioStringUtil.concat(texts);
+            return this.stringLib.concat(texts);
         } catch (Exception e) {
             return null;
         }

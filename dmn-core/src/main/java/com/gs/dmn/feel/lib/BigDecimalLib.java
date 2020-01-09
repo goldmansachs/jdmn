@@ -12,13 +12,15 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
+
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.*;
 
-public class BigDecimalUtil {
-    public static BigDecimal decimal(BigDecimal n, BigDecimal scale) {
+public class BigDecimalLib {
+    public BigDecimal decimal(BigDecimal n, BigDecimal scale) {
         if (n == null || scale == null) {
             return null;
         }
@@ -26,7 +28,7 @@ public class BigDecimalUtil {
         return n.setScale(scale.intValue(), RoundingMode.HALF_EVEN);
     }
 
-    public static BigDecimal floor(BigDecimal number) {
+    public BigDecimal floor(BigDecimal number) {
         if (number == null) {
             return null;
         }
@@ -34,7 +36,7 @@ public class BigDecimalUtil {
         return number.setScale(0, BigDecimal.ROUND_FLOOR);
     }
 
-    public static BigDecimal ceiling(BigDecimal number) {
+    public BigDecimal ceiling(BigDecimal number) {
         if (number == null) {
             return null;
         }
@@ -42,7 +44,7 @@ public class BigDecimalUtil {
         return number.setScale(0, BigDecimal.ROUND_CEILING);
     }
 
-    public static BigDecimal abs(BigDecimal number) {
+    public BigDecimal abs(BigDecimal number) {
         if (number == null) {
             return null;
         }
@@ -50,7 +52,7 @@ public class BigDecimalUtil {
         return number.abs();
     }
 
-    public static BigDecimal intModulo(BigDecimal dividend, BigDecimal divisor) {
+    public BigDecimal intModulo(BigDecimal dividend, BigDecimal divisor) {
         if (dividend == null || divisor == null) {
             return null;
         }
@@ -58,16 +60,16 @@ public class BigDecimalUtil {
         return new BigDecimal(dividend.toBigInteger().remainder(divisor.toBigInteger()));
     }
 
-    public static BigDecimal modulo(BigDecimal dividend, BigDecimal divisor) {
+    public BigDecimal modulo(BigDecimal dividend, BigDecimal divisor) {
         if (dividend == null || divisor == null) {
             return null;
         }
 
         // dividend - divisor*floor(dividend/divisor)
-        return dividend.subtract(divisor.multiply(floor(numericDivide(dividend, divisor))));
+        return dividend.subtract(divisor.multiply(floor(DefaultNumericType.decimalNumericDivide(dividend, divisor))));
     }
 
-    public static BigDecimal sqrt(BigDecimal number) {
+    public BigDecimal sqrt(BigDecimal number) {
         if (number == null) {
             return null;
         }
@@ -76,7 +78,7 @@ public class BigDecimalUtil {
         return BigDecimal.valueOf(sqrt);
     }
 
-    public static BigDecimal log(BigDecimal number) {
+    public BigDecimal log(BigDecimal number) {
         if (number == null) {
             return null;
         }
@@ -85,7 +87,7 @@ public class BigDecimalUtil {
         return BigDecimal.valueOf(sqrt);
     }
 
-    public static BigDecimal exp(BigDecimal number) {
+    public BigDecimal exp(BigDecimal number) {
         if (number == null) {
             return null;
         }
@@ -94,7 +96,7 @@ public class BigDecimalUtil {
         return BigDecimal.valueOf(sqrt);
     }
 
-    public static Boolean odd(BigDecimal number) {
+    public Boolean odd(BigDecimal number) {
         if (number == null || !isIntegerValue(number)) {
             return null;
         }
@@ -102,7 +104,7 @@ public class BigDecimalUtil {
         return number.intValue() % 2 != 0;
     }
 
-    public static Boolean even(BigDecimal number) {
+    public Boolean even(BigDecimal number) {
         if (number == null || !isIntegerValue(number)) {
             return null;
         }
@@ -110,7 +112,7 @@ public class BigDecimalUtil {
         return number.intValue() % 2 == 0;
     }
 
-    private static boolean isIntegerValue(BigDecimal bd) {
+    private boolean isIntegerValue(BigDecimal bd) {
         boolean result;
         try {
             bd.toBigIntegerExact();
@@ -124,7 +126,7 @@ public class BigDecimalUtil {
     //
     // List functions
     //
-    public static BigDecimal min(List list) {
+    public BigDecimal min(List list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -139,7 +141,7 @@ public class BigDecimalUtil {
         return result;
     }
 
-    public static BigDecimal max(List list) {
+    public BigDecimal max(List list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -153,7 +155,7 @@ public class BigDecimalUtil {
         }
         return result;
     }
-    public static BigDecimal sum(List list) {
+    public BigDecimal sum(List list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -166,16 +168,16 @@ public class BigDecimalUtil {
         return result;
     }
 
-    public static BigDecimal mean(List list) {
+    public BigDecimal mean(List list) {
         if (list == null) {
             return null;
         }
 
         BigDecimal sum = sum(list);
-        return numericDivide(sum, BigDecimal.valueOf(list.size()));
+        return DefaultNumericType.decimalNumericDivide(sum, BigDecimal.valueOf(list.size()));
     }
 
-    public static BigDecimal product(List list) {
+    public BigDecimal product(List list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -188,7 +190,7 @@ public class BigDecimalUtil {
         return result;
     }
 
-    public static BigDecimal median(List list) {
+    public BigDecimal median(List list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -206,7 +208,7 @@ public class BigDecimalUtil {
         return median;
     }
 
-    public static BigDecimal stddev(List list) {
+    public BigDecimal stddev(List list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -225,7 +227,7 @@ public class BigDecimalUtil {
         return stddev;
     }
 
-    public static List mode(List list) {
+    public List mode(List list) {
         if (list == null) {
             return null;
         }
@@ -254,17 +256,6 @@ public class BigDecimalUtil {
 
         Collections.sort(modes);
         return modes;
-    }
-
-    public static BigDecimal numericDivide(BigDecimal first, BigDecimal second) {
-        if (first == null || second == null) {
-            return null;
-        }
-        if (BigDecimal.ZERO.equals(second)) {
-            return null;
-        }
-
-        return first.divide(second, MathContext.DECIMAL128);
     }
 
 }

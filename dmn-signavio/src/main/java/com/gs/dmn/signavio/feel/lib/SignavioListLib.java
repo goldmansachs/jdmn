@@ -19,8 +19,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SignavioListUtil {
-    public static List appendAll(List list1, List list2) {
+public class SignavioListLib {
+    public List appendAll(List list1, List list2) {
         List result = new ArrayList();
         if (list1 != null) {
             result.addAll(list1);
@@ -31,7 +31,7 @@ public class SignavioListUtil {
         return result;
     }
 
-    public static List remove(List list, Object element) {
+    public List remove(List list, Object element) {
         if (list == null) {
             return null;
         }
@@ -51,7 +51,7 @@ public class SignavioListUtil {
         return result;
     }
 
-    public static List removeAll(List list1, List list2) {
+    public List removeAll(List list1, List list2) {
         if (list1 == null) {
             return null;
         }
@@ -62,7 +62,7 @@ public class SignavioListUtil {
         return result;
     }
 
-    public static Boolean notContainsAny(List list1, List list2) {
+    public Boolean notContainsAny(List list1, List list2) {
         if (list1 == null || list2 == null) {
             return null;
         }
@@ -74,7 +74,7 @@ public class SignavioListUtil {
         return true;
     }
 
-    public static Boolean containsOnly(List list1, List list2) {
+    public Boolean containsOnly(List list1, List list2) {
         if (list1 == null || list2 == null) {
             return null;
         }
@@ -92,7 +92,7 @@ public class SignavioListUtil {
         return true;
     }
 
-    public static Boolean areElementsOf(List list1, List list2) {
+    public Boolean areElementsOf(List list1, List list2) {
         if (list1 == null || list2 == null) {
             return null;
         }
@@ -104,7 +104,7 @@ public class SignavioListUtil {
         return true;
     }
 
-    public static List<?> zip(List attributes, List values) {
+    public List<?> zip(List attributes, List values) {
         int card = cardinal(values);
         List result = new ArrayList<>();
         for (int i = 0; i < card; i++) {
@@ -124,7 +124,7 @@ public class SignavioListUtil {
         return result;
     }
 
-    private static int cardinal(List values) {
+    private int cardinal(List values) {
         int card = 0;
         for (Object value : values) {
             if (value instanceof List) {
@@ -141,7 +141,7 @@ public class SignavioListUtil {
         return card;
     }
 
-    public static Object mode(List numbers) {
+    public Object mode(List numbers) {
         Map<Object, Integer> map = new LinkedHashMap<>();
         for (Object n : numbers) {
             Integer counter = map.get(n);

@@ -14,8 +14,8 @@ package com.gs.dmn.signavio.feel.lib;
 
 import java.util.List;
 
-public class SignavioStringUtil {
-    public static String stringAdd(String first, String second) {
+public class SignavioStringLib {
+    public String stringAdd(String first, String second) {
         if (first == null && second == null) {
             return "";
         } else if (first == null) {
@@ -27,7 +27,7 @@ public class SignavioStringUtil {
         }
     }
 
-    public static String concat(List<String> texts) {
+    public String concat(List<String> texts) {
         StringBuilder result = new StringBuilder();
         for(String text: texts) {
             if (text != null) {
