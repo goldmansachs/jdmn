@@ -224,7 +224,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
         }
         try {
             literal = DateTimeUtil.fixDateTimeFormat(literal);
-            XMLGregorianCalendar calendar = FEELXMLGregorianCalendar.makeXMLCalendar(DateAndTimeUtil.dateAndTime(literal));
+            XMLGregorianCalendar calendar = FEELXMLGregorianCalendar.makeXMLCalendar(DateTimeUtil.dateAndTime(literal));
             return DateTimeUtil.isValidDateTime(calendar) ? calendar : null;
         } catch (Exception e) {
             String message = String.format("dateAndTime(%s)", literal);

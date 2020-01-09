@@ -17,7 +17,7 @@ import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.gs.dmn.feel.lib.DateAndTimeUtil;
+import com.gs.dmn.feel.lib.DateTimeUtil;
 import com.gs.dmn.feel.lib.DateUtil;
 import com.gs.dmn.feel.lib.TimeUtil;
 import com.gs.dmn.feel.lib.type.time.xml.FEELXMLGregorianCalendar;
@@ -41,7 +41,7 @@ public class XMLGregorianCalendarDeserializer extends JsonDeserializer<XMLGregor
                 return null;
             } else {
                 if (literal.contains("T")) {
-                    return FEELXMLGregorianCalendar.makeXMLCalendar(DateAndTimeUtil.dateAndTime(literal));
+                    return FEELXMLGregorianCalendar.makeXMLCalendar(DateTimeUtil.dateAndTime(literal));
                 } else {
                     try {
                         return FEELXMLGregorianCalendar.makeXMLCalendar(DateUtil.date(literal));
