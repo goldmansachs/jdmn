@@ -32,7 +32,7 @@ import java.util.TimeZone;
 
 import static java.time.temporal.ChronoField.*;
 
-public class DateTimeUtil {
+public class DateTimeLib {
     public static final LocalDate EPOCH = LocalDate.of(1970, 1, 1);
     public static final ZoneId UTC = ZoneId.of("UTC");
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.######");
@@ -79,44 +79,15 @@ public class DateTimeUtil {
                 .toFormatter(Locale.getDefault(Locale.Category.FORMAT));
 
         FEEL_DATE_TIME = new DateTimeFormatterBuilder().parseCaseInsensitive()
-                .append(DateUtil.FEEL_DATE)
+                .append(DateLib.FEEL_DATE)
                 .appendLiteral('T')
-                .append(TimeUtil.FEEL_TIME)
+                .append(TimeLib.FEEL_TIME)
                 .toFormatter();
-    }
-
-    public TemporalAccessor dateAndTime(TemporalAccessor date, TemporalAccessor time) {
-        if (date == null) {
-            throw new IllegalArgumentException("Date cannot be null");
-        }
-        if (!(date instanceof LocalDate)) {
-            date = date.query(TemporalQueries.localDate());
-            if (date == null) {
-                throw new IllegalArgumentException("Date must be an instance of LocalDate or contain LocalDate");
-            }
-        }
-        if (time == null) {
-            throw new IllegalArgumentException("Time cannot be null");
-        }
-        if (!(time instanceof LocalTime || (time.query(TemporalQueries.localTime()) != null && time.query(TemporalQueries.zone()) != null))) {
-            throw new IllegalArgumentException("Time must be an instance of LocalTime or (contain LocalTime and zone)");
-        }
-
-        try {
-            if (date instanceof LocalDate && time instanceof LocalTime) {
-                return LocalDateTime.of((LocalDate) date, (LocalTime) time);
-            } else if (date instanceof LocalDate && (time.query(TemporalQueries.localTime()) != null && time.query(TemporalQueries.zone()) != null)) {
-                return ZonedDateTime.of((LocalDate) date, LocalTime.from(time), ZoneId.from(time));
-            }
-            throw new IllegalArgumentException("Illegal date and time arguments");
-        } catch (DateTimeException e) {
-            throw new RuntimeException("Cannot create date and time from arguments", e);
-        }
     }
 
     // Fix the format 2016-08-01T11:00:00.000+0000 to 2016-08-01T11:00:00.000+00:00
     // and T11:00:00.000+0000 to 11:00:00.000+00:00
-    public static String fixDateTimeFormat(String literal) {
+    public String fixDateTimeFormat(String literal) {
         if (literal == null) {
             return null;
         }
@@ -134,21 +105,21 @@ public class DateTimeUtil {
         return literal;
     }
 
-    public static boolean isTime(String literal) {
+    public boolean isTime(String literal) {
         if (literal == null) {
             return false;
         }
         return literal.length() > 3 && literal.charAt(2) == ':';
     }
 
-    public static boolean hasTime(String literal) {
+    public boolean hasTime(String literal) {
         if (literal == null) {
             return false;
         }
         return literal.indexOf('T') != -1;
     }
 
-    public static boolean hasZone(String literal) {
+    public boolean hasZone(String literal) {
         if (literal == null) {
             return false;
         }
@@ -156,7 +127,7 @@ public class DateTimeUtil {
         return literal.endsWith("Z") || literal.endsWith("]") || literal.contains("@");
     }
 
-    public static boolean hasOffset(String literal) {
+    public boolean hasOffset(String literal) {
         if (literal == null) {
             return false;
         }
@@ -190,34 +161,34 @@ public class DateTimeUtil {
         return false;
     }
 
-    public static boolean timeHasOffset(String literal) {
+    public boolean timeHasOffset(String literal) {
         return literal.length() > 8 && (literal.charAt(8) == '+' || literal.charAt(8) == '-');
     }
 
-    public static LocalDate makeLocalDate(String literal) {
+    public LocalDate makeLocalDate(String literal) {
         if (StringUtils.isBlank(literal)) {
             return null;
         }
         // Check time
-        if (DateTimeUtil.hasTime(literal)) {
+        if (hasTime(literal)) {
             return null;
         }
         // Check year
-        if (DateTimeUtil.invalidYear(literal)) {
+        if (invalidYear(literal)) {
             return null;
         }
         return LocalDate.parse(literal, FEEL_DATE_FORMAT);
     }
 
-    public static OffsetTime makeOffsetTime(String literal) {
-        literal = DateTimeUtil.fixDateTimeFormat(literal);
-        if (!DateTimeUtil.isTime(literal)) {
+    public OffsetTime makeOffsetTime(String literal) {
+        literal = fixDateTimeFormat(literal);
+        if (!isTime(literal)) {
             return null;
         }
-        if (DateTimeUtil.hasZone(literal) && DateTimeUtil.timeHasOffset(literal)) {
+        if (hasZone(literal) && timeHasOffset(literal)) {
             return null;
         }
-        if (DateTimeUtil.hasZone(literal)) {
+        if (hasZone(literal)) {
             if (literal.contains("@")) {
                 int zoneIndex = literal.indexOf("@");
                 String zoneId = literal.substring(literal.indexOf('@') + 1);
@@ -229,31 +200,31 @@ public class DateTimeUtil {
             } else {
                 return OffsetTime.parse(literal);
             }
-        } else if (DateTimeUtil.hasOffset(literal)) {
+        } else if (hasOffset(literal)) {
             return OffsetTime.parse(literal);
         } else {
             return OffsetTime.parse(literal + "Z");
         }
     }
 
-    public static ZonedDateTime makeDateTime(String literal) {
+    public ZonedDateTime makeDateTime(String literal) {
         if (StringUtils.isBlank(literal)) {
             return null;
         }
         literal = fixDateTimeFormat(literal);
-        if (DateTimeUtil.hasZone(literal)) {
-            return ZonedDateTime.parse(literal, DateTimeUtil.FEEL_DATE_TIME_FORMAT);
-        } else if (DateTimeUtil.hasOffset(literal)) {
-            return ZonedDateTime.parse(literal, DateTimeUtil.FEEL_DATE_TIME_FORMAT);
-        } else if (DateTimeUtil.hasTime(literal)) {
-            return ZonedDateTime.parse(literal + 'Z', DateTimeUtil.FEEL_DATE_TIME_FORMAT);
+        if (hasZone(literal)) {
+            return ZonedDateTime.parse(literal, FEEL_DATE_TIME_FORMAT);
+        } else if (hasOffset(literal)) {
+            return ZonedDateTime.parse(literal, FEEL_DATE_TIME_FORMAT);
+        } else if (hasTime(literal)) {
+            return ZonedDateTime.parse(literal + 'Z', FEEL_DATE_TIME_FORMAT);
         } else {
-            LocalDate localDate = LocalDate.parse(literal, DateTimeUtil.FEEL_DATE_FORMAT);
-            return localDate.atStartOfDay(DateTimeUtil.UTC);
+            LocalDate localDate = LocalDate.parse(literal, FEEL_DATE_FORMAT);
+            return localDate.atStartOfDay(UTC);
         }
     }
 
-    public static Duration toYearsMonthDuration(DatatypeFactory datatypeFactory, LocalDate date1, LocalDate date2) {
+    public Duration toYearsMonthDuration(DatatypeFactory datatypeFactory, LocalDate date1, LocalDate date2) {
         Period between = Period.between(date2, date1);
         int years = between.getYears();
         int months = between.getMonths();
@@ -264,7 +235,7 @@ public class DateTimeUtil {
         return datatypeFactory.newDurationYearMonth(!between.isNegative(), years, months);
     }
 
-    public static String string(Object from) {
+    public String string(Object from) {
         if (from == null) {
             return "null";
         } else if (from instanceof Double) {
@@ -272,17 +243,17 @@ public class DateTimeUtil {
         } else if (from instanceof BigDecimal) {
             return ((BigDecimal) from).toPlainString();
         } else if (from instanceof LocalDate) {
-            return ((LocalDate) from).format(DateTimeUtil.FEEL_DATE_FORMAT);
+            return ((LocalDate) from).format(FEEL_DATE_FORMAT);
         } else if (from instanceof OffsetTime) {
-            return ((OffsetTime) from).format(DateTimeUtil.FEEL_TIME_FORMAT);
+            return ((OffsetTime) from).format(FEEL_TIME_FORMAT);
         } else if (from instanceof ZonedDateTime) {
-            return ((ZonedDateTime) from).format(DateTimeUtil.FEEL_DATE_TIME_FORMAT);
+            return ((ZonedDateTime) from).format(FEEL_DATE_TIME_FORMAT);
         } else {
             return from.toString();
         }
     }
 
-    public static boolean invalidYear(String literal) {
+    public boolean invalidYear(String literal) {
         if (StringUtils.isBlank(literal)) {
             return true;
         }
@@ -295,19 +266,19 @@ public class DateTimeUtil {
         return i > 4 && startsWithZero;
     }
 
-    public static boolean isValidDate(long year, long month, long day) {
+    public boolean isValidDate(long year, long month, long day) {
         return isValidYear(year) && isValidMonth(month) && isValidDay(day);
     }
 
-    public static boolean isValidTime(int hour, int minute, int second, Integer secondsOffset) {
+    public boolean isValidTime(int hour, int minute, int second, Integer secondsOffset) {
         return isValidHour(hour) && isValidMinute(minute) && isValidSecond(second) && isValidOffset(secondsOffset);
     }
 
-    public static boolean isValidDateTime(long year, long month, long day, int hour, int minute, int second, Integer secondsOffset) {
+    public boolean isValidDateTime(long year, long month, long day, int hour, int minute, int second, Integer secondsOffset) {
         return isValidDate(year, month, day) && isValidTime(hour, minute, second, secondsOffset);
     }
 
-    public static boolean isValidDate(XMLGregorianCalendar calendar) {
+    public boolean isValidDate(XMLGregorianCalendar calendar) {
         if (calendar == null) {
             return false;
         }
@@ -325,7 +296,7 @@ public class DateTimeUtil {
                 ;
     }
 
-    public static boolean isValidTime(XMLGregorianCalendar calendar) {
+    public boolean isValidTime(XMLGregorianCalendar calendar) {
         if (calendar == null) {
             return false;
         }
@@ -338,7 +309,7 @@ public class DateTimeUtil {
                 ;
     }
 
-    public static boolean isValidDateTime(XMLGregorianCalendar calendar) {
+    public boolean isValidDateTime(XMLGregorianCalendar calendar) {
         if (calendar == null) {
             return false;
         }
@@ -348,46 +319,46 @@ public class DateTimeUtil {
                 calendar.getHour(), calendar.getMinute(), calendar.getSecond(), calendar.getTimezone());
     }
 
-    private static boolean isValidYear(long year) {
+    private boolean isValidYear(long year) {
         return -999999999L <= year && year <= 999999999L;
     }
 
-    private static boolean isValidMonth(long month) {
+    private boolean isValidMonth(long month) {
         return 1 <= month && month <= 12;
     }
 
-    private static boolean isValidDay(long day) {
+    private boolean isValidDay(long day) {
         return 1 <= day && day <= 31;
     }
 
-    private static boolean isValidHour(long hour) {
+    private boolean isValidHour(long hour) {
         return 0 <= hour && hour <= 23;
     }
 
-    private static boolean isValidMinute(long minute) {
+    private boolean isValidMinute(long minute) {
         return 0 <= minute && minute <= 59;
     }
 
-    private static boolean isValidSecond(long second) {
+    private boolean isValidSecond(long second) {
         return 0 <= second && second <= 59;
     }
 
-    private static boolean isValidOffset(Integer secondsOffset) {
+    private boolean isValidOffset(Integer secondsOffset) {
         if (secondsOffset == null || isUndefined(secondsOffset)) {
             return true;
         }
         return -18 * 3600 <= secondsOffset && secondsOffset < 18 * 3600;
     }
 
-    private static boolean isUndefined(long value) {
+    private boolean isUndefined(long value) {
         return value == DatatypeConstants.FIELD_UNDEFINED;
     }
 
-    public static TemporalAccessor dateAndTime(String literal) {
+    public TemporalAccessor dateAndTime(String literal) {
         if (literal == null) {
             throw new IllegalArgumentException("Date and time literal cannot be null");
         }
-        if (!DateUtil.BEGIN_YEAR.matcher(literal).find()) {
+        if (!DateLib.BEGIN_YEAR.matcher(literal).find()) {
             throw new IllegalArgumentException("Year is not not compliant with XML Schema Part 2 Datatypes");
         }
 
@@ -416,12 +387,12 @@ public class DateTimeUtil {
         }
     }
 
-    public static TemporalAccessor dateAndTime(Number year, Number month, Number day,
+    public TemporalAccessor dateAndTime(Number year, Number month, Number day,
                                                Number hour, Number minute, Number second) {
         return dateAndTime(year, month, day, hour, minute, second, (Number) null);
     }
 
-    public static TemporalAccessor dateAndTime(Number year, Number month, Number day,
+    public TemporalAccessor dateAndTime(Number year, Number month, Number day,
                                                Number hour, Number minute, Number second,
                                                Number hourOffset) {
         if (year == null) {
@@ -457,7 +428,7 @@ public class DateTimeUtil {
         }
     }
 
-    public static TemporalAccessor dateAndTime(Number year, Number month, Number day,
+    public TemporalAccessor dateAndTime(Number year, Number month, Number day,
                                                Number hour, Number minute, Number second,
                                                String timezone) {
         if (year == null) {

@@ -632,13 +632,13 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         if (actual instanceof XMLGregorianCalendar) {
             assertEquals(expected, actual.toString());
         } else if (actual instanceof LocalDate) {
-            String actualText = ((LocalDate) actual).format(DateTimeUtil.FEEL_DATE_FORMAT);
+            String actualText = ((LocalDate) actual).format(DateTimeLib.FEEL_DATE_FORMAT);
             assertEquals(expected, cleanActualText(actualText));
         } else if (actual instanceof OffsetTime) {
-            String actualText = ((OffsetTime) actual).format(DateTimeUtil.FEEL_TIME_FORMAT);
+            String actualText = ((OffsetTime) actual).format(DateTimeLib.FEEL_TIME_FORMAT);
             assertEquals(expected, cleanActualText(actualText));
         } else if (actual instanceof ZonedDateTime) {
-            String actualText = ((ZonedDateTime) actual).format(DateTimeUtil.FEEL_DATE_TIME_FORMAT);
+            String actualText = ((ZonedDateTime) actual).format(DateTimeLib.FEEL_DATE_TIME_FORMAT);
             assertEquals(expected, cleanActualText(actualText));
         } else if (actual instanceof Duration) {
             String actualText = actual.toString();

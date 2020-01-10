@@ -38,6 +38,10 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
     private final BigDecimalLib numberLib = new BigDecimalLib();
     private final StringLib stringLib = new StringLib();
+    private final DateLib dateLib = new DateLib();
+    private final TimeLib timeLib = new TimeLib();
+    private final DateTimeLib dateTimeLib = new DateTimeLib();
+    private final DurationLib durationLib = new DurationLib();
 
     public UniformJavaTimeFEELLib() {
         super(new DefaultNumericType(LOGGER),
@@ -106,7 +110,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
     @Override
     public String string(Object from) {
-        return DateTimeUtil.string(from);
+        return this.dateTimeLib.string(from);
     }
 
     @Override
@@ -116,12 +120,12 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
                 return null;
             }
 
-            if (DateTimeUtil.hasTime(literal) || DateTimeUtil.hasZone(literal)) {
+            if (this.dateTimeLib.hasTime(literal) || this.dateTimeLib.hasZone(literal)) {
                 String message = String.format("date(%s)", literal);
                 logError(message);
                 return null;
             } else {
-                return DateTimeUtil.makeLocalDate(literal).atStartOfDay(DateTimeUtil.UTC);
+                return this.dateTimeLib.makeLocalDate(literal).atStartOfDay(this.dateTimeLib.UTC);
             }
         } catch (Exception e) {
             String message = String.format("date(%s)", literal);
@@ -136,7 +140,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
             return null;
         }
 
-        return ZonedDateTime.of(year.intValue(), month.intValue(), day.intValue(), 0, 0, 0, 0, DateTimeUtil.UTC);
+        return ZonedDateTime.of(year.intValue(), month.intValue(), day.intValue(), 0, 0, 0, 0, this.dateTimeLib.UTC);
     }
 
     @Override
@@ -145,7 +149,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
             return null;
         }
 
-        return from.toLocalDate().atStartOfDay(DateTimeUtil.UTC);
+        return from.toLocalDate().atStartOfDay(this.dateTimeLib.UTC);
     }
 
     @Override
@@ -154,7 +158,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
             if (literal == null) {
                 return null;
             }
-            OffsetTime offsetTime = DateTimeUtil.makeOffsetTime(literal);
+            OffsetTime offsetTime = this.dateTimeLib.makeOffsetTime(literal);
             ZoneOffset offset = offsetTime.getOffset();
 
             // Make ZonedDateTime
@@ -196,7 +200,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
                 offsetTime = offsetTime.plusNanos((long) nanos);
 
                 // Make ZonedDateTime
-                return ZonedDateTime.of(LocalDateTime.of(LocalDate.MIN, offsetTime.toLocalTime()), DateTimeUtil.UTC);
+                return ZonedDateTime.of(LocalDateTime.of(LocalDate.MIN, offsetTime.toLocalTime()), this.dateTimeLib.UTC);
             }
         } catch (Exception e) {
             String message = String.format("time(%s, %s, %s, %s)", hour, minute, second, offset);
@@ -219,10 +223,10 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
         if (from == null) {
             return null;
         }
-        if (DateTimeUtil.hasZone(from) && DateTimeUtil.hasOffset(from)) {
+        if (this.dateTimeLib.hasZone(from) && this.dateTimeLib.hasOffset(from)) {
             return null;
         }
-        if (DateTimeUtil.invalidYear(from)) {
+        if (this.dateTimeLib.invalidYear(from)) {
             return null;
         }
 
@@ -269,7 +273,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
         }
 
         try {
-            return DateTimeUtil.toYearsMonthDuration(DATA_TYPE_FACTORY, to.toLocalDate(), from.toLocalDate());
+            return this.dateTimeLib.toYearsMonthDuration(DATA_TYPE_FACTORY, to.toLocalDate(), from.toLocalDate());
         } catch (Exception e) {
             String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
             logError(message, e);
@@ -283,7 +287,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
         }
 
         try {
-            return ZonedDateTime.parse(literal, DateTimeUtil.FEEL_DATE_TIME_FORMAT);
+            return ZonedDateTime.parse(literal, this.dateTimeLib.FEEL_DATE_TIME_FORMAT);
         } catch (Exception e) {
             String message = String.format("makeXMLCalendar(%s)", literal);
             logError(message, e);
@@ -297,7 +301,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
         }
 
         try {
-            return DateTimeUtil.makeDateTime(literal);
+            return this.dateTimeLib.makeDateTime(literal);
         } catch (Exception e) {
             String message = String.format("makeDateTime(%s)", literal);
             logError(message, e);

@@ -17,28 +17,9 @@ import java.time.Period;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.TemporalAmount;
 import java.util.Arrays;
-import java.util.GregorianCalendar;
 import java.util.List;
 
-public class DurationUtil {
-    private static GregorianCalendar GREGORIAN = new GregorianCalendar(
-            1970,
-            1,
-            1,
-            0,
-            0,
-            0);
-
-    public static int compare(javax.xml.datatype.Duration duration1, javax.xml.datatype.Duration duration2) {
-        javax.xml.datatype.Duration lhs = normalize(duration1);
-        javax.xml.datatype.Duration rhs = normalize(duration2);
-        return lhs.compare(rhs);
-    }
-
-    public static javax.xml.datatype.Duration normalize(javax.xml.datatype.Duration duration) {
-        return duration.normalizeWith(DurationUtil.GREGORIAN);
-    }
-
+public class DurationLib {
     public static TemporalAmount duration(String literal) {
         if (literal == null) {
             throw new IllegalArgumentException("Duration literal cannot be null");
@@ -60,12 +41,5 @@ public class DurationUtil {
                         }));
             }
         }
-    }
-
-    public static TemporalAmount duration(TemporalAmount val) {
-        if (val == null) {
-            throw new IllegalArgumentException("Argument cannot be null");
-        }
-        return val;
     }
 }

@@ -17,9 +17,9 @@ import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.gs.dmn.feel.lib.DateTimeUtil;
-import com.gs.dmn.feel.lib.DateUtil;
-import com.gs.dmn.feel.lib.TimeUtil;
+import com.gs.dmn.feel.lib.DateLib;
+import com.gs.dmn.feel.lib.DateTimeLib;
+import com.gs.dmn.feel.lib.TimeLib;
 import com.gs.dmn.feel.lib.type.time.xml.FEELXMLGregorianCalendar;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
@@ -27,6 +27,10 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.IOException;
 
 public class XMLGregorianCalendarDeserializer extends JsonDeserializer<XMLGregorianCalendar> {
+    private final DateLib dateLib = new DateLib();
+    private final TimeLib timeLib = new TimeLib();
+    private final DateTimeLib dateTimeLib = new DateTimeLib();
+
     public XMLGregorianCalendarDeserializer() {
     }
 
@@ -41,13 +45,13 @@ public class XMLGregorianCalendarDeserializer extends JsonDeserializer<XMLGregor
                 return null;
             } else {
                 if (literal.contains("T")) {
-                    return FEELXMLGregorianCalendar.makeXMLCalendar(DateTimeUtil.dateAndTime(literal));
+                    return FEELXMLGregorianCalendar.makeXMLCalendar(this.dateTimeLib.dateAndTime(literal));
                 } else {
                     try {
-                        return FEELXMLGregorianCalendar.makeXMLCalendar(DateUtil.date(literal));
+                        return FEELXMLGregorianCalendar.makeXMLCalendar(this.dateLib.date(literal));
                     } catch (Exception e) {
                     }
-                    return FEELXMLGregorianCalendar.makeXMLCalendar(TimeUtil.time(literal));
+                    return FEELXMLGregorianCalendar.makeXMLCalendar(this.timeLib.time(literal));
                 }
             }
         } catch (Exception e) {

@@ -37,7 +37,11 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
     private final DoubleLib numberLib = new DoubleLib();
     private final StringLib stringLib = new StringLib();
-
+    private final DateLib dateLib = new DateLib();
+    private final TimeLib timeLib = new TimeLib();
+    private final DateTimeLib dateTimeLib = new DateTimeLib();
+    private final DurationLib durationLib = new DurationLib();
+    
     public DoubleMixedJavaTimeFEELLib() {
         super(new DoubleNumericType(LOGGER),
                 new DefaultBooleanType(LOGGER),
@@ -105,7 +109,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
     @Override
     public String string(Object from) {
-        return DateTimeUtil.string(from);
+        return this.dateTimeLib.string(from);
     }
 
     @Override
@@ -115,12 +119,12 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
                 return null;
             }
 
-            if (DateTimeUtil.hasTime(literal) || DateTimeUtil.hasZone(literal)) {
+            if (this.dateTimeLib.hasTime(literal) || this.dateTimeLib.hasZone(literal)) {
                 String message = String.format("date(%s)", literal);
                 logError(message);
                 return null;
             } else {
-                return DateTimeUtil.makeLocalDate(literal);
+                return this.dateTimeLib.makeLocalDate(literal);
             }
         } catch (Exception e) {
             String message = String.format("date(%s)", literal);
@@ -159,7 +163,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
             return null;
         }
         try {
-            return DateTimeUtil.makeOffsetTime(literal);
+            return this.dateTimeLib.makeOffsetTime(literal);
         } catch (Exception e) {
             String message = String.format("time(%s)", literal);
             logError(message, e);
@@ -226,10 +230,10 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         if (from == null) {
             return null;
         }
-        if (DateTimeUtil.hasZone(from) && DateTimeUtil.hasOffset(from)) {
+        if (this.dateTimeLib.hasZone(from) && this.dateTimeLib.hasOffset(from)) {
             return null;
         }
-        if (DateTimeUtil.invalidYear(from)) {
+        if (this.dateTimeLib.invalidYear(from)) {
             return null;
         }
 
@@ -288,7 +292,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         }
 
         try {
-            return DateTimeUtil.toYearsMonthDuration(DATA_TYPE_FACTORY, toDate(to), toDate(from));
+            return this.dateTimeLib.toYearsMonthDuration(DATA_TYPE_FACTORY, toDate(to), toDate(from));
         } catch (Exception e) {
             String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
             logError(message, e);
@@ -302,7 +306,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         }
 
         try {
-            return DateTimeUtil.toYearsMonthDuration(DATA_TYPE_FACTORY, to, from);
+            return this.dateTimeLib.toYearsMonthDuration(DATA_TYPE_FACTORY, to, from);
         } catch (Exception e) {
             String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
             logError(message, e);
@@ -316,7 +320,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         }
 
         try {
-            return DateTimeUtil.toYearsMonthDuration(DATA_TYPE_FACTORY, to, toDate(from));
+            return this.dateTimeLib.toYearsMonthDuration(DATA_TYPE_FACTORY, to, toDate(from));
         } catch (Exception e) {
             String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
             logError(message, e);
@@ -330,7 +334,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         }
 
         try {
-            return DateTimeUtil.toYearsMonthDuration(DATA_TYPE_FACTORY, toDate(to), from);
+            return this.dateTimeLib.toYearsMonthDuration(DATA_TYPE_FACTORY, toDate(to), from);
         } catch (Exception e) {
             String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
             logError(message, e);
@@ -344,7 +348,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         }
 
         try {
-            return DateTimeUtil.makeDateTime(literal);
+            return this.dateTimeLib.makeDateTime(literal);
         } catch (Exception e) {
             String message = String.format("makeDateTime(%s)", literal);
             logError(message, e);
