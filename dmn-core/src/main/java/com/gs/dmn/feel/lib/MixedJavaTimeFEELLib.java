@@ -30,7 +30,6 @@ import java.math.BigDecimal;
 import java.time.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> implements StandardFEELLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
@@ -43,7 +42,8 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     private final TimeLib timeLib = new TimeLib();
     private final DateTimeLib dateTimeLib = new DateTimeLib();
     private final DurationLib durationLib = new DurationLib();
-    
+    private final ListLib listLib = new ListLib();
+
     public MixedJavaTimeFEELLib() {
         super(new DefaultNumericType(LOGGER),
                 new DefaultBooleanType(LOGGER),
@@ -545,13 +545,8 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
 
     @Override
     public BigDecimal mean(List list) {
-        if (list == null) {
-            return null;
-        }
-
         try {
-            BigDecimal sum = sum(list);
-            return numericDivide(sum, BigDecimal.valueOf(list.size()));
+            return this.numberLib.mean(list);
         } catch (Exception e) {
             String message = String.format("mean(%s)", list);
             logError(message, e);
@@ -776,6 +771,10 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     // Date functions
     //
     public BigDecimal year(LocalDate date) {
+        if (date == null) {
+            return null;
+        }
+
         try {
             return BigDecimal.valueOf(date.getYear());
         } catch (Exception e) {
@@ -785,6 +784,10 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
         }
     }
     public BigDecimal year(ZonedDateTime dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
+
         try {
             return BigDecimal.valueOf(dateTime.getYear());
         } catch (Exception e) {
@@ -795,6 +798,10 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
 
     public BigDecimal month(LocalDate date) {
+        if (date == null) {
+            return null;
+        }
+
         try {
             return BigDecimal.valueOf(date.getMonth().getValue());
         } catch (Exception e) {
@@ -804,6 +811,10 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
         }
     }
     public BigDecimal month(ZonedDateTime dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
+
         try {
             return BigDecimal.valueOf(dateTime.getMonth().getValue());
         } catch (Exception e) {
@@ -814,6 +825,10 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
 
     public BigDecimal day(LocalDate date) {
+        if (date == null) {
+            return null;
+        }
+
         try {
             return BigDecimal.valueOf(date.getDayOfMonth());
         } catch (Exception e) {
@@ -823,6 +838,10 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
         }
     }
     public BigDecimal day(ZonedDateTime dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
+
         try {
             return BigDecimal.valueOf(dateTime.getDayOfMonth());
         } catch (Exception e) {
@@ -931,28 +950,35 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     //
     @Override
     public Boolean listContains(List list, Object element) {
-        return list == null ? null : list.contains(element);
+        try {
+            return this.listLib.listContains(list, element);
+        } catch (Exception e) {
+            String message = String.format("listContains(%s, %s)", list, element);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public List append(List list, Object... items) {
-        List result = new ArrayList<>();
-        if (list != null) {
-            result.addAll(list);
+        try {
+            return this.listLib.append(list, items);
+        } catch (Exception e) {
+            String message = String.format("append(%s, %s)", list, items);
+            logError(message, e);
+            return null;
         }
-        if (items != null) {
-            for (Object item : items) {
-                result.add(item);
-            }
-        } else {
-            result.add(null);
-        }
-        return result;
     }
 
     @Override
     public BigDecimal count(List list) {
-        return list == null ? BigDecimal.valueOf(0) : BigDecimal.valueOf(list.size());
+        try {
+            return this.numberLib.count(list);
+        } catch (Exception e) {
+            String message = String.format("count(%s)", list);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
@@ -990,118 +1016,68 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
 
     @Override
     public List sublist(List list, BigDecimal startPosition) {
-        return sublist(list, startPosition.intValue());
+        try {
+            return this.listLib.sublist(list, startPosition.intValue());
+        } catch (Exception e) {
+            String message = String.format("min(%s)", list);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public List sublist(List list, BigDecimal startPosition, BigDecimal length) {
-        return sublist(list, startPosition.intValue(), length.intValue());
-    }
-
-    private List sublist(List list, int position) {
-        List result = new ArrayList<>();
-        if (list == null || isOutOfBounds(list, position)) {
-            return result;
-        }
-        int javaStartPosition;
-        // up to, not included
-        int javaEndPosition = list.size();
-        if (position < 0) {
-            javaStartPosition = list.size() + position;
-        } else {
-            javaStartPosition = position - 1;
-        }
-        for (int i = javaStartPosition; i < javaEndPosition; i++) {
-            result.add(list.get(i));
-        }
-        return result;
-    }
-
-    private List sublist(List list, int position, int length) {
-        List result = new ArrayList<>();
-        if (list == null || isOutOfBounds(list, position)) {
-            return result;
-        }
-        int javaStartPosition;
-        int javaEndPosition;
-        if (position < 0) {
-            javaStartPosition = list.size() + position;
-            javaEndPosition = javaStartPosition + length;
-        } else {
-            javaStartPosition = position - 1;
-            javaEndPosition = javaStartPosition + length;
-        }
-        for (int i = javaStartPosition; i < javaEndPosition; i++) {
-            result.add(list.get(i));
-        }
-        return result;
-    }
-
-    private boolean isOutOfBounds(List list, int position) {
-        int length = list.size();
-        if (position < 0) {
-            return !(-length <= position);
-        } else {
-            return !(1 <= position && position <= length);
+        try {
+            return this.listLib.sublist(list, startPosition.intValue(), length.intValue());
+        } catch (Exception e) {
+            String message = String.format("min(%s)", list);
+            logError(message, e);
+            return null;
         }
     }
 
     @Override
     public List concatenate(Object... lists) {
-        List result = new ArrayList<>();
-        if (lists != null) {
-            for (Object list : lists) {
-                result.addAll((List) list);
-            }
+        try {
+            return this.listLib.concatenate(lists);
+        } catch (Exception e) {
+            String message = String.format("concatenate(%s)", lists);
+            logError(message, e);
+            return null;
         }
-        return result;
     }
 
     @Override
     public List insertBefore(List list, BigDecimal position, Object newItem) {
-        return insertBefore(list, position.intValue(), newItem);
-    }
-
-    private List insertBefore(List list, int position, Object newItem) {
-        List result = new ArrayList<>();
-        if (list != null) {
-            result.addAll(list);
+        try {
+            return this.listLib.insertBefore(list, position.intValue(), newItem);
+        } catch (Exception e) {
+            String message = String.format("insertBefore(%s, %s, %s)", list, position, newItem);
+            logError(message, e);
+            return null;
         }
-        if (isOutOfBounds(result, position)) {
-            return result;
-        }
-        if (position < 0) {
-            position = result.size() + position;
-        } else {
-            position = position - 1;
-        }
-        result.add(position, newItem);
-        return result;
     }
 
     @Override
     public List remove(List list, Object position) {
-        return remove(list, ((BigDecimal) position).intValue());
-    }
-
-    private List remove(List list, int position) {
-        List result = new ArrayList<>();
-        if (list != null) {
-            result.addAll(list);
+        try {
+            return this.listLib.remove(list, ((Number)position).intValue());
+        } catch (Exception e) {
+            String message = String.format("min(%s)", list);
+            logError(message, e);
+            return null;
         }
-        result.remove(position - 1);
-        return result;
     }
 
     @Override
     public List reverse(List list) {
-        List result = new ArrayList<>();
-        if (list != null) {
-            for (int i = list.size() - 1; i >= 0; i--) {
-                result.add(list.get(i));
-            }
+        try {
+            return this.listLib.reverse(list);
+        } catch (Exception e) {
+            String message = String.format("reverse(%s)", list);
+            logError(message, e);
+            return null;
         }
-        return result;
     }
 
     @Override
@@ -1110,7 +1086,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
         if (list != null) {
             for (int i = 0; i < list.size(); i++) {
                 Object o = list.get(i);
-                if (o == null && match == null || o!= null && o.equals(match)) {
+                if (o == null && match == null || o != null && o.equals(match)) {
                     result.add(BigDecimal.valueOf((long) i + 1));
                 }
             }
@@ -1120,36 +1096,35 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
 
     @Override
     public List union(Object... lists) {
-        List result = new ArrayList<>();
-        if (lists != null) {
-            for (Object list : lists) {
-                result.addAll((List) list);
-            }
-        }
-        return distinctValues(result);
-    }
-
-    @Override
-    public List distinctValues(List list1) {
-        List result = new ArrayList<>();
-        if (list1 != null) {
-            for (Object element : list1) {
-                if (!result.contains(element)) {
-                    result.add(element);
-                }
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public List flatten(List list1) {
-        if (list1 == null) {
+        try {
+            return this.listLib.union(lists);
+        } catch (Exception e) {
+            String message = String.format("union(%s)", lists);
+            logError(message, e);
             return null;
         }
-        List result = new ArrayList<>();
-        collect(result, list1);
-        return result;
+    }
+
+    @Override
+    public List distinctValues(List list) {
+        try {
+            return this.listLib.distinctValues(list);
+        } catch (Exception e) {
+            String message = String.format("distinctValues(%s)", list);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public List flatten(List list) {
+        try {
+            return this.listLib.flatten(list);
+        } catch (Exception e) {
+            String message = String.format("flatten(%s)", list);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
@@ -1182,7 +1157,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     public BigDecimal median(List list) {
         try {
             return this.numberLib.median(list);
-        } catch (Exception e){
+        } catch (Exception e) {
             String message = String.format("median(%s)", list);
             logError(message, e);
             return null;
@@ -1258,30 +1233,22 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
 
     @Override
     public void collect(List result, List list) {
-        if (list != null) {
-            for (Object object : list) {
-                if (object instanceof List) {
-                    collect(result, (List) object);
-                } else {
-                    result.add(object);
-                }
-            }
+        try {
+            this.listLib.collect(result, list);
+        } catch (Exception e) {
+            String message = String.format("collect(%s, %s)", result, list);
+            logError(message, e);
         }
     }
 
     @Override
     public <T> List<T> sort(List<T> list, LambdaExpression<Boolean> comparator) {
-        List<T> clone = new ArrayList<>(list);
-        Comparator<? super T> comp = (Comparator<T>) (o1, o2) -> {
-            if (comparator.apply(o1, o2)) {
-                return -1;
-            } else if (o1 != null && o1.equals(o2)) {
-                return 0;
-            } else {
-                return 1;
-            }
-        };
-        clone.sort(comp);
-        return clone;
+        try {
+            return this.listLib.sort(list, comparator);
+        } catch (Exception e) {
+            String message = String.format("min(%s)", list);
+            logError(message, e);
+            return null;
+        }
     }
 }
