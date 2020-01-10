@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 
 import static java.time.temporal.ChronoField.*;
 
-public class DateUtil {
+public class DateLib {
     public static final Pattern BEGIN_YEAR = Pattern.compile("^-?(([1-9]\\d\\d\\d+)|(0\\d\\d\\d))-"); // FEEL spec, "specified by XML Schema Part 2 Datatypes", hence: yearFrag ::= '-'? (([1-9] digit digit digit+)) | ('0' digit digit digit))
     public static final DateTimeFormatter FEEL_DATE;
 
@@ -35,7 +35,7 @@ public class DateUtil {
                 .toFormatter();
     }
 
-    public static TemporalAccessor date(String literal) {
+    public TemporalAccessor date(String literal) {
         if (literal == null) {
             throw new IllegalArgumentException("Date literal cannot be null");
         }
@@ -47,36 +47,6 @@ public class DateUtil {
             return LocalDate.from(FEEL_DATE.parse(literal));
         } catch (DateTimeException e) {
             throw new RuntimeException("Parsing exception in date literal", e);
-        }
-    }
-
-    public static TemporalAccessor date(Number year, Number month, Number day) {
-        if (year == null) {
-            throw new IllegalArgumentException("Year cannot be null");
-        }
-        if (month == null) {
-            throw new IllegalArgumentException("Month cannot be null");
-        }
-        if (day == null) {
-            throw new IllegalArgumentException("Day cannot be null");
-        }
-
-        try {
-            return LocalDate.of(year.intValue(), month.intValue(), day.intValue());
-        } catch (DateTimeException e) {
-            throw new RuntimeException("Cannot create date from arguments", e);
-        }
-    }
-
-    public static TemporalAccessor date(TemporalAccessor date) {
-        if (date == null) {
-            throw new IllegalArgumentException("Date literal cannot be null");
-        }
-
-        try {
-            return LocalDate.from(date);
-        } catch (DateTimeException e) {
-            throw new RuntimeException("Cannot create date from arguments", e);
         }
     }
 }

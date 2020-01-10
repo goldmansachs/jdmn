@@ -17,7 +17,10 @@ import com.gs.dmn.feel.lib.type.list.DefaultListType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
-import com.gs.dmn.feel.lib.type.time.pure.*;
+import com.gs.dmn.feel.lib.type.time.pure.LocalDateType;
+import com.gs.dmn.feel.lib.type.time.pure.TemporalAmountDurationType;
+import com.gs.dmn.feel.lib.type.time.pure.TemporalDateTimeType;
+import com.gs.dmn.feel.lib.type.time.pure.TemporalTimeType;
 import com.gs.dmn.runtime.LambdaExpression;
 import org.apache.commons.lang3.StringUtils;
 
@@ -29,6 +32,10 @@ import java.util.*;
 public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> implements StandardFEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> {
     private final BigDecimalLib numberLib = new BigDecimalLib();
     private final StringLib stringLib = new StringLib();
+    private final DateLib dateLib = new DateLib();
+    private final TimeLib timeLib = new TimeLib();
+    private final DateTimeLib dateTimeLib = new DateTimeLib();
+    private final DurationLib durationLib = new DurationLib();
 
     public PureJavaTimeFEELLib() {
         super(new DefaultNumericType(LOGGER),
@@ -97,7 +104,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
     @Override
     public String string(Object from) {
-        return DateTimeUtil.string(from);
+        return this.dateTimeLib.string(from);
     }
 
     @Override
@@ -106,7 +113,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
             if (literal == null) {
                 return null;
             }
-            return LocalDate.parse(literal, DateTimeUtil.FEEL_DATE_FORMAT);
+            return LocalDate.parse(literal, this.dateTimeLib.FEEL_DATE_FORMAT);
         } catch (Exception e) {
             String message = String.format("date(%s)", literal);
             logError(message, e);
@@ -149,8 +156,8 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
             return null;
         }
         try {
-            literal = DateTimeUtil.fixDateTimeFormat(literal);
-            TemporalAccessor parsed = TimeUtil.time(literal);
+            literal = this.dateTimeLib.fixDateTimeFormat(literal);
+            TemporalAccessor parsed = this.timeLib.time(literal);
             if (parsed.query(TemporalQueries.zoneId()) != null) {
                 LocalTime localTime = parsed.query(LocalTime::from);
                 ZoneId zoneId = parsed.query(TemporalQueries.zoneId());
@@ -219,8 +226,8 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
         }
 
         try {
-            literal = DateTimeUtil.fixDateTimeFormat(literal);
-            return (Temporal) DateTimeUtil.dateAndTime(literal);
+            literal = this.dateTimeLib.fixDateTimeFormat(literal);
+            return (Temporal) this.dateTimeLib.dateAndTime(literal);
         } catch (Exception e) {
             String message = String.format("dateAndTime(%s)", literal);
             logError(message, e);

@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.time.uniform;
 
-import com.gs.dmn.feel.lib.DateTimeUtil;
+import com.gs.dmn.feel.lib.DateTimeLib;
 import com.gs.dmn.feel.lib.type.time.JavaTimeType;
 import org.slf4j.Logger;
 
@@ -94,7 +94,7 @@ public abstract class JavaTimeCalendarType extends JavaTimeType {
     }
 
     private int compare(ZonedDateTime first, ZonedDateTime second) {
-        return first.withZoneSameInstant(DateTimeUtil.UTC).compareTo(second.withZoneSameInstant(DateTimeUtil.UTC));
+        return first.withZoneSameInstant(DateTimeLib.UTC).compareTo(second.withZoneSameInstant(DateTimeLib.UTC));
     }
 
     protected long getDurationInMilliSeconds(ZonedDateTime first, ZonedDateTime second) {

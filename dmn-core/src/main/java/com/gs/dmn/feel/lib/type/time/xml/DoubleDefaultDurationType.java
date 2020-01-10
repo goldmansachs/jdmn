@@ -12,8 +12,6 @@
  */
 package com.gs.dmn.feel.lib.type.time.xml;
 
-import com.gs.dmn.feel.lib.DurationUtil;
-import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.DurationType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
@@ -23,7 +21,7 @@ import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
 
-public class DoubleDefaultDurationType extends BaseType implements DurationType<Duration, Double> {
+public class DoubleDefaultDurationType extends BaseDefaultDurationType implements DurationType<Duration, Double> {
     private final BooleanType booleanType;
 
     public DoubleDefaultDurationType(Logger logger) {
@@ -44,7 +42,7 @@ public class DoubleDefaultDurationType extends BaseType implements DurationType<
         } else if (second == null) {
             return false;
         } else {
-            return DurationUtil.compare(first, second) == DatatypeConstants.EQUAL;
+            return compare(first, second) == DatatypeConstants.EQUAL;
         }
     }
 
@@ -62,7 +60,7 @@ public class DoubleDefaultDurationType extends BaseType implements DurationType<
         } else if (second == null) {
             return null;
         } else {
-            return DurationUtil.compare(first, second) == DatatypeConstants.LESSER;
+            return compare(first, second) == DatatypeConstants.LESSER;
         }
     }
 
@@ -75,7 +73,7 @@ public class DoubleDefaultDurationType extends BaseType implements DurationType<
         } else if (second == null) {
             return null;
         } else {
-            return DurationUtil.compare(first, second) == DatatypeConstants.GREATER;
+            return compare(first, second) == DatatypeConstants.GREATER;
         }
     }
 
@@ -88,7 +86,7 @@ public class DoubleDefaultDurationType extends BaseType implements DurationType<
         } else if (second == null) {
             return null;
         } else {
-            int compare = DurationUtil.compare(first, second);
+            int compare = compare(first, second);
             return compare == DatatypeConstants.LESSER || compare == DatatypeConstants.EQUAL;
         }
     }
@@ -102,7 +100,7 @@ public class DoubleDefaultDurationType extends BaseType implements DurationType<
         } else if (second == null) {
             return null;
         } else {
-            int compare = DurationUtil.compare(first, second);
+            int compare = compare(first, second);
             return compare == DatatypeConstants.GREATER || compare == DatatypeConstants.EQUAL;
         }
     }

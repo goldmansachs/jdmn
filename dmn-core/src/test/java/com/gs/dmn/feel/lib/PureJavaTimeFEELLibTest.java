@@ -221,10 +221,10 @@ public class PureJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalDa
     @Override
     protected void assertEqualsTime(String expected, Object actual) {
         if (actual instanceof LocalDate) {
-            String actualText = ((LocalDate) actual).format(DateTimeUtil.FEEL_DATE_FORMAT);
+            String actualText = ((LocalDate) actual).format(DateTimeLib.FEEL_DATE_FORMAT);
             assertEquals(expected, cleanActualText(actualText));
         } else if (actual instanceof OffsetTime) {
-            String actualText = ((OffsetTime) actual).format(DateTimeUtil.FEEL_TIME_FORMAT);
+            String actualText = ((OffsetTime) actual).format(DateTimeLib.FEEL_TIME_FORMAT);
             assertEquals(expected, cleanActualText(actualText));
         } else if (actual instanceof ZonedDateTime) {
             assertEquals(normalize(ZonedDateTime.parse(expected)), normalize((ZonedDateTime)actual));
@@ -237,7 +237,7 @@ public class PureJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalDa
     }
 
     private ZonedDateTime normalize(ZonedDateTime dateTime) {
-        return dateTime.withZoneSameInstant(DateTimeUtil.UTC);
+        return dateTime.withZoneSameInstant(DateTimeLib.UTC);
     }
 }
 
