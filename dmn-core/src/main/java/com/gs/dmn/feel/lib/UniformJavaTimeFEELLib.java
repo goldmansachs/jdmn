@@ -111,7 +111,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
     @Override
     public String string(Object from) {
-        return this.dateTimeLib.string(from);
+        return this.stringLib.string(from);
     }
 
     @Override

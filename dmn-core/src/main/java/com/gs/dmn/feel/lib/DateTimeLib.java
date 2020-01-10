@@ -35,7 +35,6 @@ import static java.time.temporal.ChronoField.*;
 public class DateTimeLib {
     public static final LocalDate EPOCH = LocalDate.of(1970, 1, 1);
     public static final ZoneId UTC = ZoneId.of("UTC");
-    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.########");
 
     public static final DateTimeFormatter FEEL_DATE_FORMAT;
     public static final DateTimeFormatter FEEL_TIME_FORMAT;
@@ -233,26 +232,6 @@ public class DateTimeLib {
             months = - months;
         }
         return datatypeFactory.newDurationYearMonth(!between.isNegative(), years, months);
-    }
-
-    public String string(Object from) {
-        if (from == null) {
-            return "null";
-        } else if (from instanceof Double) {
-            return DECIMAL_FORMAT.format(from);
-        } else if (from instanceof BigDecimal) {
-            return ((BigDecimal) from).toPlainString();
-        } else if (from instanceof LocalDate) {
-            return ((LocalDate) from).format(FEEL_DATE_FORMAT);
-        } else if (from instanceof OffsetTime) {
-            return ((OffsetTime) from).format(FEEL_TIME_FORMAT);
-        } else if (from instanceof ZonedDateTime) {
-            return ((ZonedDateTime) from).format(FEEL_DATE_TIME_FORMAT);
-        } else if (from instanceof XMLGregorianCalendar) {
-            return from.toString();
-        } else {
-            return from.toString();
-        }
     }
 
     public boolean invalidYear(String literal) {

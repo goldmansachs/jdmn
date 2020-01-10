@@ -18,6 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
+import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -27,12 +28,39 @@ import javax.xml.xpath.XPathFactory;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.OffsetTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringLib {
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.########");
+
+    public String string(Object from) {
+        if (from == null) {
+            return "null";
+        } else if (from instanceof Double) {
+            return DECIMAL_FORMAT.format(from);
+        } else if (from instanceof BigDecimal) {
+            return ((BigDecimal) from).toPlainString();
+        } else if (from instanceof LocalDate) {
+            return ((LocalDate) from).format(DateTimeLib.FEEL_DATE_FORMAT);
+        } else if (from instanceof OffsetTime) {
+            return ((OffsetTime) from).format(DateTimeLib.FEEL_TIME_FORMAT);
+        } else if (from instanceof ZonedDateTime) {
+            return ((ZonedDateTime) from).format(DateTimeLib.FEEL_DATE_TIME_FORMAT);
+        } else if (from instanceof XMLGregorianCalendar) {
+            return from.toString();
+        } else {
+            return from.toString();
+        }
+    }
+
     public Boolean contains(String string, String match) {
         if (string == null || match == null) {
             return null;
@@ -204,5 +232,4 @@ public class StringLib {
         XPath xPath = xPathFactory.newXPath();
         return xPath.evaluate(expression, document.getDocumentElement());
     }
-
 }

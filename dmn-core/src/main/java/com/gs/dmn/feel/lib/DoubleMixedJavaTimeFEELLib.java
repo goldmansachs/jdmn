@@ -110,7 +110,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
     @Override
     public String string(Object from) {
-        return this.dateTimeLib.string(from);
+        return this.stringLib.string(from);
     }
 
     @Override
@@ -925,31 +925,51 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     // Duration functions
     //
     public Double years(Duration duration) {
+        if (duration == null) {
+            return null;
+        }
+
         return Double.valueOf(duration.getYears());
     }
 
     public Double months(Duration duration) {
+        if (duration == null) {
+            return null;
+        }
+
         return Double.valueOf(duration.getMonths());
     }
 
     public Double days(Duration duration) {
+        if (duration == null) {
+            return null;
+        }
+
         return Double.valueOf(duration.getDays());
     }
 
     public Double hours(Duration duration) {
+        if (duration == null) {
+            return null;
+        }
+
         return Double.valueOf(duration.getHours());
     }
 
     public Double minutes(Duration duration) {
+        if (duration == null) {
+            return null;
+        }
+
         return Double.valueOf(duration.getMinutes());
     }
 
     public Double seconds(Duration duration) {
-        return Double.valueOf(duration.getSeconds());
-    }
+        if (duration == null) {
+            return null;
+        }
 
-    private int months(ZonedDateTime calendar) {
-        return calendar.getYear() * 12 + calendar.getMonth().getValue();
+        return Double.valueOf(duration.getSeconds());
     }
 
     //
