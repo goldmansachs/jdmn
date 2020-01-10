@@ -126,6 +126,10 @@ public class BigDecimalLib {
     //
     // List functions
     //
+    public BigDecimal count(List list) {
+        return list == null ? BigDecimal.valueOf(0) : BigDecimal.valueOf(list.size());
+    }
+
     public BigDecimal min(List list) {
         if (list == null || list.isEmpty()) {
             return null;
@@ -155,6 +159,7 @@ public class BigDecimalLib {
         }
         return result;
     }
+
     public BigDecimal sum(List list) {
         if (list == null || list.isEmpty()) {
             return null;
@@ -257,5 +262,4 @@ public class BigDecimalLib {
         Collections.sort(modes);
         return modes;
     }
-
 }

@@ -118,6 +118,10 @@ public class DoubleLib {
     //
     // List functions
     //
+    public Double count(List list) {
+        return list == null ? Double.valueOf(0) : Double.valueOf(list.size());
+    }
+
     public Double min(List list) {
         if (list == null || list.isEmpty()) {
             return null;
@@ -134,6 +138,10 @@ public class DoubleLib {
     }
 
     public Double max(List list) {
+        if (list == null || list.isEmpty()) {
+            return null;
+        }
+
         Double result = (Double) list.get(0);
         for (int i = 1; i < list.size(); i++) {
             Double x = (Double) list.get(i);
