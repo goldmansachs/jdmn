@@ -109,7 +109,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
     @Override
     public String string(Object from) {
-        return this.dateTimeLib.string(from);
+        return this.stringLib.string(from);
     }
 
     @Override

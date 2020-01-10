@@ -111,16 +111,16 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
 
     @Override
     public String string(Object from) {
-        return this.dateTimeLib.string(from);
+        return this.stringLib.string(from);
     }
 
     @Override
     public LocalDate date(String literal) {
-        try {
-            if (literal == null) {
-                return null;
-            }
+        if (StringUtils.isBlank(literal)) {
+            return null;
+        }
 
+        try {
             if (this.dateTimeLib.hasTime(literal) || this.dateTimeLib.hasZone(literal)) {
                 String message = String.format("date(%s)", literal);
                 logError(message);
@@ -851,6 +851,10 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
         }
     }
     public BigDecimal weekday(LocalDate date) {
+        if (date == null) {
+            return null;
+        }
+
         try {
             return BigDecimal.valueOf(date.getDayOfWeek().getValue());
         } catch (Exception e) {
@@ -860,6 +864,10 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
         }
     }
     public BigDecimal weekday(ZonedDateTime dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
+
         try {
             return BigDecimal.valueOf(dateTime.getDayOfWeek().getValue());
         } catch (Exception e) {
@@ -873,41 +881,81 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     // Time functions
     //
     public BigDecimal hour(OffsetTime time) {
+        if (time == null) {
+            return null;
+        }
+
         return BigDecimal.valueOf(time.getHour());
     }
     public BigDecimal hour(ZonedDateTime dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
+
         return BigDecimal.valueOf(dateTime.getHour());
     }
 
     public BigDecimal minute(OffsetTime time) {
+        if (time == null) {
+            return null;
+        }
+
         return BigDecimal.valueOf(time.getMinute());
     }
     public BigDecimal minute(ZonedDateTime dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
+
         return BigDecimal.valueOf(dateTime.getMinute());
     }
 
     public BigDecimal second(OffsetTime time) {
+        if (time == null) {
+            return null;
+        }
+
         return BigDecimal.valueOf(time.getSecond());
     }
     public BigDecimal second(ZonedDateTime dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
+
         return BigDecimal.valueOf(dateTime.getSecond());
     }
 
     public Duration timeOffset(OffsetTime time) {
+        if (time == null) {
+            return null;
+        }
+
         // timezone offset in seconds
         int secondsOffset = time.getOffset().getTotalSeconds();
         return computeDuration(secondsOffset);
     }
     public Duration timeOffset(ZonedDateTime dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
+
         // timezone offset in seconds
         int secondsOffset = dateTime.getOffset().getTotalSeconds();
         return computeDuration(secondsOffset);
     }
 
     public String timezone(OffsetTime time) {
+        if (time == null) {
+            return null;
+        }
+
         return time.getOffset().getId();
     }
     public String timezone(ZonedDateTime dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
+
         return dateTime.getZone().getId();
     }
     private Duration computeDuration(int secondsOffset) {
@@ -918,31 +966,51 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     // Duration functions
     //
     public BigDecimal years(Duration duration) {
+        if (duration == null) {
+            return null;
+        }
+
         return BigDecimal.valueOf(duration.getYears());
     }
 
     public BigDecimal months(Duration duration) {
+        if (duration == null) {
+            return null;
+        }
+
         return BigDecimal.valueOf(duration.getMonths());
     }
 
     public BigDecimal days(Duration duration) {
+        if (duration == null) {
+            return null;
+        }
+
         return BigDecimal.valueOf(duration.getDays());
     }
 
     public BigDecimal hours(Duration duration) {
+        if (duration == null) {
+            return null;
+        }
+
         return BigDecimal.valueOf(duration.getHours());
     }
 
     public BigDecimal minutes(Duration duration) {
+        if (duration == null) {
+            return null;
+        }
+
         return BigDecimal.valueOf(duration.getMinutes());
     }
 
     public BigDecimal seconds(Duration duration) {
-        return BigDecimal.valueOf(duration.getSeconds());
-    }
+        if (duration == null) {
+            return null;
+        }
 
-    private int months(ZonedDateTime calendar) {
-        return calendar.getYear() * 12 + calendar.getMonth().getValue();
+        return BigDecimal.valueOf(duration.getSeconds());
     }
 
     //

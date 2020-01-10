@@ -112,7 +112,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
 
     @Override
     public String string(Object from) {
-        return this.dateTimeLib.string(from);
+        return this.stringLib.string(from);
     }
 
     @Override
