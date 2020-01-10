@@ -38,6 +38,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
 
     private final BigDecimalLib numberLib = new BigDecimalLib();
     private final StringLib stringLib = new StringLib();
+    private final BooleanLib booleanLib = new BooleanLib();
     private final DateLib dateLib = new DateLib();
     private final TimeLib timeLib = new TimeLib();
     private final DateTimeLib dateTimeLib = new DateTimeLib();
@@ -674,28 +675,8 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     //
     @Override
     public Boolean and(List list) {
-        return all(list);
-    }
-
-    @Override
-    public Boolean and(Object... args) {
-        return all(args);
-    }
-
-    @Override
-    public Boolean all(List list) {
-        if (list == null) {
-            return null;
-        }
-
         try {
-            if (list.stream().anyMatch(b -> b == Boolean.FALSE)) {
-                return false;
-            } else if (list.stream().allMatch(b -> b == Boolean.TRUE)) {
-                return true;
-            } else {
-                return null;
-            }
+            return this.booleanLib.and(list);
         } catch (Exception e) {
             String message = String.format("and(%s)", list);
             logError(message, e);
@@ -704,13 +685,9 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
 
     @Override
-    public Boolean all(Object... args) {
-        if (args == null || args.length < 1) {
-            return null;
-        }
-
+    public Boolean and(Object... args) {
         try {
-            return all(Arrays.asList(args));
+            return this.booleanLib.and(args);
         } catch (Exception e) {
             String message = String.format("and(%s)", args);
             logError(message, e);
@@ -719,29 +696,31 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
 
     @Override
-    public Boolean or(List list) {
-        return any(list);
-    }
-
-    @Override
-    public Boolean or(Object... args) {
-        return any(args);
-    }
-
-    @Override
-    public Boolean any(List list) {
-        if (list == null) {
+    public Boolean all(List list) {
+        try {
+            return this.booleanLib.all(list);
+        } catch (Exception e) {
+            String message = String.format("all(%s)", list);
+            logError(message, e);
             return null;
         }
+    }
 
+    @Override
+    public Boolean all(Object... args) {
         try {
-            if (list.stream().anyMatch(b -> b == Boolean.TRUE)) {
-                return true;
-            } else if (list.stream().allMatch(b -> b == Boolean.FALSE)) {
-                return false;
-            } else {
-                return null;
-            }
+            return this.booleanLib.all(args);
+        } catch (Exception e) {
+            String message = String.format("all(%s)", args);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean or(List list) {
+        try {
+            return this.booleanLib.or(list);
         } catch (Exception e) {
             String message = String.format("or(%s)", list);
             logError(message, e);
@@ -750,13 +729,9 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
 
     @Override
-    public Boolean any(Object... args) {
-        if (args == null || args.length < 1) {
-            return null;
-        }
-
+    public Boolean or(Object... args) {
         try {
-            return any(Arrays.asList(args));
+            return this.booleanLib.or(args);
         } catch (Exception e) {
             String message = String.format("or(%s)", args);
             logError(message, e);
@@ -765,8 +740,36 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     }
 
     @Override
+    public Boolean any(List list) {
+        try {
+            return this.booleanLib.any(list);
+        } catch (Exception e) {
+            String message = String.format("any(%s)", list);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean any(Object... args) {
+        try {
+            return this.booleanLib.any(args);
+        } catch (Exception e) {
+            String message = String.format("any(%s)", args);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
     public Boolean not(Boolean operand) {
-        return booleanNot(operand);
+        try {
+            return this.booleanType.booleanNot(operand);
+        } catch (Exception e) {
+            String message = String.format("not(%s)", operand);
+            logError(message, e);
+            return null;
+        }
     }
 
     //
