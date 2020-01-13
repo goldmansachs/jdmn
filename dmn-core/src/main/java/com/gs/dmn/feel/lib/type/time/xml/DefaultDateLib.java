@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.lib;
+package com.gs.dmn.feel.lib.type.time.xml;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 
 import static java.time.temporal.ChronoField.*;
 
-public class DateLib {
+public class DefaultDateLib {
     public static final Pattern BEGIN_YEAR = Pattern.compile("^-?(([1-9]\\d\\d\\d+)|(0\\d\\d\\d))-"); // FEEL spec, "specified by XML Schema Part 2 Datatypes", hence: yearFrag ::= '-'? (([1-9] digit digit digit+)) | ('0' digit digit digit))
     public static final DateTimeFormatter FEEL_DATE;
 

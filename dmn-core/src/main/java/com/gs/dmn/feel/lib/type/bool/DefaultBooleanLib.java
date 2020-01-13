@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.lib;
+package com.gs.dmn.feel.lib.type.bool;
 
 import java.time.Duration;
 import java.time.Period;
@@ -19,7 +19,7 @@ import java.time.temporal.TemporalAmount;
 import java.util.Arrays;
 import java.util.List;
 
-public class BooleanLib {
+public class DefaultBooleanLib {
     public Boolean and(List list) {
         return all(list);
     }

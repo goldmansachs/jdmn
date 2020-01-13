@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.lib;
+package com.gs.dmn.feel.lib.type.time.xml;
 
 import java.time.DateTimeException;
 import java.time.LocalTime;
@@ -20,7 +20,7 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalQueries;
 
-public class TimeLib {
+public class DefaultTimeLib {
     public static final DateTimeFormatter FEEL_TIME;
 
     static {

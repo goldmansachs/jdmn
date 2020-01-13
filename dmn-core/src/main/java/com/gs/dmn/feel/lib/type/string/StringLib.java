@@ -10,11 +10,11 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.lib;
+package com.gs.dmn.feel.lib.type.string;
 
+import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import com.gs.dmn.serialization.XMLUtil;
 import net.sf.saxon.xpath.XPathFactoryImpl;
-import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
@@ -49,11 +49,11 @@ public class StringLib {
         } else if (from instanceof BigDecimal) {
             return ((BigDecimal) from).toPlainString();
         } else if (from instanceof LocalDate) {
-            return ((LocalDate) from).format(DateTimeLib.FEEL_DATE_FORMAT);
+            return ((LocalDate) from).format(DefaultDateTimeLib.FEEL_DATE_FORMAT);
         } else if (from instanceof OffsetTime) {
-            return ((OffsetTime) from).format(DateTimeLib.FEEL_TIME_FORMAT);
+            return ((OffsetTime) from).format(DefaultDateTimeLib.FEEL_TIME_FORMAT);
         } else if (from instanceof ZonedDateTime) {
-            return ((ZonedDateTime) from).format(DateTimeLib.FEEL_DATE_TIME_FORMAT);
+            return ((ZonedDateTime) from).format(DefaultDateTimeLib.FEEL_DATE_TIME_FORMAT);
         } else if (from instanceof XMLGregorianCalendar) {
             return from.toString();
         } else {

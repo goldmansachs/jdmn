@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.runtime;
 
-import com.gs.dmn.feel.lib.DateTimeLib;
+import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import com.gs.dmn.feel.lib.type.time.xml.BaseDefaultDurationType;
 
 import javax.xml.datatype.Duration;
@@ -153,7 +153,7 @@ public class Assert {
         if (object instanceof Duration) {
             return BaseDefaultDurationType.normalize((Duration) object);
         } else if (object instanceof ZonedDateTime) {
-            return ((ZonedDateTime) object).withZoneSameInstant(DateTimeLib.UTC);
+            return ((ZonedDateTime) object).withZoneSameInstant(DefaultDateTimeLib.UTC);
         } else if (object instanceof OffsetTime) {
             return ((OffsetTime) object).withOffsetSameInstant(ZoneOffset.UTC);
         }

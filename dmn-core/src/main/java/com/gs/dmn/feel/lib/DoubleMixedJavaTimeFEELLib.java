@@ -12,15 +12,19 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.feel.lib.type.bool.DefaultBooleanLib;
 import com.gs.dmn.feel.lib.type.context.DefaultContextType;
 import com.gs.dmn.feel.lib.type.list.DefaultListType;
+import com.gs.dmn.feel.lib.type.list.DefaultListLib;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
+import com.gs.dmn.feel.lib.type.numeric.DoubleNumericLib;
 import com.gs.dmn.feel.lib.type.numeric.DoubleNumericType;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
+import com.gs.dmn.feel.lib.type.string.StringLib;
 import com.gs.dmn.feel.lib.type.time.mixed.LocalDateType;
 import com.gs.dmn.feel.lib.type.time.mixed.OffsetTimeType;
 import com.gs.dmn.feel.lib.type.time.mixed.ZonedDateTimeType;
-import com.gs.dmn.feel.lib.type.time.xml.DoubleDefaultDurationType;
+import com.gs.dmn.feel.lib.type.time.xml.*;
 import com.gs.dmn.runtime.LambdaExpression;
 import org.apache.commons.lang3.StringUtils;
 
@@ -34,14 +38,14 @@ import java.util.List;
 public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> implements StandardFEELLib<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     private static final DatatypeFactory DATA_TYPE_FACTORY = XMLDatataypeFactory.newInstance();
 
-    private final DoubleLib numberLib = new DoubleLib();
+    private final DoubleNumericLib numberLib = new DoubleNumericLib();
     private final StringLib stringLib = new StringLib();
-    private final BooleanLib booleanLib = new BooleanLib();
-    private final DateLib dateLib = new DateLib();
-    private final TimeLib timeLib = new TimeLib();
-    private final DateTimeLib dateTimeLib = new DateTimeLib();
-    private final DurationLib durationLib = new DurationLib();
-    private final ListLib listLib = new ListLib();
+    private final DefaultBooleanLib booleanLib = new DefaultBooleanLib();
+    private final DefaultDateLib dateLib = new DefaultDateLib();
+    private final DefaultTimeLib timeLib = new DefaultTimeLib();
+    private final DefaultDateTimeLib dateTimeLib = new DefaultDateTimeLib();
+    private final DefaultDurationLib durationLib = new DefaultDurationLib();
+    private final DefaultListLib listLib = new DefaultListLib();
 
     public DoubleMixedJavaTimeFEELLib() {
         super(new DoubleNumericType(LOGGER),
