@@ -14,13 +14,13 @@ package com.gs.dmn.feel.lib;
 
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanLib;
 import com.gs.dmn.feel.lib.type.context.DefaultContextType;
-import com.gs.dmn.feel.lib.type.list.DefaultListType;
 import com.gs.dmn.feel.lib.type.list.DefaultListLib;
+import com.gs.dmn.feel.lib.type.list.DefaultListType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericLib;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
-import com.gs.dmn.feel.lib.type.string.DefaultStringType;
 import com.gs.dmn.feel.lib.type.string.DefaultStringLib;
+import com.gs.dmn.feel.lib.type.string.DefaultStringType;
 import com.gs.dmn.feel.lib.type.time.xml.*;
 import com.gs.dmn.runtime.LambdaExpression;
 import org.apache.commons.lang3.StringUtils;
@@ -68,12 +68,8 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
 
     @Override
     public BigDecimal number(String literal) {
-        if (StringUtils.isBlank(literal)) {
-            return null;
-        }
-
         try {
-            return new BigDecimal(literal, DefaultNumericType.MATH_CONTEXT);
+            return this.numberLib.number(literal);
         } catch (Exception e) {
             String message = String.format("number(%s)", literal);
             logError(message, e);
@@ -83,30 +79,8 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
 
     @Override
     public BigDecimal number(String from, String groupingSeparator, String decimalSeparator) {
-        if (StringUtils.isBlank(from)) {
-            return null;
-        }
-        if (! (" ".equals(groupingSeparator) || ".".equals(groupingSeparator) || ",".equals(groupingSeparator) || null == groupingSeparator)) {
-            return null;
-        }
-        if (! (".".equals(decimalSeparator) || ",".equals(decimalSeparator) || null == decimalSeparator)) {
-            return null;
-        }
-        if (groupingSeparator != null && groupingSeparator.equals(decimalSeparator)) {
-            return null;
-        }
-
         try {
-            if (groupingSeparator != null) {
-                if (groupingSeparator.equals(".")) {
-                    groupingSeparator = "\\" + groupingSeparator;
-                }
-                from = from.replaceAll(groupingSeparator, "");
-            }
-            if (decimalSeparator != null && !decimalSeparator.equals(".")) {
-                from = from.replaceAll(decimalSeparator, ".");
-            }
-            return number(from);
+            return this.numberLib.number(from, groupingSeparator, decimalSeparator);
         } catch (Exception e) {
             String message = String.format("number(%s, %s, %s)", from, groupingSeparator, decimalSeparator);
             logError(message, e);
