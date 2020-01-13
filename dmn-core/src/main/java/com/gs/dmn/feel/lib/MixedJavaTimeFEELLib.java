@@ -20,7 +20,7 @@ import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericLib;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
-import com.gs.dmn.feel.lib.type.string.StringLib;
+import com.gs.dmn.feel.lib.type.string.DefaultStringLib;
 import com.gs.dmn.feel.lib.type.time.mixed.LocalDateType;
 import com.gs.dmn.feel.lib.type.time.mixed.OffsetTimeType;
 import com.gs.dmn.feel.lib.type.time.mixed.ZonedDateTimeType;
@@ -40,7 +40,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     private static final DatatypeFactory DATA_TYPE_FACTORY = XMLDatataypeFactory.newInstance();
 
     private final DefaultNumericLib numberLib = new DefaultNumericLib();
-    private final StringLib stringLib = new StringLib();
+    private final DefaultStringLib stringLib = new DefaultStringLib();
     private final DefaultBooleanLib booleanLib = new DefaultBooleanLib();
     private final DefaultDateLib dateLib = new DefaultDateLib();
     private final DefaultTimeLib timeLib = new DefaultTimeLib();

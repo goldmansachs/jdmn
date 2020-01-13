@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class StringLib {
+public class DefaultStringLib {
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.########");
 
     public String string(Object from) {

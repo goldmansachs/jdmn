@@ -20,7 +20,7 @@ import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericLib;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
-import com.gs.dmn.feel.lib.type.string.StringLib;
+import com.gs.dmn.feel.lib.type.string.DefaultStringLib;
 import com.gs.dmn.feel.lib.type.time.pure.LocalDateType;
 import com.gs.dmn.feel.lib.type.time.pure.TemporalAmountDurationType;
 import com.gs.dmn.feel.lib.type.time.pure.TemporalDateTimeType;
@@ -42,7 +42,7 @@ import java.util.TimeZone;
 
 public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> implements StandardFEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> {
     private final DefaultNumericLib numberLib = new DefaultNumericLib();
-    private final StringLib stringLib = new StringLib();
+    private final DefaultStringLib stringLib = new DefaultStringLib();
     private final DefaultBooleanLib booleanLib = new DefaultBooleanLib();
     private final DefaultDateLib dateLib = new DefaultDateLib();
     private final DefaultTimeLib timeLib = new DefaultTimeLib();
