@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.lib;
+package com.gs.dmn.feel.lib.type.time.xml;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -18,9 +18,7 @@ import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
-import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.text.DecimalFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -32,7 +30,7 @@ import java.util.TimeZone;
 
 import static java.time.temporal.ChronoField.*;
 
-public class DateTimeLib {
+public class DefaultDateTimeLib {
     public static final LocalDate EPOCH = LocalDate.of(1970, 1, 1);
     public static final ZoneId UTC = ZoneId.of("UTC");
 
@@ -78,9 +76,9 @@ public class DateTimeLib {
                 .toFormatter(Locale.getDefault(Locale.Category.FORMAT));
 
         FEEL_DATE_TIME = new DateTimeFormatterBuilder().parseCaseInsensitive()
-                .append(DateLib.FEEL_DATE)
+                .append(DefaultDateLib.FEEL_DATE)
                 .appendLiteral('T')
-                .append(TimeLib.FEEL_TIME)
+                .append(DefaultTimeLib.FEEL_TIME)
                 .toFormatter();
     }
 
@@ -339,7 +337,7 @@ public class DateTimeLib {
         if (literal == null) {
             throw new IllegalArgumentException("Date and time literal cannot be null");
         }
-        if (!DateLib.BEGIN_YEAR.matcher(literal).find()) {
+        if (!DefaultDateLib.BEGIN_YEAR.matcher(literal).find()) {
             throw new IllegalArgumentException("Year is not not compliant with XML Schema Part 2 Datatypes");
         }
 

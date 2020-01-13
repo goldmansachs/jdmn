@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import org.junit.Test;
 
 import java.time.format.DateTimeParseException;
@@ -19,7 +20,7 @@ import java.time.format.DateTimeParseException;
 import static org.junit.Assert.*;
 
 public class DateTimeLibTest {
-    DateTimeLib dateTimeLib = new DateTimeLib();
+    DefaultDateTimeLib dateTimeLib = new DefaultDateTimeLib();
     
     @Test
     public void testFixDateTimeFormat() {

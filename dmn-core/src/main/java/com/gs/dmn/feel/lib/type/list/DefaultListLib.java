@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.lib;
+package com.gs.dmn.feel.lib.type.list;
 
 import com.gs.dmn.runtime.LambdaExpression;
 
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class ListLib {
+public class DefaultListLib {
     public Boolean listContains(List list, Object element) {
         return list == null ? null : list.contains(element);
     }

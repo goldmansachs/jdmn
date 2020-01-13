@@ -12,11 +12,15 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.feel.lib.type.bool.DefaultBooleanLib;
 import com.gs.dmn.feel.lib.type.context.DefaultContextType;
 import com.gs.dmn.feel.lib.type.list.DefaultListType;
+import com.gs.dmn.feel.lib.type.list.DefaultListLib;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
+import com.gs.dmn.feel.lib.type.numeric.DefaultNumericLib;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
+import com.gs.dmn.feel.lib.type.string.StringLib;
 import com.gs.dmn.feel.lib.type.time.xml.*;
 import com.gs.dmn.runtime.LambdaExpression;
 import org.apache.commons.lang3.StringUtils;
@@ -36,14 +40,14 @@ import java.util.List;
 public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> implements StandardFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     public static final DatatypeFactory DATA_TYPE_FACTORY = XMLDatataypeFactory.newInstance();
 
-    private final BigDecimalLib numberLib = new BigDecimalLib();
+    private final DefaultNumericLib numberLib = new DefaultNumericLib();
     private final StringLib stringLib = new StringLib();
-    private final BooleanLib booleanLib = new BooleanLib();
-    private final DateLib dateLib = new DateLib();
-    private final TimeLib timeLib = new TimeLib();
-    private final DateTimeLib dateTimeLib = new DateTimeLib();
-    private final DurationLib durationLib = new DurationLib();
-    private final ListLib listLib = new ListLib();
+    private final DefaultBooleanLib booleanLib = new DefaultBooleanLib();
+    private final DefaultDateLib dateLib = new DefaultDateLib();
+    private final DefaultTimeLib timeLib = new DefaultTimeLib();
+    private final DefaultDateTimeLib dateTimeLib = new DefaultDateTimeLib();
+    private final DefaultDurationLib durationLib = new DefaultDurationLib();
+    private final DefaultListLib listLib = new DefaultListLib();
 
     public DefaultFEELLib() {
         super(new DefaultNumericType(LOGGER),

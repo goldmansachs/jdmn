@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.lib;
+package com.gs.dmn.feel.lib.type.numeric;
 
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
 
@@ -19,7 +19,7 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.*;
 
-public class BigDecimalLib {
+public class DefaultNumericLib {
     public BigDecimal decimal(BigDecimal n, BigDecimal scale) {
         if (n == null || scale == null) {
             return null;

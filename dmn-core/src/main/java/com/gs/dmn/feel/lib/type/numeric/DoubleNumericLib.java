@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.lib;
+package com.gs.dmn.feel.lib.type.numeric;
 
 import com.gs.dmn.feel.lib.type.numeric.DoubleNumericType;
 
@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
 
-public class DoubleLib {
+public class DoubleNumericLib {
     public Double decimal(Double n, Double scale) {
         if (n == null || scale == null) {
             return null;

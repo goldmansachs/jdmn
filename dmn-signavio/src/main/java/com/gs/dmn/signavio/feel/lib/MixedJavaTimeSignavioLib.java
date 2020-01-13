@@ -13,7 +13,7 @@
 package com.gs.dmn.signavio.feel.lib;
 
 import com.gs.dmn.feel.lib.BaseFEELLib;
-import com.gs.dmn.feel.lib.DateTimeLib;
+import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import com.gs.dmn.feel.lib.MixedJavaTimeFEELLib;
 import com.gs.dmn.feel.lib.type.context.DefaultContextType;
 import com.gs.dmn.feel.lib.type.list.DefaultListType;
@@ -429,7 +429,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     }
     public ZonedDateTime monthAdd(LocalDate date, BigDecimal monthsToAdd) {
         try {
-            return date.plusMonths(monthsToAdd.longValue()).atStartOfDay(DateTimeLib.UTC);
+            return date.plusMonths(monthsToAdd.longValue()).atStartOfDay(DefaultDateTimeLib.UTC);
         } catch (Exception e) {
             String message = String.format("monthAdd(%s, %s)", date, monthsToAdd);
             logError(message, e);
@@ -523,7 +523,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     }
     public ZonedDateTime yearAdd(LocalDate localDate, BigDecimal yearsToAdd) {
         try {
-            return localDate.plusYears(yearsToAdd.longValue()).atStartOfDay(DateTimeLib.UTC);
+            return localDate.plusYears(yearsToAdd.longValue()).atStartOfDay(DefaultDateTimeLib.UTC);
         } catch (Exception e) {
             String message = String.format("yearAdd(%s, %s)", localDate, yearsToAdd);
             logError(message, e);
@@ -897,7 +897,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     }
 
     private java.time.Duration durationBetween(LocalDate date1, LocalDate date2) {
-        return java.time.Duration.between(date1.atStartOfDay(DateTimeLib.UTC), date2.atStartOfDay(DateTimeLib.UTC));
+        return java.time.Duration.between(date1.atStartOfDay(DefaultDateTimeLib.UTC), date2.atStartOfDay(DefaultDateTimeLib.UTC));
     }
 
     private java.time.Duration durationBetween(OffsetTime time1, OffsetTime time2) {

@@ -18,8 +18,7 @@ import com.gs.dmn.feel.lib.type.list.DefaultListType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
-import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationType;
-import com.gs.dmn.feel.lib.type.time.xml.FEELXMLGregorianCalendar;
+import com.gs.dmn.feel.lib.type.time.xml.*;
 import com.gs.dmn.signavio.feel.lib.type.time.xml.DefaultDateTimeType;
 import com.gs.dmn.signavio.feel.lib.type.time.xml.DefaultDateType;
 import com.gs.dmn.signavio.feel.lib.type.time.xml.DefaultTimeType;
@@ -42,9 +41,9 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
 
     private final SignavioNumberLib numberLib = new SignavioNumberLib();
     private final SignavioStringLib stringLib = new SignavioStringLib();
-    private final DateLib dateLib = new DateLib();
-    private final TimeLib timeLib = new TimeLib();
-    private final DateTimeLib dateTimeLib = new DateTimeLib();
+    private final DefaultDateLib dateLib = new DefaultDateLib();
+    private final DefaultTimeLib timeLib = new DefaultTimeLib();
+    private final DefaultDateTimeLib dateTimeLib = new DefaultDateTimeLib();
     private final SignavioListLib listLib = new SignavioListLib();
     
     public DefaultSignavioLib() {

@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.time.mixed;
 
-import com.gs.dmn.feel.lib.DateTimeLib;
+import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.TimeType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
@@ -180,8 +180,8 @@ public class OffsetTimeType extends JavaTimeCalendarType implements TimeType<Off
     }
 
     private Duration toDuration(OffsetTime first, OffsetTime second) {
-        ZonedDateTime first1 = first.atDate(DateTimeLib.EPOCH).atZoneSameInstant(DateTimeLib.UTC);
-        ZonedDateTime second1 = second.atDate(DateTimeLib.EPOCH).atZoneSameInstant(DateTimeLib.UTC);
+        ZonedDateTime first1 = first.atDate(DefaultDateTimeLib.EPOCH).atZoneSameInstant(DefaultDateTimeLib.UTC);
+        ZonedDateTime second1 = second.atDate(DefaultDateTimeLib.EPOCH).atZoneSameInstant(DefaultDateTimeLib.UTC);
         long durationInMilliSeconds = getDurationInMilliSeconds(first1, second1);
         return datatypeFactory.newDuration(durationInMilliSeconds);
     }

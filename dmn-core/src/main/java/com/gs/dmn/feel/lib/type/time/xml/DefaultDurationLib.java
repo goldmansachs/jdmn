@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.lib;
+package com.gs.dmn.feel.lib.type.time.xml;
 
 import java.time.Duration;
 import java.time.Period;
@@ -19,7 +19,7 @@ import java.time.temporal.TemporalAmount;
 import java.util.Arrays;
 import java.util.List;
 
-public class DurationLib {
+public class DefaultDurationLib {
     public static TemporalAmount duration(String literal) {
         if (literal == null) {
             throw new IllegalArgumentException("Duration literal cannot be null");
