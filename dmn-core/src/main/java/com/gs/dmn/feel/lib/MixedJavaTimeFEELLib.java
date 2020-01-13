@@ -14,17 +14,16 @@ package com.gs.dmn.feel.lib;
 
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanLib;
 import com.gs.dmn.feel.lib.type.context.DefaultContextType;
-import com.gs.dmn.feel.lib.type.list.DefaultListType;
 import com.gs.dmn.feel.lib.type.list.DefaultListLib;
+import com.gs.dmn.feel.lib.type.list.DefaultListType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericLib;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
-import com.gs.dmn.feel.lib.type.string.DefaultStringType;
 import com.gs.dmn.feel.lib.type.string.DefaultStringLib;
-import com.gs.dmn.feel.lib.type.time.mixed.LocalDateType;
-import com.gs.dmn.feel.lib.type.time.mixed.OffsetTimeType;
-import com.gs.dmn.feel.lib.type.time.mixed.ZonedDateTimeType;
-import com.gs.dmn.feel.lib.type.time.xml.*;
+import com.gs.dmn.feel.lib.type.string.DefaultStringType;
+import com.gs.dmn.feel.lib.type.time.mixed.*;
+import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationLib;
+import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationType;
 import com.gs.dmn.runtime.LambdaExpression;
 import org.apache.commons.lang3.StringUtils;
 
@@ -42,9 +41,9 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     private final DefaultNumericLib numberLib = new DefaultNumericLib();
     private final DefaultStringLib stringLib = new DefaultStringLib();
     private final DefaultBooleanLib booleanLib = new DefaultBooleanLib();
-    private final DefaultDateLib dateLib = new DefaultDateLib();
-    private final DefaultTimeLib timeLib = new DefaultTimeLib();
-    private final DefaultDateTimeLib dateTimeLib = new DefaultDateTimeLib();
+    private final LocalDateLib dateLib = new LocalDateLib();
+    private final OffsetTimeLib timeLib = new OffsetTimeLib();
+    private final ZonedDateTimeLib dateTimeLib = new ZonedDateTimeLib();
     private final DefaultDurationLib durationLib = new DefaultDurationLib();
     private final DefaultListLib listLib = new DefaultListLib();
 
@@ -67,12 +66,8 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
 
     @Override
     public BigDecimal number(String literal) {
-        if (StringUtils.isBlank(literal)) {
-            return null;
-        }
-
         try {
-            return new BigDecimal(literal, DefaultNumericType.MATH_CONTEXT);
+            return this.numberLib.number(literal);
         } catch (Exception e) {
             String message = String.format("number(%s)", literal);
             logError(message, e);
@@ -82,30 +77,8 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
 
     @Override
     public BigDecimal number(String from, String groupingSeparator, String decimalSeparator) {
-        if (StringUtils.isBlank(from)) {
-            return null;
-        }
-        if (! (" ".equals(groupingSeparator) || ".".equals(groupingSeparator) || ",".equals(groupingSeparator) || null == groupingSeparator)) {
-            return null;
-        }
-        if (! (".".equals(decimalSeparator) || ",".equals(decimalSeparator) || null == decimalSeparator)) {
-            return null;
-        }
-        if (groupingSeparator != null && groupingSeparator.equals(decimalSeparator)) {
-            return null;
-        }
-
         try {
-            if (groupingSeparator != null) {
-                if (groupingSeparator.equals(".")) {
-                    groupingSeparator = "\\" + groupingSeparator;
-                }
-                from = from.replaceAll(groupingSeparator, "");
-            }
-            if (decimalSeparator != null && !decimalSeparator.equals(".")) {
-                from = from.replaceAll(decimalSeparator, ".");
-            }
-            return number(from);
+            return this.numberLib.number(from, groupingSeparator, decimalSeparator);
         } catch (Exception e) {
             String message = String.format("number(%s, %s, %s)", from, groupingSeparator, decimalSeparator);
             logError(message, e);

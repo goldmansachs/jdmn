@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.numeric;
 
-import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
+import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -20,6 +20,40 @@ import java.math.RoundingMode;
 import java.util.*;
 
 public class DefaultNumericLib {
+    public BigDecimal number(String literal) {
+        if (StringUtils.isBlank(literal)) {
+            return null;
+        }
+
+        return new BigDecimal(literal, DefaultNumericType.MATH_CONTEXT);
+    }
+
+    public BigDecimal number(String from, String groupingSeparator, String decimalSeparator) {
+        if (StringUtils.isBlank(from)) {
+            return null;
+        }
+        if (! (" ".equals(groupingSeparator) || ".".equals(groupingSeparator) || ",".equals(groupingSeparator) || null == groupingSeparator)) {
+            return null;
+        }
+        if (! (".".equals(decimalSeparator) || ",".equals(decimalSeparator) || null == decimalSeparator)) {
+            return null;
+        }
+        if (groupingSeparator != null && groupingSeparator.equals(decimalSeparator)) {
+            return null;
+        }
+
+        if (groupingSeparator != null) {
+            if (groupingSeparator.equals(".")) {
+                groupingSeparator = "\\" + groupingSeparator;
+            }
+            from = from.replaceAll(groupingSeparator, "");
+        }
+        if (decimalSeparator != null && !decimalSeparator.equals(".")) {
+            from = from.replaceAll(decimalSeparator, ".");
+        }
+        return number(from);
+    }
+
     public BigDecimal decimal(BigDecimal n, BigDecimal scale) {
         if (n == null || scale == null) {
             return null;

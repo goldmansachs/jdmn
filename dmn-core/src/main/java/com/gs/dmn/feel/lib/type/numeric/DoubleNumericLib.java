@@ -12,13 +12,47 @@
  */
 package com.gs.dmn.feel.lib.type.numeric;
 
-import com.gs.dmn.feel.lib.type.numeric.DoubleNumericType;
+import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
 
 public class DoubleNumericLib {
+    public Double number(String literal) {
+        if (StringUtils.isBlank(literal)) {
+            return null;
+        }
+
+        return Double.parseDouble(literal);
+    }
+
+    public Double number(String from, String groupingSeparator, String decimalSeparator) {
+        if (StringUtils.isBlank(from)) {
+            return null;
+        }
+        if (! (" ".equals(groupingSeparator) || ".".equals(groupingSeparator) || ",".equals(groupingSeparator) || null == groupingSeparator)) {
+            return null;
+        }
+        if (! (".".equals(decimalSeparator) || ",".equals(decimalSeparator) || null == decimalSeparator)) {
+            return null;
+        }
+        if (groupingSeparator != null && groupingSeparator.equals(decimalSeparator)) {
+            return null;
+        }
+
+        if (groupingSeparator != null) {
+            if (groupingSeparator.equals(".")) {
+                groupingSeparator = "\\" + groupingSeparator;
+            }
+            from = from.replaceAll(groupingSeparator, "");
+        }
+        if (decimalSeparator != null && !decimalSeparator.equals(".")) {
+            from = from.replaceAll(decimalSeparator, ".");
+        }
+        return number(from);
+    }
+
     public Double decimal(Double n, Double scale) {
         if (n == null || scale == null) {
             return null;
