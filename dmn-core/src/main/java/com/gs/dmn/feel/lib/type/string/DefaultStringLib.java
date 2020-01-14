@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.string;
 
-import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
+import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
 import com.gs.dmn.serialization.XMLUtil;
 import net.sf.saxon.xpath.XPathFactoryImpl;
 import org.w3c.dom.Document;
@@ -49,11 +49,11 @@ public class DefaultStringLib {
         } else if (from instanceof BigDecimal) {
             return ((BigDecimal) from).toPlainString();
         } else if (from instanceof LocalDate) {
-            return ((LocalDate) from).format(DefaultDateTimeLib.FEEL_DATE_FORMAT);
+            return ((LocalDate) from).format(BaseDateTimeLib.FEEL_DATE_FORMAT);
         } else if (from instanceof OffsetTime) {
-            return ((OffsetTime) from).format(DefaultDateTimeLib.FEEL_TIME_FORMAT);
+            return ((OffsetTime) from).format(BaseDateTimeLib.FEEL_TIME_FORMAT);
         } else if (from instanceof ZonedDateTime) {
-            return ((ZonedDateTime) from).format(DefaultDateTimeLib.FEEL_DATE_TIME_FORMAT);
+            return ((ZonedDateTime) from).format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT);
         } else if (from instanceof XMLGregorianCalendar) {
             return from.toString();
         } else {
@@ -85,7 +85,10 @@ public class DefaultStringLib {
         return string.endsWith(match);
     }
 
-    public long stringLength(String string) {
+    public Integer stringLength(String string) {
+        if (string == null) {
+            return null;
+        }
         return string.length();
     }
 

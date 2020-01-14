@@ -12,30 +12,104 @@
  */
 package com.gs.dmn.feel.lib.type.time.xml;
 
+import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.xml.datatype.DatatypeConstants;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.format.SignStyle;
 import java.time.temporal.TemporalAccessor;
-import java.util.regex.Pattern;
+import java.util.Calendar;
 
-import static java.time.temporal.ChronoField.*;
 
-public class DefaultDateLib {
-    public static final Pattern BEGIN_YEAR = Pattern.compile("^-?(([1-9]\\d\\d\\d+)|(0\\d\\d\\d))-"); // FEEL spec, "specified by XML Schema Part 2 Datatypes", hence: yearFrag ::= '-'? (([1-9] digit digit digit+)) | ('0' digit digit digit))
-    public static final DateTimeFormatter FEEL_DATE;
+public class DefaultDateLib extends BaseDateTimeLib {
+    public XMLGregorianCalendar date(String literal) {
+        if (StringUtils.isBlank(literal)) {
+            return null;
+        }
 
-    static {
-        FEEL_DATE = new DateTimeFormatterBuilder().appendValue(YEAR, 4, 9, SignStyle.NORMAL)
-                .appendLiteral('-')
-                .appendValue(MONTH_OF_YEAR, 2)
-                .appendLiteral('-')
-                .appendValue(DAY_OF_MONTH, 2)
-                .toFormatter();
+        XMLGregorianCalendar calendar = FEELXMLGregorianCalendar.makeXMLCalendar(this.temporalAccessor(literal));
+        return this.isValidDate(calendar) ? calendar : null;
     }
 
-    public TemporalAccessor date(String literal) {
+    public XMLGregorianCalendar date(BigDecimal year, BigDecimal month, BigDecimal day) {
+        if (year == null || month == null || day == null) {
+            return null;
+        }
+
+        XMLGregorianCalendar calendar = FEELXMLGregorianCalendar.makeDate(year.toBigInteger(), month.intValue(), day.intValue());
+        return this.isValidDate(calendar) ? calendar : null;
+    }
+
+    public XMLGregorianCalendar date(XMLGregorianCalendar from) {
+        if (from == null) {
+            return null;
+        }
+
+        FEELXMLGregorianCalendar calendar = (FEELXMLGregorianCalendar) from.clone();
+        calendar.setTime(DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED);
+        calendar.setZoneID(null);
+        return this.isValidDate(calendar) ? calendar : null;
+    }
+
+    private boolean isValidDate(XMLGregorianCalendar calendar) {
+        if (calendar == null) {
+            return false;
+        }
+
+        long year = calendar.getYear();
+        BigInteger eonAndYear = calendar.getEonAndYear();
+        if (eonAndYear != null) {
+            year = eonAndYear.intValue();
+        }
+        return
+                isValidDate(year, calendar.getMonth(), calendar.getDay())
+                        && isUndefined(calendar.getHour())
+                        && isUndefined(calendar.getMinute())
+                        && isUndefined(calendar.getSecond())
+                ;
+    }
+
+    public XMLGregorianCalendar toDate(Object object) {
+        return (XMLGregorianCalendar) object;
+    }
+
+    public Integer year(XMLGregorianCalendar date) {
+        if (date == null) {
+            return null;
+        }
+
+        return date.getYear();
+    }
+
+    public Integer month(XMLGregorianCalendar date) {
+        if (date == null) {
+            return null;
+        }
+
+        return date.getMonth();
+    }
+
+    public Integer day(XMLGregorianCalendar date) {
+        if (date == null) {
+            return null;
+        }
+
+        return date.getDay();
+    }
+
+    public Integer weekday(XMLGregorianCalendar date) {
+        if (date == null) {
+            return null;
+        }
+
+        return date.toGregorianCalendar().get(Calendar.DAY_OF_WEEK) - 1;
+    }
+
+    public TemporalAccessor temporalAccessor(String literal) {
         if (literal == null) {
             throw new IllegalArgumentException("Date literal cannot be null");
         }

@@ -12,31 +12,132 @@
  */
 package com.gs.dmn.feel.lib.type.time.xml;
 
+import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
+
+import javax.xml.datatype.DatatypeConstants;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
 import java.time.DateTimeException;
 import java.time.LocalTime;
 import java.time.OffsetTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalQueries;
 
-public class DefaultTimeLib {
-    public static final DateTimeFormatter FEEL_TIME;
+public class DefaultTimeLib extends BaseDateTimeLib {
+    private final DatatypeFactory dataTypeFactory;
 
-    static {
-        FEEL_TIME = new DateTimeFormatterBuilder().parseCaseInsensitive()
-                .append(DateTimeFormatter.ISO_LOCAL_TIME)
-                .optionalStart()
-                .appendLiteral("@")
-                .appendZoneRegionId()
-                .optionalEnd()
-                .optionalStart()
-                .appendOffsetId()
-                .optionalEnd()
-                .toFormatter();
+    public DefaultTimeLib(DatatypeFactory dataTypeFactory) {
+        this.dataTypeFactory = dataTypeFactory;
     }
 
-    public TemporalAccessor time(String literal) {
+    public XMLGregorianCalendar time(String literal) {
+        if (literal == null) {
+            return null;
+        }
+
+        literal = this.fixDateTimeFormat(literal);
+        XMLGregorianCalendar calendar = FEELXMLGregorianCalendar.makeXMLCalendar(this.temporalAccessor(literal));
+        return this.isValidTime(calendar) ? calendar : null;
+    }
+
+    public XMLGregorianCalendar time(BigDecimal hour, BigDecimal minute, BigDecimal second, Duration offset) {
+        if (hour == null || minute == null || second == null) {
+            return null;
+        }
+
+        XMLGregorianCalendar calendar = null;
+        if (offset != null) {
+            BigDecimal secondFraction = second.subtract(BigDecimal.valueOf(second.intValue()));
+            String sign = offset.getSign() < 0 ? "-" : "+";
+            int seconds = offset.getSeconds();
+            String zoneId;
+            if (seconds == 0) {
+                zoneId = String.format("%s%02d:%02d", sign, offset.getHours(), offset.getMinutes());
+            } else {
+                zoneId = String.format("%s%02d:%02d:%02d", sign, offset.getHours(), offset.getMinutes(), seconds);
+            }
+            calendar = FEELXMLGregorianCalendar.makeTime(hour.intValue(), minute.intValue(), second.intValue(), secondFraction, zoneId);
+        } else {
+            BigDecimal secondFraction = second.subtract(BigDecimal.valueOf(second.intValue()));
+            calendar = FEELXMLGregorianCalendar.makeTime(hour.intValue(), minute.intValue(), second.intValue(), secondFraction, null);
+        }
+        return this.isValidTime(calendar) ? calendar : null;
+    }
+
+    public XMLGregorianCalendar time(XMLGregorianCalendar from) {
+        if (from == null) {
+            return null;
+        }
+
+        FEELXMLGregorianCalendar calendar = (FEELXMLGregorianCalendar) from.clone();
+        if (from.getXMLSchemaType() == DatatypeConstants.DATE) {
+            calendar.setYear(DatatypeConstants.FIELD_UNDEFINED);
+            calendar.setMonth(DatatypeConstants.FIELD_UNDEFINED);
+            calendar.setDay(DatatypeConstants.FIELD_UNDEFINED);
+            calendar.setHour(0);
+            calendar.setMinute(0);
+            calendar.setSecond(0);
+            calendar.setZoneID("Z");
+        } else if (from.getXMLSchemaType() == DatatypeConstants.DATETIME) {
+            calendar.setYear(DatatypeConstants.FIELD_UNDEFINED);
+            calendar.setMonth(DatatypeConstants.FIELD_UNDEFINED);
+            calendar.setDay(DatatypeConstants.FIELD_UNDEFINED);
+        }
+        return this.isValidTime(calendar) ? calendar : null;
+    }
+
+    public XMLGregorianCalendar toTime(Object object) {
+        return (XMLGregorianCalendar) object;
+    }
+
+    public Integer hour(XMLGregorianCalendar date) {
+        if (date == null) {
+            return null;
+        }
+
+        return date.getHour();
+    }
+
+    public Integer minute(XMLGregorianCalendar date) {
+        if (date == null) {
+            return null;
+        }
+
+        return date.getMinute();
+    }
+
+    public Integer second(XMLGregorianCalendar date) {
+        if (date == null) {
+            return null;
+        }
+
+        return date.getSecond();
+    }
+
+    public Duration timeOffset(XMLGregorianCalendar date) {
+        if (date == null) {
+            return null;
+        }
+
+        int secondsOffset = date.getTimezone();
+        if (secondsOffset == DatatypeConstants.FIELD_UNDEFINED) {
+            return null;
+        } else {
+            return this.dataTypeFactory.newDuration((long) secondsOffset * 1000);
+        }
+    }
+
+    public String timezone(XMLGregorianCalendar date) {
+        if (date == null) {
+            return null;
+        }
+
+        return ((FEELXMLGregorianCalendar) date).getZoneID();
+    }
+
+    public TemporalAccessor temporalAccessor(String literal) {
         if (literal == null) {
             throw new IllegalArgumentException("Time literal cannot be null");
         }
@@ -56,5 +157,18 @@ public class DefaultTimeLib {
         } catch (DateTimeException e) {
             throw new RuntimeException("Parsing exception in time literal", e);
         }
+    }
+
+    private boolean isValidTime(XMLGregorianCalendar calendar) {
+        if (calendar == null) {
+            return false;
+        }
+
+        return
+                isValidTime(calendar.getHour(), calendar.getMinute(), calendar.getSecond(), calendar.getTimezone())
+                        && isUndefined(calendar.getYear())
+                        && isUndefined(calendar.getMonth())
+                        && isUndefined(calendar.getDay())
+                ;
     }
 }

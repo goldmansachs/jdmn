@@ -12,7 +12,8 @@
  */
 package com.gs.dmn.signavio.feel.lib;
 
-import com.gs.dmn.feel.lib.*;
+import com.gs.dmn.feel.lib.BaseFEELLib;
+import com.gs.dmn.feel.lib.DefaultFEELLib;
 import com.gs.dmn.feel.lib.type.context.DefaultContextType;
 import com.gs.dmn.feel.lib.type.list.DefaultListType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
@@ -42,7 +43,7 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
     private final SignavioNumberLib numberLib = new SignavioNumberLib();
     private final SignavioStringLib stringLib = new SignavioStringLib();
     private final DefaultDateLib dateLib = new DefaultDateLib();
-    private final DefaultTimeLib timeLib = new DefaultTimeLib();
+    private final DefaultTimeLib timeLib = new DefaultTimeLib(DATA_TYPE_FACTORY);
     private final DefaultDateTimeLib dateTimeLib = new DefaultDateTimeLib();
     private final SignavioListLib listLib = new SignavioListLib();
     
@@ -258,14 +259,14 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
 
     @Override
     public XMLGregorianCalendar date(BigDecimal year, BigDecimal month, BigDecimal day) {
-        return FEELXMLGregorianCalendar.makeXMLCalendar(this.dateLib.date(String.format("%04d-%02d-%02d", year.intValue(), month.intValue(), day.intValue())));
+        return FEELXMLGregorianCalendar.makeXMLCalendar(this.dateLib.temporalAccessor(String.format("%04d-%02d-%02d", year.intValue(), month.intValue(), day.intValue())));
     }
 
     @Override
     public XMLGregorianCalendar dateTime(BigDecimal day, BigDecimal month, BigDecimal year, BigDecimal hour, BigDecimal minute, BigDecimal second) {
         String literal = String.format("%04d-%02d-%02dT%02d:%02d:%02dZ",
                 year.intValue(), month.intValue(), day.intValue(), hour.intValue(), minute.intValue(), second.intValue());
-        return FEELXMLGregorianCalendar.makeXMLCalendar(this.dateTimeLib.dateAndTime(literal));
+        return FEELXMLGregorianCalendar.makeXMLCalendar(this.dateTimeLib.temporalAccessor(literal));
     }
 
     @Override
