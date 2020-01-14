@@ -20,10 +20,10 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import static javax.xml.datatype.DatatypeConstants.*;
 
-public abstract class DefaultXMLCalendarType extends BaseType {
+public abstract class DefaultSignavioXMLCalendarType extends BaseType {
     protected final DatatypeFactory datatypeFactory;
 
-    public DefaultXMLCalendarType(Logger logger, DatatypeFactory datatypeFactory) {
+    public DefaultSignavioXMLCalendarType(Logger logger, DatatypeFactory datatypeFactory) {
         super(logger);
         this.datatypeFactory = datatypeFactory;
     }

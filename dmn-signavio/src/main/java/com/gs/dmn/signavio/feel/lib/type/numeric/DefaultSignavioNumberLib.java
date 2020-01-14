@@ -10,11 +10,19 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.signavio.feel.lib;
+package com.gs.dmn.signavio.feel.lib.type.numeric;
 
 import java.math.BigDecimal;
 
-public class SignavioNumberLib {
+public class DefaultSignavioNumberLib {
+    public BigDecimal abs(BigDecimal number) {
+        if (number == null) {
+            return null;
+        }
+
+        return number.abs();
+    }
+
     public BigDecimal round(BigDecimal number, BigDecimal digits) {
         if (number == null || digits == null) {
             return null;
@@ -37,5 +45,17 @@ public class SignavioNumberLib {
         }
 
         return number.setScale(digits.intValue(), BigDecimal.ROUND_UP);
+    }
+
+    public BigDecimal integer(BigDecimal number) {
+        return BigDecimal.valueOf(number.intValue());
+    }
+
+    public BigDecimal modulo(BigDecimal divident, BigDecimal divisor) {
+        if (divident == null || divisor == null) {
+            return null;
+        }
+
+        return BigDecimal.valueOf(divident.intValue() % divisor.intValue());
     }
 }

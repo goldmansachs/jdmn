@@ -19,20 +19,16 @@ import com.gs.dmn.feel.lib.type.list.DefaultListType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
-import com.gs.dmn.feel.lib.type.time.xml.*;
-import com.gs.dmn.signavio.feel.lib.type.time.xml.DefaultDateTimeType;
-import com.gs.dmn.signavio.feel.lib.type.time.xml.DefaultDateType;
-import com.gs.dmn.signavio.feel.lib.type.time.xml.DefaultTimeType;
+import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationType;
+import com.gs.dmn.signavio.feel.lib.type.list.SignavioListLib;
+import com.gs.dmn.signavio.feel.lib.type.numeric.DefaultSignavioNumberLib;
+import com.gs.dmn.signavio.feel.lib.type.string.DefaultSignavioStringLib;
+import com.gs.dmn.signavio.feel.lib.type.time.xml.*;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Period;
-import java.util.Calendar;
 import java.util.List;
 
 import static com.gs.dmn.feel.lib.DefaultFEELLib.DATA_TYPE_FACTORY;
@@ -40,20 +36,20 @@ import static com.gs.dmn.feel.lib.DefaultFEELLib.DATA_TYPE_FACTORY;
 public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> implements SignavioLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     private final DefaultFEELLib feelLib = new DefaultFEELLib();
 
-    private final SignavioNumberLib numberLib = new SignavioNumberLib();
-    private final SignavioStringLib stringLib = new SignavioStringLib();
-    private final DefaultDateLib dateLib = new DefaultDateLib();
-    private final DefaultTimeLib timeLib = new DefaultTimeLib(DATA_TYPE_FACTORY);
-    private final DefaultDateTimeLib dateTimeLib = new DefaultDateTimeLib();
+    private final DefaultSignavioNumberLib numberLib = new DefaultSignavioNumberLib();
+    private final DefaultSignavioStringLib stringLib = new DefaultSignavioStringLib();
+    private final DefaultSignavioDateLib dateLib = new DefaultSignavioDateLib();
+    private final DefaultSignavioTimeLib timeLib = new DefaultSignavioTimeLib();
+    private final DefaultSignavioDateTimeLib dateTimeLib = new DefaultSignavioDateTimeLib();
     private final SignavioListLib listLib = new SignavioListLib();
     
     public DefaultSignavioLib() {
         super(new DefaultNumericType(LOGGER),
                 new DefaultBooleanType(LOGGER),
                 new DefaultStringType(LOGGER),
-                new DefaultDateType(LOGGER, DATA_TYPE_FACTORY),
-                new DefaultTimeType(LOGGER, DATA_TYPE_FACTORY),
-                new DefaultDateTimeType(LOGGER, DATA_TYPE_FACTORY),
+                new DefaultSignavioDateType(LOGGER, DATA_TYPE_FACTORY),
+                new DefaultSignavioTimeType(LOGGER, DATA_TYPE_FACTORY),
+                new DefaultSignavioDateTimeType(LOGGER, DATA_TYPE_FACTORY),
                 new DefaultDurationType(LOGGER),
                 new DefaultListType(LOGGER),
                 new DefaultContextType(LOGGER)
@@ -89,12 +85,8 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
 
     @Override
     public BigDecimal abs(BigDecimal number) {
-        if (number == null) {
-            return null;
-        }
-
         try {
-            return number.abs();
+            return this.numberLib.abs(number);
         } catch (Exception e) {
             String message = String.format("abs(%s)", number);
             logError(message, e);
@@ -104,7 +96,7 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
 
     @Override
     public BigDecimal count(List list) {
-        return feelLib.count(list);
+        return this.feelLib.count(list);
     }
 
     @Override
@@ -120,18 +112,18 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
 
     @Override
     public BigDecimal ceiling(BigDecimal number) {
-        return feelLib.ceiling(number);
+        return this.feelLib.ceiling(number);
     }
 
     @Override
     public BigDecimal floor(BigDecimal number) {
-        return feelLib.floor(number);
+        return this.feelLib.floor(number);
     }
 
     @Override
     public BigDecimal integer(BigDecimal number) {
         try {
-            return BigDecimal.valueOf(number.intValue());
+            return this.numberLib.integer(number);
         } catch (Exception e) {
             String message = String.format("integer(%s)", number);
             logError(message, e);
@@ -141,12 +133,8 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
 
     @Override
     public BigDecimal modulo(BigDecimal divident, BigDecimal divisor) {
-        if (divident == null || divisor == null) {
-            return null;
-        }
-
         try {
-            return BigDecimal.valueOf(divident.intValue() % divisor.intValue());
+            return this.numberLib.modulo(divident, divisor);
         } catch (Exception e) {
             String message = String.format("modulo(%s, %s)", divident, divisor);
             logError(message, e);
@@ -168,7 +156,7 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
     @Override
     public BigDecimal power(BigDecimal base, BigDecimal exponent) {
         try {
-            return ((DefaultNumericType)this.numericType).numericExponentiation(base, (int)exponent.intValue());
+            return ((DefaultNumericType)this.numericType).numericExponentiation(base, exponent.intValue());
         } catch (Exception e) {
             String message = String.format("power(%s, %s)", base, exponent);
             logError(message, e);
@@ -178,17 +166,7 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
 
     @Override
     public BigDecimal product(List factors) {
-        try {
-            BigDecimal product = BigDecimal.ONE;
-            for (Object o : factors) {
-                product = product.multiply((BigDecimal) o);
-            }
-            return product;
-        } catch (Exception e) {
-            String message = String.format("product(%s)", factors);
-            logError(message, e);
-            return null;
-        }
+        return this.feelLib.product(factors);
     }
 
     @Override
@@ -215,12 +193,12 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
 
     @Override
     public BigDecimal sum(List numbers) {
-        return feelLib.sum(numbers);
+        return this.feelLib.sum(numbers);
     }
 
     @Override
     public BigDecimal day(XMLGregorianCalendar date) {
-        return feelLib.day(date);
+        return this.feelLib.day(date);
     }
 
     //
@@ -230,14 +208,7 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
     @Override
     public XMLGregorianCalendar dayAdd(XMLGregorianCalendar dateTime, BigDecimal daysToAdd) {
         try {
-            XMLGregorianCalendar result = (XMLGregorianCalendar) dateTime.clone();
-            int days = daysToAdd.intValue();
-            boolean isPositive = days > 0;
-            Duration duration = null;
-            duration = DATA_TYPE_FACTORY.newDurationDayTime(
-                    isPositive, daysToAdd.abs().intValue(), 0, 0, 0);
-            result.add(duration);
-            return result;
+            return this.dateLib.dayAdd(dateTime, daysToAdd);
         } catch (Exception e) {
             String message = String.format("dayAdd(%s, %s)", dateTime, daysToAdd);
             logError(message, e);
@@ -248,8 +219,7 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
     @Override
     public BigDecimal dayDiff(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
         try {
-            long diff = durationBetween(dateTime1, dateTime2).getSeconds() / (60 * 60 * 24);
-            return BigDecimal.valueOf(diff);
+            return BigDecimal.valueOf(this.dateLib.dayDiff(dateTime1, dateTime2));
         } catch (Exception e) {
             String message = String.format("dayDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
@@ -259,32 +229,38 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
 
     @Override
     public XMLGregorianCalendar date(BigDecimal year, BigDecimal month, BigDecimal day) {
-        return FEELXMLGregorianCalendar.makeXMLCalendar(this.dateLib.temporalAccessor(String.format("%04d-%02d-%02d", year.intValue(), month.intValue(), day.intValue())));
-    }
-
-    @Override
-    public XMLGregorianCalendar dateTime(BigDecimal day, BigDecimal month, BigDecimal year, BigDecimal hour, BigDecimal minute, BigDecimal second) {
-        String literal = String.format("%04d-%02d-%02dT%02d:%02d:%02dZ",
-                year.intValue(), month.intValue(), day.intValue(), hour.intValue(), minute.intValue(), second.intValue());
-        return FEELXMLGregorianCalendar.makeXMLCalendar(this.dateTimeLib.temporalAccessor(literal));
-    }
-
-    @Override
-    public BigDecimal hour(XMLGregorianCalendar dateTime) {
         try {
-            return BigDecimal.valueOf(dateTime.getHour());
+            String literal = String.format("%04d-%02d-%02d", year.intValue(), month.intValue(), day.intValue());
+            return this.feelLib.date(literal);
         } catch (Exception e) {
-            String message = String.format("hour(%s)", dateTime);
+            String message = String.format("date(%s, %s, %s)", year, month, day);
             logError(message, e);
             return null;
         }
     }
 
     @Override
+    public XMLGregorianCalendar dateTime(BigDecimal day, BigDecimal month, BigDecimal year, BigDecimal hour, BigDecimal minute, BigDecimal second) {
+        try {
+            String literal = String.format("%04d-%02d-%02dT%02d:%02d:%02dZ",
+                    year.intValue(), month.intValue(), day.intValue(), hour.intValue(), minute.intValue(), second.intValue());
+            return this.feelLib.dateAndTime(literal);
+        } catch (Exception e) {
+            String message = String.format("dateTime(%s, %s, %s, %s, %s, %s)", day, month, year, hour, minute, second);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public BigDecimal hour(XMLGregorianCalendar dateTime) {
+        return this.feelLib.hour(dateTime);
+    }
+
+    @Override
     public BigDecimal hourDiff(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
         try {
-            long diff = durationBetween(dateTime1, dateTime2).getSeconds() / (60 * 60);
-            return BigDecimal.valueOf(diff);
+            return BigDecimal.valueOf(this.timeLib.hourDiff(dateTime1, dateTime2));
         } catch (Exception e) {
             String message = String.format("hourDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
@@ -294,74 +270,63 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
 
     @Override
     public BigDecimal minute(XMLGregorianCalendar time) {
-        if (time == null) {
-            return null;
-        }
-
-        try {
-            return BigDecimal.valueOf(time.getMinute());
-        } catch (Exception e) {
-            String message = String.format("minute(%s)", time);
-            logError(message, e);
-            return null;
-        }
+        return this.feelLib.minute(time);
     }
 
     @Override
     public BigDecimal second(XMLGregorianCalendar time) {
-        return feelLib.second(time);
+        return this.feelLib.second(time);
     }
 
     @Override
     public Duration timeOffset(XMLGregorianCalendar time) {
-        return feelLib.timeOffset(time);
+        return this.feelLib.timeOffset(time);
     }
 
     @Override
     public String timezone(XMLGregorianCalendar time) {
-        return feelLib.timezone(time);
+        return this.feelLib.timezone(time);
     }
 
     @Override
     public BigDecimal years(Duration duration) {
-        return feelLib.years(duration);
+        return this.feelLib.years(duration);
     }
 
     @Override
     public BigDecimal months(Duration duration) {
-        return feelLib.months(duration);
+        return this.feelLib.months(duration);
     }
 
     @Override
     public BigDecimal days(Duration duration) {
-        return feelLib.days(duration);
+        return this.feelLib.days(duration);
     }
 
     @Override
     public BigDecimal hours(Duration duration) {
-        return feelLib.hours(duration);
+        return this.feelLib.hours(duration);
     }
 
     @Override
     public BigDecimal minutes(Duration duration) {
-        return feelLib.minutes(duration);
+        return this.feelLib.minutes(duration);
     }
 
     @Override
     public BigDecimal seconds(Duration duration) {
-        return feelLib.seconds(duration);
+        return this.feelLib.seconds(duration);
     }
 
     @Override
     public String string(Object object) {
-        return feelLib.string(object);
+        return this.feelLib.string(object);
     }
 
     @Override
     public BigDecimal minutesDiff(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
         try {
-            long diff = durationBetween(dateTime1, dateTime2).getSeconds() / 60;
-            return BigDecimal.valueOf(diff);
+            return BigDecimal.valueOf(this.timeLib.minutesDiff(dateTime1, dateTime2));
         } catch (Exception e) {
             String message = String.format("minutesDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
@@ -371,20 +336,13 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
 
     @Override
     public BigDecimal month(XMLGregorianCalendar dateTime) {
-        return feelLib.month(dateTime);
+        return this.feelLib.month(dateTime);
     }
 
     @Override
     public XMLGregorianCalendar monthAdd(XMLGregorianCalendar dateTime, BigDecimal monthsToAdd) {
         try {
-            XMLGregorianCalendar result = (XMLGregorianCalendar) dateTime.clone();
-            int months = monthsToAdd.intValue();
-            boolean isPositive = months > 0;
-            Duration duration = null;
-            duration = DATA_TYPE_FACTORY.newDurationYearMonth(
-                    isPositive, 0, monthsToAdd.abs().intValue());
-            result.add(duration);
-            return result;
+            return this.dateLib.monthAdd(dateTime, monthsToAdd);
         } catch (Exception e) {
             String message = String.format("monthAdd(%s, %s)", dateTime, monthsToAdd);
             logError(message, e);
@@ -395,8 +353,7 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
     @Override
     public BigDecimal monthDiff(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
         try {
-            Period period = periodBetween(dateTime1, dateTime2);
-            return BigDecimal.valueOf(period.toTotalMonths());
+            return BigDecimal.valueOf(this.dateLib.monthDiff(dateTime1, dateTime2));
         } catch (Exception e) {
             String message = String.format("monthDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
@@ -407,7 +364,7 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
     @Override
     public XMLGregorianCalendar now() {
         try {
-            return FEELXMLGregorianCalendar.makeXMLCalendar(LocalDate.now());
+            return this.dateTimeLib.now();
         } catch (Exception e) {
             String message = "now()";
             logError(message, e);
@@ -418,9 +375,7 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
     @Override
     public XMLGregorianCalendar today() {
         try {
-            LocalDate ld = LocalDate.now();
-            XMLGregorianCalendar xmlGregorianCalendar = FEELXMLGregorianCalendar.makeXMLCalendar(ld);
-            return xmlGregorianCalendar;
+            return this.dateLib.today();
         } catch (Exception e) {
             String message = "today()";
             logError(message, e);
@@ -430,17 +385,8 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
 
     @Override
     public BigDecimal weekday(XMLGregorianCalendar dateTime) {
-        if (dateTime == null) {
-            return null;
-        }
-
         try {
-            int weekDay = dateTime.toGregorianCalendar().get(Calendar.DAY_OF_WEEK);
-            weekDay--;
-            if (weekDay == 0) {
-                weekDay = 7;
-            }
-            return BigDecimal.valueOf(weekDay);
+            return BigDecimal.valueOf(this.dateLib.weekday(dateTime));
         } catch (Exception e) {
             String message = String.format("weekday(%s)", dateTime);
             logError(message, e);
@@ -450,20 +396,13 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
 
     @Override
     public BigDecimal year(XMLGregorianCalendar dateTime) {
-        return feelLib.year(dateTime);
+        return this.feelLib.year(dateTime);
     }
 
     @Override
     public XMLGregorianCalendar yearAdd(XMLGregorianCalendar dateTime, BigDecimal yearsToAdd) {
         try {
-            XMLGregorianCalendar result = (XMLGregorianCalendar) dateTime.clone();
-            int months = yearsToAdd.intValue();
-            boolean isPositive = months > 0;
-            Duration duration = null;
-            duration = DATA_TYPE_FACTORY.newDurationYearMonth(
-                    isPositive, yearsToAdd.abs().intValue(), 0);
-            result.add(duration);
-            return result;
+            return this.dateLib.yearAdd(dateTime, yearsToAdd);
         } catch (Exception e) {
             String message = String.format("yearAdd(%s, %s)", dateTime, yearsToAdd);
             logError(message, e);
@@ -474,8 +413,7 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
     @Override
     public BigDecimal yearDiff(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
         try {
-            Period period = periodBetween(dateTime1, dateTime2);
-            return BigDecimal.valueOf(period.getYears());
+            return this.dateLib.yearDiff(dateTime1, dateTime2);
         } catch (Exception e) {
             String message = String.format("yearDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
@@ -485,7 +423,7 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
 
     @Override
     public List append(List list, Object element) {
-        return feelLib.append(list, element);
+        return this.feelLib.append(list, element);
     }
 
     @Override
@@ -496,11 +434,7 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
     @Override
     public String mid(String text, BigDecimal start, BigDecimal numChar) {
         try {
-            int endIndex = start.intValue() + numChar.intValue();
-            if (endIndex > text.length()) {
-                endIndex = text.length();
-            }
-            return text.substring(start.intValue(), endIndex);
+            return this.stringLib.mid(text, start, numChar);
         } catch (Exception e) {
             String message = String.format("mid(%s, %s, %s)", text, start, numChar);
             logError(message, e);
@@ -510,12 +444,8 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
 
     @Override
     public String left(String text, BigDecimal numChar) {
-        if (text == null) {
-            return null;
-        }
-
         try {
-            return text.substring(0, numChar.intValue());
+            return this.stringLib.left(text, numChar);
         } catch (Exception e) {
             String message = String.format("left(%s, %s)", text, numChar);
             logError(message, e);
@@ -526,7 +456,7 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
     @Override
     public String right(String text, BigDecimal numChar) {
         try {
-            return text.substring(text.length() - numChar.intValue());
+            return this.stringLib.right(text, numChar);
         } catch (Exception e) {
             String message = String.format("right(%s, %s)", text, numChar);
             logError(message, e);
@@ -537,8 +467,7 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
     @Override
     public String text(BigDecimal num, String formatText) {
         try {
-            DecimalFormat df = new DecimalFormat(formatText);
-            return df.format(num);
+            return this.stringLib.text(num, formatText);
         } catch (Exception e) {
             String message = String.format("text(%s, %s)", num, formatText);
             logError(message, e);
@@ -548,75 +477,68 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
 
     @Override
     public BigDecimal textOccurrences(String findText, String withinText) {
-        if (findText == null || withinText == null) {
+        try {
+            return BigDecimal.valueOf(this.stringLib.textOccurrences(findText, withinText));
+        } catch (Exception e) {
+            String message = String.format("textOccurrences(%s, %s)", findText, withinText);
+            logError(message, e);
             return null;
         }
-        int count = 0;
-        int i = 0;
-        while (i < withinText.length()) {
-            if (withinText.substring(i).startsWith(findText)) {
-                count++;
-                i += findText.length();
-            } else {
-                i++;
-            }
-        }
-        return BigDecimal.valueOf(count);
     }
 
     @Override
     public Boolean contains(String text, String substring) {
-        return feelLib.contains(text, substring);
+        return this.feelLib.contains(text, substring);
     }
 
     @Override
     public Boolean startsWith(String text, String prefix) {
-        return feelLib.startsWith(text, prefix);
+        return this.feelLib.startsWith(text, prefix);
     }
 
     @Override
     public Boolean endsWith(String text, String suffix) {
-        return feelLib.endsWith(text, suffix);
+        return this.feelLib.endsWith(text, suffix);
     }
 
     @Override
     public XMLGregorianCalendar date(String literal) {
-        return feelLib.date(literal);
+        return this.feelLib.date(literal);
     }
 
     @Override
     public XMLGregorianCalendar date(XMLGregorianCalendar date) {
-        return feelLib.date(date);
+        return this.feelLib.date(date);
     }
 
     @Override
     public XMLGregorianCalendar time(String literal) {
-        return feelLib.time(literal);
+        return this.feelLib.time(literal);
     }
 
     @Override
     public XMLGregorianCalendar time(XMLGregorianCalendar dateTime) {
-        return feelLib.time(dateTime);
+        return this.feelLib.time(dateTime);
     }
 
     @Override
     public XMLGregorianCalendar time(BigDecimal hour, BigDecimal minute, BigDecimal second, Duration offset) {
-        return feelLib.time(hour, minute, second, offset);
+        return this.feelLib.time(hour, minute, second, offset);
     }
 
     @Override
     public XMLGregorianCalendar dateAndTime(String literal) {
-        return feelLib.dateAndTime(literal);
+        return this.feelLib.dateAndTime(literal);
     }
 
     @Override
     public XMLGregorianCalendar dateAndTime(XMLGregorianCalendar date, XMLGregorianCalendar time) {
-        return feelLib.dateAndTime(date, time);
+        return this.feelLib.dateAndTime(date, time);
     }
 
     @Override
     public Duration duration(String literal) {
-        return feelLib.duration(literal);
+        return this.feelLib.duration(literal);
     }
 
     //
@@ -675,34 +597,22 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
 
     @Override
     public BigDecimal avg(List list) {
-        try {
-            return feelLib.mean(list);
-        } catch (Exception e) {
-            String message = String.format("avg(%s)", list);
-            logError(message, e);
-            return null;
-        }
+        return this.feelLib.mean(list);
     }
 
     @Override
     public BigDecimal max(List numbers) {
-        return feelLib.max(numbers);
+        return this.feelLib.max(numbers);
     }
 
     @Override
     public BigDecimal median(List numbers) {
-        try {
-            return feelLib.median(numbers);
-        } catch (Exception e) {
-            String message = String.format("median(%s)", numbers);
-            logError(message, e);
-            return null;
-        }
+        return this.feelLib.median(numbers);
     }
 
     @Override
     public BigDecimal min(List numbers) {
-        return feelLib.min(numbers);
+        return this.feelLib.min(numbers);
     }
 
     @Override
@@ -776,83 +686,36 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
 
     @Override
     public BigDecimal number(String text) {
-        return feelLib.number(text);
+        return this.feelLib.number(text);
     }
 
     @Override
     public Boolean and(List list) {
-        return feelLib.and(list);
+        return this.feelLib.and(list);
     }
 
     @Override
     public Boolean or(List list) {
-        return feelLib.or(list);
+        return this.feelLib.or(list);
     }
 
     @Override
     public Boolean listContains(List list, Object value) {
-        return feelLib.listContains(list, value);
+        return this.feelLib.listContains(list, value);
     }
 
     @Override
     public XMLGregorianCalendar toDate(Object object) {
-        return feelLib.toDate(object);
+        return this.feelLib.toDate(object);
     }
 
     @Override
     public XMLGregorianCalendar toTime(Object object) {
-        return feelLib.toTime(object);
+        return this.feelLib.toTime(object);
     }
 
     @Override
     public BigDecimal len(String text) {
-        return text == null ? null : number(String.format("%d", text.length()));
-    }
-
-    private Period periodBetween(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
-        LocalDate localDate1 = LocalDate.of(dateTime1.getYear(), dateTime1.getMonth(), dateTime1.getDay());
-        LocalDate localDate2 = LocalDate.of(dateTime2.getYear(), dateTime2.getMonth(), dateTime2.getDay());
-        return Period.between(localDate1, localDate2);
-    }
-
-    private java.time.Duration durationBetween(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
-        if (isDate(dateTime1) && isDate(dateTime2)) {
-            LocalDateTime localDateTime1 = LocalDateTime.of(
-                    dateTime1.getYear(), dateTime1.getMonth(), dateTime1.getDay(),
-                    0, 0, 0);
-            LocalDateTime localDateTime2 = LocalDateTime.of(
-                    dateTime2.getYear(), dateTime2.getMonth(), dateTime2.getDay(),
-                    0, 0, 0);
-            return java.time.Duration.between(localDateTime1, localDateTime2);
-
-        } else if (isTime(dateTime1) && isTime(dateTime2)) {
-            LocalDateTime localDateTime1 = LocalDateTime.of(1972, 1, 1, dateTime1.getHour(), dateTime1.getMinute(), dateTime1.getSecond());
-            LocalDateTime localDateTime2 = LocalDateTime.of(1972, 1, 1, dateTime2.getHour(), dateTime2.getMinute(), dateTime2.getSecond());
-            return java.time.Duration.between(localDateTime1, localDateTime2);
-        } else if (isDateTime(dateTime1) && isDateTime(dateTime2)) {
-            LocalDateTime localDateTime1 = LocalDateTime.of(
-                    dateTime1.getYear(), dateTime1.getMonth(), dateTime1.getDay(),
-                    dateTime1.getHour(), dateTime1.getMinute(), dateTime1.getSecond());
-            LocalDateTime localDateTime2 = LocalDateTime.of(
-                    dateTime2.getYear(), dateTime2.getMonth(), dateTime2.getDay(),
-                    dateTime2.getHour(), dateTime2.getMinute(), dateTime2.getSecond());
-            return java.time.Duration.between(localDateTime1, localDateTime2);
-        } else {
-            String message = String.format("durationBetween(%s, %s)", dateTime1, dateTime2);
-            logError(message, null);
-            return null;
-        }
-    }
-
-    private boolean isDate(XMLGregorianCalendar dateTime) {
-        return dateTime.getYear() > 0 && dateTime.getHour() < 0;
-    }
-
-    private boolean isTime(XMLGregorianCalendar dateTime1) {
-        return dateTime1.getYear() < 0 && dateTime1.getHour() > 0;
-    }
-
-    private boolean isDateTime(XMLGregorianCalendar dateTime1) {
-        return dateTime1.getYear() > 0 && dateTime1.getHour() > 0;
+        return this.feelLib.stringLength(text);
     }
 }
