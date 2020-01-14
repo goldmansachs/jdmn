@@ -21,10 +21,10 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-public class DefaultTimeType extends DefaultXMLCalendarType implements TimeType<XMLGregorianCalendar, Duration> {
+public class DefaultSignavioTimeType extends DefaultSignavioXMLCalendarType implements TimeType<XMLGregorianCalendar, Duration> {
     private final BooleanType booleanType;
 
-    public DefaultTimeType(Logger logger, DatatypeFactory datatypeFactory) {
+    public DefaultSignavioTimeType(Logger logger, DatatypeFactory datatypeFactory) {
         super(logger, datatypeFactory);
         this.booleanType = new DefaultBooleanType(logger);
     }
