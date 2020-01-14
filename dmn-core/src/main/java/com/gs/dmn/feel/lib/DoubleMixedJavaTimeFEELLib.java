@@ -21,18 +21,16 @@ import com.gs.dmn.feel.lib.type.numeric.DoubleNumericLib;
 import com.gs.dmn.feel.lib.type.numeric.DoubleNumericType;
 import com.gs.dmn.feel.lib.type.string.DefaultStringLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
-import com.gs.dmn.feel.lib.type.time.mixed.LocalDateType;
-import com.gs.dmn.feel.lib.type.time.mixed.OffsetTimeType;
-import com.gs.dmn.feel.lib.type.time.mixed.ZonedDateTimeType;
-import com.gs.dmn.feel.lib.type.time.xml.*;
+import com.gs.dmn.feel.lib.type.time.mixed.*;
+import com.gs.dmn.feel.lib.type.time.xml.DoubleDefaultDurationType;
 import com.gs.dmn.runtime.LambdaExpression;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
-import java.time.*;
+import java.time.LocalDate;
+import java.time.OffsetTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> implements StandardFEELLib<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> {
@@ -41,10 +39,10 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     private final DoubleNumericLib numberLib = new DoubleNumericLib();
     private final DefaultStringLib stringLib = new DefaultStringLib();
     private final DefaultBooleanLib booleanLib = new DefaultBooleanLib();
-    private final DefaultDateLib dateLib = new DefaultDateLib();
-    private final DefaultTimeLib timeLib = new DefaultTimeLib();
-    private final DefaultDateTimeLib dateTimeLib = new DefaultDateTimeLib();
-    private final DefaultDurationLib durationLib = new DefaultDurationLib();
+    private final LocalDateLib dateLib = new LocalDateLib();
+    private final OffsetTimeLib timeLib = new OffsetTimeLib(DATA_TYPE_FACTORY);
+    private final ZonedDateTimeLib dateTimeLib = new ZonedDateTimeLib();
+    private final DefaultDurationLib durationLib = new DefaultDurationLib(DATA_TYPE_FACTORY);
     private final DefaultListLib listLib = new DefaultListLib();
 
     public DoubleMixedJavaTimeFEELLib() {
@@ -88,23 +86,19 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
     @Override
     public String string(Object from) {
-        return this.stringLib.string(from);
+        try {
+            return this.stringLib.string(from);
+        } catch (Exception e) {
+            String message = String.format("string(%s)", from);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public LocalDate date(String literal) {
         try {
-            if (literal == null) {
-                return null;
-            }
-
-            if (this.dateTimeLib.hasTime(literal) || this.dateTimeLib.hasZone(literal)) {
-                String message = String.format("date(%s)", literal);
-                logError(message);
-                return null;
-            } else {
-                return this.dateTimeLib.makeLocalDate(literal);
-            }
+            return this.dateLib.date(literal);
         } catch (Exception e) {
             String message = String.format("date(%s)", literal);
             logError(message, e);
@@ -114,35 +108,39 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
     @Override
     public LocalDate date(Double year, Double month, Double day) {
-        if (year == null || month == null || day == null) {
+        try {
+            return this.dateLib.date(year, month, day);
+        } catch (Exception e) {
+            String message = String.format("date(%s, %s, %s)", year, month, day);
+            logError(message, e);
             return null;
         }
-
-        return LocalDate.of(year.intValue(), month.intValue(), day.intValue());
     }
 
     @Override
     public LocalDate date(ZonedDateTime from) {
-        if (from == null) {
+        try {
+            return this.dateLib.date(from);
+        } catch (Exception e) {
+            String message = String.format("date(%s)", from);
+            logError(message, e);
             return null;
         }
-
-        return from.toLocalDate();
     }
     public LocalDate date(LocalDate from) {
-        if (from == null) {
+        try {
+            return this.dateLib.date(from);
+        } catch (Exception e) {
+            String message = String.format("date(%s)", from);
+            logError(message, e);
             return null;
         }
-        return from;
     }
 
     @Override
     public OffsetTime time(String literal) {
-        if (literal == null) {
-            return null;
-        }
         try {
-            return this.dateTimeLib.makeOffsetTime(literal);
+            return this.timeLib.time(literal);
         } catch (Exception e) {
             String message = String.format("time(%s)", literal);
             logError(message, e);
@@ -152,31 +150,8 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
     @Override
     public OffsetTime time(Double hour, Double minute, Double second, Duration offset) {
-        if (hour == null || minute == null || second == null) {
-            return null;
-        }
-
         try {
-            if (offset != null) {
-                // Make ZoneOffset
-                String sign = offset.getSign() < 0 ? "-" : "+";
-                String offsetString = String.format("%s%02d:%02d:%02d", sign, (long) offset.getHours(), (long) offset.getMinutes(), offset.getSeconds());
-                ZoneOffset zoneOffset = ZoneOffset.of(offsetString);
-
-                // Make OffsetTime and add nanos
-                OffsetTime offsetTime = OffsetTime.of(hour.intValue(), minute.intValue(), second.intValue(), 0, zoneOffset);
-                Double secondFraction = second - second.intValue();
-                double nanos = secondFraction * 1E9;
-                offsetTime = offsetTime.plusNanos((long) nanos);
-                return offsetTime;
-            } else {
-                // Make OffsetTime and add nanos
-                OffsetTime offsetTime = OffsetTime.of(hour.intValue(), minute.intValue(), second.intValue(), 0, ZoneOffset.UTC);
-                Double secondFraction = second - second.intValue();
-                double nanos = secondFraction * 1E9;
-                offsetTime = offsetTime.plusNanos((long) nanos);
-                return offsetTime;
-            }
+            return this.timeLib.time(hour, minute, second, offset);
         } catch (Exception e) {
             String message = String.format("time(%s, %s, %s, %s)", hour, minute, second, offset);
             logError(message, e);
@@ -186,49 +161,48 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
     @Override
     public OffsetTime time(ZonedDateTime from) {
-        if (from == null) {
+        try {
+            return this.timeLib.time(from);
+        } catch (Exception e) {
+            String message = String.format("time(%s)", from);
+            logError(message, e);
             return null;
         }
-        return from.toOffsetDateTime().toOffsetTime();
     }
     public OffsetTime time(LocalDate from) {
-        if (from == null) {
+        try {
+            return this.timeLib.time(from);
+        } catch (Exception e) {
+            String message = String.format("time(%s)", from);
+            logError(message, e);
             return null;
         }
-        return from.atStartOfDay(ZoneOffset.UTC).toOffsetDateTime().toOffsetTime();
     }
     public OffsetTime time(OffsetTime from) {
-        if (from == null) {
+        try {
+            return this.timeLib.time(from);
+        } catch (Exception e) {
+            String message = String.format("time(%s)", from);
+            logError(message, e);
             return null;
         }
-        return from;
     }
 
     @Override
     public ZonedDateTime dateAndTime(String from) {
-        if (from == null) {
+        try {
+            return this.dateTimeLib.dateAndTime(from);
+        } catch (Exception e) {
+            String message = String.format("dateAndTime(%s)", from);
+            logError(message, e);
             return null;
         }
-        if (this.dateTimeLib.hasZone(from) && this.dateTimeLib.hasOffset(from)) {
-            return null;
-        }
-        if (this.dateTimeLib.invalidYear(from)) {
-            return null;
-        }
-
-        return makeDateTime(from);
     }
 
     @Override
     public ZonedDateTime dateAndTime(LocalDate date, OffsetTime time) {
-        if (date == null || time == null) {
-            return null;
-        }
-
         try {
-            ZoneOffset offset = time.getOffset();
-            LocalDateTime localDateTime = LocalDateTime.of(date, time.toLocalTime());
-            return ZonedDateTime.ofInstant(localDateTime, offset, ZoneId.of(offset.getId()));
+            return this.dateTimeLib.dateAndTime(date, time);
         } catch (Exception e) {
             String message = String.format("dateAndTime(%s, %s)", date, time);
             logError(message, e);
@@ -236,27 +210,19 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         }
     }
     public ZonedDateTime dateAndTime(Object date, OffsetTime time) {
-        if (date == null || time == null) {
-            return null;
-        }
-
-        if (date instanceof ZonedDateTime) {
-            return dateAndTime(((ZonedDateTime) date).toLocalDate(), time);
-        } else {
+        try {
+            return this.dateTimeLib.dateAndTime(date, time);
+        } catch (Exception e) {
             String message = String.format("dateAndTime(%s, %s)", date, time);
-            logError(message);
+            logError(message, e);
             return null;
         }
     }
 
     @Override
     public Duration duration(String from) {
-        if (StringUtils.isBlank(from)) {
-            return null;
-        }
-
         try {
-            return DATA_TYPE_FACTORY.newDuration(from);
+            return this.durationLib.duration(from);
         } catch (Exception e) {
             String message = String.format("duration(%s)", from);
             logError(message, e);
@@ -266,12 +232,8 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
     @Override
     public Duration yearsAndMonthsDuration(ZonedDateTime from, ZonedDateTime to) {
-        if (from == null || to == null) {
-            return null;
-        }
-
         try {
-            return this.dateTimeLib.toYearsMonthDuration(DATA_TYPE_FACTORY, toDate(to), toDate(from));
+            return this.durationLib.yearsAndMonthsDuration(from, to);
         } catch (Exception e) {
             String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
             logError(message, e);
@@ -280,12 +242,8 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     }
 
     public Duration yearsAndMonthsDuration(LocalDate from, LocalDate to) {
-        if (from == null || to == null) {
-            return null;
-        }
-
         try {
-            return this.dateTimeLib.toYearsMonthDuration(DATA_TYPE_FACTORY, to, from);
+            return this.durationLib.yearsAndMonthsDuration(from, to);
         } catch (Exception e) {
             String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
             logError(message, e);
@@ -294,12 +252,8 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     }
 
     public Duration yearsAndMonthsDuration(ZonedDateTime from, LocalDate to) {
-        if (from == null || to == null) {
-            return null;
-        }
-
         try {
-            return this.dateTimeLib.toYearsMonthDuration(DATA_TYPE_FACTORY, to, toDate(from));
+            return this.durationLib.yearsAndMonthsDuration(from, to);
         } catch (Exception e) {
             String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
             logError(message, e);
@@ -308,12 +262,8 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     }
 
     public Duration yearsAndMonthsDuration(LocalDate from, ZonedDateTime to) {
-        if (from == null || to == null) {
-            return null;
-        }
-
         try {
-            return this.dateTimeLib.toYearsMonthDuration(DATA_TYPE_FACTORY, toDate(to), from);
+            return this.durationLib.yearsAndMonthsDuration(from, to);
         } catch (Exception e) {
             String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
             logError(message, e);
@@ -321,34 +271,14 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         }
     }
 
-    private ZonedDateTime makeDateTime(String literal) {
-        if (StringUtils.isBlank(literal)) {
-            return null;
-        }
-
-        try {
-            return this.dateTimeLib.makeDateTime(literal);
-        } catch (Exception e) {
-            String message = String.format("makeDateTime(%s)", literal);
-            logError(message, e);
-            return null;
-        }
-    }
-
     @Override
     public LocalDate toDate(Object object) {
-        if (object instanceof ZonedDateTime) {
-            return date((ZonedDateTime) object);
-        }
-        return (LocalDate) object;
+        return this.dateLib.toDate(object);
     }
 
     @Override
     public OffsetTime toTime(Object object) {
-        if (object instanceof ZonedDateTime) {
-            return time((ZonedDateTime) object);
-        }
-        return (OffsetTime) object;
+        return this.timeLib.toTime(object);
     }
 
     //
@@ -370,7 +300,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         try {
             return this.numberLib.floor(number);
         } catch (Exception e) {
-            String message = String.format("fllor(%s)", number);
+            String message = String.format("floor(%s)", number);
             logError(message, e);
             return null;
         }
@@ -469,52 +399,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         try {
             return this.numberLib.even(number);
         } catch (Exception e) {
-            String message = String.format("odd(%s)", number);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public Double min(Object... args) {
-        if (args == null || args.length < 1) {
-            return null;
-        }
-
-        try {
-            return min(Arrays.asList(args));
-        } catch (Exception e) {
-            String message = String.format("min(%s)", args);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public Double max(Object... args) {
-        if (args == null || args.length < 1) {
-            return null;
-        }
-
-        try {
-            return max(Arrays.asList(args));
-        } catch (Exception e) {
-            String message = String.format("max(%s)", args);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public Double sum(Object... args) {
-        if (args == null || args.length < 1) {
-            return null;
-        }
-
-        try {
-            return sum(Arrays.asList(args));
-        } catch (Exception e) {
-            String message = String.format("sum(%s)", args);
+            String message = String.format("even(%s)", number);
             logError(message, e);
             return null;
         }
@@ -533,12 +418,8 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
 
     @Override
     public Double mean(Object... args) {
-        if (args == null || args.length < 1) {
-            return null;
-        }
-
         try {
-            return mean(Arrays.asList(args));
+            return this.numberLib.mean(args);
         } catch (Exception e) {
             String message = String.format("mean(%s)", args);
             logError(message, e);
@@ -551,52 +432,112 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     //
     @Override
     public Boolean contains(String string, String match) {
-        return this.stringLib.contains(string, match);
+        try {
+            return this.stringLib.contains(string, match);
+        } catch (Exception e) {
+            String message = String.format("contains(%s, %s)", string, match);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public Boolean startsWith(String string, String match) {
-        return this.stringLib.startsWith(string, match);
+        try {
+            return this.stringLib.startsWith(string, match);
+        } catch (Exception e) {
+            String message = String.format("startsWith(%s, %s)", string, match);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public Boolean endsWith(String string, String match) {
-        return this.stringLib.endsWith(string, match);
+        try {
+            return this.stringLib.endsWith(string, match);
+        } catch (Exception e) {
+            String message = String.format("endsWith(%s, %s)", string, match);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public Double stringLength(String string) {
-        return string == null ? null : Double.valueOf(this.stringLib.stringLength(string));
+        try {
+            return string == null ? null : Double.valueOf(this.stringLib.stringLength(string));
+        } catch (Exception e) {
+            String message = String.format("stringLength(%s)", string);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public String substring(String string, Double startPosition) {
-        return this.stringLib.substring(string, startPosition);
+        try {
+            return this.stringLib.substring(string, startPosition);
+        } catch (Exception e) {
+            String message = String.format("substring(%s, %s)", string, startPosition);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public String substring(String string, Double startPosition, Double length) {
-        return this.stringLib.substring(string, startPosition, length);
+        try {
+            return this.stringLib.substring(string, startPosition, length);
+        } catch (Exception e) {
+            String message = String.format("substring(%s, %s, %s)", string, startPosition, length);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public String upperCase(String string) {
-        return this.stringLib.upperCase(string);
+        try {
+            return this.stringLib.upperCase(string);
+        } catch (Exception e) {
+            String message = String.format("upperCase(%s)", string);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public String lowerCase(String string) {
-        return this.stringLib.lowerCase(string);
+        try {
+            return this.stringLib.lowerCase(string);
+        } catch (Exception e) {
+            String message = String.format("lowerCase(%s)", string);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public String substringBefore(String string, String match) {
-        return this.stringLib.substringBefore(string, match);
+        try {
+            return this.stringLib.substringBefore(string, match);
+        } catch (Exception e) {
+            String message = String.format("substringBefore(%s, %s)", string, match);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public String substringAfter(String string, String match) {
-        return this.stringLib.substringAfter(string, match);
+        try {
+            return this.stringLib.substringAfter(string, match);
+        } catch (Exception e) {
+            String message = String.format("substringAfter(%s, %s)", string, match);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
@@ -748,12 +689,8 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     // Date functions
     //
     public Double year(LocalDate date) {
-        if (date == null) {
-            return null;
-        }
-
         try {
-            return Double.valueOf(date.getYear());
+            return Double.valueOf(this.dateLib.year(date));
         } catch (Exception e) {
             String message = String.format("year(%s)", date);
             logError(message, e);
@@ -761,12 +698,8 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         }
     }
     public Double year(ZonedDateTime dateTime) {
-        if (dateTime == null) {
-            return null;
-        }
-
         try {
-            return Double.valueOf(dateTime.getYear());
+            return Double.valueOf(this.dateLib.year(dateTime));
         } catch (Exception e) {
             String message = String.format("year(%s)", dateTime);
             logError(message, e);
@@ -775,12 +708,8 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     }
 
     public Double month(LocalDate date) {
-        if (date == null) {
-            return null;
-        }
-
         try {
-            return Double.valueOf(date.getMonth().getValue());
+            return Double.valueOf(this.dateLib.month(date));
         } catch (Exception e) {
             String message = String.format("month(%s)", date);
             logError(message, e);
@@ -788,12 +717,8 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         }
     }
     public Double month(ZonedDateTime dateTime) {
-        if (dateTime == null) {
-            return null;
-        }
-
         try {
-            return Double.valueOf(dateTime.getMonth().getValue());
+            return Double.valueOf(this.dateLib.month(dateTime));
         } catch (Exception e) {
             String message = String.format("month(%s)", dateTime);
             logError(message, e);
@@ -802,12 +727,8 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     }
 
     public Double day(LocalDate date) {
-        if (date == null) {
-            return null;
-        }
-
         try {
-            return Double.valueOf(date.getDayOfMonth());
+            return Double.valueOf(this.dateLib.day(date));
         } catch (Exception e) {
             String message = String.format("day(%s)", date);
             logError(message, e);
@@ -815,12 +736,8 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         }
     }
     public Double day(ZonedDateTime dateTime) {
-        if (dateTime == null) {
-            return null;
-        }
-
         try {
-            return Double.valueOf(dateTime.getDayOfMonth());
+            return Double.valueOf(this.dateLib.day(dateTime));
         } catch (Exception e) {
             String message = String.format("day(%s)", dateTime);
             logError(message, e);
@@ -828,27 +745,19 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         }
     }
     public Double weekday(LocalDate date) {
-        if (date == null) {
-            return null;
-        }
-
         try {
-            return Double.valueOf(date.getDayOfWeek().getValue());
+            return Double.valueOf(this.dateLib.weekday(date));
         } catch (Exception e) {
-            String message = String.format("day(%s)", date);
+            String message = String.format("weekday(%s)", date);
             logError(message, e);
             return null;
         }
     }
     public Double weekday(ZonedDateTime dateTime) {
-        if (dateTime == null) {
-            return null;
-        }
-
         try {
-            return Double.valueOf(dateTime.getDayOfWeek().getValue());
+            return Double.valueOf(this.dateLib.weekday(dateTime));
         } catch (Exception e) {
-            String message = String.format("day(%s)", dateTime);
+            String message = String.format("weekday(%s)", dateTime);
             logError(message, e);
             return null;
         }
@@ -858,96 +767,161 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     // Time functions
     //
     public Double hour(OffsetTime time) {
-        return Double.valueOf(time.getHour());
+        try {
+            return Double.valueOf(this.timeLib.hour(time));
+        } catch (Exception e) {
+            String message = String.format("hour(%s)", time);
+            logError(message, e);
+            return null;
+        }
     }
     public Double hour(ZonedDateTime dateTime) {
-        return Double.valueOf(dateTime.getHour());
+        try {
+            return Double.valueOf(this.timeLib.hour(dateTime));
+        } catch (Exception e) {
+            String message = String.format("hour(%s)", dateTime);
+            logError(message, e);
+            return null;
+        }
     }
 
     public Double minute(OffsetTime time) {
-        return Double.valueOf(time.getMinute());
+        try {
+            return Double.valueOf(this.timeLib.minute(time));
+        } catch (Exception e) {
+            String message = String.format("minute(%s)", time);
+            logError(message, e);
+            return null;
+        }
     }
     public Double minute(ZonedDateTime dateTime) {
-        return Double.valueOf(dateTime.getMinute());
+        try {
+            return Double.valueOf(this.timeLib.minute(dateTime));
+        } catch (Exception e) {
+            String message = String.format("minute(%s)", dateTime);
+            logError(message, e);
+            return null;
+        }
     }
 
     public Double second(OffsetTime time) {
-        return Double.valueOf(time.getSecond());
+        try {
+            return Double.valueOf(this.timeLib.second(time));
+        } catch (Exception e) {
+            String message = String.format("second(%s)", time);
+            logError(message, e);
+            return null;
+        }
     }
     public Double second(ZonedDateTime dateTime) {
-        return Double.valueOf(dateTime.getSecond());
+        try {
+            return Double.valueOf(this.timeLib.second(dateTime));
+        } catch (Exception e) {
+            String message = String.format("second(%s)", dateTime);
+            logError(message, e);
+            return null;
+        }
     }
 
     public Duration timeOffset(OffsetTime time) {
-        // timezone offset in seconds
-        int secondsOffset = time.getOffset().getTotalSeconds();
-        return computeDuration(secondsOffset);
+        try {
+            return this.timeLib.timeOffset(time);
+        } catch (Exception e) {
+            String message = String.format("timeOffset(%s)", time);
+            logError(message, e);
+            return null;
+        }
     }
     public Duration timeOffset(ZonedDateTime dateTime) {
-        // timezone offset in seconds
-        int secondsOffset = dateTime.getOffset().getTotalSeconds();
-        return computeDuration(secondsOffset);
+        try {
+            return this.timeLib.timeOffset(dateTime);
+        } catch (Exception e) {
+            String message = String.format("timeOffset(%s)", dateTime);
+            logError(message, e);
+            return null;
+        }
     }
 
     public String timezone(OffsetTime time) {
-        return time.getOffset().getId();
+        try {
+            return this.timeLib.timezone(time);
+        } catch (Exception e) {
+            String message = String.format("timezone(%s)", time);
+            logError(message, e);
+            return null;
+        }
     }
     public String timezone(ZonedDateTime dateTime) {
-        return dateTime.getZone().getId();
-    }
-    private Duration computeDuration(int secondsOffset) {
-        return DATA_TYPE_FACTORY.newDuration((long) secondsOffset * 1000);
+        try {
+            return this.timeLib.timezone(dateTime);
+        } catch (Exception e) {
+            String message = String.format("timezone(%s)", dateTime);
+            logError(message, e);
+            return null;
+        }
     }
 
     //
     // Duration functions
     //
     public Double years(Duration duration) {
-        if (duration == null) {
+        try {
+            return Double.valueOf(this.durationLib.years(duration));
+        } catch (Exception e) {
+            String message = String.format("years(%s)", duration);
+            logError(message, e);
             return null;
         }
-
-        return Double.valueOf(duration.getYears());
     }
 
     public Double months(Duration duration) {
-        if (duration == null) {
+        try {
+            return Double.valueOf(this.durationLib.months(duration));
+        } catch (Exception e) {
+            String message = String.format("months(%s)", duration);
+            logError(message, e);
             return null;
         }
-
-        return Double.valueOf(duration.getMonths());
     }
 
     public Double days(Duration duration) {
-        if (duration == null) {
+        try {
+            return Double.valueOf(this.durationLib.days(duration));
+        } catch (Exception e) {
+            String message = String.format("days(%s)", duration);
+            logError(message, e);
             return null;
         }
-
-        return Double.valueOf(duration.getDays());
     }
 
     public Double hours(Duration duration) {
-        if (duration == null) {
+        try {
+            return Double.valueOf(this.durationLib.hours(duration));
+        } catch (Exception e) {
+            String message = String.format("hours(%s)", duration);
+            logError(message, e);
             return null;
         }
-
-        return Double.valueOf(duration.getHours());
     }
 
     public Double minutes(Duration duration) {
-        if (duration == null) {
+        try {
+            return Double.valueOf(this.durationLib.minutes(duration));
+        } catch (Exception e) {
+            String message = String.format("minutes(%s)", duration);
+            logError(message, e);
             return null;
         }
-
-        return Double.valueOf(duration.getMinutes());
     }
 
     public Double seconds(Duration duration) {
-        if (duration == null) {
+        try {
+            return Double.valueOf(this.durationLib.seconds(duration));
+        } catch (Exception e) {
+            String message = String.format("seconds(%s)", duration);
+            logError(message, e);
             return null;
         }
-
-        return Double.valueOf(duration.getSeconds());
     }
 
     //
@@ -997,12 +971,33 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         }
     }
 
+    public Double min(Object... args) {
+        try {
+            return this.numberLib.min(args);
+        } catch (Exception e) {
+            String message = String.format("min(%s)", args);
+            logError(message, e);
+            return null;
+        }
+    }
+
     @Override
     public Double max(List list) {
         try {
             return this.numberLib.max(list);
         } catch (Exception e) {
             String message = String.format("max(%s)", list);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Double max(Object... args) {
+        try {
+            return this.numberLib.max(args);
+        } catch (Exception e) {
+            String message = String.format("max(%s)", args);
             logError(message, e);
             return null;
         }
@@ -1020,11 +1015,22 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     }
 
     @Override
+    public Double sum(Object... args) {
+        try {
+            return this.numberLib.sum(args);
+        } catch (Exception e) {
+            String message = String.format("sum(%s)", args);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
     public List sublist(List list, Double startPosition) {
         try {
             return this.listLib.sublist(list, startPosition.intValue());
         } catch (Exception e) {
-            String message = String.format("min(%s)", list);
+            String message = String.format("sublist(%s)", list);
             logError(message, e);
             return null;
         }
@@ -1035,7 +1041,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         try {
             return this.listLib.sublist(list, startPosition.intValue(), length.intValue());
         } catch (Exception e) {
-            String message = String.format("min(%s)", list);
+            String message = String.format("sublist(%s, %s, %s)", list, startPosition, length);
             logError(message, e);
             return null;
         }
@@ -1068,7 +1074,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         try {
             return this.listLib.remove(list, ((Number)position).intValue());
         } catch (Exception e) {
-            String message = String.format("min(%s)", list);
+            String message = String.format("remove(%s)", list);
             logError(message, e);
             return null;
         }
@@ -1144,15 +1150,11 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     }
 
     @Override
-    public Double product(Object... numbers) {
-        if (numbers == null || numbers.length < 1) {
-            return null;
-        }
-
+    public Double product(Object... args) {
         try {
-            return product(Arrays.asList(numbers));
+            return this.numberLib.product(args);
         } catch (Exception e) {
-            String message = String.format("sum(%s)", numbers);
+            String message = String.format("product(%s)", args);
             logError(message, e);
             return null;
         }
@@ -1170,15 +1172,11 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     }
 
     @Override
-    public Double median(Object... numbers) {
-        if (numbers == null || numbers.length < 1) {
-            return null;
-        }
-
+    public Double median(Object... args) {
         try {
-            return median(Arrays.asList(numbers));
+            return this.numberLib.median(args);
         } catch (Exception e) {
-            String message = String.format("median(%s)", numbers);
+            String message = String.format("median(%s)", args);
             logError(message, e);
             return null;
         }
@@ -1196,15 +1194,11 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     }
 
     @Override
-    public Double stddev(Object... numbers) {
-        if (numbers == null || numbers.length < 1) {
-            return null;
-        }
-
+    public Double stddev(Object... args) {
         try {
-            return stddev(Arrays.asList(numbers));
+            return this.numberLib.stddev(args);
         } catch (Exception e) {
-            String message = String.format("stddev(%s)", numbers);
+            String message = String.format("stddev(%s)", args);
             logError(message, e);
             return null;
         }
@@ -1222,15 +1216,11 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     }
 
     @Override
-    public List mode(Object... numbers) {
-        if (numbers == null) {
-            return null;
-        }
-
+    public List mode(Object... args) {
         try {
-            return mode(Arrays.asList(numbers));
+            return this.numberLib.mode(args);
         } catch (Exception e) {
-            String message = String.format("mode(%s)", numbers);
+            String message = String.format("mode(%s)", args);
             logError(message, e);
             return null;
         }
@@ -1251,7 +1241,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         try {
             return this.listLib.sort(list, comparator);
         } catch (Exception e) {
-            String message = String.format("min(%s)", list);
+            String message = String.format("sort(%s)", list);
             logError(message, e);
             return null;
         }

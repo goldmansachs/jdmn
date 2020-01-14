@@ -98,7 +98,7 @@ public class DoubleNumericLib {
             return null;
         }
 
-        return dividend - divisor*floor(dividend/divisor);
+        return dividend - divisor * floor(dividend/divisor);
     }
 
     public Double sqrt(Double number) {
@@ -171,6 +171,14 @@ public class DoubleNumericLib {
         return result;
     }
 
+    public Double min(Object... args) {
+        if (args == null || args.length < 1) {
+            return null;
+        }
+
+        return min(Arrays.asList(args));
+    }
+
     public Double max(List list) {
         if (list == null || list.isEmpty()) {
             return null;
@@ -186,6 +194,14 @@ public class DoubleNumericLib {
         return result;
     }
 
+    public Double max(Object... args) {
+        if (args == null || args.length < 1) {
+            return null;
+        }
+
+        return max(Arrays.asList(args));
+    }
+
     public Double sum(List list) {
         if (list == null || list.isEmpty()) {
             return null;
@@ -199,6 +215,14 @@ public class DoubleNumericLib {
         return result;
     }
 
+    public Double sum(Object... args) {
+        if (args == null || args.length < 1) {
+            return null;
+        }
+
+        return sum(Arrays.asList(args));
+    }
+
     public Double mean(List list) {
         if (list == null) {
             return null;
@@ -206,6 +230,14 @@ public class DoubleNumericLib {
 
         Double sum = sum(list);
         return DoubleNumericType.doubleNumericDivide(sum, Double.valueOf(list.size()));
+    }
+
+    public Double mean(Object... args) {
+        if (args == null || args.length < 1) {
+            return null;
+        }
+
+        return mean(Arrays.asList(args));
     }
 
     public Double product(List list) {
@@ -219,6 +251,14 @@ public class DoubleNumericLib {
             result = result * number;
         }
         return result;
+    }
+
+    public Double product(Object... numbers) {
+        if (numbers == null || numbers.length < 1) {
+            return null;
+        }
+
+        return product(Arrays.asList(numbers));
     }
 
     public Double median(List list) {
@@ -239,6 +279,14 @@ public class DoubleNumericLib {
         return median;
     }
 
+    public Double median(Object... numbers) {
+        if (numbers == null || numbers.length < 1) {
+            return null;
+        }
+
+        return median(Arrays.asList(numbers));
+    }
+
     public Double stddev(List list) {
         if (list == null || list.isEmpty()) {
             return null;
@@ -256,6 +304,14 @@ public class DoubleNumericLib {
         variance = variance / (length - 1);
         Double stddev = sqrt(variance);
         return stddev;
+    }
+
+    public Double stddev(Object... numbers) {
+        if (numbers == null || numbers.length < 1) {
+            return null;
+        }
+
+        return stddev(Arrays.asList(numbers));
     }
 
     public List mode(List list) {
@@ -297,4 +353,11 @@ public class DoubleNumericLib {
         return modes;
     }
 
+    public List mode(Object... numbers) {
+        if (numbers == null) {
+            return null;
+        }
+
+        return mode(Arrays.asList(numbers));
+    }
 }

@@ -21,33 +21,25 @@ import com.gs.dmn.feel.lib.type.numeric.DefaultNumericLib;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
 import com.gs.dmn.feel.lib.type.string.DefaultStringLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
-import com.gs.dmn.feel.lib.type.time.pure.LocalDateType;
-import com.gs.dmn.feel.lib.type.time.pure.TemporalAmountDurationType;
-import com.gs.dmn.feel.lib.type.time.pure.TemporalDateTimeType;
-import com.gs.dmn.feel.lib.type.time.pure.TemporalTimeType;
-import com.gs.dmn.feel.lib.type.time.xml.DefaultDateLib;
-import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
-import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationLib;
-import com.gs.dmn.feel.lib.type.time.xml.DefaultTimeLib;
+import com.gs.dmn.feel.lib.type.time.pure.*;
 import com.gs.dmn.runtime.LambdaExpression;
-import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
-import java.time.*;
-import java.time.temporal.*;
+import java.time.LocalDate;
+import java.time.OffsetTime;
+import java.time.temporal.Temporal;
+import java.time.temporal.TemporalAmount;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.TimeZone;
 
 public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> implements StandardFEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> {
     private final DefaultNumericLib numberLib = new DefaultNumericLib();
     private final DefaultStringLib stringLib = new DefaultStringLib();
     private final DefaultBooleanLib booleanLib = new DefaultBooleanLib();
-    private final DefaultDateLib dateLib = new DefaultDateLib();
-    private final DefaultTimeLib timeLib = new DefaultTimeLib();
-    private final DefaultDateTimeLib dateTimeLib = new DefaultDateTimeLib();
-    private final DefaultDurationLib durationLib = new DefaultDurationLib();
+    private final LocalDateLib dateLib = new LocalDateLib();
+    private final TemporalTimeLib timeLib = new TemporalTimeLib();
+    private final TemporalDateTimeLib dateTimeLib = new TemporalDateTimeLib();
+    private final TemporalAmountDurationLib durationLib = new TemporalAmountDurationLib();
     private final DefaultListLib listLib = new DefaultListLib();
 
     public PureJavaTimeFEELLib() {
@@ -91,17 +83,19 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
     @Override
     public String string(Object from) {
-        return this.stringLib.string(from);
+        try {
+            return this.stringLib.string(from);
+        } catch (Exception e) {
+            String message = String.format("string(%s)", from);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public LocalDate date(String literal) {
-        if (StringUtils.isBlank(literal)) {
-            return null;
-        }
-
         try {
-            return LocalDate.parse(literal, this.dateTimeLib.FEEL_DATE_FORMAT);
+            return this.dateLib.date(literal);
         } catch (Exception e) {
             String message = String.format("date(%s)", literal);
             logError(message, e);
@@ -111,30 +105,19 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
     @Override
     public LocalDate date(BigDecimal year, BigDecimal month, BigDecimal day) {
-        if (year == null || month == null || day == null) {
+        try {
+            return this.dateLib.date(year, month, day);
+        } catch (Exception e) {
+            String message = String.format("date(%s, %s, %s)", year, month, day);
+            logError(message, e);
             return null;
         }
-
-        return LocalDate.of(year.intValue(), month.intValue(), day.intValue());
     }
 
     @Override
     public LocalDate date(Temporal from) {
-        if (from == null) {
-            return null;
-        }
-
         try {
-            if (from instanceof LocalDate) {
-                return (LocalDate) from;
-            } else if (from instanceof LocalDateTime) {
-                return ((LocalDateTime) from).toLocalDate();
-            } else if (from instanceof OffsetDateTime) {
-                return ((OffsetDateTime) from).toLocalDate();
-            } else if (from instanceof ZonedDateTime) {
-                return ((ZonedDateTime) from).toLocalDate();
-            }
-            throw new IllegalArgumentException(String.format("Cannot convert '%s' to date", from.getClass().getSimpleName()));
+            return this.dateLib.date(from);
         } catch (Exception e) {
             String message = String.format("date(%s)", from);
             logError(message, e);
@@ -144,40 +127,17 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
     @Override
     public Temporal time(String literal) {
-        if (literal == null) {
-            return null;
-        }
         try {
-            literal = this.dateTimeLib.fixDateTimeFormat(literal);
-            TemporalAccessor parsed = this.timeLib.time(literal);
-            if (parsed.query(TemporalQueries.zoneId()) != null) {
-                LocalTime localTime = parsed.query(LocalTime::from);
-                ZoneId zoneId = parsed.query(TemporalQueries.zoneId());
-                int millisOffset = TimeZone.getTimeZone(zoneId).getRawOffset();
-                ZoneOffset zoneOffset = ZoneOffset.ofTotalSeconds(millisOffset / 1000);
-                OffsetTime asOffSetTime = OffsetTime.of(localTime, zoneOffset);
-                return asOffSetTime;
-            } else {
-                return (Temporal) parsed;
-            }
+            return this.timeLib.time(literal);
         } catch (Exception e) {
             String message = String.format("time(%s)", literal);
             logError(message, e);
             return null;
         }
     }
-
-    @Override
     public OffsetTime time(BigDecimal hour, BigDecimal minute, BigDecimal second, TemporalAmount offset) {
-        if (hour == null || minute == null || second == null || offset == null) {
-            return null;
-        }
-
         try {
-            long hours = offset.get(ChronoUnit.HOURS);
-            long minutes = offset.get(ChronoUnit.MINUTES);
-            ZoneOffset zoneOffset = ZoneOffset.ofHoursMinutes((int)hours, (int)minutes);
-            return OffsetTime.of(hour.intValue(), minute.intValue(), second.intValue(), 0, zoneOffset);
+            return this.timeLib.time(hour, minute, second, offset);
         } catch (Exception e) {
             String message = String.format("time(%s, %s, %s, %s)", hour, minute, second, offset);
             logError(message, e);
@@ -187,23 +147,8 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
     @Override
     public Temporal time(Temporal from) {
-        if (from == null) {
-            return null;
-        }
-
         try {
-            if (from instanceof LocalTime) {
-                return from;
-            } else if (from instanceof OffsetTime) {
-                return from;
-            } else if (from instanceof LocalDateTime) {
-                return ((LocalDateTime) from).toLocalTime();
-            } else if (from instanceof OffsetDateTime) {
-                return ((OffsetDateTime) from).toOffsetTime();
-            } else if (from instanceof ZonedDateTime) {
-                return ((ZonedDateTime) from).toOffsetDateTime().toOffsetTime();
-            }
-            throw new IllegalArgumentException(String.format("Cannot convert '%s' to time", from.getClass().getSimpleName()));
+            return this.timeLib.time(from);
         } catch (Exception e) {
             String message = String.format("time(%s)", from);
             logError(message, e);
@@ -213,13 +158,8 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
     @Override
     public Temporal dateAndTime(String literal) {
-        if (StringUtils.isBlank(literal)) {
-            return null;
-        }
-
         try {
-            literal = this.dateTimeLib.fixDateTimeFormat(literal);
-            return (Temporal) this.dateTimeLib.dateAndTime(literal);
+            return this.dateTimeLib.dateAndTime(literal);
         } catch (Exception e) {
             String message = String.format("dateAndTime(%s)", literal);
             logError(message, e);
@@ -229,17 +169,8 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
     @Override
     public Temporal dateAndTime(LocalDate date, Temporal time) {
-        if (date == null || time == null) {
-            return null;
-        }
-
         try {
-            if (time instanceof LocalTime) {
-                return LocalDateTime.of(date, (LocalTime) time);
-            } else if (time instanceof OffsetTime) {
-                return OffsetDateTime.of(date, ((OffsetTime) time).toLocalTime(), ((OffsetTime) time).getOffset());
-            }
-            throw new IllegalArgumentException(String.format("Cannot convert '%s' and '%s' to date and time", date, time));
+            return this.dateTimeLib.dateAndTime(date, time);
         } catch (Exception e) {
             String message = String.format("dateAndTime(%s, %s)", date, time);
             logError(message, e);
@@ -249,19 +180,8 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
     @Override
     public TemporalAmount duration(String from) {
-        if (StringUtils.isBlank(from)) {
-            return null;
-        }
-
         try {
-            TemporalAmount ta = null;
-            try {
-                ta = Duration.parse(from);
-                return ta;
-            } catch (Exception e) {
-            }
-            ta = Period.parse(from);
-            return ta;
+            return this.durationLib.duration(from);
         } catch (Exception e) {
             String message = String.format("duration(%s)", from);
             logError(message, e);
@@ -269,24 +189,10 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
         }
     }
 
-    private TemporalAmount duration(long milliseconds) {
-        try {
-            return Duration.ofSeconds(milliseconds / 1000, (milliseconds % 1000) * 1000);
-        } catch (Exception e) {
-            String message = String.format("duration(%d)", milliseconds);
-            logError(message, e);
-            return null;
-        }
-    }
-
     @Override
     public TemporalAmount yearsAndMonthsDuration(Temporal from, Temporal to) {
-        if (from == null || to == null) {
-            return null;
-        }
-
         try {
-            return Duration.between(from, to);
+            return this.durationLib.yearsAndMonthsDuration(from, to);
         } catch (Exception e) {
             String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
             logError(message, e);
@@ -296,18 +202,12 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
     @Override
     public LocalDate toDate(Object object) {
-        if (object instanceof Temporal) {
-            return date((Temporal) object);
-        }
-        return null;
+        return this.dateLib.toDate(object);
     }
 
     @Override
     public Temporal toTime(Object object) {
-        if (object instanceof Temporal) {
-            return time((Temporal) object);
-        }
-        return null;
+        return this.timeLib.toTime(object);
     }
 
     //
@@ -329,7 +229,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
         try {
             return this.numberLib.floor(number);
         } catch (Exception e) {
-            String message = String.format("fllor(%s)", number);
+            String message = String.format("floor(%s)", number);
             logError(message, e);
             return null;
         }
@@ -428,52 +328,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
         try {
             return this.numberLib.even(number);
         } catch (Exception e) {
-            String message = String.format("odd(%s)", number);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public BigDecimal min(Object... args) {
-        if (args == null || args.length < 1) {
-            return null;
-        }
-
-        try {
-            return min(Arrays.asList(args));
-        } catch (Exception e) {
-            String message = String.format("min(%s)", args);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public BigDecimal max(Object... args) {
-        if (args == null || args.length < 1) {
-            return null;
-        }
-
-        try {
-            return max(Arrays.asList(args));
-        } catch (Exception e) {
-            String message = String.format("max(%s)", args);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public BigDecimal sum(Object... args) {
-        if (args == null || args.length < 1) {
-            return null;
-        }
-
-        try {
-            return sum(Arrays.asList(args));
-        } catch (Exception e) {
-            String message = String.format("sum(%s)", args);
+            String message = String.format("even(%s)", number);
             logError(message, e);
             return null;
         }
@@ -492,12 +347,8 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
     @Override
     public BigDecimal mean(Object... args) {
-        if (args == null || args.length < 1) {
-            return null;
-        }
-
         try {
-            return mean(Arrays.asList(args));
+            return this.numberLib.mean(args);
         } catch (Exception e) {
             String message = String.format("mean(%s)", args);
             logError(message, e);
@@ -510,52 +361,112 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     //
     @Override
     public Boolean contains(String string, String match) {
-        return this.stringLib.contains(string, match);
+        try {
+            return this.stringLib.contains(string, match);
+        } catch (Exception e) {
+            String message = String.format("contains(%s, %s)", string, match);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public Boolean startsWith(String string, String match) {
-        return this.stringLib.startsWith(string, match);
+        try {
+            return this.stringLib.startsWith(string, match);
+        } catch (Exception e) {
+            String message = String.format("startsWith(%s, %s)", string, match);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public Boolean endsWith(String string, String match) {
-        return this.stringLib.endsWith(string, match);
+        try {
+            return this.stringLib.endsWith(string, match);
+        } catch (Exception e) {
+            String message = String.format("endsWith(%s, %s)", string, match);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public BigDecimal stringLength(String string) {
-        return string == null ? null : BigDecimal.valueOf(this.stringLib.stringLength(string));
+        try {
+            return string == null ? null : BigDecimal.valueOf(this.stringLib.stringLength(string));
+        } catch (Exception e) {
+            String message = String.format("stringLength(%s)", string);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public String substring(String string, BigDecimal startPosition) {
-        return this.stringLib.substring(string, startPosition);
+        try {
+            return this.stringLib.substring(string, startPosition);
+        } catch (Exception e) {
+            String message = String.format("substring(%s, %s)", string, startPosition);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public String substring(String string, BigDecimal startPosition, BigDecimal length) {
-        return this.stringLib.substring(string, startPosition, length);
+        try {
+            return this.stringLib.substring(string, startPosition, length);
+        } catch (Exception e) {
+            String message = String.format("substring(%s, %s, %s)", string, startPosition, length);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public String upperCase(String string) {
-        return this.stringLib.upperCase(string);
+        try {
+            return this.stringLib.upperCase(string);
+        } catch (Exception e) {
+            String message = String.format("upperCase(%s)", string);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public String lowerCase(String string) {
-        return this.stringLib.lowerCase(string);
+        try {
+            return this.stringLib.lowerCase(string);
+        } catch (Exception e) {
+            String message = String.format("lowerCase(%s)", string);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public String substringBefore(String string, String match) {
-        return this.stringLib.substringBefore(string, match);
+        try {
+            return this.stringLib.substringBefore(string, match);
+        } catch (Exception e) {
+            String message = String.format("substringBefore(%s, %s)", string, match);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public String substringAfter(String string, String match) {
-        return this.stringLib.substringAfter(string, match);
+        try {
+            return this.stringLib.substringAfter(string, match);
+        } catch (Exception e) {
+            String message = String.format("substringAfter(%s, %s)", string, match);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
@@ -708,12 +619,8 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     //
     @Override
     public BigDecimal year(LocalDate date) {
-        if (date == null) {
-            return null;
-        }
-
         try {
-            return BigDecimal.valueOf(date.getYear());
+            return BigDecimal.valueOf(this.dateLib.year(date));
         } catch (Exception e) {
             String message = String.format("year(%s)", date);
             logError(message, e);
@@ -721,12 +628,8 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
         }
     }
     public BigDecimal year(Temporal dateTime) {
-        if (dateTime == null) {
-            return null;
-        }
-
         try {
-            return BigDecimal.valueOf(dateTime.get(ChronoField.YEAR));
+            return BigDecimal.valueOf(this.dateLib.year(dateTime));
         } catch (Exception e) {
             String message = String.format("year(%s)", dateTime);
             logError(message, e);
@@ -736,12 +639,8 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
     @Override
     public BigDecimal month(LocalDate date) {
-        if (date == null) {
-            return null;
-        }
-
         try {
-            return BigDecimal.valueOf(date.getMonth().getValue());
+            return BigDecimal.valueOf(this.dateLib.month(date));
         } catch (Exception e) {
             String message = String.format("month(%s)", date);
             logError(message, e);
@@ -749,12 +648,8 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
         }
     }
     public BigDecimal month(Temporal dateTime) {
-        if (dateTime == null) {
-            return null;
-        }
-
         try {
-            return BigDecimal.valueOf(dateTime.get(ChronoField.MONTH_OF_YEAR));
+            return BigDecimal.valueOf(this.dateLib.month(dateTime));
         } catch (Exception e) {
             String message = String.format("month(%s)", dateTime);
             logError(message, e);
@@ -764,12 +659,8 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
     @Override
     public BigDecimal day(LocalDate date) {
-        if (date == null) {
-            return null;
-        }
-
         try {
-            return BigDecimal.valueOf(date.getDayOfMonth());
+            return BigDecimal.valueOf(this.dateLib.day(date));
         } catch (Exception e) {
             String message = String.format("day(%s)", date);
             logError(message, e);
@@ -777,12 +668,8 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
         }
     }
     public BigDecimal day(Temporal dateTime) {
-        if (dateTime == null) {
-            return null;
-        }
-
         try {
-            return BigDecimal.valueOf(dateTime.get(ChronoField.DAY_OF_MONTH));
+            return BigDecimal.valueOf(this.dateLib.day(dateTime));
         } catch (Exception e) {
             String message = String.format("day(%s)", dateTime);
             logError(message, e);
@@ -792,27 +679,19 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
     @Override
     public BigDecimal weekday(LocalDate date) {
-        if (date == null) {
-            return null;
-        }
-
         try {
-            return BigDecimal.valueOf(date.getDayOfWeek().getValue());
+            return BigDecimal.valueOf(this.dateLib.weekday(date));
         } catch (Exception e) {
-            String message = String.format("day(%s)", date);
+            String message = String.format("weekday(%s)", date);
             logError(message, e);
             return null;
         }
     }
     public BigDecimal weekday(Temporal dateTime) {
-        if (dateTime == null) {
-            return null;
-        }
-
         try {
-            return BigDecimal.valueOf(dateTime.get(ChronoField.DAY_OF_WEEK));
+            return BigDecimal.valueOf(this.dateLib.weekday(dateTime));
         } catch (Exception e) {
-            String message = String.format("day(%s)", dateTime);
+            String message = String.format("weekday(%s)", dateTime);
             logError(message, e);
             return null;
         }
@@ -824,7 +703,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     @Override
     public BigDecimal hour(Temporal time) {
         try {
-            return BigDecimal.valueOf(time.get(ChronoField.HOUR_OF_DAY));
+            return BigDecimal.valueOf(this.timeLib.hour(time));
         } catch (Exception e) {
             String message = String.format("hour(%s)", time);
             logError(message, e);
@@ -835,7 +714,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     @Override
     public BigDecimal minute(Temporal time) {
         try {
-            return BigDecimal.valueOf(time.get(ChronoField.MINUTE_OF_HOUR));
+            return BigDecimal.valueOf(this.timeLib.minute(time));
         } catch (Exception e) {
             String message = String.format("minute(%s)", time);
             logError(message, e);
@@ -846,7 +725,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     @Override
     public BigDecimal second(Temporal time) {
         try {
-            return BigDecimal.valueOf(time.get(ChronoField.SECOND_OF_MINUTE));
+            return BigDecimal.valueOf(this.timeLib.second(time));
         } catch (Exception e) {
             String message = String.format("second(%s)", time);
             logError(message, e);
@@ -857,10 +736,9 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     @Override
     public TemporalAmount timeOffset(Temporal time) {
         try {
-            int secondsOffset = time.get(ChronoField.OFFSET_SECONDS);
-            return duration((long) secondsOffset * 1000);
+            return this.timeLib.timeOffset(time);
         } catch (Exception e) {
-            String message = String.format("offset(%s)", time);
+            String message = String.format("timeOffset(%s)", time);
             logError(message, e);
             return null;
         }
@@ -869,7 +747,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     @Override
     public String timezone(Temporal time) {
         try {
-            return time.query(TemporalQueries.zone()).getId();
+            return this.timeLib.timezone(time);
         } catch (Exception e) {
             String message = String.format("timezone(%s)", time);
             logError(message, e);
@@ -883,7 +761,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     @Override
     public BigDecimal years(TemporalAmount duration) {
         try {
-            return BigDecimal.valueOf(duration.get(ChronoUnit.YEARS));
+            return BigDecimal.valueOf(this.durationLib.years(duration));
         } catch (Exception e) {
             String message = String.format("years(%s)", duration);
             logError(message, e);
@@ -894,7 +772,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     @Override
     public BigDecimal months(TemporalAmount duration) {
         try {
-            return BigDecimal.valueOf(duration.get(ChronoUnit.MONTHS));
+            return BigDecimal.valueOf(this.durationLib.months(duration));
         } catch (Exception e) {
             String message = String.format("months(%s)", duration);
             logError(message, e);
@@ -905,7 +783,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     @Override
     public BigDecimal days(TemporalAmount duration) {
         try {
-            return BigDecimal.valueOf(duration.get(ChronoUnit.DAYS));
+            return BigDecimal.valueOf(this.durationLib.days(duration));
         } catch (Exception e) {
             String message = String.format("days(%s)", duration);
             logError(message, e);
@@ -916,7 +794,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     @Override
     public BigDecimal hours(TemporalAmount duration) {
         try {
-            return BigDecimal.valueOf(duration.get(ChronoUnit.HOURS));
+            return BigDecimal.valueOf(this.durationLib.hours(duration));
         } catch (Exception e) {
             String message = String.format("hours(%s)", duration);
             logError(message, e);
@@ -927,7 +805,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     @Override
     public BigDecimal minutes(TemporalAmount duration) {
         try {
-            return BigDecimal.valueOf(duration.get(ChronoUnit.MINUTES));
+            return BigDecimal.valueOf(this.durationLib.minutes(duration));
         } catch (Exception e) {
             String message = String.format("minutes(%s)", duration);
             logError(message, e);
@@ -938,7 +816,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     @Override
     public BigDecimal seconds(TemporalAmount duration) {
         try {
-            return BigDecimal.valueOf(duration.get(ChronoUnit.SECONDS));
+            return BigDecimal.valueOf(this.durationLib.seconds(duration));
         } catch (Exception e) {
             String message = String.format("seconds(%s)", duration);
             logError(message, e);
@@ -993,12 +871,33 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
         }
     }
 
+    public BigDecimal min(Object... args) {
+        try {
+            return this.numberLib.min(args);
+        } catch (Exception e) {
+            String message = String.format("min(%s)", args);
+            logError(message, e);
+            return null;
+        }
+    }
+
     @Override
     public BigDecimal max(List list) {
         try {
             return this.numberLib.max(list);
         } catch (Exception e) {
             String message = String.format("max(%s)", list);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public BigDecimal max(Object... args) {
+        try {
+            return this.numberLib.max(args);
+        } catch (Exception e) {
+            String message = String.format("max(%s)", args);
             logError(message, e);
             return null;
         }
@@ -1016,11 +915,22 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     }
 
     @Override
+    public BigDecimal sum(Object... args) {
+        try {
+            return this.numberLib.sum(args);
+        } catch (Exception e) {
+            String message = String.format("sum(%s)", args);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
     public List sublist(List list, BigDecimal startPosition) {
         try {
             return this.listLib.sublist(list, startPosition.intValue());
         } catch (Exception e) {
-            String message = String.format("min(%s)", list);
+            String message = String.format("sublist(%s)", list);
             logError(message, e);
             return null;
         }
@@ -1031,7 +941,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
         try {
             return this.listLib.sublist(list, startPosition.intValue(), length.intValue());
         } catch (Exception e) {
-            String message = String.format("min(%s)", list);
+            String message = String.format("sublist(%s, %s, %s)", list, startPosition, length);
             logError(message, e);
             return null;
         }
@@ -1064,7 +974,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
         try {
             return this.listLib.remove(list, ((Number)position).intValue());
         } catch (Exception e) {
-            String message = String.format("min(%s)", list);
+            String message = String.format("remove(%s)", list);
             logError(message, e);
             return null;
         }
@@ -1140,15 +1050,11 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     }
 
     @Override
-    public BigDecimal product(Object... numbers) {
-        if (numbers == null || numbers.length < 1) {
-            return null;
-        }
-
+    public BigDecimal product(Object... args) {
         try {
-            return product(Arrays.asList(numbers));
+            return this.numberLib.product(args);
         } catch (Exception e) {
-            String message = String.format("sum(%s)", numbers);
+            String message = String.format("product(%s)", args);
             logError(message, e);
             return null;
         }
@@ -1166,15 +1072,11 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     }
 
     @Override
-    public BigDecimal median(Object... numbers) {
-        if (numbers == null || numbers.length < 1) {
-            return null;
-        }
-
+    public BigDecimal median(Object... args) {
         try {
-            return median(Arrays.asList(numbers));
+            return this.numberLib.median(args);
         } catch (Exception e) {
-            String message = String.format("median(%s)", numbers);
+            String message = String.format("median(%s)", args);
             logError(message, e);
             return null;
         }
@@ -1192,15 +1094,11 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     }
 
     @Override
-    public BigDecimal stddev(Object... numbers) {
-        if (numbers == null || numbers.length < 1) {
-            return null;
-        }
-
+    public BigDecimal stddev(Object... args) {
         try {
-            return stddev(Arrays.asList(numbers));
+            return this.numberLib.stddev(args);
         } catch (Exception e) {
-            String message = String.format("stddev(%s)", numbers);
+            String message = String.format("stddev(%s)", args);
             logError(message, e);
             return null;
         }
@@ -1218,15 +1116,11 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     }
 
     @Override
-    public List mode(Object... numbers) {
-        if (numbers == null) {
-            return null;
-        }
-
+    public List mode(Object... args) {
         try {
-            return mode(Arrays.asList(numbers));
+            return this.numberLib.mode(args);
         } catch (Exception e) {
-            String message = String.format("mode(%s)", numbers);
+            String message = String.format("mode(%s)", args);
             logError(message, e);
             return null;
         }
@@ -1247,7 +1141,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
         try {
             return this.listLib.sort(list, comparator);
         } catch (Exception e) {
-            String message = String.format("min(%s)", list);
+            String message = String.format("sort(%s)", list);
             logError(message, e);
             return null;
         }

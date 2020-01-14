@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -222,10 +223,10 @@ public class PureJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalDa
     @Override
     protected void assertEqualsTime(String expected, Object actual) {
         if (actual instanceof LocalDate) {
-            String actualText = ((LocalDate) actual).format(DefaultDateTimeLib.FEEL_DATE_FORMAT);
+            String actualText = ((LocalDate) actual).format(BaseDateTimeLib.FEEL_DATE_FORMAT);
             assertEquals(expected, cleanActualText(actualText));
         } else if (actual instanceof OffsetTime) {
-            String actualText = ((OffsetTime) actual).format(DefaultDateTimeLib.FEEL_TIME_FORMAT);
+            String actualText = ((OffsetTime) actual).format(BaseDateTimeLib.FEEL_TIME_FORMAT);
             assertEquals(expected, cleanActualText(actualText));
         } else if (actual instanceof ZonedDateTime) {
             assertEquals(normalize(ZonedDateTime.parse(expected)), normalize((ZonedDateTime)actual));

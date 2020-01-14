@@ -21,19 +21,16 @@ import com.gs.dmn.feel.lib.type.numeric.DefaultNumericLib;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
 import com.gs.dmn.feel.lib.type.string.DefaultStringLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
-import com.gs.dmn.feel.lib.type.time.uniform.ZonedDateTimeType;
-import com.gs.dmn.feel.lib.type.time.uniform.ZonedDateType;
-import com.gs.dmn.feel.lib.type.time.uniform.ZonedTimeType;
-import com.gs.dmn.feel.lib.type.time.xml.*;
+import com.gs.dmn.feel.lib.type.time.mixed.DefaultDurationLib;
+import com.gs.dmn.feel.lib.type.time.uniform.*;
+import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationType;
 import com.gs.dmn.runtime.LambdaExpression;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
-import java.time.*;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTime, ZonedDateTime, ZonedDateTime, Duration> implements StandardFEELLib<BigDecimal, ZonedDateTime, ZonedDateTime, ZonedDateTime, Duration> {
@@ -42,10 +39,10 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     private final DefaultNumericLib numberLib = new DefaultNumericLib();
     private final DefaultStringLib stringLib = new DefaultStringLib();
     private final DefaultBooleanLib booleanLib = new DefaultBooleanLib();
-    private final DefaultDateLib dateLib = new DefaultDateLib();
-    private final DefaultTimeLib timeLib = new DefaultTimeLib();
-    private final DefaultDateTimeLib dateTimeLib = new DefaultDateTimeLib();
-    private final DefaultDurationLib durationLib = new DefaultDurationLib();
+    private final ZonedDateLib dateLib = new ZonedDateLib();
+    private final ZonedTimeLib timeLib = new ZonedTimeLib(DATA_TYPE_FACTORY);
+    private final ZonedDateTimeLib dateTimeLib = new ZonedDateTimeLib();
+    private final DefaultDurationLib durationLib = new DefaultDurationLib(DATA_TYPE_FACTORY);
     private final DefaultListLib listLib = new DefaultListLib();
 
     public UniformJavaTimeFEELLib() {
@@ -89,23 +86,19 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
     @Override
     public String string(Object from) {
-        return this.stringLib.string(from);
+        try {
+            return this.stringLib.string(from);
+        } catch (Exception e) {
+            String message = String.format("string(%s)", from);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public ZonedDateTime date(String literal) {
         try {
-            if (literal == null) {
-                return null;
-            }
-
-            if (this.dateTimeLib.hasTime(literal) || this.dateTimeLib.hasZone(literal)) {
-                String message = String.format("date(%s)", literal);
-                logError(message);
-                return null;
-            } else {
-                return this.dateTimeLib.makeLocalDate(literal).atStartOfDay(this.dateTimeLib.UTC);
-            }
+            return this.dateLib.date(literal);
         } catch (Exception e) {
             String message = String.format("date(%s)", literal);
             logError(message, e);
@@ -115,33 +108,30 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
     @Override
     public ZonedDateTime date(BigDecimal year, BigDecimal month, BigDecimal day) {
-        if (year == null || month == null || day == null) {
+        try {
+            return this.dateLib.date(year, month, day);
+        } catch (Exception e) {
+            String message = String.format("date(%s, %s, %s)", year, month, day);
+            logError(message, e);
             return null;
         }
-
-        return ZonedDateTime.of(year.intValue(), month.intValue(), day.intValue(), 0, 0, 0, 0, this.dateTimeLib.UTC);
     }
 
     @Override
     public ZonedDateTime date(ZonedDateTime from) {
-        if (from == null) {
+        try {
+            return this.dateLib.date(from);
+        } catch (Exception e) {
+            String message = String.format("date(%s)", from);
+            logError(message, e);
             return null;
         }
-
-        return from.toLocalDate().atStartOfDay(this.dateTimeLib.UTC);
     }
 
     @Override
     public ZonedDateTime time(String literal) {
         try {
-            if (literal == null) {
-                return null;
-            }
-            OffsetTime offsetTime = this.dateTimeLib.makeOffsetTime(literal);
-            ZoneOffset offset = offsetTime.getOffset();
-
-            // Make ZonedDateTime
-            return ZonedDateTime.of(LocalDateTime.of(LocalDate.MIN, offsetTime.toLocalTime()), offset);
+            return this.timeLib.time(literal);
         } catch (Exception e) {
             String message = String.format("time(%s)", literal);
             logError(message, e);
@@ -151,36 +141,8 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
     @Override
     public ZonedDateTime time(BigDecimal hour, BigDecimal minute, BigDecimal second, Duration offset) {
-        if (hour == null || minute == null || second == null) {
-            return null;
-        }
-
         try {
-            if (offset != null) {
-                // Make offset
-                String sign = offset.getSign() < 0 ? "-" : "+";
-                String offsetString = String.format("%s%02d:%02d", sign, offset.getHours(), offset.getMinutes());
-
-                // Make literal for ZonedDateTime
-                int year = LocalDate.MIN.getYear();
-                int month = LocalDate.MIN.getMonthValue();
-                int day = LocalDate.MIN.getDayOfMonth();
-                BigDecimal secondFraction = second.subtract(BigDecimal.valueOf(second.intValue()));
-                int millis = (int) (secondFraction.doubleValue() * 1000);
-                String format = dateTimeISOFormat(year, month, day, hour.intValue(), minute.intValue(), second.intValue(), millis, offsetString);
-
-                // Make ZonedDateTime
-                return makeZonedDateTime(format);
-            } else {
-                // Make OffsetTime and add nanos
-                OffsetTime offsetTime = OffsetTime.of(hour.intValue(), minute.intValue(), second.intValue(), 0, ZoneOffset.UTC);
-                BigDecimal secondFraction = second.subtract(BigDecimal.valueOf(second.intValue()));
-                double nanos = secondFraction.doubleValue() * 1E9;
-                offsetTime = offsetTime.plusNanos((long) nanos);
-
-                // Make ZonedDateTime
-                return ZonedDateTime.of(LocalDateTime.of(LocalDate.MIN, offsetTime.toLocalTime()), this.dateTimeLib.UTC);
-            }
+            return this.timeLib.time(hour, minute, second, offset);
         } catch (Exception e) {
             String message = String.format("time(%s, %s, %s, %s)", hour, minute, second, offset);
             logError(message, e);
@@ -190,39 +152,30 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
     @Override
     public ZonedDateTime time(ZonedDateTime from) {
-        if (from == null) {
+        try {
+            return this.timeLib.time(from);
+        } catch (Exception e) {
+            String message = String.format("time(%s)", from);
+            logError(message, e);
             return null;
         }
-        OffsetTime offsetTime = from.toOffsetDateTime().toOffsetTime();
-        return offsetTime.atDate(LocalDate.MIN).toZonedDateTime();
     }
 
     @Override
     public ZonedDateTime dateAndTime(String from) {
-        if (from == null) {
+        try {
+            return this.dateTimeLib.dateAndTime(from);
+        } catch (Exception e) {
+            String message = String.format("dateAndTime(%s)", from);
+            logError(message, e);
             return null;
         }
-        if (this.dateTimeLib.hasZone(from) && this.dateTimeLib.hasOffset(from)) {
-            return null;
-        }
-        if (this.dateTimeLib.invalidYear(from)) {
-            return null;
-        }
-
-        return makeDateTime(from);
     }
 
     @Override
     public ZonedDateTime dateAndTime(ZonedDateTime date, ZonedDateTime time) {
-        if (date == null || time == null) {
-            return null;
-        }
-
         try {
-            return ZonedDateTime.of(
-                    date.getYear(), date.getMonth().getValue(), date.getDayOfMonth(),
-                    time.getHour(), time.getMinute(), time.getSecond(), time.getNano(), time.getZone()
-            );
+            return this.dateTimeLib.dateAndTime(date, time);
         } catch (Exception e) {
             String message = String.format("dateAndTime(%s, %s)", date, time);
             logError(message, e);
@@ -232,12 +185,8 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
     @Override
     public Duration duration(String from) {
-        if (StringUtils.isBlank(from)) {
-            return null;
-        }
-
         try {
-            return DATA_TYPE_FACTORY.newDuration(from);
+            return this.durationLib.duration(from);
         } catch (Exception e) {
             String message = String.format("duration(%s)", from);
             logError(message, e);
@@ -247,12 +196,8 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
     @Override
     public Duration yearsAndMonthsDuration(ZonedDateTime from, ZonedDateTime to) {
-        if (from == null || to == null) {
-            return null;
-        }
-
         try {
-            return this.dateTimeLib.toYearsMonthDuration(DATA_TYPE_FACTORY, to.toLocalDate(), from.toLocalDate());
+            return this.durationLib.yearsAndMonthsDuration(from, to);
         } catch (Exception e) {
             String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
             logError(message, e);
@@ -260,42 +205,14 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
         }
     }
 
-    protected ZonedDateTime makeZonedDateTime(String literal) {
-        if (StringUtils.isBlank(literal)) {
-            return null;
-        }
-
-        try {
-            return ZonedDateTime.parse(literal, this.dateTimeLib.FEEL_DATE_TIME_FORMAT);
-        } catch (Exception e) {
-            String message = String.format("makeXMLCalendar(%s)", literal);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    private ZonedDateTime makeDateTime(String literal) {
-        if (StringUtils.isBlank(literal)) {
-            return null;
-        }
-
-        try {
-            return this.dateTimeLib.makeDateTime(literal);
-        } catch (Exception e) {
-            String message = String.format("makeDateTime(%s)", literal);
-            logError(message, e);
-            return null;
-        }
-    }
-
     @Override
     public ZonedDateTime toDate(Object object) {
-        return (ZonedDateTime) object;
+        return this.dateLib.toDate(object);
     }
 
     @Override
     public ZonedDateTime toTime(Object object) {
-        return (ZonedDateTime) object;
+        return this.timeLib.toTime(object);
     }
 
     //
@@ -317,7 +234,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
         try {
             return this.numberLib.floor(number);
         } catch (Exception e) {
-            String message = String.format("fllor(%s)", number);
+            String message = String.format("floor(%s)", number);
             logError(message, e);
             return null;
         }
@@ -416,52 +333,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
         try {
             return this.numberLib.even(number);
         } catch (Exception e) {
-            String message = String.format("odd(%s)", number);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public BigDecimal min(Object... args) {
-        if (args == null || args.length < 1) {
-            return null;
-        }
-
-        try {
-            return min(Arrays.asList(args));
-        } catch (Exception e) {
-            String message = String.format("min(%s)", args);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public BigDecimal max(Object... args) {
-        if (args == null || args.length < 1) {
-            return null;
-        }
-
-        try {
-            return max(Arrays.asList(args));
-        } catch (Exception e) {
-            String message = String.format("max(%s)", args);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    @Override
-    public BigDecimal sum(Object... args) {
-        if (args == null || args.length < 1) {
-            return null;
-        }
-
-        try {
-            return sum(Arrays.asList(args));
-        } catch (Exception e) {
-            String message = String.format("sum(%s)", args);
+            String message = String.format("even(%s)", number);
             logError(message, e);
             return null;
         }
@@ -480,12 +352,8 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
     @Override
     public BigDecimal mean(Object... args) {
-        if (args == null || args.length < 1) {
-            return null;
-        }
-
         try {
-            return mean(Arrays.asList(args));
+            return this.numberLib.mean(args);
         } catch (Exception e) {
             String message = String.format("mean(%s)", args);
             logError(message, e);
@@ -498,52 +366,112 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     //
     @Override
     public Boolean contains(String string, String match) {
-        return this.stringLib.contains(string, match);
+        try {
+            return this.stringLib.contains(string, match);
+        } catch (Exception e) {
+            String message = String.format("contains(%s, %s)", string, match);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public Boolean startsWith(String string, String match) {
-        return this.stringLib.startsWith(string, match);
+        try {
+            return this.stringLib.startsWith(string, match);
+        } catch (Exception e) {
+            String message = String.format("startsWith(%s, %s)", string, match);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public Boolean endsWith(String string, String match) {
-        return this.stringLib.endsWith(string, match);
+        try {
+            return this.stringLib.endsWith(string, match);
+        } catch (Exception e) {
+            String message = String.format("endsWith(%s, %s)", string, match);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public BigDecimal stringLength(String string) {
-        return string == null ? null : BigDecimal.valueOf(this.stringLib.stringLength(string));
+        try {
+            return string == null ? null : BigDecimal.valueOf(this.stringLib.stringLength(string));
+        } catch (Exception e) {
+            String message = String.format("stringLength(%s)", string);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public String substring(String string, BigDecimal startPosition) {
-        return this.stringLib.substring(string, startPosition);
+        try {
+            return this.stringLib.substring(string, startPosition);
+        } catch (Exception e) {
+            String message = String.format("substring(%s, %s)", string, startPosition);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public String substring(String string, BigDecimal startPosition, BigDecimal length) {
-        return this.stringLib.substring(string, startPosition, length);
+        try {
+            return this.stringLib.substring(string, startPosition, length);
+        } catch (Exception e) {
+            String message = String.format("substring(%s, %s, %s)", string, startPosition, length);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public String upperCase(String string) {
-        return this.stringLib.upperCase(string);
+        try {
+            return this.stringLib.upperCase(string);
+        } catch (Exception e) {
+            String message = String.format("upperCase(%s)", string);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public String lowerCase(String string) {
-        return this.stringLib.lowerCase(string);
+        try {
+            return this.stringLib.lowerCase(string);
+        } catch (Exception e) {
+            String message = String.format("lowerCase(%s)", string);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public String substringBefore(String string, String match) {
-        return this.stringLib.substringBefore(string, match);
+        try {
+            return this.stringLib.substringBefore(string, match);
+        } catch (Exception e) {
+            String message = String.format("substringBefore(%s, %s)", string, match);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public String substringAfter(String string, String match) {
-        return this.stringLib.substringAfter(string, match);
+        try {
+            return this.stringLib.substringAfter(string, match);
+        } catch (Exception e) {
+            String message = String.format("substringAfter(%s, %s)", string, match);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
@@ -696,7 +624,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     //
     public BigDecimal year(ZonedDateTime date) {
         try {
-            return BigDecimal.valueOf(date.getYear());
+            return this.dateLib.year(date);
         } catch (Exception e) {
             String message = String.format("year(%s)", date);
             logError(message, e);
@@ -706,7 +634,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
     public BigDecimal month(ZonedDateTime date) {
         try {
-            return BigDecimal.valueOf(date.getMonth().getValue());
+            return this.dateLib.month(date);
         } catch (Exception e) {
             String message = String.format("month(%s)", date);
             logError(message, e);
@@ -716,7 +644,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
     public BigDecimal day(ZonedDateTime date) {
         try {
-            return BigDecimal.valueOf(date.getDayOfMonth());
+            return this.dateLib.day(date);
         } catch (Exception e) {
             String message = String.format("day(%s)", date);
             logError(message, e);
@@ -726,9 +654,9 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
     public BigDecimal weekday(ZonedDateTime date) {
         try {
-            return BigDecimal.valueOf(date.getDayOfWeek().getValue());
+            return this.dateLib.weekday(date);
         } catch (Exception e) {
-            String message = String.format("day(%s)", date);
+            String message = String.format("weekday(%s)", date);
             logError(message, e);
             return null;
         }
@@ -738,56 +666,116 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     // Time functions
     //
     public BigDecimal hour(ZonedDateTime date) {
-        return BigDecimal.valueOf(date.getHour());
+        try {
+            return this.timeLib.hour(date);
+        } catch (Exception e) {
+            String message = String.format("hour(%s)", date);
+            logError(message, e);
+            return null;
+        }
     }
 
     public BigDecimal minute(ZonedDateTime date) {
-        return BigDecimal.valueOf(date.getMinute());
+        try {
+            return this.timeLib.minute(date);
+        } catch (Exception e) {
+            String message = String.format("minute(%s)", date);
+            logError(message, e);
+            return null;
+        }
     }
 
     public BigDecimal second(ZonedDateTime date) {
-        return BigDecimal.valueOf(date.getSecond());
+        try {
+            return this.timeLib.second(date);
+        } catch (Exception e) {
+            String message = String.format("second(%s)", date);
+            logError(message, e);
+            return null;
+        }
     }
 
     public Duration timeOffset(ZonedDateTime date) {
-        // timezone offset in seconds
-        int secondsOffset = date.getOffset().getTotalSeconds();
-        return DATA_TYPE_FACTORY.newDuration((long) secondsOffset * 1000);
+        try {
+            return this.timeLib.timeOffset(date);
+        } catch (Exception e) {
+            String message = String.format("timeOffset(%s)", date);
+            logError(message, e);
+            return null;
+        }
     }
 
     public String timezone(ZonedDateTime date) {
-        return date.getZone().getId();
+        try {
+            return this.timeLib.timezone(date);
+        } catch (Exception e) {
+            String message = String.format("timezone(%s)", date);
+            logError(message, e);
+            return null;
+        }
     }
 
     //
     // Duration functions
     //
     public BigDecimal years(Duration duration) {
-        return BigDecimal.valueOf(duration.getYears());
+        try {
+            return BigDecimal.valueOf(this.durationLib.years(duration));
+        } catch (Exception e) {
+            String message = String.format("years(%s)", duration);
+            logError(message, e);
+            return null;
+        }
     }
 
     public BigDecimal months(Duration duration) {
-        return BigDecimal.valueOf(duration.getMonths());
+        try {
+            return BigDecimal.valueOf(this.durationLib.months(duration));
+        } catch (Exception e) {
+            String message = String.format("months(%s)", duration);
+            logError(message, e);
+            return null;
+        }
     }
 
     public BigDecimal days(Duration duration) {
-        return BigDecimal.valueOf(duration.getDays());
+        try {
+            return BigDecimal.valueOf(this.durationLib.days(duration));
+        } catch (Exception e) {
+            String message = String.format("days(%s)", duration);
+            logError(message, e);
+            return null;
+        }
     }
 
     public BigDecimal hours(Duration duration) {
-        return BigDecimal.valueOf(duration.getHours());
+        try {
+            return BigDecimal.valueOf(this.durationLib.hours(duration));
+        } catch (Exception e) {
+            String message = String.format("hours(%s)", duration);
+            logError(message, e);
+            return null;
+        }
     }
 
     public BigDecimal minutes(Duration duration) {
-        return BigDecimal.valueOf(duration.getMinutes());
+        try {
+            return BigDecimal.valueOf(this.durationLib.minutes(duration));
+        } catch (Exception e) {
+            String message = String.format("minutes(%s)", duration);
+            logError(message, e);
+            return null;
+        }
     }
 
     public BigDecimal seconds(Duration duration) {
-        return BigDecimal.valueOf(duration.getSeconds());
-    }
-
-    private int months(ZonedDateTime calendar) {
-        return calendar.getYear() * 12 + calendar.getMonth().getValue();
+        try {
+            return BigDecimal.valueOf(this.durationLib.seconds(duration));
+        } catch (Exception e) {
+            String message = String.format("seconds(%s)", duration);
+            logError(message, e);
+            return null;
+        }
     }
 
     //
@@ -837,12 +825,33 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
         }
     }
 
+    public BigDecimal min(Object... args) {
+        try {
+            return this.numberLib.min(args);
+        } catch (Exception e) {
+            String message = String.format("min(%s)", args);
+            logError(message, e);
+            return null;
+        }
+    }
+
     @Override
     public BigDecimal max(List list) {
         try {
             return this.numberLib.max(list);
         } catch (Exception e) {
             String message = String.format("max(%s)", list);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public BigDecimal max(Object... args) {
+        try {
+            return this.numberLib.max(args);
+        } catch (Exception e) {
+            String message = String.format("max(%s)", args);
             logError(message, e);
             return null;
         }
@@ -860,11 +869,22 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     }
 
     @Override
+    public BigDecimal sum(Object... args) {
+        try {
+            return this.numberLib.sum(args);
+        } catch (Exception e) {
+            String message = String.format("sum(%s)", args);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
     public List sublist(List list, BigDecimal startPosition) {
         try {
             return this.listLib.sublist(list, startPosition.intValue());
         } catch (Exception e) {
-            String message = String.format("min(%s)", list);
+            String message = String.format("sublist(%s)", list);
             logError(message, e);
             return null;
         }
@@ -875,7 +895,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
         try {
             return this.listLib.sublist(list, startPosition.intValue(), length.intValue());
         } catch (Exception e) {
-            String message = String.format("min(%s)", list);
+            String message = String.format("sublist(%s, %s, %s)", list, startPosition, length);
             logError(message, e);
             return null;
         }
@@ -908,7 +928,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
         try {
             return this.listLib.remove(list, ((Number)position).intValue());
         } catch (Exception e) {
-            String message = String.format("min(%s)", list);
+            String message = String.format("remove(%s)", list);
             logError(message, e);
             return null;
         }
@@ -984,15 +1004,11 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     }
 
     @Override
-    public BigDecimal product(Object... numbers) {
-        if (numbers == null || numbers.length < 1) {
-            return null;
-        }
-
+    public BigDecimal product(Object... args) {
         try {
-            return product(Arrays.asList(numbers));
+            return this.numberLib.product(args);
         } catch (Exception e) {
-            String message = String.format("sum(%s)", numbers);
+            String message = String.format("product(%s)", args);
             logError(message, e);
             return null;
         }
@@ -1010,15 +1026,11 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     }
 
     @Override
-    public BigDecimal median(Object... numbers) {
-        if (numbers == null || numbers.length < 1) {
-            return null;
-        }
-
+    public BigDecimal median(Object... args) {
         try {
-            return median(Arrays.asList(numbers));
+            return this.numberLib.median(args);
         } catch (Exception e) {
-            String message = String.format("median(%s)", numbers);
+            String message = String.format("median(%s)", args);
             logError(message, e);
             return null;
         }
@@ -1036,15 +1048,11 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     }
 
     @Override
-    public BigDecimal stddev(Object... numbers) {
-        if (numbers == null || numbers.length < 1) {
-            return null;
-        }
-
+    public BigDecimal stddev(Object... args) {
         try {
-            return stddev(Arrays.asList(numbers));
+            return this.numberLib.stddev(args);
         } catch (Exception e) {
-            String message = String.format("stddev(%s)", numbers);
+            String message = String.format("stddev(%s)", args);
             logError(message, e);
             return null;
         }
@@ -1062,15 +1070,11 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     }
 
     @Override
-    public List mode(Object... numbers) {
-        if (numbers == null) {
-            return null;
-        }
-
+    public List mode(Object... args) {
         try {
-            return mode(Arrays.asList(numbers));
+            return this.numberLib.mode(args);
         } catch (Exception e) {
-            String message = String.format("mode(%s)", numbers);
+            String message = String.format("mode(%s)", args);
             logError(message, e);
             return null;
         }
@@ -1091,13 +1095,9 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
         try {
             return this.listLib.sort(list, comparator);
         } catch (Exception e) {
-            String message = String.format("min(%s)", list);
+            String message = String.format("sort(%s)", list);
             logError(message, e);
             return null;
         }
-    }
-
-    private String dateTimeISOFormat(int year, int month, int day, int hours, int minutes, int seconds, int millis, String offset) {
-        return String.format("%04d-%02d-%02dT%02d:%02d:%02d.%d%s", year, month, day, hours, minutes, seconds, millis, offset);
     }
 }

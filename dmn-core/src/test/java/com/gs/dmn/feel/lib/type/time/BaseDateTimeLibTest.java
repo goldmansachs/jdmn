@@ -10,17 +10,18 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.lib;
+package com.gs.dmn.feel.lib.type.time;
 
-import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import org.junit.Test;
 
+import java.time.LocalDate;
+import java.time.OffsetTime;
 import java.time.format.DateTimeParseException;
 
 import static org.junit.Assert.*;
 
-public class DateTimeLibTest {
-    DefaultDateTimeLib dateTimeLib = new DefaultDateTimeLib();
+public class BaseDateTimeLibTest {
+    BaseDateTimeLibStub dateTimeLib = new BaseDateTimeLibStub();
     
     @Test
     public void testFixDateTimeFormat() {
@@ -126,10 +127,10 @@ public class DateTimeLibTest {
 
     @Test
     public void testMakeLocalDate() {
-        assertEquals("2017-08-10", this.dateTimeLib.makeLocalDate("2017-08-10").format(this.dateTimeLib.FEEL_DATE_FORMAT));
-        assertEquals("9999-01-01", this.dateTimeLib.makeLocalDate("9999-01-01").format(this.dateTimeLib.FEEL_DATE_FORMAT));
-        assertEquals("999999999-01-01", this.dateTimeLib.makeLocalDate("999999999-01-01").format(this.dateTimeLib.FEEL_DATE_FORMAT));
-        assertEquals("-999999999-01-01", this.dateTimeLib.makeLocalDate("-999999999-01-01").format(this.dateTimeLib.FEEL_DATE_FORMAT));
+        assertEquals("2017-08-10", this.dateTimeLib.makeLocalDate("2017-08-10").format(BaseDateTimeLib.FEEL_DATE_FORMAT));
+        assertEquals("9999-01-01", this.dateTimeLib.makeLocalDate("9999-01-01").format(BaseDateTimeLib.FEEL_DATE_FORMAT));
+        assertEquals("999999999-01-01", this.dateTimeLib.makeLocalDate("999999999-01-01").format(BaseDateTimeLib.FEEL_DATE_FORMAT));
+        assertEquals("-999999999-01-01", this.dateTimeLib.makeLocalDate("-999999999-01-01").format(BaseDateTimeLib.FEEL_DATE_FORMAT));
     }
 
     @Test(expected = DateTimeParseException.class)
@@ -139,29 +140,71 @@ public class DateTimeLibTest {
 
     @Test
     public void testMakeOffsetTime() {
-        assertEquals("10:20:00Z", this.dateTimeLib.makeOffsetTime("10:20:00").format(this.dateTimeLib.FEEL_TIME_FORMAT));
-        assertEquals("10:20:00Z", this.dateTimeLib.makeOffsetTime("10:20:00Z").format(this.dateTimeLib.FEEL_TIME_FORMAT));
-        assertEquals("10:20:00+01:00", this.dateTimeLib.makeOffsetTime("10:20:00+01:00").format(this.dateTimeLib.FEEL_TIME_FORMAT));
-        assertEquals("10:20:00-01:00", this.dateTimeLib.makeOffsetTime("10:20:00-01:00").format(this.dateTimeLib.FEEL_TIME_FORMAT));
-        assertEquals("10:20:00+01:00", this.dateTimeLib.makeOffsetTime("10:20:00@Europe/Paris").format(this.dateTimeLib.FEEL_TIME_FORMAT));
-        assertEquals("10:20:00Z", this.dateTimeLib.makeOffsetTime("10:20:00@UTC").format(this.dateTimeLib.FEEL_TIME_FORMAT));
+        assertEquals("10:20:00Z", this.dateTimeLib.makeOffsetTime("10:20:00").format(BaseDateTimeLib.FEEL_TIME_FORMAT));
+        assertEquals("10:20:00Z", this.dateTimeLib.makeOffsetTime("10:20:00Z").format(BaseDateTimeLib.FEEL_TIME_FORMAT));
+        assertEquals("10:20:00+01:00", this.dateTimeLib.makeOffsetTime("10:20:00+01:00").format(BaseDateTimeLib.FEEL_TIME_FORMAT));
+        assertEquals("10:20:00-01:00", this.dateTimeLib.makeOffsetTime("10:20:00-01:00").format(BaseDateTimeLib.FEEL_TIME_FORMAT));
+        assertEquals("10:20:00+01:00", this.dateTimeLib.makeOffsetTime("10:20:00@Europe/Paris").format(BaseDateTimeLib.FEEL_TIME_FORMAT));
+        assertEquals("10:20:00Z", this.dateTimeLib.makeOffsetTime("10:20:00@UTC").format(BaseDateTimeLib.FEEL_TIME_FORMAT));
     }
 
     @Test
     public void testMakeDateTime() {
-        assertEquals("2017-08-10T00:00:00Z@UTC", this.dateTimeLib.makeDateTime("2017-08-10").format(this.dateTimeLib.FEEL_DATE_TIME_FORMAT));
-        assertEquals("9999-01-01T00:00:00Z@UTC", this.dateTimeLib.makeDateTime("9999-01-01").format(this.dateTimeLib.FEEL_DATE_TIME_FORMAT));
-        assertEquals("999999999-01-01T00:00:00Z@UTC", this.dateTimeLib.makeDateTime("999999999-01-01").format(this.dateTimeLib.FEEL_DATE_TIME_FORMAT));
-        assertEquals("-999999999-01-01T00:00:00Z@UTC", this.dateTimeLib.makeDateTime("-999999999-01-01").format(this.dateTimeLib.FEEL_DATE_TIME_FORMAT));
+        assertEquals("2017-08-10T00:00:00Z@UTC", this.dateTimeLib.makeZonedDateTime("2017-08-10").format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT));
+        assertEquals("9999-01-01T00:00:00Z@UTC", this.dateTimeLib.makeZonedDateTime("9999-01-01").format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT));
+        assertEquals("999999999-01-01T00:00:00Z@UTC", this.dateTimeLib.makeZonedDateTime("999999999-01-01").format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT));
+        assertEquals("-999999999-01-01T00:00:00Z@UTC", this.dateTimeLib.makeZonedDateTime("-999999999-01-01").format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT));
 
-        assertEquals("2017-08-10T10:20:00Z", this.dateTimeLib.makeDateTime("2017-08-10T10:20:00").format(this.dateTimeLib.FEEL_DATE_TIME_FORMAT));
-        assertEquals("2017-08-10T10:20:00Z", this.dateTimeLib.makeDateTime("2017-08-10T10:20:00Z").format(this.dateTimeLib.FEEL_DATE_TIME_FORMAT));
-        assertEquals("2017-08-10T10:20:00+01:00", this.dateTimeLib.makeDateTime("2017-08-10T10:20:00+01:00").format(this.dateTimeLib.FEEL_DATE_TIME_FORMAT));
-        assertEquals("2017-08-10T10:20:00-01:00", this.dateTimeLib.makeDateTime("2017-08-10T10:20:00-01:00").format(this.dateTimeLib.FEEL_DATE_TIME_FORMAT));
+        assertEquals("2017-08-10T10:20:00Z", this.dateTimeLib.makeZonedDateTime("2017-08-10T10:20:00").format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT));
+        assertEquals("2017-08-10T10:20:00Z", this.dateTimeLib.makeZonedDateTime("2017-08-10T10:20:00Z").format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT));
+        assertEquals("2017-08-10T10:20:00+01:00", this.dateTimeLib.makeZonedDateTime("2017-08-10T10:20:00+01:00").format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT));
+        assertEquals("2017-08-10T10:20:00-01:00", this.dateTimeLib.makeZonedDateTime("2017-08-10T10:20:00-01:00").format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT));
         // Summer
-        assertEquals("2017-08-10T10:20:00+02:00@Europe/Paris", this.dateTimeLib.makeDateTime("2017-08-10T10:20:00@Europe/Paris").format(this.dateTimeLib.FEEL_DATE_TIME_FORMAT));
+        assertEquals("2017-08-10T10:20:00+02:00@Europe/Paris", this.dateTimeLib.makeZonedDateTime("2017-08-10T10:20:00@Europe/Paris").format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT));
         // Winter
-        assertEquals("2017-02-10T10:20:00+01:00@Europe/Paris", this.dateTimeLib.makeDateTime("2017-02-10T10:20:00@Europe/Paris").format(this.dateTimeLib.FEEL_DATE_TIME_FORMAT));
-        assertEquals("2017-08-10T10:20:00Z@UTC", this.dateTimeLib.makeDateTime("2017-08-10T10:20:00@UTC").format(this.dateTimeLib.FEEL_DATE_TIME_FORMAT));
+        assertEquals("2017-02-10T10:20:00+01:00@Europe/Paris", this.dateTimeLib.makeZonedDateTime("2017-02-10T10:20:00@Europe/Paris").format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT));
+        assertEquals("2017-08-10T10:20:00Z@UTC", this.dateTimeLib.makeZonedDateTime("2017-08-10T10:20:00@UTC").format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT));
+    }
+}
+
+class BaseDateTimeLibStub extends BaseDateTimeLib {
+    @Override
+    protected boolean isTime(String literal) {
+        return super.isTime(literal);
+    }
+
+    @Override
+    protected boolean hasTime(String literal) {
+        return super.hasTime(literal);
+    }
+
+    @Override
+    protected boolean hasZone(String literal) {
+        return super.hasZone(literal);
+    }
+
+    @Override
+    protected boolean hasOffset(String literal) {
+        return super.hasOffset(literal);
+    }
+
+    @Override
+    protected boolean timeHasOffset(String literal) {
+        return super.timeHasOffset(literal);
+    }
+
+    @Override
+    protected String fixDateTimeFormat(String literal) {
+        return super.fixDateTimeFormat(literal);
+    }
+
+    @Override
+    protected LocalDate makeLocalDate(String literal) {
+        return super.makeLocalDate(literal);
+    }
+
+    @Override
+    protected OffsetTime makeOffsetTime(String literal) {
+        return super.makeOffsetTime(literal);
     }
 }

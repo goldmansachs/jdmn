@@ -179,6 +179,14 @@ public class DefaultNumericLib {
         return result;
     }
 
+    public BigDecimal min(Object... args) {
+        if (args == null || args.length < 1) {
+            return null;
+        }
+
+        return min(Arrays.asList(args));
+    }
+
     public BigDecimal max(List list) {
         if (list == null || list.isEmpty()) {
             return null;
@@ -194,6 +202,14 @@ public class DefaultNumericLib {
         return result;
     }
 
+    public BigDecimal max(Object... args) {
+        if (args == null || args.length < 1) {
+            return null;
+        }
+
+        return max(Arrays.asList(args));
+    }
+
     public BigDecimal sum(List list) {
         if (list == null || list.isEmpty()) {
             return null;
@@ -207,6 +223,14 @@ public class DefaultNumericLib {
         return result;
     }
 
+    public BigDecimal sum(Object... args) {
+        if (args == null || args.length < 1) {
+            return null;
+        }
+
+        return sum(Arrays.asList(args));
+    }
+
     public BigDecimal mean(List list) {
         if (list == null) {
             return null;
@@ -214,6 +238,14 @@ public class DefaultNumericLib {
 
         BigDecimal sum = sum(list);
         return DefaultNumericType.decimalNumericDivide(sum, BigDecimal.valueOf(list.size()));
+    }
+
+    public BigDecimal mean(Object... args) {
+        if (args == null || args.length < 1) {
+            return null;
+        }
+
+        return mean(Arrays.asList(args));
     }
 
     public BigDecimal product(List list) {
@@ -227,6 +259,14 @@ public class DefaultNumericLib {
             result = result.multiply(number);
         }
         return result;
+    }
+
+    public BigDecimal product(Object... numbers) {
+        if (numbers == null || numbers.length < 1) {
+            return null;
+        }
+
+        return product(Arrays.asList(numbers));
     }
 
     public BigDecimal median(List list) {
@@ -247,6 +287,14 @@ public class DefaultNumericLib {
         return median;
     }
 
+    public BigDecimal median(Object... numbers) {
+        if (numbers == null || numbers.length < 1) {
+            return null;
+        }
+
+        return median(Arrays.asList(numbers));
+    }
+
     public BigDecimal stddev(List list) {
         if (list == null || list.isEmpty()) {
             return null;
@@ -264,6 +312,14 @@ public class DefaultNumericLib {
         variance = variance.divide(length, MathContext.DECIMAL128);
         BigDecimal stddev = sqrt(variance);
         return stddev;
+    }
+
+    public BigDecimal stddev(Object... numbers) {
+        if (numbers == null || numbers.length < 1) {
+            return null;
+        }
+
+        return stddev(Arrays.asList(numbers));
     }
 
     public List mode(List list) {
@@ -295,5 +351,13 @@ public class DefaultNumericLib {
 
         Collections.sort(modes);
         return modes;
+    }
+
+    public List mode(Object... numbers) {
+        if (numbers == null) {
+            return null;
+        }
+
+        return mode(Arrays.asList(numbers));
     }
 }
