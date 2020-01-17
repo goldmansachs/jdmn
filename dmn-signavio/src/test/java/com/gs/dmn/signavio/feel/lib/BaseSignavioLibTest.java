@@ -198,11 +198,11 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         assertNull(getLib().containsOnly(null, Arrays.asList()));
         assertNull(getLib().containsOnly(null, Arrays.asList("1", "2")));
 
+        assertTrue(getLib().containsOnly(Arrays.asList(), Arrays.asList()));
+        assertTrue(getLib().containsOnly(Arrays.asList(), Arrays.asList("1", "4")));
+
         assertFalse(getLib().containsOnly(Arrays.asList("1", "2"), Arrays.asList("1", "4")));
         assertTrue(getLib().containsOnly(Arrays.asList("1", "2"), Arrays.asList("1", "2", "3")));
-
-        assertTrue(getLib().containsOnly(Arrays.asList(), Arrays.asList()));
-        assertFalse(getLib().containsOnly(Arrays.asList(), Arrays.asList("1", "4")));
     }
 
     @Test
