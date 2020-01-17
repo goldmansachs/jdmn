@@ -22,7 +22,7 @@ import com.gs.dmn.feel.lib.type.numeric.DoubleNumericType;
 import com.gs.dmn.feel.lib.type.string.DefaultStringLib;
 import com.gs.dmn.feel.lib.type.string.DefaultStringType;
 import com.gs.dmn.feel.lib.type.time.mixed.*;
-import com.gs.dmn.feel.lib.type.time.xml.DoubleDefaultDurationType;
+import com.gs.dmn.feel.lib.type.time.xml.DoubleDurationType;
 import com.gs.dmn.runtime.LambdaExpression;
 
 import javax.xml.datatype.DatatypeFactory;
@@ -52,7 +52,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
                 new LocalDateType(LOGGER, DATA_TYPE_FACTORY),
                 new OffsetTimeType(LOGGER, DATA_TYPE_FACTORY),
                 new ZonedDateTimeType(LOGGER, DATA_TYPE_FACTORY),
-                new DoubleDefaultDurationType(LOGGER),
+                new DoubleDurationType(LOGGER),
                 new DefaultListType(LOGGER),
                 new DefaultContextType(LOGGER)
         );

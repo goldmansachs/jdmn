@@ -18,17 +18,13 @@ import com.gs.dmn.feel.lib.type.context.DefaultContextType;
 import com.gs.dmn.feel.lib.type.list.DefaultListType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
-import com.gs.dmn.feel.lib.type.string.DefaultStringType;
-import com.gs.dmn.feel.lib.type.time.uniform.ZonedDateTimeType;
-import com.gs.dmn.feel.lib.type.time.uniform.ZonedDateType;
-import com.gs.dmn.feel.lib.type.time.uniform.ZonedTimeType;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationType;
 import com.gs.dmn.signavio.feel.lib.type.list.SignavioListLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.DefaultSignavioNumberLib;
+import com.gs.dmn.signavio.feel.lib.type.numeric.DefaultSignavioNumericType;
 import com.gs.dmn.signavio.feel.lib.type.string.DefaultSignavioStringLib;
-import com.gs.dmn.signavio.feel.lib.type.time.uniform.SignavioZonedDateLib;
-import com.gs.dmn.signavio.feel.lib.type.time.uniform.SignavioZonedDateTimeLib;
-import com.gs.dmn.signavio.feel.lib.type.time.uniform.SignavioZonedTimeLib;
+import com.gs.dmn.signavio.feel.lib.type.string.DefaultSignavioStringType;
+import com.gs.dmn.signavio.feel.lib.type.time.uniform.*;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.Duration;
@@ -49,12 +45,12 @@ public class UniformJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, ZonedDat
     private final SignavioListLib listLib = new SignavioListLib();
     
     public UniformJavaTimeSignavioLib() {
-        super(new DefaultNumericType(LOGGER),
+        super(new DefaultSignavioNumericType(LOGGER),
                 new DefaultBooleanType(LOGGER),
-                new DefaultStringType(LOGGER),
-                new ZonedDateType(LOGGER, DATA_TYPE_FACTORY),
-                new ZonedTimeType(LOGGER, DATA_TYPE_FACTORY),
-                new ZonedDateTimeType(LOGGER, DATA_TYPE_FACTORY),
+                new DefaultSignavioStringType(LOGGER),
+                new SignavioZonedDateType(LOGGER, DATA_TYPE_FACTORY),
+                new SignavioZonedTimeType(LOGGER, DATA_TYPE_FACTORY),
+                new SignavioZonedDateTimeType(LOGGER, DATA_TYPE_FACTORY),
                 new DefaultDurationType(LOGGER),
                 new DefaultListType(LOGGER),
                 new DefaultContextType(LOGGER)
