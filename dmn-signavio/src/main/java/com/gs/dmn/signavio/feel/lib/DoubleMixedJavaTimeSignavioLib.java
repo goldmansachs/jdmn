@@ -17,18 +17,13 @@ import com.gs.dmn.feel.lib.DoubleMixedJavaTimeFEELLib;
 import com.gs.dmn.feel.lib.type.context.DefaultContextType;
 import com.gs.dmn.feel.lib.type.list.DefaultListType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
-import com.gs.dmn.feel.lib.type.numeric.DoubleNumericType;
-import com.gs.dmn.feel.lib.type.string.DefaultStringType;
-import com.gs.dmn.feel.lib.type.time.mixed.LocalDateType;
-import com.gs.dmn.feel.lib.type.time.mixed.OffsetTimeType;
-import com.gs.dmn.feel.lib.type.time.mixed.ZonedDateTimeType;
-import com.gs.dmn.feel.lib.type.time.xml.DoubleDefaultDurationType;
 import com.gs.dmn.signavio.feel.lib.type.list.SignavioListLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.DoubleSignavioNumberLib;
+import com.gs.dmn.signavio.feel.lib.type.numeric.DoubleSignavioNumericType;
 import com.gs.dmn.signavio.feel.lib.type.string.DefaultSignavioStringLib;
-import com.gs.dmn.signavio.feel.lib.type.time.mixed.SignavioLocalDateLib;
-import com.gs.dmn.signavio.feel.lib.type.time.mixed.SignavioOffsetTimeLib;
-import com.gs.dmn.signavio.feel.lib.type.time.mixed.SignavioZonedDateTimeLib;
+import com.gs.dmn.signavio.feel.lib.type.string.DefaultSignavioStringType;
+import com.gs.dmn.signavio.feel.lib.type.time.mixed.*;
+import com.gs.dmn.signavio.feel.lib.type.time.xml.DoubleSignavioDurationType;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.Duration;
@@ -50,13 +45,13 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseFEELLib<Double, LocalDat
     private final SignavioListLib listLib = new SignavioListLib();
     
     public DoubleMixedJavaTimeSignavioLib() {
-        super(new DoubleNumericType(LOGGER),
+        super(new DoubleSignavioNumericType(LOGGER),
                 new DefaultBooleanType(LOGGER),
-                new DefaultStringType(LOGGER),
-                new LocalDateType(LOGGER, DATA_TYPE_FACTORY),
-                new OffsetTimeType(LOGGER, DATA_TYPE_FACTORY),
-                new ZonedDateTimeType(LOGGER, DATA_TYPE_FACTORY),
-                new DoubleDefaultDurationType(LOGGER),
+                new DefaultSignavioStringType(LOGGER),
+                new SignavioLocalDateType(LOGGER, DATA_TYPE_FACTORY),
+                new SignavioOffsetTimeType(LOGGER, DATA_TYPE_FACTORY),
+                new SignavioZonedDateTimeType(LOGGER, DATA_TYPE_FACTORY),
+                new DoubleSignavioDurationType(LOGGER),
                 new DefaultListType(LOGGER),
                 new DefaultContextType(LOGGER)
         );

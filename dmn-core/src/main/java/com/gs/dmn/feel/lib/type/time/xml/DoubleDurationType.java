@@ -21,10 +21,10 @@ import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
 
-public class DoubleDefaultDurationType extends BaseDefaultDurationType implements DurationType<Duration, Double> {
+public class DoubleDurationType extends BaseDefaultDurationType implements DurationType<Duration, Double> {
     private final BooleanType booleanType;
 
-    public DoubleDefaultDurationType(Logger logger) {
+    public DoubleDurationType(Logger logger) {
         super(logger);
         this.booleanType = new DefaultBooleanType(logger);
     }
