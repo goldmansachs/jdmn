@@ -13,8 +13,17 @@
 package com.gs.dmn.signavio.feel.lib.type.numeric;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class DefaultSignavioNumberLib {
+    public BigDecimal count(List list) {
+        if (list == null) {
+            return null;
+        }
+
+        return BigDecimal.valueOf(list.size());
+    }
+
     public BigDecimal abs(BigDecimal number) {
         if (number == null) {
             return null;

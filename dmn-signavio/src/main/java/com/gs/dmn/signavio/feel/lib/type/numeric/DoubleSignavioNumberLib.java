@@ -13,8 +13,17 @@
 package com.gs.dmn.signavio.feel.lib.type.numeric;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class DoubleSignavioNumberLib {
+    public Double count(List list) {
+        if (list == null) {
+            return null;
+        }
+
+        return Double.valueOf(list.size());
+    }
+
     public Double abs(Double number) {
         if (number == null) {
             return null;

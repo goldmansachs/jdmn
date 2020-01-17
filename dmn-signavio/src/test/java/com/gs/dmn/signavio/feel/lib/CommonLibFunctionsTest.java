@@ -193,7 +193,8 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
 
     @Test
     public void testCount() {
-        assertEqualsNumber(makeNumber("0"), getLib().count(null));
+        assertNull(getLib().count(null));
+        assertEqualsNumber(makeNumber("0"), getLib().count(makeNumberList()));
 
         assertEqualsNumber(makeNumber("3"), getLib().count(makeNumberList(1, 2, 3)));
         assertEqualsNumber(makeNumber("3"), getLib().count(makeNumberList(1, null, 3)));
