@@ -18,7 +18,6 @@ import com.gs.dmn.feel.lib.type.context.DefaultContextType;
 import com.gs.dmn.feel.lib.type.list.DefaultListType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
-import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationType;
 import com.gs.dmn.signavio.feel.lib.type.list.SignavioListLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.DefaultSignavioNumberLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.DefaultSignavioNumericType;
@@ -98,7 +97,13 @@ public class UniformJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, ZonedDat
 
     @Override
     public BigDecimal count(List list) {
-        return this.feelLib.count(list);
+        try {
+            return this.numberLib.count(list);
+        } catch (Exception e) {
+            String message = String.format("count(%s, %s)", list);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override

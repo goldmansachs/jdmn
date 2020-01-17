@@ -97,7 +97,13 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseFEELLib<Double, LocalDat
 
     @Override
     public Double count(List list) {
-        return this.feelLib.count(list);
+        try {
+            return this.numberLib.count(list);
+        } catch (Exception e) {
+            String message = String.format("count(%s, %s)", list);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override

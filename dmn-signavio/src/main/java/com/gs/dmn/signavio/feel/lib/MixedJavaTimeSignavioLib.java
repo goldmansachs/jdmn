@@ -99,7 +99,13 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
 
     @Override
     public BigDecimal count(List list) {
-        return this.feelLib.count(list);
+        try {
+            return this.numberLib.count(list);
+        } catch (Exception e) {
+            String message = String.format("count(%s, %s)", list);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
