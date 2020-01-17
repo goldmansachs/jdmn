@@ -47,7 +47,7 @@ public class DefaultSignavioStringLib {
     }
 
     public String left(String text, Number numChar) {
-        if (text == null) {
+        if (text == null || numChar == null) {
             return null;
         }
 
@@ -59,7 +59,7 @@ public class DefaultSignavioStringLib {
     }
 
     public String right(String text, Number numChar) {
-        if (text == null) {
+        if (text == null || numChar == null) {
             return null;
         }
 
