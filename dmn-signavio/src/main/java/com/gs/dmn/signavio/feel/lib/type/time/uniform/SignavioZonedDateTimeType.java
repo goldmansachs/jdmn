@@ -24,4 +24,60 @@ public class SignavioZonedDateTimeType extends ZonedDateTimeType implements Date
     public SignavioZonedDateTimeType(Logger logger, DatatypeFactory datatypeFactory) {
         super(logger, datatypeFactory);
     }
+
+    @Override
+    protected Boolean zonedDateTimeLessThan(ZonedDateTime first, ZonedDateTime second) {
+        if (first == null && second == null) {
+            return null;
+        } else if (first == null) {
+            return null;
+        } else if (second == null) {
+            return null;
+        } else {
+            int result = compare(first, second);
+            return result < 0;
+        }
+    }
+
+    @Override
+    protected Boolean zonedDateTimeGreaterThan(ZonedDateTime first, ZonedDateTime second) {
+        if (first == null && second == null) {
+            return null;
+        } else if (first == null) {
+            return null;
+        } else if (second == null) {
+            return null;
+        } else {
+            int result = compare(first, second);
+            return result > 0;
+        }
+    }
+
+    @Override
+    protected Boolean zonedDateTimeLessEqualThan(ZonedDateTime first, ZonedDateTime second) {
+        if (first == null && second == null) {
+            return null;
+        } else if (first == null) {
+            return null;
+        } else if (second == null) {
+            return null;
+        } else {
+            int result = compare(first, second);
+            return result <= 0;
+        }
+    }
+
+    @Override
+    protected Boolean zonedDateTimeGreaterEqualThan(ZonedDateTime first, ZonedDateTime second) {
+        if (first == null && second == null) {
+            return null;
+        } else if (first == null) {
+            return null;
+        } else if (second == null) {
+            return null;
+        } else {
+            int result = compare(first, second);
+            return result >= 0;
+        }
+    }
 }

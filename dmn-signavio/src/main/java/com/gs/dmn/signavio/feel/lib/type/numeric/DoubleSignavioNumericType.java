@@ -20,4 +20,32 @@ public class DoubleSignavioNumericType extends DoubleNumericType implements Nume
     public DoubleSignavioNumericType(Logger logger) {
         super(logger);
     }
+
+    @Override
+    public Boolean numericLessEqualThan(Double first, Double second) {
+        if (first == null && second == null) {
+            return null;
+        } else if (first == null) {
+            return null;
+        } else if (second == null) {
+            return null;
+        } else {
+            int result = first.compareTo(second);
+            return result <= 0;
+        }
+    }
+
+    @Override
+    public Boolean numericGreaterEqualThan(Double first, Double second) {
+        if (first == null && second == null) {
+            return null;
+        } else if (first == null) {
+            return null;
+        } else if (second == null) {
+            return null;
+        } else {
+            int result = first.compareTo(second);
+            return result >= 0;
+        }
+    }
 }

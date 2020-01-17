@@ -43,7 +43,7 @@ public abstract class DefaultSignavioXMLCalendarType extends BaseType {
 
     protected Boolean xmlCalendarLessThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
-            return false;
+            return null;
         } else if (first == null) {
             return null;
         } else if (second == null) {
@@ -56,7 +56,7 @@ public abstract class DefaultSignavioXMLCalendarType extends BaseType {
 
     protected Boolean xmlCalendarGreaterThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
-            return false;
+            return null;
         } else if (first == null) {
             return null;
         } else if (second == null) {
@@ -69,7 +69,7 @@ public abstract class DefaultSignavioXMLCalendarType extends BaseType {
 
     protected Boolean xmlCalendarLessEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
-            return true;
+            return null;
         } else if (first == null) {
             return null;
         } else if (second == null) {
@@ -82,7 +82,7 @@ public abstract class DefaultSignavioXMLCalendarType extends BaseType {
 
     protected Boolean xmlCalendarGreaterEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {
-            return true;
+            return null;
         } else if (first == null) {
             return null;
         } else if (second == null) {
