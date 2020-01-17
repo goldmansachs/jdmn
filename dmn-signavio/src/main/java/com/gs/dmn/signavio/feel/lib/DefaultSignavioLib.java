@@ -99,7 +99,7 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
         try {
             return this.numberLib.count(list);
         } catch (Exception e) {
-            String message = String.format("count(%s, %s)", list);
+            String message = String.format("count(%s)", list);
             logError(message, e);
             return null;
         }
