@@ -25,6 +25,7 @@ import com.gs.dmn.signavio.feel.lib.type.numeric.DefaultSignavioNumericType;
 import com.gs.dmn.signavio.feel.lib.type.string.DefaultSignavioStringLib;
 import com.gs.dmn.signavio.feel.lib.type.string.DefaultSignavioStringType;
 import com.gs.dmn.signavio.feel.lib.type.time.uniform.*;
+import com.gs.dmn.signavio.feel.lib.type.time.xml.DefaultSignavioDurationType;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.Duration;
@@ -51,7 +52,7 @@ public class UniformJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, ZonedDat
                 new SignavioZonedDateType(LOGGER, DATA_TYPE_FACTORY),
                 new SignavioZonedTimeType(LOGGER, DATA_TYPE_FACTORY),
                 new SignavioZonedDateTimeType(LOGGER, DATA_TYPE_FACTORY),
-                new DefaultDurationType(LOGGER),
+                new DefaultSignavioDurationType(LOGGER),
                 new DefaultListType(LOGGER),
                 new DefaultContextType(LOGGER)
         );

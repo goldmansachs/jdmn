@@ -440,7 +440,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
 
     @Test
     public void testDurationLessThan() throws Exception {
-        assertFalse(getLib().durationLessThan(null, null));
+        assertNull(getLib().durationLessThan(null, null));
         assertNull(getLib().durationLessThan(null, makeDuration("P1Y1M1DT1H")));
         assertNull(getLib().durationLessThan(makeDuration("P1Y1M1DT1H"), null));
 
@@ -450,7 +450,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
 
     @Test
     public void testDurationGreaterThan() throws Exception {
-        assertFalse(getLib().durationGreaterThan(null, null));
+        assertNull(getLib().durationGreaterThan(null, null));
         assertNull(getLib().durationGreaterThan(null, makeDuration("P1Y1M1DT1H")));
         assertNull(getLib().durationGreaterThan(makeDuration("P1Y1M1DT1H"), null));
 
@@ -460,7 +460,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
 
     @Test
     public void testDurationLessEqualThan() throws Exception {
-        assertFalse(getLib().durationLessEqualThan(null, null));
+        assertNull(getLib().durationLessEqualThan(null, null));
         assertNull(getLib().durationLessEqualThan(null, makeDuration("P1Y1M1DT1H")));
         assertNull(getLib().durationLessEqualThan(makeDuration("P1Y1M1DT1H"), null));
 
@@ -470,7 +470,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
 
     @Test
     public void testDurationGreaterEqualThan() throws Exception {
-        assertFalse(getLib().durationGreaterEqualThan(null, null));
+        assertNull(getLib().durationGreaterEqualThan(null, null));
         assertNull(getLib().durationGreaterEqualThan(null, makeDuration("P1Y1M1DT1H")));
         assertNull(getLib().durationGreaterEqualThan(makeDuration("P1Y1M1DT1H"), null));
 
@@ -558,11 +558,11 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     public void testBooleanEqual() {
         assertTrue(getLib().booleanEqual(null, null));
         assertFalse(getLib().booleanEqual(null, Boolean.FALSE));
-        assertFalse(getLib().booleanEqual(null, Boolean.FALSE));
+        assertFalse(getLib().booleanEqual(null, Boolean.TRUE));
         assertFalse(getLib().booleanEqual(Boolean.FALSE, null));
         assertFalse(getLib().booleanEqual(Boolean.TRUE, null));
 
-        assertFalse(getLib().booleanEqual(Boolean.FALSE, Boolean.TRUE));
+        assertTrue(getLib().booleanEqual(Boolean.FALSE, Boolean.FALSE));
         assertFalse(getLib().booleanEqual(Boolean.FALSE, Boolean.TRUE));
         assertFalse(getLib().booleanEqual(Boolean.TRUE, Boolean.FALSE));
         assertTrue(getLib().booleanEqual(Boolean.TRUE, Boolean.TRUE));
@@ -584,35 +584,37 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
 
     @Test
     public void testBooleanNot() {
+        assertNull(getLib().booleanNot(null));
         assertTrue(getLib().booleanNot(Boolean.FALSE));
         assertFalse(getLib().booleanNot(Boolean.TRUE));
-        assertNull(getLib().booleanNot(null));
     }
 
     @Test
     public void testBooleanOr() {
+        assertNull(getLib().booleanOr(null, null));
+        assertNull(getLib().booleanOr(null, Boolean.FALSE));
+        assertTrue(getLib().booleanOr(null, Boolean.TRUE));
+        assertNull(getLib().booleanOr(Boolean.FALSE, null));
+        assertTrue(getLib().booleanOr(Boolean.TRUE, null));
+
         assertFalse(getLib().booleanOr(Boolean.FALSE, Boolean.FALSE));
         assertTrue(getLib().booleanOr(Boolean.FALSE, Boolean.TRUE));
         assertTrue(getLib().booleanOr(Boolean.TRUE, Boolean.FALSE));
         assertTrue(getLib().booleanOr(Boolean.TRUE, Boolean.TRUE));
-        assertNull(getLib().booleanOr(Boolean.FALSE, null));
-        assertNull(getLib().booleanOr(null, Boolean.FALSE));
-        assertTrue(getLib().booleanOr(Boolean.TRUE, null));
-        assertTrue(getLib().booleanOr(null, Boolean.TRUE));
-        assertNull(getLib().booleanOr(null, null));
     }
 
     @Test
     public void testBooleanAnd() {
+        assertNull(getLib().booleanAnd(null, null));
+        assertFalse(getLib().booleanAnd(null, Boolean.FALSE));
+        assertNull(getLib().booleanAnd(null, Boolean.TRUE));
+        assertFalse(getLib().booleanAnd(Boolean.FALSE, null));
+        assertNull(getLib().booleanAnd(Boolean.TRUE, null));
+
         assertFalse(getLib().booleanAnd(Boolean.FALSE, Boolean.FALSE));
         assertFalse(getLib().booleanAnd(Boolean.FALSE, Boolean.TRUE));
         assertFalse(getLib().booleanAnd(Boolean.TRUE, Boolean.FALSE));
         assertTrue(getLib().booleanAnd(Boolean.TRUE, Boolean.TRUE));
-        assertFalse(getLib().booleanAnd(Boolean.FALSE, null));
-        assertFalse(getLib().booleanAnd(null, Boolean.FALSE));
-        assertNull(getLib().booleanAnd(Boolean.TRUE, null));
-        assertNull(getLib().booleanAnd(null, Boolean.TRUE));
-        assertNull(getLib().booleanAnd(null, null));
     }
 
     //
@@ -623,6 +625,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertTrue(getLib().listEqual(null, null));
         assertFalse(getLib().listEqual(Arrays.asList("a"), null));
         assertFalse(getLib().listEqual(null, Arrays.asList("a")));
+
         assertFalse(getLib().listEqual(Arrays.asList("a"), Arrays.asList("b")));
         assertTrue(getLib().listEqual(Arrays.asList("a"), Arrays.asList("a")));
     }
@@ -632,6 +635,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertFalse(getLib().listNotEqual(null, null));
         assertTrue(getLib().listNotEqual(Arrays.asList("a"), null));
         assertTrue(getLib().listNotEqual(null, Arrays.asList("a")));
+
         assertTrue(getLib().listNotEqual(Arrays.asList("a"), Arrays.asList("b")));
         assertFalse(getLib().listNotEqual(Arrays.asList("a"), Arrays.asList("a")));
     }
