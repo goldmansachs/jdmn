@@ -79,11 +79,6 @@ public class SignavioListLib {
             return null;
         }
 
-        // If subject list is empty, only pass if the criteria list is also empty
-        if (list1.isEmpty()) {
-            return (list2.isEmpty());
-        }
-
         for(Object obj1: list1) {
             if (!list2.contains(obj1)) {
                 return false;
