@@ -366,7 +366,7 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         assertNull(getLib().left(null, makeNumber("5")));
 
         assertEquals("Hello", getLib().left("Hello World!", makeNumber("5")));
-        assertNull(getLib().left("Hello World!", makeNumber("100")));
+        assertEquals("Hello World!", getLib().left("Hello World!", makeNumber("100")));
     }
 
     @Test
@@ -376,7 +376,7 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         assertNull(getLib().right("Hello World!", null));
 
         assertEquals("World!", getLib().right("Hello World!", makeNumber("6")));
-        assertNull(getLib().right("Hello World!", makeNumber("100")));
+        assertEquals("Hello World!", getLib().right("Hello World!", makeNumber("100")));
     }
 
     @Test

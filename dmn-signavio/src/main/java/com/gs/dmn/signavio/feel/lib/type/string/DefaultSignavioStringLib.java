@@ -51,11 +51,23 @@ public class DefaultSignavioStringLib {
             return null;
         }
 
-        return text.substring(0, numChar.intValue());
+        int length = numChar.intValue();
+        if (length > text.length()) {
+            length = text.length();
+        }
+        return text.substring(0, length);
     }
 
     public String right(String text, Number numChar) {
-        return text.substring(text.length() - numChar.intValue());
+        if (text == null) {
+            return null;
+        }
+
+        int length = numChar.intValue();
+        if (length > text.length()) {
+            length = text.length();
+        }
+        return text.substring(text.length() - length);
     }
 
     public String text(Number num, String formatText) {
