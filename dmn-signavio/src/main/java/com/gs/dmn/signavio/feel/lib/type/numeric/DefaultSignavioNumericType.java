@@ -22,4 +22,32 @@ public class DefaultSignavioNumericType extends DefaultNumericType implements Nu
     public DefaultSignavioNumericType(Logger logger) {
         super(logger);
     }
+
+    @Override
+    public Boolean numericLessEqualThan(BigDecimal first, BigDecimal second) {
+        if (first == null && second == null) {
+            return null;
+        } else if (first == null) {
+            return null;
+        } else if (second == null) {
+            return null;
+        } else {
+            int result = first.compareTo(second);
+            return result <= 0;
+        }
+    }
+
+    @Override
+    public Boolean numericGreaterEqualThan(BigDecimal first, BigDecimal second) {
+        if (first == null && second == null) {
+            return null;
+        } else if (first == null) {
+            return null;
+        } else if (second == null) {
+            return null;
+        } else {
+            int result = first.compareTo(second);
+            return result >= 0;
+        }
+    }
 }

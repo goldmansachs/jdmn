@@ -12,10 +12,10 @@
  */
 package com.gs.dmn.feel.lib.type.time.mixed;
 
-import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.DateTimeType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
+import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeFactory;
@@ -180,11 +180,11 @@ public class ZonedDateTimeType extends JavaTimeCalendarType implements DateTimeT
         }
     }
 
-    private int compare(ZonedDateTime first, ZonedDateTime second) {
+    protected int compare(ZonedDateTime first, ZonedDateTime second) {
         return first.withZoneSameInstant(DefaultDateTimeLib.UTC).compareTo(second.withZoneSameInstant(DefaultDateTimeLib.UTC));
     }
 
-    private Duration toDuration(ZonedDateTime first, ZonedDateTime second) {
+    protected Duration toDuration(ZonedDateTime first, ZonedDateTime second) {
         long durationInMilliSeconds = getDurationInMilliSeconds(first, second);
         return datatypeFactory.newDuration(durationInMilliSeconds);
     }

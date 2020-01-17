@@ -24,4 +24,60 @@ public class SignavioLocalDateType extends LocalDateType implements DateType<Loc
     public SignavioLocalDateType(Logger logger, DatatypeFactory datatypeFactory) {
         super(logger, datatypeFactory);
     }
+
+    @Override
+    protected Boolean localDateLessThan(LocalDate first, LocalDate second) {
+        if (first == null && second == null) {
+            return null;
+        } else if (first == null) {
+            return null;
+        } else if (second == null) {
+            return null;
+        } else {
+            int result = compare(first, second);
+            return result < 0;
+        }
+    }
+
+    @Override
+    protected Boolean localDateGreaterThan(LocalDate first, LocalDate second) {
+        if (first == null && second == null) {
+            return null;
+        } else if (first == null) {
+            return null;
+        } else if (second == null) {
+            return null;
+        } else {
+            int result = compare(first, second);
+            return result > 0;
+        }
+    }
+
+    @Override
+    protected Boolean localDateLessEqualThan(LocalDate first, LocalDate second) {
+        if (first == null && second == null) {
+            return null;
+        } else if (first == null) {
+            return null;
+        } else if (second == null) {
+            return null;
+        } else {
+            int result = compare(first, second);
+            return result <= 0;
+        }
+    }
+
+    @Override
+    protected Boolean localDateGreaterEqualThan(LocalDate first, LocalDate second) {
+        if (first == null && second == null) {
+            return null;
+        } else if (first == null) {
+            return null;
+        } else if (second == null) {
+            return null;
+        } else {
+            int result = compare(first, second);
+            return result >= 0;
+        }
+    }
 }

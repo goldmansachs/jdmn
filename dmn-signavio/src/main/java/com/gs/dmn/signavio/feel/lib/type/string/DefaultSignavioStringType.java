@@ -20,4 +20,24 @@ public class DefaultSignavioStringType extends DefaultStringType implements Stri
     public DefaultSignavioStringType(Logger logger) {
         super(logger);
     }
+
+    @Override
+    public Boolean stringLessThan(String first, String second) {
+        return null;
+    }
+
+    @Override
+    public Boolean stringGreaterThan(String first, String second) {
+        return null;
+    }
+
+    @Override
+    public Boolean stringLessEqualThan(String first, String second) {
+        return null;
+    }
+
+    @Override
+    public Boolean stringGreaterEqualThan(String first, String second) {
+        return null;
+    }
 }

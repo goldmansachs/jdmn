@@ -178,11 +178,11 @@ public class OffsetTimeType extends JavaTimeCalendarType implements TimeType<Off
         }
     }
 
-    private int compare(OffsetTime first, OffsetTime second) {
+    protected int compare(OffsetTime first, OffsetTime second) {
         return first.compareTo(second);
     }
 
-    private Duration toDuration(OffsetTime first, OffsetTime second) {
+    protected Duration toDuration(OffsetTime first, OffsetTime second) {
         ZonedDateTime first1 = first.atDate(EPOCH).atZoneSameInstant(DefaultDateTimeLib.UTC);
         ZonedDateTime second1 = second.atDate(EPOCH).atZoneSameInstant(DefaultDateTimeLib.UTC);
         long durationInMilliSeconds = getDurationInMilliSeconds(first1, second1);
