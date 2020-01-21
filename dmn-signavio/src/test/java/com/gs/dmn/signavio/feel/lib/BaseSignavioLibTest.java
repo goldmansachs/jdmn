@@ -97,8 +97,8 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         assertEqualsNumber(makeNumber("-1"), getLib().modulo(makeNumber("-4"), makeNumber("-3")));
 
         assertEqualsNumber(makeNumber("0.895"), getLib().modulo(makeNumber("4.125"), makeNumber("3.23")));
-        assertEqualsNumber(makeNumber("0.895"), getLib().modulo(makeNumber("4.125"), makeNumber("3.23")));
-        assertEqualsNumber(makeNumber("-0.895"), getLib().modulo(makeNumber("-4.125"), makeNumber("-3.23")));
+        assertEqualsNumber(makeNumber("0.895"), getLib().modulo(makeNumber("4.125"), makeNumber("-3.23")));
+        assertEqualsNumber(makeNumber("-0.895"), getLib().modulo(makeNumber("-4.125"), makeNumber("3.23")));
         assertEqualsNumber(makeNumber("-0.895"), getLib().modulo(makeNumber("-4.125"), makeNumber("-3.23")));
     }
 
