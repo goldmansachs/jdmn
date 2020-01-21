@@ -139,6 +139,9 @@ public class SignavioListLib {
     public Object mode(List numbers) {
         Map<Object, Integer> map = new LinkedHashMap<>();
         for (Object n : numbers) {
+            if (n == null) {
+                return null;
+            }
             Integer counter = map.get(n);
             if (counter == null) {
                 counter = 1;

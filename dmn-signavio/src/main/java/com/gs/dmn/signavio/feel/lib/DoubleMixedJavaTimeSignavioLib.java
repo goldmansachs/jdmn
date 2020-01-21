@@ -528,7 +528,13 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseFEELLib<Double, LocalDat
 
     @Override
     public Double number(String text, String defaultValue) {
-        return text != null ? number(text) : number(defaultValue);
+        try {
+            return this.numberLib.number(text, defaultValue);
+        } catch (Exception e) {
+            String message = String.format("number(%s, %s)", text, defaultValue);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override

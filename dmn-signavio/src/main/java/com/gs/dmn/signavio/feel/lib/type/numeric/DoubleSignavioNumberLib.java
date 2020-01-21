@@ -12,24 +12,32 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.numeric;
 
+import com.gs.dmn.feel.lib.type.numeric.DoubleNumericLib;
+
 import java.math.BigDecimal;
 import java.util.List;
 
-public class DoubleSignavioNumberLib {
+public class DoubleSignavioNumberLib extends DoubleNumericLib {
+    public Double number(String text, String defaultValue) {
+        if (text == null || defaultValue ==  null) {
+            return null;
+        }
+
+        Double number = null;
+        try {
+            number = number(text);
+        } catch (Exception e) {
+        }
+        return number != null ? number : number(defaultValue);
+    }
+
+    @Override
     public Double count(List list) {
         if (list == null) {
             return null;
         }
 
         return Double.valueOf(list.size());
-    }
-
-    public Double abs(Double number) {
-        if (number == null) {
-            return null;
-        }
-
-        return Math.abs(number);
     }
 
     public Double round(Double number, Double digits) {
@@ -60,11 +68,12 @@ public class DoubleSignavioNumberLib {
         return Double.valueOf(number.intValue());
     }
 
-    public Double modulo(Double divident, Double divisor) {
-        if (divident == null || divisor == null) {
+    @Override
+    public Double modulo(Double dividend, Double divisor) {
+        if (dividend == null || divisor == null) {
             return null;
         }
 
-        return Double.valueOf(divident.intValue() % divisor.intValue());
+        return dividend % divisor;
     }
 }
