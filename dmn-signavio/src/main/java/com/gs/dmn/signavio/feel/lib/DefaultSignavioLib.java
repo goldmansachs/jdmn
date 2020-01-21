@@ -527,6 +527,11 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
     }
 
     @Override
+    public Boolean not(Boolean bool) {
+        return this.booleanType.booleanNot(bool);
+    }
+
+    @Override
     public XMLGregorianCalendar date(String literal) {
         return this.feelLib.date(literal);
     }

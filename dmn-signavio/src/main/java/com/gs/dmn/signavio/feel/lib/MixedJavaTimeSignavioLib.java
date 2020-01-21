@@ -635,6 +635,11 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     }
 
     @Override
+    public Boolean not(Boolean bool) {
+        return this.booleanType.booleanNot(bool);
+    }
+
+    @Override
     public LocalDate date(String literal) {
         return this.feelLib.date(literal);
     }

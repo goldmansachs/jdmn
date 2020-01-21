@@ -634,6 +634,11 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseFEELLib<Double, LocalDat
     }
 
     @Override
+    public Boolean not(Boolean bool) {
+        return this.booleanType.booleanNot(bool);
+    }
+
+    @Override
     public LocalDate date(String literal) {
         return this.feelLib.date(literal);
     }

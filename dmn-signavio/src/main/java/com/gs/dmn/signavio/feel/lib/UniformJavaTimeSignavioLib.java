@@ -527,6 +527,11 @@ public class UniformJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, ZonedDat
     }
 
     @Override
+    public Boolean not(Boolean bool) {
+        return this.booleanType.booleanNot(bool);
+    }
+
+    @Override
     public ZonedDateTime date(String literal) {
         return this.feelLib.date(literal);
     }

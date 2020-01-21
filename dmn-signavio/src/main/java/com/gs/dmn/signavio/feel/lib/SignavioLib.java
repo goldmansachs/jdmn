@@ -396,4 +396,9 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Determines whether text‘‘ends with the ‘‘suffix.
     //    Example: endsWith("Hello World!", "!") returns true.
     Boolean endsWith(String text, String suffix);
+
+    //    not(boolean): BOOLEAN
+    //    Negates the input boolean
+    //    Example: endsWith("Hello World!", "!") returns true.
+    Boolean not(Boolean bool);
 }
