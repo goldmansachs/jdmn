@@ -235,6 +235,13 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
     @Override
     public XMLGregorianCalendar date(BigDecimal year, BigDecimal month, BigDecimal day) {
         try {
+            if (year == null || month == null || day == null) {
+                return null;
+            }
+            if (year.intValue() < 0 || month.intValue() < 0 || day.intValue() < 0) {
+                return null;
+            }
+
             String literal = String.format("%04d-%02d-%02d", year.intValue(), month.intValue(), day.intValue());
             return this.feelLib.date(literal);
         } catch (Exception e) {
@@ -247,6 +254,13 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
     @Override
     public XMLGregorianCalendar dateTime(BigDecimal day, BigDecimal month, BigDecimal year, BigDecimal hour, BigDecimal minute, BigDecimal second) {
         try {
+            if (year == null || month == null || day == null || minute == null || second == null) {
+                return null;
+            }
+            if (year.intValue() < 0 || month.intValue() < 0 || day.intValue() < 0 || minute.intValue() < 0 || second.intValue() < 0) {
+                return null;
+            }
+
             String literal = String.format("%04d-%02d-%02dT%02d:%02d:%02dZ",
                     year.intValue(), month.intValue(), day.intValue(), hour.intValue(), minute.intValue(), second.intValue());
             return this.feelLib.dateAndTime(literal);

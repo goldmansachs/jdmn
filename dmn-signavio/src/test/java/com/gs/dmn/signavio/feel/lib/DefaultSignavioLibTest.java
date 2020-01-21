@@ -71,6 +71,7 @@ public class DefaultSignavioLibTest extends BaseSignavioLibTest<BigDecimal, XMLG
 
         assertEquals(makeNumber("1"), getLib().dayDiff(makeDate("2015-12-24"), makeDate("2015-12-25")));
         assertEquals(makeNumber("1"), getLib().dayDiff(makeDateAndTime("2015-12-24T12:15:00.000+01:00"), makeDateAndTime("2015-12-25T12:15:00.000+01:00")));
+        assertEquals(makeNumber("-1"), getLib().dayDiff(makeDate("2015-12-24"), makeDate("2015-12-23")));
     }
 
     @Test
@@ -154,7 +155,7 @@ public class DefaultSignavioLibTest extends BaseSignavioLibTest<BigDecimal, XMLG
     @Test
     public void testMonthDiff() {
         assertNull(getLib().monthDiff(null, null));
-        assertNull(getLib().monthDiff(null, makeDate("2015-05-05")));
+        assertNull(getLib().monthDiff(null, makeDate("2015-01-05")));
         assertNull(getLib().monthDiff(makeDate("2015-01-05"), null));
 
         assertEquals(makeNumber("0"), getLib().monthDiff(makeDate("2015-01-05"), makeDate("2015-01-05")));
@@ -222,7 +223,7 @@ public class DefaultSignavioLibTest extends BaseSignavioLibTest<BigDecimal, XMLG
     @Test
     public void testYearDiff() {
         assertNull(getLib().yearDiff(null, null));
-        assertNull(getLib().yearDiff(null, makeDate("2015-05-05")));
+        assertNull(getLib().yearDiff(null, makeDate("2015-01-05")));
         assertNull(getLib().yearDiff(makeDate("2015-01-05"), null));
 
         assertEquals(makeNumber("0"), getLib().yearDiff(makeDate("2015-01-05"), makeDate("2015-01-05")));

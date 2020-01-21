@@ -256,14 +256,41 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseFEELLib<Double, LocalDat
 
     @Override
     public LocalDate date(Double year, Double month, Double day) {
-        return this.feelLib.date(String.format("%04d-%02d-%02d", year.intValue(), month.intValue(), day.intValue()));
+        try {
+            if (year == null || month == null || day == null) {
+                return null;
+            }
+            if (year.intValue() < 0 || month.intValue() < 0 || day.intValue() < 0) {
+                return null;
+            }
+
+            String literal = String.format("%04d-%02d-%02d", year.intValue(), month.intValue(), day.intValue());
+            return this.feelLib.date(literal);
+        } catch (Exception e) {
+            String message = String.format("date(%s, %s, %s)", year, month, day);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public ZonedDateTime dateTime(Double day, Double month, Double year, Double hour, Double minute, Double second) {
-        String literal = String.format("%04d-%02d-%02dT%02d:%02d:%02dZ",
-                year.intValue(), month.intValue(), day.intValue(), hour.intValue(), minute.intValue(), second.intValue());
-        return this.feelLib.dateAndTime(literal);
+        try {
+            if (year == null || month == null || day == null || minute == null || second == null) {
+                return null;
+            }
+            if (year.intValue() < 0 || month.intValue() < 0 || day.intValue() < 0 || minute.intValue() < 0 || second.intValue() < 0) {
+                return null;
+            }
+
+            String literal = String.format("%04d-%02d-%02dT%02d:%02d:%02dZ",
+                    year.intValue(), month.intValue(), day.intValue(), hour.intValue(), minute.intValue(), second.intValue());
+            return this.feelLib.dateAndTime(literal);
+        } catch (Exception e) {
+            String message = String.format("dateTime(%s, %s, %s, %s, %s, %s)", day, month, year, hour, minute, second);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
