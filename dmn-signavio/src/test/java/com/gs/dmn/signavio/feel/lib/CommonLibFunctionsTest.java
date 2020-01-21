@@ -244,6 +244,7 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
         assertNull(getLib().sum((makeNumberList())));
 
         assertEqualsNumber(makeNumber("6"), getLib().sum(makeNumberList(1, 2, 3)));
+        assertEqualsNumber(makeNumber("1"), getLib().sum(makeNumberList(1, 2, -2)));
         assertNull(getLib().sum(makeNumberList(1, null, 3)));
     }
 }

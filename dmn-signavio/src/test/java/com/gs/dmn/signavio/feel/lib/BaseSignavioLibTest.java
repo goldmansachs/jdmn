@@ -50,9 +50,7 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     public void testRound() {
         assertNull(getLib().round(null, null));
         assertNull(getLib().round(makeNumber("3.44"), null));
-        assertNull(getLib().round(null, makeNumber("3.44")));
-
-        assertEqualsNumber(3.4, getLib().round(makeNumber("3.44"), makeNumber("1")), 0.001);
+        assertNull(getLib().round(null, makeNumber("1")));
 
         assertEqualsNumber(2.23, getLib().round(makeNumber("2.234"), makeNumber("2")), 0.0001);
         assertEqualsNumber(2.24, getLib().round(makeNumber("2.235"), makeNumber("2")), 0.0001);
