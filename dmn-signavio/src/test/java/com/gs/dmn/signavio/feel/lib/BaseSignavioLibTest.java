@@ -57,14 +57,30 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         assertEqualsNumber(2.23, getLib().round(makeNumber("2.234"), makeNumber("2")), 0.0001);
         assertEqualsNumber(2.24, getLib().round(makeNumber("2.235"), makeNumber("2")), 0.0001);
         assertEqualsNumber(2.24, getLib().round(makeNumber("2.236"), makeNumber("2")), 0.0001);
+
+        assertEqualsNumber(99.4, getLib().round(makeNumber("99.444"), makeNumber("1")), 0.0001);
+        assertEqualsNumber(99, getLib().round(makeNumber("99.444"), makeNumber("0")), 0.0001);
+        assertEqualsNumber(100, getLib().round(makeNumber("99.444"), makeNumber("-1")), 0.0001);
+        assertEqualsNumber(100, getLib().round(makeNumber("99.444"), makeNumber("-2")), 0.0001);
+        assertEqualsNumber(0, getLib().round(makeNumber("99.444"), makeNumber("-3")), 0.0001);
+        assertEqualsNumber(0, getLib().round(makeNumber("99.444"), makeNumber("-4")), 0.0001);
     }
 
     @Test
     public void testInteger() {
         assertNull(getLib().integer(null));
 
-        assertEqualsNumber(makeNumber("123"), getLib().integer(makeNumber("123.45")));
-        assertEqualsNumber(makeNumber("123"), getLib().integer(makeNumber("123.56")));
+        assertEqualsNumber(makeNumber("1"), getLib().integer(makeNumber("1")));
+        assertEqualsNumber(makeNumber("1"), getLib().integer(makeNumber("1.2")));
+        assertEqualsNumber(makeNumber("1"), getLib().integer(makeNumber("1.4")));
+        assertEqualsNumber(makeNumber("1"), getLib().integer(makeNumber("1.5")));
+        assertEqualsNumber(makeNumber("1"), getLib().integer(makeNumber("1.6")));
+
+        assertEqualsNumber(makeNumber("-1"), getLib().integer(makeNumber("-1")));
+        assertEqualsNumber(makeNumber("-1"), getLib().integer(makeNumber("-1.2")));
+        assertEqualsNumber(makeNumber("-1"), getLib().integer(makeNumber("-1.4")));
+        assertEqualsNumber(makeNumber("-1"), getLib().integer(makeNumber("-1.5")));
+        assertEqualsNumber(makeNumber("-1"), getLib().integer(makeNumber("-1.6")));
     }
 
     @Test
@@ -93,21 +109,23 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         assertEqualsNumber(makeNumber("1"), getLib().numericExponentiation(makeNumber("3"), makeNumber("0")));
 
         assertEqualsNumber(makeNumber("8"), getLib().power(makeNumber("2"), makeNumber("3")));
-        assertEqualsNumber(makeNumber("8"), getLib().power(makeNumber("2"), makeNumber("3.5")));
-        assertEqualsNumber(makeNumber("9"), getLib().power(makeNumber("3"), makeNumber("2.25")));
-        assertEqualsNumber(makeNumber("9"), getLib().power(makeNumber("3"), makeNumber("2.5")));
-        assertEqualsNumber(makeNumber("9"), getLib().power(makeNumber("3"), makeNumber("2.75")));
-        assertEqualsNumber(makeNumber("1"), getLib().power(makeNumber("3"), makeNumber("0.5")));
-        assertEqualsNumber(makeNumber("0.1111111111111111"), getLib().power(makeNumber("3"), makeNumber("-2")));
-        assertEqualsNumber(makeNumber("0.1111111111111111"), getLib().power(makeNumber("3"), makeNumber("-2.75")));
+        assertEqualsNumber(makeNumber("4"), getLib().power(makeNumber("2"), makeNumber("2.5")));
+        assertEqualsNumber(makeNumber("6.25"), getLib().power(makeNumber("2.5"), makeNumber("2")));
+        assertEqualsNumber(makeNumber("0.5"), getLib().power(makeNumber("2"), makeNumber("-1")));
+        assertEqualsNumber(makeNumber("0.25"), getLib().power(makeNumber("2"), makeNumber("-2.5")));
+        assertEqualsNumber(makeNumber("0.25"), getLib().power(makeNumber("2"), makeNumber("-2.3")));
+
+        assertEqualsNumber(makeNumber("4"), getLib().power(makeNumber("-2"), makeNumber("2.3")));
     }
 
     @Test
     public void testProduct() {
         assertNull(getLib().product(null));
+        assertNull(getLib().product(makeNumberList()));
 
-        assertEqualsNumber(makeNumber("6"), getLib().product(Arrays.asList(makeNumber("2"), makeNumber("3"))));
-        assertNull(getLib().product(Arrays.asList(null, makeNumber("3"))));
+        assertEqualsNumber(makeNumber("2"), getLib().product(makeNumberList(2)));
+        assertEqualsNumber(makeNumber("24"), getLib().product(makeNumberList(2, 3, 4)));
+        assertNull(getLib().product(makeNumberList(1, null, 3)));
     }
 
     @Test
@@ -126,6 +144,9 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         assertNull(getLib().roundUp(makeNumber("2"), null));
 
         assertEqualsNumber(1.35, getLib().roundUp(makeNumber("1.344"), makeNumber("2")), 0.001);
+        assertEqualsNumber(1.34, getLib().roundUp(makeNumber("1.333"), makeNumber("2")), 0.001);
+        assertEqualsNumber(10, getLib().roundUp(makeNumber("1.344"), makeNumber("-1")), 0.001);
+        assertEqualsNumber(100, getLib().roundUp(makeNumber("1.344"), makeNumber("-2")), 0.001);
     }
 
     //
@@ -134,17 +155,22 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     @Override
     @Test
     public void testAppend() {
-        assertEquals("[null]", getLib().append(null, null).toString());
-        assertEquals("[1, 2, null]", getLib().append(Arrays.asList("1", "2"), null).toString());
-        assertEquals("[1, 2, 3]", getLib().append(Arrays.asList("1", "2"), 3).toString());
+        assertEquals(Arrays.asList(new Object[] {null}), getLib().append(null, null));
+        assertEquals(Arrays.asList("1", "2", null), getLib().append(Arrays.asList("1", "2"), null));
+        assertEquals(Arrays.asList("1", "2", "3"), getLib().append(Arrays.asList("1", "2"), "3"));
     }
 
     @Test
     public void testAppendAll() {
-        assertEquals("[1, 2, 1, 2]", getLib().appendAll(Arrays.asList("1", "2"), Arrays.asList("1", "2")).toString());
-        assertEquals("[1, 2]", getLib().appendAll(null, Arrays.asList("1", "2")).toString());
-        assertEquals("[1, 2]", getLib().appendAll(Arrays.asList("1", "2"), null).toString());
-        assertEquals("[]", getLib().appendAll(null, null).toString());
+        assertEquals(Arrays.asList(), getLib().appendAll(null, null));
+        assertEquals(Arrays.asList(), getLib().appendAll(null, Arrays.asList()));
+        assertEquals(Arrays.asList(), getLib().appendAll(Arrays.asList(), null));
+        assertEquals(Arrays.asList(), getLib().appendAll(Arrays.asList(), Arrays.asList()));
+
+        assertEquals(Arrays.asList("1", "2"), getLib().appendAll(Arrays.asList("1", "2"), null));
+        assertEquals(Arrays.asList("1", "2"), getLib().appendAll(null, Arrays.asList("1", "2")));
+
+        assertEquals(Arrays.asList("1", "2", "3", "4"), getLib().appendAll(Arrays.asList("1", "2"), Arrays.asList("3", "4")));
     }
 
     @Test
@@ -186,6 +212,10 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         assertNull(getLib().notContainsAny(Arrays.asList("1", "2"), null));
         assertNull(getLib().notContainsAny(null, Arrays.asList("1", "2")));
 
+        assertTrue(getLib().notContainsAny(Arrays.asList(), Arrays.asList()));
+        assertTrue(getLib().notContainsAny(Arrays.asList("1", "2"), Arrays.asList()));
+        assertTrue(getLib().notContainsAny(Arrays.asList(), Arrays.asList("1", "2")));
+
         assertFalse(getLib().notContainsAny(Arrays.asList("1", "2"), Arrays.asList("1", "4")));
         assertTrue(getLib().notContainsAny(Arrays.asList("1", "2"), Arrays.asList("3", "4")));
     }
@@ -193,36 +223,49 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     @Test
     public void testContainsOnly() {
         assertNull(getLib().containsOnly(null, null));
-        assertNull(getLib().containsOnly(Arrays.asList(), null));
-        assertNull(getLib().containsOnly(Arrays.asList("1", "2"), null));
         assertNull(getLib().containsOnly(null, Arrays.asList()));
         assertNull(getLib().containsOnly(null, Arrays.asList("1", "2")));
 
+        assertNull(getLib().containsOnly(Arrays.asList(), null));
         assertTrue(getLib().containsOnly(Arrays.asList(), Arrays.asList()));
-        assertTrue(getLib().containsOnly(Arrays.asList(), Arrays.asList("1", "4")));
+        assertTrue(getLib().containsOnly(Arrays.asList(), Arrays.asList("1", "2")));
 
-        assertFalse(getLib().containsOnly(Arrays.asList("1", "2"), Arrays.asList("1", "4")));
-        assertTrue(getLib().containsOnly(Arrays.asList("1", "2"), Arrays.asList("1", "2", "3")));
+        assertNull(getLib().containsOnly(Arrays.asList("1", "2"), null));
+        assertFalse(getLib().containsOnly(Arrays.asList("1", "2"), Arrays.asList()));
+        assertTrue(getLib().containsOnly(Arrays.asList("1", "2"), Arrays.asList("1", "2")));
+        assertFalse(getLib().containsOnly(Arrays.asList("1", "2"), Arrays.asList("3", "4")));
     }
 
     @Test
     public void testAreElementsOf() {
         assertNull(getLib().areElementsOf(null, null));
-        assertNull(getLib().areElementsOf(Arrays.asList("1", "2"), null));
+        assertNull(getLib().areElementsOf(null, Arrays.asList()));
         assertNull(getLib().areElementsOf(null, Arrays.asList("1", "2")));
 
-        assertFalse(getLib().areElementsOf(Arrays.asList("1", "2"), Arrays.asList("1", "4")));
-        assertTrue(getLib().areElementsOf(Arrays.asList("1", "2"), Arrays.asList("1", "2", "3")));
+        assertNull(getLib().areElementsOf(Arrays.asList(), null));
+        assertTrue(getLib().areElementsOf(Arrays.asList(), Arrays.asList()));
+        assertTrue(getLib().areElementsOf(Arrays.asList(), Arrays.asList("1", "2")));
+
+        assertNull(getLib().areElementsOf(Arrays.asList("1", "2"), null));
+        assertFalse(getLib().areElementsOf(Arrays.asList("1", "2"), Arrays.asList()));
+        assertTrue(getLib().areElementsOf(Arrays.asList("1", "2"), Arrays.asList("1", "2")));
+        assertFalse(getLib().areElementsOf(Arrays.asList("1", "2"), Arrays.asList("1", "3")));
     }
 
     @Test
     public void testElementOf() {
         assertNull(getLib().elementOf(null, null));
-        assertNull(getLib().elementOf(Arrays.asList("1", "2"), null));
+        assertNull(getLib().elementOf(null, Arrays.asList()));
         assertNull(getLib().elementOf(null, Arrays.asList("1", "2")));
 
-        assertFalse(getLib().elementOf(Arrays.asList("1", "2"), Arrays.asList("1", "4")));
-        assertTrue(getLib().elementOf(Arrays.asList("1", "2"), Arrays.asList("1", "2", "3")));
+        assertNull(getLib().elementOf(Arrays.asList(), null));
+        assertTrue(getLib().elementOf(Arrays.asList(), Arrays.asList()));
+        assertTrue(getLib().elementOf(Arrays.asList(), Arrays.asList("1", "2")));
+
+        assertNull(getLib().elementOf(Arrays.asList("1", "2"), null));
+        assertFalse(getLib().elementOf(Arrays.asList("1", "2"), Arrays.asList()));
+        assertTrue(getLib().elementOf(Arrays.asList("1", "2"), Arrays.asList("1", "2")));
+        assertFalse(getLib().elementOf(Arrays.asList("1", "2"), Arrays.asList("1", "3")));
     }
 
     //
@@ -231,6 +274,7 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     @Test
     public void testAvg() {
         assertNull(getLib().avg(null));
+        assertNull(getLib().avg(Arrays.asList()));
 
         assertEqualsNumber(makeNumber("2"), getLib().avg(Arrays.asList(makeNumber("1"), makeNumber("3"))));
         assertNull(getLib().avg(Arrays.asList(makeNumber("1"), null)));
@@ -239,8 +283,8 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     @Test
     public void testMedian() {
         assertNull(getLib().median(null));
-
         assertNull(getLib().median(Arrays.asList()));
+
         assertEqualsNumber(makeNumber("2"), getLib().median(Arrays.asList(makeNumber("1"), makeNumber("3"))));
         assertEqualsNumber(makeNumber("3"), getLib().median(Arrays.asList(makeNumber("1"), makeNumber("5"), makeNumber("3"))));
         assertNull(getLib().median(Arrays.asList(makeNumber("1"), null)));
@@ -335,10 +379,9 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     public void testTrim() {
         assertNull(getLib().trim(null));
 
+        assertEquals("", getLib().trim(""));
         assertEquals("abc", getLib().trim(" abc "));
         assertEquals("ab c1", getLib().trim("ab c1"));
-        assertNull(getLib().trim(null));
-        assertEquals("", getLib().trim(""));
     }
 
     @Test
@@ -363,20 +406,26 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     @Test
     public void testLeft() {
         assertNull(getLib().left(null, null));
-        assertNull(getLib().left(null, makeNumber("5")));
+        assertNull(getLib().left(null, makeNumber("1")));
+        assertNull(getLib().left("123", null));
+        assertNull(getLib().left("123", makeNumber("-1")));
 
-        assertEquals("Hello", getLib().left("Hello World!", makeNumber("5")));
-        assertEquals("Hello World!", getLib().left("Hello World!", makeNumber("100")));
+        assertEquals("1", getLib().left("123", makeNumber("1")));
+        assertEquals("12", getLib().left("123", makeNumber("2")));
+        assertEquals("123", getLib().left("123", makeNumber("3")));
+        assertEquals("123", getLib().left("123", makeNumber("100")));
     }
 
     @Test
     public void testRight() {
         assertNull(getLib().right(null, null));
-        assertNull(getLib().right(null, makeNumber("100")));
-        assertNull(getLib().right("Hello World!", null));
+        assertNull(getLib().right(null, makeNumber("1")));
+        assertNull(getLib().right("123", null));
+        assertNull(getLib().right("123", makeNumber("-1")));
 
-        assertEquals("World!", getLib().right("Hello World!", makeNumber("6")));
-        assertEquals("Hello World!", getLib().right("Hello World!", makeNumber("100")));
+        assertEquals("3", getLib().right("123", makeNumber("1")));
+        assertEquals("23", getLib().right("123", makeNumber("2")));
+        assertEquals("123", getLib().right("123", makeNumber("7")));
     }
 
     @Test
@@ -386,8 +435,9 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         assertNull(getLib().text(makeNumber("1"), null));
 
         assertEquals("1.000", getLib().text(makeNumber("1"), "#.000"));
+        assertEquals("001", getLib().text(makeNumber("1"), "#,000"));
+        assertEquals("1,999.00", getLib().text(makeNumber("1999"), "#0,000.00"));
         assertEquals("X1", getLib().text(makeNumber("1"), "X"));
-        assertNull(getLib().text(makeNumber("1"), null));
     }
 
     @Test
