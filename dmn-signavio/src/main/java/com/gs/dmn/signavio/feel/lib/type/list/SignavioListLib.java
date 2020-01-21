@@ -32,8 +32,8 @@ public class SignavioListLib {
     }
 
     public List remove(List list, Object element) {
-        if (list == null) {
-            return null;
+        if (list == null || list.isEmpty()) {
+            return new ArrayList();
         }
         List result = new ArrayList();
         for(Object obj: list) {
@@ -52,13 +52,11 @@ public class SignavioListLib {
     }
 
     public List removeAll(List list1, List list2) {
-        if (list1 == null) {
-            return null;
+        if (list1 == null || list2 == null) {
+            return new ArrayList();
         }
         List result = new ArrayList(list1);
-        if (list2 != null) {
-            result.removeAll(list2);
-        }
+        result.removeAll(list2);
         return result;
     }
 
