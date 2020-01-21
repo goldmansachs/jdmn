@@ -904,7 +904,13 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseFEELLib<Double, LocalDat
 
     @Override
     public Double number(String text) {
-        return this.feelLib.number(text);
+        try {
+            return this.numberLib.number(text);
+        } catch (Exception e) {
+            String message = String.format("number(%s)", text);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
@@ -934,6 +940,6 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseFEELLib<Double, LocalDat
 
     @Override
     public Double len(String text) {
-        return text == null ? null : number(String.format("%d", text.length()));
+        return this.feelLib.stringLength(text);
     }
 }
