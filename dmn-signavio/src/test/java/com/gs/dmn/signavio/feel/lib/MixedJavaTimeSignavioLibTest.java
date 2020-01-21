@@ -63,6 +63,7 @@ public class MixedJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecimal
 
         assertEquals(makeNumber("1"), getLib().dayDiff(makeDate("2015-12-24"), makeDate("2015-12-25")));
         assertEquals(makeNumber("1"), getLib().dayDiff(makeDateAndTime("2015-12-24T12:15:00.000+01:00"), makeDateAndTime("2015-12-25T12:15:00.000+01:00")));
+        assertEquals(makeNumber("-1"), getLib().dayDiff(makeDate("2015-12-24"), makeDate("2015-12-23")));
     }
 
     @Test

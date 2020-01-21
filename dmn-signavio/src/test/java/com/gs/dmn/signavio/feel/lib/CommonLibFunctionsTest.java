@@ -46,6 +46,12 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
 
         assertEqualsTime("2016-08-01", getLib().date(makeDateAndTime("2016-08-01T12:00:00Z")));
 
+        assertNull(getLib().date(makeNumber("2016"), null, null));
+        assertNull(getLib().date(null, makeNumber("8"), null));
+        assertNull(getLib().date(null, null, makeNumber("1")));
+        assertNull(getLib().date(makeNumber("-2016"), makeNumber("8"), makeNumber("1")));
+        assertNull(getLib().date(makeNumber("2016"), makeNumber("-8"), makeNumber("1")));
+        assertNull(getLib().date(makeNumber("2016"), makeNumber("8"), makeNumber("-1")));
         assertEqualsTime("2016-08-01", getLib().date(makeNumber("2016"), makeNumber("8"), makeNumber("1")));
 
         assertNull(getLib().date((String) null));
