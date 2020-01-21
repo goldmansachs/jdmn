@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.string;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -29,8 +31,15 @@ public class DefaultSignavioStringLib {
     }
 
     public String concat(List<String> texts) {
+        if (texts == null || texts.isEmpty()) {
+            return null;
+        }
+
         StringBuilder result = new StringBuilder();
         for(String text: texts) {
+            if (text == null) {
+                return null;
+            }
             if (text != null) {
                 result.append(text);
             }
@@ -39,9 +48,19 @@ public class DefaultSignavioStringLib {
     }
 
     public String mid(String text, Number start, Number numChar) {
+        if (text == null || start == null || numChar == null) {
+            return null;
+        }
+        if (start.intValue() < 0 || numChar.intValue() < 0) {
+            return null;
+        }
+
         int endIndex = start.intValue() + numChar.intValue();
         if (endIndex > text.length()) {
             endIndex = text.length();
+        }
+        if (endIndex == start.intValue()) {
+            return null;
         }
         return text.substring(start.intValue(), endIndex);
     }
@@ -90,5 +109,49 @@ public class DefaultSignavioStringLib {
             }
         }
         return count;
+    }
+
+    public Boolean isAlpha(String text) {
+        if (text == null) {
+            return null;
+        }
+
+        return StringUtils.isAlpha(text);
+    }
+
+    public Boolean isAlphanumeric(String text) {
+        if (text == null) {
+            return null;
+        }
+
+        return StringUtils.isAlphanumeric(text);
+    }
+
+    public Boolean isNumeric(String text) {
+        if (text == null) {
+            return null;
+        }
+
+        return StringUtils.isNumeric(text);
+    }
+
+    public Boolean isSpaces(String text) {
+        if (text == null) {
+            return null;
+        }
+
+        return StringUtils.isBlank(text);
+    }
+
+    public String lower(String text) {
+        return text == null ? null : text.toLowerCase();
+    }
+
+    public String trim(String text) {
+        return text == null ? null : text.trim();
+    }
+
+    public String upper(String text) {
+        return text == null ? null : text.toUpperCase();
     }
 }

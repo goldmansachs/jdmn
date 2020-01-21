@@ -25,7 +25,6 @@ import com.gs.dmn.signavio.feel.lib.type.string.DefaultSignavioStringLib;
 import com.gs.dmn.signavio.feel.lib.type.string.DefaultSignavioStringType;
 import com.gs.dmn.signavio.feel.lib.type.time.mixed.*;
 import com.gs.dmn.signavio.feel.lib.type.time.xml.DefaultSignavioDurationType;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
@@ -794,43 +793,87 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
         try {
             return this.stringLib.concat(texts);
         } catch (Exception e) {
+            String message = String.format("concat(%s)", texts);
+            logError(message, e);
             return null;
         }
     }
 
     @Override
     public Boolean isAlpha(String text) {
-        return StringUtils.isAlpha(text);
+        try {
+            return this.stringLib.isAlpha(text);
+        } catch (Exception e) {
+            String message = String.format("isAlpha(%s)", text);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public Boolean isAlphanumeric(String text) {
-        return StringUtils.isAlphanumeric(text);
+        try {
+            return this.stringLib.isAlphanumeric(text);
+        } catch (Exception e) {
+            String message = String.format("isAlphanumeric(%s)", text);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public Boolean isNumeric(String text) {
-        return StringUtils.isNumeric(text);
+        try {
+            return this.stringLib.isNumeric(text);
+        } catch (Exception e) {
+            String message = String.format("concat(%s)", text);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public Boolean isSpaces(String text) {
-        return StringUtils.isBlank(text);
+        try {
+            return this.stringLib.isSpaces(text);
+        } catch (Exception e) {
+            String message = String.format("isSpaces(%s)", text);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public String lower(String text) {
-        return text == null ? null : text.toLowerCase();
+        try {
+            return this.stringLib.lower(text);
+        } catch (Exception e) {
+            String message = String.format("lower(%s)", text);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public String trim(String text) {
-        return text == null ? null : text.trim();
+        try {
+            return this.stringLib.trim(text);
+        } catch (Exception e) {
+            String message = String.format("trim(%s)", text);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public String upper(String text) {
-        return text == null ? null : text.toUpperCase();
+        try {
+            return this.stringLib.upper(text);
+        } catch (Exception e) {
+            String message = String.format("upper(%s)", text);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
