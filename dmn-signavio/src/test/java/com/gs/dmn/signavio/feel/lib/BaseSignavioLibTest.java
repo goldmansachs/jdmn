@@ -382,13 +382,13 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
 
     @Test
     public void testIsSpaces() {
-        assertNull(getLib().isNumeric(null));
+        assertNull(getLib().isSpaces(null));
 
-        assertFalse(getLib().isNumeric(""));
+        assertFalse(getLib().isSpaces(""));
         assertTrue(getLib().isSpaces("  \t\n\f"));
         assertFalse(getLib().isSpaces("abc1"));
-        assertTrue(getLib().isNumeric("123"));
-        assertFalse(getLib().isNumeric("+-"));
+        assertFalse(getLib().isSpaces("123"));
+        assertFalse(getLib().isSpaces("+-"));
     }
 
     @Test
