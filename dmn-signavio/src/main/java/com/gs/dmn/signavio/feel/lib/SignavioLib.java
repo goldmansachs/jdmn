@@ -142,6 +142,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Example: DateTime(25, 12, 2015, 12, 15, 0, 1) returns
     //    2015-12-24T12:15:00.000+01:00.
     DATE_TIME dateTime(NUMBER day, NUMBER month, NUMBER year, NUMBER hour, NUMBER minute, NUMBER second);
+    DATE_TIME dateTime(NUMBER day, NUMBER month, NUMBER year, NUMBER hour, NUMBER minute, NUMBER second, NUMBER hourOffset);
 
     //    Hour(datetime):NUMERIC
     //    Returns the hour part of a datetime.
