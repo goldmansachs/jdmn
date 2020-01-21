@@ -791,7 +791,13 @@ public class UniformJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, ZonedDat
 
     @Override
     public BigDecimal number(String text) {
-        return this.feelLib.number(text);
+        try {
+            return this.numberLib.number(text);
+        } catch (Exception e) {
+            String message = String.format("number(%s)", text);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
@@ -821,6 +827,6 @@ public class UniformJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, ZonedDat
 
     @Override
     public BigDecimal len(String text) {
-        return text == null ? null : number(String.format("%d", text.length()));
+        return this.feelLib.stringLength(text);
     }
 }

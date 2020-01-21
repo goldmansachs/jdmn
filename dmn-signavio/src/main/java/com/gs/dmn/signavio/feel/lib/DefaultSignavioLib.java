@@ -791,7 +791,13 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
 
     @Override
     public BigDecimal number(String text) {
-        return this.feelLib.number(text);
+        try {
+            return this.numberLib.number(text);
+        } catch (Exception e) {
+            String message = String.format("number(%s)", text);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
