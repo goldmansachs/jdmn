@@ -342,15 +342,17 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     @Test
     public void testConcat() {
         assertNull(getLib().concat(null));
+        assertNull(getLib().concat(Arrays.asList()));
 
         assertEquals("123", getLib().concat(Arrays.asList("1", "2", "3")));
-        assertEquals("13", getLib().concat(Arrays.asList("1", null, "3")));
+        assertNull(getLib().concat(Arrays.asList("1", null, "3")));
     }
 
     @Test
     public void testIsAlpha() {
-        assertFalse(getLib().isAlpha(null));
+        assertNull(getLib().isAlpha(null));
 
+        assertFalse(getLib().isAlpha(""));
         assertTrue(getLib().isAlpha("abc"));
         assertFalse(getLib().isAlpha("abc1"));
         assertFalse(getLib().isAlpha("+-"));
@@ -358,8 +360,9 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
 
     @Test
     public void testIsAlphaNumeric() {
-        assertFalse(getLib().isAlphanumeric(null));
+        assertNull(getLib().isAlphanumeric(null));
 
+        assertFalse(getLib().isAlphanumeric(""));
         assertTrue(getLib().isAlphanumeric("abc"));
         assertTrue(getLib().isAlphanumeric("abc1"));
         assertTrue(getLib().isAlphanumeric("123"));
@@ -368,8 +371,9 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
 
     @Test
     public void testIsNumeric() {
-        assertFalse(getLib().isNumeric(null));
+        assertNull(getLib().isNumeric(null));
 
+        assertFalse(getLib().isNumeric(""));
         assertFalse(getLib().isNumeric("abc"));
         assertFalse(getLib().isNumeric("abc1"));
         assertTrue(getLib().isNumeric("123"));
@@ -378,8 +382,9 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
 
     @Test
     public void testIsSpaces() {
-        assertFalse(getLib().isNumeric(null));
+        assertNull(getLib().isNumeric(null));
 
+        assertFalse(getLib().isNumeric(""));
         assertTrue(getLib().isSpaces("  \t\n\f"));
         assertFalse(getLib().isSpaces("abc1"));
         assertTrue(getLib().isNumeric("123"));
