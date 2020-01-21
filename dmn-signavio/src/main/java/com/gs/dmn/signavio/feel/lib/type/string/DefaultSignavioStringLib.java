@@ -139,6 +139,9 @@ public class DefaultSignavioStringLib {
         if (text == null) {
             return null;
         }
+        if (text.isEmpty()) {
+            return false;
+        }
 
         return StringUtils.isBlank(text);
     }
