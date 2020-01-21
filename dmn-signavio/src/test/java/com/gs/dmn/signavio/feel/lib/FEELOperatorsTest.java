@@ -199,14 +199,14 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     @Test
-    public void testDateSubtract() throws Exception {
+    public void testDateSubtract() {
         assertEqualsTime(null, getLib().dateSubtract(null, null));
         assertEqualsTime(null, getLib().dateSubtract(null, makeDate("2016-08-01")));
         assertEqualsTime(null, getLib().dateSubtract(makeDate("2016-08-01"), null));
     }
 
     @Test
-    public void testDateAddDuration() throws Exception {
+    public void testDateAddDuration() {
         assertEqualsTime(null, getLib().dateAddDuration(null, null));
         assertEqualsTime(null, getLib().dateAddDuration(null, makeDuration("P0Y2M")));
         assertEqualsTime(null, getLib().dateAddDuration(makeDate("2016-08-01"), null));
@@ -216,7 +216,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     @Test
-    public void testDateSubtractDuration() throws Exception {
+    public void testDateSubtractDuration() {
         assertEqualsTime(null, getLib().dateSubtractDuration(null, null));
         assertEqualsTime(null, getLib().dateSubtractDuration(null, makeDuration("P0Y2M")));
         assertEqualsTime(null, getLib().dateSubtractDuration(makeDate("2016-08-01"), null));
@@ -293,7 +293,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     @Test
-    public void testTimeSubtract() throws Exception {
+    public void testTimeSubtract() {
         assertEqualsTime(null, getLib().timeSubtract(null, null));
         assertEqualsTime(null, getLib().timeSubtract(null, makeTime("12:00:00Z")));
         assertEqualsTime(null, getLib().timeSubtract(makeTime("12:00:00Z"), null));
@@ -303,7 +303,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     @Test
-    public void testTimeAddDuration() throws Exception {
+    public void testTimeAddDuration() {
         assertEqualsTime(null, getLib().timeAddDuration(null, null));
         assertEqualsTime(null, getLib().timeAddDuration(null, makeDuration("P0DT1H")));
         assertEqualsTime(null, getLib().timeAddDuration(makeTime("12:00:00Z"), null));
@@ -313,7 +313,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     @Test
-    public void testTimeSubtractDuration() throws Exception {
+    public void testTimeSubtractDuration() {
         assertEqualsTime(null, getLib().timeSubtractDuration(null, null));
         assertEqualsTime(null, getLib().timeSubtractDuration(null, makeDuration("P0DT1H")));
         assertEqualsTime(null, getLib().timeSubtractDuration(makeTime("12:00:01Z"), null));
@@ -386,7 +386,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     @Test
-    public void testDateTimeSubtract() throws Exception {
+    public void testDateTimeSubtract() {
         assertEqualsTime(null, getLib().dateTimeSubtract(null, null));
         assertEqualsTime(null, getLib().dateTimeSubtract(null, makeDateAndTime("2016-08-01T12:00:00Z")));
         assertEqualsTime(null, getLib().dateTimeSubtract(makeDateAndTime("2016-08-01T12:00:00Z"), null));
@@ -396,7 +396,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     @Test
-    public void testDateTimeAddDuration() throws Exception {
+    public void testDateTimeAddDuration() {
         assertEqualsTime(null, getLib().dateTimeAddDuration(null, null));
         assertEqualsTime(null, getLib().dateTimeAddDuration(null, makeDuration("P1YT1H")));
         assertEqualsTime(null, getLib().dateTimeAddDuration(makeDateAndTime("2016-08-01T12:00:00Z"), null));
@@ -406,7 +406,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     @Test
-    public void testDateTimeSubtractDuration() throws Exception {
+    public void testDateTimeSubtractDuration() {
         assertEqualsTime(null, getLib().dateTimeSubtractDuration(null, null));
         assertEqualsTime(null, getLib().dateTimeSubtractDuration(null, makeDuration("P1YT1H")));
         assertEqualsTime(null, getLib().dateTimeSubtractDuration(makeDateAndTime("2016-08-01T12:00:00Z"), null));
@@ -419,7 +419,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     // Duration operator functions
     //
     @Test
-    public void testDurationEqual() throws Exception {
+    public void testDurationEqual() {
         assertTrue(getLib().durationEqual(null, null));
         assertFalse(getLib().durationEqual(null, makeDuration("P1Y1M1DT1H")));
         assertFalse(getLib().durationEqual(makeDuration("P1Y1M1DT1H"), null));
@@ -429,7 +429,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     @Test
-    public void testDurationNotEqual() throws Exception {
+    public void testDurationNotEqual() {
         assertFalse(getLib().durationNotEqual(null, null));
         assertTrue(getLib().durationNotEqual(null, makeDuration("P1Y1M1DT1H")));
         assertTrue(getLib().durationNotEqual(makeDuration("P1Y1M1DT1H"), null));
@@ -439,7 +439,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     @Test
-    public void testDurationLessThan() throws Exception {
+    public void testDurationLessThan() {
         assertNull(getLib().durationLessThan(null, null));
         assertNull(getLib().durationLessThan(null, makeDuration("P1Y1M1DT1H")));
         assertNull(getLib().durationLessThan(makeDuration("P1Y1M1DT1H"), null));
@@ -449,7 +449,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     @Test
-    public void testDurationGreaterThan() throws Exception {
+    public void testDurationGreaterThan() {
         assertNull(getLib().durationGreaterThan(null, null));
         assertNull(getLib().durationGreaterThan(null, makeDuration("P1Y1M1DT1H")));
         assertNull(getLib().durationGreaterThan(makeDuration("P1Y1M1DT1H"), null));
@@ -459,7 +459,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     @Test
-    public void testDurationLessEqualThan() throws Exception {
+    public void testDurationLessEqualThan() {
         assertNull(getLib().durationLessEqualThan(null, null));
         assertNull(getLib().durationLessEqualThan(null, makeDuration("P1Y1M1DT1H")));
         assertNull(getLib().durationLessEqualThan(makeDuration("P1Y1M1DT1H"), null));
@@ -469,7 +469,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     @Test
-    public void testDurationGreaterEqualThan() throws Exception {
+    public void testDurationGreaterEqualThan() {
         assertNull(getLib().durationGreaterEqualThan(null, null));
         assertNull(getLib().durationGreaterEqualThan(null, makeDuration("P1Y1M1DT1H")));
         assertNull(getLib().durationGreaterEqualThan(makeDuration("P1Y1M1DT1H"), null));
