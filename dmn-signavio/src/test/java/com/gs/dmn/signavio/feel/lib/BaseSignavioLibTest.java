@@ -426,13 +426,17 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
 
     @Test
     public void testMid() {
-        assertNull(getLib().mid(null, makeNumber("6"), makeNumber("5")));
-        assertNull(getLib().mid(null, makeNumber("6"), null));
-        assertNull(getLib().mid(null, null, makeNumber("5")));
+        assertNull(getLib().mid(null, null, null));
+        assertNull(getLib().mid("123", null, null));
+        assertNull(getLib().mid(null, null, makeNumber("1")));
+        assertNull(getLib().mid(null, makeNumber("1"), null));
+        assertNull(getLib().mid("123", makeNumber("-1"), makeNumber("1")));
+        assertNull(getLib().mid("123", makeNumber("1"), makeNumber("-1")));
 
-        assertEquals("World", getLib().mid("Hello World!", makeNumber("6"), makeNumber("5")));
-        assertEquals("b", getLib().mid("bb", makeNumber("1"), makeNumber("2")));
-        assertNull(getLib().mid("Hello World!", makeNumber("100"), makeNumber("5")));
+        assertEquals("2", getLib().mid("123", makeNumber("1"), makeNumber("1")));
+        assertEquals("23", getLib().mid("123", makeNumber("1"), makeNumber("5")));
+        assertEquals("3", getLib().mid("123", makeNumber("2"), makeNumber("1")));
+        assertNull(getLib().mid("", makeNumber("3"), makeNumber("1")));
     }
 
     @Test
