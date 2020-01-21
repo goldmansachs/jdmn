@@ -31,9 +31,12 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     @Test
     public void testNumberWithDefault() {
         assertNull(getLib().number(null, null));
-        assertEqualsNumber(123.56, getLib().number(null, "123.56"), 0.001);
-        assertEqualsNumber(123.56, getLib().number("123.56", null), 0.001);
-        assertEqualsNumber(123.56, getLib().number("123.56", "134"), 0.001);
+        assertNull(getLib().number(null, "123.56"));
+        assertNull(getLib().number("123.56", null));
+
+        assertEqualsNumber(123, getLib().number("123", "123.56"), 0.001);
+        assertEqualsNumber(123.56, getLib().number("1,200", "123.56"), 0.001);
+        assertEqualsNumber(123.56, getLib().number("xxx", "123.56"), 0.001);
     }
 
     @Test
@@ -84,11 +87,19 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     @Test
     public void testModulo() {
         assertNull(getLib().modulo(null, null));
-        assertNull(getLib().modulo(null, makeNumber("3.23")));
-        assertNull(getLib().modulo(makeNumber("3.23"), null));
+        assertNull(getLib().modulo(null, makeNumber("1")));
+        assertNull(getLib().modulo(makeNumber("1"), null));
 
+        assertEqualsNumber(makeNumber("0"), getLib().modulo(makeNumber("4"), makeNumber("2")));
         assertEqualsNumber(makeNumber("1"), getLib().modulo(makeNumber("4"), makeNumber("3")));
-        assertEqualsNumber(makeNumber("1"), getLib().modulo(makeNumber("4.125"), makeNumber("3.23")));
+        assertEqualsNumber(makeNumber("1"), getLib().modulo(makeNumber("4"), makeNumber("-3")));
+        assertEqualsNumber(makeNumber("-1"), getLib().modulo(makeNumber("-4"), makeNumber("3")));
+        assertEqualsNumber(makeNumber("-1"), getLib().modulo(makeNumber("-4"), makeNumber("-3")));
+
+        assertEqualsNumber(makeNumber("0.895"), getLib().modulo(makeNumber("4.125"), makeNumber("3.23")));
+        assertEqualsNumber(makeNumber("0.895"), getLib().modulo(makeNumber("4.125"), makeNumber("3.23")));
+        assertEqualsNumber(makeNumber("-0.895"), getLib().modulo(makeNumber("-4.125"), makeNumber("-3.23")));
+        assertEqualsNumber(makeNumber("-0.895"), getLib().modulo(makeNumber("-4.125"), makeNumber("-3.23")));
     }
 
     @Test
@@ -96,6 +107,10 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         assertNull(getLib().percent(null));
 
         assertEqualsNumber(0.1, getLib().percent(makeNumber("10")), 0.01);
+        assertEqualsNumber(0.101, getLib().percent(makeNumber("10.1")), 0.01);
+        assertEqualsNumber(1, getLib().percent(makeNumber("100")), 0.01);
+        assertEqualsNumber(0.001, getLib().percent(makeNumber("0.1")), 0.01);
+        assertEqualsNumber(-0.03, getLib().percent(makeNumber("-3")), 0.01);
     }
 
     @Test
@@ -133,6 +148,9 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         assertNull(getLib().roundDown(makeNumber("2"), null));
 
         assertEqualsNumber(1.34, getLib().roundDown(makeNumber("1.344"), makeNumber("2")), 0.001);
+        assertEqualsNumber(1.33, getLib().roundDown(makeNumber("1.333"), makeNumber("2")), 0.001);
+        assertEqualsNumber(0, getLib().roundDown(makeNumber("1.344"), makeNumber("-1")), 0.001);
+        assertEqualsNumber(0, getLib().roundDown(makeNumber("1.344"), makeNumber("-2")), 0.001);
     }
 
     @Test
@@ -291,11 +309,11 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     @Test
     public void testMode() {
         assertNull(getLib().mode(null));
-
         assertNull(getLib().mode(Arrays.asList()));
+
         assertEqualsNumber(makeNumber("1"), getLib().mode(Arrays.asList(makeNumber("1"), makeNumber("3"))));
         assertEqualsNumber(makeNumber("3"), getLib().mode(Arrays.asList(makeNumber("1"), makeNumber("3"), makeNumber("3"))));
-        assertEqualsNumber(makeNumber("1"), getLib().mode(Arrays.asList(makeNumber("1"), null)));
+        assertNull(getLib().mode(Arrays.asList(makeNumber("1"), null)));
     }
 
     //

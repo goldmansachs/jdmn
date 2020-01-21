@@ -701,6 +701,8 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     protected void assertEqualsNumber(double expected, Object actual, double precision) {
         if (actual instanceof BigDecimal) {
             assertEquals(expected, ((BigDecimal) actual).doubleValue(), precision);
+        } else if (actual instanceof Double) {
+            assertEquals(expected, (Double) actual, precision);
         } else {
             assertEquals(expected, actual);
         }

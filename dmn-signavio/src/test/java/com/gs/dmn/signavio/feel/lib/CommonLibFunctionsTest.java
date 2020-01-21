@@ -124,7 +124,7 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
 
         assertEqualsNumber(makeNumber("1"), getLib().floor(makeNumber(1)));
         assertEqualsNumber(makeNumber("1"), getLib().floor(makeNumber(1.1)));
-        assertEqualsNumber(makeNumber("1"), getLib().floor(makeNumber(1.4)));
+        assertEqualsNumber(makeNumber("1"), getLib().floor(makeNumber(1.2)));
         assertEqualsNumber(makeNumber("1"), getLib().floor(makeNumber(1.5)));
         assertEqualsNumber(makeNumber("1"), getLib().floor(makeNumber(1.6)));
 
@@ -233,9 +233,6 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
 
         assertEqualsNumber(makeNumber("3"), getLib().max(makeNumberList(1, 2, 3)));
         assertNull(getLib().max(makeNumberList(1, null, 3)));
-
-        assertEqualsNumber(makeNumber("3"), getLib().max(makeNumberList(1, 3)));
-        assertNull(getLib().max(makeNumberList(1, null)));
     }
 
     @Test
