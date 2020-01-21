@@ -171,9 +171,9 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
         assertFalse(getLib().contains("aBc1", "bcg"));
 
         assertFalse(getLib().contains("foobar", "of"));
-        assertTrue(getLib().startsWith("foobar", "fo"));
-        assertTrue(getLib().endsWith("foobar", "r"));
-        assertFalse(getLib().endsWith("foobar", "R"));
+        assertTrue(getLib().contains("foobar", "fo"));
+        assertTrue(getLib().contains("foobar", "r"));
+        assertFalse(getLib().contains("foobar", "R"));
     }
 
     @Test
@@ -203,7 +203,6 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
     //
     // Test list functions
     //
-
     @Test
     public void testAppend() {
         assertEquals(Arrays.asList(null), getLib().append(null, null));
@@ -249,5 +248,15 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
         assertEqualsNumber(makeNumber("6"), getLib().sum(makeNumberList(1, 2, 3)));
         assertEqualsNumber(makeNumber("1"), getLib().sum(makeNumberList(1, 2, -2)));
         assertNull(getLib().sum(makeNumberList(1, null, 3)));
+    }
+
+    //
+    // Test booleanm functions
+    //
+    @Test
+    public void testNot() {
+        assertNull(getLib().not(null));
+        assertFalse(getLib().not(Boolean.TRUE));
+        assertTrue(getLib().not(Boolean.FALSE));
     }
 }
