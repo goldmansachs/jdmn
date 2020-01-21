@@ -206,20 +206,31 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
 
     @Test
     public void testRemove() {
-        assertEquals(null, getLib().remove(null, null));
-        assertEquals("[1, 2]", getLib().remove(Arrays.asList("1", "2"), null).toString());
-        assertEquals("[1]", getLib().remove(Arrays.asList("1", "2"), "2").toString());
-        assertEquals("[1]", getLib().remove(Arrays.asList("2", "1", "2", "2"), "2").toString());
+        assertEquals(Arrays.asList(), getLib().remove(null, null));
+        assertEquals(Arrays.asList(), getLib().remove(null, "1"));
+
+        assertEquals(Arrays.asList(), getLib().remove(Arrays.asList(), null));
+        assertEquals(Arrays.asList(), getLib().remove(Arrays.asList(), "1"));
+
+        assertEquals(Arrays.asList("1", "2"), getLib().remove(Arrays.asList("1", "2"), null));
+        assertEquals(Arrays.asList("2"), getLib().remove(Arrays.asList("1", "2"), "1"));
+        assertEquals(Arrays.asList("1"), getLib().remove(Arrays.asList("2", "1", "2", "2"), "2"));
+        assertEquals(Arrays.asList("1", "2"), getLib().remove(Arrays.asList("1", "2"), "3"));
     }
 
     @Test
     public void testRemoveAll() {
-        assertEquals(null, getLib().removeAll(null, Arrays.asList("1", "2")));
-        assertEquals(null, getLib().removeAll(null, null));
-        assertEquals("[]", getLib().removeAll(Arrays.asList("1", "2"), Arrays.asList("1", "2")).toString());
-        assertEquals("[1, 2]", getLib().removeAll(Arrays.asList("1", "2"), null).toString());
-        assertEquals("[1, 2]", getLib().removeAll(Arrays.asList("1", "2"), Arrays.asList("3")).toString());
-        assertEquals("[1]", getLib().removeAll(Arrays.asList("1", "2", "3", "2"), Arrays.asList("3", "2")).toString());
+        assertEquals(Arrays.asList(), getLib().removeAll(null, null));
+        assertEquals(Arrays.asList(), getLib().removeAll(null, Arrays.asList()));
+        assertEquals(Arrays.asList(), getLib().removeAll(null, Arrays.asList("1", "2")));
+
+        assertEquals(Arrays.asList(), getLib().removeAll(Arrays.asList(), null));
+        assertEquals(Arrays.asList(), getLib().removeAll(Arrays.asList(), Arrays.asList()));
+        assertEquals(Arrays.asList(), getLib().removeAll(Arrays.asList(), Arrays.asList("1", "2")));
+
+        assertEquals(Arrays.asList(), getLib().removeAll(Arrays.asList("1", "2"), null));
+        assertEquals(Arrays.asList("1", "2"), getLib().removeAll(Arrays.asList("1", "2"), Arrays.asList()));
+        assertEquals(Arrays.asList("1", "2"), getLib().removeAll(Arrays.asList("1", "2"), Arrays.asList("3")));
     }
 
     @Test

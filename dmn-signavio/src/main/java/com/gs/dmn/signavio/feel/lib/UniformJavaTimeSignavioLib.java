@@ -546,32 +546,68 @@ public class UniformJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, ZonedDat
 
     @Override
     public List appendAll(List list1, List list2) {
-        return this.listLib.appendAll(list1, list2);
+        try {
+            return this.listLib.appendAll(list1, list2);
+        } catch (Exception e) {
+            String message = String.format("appendAll(%s, %s)", list1, list2);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public List remove(List list, Object element) {
-        return this.listLib.remove(list, element);
+        try {
+            return this.listLib.remove(list, element);
+        } catch (Exception e) {
+            String message = String.format("remove(%s, %s)", list, element);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public List removeAll(List list1, List list2) {
-        return this.listLib.removeAll(list1, list2);
+        try {
+            return this.listLib.removeAll(list1, list2);
+        } catch (Exception e) {
+            String message = String.format("removeAll(%s, %s)", list1, list2);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public Boolean notContainsAny(List list1, List list2) {
-        return this.listLib.notContainsAny(list1, list2);
+        try {
+            return this.listLib.notContainsAny(list1, list2);
+        } catch (Exception e) {
+            String message = String.format("notContainsAny(%s, %s)", list1, list2);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public Boolean containsOnly(List list1, List list2) {
-        return this.listLib.containsOnly(list1, list2);
+        try {
+            return this.listLib.containsOnly(list1, list2);
+        } catch (Exception e) {
+            String message = String.format("containsOnly(%s, %s)", list1, list2);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public Boolean areElementsOf(List list1, List list2) {
-        return this.listLib.areElementsOf(list1, list2);
+        try {
+            return this.listLib.areElementsOf(list1, list2);
+        } catch (Exception e) {
+            String message = String.format("areElementsOf(%s, %s)", list1, list2);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
