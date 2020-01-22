@@ -13,7 +13,6 @@
 package com.gs.dmn.signavio.feel.lib;
 
 import com.gs.dmn.runtime.Context;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -191,17 +190,42 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
 
     @Test
     public void testZip() {
-        assertNull(getLib().zip(null, null));
-        assertNull(getLib().zip(null, Arrays.asList(Arrays.asList("v1"), Arrays.asList("v2"))));
-        assertNull(getLib().zip(Arrays.asList("k1", "k2"), null));
-        assertNull(getLib().zip(Arrays.asList("k1", "k2"), Arrays.asList(4)));
-        assertNull(getLib().zip(Arrays.asList("k1", "k2"), Arrays.asList(Arrays.asList(3))));
+        assertEquals(Arrays.asList(), getLib().zip(null, null));
+        assertEquals(Arrays.asList(), getLib().zip(null, Arrays.asList()));
+        assertEquals(Arrays.asList(), getLib().zip(Arrays.asList(), Arrays.asList()));
+        assertEquals(Arrays.asList(), getLib().zip(Arrays.asList(), Arrays.asList(null, null)));
+        assertEquals(Arrays.asList(), getLib().zip(Arrays.asList(), Arrays.asList(null, Arrays.asList())));
+        assertEquals(Arrays.asList(), getLib().zip(Arrays.asList(), Arrays.asList(Arrays.asList(), null)));
 
-        List keys = Arrays.asList("k1", "k2");
-        List values = Arrays.asList(Arrays.asList("v1"), Arrays.asList("v2"));
-        List zip = getLib().zip(keys, values);
-        assertEquals(1, zip.size());
-        Assert.assertEquals(new Context().add("k1", "v1").add("k2", "v2"), zip.get(0));
+        assertEquals(Arrays.asList(),
+                getLib().zip(Arrays.asList(), Arrays.asList(Arrays.asList(), Arrays.asList())));
+
+        List<String> attributes = Arrays.asList("k1", "k2");
+        assertEquals(Arrays.asList(
+                    new Context().add("k1", null).add("k2", "2"),
+                    new Context().add("k1", null).add("k2", "4")
+                ),
+                getLib().zip(attributes, Arrays.asList(Arrays.asList(), Arrays.asList("2", "4"))));
+        assertEquals(Arrays.asList(
+                    new Context().add("k1", "1").add("k2", null),
+                    new Context().add("k1", "3").add("k2", null)
+                ),
+                getLib().zip(attributes, Arrays.asList(Arrays.asList("1", "3"), Arrays.asList())));
+        assertEquals(Arrays.asList(
+                    new Context().add("k1", "1").add("k2", "2"),
+                    new Context().add("k1", "3").add("k2", "4")
+                ),
+                getLib().zip(attributes, Arrays.asList(Arrays.asList("1", "3"), Arrays.asList("2", "4"))));
+        assertEquals(Arrays.asList(
+                    new Context().add("k1", "1").add("k2", "2"),
+                    new Context().add("k1", "3").add("k2", null)
+                ),
+                getLib().zip(attributes, Arrays.asList(Arrays.asList("1", "3"), Arrays.asList("2"))));
+        assertEquals(Arrays.asList(
+                    new Context().add("k1", "1").add("k2", "2"),
+                    new Context().add("k1", null).add("k2", "4")
+                    ),
+                getLib().zip(attributes, Arrays.asList(Arrays.asList("1"), Arrays.asList("2", "4"))));
     }
 
     @Test
