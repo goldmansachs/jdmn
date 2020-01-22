@@ -98,8 +98,17 @@ public class SignavioListLib {
     }
 
     public List<?> zip(List attributes, List values) {
-        int card = cardinal(values);
         List result = new ArrayList<>();
+        if (attributes == null || values == null) {
+            return result;
+        }
+        for (Object dimension: values) {
+            if (dimension == null) {
+                return result;
+            }
+        }
+
+        int card = cardinal(values);
         for (int i = 0; i < card; i++) {
             Context context = new Context();
             for (int j = 0; j < attributes.size(); j++) {
