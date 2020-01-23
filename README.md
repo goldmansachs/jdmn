@@ -7,6 +7,8 @@
 ## Authors and major contributors
 
 * [Octavian Patrascoiu](https://github.com/opatrascoiu) jDMN project lead.
+* [Rob Jenks](https://github.com/RobJenks) developer.
+* [Kaizer Poonawala](https://github.com/kaizer) developer.
 
 ## Useful information
 
