@@ -69,7 +69,8 @@ public class DefaultSignavioDateLib extends SignavioBaseDateTimeLib {
     }
 
     public Long dayDiff(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
-        long diff = durationBetween(dateTime1, dateTime2).getSeconds() / (60 * 60 * 24);
+        java.time.Duration duration = durationBetween(dateTime1, dateTime2);
+        Long diff = duration == null ? null : duration.getSeconds() / (60 * 60 * 24);
         return diff;
     }
 

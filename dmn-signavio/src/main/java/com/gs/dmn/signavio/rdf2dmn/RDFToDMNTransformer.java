@@ -72,10 +72,11 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
             NUMBER_TYPE, BOOLEAN_TYPE, STRING_TYPE, DATE_TYPE, TIME_TYPE, DATETIME_TYPE, DURATION_TYPE, ENUMERATION_TYPE
     );
 
-    private static final Map<String, String> FUNCTION_RETURN_TYPE = new LinkedHashMap<String, String>() {{
-        put("concat", STRING_TYPE);
-        put("count", NUMBER_TYPE);
-    }};
+    private static final Map<String, String> FUNCTION_RETURN_TYPE = new LinkedHashMap<String, String>();
+    static {
+        FUNCTION_RETURN_TYPE.put("concat", STRING_TYPE);
+        FUNCTION_RETURN_TYPE.put("count", NUMBER_TYPE);
+    };
 
     private static final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
 
@@ -108,8 +109,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
 
     @Override
     protected void transformFile(File child, File root, Path outputPath) {
-        try {
-            FileInputStream inputStream = new FileInputStream(child.toURI().getPath());
+        try (FileInputStream inputStream = new FileInputStream(child.toURI().getPath())) {
             File outputFolder = outputFolder(child, root, outputPath);
             File outputFile = new File(outputFolder, diagramName(child) + DMNConstants.DMN_FILE_EXTENSION);
 
@@ -118,7 +118,6 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
 
             TDefinitions element = transform(diagramName(child), inputStream);
             dmnWriter.write(element, outputFile, new DMNNamespacePrefixMapper(namespace, prefix, DMN_11));
-            inputStream.close();
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Error during transforming '%s'.", child.getName()), e);
         }
@@ -360,10 +359,6 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
         } else {
             throw new IllegalArgumentException(String.format("Cannot create ItemDefinition for '%s'", rdfModel.getAboutAttribute(resource)));
         }
-    }
-
-    private String wrapInCDATA(String text) {
-        return String.format("<![CDATA[%s]]>", text);
     }
 
     private String makeItemDefinitionId(Element decision) {
@@ -775,11 +770,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
         item.setId(makeInputDataVariableId(resource));
         item.setName(inputData.getName());
         item.setLabel(inputData.getName());
-        if (hasRelations(resource)) {
-            item.setTypeRef(makeQName(namespace, makeItemDefinitionName(resource)));
-        } else {
-            item.setTypeRef(makeQName(namespace, makeItemDefinitionName(resource)));
-        }
+        item.setTypeRef(makeQName(namespace, makeItemDefinitionName(resource)));
         return item;
     }
 

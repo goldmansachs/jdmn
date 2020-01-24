@@ -15,15 +15,18 @@ package com.gs.dmn.signavio.feel.lib.type.time.xml;
 import com.gs.dmn.signavio.feel.lib.type.time.SignavioBaseDateTimeLib;
 
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.time.Duration;
 
 public class DefaultSignavioTimeLib extends SignavioBaseDateTimeLib {
     public Long hourDiff(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
-        long diff = durationBetween(dateTime1, dateTime2).getSeconds() / (60 * 60);
+        Duration duration = durationBetween(dateTime1, dateTime2);
+        Long diff = duration == null ? null : duration.getSeconds() / (60 * 60);
         return diff;
     }
 
     public Long minutesDiff(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
-        long diff = durationBetween(dateTime1, dateTime2).getSeconds() / 60;
+        Duration duration = durationBetween(dateTime1, dateTime2);
+        long diff = duration == null ? null : duration.getSeconds() / 60;
         return diff;
     }
 }

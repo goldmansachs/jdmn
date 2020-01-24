@@ -32,7 +32,7 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Serializable, Cloneable {
     private static final long serialVersionUID = 1L;
 
-    private static final String FIELD_NAME[] = {
+    private static final String[] FIELD_NAME = {
             "Year",
             "Month",
             "Day",
@@ -63,7 +63,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
     public static final String MIN_OFFSET = "+14:00";
     public static final String MAX_OFFSET = "-14:00";
 
-    private static int daysInMonth[] = {0,  // XML Schema months start at 1.
+    private static int[] daysInMonth = {0,  // XML Schema months start at 1.
             31, 28, 31, 30, 31, 30,
             31, 31, 30, 31, 30, 31};
 
@@ -111,14 +111,14 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
                 return DatatypeConstants.INDETERMINATE;
             } else {
                 // Step B. 1.3-4.
-                return (field1 < field2 ? DatatypeConstants.LESSER : DatatypeConstants.GREATER);
+                return field1 < field2 ? DatatypeConstants.LESSER : DatatypeConstants.GREATER;
             }
         }
     }
 
     private static int compareField(BigInteger field1, BigInteger field2) {
         if (field1 == null) {
-            return (field2 == null ? DatatypeConstants.EQUAL : DatatypeConstants.INDETERMINATE);
+            return field2 == null ? DatatypeConstants.EQUAL : DatatypeConstants.INDETERMINATE;
         }
         if (field2 == null) {
             return DatatypeConstants.INDETERMINATE;
@@ -548,14 +548,14 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
                 lhs = (FEELXMLGregorianCalendar) lhs.normalize();
             }
             // C. step 1
-            XMLGregorianCalendar MinQ = rhs.normalizeToTimezone(MIN_OFFSET);
-            result = internalCompare(lhs, MinQ);
+            XMLGregorianCalendar minQ = rhs.normalizeToTimezone(MIN_OFFSET);
+            result = internalCompare(lhs, minQ);
             if (result == DatatypeConstants.LESSER) {
                 return result;
             }
             // C. step 2
-            XMLGregorianCalendar MaxQ = rhs.normalizeToTimezone(MAX_OFFSET);
-            result = internalCompare(lhs, MaxQ);
+            XMLGregorianCalendar maxQ = rhs.normalizeToTimezone(MAX_OFFSET);
+            result = internalCompare(lhs, maxQ);
             if (result == DatatypeConstants.GREATER) {
                 return result;
             } else {
@@ -569,14 +569,14 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
                 rhs = (FEELXMLGregorianCalendar) rhs.normalizeToTimezone(rhs.zoneID);
             }
             // D. step 1
-            XMLGregorianCalendar MaxP = lhs.normalizeToTimezone(MAX_OFFSET);
-            result = internalCompare(MaxP, rhs);
+            XMLGregorianCalendar maxP = lhs.normalizeToTimezone(MAX_OFFSET);
+            result = internalCompare(maxP, rhs);
             if (result == DatatypeConstants.LESSER) {
                 return result;
             }
             // D. step 2
-            XMLGregorianCalendar MinP = lhs.normalizeToTimezone(MIN_OFFSET);
-            result = internalCompare(MinP, rhs);
+            XMLGregorianCalendar minP = lhs.normalizeToTimezone(MIN_OFFSET);
+            result = internalCompare(minP, rhs);
             if (result == DatatypeConstants.GREATER) {
                 return result;
             } else {
@@ -663,8 +663,12 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
 
     public boolean same(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         FEELXMLGregorianCalendar calendar = (FEELXMLGregorianCalendar) o;
         return year == calendar.year &&
                 month == calendar.month &&

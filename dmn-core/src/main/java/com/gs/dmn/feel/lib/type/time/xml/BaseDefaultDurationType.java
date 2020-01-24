@@ -18,7 +18,7 @@ import org.slf4j.Logger;
 import java.util.GregorianCalendar;
 
 public abstract class BaseDefaultDurationType extends BaseType {
-    private static GregorianCalendar GREGORIAN = new GregorianCalendar(
+    private static final GregorianCalendar GREGORIAN = new GregorianCalendar(
             1970,
             1,
             1,
