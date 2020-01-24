@@ -15,6 +15,7 @@ package com.gs.dmn.serialization;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -23,6 +24,8 @@ public class XMLUtil {
 
     public static DocumentBuilderFactory makeDocumentBuilderFactory() throws ParserConfigurationException {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, ""); // Compliant
+        dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, ""); // compliant
         String feature = null;
         try {
             // This is the PRIMARY defense. If DTDs (doctypes) are disallowed, almost all
