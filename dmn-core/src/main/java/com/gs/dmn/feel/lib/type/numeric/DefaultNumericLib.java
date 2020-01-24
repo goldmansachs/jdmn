@@ -147,14 +147,7 @@ public class DefaultNumericLib {
     }
 
     private boolean isIntegerValue(BigDecimal bd) {
-        boolean result;
-        try {
-            bd.toBigIntegerExact();
-            result = true;
-        } catch (ArithmeticException ex) {
-            result = false;
-        }
-        return result;
+        return bd.stripTrailingZeros().scale() <= 0;
     }
 
     //
