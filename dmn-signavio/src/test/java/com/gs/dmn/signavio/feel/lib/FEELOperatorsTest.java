@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.signavio.feel.lib;
 
-import com.gs.dmn.feel.lib.DateTimeUtil;
+import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
 import org.junit.Test;
 
 import javax.xml.datatype.Duration;
@@ -39,6 +39,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertTrue(getLib().numericEqual(null, null));
         assertFalse(getLib().numericEqual(null, makeNumber("1")));
         assertFalse(getLib().numericEqual(makeNumber("1"), null));
+
         assertTrue(getLib().numericEqual(makeNumber("1"), makeNumber("1")));
         assertFalse(getLib().numericEqual(makeNumber("1"), makeNumber("2")));
     }
@@ -48,6 +49,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertFalse(getLib().numericNotEqual(null, null));
         assertTrue(getLib().numericNotEqual(null, makeNumber("1")));
         assertTrue(getLib().numericNotEqual(makeNumber("1"), null));
+
         assertFalse(getLib().numericNotEqual(makeNumber("1"), makeNumber("1")));
         assertTrue(getLib().numericNotEqual(makeNumber("1"), makeNumber("2")));
     }
@@ -57,6 +59,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertNull(getLib().numericLessThan(null, null));
         assertNull(getLib().numericLessThan(null, makeNumber("1")));
         assertNull(getLib().numericLessThan(makeNumber("1"), null));
+
         assertFalse(getLib().numericLessThan(makeNumber("1"), makeNumber("1")));
         assertTrue(getLib().numericLessThan(makeNumber("1"), makeNumber("2")));
     }
@@ -66,24 +69,27 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertNull(getLib().numericGreaterThan(null, null));
         assertNull(getLib().numericGreaterThan(null, makeNumber("1")));
         assertNull(getLib().numericGreaterThan(makeNumber("1"), null));
+
         assertFalse(getLib().numericGreaterThan(makeNumber("1"), makeNumber("1")));
-        assertTrue(getLib().numericGreaterThan(makeNumber("2"), makeNumber("1")));
+        assertFalse(getLib().numericGreaterThan(makeNumber("1"), makeNumber("2")));
     }
 
     @Test
     public void testNumericLessEqualThan() {
-        assertTrue(getLib().numericLessEqualThan(null, null));
+        assertNull(getLib().numericLessEqualThan(null, null));
         assertNull(getLib().numericLessEqualThan(null, makeNumber("1")));
         assertNull(getLib().numericLessEqualThan(makeNumber("1"), null));
+
         assertTrue(getLib().numericLessEqualThan(makeNumber("1"), makeNumber("1")));
-        assertFalse(getLib().numericLessEqualThan(makeNumber("2"), makeNumber("1")));
+        assertTrue(getLib().numericLessEqualThan(makeNumber("1"), makeNumber("2")));
     }
 
     @Test
     public void testNumericGreaterEqualThan() {
-        assertTrue(getLib().numericGreaterEqualThan(null, null));
+        assertNull(getLib().numericGreaterEqualThan(null, null));
         assertNull(getLib().numericGreaterEqualThan(null, makeNumber("1")));
         assertNull(getLib().numericGreaterEqualThan(makeNumber("1"), null));
+
         assertTrue(getLib().numericGreaterEqualThan(makeNumber("1"), makeNumber("1")));
         assertFalse(getLib().numericGreaterEqualThan(makeNumber("1"), makeNumber("2")));
     }
@@ -137,6 +143,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertTrue(getLib().dateEqual(null, null));
         assertFalse(getLib().dateEqual(null, makeDate("2016-08-01")));
         assertFalse(getLib().dateEqual(makeDate("2016-08-01"), null));
+
         assertTrue(getLib().dateEqual(makeDate("2016-08-01"), makeDate("2016-08-01")));
         assertFalse(getLib().dateEqual(makeDate("2016-08-01"), makeDate("2016-08-02")));
     }
@@ -146,67 +153,74 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertFalse(getLib().dateNotEqual(null, null));
         assertTrue(getLib().dateNotEqual(null, makeDate("2016-08-01")));
         assertTrue(getLib().dateNotEqual(makeDate("2016-08-01"), null));
+
         assertFalse(getLib().dateNotEqual(makeDate("2016-08-01"), makeDate("2016-08-01")));
-        assertTrue(getLib().dateEqual(makeDate("2016-08-01"), makeDate("2016-08-01")));
+        assertTrue(getLib().dateNotEqual(makeDate("2016-08-01"), makeDate("2016-08-02")));
     }
 
     @Test
     public void testDateLessThan() {
-        assertFalse(getLib().dateLessThan(null, null));
+        assertNull(getLib().dateLessThan(null, null));
         assertNull(getLib().dateLessThan(null, makeDate("2016-08-01")));
         assertNull(getLib().dateLessThan(makeDate("2016-08-01"), null));
+
         assertFalse(getLib().dateLessThan(makeDate("2016-08-01"), makeDate("2016-08-01")));
         assertTrue(getLib().dateLessThan(makeDate("2016-08-01"), makeDate("2016-08-02")));
     }
 
     @Test
     public void testDateGreaterThan() {
-        assertFalse(getLib().dateGreaterThan(null, null));
+        assertNull(getLib().dateGreaterThan(null, null));
         assertNull(getLib().dateGreaterThan(null, makeDate("2016-08-01")));
         assertNull(getLib().dateGreaterThan(makeDate("2016-08-01"), null));
+
         assertFalse(getLib().dateGreaterThan(makeDate("2016-08-01"), makeDate("2016-08-01")));
-        assertTrue(getLib().dateGreaterThan(makeDate("2016-08-02"), makeDate("2016-08-01")));
+        assertFalse(getLib().dateGreaterThan(makeDate("2016-08-01"), makeDate("2016-08-02")));
     }
 
     @Test
     public void testDateLessEqualThan() {
-        assertTrue(getLib().dateLessEqualThan(null, null));
+        assertNull(getLib().dateLessEqualThan(null, null));
         assertNull(getLib().dateLessEqualThan(null, makeDate("2016-08-01")));
         assertNull(getLib().dateLessEqualThan(makeDate("2016-08-01"), null));
+
         assertTrue(getLib().dateLessEqualThan(makeDate("2016-08-01"), makeDate("2016-08-01")));
-        assertFalse(getLib().dateLessEqualThan(makeDate("2016-08-03"), makeDate("2016-08-02")));
+        assertTrue(getLib().dateLessEqualThan(makeDate("2016-08-01"), makeDate("2016-08-02")));
     }
 
     @Test
     public void testDateGreaterEqualThan() {
-        assertTrue(getLib().dateGreaterEqualThan(null, null));
+        assertNull(getLib().dateGreaterEqualThan(null, null));
         assertNull(getLib().dateGreaterEqualThan(null, makeDate("2016-08-01")));
         assertNull(getLib().dateGreaterEqualThan(makeDate("2016-08-01"), null));
+
         assertTrue(getLib().dateGreaterEqualThan(makeDate("2016-08-01"), makeDate("2016-08-01")));
-        assertFalse(getLib().dateGreaterEqualThan(makeDate("2016-08-01"), makeDate("2016-08-03")));
+        assertFalse(getLib().dateGreaterEqualThan(makeDate("2016-08-01"), makeDate("2016-08-02")));
     }
 
     @Test
-    public void testDateSubtract() throws Exception {
+    public void testDateSubtract() {
         assertEqualsTime(null, getLib().dateSubtract(null, null));
         assertEqualsTime(null, getLib().dateSubtract(null, makeDate("2016-08-01")));
         assertEqualsTime(null, getLib().dateSubtract(makeDate("2016-08-01"), null));
     }
 
     @Test
-    public void testDateAddDuration() throws Exception {
+    public void testDateAddDuration() {
         assertEqualsTime(null, getLib().dateAddDuration(null, null));
         assertEqualsTime(null, getLib().dateAddDuration(null, makeDuration("P0Y2M")));
         assertEqualsTime(null, getLib().dateAddDuration(makeDate("2016-08-01"), null));
+
         assertEqualsTime("2016-10-01", getLib().dateAddDuration(makeDate("2016-08-01"), makeDuration("P0Y2M")));
         assertEqualsTime("2016-06-01", getLib().dateAddDuration(makeDate("2016-08-01"), makeDuration("-P0Y2M")));
     }
 
     @Test
-    public void testDateSubtractDuration() throws Exception {
+    public void testDateSubtractDuration() {
         assertEqualsTime(null, getLib().dateSubtractDuration(null, null));
         assertEqualsTime(null, getLib().dateSubtractDuration(null, makeDuration("P0Y2M")));
         assertEqualsTime(null, getLib().dateSubtractDuration(makeDate("2016-08-01"), null));
+
         assertEqualsTime("2016-06-01", getLib().dateSubtractDuration(makeDate("2016-08-01"), makeDuration("P0Y2M")));
         assertEqualsTime("2016-10-01", getLib().dateSubtractDuration(makeDate("2016-08-01"), makeDuration("-P0Y2M")));
     }
@@ -219,6 +233,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertTrue(getLib().timeEqual(null, null));
         assertFalse(getLib().timeEqual(null, makeTime("12:00:00Z")));
         assertFalse(getLib().timeEqual(makeTime("12:00:00Z"), null));
+
         assertTrue(getLib().timeEqual(makeTime("12:00:00Z"), makeTime("12:00:00Z")));
         assertFalse(getLib().timeEqual(makeTime("12:00:00Z"), makeTime("12:00:01Z")));
 
@@ -232,69 +247,77 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertFalse(getLib().timeNotEqual(null, null));
         assertTrue(getLib().timeNotEqual(null, makeTime("12:00:00Z")));
         assertTrue(getLib().timeNotEqual(makeTime("12:00:00Z"), null));
+
         assertFalse(getLib().timeNotEqual(makeTime("12:00:00Z"), makeTime("12:00:00Z")));
         assertTrue(getLib().timeNotEqual(makeTime("12:00:00Z"), makeTime("12:00:01Z")));
     }
 
     @Test
     public void testTimeLessThan() {
-        assertFalse(getLib().timeLessThan(null, null));
+        assertNull(getLib().timeLessThan(null, null));
         assertNull(getLib().timeLessThan(null, makeTime("12:00:00Z")));
         assertNull(getLib().timeLessThan(makeTime("12:00:00Z"), null));
+
         assertFalse(getLib().timeLessThan(makeTime("12:00:00Z"), makeTime("12:00:00Z")));
-        assertTrue(getLib().timeLessThan(makeTime("11:00:00Z"), makeTime("12:00:01Z")));
+        assertTrue(getLib().timeLessThan(makeTime("12:00:00Z"), makeTime("12:00:01Z")));
     }
 
     @Test
     public void testTimeGreaterThan() {
-        assertFalse(getLib().timeGreaterThan(null, null));
+        assertNull(getLib().timeGreaterThan(null, null));
         assertNull(getLib().timeGreaterThan(null, makeTime("12:00:00Z")));
         assertNull(getLib().timeGreaterThan(makeTime("12:00:00Z"), null));
+
         assertFalse(getLib().timeGreaterThan(makeTime("12:00:00Z"), makeTime("12:00:00Z")));
-        assertTrue(getLib().timeGreaterThan(makeTime("13:00:00Z"), makeTime("12:00:01Z")));
+        assertFalse(getLib().timeGreaterThan(makeTime("12:00:00Z"), makeTime("12:00:01Z")));
     }
 
     @Test
     public void testTimeLessEqualThan() {
-        assertTrue(getLib().timeLessEqualThan(null, null));
+        assertNull(getLib().timeLessEqualThan(null, null));
         assertNull(getLib().timeLessEqualThan(null, makeTime("12:00:00Z")));
         assertNull(getLib().timeLessEqualThan(makeTime("12:00:00Z"), null));
+
         assertTrue(getLib().timeLessEqualThan(makeTime("12:00:00Z"), makeTime("12:00:00Z")));
-        assertFalse(getLib().timeLessEqualThan(makeTime("13:00:00Z"), makeTime("12:00:01Z")));
+        assertTrue(getLib().timeLessEqualThan(makeTime("12:00:00Z"), makeTime("12:00:01Z")));
     }
 
     @Test
     public void testTimeGreaterEqualThan() {
-        assertTrue(getLib().timeGreaterEqualThan(null, null));
+        assertNull(getLib().timeGreaterEqualThan(null, null));
         assertNull(getLib().timeGreaterEqualThan(null, makeTime("12:00:00Z")));
         assertNull(getLib().timeGreaterEqualThan(makeTime("12:00:00Z"), null));
+
         assertTrue(getLib().timeGreaterEqualThan(makeTime("12:00:00Z"), makeTime("12:00:00Z")));
-        assertFalse(getLib().timeGreaterEqualThan(makeTime("11:00:00Z"), makeTime("12:00:01Z")));
+        assertFalse(getLib().timeGreaterEqualThan(makeTime("12:00:00Z"), makeTime("12:00:01Z")));
     }
 
     @Test
-    public void testTimeSubtract() throws Exception {
+    public void testTimeSubtract() {
         assertEqualsTime(null, getLib().timeSubtract(null, null));
         assertEqualsTime(null, getLib().timeSubtract(null, makeTime("12:00:00Z")));
         assertEqualsTime(null, getLib().timeSubtract(makeTime("12:00:00Z"), null));
+
         assertEqualsTime("P0Y0M0DT0H0M0.000S", getLib().timeSubtract(makeTime("12:00:00Z"), makeTime("12:00:00Z")));
         assertEqualsTime("-P0Y0M0DT1H0M0.000S", getLib().timeSubtract(makeTime("12:00:00Z"), makeTime("13:00:00Z")));
     }
 
     @Test
-    public void testTimeAddDuration() throws Exception {
+    public void testTimeAddDuration() {
         assertEqualsTime(null, getLib().timeAddDuration(null, null));
         assertEqualsTime(null, getLib().timeAddDuration(null, makeDuration("P0DT1H")));
         assertEqualsTime(null, getLib().timeAddDuration(makeTime("12:00:00Z"), null));
+
         assertEqualsTime("13:00:01Z", getLib().timeAddDuration(makeTime("12:00:01Z"), makeDuration("P0DT1H")));
         assertEqualsTime("12:00:01Z", getLib().timeAddDuration(makeTime("12:00:01Z"), makeDuration("P1DT0H")));
     }
 
     @Test
-    public void testTimeSubtractDuration() throws Exception {
+    public void testTimeSubtractDuration() {
         assertEqualsTime(null, getLib().timeSubtractDuration(null, null));
         assertEqualsTime(null, getLib().timeSubtractDuration(null, makeDuration("P0DT1H")));
         assertEqualsTime(null, getLib().timeSubtractDuration(makeTime("12:00:01Z"), null));
+
         assertEqualsTime("11:00:01Z", getLib().timeSubtractDuration(makeTime("12:00:01Z"), makeDuration("P0DT1H")));
         assertEqualsTime("12:00:01Z", getLib().timeSubtractDuration(makeTime("12:00:01Z"), makeDuration("P1DT0H")));
     }
@@ -305,80 +328,89 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     @Test
     public void testDateTimeEqual() {
         assertTrue(getLib().dateTimeEqual(null, null));
-        assertFalse(getLib().dateTimeEqual(null, makeDateAndTime("2016-08-01T11:00:00Z")));
-        assertFalse(getLib().dateTimeEqual(makeDateAndTime("2016-08-01T11:00:00Z"), null));
-        assertTrue(getLib().dateTimeEqual(makeDateAndTime("2016-08-01T11:00:00Z"), makeDateAndTime("2016-08-01T11:00:00Z")));
-        assertFalse(getLib().dateTimeEqual(makeDateAndTime("2016-08-01T11:00:00Z"), makeDateAndTime("2016-08-01T11:00:01")));
+        assertFalse(getLib().dateTimeEqual(null, makeDateAndTime("2016-08-01T12:00:00Z")));
+        assertFalse(getLib().dateTimeEqual(makeDateAndTime("2016-08-01T12:00:00Z"), null));
+
+        assertTrue(getLib().dateTimeEqual(makeDateAndTime("2016-08-01T12:00:00Z"), makeDateAndTime("2016-08-01T12:00:00Z")));
+        assertFalse(getLib().dateTimeEqual(makeDateAndTime("2016-08-01T12:00:00Z"), makeDateAndTime("2016-08-01T12:00:01Z")));
     }
 
     @Test
     public void testDateTimeNotEqual() {
         assertFalse(getLib().dateTimeNotEqual(null, null));
-        assertTrue(getLib().dateTimeNotEqual(null, makeDateAndTime("2016-08-01T11:00:00Z")));
-        assertTrue(getLib().dateTimeNotEqual(makeDateAndTime("2016-08-01T11:00:00Z"), null));
-        assertFalse(getLib().dateTimeNotEqual(makeDateAndTime("2016-08-01T11:00:00Z"), makeDateAndTime("2016-08-01T11:00:00Z")));
-        assertTrue(getLib().dateTimeNotEqual(makeDateAndTime("2016-08-01T11:00:00Z"), makeDateAndTime("2016-08-01T11:00:01")));
+        assertTrue(getLib().dateTimeNotEqual(null, makeDateAndTime("2016-08-01T12:00:00Z")));
+        assertTrue(getLib().dateTimeNotEqual(makeDateAndTime("2016-08-01T12:00:00Z"), null));
+
+        assertFalse(getLib().dateTimeNotEqual(makeDateAndTime("2016-08-01T12:00:00Z"), makeDateAndTime("2016-08-01T12:00:00Z")));
+        assertTrue(getLib().dateTimeNotEqual(makeDateAndTime("2016-08-01T12:00:00Z"), makeDateAndTime("2016-08-01T12:00:01Z")));
     }
 
     @Test
     public void testDateTimeLessThan() {
-        assertFalse(getLib().dateTimeLessThan(null, null));
-        assertNull(getLib().dateTimeLessThan(null, makeDateAndTime("2016-08-01T11:00:00Z")));
-        assertNull(getLib().dateTimeLessThan(makeDateAndTime("2016-08-01T11:00:00Z"), null));
-        assertFalse(getLib().dateTimeLessThan(makeDateAndTime("2016-08-01T11:00:00Z"), makeDateAndTime("2016-08-01T11:00:00Z")));
-        assertTrue(getLib().dateTimeLessThan(makeDateAndTime("2016-08-01T11:00:00Z"), makeDateAndTime("2017-08-01T11:00:01")));
+        assertNull(getLib().dateTimeLessThan(null, null));
+        assertNull(getLib().dateTimeLessThan(null, makeDateAndTime("2016-08-01T12:00:00Z")));
+        assertNull(getLib().dateTimeLessThan(makeDateAndTime("2016-08-01T12:00:00Z"), null));
+
+        assertFalse(getLib().dateTimeLessThan(makeDateAndTime("2016-08-01T12:00:00Z"), makeDateAndTime("2016-08-01T12:00:00Z")));
+        assertTrue(getLib().dateTimeLessThan(makeDateAndTime("2016-08-01T12:00:00Z"), makeDateAndTime("2017-08-01T12:00:01")));
     }
 
     @Test
     public void testDateTimeGreaterThan() {
-        assertFalse(getLib().dateTimeGreaterThan(null, null));
-        assertNull(getLib().dateTimeGreaterThan(null, makeDateAndTime("2016-08-01T11:00:00Z")));
-        assertNull(getLib().dateTimeGreaterThan(makeDateAndTime("2016-08-01T11:00:00Z"), null));
-        assertTrue(getLib().dateTimeGreaterThan(makeDateAndTime("2017-08-01T11:00:00Z"), makeDateAndTime("2016-08-01T11:00:00Z")));
-        assertFalse(getLib().dateTimeGreaterThan(makeDateAndTime("2016-08-01T11:00:00Z"), makeDateAndTime("2016-08-01T11:00:01Z")));
+        assertNull(getLib().dateTimeGreaterThan(null, null));
+        assertNull(getLib().dateTimeGreaterThan(null, makeDateAndTime("2016-08-01T12:00:00Z")));
+        assertNull(getLib().dateTimeGreaterThan(makeDateAndTime("2016-08-01T12:00:00Z"), null));
+
+        assertTrue(getLib().dateTimeGreaterThan(makeDateAndTime("2017-08-01T12:00:00Z"), makeDateAndTime("2016-08-01T12:00:00Z")));
+        assertFalse(getLib().dateTimeGreaterThan(makeDateAndTime("2016-08-01T12:00:00Z"), makeDateAndTime("2016-08-01T12:00:01Z")));
     }
 
     @Test
     public void testDateTimeLessEqualThan() {
-        assertTrue(getLib().dateTimeLessEqualThan(null, null));
-        assertNull(getLib().dateTimeLessEqualThan(null, makeDateAndTime("2016-08-01T11:00:00Z")));
-        assertNull(getLib().dateTimeLessEqualThan(makeDateAndTime("2016-08-01T11:00:00Z"), null));
-        assertTrue(getLib().dateTimeLessEqualThan(makeDateAndTime("2016-08-01T11:00:00Z"), makeDateAndTime("2016-08-01T11:00:00Z")));
-        assertFalse(getLib().dateTimeLessEqualThan(makeDateAndTime("2016-08-01T11:00:01Z"), makeDateAndTime("2016-08-01T11:00:00Z")));
+        assertNull(getLib().dateTimeLessEqualThan(null, null));
+        assertNull(getLib().dateTimeLessEqualThan(null, makeDateAndTime("2016-08-01T12:00:00Z")));
+        assertNull(getLib().dateTimeLessEqualThan(makeDateAndTime("2016-08-01T12:00:00Z"), null));
+
+        assertTrue(getLib().dateTimeLessEqualThan(makeDateAndTime("2016-08-01T12:00:00Z"), makeDateAndTime("2016-08-01T12:00:00Z")));
+        assertTrue(getLib().dateTimeLessEqualThan(makeDateAndTime("2016-08-01T12:00:00Z"), makeDateAndTime("2016-08-01T12:00:01Z")));
     }
 
     @Test
     public void testDateTimeGreaterEqualThan() {
-        assertTrue(getLib().dateTimeGreaterEqualThan(null, null));
-        assertNull(getLib().dateTimeGreaterEqualThan(null, makeDateAndTime("2016-08-01T11:00:00Z")));
-        assertNull(getLib().dateTimeGreaterEqualThan(makeDateAndTime("2016-08-01T11:00:00Z"), null));
-        assertTrue(getLib().dateTimeGreaterEqualThan(makeDateAndTime("2016-08-01T11:00:00Z"), makeDateAndTime("2016-08-01T11:00:00Z")));
-        assertFalse(getLib().dateTimeGreaterEqualThan(makeDateAndTime("2015-08-01T11:00:00Z"), makeDateAndTime("2016-08-01T11:00:01Z")));
+        assertNull(getLib().dateTimeGreaterEqualThan(null, null));
+        assertNull(getLib().dateTimeGreaterEqualThan(null, makeDateAndTime("2016-08-01T12:00:00Z")));
+        assertNull(getLib().dateTimeGreaterEqualThan(makeDateAndTime("2016-08-01T12:00:00Z"), null));
+
+        assertTrue(getLib().dateTimeGreaterEqualThan(makeDateAndTime("2016-08-01T12:00:00Z"), makeDateAndTime("2016-08-01T12:00:00Z")));
+        assertFalse(getLib().dateTimeGreaterEqualThan(makeDateAndTime("2015-08-01T12:00:00Z"), makeDateAndTime("2016-08-01T12:00:01Z")));
     }
 
     @Test
-    public void testDateTimeSubtract() throws Exception {
+    public void testDateTimeSubtract() {
         assertEqualsTime(null, getLib().dateTimeSubtract(null, null));
         assertEqualsTime(null, getLib().dateTimeSubtract(null, makeDateAndTime("2016-08-01T12:00:00Z")));
         assertEqualsTime(null, getLib().dateTimeSubtract(makeDateAndTime("2016-08-01T12:00:00Z"), null));
+
         assertEqualsTime("P0Y0M0DT0H0M0.000S", getLib().dateTimeSubtract(makeDateAndTime("2016-08-01T12:00:00Z"), makeDateAndTime("2016-08-01T12:00:00Z")).toString());
         assertEqualsTime("-P0Y0M2DT1H0M0.000S", getLib().dateTimeSubtract(makeDateAndTime("2016-08-01T12:00:00Z"), makeDateAndTime("2016-08-03T13:00:00Z")).toString());
     }
 
     @Test
-    public void testDateTimeAddDuration() throws Exception {
+    public void testDateTimeAddDuration() {
         assertEqualsTime(null, getLib().dateTimeAddDuration(null, null));
         assertEqualsTime(null, getLib().dateTimeAddDuration(null, makeDuration("P1YT1H")));
         assertEqualsTime(null, getLib().dateTimeAddDuration(makeDateAndTime("2016-08-01T12:00:00Z"), null));
+
         assertEqualsTime("2017-08-01T13:00:01Z", getLib().dateTimeAddDuration(makeDateAndTime("2016-08-01T12:00:01Z"), makeDuration("P1YT1H")).toString());
         assertEqualsTime("2015-08-01T11:00:01Z", getLib().dateTimeAddDuration(makeDateAndTime("2016-08-01T12:00:01Z"), makeDuration("-P1YT1H")).toString());
     }
 
     @Test
-    public void testDateTimeSubtractDuration() throws Exception {
+    public void testDateTimeSubtractDuration() {
         assertEqualsTime(null, getLib().dateTimeSubtractDuration(null, null));
         assertEqualsTime(null, getLib().dateTimeSubtractDuration(null, makeDuration("P1YT1H")));
         assertEqualsTime(null, getLib().dateTimeSubtractDuration(makeDateAndTime("2016-08-01T12:00:00Z"), null));
+
         assertEqualsTime("2015-08-01T11:00:01Z", getLib().dateTimeSubtractDuration(makeDateAndTime("2016-08-01T12:00:01Z"), makeDuration("P1YT1H")).toString());
         assertEqualsTime("2017-08-01T13:00:01Z", getLib().dateTimeSubtractDuration(makeDateAndTime("2016-08-01T12:00:01Z"), makeDuration("-P1YT1H")).toString());
     }
@@ -387,55 +419,61 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     // Duration operator functions
     //
     @Test
-    public void testDurationEqual() throws Exception {
+    public void testDurationEqual() {
         assertTrue(getLib().durationEqual(null, null));
         assertFalse(getLib().durationEqual(null, makeDuration("P1Y1M1DT1H")));
         assertFalse(getLib().durationEqual(makeDuration("P1Y1M1DT1H"), null));
+
         assertTrue(getLib().durationEqual(makeDuration("P1Y1M1DT1H"), makeDuration("P1Y1M1DT1H")));
         assertFalse(getLib().durationEqual(makeDuration("P1Y1M1DT1H"), makeDuration("P1Y1M1DT2H")));
     }
 
     @Test
-    public void testDurationNotEqual() throws Exception {
+    public void testDurationNotEqual() {
         assertFalse(getLib().durationNotEqual(null, null));
         assertTrue(getLib().durationNotEqual(null, makeDuration("P1Y1M1DT1H")));
         assertTrue(getLib().durationNotEqual(makeDuration("P1Y1M1DT1H"), null));
+
         assertFalse(getLib().durationNotEqual(makeDuration("P1Y1M1DT1H"), makeDuration("P1Y1M1DT1H")));
         assertTrue(getLib().durationNotEqual(makeDuration("P1Y1M1DT1H"), makeDuration("P1Y1M1DT2H")));
     }
 
     @Test
-    public void testDurationLessThan() throws Exception {
-        assertFalse(getLib().durationLessThan(null, null));
+    public void testDurationLessThan() {
+        assertNull(getLib().durationLessThan(null, null));
         assertNull(getLib().durationLessThan(null, makeDuration("P1Y1M1DT1H")));
         assertNull(getLib().durationLessThan(makeDuration("P1Y1M1DT1H"), null));
+
         assertFalse(getLib().durationLessThan(makeDuration("P1Y1M1DT1H"), makeDuration("P1Y1M1DT1H")));
         assertTrue(getLib().durationLessThan(makeDuration("P1Y1M1DT1H"), makeDuration("P1Y1M1DT2H")));
     }
 
     @Test
-    public void testDurationGreaterThan() throws Exception {
-        assertFalse(getLib().durationGreaterThan(null, null));
+    public void testDurationGreaterThan() {
+        assertNull(getLib().durationGreaterThan(null, null));
         assertNull(getLib().durationGreaterThan(null, makeDuration("P1Y1M1DT1H")));
         assertNull(getLib().durationGreaterThan(makeDuration("P1Y1M1DT1H"), null));
+
         assertFalse(getLib().durationGreaterThan(makeDuration("P1Y1M1DT1H"), makeDuration("P1Y1M1DT1H")));
         assertFalse(getLib().durationGreaterThan(makeDuration("P1Y1M1DT1H"), makeDuration("P1Y1M1DT2H")));
     }
 
     @Test
-    public void testDurationLessEqualThan() throws Exception {
-        assertFalse(getLib().durationLessEqualThan(null, null));
+    public void testDurationLessEqualThan() {
+        assertNull(getLib().durationLessEqualThan(null, null));
         assertNull(getLib().durationLessEqualThan(null, makeDuration("P1Y1M1DT1H")));
         assertNull(getLib().durationLessEqualThan(makeDuration("P1Y1M1DT1H"), null));
+
         assertTrue(getLib().durationLessEqualThan(makeDuration("P1Y1M1DT1H"), makeDuration("P1Y1M1DT1H")));
         assertTrue(getLib().durationLessEqualThan(makeDuration("P1Y1M1DT1H"), makeDuration("P1Y1M1DT2H")));
     }
 
     @Test
-    public void testDurationGreaterEqualThan() throws Exception {
-        assertFalse(getLib().durationGreaterEqualThan(null, null));
+    public void testDurationGreaterEqualThan() {
+        assertNull(getLib().durationGreaterEqualThan(null, null));
         assertNull(getLib().durationGreaterEqualThan(null, makeDuration("P1Y1M1DT1H")));
         assertNull(getLib().durationGreaterEqualThan(makeDuration("P1Y1M1DT1H"), null));
+
         assertTrue(getLib().durationGreaterEqualThan(makeDuration("P1Y1M1DT1H"), makeDuration("P1Y1M1DT1H")));
         assertFalse(getLib().durationGreaterEqualThan(makeDuration("P1Y1M1DT1H"), makeDuration("P1Y1M1DT2H")));
     }
@@ -447,18 +485,60 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     public void testStringEqual() {
         assertTrue(getLib().stringEqual(null, null));
         assertFalse(getLib().stringEqual("a", null));
-        assertFalse(getLib().stringEqual(null, "b"));
+        assertFalse(getLib().stringEqual(null, "a"));
+
+        assertTrue(getLib().stringEqual("a", "a"));
         assertFalse(getLib().stringEqual("a", "b"));
-        assertTrue(getLib().stringEqual("b", "b"));
     }
 
     @Test
     public void testStringNotEqual() {
         assertFalse(getLib().stringNotEqual(null, null));
         assertTrue(getLib().stringNotEqual("a", null));
-        assertTrue(getLib().stringNotEqual(null, "b"));
+        assertTrue(getLib().stringNotEqual(null, "a"));
+
+        assertFalse(getLib().stringNotEqual("a", "a"));
         assertTrue(getLib().stringNotEqual("a", "b"));
-        assertFalse(getLib().stringNotEqual("b", "b"));
+    }
+
+    @Test
+    public void testStringLessThan() {
+        assertNull(getLib().stringLessThan(null, null));
+        assertNull(getLib().stringLessThan("a", null));
+        assertNull(getLib().stringLessThan(null, "a"));
+
+        assertNull(getLib().stringLessThan("a", "a"));
+        assertNull(getLib().stringLessThan("a", "b"));
+    }
+
+    @Test
+    public void testStringGreaterThan() {
+        assertNull(getLib().stringGreaterThan(null, null));
+        assertNull(getLib().stringGreaterThan("a", null));
+        assertNull(getLib().stringGreaterThan(null, "a"));
+
+        assertNull(getLib().stringGreaterThan("a", "a"));
+        assertNull(getLib().stringGreaterThan("a", "b"));
+    }
+
+    @Test
+    public void testStringLessEqualThan() {
+        assertNull(getLib().stringLessEqualThan(null, null));
+        assertNull(getLib().stringLessEqualThan("a", null));
+        assertNull(getLib().stringLessEqualThan(null, "a"));
+
+        assertNull(getLib().stringLessEqualThan("a", "a"));
+        assertNull(getLib().stringLessEqualThan("a", "b"));
+    }
+
+    @Test
+    public void testStringGreaterEqualThan() {
+        assertNull(getLib().stringGreaterEqualThan(null, null));
+        assertNull(getLib().stringGreaterEqualThan("a", null));
+        assertNull(getLib().stringGreaterEqualThan(null, "a"));
+
+        assertNull(getLib().stringGreaterEqualThan("a", "a"));
+        assertNull(getLib().stringGreaterEqualThan("a", "b"));
     }
 
     @Test
@@ -466,6 +546,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertEquals("", getLib().stringAdd(null, null));
         assertEquals("a", getLib().stringAdd("a", null));
         assertEquals("b", getLib().stringAdd(null, "b"));
+
         assertEquals("ab", getLib().stringAdd("a", "b"));
         assertEquals("ba", getLib().stringAdd("b", "a"));
     }
@@ -476,52 +557,64 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     @Test
     public void testBooleanEqual() {
         assertTrue(getLib().booleanEqual(null, null));
-        assertFalse(getLib().booleanEqual(Boolean.TRUE, null));
+        assertFalse(getLib().booleanEqual(null, Boolean.FALSE));
         assertFalse(getLib().booleanEqual(null, Boolean.TRUE));
+        assertFalse(getLib().booleanEqual(Boolean.FALSE, null));
+        assertFalse(getLib().booleanEqual(Boolean.TRUE, null));
+
+        assertTrue(getLib().booleanEqual(Boolean.FALSE, Boolean.FALSE));
         assertFalse(getLib().booleanEqual(Boolean.FALSE, Boolean.TRUE));
+        assertFalse(getLib().booleanEqual(Boolean.TRUE, Boolean.FALSE));
         assertTrue(getLib().booleanEqual(Boolean.TRUE, Boolean.TRUE));
     }
 
     @Test
     public void testBooleanNotEqual() {
         assertFalse(getLib().booleanNotEqual(null, null));
-        assertTrue(getLib().booleanNotEqual(Boolean.TRUE, null));
+        assertTrue(getLib().booleanNotEqual(null, Boolean.FALSE));
         assertTrue(getLib().booleanNotEqual(null, Boolean.TRUE));
+        assertTrue(getLib().booleanNotEqual(Boolean.FALSE, null));
+        assertTrue(getLib().booleanNotEqual(Boolean.TRUE, null));
+
+        assertFalse(getLib().booleanNotEqual(Boolean.FALSE, Boolean.FALSE));
         assertTrue(getLib().booleanNotEqual(Boolean.FALSE, Boolean.TRUE));
+        assertTrue(getLib().booleanNotEqual(Boolean.TRUE, Boolean.FALSE));
         assertFalse(getLib().booleanNotEqual(Boolean.TRUE, Boolean.TRUE));
     }
 
     @Test
     public void testBooleanNot() {
+        assertNull(getLib().booleanNot(null));
         assertTrue(getLib().booleanNot(Boolean.FALSE));
         assertFalse(getLib().booleanNot(Boolean.TRUE));
-        assertNull(getLib().booleanNot(null));
     }
 
     @Test
     public void testBooleanOr() {
+        assertNull(getLib().booleanOr(null, null));
+        assertNull(getLib().booleanOr(null, Boolean.FALSE));
+        assertTrue(getLib().booleanOr(null, Boolean.TRUE));
+        assertNull(getLib().booleanOr(Boolean.FALSE, null));
+        assertTrue(getLib().booleanOr(Boolean.TRUE, null));
+
         assertFalse(getLib().booleanOr(Boolean.FALSE, Boolean.FALSE));
         assertTrue(getLib().booleanOr(Boolean.FALSE, Boolean.TRUE));
         assertTrue(getLib().booleanOr(Boolean.TRUE, Boolean.FALSE));
         assertTrue(getLib().booleanOr(Boolean.TRUE, Boolean.TRUE));
-        assertNull(getLib().booleanOr(Boolean.FALSE, null));
-        assertNull(getLib().booleanOr(null, Boolean.FALSE));
-        assertTrue(getLib().booleanOr(Boolean.TRUE, null));
-        assertTrue(getLib().booleanOr(null, Boolean.TRUE));
-        assertNull(getLib().booleanOr(null, null));
     }
 
     @Test
     public void testBooleanAnd() {
+        assertNull(getLib().booleanAnd(null, null));
+        assertFalse(getLib().booleanAnd(null, Boolean.FALSE));
+        assertNull(getLib().booleanAnd(null, Boolean.TRUE));
+        assertFalse(getLib().booleanAnd(Boolean.FALSE, null));
+        assertNull(getLib().booleanAnd(Boolean.TRUE, null));
+
         assertFalse(getLib().booleanAnd(Boolean.FALSE, Boolean.FALSE));
         assertFalse(getLib().booleanAnd(Boolean.FALSE, Boolean.TRUE));
         assertFalse(getLib().booleanAnd(Boolean.TRUE, Boolean.FALSE));
         assertTrue(getLib().booleanAnd(Boolean.TRUE, Boolean.TRUE));
-        assertFalse(getLib().booleanAnd(Boolean.FALSE, null));
-        assertFalse(getLib().booleanAnd(null, Boolean.FALSE));
-        assertNull(getLib().booleanAnd(Boolean.TRUE, null));
-        assertNull(getLib().booleanAnd(null, Boolean.TRUE));
-        assertNull(getLib().booleanAnd(null, null));
     }
 
     //
@@ -532,6 +625,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertTrue(getLib().listEqual(null, null));
         assertFalse(getLib().listEqual(Arrays.asList("a"), null));
         assertFalse(getLib().listEqual(null, Arrays.asList("a")));
+
         assertFalse(getLib().listEqual(Arrays.asList("a"), Arrays.asList("b")));
         assertTrue(getLib().listEqual(Arrays.asList("a"), Arrays.asList("a")));
     }
@@ -541,6 +635,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertFalse(getLib().listNotEqual(null, null));
         assertTrue(getLib().listNotEqual(Arrays.asList("a"), null));
         assertTrue(getLib().listNotEqual(null, Arrays.asList("a")));
+
         assertTrue(getLib().listNotEqual(Arrays.asList("a"), Arrays.asList("b")));
         assertFalse(getLib().listNotEqual(Arrays.asList("a"), Arrays.asList("a")));
     }
@@ -606,6 +701,8 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     protected void assertEqualsNumber(double expected, Object actual, double precision) {
         if (actual instanceof BigDecimal) {
             assertEquals(expected, ((BigDecimal) actual).doubleValue(), precision);
+        } else if (actual instanceof Double) {
+            assertEquals(expected, (Double) actual, precision);
         } else {
             assertEquals(expected, actual);
         }
@@ -615,13 +712,13 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         if (actual instanceof XMLGregorianCalendar) {
             assertEquals(expected, actual.toString());
         } else if (actual instanceof LocalDate) {
-            String actualText = ((LocalDate) actual).format(DateTimeUtil.FEEL_DATE_FORMAT);
+            String actualText = ((LocalDate) actual).format(BaseDateTimeLib.FEEL_DATE_FORMAT);
             assertEquals(expected, cleanActualText(actualText));
         } else if (actual instanceof OffsetTime) {
-            String actualText = ((OffsetTime) actual).format(DateTimeUtil.FEEL_TIME_FORMAT);
+            String actualText = ((OffsetTime) actual).format(BaseDateTimeLib.FEEL_TIME_FORMAT);
             assertEquals(expected, cleanActualText(actualText));
         } else if (actual instanceof ZonedDateTime) {
-            String actualText = ((ZonedDateTime) actual).format(DateTimeUtil.FEEL_DATE_TIME_FORMAT);
+            String actualText = ((ZonedDateTime) actual).format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT);
             assertEquals(expected, cleanActualText(actualText));
         } else if (actual instanceof Duration) {
             String actualText = actual.toString();

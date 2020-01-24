@@ -145,5 +145,8 @@ public class SignavioEnvironmentFactory extends EnvironmentFactory {
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("contains", new BuiltinFunctionType(BOOLEAN, new Parameter("text", STRING), new Parameter("substring", STRING))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("startsWith", new BuiltinFunctionType(BOOLEAN, new Parameter("string", STRING), new Parameter("match", STRING))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("endsWith", new BuiltinFunctionType(BOOLEAN, new Parameter("string", STRING), new Parameter("match", STRING))));
+
+        // Boolean functions
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("not", new BuiltinFunctionType(BOOLEAN, new Parameter("boolean", BOOLEAN))));
     }
 }

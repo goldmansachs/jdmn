@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
+import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import org.junit.Test;
 
 import javax.xml.datatype.Duration;
@@ -165,13 +167,13 @@ public class MixedJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalD
     @Override
     protected void assertEqualsTime(String expected, Object actual) {
         if (actual instanceof LocalDate) {
-            String actualText = ((LocalDate) actual).format(DateTimeUtil.FEEL_DATE_FORMAT);
+            String actualText = ((LocalDate) actual).format(BaseDateTimeLib.FEEL_DATE_FORMAT);
             assertEquals(expected, cleanActualText(actualText));
         } else if (actual instanceof OffsetTime) {
-            String actualText = ((OffsetTime) actual).format(DateTimeUtil.FEEL_TIME_FORMAT);
+            String actualText = ((OffsetTime) actual).format(BaseDateTimeLib.FEEL_TIME_FORMAT);
             assertEquals(expected, cleanActualText(actualText));
         } else if (actual instanceof ZonedDateTime) {
-            ZonedDateTime expectedDateTime = normalize(ZonedDateTime.parse(expected, DateTimeUtil.FEEL_DATE_TIME_FORMAT));
+            ZonedDateTime expectedDateTime = normalize(ZonedDateTime.parse(expected, BaseDateTimeLib.FEEL_DATE_TIME_FORMAT));
             ZonedDateTime actualDateTime = normalize((ZonedDateTime) actual);
             assertEquals(expectedDateTime, actualDateTime);
         } else if (actual instanceof Duration) {
@@ -186,7 +188,7 @@ public class MixedJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalD
     }
 
     private ZonedDateTime normalize(ZonedDateTime dateTime) {
-        return dateTime.withZoneSameInstant(DateTimeUtil.UTC);
+        return dateTime.withZoneSameInstant(DefaultDateTimeLib.UTC);
     }
 }
 

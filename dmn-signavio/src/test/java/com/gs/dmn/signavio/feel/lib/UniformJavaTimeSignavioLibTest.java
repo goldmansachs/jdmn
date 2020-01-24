@@ -32,7 +32,7 @@ public class UniformJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecim
     // Date & time operations
     //
     @Test
-    public void testDay() throws Exception {
+    public void testDay() {
         assertNull(getLib().day(null));
 
         assertEqualsNumber(makeNumber("10"), getLib().day(makeDate("2015-12-10")));
@@ -40,7 +40,7 @@ public class UniformJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecim
     }
 
     @Test
-    public void testDayAdd() throws Exception {
+    public void testDayAdd() {
         assertNull(getLib().dayAdd(null, null));
         assertNull(getLib().dayAdd(null, makeNumber("360")));
         assertNull(getLib().dayAdd(makeDateAndTime("2015-12-24T12:15:00.000+01:00"), null));
@@ -49,28 +49,30 @@ public class UniformJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecim
         assertEqualsTime("2016-12-18T12:15:00.001+01:00", getLib().dayAdd(makeDateAndTime("2015-12-24T12:15:00.001+01:00"), makeNumber("360")));
         assertEqualsTime("2015-12-25", getLib().dayAdd(makeDate("2015-12-24"), makeNumber("1")));
         assertEqualsTime("2016-12-18", getLib().dayAdd(makeDate("2015-12-24"), makeNumber("360")));
+        assertEqualsTime("2015-12-23", getLib().dayAdd(makeDate("2015-12-24"), makeNumber("-1")));
         assertNull(getLib().dayAdd(makeDateAndTime("x"), makeNumber("360")));
     }
 
     @Test
-    public void testDayDiff() throws Exception {
+    public void testDayDiff() {
         assertNull(getLib().dayDiff(null, null));
         assertNull(getLib().dayDiff(null, makeDate("2015-12-25")));
         assertNull(getLib().dayDiff(makeDate("2015-12-25"), null));
 
         assertEquals(makeNumber("1"), getLib().dayDiff(makeDate("2015-12-24"), makeDate("2015-12-25")));
         assertEquals(makeNumber("1"), getLib().dayDiff(makeDateAndTime("2015-12-24T12:15:00.000+01:00"), makeDateAndTime("2015-12-25T12:15:00.000+01:00")));
+        assertEquals(makeNumber("-1"), getLib().dayDiff(makeDate("2015-12-24"), makeDate("2015-12-23")));
     }
 
     @Test
-    public void testDate() throws Exception {
+    public void testDate() {
         super.testDate();
 
         assertEqualsTime("2016-01-01", getLib().date("2016-01-01"));
     }
 
     @Test
-    public void testDateTime() throws Exception {
+    public void testDateTime() {
         assertNull(getLib().dateAndTime(null));
 
         assertEqualsTime("2016-08-01T11:00:00Z", getLib().dateAndTime("2016-08-01T11:00:00Z"));
@@ -81,7 +83,7 @@ public class UniformJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecim
     }
 
     @Test
-    public void testHour() throws Exception {
+    public void testHour() {
         assertNull(getLib().hour(makeDateAndTime(null)));
 
         assertEquals(makeNumber("12"), getLib().hour(makeTime("12:15:00.000+01:00")));
@@ -90,7 +92,7 @@ public class UniformJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecim
     }
 
     @Test
-    public void testHourDiff() throws Exception {
+    public void testHourDiff() {
         assertNull(getLib().hourDiff(null, null));
         assertNull(getLib().hourDiff(null, makeTime("12:15:00.000+01:00")));
         assertNull(getLib().hourDiff(makeTime("12:15:00.000+01:00"), null));
@@ -98,10 +100,12 @@ public class UniformJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecim
         assertEquals(makeNumber("0"), getLib().hourDiff(makeTime("12:15:00.000+01:00"), makeTime("12:15:00.000+01:00")));
         assertEquals(makeNumber("3"), getLib().hourDiff(makeDateAndTime("2015-12-24T12:15:00.000+01:00"), makeDateAndTime("2015-12-24T15:15:00.000+01:00")));
         assertEquals(makeNumber("27"), getLib().hourDiff(makeDateAndTime("2015-12-24T12:15:00.000+01:00"), makeDateAndTime("2015-12-25T15:15:00.000+01:00")));
+        assertEquals(makeNumber("-24"), getLib().hourDiff(makeDateAndTime("2015-12-25T12:15:00.000+01:00"), makeDateAndTime("2015-12-24T12:15:00.000+01:00")));
+        assertEquals(makeNumber("-27"), getLib().hourDiff(makeDateAndTime("2015-12-25T15:15:00.000+01:00"), makeDateAndTime("2015-12-24T12:15:00.000+01:00")));
     }
 
     @Test
-    public void testMinute() throws Exception {
+    public void testMinute() {
         assertNull(getLib().minute(null));
 
         assertEquals(makeNumber("15"), getLib().minute(makeTime("12:15:00.000+01:00")));
@@ -109,7 +113,7 @@ public class UniformJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecim
     }
 
     @Test
-    public void testMinuteDiff() throws Exception {
+    public void testMinuteDiff() {
         assertNull(getLib().minutesDiff(null, null));
         assertNull(getLib().minutesDiff(null, makeTime("12:15:00.000+01:00")));
         assertNull(getLib().minutesDiff(makeTime("12:15:00.000+01:00"), null));
@@ -117,10 +121,11 @@ public class UniformJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecim
         assertEquals(makeNumber("0"), getLib().minutesDiff(makeTime("12:15:00.000+01:00"), makeTime("12:15:00.000+01:00")));
         assertEquals(makeNumber("5"), getLib().minutesDiff(makeDateAndTime("2015-12-24T12:15:00.000+01:00"), makeDateAndTime("2015-12-24T12:20:00.000+01:00")));
         assertEquals(makeNumber("65"), getLib().minutesDiff(makeDateAndTime("2015-12-24T12:15:00.000+01:00"), makeDateAndTime("2015-12-24T13:20:00.000+01:00")));
+        assertEquals(makeNumber("-65"), getLib().minutesDiff(makeDateAndTime("2015-12-24T13:20:00.000+01:00"), makeDateAndTime("2015-12-24T12:15:00.000+01:00")));
     }
 
     @Test
-    public void testMonth() throws Exception {
+    public void testMonth() {
         assertNull(getLib().month(null));
 
         assertEquals(makeNumber("12"), getLib().month(makeDate("2015-12-02")));
@@ -128,33 +133,40 @@ public class UniformJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecim
     }
 
     @Test
-    public void testMonthAdd() throws Exception {
+    public void testMonthAdd() {
         assertNull(getLib().monthAdd(null, null));
         assertNull(getLib().monthAdd(null, makeNumber("1")));
         assertNull(getLib().monthAdd(makeDate("2015-01-05"), null));
 
         assertEqualsTime("2015-02-05", getLib().monthAdd(makeDate("2015-01-05"), makeNumber("1")));
         assertEqualsTime("2016-01-05", getLib().monthAdd(makeDate("2015-01-05"), makeNumber("12")));
+        assertEqualsTime("2014-11-05", getLib().monthAdd(makeDate("2015-01-05"), makeNumber("-2")));
         assertEqualsTime("2015-02-05T12:15:00.001+01:00", getLib().monthAdd(makeDateAndTime("2015-01-05T12:15:00.001+01:00"), makeNumber("1")));
         assertEqualsTime("2016-01-05T12:15:00.001+01:00", getLib().monthAdd(makeDateAndTime("2015-01-05T12:15:00.001+01:00"), makeNumber("12")));
+        assertEqualsTime("2014-11-05T12:15:00.001+01:00", getLib().monthAdd(makeDateAndTime("2015-01-05T12:15:00.001+01:00"), makeNumber("-2")));
         assertNull(getLib().monthAdd(makeDateAndTime("xxx"), makeNumber("12")));
         assertNull(getLib().monthAdd(null, makeNumber("12")));
     }
 
     @Test
-    public void testMonthDiff() throws Exception {
+    public void testMonthDiff() {
         assertNull(getLib().monthDiff(null, null));
         assertNull(getLib().monthDiff(null, makeDate("2015-05-05")));
         assertNull(getLib().monthDiff(makeDate("2015-01-05"), null));
 
+        assertEquals(makeNumber("0"), getLib().monthDiff(makeDate("2015-01-05"), makeDate("2015-01-05")));
         assertEquals(makeNumber("4"), getLib().monthDiff(makeDate("2015-01-05"), makeDate("2015-05-05")));
         assertEquals(makeNumber("16"), getLib().monthDiff(makeDate("2015-01-05"), makeDate("2016-05-05")));
-        assertEquals(makeNumber("11"), getLib().monthDiff(makeDateAndTime("2015-01-24T12:15:00.000+01:00"), makeDateAndTime("2015-12-24T15:15:00.000+01:00")));
-        assertEquals(makeNumber("23"), getLib().monthDiff(makeDateAndTime("2015-01-24T12:15:00.000+01:00"), makeDateAndTime("2016-12-25T15:15:00.000+01:00")));
+        assertEquals(makeNumber("-4"), getLib().monthDiff(makeDate("2015-05-05"), makeDate("2015-01-05")));
+
+        assertEquals(makeNumber("0"), getLib().monthDiff(makeDateAndTime("2015-01-05T12:15:00.000+01:00"), makeDateAndTime("2015-01-05T12:15:00.000+01:00")));
+        assertEquals(makeNumber("4"), getLib().monthDiff(makeDateAndTime("2015-01-05T12:15:00.000+01:00"), makeDateAndTime("2015-05-05T12:15:00.000+01:00")));
+        assertEquals(makeNumber("16"), getLib().monthDiff(makeDateAndTime("2015-01-05T12:15:00.000+01:00"), makeDateAndTime("2016-05-05T12:15:00.000+01:00")));
+        assertEquals(makeNumber("-4"), getLib().monthDiff(makeDateAndTime("2015-05-05T12:15:00.000+01:00"), makeDateAndTime("2015-01-05T12:15:00.000+01:00")));
     }
 
     @Test
-    public void testNow() throws Exception {
+    public void testNow() {
         ZonedDateTime actual = getLib().now();
         Calendar expected = Calendar.getInstance();
         assertEquals(expected.get(Calendar.YEAR), actual.getYear());
@@ -163,7 +175,7 @@ public class UniformJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecim
     }
 
     @Test
-    public void testToday() throws Exception {
+    public void testToday() {
         ZonedDateTime actual = getLib().today();
         Calendar expected = Calendar.getInstance();
         assertEquals(expected.get(Calendar.YEAR), actual.getYear());
@@ -173,7 +185,7 @@ public class UniformJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecim
 
 
     @Test
-    public void testWeekday() throws Exception {
+    public void testWeekday() {
         assertNull(getLib().weekday(null));
 
         assertEquals(makeNumber("7"), getLib().weekday(makeDate("2016-12-25")));
@@ -183,7 +195,7 @@ public class UniformJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecim
     }
 
     @Test
-    public void testYear() throws Exception {
+    public void testYear() {
         assertNull(getLib().year(null));
 
         assertEquals(makeNumber("2016"), getLib().year(makeDate("2016-11-01")));
@@ -191,7 +203,7 @@ public class UniformJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecim
     }
 
     @Test
-    public void testYearAdd() throws Exception {
+    public void testYearAdd() {
         assertNull(getLib().yearAdd(null, null));
         assertNull(getLib().yearAdd(null, makeNumber("1")));
         assertNull(getLib().yearAdd(makeDate("2015-01-05"), null));
@@ -205,15 +217,22 @@ public class UniformJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecim
     }
 
     @Test
-    public void testYearDiff() throws Exception {
+    public void testYearDiff() {
         assertNull(getLib().yearDiff(null, null));
         assertNull(getLib().yearDiff(null, makeDate("2015-05-05")));
         assertNull(getLib().yearDiff(makeDate("2015-01-05"), null));
 
-        assertEquals(makeNumber("0"), getLib().yearDiff(makeDate("2015-01-05"), makeDate("2015-05-05")));
+        assertEquals(makeNumber("0"), getLib().yearDiff(makeDate("2015-01-05"), makeDate("2015-01-05")));
         assertEquals(makeNumber("1"), getLib().yearDiff(makeDate("2015-01-05"), makeDate("2016-05-05")));
-        assertEquals(makeNumber("0"), getLib().yearDiff(makeDateAndTime("2015-01-01T12:15:00.000+01:00"), makeDateAndTime("2015-12-01T15:15:00.000+01:00")));
-        assertEquals(makeNumber("2"), getLib().yearDiff(makeDateAndTime("2015-01-24T12:15:00.000+01:00"), makeDateAndTime("2017-12-24T15:15:00.000+01:00")));
+        assertEquals(makeNumber("1"), getLib().yearDiff(makeDate("2015-01-05"), makeDate("2016-01-05")));
+        assertEquals(makeNumber("-1"), getLib().yearDiff(makeDate("2016-01-05"), makeDate("2015-01-05")));
+        assertEquals(makeNumber("0"), getLib().yearDiff(makeDate("2016-01-05"), makeDate("2015-05-05")));
+
+        assertEquals(makeNumber("0"), getLib().yearDiff(makeDateAndTime("2015-01-01T12:15:00.000+01:00"), makeDateAndTime("2015-01-05T15:15:00.000+01:00")));
+        assertEquals(makeNumber("1"), getLib().yearDiff(makeDateAndTime("2015-01-05T12:15:00.000+01:00"), makeDateAndTime("2016-05-05T15:15:00.000+01:00")));
+        assertEquals(makeNumber("1"), getLib().yearDiff(makeDateAndTime("2015-01-05T12:15:00.000+01:00"), makeDateAndTime("2016-01-05T15:15:00.000+01:00")));
+        assertEquals(makeNumber("-1"), getLib().yearDiff(makeDateAndTime("2016-01-05T12:15:00.000+01:00"), makeDateAndTime("2015-01-05T15:15:00.000+01:00")));
+        assertEquals(makeNumber("0"), getLib().yearDiff(makeDateAndTime("2016-01-05T12:15:00.000+01:00"), makeDateAndTime("2015-05-05T15:15:00.000+01:00")));
     }
 }
 

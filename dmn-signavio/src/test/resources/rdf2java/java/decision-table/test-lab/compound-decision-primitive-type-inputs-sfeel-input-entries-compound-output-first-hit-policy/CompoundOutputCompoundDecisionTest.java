@@ -15,8 +15,8 @@ public class CompoundOutputCompoundDecisionTest extends com.gs.dmn.signavio.runt
         String dD1TextInput = "a";
         type.CompoundOutputCompoundDecision compoundOutputCompoundDecision = this.compoundOutputCompoundDecision.apply(booleanInput, dD1TextInput, dD2NumberInput, enumerationInput, annotationSet_);
 
-        checkValues("r11", compoundOutputCompoundDecision.getFirstOutput());
-        checkValues("r12", compoundOutputCompoundDecision.getSecondOutput());
+        checkValues("r11", compoundOutputCompoundDecision == null ? null : compoundOutputCompoundDecision.getFirstOutput());
+        checkValues("r12", compoundOutputCompoundDecision == null ? null : compoundOutputCompoundDecision.getSecondOutput());
     }
 
     private void checkValues(Object expected, Object actual) {

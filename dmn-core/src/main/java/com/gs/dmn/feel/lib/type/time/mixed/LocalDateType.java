@@ -12,10 +12,10 @@
  */
 package com.gs.dmn.feel.lib.type.time.mixed;
 
-import com.gs.dmn.feel.lib.DateTimeUtil;
 import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.DateType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
+import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeFactory;
@@ -174,12 +174,12 @@ public class LocalDateType extends JavaTimeCalendarType implements DateType<Loca
         }
     }
 
-    private int compare(LocalDate first, LocalDate second) {
+    protected int compare(LocalDate first, LocalDate second) {
         return first.compareTo(second);
     }
 
-    public Duration toDuration(LocalDate date1, LocalDate date2) {
-        long durationInMilliSeconds = getDurationInMilliSeconds(date1.atStartOfDay(DateTimeUtil.UTC), date2.atStartOfDay(DateTimeUtil.UTC));
+    protected Duration toDuration(LocalDate date1, LocalDate date2) {
+        long durationInMilliSeconds = getDurationInMilliSeconds(date1.atStartOfDay(DefaultDateTimeLib.UTC), date2.atStartOfDay(DefaultDateTimeLib.UTC));
         return datatypeFactory.newDurationYearMonth(durationInMilliSeconds);
     }
 }

@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.lib.type.numeric;
 
-import com.gs.dmn.feel.lib.BigDecimalUtil;
 import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.NumericType;
@@ -26,6 +25,17 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
     public static final MathContext MATH_CONTEXT = MathContext.DECIMAL128;
 
     private final BooleanType booleanType;
+
+    public static BigDecimal decimalNumericDivide(BigDecimal first, BigDecimal second) {
+        if (first == null || second == null) {
+            return null;
+        }
+        if (BigDecimal.ZERO.equals(second)) {
+            return null;
+        }
+
+        return first.divide(second, MathContext.DECIMAL128);
+    }
 
     public DefaultNumericType(Logger logger) {
         super(logger);
@@ -80,7 +90,7 @@ public class DefaultNumericType extends BaseType implements NumericType<BigDecim
     @Override
     public BigDecimal numericDivide(BigDecimal first, BigDecimal second) {
         try {
-            return BigDecimalUtil.numericDivide(first, second);
+            return decimalNumericDivide(first, second);
         } catch (Exception e) {
             String message = String.format("numericDivide(%s, %s)", first, second);
             logError(message, e);
