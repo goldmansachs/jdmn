@@ -15,11 +15,15 @@ package com.gs.dmn.security;
 import com.gs.dmn.runtime.metadata.DMNMetadata;
 import com.gs.dmn.runtime.metadata.DRGElement;
 import com.gs.dmn.serialization.JsonSerializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
 import java.util.List;
 
 public class MetadataValidator {
+    private static Logger LOGGER = LoggerFactory.getLogger(MetadataValidator.class);
+
     public boolean validate(String pkg, ClassLoader classLoader) {
         String metadataPath = pkg.replace('.', '/');
         String fileName = DMNMetadata.class.getSimpleName();
@@ -36,7 +40,7 @@ public class MetadataValidator {
             }
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.debug(e.getMessage());
             return false;
         }
     }
