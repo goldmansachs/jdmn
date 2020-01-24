@@ -39,7 +39,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.type.NamedTypeExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
-import com.gs.dmn.feel.lib.StringUtil;
 import com.gs.dmn.feel.synthesis.AbstractFEELToJavaVisitor;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.FEELTranslatorForInterpreter;
@@ -800,13 +799,13 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
                     Expression value = entry.getExpression();
                     if (value instanceof StringLiteral) {
                         String lexeme = ((StringLiteral) value).getLexeme();
-                        className = StringUtil.stripQuotes(lexeme);
+                        className = StringEscapeUtil.stripQuotes(lexeme);
                     }
                 } else if ("methodSignature".equals(name) || "method signature".equals(name)) {
                     Expression value = entry.getExpression();
                     if (value instanceof StringLiteral) {
                         String lexeme = ((StringLiteral) value).getLexeme();
-                        String signature = StringUtil.stripQuotes(lexeme);
+                        String signature = StringEscapeUtil.stripQuotes(lexeme);
                         int lpIndex = signature.indexOf('(');
                         int rpIndex = signature.indexOf(')');
                         methodName = signature.substring(0, lpIndex);
@@ -1078,7 +1077,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     @Override
     public Object visit(DateTimeLiteral element, FEELContext context) {
         Type type = element.getType();
-        String literal = StringUtil.stripQuotes(element.getLexeme());
+        String literal = StringEscapeUtil.stripQuotes(element.getLexeme());
         if (type == DateType.DATE) {
             return lib.date(literal);
         } else if (type == TimeType.TIME) {

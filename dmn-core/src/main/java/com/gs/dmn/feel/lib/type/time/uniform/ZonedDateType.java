@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.time.uniform;
 
-import com.gs.dmn.feel.lib.DateTimeUtil;
+import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.DateType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
@@ -140,7 +140,7 @@ public class ZonedDateType extends JavaTimeCalendarType implements DateType<Zone
     public Duration toDuration(ZonedDateTime first, ZonedDateTime second) {
         LocalDate firstLocalDate = first.toLocalDate();
         LocalDate secondLocalDate = second.toLocalDate();
-        long durationInMilliSeconds = getDurationInMilliSeconds(firstLocalDate.atStartOfDay(DateTimeUtil.UTC), secondLocalDate.atStartOfDay(DateTimeUtil.UTC));
+        long durationInMilliSeconds = getDurationInMilliSeconds(firstLocalDate.atStartOfDay(DefaultDateTimeLib.UTC), secondLocalDate.atStartOfDay(DefaultDateTimeLib.UTC));
         return datatypeFactory.newDurationYearMonth(durationInMilliSeconds);
     }
 }

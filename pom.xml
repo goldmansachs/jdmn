@@ -111,7 +111,6 @@
         <module>dmn-maven-plugin</module>
 
         <module>dmn-tck-integration-tests</module>
-        <module>dmn-reladomo-integration-tests</module>
         <module>dmn-jpa-integration-tests</module>
 
         <module>dmn-signavio</module>
@@ -792,6 +791,9 @@ specific language governing permissions and limitations under the License.]]></i
                         <goals>
                             <goal>jar</goal>
                         </goals>
+                        <configuration>
+                            <excludePackageNames>org.omg.*</excludePackageNames>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

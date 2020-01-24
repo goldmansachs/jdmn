@@ -12,8 +12,8 @@
  */
 package com.gs.dmn.runtime;
 
-import com.gs.dmn.feel.lib.DateTimeUtil;
-import com.gs.dmn.feel.lib.DurationUtil;
+import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
+import com.gs.dmn.feel.lib.type.time.xml.BaseDefaultDurationType;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -151,9 +151,9 @@ public class Assert {
             return null;
         }
         if (object instanceof Duration) {
-            return DurationUtil.normalize((Duration) object);
+            return BaseDefaultDurationType.normalize((Duration) object);
         } else if (object instanceof ZonedDateTime) {
-            return ((ZonedDateTime) object).withZoneSameInstant(DateTimeUtil.UTC);
+            return ((ZonedDateTime) object).withZoneSameInstant(DefaultDateTimeLib.UTC);
         } else if (object instanceof OffsetTime) {
             return ((OffsetTime) object).withOffsetSameInstant(ZoneOffset.UTC);
         }

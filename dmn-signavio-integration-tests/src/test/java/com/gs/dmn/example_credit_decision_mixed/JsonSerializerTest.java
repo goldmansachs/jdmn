@@ -14,7 +14,7 @@ package com.gs.dmn.example_credit_decision_mixed;
 
 import com.gs.dmn.example_credit_decision_mixed.type.Applicant;
 import com.gs.dmn.example_credit_decision_mixed.type.ApplicantImpl;
-import com.gs.dmn.feel.lib.DateTimeUtil;
+import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import com.gs.dmn.serialization.JsonSerializer;
 import org.junit.Test;
 
@@ -92,7 +92,7 @@ public class JsonSerializerTest {
         assertTrue(decision.dateEqual(decision.date("2017-01-03"), person.getDateOfBirth()));
         assertTrue(decision.timeEqual(decision.time("11:20:30Z"), person.getTimeOfBirth()));
         assertTrue(decision.dateTimeEqual(decision.dateAndTime("2016-08-01T12:00:00Z"), person.getDateTimeOfBirth()));
-        assertEquals(Arrays.asList(decision.dateAndTime("2016-08-01T12:00:00Z").withZoneSameInstant(DateTimeUtil.UTC)), person.getDateTimeList());
+        assertEquals(Arrays.asList(decision.dateAndTime("2016-08-01T12:00:00Z").withZoneSameInstant(DefaultDateTimeLib.UTC)), person.getDateTimeList());
         assertTrue(decision.durationEqual(decision.duration("P1Y1M"), person.getYearsAndMonthsDuration()));
         assertTrue(decision.durationEqual(decision.duration("P2DT20H"), person.getDaysAndTimeDuration()));
     }

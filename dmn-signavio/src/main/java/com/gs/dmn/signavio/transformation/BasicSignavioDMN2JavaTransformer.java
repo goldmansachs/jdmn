@@ -22,14 +22,13 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Context;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.StringLiteral;
-import com.gs.dmn.feel.lib.StringUtil;
+import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.metadata.ExtensionElement;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
-import com.gs.dmn.transformation.InputParamUtil;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import com.gs.dmn.transformation.java.ExpressionStatement;
@@ -164,7 +163,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
                 Expression returnTypeExp = ((Context) javaExpression).entry("class").getExpression();
                 if (returnTypeExp instanceof StringLiteral) {
                     String lexeme = ((StringLiteral) returnTypeExp).getLexeme();
-                    return StringUtil.stripQuotes(lexeme);
+                    return StringEscapeUtil.stripQuotes(lexeme);
                 }
             }
         }
@@ -179,7 +178,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
                 if (returnTypeExp instanceof StringLiteral) {
                     // Signature should be methodName(arg1, arg2, ..., argN)
                     String lexeme = ((StringLiteral) returnTypeExp).getLexeme();
-                    String signature = StringUtil.stripQuotes(lexeme);
+                    String signature = StringEscapeUtil.stripQuotes(lexeme);
                     int index = signature.indexOf('(');
                     if (index != -1) {
                         signature = signature.substring(0, index);
@@ -198,7 +197,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
                 Expression returnTypeExp = ((Context) javaExpression).entry("returnType").getExpression();
                 if (returnTypeExp instanceof StringLiteral) {
                     String lexeme = ((StringLiteral) returnTypeExp).getLexeme();
-                    String typeName = StringUtil.stripQuotes(lexeme);
+                    String typeName = StringEscapeUtil.stripQuotes(lexeme);
                     return toFEELType(QualifiedName.toQualifiedName(typeName));
                 }
             }

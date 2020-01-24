@@ -32,7 +32,7 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
     public void applyWhenNull() throws Exception {
         AnnotationSet annotationSet = new AnnotationSet();
         String output = decision.apply(null, (String)null, null, null, null, annotationSet);
-        assertEquals("abc", output);
+        assertEquals(null, output);
     }
 
     @Override

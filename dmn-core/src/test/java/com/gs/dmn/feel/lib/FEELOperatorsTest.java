@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
 import com.gs.dmn.runtime.Assert;
 import org.junit.Test;
 
@@ -623,6 +624,8 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     protected void assertEqualsNumber(double expected, Object actual, double precision) {
         if (actual instanceof BigDecimal) {
             assertEquals(expected, ((BigDecimal) actual).doubleValue(), precision);
+        } else if (actual instanceof Double) {
+            assertEquals(expected, (Double) actual, precision);
         } else {
             assertEquals(expected, actual);
         }
@@ -632,13 +635,13 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         if (actual instanceof XMLGregorianCalendar) {
             assertEquals(expected, actual.toString());
         } else if (actual instanceof LocalDate) {
-            String actualText = ((LocalDate) actual).format(DateTimeUtil.FEEL_DATE_FORMAT);
+            String actualText = ((LocalDate) actual).format(BaseDateTimeLib.FEEL_DATE_FORMAT);
             assertEquals(expected, cleanActualText(actualText));
         } else if (actual instanceof OffsetTime) {
-            String actualText = ((OffsetTime) actual).format(DateTimeUtil.FEEL_TIME_FORMAT);
+            String actualText = ((OffsetTime) actual).format(BaseDateTimeLib.FEEL_TIME_FORMAT);
             assertEquals(expected, cleanActualText(actualText));
         } else if (actual instanceof ZonedDateTime) {
-            String actualText = ((ZonedDateTime) actual).format(DateTimeUtil.FEEL_DATE_TIME_FORMAT);
+            String actualText = ((ZonedDateTime) actual).format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT);
             assertEquals(expected, cleanActualText(actualText));
         } else if (actual instanceof Duration) {
             String actualText = actual.toString();

@@ -12,18 +12,21 @@
  */
 package com.gs.dmn.feel.lib.type.time.mixed;
 
-import com.gs.dmn.feel.lib.DateTimeUtil;
 import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.TimeType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
+import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
+import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
 public class OffsetTimeType extends JavaTimeCalendarType implements TimeType<OffsetTime, Duration> {
+    private static final LocalDate EPOCH = LocalDate.of(1970, 1, 1);
+
     private final BooleanType booleanType;
 
     public OffsetTimeType(Logger logger, DatatypeFactory datatypeFactory) {
@@ -175,13 +178,13 @@ public class OffsetTimeType extends JavaTimeCalendarType implements TimeType<Off
         }
     }
 
-    private int compare(OffsetTime first, OffsetTime second) {
+    protected int compare(OffsetTime first, OffsetTime second) {
         return first.compareTo(second);
     }
 
-    private Duration toDuration(OffsetTime first, OffsetTime second) {
-        ZonedDateTime first1 = first.atDate(DateTimeUtil.EPOCH).atZoneSameInstant(DateTimeUtil.UTC);
-        ZonedDateTime second1 = second.atDate(DateTimeUtil.EPOCH).atZoneSameInstant(DateTimeUtil.UTC);
+    protected Duration toDuration(OffsetTime first, OffsetTime second) {
+        ZonedDateTime first1 = first.atDate(EPOCH).atZoneSameInstant(DefaultDateTimeLib.UTC);
+        ZonedDateTime second1 = second.atDate(EPOCH).atZoneSameInstant(DefaultDateTimeLib.UTC);
         long durationInMilliSeconds = getDurationInMilliSeconds(first1, second1);
         return datatypeFactory.newDuration(durationInMilliSeconds);
     }

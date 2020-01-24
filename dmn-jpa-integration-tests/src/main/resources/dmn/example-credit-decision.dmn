@@ -86,7 +86,6 @@
             </input>
             <output xmlns:feel="http://www.omg.org/spec/FEEL/20140401" name="processPriorIssues" typeRef="feel:number" id="id-96865ad6994adedd010841f6fee16856" label="Process prior issues"/>
             <rule id="id-e9e18cb693d2e95d7b152b5b041702a2-1">
-                <description>string(-)</description>
                 <inputEntry>
                     <text>list contains(?, "Card rejection")</text>
                 </inputEntry>
@@ -95,7 +94,6 @@
                 </outputEntry>
             </rule>
             <rule id="id-e9e18cb693d2e95d7b152b5b041702a2">
-                <description>string(-)</description>
                 <inputEntry>
                     <text>list contains(?, "Late payment")</text>
                 </inputEntry>
@@ -104,7 +102,6 @@
                 </outputEntry>
             </rule>
             <rule id="id-22c17a268efdcf4c184ce881f6e22889">
-                <description>string(-)</description>
                 <inputEntry>
                     <text>list contains(?, "Default on obligations")</text>
                 </inputEntry>
@@ -113,7 +110,6 @@
                 </outputEntry>
             </rule>
             <rule id="id-041d7efc1527d70f2d887fad11fea4bb">
-                <description>string(-)</description>
                 <inputEntry>
                     <text>list contains(?, "Bankruptcy")</text>
                 </inputEntry>
@@ -122,7 +118,6 @@
                 </outputEntry>
             </rule>
             <rule id="id-cb24e3412d9d1dd5bc8bcfbcbd38416b">
-                <description>string(-)</description>
                 <inputEntry>
                     <text>not(list contains(?, "Card rejection"), list contains(?, "Late payment"), list contains(?, "Default on obligations"), list contains(?, "Bankruptcy"))</text>
                 </inputEntry>
@@ -131,7 +126,6 @@
                 </outputEntry>
             </rule>
             <rule id="id-118d86d4a0797c2c5b4f818fdaa115d8">
-                <description>string(-)</description>
                 <inputEntry>
                     <text>-</text>
                 </inputEntry>
@@ -154,7 +148,6 @@
             </input>
             <output xmlns:feel="http://www.omg.org/spec/FEEL/20140401" name="makeCreditDecision" typeRef="feel:string" id="id-10cb91a4518a14e3677dec31e54a5314" label="Make credit decision"/>
             <rule id="id-bddde61ea0caf3cab3bc8c342e9cd321">
-                <description>string(-)</description>
                 <inputEntry>
                     <text>&lt; -0.1</text>
                 </inputEntry>
@@ -163,7 +156,6 @@
                 </outputEntry>
             </rule>
             <rule id="id-7c6ed6048d099e3bf1fe2ad82738deba">
-                <description>string(-)</description>
                 <inputEntry>
                     <text>[-0.1..0.1]</text>
                 </inputEntry>
@@ -172,7 +164,6 @@
                 </outputEntry>
             </rule>
             <rule id="id-d1ae2043bdcbc2b7443ac15b59488262">
-                <description>string(-)</description>
                 <inputEntry>
                     <text>&gt; 0.1</text>
                 </inputEntry>
@@ -224,7 +215,6 @@
             </input>
             <output xmlns:feel="http://www.omg.org/spec/FEEL/20140401" name="assessApplicantAge" typeRef="feel:number" id="id-c23c8ccc2e159b5ac59f044549b3d867" label="Assess applicant age"/>
             <rule id="id-8b5fd55713957581c8c1e2bf6d132c9b">
-                <description>string(-)</description>
                 <inputEntry>
                     <text>&lt; 18</text>
                 </inputEntry>
@@ -233,7 +223,6 @@
                 </outputEntry>
             </rule>
             <rule id="id-1359d488afe539149cebb9d2dce9e56f">
-                <description>string(-)</description>
                 <inputEntry>
                     <text>[18..25]</text>
                 </inputEntry>
@@ -242,7 +231,6 @@
                 </outputEntry>
             </rule>
             <rule id="id-f2f2944867227f661a9a1f57098a28fd">
-                <description>string(-)</description>
                 <inputEntry>
                     <text>&gt; 25</text>
                 </inputEntry>

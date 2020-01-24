@@ -68,13 +68,20 @@ public class StringEscapeUtil {
         REGEXP_ESCAPE_MAP.put('X', "\\\\X");
     }
 
+    public static String stripQuotes(String value) {
+        if (StringUtils.isEmpty(value) || !value.startsWith("\"")) {
+            return value;
+        }
+        return value.substring(1, value.length() - 1);
+    }
+
     // Replace the FEEL escape sequences in lexeme with their values
     public static String unescapeFEEL(String lexeme) {
         if (StringUtils.isEmpty(lexeme)) {
             return lexeme;
         }
 
-        String value = StringUtil.stripQuotes(lexeme);
+        String value = stripQuotes(lexeme);
         StringBuilder builder = new StringBuilder();
         int index = 0;
         while (index < value.length()) {
