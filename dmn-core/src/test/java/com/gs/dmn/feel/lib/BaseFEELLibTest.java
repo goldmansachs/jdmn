@@ -486,6 +486,8 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     public void testOdd() {
         assertNull(getLib().odd(null));
 
+        assertFalse(getLib().odd(makeNumber("0.00")));
+        assertTrue(getLib().odd(makeNumber("1.00")));
         assertTrue(getLib().odd(makeNumber(5)));
         assertFalse(getLib().odd(makeNumber(2)));
     }
@@ -494,6 +496,8 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     public void testEven() {
         assertNull(getLib().even(null));
 
+        assertTrue(getLib().even(makeNumber("0.00")));
+        assertFalse(getLib().even(makeNumber("1.00")));
         assertFalse(getLib().even(makeNumber(5)));
         assertTrue(getLib().even(makeNumber(2)));
     }
