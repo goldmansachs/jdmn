@@ -98,7 +98,8 @@
 
         <sonar.language>java</sonar.language>
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-        <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../target/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco-ut.exec</sonar.jacoco.reportPath>
+        <sonar.jacoco.itReportPath>${project.basedir}/../target/jacoco-it.exec</sonar.jacoco.itReportPath>
         <sonar.exclusions>target/**/*</sonar.exclusions>
         <line.coverage.minimum>0.60</line.coverage.minimum>
 
@@ -246,7 +247,7 @@ specific language governing permissions and limitations under the License.]]></i
                                     <goal>prepare-agent</goal>
                                 </goals>
                                 <configuration>
-                                    <destFile>${sonar.coverage.jacoco.xmlReportPaths}</destFile>
+                                    <destFile>${sonar.jacoco.reportPath}</destFile>
                                     <!--
                                         Sets the name of the property containing the settings
                                         for JaCoCo runtime agent.
@@ -257,11 +258,10 @@ specific language governing permissions and limitations under the License.]]></i
                             <execution>
                                 <id>report</id>
                                 <goals>
-                                    <goal>report-aggregate</goal>
+                                    <goal>report</goal>
                                 </goals>
-                                <phase>verify</phase>
                                 <configuration>
-                                    <dataFile>${sonar.coverage.jacoco.xmlReportPaths}</dataFile>
+                                    <dataFile>${sonar.jacoco.reportPath}</dataFile>
                                 </configuration>
                             </execution>
                             <execution>
@@ -270,7 +270,7 @@ specific language governing permissions and limitations under the License.]]></i
                                     <goal>prepare-agent-integration</goal>
                                 </goals>
                                 <configuration>
-                                    <destFile>${sonar.coverage.jacoco.xmlReportPaths}</destFile>
+                                    <destFile>${sonar.jacoco.itReportPath}</destFile>
                                     <!--
                                         Sets the name of the property containing the settings
                                         for JaCoCo runtime agent.
@@ -281,11 +281,10 @@ specific language governing permissions and limitations under the License.]]></i
                             <execution>
                                 <id>report-integration</id>
                                 <goals>
-                                    <goal>report-aggregate</goal>
+                                    <goal>report-integration</goal>
                                 </goals>
-                                <phase>verify</phase>
                                 <configuration>
-                                    <dataFile>${sonar.coverage.jacoco.xmlReportPaths}</dataFile>
+                                    <dataFile>${sonar.jacoco.reportPath}</dataFile>
                                 </configuration>
                             </execution>
                             <execution>
@@ -293,9 +292,8 @@ specific language governing permissions and limitations under the License.]]></i
                                 <goals>
                                     <goal>check</goal>
                                 </goals>
-                                <phase>verify</phase>
                                 <configuration>
-                                    <dataFile>${sonar.coverage.jacoco.xmlReportPaths}</dataFile>
+                                    <dataFile>${sonar.jacoco.reportPath}</dataFile>
                                     <rules>
                                         <rule>
                                             <element>BUNDLE</element>
