@@ -98,8 +98,7 @@
 
         <sonar.language>java</sonar.language>
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-        <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco-ut.exec</sonar.jacoco.reportPath>
-        <sonar.jacoco.itReportPath>${project.basedir}/../target/jacoco-it.exec</sonar.jacoco.itReportPath>
+        <aggregate.report.dir>target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
         <sonar.exclusions>target/**/*</sonar.exclusions>
         <line.coverage.minimum>0.60</line.coverage.minimum>
 
@@ -115,6 +114,8 @@
 
         <module>dmn-signavio</module>
         <module>dmn-signavio-integration-tests</module>
+
+        <module>dmn-aggregate</module>
     </modules>
 
     <profiles>
@@ -236,10 +237,6 @@ specific language governing permissions and limitations under the License.]]></i
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>0.8.2</version>
-                        <configuration>
-                            <append>true</append>
-                        </configuration>
                         <executions>
                             <execution>
                                 <id>prepare-agent</id>
@@ -247,7 +244,6 @@ specific language governing permissions and limitations under the License.]]></i
                                     <goal>prepare-agent</goal>
                                 </goals>
                                 <configuration>
-                                    <destFile>${sonar.jacoco.reportPath}</destFile>
                                     <!--
                                         Sets the name of the property containing the settings
                                         for JaCoCo runtime agent.
@@ -256,21 +252,11 @@ specific language governing permissions and limitations under the License.]]></i
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>report</id>
-                                <goals>
-                                    <goal>report</goal>
-                                </goals>
-                                <configuration>
-                                    <dataFile>${sonar.jacoco.reportPath}</dataFile>
-                                </configuration>
-                            </execution>
-                            <execution>
                                 <id>prepare-agent-integration</id>
                                 <goals>
                                     <goal>prepare-agent-integration</goal>
                                 </goals>
                                 <configuration>
-                                    <destFile>${sonar.jacoco.itReportPath}</destFile>
                                     <!--
                                         Sets the name of the property containing the settings
                                         for JaCoCo runtime agent.
@@ -279,21 +265,11 @@ specific language governing permissions and limitations under the License.]]></i
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>report-integration</id>
-                                <goals>
-                                    <goal>report-integration</goal>
-                                </goals>
-                                <configuration>
-                                    <dataFile>${sonar.jacoco.reportPath}</dataFile>
-                                </configuration>
-                            </execution>
-                            <execution>
                                 <id>check</id>
                                 <goals>
                                     <goal>check</goal>
                                 </goals>
                                 <configuration>
-                                    <dataFile>${sonar.jacoco.reportPath}</dataFile>
                                     <rules>
                                         <rule>
                                             <element>BUNDLE</element>
@@ -659,6 +635,16 @@ specific language governing permissions and limitations under the License.]]></i
                             </goals>
                         </execution>
                     </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.8.2</version>
+                    <configuration>
+                        <append>true</append>
+                        <excludes>com.gs.dmn.tck.*</excludes>
+                    </configuration>
                 </plugin>
 
                 <plugin>
