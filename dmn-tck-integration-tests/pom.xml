@@ -43,7 +43,7 @@
         <generated.java.folder>${project.build.directory}/generated-sources/dmn</generated.java.folder>
         <tck.java.folder>${project.build.directory}/generated-test-sources/tck</tck.java.folder>
 
-        <line.coverage.minimum>0.05</line.coverage.minimum>
+        <line.coverage.minimum>0.00</line.coverage.minimum>
     </properties>
 
     <dependencies>
