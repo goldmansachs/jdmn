@@ -96,6 +96,7 @@
         <slf4j.version>1.7.22</slf4j.version>
         <logback.version>1.2.1</logback.version>
 
+        <jacoco.version>0.8.5</jacoco.version>
         <sonar.language>java</sonar.language>
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
         <aggregate.report.dir>target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
@@ -237,6 +238,7 @@ specific language governing permissions and limitations under the License.]]></i
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>${jacoco.version}</version>
                         <executions>
                             <execution>
                                 <id>prepare-agent</id>
@@ -635,16 +637,6 @@ specific language governing permissions and limitations under the License.]]></i
                             </goals>
                         </execution>
                     </executions>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.jacoco</groupId>
-                    <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.8.2</version>
-                    <configuration>
-                        <append>true</append>
-                        <excludes>com.gs.dmn.tck.*</excludes>
-                    </configuration>
                 </plugin>
 
                 <plugin>
