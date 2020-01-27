@@ -139,7 +139,7 @@ public class StringEscapeUtil {
                 builder.append(FEEL_ESCAPE_MAP.get(ch));
                 index++;
             } else if (Character.isSurrogate(ch)) {
-                builder.append("\\u" + hex(ch));
+                builder.append("\\u").append(hex(ch));
                 index++;
             } else {
                 builder.append(ch);
