@@ -135,6 +135,8 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
             return null;
         }
     }
+
+    @Override
     public OffsetTime time(BigDecimal hour, BigDecimal minute, BigDecimal second, TemporalAmount offset) {
         try {
             return this.timeLib.time(hour, minute, second, offset);
@@ -871,6 +873,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
         }
     }
 
+    @Override
     public BigDecimal min(Object... args) {
         try {
             return this.numberLib.min(args);

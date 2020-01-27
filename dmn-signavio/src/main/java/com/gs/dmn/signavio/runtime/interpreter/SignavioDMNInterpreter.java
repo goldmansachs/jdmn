@@ -113,6 +113,7 @@ public class SignavioDMNInterpreter extends StandardDMNInterpreter {
         return new Result(value, expectedType);
     }
 
+    @Override
     protected boolean dagOptimisation() {
         return false;
     }

@@ -354,6 +354,7 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     //
     // Text operations
     //
+    @Override
     @Test
     public void testStringAdd() {
         assertEquals("", getLib().stringAdd(null, null));

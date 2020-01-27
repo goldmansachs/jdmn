@@ -33,6 +33,7 @@ public class MixedJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalD
     //
     // Conversion functions
     //
+    @Override
     @Test
     public void testDate() {
         super.testDate();
@@ -41,6 +42,7 @@ public class MixedJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalD
         assertEqualsTime("2017-10-11", getLib().date(getLib().date("2017-10-11")));
     }
 
+    @Override
     @Test
     public void testTime() {
         super.testTime();
@@ -52,6 +54,7 @@ public class MixedJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalD
         assertEqualsTime("00:00:00Z", getLib().time(getLib().date("2017-08-10")));
     }
 
+    @Override
     @Test
     public void testDateTime() {
         super.testDateTime();
@@ -110,6 +113,7 @@ public class MixedJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalD
     //
     // Time properties
     //
+    @Override
     @Test
     public void testTimeProperties() {
         assertEqualsNumber(getLib().number("12"), getLib().hour(getLib().time("12:01:02Z")));
@@ -126,6 +130,7 @@ public class MixedJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalD
     //
     // Date and time properties
     //
+    @Override
     @Test
     public void testDateAndTimeProperties() {
         assertEqualsNumber(getLib().number("2018"), getLib().year(getLib().dateAndTime("2018-12-10T12:01:02Z")));
@@ -143,11 +148,13 @@ public class MixedJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalD
         assertEquals("Z", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02")));
     }
 
+    @Override
     @Test
     public void testDuration() {
         super.testDuration();
     }
 
+    @Override
     @Test
     public void testYearsAndMonthsDuration() {
         super.testYearsAndMonthsDuration();
@@ -156,6 +163,7 @@ public class MixedJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalD
     //
     // Date time operators
     //
+    @Override
     @Test
     public void testDateSubtract() {
         super.testDateSubtract();

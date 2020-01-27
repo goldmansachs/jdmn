@@ -30,6 +30,7 @@ public class JavaAssistCompilerTest extends AbstractCompilerTest {
         assertEquals("public java.math.BigDecimal apply(Object[] args) {return number(\"123\");}", ((JavaAssistClassData)classData).getMethodText());
     }
 
+    @Override
     @Test
     public void testCompile() throws Exception {
         Class<?> cls = getCompiler().compile(makeClassData());

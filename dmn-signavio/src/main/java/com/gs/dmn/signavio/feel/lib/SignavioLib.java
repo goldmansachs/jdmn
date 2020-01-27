@@ -53,6 +53,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Count([num1 ,num2, num3]):NUMERIC
     //    Returns the number of elements of the given list.
     //    Example: Count(["item1", "item2", "item3"]) returns 3.
+    @Override
     NUMBER count(List list);
 
     //    Round(number,digits):NUMERIC
@@ -108,6 +109,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Sum([number1, number2, number3]):NUMERIC
     //    Returns the sum of a list of values.
     //    Example: Sum([1, 2, 3, 4, 5]) returns 15.
+    @Override
     NUMBER sum(List numbers);
 
     //
@@ -117,6 +119,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Day(datetime):NUMERIC
     //    Returns the day part of a datetime.
     //    Example: Day(2015-12-24T12:15:00.000+01:00) returns 24.
+    @Override
     NUMBER day(DATE date);
 
     //    DayAdd(datetime, days to add):DATE
@@ -147,6 +150,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Hour(datetime):NUMERIC
     //    Returns the hour part of a datetime.
     //    Example: Hour(2015-12-24T12:15:00.000+01:00) returns 12.
+    @Override
     NUMBER hour(TIME dateTime);
 
     //    HourDiff(datetime1, datetime2):NUMERIC
@@ -158,6 +162,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Minute(time):NUMERIC
     //    Returns the minute part of a datetime.
     //    Example: Minute(2015-12-24T12:15:00.000+01:00) returns 15.
+    @Override
     NUMBER minute(TIME time);
 
     //    MinutesDiff(datetimes1, date2times):NUMERIC
@@ -169,6 +174,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Month(datetime):NUMERIC
     //    Returns the month part of a datetime.
     //    Example: Month(2015-12-24T12:15:00.000+01:00) returns 12.
+    @Override
     NUMBER month(DATE dateTime);
 
     //    MonthAdd(datetime, months_to_add):DATE
@@ -201,6 +207,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Year(datetime):NUMERIC
     //    Returns the year part of a datetime.
     //    Example: Year(2016-02-09T12:15:00.000+01:00) returns 2016.
+    @Override
     NUMBER year(DATE dateTime);
 
     //    YearAdd(datetime, years_to_add):DATE
@@ -272,6 +279,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Max([number1, number2, number3]):NUMERIC
     //    Returns the maximum value of the given list.
     //    Example: Max([5, 4, 10]) returns 10.
+    @Override
     NUMBER max(List numbers);
 
     //    Median([number1, number2, number3]):NUMERIC
@@ -282,6 +290,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Min([number1, number2, number3]):NUMERIC
     //    Returns the minimum value of the given list.
     //    Example: Min([5, 4, 10]) returns 2.
+    @Override
     NUMBER min(List numbers);
 
     //    Mode([number1, number2, number3]):NUMERIC
@@ -347,6 +356,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Returns the numerical value represented in the text string. Only a period (.) is allowed as a
     //    separator.
     //    Example: Number("5") returns 5.
+    @Override
     NUMBER number(String text);
 
     //    Number(text, default_value):NUMERIC

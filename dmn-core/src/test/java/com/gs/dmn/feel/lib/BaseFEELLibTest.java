@@ -44,6 +44,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         assertEqualsNumber(makeNumber("1000000.01"), getLib().number("1.000.000,01", ".", ","));
     }
 
+    @Override
     @Test
     public void testDuration()  {
         assertEquals("P1Y8M", getLib().duration("P1Y8M").toString());

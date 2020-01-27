@@ -423,6 +423,7 @@ public class UniformJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, ZonedDat
         }
     }
 
+    @Override
     public BigDecimal weekday(ZonedDateTime dateTime) {
         try {
             return BigDecimal.valueOf(this.dateLib.weekday(dateTime));

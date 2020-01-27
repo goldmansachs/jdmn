@@ -35,29 +35,34 @@ public class PureJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalDa
     //
     // Conversion functions
     //
+    @Override
     @Test
     public void testDate() {
         super.testDate();
     }
 
+    @Override
     @Test
     @Ignore
     public void testDateSubtract() {
         super.testDateSubtract();
     }
 
+    @Override
     @Test
     @Ignore
     public void testDateAddDuration() {
         super.testDateAddDuration();
     }
 
+    @Override
     @Test
     @Ignore
     public void testDateSubtractDuration() {
         super.testDateSubtractDuration();
     }
 
+    @Override
     @Test
     @Ignore
     public void testTime() {
@@ -69,42 +74,49 @@ public class PureJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalDa
                 null));
     }
 
+    @Override
     @Test
     @Ignore
     public void testTimeSubtract() {
         super.testTimeSubtract();
     }
 
+    @Override
     @Test
     @Ignore
     public void testTimeAddDuration() {
         super.testTimeAddDuration();
     }
 
+    @Override
     @Test
     @Ignore
     public void testTimeSubtractDuration() {
         super.testTimeSubtractDuration();
     }
 
+    @Override
     @Test
     @Ignore
     public void testDateTime() {
         super.testDateTime();
     }
 
+    @Override
     @Test
     @Ignore
     public void testDateTimeSubtract() {
         super.testDateTimeSubtract();
     }
 
+    @Override
     @Test
     @Ignore
     public void testDateTimeAddDuration() {
         super.testDateTimeAddDuration();
     }
 
+    @Override
     @Test
     @Ignore
     public void testDateTimeSubtractDuration() {
@@ -120,42 +132,49 @@ public class PureJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalDa
         assertEquals("true", getLib().string(true));
     }
 
+    @Override
     @Test
     @Ignore
     public void testDurationEqual() {
         super.testDurationEqual();
     }
 
+    @Override
     @Test
     @Ignore
     public void testDurationNotEqual() {
         super.testDurationNotEqual();
     }
 
+    @Override
     @Test
     @Ignore
     public void testDurationLessThan() {
         super.testDurationLessThan();
     }
 
+    @Override
     @Test
     @Ignore
     public void testDurationGreaterThan() {
         super.testDurationGreaterThan();
     }
 
+    @Override
     @Test
     @Ignore
     public void testDurationLessEqualThan() {
         super.testDurationLessEqualThan();
     }
 
+    @Override
     @Test
     @Ignore
     public void testDurationGreaterEqualThan() {
         super.testDurationGreaterEqualThan();
     }
 
+    @Override
     @Test
     @Ignore
     public void testDuration() {
@@ -163,6 +182,7 @@ public class PureJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalDa
         assertEqualsTime("PT68H", getLib().duration("P2DT20H").toString());
     }
 
+    @Override
     @Test
     public void testYearsAndMonthsDuration() {
         assertEqualsTime("PT0S", getLib().yearsAndMonthsDuration(getLib().dateAndTime("2015-12-24T12:15:00.000+01:00"), getLib().dateAndTime("2015-12-24T12:15:00.000+01:00")).toString());
@@ -171,6 +191,7 @@ public class PureJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalDa
     //
     // Time properties
     //
+    @Override
     @Test
     public void testTimeProperties() {
         assertEqualsNumber(getLib().number("12"), getLib().hour(getLib().time("12:01:02Z")));
@@ -192,6 +213,7 @@ public class PureJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalDa
     //
     // Date and time properties
     //
+    @Override
     @Test
     public void testDateAndTimeProperties() {
         assertEqualsNumber(getLib().number("2018"), getLib().year(getLib().dateAndTime("2018-12-10T12:01:02Z")));
@@ -214,6 +236,7 @@ public class PureJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalDa
         assertEquals("Europe/Paris", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02@Europe/Paris")));
     }
 
+    @Override
     @Test
     @Ignore
     public void testDurationProperties() {

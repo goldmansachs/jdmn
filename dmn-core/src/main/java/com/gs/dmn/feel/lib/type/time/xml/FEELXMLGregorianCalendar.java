@@ -1420,6 +1420,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
      * <code>XMLGregorianCalendar</code>s thus saving resources associated
      * with the creation of new <code>XMLGregorianCalendar</code>s.</p>
      */
+    @Override
     public void reset() {
         //PENDING : Implementation of reset method
     }
