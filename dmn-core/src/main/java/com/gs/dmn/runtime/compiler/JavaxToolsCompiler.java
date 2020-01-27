@@ -121,7 +121,7 @@ public class JavaxToolsCompiler extends JavaCompilerImpl {
         return classLoader.loadClass(qualifiedClassName);
     }
 
-    public static void main(String args[]) throws Exception {
+    public static void main(String[] args) throws Exception {
         String text =
                 "public class HelloWorld {" +
                         "    public static void main(String args[]) {" +

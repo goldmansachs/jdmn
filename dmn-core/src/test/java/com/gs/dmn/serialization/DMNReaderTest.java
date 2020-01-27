@@ -61,7 +61,7 @@ public class DMNReaderTest {
         List<TOutputClause> outputList = table.getOutput();
         assertEquals(1, outputList.size());
         TOutputClause output = outputList.get(0);
-        assertEquals(stringType, output.getTypeRef().toString());
+        assertEquals(stringType, output.getTypeRef());
         assertEquals("output1", output.getId());
         assertEquals("", output.getName());
 

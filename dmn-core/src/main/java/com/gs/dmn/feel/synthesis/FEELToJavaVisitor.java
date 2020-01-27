@@ -72,7 +72,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     @Override
     public Object visit(PositiveUnaryTests element, FEELContext context) {
         List<PositiveUnaryTest> simplePositiveUnaryTests = element.getPositiveUnaryTests();
-        List<String> operands = simplePositiveUnaryTests.stream().map(t -> String.format("(%s)", (String) t.accept(this, context))).collect(Collectors.toList());
+        List<String> operands = simplePositiveUnaryTests.stream().map(t -> String.format("(%s)", t.accept(this, context))).collect(Collectors.toList());
         return toBooleanOr(operands);
     }
 
@@ -96,7 +96,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     @Override
     public Object visit(SimplePositiveUnaryTests element, FEELContext context) {
         List<SimplePositiveUnaryTest> simplePositiveUnaryTests = element.getSimplePositiveUnaryTests();
-        List<String> operands = simplePositiveUnaryTests.stream().map(t -> String.format("(%s)", (String) t.accept(this, context))).collect(Collectors.toList());
+        List<String> operands = simplePositiveUnaryTests.stream().map(t -> String.format("(%s)", t.accept(this, context))).collect(Collectors.toList());
         return toBooleanOr(operands);
     }
 

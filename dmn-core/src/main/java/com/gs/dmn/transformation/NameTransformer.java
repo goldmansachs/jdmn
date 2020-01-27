@@ -450,7 +450,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                 break;
             }
             // collect key
-            StringBuilder keyBuilder = new StringBuilder("");
+            StringBuilder keyBuilder = new StringBuilder();
             while (index < text.length() && codePointAt(text, index) != ':' && codePointAt(text, index) != '}') {
                 keyBuilder.appendCodePoint(codePointAt(text, index));
                 index = nextIndex(text, index);

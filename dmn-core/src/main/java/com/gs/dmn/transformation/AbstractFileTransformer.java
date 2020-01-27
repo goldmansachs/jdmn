@@ -97,7 +97,7 @@ public abstract class AbstractFileTransformer implements FileTransformer {
         }
         if (childPath.startsWith(parentPath)) {
             String relativePath = childPath.substring(parentPath.length());
-            return relativePath.startsWith("/") ? relativePath.substring(1, relativePath.length()) : relativePath;
+            return relativePath.startsWith("/") ? relativePath.substring(1) : relativePath;
         } else {
             throw new DMNRuntimeException(String.format("Cannot compute relative path for parent '%s' and child '%s'", parentPath, childPath));
         }
