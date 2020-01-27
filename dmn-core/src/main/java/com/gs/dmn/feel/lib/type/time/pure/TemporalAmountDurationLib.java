@@ -26,7 +26,7 @@ public class TemporalAmountDurationLib {
             return null;
         }
 
-        TemporalAmount ta = null;
+        TemporalAmount ta;
         try {
             ta = Duration.parse(from);
             return ta;

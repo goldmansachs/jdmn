@@ -233,7 +233,7 @@ public class TCKUtil {
 
     private QualifiedName getTypeRef(InputNode node) {
         TDRGElement element = findDRGElementByName(node.getName());
-        QualifiedName typeRef = null;
+        QualifiedName typeRef;
         if (element == null) {
             throw new DMNRuntimeException(String.format("Cannot find element '%s'.", node.getName()));
         } else if (element instanceof TInputData) {
@@ -247,7 +247,7 @@ public class TCKUtil {
 
     private QualifiedName getTypeRef(ResultNode node) {
         TDRGElement element = findDRGElementByName(node.getName());
-        QualifiedName typeRef = null;
+        QualifiedName typeRef;
         if (element == null) {
             throw new DMNRuntimeException(String.format("Cannot find element '%s'.", node.getName()));
         } else if (element instanceof TDecision) {
@@ -358,7 +358,7 @@ public class TCKUtil {
     }
 
     private String drgElementName(TestCase testCase, ResultNode resultNode) {
-        String elementToEvaluate = null;
+        String elementToEvaluate;
         if (testCase.getType() == TestCaseType.DECISION) {
             elementToEvaluate = resultNode.getName();
         } else if (testCase.getType() == TestCaseType.DECISION_SERVICE) {

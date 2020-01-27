@@ -24,6 +24,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class PositionalParameterTypesTest extends ParameterTypesTest {
+    @Override
     protected ParameterTypes getParameterTypes() {
         return new PositionalParameterTypes(Arrays.asList(NumberType.NUMBER, StringType.STRING));
     }

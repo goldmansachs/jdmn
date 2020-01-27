@@ -64,6 +64,7 @@ public class UniformJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecim
         assertEquals(makeNumber("-1"), getLib().dayDiff(makeDate("2015-12-24"), makeDate("2015-12-23")));
     }
 
+    @Override
     @Test
     public void testDate() {
         super.testDate();
@@ -71,6 +72,7 @@ public class UniformJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecim
         assertEqualsTime("2016-01-01", getLib().date("2016-01-01"));
     }
 
+    @Override
     @Test
     public void testDateTime() {
         assertNull(getLib().dateAndTime(null));

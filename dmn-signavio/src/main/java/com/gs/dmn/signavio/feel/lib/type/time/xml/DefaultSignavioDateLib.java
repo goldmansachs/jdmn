@@ -29,7 +29,7 @@ public class DefaultSignavioDateLib extends SignavioBaseDateTimeLib {
         XMLGregorianCalendar result = (XMLGregorianCalendar) dateTime.clone();
         int months = yearsToAdd.intValue();
         boolean isPositive = months > 0;
-        Duration duration = null;
+        Duration duration;
         duration = DATA_TYPE_FACTORY.newDurationYearMonth(
                 isPositive, yearsToAdd.abs().intValue(), 0);
         result.add(duration);
@@ -45,7 +45,7 @@ public class DefaultSignavioDateLib extends SignavioBaseDateTimeLib {
         XMLGregorianCalendar result = (XMLGregorianCalendar) dateTime.clone();
         int months = monthsToAdd.intValue();
         boolean isPositive = months > 0;
-        Duration duration = null;
+        Duration duration;
         duration = DATA_TYPE_FACTORY.newDurationYearMonth(
                 isPositive, 0, monthsToAdd.abs().intValue());
         result.add(duration);
@@ -61,7 +61,7 @@ public class DefaultSignavioDateLib extends SignavioBaseDateTimeLib {
         XMLGregorianCalendar result = (XMLGregorianCalendar) dateTime.clone();
         int days = daysToAdd.intValue();
         boolean isPositive = days > 0;
-        Duration duration = null;
+        Duration duration;
         duration = DATA_TYPE_FACTORY.newDurationDayTime(
                 isPositive, daysToAdd.abs().intValue(), 0, 0, 0);
         result.add(duration);

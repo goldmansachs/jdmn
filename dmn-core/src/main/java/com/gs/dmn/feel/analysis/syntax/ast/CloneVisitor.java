@@ -156,7 +156,7 @@ public class CloneVisitor extends AbstractVisitor {
     @Override
     public Object visit(RangeIteratorDomain element, FEELContext context) {
         Expression start = (Expression) element.getStart().accept(this, context);
-        Expression end = (Expression) element.getEnd().accept(this, context); ;
+        Expression end = (Expression) element.getEnd().accept(this, context);
         return astFactory.toIteratorDomain(start, end);
     }
 

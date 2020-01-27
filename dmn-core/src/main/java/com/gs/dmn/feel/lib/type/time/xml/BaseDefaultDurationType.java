@@ -18,13 +18,19 @@ import org.slf4j.Logger;
 import java.util.GregorianCalendar;
 
 public abstract class BaseDefaultDurationType extends BaseType {
-    private static final GregorianCalendar GREGORIAN = new GregorianCalendar(
-            1970,
-            1,
-            1,
-            0,
-            0,
-            0);
+    private static final ThreadLocal<GregorianCalendar> GREGORIAN = new ThreadLocal<GregorianCalendar>() {
+        @Override
+        protected GregorianCalendar initialValue()
+        {
+            return new GregorianCalendar(
+                1970,
+                1,
+                1,
+                0,
+                0,
+                0);
+        }
+    };
 
     public BaseDefaultDurationType(Logger logger) {
         super(logger);
@@ -37,6 +43,6 @@ public abstract class BaseDefaultDurationType extends BaseType {
     }
 
     public static javax.xml.datatype.Duration normalize(javax.xml.datatype.Duration duration) {
-        return duration.normalizeWith(GREGORIAN);
+        return duration.normalizeWith(GREGORIAN.get());
     }
 }

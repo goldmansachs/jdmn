@@ -26,6 +26,7 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 
 public class NamedParameterTypesTest extends ParameterTypesTest {
+    @Override
     protected ParameterTypes getParameterTypes() {
         Map<String, Type> namedTypes = new LinkedHashMap<>();
         namedTypes.put("number", NumberType.NUMBER);

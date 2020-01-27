@@ -252,11 +252,11 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
     public BigInteger getEonAndYear() {
         // both are defined
         if (year != DatatypeConstants.FIELD_UNDEFINED && eon != null) {
-            return eon.add(BigInteger.valueOf((long) year));
+            return eon.add(BigInteger.valueOf(year));
         }
         // only year is defined
         if (year != DatatypeConstants.FIELD_UNDEFINED && eon == null) {
-            return BigInteger.valueOf((long) year);
+            return BigInteger.valueOf(year);
         }
         // neither are defined
         // or only eon is defined which is not valid without a year
@@ -284,7 +284,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
             this.year = year;
             this.eon = null;
         } else {
-            BigInteger theYear = BigInteger.valueOf((long) year);
+            BigInteger theYear = BigInteger.valueOf(year);
             BigInteger remainder = theYear.remainder(BILLION);
             this.year = remainder.intValue();
             setEon(theYear.subtract(remainder));
@@ -388,7 +388,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
         if (second == DatatypeConstants.FIELD_UNDEFINED) {
             return DECIMAL_ZERO;
         }
-        BigDecimal result = BigDecimal.valueOf((long) second);
+        BigDecimal result = BigDecimal.valueOf(second);
         if (fractionalSecond != null) {
             return result.add(fractionalSecond);
         } else {
@@ -528,7 +528,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
         FEELXMLGregorianCalendar lhs = this;
         FEELXMLGregorianCalendar rhs = (FEELXMLGregorianCalendar) other;
 
-        int result = DatatypeConstants.INDETERMINATE;
+        int result;
         if (lhs.getTimezone() == rhs.getTimezone()) {
             // Optimization:
             // both instances are in same timezone or
@@ -779,16 +779,12 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
         // be allowed in next version and treated as 1 B.C.E.
         if (eon == null) {
             // optimize check.
-            if (year == 0) {
-                return false;
-            }
+            return year != 0;
         } else {
             BigInteger yearField = getEonAndYear();
             if (yearField != null) {
                 int result = compareField(yearField, BigInteger.ZERO);
-                if (result == DatatypeConstants.EQUAL) {
-                    return false;
-                }
+                return result != DatatypeConstants.EQUAL;
             }
         }
         return true;
@@ -820,7 +816,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
          *  carry := fQuotient(temp, 1, 13)
          */
 
-        boolean fieldUndefined[] = {
+        boolean[] fieldUndefined = {
                 false,
                 false,
                 false,
@@ -838,7 +834,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
         }
 
         BigInteger dMonths = sanitize(duration.getField(DatatypeConstants.MONTHS), signum);
-        BigInteger temp = BigInteger.valueOf((long) startMonth).add(dMonths);
+        BigInteger temp = BigInteger.valueOf(startMonth).add(dMonths);
         setMonth(temp.subtract(BigInteger.ONE).mod(TWELVE).intValue() + 1);
         BigInteger carry =
                 new BigDecimal(temp.subtract(BigInteger.ONE)).divide(new BigDecimal(TWELVE), BigDecimal.ROUND_FLOOR).toBigInteger();
@@ -879,7 +875,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
 
         carry = fQuotient.toBigInteger();
         setSecond(endSeconds.intValue());
-        BigDecimal tempFracSeconds = endSeconds.subtract(new BigDecimal(BigInteger.valueOf((long) getSecond())));
+        BigDecimal tempFracSeconds = endSeconds.subtract(new BigDecimal(BigInteger.valueOf(getSecond())));
         if (tempFracSeconds.compareTo(DECIMAL_ZERO) < 0) {
             setFractionalSecond(DECIMAL_ONE.add(tempFracSeconds));
             if (getSecond() == 0) {
@@ -965,12 +961,12 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
         while (true) {
             if (endDays.compareTo(BigInteger.ONE) < 0) {
                 // calculate days in previous month, watch for month roll over
-                BigInteger mdimf = null;
+                BigInteger mdimf;
                 if (month >= 2) {
                     mdimf = BigInteger.valueOf(maximumDayInMonthFor(getEonAndYear(), getMonth() - 1));
                 } else {
                     // roll over to December of previous year
-                    mdimf = BigInteger.valueOf(maximumDayInMonthFor(getEonAndYear().subtract(BigInteger.valueOf((long) 1)), 12));
+                    mdimf = BigInteger.valueOf(maximumDayInMonthFor(getEonAndYear().subtract(BigInteger.valueOf(1)), 12));
                 }
                 endDays = endDays.add(mdimf);
                 monthCarry = -1;
@@ -1028,7 +1024,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
 
     @Override
     public java.util.GregorianCalendar toGregorianCalendar() {
-        GregorianCalendar result = null;
+        GregorianCalendar result;
         final int DEFAULT_TIMEZONE_OFFSET = DatatypeConstants.FIELD_UNDEFINED;
         TimeZone tz = getTimeZone(DEFAULT_TIMEZONE_OFFSET);
         // Use the following instead for JDK7 only:
@@ -1086,7 +1082,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
 
     @Override
     public GregorianCalendar toGregorianCalendar(TimeZone timezone, Locale aLocale, XMLGregorianCalendar defaults) {
-        GregorianCalendar result = null;
+        GregorianCalendar result;
         TimeZone tz = timezone;
         if (tz == null) {
             int defaultZoneoffset = DatatypeConstants.FIELD_UNDEFINED;
@@ -1189,7 +1185,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
 
     @Override
     public TimeZone getTimeZone(int defaultZoneoffset) {
-        TimeZone result = null;
+        TimeZone result;
         int zoneoffset = getTimezone();
 
         if (zoneoffset == DatatypeConstants.FIELD_UNDEFINED) {
@@ -1424,6 +1420,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
      * <code>XMLGregorianCalendar</code>s thus saving resources associated
      * with the creation of new <code>XMLGregorianCalendar</code>s.</p>
      */
+    @Override
     public void reset() {
         //PENDING : Implementation of reset method
     }
@@ -1437,7 +1434,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
             int day = this.getDay();
             return String.format("%d-%02d-%02d", year, month, day);
         } else if (kind == DatatypeConstants.TIME) {
-            String result = "";
+            String result;
             int hour = this.getHour();
             int minute = this.getMinute();
             int second = this.getSecond();
@@ -1457,7 +1454,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
             return result;
 
         } else if (kind == DatatypeConstants.DATETIME) {
-            String result = "";
+            String result;
             int year = this.getYear();
             int month = this.getMonth();
             int day = this.getDay();

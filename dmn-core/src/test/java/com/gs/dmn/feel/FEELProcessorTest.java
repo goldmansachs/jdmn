@@ -811,7 +811,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "FilterExpression(BooleanLiteral(true), NumericLiteral(0))",
                 "boolean",
                 "(Boolean)(elementAt(asList(Boolean.TRUE), number(\"0\")))",
-                (Boolean)(lib.elementAt(lib.asList(Boolean.TRUE), lib.number("0"))),
+                lib.elementAt(lib.asList(Boolean.TRUE), lib.number("0")),
                 null);
 
         doExpressionTest(expressionPairs, "", "100[0]",
@@ -1330,7 +1330,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(item) = NumericLiteral(1))),Context(ContextEntry(ContextEntryKey(item) = NumericLiteral(2))),Context(ContextEntry(ContextEntryKey(item) = NumericLiteral(3)))), Relational(>=,PathExpression(Name(item), item),NumericLiteral(2)))",
                 "ListType(ContextType(item = number))",
                 "asList(new com.gs.dmn.runtime.Context().add(\"item\", number(\"1\")), new com.gs.dmn.runtime.Context().add(\"item\", number(\"2\")), new com.gs.dmn.runtime.Context().add(\"item\", number(\"3\"))).stream().filter(item -> numericGreaterEqualThan(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"item\")), number(\"2\"))).collect(Collectors.toList())",
-                lib.asList(new com.gs.dmn.runtime.Context().add("item", lib.number("1")), new com.gs.dmn.runtime.Context().add("item", lib.number("2")), new com.gs.dmn.runtime.Context().add("item", lib.number("3"))).stream().filter(item -> lib.numericGreaterEqualThan(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get("item")), lib.number("2"))).collect(Collectors.toList()),
+                lib.asList(new com.gs.dmn.runtime.Context().add("item", lib.number("1")), new com.gs.dmn.runtime.Context().add("item", lib.number("2")), new com.gs.dmn.runtime.Context().add("item", lib.number("3"))).stream().filter(item -> lib.numericGreaterEqualThan(((Context)item).get("item"), lib.number("2"))).collect(Collectors.toList()),
                 lib.asList(new Context().add("item", lib.number("2")), new Context().add("item", lib.number("3"))));
         doExpressionTest(entries, "", "source[true]",
                 "FilterExpression(Name(source), BooleanLiteral(true))",

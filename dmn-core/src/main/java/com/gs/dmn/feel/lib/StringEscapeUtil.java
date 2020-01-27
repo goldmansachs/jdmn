@@ -134,12 +134,12 @@ public class StringEscapeUtil {
                     builder.append('\\');
                     index++;
                 }
-            } else if (FEEL_ESCAPE_MAP.keySet().contains(ch)) {
+            } else if (FEEL_ESCAPE_MAP.containsKey(ch)) {
                 // \n \r \t \' \" \\
                 builder.append(FEEL_ESCAPE_MAP.get(ch));
                 index++;
             } else if (Character.isSurrogate(ch)) {
-                builder.append("\\u" + hex(ch));
+                builder.append("\\u").append(hex(ch));
                 index++;
             } else {
                 builder.append(ch);

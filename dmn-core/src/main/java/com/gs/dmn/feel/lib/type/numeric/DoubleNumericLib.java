@@ -329,7 +329,7 @@ public class DoubleNumericLib {
             if (! (n instanceof Number)) {
                 return null;
             }
-            int count = 0;
+            int count;
 
             if (countMap.containsKey(n)) {
                 count = countMap.get(n) + 1;

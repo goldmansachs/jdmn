@@ -29,6 +29,7 @@ public class DefaultFEELLibTest extends BaseFEELLibTest<BigDecimal, XMLGregorian
     //
     // Time operator functions
     //
+    @Override
     @Test
     public void testTimeEqual() {
         super.testTimeEqual();
@@ -42,6 +43,7 @@ public class DefaultFEELLibTest extends BaseFEELLibTest<BigDecimal, XMLGregorian
     //
     // Date and time operator functions
     //
+    @Override
     @Test
     public void testDateTimeEqual() {
         super.testDateTimeEqual();
@@ -55,6 +57,7 @@ public class DefaultFEELLibTest extends BaseFEELLibTest<BigDecimal, XMLGregorian
     //
     // Conversion functions
     //
+    @Override
     @Test
     public void testDate() {
         super.testDate();
@@ -65,6 +68,7 @@ public class DefaultFEELLibTest extends BaseFEELLibTest<BigDecimal, XMLGregorian
         assertEqualsTime("2017-10-11", getLib().date(getLib().date("2017-10-11")));
     }
 
+    @Override
     @Test
     public void testTime() {
         super.testTime();
@@ -76,6 +80,7 @@ public class DefaultFEELLibTest extends BaseFEELLibTest<BigDecimal, XMLGregorian
         assertEqualsTime("00:00:00Z", getLib().time(getLib().date("2017-08-10")));
     }
 
+    @Override
     @Test
     public void testDateTime() {
         super.testDateTime();
@@ -130,6 +135,7 @@ public class DefaultFEELLibTest extends BaseFEELLibTest<BigDecimal, XMLGregorian
     //
     // Time properties
     //
+    @Override
     @Test
     public void testTimeProperties() {
         assertEqualsNumber(getLib().number("12"), getLib().hour(getLib().time("12:01:02Z")));
@@ -146,6 +152,7 @@ public class DefaultFEELLibTest extends BaseFEELLibTest<BigDecimal, XMLGregorian
     //
     // Date and time properties
     //
+    @Override
     @Test
     public void testDateAndTimeProperties() {
         assertEqualsNumber(getLib().number("2018"), getLib().year(getLib().dateAndTime("2018-12-10T12:01:02Z")));
@@ -163,11 +170,13 @@ public class DefaultFEELLibTest extends BaseFEELLibTest<BigDecimal, XMLGregorian
         assertEquals(null, getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02")));
     }
 
+    @Override
     @Test
     public void testDuration() {
         super.testDuration();
     }
 
+    @Override
     @Test
     public void testYearsAndMonthsDuration() {
         super.testYearsAndMonthsDuration();
@@ -176,6 +185,7 @@ public class DefaultFEELLibTest extends BaseFEELLibTest<BigDecimal, XMLGregorian
     //
     // Date time operators
     //
+    @Override
     @Test
     public void testDateSubtract() {
         super.testDateSubtract();

@@ -71,7 +71,7 @@ public class SimplifyTypesForMIDTransformer extends SimpleDMNTransformer<TestLab
 
     private DMNModelRepository removeDuplicateInformationRequirements(DMNModelRepository repository, BuildLogger logger) {
         BasicDMN2JavaTransformer basicTransformer = SIGNAVIO_DIALECT.createBasicTransformer(repository, new NopLazyEvaluationDetector(), new LinkedHashMap<>());
-        SignavioDMNModelRepository signavioRepository = null;
+        SignavioDMNModelRepository signavioRepository;
         if (repository instanceof SignavioDMNModelRepository) {
             signavioRepository = (SignavioDMNModelRepository) repository;
         } else {

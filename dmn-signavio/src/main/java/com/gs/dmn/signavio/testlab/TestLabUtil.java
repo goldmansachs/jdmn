@@ -333,7 +333,7 @@ public class TestLabUtil {
 
     private TDRGElement findDRGElementById(String id) {
         String key = makeKey(id);
-        if (!cache.keySet().contains(key)) {
+        if (!cache.containsKey(key)) {
             TDRGElement result = null;
             List<TDRGElement> drgElements = dmnTransformer.getDMNModelRepository().drgElements();
             for (TDRGElement element : drgElements) {
@@ -349,7 +349,7 @@ public class TestLabUtil {
 
     private TDRGElement findDRGElementByDiagramAndShapeIds(String diagramId, String shapeId) {
         String key = makeKey(diagramId, shapeId);
-        if (!cache.keySet().contains(key)) {
+        if (!cache.containsKey(key)) {
             TDRGElement result = null;
             List<TDRGElement> drgElements = dmnTransformer.getDMNModelRepository().drgElements();
             for (TDRGElement element : drgElements) {
@@ -365,8 +365,8 @@ public class TestLabUtil {
 
     private TDRGElement findDRGElementByLabel(String label, String diagramId, String shapeId) {
         String key = makeKey(label, diagramId, shapeId);
-        if (!cache.keySet().contains(key)) {
-            TDRGElement result = null;
+        if (!cache.containsKey(key)) {
+            TDRGElement result;
             List<TDRGElement> drgElements = dmnTransformer.getDMNModelRepository().drgElements();
             List<TDRGElement> elements = drgElements.stream().filter(element -> sameLabel(element, label)).collect(Collectors.toList());
             if (elements.size() == 0) {

@@ -689,6 +689,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     //
     // Date functions
     //
+    @Override
     public BigDecimal year(LocalDate date) {
         try {
             return BigDecimal.valueOf(this.dateLib.year(date));
@@ -708,6 +709,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
         }
     }
 
+    @Override
     public BigDecimal month(LocalDate date) {
         try {
             return BigDecimal.valueOf(this.dateLib.month(date));
@@ -727,6 +729,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
         }
     }
 
+    @Override
     public BigDecimal day(LocalDate date) {
         try {
             return BigDecimal.valueOf(this.dateLib.day(date));
@@ -745,6 +748,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
             return null;
         }
     }
+    @Override
     public BigDecimal weekday(LocalDate date) {
         try {
             return BigDecimal.valueOf(this.dateLib.weekday(date));
@@ -767,6 +771,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     //
     // Time functions
     //
+    @Override
     public BigDecimal hour(OffsetTime time) {
         try {
             return BigDecimal.valueOf(this.timeLib.hour(time));
@@ -786,6 +791,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
         }
     }
 
+    @Override
     public BigDecimal minute(OffsetTime time) {
         try {
             return BigDecimal.valueOf(this.timeLib.minute(time));
@@ -805,6 +811,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
         }
     }
 
+    @Override
     public BigDecimal second(OffsetTime time) {
         try {
             return BigDecimal.valueOf(this.timeLib.second(time));
@@ -824,6 +831,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
         }
     }
 
+    @Override
     public Duration timeOffset(OffsetTime time) {
         try {
             return this.timeLib.timeOffset(time);
@@ -843,6 +851,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
         }
     }
 
+    @Override
     public String timezone(OffsetTime time) {
         try {
             return this.timeLib.timezone(time);
@@ -865,6 +874,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
     //
     // Duration functions
     //
+    @Override
     public BigDecimal years(Duration duration) {
         try {
             return BigDecimal.valueOf(this.durationLib.years(duration));
@@ -875,6 +885,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
         }
     }
 
+    @Override
     public BigDecimal months(Duration duration) {
         try {
             return BigDecimal.valueOf(this.durationLib.months(duration));
@@ -885,6 +896,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
         }
     }
 
+    @Override
     public BigDecimal days(Duration duration) {
         try {
             return BigDecimal.valueOf(this.durationLib.days(duration));
@@ -895,6 +907,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
         }
     }
 
+    @Override
     public BigDecimal hours(Duration duration) {
         try {
             return BigDecimal.valueOf(this.durationLib.hours(duration));
@@ -905,6 +918,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
         }
     }
 
+    @Override
     public BigDecimal minutes(Duration duration) {
         try {
             return BigDecimal.valueOf(this.durationLib.minutes(duration));
@@ -915,6 +929,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
         }
     }
 
+    @Override
     public BigDecimal seconds(Duration duration) {
         try {
             return BigDecimal.valueOf(this.durationLib.seconds(duration));
@@ -972,6 +987,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
         }
     }
 
+    @Override
     public BigDecimal min(Object... args) {
         try {
             return this.numberLib.min(args);

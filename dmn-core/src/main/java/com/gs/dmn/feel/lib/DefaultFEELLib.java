@@ -620,6 +620,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     //
     // Date functions
     //
+    @Override
     public BigDecimal year(XMLGregorianCalendar date) {
         try {
             return BigDecimal.valueOf(this.dateLib.year(date));
@@ -630,6 +631,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
         }
     }
 
+    @Override
     public BigDecimal month(XMLGregorianCalendar date) {
         try {
             return BigDecimal.valueOf(this.dateLib.month(date));
@@ -640,6 +642,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
         }
     }
 
+    @Override
     public BigDecimal day(XMLGregorianCalendar date) {
         try {
             return BigDecimal.valueOf(this.dateLib.day(date));
@@ -650,6 +653,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
         }
     }
 
+    @Override
     public BigDecimal weekday(XMLGregorianCalendar date) {
         try {
             return BigDecimal.valueOf(this.dateLib.weekday(date));
@@ -663,6 +667,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     //
     // Time functions
     //
+    @Override
     public BigDecimal hour(XMLGregorianCalendar date) {
         try {
             return BigDecimal.valueOf(this.timeLib.hour(date));
@@ -673,6 +678,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
         }
     }
 
+    @Override
     public BigDecimal minute(XMLGregorianCalendar date) {
         try {
             return BigDecimal.valueOf(this.timeLib.minute(date));
@@ -683,6 +689,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
         }
     }
 
+    @Override
     public BigDecimal second(XMLGregorianCalendar date) {
         try {
             return BigDecimal.valueOf(this.timeLib.second(date));
@@ -693,6 +700,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
         }
     }
 
+    @Override
     public Duration timeOffset(XMLGregorianCalendar date) {
         try {
             return this.timeLib.timeOffset(date);
@@ -703,6 +711,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
         }
     }
 
+    @Override
     public String timezone(XMLGregorianCalendar date) {
         try {
             return this.timeLib.timezone(date);
@@ -716,6 +725,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
     //
     // Duration functions
     //
+    @Override
     public BigDecimal years(Duration duration) {
         try {
             return BigDecimal.valueOf(this.durationLib.years(duration));
@@ -726,6 +736,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
         }
     }
 
+    @Override
     public BigDecimal months(Duration duration) {
         try {
             return BigDecimal.valueOf(this.durationLib.months(duration));
@@ -736,6 +747,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
         }
     }
 
+    @Override
     public BigDecimal days(Duration duration) {
         try {
             return BigDecimal.valueOf(this.durationLib.days(duration));
@@ -746,6 +758,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
         }
     }
 
+    @Override
     public BigDecimal hours(Duration duration) {
         try {
             return BigDecimal.valueOf(this.durationLib.hours(duration));
@@ -756,6 +769,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
         }
     }
 
+    @Override
     public BigDecimal minutes(Duration duration) {
         try {
             return BigDecimal.valueOf(this.durationLib.minutes(duration));
@@ -766,6 +780,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
         }
     }
 
+    @Override
     public BigDecimal seconds(Duration duration) {
         try {
             return BigDecimal.valueOf(this.durationLib.seconds(duration));
@@ -823,6 +838,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
         }
     }
 
+    @Override
     public BigDecimal min(Object... args) {
         try {
             return this.numberLib.min(args);

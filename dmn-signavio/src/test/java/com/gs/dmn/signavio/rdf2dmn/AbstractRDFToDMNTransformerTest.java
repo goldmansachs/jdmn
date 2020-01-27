@@ -180,7 +180,7 @@ public abstract class AbstractRDFToDMNTransformerTest {
 
     protected void assertLiteralExpression(TLiteralExpression inputExpression, String stringType, String id, String text) {
         assertEquals(id, inputExpression.getId());
-        assertEquals(stringType, inputExpression.getTypeRef().toString());
+        assertEquals(stringType, inputExpression.getTypeRef());
         assertEquals(text, inputExpression.getText());
     }
 

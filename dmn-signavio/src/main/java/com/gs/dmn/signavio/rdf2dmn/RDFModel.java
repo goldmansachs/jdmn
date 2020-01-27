@@ -265,7 +265,7 @@ public class RDFModel {
         try {
             Element decision = findDecisionById(decisionId);
             String decisionText = getDecision(decision);
-            DecisionExpression expression = null;
+            DecisionExpression expression;
             expression = RDFModel.MAPPER.readValue(decisionText, DecisionExpression.class);
             if (expression instanceof DecisionTable) {
                 List<OutputClause> outputClauses = ((DecisionTable) expression).getOutputClauses();

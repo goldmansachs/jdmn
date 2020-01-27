@@ -450,7 +450,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                 break;
             }
             // collect key
-            StringBuilder keyBuilder = new StringBuilder("");
+            StringBuilder keyBuilder = new StringBuilder();
             while (index < text.length() && codePointAt(text, index) != ':' && codePointAt(text, index) != '}') {
                 keyBuilder.appendCodePoint(codePointAt(text, index));
                 index = nextIndex(text, index);
@@ -460,7 +460,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
             if (key.length() != 0) {
                 if (key.startsWith("\"") && key.endsWith("\"")) {
                     key = key.substring(1, key.length() - 1);
-                    newText.append("\"" + transformName(key) + "\"");
+                    newText.append("\"").append(transformName(key)).append("\"");
                 } else {
                     newText.append(transformName(key));
                 }
