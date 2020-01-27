@@ -501,6 +501,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
         }
     }
 
+    @Override
     public BigDecimal weekday(LocalDate date) {
         try {
             return BigDecimal.valueOf(this.dateLib.weekday(date));

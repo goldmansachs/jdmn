@@ -48,6 +48,7 @@ public class DagTemplateProvider implements TemplateProvider {
         return "/templates/tck";
     }
 
+    @Override
     public String testTemplateName() {
         return "common/junit.ftl";
     }

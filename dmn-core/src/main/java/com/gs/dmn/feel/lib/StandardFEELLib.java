@@ -28,28 +28,38 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     //
     // Conversion functions
     //
+    @Override
     NUMBER number(String from);
 
     NUMBER number(String from, String groupingSeparator, String decimalSeparator);
 
+    @Override
     String string(Object from);
 
+    @Override
     DATE date(String from);
 
     DATE date(NUMBER year, NUMBER month, NUMBER day);
 
+    @Override
     DATE date(DATE_TIME from);
 
+    @Override
     TIME time(String from);
 
+    @Override
     TIME time(NUMBER hour, NUMBER minute, NUMBER second, DURATION offset);
 
+    @Override
     TIME time(DATE_TIME time);
 
+    @Override
     DATE_TIME dateAndTime(String from);
 
+    @Override
     DATE_TIME dateAndTime(DATE date, TIME time);
 
+    @Override
     DURATION duration(String literal);
 
     DURATION yearsAndMonthsDuration(DATE_TIME from, DATE_TIME to);
@@ -121,57 +131,77 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     //
     // Date functions
     //
+    @Override
     NUMBER year(DATE date);
 
+    @Override
     NUMBER month(DATE date);
 
+    @Override
     NUMBER day(DATE date);
 
+    @Override
     NUMBER weekday(DATE date);
 
     //
     // Time functions
     //
+    @Override
     NUMBER hour(TIME time);
 
+    @Override
     NUMBER minute(TIME time);
 
+    @Override
     NUMBER second(TIME time);
 
+    @Override
     DURATION timeOffset(TIME time);
 
+    @Override
     String timezone(TIME time);
 
     //
     // Duration functions
     //
+    @Override
     NUMBER years(DURATION duration);
 
+    @Override
     NUMBER months(DURATION duration);
 
+    @Override
     NUMBER days(DURATION duration);
 
+    @Override
     NUMBER hours(DURATION duration);
 
+    @Override
     NUMBER minutes(DURATION duration);
 
+    @Override
     NUMBER seconds(DURATION duration);
 
     //
     // List functions
     //
+    @Override
     Boolean listContains(List list, Object element);
 
     List append(List list, Object... items);
 
+    @Override
     NUMBER count(List list);
 
+    @Override
     NUMBER min(List list);
     NUMBER min(Object... numbers);
 
+    @Override
     NUMBER max(List list);
     NUMBER max(Object... numbers);
 
+    @Override
     NUMBER sum(List list);
     NUMBER sum(Object... numbers);
 
@@ -179,6 +209,7 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     NUMBER mean(Object... numbers);
 
     // Use all instead
+    @Override
     @Deprecated
     Boolean and(List list);
     // Use all instead
@@ -186,6 +217,7 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     Boolean and(Object... args);
 
     // Use any instead
+    @Override
     @Deprecated
     Boolean or(List list);
     // Use any instead

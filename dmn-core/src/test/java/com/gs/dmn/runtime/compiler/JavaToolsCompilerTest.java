@@ -28,6 +28,7 @@ public class JavaToolsCompilerTest extends AbstractCompilerTest {
         assertNotNull("", ((JavaxToolsClassData)classData).getClassText());
     }
 
+    @Override
     @Test
     public void testCompile() throws Exception {
         Class<?> cls = getCompiler().compile(makeClassData());

@@ -31,6 +31,7 @@ public class DefaultSignavioLibTest extends BaseSignavioLibTest<BigDecimal, XMLG
     //
     // Time operator functions
     //
+    @Override
     @Test
     public void testTimeEqual() {
         super.testTimeEqual();
@@ -74,6 +75,7 @@ public class DefaultSignavioLibTest extends BaseSignavioLibTest<BigDecimal, XMLG
         assertEquals(makeNumber("-1"), getLib().dayDiff(makeDate("2015-12-24"), makeDate("2015-12-23")));
     }
 
+    @Override
     @Test
     public void testDate() {
         super.testDate();
@@ -81,6 +83,7 @@ public class DefaultSignavioLibTest extends BaseSignavioLibTest<BigDecimal, XMLG
         assertEqualsTime("2016-01-01", getLib().date("2016-01-01"));
     }
 
+    @Override
     @Test
     public void testDateTime() {
         super.testDateTime();

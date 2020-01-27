@@ -499,6 +499,7 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseFEELLib<Double, LocalDat
         }
     }
 
+    @Override
     public Double weekday(LocalDate date) {
         try {
             return Double.valueOf(this.dateLib.weekday(date));

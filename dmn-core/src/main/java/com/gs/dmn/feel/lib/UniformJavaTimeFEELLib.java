@@ -622,6 +622,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     //
     // Date functions
     //
+    @Override
     public BigDecimal year(ZonedDateTime date) {
         try {
             return this.dateLib.year(date);
@@ -632,6 +633,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
         }
     }
 
+    @Override
     public BigDecimal month(ZonedDateTime date) {
         try {
             return this.dateLib.month(date);
@@ -642,6 +644,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
         }
     }
 
+    @Override
     public BigDecimal day(ZonedDateTime date) {
         try {
             return this.dateLib.day(date);
@@ -652,6 +655,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
         }
     }
 
+    @Override
     public BigDecimal weekday(ZonedDateTime date) {
         try {
             return this.dateLib.weekday(date);
@@ -665,6 +669,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     //
     // Time functions
     //
+    @Override
     public BigDecimal hour(ZonedDateTime date) {
         try {
             return this.timeLib.hour(date);
@@ -675,6 +680,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
         }
     }
 
+    @Override
     public BigDecimal minute(ZonedDateTime date) {
         try {
             return this.timeLib.minute(date);
@@ -685,6 +691,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
         }
     }
 
+    @Override
     public BigDecimal second(ZonedDateTime date) {
         try {
             return this.timeLib.second(date);
@@ -695,6 +702,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
         }
     }
 
+    @Override
     public Duration timeOffset(ZonedDateTime date) {
         try {
             return this.timeLib.timeOffset(date);
@@ -705,6 +713,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
         }
     }
 
+    @Override
     public String timezone(ZonedDateTime date) {
         try {
             return this.timeLib.timezone(date);
@@ -718,6 +727,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
     //
     // Duration functions
     //
+    @Override
     public BigDecimal years(Duration duration) {
         try {
             return BigDecimal.valueOf(this.durationLib.years(duration));
@@ -728,6 +738,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
         }
     }
 
+    @Override
     public BigDecimal months(Duration duration) {
         try {
             return BigDecimal.valueOf(this.durationLib.months(duration));
@@ -738,6 +749,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
         }
     }
 
+    @Override
     public BigDecimal days(Duration duration) {
         try {
             return BigDecimal.valueOf(this.durationLib.days(duration));
@@ -748,6 +760,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
         }
     }
 
+    @Override
     public BigDecimal hours(Duration duration) {
         try {
             return BigDecimal.valueOf(this.durationLib.hours(duration));
@@ -758,6 +771,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
         }
     }
 
+    @Override
     public BigDecimal minutes(Duration duration) {
         try {
             return BigDecimal.valueOf(this.durationLib.minutes(duration));
@@ -768,6 +782,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
         }
     }
 
+    @Override
     public BigDecimal seconds(Duration duration) {
         try {
             return BigDecimal.valueOf(this.durationLib.seconds(duration));
@@ -825,6 +840,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
         }
     }
 
+    @Override
     public BigDecimal min(Object... args) {
         try {
             return this.numberLib.min(args);
