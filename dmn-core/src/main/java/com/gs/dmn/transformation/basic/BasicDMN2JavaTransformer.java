@@ -1276,7 +1276,7 @@ public class BasicDMN2JavaTransformer {
         if (typeRef == null && (itemComponent == null || itemComponent.isEmpty())) {
             return AnyType.ANY;
         }
-        Type type = null;
+        Type type;
         if (typeRef != null) {
             type = toFEELType(typeRef);
         } else {

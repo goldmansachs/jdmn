@@ -67,7 +67,7 @@ public abstract class AbstractFileTransformer implements FileTransformer {
     protected File outputFolder(File child, File root, Path outputPath) throws IOException {
         if (root.isDirectory()) {
             String relativePath = relativePath(root, child);
-            File outputFolder = null;
+            File outputFolder;
             if (StringUtils.isBlank(relativePath)) {
                 outputFolder = outputPath.toFile();
             } else {

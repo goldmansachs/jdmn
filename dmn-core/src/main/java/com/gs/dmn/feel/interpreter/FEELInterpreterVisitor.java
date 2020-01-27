@@ -276,7 +276,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
             Type inputExpressionType = context.getEnvironment().getInputExpressionType();
             Object self = context.lookupRuntimeBinding(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER);
 
-            Object result = null;
+            Object result;
             if (inputExpressionType.conformsTo(listType)) {
                 String operator = "=";
                 return evaluateOperatorTest(element, operator, self, listLiteral, context);
@@ -402,7 +402,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     @Override
     public Object visit(ExpressionIteratorDomain element, FEELContext context) {
         Expression expressionDomain = element.getExpression();
-        List domain = null;
+        List domain;
         if (expressionDomain instanceof Name) {
             String name = ((Name) expressionDomain).getName();
             domain = (List) context.getRuntimeEnvironment().lookupBinding(name);

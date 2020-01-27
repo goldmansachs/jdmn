@@ -212,7 +212,7 @@ public class ContextDependentFEELLexerTest {
 
     private void check(LexicalContext lexicalContext, String input, List<Token> expectedTokens) {
         scanner = new ContextDependentFEELLexer(CharStreams.fromString(input));
-        Token actualToken = null;
+        Token actualToken;
         int i = 0;
         do {
             actualToken = scanner.nextToken(lexicalContext);
