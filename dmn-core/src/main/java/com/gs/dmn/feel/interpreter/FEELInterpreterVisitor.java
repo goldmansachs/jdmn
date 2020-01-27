@@ -260,7 +260,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
             Object leftCondition = evaluateOperatorTest(element, leftOperator, self, startExpression, context);
             Object rightCondition = evaluateOperatorTest(element, rightOperator, self, endExpression, context);
 
-            return lib.booleanAnd((Boolean) leftCondition, (Boolean) rightCondition);
+            return lib.booleanAnd(leftCondition, rightCondition);
         } catch (Exception e) {
             handleError(String.format("Cannot evaluate '%s'", element), e);
             return null;

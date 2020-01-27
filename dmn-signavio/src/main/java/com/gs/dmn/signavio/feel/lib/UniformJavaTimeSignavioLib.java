@@ -162,7 +162,7 @@ public class UniformJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, ZonedDat
     @Override
     public BigDecimal power(BigDecimal base, BigDecimal exponent) {
         try {
-            return ((DefaultNumericType)this.numericType).numericExponentiation(base, (int)exponent.intValue());
+            return ((DefaultNumericType)this.numericType).numericExponentiation(base, exponent.intValue());
         } catch (Exception e) {
             String message = String.format("power(%s, %s)", base, exponent);
             logError(message, e);

@@ -1772,14 +1772,10 @@ public class BasicDMN2JavaTransformer {
             }
         } else if (expression instanceof TFunctionDefinition) {
             Type type = functionDefinitionType((TFunctionDefinition) expression, environment);
-            if (type != null) {
-                return type;
-            }
+            return type;
         } else if (expression instanceof TLiteralExpression) {
             Type type = literalExpressionType((TLiteralExpression) expression, environment);
-            if (type != null) {
-                return type;
-            }
+            return type;
         } else if (expression instanceof TInvocation) {
             TExpression body = ((TInvocation) expression).getExpression().getValue();
             if (body instanceof TLiteralExpression) {
@@ -1796,7 +1792,6 @@ public class BasicDMN2JavaTransformer {
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported yet", expression.getClass().getSimpleName()));
         }
-        return null;
     }
 
     private Type functionDefinitionType(TFunctionDefinition functionDefinition, Environment environment) {

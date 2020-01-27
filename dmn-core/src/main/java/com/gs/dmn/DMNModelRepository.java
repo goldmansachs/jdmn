@@ -1003,9 +1003,7 @@ public class DMNModelRepository {
             String namespace = extractNamespace(href);
             if (namespace != null) {
                 String prefix = this.prefixNamespaceMappings.getPrefix(namespace);
-                if (prefix != null) {
-                    return prefix;
-                }
+                return prefix;
             }
         }
         return  null;
@@ -1018,9 +1016,7 @@ public class DMNModelRepository {
                 String namespace = extractNamespace(href);
                 if (namespace != null) {
                     String prefix = this.prefixNamespaceMappings.getPrefix(namespace);
-                    if (prefix != null) {
-                        return prefix;
-                    }
+                    return prefix;
                 }
             }
         }

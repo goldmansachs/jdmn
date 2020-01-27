@@ -77,7 +77,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
     static {
         FUNCTION_RETURN_TYPE.put("concat", STRING_TYPE);
         FUNCTION_RETURN_TYPE.put("count", NUMBER_TYPE);
-    };
+    }
 
     private static final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
 

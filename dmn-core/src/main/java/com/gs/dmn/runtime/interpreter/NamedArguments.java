@@ -50,7 +50,7 @@ public class NamedArguments extends Arguments {
             return argList;
         }
         for(FormalParameter parameter: formalParameters) {
-            if (arguments.keySet().contains(parameter.getName())) {
+            if (arguments.containsKey(parameter.getName())) {
                 Object arg = arguments.get(parameter.getName());
                 argList.add(arg);
             } else {

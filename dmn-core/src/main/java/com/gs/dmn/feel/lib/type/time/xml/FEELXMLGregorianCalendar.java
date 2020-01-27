@@ -252,11 +252,11 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
     public BigInteger getEonAndYear() {
         // both are defined
         if (year != DatatypeConstants.FIELD_UNDEFINED && eon != null) {
-            return eon.add(BigInteger.valueOf((long) year));
+            return eon.add(BigInteger.valueOf(year));
         }
         // only year is defined
         if (year != DatatypeConstants.FIELD_UNDEFINED && eon == null) {
-            return BigInteger.valueOf((long) year);
+            return BigInteger.valueOf(year);
         }
         // neither are defined
         // or only eon is defined which is not valid without a year
@@ -284,7 +284,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
             this.year = year;
             this.eon = null;
         } else {
-            BigInteger theYear = BigInteger.valueOf((long) year);
+            BigInteger theYear = BigInteger.valueOf(year);
             BigInteger remainder = theYear.remainder(BILLION);
             this.year = remainder.intValue();
             setEon(theYear.subtract(remainder));
@@ -388,7 +388,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
         if (second == DatatypeConstants.FIELD_UNDEFINED) {
             return DECIMAL_ZERO;
         }
-        BigDecimal result = BigDecimal.valueOf((long) second);
+        BigDecimal result = BigDecimal.valueOf(second);
         if (fractionalSecond != null) {
             return result.add(fractionalSecond);
         } else {
@@ -779,16 +779,12 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
         // be allowed in next version and treated as 1 B.C.E.
         if (eon == null) {
             // optimize check.
-            if (year == 0) {
-                return false;
-            }
+            return year != 0;
         } else {
             BigInteger yearField = getEonAndYear();
             if (yearField != null) {
                 int result = compareField(yearField, BigInteger.ZERO);
-                if (result == DatatypeConstants.EQUAL) {
-                    return false;
-                }
+                return result != DatatypeConstants.EQUAL;
             }
         }
         return true;
@@ -820,7 +816,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
          *  carry := fQuotient(temp, 1, 13)
          */
 
-        boolean fieldUndefined[] = {
+        boolean[] fieldUndefined = {
                 false,
                 false,
                 false,
@@ -838,7 +834,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
         }
 
         BigInteger dMonths = sanitize(duration.getField(DatatypeConstants.MONTHS), signum);
-        BigInteger temp = BigInteger.valueOf((long) startMonth).add(dMonths);
+        BigInteger temp = BigInteger.valueOf(startMonth).add(dMonths);
         setMonth(temp.subtract(BigInteger.ONE).mod(TWELVE).intValue() + 1);
         BigInteger carry =
                 new BigDecimal(temp.subtract(BigInteger.ONE)).divide(new BigDecimal(TWELVE), BigDecimal.ROUND_FLOOR).toBigInteger();
@@ -879,7 +875,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
 
         carry = fQuotient.toBigInteger();
         setSecond(endSeconds.intValue());
-        BigDecimal tempFracSeconds = endSeconds.subtract(new BigDecimal(BigInteger.valueOf((long) getSecond())));
+        BigDecimal tempFracSeconds = endSeconds.subtract(new BigDecimal(BigInteger.valueOf(getSecond())));
         if (tempFracSeconds.compareTo(DECIMAL_ZERO) < 0) {
             setFractionalSecond(DECIMAL_ONE.add(tempFracSeconds));
             if (getSecond() == 0) {
@@ -970,7 +966,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
                     mdimf = BigInteger.valueOf(maximumDayInMonthFor(getEonAndYear(), getMonth() - 1));
                 } else {
                     // roll over to December of previous year
-                    mdimf = BigInteger.valueOf(maximumDayInMonthFor(getEonAndYear().subtract(BigInteger.valueOf((long) 1)), 12));
+                    mdimf = BigInteger.valueOf(maximumDayInMonthFor(getEonAndYear().subtract(BigInteger.valueOf(1)), 12));
                 }
                 endDays = endDays.add(mdimf);
                 monthCarry = -1;

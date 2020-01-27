@@ -225,7 +225,7 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
 
     @Test
     public void testMin() {
-        assertNull(getLib().min((List) null));
+        assertNull(getLib().min(null));
         assertNull(getLib().min(Arrays.asList()));
 
         assertEqualsNumber(makeNumber("1"), getLib().min(makeNumberList(1, 2, 3)));
@@ -234,7 +234,7 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
 
     @Test
     public void testMax() {
-        assertNull(getLib().max((List) null));
+        assertNull(getLib().max(null));
         assertNull(getLib().max(Arrays.asList()));
 
         assertEqualsNumber(makeNumber("3"), getLib().max(makeNumberList(1, 2, 3)));
@@ -243,7 +243,7 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
 
     @Test
     public void testSum() {
-        assertNull(getLib().sum((List) null));
+        assertNull(getLib().sum(null));
         assertNull(getLib().sum((makeNumberList())));
 
         assertEqualsNumber(makeNumber("6"), getLib().sum(makeNumberList(1, 2, 3)));
