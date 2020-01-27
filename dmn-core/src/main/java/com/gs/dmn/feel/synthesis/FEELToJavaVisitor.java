@@ -72,7 +72,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     @Override
     public Object visit(PositiveUnaryTests element, FEELContext context) {
         List<PositiveUnaryTest> simplePositiveUnaryTests = element.getPositiveUnaryTests();
-        List<String> operands = simplePositiveUnaryTests.stream().map(t -> String.format("(%s)", (String) t.accept(this, context))).collect(Collectors.toList());
+        List<String> operands = simplePositiveUnaryTests.stream().map(t -> String.format("(%s)", t.accept(this, context))).collect(Collectors.toList());
         return toBooleanOr(operands);
     }
 
@@ -96,7 +96,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     @Override
     public Object visit(SimplePositiveUnaryTests element, FEELContext context) {
         List<SimplePositiveUnaryTest> simplePositiveUnaryTests = element.getSimplePositiveUnaryTests();
-        List<String> operands = simplePositiveUnaryTests.stream().map(t -> String.format("(%s)", (String) t.accept(this, context))).collect(Collectors.toList());
+        List<String> operands = simplePositiveUnaryTests.stream().map(t -> String.format("(%s)", t.accept(this, context))).collect(Collectors.toList());
         return toBooleanOr(operands);
     }
 
@@ -148,7 +148,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         Type listElementType = ((ListType) listType).getElementType();
         Type inputExpressionType = context.getEnvironment().getInputExpressionType();
 
-        String condition = null;
+        String condition;
         if (inputExpressionType.conformsTo(listType)) {
             condition = makeListTestCondition("=", inputExpressionToJava(context), listLiteral, context);
         } else if (inputExpressionType.conformsTo(listElementType)) {
@@ -261,7 +261,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     @Override
     public Object visit(ExpressionIteratorDomain element, FEELContext context) {
         Expression expressionDomain = element.getExpression();
-        String domain = null;
+        String domain;
         if (expressionDomain instanceof Name) {
             String name = ((Name) expressionDomain).getName();
             domain = dmnTransformer.javaFriendlyVariableName(name);
@@ -339,7 +339,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
             return String.format("%s.stream().filter(%s -> %s).collect(Collectors.toList())", source, newParameterName, filter);
         } else if (filterType == NumberType.NUMBER) {
             // Compute element type
-            Type elementType = null;
+            Type elementType;
             if (sourceType instanceof ListType) {
                 elementType = ((ListType) sourceType).getElementType();
             } else {
@@ -647,7 +647,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
 
     private String makeListTestCondition(String feelOperator, String inputExpression, Expression rightOperand, FEELContext params) {
         String rightOpd = (String) rightOperand.accept(this, params);
-        String condition = null;
+        String condition;
         String javaOperator = listTestOperator(feelOperator, params.getEnvironment().getInputExpression(), rightOperand);
         if (StringUtils.isEmpty(javaOperator)) {
             condition = infixExpression(javaOperator, inputExpression, rightOpd);

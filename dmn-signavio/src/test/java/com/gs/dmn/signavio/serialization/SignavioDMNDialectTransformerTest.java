@@ -27,6 +27,7 @@ public class SignavioDMNDialectTransformerTest extends DMNDialectTransformerTest
     private final DMNWriter dmnWriter = new DMNWriter(LOGGER);
     private static final String DIAGRAM_NAMESPACE = "http://www.provider.com/dmn/1.1/diagram/";
 
+    @Override
     @Test
     public void testTransform() throws Exception {
         doTest("Example credit decision.dmn", new Pair<>(DIAGRAM_NAMESPACE + "9acf44f2b05343d79fc35140c493c1e0.xml", "sig"));

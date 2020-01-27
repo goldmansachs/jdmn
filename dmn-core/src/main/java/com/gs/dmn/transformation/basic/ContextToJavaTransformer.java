@@ -57,7 +57,7 @@ public class ContextToJavaTransformer {
         for(TContextEntry entry: context.getContextEntry()) {
             // Translate value
             ExpressionStatement value;
-            Type entryType = null;
+            Type entryType;
             JAXBElement<? extends TExpression> jaxbElement = entry.getExpression();
             if (jaxbElement != null) {
                 TExpression expression = jaxbElement.getValue();
@@ -100,7 +100,7 @@ public class ContextToJavaTransformer {
             statement.add(new ExpressionStatement(expressionText, returnType));
             // Add entries
             for(TContextEntry entry: context.getContextEntry()) {
-                Type entryType = null;
+                Type entryType;
                 JAXBElement<? extends TExpression> jaxbElement = entry.getExpression();
                 TExpression expression = jaxbElement == null ? null : jaxbElement.getValue();
                 if (expression instanceof TLiteralExpression) {

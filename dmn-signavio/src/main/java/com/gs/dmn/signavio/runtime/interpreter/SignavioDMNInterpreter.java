@@ -74,7 +74,7 @@ public class SignavioDMNInterpreter extends StandardDMNInterpreter {
         }
 
         // Aggregate
-        Object output = null;
+        Object output;
         if (aggregator == Aggregator.COLLECT) {
             output = outputList;
         } else {
@@ -113,6 +113,7 @@ public class SignavioDMNInterpreter extends StandardDMNInterpreter {
         return new Result(value, expectedType);
     }
 
+    @Override
     protected boolean dagOptimisation() {
         return false;
     }

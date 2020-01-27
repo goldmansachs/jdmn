@@ -47,7 +47,7 @@ public class DefaultTimeLib extends BaseDateTimeLib {
             return null;
         }
 
-        XMLGregorianCalendar calendar = null;
+        XMLGregorianCalendar calendar;
         if (offset != null) {
             BigDecimal secondFraction = second.subtract(BigDecimal.valueOf(second.intValue()));
             String sign = offset.getSign() < 0 ? "-" : "+";

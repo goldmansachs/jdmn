@@ -182,7 +182,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
     }
 
     protected String functionName(Expression function) {
-        String feelFunctionName = null;
+        String feelFunctionName;
         if (function instanceof Name) {
             feelFunctionName = ((Name) function).getName();
         } else {

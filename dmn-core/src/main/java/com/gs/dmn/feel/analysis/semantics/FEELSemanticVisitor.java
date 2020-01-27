@@ -391,8 +391,8 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
         if (function instanceof Name && "sort".equals(((Name) function).getName())) {
             boolean success = false;
             if (parameters.getSignature().size() == 2) {
-                Expression listExpression = null;
-                Expression lambdaExpression = null;
+                Expression listExpression;
+                Expression lambdaExpression;
                 if (parameters instanceof PositionalParameters) {
                     listExpression = ((PositionalParameters) parameters).getParameters().get(0);
                     lambdaExpression = ((PositionalParameters) parameters).getParameters().get(1);
@@ -595,7 +595,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
             it.accept(visitor, qParams);
             String itName = it.getName();
             Type domainType = it.getDomain().getType();
-            Type itType = null;
+            Type itType;
             if (domainType instanceof ListType) {
                 itType = ((ListType) domainType).getElementType();
             } else if (domainType instanceof RangeType) {

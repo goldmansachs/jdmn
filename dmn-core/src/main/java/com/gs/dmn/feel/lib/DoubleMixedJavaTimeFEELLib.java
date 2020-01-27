@@ -688,6 +688,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     //
     // Date functions
     //
+    @Override
     public Double year(LocalDate date) {
         try {
             return Double.valueOf(this.dateLib.year(date));
@@ -707,6 +708,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         }
     }
 
+    @Override
     public Double month(LocalDate date) {
         try {
             return Double.valueOf(this.dateLib.month(date));
@@ -726,6 +728,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         }
     }
 
+    @Override
     public Double day(LocalDate date) {
         try {
             return Double.valueOf(this.dateLib.day(date));
@@ -744,6 +747,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
             return null;
         }
     }
+    @Override
     public Double weekday(LocalDate date) {
         try {
             return Double.valueOf(this.dateLib.weekday(date));
@@ -766,6 +770,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     //
     // Time functions
     //
+    @Override
     public Double hour(OffsetTime time) {
         try {
             return Double.valueOf(this.timeLib.hour(time));
@@ -785,6 +790,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         }
     }
 
+    @Override
     public Double minute(OffsetTime time) {
         try {
             return Double.valueOf(this.timeLib.minute(time));
@@ -804,6 +810,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         }
     }
 
+    @Override
     public Double second(OffsetTime time) {
         try {
             return Double.valueOf(this.timeLib.second(time));
@@ -823,6 +830,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         }
     }
 
+    @Override
     public Duration timeOffset(OffsetTime time) {
         try {
             return this.timeLib.timeOffset(time);
@@ -842,6 +850,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         }
     }
 
+    @Override
     public String timezone(OffsetTime time) {
         try {
             return this.timeLib.timezone(time);
@@ -864,6 +873,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     //
     // Duration functions
     //
+    @Override
     public Double years(Duration duration) {
         try {
             return Double.valueOf(this.durationLib.years(duration));
@@ -874,6 +884,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         }
     }
 
+    @Override
     public Double months(Duration duration) {
         try {
             return Double.valueOf(this.durationLib.months(duration));
@@ -884,6 +895,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         }
     }
 
+    @Override
     public Double days(Duration duration) {
         try {
             return Double.valueOf(this.durationLib.days(duration));
@@ -894,6 +906,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         }
     }
 
+    @Override
     public Double hours(Duration duration) {
         try {
             return Double.valueOf(this.durationLib.hours(duration));
@@ -904,6 +917,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         }
     }
 
+    @Override
     public Double minutes(Duration duration) {
         try {
             return Double.valueOf(this.durationLib.minutes(duration));
@@ -914,6 +928,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         }
     }
 
+    @Override
     public Double seconds(Duration duration) {
         try {
             return Double.valueOf(this.durationLib.seconds(duration));
@@ -971,6 +986,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
         }
     }
 
+    @Override
     public Double min(Object... args) {
         try {
             return this.numberLib.min(args);
