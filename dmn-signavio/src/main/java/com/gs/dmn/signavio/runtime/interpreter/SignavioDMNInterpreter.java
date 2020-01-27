@@ -74,7 +74,7 @@ public class SignavioDMNInterpreter extends StandardDMNInterpreter {
         }
 
         // Aggregate
-        Object output = null;
+        Object output;
         if (aggregator == Aggregator.COLLECT) {
             output = outputList;
         } else {

@@ -120,7 +120,7 @@ public class DMNToManifestTransformer {
         String allowedValues = makeMetadataAllowedValues(itemDefinition.getAllowedValues());
 
         List<TItemDefinition> children = itemDefinition.getItemComponent();
-        com.gs.dmn.runtime.metadata.Type type = null;
+        com.gs.dmn.runtime.metadata.Type type;
         if (children == null || children.isEmpty()) {
             type = new TypeReference(id, name, label, isCollection, typeRef, allowedValues);
         } else {

@@ -528,7 +528,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
         FEELXMLGregorianCalendar lhs = this;
         FEELXMLGregorianCalendar rhs = (FEELXMLGregorianCalendar) other;
 
-        int result = DatatypeConstants.INDETERMINATE;
+        int result;
         if (lhs.getTimezone() == rhs.getTimezone()) {
             // Optimization:
             // both instances are in same timezone or
@@ -961,7 +961,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
         while (true) {
             if (endDays.compareTo(BigInteger.ONE) < 0) {
                 // calculate days in previous month, watch for month roll over
-                BigInteger mdimf = null;
+                BigInteger mdimf;
                 if (month >= 2) {
                     mdimf = BigInteger.valueOf(maximumDayInMonthFor(getEonAndYear(), getMonth() - 1));
                 } else {
@@ -1024,7 +1024,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
 
     @Override
     public java.util.GregorianCalendar toGregorianCalendar() {
-        GregorianCalendar result = null;
+        GregorianCalendar result;
         final int DEFAULT_TIMEZONE_OFFSET = DatatypeConstants.FIELD_UNDEFINED;
         TimeZone tz = getTimeZone(DEFAULT_TIMEZONE_OFFSET);
         // Use the following instead for JDK7 only:
@@ -1082,7 +1082,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
 
     @Override
     public GregorianCalendar toGregorianCalendar(TimeZone timezone, Locale aLocale, XMLGregorianCalendar defaults) {
-        GregorianCalendar result = null;
+        GregorianCalendar result;
         TimeZone tz = timezone;
         if (tz == null) {
             int defaultZoneoffset = DatatypeConstants.FIELD_UNDEFINED;
@@ -1185,7 +1185,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
 
     @Override
     public TimeZone getTimeZone(int defaultZoneoffset) {
-        TimeZone result = null;
+        TimeZone result;
         int zoneoffset = getTimezone();
 
         if (zoneoffset == DatatypeConstants.FIELD_UNDEFINED) {
@@ -1434,7 +1434,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
             int day = this.getDay();
             return String.format("%d-%02d-%02d", year, month, day);
         } else if (kind == DatatypeConstants.TIME) {
-            String result = "";
+            String result;
             int hour = this.getHour();
             int minute = this.getMinute();
             int second = this.getSecond();
@@ -1454,7 +1454,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
             return result;
 
         } else if (kind == DatatypeConstants.DATETIME) {
-            String result = "";
+            String result;
             int year = this.getYear();
             int month = this.getMonth();
             int day = this.getDay();

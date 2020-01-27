@@ -194,7 +194,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         }
 
         // Make context result
-        Object output = null;
+        Object output;
         if (outputDecisions.size() == 1) {
             String key = outputDecisions.get(0).getName();
             ImportPath childImportPath = outputDecisionImportPaths.get(0);
@@ -318,7 +318,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
 
         // Check if has already been evaluated
         String decisionName = decision.getName();
-        Object output = null;
+        Object output;
         if (dagOptimisation() && runtimeEnvironment.isBound(decisionName)) {
             // Retrieve value from environment
             output = lookupBinding(runtimeEnvironment, importPath, decisionName);
@@ -733,7 +733,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
             } else {
                 List<TLiteralExpression> outputEntry = rule.getOutputEntry();
                 TLiteralExpression literalExpression = outputEntry.get(0);
-                Object output = null;
+                Object output;
                 Result result = evaluateLiteralExpression(literalExpression, environment, runtimeEnvironment, element, elementAnnotation);
                 Object value = Result.value(result);
                 if (dmnModelRepository.isOutputOrderHit(hitPolicy)) {
