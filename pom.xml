@@ -502,6 +502,7 @@ specific language governing permissions and limitations under the License.]]></i
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
