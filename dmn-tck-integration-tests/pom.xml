@@ -26,14 +26,6 @@
     <packaging>jar</packaging>
 
     <properties>
-        <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>  <!-- not deploying this module to Maven central -->
-        <maven.deploy.skip>true</maven.deploy.skip>
-
-        <maven.javadoc.skip>true</maven.javadoc.skip>
-
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
         <dmn.version>1.1</dmn.version>
         <model.version>1.0</model.version>
         <platform.version>${project.parent.version}</platform.version>
@@ -44,6 +36,8 @@
         <tck.java.folder>${project.build.directory}/generated-test-sources/tck</tck.java.folder>
 
         <line.coverage.minimum>0.00</line.coverage.minimum>
+
+        <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>  <!-- not deploying this module to Maven central -->
     </properties>
 
     <dependencies>
@@ -1908,24 +1902,54 @@
                 <artifactId>maven-surefire-plugin</artifactId>
             </plugin>
 
+            <!-- Do not create jar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-jar</id>
+                        <phase/>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Do not create sources -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.1.0</version>
                 <configuration>
-                    <archive>
-                        <index>true</index>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                        </manifest>
-                        <manifestEntries>
-                            <dmnVersion>${dmn.version}</dmnVersion>
-                            <modelVersion>${model.version}</modelVersion>
-                            <platformVersion>${platform.version}</platformVersion>
-                        </manifestEntries>
-                    </archive>
+                    <skipSource>true</skipSource>
                 </configuration>
             </plugin>
 
+            <!-- Do not create javadocs -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
+            <!-- Do not install module -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
+            <!-- Do not deploy module -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
