@@ -25,19 +25,20 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     protected abstract SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> getLib();
 
     //
-    // Arithmetic operations
+    // Data acceptance functions
     //
     @Test
-    public void testNumberWithDefault() {
-        assertNull(getLib().number(null, null));
-        assertNull(getLib().number(null, "123.56"));
-        assertNull(getLib().number("123.56", null));
+    public void testIsPredicates() {
+        assertFalse(getLib().isDefined(null));
+        assertTrue(getLib().isUndefined(null));
 
-        assertEqualsNumber(123, getLib().number("123", "123.56"), 0.001);
-        assertEqualsNumber(123.56, getLib().number("1,200", "123.56"), 0.001);
-        assertEqualsNumber(123.56, getLib().number("xxx", "123.56"), 0.001);
+        assertFalse(getLib().isValid(null));
+        assertTrue(getLib().isInvalid(null));
     }
 
+    //
+    // Arithmetic operations
+    //
     @Test
     public void testAbs() {
         assertNull(getLib().abs(null));
@@ -167,7 +168,6 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     //
     // List operations
     //
-    @Override
     @Test
     public void testAppend() {
         assertEquals(Arrays.asList(new Object[] {null}), getLib().append(null, null));
@@ -352,7 +352,7 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     //
-    // Text operations
+    // String functions
     //
     @Override
     @Test
@@ -450,6 +450,17 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Test
+    public void testNumberWithDefault() {
+        assertNull(getLib().number(null, null));
+        assertNull(getLib().number(null, "123.56"));
+        assertNull(getLib().number("123.56", null));
+
+        assertEqualsNumber(123, getLib().number("123", "123.56"), 0.001);
+        assertEqualsNumber(123.56, getLib().number("1,200", "123.56"), 0.001);
+        assertEqualsNumber(123.56, getLib().number("xxx", "123.56"), 0.001);
+    }
+
+    @Test
     public void testMid() {
         assertNull(getLib().mid(null, null, null));
         assertNull(getLib().mid("123", null, null));
@@ -512,14 +523,12 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     //
-    // Signavio isXXX functions
+    // Test boolean functions
     //
     @Test
-    public void testIsPredicates() {
-        assertFalse(getLib().isDefined(null));
-        assertTrue(getLib().isUndefined(null));
-
-        assertFalse(getLib().isValid(null));
-        assertTrue(getLib().isInvalid(null));
+    public void testNot() {
+        assertNull(getLib().not(null));
+        assertFalse(getLib().not(Boolean.TRUE));
+        assertTrue(getLib().not(Boolean.FALSE));
     }
 }
