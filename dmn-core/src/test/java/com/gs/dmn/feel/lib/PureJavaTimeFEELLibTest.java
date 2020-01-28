@@ -26,7 +26,7 @@ import java.time.temporal.TemporalAmount;
 
 import static org.junit.Assert.assertEquals;
 
-public class PureJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> {
+public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> {
     @Override
     protected PureJavaTimeFEELLib getLib() {
         return new PureJavaTimeFEELLib();

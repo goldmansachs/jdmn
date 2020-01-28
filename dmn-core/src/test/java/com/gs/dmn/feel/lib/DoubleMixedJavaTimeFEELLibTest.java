@@ -23,7 +23,7 @@ import java.time.ZonedDateTime;
 
 import static org.junit.Assert.assertEquals;
 
-public class DoubleMixedJavaTimeFEELLibTest extends BaseFEELLibTest<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> {
+public class DoubleMixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     @Override
     protected DoubleMixedJavaTimeFEELLib getLib() {
         return new DoubleMixedJavaTimeFEELLib();

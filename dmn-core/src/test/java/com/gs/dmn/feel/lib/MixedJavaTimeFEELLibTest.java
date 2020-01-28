@@ -24,7 +24,7 @@ import java.time.ZonedDateTime;
 
 import static org.junit.Assert.assertEquals;
 
-public class MixedJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
+public class MixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     @Override
     protected MixedJavaTimeFEELLib getLib() {
         return new MixedJavaTimeFEELLib();

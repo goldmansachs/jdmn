@@ -29,12 +29,12 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     //
     NUMBER number(String literal);
 
+    DATE date(String literal);
+    DATE date(DATE_TIME dateTime);
+
     TIME time(String literal);
     TIME time(DATE_TIME dateTime);
     TIME time(NUMBER hour, NUMBER minute, NUMBER second, DURATION offset);
-
-    DATE date(String literal);
-    DATE date(DATE_TIME dateTime);
 
     DATE_TIME dateAndTime(String literal);
     DATE_TIME dateAndTime(DATE date, TIME time);
@@ -56,7 +56,7 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     TIME toTime(Object object);
 
     //
-    // Boolean
+    // Boolean functions
     //
     Boolean and(List list);
     Boolean or(List list);
@@ -67,10 +67,10 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     Object elementAt(List list, NUMBER index);
     Boolean listContains(List list, Object value);
     List flattenFirstLevel(List list);
+    NUMBER count(List<NUMBER> numbers);
     NUMBER min(List<NUMBER> numbers);
     NUMBER max(List<NUMBER> numbers);
     NUMBER sum(List<NUMBER> numbers);
-    NUMBER count(List<NUMBER> numbers);
 
     //
     // Context functions
