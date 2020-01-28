@@ -16,7 +16,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class UniformJavaTimeFEELLibTest extends BaseFEELLibTest {
+public class UniformJavaTimeFEELLibTest extends BaseStandardFEELLibTest {
     @Override
     protected StandardFEELLib getLib() {
         return new UniformJavaTimeFEELLib();

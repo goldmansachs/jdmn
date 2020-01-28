@@ -20,7 +20,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
+public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     @Override
     protected abstract SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> getLib();
 

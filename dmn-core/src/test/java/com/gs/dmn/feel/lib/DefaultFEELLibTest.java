@@ -20,7 +20,7 @@ import java.math.BigDecimal;
 
 import static org.junit.Assert.*;
 
-public class DefaultFEELLibTest extends BaseFEELLibTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
+public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     @Override
     protected DefaultFEELLib getLib() {
         return new DefaultFEELLib();
@@ -55,7 +55,7 @@ public class DefaultFEELLibTest extends BaseFEELLibTest<BigDecimal, XMLGregorian
     }
 
     //
-    // Conversion functions
+    // Constructors
     //
     @Override
     @Test

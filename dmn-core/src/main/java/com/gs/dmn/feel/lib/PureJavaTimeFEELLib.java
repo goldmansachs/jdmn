@@ -56,7 +56,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     }
 
     //
-    // Conversion functions
+    // Constructors
     //
 
     @Override

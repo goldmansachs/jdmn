@@ -59,7 +59,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
     }
 
     //
-    // Conversion functions
+    // Constructors
     //
 
     @Override
