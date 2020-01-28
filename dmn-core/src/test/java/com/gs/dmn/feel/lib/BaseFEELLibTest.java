@@ -27,10 +27,11 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     @Test
     public void testNumber() {
         assertNull(getLib().number(null));
+        assertNull(getLib().number("1,200.56"));
+        assertNull(getLib().number("xxx"));
 
         assertEquals("123.56", getLib().number("123.56").toString());
         assertEquals("-123.56", getLib().number("-123.56").toString());
-        assertNull(getLib().number("xxx"));
     }
 
     @Test

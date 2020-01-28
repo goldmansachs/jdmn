@@ -12,9 +12,11 @@
  */
 package com.gs.dmn.signavio.feel.lib;
 
+import com.gs.dmn.runtime.Context;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -201,16 +203,93 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     //
-    // Test list functions
+    // Conversion functions
     //
     @Test
-    public void testAppend() {
-        assertEquals(Arrays.asList(null), getLib().append(null, null));
-        assertEquals(makeNumberList("3"), getLib().append(null, makeNumber("3")));
-        assertEquals(Arrays.asList(), getLib().append(makeNumberList(), null));
+    public void testAsList() {
+        assertEquals("[null]", getLib().asList(null).toString());
+        assertEquals(Arrays.asList(), getLib().asList());
+        assertEquals(Arrays.asList(null, "a"), getLib().asList(null, "a"));
+    }
 
-        assertEquals(makeNumberList("1", "2", "3", "4"), getLib().append(makeNumberList(1, 2, 3), makeNumber(4)));
-        assertEquals(makeNumberList("1", null, "3", "4"), getLib().append(makeNumberList(1, null, 3), makeNumber(4)));
+    @Test
+    public void testAsElement() {
+        assertNull(getLib().asElement(null));
+        assertNull(getLib().asElement(Arrays.asList()));
+        assertNull(null, getLib().asElement(Arrays.asList("1", "2")));
+
+        assertEquals("1", getLib().asElement(Arrays.asList("1")));
+    }
+
+    @Test
+    public void testRangeToList() {
+        assertEquals(makeNumberList(), getLib().rangeToList(false, null, false, null));
+        assertEquals(makeNumberList(), getLib().rangeToList(false, null, false, makeNumber("3")));
+        assertEquals(makeNumberList(), getLib().rangeToList(false, makeNumber("1"), false, null));
+
+        assertEquals(makeNumberList("2"), getLib().rangeToList(true, makeNumber("1"), true, makeNumber("3")));
+        assertEquals(makeNumberList("1", "2"), getLib().rangeToList(false, makeNumber("1"), true, makeNumber("3")));
+        assertEquals(makeNumberList("2", "3"), getLib().rangeToList(true, makeNumber("1"), false, makeNumber("3")));
+        assertEquals(makeNumberList("1", "2", "3"), getLib().rangeToList(false, makeNumber("1"), false, makeNumber("3")));
+    }
+
+    @Test
+    public void testRangeToListNoFlags() {
+        assertEquals(Arrays.asList(), getLib().rangeToList(null, null));
+        assertEquals(Arrays.asList(), getLib().rangeToList(makeNumber("0"), null));
+        assertEquals(Arrays.asList(), getLib().rangeToList(null, makeNumber("1")));
+
+        assertEquals(makeNumberList(1, 2, 3), getLib().rangeToList(makeNumber("1"), makeNumber("3")));
+        assertEquals(makeNumberList(3, 2, 1), getLib().rangeToList(makeNumber("3"), makeNumber("1")));
+    }
+
+    //
+    // Boolean functions
+    //
+    @Test
+    public void testAnd() {
+        assertNull(getLib().and((List) null));
+        assertTrue(getLib().and(Arrays.asList(true, true)));
+        assertFalse(getLib().and(Arrays.asList(true, true, false)));
+        assertFalse(getLib().and(Arrays.asList(null, false)));
+    }
+
+    @Test
+    public void testOr() {
+        assertNull(getLib().or((List) null));
+        assertTrue(getLib().or(Arrays.asList(true, true)));
+        assertFalse(getLib().or(Arrays.asList(false, false, false)));
+        assertNull(getLib().or(Arrays.asList(null, false)));
+    }
+
+    //
+    // List functions
+    //
+    @Test
+    public void testElementAt() {
+        assertNull(getLib().elementAt(null, makeNumber("1")));
+        assertNull(getLib().elementAt(Arrays.asList("1", "2", "3"), makeNumber("4")));
+        assertNull(getLib().elementAt(Arrays.asList("1", "2", "3"), makeNumber("-4")));
+        assertNull(getLib().elementAt(Arrays.asList("1", "2", "3"), makeNumber("0")));
+
+        assertEquals("1", getLib().elementAt(Arrays.asList("1", "2", "3"), makeNumber("1")));
+        assertEquals("2", getLib().elementAt(Arrays.asList("1", "2", "3"), makeNumber("2")));
+        assertEquals("3", getLib().elementAt(Arrays.asList("1", "2", "3"), makeNumber("3")));
+        assertEquals("3", getLib().elementAt(Arrays.asList("1", "2", "3"), makeNumber("-1")));
+        assertEquals("2", getLib().elementAt(Arrays.asList("1", "2", "3"), makeNumber("-2")));
+        assertEquals("1", getLib().elementAt(Arrays.asList("1", "2", "3"), makeNumber("-3")));
+    }
+
+    @Test
+    public void testFlattenFirstLevel() {
+        assertNull(getLib().flattenFirstLevel(null));
+
+        assertEquals("[]", getLib().flattenFirstLevel(Arrays.asList()).toString());
+        assertEquals("[l11, l12, l13]", getLib().flattenFirstLevel(Arrays.asList("l11", "l12", "l13")).toString());
+        assertEquals("[l11, l21, l22, l13]", getLib().flattenFirstLevel(Arrays.asList("l11", Arrays.asList("l21", "l22"), "l13")).toString());
+        assertEquals("[l11, l21, [l31, l32], l13]", getLib().flattenFirstLevel(Arrays.asList("l11", Arrays.asList("l21", Arrays.asList("l31", "l32")), "l13")).toString());
+
+        assertEquals("[l11, null, [null, l32], l13]", getLib().flattenFirstLevel(Arrays.asList("l11", Arrays.asList(null, Arrays.asList(null, "l32")), "l13")).toString());
     }
 
     @Test
@@ -251,12 +330,23 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     //
-    // Test boolean functions
+    // Context functions
     //
     @Test
-    public void testNot() {
-        assertNull(getLib().not(null));
-        assertFalse(getLib().not(Boolean.TRUE));
-        assertTrue(getLib().not(Boolean.FALSE));
+    public void testGetEntries() {
+        assertNull(getLib().getEntries(null));
+        assertNull(getLib().getEntries(makeNumber("1")));
+
+        assertEquals(Arrays.asList(), getLib().getEntries(new Context()));
+        assertEquals(Arrays.asList(new Context().add("key", "a").add("value", makeNumber("1"))), getLib().getEntries(new Context().add("a", makeNumber("1"))));
+    }
+
+    @Test
+    public void testGetValue() {
+        assertNull(getLib().getValue(null, null));
+        assertNull(getLib().getValue(new Context(), null));
+        assertNull(getLib().getValue(new Context(), "a"));
+
+        assertEquals(makeNumber("1"), getLib().getValue(new Context().add("a", makeNumber("1")), "a"));
     }
 }

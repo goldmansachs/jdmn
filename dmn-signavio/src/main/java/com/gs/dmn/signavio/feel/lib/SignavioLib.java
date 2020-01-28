@@ -37,10 +37,6 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     Boolean isInvalid(Object object);
 
     //
-    // Constructors
-    //
-
-    //
     // Arithmetic functions
     //
 
