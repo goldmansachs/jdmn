@@ -29,6 +29,44 @@ public class DefaultSignavioLibTest extends BaseSignavioLibTest<BigDecimal, XMLG
     }
 
     //
+    // Time properties
+    //
+    @Override
+    @Test
+    public void testTimeProperties() {
+        assertEqualsNumber(getLib().number("12"), getLib().hour(getLib().time("12:01:02Z")));
+        assertEqualsNumber(getLib().number("1"), getLib().minute(getLib().time("12:01:02Z")));
+        assertEqualsNumber(getLib().number("2"), getLib().second(getLib().time("12:01:02Z")));
+        assertEquals(null, getLib().timeOffset(getLib().time("12:01:02Z@Etc/UTC")));
+        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().time("12:01:02Z")));
+        assertEquals(null, getLib().timeOffset(getLib().time("12:01:02")));
+        assertEquals(null, getLib().timezone(getLib().time("12:01:02Z@Etc/UTC")));
+        assertEquals("Etc/UTC", getLib().timezone(getLib().time("12:01:02@Etc/UTC")));
+        assertEquals(null, getLib().timezone(getLib().time("12:01:02")));
+    }
+
+    //
+    // Date and time properties
+    //
+    @Override
+    @Test
+    public void testDateAndTimeProperties() {
+        assertEqualsNumber(getLib().number("2018"), getLib().year(getLib().dateAndTime("2018-12-10T12:01:02Z")));
+        assertEqualsNumber(getLib().number("12"), getLib().month(getLib().dateAndTime("2018-12-10T12:01:02Z")));
+        assertEqualsNumber(getLib().number("10"), getLib().day(getLib().dateAndTime("2018-12-10T12:01:02Z")));
+        assertEqualsNumber(getLib().number("1"), getLib().weekday(getLib().dateAndTime("2018-12-10T12:01:02Z")));
+        assertEqualsNumber(getLib().number("12"), getLib().hour(getLib().dateAndTime("2018-12-10T12:01:02Z")));
+        assertEqualsNumber(getLib().number("1"), getLib().minute(getLib().dateAndTime("2018-12-10T12:01:02Z")));
+        assertEqualsNumber(getLib().number("2"), getLib().second(getLib().dateAndTime("2018-12-10T12:01:02Z")));
+        assertEquals(null, getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02Z@Etc/UTC")));
+        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02Z")));
+        assertEquals(null, getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02")));
+        assertEquals(null, getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02Z@Etc/UTC")));
+        assertEquals("Etc/UTC", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02@Etc/UTC")));
+        assertEquals(null, getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02")));
+    }
+
+    //
     // Time operator functions
     //
     @Override
