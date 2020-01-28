@@ -125,6 +125,8 @@ public class PureJavaTimeFEELLibTest extends BaseFEELLibTest<BigDecimal, LocalDa
 
     @Test
     public void testString() {
+        assertEquals("null", getLib().string(null));
+
         assertEqualsTime("2016-08-01", getLib().string(makeDate("2016-08-01")));
         assertEqualsTime("11:00:01Z", getLib().string(makeTime("11:00:01Z")));
         assertEqualsTime("2016-08-01T11:00:01Z", getLib().string(makeDateAndTime("2016-08-01T11:00:01Z")));

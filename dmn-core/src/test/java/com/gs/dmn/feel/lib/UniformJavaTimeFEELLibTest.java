@@ -68,6 +68,8 @@ public class UniformJavaTimeFEELLibTest extends BaseFEELLibTest {
 
     @Test
     public void testString() {
+        assertEquals("null", getLib().string(null));
+
         assertEqualsTime("2016-08-01", getLib().string(makeDate("2016-08-01")));
         assertEqualsTime("11:00:00Z", getLib().string(makeTime("11:00:00Z")));
         assertEqualsTime("2016-08-01T11:00:00Z", getLib().string(makeDateAndTime("2016-08-01T11:00:00Z")));
@@ -85,7 +87,7 @@ public class UniformJavaTimeFEELLibTest extends BaseFEELLibTest {
 //        assertEquals("11:20:00@Asia/Dhaka", getLib().string(getLib().time(getLib().dateAndTime("2017-09-04T11:20:00@Asia/Dhaka"))));
 //        assertEquals("11:59:45+02:45:55", getLib().string(getLib().time(makeNumber(11), makeNumber(59), makeNumber(45), getLib().duration("PT2H45M55S"))));
 //        assertEquals("11:59:45-02:45:55", getLib().string(getLib().time(makeNumber(11), makeNumber(59), makeNumber(45), getLib().duration("-PT2H45M55S"))));
-//        assertEquals(makeTime("00:00:00Z"), getLib().time(getLib().date("2017-08-10")));
+//        assertEquals("00:00:00Z", getLib().string(getLib().time(getLib().date("2017-08-10"))));
 
 //        assertEquals("99999-12-31T11:22:33", getLib().string(getLib().dateAndTime("99999-12-31T11:22:33")));
 //        assertEquals("-99999-12-31T11:22:33", getLib().string(getLib().dateAndTime("-99999-12-31T11:22:33")));
