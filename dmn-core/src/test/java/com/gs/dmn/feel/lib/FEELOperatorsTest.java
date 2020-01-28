@@ -533,6 +533,26 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     @Test
+    public void testBinaryBooleanOr() {
+        assertFalse(getLib().binaryBooleanOr(Boolean.FALSE, Boolean.FALSE));
+        assertTrue(getLib().binaryBooleanOr(Boolean.FALSE, Boolean.TRUE));
+        assertTrue(getLib().binaryBooleanOr(Boolean.TRUE, Boolean.FALSE));
+        assertTrue(getLib().binaryBooleanOr(Boolean.TRUE, Boolean.TRUE));
+        assertNull(getLib().binaryBooleanOr(Boolean.FALSE, null));
+        assertNull(getLib().binaryBooleanOr(null, Boolean.FALSE));
+        assertTrue(getLib().binaryBooleanOr(Boolean.TRUE, null));
+        assertTrue(getLib().binaryBooleanOr(null, Boolean.TRUE));
+        assertTrue(getLib().binaryBooleanOr(Boolean.TRUE, getLib().number("123")));
+        assertTrue(getLib().binaryBooleanOr(getLib().number("123"), Boolean.TRUE));
+        assertTrue(getLib().binaryBooleanOr(Boolean.TRUE, "123"));
+        assertTrue(getLib().binaryBooleanOr(Boolean.TRUE, null));
+        assertTrue(getLib().binaryBooleanOr(null, Boolean.TRUE));
+        assertTrue(getLib().binaryBooleanOr("123", Boolean.TRUE));
+        assertNull(getLib().binaryBooleanOr(null, null));
+        assertNull(getLib().binaryBooleanOr("123", "123"));
+    }
+
+    @Test
     public void testBooleanAnd() {
         assertFalse(getLib().booleanAnd(Boolean.FALSE, Boolean.FALSE));
         assertFalse(getLib().booleanAnd(Boolean.FALSE, Boolean.TRUE));
@@ -550,6 +570,26 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertNull(getLib().booleanAnd(null, Boolean.TRUE));
         assertNull(getLib().booleanAnd(null, null));
         assertNull(getLib().booleanAnd("123", "123"));
+    }
+
+    @Test
+    public void testBinaryBooleanAnd() {
+        assertFalse(getLib().binaryBooleanAnd(Boolean.FALSE, Boolean.FALSE));
+        assertFalse(getLib().binaryBooleanAnd(Boolean.FALSE, Boolean.TRUE));
+        assertFalse(getLib().binaryBooleanAnd(Boolean.TRUE, Boolean.FALSE));
+        assertTrue(getLib().binaryBooleanAnd(Boolean.TRUE, Boolean.TRUE));
+        assertFalse(getLib().binaryBooleanAnd(Boolean.FALSE, null));
+        assertFalse(getLib().binaryBooleanAnd(null, Boolean.FALSE));
+        assertFalse(getLib().binaryBooleanAnd(Boolean.FALSE, getLib().number("123")));
+        assertFalse(getLib().binaryBooleanAnd(getLib().number("123"), Boolean.FALSE));
+        assertFalse(getLib().binaryBooleanAnd(Boolean.FALSE, "123"));
+        assertFalse(getLib().binaryBooleanAnd(Boolean.FALSE, null));
+        assertFalse(getLib().binaryBooleanAnd(null, Boolean.FALSE));
+        assertFalse(getLib().binaryBooleanAnd("123", Boolean.FALSE));
+        assertNull(getLib().binaryBooleanAnd(Boolean.TRUE, null));
+        assertNull(getLib().binaryBooleanAnd(null, Boolean.TRUE));
+        assertNull(getLib().binaryBooleanAnd(null, null));
+        assertNull(getLib().binaryBooleanAnd("123", "123"));
     }
 
     //

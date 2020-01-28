@@ -12,8 +12,10 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.runtime.LambdaExpression;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -180,7 +182,7 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
     }
 
     //
-    // Test list functions
+    // List functions
     //
 
     @Test
@@ -227,5 +229,98 @@ public abstract class CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURA
 
         assertEqualsNumber(makeNumber("6"), getLib().sum(makeNumberList(1, 2, 3)));
         assertNull(getLib().sum(makeNumberList(1, null, 3)));
+    }
+
+    @Test
+    public void testAsList() {
+        assertEquals("[null]", getLib().asList(null).toString());
+        assertEquals(Arrays.asList(), getLib().asList());
+        assertEquals(Arrays.asList(null, "a"), getLib().asList(null, "a"));
+    }
+
+    @Test
+    public void testAsElement() {
+        assertNull(getLib().asElement(null));
+        assertNull(getLib().asElement(Arrays.asList()));
+        assertNull(null, getLib().asElement(Arrays.asList("1", "2")));
+
+        assertEquals("1", getLib().asElement(Arrays.asList("1")));
+    }
+
+    @Test
+    public void testRangeToList() {
+        assertEquals(makeNumberList(), getLib().rangeToList(false, null, false, null));
+        assertEquals(makeNumberList(), getLib().rangeToList(false, null, false, makeNumber("3")));
+        assertEquals(makeNumberList(), getLib().rangeToList(false, makeNumber("1"), false, null));
+
+        assertEquals(makeNumberList("2"), getLib().rangeToList(true, makeNumber("1"), true, makeNumber("3")));
+        assertEquals(makeNumberList("1", "2"), getLib().rangeToList(false, makeNumber("1"), true, makeNumber("3")));
+        assertEquals(makeNumberList("2", "3"), getLib().rangeToList(true, makeNumber("1"), false, makeNumber("3")));
+        assertEquals(makeNumberList("1", "2", "3"), getLib().rangeToList(false, makeNumber("1"), false, makeNumber("3")));
+    }
+
+    @Test
+    public void testRangeToListNoFlags() {
+        assertEquals(Arrays.asList(), getLib().rangeToList(null, null));
+        assertEquals(Arrays.asList(), getLib().rangeToList(makeNumber("0"), null));
+        assertEquals(Arrays.asList(), getLib().rangeToList(null, makeNumber("1")));
+
+        assertEquals(makeNumberList(1, 2, 3), getLib().rangeToList(makeNumber("1"), makeNumber("3")));
+        assertEquals(makeNumberList(3, 2, 1), getLib().rangeToList(makeNumber("3"), makeNumber("1")));
+    }
+
+    @Test
+    public void testFlattenFirstLevel() {
+        assertNull(getLib().flattenFirstLevel(null));
+
+        assertEquals("[]", getLib().flattenFirstLevel(Arrays.asList()).toString());
+        assertEquals("[l11, l12, l13]", getLib().flattenFirstLevel(Arrays.asList("l11", "l12", "l13")).toString());
+        assertEquals("[l11, l21, l22, l13]", getLib().flattenFirstLevel(Arrays.asList("l11", Arrays.asList("l21", "l22"), "l13")).toString());
+        assertEquals("[l11, l21, [l31, l32], l13]", getLib().flattenFirstLevel(Arrays.asList("l11", Arrays.asList("l21", Arrays.asList("l31", "l32")), "l13")).toString());
+
+        assertEquals("[l11, null, [null, l32], l13]", getLib().flattenFirstLevel(Arrays.asList("l11", Arrays.asList(null, Arrays.asList(null, "l32")), "l13")).toString());
+    }
+
+    @Test
+    public void testElementAt() {
+        assertNull(getLib().elementAt(null, makeNumber("1")));
+        assertNull(getLib().elementAt(Arrays.asList("1", "2", "3"), makeNumber("4")));
+        assertNull(getLib().elementAt(Arrays.asList("1", "2", "3"), makeNumber("-4")));
+        assertNull(getLib().elementAt(Arrays.asList("1", "2", "3"), makeNumber("0")));
+
+        assertEquals("1", getLib().elementAt(Arrays.asList("1", "2", "3"), makeNumber("1")));
+        assertEquals("2", getLib().elementAt(Arrays.asList("1", "2", "3"), makeNumber("2")));
+        assertEquals("3", getLib().elementAt(Arrays.asList("1", "2", "3"), makeNumber("3")));
+        assertEquals("3", getLib().elementAt(Arrays.asList("1", "2", "3"), makeNumber("-1")));
+        assertEquals("2", getLib().elementAt(Arrays.asList("1", "2", "3"), makeNumber("-2")));
+        assertEquals("1", getLib().elementAt(Arrays.asList("1", "2", "3"), makeNumber("-3")));
+    }
+
+    @Test
+    public void testCollect() {
+        getLib().collect(null, null);
+        getLib().collect(Arrays.asList(), null);
+
+        List<String> result = new ArrayList<>();
+        getLib().collect(result, Arrays.asList(Arrays.asList("1", "2"), "3"));
+        assertEquals(Arrays.asList("1", "2", "3"), result);
+    }
+
+    @Test
+    public void testSort() {
+        LambdaExpression<Boolean> comparator = new LambdaExpression<Boolean>() {
+            @Override
+            public Boolean apply(Object... args) {
+                String s1 = (String) args[0];
+                String s2 = (String) args[1];
+                return s1.compareTo(s2) < 0;
+            }
+        };
+
+        assertNull(getLib().sort(null, null));
+        assertNull(getLib().sort(null, comparator));
+        assertEquals(Arrays.asList(), getLib().sort(Arrays.asList(), null));
+
+        assertEquals(Arrays.asList("1", "2", "3"), getLib().sort(Arrays.asList("3", "1", "2"), comparator));
     }
 }
