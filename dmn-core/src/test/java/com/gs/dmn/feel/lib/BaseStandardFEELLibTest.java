@@ -115,6 +115,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     @Test
     public void testModulo() {
         assertNull(getLib().modulo(null, null));
+        assertNull(getLib().modulo(makeNumber(10), makeNumber(0)));
 
         assertEqualsNumber(makeNumber("2"), getLib().modulo(makeNumber(10), makeNumber(4)));
         assertEqualsNumber(makeNumber("-2"), getLib().modulo(makeNumber(10), makeNumber(-4)));
@@ -130,6 +131,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     @Test
     public void testIntModulo() {
         assertNull(getLib().modulo(null, null));
+        assertNull(getLib().intModulo(makeNumber(10), makeNumber(0)));
 
         assertEqualsNumber(makeNumber("2"), getLib().intModulo(makeNumber(10), makeNumber(4)));
         assertEqualsNumber(makeNumber("2"), getLib().intModulo(makeNumber(10), makeNumber(-4)));
@@ -140,6 +142,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     @Test
     public void testSqrt() {
         assertNull(getLib().sqrt(null));
+        assertNull(getLib().sqrt(makeNumber(-3)));
 
         assertEqualsNumber(makeNumber("4"), getLib().sqrt(makeNumber(16)));
     }
@@ -147,6 +150,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     @Test
     public void testLog() {
         assertNull(getLib().log(null));
+        assertNull(getLib().log(makeNumber(-3)));
 
         assertEqualsNumber(makeNumber("2.30258509299404590109361379290930926799774169921875"), getLib().log(makeNumber(10)));
     }
@@ -221,6 +225,10 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
 
     @Test
     public void testSubstring() {
+        assertNull(getLib().substring(null, null));
+        assertNull(getLib().substring(null, makeNumber("0")));
+        assertNull(getLib().substring("", null));
+
         assertEquals("obar", getLib().substring("foobar", makeNumber("3")));
         assertEquals("oba", getLib().substring("foobar", makeNumber("3"), makeNumber("3")));
         assertEquals("a", getLib().substring("foobar", makeNumber("-2"), makeNumber("1")));
@@ -233,6 +241,8 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
 
     @Test
     public void testStringLength() {
+        assertNull(getLib().stringLength(null));
+
         assertEqualsNumber(makeNumber(3), getLib().stringLength("foo"));
         assertEqualsNumber(makeNumber(1), getLib().stringLength("\n"));
         assertEqualsNumber(makeNumber(1), getLib().stringLength("\r"));
@@ -254,23 +264,35 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
 
     @Test
     public void testUpperCase() {
+        assertNull(getLib().upperCase(null));
+
         assertEquals("ABC4", getLib().upperCase("aBc4"));
         assertEquals("abc4", getLib().lowerCase("aBc4"));
     }
 
     @Test
     public void testLowerCase() {
+        assertNull(getLib().lowerCase(null));
+
         assertEquals("abc4", getLib().lowerCase("aBc4"));
     }
 
     @Test
     public void testSubstringBefore() {
+        assertNull(getLib().substringBefore(null, null));
+        assertNull(getLib().substringBefore(null, "bar"));
+        assertNull(getLib().substringBefore("foobar", null));
+
         assertEquals("foo", getLib().substringBefore("foobar", "bar"));
         assertEquals("", getLib().substringBefore("foobar", "xyz"));
     }
 
     @Test
     public void testSubstringAfter() {
+        assertNull(getLib().substringAfter(null, null));
+        assertNull( getLib().substringAfter(null, "ob"));
+        assertNull(getLib().substringAfter("foobar", null));
+
         assertEquals("ar", getLib().substringAfter("foobar", "ob"));
     }
 
@@ -388,6 +410,10 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     //
     @Test
     public void testListContains() {
+        assertNull(getLib().listContains(null, makeNumber(2)));
+        assertNull(getLib().listContains(null, makeNumber(2)));
+
+        assertEquals(false, getLib().listContains(makeNumberList(1, 2, 3), null));
         assertEquals(true, getLib().listContains(makeNumberList(1, 2, 3), makeNumber(2)));
     }
 
@@ -461,6 +487,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     @Test
     public void testSublist() {
         assertNull(getLib().sublist(null, null));
+        assertNull(getLib().sublist(null, null, null));
 
         assertEquals(makeNumberList("1", "2", "3"), getLib().sublist(makeNumberList(1, 2, 3), makeNumber("1")));
         assertEquals(makeNumberList("1", "2"), getLib().sublist(makeNumberList(1, 2, 3), makeNumber("1"), makeNumber("2")));

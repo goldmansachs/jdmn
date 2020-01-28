@@ -106,7 +106,12 @@ public class DoubleNumericLib {
             return null;
         }
 
-        return Math.sqrt(number);
+        double result = Math.sqrt(number);
+        if (Double.isNaN(result)) {
+            throw new IllegalArgumentException("Illegal number" + number);
+        } else {
+            return result;
+        }
     }
 
     public Double log(Double number) {
@@ -114,7 +119,12 @@ public class DoubleNumericLib {
             return null;
         }
 
-        return Math.log(number);
+        double result = Math.log(number);
+        if (Double.isNaN(result)) {
+            throw new IllegalArgumentException("Illegal number" + number);
+        } else {
+            return result;
+        }
     }
 
     public Double exp(Double number) {
@@ -122,7 +132,12 @@ public class DoubleNumericLib {
             return null;
         }
 
-        return Math.exp(number);
+        double result = Math.exp(number);
+        if (Double.isNaN(result)) {
+            throw new IllegalArgumentException("Illegal number" + number);
+        } else {
+            return result;
+        }
     }
 
     public Boolean odd(Double number) {

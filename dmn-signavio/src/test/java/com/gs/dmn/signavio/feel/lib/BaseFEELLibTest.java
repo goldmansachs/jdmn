@@ -266,6 +266,15 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     // List functions
     //
     @Test
+    public void testListContains() {
+        assertNull(getLib().listContains(null, makeNumber(2)));
+        assertNull(getLib().listContains(null, makeNumber(2)));
+
+        assertEquals(false, getLib().listContains(makeNumberList(1, 2, 3), null));
+        assertEquals(true, getLib().listContains(makeNumberList(1, 2, 3), makeNumber(2)));
+    }
+
+    @Test
     public void testElementAt() {
         assertNull(getLib().elementAt(null, makeNumber("1")));
         assertNull(getLib().elementAt(Arrays.asList("1", "2", "3"), makeNumber("4")));

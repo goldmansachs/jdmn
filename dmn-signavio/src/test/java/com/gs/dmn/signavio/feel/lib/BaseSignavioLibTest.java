@@ -166,6 +166,47 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     //
+    // Date properties
+    //
+    @Test
+    public void testDateProperties() {
+        assertEqualsNumber(getLib().number("2018"), getLib().year(getLib().date("2018-12-10")));
+        assertEqualsNumber(getLib().number("12"), getLib().month(getLib().date("2018-12-10")));
+        assertEqualsNumber(getLib().number("10"), getLib().day(getLib().date("2018-12-10")));
+        assertEqualsNumber(getLib().number("1"), getLib().weekday(getLib().date("2018-12-10")));
+    }
+
+    //
+    // Time properties
+    //
+    @Test
+    public void testTimeProperties() {
+        // See each implementation
+    }
+
+    //
+    // Date and time properties
+    //
+    @Test
+    public void testDateAndTimeProperties() {
+        // See each implementation
+    }
+
+    //
+    // Duration properties
+    //
+    @Test
+    public void testDurationProperties() {
+        assertEqualsNumber(getLib().number("1"), getLib().years(getLib().duration("P1Y2M")));
+        assertEqualsNumber(getLib().number("2"), getLib().months(getLib().duration("P1Y2M")));
+
+        assertEqualsNumber(getLib().number("3"), getLib().days(getLib().duration("P1Y2M3DT4H5M6.700S")));
+        assertEqualsNumber(getLib().number("4"), getLib().hours(getLib().duration("P1Y2M3DT4H5M6.700S")));
+        assertEqualsNumber(getLib().number("5"), getLib().minutes(getLib().duration("P1Y2M3DT4H5M6.700S")));
+        assertEqualsNumber(getLib().number("6"), getLib().seconds(getLib().duration("P1Y2M3DT4H5M6.700S")));
+    }
+
+    //
     // List operations
     //
     @Test
