@@ -575,7 +575,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     }
 
     @Override
-    public BigDecimal number(String text, String defaultValue) {
+    public BigDecimal number(String text, BigDecimal defaultValue) {
         try {
             return this.numberLib.number(text, defaultValue);
         } catch (Exception e) {

@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class DoubleSignavioNumberLib extends DoubleNumericLib {
-    public Double number(String text, String defaultValue) {
+    public Double number(String text, Double defaultValue) {
         if (text == null || defaultValue ==  null) {
             return null;
         }
@@ -28,7 +28,7 @@ public class DoubleSignavioNumberLib extends DoubleNumericLib {
             number = number(text);
         } catch (Exception e) {
         }
-        return number != null ? number : number(defaultValue);
+        return number != null ? number : defaultValue;
     }
 
     @Override
