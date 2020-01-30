@@ -141,7 +141,7 @@ public class DoubleNumericLib {
     }
 
     public Boolean odd(Double number) {
-        if (number == null || !isIntegerValue(number)) {
+        if (!isIntegerValue(number)) {
             return null;
         }
 
@@ -149,7 +149,7 @@ public class DoubleNumericLib {
     }
 
     public Boolean even(Double number) {
-        if (number == null || !isIntegerValue(number)) {
+        if (!isIntegerValue(number)) {
             return null;
         }
 

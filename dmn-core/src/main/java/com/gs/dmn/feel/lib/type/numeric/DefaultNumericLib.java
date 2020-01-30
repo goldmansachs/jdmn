@@ -131,7 +131,7 @@ public class DefaultNumericLib {
     }
 
     public Boolean odd(BigDecimal number) {
-        if (number == null || !isIntegerValue(number)) {
+        if (!isIntegerValue(number)) {
             return null;
         }
 
@@ -139,7 +139,7 @@ public class DefaultNumericLib {
     }
 
     public Boolean even(BigDecimal number) {
-        if (number == null || !isIntegerValue(number)) {
+        if (!isIntegerValue(number)) {
             return null;
         }
 
@@ -147,7 +147,7 @@ public class DefaultNumericLib {
     }
 
     private boolean isIntegerValue(BigDecimal bd) {
-        return bd.stripTrailingZeros().scale() <= 0;
+        return bd != null && bd.stripTrailingZeros().scale() <= 0;
     }
 
     //
