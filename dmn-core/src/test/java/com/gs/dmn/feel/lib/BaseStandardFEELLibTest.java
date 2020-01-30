@@ -369,10 +369,17 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     //
     @Test
     public void testDateProperties() {
-        assertEqualsNumber(getLib().number("2018"), getLib().year(getLib().date("2018-12-10")));
-        assertEqualsNumber(getLib().number("12"), getLib().month(getLib().date("2018-12-10")));
-        assertEqualsNumber(getLib().number("10"), getLib().day(getLib().date("2018-12-10")));
-        assertEqualsNumber(getLib().number("1"), getLib().weekday(getLib().date("2018-12-10")));
+        assertNull(getLib().year(null));
+        assertEqualsNumber(makeNumber("2018"), getLib().year(getLib().date("2018-12-10")));
+
+        assertNull(getLib().month(null));
+        assertEqualsNumber(makeNumber("12"), getLib().month(getLib().date("2018-12-10")));
+
+        assertNull(getLib().day(null));
+        assertEqualsNumber(makeNumber("10"), getLib().day(getLib().date("2018-12-10")));
+
+        assertNull(getLib().weekday(null));
+        assertEqualsNumber(makeNumber("1"), getLib().weekday(getLib().date("2018-12-10")));
     }
 
     //
@@ -396,13 +403,13 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     //
     @Test
     public void testDurationProperties() {
-        assertEqualsNumber(getLib().number("1"), getLib().years(getLib().duration("P1Y2M")));
-        assertEqualsNumber(getLib().number("2"), getLib().months(getLib().duration("P1Y2M")));
+        assertEqualsNumber(makeNumber("1"), getLib().years(getLib().duration("P1Y2M")));
+        assertEqualsNumber(makeNumber("2"), getLib().months(getLib().duration("P1Y2M")));
 
-        assertEqualsNumber(getLib().number("3"), getLib().days(getLib().duration("P1Y2M3DT4H5M6.700S")));
-        assertEqualsNumber(getLib().number("4"), getLib().hours(getLib().duration("P1Y2M3DT4H5M6.700S")));
-        assertEqualsNumber(getLib().number("5"), getLib().minutes(getLib().duration("P1Y2M3DT4H5M6.700S")));
-        assertEqualsNumber(getLib().number("6"), getLib().seconds(getLib().duration("P1Y2M3DT4H5M6.700S")));
+        assertEqualsNumber(makeNumber("3"), getLib().days(getLib().duration("P1Y2M3DT4H5M6.700S")));
+        assertEqualsNumber(makeNumber("4"), getLib().hours(getLib().duration("P1Y2M3DT4H5M6.700S")));
+        assertEqualsNumber(makeNumber("5"), getLib().minutes(getLib().duration("P1Y2M3DT4H5M6.700S")));
+        assertEqualsNumber(makeNumber("6"), getLib().seconds(getLib().duration("P1Y2M3DT4H5M6.700S")));
     }
 
     //
@@ -590,7 +597,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     public void testMode() {
         assertNull(getLib().mode((List) null));
         assertNull(getLib().mode((Object)null));
-        assertNull(getLib().mode(getLib().asList(getLib().number("1"), null)));
+        assertNull(getLib().mode(getLib().asList(makeNumber("1"), null)));
 
         assertEquals(makeNumberList(), getLib().mode());
         assertEquals(makeNumberList(), getLib().mode(makeNumberList()));
