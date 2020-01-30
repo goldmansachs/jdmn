@@ -13,14 +13,16 @@
 package com.gs.dmn.runtime.listener;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class Arguments extends LinkedHashMap<String, Object> {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
         boolean first = true;
-        for (String key : this.keySet()) {
-            Object value = this.get(key);
+        for (Map.Entry<String, Object> entry : this.entrySet()) {
+            String key = entry.getKey();
+            Object value = entry.getValue();
             if (first) {
                 first = false;
             } else {
