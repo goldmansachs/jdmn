@@ -239,8 +239,9 @@ public class DMNDialectTransformer {
 
     private Map<QName, String> transform(Map<QName, String> otherAttributes) {
         Map<QName, String> result = new LinkedHashMap<>();
-        for(QName key: otherAttributes.keySet()) {
-            result.put(new QName(key.getNamespaceURI(), key.getLocalPart(), key.getPrefix()), otherAttributes.get(key));
+        for(Map.Entry<QName, String> entry: otherAttributes.entrySet()) {
+            QName key = entry.getKey();
+            result.put(new QName(key.getNamespaceURI(), key.getLocalPart(), key.getPrefix()), entry.getValue());
         }
         return result;
     }

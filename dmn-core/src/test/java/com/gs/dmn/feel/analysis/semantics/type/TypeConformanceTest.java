@@ -83,10 +83,11 @@ public class TypeConformanceTest {
     @Test
     public void testDataTypes() {
         // data types
-        for (Pair<Type, Type> p : dataTypesTable.keySet()) {
+        for (Map.Entry<Pair<Type, Type>, Boolean> e : dataTypesTable.entrySet()) {
+            Pair<Type, Type> p = e.getKey();
             Type left = p.getLeft();
             Type right = p.getRight();
-            checkConformsTo(dataTypesTable.get(p), left, right);
+            checkConformsTo(e.getValue(), left, right);
         }
     }
 

@@ -159,8 +159,9 @@ public class SignavioListLib {
         }
         Object resultKey = null;
         Integer resultCounter = null;
-        for (Object key : map.keySet()) {
-            Integer counter = map.get(key);
+        for (Map.Entry<Object, Integer> entry : map.entrySet()) {
+            Object key = entry.getKey();
+            Integer counter = entry.getValue();
             if (resultCounter == null || counter > resultCounter) {
                 resultKey = key;
                 resultCounter = counter;

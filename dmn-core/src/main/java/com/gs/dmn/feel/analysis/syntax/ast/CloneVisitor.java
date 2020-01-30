@@ -296,10 +296,10 @@ public class CloneVisitor extends AbstractVisitor {
     public Object visit(NamedParameters element, FEELContext context) {
         Map<String, Expression> newParameters = new LinkedHashMap<>();
         Map<String, Expression> parameters = element.getParameters();
-        parameters.keySet().forEach(
-                p -> {
-                    Expression value = (Expression) parameters.get(p).accept(this, context);
-                    newParameters.put(p, value);
+        parameters.entrySet().forEach(
+                e -> {
+                    Expression value = (Expression) e.getValue().accept(this, context);
+                    newParameters.put(e.getKey(), value);
                 }
         );
         return astFactory.toNamedParameters(newParameters);

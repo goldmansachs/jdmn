@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.signavio.validation;
 
-import com.gs.dmn.signavio.testlab.TestLabUtil;
 import com.gs.dmn.validation.SimpleDMNValidator;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.TDMNElement;
@@ -38,8 +37,9 @@ public abstract class LabelDuplicationValidator extends SimpleDMNValidator {
             }
             elementList.add(decision);
         }
-        for(String key: map.keySet()) {
-            List<TDMNElement> elementList = map.get(key);
+        for(Map.Entry<String, List<TDMNElement>> entry: map.entrySet()) {
+            String key = entry.getKey();
+            List<TDMNElement> elementList = entry.getValue();
             if (!StringUtils.isBlank(key) && elementList.size() > 1) {
                 String elementKind = elementList.get(0).getClass().getSimpleName().substring(1);
                 errors.add(String.format("Found %d %s with duplicated label '%s'", elementList.size(), elementKind, key));
