@@ -359,7 +359,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Returns the numerical value represented in the text string. Only a period (.) is allowed as a
     //    separator. Returns default_value if unable to convert text into number.
     //    Example: Number("5,5", 10) returns 10 (Number("5.5", 10) returns 5.5).
-    NUMBER number(String text, String defaultValue);
+    NUMBER number(String text, NUMBER defaultValue);
 
     //    Mid(text, start, num_chars):TEXT
     //    Returns the character sequence of the length num_chars from the corresponding starting
