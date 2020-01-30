@@ -162,26 +162,46 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     //
     @Test
     public void testAnd() {
-        assertNull(getLib().and((List) null));
-        assertTrue(getLib().and(Arrays.asList(true, true)));
+        assertFalse(getLib().and(true, true, false));
+        assertFalse(getLib().and(null, false));
         assertFalse(getLib().and(Arrays.asList(true, true, false)));
         assertFalse(getLib().and(Arrays.asList(null, false)));
 
-        assertNull(getLib().and(null, null));
+        assertTrue(getLib().and());
+        assertTrue(getLib().and(new Object[] {}));
+        assertTrue(getLib().and(Arrays.asList()));
         assertTrue(getLib().and(true, true));
-        assertFalse(getLib().and(true, true, false));
+        assertTrue(getLib().and(Arrays.asList(true, true)));
+
+        assertNull(getLib().and((Object) null));
+        assertNull(getLib().and(null, null));
+        assertNull(getLib().and(null, true));
+        assertNull(getLib().and((List) null));
+        assertNull(getLib().and(Arrays.asList(null, null)));
+        assertNull(getLib().and(Arrays.asList(null, true)));
     }
 
     @Test
     public void testOr() {
-        assertNull(getLib().or((List) null));
-        assertTrue(getLib().or(Arrays.asList(true, true)));
-        assertFalse(getLib().or(Arrays.asList(false, false, false)));
-        assertNull(getLib().or(Arrays.asList(null, false)));
-
-        assertNull(getLib().or(null, null));
         assertTrue(getLib().or(true, true));
-        assertTrue(getLib().or(true, true, false));
+        assertTrue(getLib().or(false, true));
+        assertTrue(getLib().or(null, true));
+        assertTrue(getLib().or(Arrays.asList(true, true)));
+        assertTrue(getLib().or(Arrays.asList(false, true)));
+        assertTrue(getLib().or(Arrays.asList(null, true)));
+
+        assertFalse(getLib().or());
+        assertFalse(getLib().or(new Object[] {}));
+        assertFalse(getLib().or(Arrays.asList()));
+        assertFalse(getLib().or(false, false, false));
+        assertFalse(getLib().or(Arrays.asList(false, false, false)));
+
+        assertNull(getLib().or((Object) null));
+        assertNull(getLib().or(null, null));
+        assertNull(getLib().or(null, false));
+        assertNull(getLib().or((List) null));
+        assertNull(getLib().or(Arrays.asList(null, null)));
+        assertNull(getLib().or(Arrays.asList(null, false)));
     }
 
     //
@@ -224,30 +244,47 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
 
     @Test
     public void testMin() {
+        assertNull(getLib().min());
+        assertNull(getLib().min((Object) null));
+        assertNull(getLib().min(new Object[] {}));
         assertNull(getLib().min((List) null));
+        assertNull(getLib().min(makeNumberList()));
 
-        assertEqualsNumber(makeNumber("1"), getLib().min(makeNumberList(1, 2, 3)));
+        assertNull(getLib().min(makeNumber(1), null, makeNumber(3)));
         assertNull(getLib().min(makeNumberList(1, null, 3)));
+
+        assertEqualsNumber(makeNumber("1"), getLib().min(makeNumber(1), makeNumber(2), makeNumber(3)));
+        assertEqualsNumber(makeNumber("1"), getLib().min(makeNumberList(1, 2, 3)));
     }
 
     @Test
     public void testMax() {
+        assertNull(getLib().max());
+        assertNull(getLib().max((Object) null));
+        assertNull(getLib().max(new Object[] {}));
         assertNull(getLib().max((List) null));
+        assertNull(getLib().max(makeNumberList()));
 
-        assertEqualsNumber(makeNumber("3"), getLib().max(makeNumberList(1, 2, 3)));
+        assertNull(getLib().max(makeNumber(1), null));
         assertNull(getLib().max(makeNumberList(1, null, 3)));
 
-        assertEqualsNumber(makeNumber("3"), getLib().max(makeNumberList(1, 3)));
-        assertNull(getLib().max(makeNumberList(1, null)));
+        assertEqualsNumber(makeNumber("3"), getLib().max(makeNumber(1), makeNumber(3)));
+        assertEqualsNumber(makeNumber("3"), getLib().max(makeNumberList(1, 2, 3)));
     }
 
     @Test
     public void testSum() {
+        assertNull(getLib().sum());
+        assertNull(getLib().sum((Object) null));
+        assertNull(getLib().sum(new Object[] {}));
         assertNull(getLib().sum((List) null));
         assertNull(getLib().sum((makeNumberList())));
 
-        assertEqualsNumber(makeNumber("6"), getLib().sum(makeNumberList(1, 2, 3)));
+        assertNull(getLib().sum(makeNumber(1), null, makeNumber(3)));
         assertNull(getLib().sum(makeNumberList(1, null, 3)));
+
+        assertEqualsNumber(makeNumber("6"), getLib().sum(makeNumber(1), makeNumber(2), makeNumber(3)));
+        assertEqualsNumber(makeNumber("6"), getLib().sum(makeNumberList(1, 2, 3)));
     }
 
     //

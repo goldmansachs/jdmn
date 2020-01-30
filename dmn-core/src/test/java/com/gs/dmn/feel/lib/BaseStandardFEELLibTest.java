@@ -460,35 +460,61 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
 
     @Test
     public void testMean() {
+        assertNull(getLib().mean());
+        assertNull(getLib().mean((Object) null));
+        assertNull(getLib().mean(new Object[] {}));
         assertNull(getLib().mean((List) null));
+        assertNull(getLib().mean(makeNumberList()));
 
-        assertEqualsNumber(2.0, getLib().mean(makeNumberList(1, 2, 3)), 0.001);
+        assertNull(getLib().mean(makeNumber(1), null, makeNumber(3)));
+        assertNull(getLib().mean(makeNumberList(1, null, 3)));
 
         assertEqualsNumber(2.0, getLib().mean(makeNumber(1), makeNumber(2), makeNumber(3)), 0.001);
+        assertEqualsNumber(2.0, getLib().mean(makeNumberList(1, 2, 3)), 0.001);
     }
 
     @Test
     public void testAll() {
-        assertNull(getLib().all((List) null));
-        assertTrue(getLib().all(Arrays.asList(true, true)));
+        assertFalse(getLib().all(true, true, false));
+        assertFalse(getLib().all(null, false));
         assertFalse(getLib().all(Arrays.asList(true, true, false)));
         assertFalse(getLib().all(Arrays.asList(null, false)));
 
-        assertNull(getLib().all(null, null));
+        assertTrue(getLib().all());
+        assertTrue(getLib().all(new Object[] {}));
+        assertTrue(getLib().all(Arrays.asList()));
         assertTrue(getLib().all(true, true));
-        assertFalse(getLib().all(true, true, false));
+        assertTrue(getLib().all(Arrays.asList(true, true)));
+
+        assertNull(getLib().all((Object) null));
+        assertNull(getLib().all(null, null));
+        assertNull(getLib().all(null, true));
+        assertNull(getLib().all((List) null));
+        assertNull(getLib().all(Arrays.asList(null, null)));
+        assertNull(getLib().all(Arrays.asList(null, true)));
     }
 
     @Test
     public void testAny() {
-        assertNull(getLib().any((List) null));
-        assertTrue(getLib().any(Arrays.asList(true, true)));
-        assertFalse(getLib().any(Arrays.asList(false, false, false)));
-        assertNull(getLib().any(Arrays.asList(null, false)));
-
-        assertNull(getLib().any(null, null));
         assertTrue(getLib().any(true, true));
-        assertTrue(getLib().any(true, true, false));
+        assertTrue(getLib().any(false, true));
+        assertTrue(getLib().any(null, true));
+        assertTrue(getLib().any(Arrays.asList(true, true)));
+        assertTrue(getLib().any(Arrays.asList(false, true)));
+        assertTrue(getLib().any(Arrays.asList(null, true)));
+
+        assertFalse(getLib().any());
+        assertFalse(getLib().any(new Object[] {}));
+        assertFalse(getLib().any(Arrays.asList()));
+        assertFalse(getLib().any(false, false, false));
+        assertFalse(getLib().any(Arrays.asList(false, false, false)));
+
+        assertNull(getLib().any((Object) null));
+        assertNull(getLib().any(null, null));
+        assertNull(getLib().any(null, false));
+        assertNull(getLib().any((List) null));
+        assertNull(getLib().any(Arrays.asList(null, null)));
+        assertNull(getLib().any(Arrays.asList(null, false)));
     }
 
     @Test
@@ -563,50 +589,67 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
 
     @Test
     public void testProduct() {
+        assertNull(getLib().product());
+        assertNull(getLib().product((Object) null));
+        assertNull(getLib().product(new Object[] {}));
         assertNull(getLib().product((List) null));
         assertNull(getLib().product((makeNumberList())));
 
-        assertEqualsNumber(makeNumber(24), getLib().product(makeNumberList(2, 3, 4)));
+        assertNull(getLib().product(makeNumber(2), null, makeNumber(4)));
+        assertNull(getLib().product(makeNumberList(2, null, 4)));
 
         assertEqualsNumber(makeNumber(24), getLib().product(makeNumber(2), makeNumber(3), makeNumber(4)));
+        assertEqualsNumber(makeNumber(24), getLib().product(makeNumberList(2, 3, 4)));
     }
 
     @Test
     public void testMedian() {
+        assertNull(getLib().median());
+        assertNull(getLib().median((Object) null));
+        assertNull(getLib().median(new Object[] {}));
         assertNull(getLib().median((List) null));
         assertNull(getLib().median(makeNumberList()));
 
-        assertEqualsNumber(makeNumber(4), getLib().median(makeNumberList(8, 2, 5, 3, 4)));
-        assertEqualsNumber(makeNumber(2.5), getLib().median(makeNumberList(6, 1, 2, 3)));
+        assertNull(getLib().median(makeNumber(8), null, makeNumber(5)));
+        assertNull(getLib().median(makeNumberList(8, null, 5)));
 
         assertEqualsNumber(makeNumber(4), getLib().median(makeNumber(8), makeNumber(2), makeNumber(5), makeNumber(3), makeNumber(4)));
+        assertEqualsNumber(makeNumber(4), getLib().median(makeNumberList(8, 2, 5, 3, 4)));
         assertEqualsNumber(makeNumber(2.5), getLib().median(makeNumber(6), makeNumber(1), makeNumber(2), makeNumber(3)));
+        assertEqualsNumber(makeNumber(2.5), getLib().median(makeNumberList(6, 1, 2, 3)));
     }
 
     @Test
     public void testStddev() {
+        assertNull(getLib().stddev());
+        assertNull(getLib().stddev((Object) null));
+        assertNull(getLib().stddev(new Object[] {}));
         assertNull(getLib().stddev((List) null));
         assertNull(getLib().stddev(makeNumberList()));
 
-        assertEqualsNumber(makeNumber("2.0816659994661"), getLib().stddev(makeNumberList(2, 4, 7, 5)));
+        assertNull(getLib().stddev(makeNumber(2), makeNumber(4), null, makeNumber(5)));
+        assertNull(getLib().stddev(makeNumberList(2, 4, null, 5)));
 
         assertEqualsNumber(makeNumber("2.0816659994661"), getLib().stddev(makeNumber(2), makeNumber(4), makeNumber(7), makeNumber(5)));
+        assertEqualsNumber(makeNumber("2.0816659994661"), getLib().stddev(makeNumberList(2, 4, 7, 5)));
     }
 
     @Test
     public void testMode() {
         assertNull(getLib().mode((List) null));
         assertNull(getLib().mode((Object)null));
-        assertNull(getLib().mode(getLib().asList(makeNumber("1"), null)));
 
         assertEquals(makeNumberList(), getLib().mode());
+        assertEquals(makeNumberList(), getLib().mode(new Object[] {}));
         assertEquals(makeNumberList(), getLib().mode(makeNumberList()));
 
-        assertEquals(makeNumberList(6), getLib().mode(makeNumberList(6, 3, 9, 6, 6)));
-        assertEquals(makeNumberList(1, 6), getLib().mode(makeNumberList(6, 1, 9, 6, 1)));
+        assertNull(getLib().mode(makeNumber(1), null));
+        assertNull(getLib().mode(makeNumberList(1, null)));
 
         assertEquals(makeNumberList(6), getLib().mode(makeNumber(6), makeNumber(3), makeNumber(9), makeNumber(6), makeNumber(6)));
+        assertEquals(makeNumberList(6), getLib().mode(makeNumberList(6, 3, 9, 6, 6)));
         assertEquals(makeNumberList(1, 6), getLib().mode(makeNumber(6), makeNumber(1), makeNumber(9), makeNumber(6), makeNumber(1)));
+        assertEquals(makeNumberList(1, 6), getLib().mode(makeNumberList(6, 1, 9, 6, 1)));
     }
 
     @Test
