@@ -32,7 +32,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     protected abstract SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> getLib();
 
     //
-    // Numeric operator functions
+    // Numeric operators
     //
     @Test
     public void testNumericEqual() {
@@ -136,7 +136,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     //
-    // Date operator functions
+    // Date operators
     //
     @Test
     public void testDateEqual() {
@@ -226,7 +226,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     //
-    // Time operator functions
+    // Time operators
     //
     @Test
     public void testTimeEqual() {
@@ -323,7 +323,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     //
-    // Date and time operator functions
+    // Date and time operators
     //
     @Test
     public void testDateTimeEqual() {
@@ -416,7 +416,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     //
-    // Duration operator functions
+    // Duration operators
     //
     @Test
     public void testDurationEqual() {
@@ -479,7 +479,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     //
-    // String operator functions
+    // String operators
     //
     @Test
     public void testStringEqual() {
@@ -552,7 +552,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     //
-    // Boolean operator functions
+    // Boolean operators
     //
     @Test
     public void testBooleanEqual() {
@@ -618,7 +618,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     //
-    // List operator functions
+    // List operators
     //
     @Test
     public void testListEqual() {
