@@ -274,12 +274,24 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
 
     @Override
     public LocalDate toDate(Object object) {
-        return this.dateLib.toDate(object);
+        try {
+            return this.dateLib.toDate(object);
+        } catch (Exception e) {
+            String message = String.format("toDate(%s)", object);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public OffsetTime toTime(Object object) {
-        return this.timeLib.toTime(object);
+        try {
+            return this.timeLib.toTime(object);
+        } catch (Exception e) {
+            String message = String.format("toTime(%s)", object);
+            logError(message, e);
+            return null;
+        }
     }
 
     //

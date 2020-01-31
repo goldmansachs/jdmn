@@ -74,7 +74,12 @@ public class DefaultDateLib extends BaseDateTimeLib {
     }
 
     public XMLGregorianCalendar toDate(Object object) {
-        return (XMLGregorianCalendar) object;
+        if (!(object instanceof XMLGregorianCalendar)) {
+            return null;
+        }
+
+        XMLGregorianCalendar calendar = (XMLGregorianCalendar) object;
+        return date(calendar);
     }
 
     public Integer year(XMLGregorianCalendar date) {

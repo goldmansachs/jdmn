@@ -41,15 +41,17 @@ public class ZonedDateLib extends BaseDateTimeLib {
     }
 
     public ZonedDateTime date(ZonedDateTime from) {
-        if (from == null) {
+        if (!isDate(from)) {
             return null;
         }
-
         return from.toLocalDate().atStartOfDay(UTC);
     }
 
     public ZonedDateTime toDate(Object object) {
-        return (ZonedDateTime) object;
+        if (!(object instanceof ZonedDateTime)) {
+            return null;
+        }
+        return date((ZonedDateTime) object);
     }
 
     public BigDecimal year(ZonedDateTime date) {
@@ -66,5 +68,9 @@ public class ZonedDateLib extends BaseDateTimeLib {
 
     public BigDecimal weekday(ZonedDateTime date) {
         return BigDecimal.valueOf(date.getDayOfWeek().getValue());
+    }
+
+    private boolean isDate(ZonedDateTime from) {
+        return from != null && from.getYear() >=0;
     }
 }

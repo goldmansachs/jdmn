@@ -89,7 +89,11 @@ public class DefaultTimeLib extends BaseDateTimeLib {
     }
 
     public XMLGregorianCalendar toTime(Object object) {
-        return (XMLGregorianCalendar) object;
+        if (!(object instanceof XMLGregorianCalendar)) {
+            return null;
+        }
+
+        return time((XMLGregorianCalendar) object);
     }
 
     public Integer hour(XMLGregorianCalendar date) {
