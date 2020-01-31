@@ -50,7 +50,7 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseFEELLib<Double, LocalDat
                 new SignavioLocalDateType(LOGGER, DATA_TYPE_FACTORY),
                 new SignavioOffsetTimeType(LOGGER, DATA_TYPE_FACTORY),
                 new SignavioZonedDateTimeType(LOGGER, DATA_TYPE_FACTORY),
-                new DoubleSignavioDurationType(LOGGER),
+                new DoubleSignavioDurationType(LOGGER, DATA_TYPE_FACTORY),
                 new DefaultListType(LOGGER),
                 new DefaultContextType(LOGGER)
         );

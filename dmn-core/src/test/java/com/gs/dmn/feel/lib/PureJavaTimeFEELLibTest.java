@@ -12,13 +12,11 @@
  */
 package com.gs.dmn.feel.lib;
 
-import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
-import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.time.*;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 
@@ -29,29 +27,6 @@ public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal,
     @Override
     protected PureJavaTimeFEELLib getLib() {
         return new PureJavaTimeFEELLib();
-    }
-
-    //
-    // Date operators
-    //
-    @Override
-    @Test
-    public void testDateSubtract() {
-        super.testDateSubtract();
-    }
-
-    @Override
-    @Test
-    @Ignore
-    public void testDateAddDuration() {
-        super.testDateAddDuration();
-    }
-
-    @Override
-    @Test
-    @Ignore
-    public void testDateSubtractDuration() {
-        super.testDateSubtractDuration();
     }
 
     //
@@ -68,20 +43,6 @@ public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal,
         assertEqualsTime("PT-1H", getLib().timeSubtract(makeTime("12:00:00Z"), makeTime("13:00:00Z")));
     }
 
-    @Override
-    @Test
-    @Ignore
-    public void testTimeAddDuration() {
-        super.testTimeAddDuration();
-    }
-
-    @Override
-    @Test
-    @Ignore
-    public void testTimeSubtractDuration() {
-        super.testTimeSubtractDuration();
-    }
-
     //
     // Date time operators
     //
@@ -96,74 +57,26 @@ public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal,
         assertEqualsTime("PT-49H", getLib().dateTimeSubtract(makeDateAndTime("2016-08-01T12:00:00Z"), makeDateAndTime("2016-08-03T13:00:00Z")).toString());
     }
 
-    @Override
-    @Test
-    @Ignore
-    public void testDateTimeAddDuration() {
-        super.testDateTimeAddDuration();
-    }
-
-    @Override
-    @Test
-    @Ignore
-    public void testDateTimeSubtractDuration() {
-        super.testDateTimeSubtractDuration();
-    }
-
     //
     // Duration operators
     //
     @Override
     @Test
-    @Ignore
-    public void testDurationEqual() {
-        super.testDurationEqual();
-    }
+    public void testDurationDivide() {
+        assertNull(getLib().durationDivide(null, null));
+        assertNull(getLib().durationDivide(null, makeNumber("2")));
+        assertNull(getLib().durationDivide(makeDuration("P1Y1M"), null));
 
-    @Override
-    @Test
-    @Ignore
-    public void testDurationNotEqual() {
-        super.testDurationNotEqual();
-    }
+        assertEquals(makeDuration("P6M"), getLib().durationDivide(makeDuration("P1Y1M"),  makeNumber("2")));
+        assertEquals(makeDuration("P13M"), getLib().durationDivide(makeDuration("P2Y2M"),  makeNumber("2")));
 
-    @Override
-    @Test
-    @Ignore
-    public void testDurationLessThan() {
-        super.testDurationLessThan();
-    }
-
-    @Override
-    @Test
-    @Ignore
-    public void testDurationGreaterThan() {
-        super.testDurationGreaterThan();
-    }
-
-    @Override
-    @Test
-    @Ignore
-    public void testDurationLessEqualThan() {
-        super.testDurationLessEqualThan();
-    }
-
-    @Override
-    @Test
-    @Ignore
-    public void testDurationGreaterEqualThan() {
-        super.testDurationGreaterEqualThan();
+        assertEquals(makeDuration("P0DT12H30M"), getLib().durationDivide(makeDuration("P1DT1H"),  makeNumber("2")));
+        assertEquals(makeDuration("P1DT1H"), getLib().durationDivide(makeDuration("P2DT2H"),  makeNumber("2")));
     }
 
     //
     // Constructors
     //
-    @Override
-    @Test
-    public void testDate() {
-        super.testDate();
-    }
-
     @Override
     @Test
     public void testTime() {
@@ -318,40 +231,6 @@ public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal,
         assertEquals("Z", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02Z")));
         assertEquals("Etc/UTC", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02@Etc/UTC")));
         assertEquals("Europe/Paris", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02@Europe/Paris")));
-    }
-
-    @Override
-    @Test
-    @Ignore
-    public void testDurationProperties() {
-        super.testDurationProperties();
-    }
-
-    @Override
-    protected void assertEqualsTime(String expected, Object actual) {
-        if (actual instanceof LocalDate) {
-            String actualText = ((LocalDate) actual).format(BaseDateTimeLib.FEEL_DATE_FORMAT);
-            assertEquals(expected, cleanActualText(actualText));
-        } else if (actual instanceof OffsetDateTime) {
-            String actualText = ((OffsetDateTime) actual).format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT);
-            assertEquals(expected, cleanActualText(actualText));
-        } else if (actual instanceof OffsetTime) {
-            String actualText = ((OffsetTime) actual).format(BaseDateTimeLib.FEEL_TIME_FORMAT);
-            assertEquals(expected, cleanActualText(actualText));
-        } else if (actual instanceof ZonedDateTime) {
-            assertEquals(normalize(ZonedDateTime.parse(expected)), normalize((ZonedDateTime)actual));
-        } else if (actual instanceof Duration) {
-            assertEquals(expected, actual.toString());
-        } else if (actual instanceof String) {
-            String actualText = cleanActualText((String) actual);
-            assertEquals(expected, cleanActualText(actualText));
-        } else {
-            assertEquals(expected, actual);
-        }
-    }
-
-    private ZonedDateTime normalize(ZonedDateTime dateTime) {
-        return dateTime.withZoneSameInstant(DefaultDateTimeLib.UTC);
     }
 }
 

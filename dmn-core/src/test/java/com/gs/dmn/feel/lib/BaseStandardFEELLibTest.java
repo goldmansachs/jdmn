@@ -403,13 +403,13 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     //
     @Test
     public void testDurationProperties() {
-        assertEqualsNumber(makeNumber("1"), getLib().years(getLib().duration("P1Y2M")));
-        assertEqualsNumber(makeNumber("2"), getLib().months(getLib().duration("P1Y2M")));
+        assertEqualsNumber(makeNumber("1"), getLib().years(makeDuration("P1Y2M")));
+        assertEqualsNumber(makeNumber("2"), getLib().months(makeDuration("P1Y2M")));
 
-        assertEqualsNumber(makeNumber("3"), getLib().days(getLib().duration("P1Y2M3DT4H5M6.700S")));
-        assertEqualsNumber(makeNumber("4"), getLib().hours(getLib().duration("P1Y2M3DT4H5M6.700S")));
-        assertEqualsNumber(makeNumber("5"), getLib().minutes(getLib().duration("P1Y2M3DT4H5M6.700S")));
-        assertEqualsNumber(makeNumber("6"), getLib().seconds(getLib().duration("P1Y2M3DT4H5M6.700S")));
+        assertEqualsNumber(makeNumber("3"), getLib().days(makeDuration("P3DT4H5M6.700S")));
+        assertEqualsNumber(makeNumber("4"), getLib().hours(makeDuration("P3DT4H5M6.700S")));
+        assertEqualsNumber(makeNumber("5"), getLib().minutes(makeDuration("P3DT4H5M6.700S")));
+        assertEqualsNumber(makeNumber("6"), getLib().seconds(makeDuration("P3DT4H5M6.700S")));
     }
 
     //

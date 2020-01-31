@@ -53,18 +53,52 @@ public class TemporalAmountDurationLib {
     }
 
     public Long days(TemporalAmount duration) {
-        return duration.get(ChronoUnit.DAYS);
+       if (duration instanceof Period) {
+           return duration.get(ChronoUnit.DAYS);
+       } else if (duration instanceof Duration) {
+           long seconds = ((Duration) duration).getSeconds();
+           long minutes = seconds / 60;
+           long hours = minutes / 60;
+           long days = hours / 24;
+           return days;
+       } else {
+           throw new IllegalArgumentException(String.format("Cannot extract days from '%s'", duration));
+       }
     }
 
     public Long hours(TemporalAmount duration) {
-        return duration.get(ChronoUnit.HOURS);
+        if (duration instanceof Period) {
+            return duration.get(ChronoUnit.HOURS);
+        } else if (duration instanceof Duration) {
+            long seconds = ((Duration) duration).getSeconds();
+            long minutes = seconds / 60;
+            long hours = minutes / 60;
+            return hours % 24;
+        } else {
+            throw new IllegalArgumentException(String.format("Cannot extract hours from '%s'", duration));
+        }
     }
 
     public Long minutes(TemporalAmount duration) {
-        return duration.get(ChronoUnit.MINUTES);
+        if (duration instanceof Period) {
+            return duration.get(ChronoUnit.MINUTES);
+        } else if (duration instanceof Duration) {
+            long seconds = ((Duration) duration).getSeconds();
+            long minutes = seconds / 60;
+            return minutes % 60;
+        } else {
+            throw new IllegalArgumentException(String.format("Cannot extract minutes from '%s'", duration));
+        }
     }
 
     public Long seconds(TemporalAmount duration) {
-        return duration.get(ChronoUnit.SECONDS);
+        if (duration instanceof Period) {
+            return duration.get(ChronoUnit.SECONDS);
+        } else if (duration instanceof Duration) {
+            long seconds = ((Duration) duration).getSeconds();
+            return seconds % 60;
+        } else {
+            throw new IllegalArgumentException(String.format("Cannot extract seconds from '%s'", duration));
+        }
     }
 }
