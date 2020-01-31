@@ -83,10 +83,11 @@ public class TypeEquivalenceTest {
     @Test
     public void testDataTypes() {
         // data types
-        for (Pair<Type, Type> p : dataTypeTable.keySet()) {
+        for (Map.Entry<Pair<Type, Type>, Boolean> e : dataTypeTable.entrySet()) {
+            Pair<Type, Type> p = e.getKey();
             Type left = p.getLeft();
             Type right = p.getRight();
-            checkEquivalentTo(dataTypeTable.get(p), left, right);
+            checkEquivalentTo(e.getValue(), left, right);
         }
     }
 

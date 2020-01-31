@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class DefaultSignavioNumberLib extends DefaultNumericLib {
-    public BigDecimal number(String text, String defaultValue) {
+    public BigDecimal number(String text, BigDecimal defaultValue) {
         if (text == null || defaultValue ==  null) {
             return null;
         }
@@ -28,7 +28,7 @@ public class DefaultSignavioNumberLib extends DefaultNumericLib {
             number = number(text);
         } catch (Exception e) {
         }
-        return number != null ? number : number(defaultValue);
+        return number != null ? number : defaultValue;
     }
 
     @Override

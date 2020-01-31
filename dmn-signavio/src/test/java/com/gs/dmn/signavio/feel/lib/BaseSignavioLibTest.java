@@ -20,24 +20,25 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends CommonLibFunctionsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
+public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     @Override
     protected abstract SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> getLib();
 
     //
-    // Arithmetic operations
+    // Data acceptance functions
     //
     @Test
-    public void testNumberWithDefault() {
-        assertNull(getLib().number(null, null));
-        assertNull(getLib().number(null, "123.56"));
-        assertNull(getLib().number("123.56", null));
+    public void testIsPredicates() {
+        assertFalse(getLib().isDefined(null));
+        assertTrue(getLib().isUndefined(null));
 
-        assertEqualsNumber(123, getLib().number("123", "123.56"), 0.001);
-        assertEqualsNumber(123.56, getLib().number("1,200", "123.56"), 0.001);
-        assertEqualsNumber(123.56, getLib().number("xxx", "123.56"), 0.001);
+        assertFalse(getLib().isValid(null));
+        assertTrue(getLib().isInvalid(null));
     }
 
+    //
+    // Arithmetic operations
+    //
     @Test
     public void testAbs() {
         assertNull(getLib().abs(null));
@@ -165,9 +166,77 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     //
+    // Date and time
+    //
+    @Test
+    public void testDate() {
+        assertNull(getLib().date(makeNumber("2016"), null, null));
+        assertNull(getLib().date(null, makeNumber("8"), null));
+        assertNull(getLib().date(null, null, makeNumber("1")));
+        assertNull(getLib().date(makeNumber("-2016"), makeNumber("8"), makeNumber("1")));
+        assertNull(getLib().date(makeNumber("2016"), makeNumber("-8"), makeNumber("1")));
+        assertNull(getLib().date(makeNumber("2016"), makeNumber("8"), makeNumber("-1")));
+
+        assertEqualsDateTime("2016-08-01", getLib().date(makeNumber("2016"), makeNumber("8"), makeNumber("1")));
+    }
+
+    @Test
+    public void testDateTime() {
+        assertNull(getLib().dateTime(null, null, null, null, null, null));
+        assertNull(getLib().dateTime(null, null, null, null, null, null, null));
+
+        assertNull(getLib().dateTime(makeNumber(-1), makeNumber(-1), makeNumber(-1), makeNumber(-1), makeNumber(-1), makeNumber(-1)));
+        assertNull(getLib().dateTime(makeNumber(-1), makeNumber(-1), makeNumber(-1), makeNumber(-1), makeNumber(-1), makeNumber(-1), makeNumber(-1)));
+
+        assertEqualsDateTime("2000-01-02T03:04:05Z", getLib().dateTime(makeNumber("2"), makeNumber("1"), makeNumber("2000"), makeNumber("3"), makeNumber("4"), makeNumber("5")));
+        assertEqualsDateTime("2000-01-02T03:04:05+06:00", getLib().dateTime(makeNumber("2"), makeNumber("1"), makeNumber("2000"), makeNumber("3"), makeNumber("4"), makeNumber("5"), makeNumber("6")));
+    }
+
+
+    //
+    // Date properties
+    //
+    @Test
+    public void testDateProperties() {
+        assertEqualsNumber(getLib().number("2018"), getLib().year(getLib().date("2018-12-10")));
+        assertEqualsNumber(getLib().number("12"), getLib().month(getLib().date("2018-12-10")));
+        assertEqualsNumber(getLib().number("10"), getLib().day(getLib().date("2018-12-10")));
+        assertEqualsNumber(getLib().number("1"), getLib().weekday(getLib().date("2018-12-10")));
+    }
+
+    //
+    // Time properties
+    //
+    @Test
+    public void testTimeProperties() {
+        // See each implementation
+    }
+
+    //
+    // Date and time properties
+    //
+    @Test
+    public void testDateAndTimeProperties() {
+        // See each implementation
+    }
+
+    //
+    // Duration properties
+    //
+    @Test
+    public void testDurationProperties() {
+        assertEqualsNumber(getLib().number("1"), getLib().years(getLib().duration("P1Y2M")));
+        assertEqualsNumber(getLib().number("2"), getLib().months(getLib().duration("P1Y2M")));
+
+        assertEqualsNumber(getLib().number("3"), getLib().days(getLib().duration("P1Y2M3DT4H5M6.700S")));
+        assertEqualsNumber(getLib().number("4"), getLib().hours(getLib().duration("P1Y2M3DT4H5M6.700S")));
+        assertEqualsNumber(getLib().number("5"), getLib().minutes(getLib().duration("P1Y2M3DT4H5M6.700S")));
+        assertEqualsNumber(getLib().number("6"), getLib().seconds(getLib().duration("P1Y2M3DT4H5M6.700S")));
+    }
+
+    //
     // List operations
     //
-    @Override
     @Test
     public void testAppend() {
         assertEquals(Arrays.asList(new Object[] {null}), getLib().append(null, null));
@@ -352,7 +421,7 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     //
-    // Text operations
+    // String functions
     //
     @Override
     @Test
@@ -450,6 +519,17 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Test
+    public void testNumberWithDefault() {
+        assertNull(getLib().number(null, null));
+        assertNull(getLib().number(null, makeNumber("123.56")));
+        assertNull(getLib().number("123.56", null));
+
+        assertEqualsNumber(123, getLib().number("123", makeNumber("123.56")), 0.001);
+        assertEqualsNumber(123.56, getLib().number("1,200", makeNumber("123.56")), 0.001);
+        assertEqualsNumber(123.56, getLib().number("xxx", makeNumber("123.56")), 0.001);
+    }
+
+    @Test
     public void testMid() {
         assertNull(getLib().mid(null, null, null));
         assertNull(getLib().mid("123", null, null));
@@ -512,14 +592,12 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     //
-    // Signavio isXXX functions
+    // Test boolean functions
     //
     @Test
-    public void testIsPredicates() {
-        assertFalse(getLib().isDefined(null));
-        assertTrue(getLib().isUndefined(null));
-
-        assertFalse(getLib().isValid(null));
-        assertTrue(getLib().isInvalid(null));
+    public void testNot() {
+        assertNull(getLib().not(null));
+        assertFalse(getLib().not(Boolean.TRUE));
+        assertTrue(getLib().not(Boolean.FALSE));
     }
 }

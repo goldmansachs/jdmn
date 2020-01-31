@@ -12,7 +12,7 @@
  */
 package com.gs.jpa.example_credit_decision;
 
-import com.gs.dmn.example_credit_decision.type.Applicant;
+import com.gs.dmn.generated.example_credit_decision.type.Applicant;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

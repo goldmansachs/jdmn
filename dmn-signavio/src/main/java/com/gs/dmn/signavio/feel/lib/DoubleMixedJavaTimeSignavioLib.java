@@ -50,7 +50,7 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseFEELLib<Double, LocalDat
                 new SignavioLocalDateType(LOGGER, DATA_TYPE_FACTORY),
                 new SignavioOffsetTimeType(LOGGER, DATA_TYPE_FACTORY),
                 new SignavioZonedDateTimeType(LOGGER, DATA_TYPE_FACTORY),
-                new DoubleSignavioDurationType(LOGGER),
+                new DoubleSignavioDurationType(LOGGER, DATA_TYPE_FACTORY),
                 new DefaultListType(LOGGER),
                 new DefaultContextType(LOGGER)
         );
@@ -574,7 +574,7 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseFEELLib<Double, LocalDat
     }
 
     @Override
-    public Double number(String text, String defaultValue) {
+    public Double number(String text, Double defaultValue) {
         try {
             return this.numberLib.number(text, defaultValue);
         } catch (Exception e) {

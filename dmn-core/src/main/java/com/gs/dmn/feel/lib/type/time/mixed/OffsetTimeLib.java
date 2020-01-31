@@ -110,6 +110,8 @@ public class OffsetTimeLib extends BaseDateTimeLib {
     public OffsetTime toTime(Object object) {
         if (object instanceof ZonedDateTime) {
             return time((ZonedDateTime) object);
+        } else if (object instanceof LocalDate) {
+            return time((LocalDate) object);
         }
         return (OffsetTime) object;
     }

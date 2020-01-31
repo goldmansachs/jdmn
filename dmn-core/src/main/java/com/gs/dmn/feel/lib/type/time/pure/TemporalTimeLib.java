@@ -60,7 +60,9 @@ public class TemporalTimeLib extends BaseDateTimeLib {
             return null;
         }
 
-        if (from instanceof LocalTime) {
+        if (from instanceof LocalDate) {
+            return ((LocalDate) from).atStartOfDay(ZoneOffset.UTC).toOffsetDateTime().toOffsetTime();
+        } else if (from instanceof LocalTime) {
             return from;
         } else if (from instanceof OffsetTime) {
             return from;

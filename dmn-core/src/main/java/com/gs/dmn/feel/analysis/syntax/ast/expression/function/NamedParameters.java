@@ -50,7 +50,7 @@ public class NamedParameters extends Parameters {
     @Override
     public ParameterTypes getSignature() {
         Map<String, Type> signature = new LinkedHashMap<>();
-        parameters.keySet().forEach(k -> signature.put(k, parameters.get(k).getType()));
+        parameters.entrySet().forEach(e -> signature.put(e.getKey(), e.getValue().getType()));
         return new NamedParameterTypes(signature);
     }
 
@@ -93,9 +93,10 @@ public class NamedParameters extends Parameters {
     public Arguments convertArguments(BiFunction<Object, Conversion, Object> convertArgument) {
         if (requiresConversion()) {
             this.convertedArguments = new NamedArguments();
-            for (String key : parameterConversions.getConversions().keySet()) {
+            for (Map.Entry<String, Conversion> entry : parameterConversions.getConversions().entrySet()) {
+                String key = entry.getKey();
                 Object arg = originalArguments.getArguments().get(key);
-                Conversion conversion = parameterConversions.getConversions().get(key);
+                Conversion conversion = entry.getValue();
                 Object convertedArg = convertArgument.apply(arg, conversion);
                 convertedArguments.add(key, convertedArg);
             }
@@ -119,7 +120,7 @@ public class NamedParameters extends Parameters {
 
     @Override
     public String toString() {
-        String opd = parameters.keySet().stream().map(k -> String.format("%s : %s", k, parameters.get(k).toString())).collect(Collectors.joining(", "));
+        String opd = parameters.entrySet().stream().map(e -> String.format("%s : %s", e.getKey(), e.getValue().toString())).collect(Collectors.joining(", "));
         return String.format("NamedParameters(%s)", opd);
     }
 

@@ -17,12 +17,13 @@ import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationType;
 import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeConstants;
+import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
 
 public class DefaultSignavioDurationType extends DefaultDurationType implements DurationType<Duration, BigDecimal> {
-    public DefaultSignavioDurationType(Logger logger) {
-        super(logger);
+    public DefaultSignavioDurationType(Logger logger, DatatypeFactory dataTypeFactory) {
+        super(logger, dataTypeFactory);
     }
 
     @Override

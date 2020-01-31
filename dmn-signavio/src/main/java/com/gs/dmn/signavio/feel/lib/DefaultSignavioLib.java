@@ -49,7 +49,7 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
                 new DefaultSignavioDateType(LOGGER, DATA_TYPE_FACTORY),
                 new DefaultSignavioTimeType(LOGGER, DATA_TYPE_FACTORY),
                 new DefaultSignavioDateTimeType(LOGGER, DATA_TYPE_FACTORY),
-                new DefaultSignavioDurationType(LOGGER),
+                new DefaultSignavioDurationType(LOGGER, DATA_TYPE_FACTORY),
                 new DefaultListType(LOGGER),
                 new DefaultContextType(LOGGER)
         );
@@ -466,7 +466,7 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
     }
 
     @Override
-    public BigDecimal number(String text, String defaultValue) {
+    public BigDecimal number(String text, BigDecimal defaultValue) {
         try {
             return this.numberLib.number(text, defaultValue);
         } catch (Exception e) {
