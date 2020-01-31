@@ -52,7 +52,7 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
                 new ZonedDateType(LOGGER, DATA_TYPE_FACTORY),
                 new ZonedTimeType(LOGGER, DATA_TYPE_FACTORY),
                 new ZonedDateTimeType(LOGGER, DATA_TYPE_FACTORY),
-                new DefaultDurationType(LOGGER),
+                new DefaultDurationType(LOGGER, DATA_TYPE_FACTORY),
                 new DefaultListType(LOGGER),
                 new DefaultContextType(LOGGER)
         );

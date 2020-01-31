@@ -17,11 +17,12 @@ import com.gs.dmn.feel.lib.type.time.xml.DoubleDurationType;
 import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeConstants;
+import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 
 public class DoubleSignavioDurationType extends DoubleDurationType implements DurationType<Duration, Double> {
-    public DoubleSignavioDurationType(Logger logger) {
-        super(logger);
+    public DoubleSignavioDurationType(Logger logger,  DatatypeFactory dataTypeFactory) {
+        super(logger, dataTypeFactory);
     }
     @Override
     public Boolean durationLessThan(Duration first, Duration second) {

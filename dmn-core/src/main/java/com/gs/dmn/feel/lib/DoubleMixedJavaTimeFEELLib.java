@@ -52,7 +52,7 @@ public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, O
                 new LocalDateType(LOGGER, DATA_TYPE_FACTORY),
                 new OffsetTimeType(LOGGER, DATA_TYPE_FACTORY),
                 new ZonedDateTimeType(LOGGER, DATA_TYPE_FACTORY),
-                new DoubleDurationType(LOGGER),
+                new DoubleDurationType(LOGGER, DATA_TYPE_FACTORY),
                 new DefaultListType(LOGGER),
                 new DefaultContextType(LOGGER)
         );

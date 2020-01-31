@@ -49,7 +49,7 @@ public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCale
                 new DefaultSignavioDateType(LOGGER, DATA_TYPE_FACTORY),
                 new DefaultSignavioTimeType(LOGGER, DATA_TYPE_FACTORY),
                 new DefaultSignavioDateTimeType(LOGGER, DATA_TYPE_FACTORY),
-                new DefaultSignavioDurationType(LOGGER),
+                new DefaultSignavioDurationType(LOGGER, DATA_TYPE_FACTORY),
                 new DefaultListType(LOGGER),
                 new DefaultContextType(LOGGER)
         );

@@ -53,7 +53,7 @@ public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Off
                 new LocalDateType(LOGGER, DATA_TYPE_FACTORY),
                 new OffsetTimeType(LOGGER, DATA_TYPE_FACTORY),
                 new ZonedDateTimeType(LOGGER, DATA_TYPE_FACTORY),
-                new DefaultDurationType(LOGGER),
+                new DefaultDurationType(LOGGER, DATA_TYPE_FACTORY),
                 new DefaultListType(LOGGER),
                 new DefaultContextType(LOGGER)
         );

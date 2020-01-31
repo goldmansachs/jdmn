@@ -50,7 +50,7 @@ public class UniformJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, ZonedDat
                 new SignavioZonedDateType(LOGGER, DATA_TYPE_FACTORY),
                 new SignavioZonedTimeType(LOGGER, DATA_TYPE_FACTORY),
                 new SignavioZonedDateTimeType(LOGGER, DATA_TYPE_FACTORY),
-                new DefaultSignavioDurationType(LOGGER),
+                new DefaultSignavioDurationType(LOGGER, DATA_TYPE_FACTORY),
                 new DefaultListType(LOGGER),
                 new DefaultContextType(LOGGER)
         );

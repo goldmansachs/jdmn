@@ -50,7 +50,7 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
                 new DefaultDateType(LOGGER, DATA_TYPE_FACTORY),
                 new DefaultTimeType(LOGGER, DATA_TYPE_FACTORY),
                 new DefaultDateTimeType(LOGGER, DATA_TYPE_FACTORY),
-                new DefaultDurationType(LOGGER),
+                new DefaultDurationType(LOGGER, DATA_TYPE_FACTORY),
                 new DefaultListType(LOGGER),
                 new DefaultContextType(LOGGER)
         );
