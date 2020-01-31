@@ -30,7 +30,7 @@ public class DoubleMixedJavaTimeSignavioLibTest extends BaseSignavioLibTest<Doub
     }
 
     //
-    // Date & time operations
+    // Date & time functions
     //
     @Test
     public void testDay() {
@@ -46,23 +46,30 @@ public class DoubleMixedJavaTimeSignavioLibTest extends BaseSignavioLibTest<Doub
         assertNull(getLib().dayAdd((ZonedDateTime) null, makeNumber("360")));
         assertNull(getLib().dayAdd(makeDateAndTime("2015-12-24T12:15:00.000+01:00"), null));
 
-        assertEqualsTime("2015-12-25", getLib().dayAdd(makeDateAndTime("2015-12-24T12:15:00.001+01:00"), makeNumber("1")));
-        assertEqualsTime("2016-12-18", getLib().dayAdd(makeDateAndTime("2015-12-24T12:15:00.001+01:00"), makeNumber("360")));
-        assertEqualsTime("2015-12-25", getLib().dayAdd(makeDate("2015-12-24"), makeNumber("1")));
-        assertEqualsTime("2016-12-18", getLib().dayAdd(makeDate("2015-12-24"), makeNumber("360")));
-        assertEqualsTime("2015-12-23", getLib().dayAdd(makeDate("2015-12-24"), makeNumber("-1")));
+        assertEqualsDateTime("2015-12-25", getLib().dayAdd(makeDateAndTime("2015-12-24T12:15:00.001+01:00"), makeNumber("1")));
+        assertEqualsDateTime("2016-12-18", getLib().dayAdd(makeDateAndTime("2015-12-24T12:15:00.001+01:00"), makeNumber("360")));
+        assertEqualsDateTime("2015-12-25", getLib().dayAdd(makeDate("2015-12-24"), makeNumber("1")));
+        assertEqualsDateTime("2016-12-18", getLib().dayAdd(makeDate("2015-12-24"), makeNumber("360")));
+        assertEqualsDateTime("2015-12-23", getLib().dayAdd(makeDate("2015-12-24"), makeNumber("-1")));
         assertNull(getLib().dayAdd(makeDateAndTime("x"), makeNumber("360")));
     }
 
     @Test
     public void testDayDiff() {
-        assertNull(getLib().dayDiff((LocalDate)null, null));
+        assertNull(getLib().dayDiff((LocalDate) null, null));
+        assertNull(getLib().dayDiff((ZonedDateTime) null, null));
         assertNull(getLib().dayDiff(null, makeDate("2015-12-25")));
         assertNull(getLib().dayDiff(makeDate("2015-12-25"), null));
+        assertNull(getLib().dayDiff(null, makeDateAndTime("2015-12-25T00:00:00")));
+        assertNull(getLib().dayDiff(makeDateAndTime("2015-12-24T00:00:00"), null));
 
         assertEquals(makeNumber("1"), getLib().dayDiff(makeDate("2015-12-24"), makeDate("2015-12-25")));
-        assertEquals(makeNumber("1"), getLib().dayDiff(makeDateAndTime("2015-12-24T12:15:00.000+01:00"), makeDateAndTime("2015-12-25T12:15:00.000+01:00")));
+        assertEquals(makeNumber("0"), getLib().dayDiff(makeDate("2015-12-24"), makeDate("2015-12-24")));
         assertEquals(makeNumber("-1"), getLib().dayDiff(makeDate("2015-12-24"), makeDate("2015-12-23")));
+
+        assertEquals(makeNumber("1"), getLib().dayDiff(makeDateAndTime("2015-12-24T00:00:00"), makeDateAndTime("2015-12-25T00:00:00")));
+        assertEquals(makeNumber("0"), getLib().dayDiff(makeDateAndTime("2015-12-24T12:25:00"), makeDateAndTime("2015-12-24T00:00:00")));
+        assertEquals(makeNumber("-1"), getLib().dayDiff(makeDateAndTime("2015-12-24T00:00:00"), makeDateAndTime("2015-12-23T00:00:00")));
     }
 
     @Override
@@ -70,16 +77,16 @@ public class DoubleMixedJavaTimeSignavioLibTest extends BaseSignavioLibTest<Doub
     public void testDate() {
         super.testDate();
 
-        assertEqualsTime("2016-01-01", getLib().date("2016-01-01"));
+        assertEqualsDateTime("2016-01-01", getLib().date("2016-01-01"));
     }
 
     @Override
     @Test
-    public void testDateTime() {
+    public void testDateAndTime() {
         assertNull(getLib().dateAndTime(null));
 
-        assertEqualsTime("2016-08-01T11:00:00Z", getLib().dateAndTime("2016-08-01T11:00:00Z"));
-        assertEqualsTime("2016-08-01T11:00:00Z", getLib().dateTime(
+        assertEqualsDateTime("2016-08-01T11:00:00Z", getLib().dateAndTime("2016-08-01T11:00:00Z"));
+        assertEqualsDateTime("2016-08-01T11:00:00Z", getLib().dateTime(
                 makeNumber("1"), makeNumber("8"), makeNumber("2016"),
                 makeNumber("11"), makeNumber("0"), makeNumber("0")
         ));
@@ -141,12 +148,12 @@ public class DoubleMixedJavaTimeSignavioLibTest extends BaseSignavioLibTest<Doub
         assertNull(getLib().monthAdd((LocalDate) null, makeNumber("1")));
         assertNull(getLib().monthAdd(makeDate("2015-01-05"), null));
 
-        assertEqualsTime("2015-02-05", getLib().monthAdd(makeDate("2015-01-05"), makeNumber("1")));
-        assertEqualsTime("2016-01-05", getLib().monthAdd(makeDate("2015-01-05"), makeNumber("12")));
-        assertEqualsTime("2014-11-05", getLib().monthAdd(makeDate("2015-01-05"), makeNumber("-2")));
-        assertEqualsTime("2015-02-05T12:15:00.001+01:00", getLib().monthAdd(makeDateAndTime("2015-01-05T12:15:00.001+01:00"), makeNumber("1")));
-        assertEqualsTime("2016-01-05T12:15:00.001+01:00", getLib().monthAdd(makeDateAndTime("2015-01-05T12:15:00.001+01:00"), makeNumber("12")));
-        assertEqualsTime("2014-11-05T12:15:00.001+01:00", getLib().monthAdd(makeDateAndTime("2015-01-05T12:15:00.001+01:00"), makeNumber("-2")));
+        assertEqualsDateTime("2015-02-05", getLib().monthAdd(makeDate("2015-01-05"), makeNumber("1")));
+        assertEqualsDateTime("2016-01-05", getLib().monthAdd(makeDate("2015-01-05"), makeNumber("12")));
+        assertEqualsDateTime("2014-11-05", getLib().monthAdd(makeDate("2015-01-05"), makeNumber("-2")));
+        assertEqualsDateTime("2015-02-05T12:15:00.001+01:00", getLib().monthAdd(makeDateAndTime("2015-01-05T12:15:00.001+01:00"), makeNumber("1")));
+        assertEqualsDateTime("2016-01-05T12:15:00.001+01:00", getLib().monthAdd(makeDateAndTime("2015-01-05T12:15:00.001+01:00"), makeNumber("12")));
+        assertEqualsDateTime("2014-11-05T12:15:00.001+01:00", getLib().monthAdd(makeDateAndTime("2015-01-05T12:15:00.001+01:00"), makeNumber("-2")));
         assertNull(getLib().monthAdd(makeDateAndTime("xxx"), makeNumber("12")));
         assertNull(getLib().monthAdd((LocalDate) null, makeNumber("12")));
     }
@@ -211,10 +218,10 @@ public class DoubleMixedJavaTimeSignavioLibTest extends BaseSignavioLibTest<Doub
         assertNull(getLib().yearAdd((LocalDate) null, makeNumber("1")));
         assertNull(getLib().yearAdd(makeDate("2015-01-05"), null));
 
-        assertEqualsTime("2016-01-05", getLib().yearAdd(makeDate("2015-01-05"), makeNumber("1")));
-        assertEqualsTime("2027-01-05", getLib().yearAdd(makeDate("2015-01-05"), makeNumber("12")));
-        assertEqualsTime("2016-01-05T12:15:00.001+01:00", getLib().yearAdd(makeDateAndTime("2015-01-05T12:15:00.001+01:00"), makeNumber("1")));
-        assertEqualsTime("2027-01-05T12:15:00.001+01:00", getLib().yearAdd(makeDateAndTime("2015-01-05T12:15:00.001+01:00"), makeNumber("12")));
+        assertEqualsDateTime("2016-01-05", getLib().yearAdd(makeDate("2015-01-05"), makeNumber("1")));
+        assertEqualsDateTime("2027-01-05", getLib().yearAdd(makeDate("2015-01-05"), makeNumber("12")));
+        assertEqualsDateTime("2016-01-05T12:15:00.001+01:00", getLib().yearAdd(makeDateAndTime("2015-01-05T12:15:00.001+01:00"), makeNumber("1")));
+        assertEqualsDateTime("2027-01-05T12:15:00.001+01:00", getLib().yearAdd(makeDateAndTime("2015-01-05T12:15:00.001+01:00"), makeNumber("12")));
         assertNull(getLib().yearAdd(makeDateAndTime("xxx"), makeNumber("12")));
         assertNull(getLib().yearAdd((LocalDate) null, makeNumber("12")));
     }
@@ -236,6 +243,70 @@ public class DoubleMixedJavaTimeSignavioLibTest extends BaseSignavioLibTest<Doub
         assertEquals(makeNumber("1"), getLib().yearDiff(makeDateAndTime("2015-01-05T12:15:00.000+01:00"), makeDateAndTime("2016-01-05T15:15:00.000+01:00")));
         assertEquals(makeNumber("-1"), getLib().yearDiff(makeDateAndTime("2016-01-05T12:15:00.000+01:00"), makeDateAndTime("2015-01-05T15:15:00.000+01:00")));
         assertEquals(makeNumber("0"), getLib().yearDiff(makeDateAndTime("2016-01-05T12:15:00.000+01:00"), makeDateAndTime("2015-05-05T15:15:00.000+01:00")));
+    }
+
+    //
+    // Time properties
+    //
+    @Override
+    @Test
+    public void testTimeProperties() {
+        assertNull(getLib().hour((OffsetTime) null));
+        assertEqualsNumber(makeNumber("12"), getLib().hour(getLib().time("12:01:02Z")));
+
+        assertNull(getLib().minute((OffsetTime) null));
+        assertEqualsNumber(makeNumber("1"), getLib().minute(getLib().time("12:01:02Z")));
+
+        assertNull(getLib().second((OffsetTime) null));
+        assertEqualsNumber(makeNumber("2"), getLib().second(getLib().time("12:01:02Z")));
+
+        assertNull(getLib().timeOffset((OffsetTime) null));
+        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().time("12:01:02Z@Etc/UTC")));
+        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().time("12:01:02Z")));
+        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().time("12:01:02")));
+
+        assertNull(getLib().timezone((OffsetTime) null));
+        assertEquals("Z", getLib().timezone(getLib().time("12:01:02Z@Etc/UTC")));
+        assertEquals("Z", getLib().timezone(getLib().time("12:01:02@Etc/UTC")));
+        assertEquals("Z", getLib().timezone(getLib().time("12:01:02")));
+    }
+
+    //
+    // Date and time properties
+    //
+    @Override
+    @Test
+    public void testDateAndTimeProperties() {
+        assertNull(getLib().year((ZonedDateTime) null));
+        assertEqualsNumber(makeNumber("2018"), getLib().year(getLib().dateAndTime("2018-12-10T12:01:02Z")));
+
+        assertNull(getLib().month((ZonedDateTime) null));
+        assertEqualsNumber(makeNumber("12"), getLib().month(getLib().dateAndTime("2018-12-10T12:01:02Z")));
+
+        assertNull(getLib().day((ZonedDateTime) null));
+        assertEqualsNumber(makeNumber("10"), getLib().day(getLib().dateAndTime("2018-12-10T12:01:02Z")));
+
+        assertNull(getLib().weekday((ZonedDateTime) null));
+        assertEqualsNumber(makeNumber("1"), getLib().weekday(getLib().dateAndTime("2018-12-10T12:01:02Z")));
+
+        assertNull(getLib().hour((ZonedDateTime) null));
+        assertEqualsNumber(makeNumber("12"), getLib().hour(getLib().dateAndTime("2018-12-10T12:01:02Z")));
+
+        assertNull(getLib().minute((ZonedDateTime) null));
+        assertEqualsNumber(makeNumber("1"), getLib().minute(getLib().dateAndTime("2018-12-10T12:01:02Z")));
+
+        assertNull(getLib().second((ZonedDateTime) null));
+        assertEqualsNumber(makeNumber("2"), getLib().second(getLib().dateAndTime("2018-12-10T12:01:02Z")));
+
+        assertNull(getLib().timeOffset((ZonedDateTime) null));
+        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02Z@Etc/UTC")));
+        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02Z")));
+        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02")));
+
+        assertNull(getLib().timezone((ZonedDateTime) null));
+        assertEquals("Etc/UTC", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02Z@Etc/UTC")));
+        assertEquals("Etc/UTC", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02@Etc/UTC")));
+        assertEquals("Z", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02")));
     }
 }
 

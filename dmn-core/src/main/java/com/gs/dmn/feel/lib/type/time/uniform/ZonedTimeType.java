@@ -70,11 +70,8 @@ public class ZonedTimeType extends JavaTimeCalendarType implements TimeType<Zone
         }
 
         try {
-            java.time.Duration between = java.time.Duration.between(first, second);
+            java.time.Duration between = java.time.Duration.between(second, first);
             long durationInMilliSeconds = between.toMillis();
-            if (!between.isNegative()) {
-                durationInMilliSeconds = - durationInMilliSeconds;
-            }
             return datatypeFactory.newDuration(durationInMilliSeconds);
         } catch (Exception e) {
             String message = String.format("timeSubtract(%s, %s)", first, second);

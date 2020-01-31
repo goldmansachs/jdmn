@@ -15,6 +15,8 @@ package com.gs.dmn.feel.lib.type.time.xml;
 import com.gs.dmn.feel.lib.type.BaseType;
 import org.slf4j.Logger;
 
+import javax.xml.datatype.DatatypeConstants;
+import javax.xml.datatype.Duration;
 import java.util.GregorianCalendar;
 
 public abstract class BaseDefaultDurationType extends BaseType {
@@ -44,5 +46,20 @@ public abstract class BaseDefaultDurationType extends BaseType {
 
     public static javax.xml.datatype.Duration normalize(javax.xml.datatype.Duration duration) {
         return duration.normalizeWith(GREGORIAN.get());
+    }
+
+    protected boolean isYearsAndMonths(Duration duration) {
+        if (duration == null) {
+            return false;
+        }
+        return duration.isSet(DatatypeConstants.YEARS) || duration.isSet(DatatypeConstants.MONTHS);
+    }
+
+    protected boolean isDaysAndTime(Duration duration) {
+        if (duration == null) {
+            return false;
+        }
+        return duration.isSet(DatatypeConstants.DAYS) || duration.isSet(DatatypeConstants.HOURS) ||
+                duration.isSet(DatatypeConstants.MINUTES) || duration.isSet(DatatypeConstants.SECONDS);
     }
 }

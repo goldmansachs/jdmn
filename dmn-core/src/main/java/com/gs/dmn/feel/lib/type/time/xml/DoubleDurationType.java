@@ -15,18 +15,21 @@ package com.gs.dmn.feel.lib.type.time.xml;
 import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.DurationType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeConstants;
+import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
-import java.math.BigDecimal;
 
 public class DoubleDurationType extends BaseDefaultDurationType implements DurationType<Duration, Double> {
     private final BooleanType booleanType;
+    private final DatatypeFactory dataTypeFactory;
 
-    public DoubleDurationType(Logger logger) {
+    public DoubleDurationType(Logger logger, DatatypeFactory dataTypeFactory) {
         super(logger);
         this.booleanType = new DefaultBooleanType(logger);
+        this.dataTypeFactory = dataTypeFactory;
     }
 
     //
@@ -157,7 +160,18 @@ public class DoubleDurationType extends BaseDefaultDurationType implements Durat
         }
 
         try {
-            return first.multiply(BigDecimal.ONE.divide(BigDecimal.valueOf(second)));
+            if (isYearsAndMonths(first)) {
+                long months = (first.getYears() * 12 + first.getMonths()) / second.intValue();
+                return this.dataTypeFactory.newDurationYearMonth(String.format("P%dM", months));
+            } else if (isDaysAndTime(first)) {
+                long hours = 24 * first.getDays() + first.getHours();
+                long minutes = 60 * hours + first.getMinutes();
+                long seconds = 60 * minutes + first.getSeconds();
+                seconds = seconds / second.intValue();
+                return this.dataTypeFactory.newDurationDayTime(seconds * 1000);
+            } else {
+                throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
+            }
         } catch (Exception e) {
             String message = String.format("durationDivide(%s, %s)", first, second);
             logError(message, e);

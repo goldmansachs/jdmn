@@ -18,7 +18,10 @@ import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.time.JavaTimeType;
 import org.slf4j.Logger;
 
-import java.time.*;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 
@@ -71,7 +74,7 @@ public class TemporalDateTimeType extends JavaTimeType implements DateTimeType<T
         }
 
         try {
-            return Duration.between(first, second);
+            return Duration.between(second, first);
         } catch (Exception e) {
             String message = String.format("dateTimeSubtract(%s, %s)", first, second);
             logError(message, e);

@@ -72,7 +72,7 @@ public class TemporalTimeType extends JavaTimeType implements TimeType<Temporal,
         }
 
         try {
-            return java.time.Duration.between(first, second);
+            return java.time.Duration.between(second, first);
         } catch (Exception e) {
             String message = String.format("timeSubtract(%s, %s)", first, second);
             logError(message, e);

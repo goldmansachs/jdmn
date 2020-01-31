@@ -52,7 +52,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
                 new SignavioLocalDateType(LOGGER, DATA_TYPE_FACTORY),
                 new SignavioOffsetTimeType(LOGGER, DATA_TYPE_FACTORY),
                 new SignavioZonedDateTimeType(LOGGER, DATA_TYPE_FACTORY),
-                new DefaultSignavioDurationType(LOGGER),
+                new DefaultSignavioDurationType(LOGGER, DATA_TYPE_FACTORY),
                 new DefaultListType(LOGGER),
                 new DefaultContextType(LOGGER)
         );
@@ -575,7 +575,7 @@ public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate,
     }
 
     @Override
-    public BigDecimal number(String text, String defaultValue) {
+    public BigDecimal number(String text, BigDecimal defaultValue) {
         try {
             return this.numberLib.number(text, defaultValue);
         } catch (Exception e) {

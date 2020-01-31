@@ -73,15 +73,19 @@ public class ZonedTimeLib extends BaseDateTimeLib {
     }
 
     public ZonedDateTime time(ZonedDateTime from) {
-        if (from == null) {
+        if (!isTime(from)) {
             return null;
         }
+
         OffsetTime offsetTime = from.toOffsetDateTime().toOffsetTime();
         return offsetTime.atDate(LocalDate.MIN).toZonedDateTime();
     }
 
     public ZonedDateTime toTime(Object object) {
-        return (ZonedDateTime) object;
+        if (!(object instanceof ZonedDateTime)) {
+            return null;
+        }
+        return time((ZonedDateTime) object);
     }
 
     public BigDecimal hour(ZonedDateTime date) {
@@ -119,4 +123,7 @@ public class ZonedTimeLib extends BaseDateTimeLib {
         return String.format("%04d-%02d-%02dT%02d:%02d:%02d.%d%s", year, month, day, hours, minutes, seconds, millis, offset);
     }
 
+    private boolean isTime(ZonedDateTime from) {
+        return from != null && from.getHour() >=0;
+    }
 }

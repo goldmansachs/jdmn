@@ -52,14 +52,14 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
                 new ZonedDateType(LOGGER, DATA_TYPE_FACTORY),
                 new ZonedTimeType(LOGGER, DATA_TYPE_FACTORY),
                 new ZonedDateTimeType(LOGGER, DATA_TYPE_FACTORY),
-                new DefaultDurationType(LOGGER),
+                new DefaultDurationType(LOGGER, DATA_TYPE_FACTORY),
                 new DefaultListType(LOGGER),
                 new DefaultContextType(LOGGER)
         );
     }
 
     //
-    // Conversion functions
+    // Constructors
     //
 
     @Override
@@ -207,12 +207,24 @@ public class UniformJavaTimeFEELLib extends BaseFEELLib<BigDecimal, ZonedDateTim
 
     @Override
     public ZonedDateTime toDate(Object object) {
-        return this.dateLib.toDate(object);
+        try {
+            return this.dateLib.toDate(object);
+        } catch (Exception e) {
+            String message = String.format("toDate(%s)", object);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public ZonedDateTime toTime(Object object) {
-        return this.timeLib.toTime(object);
+        try {
+            return this.timeLib.toTime(object);
+        } catch (Exception e) {
+            String message = String.format("toTime(%s)", object);
+            logError(message, e);
+            return null;
+        }
     }
 
     //

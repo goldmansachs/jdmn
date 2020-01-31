@@ -39,16 +39,12 @@ public class DefaultDateTimeLib extends BaseDateTimeLib {
             return null;
         }
 
-        try {
-            XMLGregorianCalendar calendar = FEELXMLGregorianCalendar.makeDateTime(
-                    BigInteger.valueOf(date.getYear()), date.getMonth(), date.getDay(),
-                    time.getHour(), time.getMinute(), time.getSecond(), time.getFractionalSecond(),
-                    ((FEELXMLGregorianCalendar) time).getZoneID()
-            );
-            return this.isValidDateTime(calendar) ? calendar : null;
-        } catch (Exception e) {
-            return null;
-        }
+        XMLGregorianCalendar calendar = FEELXMLGregorianCalendar.makeDateTime(
+                BigInteger.valueOf(date.getYear()), date.getMonth(), date.getDay(),
+                time.getHour(), time.getMinute(), time.getSecond(), time.getFractionalSecond(),
+                ((FEELXMLGregorianCalendar) time).getZoneID()
+        );
+        return this.isValidDateTime(calendar) ? calendar : null;
     }
 
     public TemporalAccessor temporalAccessor(String literal) {

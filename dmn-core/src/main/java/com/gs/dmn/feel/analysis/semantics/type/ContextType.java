@@ -149,7 +149,7 @@ public class ContextType extends Type implements CompositeDataType {
 
     @Override
     public String toString() {
-        String types = members.keySet().stream().map(k -> String.format("%s = %s", k, members.get(k))).collect(Collectors.joining(", "));
+        String types = members.entrySet().stream().map(e -> String.format("%s = %s", e.getKey(), e.getValue())).collect(Collectors.joining(", "));
         return String.format("ContextType(%s)", types);
     }
 }

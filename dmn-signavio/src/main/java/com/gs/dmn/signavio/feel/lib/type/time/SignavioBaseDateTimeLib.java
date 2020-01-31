@@ -74,14 +74,14 @@ public class SignavioBaseDateTimeLib {
     }
 
     protected boolean isDate(XMLGregorianCalendar dateTime) {
-        return dateTime.getYear() > 0 && dateTime.getHour() < 0;
+        return dateTime.getYear() >= 0 && dateTime.getHour() < 0;
     }
 
     protected boolean isTime(XMLGregorianCalendar dateTime1) {
-        return dateTime1.getYear() < 0 && dateTime1.getHour() > 0;
+        return dateTime1.getYear() < 0 && dateTime1.getHour() >= 0;
     }
 
     protected boolean isDateTime(XMLGregorianCalendar dateTime1) {
-        return dateTime1.getYear() > 0 && dateTime1.getHour() > 0;
+        return dateTime1.getYear() >= 0 && dateTime1.getHour() >= 0;
     }
 }

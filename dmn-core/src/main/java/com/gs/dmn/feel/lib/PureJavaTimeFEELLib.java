@@ -56,7 +56,7 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
     }
 
     //
-    // Conversion functions
+    // Constructors
     //
 
     @Override
@@ -204,12 +204,24 @@ public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temp
 
     @Override
     public LocalDate toDate(Object object) {
-        return this.dateLib.toDate(object);
+        try {
+            return this.dateLib.toDate(object);
+        } catch (Exception e) {
+            String message = String.format("toDate(%s)", object);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public Temporal toTime(Object object) {
-        return this.timeLib.toTime(object);
+        try {
+            return this.timeLib.toTime(object);
+        } catch (Exception e) {
+            String message = String.format("toTime(%s)", object);
+            logError(message, e);
+            return null;
+        }
     }
 
     //

@@ -43,7 +43,7 @@ public class DefaultBooleanLib {
     }
 
     public Boolean all(Object... args) {
-        if (args == null || args.length < 1) {
+        if (args == null) {
             return null;
         }
 
@@ -73,7 +73,7 @@ public class DefaultBooleanLib {
     }
 
     public Boolean any(Object... args) {
-        if (args == null || args.length < 1) {
+        if (args == null) {
             return null;
         }
 

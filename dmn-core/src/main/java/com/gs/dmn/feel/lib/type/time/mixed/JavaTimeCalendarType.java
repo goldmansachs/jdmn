@@ -32,7 +32,7 @@ public abstract class JavaTimeCalendarType extends JavaTimeType {
     }
 
     protected TemporalAmount toTemporalPeriod(Duration duration) {
-        Period period = Period.of(duration.getYears(), duration.getMonths(), duration.getDays());
+        Period period = Period.of(duration.getYears(), duration.getMonths(), 0);
         return duration.getSign() == -1 ? period.negated() : period;
     }
 

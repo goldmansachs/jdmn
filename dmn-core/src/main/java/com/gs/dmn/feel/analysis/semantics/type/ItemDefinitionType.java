@@ -87,8 +87,8 @@ public class ItemDefinitionType extends NamedType implements CompositeDataType {
 
     public ContextType toContextType() {
         ContextType contextType = new ContextType();
-        members.keySet().forEach(
-                key -> contextType.addMember(key, aliases.get(key), members.get(key))
+        members.entrySet().forEach(
+                entry -> contextType.addMember(entry.getKey(), aliases.get(entry.getKey()), entry.getValue())
         );
         return contextType;
     }
@@ -160,7 +160,7 @@ public class ItemDefinitionType extends NamedType implements CompositeDataType {
 
     @Override
     public String toString() {
-        String members = this.members.keySet().stream().map(k -> String.format("%s = %s", toList(k, this.aliases.get(k)), this.members.get(k))).collect(Collectors.joining(", "));
+        String members = this.members.entrySet().stream().map(e -> String.format("%s = %s", toList(e.getKey(), this.aliases.get(e.getKey())), e.getValue())).collect(Collectors.joining(", "));
         return String.format("ItemDefinitionType(%s)", members);
     }
 

@@ -50,14 +50,14 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
                 new DefaultDateType(LOGGER, DATA_TYPE_FACTORY),
                 new DefaultTimeType(LOGGER, DATA_TYPE_FACTORY),
                 new DefaultDateTimeType(LOGGER, DATA_TYPE_FACTORY),
-                new DefaultDurationType(LOGGER),
+                new DefaultDurationType(LOGGER, DATA_TYPE_FACTORY),
                 new DefaultListType(LOGGER),
                 new DefaultContextType(LOGGER)
         );
     }
 
     //
-    // Conversion functions
+    // Constructors
     //
 
     @Override
@@ -205,12 +205,24 @@ public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar
 
     @Override
     public XMLGregorianCalendar toDate(Object object) {
-        return this.dateLib.toDate(object);
+        try {
+            return this.dateLib.toDate(object);
+        } catch (Exception e) {
+            String message = String.format("toDate(%s)", object);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public XMLGregorianCalendar toTime(Object object) {
-        return this.timeLib.toTime(object);
+        try {
+            return this.timeLib.toTime(object);
+        } catch (Exception e) {
+            String message = String.format("toTime(%s)", object);
+            logError(message, e);
+            return null;
+        }
     }
 
     //
