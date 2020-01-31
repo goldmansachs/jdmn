@@ -18,9 +18,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.OffsetTime;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 
@@ -38,7 +36,6 @@ public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal,
     //
     @Override
     @Test
-    @Ignore
     public void testDateSubtract() {
         super.testDateSubtract();
     }
@@ -62,9 +59,13 @@ public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal,
     //
     @Override
     @Test
-    @Ignore
     public void testTimeSubtract() {
-        super.testTimeSubtract();
+        assertNull(getLib().timeSubtract(null, null));
+        assertNull(getLib().timeSubtract(null, makeTime("12:00:00Z")));
+        assertNull(getLib().timeSubtract(makeTime("12:00:00Z"), null));
+        assertEqualsTime("PT1H", getLib().timeSubtract(makeTime("12:00:00Z"), makeTime("11:00:00Z")));
+        assertEqualsTime("PT0S", getLib().timeSubtract(makeTime("12:00:00Z"), makeTime("12:00:00Z")));
+        assertEqualsTime("PT-1H", getLib().timeSubtract(makeTime("12:00:00Z"), makeTime("13:00:00Z")));
     }
 
     @Override
@@ -86,9 +87,13 @@ public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal,
     //
     @Override
     @Test
-    @Ignore
     public void testDateTimeSubtract() {
-        super.testDateTimeSubtract();
+        assertNull(getLib().dateTimeSubtract(null, null));
+        assertNull(getLib().dateTimeSubtract(null, makeDateAndTime("2016-08-01T12:00:00Z")));
+        assertNull(getLib().dateTimeSubtract(makeDateAndTime("2016-08-01T12:00:00Z"), null));
+        assertEqualsTime("PT1H", getLib().dateTimeSubtract(makeDateAndTime("2016-08-01T13:00:00Z"), makeDateAndTime("2016-08-01T12:00:00Z")).toString());
+        assertEqualsTime("PT0S", getLib().dateTimeSubtract(makeDateAndTime("2016-08-01T12:00:00Z"), makeDateAndTime("2016-08-01T12:00:00Z")).toString());
+        assertEqualsTime("PT-49H", getLib().dateTimeSubtract(makeDateAndTime("2016-08-01T12:00:00Z"), makeDateAndTime("2016-08-03T13:00:00Z")).toString());
     }
 
     @Override
@@ -161,26 +166,68 @@ public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal,
 
     @Override
     @Test
-    @Ignore
     public void testTime() {
-        super.testTime();
+        assertNull(getLib().time((String) null));
+        assertNull(getLib().time(""));
+        assertNull(getLib().time("xxx"));
+        assertNull(getLib().time("13:20:00+01:00@Europe/Paris"));
+        assertNull(getLib().time("13:20:00+00:00[UTC]"));
+        assertNull(getLib().time(
+                makeNumber("12"), makeNumber("00"), makeNumber("00"),
+                makeDuration("PT25H10M")));
+
+        // Fix input literal
+        assertEqualsTime("11:00:00Z", getLib().time("T11:00:00Z"));
+        assertEqualsTime("11:00:00+01:00", getLib().time("11:00:00+0100"));
+
+        assertEqualsTime("11:00:00Z", getLib().time("11:00:00Z"));
+        assertEqualsTime("11:00:00.001Z", getLib().time("11:00:00.001Z"));
+
+        assertEqualsTime("11:00:00.001+01:00", getLib().time("11:00:00.001+01:00"));
+        assertEqualsTime("11:00:00+01:00", getLib().time("11:00:00+01:00"));
+
+        assertEqualsTime("11:00:00Z", getLib().time(makeDateAndTime("2016-08-01T11:00:00Z")));
+
+//        assertEqualsTime("12:00:00+01:10", getLib().time(
+//                makeNumber("12"), makeNumber("00"), makeNumber("00"),
+//                makeDuration("PT1H10M")));
 
         assertEqualsTime("12:00:00Z", getLib().time(makeTime("12:00:00Z")));
-        assertEqualsTime("12:00:00Z", getLib().time(
-                makeNumber("12"), makeNumber("00"), makeNumber("00"),
-                null));
+//        assertEqualsTime("12:00:00Z", getLib().time(
+//                makeNumber("12"), makeNumber("00"), makeNumber("00"),
+//                null));
     }
 
     @Override
     @Test
-    @Ignore
     public void testDateTime() {
-        super.testDateTime();
+        assertNull(getLib().dateAndTime(null));
+        assertNull(getLib().dateAndTime(""));
+        assertNull(getLib().dateAndTime("xxx"));
+        assertNull(getLib().dateAndTime("11:00:00"));
+        assertNull(getLib().dateAndTime("2011-12-03T10:15:30+01:00@Europe/Paris"));
+        assertNull(getLib().dateAndTime("2017-12-31T12:20:00+19:00"));
+
+        assertNull(getLib().dateAndTime(null, null));
+        assertNull(getLib().dateAndTime(null, makeTime("11:00:00Z")));
+        assertNull(getLib().dateAndTime(getLib().date("2016-08-01"), null));
+
+        // Fix input literal
+        assertEqualsTime("2016-08-01T11:00:00+01:00", getLib().dateAndTime("2016-08-01T11:00:00+0100"));
+
+        assertEqualsTime("2016-08-01T11:00:00Z", getLib().dateAndTime("2016-08-01T11:00:00Z"));
+        assertEqualsTime("2016-08-01T11:00:00.001Z", getLib().dateAndTime("2016-08-01T11:00:00.001Z"));
+        assertEqualsTime("2016-08-01T11:00:00.001+01:00", getLib().dateAndTime("2016-08-01T11:00:00.001+01:00"));
+        assertEqualsTime("2016-08-01T11:00:00+01:00", getLib().dateAndTime("2016-08-01T11:00:00+01:00"));
+
+        assertEqualsTime("2016-08-01T11:00:00Z", getLib().dateAndTime("2016-08-01T11:00:00Z"));
+
+        assertEqualsTime("2016-08-01T11:00:00Z", getLib().dateAndTime("2016-08-01T11:00:00Z"));
+        assertEqualsTime("2016-08-01T11:00:00Z", getLib().dateAndTime(makeDate("2016-08-01"), makeTime("11:00:00Z")));
     }
 
     @Override
     @Test
-    @Ignore
     public void testDuration() {
         assertEqualsTime("P1Y8M", getLib().duration("P1Y8M").toString());
         assertEqualsTime("PT68H", getLib().duration("P2DT20H").toString());
@@ -285,11 +332,16 @@ public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal,
         if (actual instanceof LocalDate) {
             String actualText = ((LocalDate) actual).format(BaseDateTimeLib.FEEL_DATE_FORMAT);
             assertEquals(expected, cleanActualText(actualText));
+        } else if (actual instanceof OffsetDateTime) {
+            String actualText = ((OffsetDateTime) actual).format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT);
+            assertEquals(expected, cleanActualText(actualText));
         } else if (actual instanceof OffsetTime) {
             String actualText = ((OffsetTime) actual).format(BaseDateTimeLib.FEEL_TIME_FORMAT);
             assertEquals(expected, cleanActualText(actualText));
         } else if (actual instanceof ZonedDateTime) {
             assertEquals(normalize(ZonedDateTime.parse(expected)), normalize((ZonedDateTime)actual));
+        } else if (actual instanceof Duration) {
+            assertEquals(expected, actual.toString());
         } else if (actual instanceof String) {
             String actualText = cleanActualText((String) actual);
             assertEquals(expected, cleanActualText(actualText));
