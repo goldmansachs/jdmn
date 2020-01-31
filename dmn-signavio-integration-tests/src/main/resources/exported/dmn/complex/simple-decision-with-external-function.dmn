@@ -27,7 +27,7 @@
         <literalExpression expressionLanguage="free_text">
             <text>function(a: number, b: number) external {
 java: {
-       class: "com.gs.dmn.simple_decision_with_external_function.Sum",
+       class: "com.gs.dmn.generated.simple_decision_with_external_function.Sum",
        methodSignature: "add(a, b)",
        returnType : "number",
        technicalAttributes : {

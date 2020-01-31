@@ -33,6 +33,7 @@
 
         <generated.dmn.diagram.folder>${project.build.directory}/generated-resources/dmn</generated.dmn.diagram.folder>
         <generated.java.folder>${project.build.directory}/generated-sources/dmn</generated.java.folder>
+        <generated.root.package>com.gs.dmn.generated</generated.root.package>
         <tck.java.folder>${project.build.directory}/generated-test-sources/tck</tck.java.folder>
 
         <line.coverage.minimum>0.00</line.coverage.minimum>
@@ -107,7 +108,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/example-credit-decision.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.example_credit_decision</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.example_credit_decision</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -122,7 +123,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/example-credit-decision.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.example_credit_decision</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.example_credit_decision</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>

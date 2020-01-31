@@ -34,6 +34,7 @@
 
         <generated.dmn.diagram.folder>${project.build.directory}/generated-resources/dmn</generated.dmn.diagram.folder>
         <generated.java.folder>${project.build.directory}/generated-sources/dmn</generated.java.folder>
+        <generated.root.package>com.gs.dmn.generated</generated.root.package>
         <testlab.java.folder>${project.build.directory}/generated-test-sources/testlab</testlab.java.folder>
 
         <line.coverage.minimum>0.00</line.coverage.minimum>
@@ -116,7 +117,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/compound-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.compound_decision_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.compound_decision_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -132,7 +133,7 @@
                             <inputModelFileDirectory>${generated.dmn.diagram.folder}/decision-table/compound-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.compound_decision_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.compound_decision_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -147,7 +148,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-compound-output-output-order-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_decision_primitive_type_inputs_compound_output_output_order_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_decision_primitive_type_inputs_compound_output_output_order_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -162,7 +163,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-compound-output-priority-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_decision_primitive_type_inputs_compound_output_priority_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_decision_primitive_type_inputs_compound_output_priority_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -177,7 +178,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_decision_primitive_type_inputs_feel_input_entries_single_output_first_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_decision_primitive_type_inputs_feel_input_entries_single_output_first_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -193,7 +194,7 @@
                             <inputModelFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_decision_primitive_type_inputs_feel_input_entries_single_output_first_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_decision_primitive_type_inputs_feel_input_entries_single_output_first_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -208,7 +209,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-feel-input-entries-single-output-unique-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_decision_primitive_type_inputs_feel_input_entries_single_output_unique_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_decision_primitive_type_inputs_feel_input_entries_single_output_unique_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -223,7 +224,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-sfeel-input-entries-single-output-first-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_decision_primitive_type_inputs_sfeel_input_entries_single_output_first_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_decision_primitive_type_inputs_sfeel_input_entries_single_output_first_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -238,7 +239,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_decision_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_decision_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -253,7 +254,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-single-output-collect-count-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_decision_primitive_type_inputs_single_output_collect_count_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_decision_primitive_type_inputs_single_output_collect_count_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -268,7 +269,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-single-output-collect-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_decision_primitive_type_inputs_single_output_collect_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_decision_primitive_type_inputs_single_output_collect_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -283,7 +284,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-single-output-collect-min-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_decision_primitive_type_inputs_single_output_collect_min_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_decision_primitive_type_inputs_single_output_collect_min_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -298,7 +299,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-single-output-collect-sum-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_decision_primitive_type_inputs_single_output_collect_sum_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_decision_primitive_type_inputs_single_output_collect_sum_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -313,7 +314,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-single-output-priority-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_decision_primitive_type_inputs_single_output_priority_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_decision_primitive_type_inputs_single_output_priority_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -328,7 +329,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-list-inputs-feel-input-entries-single-output-unique-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_decision_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_decision_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -346,7 +347,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/literal/simple-decision-feel-boolean-literal-expression.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_decision_feel_boolean_literal_expression</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_decision_feel_boolean_literal_expression</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -361,7 +362,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/literal/simple-decision-feel-complex-literal-expression.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_decision_feel_complex_literal_expression</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_decision_feel_complex_literal_expression</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -376,7 +377,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/literal/simple-decision-feel-date-literal-expression.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_decision_feel_date_literal_expression</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_decision_feel_date_literal_expression</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -391,7 +392,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/literal/simple-decision-feel-string-literal-expression.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_decision_feel_string_literal_expression</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_decision_feel_string_literal_expression</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -409,7 +410,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/CompareLists.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.compare_lists</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.compare_lists</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -424,7 +425,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/CompareLists.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.compare_lists</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.compare_lists</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -439,7 +440,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/DotProduct.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.dot_product</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.dot_product</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -456,7 +457,7 @@
                             </inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.dot_product</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.dot_product</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -475,7 +476,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.example_credit_decision</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.example_credit_decision</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -494,7 +495,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.example_credit_decision</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.example_credit_decision</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -510,7 +511,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.example_credit_decision_uniform</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.example_credit_decision_uniform</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -526,7 +527,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.example_credit_decision_uniform</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.example_credit_decision_uniform</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -542,7 +543,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.example_credit_decision_mixed</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.example_credit_decision_mixed</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -558,7 +559,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.example_credit_decision_mixed</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.example_credit_decision_mixed</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -576,7 +577,7 @@
                             </inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.example_credit_decision_mixed_dag</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.example_credit_decision_mixed_dag</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -592,7 +593,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.example_credit_decision_mixed_dag</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.example_credit_decision_mixed_dag</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -609,7 +610,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.example_credit_decision_mixed_tree</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.example_credit_decision_mixed_tree</javaRootPackage>
                                 <caching>true</caching>
                             </inputParameters>
                         </configuration>
@@ -627,7 +628,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.example_credit_decision_mixed_tree</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.example_credit_decision_mixed_tree</javaRootPackage>
                                 <caching>true</caching>
                             </inputParameters>
                         </configuration>
@@ -643,7 +644,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/NPEValidation2.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.npe_validation_2</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.npe_validation_2</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -658,7 +659,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/NPEValidation2.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.npe_validation_2</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.npe_validation_2</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -673,7 +674,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/Null Safe Tests.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.null_safe_tests</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.null_safe_tests</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -688,7 +689,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/Null Safe Tests.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.null_safe_tests</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.null_safe_tests</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -703,7 +704,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/Simple Polynomial.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_polynomial</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_polynomial</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -718,7 +719,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/Simple Polynomial.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_polynomial</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_polynomial</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -733,7 +734,7 @@
                             <inputFileDirectory>src/main/resources/exported/dmn/complex/simple-decision-complex-type-inputs-feel-input-entries-single-output-collect-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_decision_complex_type_inputs_feel_input_entries_single_output_collect_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_decision_complex_type_inputs_feel_input_entries_single_output_collect_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -748,7 +749,7 @@
                             <inputModelFileDirectory>src/main/resources/exported/dmn/complex/simple-decision-complex-type-inputs-feel-input-entries-single-output-collect-hit-policy.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_decision_complex_type_inputs_feel_input_entries_single_output_collect_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_decision_complex_type_inputs_feel_input_entries_single_output_collect_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -764,7 +765,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/ChildLinked.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.child_linked</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.child_linked</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -779,7 +780,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/ChildLinked.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.child_linked</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.child_linked</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -794,7 +795,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/ParentLinked.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.parent_linked</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.parent_linked</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -809,7 +810,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/ParentLinked.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.parent_linked</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.parent_linked</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -824,7 +825,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/Test ZIP.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.test_zip</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.test_zip</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -839,7 +840,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/Test ZIP.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.test_zip</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.test_zip</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -854,7 +855,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/Simple model.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_model</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_model</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -869,7 +870,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/Simple model.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_model</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_model</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -884,7 +885,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/Simple MID.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_mid</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_mid</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -899,7 +900,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/Simple MID.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_mid</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_mid</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -914,7 +915,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/Simple MID Legacy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simplemid</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simplemid</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -929,7 +930,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/Simple MID Legacy.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simplemid</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simplemid</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -945,7 +946,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/NPEValidation2 Test12.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.model</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.model</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -960,7 +961,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/NPEValidation2 Test12.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.model</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.model</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -975,7 +976,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/linked MID via LitExp.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.model2</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.model2</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -990,7 +991,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/linked MID via LitExp.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.model2</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.model2</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1006,7 +1007,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/Linked decision - Zip.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.linked_decision_zip</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.linked_decision_zip</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1021,7 +1022,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/Linked decision - Zip.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.linked_decision_zip</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.linked_decision_zip</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1037,7 +1038,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/Multi-List Output top decision.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.model3</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.model3</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1052,7 +1053,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/Multi-List Output top decision.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.model3</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.model3</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1067,7 +1068,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/Nulls with zip function.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.model4</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.model4</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1082,7 +1083,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/Nulls with zip function.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.model4</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.model4</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1097,7 +1098,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/Complex MID.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.model8</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.model8</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1112,7 +1113,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/Complex MID.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.model8</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.model8</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1127,7 +1128,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/ExecutionAnalysisTestModel.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.execution_analysis_test</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.execution_analysis_test</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1142,7 +1143,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/ExecutionAnalysisTestModel.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.execution_analysis_test</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.execution_analysis_test</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1158,7 +1159,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/simple-decision-with-bkm.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_decision_with_bkm</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_decision_with_bkm</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1173,7 +1174,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/simple-decision-with-bkm.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_decision_with_bkm</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_decision_with_bkm</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1188,7 +1189,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/BKMfromBKM.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.bkm_from_bkm</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.bkm_from_bkm</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1203,7 +1204,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/BKMfromBKM.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.bkm_from_bkm</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.bkm_from_bkm</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1218,7 +1219,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/BKMimportedfromMID.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.bkm_imported_from_mid</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.bkm_imported_from_mid</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1233,7 +1234,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/BKMimportedfromMID.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.bkm_imported_from_mid</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.bkm_imported_from_mid</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1248,7 +1249,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/BKMwithLiteralExpression.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.bkm_with_literal_expression</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.bkm_with_literal_expression</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1263,7 +1264,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/BKMwithLiteralExpression.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.bkm_with_literal_expression</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.bkm_with_literal_expression</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1278,7 +1279,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/SimpleBKMzip.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_bkm_zip</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_bkm_zip</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1293,7 +1294,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/SimpleBKMzip.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_bkm_zip</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_bkm_zip</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1309,7 +1310,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/simple-decision-with-user-function.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_decision_with_user_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_decision_with_user_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1324,7 +1325,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/simple-decision-with-external-function.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_decision_with_external_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_decision_with_external_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1339,7 +1340,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/ExternalFunctions.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.simple_decision_with_external_function_complex_type</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.simple_decision_with_external_function_complex_type</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1355,7 +1356,7 @@
                             <inputFileDirectory>src/main/resources/exported/dmn/complex/TestDecision.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.test_decision</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.test_decision</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1371,7 +1372,7 @@
                             <inputModelFileDirectory>src/main/resources/exported/dmn/complex/TestDecision.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.test_decision</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.test_decision</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1387,7 +1388,7 @@
                             <inputFileDirectory>src/main/resources/exported/dmn/complex/dmn-link-issue-1.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.dmn_link_issue_1</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.dmn_link_issue_1</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1403,7 +1404,7 @@
                             <inputModelFileDirectory>src/main/resources/exported/dmn/complex/dmn-link-issue-1.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.dmn_link_issue_1</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.dmn_link_issue_1</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1419,7 +1420,7 @@
                             <inputFileDirectory>src/main/resources/exported/dmn/complex/NullComplexTypeAccess.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.null_complex_type_access</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.null_complex_type_access</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1435,7 +1436,7 @@
                             <inputModelFileDirectory>src/main/resources/exported/dmn/complex/NullComplexTypeAccess.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.null_complex_type_access</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.null_complex_type_access</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1451,7 +1452,7 @@
                             <inputFileDirectory>src/main/resources/exported/dmn/complex/StringLength.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.string_length</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.string_length</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1467,7 +1468,7 @@
                             <inputModelFileDirectory>src/main/resources/exported/dmn/complex/StringLength.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.string_length</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.string_length</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1483,7 +1484,7 @@
                             <inputFileDirectory>src/main/resources/exported/dmn/complex/large-test-set.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.large_test_set</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.large_test_set</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1499,7 +1500,7 @@
                             <inputModelFileDirectory>src/main/resources/exported/dmn/complex/large-test-set.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.large_test_set</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.large_test_set</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1515,7 +1516,7 @@
                             <inputFileDirectory>src/main/resources/exported/dmn/complex/IteratorExampleReturningMultiple.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.mid_with_complex_output</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.mid_with_complex_output</javaRootPackage>
                             </inputParameters>
                             <dmnTransformers>
                                 <dmnTransformer>com.gs.dmn.signavio.transformation.RuleDescriptionTransformer</dmnTransformer>
@@ -1535,7 +1536,7 @@
                             <inputModelFileDirectory>src/main/resources/exported/dmn/complex/IteratorExampleReturningMultiple.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.mid_with_complex_output</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.mid_with_complex_output</javaRootPackage>
                             </inputParameters>
                             <dmnTransformers>
                                 <dmnTransformer>com.gs.dmn.signavio.transformation.RuleDescriptionTransformer</dmnTransformer>
@@ -1555,7 +1556,7 @@
                             <inputFileDirectory>src/main/resources/exported/dmn/complex/TypeInterfaceDeserialization.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.type_interface_deserialization</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.type_interface_deserialization</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1571,7 +1572,7 @@
                             <inputModelFileDirectory>src/main/resources/exported/dmn/complex/TypeInterfaceDeserialization.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.type_interface_deserialization</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.type_interface_deserialization</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1587,7 +1588,7 @@
                             <inputFileDirectory>src/main/resources/exported/dmn/complex/credit-decision-missing-definitions.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.missing_definition_transformation</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.missing_definition_transformation</javaRootPackage>
                             </inputParameters>
                             <dmnTransformers>
                                 <dmnTransformer>com.gs.dmn.signavio.transformation.RuleDescriptionTransformer</dmnTransformer>
@@ -1627,7 +1628,7 @@
                             <inputModelFileDirectory>src/main/resources/exported/dmn/complex/credit-decision-missing-definitions.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.missing_definition_transformation</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.missing_definition_transformation</javaRootPackage>
                             </inputParameters>
                             <dmnTransformers>
                                 <dmnTransformer>com.gs.dmn.signavio.transformation.RuleDescriptionTransformer</dmnTransformer>
@@ -1666,7 +1667,7 @@
                             <inputFileDirectory>src/main/resources/exported/dmn/complex/decision-with-annotations.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.decision_with_annotation</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.decision_with_annotation</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>

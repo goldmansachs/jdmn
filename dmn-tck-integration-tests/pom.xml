@@ -33,6 +33,7 @@
         <tck.diagram.folder>${project.basedir}/src/main/resources/tck</tck.diagram.folder>
 
         <generated.java.folder>${project.build.directory}/generated-sources/dmn</generated.java.folder>
+        <generated.root.package>com.gs.dmn.generated</generated.root.package>
         <tck.java.folder>${project.build.directory}/generated-test-sources/tck</tck.java.folder>
 
         <line.coverage.minimum>0.00</line.coverage.minimum>
@@ -78,7 +79,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0001-input-data-string.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0001_input_data_string</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0001_input_data_string</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -93,7 +94,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0001-input-data-string.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0001_input_data_string</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0001_input_data_string</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -108,7 +109,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0002-input-data-number.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0002_input_data_number</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0002_input_data_number</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -123,7 +124,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0002-input-data-number.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0002_input_data_number</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0002_input_data_number</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -138,7 +139,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0003-input-data-string-allowed-values.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0003_input_data_string_allowed_values</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0003_input_data_string_allowed_values</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -153,7 +154,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0003-input-data-string-allowed-values.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0003_input_data_string_allowed_values</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0003_input_data_string_allowed_values</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -168,7 +169,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0004-simpletable-U.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0004_simpletable_U</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0004_simpletable_U</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -183,7 +184,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0004-simpletable-U.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0004_simpletable_U</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0004_simpletable_U</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -198,7 +199,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0005-simpletable-A.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0005_simpletable_A</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0005_simpletable_A</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -213,7 +214,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0005-simpletable-A.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0005_simpletable_A</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0005_simpletable_A</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -228,7 +229,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0006-simpletable-P1.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0006_simpletable_P1</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0006_simpletable_P1</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -243,7 +244,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0006-simpletable-P1.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0006_simpletable_P1</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0006_simpletable_P1</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -258,7 +259,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0007-simpletable-P2.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0007_simpletable_P2</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0007_simpletable_P2</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -273,7 +274,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0007-simpletable-P2.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0007_simpletable_P2</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0007_simpletable_P2</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -288,7 +289,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0008-LX-arithmetic.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0008_LX_arithmetic</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0008_LX_arithmetic</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -303,7 +304,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0008-LX-arithmetic.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0008_LX_arithmetic</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0008_LX_arithmetic</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -318,7 +319,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0009-invocation-arithmetic.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0009_invocation_arithmetic</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0009_invocation_arithmetic</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -333,7 +334,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0009-invocation-arithmetic.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0009_invocation_arithmetic</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0009_invocation_arithmetic</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -348,7 +349,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0010-multi-output-U.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0010_multi_output_U</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0010_multi_output_U</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -363,7 +364,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0010-multi-output-U.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0010_multi_output_U</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0010_multi_output_U</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -378,7 +379,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0100-feel-constants.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0100_feel_constants</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0100_feel_constants</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -393,7 +394,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0100-feel-constants.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0100_feel_constants</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0100_feel_constants</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -408,7 +409,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0101-feel-constants.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0101_feel_constants</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0101_feel_constants</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -423,7 +424,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0101-feel-constants.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0101_feel_constants</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0101_feel_constants</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -438,7 +439,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0102-feel-constants.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0102_feel_constants</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0102_feel_constants</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -453,7 +454,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0102-feel-constants.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0102_feel_constants</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0102_feel_constants</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -468,7 +469,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0105-feel-math.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0105_feel_math</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0105_feel_math</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -483,7 +484,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0105-feel-math.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0105_feel_math</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0105_feel_math</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -498,7 +499,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0106-feel-ternary-logic.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0106_feel_ternary_logic</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0106_feel_ternary_logic</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -513,7 +514,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0106-feel-ternary-logic.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0106_feel_ternary_logic</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0106_feel_ternary_logic</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -528,7 +529,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0107-feel-ternary-logic-not.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0107_feel_ternary_logic_not</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0107_feel_ternary_logic_not</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -543,7 +544,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0107-feel-ternary-logic-not.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl2_0107_feel_ternary_logic_not</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl2_0107_feel_ternary_logic_not</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -559,7 +560,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0001-filter.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0001_filter</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0001_filter</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -574,7 +575,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0001-filter.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0001_filter</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0001_filter</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -589,7 +590,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0002-string-functions.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0002_string_functions</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0002_string_functions</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -604,7 +605,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0002-string-functions.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0002_string_functions</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0002_string_functions</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -619,7 +620,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0003-iteration.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0003_iteration</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0003_iteration</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -634,7 +635,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0003-iteration.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0003_iteration</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0003_iteration</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -653,7 +654,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0004_lending_dag</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending_dag</javaRootPackage>
                                 <caching>false</caching>
                             </inputParameters>
                         </configuration>
@@ -670,7 +671,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0004_lending_dag</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending_dag</javaRootPackage>
                                 <caching>false</caching>
                             </inputParameters>
                         </configuration>
@@ -690,7 +691,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0004_lending_tree</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending_tree</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -706,7 +707,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0004_lending_tree</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending_tree</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -721,7 +722,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0005-literal-invocation.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0005_literal_invocation</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0005_literal_invocation</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -736,7 +737,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0005-literal-invocation.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0005_literal_invocation</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0005_literal_invocation</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -751,7 +752,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0006-join.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0006_join</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0006_join</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -766,7 +767,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0006-join.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0006_join</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0006_join</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -781,7 +782,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0007-date-time.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0007_date_time</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0007_date_time</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -796,7 +797,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0007-date-time.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0007_date_time</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0007_date_time</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -811,7 +812,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0008-listGen.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0008_listGen</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0008_listGen</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -826,7 +827,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0008-listGen.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0008_listGen</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0008_listGen</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -841,7 +842,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0009-append-flatten.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0009_append_flatten</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0009_append_flatten</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -856,7 +857,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0009-append-flatten.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0009_append_flatten</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0009_append_flatten</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -871,7 +872,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0010-concatenate.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0010_concatenate</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0010_concatenate</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -886,7 +887,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0010-concatenate.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0010_concatenate</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0010_concatenate</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -901,7 +902,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0011-insert-remove.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0011_insert_remove</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0011_insert_remove</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -916,7 +917,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0011-insert-remove.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0011_insert_remove</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0011_insert_remove</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -931,7 +932,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0012-list-functions.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0012_list_functions</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0012_list_functions</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -946,7 +947,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0012-list-functions.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0012_list_functions</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0012_list_functions</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -961,7 +962,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0013-sort.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0013_sort</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0013_sort</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -976,7 +977,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0013-sort.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0013_sort</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0013_sort</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -991,7 +992,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0014-loan-comparison.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0014_loan_comparison</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0014_loan_comparison</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1006,7 +1007,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0014-loan-comparison.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0014_loan_comparison</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0014_loan_comparison</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1021,7 +1022,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0016-some-every.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0016_some_every</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0016_some_every</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1036,7 +1037,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0016-some-every.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0016_some_every</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0016_some_every</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1051,7 +1052,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0017-tableTests.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0017_tableTests</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0017_tableTests</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1066,7 +1067,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0017-tableTests.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0017_tableTests</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0017_tableTests</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1081,7 +1082,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0020-vacation-days.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0020_vacation_days</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0020_vacation_days</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1096,7 +1097,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0020-vacation-days.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0020_vacation_days</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0020_vacation_days</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1111,7 +1112,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0021-singleton-list.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0021_singleton_list</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0021_singleton_list</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1126,7 +1127,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0021-singleton-list.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0021_singleton_list</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0021_singleton_list</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1141,7 +1142,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0030-static-user-defined-functions.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0030_static_user_defined_functions</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0030_static_user_defined_functions</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1156,7 +1157,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0030-static-user-defined-functions.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0030_static_user_defined_functions</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0030_static_user_defined_functions</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1171,7 +1172,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0031-static-user-defined-functions.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_static_0031_user_defined_functions</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_static_0031_user_defined_functions</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1186,7 +1187,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0031-static-user-defined-functions.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_static_0031_user_defined_functions</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_static_0031_user_defined_functions</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1201,7 +1202,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0032-conditionals.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0032_conditionals</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0032_conditionals</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1216,7 +1217,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0032-conditionals.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0032_conditionals</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0032_conditionals</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1231,7 +1232,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0033-for-loops.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0033_for_loops</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0033_for_loops</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1246,7 +1247,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0033-for-loops.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_0033_for_loops</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0033_for_loops</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1261,7 +1262,7 @@
                             <inputFileDirectory>src/main/resources/tck/cl3/1100-feel-decimal-function.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1100_feel_decimal_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1100_feel_decimal_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1276,7 +1277,7 @@
                             <inputModelFileDirectory>src/main/resources/tck/cl3/1100-feel-decimal-function.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1100_feel_decimal_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1100_feel_decimal_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1291,7 +1292,7 @@
                             <inputFileDirectory>src/main/resources/tck/cl3/1101-feel-floor-function.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1101_feel_floor_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1101_feel_floor_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1306,7 +1307,7 @@
                             <inputModelFileDirectory>src/main/resources/tck/cl3/1101-feel-floor-function.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1101_feel_floor_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1101_feel_floor_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1321,7 +1322,7 @@
                             <inputFileDirectory>src/main/resources/tck/cl3/1102-feel-ceiling-function.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1102_feel_ceiling_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1102_feel_ceiling_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1336,7 +1337,7 @@
                             <inputModelFileDirectory>src/main/resources/tck/cl3/1102-feel-ceiling-function.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1102_feel_ceiling_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1102_feel_ceiling_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1351,7 +1352,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1103-feel-substring-function.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1103_feel_substring_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1103_feel_substring_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1366,7 +1367,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1103-feel-substring-function.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1103_feel_substring_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1103_feel_substring_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1381,7 +1382,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1104-feel-string-length-function.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1104_feel_string_length_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1104_feel_string_length_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1396,7 +1397,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1104-feel-string-length-function.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1104_feel_string_length_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1104_feel_string_length_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1411,7 +1412,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1105-feel-upper-case-function.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1105_feel_upper_case_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1105_feel_upper_case_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1426,7 +1427,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1105-feel-upper-case-function.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1105_feel_upper_case_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1105_feel_upper_case_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1441,7 +1442,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1106-feel-lower-case-function.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1106_feel_lower_case_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1106_feel_lower_case_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1456,7 +1457,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1106-feel-lower-case-function.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1106_feel_lower_case_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1106_feel_lower_case_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1471,7 +1472,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1107-feel-substring-before-function.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1107_feel_substring_before_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1107_feel_substring_before_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1486,7 +1487,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1107-feel-substring-before-function.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1107_feel_substring_before_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1107_feel_substring_before_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1501,7 +1502,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1108-feel-substring-after-function.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1108_feel_substring_after_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1108_feel_substring_after_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1516,7 +1517,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1108-feel-substring-after-function.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1108_feel_substring_after_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1108_feel_substring_after_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1531,7 +1532,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1109-feel-replace-function.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1109_feel_replace_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1109_feel_replace_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1546,7 +1547,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1109-feel-replace-function.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1109_feel_replace_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1109_feel_replace_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1561,7 +1562,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1110-feel-contains-function.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1110_feel_contains_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1110_feel_contains_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1576,7 +1577,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1110-feel-contains-function.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1110_feel_contains_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1110_feel_contains_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1591,7 +1592,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1115-feel-date-function.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1115_feel_date_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1115_feel_date_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1606,7 +1607,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1115-feel-date-function.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1115_feel_date_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1115_feel_date_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1621,7 +1622,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1116-feel-time-function.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1116_feel_time_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1116_feel_time_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1636,7 +1637,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1116-feel-time-function.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1116_feel_time_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1116_feel_time_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1651,7 +1652,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1117-feel-date-and-time-function.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1117_feel_date_and_time_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1117_feel_date_and_time_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1666,7 +1667,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1117-feel-date-and-time-function.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1117_feel_date_and_time_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1117_feel_date_and_time_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1681,7 +1682,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1120-feel-duration-function.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1120_feel_duration_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1120_feel_duration_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1696,7 +1697,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1120-feel-duration-function.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1120_feel_duration_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1120_feel_duration_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1711,7 +1712,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1121-feel-years-and-months-duration-function.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1121_feel_years_and_months_duration_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1121_feel_years_and_months_duration_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1726,7 +1727,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1121-feel-years-and-months-duration-function.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_1121_feel_years_and_months_duration_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1121_feel_years_and_months_duration_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1741,7 +1742,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/9001-recursive-function.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_9001_recursive_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_9001_recursive_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1756,7 +1757,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/9001-recursive-function.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.cl3_9001_recursive_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_9001_recursive_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1773,7 +1774,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/nc/0015-all-any.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.nc_0015_all_any</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.nc_0015_all_any</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1788,7 +1789,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/nc/0015-all-any.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.nc_0015_all_any</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.nc_0015_all_any</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1803,7 +1804,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/nc/0019-flight-rebooking.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.nc_0019_flight_rebooking</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.nc_0019_flight_rebooking</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1818,7 +1819,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/nc/0019-flight-rebooking.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>com.gs.dmn.tck.nc_0019_flight_rebooking</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.nc_0019_flight_rebooking</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
