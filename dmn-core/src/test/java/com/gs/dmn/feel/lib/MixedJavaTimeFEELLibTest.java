@@ -39,8 +39,8 @@ public class MixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal
     public void testDateSubtract() {
         super.testDateSubtract();
 
-        assertEqualsTime("P0Y0M", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-01")));
-        assertEqualsTime("P0Y0M", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-03")));
+        assertEqualsDateTime("P0Y0M", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-01")));
+        assertEqualsDateTime("P0Y0M", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-03")));
     }
 
     //
@@ -51,8 +51,8 @@ public class MixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal
     public void testDate() {
         super.testDate();
 
-        assertEqualsTime("2016-08-01", getLib().date(makeDate("2016-08-01")));
-        assertEqualsTime("2017-10-11", getLib().date(getLib().date("2017-10-11")));
+        assertEqualsDateTime("2016-08-01", getLib().date(makeDate("2016-08-01")));
+        assertEqualsDateTime("2017-10-11", getLib().date(getLib().date("2017-10-11")));
     }
 
     @Override
@@ -60,11 +60,11 @@ public class MixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal
     public void testTime() {
         super.testTime();
 
-        assertEqualsTime("12:00:00Z", getLib().time(makeTime("12:00:00Z")));
-        assertEqualsTime("12:00:00Z", getLib().time(
+        assertEqualsDateTime("12:00:00Z", getLib().time(makeTime("12:00:00Z")));
+        assertEqualsDateTime("12:00:00Z", getLib().time(
                 makeNumber("12"), makeNumber("00"), makeNumber("00"),
                 null));
-        assertEqualsTime("00:00:00Z", getLib().time(getLib().date("2017-08-10")));
+        assertEqualsDateTime("00:00:00Z", getLib().time(getLib().date("2017-08-10")));
     }
 
     @Override
@@ -73,18 +73,18 @@ public class MixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal
         super.testDateTime();
 
         // Test date
-        assertEqualsTime("2016-08-01T00:00:00Z", getLib().dateAndTime("2016-08-01"));
+        assertEqualsDateTime("2016-08-01T00:00:00Z", getLib().dateAndTime("2016-08-01"));
 
         // Missing Z
-        assertEqualsTime("-2016-01-30T09:05:00Z", getLib().dateAndTime("-2016-01-30T09:05:00"));
-        assertEqualsTime("-2017-02-28T02:02:02Z", getLib().dateAndTime("-2017-02-28T02:02:02"));
+        assertEqualsDateTime("-2016-01-30T09:05:00Z", getLib().dateAndTime("-2016-01-30T09:05:00"));
+        assertEqualsDateTime("-2017-02-28T02:02:02Z", getLib().dateAndTime("-2017-02-28T02:02:02"));
 
-        assertEqualsTime("2016-08-01T11:00:00Z", getLib().dateAndTime("2016-08-01T11:00:00"));
-        assertEqualsTime("2011-12-03T10:15:30+01:00@Europe/Paris", getLib().dateAndTime("2011-12-03T10:15:30@Europe/Paris"));
+        assertEqualsDateTime("2016-08-01T11:00:00Z", getLib().dateAndTime("2016-08-01T11:00:00"));
+        assertEqualsDateTime("2011-12-03T10:15:30+01:00@Europe/Paris", getLib().dateAndTime("2011-12-03T10:15:30@Europe/Paris"));
 
         // Test minimum and maximum
-        assertEqualsTime("-99999-12-31T11:22:33Z@UTC", getLib().dateAndTime("-99999-12-31T11:22:33"));
-        assertEqualsTime("99999-12-31T11:22:33Z@UTC", getLib().dateAndTime("99999-12-31T11:22:33"));
+        assertEqualsDateTime("-99999-12-31T11:22:33Z@UTC", getLib().dateAndTime("-99999-12-31T11:22:33"));
+        assertEqualsDateTime("99999-12-31T11:22:33Z@UTC", getLib().dateAndTime("99999-12-31T11:22:33"));
     }
 
    @Test
@@ -102,9 +102,9 @@ public class MixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal
     public void testString() {
         assertEquals("null", getLib().string(null));
 
-        assertEqualsTime("2016-08-01", getLib().string(makeDate("2016-08-01")));
-        assertEqualsTime("11:00:01Z", getLib().string(makeTime("11:00:01Z")));
-        assertEqualsTime("2016-08-01T11:00:01Z", getLib().string(makeDateAndTime("2016-08-01T11:00:01Z")));
+        assertEqualsDateTime("2016-08-01", getLib().string(makeDate("2016-08-01")));
+        assertEqualsDateTime("11:00:01Z", getLib().string(makeTime("11:00:01Z")));
+        assertEqualsDateTime("2016-08-01T11:00:01Z", getLib().string(makeDateAndTime("2016-08-01T11:00:01Z")));
         assertEquals("123.45", getLib().string(makeNumber("123.45")));
         assertEquals("true", getLib().string(true));
 
@@ -201,7 +201,7 @@ public class MixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal
     }
 
     @Override
-    protected void assertEqualsTime(String expected, Object actual) {
+    protected void assertEqualsDateTime(String expected, Object actual) {
         if (actual instanceof LocalDate) {
             String actualText = ((LocalDate) actual).format(BaseDateTimeLib.FEEL_DATE_FORMAT);
             assertEquals(expected, cleanActualText(actualText));

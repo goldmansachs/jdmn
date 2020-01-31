@@ -34,8 +34,8 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
     public void testDateSubtract() {
         super.testDateSubtract();
 
-        assertEqualsTime("P0Y0M0DT0H0M0.000S", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-01")).toString());
-        assertEqualsTime("-P0Y0M2DT0H0M0.000S", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-03")).toString());
+        assertEqualsDateTime("P0Y0M0DT0H0M0.000S", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-01")).toString());
+        assertEqualsDateTime("-P0Y0M2DT0H0M0.000S", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-03")).toString());
     }
 
     //
@@ -76,8 +76,8 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
 
         assertNull(getLib().date("01211-12-31"));
 
-        assertEqualsTime("2016-08-01", getLib().date(makeDate("2016-08-01")));
-        assertEqualsTime("2017-10-11", getLib().date(getLib().date("2017-10-11")));
+        assertEqualsDateTime("2016-08-01", getLib().date(makeDate("2016-08-01")));
+        assertEqualsDateTime("2017-10-11", getLib().date(getLib().date("2017-10-11")));
     }
 
     @Override
@@ -85,11 +85,11 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
     public void testTime() {
         super.testTime();
 
-        assertEqualsTime("12:00:00Z", getLib().time(makeTime("12:00:00Z")));
-        assertEqualsTime("12:00:00", getLib().time(
+        assertEqualsDateTime("12:00:00Z", getLib().time(makeTime("12:00:00Z")));
+        assertEqualsDateTime("12:00:00", getLib().time(
                 makeNumber("12"), makeNumber("00"), makeNumber("00"),
                 null));
-        assertEqualsTime("00:00:00Z", getLib().time(getLib().date("2017-08-10")));
+        assertEqualsDateTime("00:00:00Z", getLib().time(getLib().date("2017-08-10")));
     }
 
     @Override
@@ -98,14 +98,14 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
         super.testDateTime();
 
         // Test date
-        assertEqualsTime("2016-08-01T00:00:00", getLib().dateAndTime("2016-08-01"));
+        assertEqualsDateTime("2016-08-01T00:00:00", getLib().dateAndTime("2016-08-01"));
 
         // Missing Z
-        assertEqualsTime("-2016-01-30T09:05:00", getLib().dateAndTime("-2016-01-30T09:05:00"));
-        assertEqualsTime("-2017-02-28T02:02:02", getLib().dateAndTime("-2017-02-28T02:02:02"));
+        assertEqualsDateTime("-2016-01-30T09:05:00", getLib().dateAndTime("-2016-01-30T09:05:00"));
+        assertEqualsDateTime("-2017-02-28T02:02:02", getLib().dateAndTime("-2017-02-28T02:02:02"));
 
-        assertEqualsTime("2016-08-01T11:00:00", getLib().dateAndTime("2016-08-01T11:00:00"));
-        assertEqualsTime("2011-12-03T10:15:30@Europe/Paris", getLib().dateAndTime("2011-12-03T10:15:30@Europe/Paris"));
+        assertEqualsDateTime("2016-08-01T11:00:00", getLib().dateAndTime("2016-08-01T11:00:00"));
+        assertEqualsDateTime("2011-12-03T10:15:30@Europe/Paris", getLib().dateAndTime("2011-12-03T10:15:30@Europe/Paris"));
     }
 
     @Override

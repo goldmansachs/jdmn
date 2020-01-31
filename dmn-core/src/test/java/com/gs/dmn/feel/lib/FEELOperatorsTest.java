@@ -237,8 +237,8 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertNull(getLib().dateAddDuration(null, makeDuration("P0Y2M")));
         assertNull(getLib().dateAddDuration(makeDate("2016-08-01"), null));
 
-        assertEqualsTime("2016-10-01", getLib().dateAddDuration(makeDate("2016-08-01"), makeDuration("P0Y2M")));
-        assertEqualsTime("2016-06-01", getLib().dateAddDuration(makeDate("2016-08-01"), makeDuration("-P0Y2M")));
+        assertEqualsDateTime("2016-10-01", getLib().dateAddDuration(makeDate("2016-08-01"), makeDuration("P0Y2M")));
+        assertEqualsDateTime("2016-06-01", getLib().dateAddDuration(makeDate("2016-08-01"), makeDuration("-P0Y2M")));
     }
 
     @Test
@@ -247,8 +247,8 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertNull(getLib().dateSubtractDuration(null, makeDuration("P0Y2M")));
         assertNull(getLib().dateSubtractDuration(makeDate("2016-08-01"), null));
 
-        assertEqualsTime("2016-06-01", getLib().dateSubtractDuration(makeDate("2016-08-01"), makeDuration("P0Y2M")));
-        assertEqualsTime("2016-10-01", getLib().dateSubtractDuration(makeDate("2016-08-01"), makeDuration("-P0Y2M")));
+        assertEqualsDateTime("2016-06-01", getLib().dateSubtractDuration(makeDate("2016-08-01"), makeDuration("P0Y2M")));
+        assertEqualsDateTime("2016-10-01", getLib().dateSubtractDuration(makeDate("2016-08-01"), makeDuration("-P0Y2M")));
     }
 
     //
@@ -324,9 +324,9 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertNull(getLib().timeSubtract(null, makeTime("12:00:00Z")));
         assertNull(getLib().timeSubtract(makeTime("12:00:00Z"), null));
 
-        assertEqualsTime("P0Y0M0DT1H0M0.000S", getLib().timeSubtract(makeTime("13:00:00Z"), makeTime("12:00:00Z")));
-        assertEqualsTime("P0Y0M0DT0H0M0.000S", getLib().timeSubtract(makeTime("12:00:00Z"), makeTime("12:00:00Z")));
-        assertEqualsTime("-P0Y0M0DT1H0M0.000S", getLib().timeSubtract(makeTime("12:00:00Z"), makeTime("13:00:00Z")));
+        assertEqualsDateTime("P0Y0M0DT1H0M0.000S", getLib().timeSubtract(makeTime("13:00:00Z"), makeTime("12:00:00Z")));
+        assertEqualsDateTime("P0Y0M0DT0H0M0.000S", getLib().timeSubtract(makeTime("12:00:00Z"), makeTime("12:00:00Z")));
+        assertEqualsDateTime("-P0Y0M0DT1H0M0.000S", getLib().timeSubtract(makeTime("12:00:00Z"), makeTime("13:00:00Z")));
     }
 
     @Test
@@ -335,8 +335,8 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertNull(getLib().timeAddDuration(null, makeDuration("P0DT1H")));
         assertNull(getLib().timeAddDuration(makeTime("12:00:00Z"), null));
 
-        assertEqualsTime("13:00:01Z", getLib().timeAddDuration(makeTime("12:00:01Z"), makeDuration("P0DT1H")));
-        assertEqualsTime("12:00:01Z", getLib().timeAddDuration(makeTime("12:00:01Z"), makeDuration("P1DT0H")));
+        assertEqualsDateTime("13:00:01Z", getLib().timeAddDuration(makeTime("12:00:01Z"), makeDuration("P0DT1H")));
+        assertEqualsDateTime("12:00:01Z", getLib().timeAddDuration(makeTime("12:00:01Z"), makeDuration("P1DT0H")));
     }
 
     @Test
@@ -345,8 +345,8 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertNull(getLib().timeSubtractDuration(null, makeDuration("P0DT1H")));
         assertNull(getLib().timeSubtractDuration(makeTime("12:00:01Z"), null));
 
-        assertEqualsTime("11:00:01Z", getLib().timeSubtractDuration(makeTime("12:00:01Z"), makeDuration("P0DT1H")));
-        assertEqualsTime("12:00:01Z", getLib().timeSubtractDuration(makeTime("12:00:01Z"), makeDuration("P1DT0H")));
+        assertEqualsDateTime("11:00:01Z", getLib().timeSubtractDuration(makeTime("12:00:01Z"), makeDuration("P0DT1H")));
+        assertEqualsDateTime("12:00:01Z", getLib().timeSubtractDuration(makeTime("12:00:01Z"), makeDuration("P1DT0H")));
     }
 
     //
@@ -418,9 +418,9 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertNull(getLib().dateTimeSubtract(null, makeDateAndTime("2016-08-01T12:00:00Z")));
         assertNull(getLib().dateTimeSubtract(makeDateAndTime("2016-08-01T12:00:00Z"), null));
 
-        assertEqualsTime("P0Y0M0DT1H0M0.000S", getLib().dateTimeSubtract(makeDateAndTime("2016-08-01T13:00:00Z"), makeDateAndTime("2016-08-01T12:00:00Z")).toString());
-        assertEqualsTime("P0Y0M0DT0H0M0.000S", getLib().dateTimeSubtract(makeDateAndTime("2016-08-01T12:00:00Z"), makeDateAndTime("2016-08-01T12:00:00Z")).toString());
-        assertEqualsTime("-P0Y0M2DT1H0M0.000S", getLib().dateTimeSubtract(makeDateAndTime("2016-08-01T12:00:00Z"), makeDateAndTime("2016-08-03T13:00:00Z")).toString());
+        assertEqualsDateTime("P0Y0M0DT1H0M0.000S", getLib().dateTimeSubtract(makeDateAndTime("2016-08-01T13:00:00Z"), makeDateAndTime("2016-08-01T12:00:00Z")).toString());
+        assertEqualsDateTime("P0Y0M0DT0H0M0.000S", getLib().dateTimeSubtract(makeDateAndTime("2016-08-01T12:00:00Z"), makeDateAndTime("2016-08-01T12:00:00Z")).toString());
+        assertEqualsDateTime("-P0Y0M2DT1H0M0.000S", getLib().dateTimeSubtract(makeDateAndTime("2016-08-01T12:00:00Z"), makeDateAndTime("2016-08-03T13:00:00Z")).toString());
     }
 
     @Test
@@ -429,11 +429,11 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertNull(getLib().dateTimeAddDuration(null, makeDuration("P1Y1M")));
         assertNull(getLib().dateTimeAddDuration(makeDateAndTime("2016-08-01T12:00:00Z"), null));
 
-        assertEqualsTime("2017-03-01T12:00:01Z", getLib().dateTimeAddDuration(makeDateAndTime("2016-02-01T12:00:01Z"), makeDuration("P1Y1M")).toString());
-        assertEqualsTime("2015-01-01T12:00:01Z", getLib().dateTimeAddDuration(makeDateAndTime("2016-02-01T12:00:01Z"), makeDuration("-P1Y1M")).toString());
+        assertEqualsDateTime("2017-03-01T12:00:01Z", getLib().dateTimeAddDuration(makeDateAndTime("2016-02-01T12:00:01Z"), makeDuration("P1Y1M")).toString());
+        assertEqualsDateTime("2015-01-01T12:00:01Z", getLib().dateTimeAddDuration(makeDateAndTime("2016-02-01T12:00:01Z"), makeDuration("-P1Y1M")).toString());
 
-        assertEqualsTime("2016-02-02T13:00:01Z", getLib().dateTimeAddDuration(makeDateAndTime("2016-02-01T12:00:01Z"), makeDuration("P1DT1H")).toString());
-        assertEqualsTime("2016-01-31T11:00:01Z", getLib().dateTimeAddDuration(makeDateAndTime("2016-02-01T12:00:01Z"), makeDuration("-P1DT1H")).toString());
+        assertEqualsDateTime("2016-02-02T13:00:01Z", getLib().dateTimeAddDuration(makeDateAndTime("2016-02-01T12:00:01Z"), makeDuration("P1DT1H")).toString());
+        assertEqualsDateTime("2016-01-31T11:00:01Z", getLib().dateTimeAddDuration(makeDateAndTime("2016-02-01T12:00:01Z"), makeDuration("-P1DT1H")).toString());
     }
 
     @Test
@@ -442,11 +442,11 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertNull(getLib().dateTimeSubtractDuration(null, makeDuration("P1Y1M")));
         assertNull(getLib().dateTimeSubtractDuration(makeDateAndTime("2016-08-01T12:00:00Z"), null));
 
-        assertEqualsTime("2015-01-01T12:00:01Z", getLib().dateTimeSubtractDuration(makeDateAndTime("2016-02-01T12:00:01Z"), makeDuration("P1Y1M")).toString());
-        assertEqualsTime("2017-03-01T12:00:01Z", getLib().dateTimeSubtractDuration(makeDateAndTime("2016-02-01T12:00:01Z"), makeDuration("-P1Y1M")).toString());
+        assertEqualsDateTime("2015-01-01T12:00:01Z", getLib().dateTimeSubtractDuration(makeDateAndTime("2016-02-01T12:00:01Z"), makeDuration("P1Y1M")).toString());
+        assertEqualsDateTime("2017-03-01T12:00:01Z", getLib().dateTimeSubtractDuration(makeDateAndTime("2016-02-01T12:00:01Z"), makeDuration("-P1Y1M")).toString());
 
-        assertEqualsTime("2016-01-31T11:00:01Z", getLib().dateTimeSubtractDuration(makeDateAndTime("2016-02-01T12:00:01Z"), makeDuration("P1DT1H")).toString());
-        assertEqualsTime("2016-02-02T13:00:01Z", getLib().dateTimeSubtractDuration(makeDateAndTime("2016-02-01T12:00:01Z"), makeDuration("-P1DT1H")).toString());
+        assertEqualsDateTime("2016-01-31T11:00:01Z", getLib().dateTimeSubtractDuration(makeDateAndTime("2016-02-01T12:00:01Z"), makeDuration("P1DT1H")).toString());
+        assertEqualsDateTime("2016-02-02T13:00:01Z", getLib().dateTimeSubtractDuration(makeDateAndTime("2016-02-01T12:00:01Z"), makeDuration("-P1DT1H")).toString());
     }
 
     //
@@ -809,7 +809,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         }
     }
 
-    protected void assertEqualsTime(String expected, Object actual) {
+    protected void assertEqualsDateTime(String expected, Object actual) {
         if (actual instanceof XMLGregorianCalendar) {
             assertEquals(expected, actual.toString());
         } else if (actual instanceof LocalDate) {

@@ -56,11 +56,11 @@ public class DefaultSignavioLibTest extends BaseSignavioLibTest<BigDecimal, XMLG
         assertNull(getLib().dayAdd(null, makeNumber("360")));
         assertNull(getLib().dayAdd(makeDateAndTime("2015-12-24T12:15:00.000+01:00"), null));
 
-        assertEqualsTime("2015-12-25T12:15:00.001+01:00", getLib().dayAdd(makeDateAndTime("2015-12-24T12:15:00.001+01:00"), makeNumber("1")));
-        assertEqualsTime("2016-12-18T12:15:00.001+01:00", getLib().dayAdd(makeDateAndTime("2015-12-24T12:15:00.001+01:00"), makeNumber("360")));
-        assertEqualsTime("2015-12-25", getLib().dayAdd(makeDate("2015-12-24"), makeNumber("1")));
-        assertEqualsTime("2016-12-18", getLib().dayAdd(makeDate("2015-12-24"), makeNumber("360")));
-        assertEqualsTime("2015-12-23", getLib().dayAdd(makeDate("2015-12-24"), makeNumber("-1")));
+        assertEqualsDateTime("2015-12-25T12:15:00.001+01:00", getLib().dayAdd(makeDateAndTime("2015-12-24T12:15:00.001+01:00"), makeNumber("1")));
+        assertEqualsDateTime("2016-12-18T12:15:00.001+01:00", getLib().dayAdd(makeDateAndTime("2015-12-24T12:15:00.001+01:00"), makeNumber("360")));
+        assertEqualsDateTime("2015-12-25", getLib().dayAdd(makeDate("2015-12-24"), makeNumber("1")));
+        assertEqualsDateTime("2016-12-18", getLib().dayAdd(makeDate("2015-12-24"), makeNumber("360")));
+        assertEqualsDateTime("2015-12-23", getLib().dayAdd(makeDate("2015-12-24"), makeNumber("-1")));
         assertNull(getLib().dayAdd(makeDateAndTime("x"), makeNumber("360")));
     }
 
@@ -86,13 +86,13 @@ public class DefaultSignavioLibTest extends BaseSignavioLibTest<BigDecimal, XMLG
     public void testDate() {
         super.testDate();
 
-        assertEqualsTime("2016-01-01", getLib().date("2016-01-01"));
+        assertEqualsDateTime("2016-01-01", getLib().date("2016-01-01"));
     }
 
     @Override
     @Test
-    public void testDateTime() {
-        super.testDateTime();
+    public void testDateAndTime() {
+        super.testDateAndTime();
     }
 
     @Test
@@ -151,12 +151,12 @@ public class DefaultSignavioLibTest extends BaseSignavioLibTest<BigDecimal, XMLG
         assertNull(getLib().monthAdd(null, makeNumber("1")));
         assertNull(getLib().monthAdd(makeDate("2015-01-05"), null));
 
-        assertEqualsTime("2015-02-05", getLib().monthAdd(makeDate("2015-01-05"), makeNumber("1")));
-        assertEqualsTime("2016-01-05", getLib().monthAdd(makeDate("2015-01-05"), makeNumber("12")));
-        assertEqualsTime("2014-11-05", getLib().monthAdd(makeDate("2015-01-05"), makeNumber("-2")));
-        assertEqualsTime("2015-02-05T12:15:00.001+01:00", getLib().monthAdd(makeDateAndTime("2015-01-05T12:15:00.001+01:00"), makeNumber("1")));
-        assertEqualsTime("2016-01-05T12:15:00.001+01:00", getLib().monthAdd(makeDateAndTime("2015-01-05T12:15:00.001+01:00"), makeNumber("12")));
-        assertEqualsTime("2014-11-05T12:15:00.001+01:00", getLib().monthAdd(makeDateAndTime("2015-01-05T12:15:00.001+01:00"), makeNumber("-2")));
+        assertEqualsDateTime("2015-02-05", getLib().monthAdd(makeDate("2015-01-05"), makeNumber("1")));
+        assertEqualsDateTime("2016-01-05", getLib().monthAdd(makeDate("2015-01-05"), makeNumber("12")));
+        assertEqualsDateTime("2014-11-05", getLib().monthAdd(makeDate("2015-01-05"), makeNumber("-2")));
+        assertEqualsDateTime("2015-02-05T12:15:00.001+01:00", getLib().monthAdd(makeDateAndTime("2015-01-05T12:15:00.001+01:00"), makeNumber("1")));
+        assertEqualsDateTime("2016-01-05T12:15:00.001+01:00", getLib().monthAdd(makeDateAndTime("2015-01-05T12:15:00.001+01:00"), makeNumber("12")));
+        assertEqualsDateTime("2014-11-05T12:15:00.001+01:00", getLib().monthAdd(makeDateAndTime("2015-01-05T12:15:00.001+01:00"), makeNumber("-2")));
         assertNull(getLib().monthAdd(makeDateAndTime("xxx"), makeNumber("12")));
         assertNull(getLib().monthAdd(null, makeNumber("12")));
     }
@@ -221,10 +221,10 @@ public class DefaultSignavioLibTest extends BaseSignavioLibTest<BigDecimal, XMLG
         assertNull(getLib().yearAdd(null, makeNumber("1")));
         assertNull(getLib().yearAdd(makeDate("2015-01-05"), null));
 
-        assertEqualsTime("2016-01-05", getLib().yearAdd(makeDate("2015-01-05"), makeNumber("1")));
-        assertEqualsTime("2027-01-05", getLib().yearAdd(makeDate("2015-01-05"), makeNumber("12")));
-        assertEqualsTime("2016-01-05T12:15:00.001+01:00", getLib().yearAdd(makeDateAndTime("2015-01-05T12:15:00.001+01:00"), makeNumber("1")));
-        assertEqualsTime("2027-01-05T12:15:00.001+01:00", getLib().yearAdd(makeDateAndTime("2015-01-05T12:15:00.001+01:00"), makeNumber("12")));
+        assertEqualsDateTime("2016-01-05", getLib().yearAdd(makeDate("2015-01-05"), makeNumber("1")));
+        assertEqualsDateTime("2027-01-05", getLib().yearAdd(makeDate("2015-01-05"), makeNumber("12")));
+        assertEqualsDateTime("2016-01-05T12:15:00.001+01:00", getLib().yearAdd(makeDateAndTime("2015-01-05T12:15:00.001+01:00"), makeNumber("1")));
+        assertEqualsDateTime("2027-01-05T12:15:00.001+01:00", getLib().yearAdd(makeDateAndTime("2015-01-05T12:15:00.001+01:00"), makeNumber("12")));
         assertNull(getLib().yearAdd(makeDateAndTime("xxx"), makeNumber("12")));
         assertNull(getLib().yearAdd(null, makeNumber("12")));
     }

@@ -166,6 +166,34 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     //
+    // Date and time
+    //
+    @Test
+    public void testDate() {
+        assertNull(getLib().date(makeNumber("2016"), null, null));
+        assertNull(getLib().date(null, makeNumber("8"), null));
+        assertNull(getLib().date(null, null, makeNumber("1")));
+        assertNull(getLib().date(makeNumber("-2016"), makeNumber("8"), makeNumber("1")));
+        assertNull(getLib().date(makeNumber("2016"), makeNumber("-8"), makeNumber("1")));
+        assertNull(getLib().date(makeNumber("2016"), makeNumber("8"), makeNumber("-1")));
+
+        assertEqualsDateTime("2016-08-01", getLib().date(makeNumber("2016"), makeNumber("8"), makeNumber("1")));
+    }
+
+    @Test
+    public void testDateTime() {
+        assertNull(getLib().dateTime(null, null, null, null, null, null));
+        assertNull(getLib().dateTime(null, null, null, null, null, null, null));
+
+        assertNull(getLib().dateTime(makeNumber(-1), makeNumber(-1), makeNumber(-1), makeNumber(-1), makeNumber(-1), makeNumber(-1)));
+        assertNull(getLib().dateTime(makeNumber(-1), makeNumber(-1), makeNumber(-1), makeNumber(-1), makeNumber(-1), makeNumber(-1), makeNumber(-1)));
+
+        assertEqualsDateTime("2000-01-02T03:04:05Z", getLib().dateTime(makeNumber("2"), makeNumber("1"), makeNumber("2000"), makeNumber("3"), makeNumber("4"), makeNumber("5")));
+        assertEqualsDateTime("2000-01-02T03:04:05+06:00", getLib().dateTime(makeNumber("2"), makeNumber("1"), makeNumber("2000"), makeNumber("3"), makeNumber("4"), makeNumber("5"), makeNumber("6")));
+    }
+
+
+    //
     // Date properties
     //
     @Test
