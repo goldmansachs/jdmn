@@ -112,6 +112,14 @@
                 </configuration>
             </plugin>
 
+            <!-- Do not sign module -->
+            <plugin>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
             <!-- Do not create javadocs -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
