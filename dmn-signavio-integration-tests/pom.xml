@@ -1784,7 +1784,7 @@
                 </configuration>
             </plugin>
 
-            <!--- Do not sign module -->
+            <!-- Do not sign module -->
             <plugin>
                 <artifactId>maven-gpg-plugin</artifactId>
                 <configuration>
