@@ -46,7 +46,8 @@ public class BasicDMN2JavaTransformerTest {
     public void setUp() {
         String pathName = "dmn/input/0004-lending.dmn";
         DMNModelRepository repository = readDMN(pathName);
-        href = repository.getRootDefinitions().getNamespace() + "#d_RequiredMonthlyInstallment";
+        TDefinitions definitions = repository.getRootDefinitions();
+        href = definitions.getNamespace() + "#d_RequiredMonthlyInstallment";
         this.dmnTransformer = dialectDefinition.createBasicTransformer(repository, new NopLazyEvaluationDetector(), new LinkedHashMap<>());
     }
 

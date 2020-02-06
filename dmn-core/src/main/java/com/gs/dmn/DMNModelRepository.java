@@ -31,10 +31,6 @@ public class DMNModelRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DMNModelRepository.class);
 
-    protected final TDefinitions rootDefinitions;
-
-    protected final List<TDefinitions> importedDefinitions = new ArrayList<>();
-
     protected final List<TDefinitions> allDefinitions = new ArrayList<>();
 
     protected final Map<String, TDefinitions> definitionsMap = new LinkedHashMap<>();
@@ -63,27 +59,24 @@ public class DMNModelRepository {
         this(OBJECT_FACTORY.createTDefinitions(), new PrefixNamespaceMappings());
     }
 
-    public DMNModelRepository(TDefinitions definitions) {
-        this(definitions, new PrefixNamespaceMappings());
+    public DMNModelRepository(TDefinitions definitions, PrefixNamespaceMappings prefixNamespaceMappings) {
+        this(new Pair<>(definitions, prefixNamespaceMappings));
     }
 
-    public DMNModelRepository(TDefinitions rootDefinitions, PrefixNamespaceMappings prefixNamespaceMappings) {
-        this(rootDefinitions, Arrays.asList(), prefixNamespaceMappings);
+    public DMNModelRepository(Pair<TDefinitions, PrefixNamespaceMappings> pair) {
+        this(Arrays.asList(pair));
     }
 
-    public DMNModelRepository(TDefinitions rootDefinitions, List<TDefinitions> importedDefinitions, PrefixNamespaceMappings prefixNamespaceMappings) {
-        this.rootDefinitions = rootDefinitions;
-        if (rootDefinitions != null) {
-            this.definitionsMap.put(this.rootDefinitions.getNamespace(), this.rootDefinitions);
-        }
-        if (importedDefinitions != null) {
-            this.importedDefinitions.addAll(importedDefinitions);
-            for (TDefinitions definitions: this.importedDefinitions) {
+    public DMNModelRepository(List<Pair<TDefinitions, PrefixNamespaceMappings>> pairList) {
+        this.prefixNamespaceMappings = new PrefixNamespaceMappings();
+        if (pairList != null) {
+            for (Pair<TDefinitions, PrefixNamespaceMappings> pair: pairList) {
+                TDefinitions definitions = pair.getLeft();
+                this.allDefinitions.add(definitions);
                 this.definitionsMap.put(definitions.getNamespace(), definitions);
+                this.prefixNamespaceMappings.merge(pair.getRight());
             }
         }
-        this.prefixNamespaceMappings = prefixNamespaceMappings;
-        this.allDefinitions.addAll(this.definitionsMap.values());
 
         // Process all definitions
         for(TDefinitions definitions: this.getAllDefinitions()) {
@@ -99,10 +92,6 @@ public class DMNModelRepository {
                 this.prefixNamespaceMappings.put(imp.getName(), imp.getNamespace());
             }
         }
-    }
-
-    public DMNModelRepository(Pair<TDefinitions, PrefixNamespaceMappings> pair) {
-        this(pair.getLeft(), pair.getRight());
     }
 
     protected void normalize(TDefinitions definitions) {
@@ -169,7 +158,7 @@ public class DMNModelRepository {
     }
 
     public TDefinitions getRootDefinitions() {
-        return rootDefinitions;
+        return this.allDefinitions.get(0);
     }
 
     public List<TDefinitions> getAllDefinitions() {
