@@ -57,7 +57,6 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
         this.platformVersion = InputParamUtil.getRequiredParam(inputParameters, "platformVersion");
     }
 
-    @Override
     protected boolean shouldTransformFile(File inputFile) {
         String name = inputFile.getName();
         if (inputFile.isDirectory()) {
