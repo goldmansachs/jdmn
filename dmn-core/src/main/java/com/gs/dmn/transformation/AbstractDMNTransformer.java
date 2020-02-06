@@ -56,9 +56,21 @@ public abstract class AbstractDMNTransformer extends AbstractTemplateBasedTransf
     }
 
     protected DMNModelRepository readDMN(File file) {
-        if (isDMNFile(file)) {
-            Pair<TDefinitions, PrefixNamespaceMappings> result = dmnReader.read(file);
-            DMNModelRepository repository = new DMNModelRepository(result.getLeft(), result.getRight());
+        if (file == null) {
+            throw new DMNRuntimeException("Missing DMN file");
+        } else if (file.isDirectory()) {
+            List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = new ArrayList<>();
+            for (File child: file.listFiles()) {
+                if (isDMNFile(file)) {
+                    Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(child);
+                    pairs.add(pair);
+                }
+            }
+            DMNModelRepository repository = new DMNModelRepository(pairs);
+            return repository;
+        } else if (isDMNFile(file)) {
+            Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(file);
+            DMNModelRepository repository = new DMNModelRepository(pair);
             return repository;
         } else {
             throw new DMNRuntimeException(String.format("Invalid DMN file %s", file.getAbsoluteFile()));

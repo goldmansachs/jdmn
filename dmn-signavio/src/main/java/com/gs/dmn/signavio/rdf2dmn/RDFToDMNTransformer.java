@@ -99,7 +99,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
     }
 
     @Override
-    protected boolean shouldTransform(File inputFile) {
+    protected boolean shouldTransformFile(File inputFile) {
         String name = inputFile.getName();
         if (inputFile.isDirectory()) {
             return !name.endsWith(".svn");
@@ -109,7 +109,30 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
     }
 
     @Override
-    protected void transformFile(File child, File root, Path outputPath) {
+    protected void transformFile(File inputFile, File inputRoot, Path outputPath) {
+        if (inputFile.isDirectory()) {
+            if (shouldTransformFile(inputFile)) {
+                logger.info(String.format("Scanning folder '%s'", inputFile.getPath()));
+                File[] files = inputFile.listFiles();
+                if (files != null) {
+                    for (File child : files) {
+                        transformFile(child, inputRoot, outputPath);
+                    }
+                }
+            }
+        } else {
+            try {
+                if (shouldTransformFile(inputFile)) {
+                    logger.info(String.format("Transforming file '%s'", inputFile.getPath()));
+                    transformLeaf(inputFile, inputRoot, outputPath);
+                }
+            } catch (Exception e) {
+                throw new DMNRuntimeException(String.format("Failed to transform diagram '%s'", inputFile.getPath()), e);
+            }
+        }
+    }
+
+    private void transformLeaf(File child, File root, Path outputPath) {
         try (FileInputStream inputStream = new FileInputStream(child.toURI().getPath())) {
             File outputFolder = outputFolder(child, root, outputPath);
             File outputFile = new File(outputFolder, diagramName(child) + DMNConstants.DMN_FILE_EXTENSION);
