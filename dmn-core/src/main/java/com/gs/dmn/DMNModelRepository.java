@@ -27,7 +27,7 @@ import javax.xml.bind.JAXBElement;
 import java.util.*;
 
 public class DMNModelRepository {
-    private static final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
+    protected static final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DMNModelRepository.class);
 
