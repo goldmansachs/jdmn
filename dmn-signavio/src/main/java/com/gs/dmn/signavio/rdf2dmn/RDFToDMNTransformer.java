@@ -105,9 +105,10 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
 
     @Override
     protected boolean shouldTransformFile(File inputFile) {
-        String name = inputFile.getName();
-        if (inputFile.isDirectory()) {
-            return !name.endsWith(".svn");
+        if (inputFile == null) {
+            return false;
+        } else if (inputFile.isDirectory()) {
+            return !inputFile.getName().endsWith(".svn");
         } else {
             return isRDFFile(inputFile);
         }

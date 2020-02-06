@@ -41,6 +41,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.gs.dmn.serialization.DMNReader.isDMNFile;
+import static com.gs.dmn.signavio.testlab.TestLabReader.isTestLabFile;
 
 public class TestLabToJUnitTransformer extends AbstractDMNTransformer {
     private final TestLabReader testLabReader = new TestLabReader();
@@ -68,8 +69,13 @@ public class TestLabToJUnitTransformer extends AbstractDMNTransformer {
 
     @Override
     protected boolean shouldTransformFile(File inputFile) {
-        String name = inputFile.getName();
-        return name.endsWith(TestLabReader.TEST_LAB_FILE_EXTENSION) && !name.endsWith(".svn");
+        if (inputFile == null) {
+            return false;
+        } else if (inputFile.isDirectory()) {
+            return !inputFile.getName().endsWith(".svn");
+        } else {
+            return isTestLabFile(inputFile);
+        }
     }
 
     @Override

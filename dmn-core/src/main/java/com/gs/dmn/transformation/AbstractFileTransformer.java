@@ -41,7 +41,7 @@ public abstract class AbstractFileTransformer implements FileTransformer {
         if (shouldTransformFile(inputFile)) {
             transformFile(inputFile, inputFile, outputPath);
         } else {
-            throw new DMNRuntimeException("Illegal DMN model " + inputFile.getAbsolutePath());
+            throw new DMNRuntimeException("Illegal input file " + inputFile.getAbsolutePath());
         }
     }
 
