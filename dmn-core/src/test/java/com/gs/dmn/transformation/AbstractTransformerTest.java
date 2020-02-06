@@ -75,7 +75,7 @@ class DefaultTransformer extends AbstractFileTransformer {
     }
 
     @Override
-    protected boolean shouldTransform(File inputFile) {
+    protected boolean shouldTransformFile(File inputFile) {
         return false;
     }
 

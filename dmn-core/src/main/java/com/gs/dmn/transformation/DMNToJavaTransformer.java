@@ -58,7 +58,7 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
     }
 
     @Override
-    protected boolean shouldTransform(File inputFile) {
+    protected boolean shouldTransformFile(File inputFile) {
         String name = inputFile.getName();
         if (inputFile.isDirectory()) {
             return !name.endsWith(".svn");
