@@ -27,11 +27,11 @@ public class FromRDFDecisionTableDMNToJavaTransformerTest extends AbstractSignav
 
     @Test
     public void testAll() throws Exception {
-        doTestFolder();
+        doFolderTest();
     }
 
     @Test
     public void testOne() throws Exception {
-        doTest("simple-decision-primitive-type-inputs-single-output-priority-hit-policy");
+        doSimpleModelTest("simple-decision-primitive-type-inputs-single-output-priority-hit-policy");
     }
 }

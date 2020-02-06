@@ -17,7 +17,7 @@ import org.junit.Test;
 public class ExportedDecisionTableDMNToJavaTransformerTest extends AbstractSignavioDMNToJavaTest {
     @Test
     public void testAll() throws Exception {
-        doTestFolder();
+        doFolderTest();
     }
 
     @Override
