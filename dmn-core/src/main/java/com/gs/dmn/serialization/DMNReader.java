@@ -40,6 +40,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class DMNReader extends DMNSerializer {
+    public static boolean isDMNFile(File file) {
+        return file != null && file.isFile() && file.getName().endsWith(DMNConstants.DMN_FILE_EXTENSION);
+    }
+
     protected static final Map<DMNVersion, JAXBContext> JAXB_CONTEXTS = new LinkedHashMap<>();
 
     static {

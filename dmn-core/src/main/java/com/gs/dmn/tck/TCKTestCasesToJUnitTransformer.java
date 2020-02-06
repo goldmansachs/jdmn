@@ -51,7 +51,7 @@ public class TCKTestCasesToJUnitTransformer extends AbstractDMNTransformer {
     @Override
     protected boolean shouldTransformFile(File inputFile) {
         String name = inputFile.getName();
-        return name.endsWith(TestCasesReader.TEST_FILE_EXTENSION) && !name.endsWith(".svn");
+        return name.endsWith(TestCasesReader.DEFAULT_TEST_CASE_FILE_EXTENSION) && !name.endsWith(".svn");
     }
 
     @Override

@@ -36,6 +36,8 @@ import java.io.File;
 import java.nio.file.Path;
 import java.util.Map;
 
+import static com.gs.dmn.serialization.DMNReader.isDMNFile;
+
 public class SignavioDMNToJavaTransformer extends DMNToJavaTransformer {
     private static final String DMN_METADATA_FILE_NAME = "DMNMetadata";
     private String schemaNamespace;
