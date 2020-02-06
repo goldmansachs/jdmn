@@ -27,12 +27,12 @@ public class CL2TckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
 
     @Test
     public void testCL2() throws Exception {
-        doTest("0004-simpletable-U");
-        doTest("0005-simpletable-A");
-        doTest("0006-simpletable-P1");
-        doTest("0007-simpletable-P2");
-        doTest("0008-LX-arithmetic");
-        doTest("0009-invocation-arithmetic");
-        doTest("0010-multi-output-U");
+        doSimpleModelTest("0004-simpletable-U");
+        doSimpleModelTest("0005-simpletable-A");
+        doSimpleModelTest("0006-simpletable-P1");
+        doSimpleModelTest("0007-simpletable-P2");
+        doSimpleModelTest("0008-LX-arithmetic");
+        doSimpleModelTest("0009-invocation-arithmetic");
+        doSimpleModelTest("0010-multi-output-U");
     }
 }

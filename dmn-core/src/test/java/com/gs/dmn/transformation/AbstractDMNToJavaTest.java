@@ -24,22 +24,30 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public abstract class AbstractDMNToJavaTest extends AbstractTransformerTest {
-    protected void doTestFolder() throws Exception {
+    protected void doFolderTest() throws Exception {
         String inputPath = getInputPath();
         File folder = path(inputPath).toFile();
         if (folder.listFiles() != null) {
             for(File file: folder.listFiles()) {
                 if (file.isFile() && file.getName().endsWith(DMNConstants.DMN_FILE_EXTENSION)) {
-                    doTest(diagramName(file));
+                    doSimpleModelTest(diagramName(file));
                 }
             }
         }
     }
 
-    protected void doTest(String diagramName) throws Exception {
+    protected void doSimpleModelTest(String modelName) throws Exception {
         String path = getInputPath();
-        String inputFilePath = path + "/" + diagramName + DMNConstants.DMN_FILE_EXTENSION;
-        String expectedOutputPath = getExpectedPath() + "/" + friendlyFolderName(diagramName.toLowerCase());
+        String inputFilePath = path + "/" + modelName + DMNConstants.DMN_FILE_EXTENSION;
+        String expectedOutputPath = getExpectedPath() + "/" + friendlyFolderName(modelName.toLowerCase());
+        URI resource = resource(inputFilePath);
+        doTest(resource.getPath(), expectedOutputPath);
+    }
+
+    protected void doComplexModelTest(String modelName) throws Exception {
+        String path = getInputPath();
+        String inputFilePath = path + "/" + modelName;
+        String expectedOutputPath = getExpectedPath() + "/" + friendlyFolderName(modelName.toLowerCase());
         URI resource = resource(inputFilePath);
         doTest(resource.getPath(), expectedOutputPath);
     }
