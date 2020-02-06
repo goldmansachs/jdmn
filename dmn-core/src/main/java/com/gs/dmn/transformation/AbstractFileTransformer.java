@@ -38,29 +38,10 @@ public abstract class AbstractFileTransformer implements FileTransformer {
         }
 
         File inputFile = inputPath.toFile();
-        transform(inputFile, inputFile, outputPath);
-    }
-
-    private void transform(File inputFile, File inputRoot, Path outputPath) {
-        if (inputFile.isDirectory()) {
-            if (shouldTransformFile(inputFile)) {
-                logger.info(String.format("Scanning folder '%s'", inputFile.getPath()));
-                File[] files = inputFile.listFiles();
-                if (files != null) {
-                    for (File child : files) {
-                        transform(child, inputRoot, outputPath);
-                    }
-                }
-            }
+        if (shouldTransformFile(inputFile)) {
+            transformFile(inputFile, inputFile, outputPath);
         } else {
-            try {
-                if (shouldTransformFile(inputFile)) {
-                    logger.info(String.format("Transforming file '%s'", inputFile.getPath()));
-                    transformFile(inputFile, inputRoot, outputPath);
-                }
-            } catch (Exception e) {
-                throw new DMNRuntimeException(String.format("Failed to transform diagram '%s'", inputFile.getPath()), e);
-            }
+            throw new DMNRuntimeException("Illegal DMN model " + inputFile.getAbsolutePath());
         }
     }
 
