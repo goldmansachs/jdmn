@@ -65,7 +65,7 @@ public class TestLabToJUnitTransformer extends AbstractDMNTransformer {
     }
 
     @Override
-    protected boolean shouldTransform(File inputFile) {
+    protected boolean shouldTransformFile(File inputFile) {
         String name = inputFile.getName();
         return name.endsWith(TestLabReader.TEST_LAB_FILE_EXTENSION) && !name.endsWith(".svn");
     }
