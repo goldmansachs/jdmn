@@ -33,6 +33,8 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.gs.dmn.tck.TestCasesReader.isTCKFile;
+
 public class TCKTestCasesToJUnitTransformer extends AbstractDMNTransformer {
     protected final BasicDMN2JavaTransformer basicTransformer;
 
@@ -50,8 +52,13 @@ public class TCKTestCasesToJUnitTransformer extends AbstractDMNTransformer {
 
     @Override
     protected boolean shouldTransformFile(File inputFile) {
-        String name = inputFile.getName();
-        return name.endsWith(TestCasesReader.DEFAULT_TEST_CASE_FILE_EXTENSION) && !name.endsWith(".svn");
+        if (inputFile == null) {
+            return false;
+        } else if (inputFile.isDirectory()) {
+            return !inputFile.getName().endsWith(".svn");
+        } else {
+            return isTCKFile(inputFile);
+        }
     }
 
     @Override
