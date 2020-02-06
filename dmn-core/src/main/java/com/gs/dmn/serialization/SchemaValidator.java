@@ -23,6 +23,7 @@ import java.io.File;
 import java.net.URI;
 
 import static com.gs.dmn.serialization.DMNConstants.TCK_PACKAGE;
+import static com.gs.dmn.tck.TestCasesReader.DEFAULT_TEST_CASE_FILE_EXTENSION;
 
 public class SchemaValidator {
     private final File schemaLocation;
@@ -69,6 +70,6 @@ public class SchemaValidator {
         File rootFolder = new File("dmn-core/src/test/resources/tck");
         File testCasesSchemaLocation = new File("dmn-core/src/test/resources/tck/testCases.xsd");
 
-        new SchemaValidator(testCasesSchemaLocation, TCK_PACKAGE).validateFile(rootFolder, ".xml");
+        new SchemaValidator(testCasesSchemaLocation, TCK_PACKAGE).validateFile(rootFolder, DEFAULT_TEST_CASE_FILE_EXTENSION);
     }
 }

@@ -42,6 +42,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.gs.dmn.tck.TestCasesReader.DEFAULT_TEST_CASE_FILE_EXTENSION;
+import static com.gs.dmn.tck.TestCasesReader.isTCKFile;
 import static org.junit.Assert.assertTrue;
 
 public abstract class AbstractDMNInterpreterTest {
@@ -86,14 +88,14 @@ public abstract class AbstractDMNInterpreterTest {
                     URL inputPathURL = getClass().getClassLoader().getResource(getTestCasesInputPath()).toURI().toURL();
                     File inputPathFolder = new File(inputPathURL.getFile());
                     for (File child : inputPathFolder.listFiles()) {
-                        if (child.getName().endsWith(TestCasesReader.TEST_FILE_EXTENSION) && child.getName().startsWith(dmnFileName)) {
+                        if (isTCKFile(child) && child.getName().startsWith(dmnFileName)) {
                             TestCases testCases = testCasesReader.read(child);
                             doTest(child.getName(), interpreter, repository, testCases);
                         }
                     }
                 } else {
                     for (String testSuffix : testSuffixes) {
-                        String testPathName = getTestCasesInputPath() + "/" + dmnFileName + testSuffix + TestCasesReader.TEST_FILE_EXTENSION;
+                        String testPathName = getTestCasesInputPath() + "/" + dmnFileName + testSuffix + DEFAULT_TEST_CASE_FILE_EXTENSION;
                         URL testURL = getClass().getClassLoader().getResource(testPathName).toURI().toURL();
                         TestCases testCases = testCasesReader.read(testURL);
                         doTest(new File(testURL.getFile()).getName(), interpreter, repository, testCases);
