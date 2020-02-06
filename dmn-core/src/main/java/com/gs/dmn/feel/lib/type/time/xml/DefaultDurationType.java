@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.time.xml;
 
+import com.gs.dmn.feel.lib.DefaultFEELLib;
 import com.gs.dmn.feel.lib.type.BooleanType;
 import com.gs.dmn.feel.lib.type.DurationType;
 import com.gs.dmn.feel.lib.type.logic.DefaultBooleanType;
@@ -26,6 +27,13 @@ import java.math.BigDecimal;
 public class DefaultDurationType extends BaseDefaultDurationType implements DurationType<Duration, BigDecimal> {
     private final BooleanType booleanType;
     private final DatatypeFactory dataTypeFactory;
+
+    @Deprecated
+    public DefaultDurationType(Logger logger) {
+        super(logger);
+        this.booleanType = new DefaultBooleanType(logger);
+        this.dataTypeFactory = DefaultFEELLib.DATA_TYPE_FACTORY;
+    }
 
     public DefaultDurationType(Logger logger, DatatypeFactory dataTypeFactory) {
         super(logger);
