@@ -21,6 +21,7 @@ import org.omg.spec.dmn._20180521.model.*;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -41,19 +42,12 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         super();
     }
 
-    public SignavioDMNModelRepository(Pair<TDefinitions, PrefixNamespaceMappings> pair) {
-        this(pair.getLeft(), pair.getRight());
+    public SignavioDMNModelRepository(TDefinitions definitions, PrefixNamespaceMappings prefixNamespaceMappings) {
+        this(new Pair<>(definitions, prefixNamespaceMappings));
     }
 
-    public SignavioDMNModelRepository(TDefinitions definitions, PrefixNamespaceMappings prefixNamespaceMappings) {
-        super(definitions, prefixNamespaceMappings);
-        List<Object> elementList = extension.findExtensions(definitions.getExtensionElements(), DMN_12.getNamespace(), "decisionService");
-        for(Object element: elementList) {
-            Object value = ((JAXBElement) element).getValue();
-            if (value instanceof TDecisionService) {
-                this.addElementMap((TDecisionService)value, definitions);
-            }
-        }
+    public SignavioDMNModelRepository(Pair<TDefinitions, PrefixNamespaceMappings> pair) {
+        this(Arrays.asList(pair));
     }
 
     public SignavioDMNModelRepository(Pair<TDefinitions, PrefixNamespaceMappings> pair, String schemaNamespace) {
@@ -61,6 +55,20 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         this.schemaNamespace = schemaNamespace;
         this.diagramId = new QName(schemaNamespace, "diagramId");
         this.shapeId = new QName(schemaNamespace, "shapeId");
+    }
+
+    public SignavioDMNModelRepository(List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs) {
+        super(pairs);
+        for (Pair<TDefinitions, PrefixNamespaceMappings> pair: pairs) {
+            TDefinitions definitions = pair.getLeft();
+            List<Object> elementList = extension.findExtensions(definitions.getExtensionElements(), DMN_12.getNamespace(), "decisionService");
+            for(Object element: elementList) {
+                Object value = ((JAXBElement) element).getValue();
+                if (value instanceof TDecisionService) {
+                    this.addElementMap((TDecisionService)value, definitions);
+                }
+            }
+        }
     }
 
     public String getSchemaNamespace() {

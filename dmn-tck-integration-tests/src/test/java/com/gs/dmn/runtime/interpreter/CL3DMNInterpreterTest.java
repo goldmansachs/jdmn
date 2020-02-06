@@ -84,8 +84,8 @@ public abstract class CL3DMNInterpreterTest extends AbstractDMNInterpreterTest {
         doTestDiagram("0076-feel-external-java");
         doTestDiagram("0082-feel-coercion");
         doTestDiagram("0085-decision-services");
-        doTestDiagram("0086-import", Arrays.asList("0086-imported-model"));
+        doTestDiagram(Arrays.asList("0086-import", "0086-imported-model"));
         doTestDiagram("0087-chapter-11-example");
-        doTestDiagram("0089-nested-inputdata-imports", Arrays.asList("0089-model-b", "0089-model-b2", "0089-model-a"));
+        doTestDiagram(Arrays.asList("0089-nested-inputdata-imports", "0089-model-b", "0089-model-b2", "0089-model-a"));
     }
 }

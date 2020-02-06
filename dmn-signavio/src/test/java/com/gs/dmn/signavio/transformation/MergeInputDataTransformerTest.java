@@ -59,7 +59,8 @@ public class MergeInputDataTransformerTest extends AbstractFileTransformerTest {
         TestLab actualTestLab = transformer.transform(actualRepository, testLab).getRight();
 
         // Check output
-        check(actualRepository.getRootDefinitions(), actualTestLab);
+        TDefinitions definitions = actualRepository.getRootDefinitions();
+        check(definitions, actualTestLab);
     }
 
     private void check(TDefinitions actualDefinitions, TestLab actualTestLab) throws Exception {
