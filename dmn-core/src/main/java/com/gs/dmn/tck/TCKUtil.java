@@ -26,6 +26,7 @@ import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
+import org.antlr.v4.runtime.misc.Array2DHashSet;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCaseType;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
@@ -304,11 +305,21 @@ public class TCKUtil {
 
     private String toJavaExpression(List<Component> components, ItemDefinitionType type) {
         List<Pair<String, String>> argumentList = new ArrayList<>();
+        Set<String> members = type.getMembers();
+        Set<String> present = new LinkedHashSet<>();
         for (Component c : components) {
             String name = c.getName();
             Type memberType = type.getMemberType(name);
             String value = toJavaExpression(c, memberType);
             argumentList.add(new Pair(name, value));
+            present.add(name);
+        }
+        // Add the missing members
+        for (String member: members) {
+            if (!present.contains(member)) {
+                Pair<String, String> pair = new Pair<>(member, "null");
+                argumentList.add(pair);
+            }
         }
         sortParameters(argumentList);
         String interfaceName = dmnTransformer.toJavaType(type);

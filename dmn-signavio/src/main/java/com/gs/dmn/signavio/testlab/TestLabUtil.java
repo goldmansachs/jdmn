@@ -192,7 +192,7 @@ public class TestLabUtil {
                     pairs.add(pair);
                     present.add(pair.getLeft());
                 }
-                // Top-upo the missing ones
+                // Add the missing members
                 for (String member: members) {
                     if (!present.contains(member)) {
                         ImmutablePair<String, Expression> pair = new ImmutablePair<>(member, null);
