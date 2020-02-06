@@ -39,7 +39,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
     public final SignavioExtension extension = new SignavioExtension(this);
 
     public SignavioDMNModelRepository() {
-        super();
+        this(OBJECT_FACTORY.createTDefinitions(), new PrefixNamespaceMappings());
     }
 
     public SignavioDMNModelRepository(TDefinitions definitions, PrefixNamespaceMappings prefixNamespaceMappings) {
