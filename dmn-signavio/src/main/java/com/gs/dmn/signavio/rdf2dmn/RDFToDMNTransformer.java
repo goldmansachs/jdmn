@@ -59,7 +59,6 @@ import java.util.stream.Collectors;
 import static com.gs.dmn.serialization.DMNVersion.DMN_11;
 
 public class RDFToDMNTransformer extends AbstractFileTransformer {
-
     public static final String NUMBER_TYPE = "number";
     public static final String BOOLEAN_TYPE = "boolean";
     public static final String STRING_TYPE = "string";
@@ -72,6 +71,12 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
     public static final List<String> FEEL_DATA_TYPES = Arrays.asList(
             NUMBER_TYPE, BOOLEAN_TYPE, STRING_TYPE, DATE_TYPE, TIME_TYPE, DATETIME_TYPE, DURATION_TYPE, ENUMERATION_TYPE
     );
+
+    public static String RDF_FILE_EXTENSION = ".xml";
+
+    public static boolean isRDFFile(File file) {
+        return file != null && file.isFile() && file.getName().endsWith(RDF_FILE_EXTENSION);
+    }
 
     private static final Map<String, String> FUNCTION_RETURN_TYPE = new LinkedHashMap<String, String>();
     static {
@@ -104,7 +109,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
         if (inputFile.isDirectory()) {
             return !name.endsWith(".svn");
         } else {
-            return name.endsWith(".xml");
+            return isRDFFile(inputFile);
         }
     }
 

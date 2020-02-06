@@ -30,6 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.gs.dmn.serialization.DMNReader.isDMNFile;
+
 public abstract class AbstractDMNTransformer extends AbstractTemplateBasedTransformer {
     protected final DMNDialectDefinition dialectDefinition;
     protected final DMNReader dmnReader;
@@ -75,10 +77,6 @@ public abstract class AbstractDMNTransformer extends AbstractTemplateBasedTransf
         } else {
             throw new DMNRuntimeException(String.format("Invalid DMN file %s", file.getAbsoluteFile()));
         }
-    }
-
-    protected boolean isDMNFile(File file) {
-        return file.isFile() && file.getName().endsWith(".dmn");
     }
 
     protected void handleValidationErrors(List<String> errors) {
