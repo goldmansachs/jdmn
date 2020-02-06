@@ -17,10 +17,7 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.NopBuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.serialization.DMNNamespacePrefixMapper;
-import com.gs.dmn.serialization.DMNReader;
-import com.gs.dmn.serialization.DMNWriter;
-import com.gs.dmn.serialization.PrefixNamespaceMappings;
+import com.gs.dmn.serialization.*;
 import com.gs.dmn.tck.TestCasesReader;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
@@ -102,7 +99,7 @@ public class ToSimpleNameTransformer extends NameTransformer {
         File outputFolder = new File("H:/Projects/EP/dmn/dmn-tck-integration-tests/src/main/resources/tck/cl2/");
 
         for(File child: inputFolder.listFiles()) {
-            if (child.getName().endsWith(".dmn")) {
+            if (DMNReader.isDMNFile(child)) {
                 ToSimpleNameTransformer simpleNameTransformer = new ToSimpleNameTransformer(new NopBuildLogger());
 
                 // Clean DMN
@@ -112,7 +109,7 @@ public class ToSimpleNameTransformer extends NameTransformer {
                 DMNModelRepository repository = transformDefinitions(simpleNameTransformer, inputFile, outputFile, logger);
 
                 // Clean Test
-                String testFileName = dmnFileName.replace(".dmn", "-test-01" + TestCasesReader.TEST_FILE_EXTENSION);
+                String testFileName = dmnFileName.replace(DMNConstants.DMN_FILE_EXTENSION, "-test-01" + TestCasesReader.DEFAULT_TEST_CASE_FILE_EXTENSION);
                 File inputTestFile = new File(inputFolder, testFileName);
                 if (inputTestFile.exists()) {
                     File outputTestFile = new File(outputFolder, testFileName);

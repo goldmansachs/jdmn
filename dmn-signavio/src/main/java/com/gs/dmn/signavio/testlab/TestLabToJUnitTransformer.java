@@ -40,6 +40,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.gs.dmn.serialization.DMNReader.isDMNFile;
+
 public class TestLabToJUnitTransformer extends AbstractDMNTransformer {
     private final TestLabReader testLabReader = new TestLabReader();
     private final TestLabValidator testLabValidator = new TestLabValidator();

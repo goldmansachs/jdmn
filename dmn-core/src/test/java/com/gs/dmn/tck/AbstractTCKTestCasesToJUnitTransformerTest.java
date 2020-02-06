@@ -41,7 +41,7 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends Abstrac
         String dmnPath = getDMNInputPath() + "/";
         String testCasesPath = getTestCasesInputPath() + "/";
         String expectedPath = getExpectedPath() + "/" + friendlyFolderName(dmnFileName);
-        String inputTestFilePath = testCasesPath + testFileName + TestCasesReader.TEST_FILE_EXTENSION;
+        String inputTestFilePath = testCasesPath + testFileName + TestCasesReader.DEFAULT_TEST_CASE_FILE_EXTENSION;
         String inputModelFilePath = dmnPath + dmnFileName + DMNConstants.DMN_FILE_EXTENSION;
         String decodedInputTestFilePath = URLDecoder.decode(resource(inputTestFilePath).getPath(), "UTF-8");
         String decodedInputModelFilePath = URLDecoder.decode(resource(inputModelFilePath).getPath(), "UTF-8");
