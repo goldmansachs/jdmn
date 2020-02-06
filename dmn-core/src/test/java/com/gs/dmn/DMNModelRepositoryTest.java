@@ -48,7 +48,8 @@ public class DMNModelRepositoryTest {
     @Test
     public void testFindDecisionByRef() {
         String id = "d_BureauCallType";
-        String namespace = dmnModelRepository.getRootDefinitions().getNamespace();
+        TDefinitions definitions = dmnModelRepository.getRootDefinitions();
+        String namespace = definitions.getNamespace();
         TDecision decision = dmnModelRepository.findDecisionByRef(null,namespace + "#" + id);
         assertEquals(id, decision.getId());
         assertEquals("BureauCallType", decision.getName());
