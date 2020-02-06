@@ -21,6 +21,11 @@ import java.io.Reader;
 
 public class TestLabReader {
     public static final String TEST_LAB_FILE_EXTENSION = ".json";
+
+    public static boolean isTestLabFile(File file) {
+        return file != null && file.isFile() && file.getName().endsWith(TEST_LAB_FILE_EXTENSION);
+    }
+
     public static final ObjectMapper MAPPER = new ObjectMapper();
 
     static {

@@ -17,7 +17,6 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
@@ -31,6 +30,8 @@ import org.omg.spec.dmn._20180521.model.TItemDefinition;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.*;
+
+import static com.gs.dmn.serialization.DMNReader.isDMNFile;
 
 public class DMNToJavaTransformer extends AbstractDMNTransformer {
     public static final String DATA_PACKAGE = "type";
@@ -57,12 +58,14 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
         this.platformVersion = InputParamUtil.getRequiredParam(inputParameters, "platformVersion");
     }
 
+    @Override
     protected boolean shouldTransformFile(File inputFile) {
-        String name = inputFile.getName();
-        if (inputFile.isDirectory()) {
-            return !name.endsWith(".svn");
+        if (inputFile == null) {
+            return false;
+        } else if (inputFile.isDirectory()) {
+            return !inputFile.getName().endsWith(".svn");
         } else {
-            return name.endsWith(DMNConstants.DMN_FILE_EXTENSION);
+            return isDMNFile(inputFile);
         }
     }
 
