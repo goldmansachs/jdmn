@@ -61,7 +61,7 @@ public abstract class AbstractDMNTransformer extends AbstractTemplateBasedTransf
         } else if (file.isDirectory()) {
             List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = new ArrayList<>();
             for (File child: file.listFiles()) {
-                if (isDMNFile(file)) {
+                if (isDMNFile(child)) {
                     Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(child);
                     pairs.add(pair);
                 }
