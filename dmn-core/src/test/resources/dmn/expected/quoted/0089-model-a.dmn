@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<dmn:definitions xmlns:dmn="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" namespace="http://www.trisotech.com/definitions/_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9" exporter="DMN Modeler" exporterVersion="6.2.4.2" name="Say hello 1ID1D" id="_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9" triso:logoChoice="Default">
-    <dmn:decision name="'Greet the Person'" id="_f7fdaec4-d669-4797-b3b4-12b860de2eb5" triso:useOutputTypeAsAnswer="false">
-        <dmn:variable typeRef="string" name="'Greet the Person'" id="_85193e88-cb32-41da-9181-fb8e5450753a"/>
-        <dmn:informationRequirement id="b1507384-44a9-4da7-8223-fa49ffa65410">
-            <dmn:requiredInput href="#_4f6c136c-8512-4d71-8bbf-7c9eb6e74063"/>
-        </dmn:informationRequirement>
-        <dmn:literalExpression typeRef="string" id="_429b0c63-31e0-4f79-b457-32f565167702" triso:expressionId="_28c34a9a-ebce-4ae4-ae8e-7eb062aa35d3">
-            <dmn:text>"Hello, "+'Person name'</dmn:text>
-        </dmn:literalExpression>
-    </dmn:decision>
-    <dmn:inputData name="'Person name'" id="_4f6c136c-8512-4d71-8bbf-7c9eb6e74063">
-        <dmn:variable typeRef="string" name="'Person name'" id="_46b6677b-4a26-4bca-9532-9a57dd55b8ec"/>
-    </dmn:inputData>
-</dmn:definitions>
+<definitions xmlns="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" namespace="http://www.trisotech.com/definitions/_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9" exporter="DMN Modeler" exporterVersion="6.2.4.2" name="Say hello 1ID1D" id="_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9" triso:logoChoice="Default">
+    <decision name="'Greet the Person'" id="_f7fdaec4-d669-4797-b3b4-12b860de2eb5" triso:useOutputTypeAsAnswer="false">
+        <variable typeRef="string" name="'Greet the Person'" id="_85193e88-cb32-41da-9181-fb8e5450753a"/>
+        <informationRequirement id="b1507384-44a9-4da7-8223-fa49ffa65410">
+            <requiredInput href="#_4f6c136c-8512-4d71-8bbf-7c9eb6e74063"/>
+        </informationRequirement>
+        <literalExpression typeRef="string" id="_429b0c63-31e0-4f79-b457-32f565167702" triso:expressionId="_28c34a9a-ebce-4ae4-ae8e-7eb062aa35d3">
+            <text>"Hello, "+'Person name'</text>
+        </literalExpression>
+    </decision>
+    <inputData name="'Person name'" id="_4f6c136c-8512-4d71-8bbf-7c9eb6e74063">
+        <variable typeRef="string" name="'Person name'" id="_46b6677b-4a26-4bca-9532-9a57dd55b8ec"/>
+    </inputData>
+</definitions>
