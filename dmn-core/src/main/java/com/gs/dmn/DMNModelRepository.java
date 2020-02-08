@@ -370,23 +370,27 @@ public class DMNModelRepository {
     }
 
     public TDRGElement findDRGElementByRef(TDRGElement parent, String href) {
-        TDefinitions definitions = findChildDefinitions(parent, href);
-        String key = makeRef(definitions.getNamespace(), href);
-        if (!this.drgElementByRef.containsKey(key)) {
-            TDRGElement value = null;
-            for (TDRGElement element : drgElements(definitions)) {
-                if (sameId(element, href)) {
-                    value = element;
-                    break;
+        try {
+            TDefinitions definitions = findChildDefinitions(parent, href);
+            String key = makeRef(definitions.getNamespace(), href);
+            if (!this.drgElementByRef.containsKey(key)) {
+                TDRGElement value = null;
+                for (TDRGElement element : drgElements(definitions)) {
+                    if (sameId(element, href)) {
+                        value = element;
+                        break;
+                    }
                 }
+                this.drgElementByRef.put(key, value);
             }
-            this.drgElementByRef.put(key, value);
-        }
-        TDRGElement result = this.drgElementByRef.get(key);
-        if (result == null) {
-            throw new DMNRuntimeException(String.format("Cannot find DRG element for href='%s'", href));
-        } else {
-            return result;
+            TDRGElement result = this.drgElementByRef.get(key);
+            if (result == null) {
+                throw new DMNRuntimeException(String.format("Cannot find DRG element for href='%s'", href));
+            } else {
+                return result;
+            }
+        } catch (Exception e) {
+            throw new DMNRuntimeException(String.format("Cannot find DRG element for href='%s'", href), e);
         }
     }
 
