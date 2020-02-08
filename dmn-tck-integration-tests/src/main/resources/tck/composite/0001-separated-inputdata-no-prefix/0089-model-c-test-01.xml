@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<testCases
+  xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <modelName>main.dmn</modelName>
+
+  <testCase id="001" invocableName="Evaluation DS" type="decision">
+    <description>Nested imports of InputData following GITHUB DMN TCK 274</description>
+    <inputNode name="personName">
+          <value xsi:type="xsd:string">B.A.John</value>
+    </inputNode>
+    <resultNode name="modelCDecisionBasedOnBs">
+      <expected>
+        <value xsi:type="xsd:string">B1: Evaluating Say Hello to: Hello, B.A.John; B2: Evaluating Say Hello to: Hello, B.A.John</value>
+      </expected>
+    </resultNode>
+  </testCase>
+
+</testCases>
