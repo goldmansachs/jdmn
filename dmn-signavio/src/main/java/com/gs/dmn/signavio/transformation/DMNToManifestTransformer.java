@@ -35,46 +35,48 @@ public class DMNToManifestTransformer {
 
     public DMNMetadata toManifest(String dmnVersion, String modelVersion, String platformVersion) {
         DMNMetadata manifest = new DMNMetadata(dmnVersion, modelVersion, platformVersion);
-        // Add types
-        for (TItemDefinition itemDefinition : this.dmnModelRepository.itemDefinitions()) {
-            com.gs.dmn.runtime.metadata.Type type = makeMetadataType(itemDefinition);
-            manifest.addType(type);
-        }
-        // Add elements
-        for (TInputData inputData : this.dmnModelRepository.inputDatas()) {
-            String id = inputData.getId();
-            String name = inputData.getName();
-            String label = inputData.getLabel();
-            String javaParameterName = dmnTransformer.inputDataVariableName(inputData);
-            String javaTypeName = dmnTransformer.drgElementOutputType(inputData);
-            com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(QualifiedName.toQualifiedName(inputData.getVariable().getTypeRef()));
-            manifest.addElement(new InputData(id, name, label, javaParameterName, javaTypeName, typeRef));
-        }
-        for (TBusinessKnowledgeModel bkm : this.dmnModelRepository.businessKnowledgeModels()) {
-            String id = bkm.getId();
-            String name = bkm.getName();
-            String label = bkm.getLabel();
-            String javaFunctionName = dmnTransformer.bkmFunctionName(bkm);
-            String javaTypeName = dmnTransformer.qualifiedName(dmnTransformer.javaRootPackageName(), dmnTransformer.drgElementClassName(bkm));
-            String javaOutputTypeName = dmnTransformer.drgElementOutputType(bkm);
-            com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(dmnTransformer.drgElementOutputTypeRef(bkm));
-            List<DRGElementReference> knowledgeReferences = makeMetadataKnowledgeReferences(bkm.getKnowledgeRequirement());
-            com.gs.dmn.runtime.metadata.BKM element = new com.gs.dmn.runtime.metadata.BKM(id, name, label, javaFunctionName, javaTypeName, javaOutputTypeName, typeRef, knowledgeReferences);
-            manifest.addElement(element);
-        }
-        for (TDecision decision : this.dmnModelRepository.decisions()) {
-            String id = decision.getId();
-            String name = decision.getName();
-            String label = decision.getLabel();
-            String javaParameterName = dmnTransformer.drgElementVariableName(decision);
-            String javaTypeName = dmnTransformer.qualifiedName(dmnTransformer.javaRootPackageName(), dmnTransformer.drgElementClassName(decision));
-            String javaOutputTypeName = dmnTransformer.drgElementOutputType(decision);
-            com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(QualifiedName.toQualifiedName(decision.getVariable().getTypeRef()));
-            List<DRGElementReference> references = makeMetadataInformationReferences(decision);
-            List<DRGElementReference> knowledgeReferences = makeMetadataKnowledgeReferences(decision.getKnowledgeRequirement());
-            List<ExtensionElement> extensions = ((BasicSignavioDMN2JavaTransformer)dmnTransformer).makeMetadataExtensions(decision);
-            com.gs.dmn.runtime.metadata.Decision element = new com.gs.dmn.runtime.metadata.Decision(id, name, label, javaParameterName, javaTypeName, javaOutputTypeName, typeRef, references, knowledgeReferences, extensions);
-            manifest.addElement(element);
+        for (TDefinitions definitions: this.dmnModelRepository.getAllDefinitions()) {
+            // Add types
+            for (TItemDefinition itemDefinition : this.dmnModelRepository.itemDefinitions(definitions)) {
+                com.gs.dmn.runtime.metadata.Type type = makeMetadataType(itemDefinition);
+                manifest.addType(type);
+            }
+            // Add elements
+            for (TInputData inputData : this.dmnModelRepository.inputDatas(definitions)) {
+                String id = inputData.getId();
+                String name = inputData.getName();
+                String label = inputData.getLabel();
+                String javaParameterName = dmnTransformer.inputDataVariableName(inputData);
+                String javaTypeName = dmnTransformer.drgElementOutputType(inputData);
+                com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(QualifiedName.toQualifiedName(inputData.getVariable().getTypeRef()));
+                manifest.addElement(new InputData(id, name, label, javaParameterName, javaTypeName, typeRef));
+            }
+            for (TBusinessKnowledgeModel bkm : this.dmnModelRepository.businessKnowledgeModels(definitions)) {
+                String id = bkm.getId();
+                String name = bkm.getName();
+                String label = bkm.getLabel();
+                String javaFunctionName = dmnTransformer.bkmFunctionName(bkm);
+                String javaTypeName = dmnTransformer.qualifiedName(dmnTransformer.javaRootPackageName(), dmnTransformer.drgElementClassName(bkm));
+                String javaOutputTypeName = dmnTransformer.drgElementOutputType(bkm);
+                com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(dmnTransformer.drgElementOutputTypeRef(bkm));
+                List<DRGElementReference> knowledgeReferences = makeMetadataKnowledgeReferences(bkm.getKnowledgeRequirement());
+                com.gs.dmn.runtime.metadata.BKM element = new com.gs.dmn.runtime.metadata.BKM(id, name, label, javaFunctionName, javaTypeName, javaOutputTypeName, typeRef, knowledgeReferences);
+                manifest.addElement(element);
+            }
+            for (TDecision decision : this.dmnModelRepository.decisions(definitions)) {
+                String id = decision.getId();
+                String name = decision.getName();
+                String label = decision.getLabel();
+                String javaParameterName = dmnTransformer.drgElementVariableName(decision);
+                String javaTypeName = dmnTransformer.qualifiedName(dmnTransformer.javaRootPackageName(), dmnTransformer.drgElementClassName(decision));
+                String javaOutputTypeName = dmnTransformer.drgElementOutputType(decision);
+                com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(QualifiedName.toQualifiedName(decision.getVariable().getTypeRef()));
+                List<DRGElementReference> references = makeMetadataInformationReferences(decision);
+                List<DRGElementReference> knowledgeReferences = makeMetadataKnowledgeReferences(decision.getKnowledgeRequirement());
+                List<ExtensionElement> extensions = ((BasicSignavioDMN2JavaTransformer)dmnTransformer).makeMetadataExtensions(decision);
+                com.gs.dmn.runtime.metadata.Decision element = new com.gs.dmn.runtime.metadata.Decision(id, name, label, javaParameterName, javaTypeName, javaOutputTypeName, typeRef, references, knowledgeReferences, extensions);
+                manifest.addElement(element);
+            }
         }
         return manifest;
     }
