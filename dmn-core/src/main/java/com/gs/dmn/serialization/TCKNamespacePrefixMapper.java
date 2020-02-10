@@ -12,23 +12,27 @@
  */
 package com.gs.dmn.serialization;
 
-public class DMNNamespacePrefixMapper extends AbstractNamespacePrefixMapper {
-    private final DMNVersion version;
+import static com.gs.dmn.serialization.DMNConstants.XSI_NS;
+import static com.gs.dmn.serialization.DMNConstants.XSI_PREFIX;
 
-    public DMNNamespacePrefixMapper() {
+public class TCKNamespacePrefixMapper extends AbstractNamespacePrefixMapper {
+    private final TCKVersion version;
+
+    public TCKNamespacePrefixMapper() {
         this(null, null);
     }
 
-    public DMNNamespacePrefixMapper(String namespace, String prefix) {
-        this(namespace, prefix, DMNVersion.LATEST);
+    public TCKNamespacePrefixMapper(String namespace, String prefix) {
+        this(namespace, prefix, TCKVersion.LATEST);
     }
 
-    public DMNNamespacePrefixMapper(String namespace, String prefix, DMNVersion version) {
+    public TCKNamespacePrefixMapper(String namespace, String prefix, TCKVersion version) {
         super(namespace, prefix, version.getNamespaceMap());
+        this.namespaceMap.put(XSI_NS, XSI_PREFIX);
         this.version = version;
     }
 
-    public DMNVersion getVersion() {
-        return this.version;
+    public TCKVersion getVersion() {
+        return version;
     }
 }
