@@ -145,7 +145,7 @@ public class ToSimpleNameTransformer extends NameTransformer {
         transformer.transform(repository, testCases);
 
         // Write
-        reader.write(testCases, outputFile, new DMNNamespacePrefixMapper());
+        reader.write(testCases, outputFile, new TCKNamespacePrefixMapper());
     }
 
 }

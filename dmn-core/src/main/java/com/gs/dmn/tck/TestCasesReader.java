@@ -14,7 +14,7 @@ package com.gs.dmn.tck;
 
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.serialization.DMNNamespacePrefixMapper;
+import com.gs.dmn.serialization.TCKNamespacePrefixMapper;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import javax.xml.bind.*;
@@ -81,7 +81,7 @@ public class TestCasesReader {
         }
     }
 
-    public void write(TestCases testCases, File file, DMNNamespacePrefixMapper namespacePrefixMapper) {
+    public void write(TestCases testCases, File file, TCKNamespacePrefixMapper namespacePrefixMapper) {
         try {
             Marshaller marshaller = JAXB_CONTEXT.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
