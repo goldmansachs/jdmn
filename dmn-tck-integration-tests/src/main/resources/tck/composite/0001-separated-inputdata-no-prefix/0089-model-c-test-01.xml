@@ -4,7 +4,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-  <modelName>main.dmn</modelName>
+  <modelName>Model C</modelName>
 
   <testCase id="001" invocableName="Evaluation DS" type="decision">
     <description>Nested imports of InputData following GITHUB DMN TCK 274</description>
