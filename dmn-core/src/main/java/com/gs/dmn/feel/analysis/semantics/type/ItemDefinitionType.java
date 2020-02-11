@@ -22,9 +22,19 @@ public class ItemDefinitionType extends NamedType implements CompositeDataType {
 
     private final Map<String, Type> members = new LinkedHashMap<>();
     private final Map<String, List<String>> aliases = new LinkedHashMap<>();
+    private final String modelName;
 
     public ItemDefinitionType(String name) {
+        this(name, null);
+    }
+
+    public ItemDefinitionType(String name, String modelName) {
         super(name);
+        this.modelName = modelName;
+    }
+
+    public String getModelName() {
+        return this.modelName;
     }
 
     @Override
