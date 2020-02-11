@@ -35,7 +35,7 @@ public class DMNModelRepository {
 
     protected final Map<String, TDefinitions> definitionsMap = new LinkedHashMap<>();
 
-    protected final Map<TDRGElement, TDefinitions> elementMap = new LinkedHashMap<>();
+    protected final Map<TNamedElement, TDefinitions> elementMap = new LinkedHashMap<>();
 
     protected final PrefixNamespaceMappings prefixNamespaceMappings;
 
@@ -84,6 +84,9 @@ public class DMNModelRepository {
             normalize(definitions);
 
             // Set derived properties
+            for (TNamedElement element: itemDefinitions(definitions)) {
+                this.elementMap.put(element, definitions);
+            }
             for (TDRGElement element: drgElements(definitions)) {
                 this.elementMap.put(element, definitions);
             }
@@ -181,6 +184,10 @@ public class DMNModelRepository {
             }
         }
         return names;
+    }
+
+    public TDefinitions getModel(TNamedElement element) {
+        return this.elementMap.get(element);
     }
 
     public List<TDRGElement> drgElements() {
@@ -995,8 +1002,7 @@ public class DMNModelRepository {
             String href = reference.getHref();
             String namespace = extractNamespace(href);
             if (namespace != null) {
-                String prefix = this.prefixNamespaceMappings.getPrefix(namespace);
-                return prefix;
+                return this.prefixNamespaceMappings.getPrefix(namespace);
             }
         }
         return  null;
@@ -1008,8 +1014,7 @@ public class DMNModelRepository {
             if (href.contains(id)) {
                 String namespace = extractNamespace(href);
                 if (namespace != null) {
-                    String prefix = this.prefixNamespaceMappings.getPrefix(namespace);
-                    return prefix;
+                    return this.prefixNamespaceMappings.getPrefix(namespace);
                 }
             }
         }
