@@ -57,7 +57,7 @@ public class ${testClassName} extends ${decisionBaseClass} {
     <#list testCase.resultNode>
         <#items as result>
         // Check ${result.name}
-        checkValues(${tckUtil.toJavaExpression(testCases, result)}, new ${tckUtil.qualifiedName(packageName, tckUtil.drgElementClassName(result))}().apply(${tckUtil.drgElementArgumentsExtraCache(tckUtil.drgElementArgumentsExtra(tckUtil.drgElementArgumentList(result)))}));
+        checkValues(${tckUtil.toJavaExpression(testCases, result)}, new ${tckUtil.qualifiedName(testCases, result)}().apply(${tckUtil.drgElementArgumentsExtraCache(tckUtil.drgElementArgumentsExtra(tckUtil.drgElementArgumentList(result)))}));
         </#items>
     </#list>
 </#macro>

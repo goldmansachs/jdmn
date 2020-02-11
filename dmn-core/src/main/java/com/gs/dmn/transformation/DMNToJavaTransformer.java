@@ -119,7 +119,7 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
         if (!dmnTransformer.getDMNModelRepository().isEmpty(itemDefinition.getItemComponent())) {
             logger.debug(String.format("Generating code for ItemDefinition '%s'", itemDefinition.getName()));
 
-            String typePackageName = dmnTransformer.javaTypePackageName();
+            String typePackageName = dmnTransformer.javaTypePackageName(definitions.getName());
 
             // Generate interface and class
             String javaInterfaceName = dmnTransformer.itemDefinitionJavaInterfaceName(itemDefinition);
@@ -150,7 +150,7 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
     private void transformBKM(TDefinitions definitions, TBusinessKnowledgeModel bkm, BasicDMN2JavaTransformer dmnTransformer, List<String> generatedClasses, Path outputPath, String decisionBaseClass) {
         logger.debug(String.format("Generating code for BKM '%s'", bkm.getName()));
 
-        String bkmPackageName = dmnTransformer.javaRootPackageName();
+        String bkmPackageName = dmnTransformer.javaModelPackageName(definitions.getName());
         String bkmClassName = dmnTransformer.drgElementClassName(bkm);
         checkDuplicate(generatedClasses, bkmPackageName, bkmClassName, dmnTransformer);
         processTemplate(bkm, templateProvider.baseTemplatePath(), templateProvider.bkmTemplateName(), dmnTransformer, outputPath, bkmPackageName, bkmClassName, decisionBaseClass);
@@ -171,7 +171,7 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
     private void transformDecision(TDefinitions definitions, TDecision decision, BasicDMN2JavaTransformer dmnTransformer, List<String> generatedClasses, Path outputPath, String decisionBaseClass) {
         logger.debug(String.format("Generating code for Decision '%s'", decision.getName()));
 
-        String decisionPackageName = dmnTransformer.javaRootPackageName();
+        String decisionPackageName = dmnTransformer.javaModelPackageName(definitions.getName());
         String decisionClassName = dmnTransformer.drgElementClassName(decision);
         checkDuplicate(generatedClasses, decisionPackageName, decisionClassName, dmnTransformer);
         processTemplate(decision, templateProvider.baseTemplatePath(), templateProvider.decisionTemplateName(), dmnTransformer, outputPath, decisionPackageName, decisionClassName, decisionBaseClass);

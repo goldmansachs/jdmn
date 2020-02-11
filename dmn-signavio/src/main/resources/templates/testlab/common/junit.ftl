@@ -25,7 +25,7 @@ public class ${testClassName} extends ${decisionBaseClass} {
     <@addTestCases />
 }
 <#macro addDecisionField>
-    private final ${testLabUtil.qualifiedName(packageName, testLabUtil.drgElementClassName(rootOutputParameter))} ${testLabUtil.drgElementVariableName(rootOutputParameter)} = new ${testLabUtil.qualifiedName(packageName, testLabUtil.drgElementClassName(rootOutputParameter))}();
+    private final ${testLabUtil.qualifiedName(testLab, rootOutputParameter)} ${testLabUtil.drgElementVariableName(rootOutputParameter)} = new ${testLabUtil.qualifiedName(testLab, rootOutputParameter)}();
 </#macro>
 
 <#macro addTestCases>
