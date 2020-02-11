@@ -25,6 +25,14 @@ public class InputParamUtil {
         }
     }
 
+    public static String getOptionalParam(Map<String, String> parameters, String parameterKey, String defaultValue) {
+        if (parameters == null || parameters.get(parameterKey) == null || parameters.get(parameterKey).trim().isEmpty()) {
+            return defaultValue;
+        } else {
+            return parameters.get(parameterKey);
+        }
+    }
+
     public static String getOptionalParam(Map<String, String> parameters, String parameterKey) {
         if (parameters == null || parameters.get(parameterKey) == null || parameters.get(parameterKey).trim().isEmpty()) {
             return null;
@@ -35,6 +43,11 @@ public class InputParamUtil {
 
     public static boolean getOptionalBooleanParam(Map<String, String> parameters, String paramKey) {
         String param = InputParamUtil.getOptionalParam(parameters, paramKey);
-        return param != null && Boolean.parseBoolean(param);
+        return Boolean.parseBoolean(param);
+    }
+
+    public static boolean getOptionalBooleanParam(Map<String, String> parameters, String paramKey, String defaultValue) {
+        String param = InputParamUtil.getOptionalParam(parameters, paramKey, defaultValue);
+        return Boolean.parseBoolean(param);
     }
 }
