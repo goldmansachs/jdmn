@@ -1280,7 +1280,9 @@ public class BasicDMN2JavaTransformer {
         if (typeRef != null) {
             type = toFEELType(typeRef);
         } else {
-            type = new ItemDefinitionType(itemDefinition.getName());
+            TDefinitions definitions = this.dmnModelRepository.getModel(itemDefinition);
+            String modelName = definitions == null ? null : definitions.getName();
+            type = new ItemDefinitionType(itemDefinition.getName(), modelName);
             for(TItemDefinition item: itemComponent) {
                 ((ItemDefinitionType)type).addMember(item.getName(), Arrays.asList(item.getLabel()), toFEELType(item));
             }
@@ -1311,15 +1313,6 @@ public class BasicDMN2JavaTransformer {
     //
     // Common functions
     //
-    private String toJavaType(QualifiedName typeRef) {
-        try {
-            Type type = toFEELType(typeRef);
-            return toJavaType(type);
-        } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot map typeRef '%s' to java", typeRef));
-        }
-    }
-
     public String toJavaType(TDecision decision) {
         Environment environment = makeEnvironment(decision);
         TLiteralExpression expression = (TLiteralExpression) decision.getExpression().getValue();
@@ -1329,24 +1322,6 @@ public class BasicDMN2JavaTransformer {
 
     public String toStringJavaType(Type type) {
         return toJavaType(StringType.STRING);
-    }
-
-    public String toQualifiedJavaType(Type type) {
-        if (type instanceof NamedType) {
-            String typeName = ((NamedType) type).getName();
-            String primitiveType = feelTypeTranslator.toQualifiedJavaType(typeName);
-            if (!StringUtils.isBlank(primitiveType)) {
-                return primitiveType;
-            } else {
-                return qualifiedName(javaTypePackageName(), upperCaseFirst(typeName));
-            }
-        } else if (type instanceof ListType) {
-            String elementType = toJavaType(((ListType) type).getElementType());
-            return String.format("%s<%s>", DMNToJavaTransformer.QUALIFIED_LIST_TYPE, elementType);
-        } else if (type instanceof AnyType) {
-            return "Object";
-        }
-        throw new IllegalArgumentException(String.format("Cannot map type '%s' to Java", type.toString()));
     }
 
     public String toJavaType(Type type) {
