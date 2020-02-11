@@ -126,7 +126,9 @@ public class TestLabUtil {
         return dmnTransformer.lowerCaseFirst(name);
     }
 
-    public String qualifiedName(String pkg, String cls) {
+    public String qualifiedName(TestLab testLab, OutputParameterDefinition rootOutputParameter) {
+        String pkg = dmnTransformer.javaModelPackageName(rootOutputParameter.getModelName());
+        String cls = drgElementClassName(rootOutputParameter);
         return dmnTransformer.qualifiedName(pkg, cls);
     }
 

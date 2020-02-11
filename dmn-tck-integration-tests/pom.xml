@@ -12,7 +12,7 @@
     specific language governing permissions and limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -1764,6 +1764,36 @@
 
                     <!-- Composite models -->
                     <execution>
+                        <id>composite-0001-separated-inputdata-no-prefix-same-package</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${tck.diagram.folder}/composite/0001-separated-inputdata-no-prefix</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0001_separated_inputdata_no_prefix_same_package</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-composite-0001-separated-inputdata-no-prefix-same-package</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${tck.diagram.folder}/composite/0001-separated-inputdata-no-prefix/0089-model-c-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.diagram.folder}/composite/0001-separated-inputdata-no-prefix</inputModelFileDirectory>
+                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0001_separated_inputdata_no_prefix_same_package</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
                         <id>composite-0001-separated-inputdata-no-prefix</id>
                         <phase>generate-sources</phase>
                         <goals>
@@ -1774,6 +1804,7 @@
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0001_separated_inputdata_no_prefix</javaRootPackage>
+                                <samePackage>false</samePackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1789,6 +1820,7 @@
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0001_separated_inputdata_no_prefix</javaRootPackage>
+                                <samePackage>false</samePackage>
                             </inputParameters>
                         </configuration>
                     </execution>

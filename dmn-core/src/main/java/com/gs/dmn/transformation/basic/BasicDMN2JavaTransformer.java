@@ -63,6 +63,7 @@ public class BasicDMN2JavaTransformer {
     protected final FEELTypeTranslator feelTypeTranslator;
     protected final FEELTranslator feelTranslator;
     private final String javaRootPackage;
+    private final boolean samePackage;
     private final boolean caching;
 
     private final ContextToJavaTransformer contextToJavaTransformer;
@@ -80,6 +81,7 @@ public class BasicDMN2JavaTransformer {
         this.environmentFactory = environmentFactory;
         this.feelTypeTranslator = feelTypeTranslator;
         this.javaRootPackage = InputParamUtil.getOptionalParam(inputParameters, "javaRootPackage");
+        this.samePackage = InputParamUtil.getOptionalBooleanParam(inputParameters, "samePackage", "true");
         this.caching = InputParamUtil.getOptionalBooleanParam(inputParameters, "caching");
         this.feelTranslator = new FEELTranslatorImpl(this);
 
@@ -368,7 +370,7 @@ public class BasicDMN2JavaTransformer {
     public String decisionConstructorSignature(TDecision decision) {
         List<TDecision> subDecisions = dmnModelRepository.directSubDecisions(decision);
         subDecisions.sort(Comparator.comparing(TNamedElement::getName));
-        return subDecisions.stream().map(d -> String.format("%s %s", qualifiedName(javaRootPackage, drgElementClassName(d)), drgElementVariableName(d))).collect(Collectors.joining(", "));
+        return subDecisions.stream().map(d -> String.format("%s %s", qualifiedName(d), drgElementVariableName(d))).collect(Collectors.joining(", "));
     }
 
     public String decisionConstructorNewArgumentList(TDecision decision) {
@@ -376,14 +378,14 @@ public class BasicDMN2JavaTransformer {
         subDecisions.sort(Comparator.comparing(TNamedElement::getName));
         return subDecisions
                 .stream()
-                .map(d -> String.format("%s", defaultConstructor(qualifiedName(javaRootPackage, drgElementClassName(d)))))
+                .map(d -> String.format("%s", defaultConstructor(qualifiedName(d))))
                 .collect(Collectors.joining(", "));
     }
 
     public String decisionTopologicalConstructorSignature(TDecision decision) {
         List<TDecision> subDecisions = dmnModelRepository.topologicalSort(decision);
         subDecisions.sort(Comparator.comparing(TNamedElement::getName));
-        return subDecisions.stream().map(d -> String.format("%s %s", qualifiedName(javaRootPackage, drgElementClassName(d)), drgElementVariableName(d))).collect(Collectors.joining(", "));
+        return subDecisions.stream().map(d -> String.format("%s %s", qualifiedName(d), drgElementVariableName(d))).collect(Collectors.joining(", "));
     }
 
     public String decisionTopologicalConstructorNewArgumentList(TDecision decision) {
@@ -391,7 +393,7 @@ public class BasicDMN2JavaTransformer {
         subDecisions.sort(Comparator.comparing(TNamedElement::getName));
         return subDecisions
                 .stream()
-                .map(d -> String.format("%s", defaultConstructor(qualifiedName(javaRootPackage, drgElementClassName(d)))))
+                .map(d -> String.format("%s", defaultConstructor(qualifiedName(d))))
                 .collect(Collectors.joining(", "));
     }
 
@@ -1331,7 +1333,12 @@ public class BasicDMN2JavaTransformer {
             if (!StringUtils.isBlank(primitiveType)) {
                 return primitiveType;
             } else {
-                return qualifiedName(javaTypePackageName(), upperCaseFirst(typeName));
+                if (type instanceof ItemDefinitionType) {
+                    String modelName = ((ItemDefinitionType) type).getModelName();
+                    return qualifiedName(javaTypePackageName(modelName), upperCaseFirst(typeName));
+                } else {
+                    throw new DMNRuntimeException(String.format("Cannot infer platform type for '%s'", type));
+                }
             }
         } else if (type instanceof ContextType) {
             return contextClassName();
@@ -1352,6 +1359,17 @@ public class BasicDMN2JavaTransformer {
     }
 
     public String qualifiedName(String pkg, String name) {
+        if (StringUtils.isBlank(pkg)) {
+            return name;
+        } else {
+            return pkg + "." + name;
+        }
+    }
+
+    public String qualifiedName(TDRGElement element) {
+        TDefinitions definitions = this.dmnModelRepository.getModel(element);
+        String pkg = this.javaModelPackageName(definitions.getName());
+        String name = drgElementClassName(element);
         if (StringUtils.isBlank(pkg)) {
             return name;
         } else {
@@ -1429,19 +1447,74 @@ public class BasicDMN2JavaTransformer {
         return javaFriendlyName(name.length() == 1 ? firstChar : firstChar + name.substring(1));
     }
 
-    public String javaRootPackageName() {
-        if (StringUtils.isBlank(javaRootPackage)) {
-            return "";
+    public String javaModelPackageName(String modelName) {
+        if (this.samePackage) {
+            modelName = "";
+        }
+
+        String modelPackageName = javaModelName(modelName);
+        String elementPackageName = this.javaRootPackage;
+        if (StringUtils.isBlank(elementPackageName)) {
+            return modelPackageName;
+        } else if (!StringUtils.isBlank(modelPackageName)) {
+            return elementPackageName + "." + modelPackageName;
         } else {
-            return javaRootPackage;
+            return elementPackageName;
         }
     }
 
-    public String javaTypePackageName() {
-        if (StringUtils.isBlank(javaRootPackage)) {
-            return DMNToJavaTransformer.DATA_PACKAGE;
+    protected String javaModelName(String name) {
+        if (StringUtils.isEmpty(name)) {
+            return "";
+        }
+        StringBuilder result = new StringBuilder();
+        boolean skippedPrevious = false;
+        boolean first = true;
+        for (int ch: name.codePoints().toArray()) {
+            if (Character.isJavaIdentifierPart(ch)) {
+                if (skippedPrevious && !first) {
+                    result.append((char)'_');
+                }
+                result.append((char)ch);
+                skippedPrevious = false;
+                first = false;
+            } else {
+                skippedPrevious = true;
+            }
+        }
+        String newName = result.toString().toLowerCase();
+        if (newName.isEmpty()) {
+            return newName;
         } else {
-            return javaRootPackage + "." + DMNToJavaTransformer.DATA_PACKAGE;
+            if (!Character.isJavaIdentifierStart(newName.codePointAt(0))) {
+                return "p_" + newName;
+            } else {
+                return newName;
+            }
+        }
+    }
+
+    public String javaRootPackageName() {
+        if (this.javaRootPackage == null) {
+            return "";
+        } else {
+            return this.javaRootPackage;
+        }
+    }
+
+    public String javaTypePackageName(String modelName) {
+        if (this.samePackage) {
+            modelName = "";
+        }
+
+        String javaModelPackageName = javaModelName(modelName);
+        if (StringUtils.isBlank(this.javaRootPackage) && StringUtils.isBlank(javaModelPackageName)) {
+            return DMNToJavaTransformer.DATA_PACKAGE;
+        }
+        if (StringUtils.isBlank(javaModelPackageName)) {
+            return this.javaRootPackage + "." + DMNToJavaTransformer.DATA_PACKAGE;
+        } else {
+            return this.javaRootPackage + "." + javaModelPackageName + "." + DMNToJavaTransformer.DATA_PACKAGE;
         }
     }
 
