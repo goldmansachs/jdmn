@@ -131,7 +131,7 @@
 <#macro importRequiredBKMs drgElement>
     <#list modelRepository.directSubInvocables(drgElement)>
         <#items as subBKM>
-import static ${transformer.qualifiedName(javaPackageName, transformer.drgElementClassName(subBKM))}.${transformer.bkmFunctionName(subBKM)};
+import static ${transformer.qualifiedName(subBKM)}.${transformer.bkmFunctionName(subBKM)};
         </#items>
 
     </#list>
@@ -143,7 +143,7 @@ import static ${transformer.qualifiedName(javaPackageName, transformer.drgElemen
 <#macro addSubDecisionFields drgElement>
     <#list modelRepository.topologicalSort(drgElement)>
         <#items as subDecision>
-    private final ${transformer.qualifiedName(javaPackageName, transformer.drgElementClassName(subDecision))} ${transformer.drgElementVariableName(subDecision)};
+    private final ${transformer.qualifiedName(subDecision)} ${transformer.drgElementVariableName(subDecision)};
         </#items>
     </#list>
 </#macro>
@@ -386,7 +386,7 @@ import static ${transformer.qualifiedName(javaPackageName, transformer.drgElemen
         ${transformer.eventListenerVariableName()}.endRule(<@drgElementAnnotation drgElement/>, <@ruleAnnotation/>, ${output});
 </#macro>
 
-<#macro drgElementAnnotation drgElement>${transformer.qualifiedName(javaPackageName, transformer.drgElementClassName(drgElement))}.${transformer.drgElementMetadataFieldName()}</#macro>
+<#macro drgElementAnnotation drgElement>${transformer.qualifiedName(drgElement)}.${transformer.drgElementMetadataFieldName()}</#macro>
 
 <#macro ruleAnnotation>${transformer.drgRuleMetadataFieldName()}</#macro>
 

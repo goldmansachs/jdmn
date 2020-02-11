@@ -85,7 +85,7 @@ public class TCKTestCasesToJUnitTransformer extends AbstractDMNTransformer {
             params.put("decisionBaseClass", decisionBaseClass);
 
             // Make output file
-            String javaPackageName = dmnTransformer.javaRootPackageName();
+            String javaPackageName = dmnTransformer.javaModelPackageName(testCases.getModelName());
             String relativeFilePath = javaPackageName.replace('.', '/');
             String fileExtension = ".java";
             File outputFile = makeOutputFile(outputPath, relativeFilePath, testClassName, fileExtension);

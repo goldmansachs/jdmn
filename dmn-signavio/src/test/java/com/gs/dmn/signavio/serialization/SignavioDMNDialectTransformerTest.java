@@ -18,7 +18,6 @@ import com.gs.dmn.serialization.DMNDialectTransformer;
 import com.gs.dmn.serialization.DMNDialectTransformerTest;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.DMNWriter;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class SignavioDMNDialectTransformerTest extends DMNDialectTransformerTest {
@@ -54,5 +53,4 @@ public class SignavioDMNDialectTransformerTest extends DMNDialectTransformerTest
     private String getExpectedPath() {
         return "dmn/expected/1.2/";
     }
-
 }

@@ -28,6 +28,10 @@ public class TestLab extends TestLabElement {
         this.source = source;
     }
 
+    public String getModelName() {
+        return getRootOutputParameter().getModelName();
+    }
+
     public List<InputParameterDefinition> getInputParameterDefinitions() {
         return inputParameterDefinitions;
     }
