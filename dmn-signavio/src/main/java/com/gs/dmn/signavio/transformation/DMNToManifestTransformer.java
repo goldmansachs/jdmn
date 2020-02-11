@@ -56,7 +56,7 @@ public class DMNToManifestTransformer {
                 String name = bkm.getName();
                 String label = bkm.getLabel();
                 String javaFunctionName = dmnTransformer.bkmFunctionName(bkm);
-                String javaTypeName = dmnTransformer.qualifiedName(dmnTransformer.javaRootPackageName(), dmnTransformer.drgElementClassName(bkm));
+                String javaTypeName = dmnTransformer.qualifiedName(dmnTransformer.javaModelPackageName(definitions.getName()), dmnTransformer.drgElementClassName(bkm));
                 String javaOutputTypeName = dmnTransformer.drgElementOutputType(bkm);
                 com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(dmnTransformer.drgElementOutputTypeRef(bkm));
                 List<DRGElementReference> knowledgeReferences = makeMetadataKnowledgeReferences(bkm.getKnowledgeRequirement());
@@ -68,7 +68,7 @@ public class DMNToManifestTransformer {
                 String name = decision.getName();
                 String label = decision.getLabel();
                 String javaParameterName = dmnTransformer.drgElementVariableName(decision);
-                String javaTypeName = dmnTransformer.qualifiedName(dmnTransformer.javaRootPackageName(), dmnTransformer.drgElementClassName(decision));
+                String javaTypeName = dmnTransformer.qualifiedName(dmnTransformer.javaModelPackageName(definitions.getName()), dmnTransformer.drgElementClassName(decision));
                 String javaOutputTypeName = dmnTransformer.drgElementOutputType(decision);
                 com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(QualifiedName.toQualifiedName(decision.getVariable().getTypeRef()));
                 List<DRGElementReference> references = makeMetadataInformationReferences(decision);

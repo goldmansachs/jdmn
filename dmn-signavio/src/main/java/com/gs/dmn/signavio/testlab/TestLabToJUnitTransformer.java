@@ -114,14 +114,15 @@ public class TestLabToJUnitTransformer extends AbstractDMNTransformer {
 
     private void processTemplate(TestLab testLab, String baseTemplatePath, String templateName, BasicDMN2JavaTransformer dmnTransformer, Path outputPath, String testClassName) {
         try {
+            String javaPackageName = dmnTransformer.javaModelPackageName(testLab.getModelName());
+
             // Make parameters
             Map<String, Object> params = makeTemplateParams(testLab, dmnTransformer);
-            params.put("packageName", javaRootPackage);
+            params.put("packageName", javaPackageName);
             params.put("testClassName", testClassName);
             params.put("decisionBaseClass", decisionBaseClass);
 
             // Make output file
-            String javaPackageName = dmnTransformer.javaRootPackageName();
             String relativeFilePath = javaPackageName.replace('.', '/');
             String fileExtension = ".java";
             File outputFile = makeOutputFile(outputPath, relativeFilePath, testClassName, fileExtension);

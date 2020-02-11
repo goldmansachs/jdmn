@@ -26,7 +26,6 @@ import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
-import org.antlr.v4.runtime.misc.Array2DHashSet;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCaseType;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
@@ -179,7 +178,9 @@ public class TCKUtil {
         return dmnTransformer.lowerCaseFirst(name);
     }
 
-    public String qualifiedName(String pkg, String cls) {
+    public String qualifiedName(TestCases testCases, ResultNode result) {
+        String pkg = dmnTransformer.javaModelPackageName(testCases.getModelName());
+        String cls = drgElementClassName(result);
         return dmnTransformer.qualifiedName(pkg, cls);
     }
 

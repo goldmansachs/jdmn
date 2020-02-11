@@ -129,6 +129,16 @@ public class BasicDMN2JavaTransformerTest {
         assertEquals("🐎😀", dmnTransformer.escapeInString("🐎😀"));
     }
 
+    @Test
+    public void testJavaModelName() {
+        assertEquals("", dmnTransformer.javaModelName(null));
+        assertEquals("", dmnTransformer.javaModelName(""));
+        assertEquals("abc", dmnTransformer.javaModelName("abc"));
+        assertEquals("abc", dmnTransformer.javaModelName("aBc"));
+        assertEquals("p_123abc", dmnTransformer.javaModelName("123aBc"));
+        assertEquals("literal_arithmetic", dmnTransformer.javaModelName("literal - arithmetic"));
+    }
+
     private DMNModelRepository readDMN(String pathName) {
         File input = new File(BasicDMN2JavaTransformerTest.class.getClassLoader().getResource(pathName).getFile());
         Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(input);
