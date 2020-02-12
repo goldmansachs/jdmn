@@ -159,7 +159,7 @@ public abstract class AbstractDMNInterpreterTest {
 
     protected abstract String getTestCasesInputPath();
 
-    private TDefinitions readModel(String dmnFileName) throws Exception {
+    private Pair<TDefinitions, PrefixNamespaceMappings> readModel(String dmnFileName) throws Exception {
         String dmnPathName = getDMNInputPath() + "/" + dmnFileName + DMNConstants.DMN_FILE_EXTENSION;
         URL dmnFileURL = getClass().getClassLoader().getResource(dmnPathName).toURI().toURL();
         Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(dmnFileURL);
