@@ -36,6 +36,7 @@ import org.omg.spec.dmn._20180521.model.TDefinitions;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,25 +80,40 @@ public class TestLabToJUnitTransformer extends AbstractDMNTransformer {
     }
 
     @Override
-    protected void transformFile(File child, File root, Path outputPath) {
+    protected void transformFile(File file, File root, Path outputPath) {
         try {
-            logger.info(String.format("Processing TestLab file '%s'", child.getPath()));
+            logger.info(String.format("Processing TestLab file '%s'", file.getPath()));
             StopWatch watch = new StopWatch();
             watch.start();
 
-            TestLab testLab = testLabReader.read(child);
-            testLabValidator.validate(testLab);
-            testLabEnhancer.enhance(testLab);
+            List<TestLab> testLabList = new ArrayList<>();
+            if (file.isFile()) {
+                TestLab testLab = testLabReader.read(file);
+                testLabValidator.validate(testLab);
+                testLabEnhancer.enhance(testLab);
+                testLabList.add(testLab);
+            } else {
+                for (File child: file.listFiles()) {
+                    if (shouldTransformFile(child)) {
+                        TestLab testLab = testLabReader.read(child);
+                        testLabValidator.validate(testLab);
+                        testLabEnhancer.enhance(testLab);
+                        testLabList.add(testLab);
+                    }
+                }
+            }
 
-            testLab = (TestLab) this.dmnTransformer.transform(basicTransformer.getDMNModelRepository(), testLab).getRight();
+            testLabList = (List<TestLab>) this.dmnTransformer.transform(basicTransformer.getDMNModelRepository(), testLabList).getRight();
 
-            String javaClassName = testClassName(testLab, basicTransformer);
-            processTemplate(testLab, templateProvider.testBaseTemplatePath(), templateProvider.testTemplateName(), basicTransformer, outputPath, javaClassName);
+            for (TestLab testLab: testLabList) {
+                String javaClassName = testClassName(testLab, basicTransformer);
+                processTemplate(testLab, templateProvider.testBaseTemplatePath(), templateProvider.testTemplateName(), basicTransformer, outputPath, javaClassName);
+            }
 
             watch.stop();
             logger.info("TestLab processing time: " + watch.toString());
         } catch (IOException e) {
-            throw new DMNRuntimeException(String.format("Error during transforming %s.", child.getName()), e);
+            throw new DMNRuntimeException(String.format("Error during transforming %s.", file.getName()), e);
         }
     }
 

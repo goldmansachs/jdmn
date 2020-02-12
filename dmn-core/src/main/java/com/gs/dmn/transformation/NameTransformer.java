@@ -61,7 +61,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
 
     protected final BuildLogger logger;
     private boolean transformDefinition = true;
-    private final Set<TDMNElement> renamedElements = new LinkedHashSet();
+    private final Set<TDMNElement> renamedElements = new LinkedHashSet<>();
 
     public NameTransformer(BuildLogger logger) {
         this.logger = logger;
@@ -76,18 +76,20 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     }
 
     @Override
-    public Pair<DMNModelRepository, TestCases> transform(DMNModelRepository repository, TestCases testCases) {
+    public Pair<DMNModelRepository, List<TestCases>> transform(DMNModelRepository repository, List<TestCases> testCasesList) {
         if (transformDefinition) {
             transform(repository);
         }
 
         // Clean each TestCase
-        if (testCases != null) {
-            for (TestCases.TestCase testCase : testCases.getTestCase()) {
-                transform(testCase);
+        for (TestCases testCases: testCasesList) {
+            if (testCases != null) {
+                for (TestCases.TestCase testCase : testCases.getTestCase()) {
+                    transform(testCase);
+                }
             }
         }
-        return new Pair<>(repository, testCases);
+        return new Pair<>(repository, testCasesList);
     }
 
     protected void transform(TestCases.TestCase testCase) {

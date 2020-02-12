@@ -24,10 +24,7 @@ import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ToSimpleNameTransformer extends NameTransformer {
     private int counter = 0;
@@ -142,7 +139,7 @@ public class ToSimpleNameTransformer extends NameTransformer {
         TestCases testCases = reader.read(inputFile);
 
         // Clean
-        transformer.transform(repository, testCases);
+        transformer.transform(repository, Arrays.asList(testCases));
 
         // Write
         reader.write(testCases, outputFile, new TCKNamespacePrefixMapper());

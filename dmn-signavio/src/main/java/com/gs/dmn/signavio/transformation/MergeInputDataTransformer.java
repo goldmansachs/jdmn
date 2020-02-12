@@ -20,7 +20,6 @@ import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.InputParameterDefinition;
 import com.gs.dmn.signavio.testlab.TestCase;
 import com.gs.dmn.signavio.testlab.TestLab;
-import com.gs.dmn.signavio.testlab.TestLabUtil;
 import com.gs.dmn.signavio.testlab.expression.Expression;
 import com.gs.dmn.transformation.SimpleDMNTransformer;
 import org.omg.spec.dmn._20180521.model.*;
@@ -56,11 +55,19 @@ public class MergeInputDataTransformer extends SimpleDMNTransformer<TestLab> {
     }
 
     @Override
-    public Pair<DMNModelRepository, TestLab> transform(DMNModelRepository repository, TestLab testLab) {
+    public Pair<DMNModelRepository, List<TestLab>> transform(DMNModelRepository repository, List<TestLab> testLabList) {
         if (inputDataClasses == null) {
             transform(repository);
         }
 
+        for (TestLab testLab: testLabList) {
+            transform(testLab, (SignavioDMNModelRepository) repository);
+        }
+
+        return new Pair<>(repository, testLabList);
+    }
+
+    private void transform(TestLab testLab, SignavioDMNModelRepository repository) {
         // Calculate parameters to remove
         List<InputParameterDefinition> toRemove = new ArrayList<>();
         List<Integer> indexToRemove = new ArrayList<>();
@@ -74,9 +81,9 @@ public class MergeInputDataTransformer extends SimpleDMNTransformer<TestLab> {
             } else {
                 labels.add(requirementName);
                 TInputData representative = this.inputDataClasses.get(requirementName).getLeft();
-                QName diagramIdQName = ((SignavioDMNModelRepository) repository).getDiagramIdQName();
+                QName diagramIdQName = repository.getDiagramIdQName();
                 String representativeDiagramId = representative.getOtherAttributes().get(diagramIdQName);
-                QName shapeIdQName = ((SignavioDMNModelRepository) repository).getShapeIdQName();
+                QName shapeIdQName = repository.getShapeIdQName();
                 String representativeShapeId = representative.getOtherAttributes().get(shapeIdQName);
                 ipd.setDiagramId(representativeDiagramId);
                 ipd.setShapeId(representativeShapeId);
@@ -96,8 +103,6 @@ public class MergeInputDataTransformer extends SimpleDMNTransformer<TestLab> {
             }
             testCase.getInputValues().removeAll(expToRemove);
         }
-
-        return new Pair<>(repository, testLab);
     }
 
     private DMNModelRepository mergeInputData(DMNModelRepository repository, BuildLogger logger) {

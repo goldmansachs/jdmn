@@ -13,6 +13,7 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.*;
 import com.gs.dmn.tck.TestCasesReader;
@@ -45,19 +46,27 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
 
         // Transform Tests
         File inputTestsFile = new File(CLASS_LOADER.getResource(path + testsFileName).getFile());
-        TestCases testCases = testReader.read(inputTestsFile);
-        TestCases actualTestCases = transformer.transform(repository, testCases).getRight();
+        List<TestCases> testCasesList = new ArrayList<>();
+        if (inputTestsFile.isFile()) {
+            TestCases testCases = testReader.read(inputTestsFile);
+            testCasesList.add(testCases);
+        } else {
+            throw new DMNRuntimeException(String.format("Only single files are supported"));
+        }
+        List<TestCases> actualTestCasesList = transformer.transform(repository, testCasesList).getRight();
 
         // Check output
-        File targetFolder = new File(getTargetPath());
-        targetFolder.mkdirs();
-        for (int i = 0; i < dmnFileNames.size(); i++) {
-            String dmnFileName = dmnFileNames.get(i);
-            Pair<TDefinitions, PrefixNamespaceMappings> pair = pairs.get(i);
-            check(pair.getLeft(), dmnFileName, namespacePrefixMapping.get(dmnFileName));
+        for (TestCases actualTestCases: actualTestCasesList) {
+            File targetFolder = new File(getTargetPath());
+            targetFolder.mkdirs();
+            for (int i = 0; i < dmnFileNames.size(); i++) {
+                String dmnFileName = dmnFileNames.get(i);
+                Pair<TDefinitions, PrefixNamespaceMappings> pair = pairs.get(i);
+                check(pair.getLeft(), dmnFileName, namespacePrefixMapping.get(dmnFileName));
+            }
+            Pair<String, String> testsNamespacePrefixMapping = namespacePrefixMapping.get(testsFileName);
+            check(actualTestCases, testsFileName, testsNamespacePrefixMapping);
         }
-        Pair<String, String> testsNamespacePrefixMapping = namespacePrefixMapping.get(testsFileName);
-        check(actualTestCases, testsFileName, testsNamespacePrefixMapping);
     }
 
     private Pair<TDefinitions, PrefixNamespaceMappings> readModel(String fileName) {
