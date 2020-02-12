@@ -36,8 +36,8 @@ public class CompositeDMNTransformer<T> implements DMNTransformer<T> {
     }
 
     @Override
-    public Pair<DMNModelRepository, T> transform(DMNModelRepository repository, T testCases) {
-        Pair<DMNModelRepository, T> result = new Pair(repository, testCases);
+    public Pair<DMNModelRepository, List<T>> transform(DMNModelRepository repository, List<T> testCasesList) {
+        Pair<DMNModelRepository, List<T>> result = new Pair(repository, testCasesList);
         for(DMNTransformer transformer: this.transformers) {
             result = transformer.transform(result.getLeft(), result.getRight());
         }

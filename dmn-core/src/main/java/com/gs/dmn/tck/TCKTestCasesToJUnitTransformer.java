@@ -26,11 +26,14 @@ import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.StopWatch;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.gs.dmn.tck.TestCasesReader.isTCKFile;
@@ -62,17 +65,35 @@ public class TCKTestCasesToJUnitTransformer extends AbstractDMNTransformer {
     }
 
     @Override
-    protected void transformFile(File child, File root, Path outputPath) {
+    protected void transformFile(File file, File root, Path outputPath) {
         try {
-            logger.info("Processing TCK TestCases ...");
+            logger.info(String.format("Processing TCK file '%s'", file.getPath()));
+            StopWatch watch = new StopWatch();
+            watch.start();
 
-            TestCases testCases = testCasesReader.read(child);
-            testCases = (TestCases) dmnTransformer.transform(basicTransformer.getDMNModelRepository(), testCases).getRight();
+            List<TestCases> testCasesList = new ArrayList<>();
+            if (file.isFile()) {
+                TestCases testCases = testCasesReader.read(file);
+                testCasesList.add(testCases);
+            } else if (file.isDirectory()) {
+                for (File child: file.listFiles()) {
+                    if (shouldTransformFile(child)) {
+                        TestCases testCases = testCasesReader.read(child);
+                        testCasesList.add(testCases);
+                    }
+                }
+            }
+            testCasesList = (List<TestCases>) dmnTransformer.transform(basicTransformer.getDMNModelRepository(), testCasesList).getRight();
 
-            String javaClassName = testClassName(testCases, basicTransformer);
-            processTemplate(testCases, templateProvider.testBaseTemplatePath(), templateProvider.testTemplateName(), basicTransformer, outputPath, javaClassName);
+            for (TestCases testCases: testCasesList) {
+                String javaClassName = testClassName(testCases, basicTransformer);
+                processTemplate(testCases, templateProvider.testBaseTemplatePath(), templateProvider.testTemplateName(), basicTransformer, outputPath, javaClassName);
+            }
+
+            watch.stop();
+            logger.info("TCK processing time: " + watch.toString());
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Error during transforming %s.", child.getName()), e);
+            throw new DMNRuntimeException(String.format("Error during transforming %s.", file.getName()), e);
         }
     }
 

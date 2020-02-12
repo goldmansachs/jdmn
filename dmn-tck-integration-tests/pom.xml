@@ -1815,7 +1815,7 @@
                             <goal>tck-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${tck.diagram.folder}/composite/0001-separated-inputdata-no-prefix/0089-model-c-test-01.xml</inputTestFileDirectory>
+                            <inputTestFileDirectory>${tck.diagram.folder}/composite/0001-separated-inputdata-no-prefix</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/composite/0001-separated-inputdata-no-prefix</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>

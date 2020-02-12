@@ -4,15 +4,15 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-  <modelName>Model C</modelName>
+  <modelName>Model B1</modelName>
 
   <testCase id="001" type="decision">
     <inputNode name="personName">
           <value xsi:type="xsd:string">B.A.John</value>
     </inputNode>
-    <resultNode name="modelCDecisionBasedOnBs">
+    <resultNode name="greetThePerson">
       <expected>
-        <value xsi:type="xsd:string">B1: Evaluating Say Hello to: Hello, B.A.John; B2: Evaluating Say Hello to: Hello, B.A.John</value>
+        <value xsi:type="xsd:string">Hello, B.A.John</value>
       </expected>
     </resultNode>
   </testCase>

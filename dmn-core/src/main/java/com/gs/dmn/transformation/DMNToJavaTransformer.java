@@ -23,6 +23,7 @@ import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
+import org.apache.commons.lang3.time.StopWatch;
 import org.omg.spec.dmn._20180521.model.TBusinessKnowledgeModel;
 import org.omg.spec.dmn._20180521.model.TDecision;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
@@ -72,7 +73,9 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
 
     @Override
     protected void transformFile(File file, File root, Path outputPath) {
-        logger.info("Processing DMN ...");
+        logger.info(String.format("Processing DMN file '%s'", file.getPath()));
+        StopWatch watch = new StopWatch();
+        watch.start();
 
         // Read and validate DMN
         DMNModelRepository repository = readDMN(file);
@@ -83,6 +86,9 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
 
         // Transform
         transform(dmnTransformer, dmnModelRepository, outputPath);
+
+        watch.stop();
+        logger.info("DMN processing time: " + watch.toString());
     }
 
     protected void transform(BasicDMN2JavaTransformer dmnTransformer, DMNModelRepository dmnModelRepository, Path outputPath) {

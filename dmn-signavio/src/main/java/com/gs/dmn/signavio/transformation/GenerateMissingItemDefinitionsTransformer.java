@@ -81,10 +81,10 @@ public class GenerateMissingItemDefinitionsTransformer extends SimpleDMNTransfor
     }
 
     @Override
-    public Pair<DMNModelRepository, TestLab> transform(DMNModelRepository repository, TestLab testCases) {
+    public Pair<DMNModelRepository, List<TestLab>> transform(DMNModelRepository repository, List<TestLab> testCasesList) {
         transform(repository);
 
-        return new Pair<>(repository, testCases);
+        return new Pair<>(repository, testCasesList);
     }
 
     @Override
