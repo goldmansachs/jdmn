@@ -36,15 +36,11 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
         DMNTransformer<TestCases> transformer = getTransformer();
         String path = getInputPath();
 
-        // Transform DMN files
-        List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = new ArrayList<>();
-        for (String fileName: dmnFileNames) {
-            Pair<TDefinitions, PrefixNamespaceMappings> pair = readModel(fileName);
-            pairs.add(pair);
-        }
+        // Read DMN files
+        List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = readModels(dmnFileNames);
         DMNModelRepository repository = new DMNModelRepository(pairs);
 
-        // Transform Tests
+        // Transform Models and Tests
         File inputTestsFile = new File(CLASS_LOADER.getResource(path + testsFileName).getFile());
         List<TestCases> testCasesList = new ArrayList<>();
         if (inputTestsFile.isFile()) {
@@ -69,10 +65,14 @@ public abstract class NameTransformerTest extends AbstractFileTransformerTest {
         }
     }
 
-    private Pair<TDefinitions, PrefixNamespaceMappings> readModel(String fileName) {
-        File dmnFile = new File(CLASS_LOADER.getResource(getInputPath() + fileName).getFile());
-        Pair<TDefinitions, PrefixNamespaceMappings> pair = this.dmnReader.read(dmnFile);
-        return pair;
+    private List<Pair<TDefinitions, PrefixNamespaceMappings>> readModels(List<String> fileNames) {
+        List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = new ArrayList<>();
+        for (String fileName: fileNames) {
+            File dmnFile = new File(CLASS_LOADER.getResource(getInputPath() + fileName).getFile());
+            Pair<TDefinitions, PrefixNamespaceMappings> pair = this.dmnReader.read(dmnFile);
+            pairs.add(pair);
+        }
+        return pairs;
     }
 
     private void check(TDefinitions actualDefinitions, String fileName, Pair<String, String> namespacePrefixMapping) throws Exception {

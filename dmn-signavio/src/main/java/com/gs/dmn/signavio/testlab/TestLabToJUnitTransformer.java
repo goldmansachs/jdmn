@@ -59,7 +59,7 @@ public class TestLabToJUnitTransformer extends AbstractDMNTransformer {
         if (StringUtils.isEmpty(this.schemaNamespace)) {
             this.schemaNamespace = "http://www.signavio.com/schema/dmn/1.1/";
         }
-        DMNModelRepository repository = readDMN(inputModelPath.toFile());
+        DMNModelRepository repository = readModels(inputModelPath.toFile());
         this.basicTransformer = this.dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);
         DMNModelRepository dmnModelRepository = this.basicTransformer.getDMNModelRepository();
         this.dmnValidator.validate(dmnModelRepository);
@@ -118,7 +118,7 @@ public class TestLabToJUnitTransformer extends AbstractDMNTransformer {
     }
 
     @Override
-    protected DMNModelRepository readDMN(File file) {
+    protected DMNModelRepository readModels(File file) {
         if (isDMNFile(file)) {
             Pair<TDefinitions, PrefixNamespaceMappings> result = dmnReader.read(file);
             SignavioDMNModelRepository repository = new SignavioDMNModelRepository(result, this.schemaNamespace);
