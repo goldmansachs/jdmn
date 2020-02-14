@@ -36,7 +36,9 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.net.URI;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DMNReader extends DMNSerializer {
@@ -61,6 +63,44 @@ public class DMNReader extends DMNSerializer {
     public DMNReader(BuildLogger logger, boolean validateSchema) {
         super(logger);
         this.validateSchema = validateSchema;
+    }
+
+    public List<Pair<TDefinitions, PrefixNamespaceMappings>> readModels(List<File> files) {
+        List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = new ArrayList<>();
+        if (files == null) {
+            throw new DMNRuntimeException("Missing DMN files");
+        } else {
+            for (File file: files) {
+                if (isDMNFile(file)) {
+                    Pair<TDefinitions, PrefixNamespaceMappings> pair = read(file);
+                    pairs.add(pair);
+                } else {
+                    logger.warn(String.format("Skipping file '%s", file.getAbsoluteFile()));
+                }
+            }
+            return pairs;
+        }
+    }
+
+    public List<Pair<TDefinitions, PrefixNamespaceMappings>> readModels(File file) {
+        List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = new ArrayList<>();
+        if (file == null) {
+            throw new DMNRuntimeException("Missing DMN file");
+        } else if (isDMNFile(file)) {
+            Pair<TDefinitions, PrefixNamespaceMappings> pair = read(file);
+            pairs.add(pair);
+            return pairs;
+        } else if (file.isDirectory()) {
+            for (File child: file.listFiles()) {
+                if (isDMNFile(child)) {
+                    Pair<TDefinitions, PrefixNamespaceMappings> pair = read(child);
+                    pairs.add(pair);
+                }
+            }
+            return pairs;
+        } else {
+            throw new DMNRuntimeException(String.format("Invalid DMN file %s", file.getAbsoluteFile()));
+        }
     }
 
     public Pair<TDefinitions, PrefixNamespaceMappings> read(File input) {

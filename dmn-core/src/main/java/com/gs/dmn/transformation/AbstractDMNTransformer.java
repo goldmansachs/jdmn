@@ -15,7 +15,6 @@ package com.gs.dmn.transformation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
@@ -26,11 +25,8 @@ import com.gs.dmn.validation.DMNValidator;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import static com.gs.dmn.serialization.DMNReader.isDMNFile;
 
 public abstract class AbstractDMNTransformer extends AbstractTemplateBasedTransformer {
     protected final DMNDialectDefinition dialectDefinition;
@@ -57,26 +53,9 @@ public abstract class AbstractDMNTransformer extends AbstractTemplateBasedTransf
         this.decisionBaseClass = dialectDefinition.getDecisionBaseClass();
     }
 
-    protected DMNModelRepository readDMN(File file) {
-        if (file == null) {
-            throw new DMNRuntimeException("Missing DMN file");
-        } else if (file.isDirectory()) {
-            List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = new ArrayList<>();
-            for (File child: file.listFiles()) {
-                if (isDMNFile(child)) {
-                    Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(child);
-                    pairs.add(pair);
-                }
-            }
-            DMNModelRepository repository = new DMNModelRepository(pairs);
-            return repository;
-        } else if (isDMNFile(file)) {
-            Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(file);
-            DMNModelRepository repository = new DMNModelRepository(pair);
-            return repository;
-        } else {
-            throw new DMNRuntimeException(String.format("Invalid DMN file %s", file.getAbsoluteFile()));
-        }
+    protected DMNModelRepository readModels(File file) {
+        List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = dmnReader.readModels(file);
+        return new DMNModelRepository(pairs);
     }
 
     protected void handleValidationErrors(List<String> errors) {

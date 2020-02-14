@@ -66,11 +66,7 @@ public abstract class AbstractDMNInterpreterTest {
         String errorMessage = String.format("Tested failed for diagram '%s'", dmnFileNames);
         try {
             // Read DMN files
-            List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = new ArrayList<>();
-            for (String fileName: dmnFileNames) {
-                Pair<TDefinitions, PrefixNamespaceMappings> pair = readModel(fileName);
-                pairs.add(pair);
-            }
+            List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = readModels(dmnFileNames);
             DMNModelRepository repository = new DMNModelRepository(pairs);
 
             // Transform definitions
@@ -159,10 +155,14 @@ public abstract class AbstractDMNInterpreterTest {
 
     protected abstract String getTestCasesInputPath();
 
-    private Pair<TDefinitions, PrefixNamespaceMappings> readModel(String dmnFileName) throws Exception {
-        String dmnPathName = getDMNInputPath() + "/" + dmnFileName + DMNConstants.DMN_FILE_EXTENSION;
-        URL dmnFileURL = getClass().getClassLoader().getResource(dmnPathName).toURI().toURL();
-        Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(dmnFileURL);
-        return pair;
+    private List<Pair<TDefinitions, PrefixNamespaceMappings>> readModels(List<String> dmnFileNames) throws Exception {
+        List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = new ArrayList<>();
+        for (String dmnFileName: dmnFileNames) {
+            String dmnPathName = getDMNInputPath() + "/" + dmnFileName + DMNConstants.DMN_FILE_EXTENSION;
+            URL dmnFileURL = getClass().getClassLoader().getResource(dmnPathName).toURI().toURL();
+            Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(dmnFileURL);
+            pairs.add(pair);
+        }
+        return pairs;
     }
 }
