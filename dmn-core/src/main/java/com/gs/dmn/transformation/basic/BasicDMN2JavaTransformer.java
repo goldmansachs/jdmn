@@ -374,9 +374,9 @@ public class BasicDMN2JavaTransformer {
     }
 
     public String decisionConstructorNewArgumentList(TDecision decision) {
-        List<TDecision> subDecisions = dmnModelRepository.directSubDecisions(decision);
-        subDecisions.sort(Comparator.comparing(TNamedElement::getName));
-        return subDecisions
+        List<TDecision> directSubDecisions = dmnModelRepository.directSubDecisions(decision);
+        directSubDecisions.sort(Comparator.comparing(TNamedElement::getName));
+        return directSubDecisions
                 .stream()
                 .map(d -> String.format("%s", defaultConstructor(qualifiedName(d))))
                 .collect(Collectors.joining(", "));
@@ -461,9 +461,9 @@ public class BasicDMN2JavaTransformer {
 
     protected List<TDRGElement> directInformationRequirements(TDRGElement element) {
         List<TInputData> directInputDatas = this.dmnModelRepository.directInputDatas(element);
-        List<TDecision> decisions = this.dmnModelRepository.directSubDecisions(element);
+        List<TDecision> directSubDecisions = dmnModelRepository.directSubDecisions(element);
         List<TDRGElement> inputs = new ArrayList<>(directInputDatas);
-        inputs.addAll(decisions);
+        inputs.addAll(directSubDecisions);
         return inputs;
     }
 
@@ -758,11 +758,11 @@ public class BasicDMN2JavaTransformer {
     }
 
     public List<Pair<String, Type>> inputDataParametersClosure(TDecision decision, boolean javaFriendlyName) {
-        List<TInputData> inputDatas = this.dmnModelRepository.allInputDatas(decision);
-        this.dmnModelRepository.sortNamedElements(inputDatas);
+        List<TInputData> allInputDatas = this.dmnModelRepository.allInputDatas(decision);
+        this.dmnModelRepository.sortNamedElements(allInputDatas);
 
         List<Pair<String, Type>> parameters = new ArrayList<>();
-        for (TInputData inputData : inputDatas) {
+        for (TInputData inputData : allInputDatas) {
             String parameterName = javaFriendlyName ? inputDataVariableName(inputData) : inputData.getName();
             Type parameterType = toFEELType(inputData);
             parameters.add(new Pair<>(parameterName, parameterType));
@@ -1189,7 +1189,7 @@ public class BasicDMN2JavaTransformer {
             String name = javaFriendlyVariableName(p.getName());
             parameters.add(String.format("%s %s = (%s)args[%s];", type, name, type, i));
         }
-        return parameters.stream().collect(Collectors.joining(" "));
+        return String.join(" ", parameters);
     }
 
     public Type convertType(Type type, boolean convertToContext) {
@@ -1473,7 +1473,7 @@ public class BasicDMN2JavaTransformer {
         for (int ch: name.codePoints().toArray()) {
             if (Character.isJavaIdentifierPart(ch)) {
                 if (skippedPrevious && !first) {
-                    result.append((char)'_');
+                    result.append('_');
                 }
                 result.append((char)ch);
                 skippedPrevious = false;

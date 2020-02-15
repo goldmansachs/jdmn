@@ -31,7 +31,9 @@ import com.gs.dmn.transformation.DMNToJavaTransformer;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.gs.dmn.transformation.DMNToJavaTransformer.DECISION_RULE_OUTPUT_CLASS_SUFFIX;
@@ -59,7 +61,7 @@ public class DecisionTableToJavaTransformer {
                     for(TOutputClause outputClause: output) {
                         values.add(defaultValue(element, outputClause));
                     }
-                    String defaultValue = dmnTransformer.constructor(dmnTransformer.itemDefinitionJavaClassName(dmnTransformer.drgElementOutputClassName(element)), values.stream().collect(Collectors.joining(", ")));
+                    String defaultValue = dmnTransformer.constructor(dmnTransformer.itemDefinitionJavaClassName(dmnTransformer.drgElementOutputClassName(element)), String.join(", ", values));
                     if (dmnTransformer.isList(element)) {
                         return dmnTransformer.asList(defaultValue);
                     } else {
@@ -254,10 +256,7 @@ public class DecisionTableToJavaTransformer {
     }
 
     public String ruleSignature(TDecision decision) {
-        Set<TDRGElement> elementSet = new LinkedHashSet<>();
-        this.dmnModelRepository.collectInputs(decision, elementSet);
-        List<TDRGElement> elements = new ArrayList<>(elementSet);
-        this.dmnModelRepository.sortNamedElements(elements);
+        List<TDRGElement> elements = this.dmnModelRepository.sortedUniqueInputs(decision);
 
         List<Pair<String, String>> parameters = new ArrayList<>();
         for (TDRGElement element : elements) {
@@ -270,17 +269,14 @@ public class DecisionTableToJavaTransformer {
     }
 
     public String ruleArgumentList(TDecision decision) {
-        Set<TDRGElement> elementSet = new LinkedHashSet<>();
-        this.dmnModelRepository.collectInputs(decision, elementSet);
-        List<TDRGElement> elements = new ArrayList<>(elementSet);
-        this.dmnModelRepository.sortNamedElements(elements);
+        List<TDRGElement> elements = this.dmnModelRepository.sortedUniqueInputs(decision);
 
         List<String> arguments = new ArrayList<>();
         for (TDRGElement element : elements) {
             String argumentName = ruleArgumentName(element);
             arguments.add(argumentName);
         }
-        String argumentList = arguments.stream().collect(Collectors.joining(", "));
+        String argumentList = String.join(", ", arguments);
         return dmnTransformer.augmentArgumentList(argumentList);
     }
 
@@ -303,7 +299,7 @@ public class DecisionTableToJavaTransformer {
             String argumentName = ruleArgumentName(element);
             arguments.add(argumentName);
         }
-        String argumentList = arguments.stream().collect(Collectors.joining(", "));
+        String argumentList = String.join(", ", arguments);
         return dmnTransformer.augmentArgumentList(argumentList);
     }
 

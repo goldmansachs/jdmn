@@ -279,7 +279,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
         TDecision outputDecision = dmnModelRepository.getOutputDecision(bkm);
         String decisionClassName = drgElementClassName(outputDecision);
         List<String> argNameList = drgElementArgumentNameList(outputDecision);
-        String decisionArgList = argNameList.stream().collect(Collectors.joining(", "));
+        String decisionArgList = String.join(", ", argNameList);
         decisionArgList = drgElementArgumentsExtra(augmentArgumentList(decisionArgList));
         return String.format("%s.apply(%s)", defaultConstructor(decisionClassName), decisionArgList);
     }
@@ -290,9 +290,9 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
         if (encapsulatedLogic == null) {
             List<FormalParameter> parameters = new ArrayList<>();
             TDecision outputDecision = dmnModelRepository.getOutputDecision(bkm);
-            List<TInputData> inputDatas = this.dmnModelRepository.allInputDatas(outputDecision);
-            this.dmnModelRepository.sortNamedElements(inputDatas);
-            inputDatas.stream().forEach(id -> parameters.add(new Parameter(id.getName(), drgElementOutputFEELType(id))));
+            List<TInputData> allInputDatas = this.dmnModelRepository.allInputDatas(outputDecision);
+            this.dmnModelRepository.sortNamedElements(allInputDatas);
+            allInputDatas.stream().forEach(id -> parameters.add(new Parameter(id.getName(), drgElementOutputFEELType(id))));
             return parameters;
         } else {
             return super.bkmFEELParameters(bkm);
@@ -361,7 +361,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
             String argumentName = iterationArgumentName(element);
             arguments.add(argumentName);
         }
-        String argumentList = arguments.stream().collect(Collectors.joining(", "));
+        String argumentList = String.join(", ", arguments);
         return augmentArgumentList(argumentList);
     }
 

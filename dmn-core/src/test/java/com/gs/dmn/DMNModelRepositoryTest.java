@@ -19,10 +19,7 @@ import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import org.junit.Before;
 import org.junit.Test;
-import org.omg.spec.dmn._20180521.model.TDMNElement;
-import org.omg.spec.dmn._20180521.model.TDecision;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
-import org.omg.spec.dmn._20180521.model.TNamedElement;
+import org.omg.spec.dmn._20180521.model.*;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
@@ -71,6 +68,75 @@ public class DMNModelRepositoryTest {
         Set<String> cachedElements = dmnModelRepository.computeCachedElements(true);
 
         assertEquals(Arrays.asList("Pre-bureauRiskCategory", "RequiredMonthlyInstallment", "Post-bureauRiskCategory", "ApplicationRiskScore"), cachedElements.stream().collect(Collectors.toList()));
+    }
+
+    @Test
+    public void testDirectInputDatas() {
+        TDRGElement root = dmnModelRepository.findDRGElementByName("Adjudication");
+        List<TInputData> elements = dmnModelRepository.directInputDatas(root);
+        dmnModelRepository.sortNamedElements(elements);
+
+        List<String> actualNames = elements.stream().map(p -> p.getName()).collect(Collectors.toList());
+        List<String> expectedNames = Arrays.asList("ApplicantData", "BureauData", "SupportingDocuments");
+        assertEquals(expectedNames, actualNames);
+    }
+
+    @Test
+    public void testAllInputDatas() {
+        TDRGElement root = dmnModelRepository.findDRGElementByName("Pre-bureauAffordability");
+        List<TInputData> elements = dmnModelRepository.allInputDatas(root);
+        dmnModelRepository.sortNamedElements(elements);
+
+        List<String> actualNames = elements.stream().map(p -> p.getName()).collect(Collectors.toList());
+        List<String> expectedNames = Arrays.asList(
+                "ApplicantData", "RequestedProduct");
+        assertEquals(expectedNames, actualNames);
+    }
+
+    @Test
+    public void testDirectSubDecisions() {
+        TDRGElement root = dmnModelRepository.findDRGElementByName("Strategy");
+        List<TDecision> elements = dmnModelRepository.directSubDecisions(root);
+        dmnModelRepository.sortNamedElements(elements);
+
+        List<String> actualNames = elements.stream().map(p -> p.getName()).collect(Collectors.toList());
+        List<String> expectedNames = Arrays.asList("BureauCallType", "Eligibility");
+        assertEquals(expectedNames, actualNames);
+    }
+
+    @Test
+    public void testAllSubDecisions() {
+        TDRGElement root = dmnModelRepository.findDRGElementByName("Strategy");
+        List<TDecision> elements = dmnModelRepository.allSubDecisions(root);
+        dmnModelRepository.sortNamedElements(elements);
+
+        List<String> actualNames = elements.stream().map(p -> p.getName()).collect(Collectors.toList());
+        List<String> expectedNames = Arrays.asList(
+                "ApplicationRiskScore", "BureauCallType", "Eligibility", "Pre-bureauAffordability", "Pre-bureauRiskCategory", "RequiredMonthlyInstallment");
+        assertEquals(expectedNames, actualNames);
+    }
+
+    @Test
+    public void testDirectSubInvocables() {
+        TDRGElement root = dmnModelRepository.findDRGElementByName("BureauCallType");
+        List<TInvocable> elements = dmnModelRepository.directSubInvocables(root);
+        dmnModelRepository.sortNamedElements(elements);
+
+        List<String> actualNames = elements.stream().map(p -> p.getName()).collect(Collectors.toList());
+        List<String> expectedNames = Arrays.asList("BureauCallTypeTable");
+        assertEquals(expectedNames, actualNames);
+    }
+
+    @Test
+    public void testAllInvocables() {
+        TDRGElement root = dmnModelRepository.findDRGElementByName("Routing");
+        List<TInvocable> elements = dmnModelRepository.allInvocables(root);
+        dmnModelRepository.sortNamedElements(elements);
+
+        List<String> actualNames = elements.stream().map(p -> p.getName()).collect(Collectors.toList());
+        List<String> expectedNames = Arrays.asList(
+                "AffordabilityCalculation", "ApplicationRiskScoreModel", "CreditContingencyFactorTable", "InstallmentCalculation", "Post-bureauRiskCategoryTable", "RoutingRules");
+        assertEquals(expectedNames, actualNames);
     }
 
     private DMNModelRepository readDMN(String pathName) {

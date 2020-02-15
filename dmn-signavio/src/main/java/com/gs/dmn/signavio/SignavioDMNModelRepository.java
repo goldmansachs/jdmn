@@ -13,6 +13,7 @@
 package com.gs.dmn.signavio;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
@@ -22,6 +23,7 @@ import org.omg.spec.dmn._20180521.model.*;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -106,20 +108,30 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
     }
 
     @Override
-    public void collectInputDatas(TDRGElement element, Set<TInputData> inputDatas) {
-        inputDatas.addAll(directInputDatas(element));
+    public Set<TInputData> collectAllInputDatas(TDRGElement parent) {
+        Set<TInputData> result = new LinkedHashSet<>();
+        result.addAll(directInputDatas(parent));
         // Add inputs used in iteration body / topLevelDecision
-        if (isMultiInstanceDecision(element)) {
-            MultiInstanceDecisionLogic multiInstanceDecisionLogic = extension.multiInstanceDecisionLogic(element);
+        if (isMultiInstanceDecision(parent)) {
+            MultiInstanceDecisionLogic multiInstanceDecisionLogic = extension.multiInstanceDecisionLogic(parent);
             TDecision topLevelDecision = multiInstanceDecisionLogic.getTopLevelDecision();
 
             List<TInputData> inputDataSet = allInputDatas(topLevelDecision);
             inputDataSet.remove(multiInstanceDecisionLogic.getIterator());
-            inputDatas.addAll(inputDataSet);
+            result.addAll(inputDataSet);
         }
-        for (TDecision child : directSubDecisions(element)) {
-            collectInputDatas(child, inputDatas);
+        // Process direct children
+        List<TDMNElementReference> childReferences = requiredDecisionReferences(parent);
+        for (TDMNElementReference reference: childReferences) {
+            TDecision child = findDecisionByRef(parent, reference.getHref());
+            if (child != null) {
+                Set<TInputData> descendants = collectAllInputDatas(child);
+                result.addAll(descendants);
+            } else {
+                throw new DMNRuntimeException(String.format("Cannot find Decision for '%s' in parent '%s'", reference.getHref(), parent.getName()));
+            }
         }
+        return result;
     }
 
     public void addItemDefinition(TDefinitions definitions, TItemDefinition itemDefinition) {

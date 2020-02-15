@@ -553,49 +553,58 @@ public class DMNModelRepository {
         return element.getName().equals(href);
     }
 
-    public List<TDecision> directSubDecisions(TDRGElement element) {
+    public List<TDecision> directSubDecisions(TDRGElement parent) {
         List<TDecision> result = new ArrayList<>();
-        if (element instanceof TDecision) {
-            for (TInformationRequirement ir : ((TDecision) element).getInformationRequirement()) {
-                TDMNElementReference requiredDecision = ir.getRequiredDecision();
-                if (requiredDecision != null) {
-                    TDecision childDecision = findDecisionByRef(element, requiredDecision.getHref());
-                    result.add(childDecision);
+        if (parent instanceof TDecision) {
+            for (TInformationRequirement ir : ((TDecision) parent).getInformationRequirement()) {
+                TDMNElementReference reference = ir.getRequiredDecision();
+                if (reference != null) {
+                    TDecision child = findDecisionByRef(parent, reference.getHref());
+                    result.add(child);
                 }
             }
-        } else if (element instanceof TDecisionService) {
-            for (TDMNElementReference outputDecisionRef : ((TDecisionService) element).getOutputDecision()) {
-                TDecision childDecision = findDecisionByRef(element, outputDecisionRef.getHref());
-                result.add(childDecision);
+        } else if (parent instanceof TDecisionService) {
+            for (TDMNElementReference outputDecisionRef : ((TDecisionService) parent).getOutputDecision()) {
+                TDecision child = findDecisionByRef(parent, outputDecisionRef.getHref());
+                result.add(child);
             }
         }
         sortNamedElements(result);
         return result;
     }
 
-    public Collection<TDecision> allSubDecisions(TDRGElement element) {
-        Set<TDecision> result = new LinkedHashSet<>();
-        collectSubDecisions(element, result);
-        return result;
+    public List<TDecision> allSubDecisions(TDRGElement parent) {
+        return new ArrayList<>(collectAllSubDecisions(parent));
     }
 
-    protected void collectSubDecisions(TDRGElement element, Collection<TDecision> decisions) {
-        decisions.addAll(directSubDecisions(element));
-        for (TDecision child : directSubDecisions(element)) {
-            collectSubDecisions(child, decisions);
+    protected Set<TDecision> collectAllSubDecisions(TDRGElement parent) {
+        Set<TDecision> result = new LinkedHashSet<>();
+        List<TDMNElementReference> references = requiredDecisionReferences(parent);
+        for (TDMNElementReference reference: references) {
+            TDecision child = findDecisionByRef(parent, reference.getHref());
+            if (child != null) {
+                result.add(child);
+
+                // Process direct child
+                List<TDecision> descendants = allSubDecisions(child);
+                result.addAll(descendants);
+            } else {
+                throw new DMNRuntimeException(String.format("Cannot find Decision for '%s' in parent '%s'", reference.getHref(), parent.getName()));
+            }
         }
+        return result;
     }
 
     public List<TDecision> topologicalSort(TDRGElement decision) {
         List<TDecision> result = new ArrayList<>();
-        topologicalSort((TDecision)decision, result);
+        topologicalSort((TDecision) decision, result);
         result.remove(decision);
         return result;
     }
 
     protected void topologicalSort(TDecision parent, List<TDecision> decisions) {
         if (!decisions.contains(parent)) {
-            for(TInformationRequirement ir: parent.getInformationRequirement()) {
+            for (TInformationRequirement ir: parent.getInformationRequirement()) {
                 TDMNElementReference requiredDecision = ir.getRequiredDecision();
                 if (requiredDecision != null) {
                     TDecision child = findDecisionByRef(parent, requiredDecision.getHref());
@@ -610,7 +619,7 @@ public class DMNModelRepository {
 
     public List<Object> topologicalSortWithMarkers(TDRGElement decision) {
         List<Object> objects = new ArrayList<>();
-        topologicalSortWithMarkers((TDecision)decision, objects);
+        topologicalSortWithMarkers((TDecision) decision, objects);
         objects.remove(0);
         objects.remove(objects.size() - 1);
         return objects;
@@ -632,83 +641,107 @@ public class DMNModelRepository {
         }
     }
 
-    public List<TInputData> directInputDatas(TDRGElement element) {
-        if (element instanceof TDecision) {
-            List<TInformationRequirement> informationRequirement = ((TDecision) element).getInformationRequirement();
-            return directInputDatas(element, informationRequirement);
-        } else {
-            return new ArrayList<>();
-        }
-    }
-
-    protected List<TInputData> directInputDatas(TDRGElement parent, List<TInformationRequirement> informationRequirement) {
+    public List<TInputData> directInputDatas(TDRGElement parent) {
+        List<TDMNElementReference> references = requiredInputDataReferences(parent);
         List<TInputData> result = new ArrayList<>();
-        for (TInformationRequirement ir : informationRequirement) {
-            TDMNElementReference requiredInput = ir.getRequiredInput();
-            if (requiredInput != null) {
-                TInputData inputData = findInputDataByRef(parent, requiredInput.getHref());
-                if (inputData != null) {
-                    result.add(inputData);
-                } else {
-                    throw new DMNRuntimeException(String.format("Cannot find InputData for '%s'", requiredInput.getHref()));
-                }
+        // Add direct children
+        for (TDMNElementReference reference : references) {
+            TInputData child = findInputDataByRef(parent, reference.getHref());
+            if (child != null) {
+                result.add(child);
+            } else {
+               throw new DMNRuntimeException(String.format("Cannot find InputData for '%s' in parent '%s'", reference.getHref(), parent.getName()));
             }
         }
         return result;
     }
 
-    public List<TInputData> allInputDatas(TDRGElement element) {
-        if (element != null) {
-            Set<TInputData> result = new LinkedHashSet<>();
-            collectInputDatas(element, result);
-            return new ArrayList<>(result);
-        } else {
-            return new ArrayList<>();
-        }
+    public List<TInputData> allInputDatas(TDRGElement parent) {
+        return new ArrayList<>(collectAllInputDatas(parent));
     }
 
-    public void collectInputDatas(TDRGElement element, Set<TInputData> inputDatas) {
-        inputDatas.addAll(directInputDatas(element));
-        for (TDecision child : directSubDecisions(element)) {
-            collectInputDatas(child, inputDatas);
+    protected Set<TInputData> collectAllInputDatas(TDRGElement parent) {
+        List<TDMNElementReference> references = requiredInputDataReferences(parent);
+        Set<TInputData> result = new LinkedHashSet<>();
+        // Add direct children
+        for (TDMNElementReference reference: references) {
+            TInputData child = findInputDataByRef(parent, reference.getHref());
+            if (child != null) {
+                result.add(child);
+            } else {
+                throw new DMNRuntimeException(String.format("Cannot find InputData for '%s' in parent '%s'", reference.getHref(), parent.getName()));
+            }
         }
+
+        // Process direct children
+        List<TDMNElementReference> childReferences = requiredDecisionReferences(parent);
+        for (TDMNElementReference reference: childReferences) {
+            TDecision child = findDecisionByRef(parent, reference.getHref());
+            if (child != null) {
+                Set<TInputData> descendants = collectAllInputDatas(child);
+                result.addAll(descendants);
+            } else {
+                throw new DMNRuntimeException(String.format("Cannot find Decision for '%s' in parent '%s'", reference.getHref(), parent.getName()));
+            }
+        }
+        return result;
     }
 
     public List<TInvocable> directSubInvocables(TDRGElement element) {
         List<TInvocable> result = new ArrayList<>();
-        List<TKnowledgeRequirement> knowledgeRequirements;
-        if (element instanceof TDecision) {
-            knowledgeRequirements = ((TDecision) element).getKnowledgeRequirement();
-        } else if (element instanceof TBusinessKnowledgeModel) {
-            knowledgeRequirements = ((TBusinessKnowledgeModel) element).getKnowledgeRequirement();
-        } else {
-            knowledgeRequirements = new ArrayList<>();
-        }
+        // Add direct children
+        List<TKnowledgeRequirement> knowledgeRequirements = knowledgeRequirements(element);
         for (TKnowledgeRequirement kr : knowledgeRequirements) {
             TDMNElementReference reference = kr.getRequiredKnowledge();
             if (reference != null) {
-                TInvocable invocable = findInvocableByRef(element, reference.getHref());
-                if (invocable != null) {
-                    result.add(invocable);
+                TInvocable child = findInvocableByRef(element, reference.getHref());
+                if (child != null) {
+                    result.add(child);
                 } else {
-                    throw new DMNRuntimeException(String.format("Cannot find BusinessKnowledgeModel for '%s'", reference.getHref()));
+                    throw new DMNRuntimeException(String.format("Cannot find Invocable for '%s'", reference.getHref()));
                 }
             }
         }
         return result;
     }
 
-    public List<TInvocable> allInvocables(TDRGElement element) {
-        Set<TInvocable> result = new LinkedHashSet<>();
-        collectInvocables(element, result);
-        return new ArrayList<>(result);
+    public List<TInvocable> allInvocables(TDRGElement parent) {
+        Set<TInvocable> allInvocables = collectAllInvocables(parent);
+        return new ArrayList<>(allInvocables);
     }
 
-    protected void collectInvocables(TDRGElement element, Set<TInvocable> accumulator) {
-        accumulator.addAll(directSubInvocables(element));
-        for (TDRGElement child : directSubInvocables(element)) {
-            collectInvocables(child, accumulator);
+    protected Set<TInvocable> collectAllInvocables(TDRGElement parent) {
+        Set<TInvocable> result = new LinkedHashSet<>();
+        List<TKnowledgeRequirement> knowledgeRequirements = knowledgeRequirements(parent);
+        // Add direct invocables
+        for (TKnowledgeRequirement kr : knowledgeRequirements) {
+            TDMNElementReference reference = kr.getRequiredKnowledge();
+            if (reference != null) {
+                TInvocable child = findInvocableByRef(parent, reference.getHref());
+                if (child != null) {
+                    result.add(child);
+
+                    // Process direct child
+                    Set<TInvocable> descendants = collectAllInvocables(child);
+                    result.addAll(descendants);
+                } else {
+                    throw new DMNRuntimeException(String.format("Cannot find Invocable for '%s'", reference.getHref()));
+                }
+            }
         }
+
+        // Process child decisions
+        List<TDMNElementReference> childReferences = requiredDecisionReferences(parent);
+        for (TDMNElementReference reference: childReferences) {
+            TDecision child = findDecisionByRef(parent, reference.getHref());
+            if (child != null) {
+                Set<TInvocable> descendants = collectAllInvocables(child);
+                result.addAll(descendants);
+            } else {
+                throw new DMNRuntimeException(String.format("Cannot find Invocable for '%s' in parent '%s'", reference.getHref(), parent.getName()));
+            }
+        }
+        return result;
     }
 
     public List<TDRGElement> directDRGElements(TDRGElement element) {
@@ -717,6 +750,47 @@ public class DMNModelRepository {
         result.addAll(directSubDecisions(element));
         result.addAll(directSubInvocables(element));
         return result;
+    }
+
+    protected List<TDMNElementReference> requiredInputDataReferences(TDRGElement parent) {
+        List<TDMNElementReference> references = new ArrayList<>();
+        if (parent instanceof TDecision) {
+            for (TInformationRequirement ir : ((TDecision) parent).getInformationRequirement()) {
+                TDMNElementReference requiredInput = ir.getRequiredInput();
+                if (requiredInput != null) {
+                    references.add(requiredInput);
+                }
+            }
+        }
+
+        return references;
+    }
+
+    protected List<TDMNElementReference> requiredDecisionReferences(TDRGElement parent) {
+        List<TDMNElementReference> references = new ArrayList<>();
+        if (parent instanceof TDecision) {
+            for (TInformationRequirement ir : ((TDecision) parent).getInformationRequirement()) {
+                TDMNElementReference requiredDecision = ir.getRequiredDecision();
+                if (requiredDecision != null) {
+                    references.add(requiredDecision);
+                }
+            }
+        } else if (parent instanceof TDecisionService) {
+            references.addAll(((TDecisionService) parent).getOutputDecision());
+        }
+        return references;
+    }
+
+    protected List<TKnowledgeRequirement> knowledgeRequirements(TDRGElement element) {
+        List<TKnowledgeRequirement> knowledgeRequirements;
+        if (element instanceof TDecision) {
+            knowledgeRequirements = ((TDecision) element).getKnowledgeRequirement();
+        } else if (element instanceof TBusinessKnowledgeModel) {
+            knowledgeRequirements = ((TBusinessKnowledgeModel) element).getKnowledgeRequirement();
+        } else {
+            knowledgeRequirements = new ArrayList<>();
+        }
+        return knowledgeRequirements;
     }
 
     public TDecisionTable decisionTable(TDRGElement element) {
@@ -760,9 +834,13 @@ public class DMNModelRepository {
         return null;
     }
 
-    public void collectInputs(TDecision decision, Set<TDRGElement> tdrgElements) {
-        tdrgElements.addAll(directInputDatas(decision));
-        tdrgElements.addAll(directSubDecisions(decision));
+    public List<TDRGElement> sortedUniqueInputs(TDecision decision) {
+        Set<TDRGElement> elementSet = new LinkedHashSet<>();
+        elementSet.addAll(directInputDatas(decision));
+        elementSet.addAll(directSubDecisions(decision));
+        List<TDRGElement> elements = new ArrayList<>(elementSet);
+        sortNamedElements(elements);
+        return elements;
     }
 
     public boolean hasDefaultValue(TDecisionTable decisionTable) {
