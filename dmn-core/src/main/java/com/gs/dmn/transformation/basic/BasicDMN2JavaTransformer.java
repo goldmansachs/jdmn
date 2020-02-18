@@ -1564,6 +1564,10 @@ public class BasicDMN2JavaTransformer {
     }
 
     protected void addDeclaration(TDRGElement parent, Environment parentEnvironment, TDRGElement child, Environment childEnvironment) {
+        if (parent == null || child == null) {
+            throw new IllegalArgumentException("Cannot add declaration for null DRG element");
+        }
+
         if (child instanceof TInputData) {
             Declaration declaration = makeVariableDeclaration(child, ((TInputData) child).getVariable(), childEnvironment);
             addDeclaration(parentEnvironment, (VariableDeclaration) declaration, parent, child);
