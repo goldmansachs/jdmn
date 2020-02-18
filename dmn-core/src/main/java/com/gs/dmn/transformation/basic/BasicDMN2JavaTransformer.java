@@ -1599,7 +1599,7 @@ public class BasicDMN2JavaTransformer {
     }
 
     protected void addDeclaration(Environment elementEnvironment, Declaration declaration, Type type, TDRGElement parent, TDRGElement child) {
-        String importName = childImportName(parent, child);
+        String importName = this.dmnModelRepository.findChildImportName(parent, child);
         if (ImportPath.isEmpty(importName)) {
             elementEnvironment.addDeclaration(declaration);
         } else {
@@ -1620,51 +1620,6 @@ public class BasicDMN2JavaTransformer {
                 throw new DMNRuntimeException(String.format("Cannot process declaration for '%s.%s'", importName, declaration.getName()));
             }
         }
-    }
-
-    private String childImportName(TDRGElement parent, TDRGElement child) {
-        // Collect references
-        List<TDMNElementReference> references = new ArrayList<>();
-        if (parent instanceof TDecision) {
-            for (TInformationRequirement ir: ((TDecision) parent).getInformationRequirement()) {
-                TDMNElementReference reference = ir.getRequiredDecision();
-                if (reference != null) {
-                    references.add(reference);
-                }
-                reference = ir.getRequiredInput();
-                if (reference != null) {
-                    references.add(reference);
-                }
-            }
-            for (TKnowledgeRequirement bkr: ((TDecision) parent).getKnowledgeRequirement()) {
-                TDMNElementReference reference = bkr.getRequiredKnowledge();
-                if (reference != null) {
-                    references.add(reference);
-                }
-            }
-        } else if (parent instanceof TBusinessKnowledgeModel) {
-            for (TKnowledgeRequirement bkr: ((TBusinessKnowledgeModel) parent).getKnowledgeRequirement()) {
-                TDMNElementReference reference = bkr.getRequiredKnowledge();
-                if (reference != null) {
-                    references.add(reference);
-                }
-            }
-        } else if (parent instanceof TDecisionService) {
-            references.addAll(((TDecisionService) parent).getInputData());
-            references.addAll(((TDecisionService) parent).getInputDecision());
-            references.addAll(((TDecisionService) parent).getOutputDecision());
-            references.addAll(((TDecisionService) parent).getEncapsulatedDecision());
-        }
-
-        // Find namespace prefix for child
-        String id = child.getId();
-        for (TDMNElementReference reference: references) {
-            String importName = dmnModelRepository.importNameForId(reference, id);
-            if (importName != null) {
-                return importName;
-            }
-        }
-        return null;
     }
 
     public Environment makeFunctionDefinitionEnvironment(TFunctionDefinition functionDefinition, Environment parentEnvironment) {
