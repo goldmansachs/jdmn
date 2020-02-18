@@ -390,6 +390,9 @@ public class TCKUtil {
         } else {
             String drgElementName = drgElementName(testCase, resultNode);
             TDRGElement drgElement = findDRGElementByName(drgElementName);
+            if (drgElement == null) {
+                throw new DMNRuntimeException(String.format("Cannot find DRG element '%s'", drgElementName));
+            }
             Environment environment = dmnTransformer.makeEnvironment(drgElement);
             Type elementType = dmnTransformer.drgElementOutputFEELType(drgElement, environment);
             Object expectedValue = makeValue(resultNode.getExpected(), elementType);
