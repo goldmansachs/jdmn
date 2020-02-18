@@ -96,10 +96,6 @@ public class DMNModelRepository {
             for (TDRGElement element: drgElements(definitions)) {
                 this.elementMap.put(element, definitions);
             }
-            List<TImport> imports = definitions.getImport();
-            for(TImport imp: imports) {
-                this.prefixNamespaceMappings.put(imp.getName(), imp.getNamespace());
-            }
         }
     }
 
@@ -1097,17 +1093,48 @@ public class DMNModelRepository {
         }
     }
 
-    public String importNameForId(TDMNElementReference reference, String id) {
-        if (reference != null) {
-            String href = reference.getHref();
-            if (href.contains(id)) {
-                String namespace = extractNamespace(href);
-                if (namespace != null) {
-                    return this.prefixNamespaceMappings.getPrefix(namespace);
+    public String findChildImportName(TDRGElement parent, TDRGElement child) {
+        // Collect references
+        List<TDMNElementReference> references = new ArrayList<>();
+        if (parent instanceof TDecision) {
+            for (TInformationRequirement ir: ((TDecision) parent).getInformationRequirement()) {
+                TDMNElementReference reference = ir.getRequiredDecision();
+                if (reference != null) {
+                    references.add(reference);
+                }
+                reference = ir.getRequiredInput();
+                if (reference != null) {
+                    references.add(reference);
                 }
             }
+            for (TKnowledgeRequirement bkr: ((TDecision) parent).getKnowledgeRequirement()) {
+                TDMNElementReference reference = bkr.getRequiredKnowledge();
+                if (reference != null) {
+                    references.add(reference);
+                }
+            }
+        } else if (parent instanceof TBusinessKnowledgeModel) {
+            for (TKnowledgeRequirement bkr: ((TBusinessKnowledgeModel) parent).getKnowledgeRequirement()) {
+                TDMNElementReference reference = bkr.getRequiredKnowledge();
+                if (reference != null) {
+                    references.add(reference);
+                }
+            }
+        } else if (parent instanceof TDecisionService) {
+            references.addAll(((TDecisionService) parent).getInputData());
+            references.addAll(((TDecisionService) parent).getInputDecision());
+            references.addAll(((TDecisionService) parent).getOutputDecision());
+            references.addAll(((TDecisionService) parent).getEncapsulatedDecision());
         }
-        return  null;
+
+        // Find reference for child
+        String childRefSuffix = "#" + child.getId();
+        for (TDMNElementReference reference: references) {
+            if (reference.getHref().endsWith(childRefSuffix))  {
+                return findImportName(parent, reference);
+            }
+        }
+        return null;
     }
 
     protected static String makeRef(String namespace, String href) {
