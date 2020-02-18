@@ -22,10 +22,7 @@ import org.omg.spec.dmn._20180521.model.*;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static com.gs.dmn.serialization.DMNVersion.DMN_12;
 
@@ -108,8 +105,8 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
     }
 
     @Override
-    public Set<TInputData> collectAllInputDatas(TDRGElement parent) {
-        Set<TInputData> result = new LinkedHashSet<>();
+    public List<TInputData> collectAllInputDatas(TDRGElement parent) {
+        List<TInputData> result = new ArrayList<>();
         result.addAll(directInputDatas(parent));
         // Add inputs used in iteration body / topLevelDecision
         if (isMultiInstanceDecision(parent)) {
@@ -125,7 +122,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         for (TDMNElementReference reference: childReferences) {
             TDecision child = findDecisionByRef(parent, reference.getHref());
             if (child != null) {
-                Set<TInputData> descendants = collectAllInputDatas(child);
+                List<TInputData> descendants = collectAllInputDatas(child);
                 result.addAll(descendants);
             } else {
                 throw new DMNRuntimeException(String.format("Cannot find Decision for '%s' in parent '%s'", reference.getHref(), parent.getName()));

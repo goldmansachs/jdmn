@@ -55,6 +55,8 @@ public class DMNModelRepository {
     protected Map<String, TBusinessKnowledgeModel> businessKnowledgeModelByRef = new LinkedHashMap<>();
     protected Map<String, TDecisionService> decisionServiceByRef = new LinkedHashMap<>();
 
+    protected final DRGElementFilter drgElementFilter = new DRGElementFilter();
+
     public DMNModelRepository() {
         this(OBJECT_FACTORY.createTDefinitions(), new PrefixNamespaceMappings());
     }
@@ -73,7 +75,11 @@ public class DMNModelRepository {
             for (Pair<TDefinitions, PrefixNamespaceMappings> pair: pairList) {
                 TDefinitions definitions = pair.getLeft();
                 this.allDefinitions.add(definitions);
-                this.definitionsMap.put(definitions.getNamespace(), definitions);
+                if (!this.definitionsMap.containsKey(definitions.getNamespace())) {
+                    this.definitionsMap.put(definitions.getNamespace(), definitions);
+                } else {
+                    throw new DMNRuntimeException(String.format("Duplicated model namespace '%s'", definitions.getNamespace()));
+                }
                 this.prefixNamespaceMappings.merge(pair.getRight());
             }
         }
@@ -376,6 +382,52 @@ public class DMNModelRepository {
         result.sort(Comparator.comparing((TNamedElement o) -> removeSingleQuotes(o.getName())));
     }
 
+    public List<TDecision> topologicalSort(TDRGElement decision) {
+        List<TDecision> result = new ArrayList<>();
+        topologicalSort((TDecision) decision, result);
+        result.remove(decision);
+        return result;
+    }
+
+    protected void topologicalSort(TDecision parent, List<TDecision> decisions) {
+        if (!decisions.contains(parent)) {
+            for (TInformationRequirement ir: parent.getInformationRequirement()) {
+                TDMNElementReference requiredDecision = ir.getRequiredDecision();
+                if (requiredDecision != null) {
+                    TDecision child = findDecisionByRef(parent, requiredDecision.getHref());
+                    if (child != null) {
+                        topologicalSort(child, decisions);
+                    }
+                }
+            }
+            decisions.add(parent);
+        }
+    }
+
+    public List<Object> topologicalSortWithMarkers(TDRGElement decision) {
+        List<Object> objects = new ArrayList<>();
+        topologicalSortWithMarkers((TDecision) decision, objects);
+        objects.remove(0);
+        objects.remove(objects.size() - 1);
+        return objects;
+    }
+
+    protected void topologicalSortWithMarkers(TDecision parent, List<Object> objects) {
+        if (!objects.contains(parent)) {
+            objects.add(new StartMarker(parent));
+            for (TInformationRequirement ir: parent.getInformationRequirement()) {
+                TDMNElementReference requiredDecision = ir.getRequiredDecision();
+                if (requiredDecision != null) {
+                    TDecision child = findDecisionByRef(parent, requiredDecision.getHref());
+                    if (child != null) {
+                        topologicalSortWithMarkers(child, objects);
+                    }
+                }
+            }
+            objects.add(parent);
+        }
+    }
+
     public TDRGElement findDRGElementByRef(TDRGElement parent, String href) {
         try {
             TDefinitions definitions = findChildDefinitions(parent, href);
@@ -553,6 +605,52 @@ public class DMNModelRepository {
         return element.getName().equals(href);
     }
 
+    public List<TInputData> directInputDatas(TDRGElement parent) {
+        List<TDMNElementReference> references = requiredInputDataReferences(parent);
+        List<TInputData> result = new ArrayList<>();
+        // Add direct children
+        for (TDMNElementReference reference : references) {
+            TInputData child = findInputDataByRef(parent, reference.getHref());
+            if (child != null) {
+                result.add(child);
+            } else {
+                throw new DMNRuntimeException(String.format("Cannot find InputData for '%s' in parent '%s'", reference.getHref(), parent.getName()));
+            }
+        }
+        return result;
+    }
+
+    public List<TInputData> allInputDatas(TDRGElement parent) {
+        return this.drgElementFilter.filterInputs(collectAllInputDatas(parent));
+    }
+
+    protected List<TInputData> collectAllInputDatas(TDRGElement parent) {
+        List<TDMNElementReference> references = requiredInputDataReferences(parent);
+        List<TInputData> result = new ArrayList<>();
+        // Add direct children
+        for (TDMNElementReference reference: references) {
+            TInputData child = findInputDataByRef(parent, reference.getHref());
+            if (child != null) {
+                result.add(child);
+            } else {
+                throw new DMNRuntimeException(String.format("Cannot find InputData for '%s' in parent '%s'", reference.getHref(), parent.getName()));
+            }
+        }
+
+        // Process direct children
+        List<TDMNElementReference> childReferences = requiredDecisionReferences(parent);
+        for (TDMNElementReference reference: childReferences) {
+            TDecision child = findDecisionByRef(parent, reference.getHref());
+            if (child != null) {
+                List<TInputData> descendants = collectAllInputDatas(child);
+                result.addAll(descendants);
+            } else {
+                throw new DMNRuntimeException(String.format("Cannot find Decision for '%s' in parent '%s'", reference.getHref(), parent.getName()));
+            }
+        }
+        return result;
+    }
+
     public List<TDecision> directSubDecisions(TDRGElement parent) {
         List<TDecision> result = new ArrayList<>();
         if (parent instanceof TDecision) {
@@ -574,11 +672,11 @@ public class DMNModelRepository {
     }
 
     public List<TDecision> allSubDecisions(TDRGElement parent) {
-        return new ArrayList<>(collectAllSubDecisions(parent));
+        return this.drgElementFilter.filterDecisions(collectAllSubDecisions(parent));
     }
 
-    protected Set<TDecision> collectAllSubDecisions(TDRGElement parent) {
-        Set<TDecision> result = new LinkedHashSet<>();
+    protected List<TDecision> collectAllSubDecisions(TDRGElement parent) {
+        List<TDecision> result = new ArrayList<>();
         List<TDMNElementReference> references = requiredDecisionReferences(parent);
         for (TDMNElementReference reference: references) {
             TDecision child = findDecisionByRef(parent, reference.getHref());
@@ -586,99 +684,7 @@ public class DMNModelRepository {
                 result.add(child);
 
                 // Process direct child
-                List<TDecision> descendants = allSubDecisions(child);
-                result.addAll(descendants);
-            } else {
-                throw new DMNRuntimeException(String.format("Cannot find Decision for '%s' in parent '%s'", reference.getHref(), parent.getName()));
-            }
-        }
-        return result;
-    }
-
-    public List<TDecision> topologicalSort(TDRGElement decision) {
-        List<TDecision> result = new ArrayList<>();
-        topologicalSort((TDecision) decision, result);
-        result.remove(decision);
-        return result;
-    }
-
-    protected void topologicalSort(TDecision parent, List<TDecision> decisions) {
-        if (!decisions.contains(parent)) {
-            for (TInformationRequirement ir: parent.getInformationRequirement()) {
-                TDMNElementReference requiredDecision = ir.getRequiredDecision();
-                if (requiredDecision != null) {
-                    TDecision child = findDecisionByRef(parent, requiredDecision.getHref());
-                    if (child != null) {
-                        topologicalSort(child, decisions);
-                    }
-                }
-            }
-            decisions.add(parent);
-        }
-    }
-
-    public List<Object> topologicalSortWithMarkers(TDRGElement decision) {
-        List<Object> objects = new ArrayList<>();
-        topologicalSortWithMarkers((TDecision) decision, objects);
-        objects.remove(0);
-        objects.remove(objects.size() - 1);
-        return objects;
-    }
-
-    protected void topologicalSortWithMarkers(TDecision parent, List<Object> objects) {
-        if (!objects.contains(parent)) {
-            objects.add(new StartMarker(parent));
-            for (TInformationRequirement ir: parent.getInformationRequirement()) {
-                TDMNElementReference requiredDecision = ir.getRequiredDecision();
-                if (requiredDecision != null) {
-                    TDecision child = findDecisionByRef(parent, requiredDecision.getHref());
-                    if (child != null) {
-                        topologicalSortWithMarkers(child, objects);
-                    }
-                }
-            }
-            objects.add(parent);
-        }
-    }
-
-    public List<TInputData> directInputDatas(TDRGElement parent) {
-        List<TDMNElementReference> references = requiredInputDataReferences(parent);
-        List<TInputData> result = new ArrayList<>();
-        // Add direct children
-        for (TDMNElementReference reference : references) {
-            TInputData child = findInputDataByRef(parent, reference.getHref());
-            if (child != null) {
-                result.add(child);
-            } else {
-               throw new DMNRuntimeException(String.format("Cannot find InputData for '%s' in parent '%s'", reference.getHref(), parent.getName()));
-            }
-        }
-        return result;
-    }
-
-    public List<TInputData> allInputDatas(TDRGElement parent) {
-        return new ArrayList<>(collectAllInputDatas(parent));
-    }
-
-    protected Set<TInputData> collectAllInputDatas(TDRGElement parent) {
-        List<TDMNElementReference> references = requiredInputDataReferences(parent);
-        Set<TInputData> result = new LinkedHashSet<>();
-        // Add direct children
-        for (TDMNElementReference reference: references) {
-            TInputData child = findInputDataByRef(parent, reference.getHref());
-            if (child != null) {
-                result.add(child);
-            } else {
-                throw new DMNRuntimeException(String.format("Cannot find InputData for '%s' in parent '%s'", reference.getHref(), parent.getName()));
-            }
-        }
-
-        // Process direct children
-        List<TDMNElementReference> childReferences = requiredDecisionReferences(parent);
-        for (TDMNElementReference reference: childReferences) {
-            TDecision child = findDecisionByRef(parent, reference.getHref());
-            if (child != null) {
-                Set<TInputData> descendants = collectAllInputDatas(child);
+                List<TDecision> descendants = collectAllSubDecisions(child);
                 result.addAll(descendants);
             } else {
                 throw new DMNRuntimeException(String.format("Cannot find Decision for '%s' in parent '%s'", reference.getHref(), parent.getName()));
@@ -706,12 +712,11 @@ public class DMNModelRepository {
     }
 
     public List<TInvocable> allInvocables(TDRGElement parent) {
-        Set<TInvocable> allInvocables = collectAllInvocables(parent);
-        return new ArrayList<>(allInvocables);
+        return this.drgElementFilter.filterInvocables(collectAllInvocables(parent));
     }
 
-    protected Set<TInvocable> collectAllInvocables(TDRGElement parent) {
-        Set<TInvocable> result = new LinkedHashSet<>();
+    protected List<TInvocable> collectAllInvocables(TDRGElement parent) {
+        List<TInvocable> result = new ArrayList<>();
         List<TKnowledgeRequirement> knowledgeRequirements = knowledgeRequirements(parent);
         // Add direct invocables
         for (TKnowledgeRequirement kr : knowledgeRequirements) {
@@ -722,7 +727,7 @@ public class DMNModelRepository {
                     result.add(child);
 
                     // Process direct child
-                    Set<TInvocable> descendants = collectAllInvocables(child);
+                    List<TInvocable> descendants = collectAllInvocables(child);
                     result.addAll(descendants);
                 } else {
                     throw new DMNRuntimeException(String.format("Cannot find Invocable for '%s'", reference.getHref()));
@@ -735,7 +740,7 @@ public class DMNModelRepository {
         for (TDMNElementReference reference: childReferences) {
             TDecision child = findDecisionByRef(parent, reference.getHref());
             if (child != null) {
-                Set<TInvocable> descendants = collectAllInvocables(child);
+                List<TInvocable> descendants = collectAllInvocables(child);
                 result.addAll(descendants);
             } else {
                 throw new DMNRuntimeException(String.format("Cannot find Invocable for '%s' in parent '%s'", reference.getHref(), parent.getName()));
@@ -1075,15 +1080,21 @@ public class DMNModelRepository {
         return name;
     }
 
-    public String importName(TDMNElementReference reference) {
-        if (reference != null) {
-            String href = reference.getHref();
-            String namespace = extractNamespace(href);
-            if (namespace != null) {
-                return this.prefixNamespaceMappings.getPrefix(namespace);
+    public String findImportName(TDRGElement parent, TDMNElementReference reference) {
+        TDefinitions parentDefinitions = this.elementMap.get(parent);
+        String referenceNamespace = extractNamespace(reference.getHref());
+        if (referenceNamespace == null) {
+            return null;
+        } else if (parentDefinitions.getNamespace().equals(referenceNamespace)) {
+            return null;
+        } else {
+            for (TImport import_ : parentDefinitions.getImport()) {
+                if (import_.getNamespace().equals(referenceNamespace)) {
+                    return import_.getName();
+                }
             }
+            throw new DMNRuntimeException(String.format("Cannot find import prefix for '%s' in model '%s'", reference.getHref(), parentDefinitions.getName()));
         }
-        return  null;
     }
 
     public String importNameForId(TDMNElementReference reference, String id) {
@@ -1126,6 +1137,6 @@ public class DMNModelRepository {
     }
 
     protected static boolean hasNamespace(String href) {
-        return href.startsWith("http://");
+        return href != null && href.indexOf('#') > 0;
     }
 }
