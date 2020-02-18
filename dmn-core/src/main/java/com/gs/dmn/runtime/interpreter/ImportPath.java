@@ -29,6 +29,9 @@ public class ImportPath {
 
     private List<String> pathElements = new ArrayList<>();
 
+    public ImportPath() {
+    }
+
     public ImportPath(String pathElement) {
         if (!StringUtils.isEmpty(pathElement)) {
             this.pathElements.add(pathElement);
@@ -39,13 +42,23 @@ public class ImportPath {
         if (parent !=  null) {
             this.pathElements.addAll(parent.pathElements);
         }
+        this.addPathElement(pathElement);
+    }
+
+    public List<String> getPathElements() {
+        return this.pathElements;
+    }
+
+    public void addPathElement(String pathElement) {
         if (!StringUtils.isEmpty(pathElement)) {
             this.pathElements.add(pathElement);
         }
     }
 
-    public List<String> getPathElements() {
-        return this.pathElements;
+    public void add(int index, String pathElement) {
+        if (!StringUtils.isEmpty(pathElement)) {
+            this.pathElements.add(index, pathElement);
+        }
     }
 
     public boolean isEmpty() {
@@ -53,7 +66,7 @@ public class ImportPath {
     }
 
     public String asString() {
-        return pathElements.stream().collect(Collectors.joining("."));
+        return String.join(".", pathElements);
     }
 
     @Override

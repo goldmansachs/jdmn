@@ -186,7 +186,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
             TDecision decision = dmnModelRepository.findDecisionByRef(service, reference.getHref());
             outputDecisions.add(decision);
 
-            String importName = dmnModelRepository.importName(reference);
+            String importName = dmnModelRepository.findImportName(service, reference);
             ImportPath decisionImportPath = new ImportPath(importPath, importName);
             outputDecisionImportPaths.add(decisionImportPath);
 
@@ -273,7 +273,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
             TInvocable invocable = this.dmnModelRepository.findInvocableByRef(parent, href);
 
             // Calculate import path
-            String importName = dmnModelRepository.importName(requiredKnowledge);
+            String importName = dmnModelRepository.findImportName(parent, requiredKnowledge);
             ImportPath invocableImportPath = new ImportPath(importPath, importName);
 
             // Evaluate invocable
@@ -416,7 +416,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
             TDMNElementReference requiredDecision = informationRequirement.getRequiredDecision();
             if (requiredInput != null) {
                 TInputData child = dmnModelRepository.findInputDataByRef(parent, requiredInput.getHref());
-                String importName = dmnModelRepository.importName(requiredInput);
+                String importName = dmnModelRepository.findImportName(parent, requiredInput);
                 ImportPath childImportPath = new ImportPath(importPath, importName);
                 String inputName = child.getName();
 
@@ -424,7 +424,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
                 addBinding(runtimeEnvironment, childImportPath, importName, inputName);
             } else if (requiredDecision != null) {
                 TDecision child = dmnModelRepository.findDecisionByRef(parent, requiredDecision.getHref());
-                String importName = dmnModelRepository.importName(requiredDecision);
+                String importName = dmnModelRepository.findImportName(parent, requiredDecision);
                 ImportPath childImportPath = new ImportPath(importPath, importName);
                 evaluateDecision(childImportPath, child, runtimeEnvironment);
                 String inputName = child.getName();
