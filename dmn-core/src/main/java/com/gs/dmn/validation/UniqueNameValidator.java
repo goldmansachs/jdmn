@@ -40,17 +40,19 @@ public class UniqueNameValidator extends SimpleDMNValidator {
             throw new IllegalArgumentException("Missing definitions");
         }
 
-        logger.debug("Validate unique 'DRGElement.name'");
-        validateUnique(
-                "DRGElement", "name", false,
-                new ArrayList<>(dmnModelRepository.drgElements()), TNamedElement::getName, null, errors
-        );
+        for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
+            logger.debug("Validate unique 'DRGElement.name'");
+            validateUnique(
+                    "DRGElement", "name", false,
+                    new ArrayList<>(dmnModelRepository.drgElements(definitions)), TNamedElement::getName, null, errors
+            );
 
-        logger.debug("Validate unique 'ItemDefinition.name'");
-        validateUnique(
-                "ItemDefinition", "name", false,
-                new ArrayList<>(dmnModelRepository.itemDefinitions()), TNamedElement::getName, null, errors
-        );
+            logger.debug("Validate unique 'ItemDefinition.name'");
+            validateUnique(
+                    "ItemDefinition", "name", false,
+                    new ArrayList<>(dmnModelRepository.itemDefinitions(definitions)), TNamedElement::getName, null, errors
+            );
+        }
 
         return errors;
     }
