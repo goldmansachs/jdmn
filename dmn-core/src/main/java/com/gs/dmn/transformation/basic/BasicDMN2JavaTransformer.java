@@ -63,7 +63,7 @@ public class BasicDMN2JavaTransformer {
     protected final FEELTypeTranslator feelTypeTranslator;
     protected final FEELTranslator feelTranslator;
     private final String javaRootPackage;
-    private final boolean samePackage;
+    private final boolean onePackage;
     private final boolean caching;
 
     private final ContextToJavaTransformer contextToJavaTransformer;
@@ -81,7 +81,7 @@ public class BasicDMN2JavaTransformer {
         this.environmentFactory = environmentFactory;
         this.feelTypeTranslator = feelTypeTranslator;
         this.javaRootPackage = InputParamUtil.getOptionalParam(inputParameters, "javaRootPackage");
-        this.samePackage = InputParamUtil.getOptionalBooleanParam(inputParameters, "samePackage", "true");
+        this.onePackage = InputParamUtil.getOptionalBooleanParam(inputParameters, "onePackage", "true");
         this.caching = InputParamUtil.getOptionalBooleanParam(inputParameters, "caching");
         this.feelTranslator = new FEELTranslatorImpl(this);
 
@@ -153,6 +153,9 @@ public class BasicDMN2JavaTransformer {
 
     public String itemDefinitionVariableName(TItemDefinition itemDefinition) {
         String name = itemDefinition.getName();
+        if (StringUtils.isBlank(name)) {
+            throw new DMNRuntimeException(String.format("Variable name cannot be null. ItemDefinition id '%s'", itemDefinition.getId()));
+        }
         return lowerCaseFirst(name);
     }
 
@@ -1448,7 +1451,7 @@ public class BasicDMN2JavaTransformer {
     }
 
     public String javaModelPackageName(String modelName) {
-        if (this.samePackage) {
+        if (this.onePackage) {
             modelName = "";
         }
 
@@ -1503,7 +1506,7 @@ public class BasicDMN2JavaTransformer {
     }
 
     public String javaTypePackageName(String modelName) {
-        if (this.samePackage) {
+        if (this.onePackage) {
             modelName = "";
         }
 
