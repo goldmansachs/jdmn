@@ -27,6 +27,6 @@ public class FromRDFComplexDMNToJavaTransformerTest extends AbstractSignavioDMNT
 
     @Test
     public void testNPEValidation2() throws Exception {
-        doSimpleModelTest("NPEValidation2");
+        doSingleModelTest("NPEValidation2");
     }
 }

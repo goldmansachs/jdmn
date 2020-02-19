@@ -13,19 +13,24 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.runtime.Pair;
 
 import java.io.File;
 import java.nio.file.Path;
 import java.util.Map;
 
 public abstract class AbstractTestTransformerTest extends AbstractTransformerTest {
-    protected void doTest(String inputTestFilePath, String inputModelFilePath, String expectedOutputPath) throws Exception {
+    protected void doTest(String inputTestFilePath, String inputModelFilePath, String expectedOutputPath, Pair<String, String>... extraInputParameters) throws Exception {
         File outputFolder = new File("target/" + expectedOutputPath);
         outputFolder.mkdirs();
 
         Path inputPath = new File(inputTestFilePath).toPath();
         Path inputModelPath = new File(inputModelFilePath).toPath();
-        FileTransformer transformer = makeTransformer(inputModelPath, makeInputParameters(), LOGGER);
+        Map<String, String> inputParameters = makeInputParameters();
+        for (Pair<String, String> pair: extraInputParameters) {
+            inputParameters.put(pair.getLeft(), pair.getRight());
+        }
+        FileTransformer transformer = makeTransformer(inputModelPath, inputParameters, LOGGER);
         transformer.transform(inputPath, outputFolder.toPath());
 
         File expectedOutputFolder = new File(resource(expectedOutputPath));

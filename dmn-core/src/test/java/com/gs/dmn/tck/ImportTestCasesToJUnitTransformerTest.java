@@ -12,32 +12,31 @@
  */
 package com.gs.dmn.tck;
 
+import com.gs.dmn.runtime.Pair;
+import org.junit.Ignore;
 import org.junit.Test;
 
-public class CL2TestCasesToJUnitTransformerTest extends AbstractTCKTestCasesToJUnitTransformerTest {
+public class ImportTestCasesToJUnitTransformerTest extends AbstractTCKTestCasesToJUnitTransformerTest {
     @Override
     protected String getDMNInputPath() {
-        return "tck/cl2/input";
+        return "composite/input";
     }
 
     @Override
     protected String getTestCasesInputPath() {
-        return getDMNInputPath();
+        return "composite/input";
     }
 
     @Override
     protected String getExpectedPath() {
-        return "tck/cl2/expected/test";
+        return "composite/expected/test";
     }
 
     @Test
-    public void testCL2() throws Exception {
-        doSingleModelTest("0004-simpletable-U", "0004-simpletable-U-test-01");
-        doSingleModelTest("0005-simpletable-A", "0005-simpletable-A-test-01");
-        doSingleModelTest("0006-simpletable-P1", "0006-simpletable-P1-test-01");
-        doSingleModelTest("0007-simpletable-P2", "0007-simpletable-P2-test-01");
-        doSingleModelTest("0008-LX-arithmetic", "0008-LX-arithmetic-test-01");
-        doSingleModelTest("0009-invocation-arithmetic", "0009-invocation-arithmetic-test-01");
-        doSingleModelTest("0010-multi-output-U", "0010-multi-output-U-test-01");
+    @Ignore
+    public void testImport() throws Exception {
+        doMultipleModelsTest("0001-no-name-conflicts-one-package", "0001-no-name-conflicts-one-package");
+        doMultipleModelsTest("0002-no-name-conflicts", "0002-no-name-conflicts", new Pair<>("onePackage", "false"));
+        doMultipleModelsTest("0003-name-conflicts", "0003-name-conflicts", new Pair<>("onePackage", "false"));
     }
 }

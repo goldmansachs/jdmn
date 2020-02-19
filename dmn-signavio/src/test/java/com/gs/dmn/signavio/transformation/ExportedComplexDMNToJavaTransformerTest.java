@@ -17,107 +17,107 @@ import org.junit.Test;
 public class ExportedComplexDMNToJavaTransformerTest extends AbstractSignavioDMNToJavaTest {
     @Test
     public void testCompareLists() throws Exception {
-        doSimpleModelTest("CompareLists");
+        doSingleModelTest("CompareLists");
     }
 
     @Test
     public void testDotProduct() throws Exception {
-        doSimpleModelTest("DotProduct");
+        doSingleModelTest("DotProduct");
     }
 
     @Test
     public void testExampleCreditDecision() throws Exception {
-        doSimpleModelTest("Example credit decision");
+        doSingleModelTest("Example credit decision");
     }
 
     @Test
     public void testNPEValidation2() throws Exception {
-        doSimpleModelTest("NPEValidation2");
+        doSingleModelTest("NPEValidation2");
     }
 
     @Test
     public void testNullSafeTests() throws Exception {
-        doSimpleModelTest("Null Safe Tests");
+        doSingleModelTest("Null Safe Tests");
     }
 
     @Test
     public void testChildLinked() throws Exception {
-        doSimpleModelTest("ChildLinked");
+        doSingleModelTest("ChildLinked");
     }
 
     @Test
     public void testParentLinked() throws Exception {
-        doSimpleModelTest("ParentLinked");
+        doSingleModelTest("ParentLinked");
     }
 
     @Test
     public void testDecisionWithAnnotations() throws Exception {
-        doSimpleModelTest("decision-with-annotations");
+        doSingleModelTest("decision-with-annotations");
     }
 
     @Test
     public void testZip() throws Exception {
-        doSimpleModelTest("Test ZIP");
+        doSingleModelTest("Test ZIP");
     }
 
     @Test
     public void testMultiListOutputTopDecision() throws Exception {
-        doSimpleModelTest("Multi-List Output top decision");
+        doSingleModelTest("Multi-List Output top decision");
     }
 
     @Test
     public void testNullsWithZipFunction() throws Exception {
-        doSimpleModelTest("Nulls with zip function");
+        doSingleModelTest("Nulls with zip function");
     }
 
     @Test
     public void testComplexMID() throws Exception {
-        doSimpleModelTest("Complex MID");
+        doSingleModelTest("Complex MID");
     }
 
     @Test
     public void testExecutionAnalysisTest() throws Exception {
-        doSimpleModelTest("ExecutionAnalysisTestModel");
+        doSingleModelTest("ExecutionAnalysisTestModel");
     }
 
     @Test
     public void testBKMLinkedToDecision() throws Exception {
-        doSimpleModelTest("simple-decision-with-bkm");
+        doSingleModelTest("simple-decision-with-bkm");
     }
 
     @Test
     public void testBKMfromBKM() throws Exception {
-        doSimpleModelTest("BKMfromBKM");
+        doSingleModelTest("BKMfromBKM");
     }
 
     @Test
     public void testBKMwithLiteralExpression() throws Exception {
-        doSimpleModelTest("BKMwithLiteralExpression");
+        doSingleModelTest("BKMwithLiteralExpression");
     }
 
     @Test
     public void testDecisionWithUserFunction() throws Exception {
-        doSimpleModelTest("simple-decision-with-user-function");
+        doSingleModelTest("simple-decision-with-user-function");
     }
 
     @Test
     public void testDecisionWithExternalFunction() throws Exception {
-        doSimpleModelTest("simple-decision-with-external-function");
+        doSingleModelTest("simple-decision-with-external-function");
     }
 
     @Test
     public void testDecisionWithExternalFunctionWithComplexTypes() throws Exception {
-        doSimpleModelTest("ExternalFunctions");
+        doSingleModelTest("ExternalFunctions");
     }
 
     @Test
     public void testNullComplexTypeAccess() throws Exception {
-        doSimpleModelTest("NullComplexTypeAccess");
+        doSingleModelTest("NullComplexTypeAccess");
     }
 
     @Test
     public void testTest() throws Exception {
-        doSimpleModelTest("TestDecision");
+        doSingleModelTest("TestDecision");
     }
 
     @Override

@@ -29,7 +29,7 @@ public class ExportedLiteralDMNToJavaTransformerTest extends AbstractSignavioDMN
                 "simple-decision-feel-string-literal-expression"
         );
         for (String diagram : diagrams) {
-            doSimpleModelTest(diagram);
+            doSingleModelTest(diagram);
         }
     }
 
@@ -44,7 +44,7 @@ public class ExportedLiteralDMNToJavaTransformerTest extends AbstractSignavioDMN
                 "simple-decision-free-text-string-literal-expression"
         );
         for (String diagram : diagrams) {
-            doSimpleModelTest(diagram);
+            doSingleModelTest(diagram);
         }
     }
 

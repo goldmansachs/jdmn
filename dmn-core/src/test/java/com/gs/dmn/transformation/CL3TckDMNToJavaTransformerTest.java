@@ -27,18 +27,18 @@ public class CL3TckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
 
     @Test
     public void testCL3() throws Exception {
-        doSimpleModelTest("0004-lending");
-        doSimpleModelTest("0005-literal-invocation");
-        doSimpleModelTest("0006-join");
-        doSimpleModelTest("0013-sort");
-        doSimpleModelTest("0014-loan-comparison");
-        doSimpleModelTest("0016-some-every");
-        doSimpleModelTest("0017-tableTests");
-        doSimpleModelTest("0020-vacation-days");
-        doSimpleModelTest("0021-singleton-list");
-        doSimpleModelTest("0030-user-defined-functions");
-        doSimpleModelTest("0031-user-defined-functions");
+        doSingleModelTest("0004-lending");
+        doSingleModelTest("0005-literal-invocation");
+        doSingleModelTest("0006-join");
+        doSingleModelTest("0013-sort");
+        doSingleModelTest("0014-loan-comparison");
+        doSingleModelTest("0016-some-every");
+        doSingleModelTest("0017-tableTests");
+        doSingleModelTest("0020-vacation-days");
+        doSingleModelTest("0021-singleton-list");
+        doSingleModelTest("0030-user-defined-functions");
+        doSingleModelTest("0031-user-defined-functions");
 
-        doSimpleModelTest("9001-recursive-function");
+        doSingleModelTest("9001-recursive-function");
     }
 }

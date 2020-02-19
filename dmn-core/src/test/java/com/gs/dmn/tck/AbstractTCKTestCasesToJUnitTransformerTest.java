@@ -17,6 +17,7 @@ import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.environment.DefaultDMNEnvironmentFactory;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DefaultDMNBaseDecision;
+import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
@@ -37,7 +38,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends AbstractTestTransformerTest {
-    public void doTest(String dmnFileName, String testFileName) throws Exception {
+    public void doSingleModelTest(String dmnFileName, String testFileName, Pair<String, String>... extraInputParameters) throws Exception {
         String dmnPath = getDMNInputPath() + "/";
         String testCasesPath = getTestCasesInputPath() + "/";
         String expectedPath = getExpectedPath() + "/" + friendlyFolderName(dmnFileName);
@@ -45,7 +46,18 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends Abstrac
         String inputModelFilePath = dmnPath + dmnFileName + DMNConstants.DMN_FILE_EXTENSION;
         String decodedInputTestFilePath = URLDecoder.decode(resource(inputTestFilePath).getPath(), "UTF-8");
         String decodedInputModelFilePath = URLDecoder.decode(resource(inputModelFilePath).getPath(), "UTF-8");
-        super.doTest(decodedInputTestFilePath, decodedInputModelFilePath, expectedPath);
+        super.doTest(decodedInputTestFilePath, decodedInputModelFilePath, expectedPath, extraInputParameters);
+    }
+
+    public void doMultipleModelsTest(String dmnFolderName, String testFolderName, Pair<String, String>... extraInputParameters) throws Exception {
+        String dmnPath = getDMNInputPath() + "/";
+        String testCasesPath = getTestCasesInputPath() + "/";
+        String expectedPath = getExpectedPath() + "/" + friendlyFolderName(dmnFolderName);
+        String inputTestFilePath = testCasesPath + testFolderName;
+        String inputModelFilePath = dmnPath + dmnFolderName;
+        String decodedInputTestFilePath = URLDecoder.decode(resource(inputTestFilePath).getPath(), "UTF-8");
+        String decodedInputModelFilePath = URLDecoder.decode(resource(inputModelFilePath).getPath(), "UTF-8");
+        super.doTest(decodedInputTestFilePath, decodedInputModelFilePath, expectedPath, extraInputParameters);
     }
 
     @Override

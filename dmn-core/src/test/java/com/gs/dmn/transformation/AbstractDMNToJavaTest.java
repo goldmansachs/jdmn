@@ -13,6 +13,7 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.DefaultDMNValidator;
@@ -30,34 +31,38 @@ public abstract class AbstractDMNToJavaTest extends AbstractTransformerTest {
         if (folder.listFiles() != null) {
             for(File file: folder.listFiles()) {
                 if (file.isFile() && file.getName().endsWith(DMNConstants.DMN_FILE_EXTENSION)) {
-                    doSimpleModelTest(diagramName(file));
+                    doSingleModelTest(diagramName(file));
                 }
             }
         }
     }
 
-    protected void doSimpleModelTest(String modelName) throws Exception {
+    protected void doSingleModelTest(String dmnFileName) throws Exception {
         String path = getInputPath();
-        String inputFilePath = path + "/" + modelName + DMNConstants.DMN_FILE_EXTENSION;
-        String expectedOutputPath = getExpectedPath() + "/" + friendlyFolderName(modelName.toLowerCase());
+        String inputFilePath = path + "/" + dmnFileName + DMNConstants.DMN_FILE_EXTENSION;
+        String expectedOutputPath = getExpectedPath() + "/" + friendlyFolderName(dmnFileName.toLowerCase());
         URI resource = resource(inputFilePath);
         doTest(resource.getPath(), expectedOutputPath);
     }
 
-    protected void doComplexModelTest(String modelName) throws Exception {
+    protected void doMultipleModelsTest(String dmnFolderName, Pair<String, String>... extraInputParameters) throws Exception {
         String path = getInputPath();
-        String inputFilePath = path + "/" + modelName;
-        String expectedOutputPath = getExpectedPath() + "/" + friendlyFolderName(modelName.toLowerCase());
+        String inputFilePath = path + "/" + dmnFolderName;
+        String expectedOutputPath = getExpectedPath() + "/" + friendlyFolderName(dmnFolderName.toLowerCase());
         URI resource = resource(inputFilePath);
-        doTest(resource.getPath(), expectedOutputPath);
+        doTest(resource.getPath(), expectedOutputPath, extraInputParameters);
     }
 
-    protected void doTest(String inputFilePath, String expectedOutputPath) throws Exception {
+    protected void doTest(String inputFilePath, String expectedOutputPath, Pair<String, String>... extraInputParameters) throws Exception {
         File outputFolder = new File("target/" + expectedOutputPath);
         outputFolder.mkdirs();
 
         Path inputPath = new File(inputFilePath).toPath();
-        FileTransformer transformer = makeTransformer(makeInputParameters(), LOGGER);
+        Map<String, String> inputParameters = makeInputParameters();
+        for (Pair<String, String> pair: extraInputParameters) {
+            inputParameters.put(pair.getLeft(), pair.getRight());
+        }
+        FileTransformer transformer = makeTransformer(inputParameters, LOGGER);
         transformer.transform(inputPath, outputFolder.toPath());
 
         File expectedOutputFolder = new File(resource(expectedOutputPath));
