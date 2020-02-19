@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<testCases
+  xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <modelName>Model B1</modelName>
+
+  <testCase id="001" type="decision">
+    <inputNode name="personName">
+          <value xsi:type="xsd:string">B.A.John</value>
+    </inputNode>
+    <resultNode name="greetThePerson">
+      <expected>
+        <value xsi:type="xsd:string">Hello, B.A.John</value>
+      </expected>
+    </resultNode>
+  </testCase>
+
+</testCases>
