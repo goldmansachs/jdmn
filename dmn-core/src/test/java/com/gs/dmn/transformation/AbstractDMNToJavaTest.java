@@ -37,12 +37,12 @@ public abstract class AbstractDMNToJavaTest extends AbstractTransformerTest {
         }
     }
 
-    protected void doSingleModelTest(String dmnFileName) throws Exception {
+    protected void doSingleModelTest(String dmnFileName, Pair<String, String>... extraInputParameters) throws Exception {
         String path = getInputPath();
         String inputFilePath = path + "/" + dmnFileName + DMNConstants.DMN_FILE_EXTENSION;
         String expectedOutputPath = getExpectedPath() + "/" + friendlyFolderName(dmnFileName.toLowerCase());
         URI resource = resource(inputFilePath);
-        doTest(resource.getPath(), expectedOutputPath);
+        doTest(resource.getPath(), expectedOutputPath, extraInputParameters);
     }
 
     protected void doMultipleModelsTest(String dmnFolderName, Pair<String, String>... extraInputParameters) throws Exception {
