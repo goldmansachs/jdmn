@@ -22,18 +22,24 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class DRGElementFilter {
+    private final DMNModelRepository dmnModelRepository;
+
+    public DRGElementFilter(DMNModelRepository dmnModelRepository) {
+        this.dmnModelRepository = dmnModelRepository;
+    }
+
     public List<TInputData> filterInputs(List<TInputData> elements) {
         LinkedHashSet<String> seen = new LinkedHashSet<>();
-        return elements.stream().filter(e -> seen.add(e.getName())).collect(Collectors.toList());
+        return elements.stream().filter(e -> seen.add(this.dmnModelRepository.getQualifiedName(e))).collect(Collectors.toList());
     }
 
     public List<TDecision> filterDecisions(List<TDecision> elements) {
         LinkedHashSet<String> seen = new LinkedHashSet<>();
-        return elements.stream().filter(e -> seen.add(e.getName())).collect(Collectors.toList());
+        return elements.stream().filter(e -> seen.add(this.dmnModelRepository.getQualifiedName(e))).collect(Collectors.toList());
     }
 
     public List<TInvocable> filterInvocables(List<TInvocable> elements) {
         LinkedHashSet<String> seen = new LinkedHashSet<>();
-        return elements.stream().filter(e -> seen.add(e.getName())).collect(Collectors.toList());
+        return elements.stream().filter(e -> seen.add(this.dmnModelRepository.getQualifiedName(e))).collect(Collectors.toList());
     }
 }

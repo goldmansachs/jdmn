@@ -55,7 +55,7 @@ public class DMNModelRepository {
     protected Map<String, TBusinessKnowledgeModel> businessKnowledgeModelByRef = new LinkedHashMap<>();
     protected Map<String, TDecisionService> decisionServiceByRef = new LinkedHashMap<>();
 
-    protected final DRGElementFilter drgElementFilter = new DRGElementFilter();
+    protected final DRGElementFilter drgElementFilter = new DRGElementFilter(this);
 
     public DMNModelRepository() {
         this(OBJECT_FACTORY.createTDefinitions(), new PrefixNamespaceMappings());
@@ -190,6 +190,21 @@ public class DMNModelRepository {
 
     public TDefinitions getModel(TNamedElement element) {
         return this.elementMap.get(element);
+    }
+
+    public String getModelName(TNamedElement element) {
+        TDefinitions definitions = this.elementMap.get(element);
+        if (definitions == null) {
+            return "";
+        } else {
+            return definitions.getName();
+        }
+    }
+
+    public String getQualifiedName(TNamedElement element) {
+        String modelName = getModelName(element);
+        String elementName = element.getName();
+        return String.format("%s.%s", modelName, elementName);
     }
 
     public List<TDRGElement> drgElements() {
@@ -370,12 +385,12 @@ public class DMNModelRepository {
         return lookupItemDefinition(QualifiedName.toQualifiedName(itemDefinition.getTypeRef()));
     }
 
-    protected void sortDRGElements(List<JAXBElement<? extends TDRGElement>> result) {
-        result.sort(Comparator.comparing((JAXBElement<? extends TDRGElement> o) -> removeSingleQuotes(o.getValue().getName())));
+    protected void sortDRGElements(List<JAXBElement<? extends TDRGElement>> elements) {
+        elements.sort(Comparator.comparing((JAXBElement<? extends TDRGElement> o) -> removeSingleQuotes(o.getValue().getName())));
     }
 
-    public void sortNamedElements(List<? extends TNamedElement> result) {
-        result.sort(Comparator.comparing((TNamedElement o) -> removeSingleQuotes(o.getName())));
+    public void sortNamedElements(List<? extends TNamedElement> elements) {
+        elements.sort(Comparator.comparing((TNamedElement o) -> removeSingleQuotes(o.getName())));
     }
 
     public List<TDecision> topologicalSort(TDRGElement decision) {
@@ -472,6 +487,9 @@ public class DMNModelRepository {
 
     public TInputData findInputDataByRef(TDRGElement parent, String href) {
         TDefinitions definitions = findChildDefinitions(parent, href);
+        if (definitions == null) {
+            throw new DMNRuntimeException(String.format("Cannot find model for href='%s'", href));
+        }
         String key = makeRef(definitions.getNamespace(), href);
         if (!this.inputDataByRef.containsKey(key)) {
             TInputData value = null;
@@ -1076,23 +1094,6 @@ public class DMNModelRepository {
         return name;
     }
 
-    public String findImportName(TDRGElement parent, TDMNElementReference reference) {
-        TDefinitions parentDefinitions = this.elementMap.get(parent);
-        String referenceNamespace = extractNamespace(reference.getHref());
-        if (referenceNamespace == null) {
-            return null;
-        } else if (parentDefinitions.getNamespace().equals(referenceNamespace)) {
-            return null;
-        } else {
-            for (TImport import_ : parentDefinitions.getImport()) {
-                if (import_.getNamespace().equals(referenceNamespace)) {
-                    return import_.getName();
-                }
-            }
-            throw new DMNRuntimeException(String.format("Cannot find import prefix for '%s' in model '%s'", reference.getHref(), parentDefinitions.getName()));
-        }
-    }
-
     public String findChildImportName(TDRGElement parent, TDRGElement child) {
         // Collect references
         List<TDMNElementReference> references = new ArrayList<>();
@@ -1128,13 +1129,31 @@ public class DMNModelRepository {
         }
 
         // Find reference for child
-        String childRefSuffix = "#" + child.getId();
+        String childNamespace = this.elementMap.get(child).getNamespace();
+        String childRefSuffix = childNamespace +  "#" + child.getId();
         for (TDMNElementReference reference: references) {
             if (reference.getHref().endsWith(childRefSuffix))  {
                 return findImportName(parent, reference);
             }
         }
         return null;
+    }
+
+    public String findImportName(TDRGElement parent, TDMNElementReference reference) {
+        TDefinitions parentDefinitions = this.elementMap.get(parent);
+        String referenceNamespace = extractNamespace(reference.getHref());
+        if (referenceNamespace == null) {
+            return null;
+        } else if (parentDefinitions.getNamespace().equals(referenceNamespace)) {
+            return null;
+        } else {
+            for (TImport import_ : parentDefinitions.getImport()) {
+                if (import_.getNamespace().equals(referenceNamespace)) {
+                    return import_.getName();
+                }
+            }
+            throw new DMNRuntimeException(String.format("Cannot find import prefix for '%s' in model '%s'", reference.getHref(), parentDefinitions.getName()));
+        }
     }
 
     protected static String makeRef(String namespace, String href) {
