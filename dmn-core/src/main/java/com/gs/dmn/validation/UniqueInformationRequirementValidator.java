@@ -37,15 +37,17 @@ public class UniqueInformationRequirementValidator extends SimpleDMNValidator {
             throw new IllegalArgumentException("Missing definitions");
         }
 
-        for (TDRGElement element: dmnModelRepository.drgElements()) {
-            if (element instanceof TDecision) {
-                List<TInformationRequirement> irList = ((TDecision) element).getInformationRequirement();
-                validate(getReferences(irList), element, "InformationRequirement", errors);
-            } else if (element instanceof TDecisionService) {
-                List<TDMNElementReference> inputData = ((TDecisionService) element).getInputData();
-                validate(inputData, element, "InputData", errors);
-                List<TDMNElementReference> inputDecision = ((TDecisionService) element).getInputDecision();
-                validate(inputDecision, element, "InputDecision", errors);
+        for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
+            for (TDRGElement element : dmnModelRepository.drgElements(definitions)) {
+                if (element instanceof TDecision) {
+                    List<TInformationRequirement> irList = ((TDecision) element).getInformationRequirement();
+                    validate(getReferences(irList), element, "InformationRequirement", errors);
+                } else if (element instanceof TDecisionService) {
+                    List<TDMNElementReference> inputData = ((TDecisionService) element).getInputData();
+                    validate(inputData, element, "InputData", errors);
+                    List<TDMNElementReference> inputDecision = ((TDecisionService) element).getInputDecision();
+                    validate(inputDecision, element, "InputDecision", errors);
+                }
             }
         }
 

@@ -42,15 +42,17 @@ public class TypeRefValidator extends SimpleDMNValidator {
             throw new IllegalArgumentException("Missing definitions");
         }
 
-        List<TDRGElement> drgElements = dmnModelRepository.drgElements();
-        for (TDRGElement element: drgElements) {
-            logger.debug(String.format("Validate element '%s'", element.getName()));
-            if (element instanceof TInputData) {
-                TInformationItem variable = ((TInputData) element).getVariable();
-                validate(variable, element, dmnModelRepository, errors);
-            } else if (element instanceof TDecision) {
-                TInformationItem variable = ((TDecision) element).getVariable();
-                validate(variable, element, dmnModelRepository, errors);
+        for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
+            List<TDRGElement> drgElements = dmnModelRepository.drgElements(definitions);
+            for (TDRGElement element: drgElements) {
+                logger.debug(String.format("Validate element '%s'", element.getName()));
+                if (element instanceof TInputData) {
+                    TInformationItem variable = ((TInputData) element).getVariable();
+                    validate(variable, element, dmnModelRepository, errors);
+                } else if (element instanceof TDecision) {
+                    TInformationItem variable = ((TDecision) element).getVariable();
+                    validate(variable, element, dmnModelRepository, errors);
+                }
             }
         }
 
