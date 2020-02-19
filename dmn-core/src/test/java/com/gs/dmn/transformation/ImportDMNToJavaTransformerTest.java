@@ -12,27 +12,36 @@
  */
 package com.gs.dmn.transformation;
 
+import com.gs.dmn.runtime.Pair;
+import org.junit.Ignore;
 import org.junit.Test;
 
-public class CL2TckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransformerTest {
+import java.util.Map;
+
+public class ImportDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransformerTest {
     @Override
     protected String getInputPath() {
-        return "tck/cl2/input";
+        return "composite/input";
     }
 
     @Override
     protected String getExpectedPath() {
-        return "tck/cl2/expected/dmn";
+        return "composite/expected/dmn";
     }
 
     @Test
-    public void testCL2() throws Exception {
-        doSingleModelTest("0004-simpletable-U");
-        doSingleModelTest("0005-simpletable-A");
-        doSingleModelTest("0006-simpletable-P1");
-        doSingleModelTest("0007-simpletable-P2");
-        doSingleModelTest("0008-LX-arithmetic");
-        doSingleModelTest("0009-invocation-arithmetic");
-        doSingleModelTest("0010-multi-output-U");
+    @Ignore
+    public void testImport() throws Exception {
+        doMultipleModelsTest("0001-no-name-conflicts-one-package", new Pair<>("onePackage", "true"));
+        doMultipleModelsTest("0002-no-name-conflicts");
+        doMultipleModelsTest("0003-name-conflicts");
     }
+
+    @Override
+    protected Map<String, String> makeInputParameters() {
+        Map<String, String> inputParams = super.makeInputParameters();
+        inputParams.put("onePackage", "false");
+        return inputParams;
+    }
+
 }

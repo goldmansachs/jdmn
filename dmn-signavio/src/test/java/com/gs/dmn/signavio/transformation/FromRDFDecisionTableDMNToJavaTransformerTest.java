@@ -32,6 +32,6 @@ public class FromRDFDecisionTableDMNToJavaTransformerTest extends AbstractSignav
 
     @Test
     public void testOne() throws Exception {
-        doSimpleModelTest("simple-decision-primitive-type-inputs-single-output-priority-hit-policy");
+        doSingleModelTest("simple-decision-primitive-type-inputs-single-output-priority-hit-policy");
     }
 }

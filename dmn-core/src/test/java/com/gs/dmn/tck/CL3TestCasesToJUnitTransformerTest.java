@@ -32,18 +32,18 @@ public class CL3TestCasesToJUnitTransformerTest extends AbstractTCKTestCasesToJU
 
     @Test
     public void testCL3() throws Exception {
-        doTest("0004-lending", "0004-lending-test-01");
-        doTest("0005-literal-invocation", "0005-literal-invocation-test-01");
-        doTest("0006-join", "0006-join-test-01");
-        doTest("0013-sort", "0013-sort-test-01");
-        doTest("0014-loan-comparison", "0014-loan-comparison-test-01");
-        doTest("0016-some-every", "0016-some-every-test-01");
-        doTest("0017-tableTests", "0017-tableTests-test-01");
-        doTest("0020-vacation-days", "0020-vacation-days-test-01");
-        doTest("0021-singleton-list", "0021-singleton-list-test-01");
-        doTest("0030-user-defined-functions", "0030-user-defined-functions-test-01");
-        doTest("0031-user-defined-functions", "0031-user-defined-functions-test-01");
+        doSingleModelTest("0004-lending", "0004-lending-test-01");
+        doSingleModelTest("0005-literal-invocation", "0005-literal-invocation-test-01");
+        doSingleModelTest("0006-join", "0006-join-test-01");
+        doSingleModelTest("0013-sort", "0013-sort-test-01");
+        doSingleModelTest("0014-loan-comparison", "0014-loan-comparison-test-01");
+        doSingleModelTest("0016-some-every", "0016-some-every-test-01");
+        doSingleModelTest("0017-tableTests", "0017-tableTests-test-01");
+        doSingleModelTest("0020-vacation-days", "0020-vacation-days-test-01");
+        doSingleModelTest("0021-singleton-list", "0021-singleton-list-test-01");
+        doSingleModelTest("0030-user-defined-functions", "0030-user-defined-functions-test-01");
+        doSingleModelTest("0031-user-defined-functions", "0031-user-defined-functions-test-01");
 
-        doTest("9001-recursive-function", "9001-recursive-function-test-01");
+        doSingleModelTest("9001-recursive-function", "9001-recursive-function-test-01");
     }
 }
