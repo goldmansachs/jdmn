@@ -48,7 +48,6 @@ public class DMNModelRepository {
     protected List<TItemDefinition> itemDefinitions;
     protected Map<String, TDRGElement> drgElementByName = new LinkedHashMap<>();
     protected Map<String, TBusinessKnowledgeModel> knowledgeModelByName = new LinkedHashMap<>();
-    protected Map<String, TDecisionService> decisionServiceByName = new LinkedHashMap<>();
     protected Map<String, TDRGElement> drgElementByRef = new LinkedHashMap<>();
     protected Map<String, TInputData> inputDataByRef = new LinkedHashMap<>();
     protected Map<String, TDecision> decisionByRef = new LinkedHashMap<>();
@@ -567,25 +566,6 @@ public class DMNModelRepository {
         TBusinessKnowledgeModel result = this.knowledgeModelByName.get(name);
         if (result == null) {
             throw new DMNRuntimeException(String.format("Cannot find business knowledge model for name='%s'", name));
-        } else {
-            return result;
-        }
-    }
-
-    public TDecisionService findDecisionServiceByName(String name) {
-        if (!this.decisionServiceByName.containsKey(name)) {
-            TDecisionService value = null;
-            for (TDecisionService service : decisionServices()) {
-                if (sameName(service, name)) {
-                    value = service;
-                    break;
-                }
-            }
-            this.decisionServiceByName.put(name, value);
-        }
-        TDecisionService result = this.decisionServiceByName.get(name);
-        if (result == null) {
-            throw new DMNRuntimeException(String.format("Cannot find decision service for name='%s'", name));
         } else {
             return result;
         }
