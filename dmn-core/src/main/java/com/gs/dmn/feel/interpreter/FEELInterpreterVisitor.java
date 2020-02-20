@@ -659,9 +659,9 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
             String feelFunctionName = functionName(function);
             Object binding = context.lookupRuntimeBinding(feelFunctionName);
             if (binding instanceof TBusinessKnowledgeModel) {
-                return evaluateInvocable(argList, context, (TInvocable) binding);
+                return evaluateInvocable((TInvocable) binding, argList, context);
             } else if (binding instanceof TDecisionService) {
-                return evaluateInvocable(argList, context, (TInvocable) binding);
+                return evaluateInvocable((TInvocable) binding, argList, context);
             } else if (binding instanceof TFunctionDefinition) {
                 TFunctionKind kind = ((TFunctionDefinition) binding).getKind();
                 if (dmnTransformer.isFEELFunction(kind)) {
@@ -701,9 +701,9 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         } else {
             Object binding = function.accept(this, context);
             if (binding instanceof TBusinessKnowledgeModel) {
-                return evaluateInvocable(argList, context, (TInvocable) binding);
+                return evaluateInvocable((TInvocable) binding, argList, context);
             } else if (binding instanceof TDecisionService) {
-                return evaluateInvocable(argList, context, (TInvocable) binding);
+                return evaluateInvocable((TInvocable) binding, argList, context);
             } else if (binding instanceof TFunctionDefinition) {
                 Result result = dmnInterpreter.evaluateInvocation((TFunctionDefinition) binding, argList, context);
                 return Result.value(result);
@@ -722,7 +722,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         }
     }
 
-    private Object evaluateInvocable(List<Object> argList, FEELContext context, TInvocable invocable) {
+    private Object evaluateInvocable(TInvocable invocable, List<Object> argList, FEELContext context) {
         Environment environment = dmnTransformer.makeEnvironment(invocable, context.getEnvironment());
         FEELContext boundContext = FEELContext.makeContext(environment, context.getRuntimeEnvironment());
         Result result = dmnInterpreter.evaluateInvocation(null, invocable, argList, boundContext);
