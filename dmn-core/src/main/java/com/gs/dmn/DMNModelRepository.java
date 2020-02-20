@@ -554,14 +554,17 @@ public class DMNModelRepository {
 
     public TBusinessKnowledgeModel findKnowledgeModelByName(String name) {
         if (!this.knowledgeModelByName.containsKey(name)) {
-            TBusinessKnowledgeModel value = null;
+            List<TBusinessKnowledgeModel> value = new ArrayList<>();
             for (TBusinessKnowledgeModel knowledgeModel : businessKnowledgeModels()) {
                 if (sameName(knowledgeModel, name)) {
-                    value = knowledgeModel;
-                    break;
+                    value.add(knowledgeModel);
                 }
             }
-            this.knowledgeModelByName.put(name, value);
+            if (value.size() == 1) {
+                this.knowledgeModelByName.put(name, value.get(0));
+            } else if (value.size() > 1) {
+                throw new DMNRuntimeException(String.format("Found %s business knowledge models for name='%s'", value.size(), name));
+            }
         }
         TBusinessKnowledgeModel result = this.knowledgeModelByName.get(name);
         if (result == null) {
@@ -573,14 +576,17 @@ public class DMNModelRepository {
 
     public TDRGElement findDRGElementByName(String name) {
         if (!this.drgElementByName.containsKey(name)) {
-            TDRGElement value = null;
+            List<TDRGElement> value = new ArrayList<>();
             for (TDRGElement element : drgElements()) {
                 if (sameName(element, name)) {
-                    value = element;
-                    break;
+                    value.add(element);
                 }
             }
-            this.drgElementByName.put(name, value);
+            if (value.size() == 1) {
+                this.drgElementByName.put(name, value.get(0));
+            } else if (value.size() > 1) {
+                throw new DMNRuntimeException(String.format("Found %s business knowledge models for name='%s'", value.size(), name));
+            }
         }
         TDRGElement result = this.drgElementByName.get(name);
         if (result == null) {
