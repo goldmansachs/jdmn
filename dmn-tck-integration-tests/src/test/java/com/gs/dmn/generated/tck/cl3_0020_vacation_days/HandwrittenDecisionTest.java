@@ -74,7 +74,7 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
 
         String drgElementName = nameTransformer.transformName("Total Vacation Days");
         TDRGElement drgElement = repository.findDRGElementByName(drgElementName);
-        Result result = interpreter.evaluate(null, drgElement, runtimeEnvironment);
+        Result result = interpreter.evaluate(null, drgElement, null, runtimeEnvironment);
         Object actual = Result.value(result);
 
         assertEquals(expected, ((BigDecimal) actual).toPlainString());

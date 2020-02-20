@@ -97,7 +97,7 @@ public class CredDecSignavioBenchmarkTest {
         runtimeEnvironment.bind("lendingThreshold", lendingThreshold);
 
         TDRGElement decision = repository.findDRGElementByName("generateOutputData");
-        Object result = interpreter.evaluate(null, decision, runtimeEnvironment);
+        Object result = interpreter.evaluate(null, decision, null, runtimeEnvironment);
         System.out.println(result);
 
         long endTime = System.currentTimeMillis();

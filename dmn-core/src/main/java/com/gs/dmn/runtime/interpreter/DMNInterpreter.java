@@ -30,16 +30,14 @@ public interface DMNInterpreter {
     //
     // Evaluate DRG nodes
     //
-    Result evaluate(ImportPath importPath, TDRGElement drgElement, RuntimeEnvironment runtimeEnvironment);
+    Result evaluate(ImportPath importPath, TDRGElement drgElement, List<Object> args, RuntimeEnvironment runtimeEnvironment);
 
-    Result evaluateInvocation(ImportPath importPath, TDRGElement drgElement, List<Object> args, RuntimeEnvironment runtimeEnvironment);
+    Result evaluate(ImportPath importPath, TDRGElement drgElement, List<Object> args, FEELContext context);
 
-    Result evaluateInvocation(ImportPath importPath, TDRGElement drgElement, List<Object> args, FEELContext context);
-
-    Result evaluateInvocation(TInvocable invocable, List<Object> argList, FEELContext context);
+    Result evaluate(TInvocable invocable, List<Object> argList, FEELContext context);
 
     //
     // Evaluate expressions
     //
-    Result evaluateInvocation(TFunctionDefinition functionDefinition, List<Object> args, FEELContext context);
+    Result evaluate(TFunctionDefinition functionDefinition, List<Object> args, FEELContext context);
 }

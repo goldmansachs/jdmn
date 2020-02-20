@@ -659,15 +659,15 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
             String feelFunctionName = functionName(function);
             Object binding = context.lookupRuntimeBinding(feelFunctionName);
             if (binding instanceof TBusinessKnowledgeModel) {
-                Result result = dmnInterpreter.evaluateInvocation((TInvocable) binding, argList, context);
+                Result result = dmnInterpreter.evaluate((TInvocable) binding, argList, context);
                 return Result.value(result);
             } else if (binding instanceof TDecisionService) {
-                Result result = dmnInterpreter.evaluateInvocation((TInvocable) binding, argList, context);
+                Result result = dmnInterpreter.evaluate((TInvocable) binding, argList, context);
                 return Result.value(result);
             } else if (binding instanceof TFunctionDefinition) {
                 TFunctionKind kind = ((TFunctionDefinition) binding).getKind();
                 if (dmnTransformer.isFEELFunction(kind)) {
-                    Result result = dmnInterpreter.evaluateInvocation((TFunctionDefinition) binding, argList, context);
+                    Result result = dmnInterpreter.evaluate((TFunctionDefinition) binding, argList, context);
                     return Result.value(result);
                 } else if (dmnTransformer.isJavaFunction(kind)) {
                     return evaluateExternalJavaFunction((TFunctionDefinition) binding, argList, context);
@@ -703,13 +703,13 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         } else {
             Object binding = function.accept(this, context);
             if (binding instanceof TBusinessKnowledgeModel) {
-                Result result = dmnInterpreter.evaluateInvocation((TInvocable) binding, argList, context);
+                Result result = dmnInterpreter.evaluate((TInvocable) binding, argList, context);
                 return Result.value(result);
             } else if (binding instanceof TDecisionService) {
-                Result result = dmnInterpreter.evaluateInvocation((TInvocable) binding, argList, context);
+                Result result = dmnInterpreter.evaluate((TInvocable) binding, argList, context);
                 return Result.value(result);
             } else if (binding instanceof TFunctionDefinition) {
-                Result result = dmnInterpreter.evaluateInvocation((TFunctionDefinition) binding, argList, context);
+                Result result = dmnInterpreter.evaluate((TFunctionDefinition) binding, argList, context);
                 return Result.value(result);
             } else if (binding instanceof FunctionDefinition) {
                 FunctionDefinition functionDefinitionBinding = (FunctionDefinition) binding;

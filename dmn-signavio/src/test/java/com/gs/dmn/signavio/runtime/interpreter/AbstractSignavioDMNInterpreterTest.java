@@ -56,7 +56,7 @@ public abstract class AbstractSignavioDMNInterpreterTest {
             DMNInterpreter interpreter = dialectDefinition.createDMNInterpreter(repository);
 
             TDRGElement decision = repository.findDRGElementByName(decisionName);
-            Result actualResult = interpreter.evaluate(null, decision, runtimeEnvironment);
+            Result actualResult = interpreter.evaluate(null, decision, null, runtimeEnvironment);
             Object actualValue = Result.value(actualResult);
 
             assertEquals(errorMessage, expectedResult, actualValue);
