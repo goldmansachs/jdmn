@@ -80,16 +80,23 @@ public class StandardDMNInterpreter implements DMNInterpreter {
     }
 
     @Override
-    public Result evaluate(ImportPath importPath, String drgElementName, RuntimeEnvironment runtimeEnvironment) {
-        TDRGElement drgElement = dmnModelRepository.findDRGElementByName(drgElementName);
-        evaluate(importPath, drgElement, runtimeEnvironment);
-        Object value = lookupBinding(runtimeEnvironment, importPath, drgElementName);
+    public Result evaluate(ImportPath importPath, TDRGElement drgElement, RuntimeEnvironment runtimeEnvironment) {
+        if (drgElement instanceof TInputData) {
+        } else if (drgElement instanceof TBusinessKnowledgeModel) {
+            evaluateBKM(importPath, (TBusinessKnowledgeModel) drgElement, runtimeEnvironment);
+        } else if (drgElement instanceof TDecisionService) {
+            evaluateDecisionService(importPath, (TDecisionService) drgElement, runtimeEnvironment);
+        } else if (drgElement instanceof TDecision) {
+            evaluateDecision(importPath, (TDecision) drgElement, runtimeEnvironment);
+        } else {
+            handleError(String.format("DRG Element '%s' not supported yet", drgElement.getClass()));
+        }
+        Object value = lookupBinding(runtimeEnvironment, importPath, drgElement.getName());
         return new Result(value, basicDMNTransformer.drgElementOutputFEELType(drgElement));
     }
 
     @Override
-    public Result evaluateInvocation(ImportPath importPath, String drgElementName, List<Object> args, RuntimeEnvironment runtimeEnvironment) {
-        TDRGElement drgElement = dmnModelRepository.findDRGElementByName(drgElementName);
+    public Result evaluateInvocation(ImportPath importPath, TDRGElement drgElement, List<Object> args, RuntimeEnvironment runtimeEnvironment) {
         Environment environment = basicDMNTransformer.makeEnvironment(drgElement);
         return evaluateInvocation(importPath, drgElement, args, FEELContext.makeContext(environment, runtimeEnvironment));
     }
@@ -98,9 +105,9 @@ public class StandardDMNInterpreter implements DMNInterpreter {
     public Result evaluateInvocation(ImportPath importPath, TDRGElement drgElement, List<Object> args, FEELContext context) {
         Result actualOutput;
         if (drgElement instanceof TInputData) {
-            actualOutput = evaluate(importPath, drgElement.getName(), context.getRuntimeEnvironment());
+            actualOutput = evaluate(importPath, drgElement, context.getRuntimeEnvironment());
         } else if (drgElement instanceof TDecision) {
-            actualOutput = evaluate(importPath, drgElement.getName(), context.getRuntimeEnvironment());
+            actualOutput = evaluate(importPath, drgElement, context.getRuntimeEnvironment());
         } else if (drgElement instanceof TDecisionService) {
             actualOutput = evaluateInvocation(importPath, (TDecisionService) drgElement, args, context);
         } else if (drgElement instanceof TBusinessKnowledgeModel) {
@@ -250,19 +257,6 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         }
 
         return output;
-    }
-
-    private void evaluate(ImportPath importPath, TDRGElement drgElement, RuntimeEnvironment runtimeEnvironment) {
-        if (drgElement instanceof TInputData) {
-        } else if (drgElement instanceof TBusinessKnowledgeModel) {
-            evaluateBKM(importPath, (TBusinessKnowledgeModel) drgElement, runtimeEnvironment);
-        } else if (drgElement instanceof TDecisionService) {
-            evaluateDecisionService(importPath, (TDecisionService) drgElement, runtimeEnvironment);
-        } else if (drgElement instanceof TDecision) {
-            evaluateDecision(importPath, (TDecision) drgElement, runtimeEnvironment);
-        } else {
-            handleError(String.format("DRG Element '%s' not supported yet", drgElement.getClass()));
-        }
     }
 
     private void evaluateKnowledgeRequirements(ImportPath importPath, TDRGElement parent, List<TKnowledgeRequirement> knowledgeRequirementList, RuntimeEnvironment runtimeEnvironment) {

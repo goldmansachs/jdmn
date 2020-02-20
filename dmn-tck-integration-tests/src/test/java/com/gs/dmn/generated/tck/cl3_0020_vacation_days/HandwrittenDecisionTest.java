@@ -26,6 +26,7 @@ import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.NameTransformer;
 import com.gs.dmn.transformation.ToQuotedNameTransformer;
 import org.junit.Test;
+import org.omg.spec.dmn._20180521.model.TDRGElement;
 
 import java.math.BigDecimal;
 
@@ -72,7 +73,8 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
         environment.bind(nameTransformer.transformName("Years of Service"), lib.number(i2));
 
         String drgElementName = nameTransformer.transformName("Total Vacation Days");
-        Result result = interpreter.evaluate(null, drgElementName, environment);
+        TDRGElement drgElement = repository.findDRGElementByName(drgElementName);
+        Result result = interpreter.evaluate(null, drgElement, environment);
         Object actual = Result.value(result);
 
         assertEquals(expected, ((BigDecimal) actual).toPlainString());

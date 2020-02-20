@@ -24,6 +24,7 @@ import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.dialect.UniformJavaTimeSignavioDMNDialectDefinition;
+import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
@@ -95,7 +96,8 @@ public class CredDecUniformBenchmarkTest {
         environment.bind("currentRiskAppetite", currentRiskAppetite);
         environment.bind("lendingThreshold", lendingThreshold);
 
-        Object result = interpreter.evaluate(null,"generateOutputData", environment);
+        TDRGElement decision = repository.findDRGElementByName("generateOutputData");
+        Object result = interpreter.evaluate(null, decision, environment);
         System.out.println(result);
 
         long endTime = System.currentTimeMillis();
