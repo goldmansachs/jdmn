@@ -451,11 +451,6 @@ public class StandardDMNInterpreter implements DMNInterpreter {
     //
     // Expression evaluation
     //
-    @Override
-    public Result evaluateLiteralExpression(String text, Environment environment, RuntimeEnvironment runtimeEnvironment) {
-        return this.evaluateLiteralExpression(text, environment, runtimeEnvironment, null);
-    }
-
     protected Result evaluateExpression(TExpression expression, Environment environment, RuntimeEnvironment runtimeEnvironment, TDRGElement element, DRGElement elementAnnotation) {
         Result result = null;
         if (expression == null) {

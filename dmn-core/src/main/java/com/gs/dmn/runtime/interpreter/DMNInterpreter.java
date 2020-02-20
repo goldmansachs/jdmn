@@ -34,9 +34,4 @@ public interface DMNInterpreter {
     Result evaluateInvocation(ImportPath importPath, TDRGElement drgElement, List<Object> args, FEELContext context);
 
     Result evaluateInvocation(TFunctionDefinition functionDefinition, List<Object> args, FEELContext context);
-
-    //
-    // Expression evaluation
-    //
-    Result evaluateLiteralExpression(String text, Environment environment, RuntimeEnvironment runtimeEnvironment);
 }
