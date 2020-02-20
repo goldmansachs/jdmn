@@ -404,7 +404,7 @@ public class TCKUtil {
         String drgElementName = drgElementName(testCase, resultNode);
         TDRGElement drgElement = findDRGElementByName(drgElementName);
         ImportPath importPath = null;
-        return interpreter.evaluateInvocation(importPath, drgElement, makeArgs(drgElement, testCase), makeEnvironment(testCase));
+        return interpreter.evaluate(importPath, drgElement, makeArgs(drgElement, testCase), makeEnvironment(testCase));
     }
 
     private Object makeInputValue(InputNode inputNode) {

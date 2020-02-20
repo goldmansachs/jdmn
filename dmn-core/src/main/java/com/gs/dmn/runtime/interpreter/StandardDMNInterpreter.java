@@ -80,38 +80,22 @@ public class StandardDMNInterpreter implements DMNInterpreter {
     }
 
     @Override
-    public Result evaluate(ImportPath importPath, TDRGElement drgElement, RuntimeEnvironment runtimeEnvironment) {
-        if (drgElement instanceof TInputData) {
-        } else if (drgElement instanceof TBusinessKnowledgeModel) {
-            evaluateBKM(importPath, (TBusinessKnowledgeModel) drgElement, runtimeEnvironment);
-        } else if (drgElement instanceof TDecisionService) {
-            evaluateDecisionService(importPath, (TDecisionService) drgElement, runtimeEnvironment);
-        } else if (drgElement instanceof TDecision) {
-            evaluateDecision(importPath, (TDecision) drgElement, runtimeEnvironment);
-        } else {
-            handleError(String.format("DRG Element '%s' not supported yet", drgElement.getClass()));
-        }
-        Object value = lookupBinding(runtimeEnvironment, importPath, drgElement.getName());
-        return new Result(value, basicDMNTransformer.drgElementOutputFEELType(drgElement));
-    }
-
-    @Override
-    public Result evaluateInvocation(ImportPath importPath, TDRGElement drgElement, List<Object> args, RuntimeEnvironment runtimeEnvironment) {
+    public Result evaluate(ImportPath importPath, TDRGElement drgElement, List<Object> args, RuntimeEnvironment runtimeEnvironment) {
         Environment environment = basicDMNTransformer.makeEnvironment(drgElement);
-        return evaluateInvocation(importPath, drgElement, args, FEELContext.makeContext(environment, runtimeEnvironment));
+        return evaluate(importPath, drgElement, args, FEELContext.makeContext(environment, runtimeEnvironment));
     }
 
     @Override
-    public Result evaluateInvocation(ImportPath importPath, TDRGElement drgElement, List<Object> args, FEELContext context) {
+    public Result evaluate(ImportPath importPath, TDRGElement drgElement, List<Object> args, FEELContext context) {
         Result actualOutput;
         if (drgElement instanceof TInputData) {
-            actualOutput = evaluate(importPath, drgElement, context.getRuntimeEnvironment());
+            actualOutput = evaluate(importPath, (TInputData) drgElement, context.getRuntimeEnvironment());
         } else if (drgElement instanceof TDecision) {
-            actualOutput = evaluate(importPath, drgElement, context.getRuntimeEnvironment());
+            actualOutput = evaluate(importPath, (TDecision) drgElement, context.getRuntimeEnvironment());
         } else if (drgElement instanceof TDecisionService) {
-            actualOutput = evaluateInvocation(importPath, (TDecisionService) drgElement, args, context);
+            actualOutput = evaluate(importPath, (TDecisionService) drgElement, args, context);
         } else if (drgElement instanceof TBusinessKnowledgeModel) {
-            actualOutput = evaluateInvocation(importPath, (TBusinessKnowledgeModel) drgElement, args, context);
+            actualOutput = evaluate(importPath, (TBusinessKnowledgeModel) drgElement, args, context);
         } else {
             throw new IllegalArgumentException(String.format("Not supported type '%s'", drgElement.getClass().getSimpleName()));
         }
@@ -119,7 +103,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
     }
 
     @Override
-    public Result evaluateInvocation(TFunctionDefinition functionDefinition, List<Object> argList, FEELContext context) {
+    public Result evaluate(TFunctionDefinition functionDefinition, List<Object> argList, FEELContext context) {
         // Create new environments and bind parameters
         Environment functionEnvironment = environmentFactory.makeEnvironment(context.getEnvironment());
         RuntimeEnvironment functionRuntimeEnvironment = runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment());
@@ -147,22 +131,33 @@ public class StandardDMNInterpreter implements DMNInterpreter {
     }
 
     @Override
-    public Result evaluateInvocation(TInvocable invocable, List<Object> argList, FEELContext context) {
+    public Result evaluate(TInvocable invocable, List<Object> argList, FEELContext context) {
         Environment environment = basicDMNTransformer.makeEnvironment(invocable, context.getEnvironment());
         FEELContext invocationContext = FEELContext.makeContext(environment, context.getRuntimeEnvironment());
         Result result;
         ImportPath importPath = null;
         if (invocable instanceof TDecisionService) {
-            result = evaluateInvocation(importPath, (TDecisionService) invocable, argList, invocationContext);
+            result = evaluate(importPath, (TDecisionService) invocable, argList, invocationContext);
         } else if (invocable instanceof TBusinessKnowledgeModel) {
-            result = evaluateInvocation(importPath, (TBusinessKnowledgeModel) invocable, argList, invocationContext);
+            result = evaluate(importPath, (TBusinessKnowledgeModel) invocable, argList, invocationContext);
         } else {
             throw new IllegalArgumentException(String.format("Not supported type '%s'", invocable.getClass().getSimpleName()));
         }
         return result;
     }
 
-    private Result evaluateInvocation(ImportPath importPath, TBusinessKnowledgeModel bkm, List<Object> argList, FEELContext context) {
+    private Result evaluate(ImportPath importPath, TInputData inputData, RuntimeEnvironment runtimeEnvironment) {
+        Object value = lookupBinding(runtimeEnvironment, importPath, inputData.getName());
+        return new Result(value, basicDMNTransformer.drgElementOutputFEELType(inputData));
+    }
+
+    private Result evaluate(ImportPath importPath, TDecision decision, RuntimeEnvironment runtimeEnvironment) {
+        evaluateDecision(importPath, decision, runtimeEnvironment);
+        Object value = lookupBinding(runtimeEnvironment, importPath, decision.getName());
+        return new Result(value, basicDMNTransformer.drgElementOutputFEELType(decision));
+    }
+
+    private Result evaluate(ImportPath importPath, TBusinessKnowledgeModel bkm, List<Object> argList, FEELContext context) {
         RuntimeEnvironment bkmRuntimeEnvironment = runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment());
 
         // BKM start
@@ -204,7 +199,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         return result;
     }
 
-    private Result evaluateInvocation(ImportPath importPath, TDecisionService service, List<Object> argList, FEELContext context) {
+    private Result evaluate(ImportPath importPath, TDecisionService service, List<Object> argList, FEELContext context) {
         RuntimeEnvironment serviceRuntimeEnvironment = runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment());
 
         // Decision Service start
@@ -533,7 +528,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
             }
             Environment parentEnvironment = basicDMNTransformer.makeEnvironment(element);
             FEELContext context = FEELContext.makeContext(parentEnvironment, runtimeEnvironment);
-            return evaluateInvocation(null, bkm, argList, context);
+            return evaluate(null, bkm, argList, context);
         } else {
             throw new UnsupportedOperationException(String.format("Not supported '%s'", body.getClass().getSimpleName()));
         }
