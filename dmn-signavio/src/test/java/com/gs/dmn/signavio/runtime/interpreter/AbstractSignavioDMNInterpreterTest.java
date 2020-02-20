@@ -27,6 +27,7 @@ import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
+import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
 import org.slf4j.LoggerFactory;
 
@@ -54,7 +55,8 @@ public abstract class AbstractSignavioDMNInterpreterTest {
             DMNModelRepository repository = new SignavioDMNModelRepository(pair, "http://www.provider.com/schema/dmn/1.1/");
             DMNInterpreter interpreter = dialectDefinition.createDMNInterpreter(repository);
 
-            Result actualResult = interpreter.evaluate(null, decisionName, runtimeContext);
+            TDRGElement decision = repository.findDRGElementByName(decisionName);
+            Result actualResult = interpreter.evaluate(null, decision, runtimeContext);
             Object actualValue = Result.value(actualResult);
 
             assertEquals(errorMessage, expectedResult, actualValue);
