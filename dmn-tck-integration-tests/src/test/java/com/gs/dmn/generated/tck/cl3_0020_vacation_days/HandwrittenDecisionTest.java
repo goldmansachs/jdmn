@@ -68,13 +68,13 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
         nameTransformer.transform(repository);
         DMNInterpreter interpreter = this.dialectDefinition.createDMNInterpreter(repository);
 
-        RuntimeEnvironment environment = RuntimeEnvironmentFactory.instance().makeEnvironment();
-        environment.bind("Age", lib.number(i1));
-        environment.bind(nameTransformer.transformName("Years of Service"), lib.number(i2));
+        RuntimeEnvironment runtimeEnvironment = RuntimeEnvironmentFactory.instance().makeEnvironment();
+        runtimeEnvironment.bind("Age", lib.number(i1));
+        runtimeEnvironment.bind(nameTransformer.transformName("Years of Service"), lib.number(i2));
 
         String drgElementName = nameTransformer.transformName("Total Vacation Days");
         TDRGElement drgElement = repository.findDRGElementByName(drgElementName);
-        Result result = interpreter.evaluate(null, drgElement, environment);
+        Result result = interpreter.evaluate(null, drgElement, runtimeEnvironment);
         Object actual = Result.value(result);
 
         assertEquals(expected, ((BigDecimal) actual).toPlainString());

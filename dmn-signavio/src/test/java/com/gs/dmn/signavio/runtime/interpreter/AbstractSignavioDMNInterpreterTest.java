@@ -46,7 +46,7 @@ public abstract class AbstractSignavioDMNInterpreterTest {
         doTest(config.getDecisionName(), config.getDiagramName(), config.getRuntimeContext(), config.getExpectedResult());
     }
 
-    protected void doTest(String decisionName, String diagramName, RuntimeEnvironment runtimeContext, Object expectedResult) throws Exception {
+    protected void doTest(String decisionName, String diagramName, RuntimeEnvironment runtimeEnvironment, Object expectedResult) throws Exception {
         String errorMessage = String.format("Tested failed for diagram '%s'", diagramName);
         try {
             String pathName = getInputPath() + "/" + diagramName + DMNConstants.DMN_FILE_EXTENSION;
@@ -56,7 +56,7 @@ public abstract class AbstractSignavioDMNInterpreterTest {
             DMNInterpreter interpreter = dialectDefinition.createDMNInterpreter(repository);
 
             TDRGElement decision = repository.findDRGElementByName(decisionName);
-            Result actualResult = interpreter.evaluate(null, decision, runtimeContext);
+            Result actualResult = interpreter.evaluate(null, decision, runtimeEnvironment);
             Object actualValue = Result.value(actualResult);
 
             assertEquals(errorMessage, expectedResult, actualValue);
