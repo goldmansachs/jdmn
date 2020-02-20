@@ -91,13 +91,13 @@ public class CredDecUniformBenchmarkTest {
         DMNModelRepository repository = readDMN(pathName);
         DMNInterpreter interpreter = dialectDefinition.createDMNInterpreter(repository);
 
-        RuntimeEnvironment environment = RuntimeEnvironmentFactory.instance().makeEnvironment();
-        environment.bind("applicant", applicant);
-        environment.bind("currentRiskAppetite", currentRiskAppetite);
-        environment.bind("lendingThreshold", lendingThreshold);
+        RuntimeEnvironment runtimeEnvironment = RuntimeEnvironmentFactory.instance().makeEnvironment();
+        runtimeEnvironment.bind("applicant", applicant);
+        runtimeEnvironment.bind("currentRiskAppetite", currentRiskAppetite);
+        runtimeEnvironment.bind("lendingThreshold", lendingThreshold);
 
         TDRGElement decision = repository.findDRGElementByName("generateOutputData");
-        Object result = interpreter.evaluate(null, decision, environment);
+        Object result = interpreter.evaluate(null, decision, runtimeEnvironment);
         System.out.println(result);
 
         long endTime = System.currentTimeMillis();

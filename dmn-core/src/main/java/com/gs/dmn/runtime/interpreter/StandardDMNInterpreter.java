@@ -118,6 +118,50 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         return actualOutput;
     }
 
+    @Override
+    public Result evaluateInvocation(TFunctionDefinition functionDefinition, List<Object> argList, FEELContext context) {
+        // Create new environments and bind parameters
+        Environment functionEnvironment = environmentFactory.makeEnvironment(context.getEnvironment());
+        RuntimeEnvironment functionRuntimeEnvironment = runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment());
+        List<TInformationItem> formalParameterList = functionDefinition.getFormalParameter();
+        for (int i = 0; i < formalParameterList.size(); i++) {
+            TInformationItem param = formalParameterList.get(i);
+            String name = param.getName();
+            Type type = basicDMNTransformer.toFEELType(QualifiedName.toQualifiedName(param.getTypeRef()));
+            Object value = argList.get(i);
+            functionEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(name, type));
+            functionRuntimeEnvironment.bind(name, value);
+        }
+
+        // Execute function body
+        JAXBElement<? extends TExpression> expressionElement = functionDefinition.getExpression();
+        Result output;
+        if (expressionElement == null) {
+            output = null;
+        } else {
+            TExpression expression = expressionElement.getValue();
+            output = evaluateExpression(expression, functionEnvironment, functionRuntimeEnvironment, null, null);
+        }
+
+        return output;
+    }
+
+    @Override
+    public Result evaluateInvocation(TInvocable invocable, List<Object> argList, FEELContext context) {
+        Environment environment = basicDMNTransformer.makeEnvironment(invocable, context.getEnvironment());
+        FEELContext invocationContext = FEELContext.makeContext(environment, context.getRuntimeEnvironment());
+        Result result;
+        ImportPath importPath = null;
+        if (invocable instanceof TDecisionService) {
+            result = evaluateInvocation(importPath, (TDecisionService) invocable, argList, invocationContext);
+        } else if (invocable instanceof TBusinessKnowledgeModel) {
+            result = evaluateInvocation(importPath, (TBusinessKnowledgeModel) invocable, argList, invocationContext);
+        } else {
+            throw new IllegalArgumentException(String.format("Not supported type '%s'", invocable.getClass().getSimpleName()));
+        }
+        return result;
+    }
+
     private Result evaluateInvocation(ImportPath importPath, TBusinessKnowledgeModel bkm, List<Object> argList, FEELContext context) {
         RuntimeEnvironment bkmRuntimeEnvironment = runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment());
 
@@ -229,34 +273,6 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         EVENT_LISTENER.endDRGElement(drgElementAnnotation, decisionArguments, output, (System.currentTimeMillis() - startTime_));
 
         return new Result(output, basicDMNTransformer.drgElementOutputFEELType(service));
-    }
-
-    @Override
-    public Result evaluateInvocation(TFunctionDefinition functionDefinition, List<Object> argList, FEELContext context) {
-        // Create new environments and bind parameters
-        Environment functionEnvironment = environmentFactory.makeEnvironment(context.getEnvironment());
-        RuntimeEnvironment functionRuntimeEnvironment = runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment());
-        List<TInformationItem> formalParameterList = functionDefinition.getFormalParameter();
-        for (int i = 0; i < formalParameterList.size(); i++) {
-            TInformationItem param = formalParameterList.get(i);
-            String name = param.getName();
-            Type type = basicDMNTransformer.toFEELType(QualifiedName.toQualifiedName(param.getTypeRef()));
-            Object value = argList.get(i);
-            functionEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(name, type));
-            functionRuntimeEnvironment.bind(name, value);
-        }
-
-        // Execute function body
-        JAXBElement<? extends TExpression> expressionElement = functionDefinition.getExpression();
-        Result output;
-        if (expressionElement == null) {
-            output = null;
-        } else {
-            TExpression expression = expressionElement.getValue();
-            output = evaluateExpression(expression, functionEnvironment, functionRuntimeEnvironment, null, null);
-        }
-
-        return output;
     }
 
     private void evaluateKnowledgeRequirements(ImportPath importPath, TDRGElement parent, List<TKnowledgeRequirement> knowledgeRequirementList, RuntimeEnvironment runtimeEnvironment) {
@@ -398,7 +414,6 @@ public class StandardDMNInterpreter implements DMNInterpreter {
             }
         }
     }
-
 
     protected boolean dagOptimisation() {
         return true;
