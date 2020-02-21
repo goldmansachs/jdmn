@@ -35,8 +35,8 @@ public class ImportTestCasesToJUnitTransformerTest extends AbstractTCKTestCasesT
     @Test
     @Ignore
     public void testImport() throws Exception {
-        doMultipleModelsTest("0001-no-name-conflicts-one-package", "0001-no-name-conflicts-one-package");
-        doMultipleModelsTest("0002-no-name-conflicts", "0002-no-name-conflicts", new Pair<>("onePackage", "false"));
-        doMultipleModelsTest("0003-name-conflicts", "0003-name-conflicts", new Pair<>("onePackage", "false"));
+        doMultipleModelsTest("0001-no-name-conflicts-one-package", "0001-no-name-conflicts-one-package", new Pair<>("onePackage", "true"));
+        doMultipleModelsTest("0002-no-name-conflicts", "0002-no-name-conflicts");
+        doMultipleModelsTest("0003-name-conflicts", "0003-name-conflicts");
     }
 }

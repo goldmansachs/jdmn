@@ -81,7 +81,8 @@ public class BasicDMN2JavaTransformer {
         this.environmentFactory = environmentFactory;
         this.feelTypeTranslator = feelTypeTranslator;
         this.javaRootPackage = InputParamUtil.getOptionalParam(inputParameters, "javaRootPackage");
-        this.onePackage = InputParamUtil.getOptionalBooleanParam(inputParameters, "onePackage", "true");
+        boolean onePackageDefault = dmnModelRepository.getAllDefinitions().size() == 1;
+        this.onePackage = InputParamUtil.getOptionalBooleanParam(inputParameters, "onePackage", "" + onePackageDefault);
         this.caching = InputParamUtil.getOptionalBooleanParam(inputParameters, "caching");
         this.feelTranslator = new FEELTranslatorImpl(this);
 
