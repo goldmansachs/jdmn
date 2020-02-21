@@ -28,6 +28,7 @@
 									<xs:complexContent>
 										<xs:extension base="valueType">
 											<xs:attribute name="name" use="required"/>
+											<xs:attribute name="href" type="xs:anyURI" use="optional"/>
 										</xs:extension>
 									</xs:complexContent>
 								</xs:complexType>
@@ -40,6 +41,7 @@
 									</xs:sequence>
 									<xs:attribute name="errorResult" type="xs:boolean" default="false"/>
 									<xs:attribute name="name" use="required"/>
+									<xs:attribute name="href" type="xs:anyURI" use="optional"/>
 									<xs:attribute name="type" type="xs:string"/>
 									<xs:attribute name="cast" type="xs:string"/>
 								</xs:complexType>
