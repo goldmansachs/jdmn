@@ -36,12 +36,4 @@ public class ImportDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
         doMultipleModelsTest("0002-no-name-conflicts");
         doMultipleModelsTest("0003-name-conflicts");
     }
-
-    @Override
-    protected Map<String, String> makeInputParameters() {
-        Map<String, String> inputParams = super.makeInputParameters();
-        inputParams.put("onePackage", "false");
-        return inputParams;
-    }
-
 }
