@@ -191,19 +191,10 @@ public class DMNModelRepository {
         return this.elementMap.get(element);
     }
 
-    public String getModelName(TNamedElement element) {
-        TDefinitions definitions = this.elementMap.get(element);
-        if (definitions == null) {
-            return "";
-        } else {
-            return definitions.getName();
-        }
-    }
-
     public String getQualifiedName(TNamedElement element) {
-        String modelName = getModelName(element);
+        String modelName = getModel(element).getNamespace();
         String elementName = element.getName();
-        return String.format("%s.%s", modelName, elementName);
+        return String.format("%s#%s", modelName, elementName);
     }
 
     public List<TDRGElement> drgElements() {
