@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.tck;
 
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
@@ -64,17 +65,17 @@ public class TCKUtil {
     // Delegate methods
     //
     public String drgElementClassName(ResultNode resultNode) {
-        TDecision decision = (TDecision) findDRGElementByName(resultNode.getName());
+        TDecision decision = (TDecision) findDRGElement(resultNode);
         return dmnTransformer.drgElementClassName(decision);
     }
 
     public String drgElementVariableName(ResultNode resultNode) {
-        TDecision decision = (TDecision) findDRGElementByName(resultNode.getName());
+        TDecision decision = (TDecision) findDRGElement(resultNode);
         return dmnTransformer.drgElementVariableName(decision);
     }
 
     public String drgElementOutputType(ResultNode resultNode) {
-        TDecision decision = (TDecision) findDRGElementByName(resultNode.getName());
+        TDecision decision = (TDecision) findDRGElement(resultNode);
         return dmnTransformer.drgElementOutputType(decision);
     }
 
@@ -83,12 +84,12 @@ public class TCKUtil {
     }
 
     public String drgElementArgumentList(ResultNode resultNode) {
-        TDecision decision = (TDecision) findDRGElementByName(resultNode.getName());
+        TDecision decision = (TDecision) findDRGElement(resultNode);
         return dmnTransformer.drgElementArgumentList(decision);
     }
 
     public String inputDataVariableName(InputNode inputNode) {
-        TDRGElement element = findDRGElementByName(inputNode.getName());
+        TDRGElement element = findDRGElement(inputNode);
         if (element == null) {
             throw new DMNRuntimeException(String.format("Cannot find element '%s'", inputNode.getName()));
         } else if (element instanceof TInputData) {
@@ -207,9 +208,36 @@ public class TCKUtil {
         return parameters;
     }
 
-    private TDRGElement findDRGElementByName(String name) {
+    private TDRGElement findDRGElement(InputNode node) {
         try {
-            return dmnTransformer.getDMNModelRepository().findDRGElementByName(name);
+            DMNModelRepository dmnModelRepository = dmnTransformer.getDMNModelRepository();
+            if (node.getHref() != null) {
+                return dmnModelRepository.findDRGElementByRef(node.getHref());
+            } else {
+                return dmnModelRepository.findDRGElementByName(node.getName());
+            }
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private TDRGElement findDRGElement(ResultNode node) {
+        try {
+            DMNModelRepository dmnModelRepository = dmnTransformer.getDMNModelRepository();
+            if (node.getHref() != null) {
+                return dmnModelRepository.findDRGElementByRef(node.getHref());
+            } else {
+                return dmnModelRepository.findDRGElementByName(node.getName());
+            }
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private TDRGElement findDRGElement(TestCase testCase, ResultNode resultNode) {
+        try {
+            String drgElementName = drgElementName(testCase, resultNode);
+            return dmnTransformer.getDMNModelRepository().findDRGElementByName(drgElementName);
         } catch (Exception e) {
             return null;
         }
@@ -234,7 +262,7 @@ public class TCKUtil {
     }
 
     private QualifiedName getTypeRef(InputNode node) {
-        TDRGElement element = findDRGElementByName(node.getName());
+        TDRGElement element = findDRGElement(node);
         QualifiedName typeRef;
         if (element == null) {
             throw new DMNRuntimeException(String.format("Cannot find element '%s'.", node.getName()));
@@ -248,7 +276,7 @@ public class TCKUtil {
     }
 
     private QualifiedName getTypeRef(ResultNode node) {
-        TDRGElement element = findDRGElementByName(node.getName());
+        TDRGElement element = findDRGElement(node);
         QualifiedName typeRef;
         if (element == null) {
             throw new DMNRuntimeException(String.format("Cannot find element '%s'.", node.getName()));
@@ -388,10 +416,9 @@ public class TCKUtil {
             Object expectedValue = makeValue(resultNode.getExpected());
             return expectedValue;
         } else {
-            String drgElementName = drgElementName(testCase, resultNode);
-            TDRGElement drgElement = findDRGElementByName(drgElementName);
+            TDRGElement drgElement = findDRGElement(testCase, resultNode);
             if (drgElement == null) {
-                throw new DMNRuntimeException(String.format("Cannot find DRG element '%s'", drgElementName));
+                throw new DMNRuntimeException(String.format("Cannot find DRG element '%s'", resultNode.getName()));
             }
             Environment environment = dmnTransformer.makeEnvironment(drgElement);
             Type elementType = dmnTransformer.drgElementOutputFEELType(drgElement, environment);
@@ -401,8 +428,7 @@ public class TCKUtil {
     }
 
     public Result evaluate(DMNInterpreter interpreter, TestCase testCase, ResultNode resultNode) {
-        String drgElementName = drgElementName(testCase, resultNode);
-        TDRGElement drgElement = findDRGElementByName(drgElementName);
+        TDRGElement drgElement = findDRGElement(testCase, resultNode);
         ImportPath importPath = null;
         return interpreter.evaluate(importPath, drgElement, makeArgs(drgElement, testCase), makeEnvironment(testCase));
     }
@@ -411,7 +437,7 @@ public class TCKUtil {
         if (IGNORE_ELEMENT_TYPE) {
             return makeValue(inputNode);
         } else {
-            TDRGElement drgElement = findDRGElementByName(inputNode.getName());
+            TDRGElement drgElement = findDRGElement(inputNode);
             if (drgElement instanceof TInputData) {
                 Type type = dmnTransformer.drgElementOutputFEELType(drgElement);
                 return makeValue(inputNode, type);

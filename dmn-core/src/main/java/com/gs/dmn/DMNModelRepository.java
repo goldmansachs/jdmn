@@ -429,6 +429,31 @@ public class DMNModelRepository {
         }
     }
 
+    public TDRGElement findDRGElementByRef(String href) {
+        try {
+            String key = href;
+            if (!this.drgElementByRef.containsKey(key)) {
+                String id = extractId(href);
+                TDRGElement value = null;
+                for (TDRGElement element: drgElements()) {
+                    if (sameId(element, id)) {
+                        value = element;
+                        break;
+                    }
+                }
+                this.drgElementByRef.put(key, value);
+            }
+            TDRGElement result = this.drgElementByRef.get(key);
+            if (result == null) {
+                throw new DMNRuntimeException(String.format("Cannot find DRG element for href='%s'", href));
+            } else {
+                return result;
+            }
+        } catch (Exception e) {
+            throw new DMNRuntimeException(String.format("Cannot find DRG element for href='%s'", href), e);
+        }
+    }
+
     public TDRGElement findDRGElementByRef(TDRGElement parent, String href) {
         try {
             TDefinitions definitions = findChildDefinitions(parent, href);
