@@ -33,12 +33,10 @@ public class ImportTestCasesToJUnitTransformerTest extends AbstractTCKTestCasesT
 
     @Test
     public void testImport() throws Exception {
-/*
         doMultipleModelsTest("0001-no-name-conflicts-one-package", "0001-no-name-conflicts-one-package", new Pair<>("onePackage", "true"));
         doMultipleModelsTest("0002-no-name-conflicts", "0002-no-name-conflicts");
         doMultipleModelsTest("0003-name-conflicts", "0003-name-conflicts");
         doMultipleModelsTest("0004-decision-tables", "0004-decision-tables");
-*/
         doMultipleModelsTest("0004-decision-tables-name-conflicts", "0004-decision-tables-name-conflicts");
     }
 }
