@@ -24,7 +24,7 @@
             <requiredDecision href="http://www.provider.com/definitions/model-b2#_96df766e-23e1-4aa6-9d5d-545fbe2f1e23"/>
         </informationRequirement>
         <literalExpression id="_05fab753-c3c4-41a9-8984-e078f4aabe32" typeRef="string">
-            <text>"B1: " + evaluatingB1SayHello + "; B2: " + evaluatingB2SayHello</text>
+            <text>"B1: " + modelB1.evaluatingB1SayHello + "; B2: " + modelB2.evaluatingB2SayHello</text>
         </literalExpression>
     </decision>
 </definitions>

@@ -13,6 +13,7 @@
 package com.gs.dmn.signavio;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
@@ -105,25 +106,30 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
     }
 
     @Override
-    public List<TInputData> collectAllInputDatas(TDRGElement parent) {
-        List<TInputData> result = new ArrayList<>();
+    protected List<DRGElementReference<TInputData>> collectAllInputDatas(TDRGElement parent) {
+        List<DRGElementReference<TInputData>> result = new ArrayList<>();
         result.addAll(directInputDatas(parent));
         // Add inputs used in iteration body / topLevelDecision
         if (isMultiInstanceDecision(parent)) {
             MultiInstanceDecisionLogic multiInstanceDecisionLogic = extension.multiInstanceDecisionLogic(parent);
             TDecision topLevelDecision = multiInstanceDecisionLogic.getTopLevelDecision();
 
-            List<TInputData> inputDataSet = allInputDatas(topLevelDecision);
-            inputDataSet.remove(multiInstanceDecisionLogic.getIterator());
-            result.addAll(inputDataSet);
+            List<DRGElementReference<TInputData>> inputDataList = allInputDatas(topLevelDecision);
+            inputDataList.removeIf(tInputDataDMNReference -> tInputDataDMNReference.getElement() == multiInstanceDecisionLogic.getIterator());
+            result.addAll(inputDataList);
         }
+
         // Process direct children
         List<TDMNElementReference> childReferences = requiredDecisionReferences(parent);
         for (TDMNElementReference reference: childReferences) {
             TDecision child = findDecisionByRef(parent, reference.getHref());
             if (child != null) {
-                List<TInputData> descendants = collectAllInputDatas(child);
-                result.addAll(descendants);
+                String importName = findImportName(parent, reference);
+                List<DRGElementReference<TInputData>> inputReferences = collectAllInputDatas(child);
+                for (DRGElementReference<TInputData> inputReference: inputReferences) {
+                    inputReference.push(importName);
+                }
+                result.addAll(inputReferences);
             } else {
                 throw new DMNRuntimeException(String.format("Cannot find Decision for '%s' in parent '%s'", reference.getHref(), parent.getName()));
             }

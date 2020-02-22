@@ -13,6 +13,7 @@
 package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
@@ -31,9 +32,7 @@ import com.gs.dmn.transformation.DMNToJavaTransformer;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.*;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.gs.dmn.transformation.DMNToJavaTransformer.DECISION_RULE_OUTPUT_CLASS_SUFFIX;
@@ -256,7 +255,8 @@ public class DecisionTableToJavaTransformer {
     }
 
     public String ruleSignature(TDecision decision) {
-        List<TDRGElement> elements = this.dmnModelRepository.sortedUniqueInputs(decision);
+        List<DRGElementReference<? extends TDRGElement>> elementReferences = this.dmnModelRepository.sortedUniqueInputs(decision);
+        List<? extends TDRGElement> elements = this.dmnModelRepository.selectDRGElement(elementReferences);
 
         List<Pair<String, String>> parameters = new ArrayList<>();
         for (TDRGElement element : elements) {
@@ -269,7 +269,8 @@ public class DecisionTableToJavaTransformer {
     }
 
     public String ruleArgumentList(TDecision decision) {
-        List<TDRGElement> elements = this.dmnModelRepository.sortedUniqueInputs(decision);
+        List<DRGElementReference<? extends TDRGElement>> elementReferences = this.dmnModelRepository.sortedUniqueInputs(decision);
+        List<? extends TDRGElement> elements = this.dmnModelRepository.selectDRGElement(elementReferences);
 
         List<String> arguments = new ArrayList<>();
         for (TDRGElement element : elements) {

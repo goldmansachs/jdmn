@@ -28,18 +28,28 @@ public class DRGElementFilter {
         this.dmnModelRepository = dmnModelRepository;
     }
 
-    public List<TInputData> filterInputs(List<TInputData> elements) {
+    public List<DRGElementReference<TInputData>> filterInputs(List<DRGElementReference<TInputData>> elements) {
         LinkedHashSet<String> seen = new LinkedHashSet<>();
-        return elements.stream().filter(e -> seen.add(this.dmnModelRepository.getQualifiedName(e))).collect(Collectors.toList());
+        return elements.stream().filter(e -> seen.add(getQualifiedName(e))).collect(Collectors.toList());
     }
 
-    public List<TDecision> filterDecisions(List<TDecision> elements) {
+    public List<DRGElementReference<TDecision>> filterDecisions(List<DRGElementReference<TDecision>> elements) {
         LinkedHashSet<String> seen = new LinkedHashSet<>();
-        return elements.stream().filter(e -> seen.add(this.dmnModelRepository.getQualifiedName(e))).collect(Collectors.toList());
+        return elements.stream().filter(e -> seen.add(getQualifiedName(e))).collect(Collectors.toList());
     }
 
-    public List<TInvocable> filterInvocables(List<TInvocable> elements) {
+    public List<DRGElementReference<TInvocable>> filterInvocables(List<DRGElementReference<TInvocable>> elements) {
         LinkedHashSet<String> seen = new LinkedHashSet<>();
-        return elements.stream().filter(e -> seen.add(this.dmnModelRepository.getQualifiedName(e))).collect(Collectors.toList());
+        return elements.stream().filter(e -> seen.add(getQualifiedName(e))).collect(Collectors.toList());
     }
+
+    public List<DRGElementReference<? extends TDRGElement>> filterDRGElements(List<DRGElementReference<? extends TDRGElement>> elements) {
+        LinkedHashSet<String> seen = new LinkedHashSet<>();
+        return elements.stream().filter(e -> seen.add(getQualifiedName(e))).collect(Collectors.toList());
+    }
+
+    private String getQualifiedName(DRGElementReference<? extends TDRGElement> e) {
+        return dmnModelRepository.getQualifiedId(e.getElement());
+    }
+
 }

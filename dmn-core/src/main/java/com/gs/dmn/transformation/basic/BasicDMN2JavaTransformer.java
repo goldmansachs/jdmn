@@ -13,6 +13,7 @@
 package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.semantics.environment.*;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
@@ -222,12 +223,24 @@ public class BasicDMN2JavaTransformer {
         return upperCaseFirst(element.getName());
     }
 
+    public String drgElementVariableName(DRGElementReference<? extends TDRGElement> reference) {
+        String name = reference.getElementName();
+        if (name == null) {
+            throw new DMNRuntimeException(String.format("Variable name cannot be null. Decision id '%s'", reference.getElement().getId()));
+        }
+        return drgReferenceQualifiedName(reference);
+    }
+
     public String drgElementVariableName(TDRGElement element) {
         String name = element.getName();
         if (name == null) {
             throw new DMNRuntimeException(String.format("Variable name cannot be null. Decision id '%s'", element.getId()));
         }
         return lowerCaseFirst(name);
+    }
+
+    public String drgElementOutputType(DRGElementReference<? extends TDRGElement> reference) {
+        return drgElementOutputType(reference.getElement());
     }
 
     public String drgElementOutputType(TNamedElement element) {
@@ -291,6 +304,10 @@ public class BasicDMN2JavaTransformer {
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
         }
+    }
+
+    public String drgElementArgumentList(DRGElementReference<? extends TDRGElement> reference) {
+        return drgElementArgumentList(reference.getElement());
     }
 
     public String drgElementArgumentList(TDRGElement element) {
@@ -372,15 +389,15 @@ public class BasicDMN2JavaTransformer {
     }
 
     public String decisionConstructorSignature(TDecision decision) {
-        List<TDecision> subDecisions = dmnModelRepository.directSubDecisions(decision);
-        subDecisions.sort(Comparator.comparing(TNamedElement::getName));
-        return subDecisions.stream().map(d -> String.format("%s %s", qualifiedName(d), drgElementVariableName(d))).collect(Collectors.joining(", "));
+        List<DRGElementReference<TDecision>> subDecisionReferences = dmnModelRepository.directSubDecisions(decision);
+        dmnModelRepository.sortNamedElementReferences(subDecisionReferences);
+        return subDecisionReferences.stream().map(d -> String.format("%s %s", qualifiedName(d), drgElementVariableName(d))).collect(Collectors.joining(", "));
     }
 
     public String decisionConstructorNewArgumentList(TDecision decision) {
-        List<TDecision> directSubDecisions = dmnModelRepository.directSubDecisions(decision);
-        directSubDecisions.sort(Comparator.comparing(TNamedElement::getName));
-        return directSubDecisions
+        List<DRGElementReference<TDecision>> subDecisionReferences = dmnModelRepository.directSubDecisions(decision);
+        dmnModelRepository.sortNamedElementReferences(subDecisionReferences);
+        return subDecisionReferences
                 .stream()
                 .map(d -> String.format("%s", defaultConstructor(qualifiedName(d))))
                 .collect(Collectors.joining(", "));
@@ -441,19 +458,20 @@ public class BasicDMN2JavaTransformer {
     }
 
     private List<Pair<String, String>> directInformationRequirementParameters(TDRGElement element) {
-        List<TDRGElement> inputs = directInformationRequirements(element);
-        this.dmnModelRepository.sortNamedElements(inputs);
+        List<DRGElementReference<? extends TDRGElement>> inputs = directInformationRequirements(element);
+        this.dmnModelRepository.sortNamedElementReferences(inputs);
 
         List<Pair<String, String>> parameters = new ArrayList<>();
-        for (TDRGElement input : inputs) {
+        for (DRGElementReference<? extends TDRGElement> reference : inputs) {
+            TDRGElement input = reference.getElement();
             if (input instanceof TInputData) {
                 TInputData inputData = (TInputData) input;
-                String parameterName = inputDataVariableName(inputData);
+                String parameterName = inputDataVariableName(reference);
                 String parameterJavaType = inputDataType(inputData);
                 parameters.add(new Pair<>(parameterName, parameterJavaType));
             } else if (input instanceof TDecision) {
                 TDecision subDecision = (TDecision) input;
-                String parameterName = drgElementVariableName(subDecision);
+                String parameterName = drgElementVariableName(reference);
                 String parameterJavaType = drgElementOutputType(subDecision);
                 parameters.add(new Pair<>(parameterName, lazyEvaluationType(input, parameterJavaType)));
             } else {
@@ -463,11 +481,13 @@ public class BasicDMN2JavaTransformer {
         return parameters;
     }
 
-    protected List<TDRGElement> directInformationRequirements(TDRGElement element) {
-        List<TInputData> directInputDatas = this.dmnModelRepository.directInputDatas(element);
-        List<TDecision> directSubDecisions = dmnModelRepository.directSubDecisions(element);
-        List<TDRGElement> inputs = new ArrayList<>(directInputDatas);
-        inputs.addAll(directSubDecisions);
+    protected List<DRGElementReference<? extends TDRGElement>> directInformationRequirements(TDRGElement element) {
+        List<DRGElementReference<TInputData>> directInputReferences = this.dmnModelRepository.directInputDatas(element);
+        List<DRGElementReference<TDecision>> directSubDecisionsReferences = dmnModelRepository.directSubDecisions(element);
+
+        List<DRGElementReference<? extends TDRGElement>> inputs = new ArrayList<>();
+        inputs.addAll(directInputReferences);
+        inputs.addAll(directSubDecisionsReferences);
         return inputs;
     }
 
@@ -524,12 +544,21 @@ public class BasicDMN2JavaTransformer {
     //
     // InputData related functions
     //
+    public String inputDataVariableName(DRGElementReference<? extends TDRGElement> reference) {
+        String name = reference.getElementName();
+        if (name == null) {
+            throw new DMNRuntimeException(String.format("Variable name cannot be null. InputData id '%s'", reference.getElement().getId()));
+        }
+        return drgReferenceQualifiedName(reference);
+    }
+
     public String inputDataVariableName(TInputData inputData) {
         String name = inputData.getName();
         if (name == null) {
             throw new DMNRuntimeException(String.format("Variable name cannot be null. InputData id '%s'", inputData.getId()));
         }
-        return lowerCaseFirst(name);
+        String modelName = this.dmnModelRepository.getModelName(inputData);
+        return drgReferenceQualifiedName(modelName, name);
     }
 
     public Type toFEELType(TInputData inputData) {
@@ -558,6 +587,10 @@ public class BasicDMN2JavaTransformer {
     //
     // BKM related functions
     //
+    public String bkmFunctionName(DRGElementReference<? extends TDRGElement> reference) {
+        return bkmFunctionName((TBusinessKnowledgeModel) reference.getElement());
+    }
+
     public String bkmFunctionName(TBusinessKnowledgeModel bkm) {
         String name = bkm.getName();
         return bkmFunctionName(name);
@@ -762,16 +795,38 @@ public class BasicDMN2JavaTransformer {
     }
 
     public List<Pair<String, Type>> inputDataParametersClosure(TDecision decision, boolean javaFriendlyName) {
-        List<TInputData> allInputDatas = this.dmnModelRepository.allInputDatas(decision);
-        this.dmnModelRepository.sortNamedElements(allInputDatas);
+        List<DRGElementReference<TInputData>> allInputDataReferences = this.dmnModelRepository.allInputDatas(decision);
+        this.dmnModelRepository.sortNamedElementReferences(allInputDataReferences);
 
         List<Pair<String, Type>> parameters = new ArrayList<>();
-        for (TInputData inputData : allInputDatas) {
-            String parameterName = javaFriendlyName ? inputDataVariableName(inputData) : inputData.getName();
-            Type parameterType = toFEELType(inputData);
+        for (DRGElementReference<TInputData> inputData : allInputDataReferences) {
+            String parameterName = javaFriendlyName ? inputDataVariableName(inputData) : inputData.getQualifiedName();
+            Type parameterType = toFEELType(inputData.getElement());
             parameters.add(new Pair<>(parameterName, parameterType));
         }
         return parameters;
+    }
+
+    private String drgReferenceQualifiedName(DRGElementReference<? extends TDRGElement> reference) {
+        String modelName = reference.getModelName();
+        if (reference.getImportPathElements().isEmpty()) {
+            modelName = "";
+        }
+        String elementName = reference.getElementName();
+        return drgReferenceQualifiedName(modelName, elementName);
+    }
+
+    public String drgReferenceQualifiedName(String modelName, String elementName) {
+        String javaModelName =  javaModelName(modelName);
+        if (this.onePackage) {
+            javaModelName = "";
+        }
+        String javaElementName = lowerCaseFirst(elementName);
+        if (StringUtils.isBlank(javaModelName)) {
+            return javaElementName;
+        } else {
+            return String.format("%s_%s", javaModelName, javaElementName);
+        }
     }
 
     public String parameterJavaType(TNamedElement element) {
@@ -795,6 +850,10 @@ public class BasicDMN2JavaTransformer {
         }
         Type type = toFEELType(typeRef);
         return toJavaType(type);
+    }
+
+    public boolean isLazyEvaluated(DRGElementReference<? extends TDRGElement> reference) {
+        return this.isLazyEvaluated(reference.getElement());
     }
 
     public boolean isLazyEvaluated(TDRGElement element) {
@@ -1370,6 +1429,10 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
+    public String qualifiedName(DRGElementReference<? extends TDRGElement> reference) {
+        return qualifiedName(reference.getElement());
+    }
+
     public String qualifiedName(TDRGElement element) {
         TDefinitions definitions = this.dmnModelRepository.getModel(element);
         String pkg = this.javaModelPackageName(definitions.getName());
@@ -1507,18 +1570,11 @@ public class BasicDMN2JavaTransformer {
     }
 
     public String javaTypePackageName(String modelName) {
-        if (this.onePackage) {
-            modelName = "";
-        }
-
-        String javaModelPackageName = javaModelName(modelName);
-        if (StringUtils.isBlank(this.javaRootPackage) && StringUtils.isBlank(javaModelPackageName)) {
+        String modelPackageName = javaModelPackageName(modelName);
+        if (StringUtils.isBlank(modelPackageName)) {
             return DMNToJavaTransformer.DATA_PACKAGE;
-        }
-        if (StringUtils.isBlank(javaModelPackageName)) {
-            return this.javaRootPackage + "." + DMNToJavaTransformer.DATA_PACKAGE;
         } else {
-            return this.javaRootPackage + "." + javaModelPackageName + "." + DMNToJavaTransformer.DATA_PACKAGE;
+            return modelPackageName + "." + DMNToJavaTransformer.DATA_PACKAGE;
         }
     }
 
@@ -1554,7 +1610,8 @@ public class BasicDMN2JavaTransformer {
         Environment elementEnvironment = environmentFactory.makeEnvironment(parentEnvironment);
 
         // Add declaration for each direct child
-        List<TDRGElement> elements = getDMNModelRepository().directDRGElements(element);
+        List<DRGElementReference<? extends TDRGElement>> directReferences = getDMNModelRepository().directDRGElements(element);
+        List<? extends TDRGElement> elements = dmnModelRepository.selectDRGElement(directReferences);
         for (TDRGElement e: elements) {
             // Create child environment to infer type if needed
             Environment childEnvironment = makeEnvironment(e, elementEnvironment);
@@ -1609,7 +1666,8 @@ public class BasicDMN2JavaTransformer {
         } else {
             Declaration importDeclaration = elementEnvironment.lookupVariableDeclaration(importName);
             if (importDeclaration == null) {
-                ContextType contextType = new ContextType();
+                String modelName = this.dmnModelRepository.getModelName(child);
+                ImportContextType contextType = new ImportContextType(modelName, importName);
                 contextType.addMember(declaration.getName(), new ArrayList<>(), type);
                 importDeclaration = environmentFactory.makeVariableDeclaration(importName, contextType);
                 elementEnvironment.addDeclaration(importDeclaration);

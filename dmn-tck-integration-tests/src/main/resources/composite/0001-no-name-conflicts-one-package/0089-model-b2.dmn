@@ -18,7 +18,7 @@
             <requiredDecision href="http://www.provider.com/definitions/model-b1#_f7fdaec4-d669-4797-b3b4-12b860de2eb5"/>
         </informationRequirement>
         <literalExpression typeRef="string" id="_026e05fb-6c07-4046-9c52-716ba5619a69">
-            <text>"Evaluating Say Hello to: " + greetThePerson</text>
+            <text>"Evaluating Say Hello to: " + modelB1.greetThePerson</text>
         </literalExpression>
     </decision>
 </definitions>

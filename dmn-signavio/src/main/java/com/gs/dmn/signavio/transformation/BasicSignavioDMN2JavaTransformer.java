@@ -13,6 +13,7 @@
 package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.semantics.environment.*;
 import com.gs.dmn.feel.analysis.semantics.type.FEELFunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
@@ -290,7 +291,8 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
         if (encapsulatedLogic == null) {
             List<FormalParameter> parameters = new ArrayList<>();
             TDecision outputDecision = dmnModelRepository.getOutputDecision(bkm);
-            List<TInputData> allInputDatas = this.dmnModelRepository.allInputDatas(outputDecision);
+            List<DRGElementReference<TInputData>> allInputDataReferences = this.dmnModelRepository.allInputDatas(outputDecision);
+            List<TInputData> allInputDatas = this.dmnModelRepository.selectElement(allInputDataReferences);
             this.dmnModelRepository.sortNamedElements(allInputDatas);
             allInputDatas.stream().forEach(id -> parameters.add(new Parameter(id.getName(), drgElementOutputFEELType(id))));
             return parameters;
@@ -341,7 +343,8 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
     }
 
     private String iterationSignature(TDecision decision) {
-        List<TDRGElement> elements = collectIterationInputs(decision);
+        List<DRGElementReference<? extends TDRGElement>> dmnReferences = collectIterationInputs(decision);
+        List<? extends TDRGElement> elements = this.dmnModelRepository.selectDRGElement(dmnReferences);
 
         List<Pair<String, String>> parameters = new ArrayList<>();
         for (TDRGElement element : elements) {
@@ -354,7 +357,8 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
     }
 
     private String iterationArgumentList(TDecision decision) {
-        List<TDRGElement> elements = collectIterationInputs(decision);
+        List<DRGElementReference<? extends TDRGElement>> dmnReferences = collectIterationInputs(decision);
+        List<? extends TDRGElement> elements = this.dmnModelRepository.selectDRGElement(dmnReferences);
 
         List<String> arguments = new ArrayList<>();
         for (TDRGElement element : elements) {
@@ -365,12 +369,12 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
         return augmentArgumentList(argumentList);
     }
 
-    private List<TDRGElement> collectIterationInputs(TDecision decision) {
-        Set elementSet = new LinkedHashSet<>();
+    private List<DRGElementReference<? extends TDRGElement>> collectIterationInputs(TDecision decision) {
+        Set<DRGElementReference<? extends TDRGElement>> elementSet = new LinkedHashSet<>();
         elementSet.addAll(this.dmnModelRepository.allInputDatas(decision));
         elementSet.addAll(this.dmnModelRepository.directSubDecisions(decision));
-        List<TDRGElement> elements = new ArrayList<>(elementSet);
-        this.dmnModelRepository.sortNamedElements(elements);
+        List<DRGElementReference<? extends TDRGElement>> elements = new ArrayList<>(elementSet);
+        this.dmnModelRepository.sortNamedElementReferences(elements);
         return elements;
     }
 
