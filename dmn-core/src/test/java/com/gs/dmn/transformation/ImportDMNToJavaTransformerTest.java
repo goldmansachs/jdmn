@@ -13,7 +13,6 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.runtime.Pair;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Map;
@@ -30,7 +29,6 @@ public class ImportDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
     }
 
     @Test
-    @Ignore
     public void testImport() throws Exception {
         doMultipleModelsTest("0001-no-name-conflicts-one-package", new Pair<>("onePackage", "true"));
         doMultipleModelsTest("0002-no-name-conflicts");

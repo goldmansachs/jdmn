@@ -13,7 +13,6 @@
 package com.gs.dmn.tck;
 
 import com.gs.dmn.runtime.Pair;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class ImportTestCasesToJUnitTransformerTest extends AbstractTCKTestCasesToJUnitTransformerTest {
@@ -33,12 +32,13 @@ public class ImportTestCasesToJUnitTransformerTest extends AbstractTCKTestCasesT
     }
 
     @Test
-    @Ignore
     public void testImport() throws Exception {
+/*
         doMultipleModelsTest("0001-no-name-conflicts-one-package", "0001-no-name-conflicts-one-package", new Pair<>("onePackage", "true"));
         doMultipleModelsTest("0002-no-name-conflicts", "0002-no-name-conflicts");
         doMultipleModelsTest("0003-name-conflicts", "0003-name-conflicts");
         doMultipleModelsTest("0004-decision-tables", "0004-decision-tables");
+*/
         doMultipleModelsTest("0004-decision-tables-name-conflicts", "0004-decision-tables-name-conflicts");
     }
 }

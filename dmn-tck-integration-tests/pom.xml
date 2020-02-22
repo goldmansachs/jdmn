@@ -1,6 +1,6 @@
 <!--
 
-    Copyright 2016 Goldman Sachs.tck.diagram.folder
+    Copyright 2016 Goldman Sachs.
 
     Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 
@@ -1807,7 +1807,6 @@
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0002_no_name_conflicts</javaRootPackage>
-                                <samePackage>false</samePackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1823,7 +1822,128 @@
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0002_no_name_conflicts</javaRootPackage>
-                                <samePackage>false</samePackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>composite-0003-name-conflicts</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${composite.diagram.folder}/0003-name-conflicts</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0003_name_conflicts</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-composite-0003-name-conflicts</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${composite.diagram.folder}/0003-name-conflicts</inputTestFileDirectory>
+                            <inputModelFileDirectory>${composite.diagram.folder}/0003-name-conflicts</inputModelFileDirectory>
+                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0003_name_conflicts</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>composite-0004-decision-tables-one-package</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${composite.diagram.folder}/0004-decision-tables</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0004_decision_tables_one_package</javaRootPackage>
+                                <onePackage>true</onePackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-composite-0004-decision-tables-one-package</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${composite.diagram.folder}/0004-decision-tables</inputTestFileDirectory>
+                            <inputModelFileDirectory>${composite.diagram.folder}/0004-decision-tables</inputModelFileDirectory>
+                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0004_decision_tables_one_package</javaRootPackage>
+                                <onePackage>true</onePackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>composite-0004-decision-tables</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${composite.diagram.folder}/0004-decision-tables</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0004_decision_tables</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-composite-0004-decision-tables</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${composite.diagram.folder}/0004-decision-tables</inputTestFileDirectory>
+                            <inputModelFileDirectory>${composite.diagram.folder}/0004-decision-tables</inputModelFileDirectory>
+                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0004_decision_tables</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>composite-0004-decision-tables-name-conflicts</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${composite.diagram.folder}/0004-decision-tables-name-conflicts</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0004_decision_tables_name_conflicts</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-composite-0004-decision-tables-name-conflicts</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${composite.diagram.folder}/0004-decision-tables-name-conflicts</inputTestFileDirectory>
+                            <inputModelFileDirectory>${composite.diagram.folder}/0004-decision-tables-name-conflicts</inputModelFileDirectory>
+                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0004_decision_tables_name_conflicts</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
