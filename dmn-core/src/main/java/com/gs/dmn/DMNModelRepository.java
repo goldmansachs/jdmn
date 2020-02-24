@@ -608,6 +608,19 @@ public class DMNModelRepository {
         }
     }
 
+    public TDRGElement findDRGElementByName(String namespace, String name) {
+        TDefinitions definitions = this.definitionsMap.get(namespace);
+        if (definitions == null) {
+            throw new DMNRuntimeException(String.format("Cannot find model for namespace '%s'", namespace));
+        }
+        for (TDRGElement element: drgElements(definitions)) {
+            if (element.getName().equals(name)) {
+                return element;
+            }
+        }
+        throw new DMNRuntimeException(String.format("Cannot find element for name='%s'", name));
+    }
+
     public TDRGElement findDRGElementByName(String name) {
         if (!this.drgElementByName.containsKey(name)) {
             List<TDRGElement> value = new ArrayList<>();
