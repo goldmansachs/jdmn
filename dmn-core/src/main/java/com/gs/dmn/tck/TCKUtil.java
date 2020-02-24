@@ -46,11 +46,18 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.namespace.QName;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class TCKUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(TCKUtil.class);
+    private static final QName NAMESPACE_QNAME;
+
+    static {
+        String GS_NAMESPACE = "http://wwww.gs.com/dmn";
+        NAMESPACE_QNAME = new QName(GS_NAMESPACE, "namespace");
+    }
 
     private final BasicDMN2JavaTransformer dmnTransformer;
     private final StandardFEELLib feelLib;
@@ -211,10 +218,12 @@ public class TCKUtil {
     private TDRGElement findDRGElement(InputNode node) {
         try {
             DMNModelRepository dmnModelRepository = dmnTransformer.getDMNModelRepository();
-            if (node.getHref() != null) {
-                return dmnModelRepository.findDRGElementByRef(node.getHref());
+            String namespace = getNamespace(node);
+            String name = node.getName();
+            if (namespace != null) {
+                return dmnModelRepository.findDRGElementByName(namespace, name);
             } else {
-                return dmnModelRepository.findDRGElementByName(node.getName());
+                return dmnModelRepository.findDRGElementByName(name);
             }
         } catch (Exception e) {
             return null;
@@ -224,20 +233,40 @@ public class TCKUtil {
     private TDRGElement findDRGElement(ResultNode node) {
         try {
             DMNModelRepository dmnModelRepository = dmnTransformer.getDMNModelRepository();
-            if (node.getHref() != null) {
-                return dmnModelRepository.findDRGElementByRef(node.getHref());
+            String namespace = getNamespace(node);
+            String name = node.getName();
+            if (namespace != null) {
+                return dmnModelRepository.findDRGElementByName(namespace, name);
             } else {
-                return dmnModelRepository.findDRGElementByName(node.getName());
+                return dmnModelRepository.findDRGElementByName(name);
             }
         } catch (Exception e) {
             return null;
         }
     }
 
+    private String getNamespace(InputNode node) {
+        return node.getOtherAttributes().get(NAMESPACE_QNAME);
+    }
+
+    private String getNamespace(ResultNode node) {
+        return node.getOtherAttributes().get(NAMESPACE_QNAME);
+    }
+
+    private String getNamespace(TestCase testCase) {
+        return testCase.getOtherAttributes().get(NAMESPACE_QNAME);
+    }
+
     private TDRGElement findDRGElement(TestCase testCase, ResultNode resultNode) {
         try {
-            String drgElementName = drgElementName(testCase, resultNode);
-            return dmnTransformer.getDMNModelRepository().findDRGElementByName(drgElementName);
+            Pair<String, String> pair = drgElementQualifiedName(testCase, resultNode);
+            String namespace = pair.getLeft();
+            String name = pair.getRight();
+            if (namespace != null) {
+                return dmnTransformer.getDMNModelRepository().findDRGElementByName(namespace, name);
+            } else {
+                return dmnTransformer.getDMNModelRepository().findDRGElementByName(name);
+            }
         } catch (Exception e) {
             return null;
         }
@@ -397,18 +426,22 @@ public class TCKUtil {
         return args;
     }
 
-    private String drgElementName(TestCase testCase, ResultNode resultNode) {
+    private Pair<String, String> drgElementQualifiedName(TestCase testCase, ResultNode resultNode) {
         String elementToEvaluate;
+        String namespace;
         if (testCase.getType() == TestCaseType.DECISION) {
             elementToEvaluate = resultNode.getName();
+            namespace = getNamespace(resultNode);
         } else if (testCase.getType() == TestCaseType.DECISION_SERVICE) {
             elementToEvaluate = testCase.getInvocableName();
+            namespace = getNamespace(testCase);
         } else if (testCase.getType() == TestCaseType.BKM) {
             elementToEvaluate = testCase.getInvocableName();
+            namespace = getNamespace(testCase);
         } else {
             throw new IllegalArgumentException(String.format("Not supported type '%s'", testCase.getType()));
         }
-        return elementToEvaluate;
+        return new Pair<>(namespace, elementToEvaluate);
     }
 
     public Object expectedValue(TestCase testCase, ResultNode resultNode) {

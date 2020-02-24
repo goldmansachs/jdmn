@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.omg.org/spec/DMN/20160719/testcase ../../testCases.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<testCases
+		xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.omg.org/spec/DMN/20160719/testcase ../../testCases.xsd"
+		xmlns:gs="http://wwww.gs.com/dmn"
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<modelName>decisionTables</modelName>
 	<labels>
 		<label>Compliance Level 3</label>
@@ -54,7 +59,7 @@
 		</resultNode>
 	</testCase>
 	<testCase id="003">
-		<inputNode name="dateD" href="http://www.provider.com/definitions/decision-inputs-1#_fabdbafc-f28a-466d-ae08-86c5b928dad5">
+		<inputNode name="dateD" gs:namespace="http://www.provider.com/definitions/decision-inputs-1">
 			<value xsi:type="xsd:date">2016-11-01</value>
 		</inputNode>
 		<resultNode name="dateCompare1" type="decision">
@@ -64,10 +69,10 @@
 		</resultNode>
 	</testCase>
 	<testCase id="004">
-		<inputNode name="dateD" href="http://www.provider.com/definitions/decision-inputs-1#_fabdbafc-f28a-466d-ae08-86c5b928dad5">
+		<inputNode name="dateD" gs:namespace="http://www.provider.com/definitions/decision-inputs-1">
 			<value xsi:type="xsd:date">2016-11-01</value>
 		</inputNode>
-		<inputNode name="dateD" href="http://www.provider.com/definitions/decision-inputs-2#_4926f78e-5df0-4d88-8ee7-1a418b08562f">
+		<inputNode name="dateD" gs:namespace="http://www.provider.com/definitions/decision-inputs-2">
 			<value xsi:type="xsd:date">2016-11-02</value>
 		</inputNode>
 		<resultNode name="dateCompare2" type="decision">
