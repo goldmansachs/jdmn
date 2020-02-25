@@ -20,7 +20,6 @@ import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.InputParamUtil;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
-import com.gs.dmn.transformation.template.DagTemplateProvider;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -103,9 +102,9 @@ public class DMNToJavaMojo extends AbstractDMNMojo {
     }
 
     private void validateParameters(DMNDialectDefinition dmnDialect, DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, Map<String, String> inputParameters) {
-        boolean caching = InputParamUtil.getOptionalBooleanParam(inputParameters, "caching");
-        if (templateProvider instanceof DagTemplateProvider && caching) {
-            throw new IllegalArgumentException("'DagTemplateProvider' and 'caching' are not compatible. Please set 'caching' to false");
+        boolean onePackage = InputParamUtil.getOptionalBooleanParam(inputParameters, "onePackage");
+        if (onePackage) {
+            this.getLog().warn(String.format("Use 'onePackage' carefully, names must be uniques across all the DMs.", this.inputFileDirectory, this.outputFileDirectory));
         }
     }
 }

@@ -642,43 +642,6 @@
                     </execution>
 
                     <execution>
-                        <id>cl3-0004-lending-dag</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>dmn-to-java</goal>
-                        </goals>
-                        <configuration>
-                            <templateProvider>com.gs.dmn.transformation.template.DagTemplateProvider</templateProvider>
-                            <lazyEvaluationDetectors>
-                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
-                            </lazyEvaluationDetectors>
-                            <inputFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending_dag</javaRootPackage>
-                                <caching>false</caching>
-                            </inputParameters>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>test-cl3-0004-lending-dag</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>tck-to-java</goal>
-                        </goals>
-                        <configuration>
-                            <templateProvider>com.gs.dmn.transformation.template.DagTemplateProvider</templateProvider>
-                            <inputTestFileDirectory>${tck.diagram.folder}/cl3/0004-lending-test-01.xml</inputTestFileDirectory>
-                            <inputModelFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending_dag</javaRootPackage>
-                                <caching>false</caching>
-                            </inputParameters>
-                        </configuration>
-                    </execution>
-
-                    <execution>
                         <id>cl3-0004-lending-tree</id>
                         <phase>generate-sources</phase>
                         <goals>
