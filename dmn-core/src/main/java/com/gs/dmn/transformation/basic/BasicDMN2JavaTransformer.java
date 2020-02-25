@@ -403,21 +403,6 @@ public class BasicDMN2JavaTransformer {
                 .collect(Collectors.joining(", "));
     }
 
-    public String decisionTopologicalConstructorSignature(TDecision decision) {
-        List<TDecision> subDecisions = dmnModelRepository.topologicalSort(decision);
-        subDecisions.sort(Comparator.comparing(TNamedElement::getName));
-        return subDecisions.stream().map(d -> String.format("%s %s", qualifiedName(d), drgElementVariableName(d))).collect(Collectors.joining(", "));
-    }
-
-    public String decisionTopologicalConstructorNewArgumentList(TDecision decision) {
-        List<TDecision> subDecisions = dmnModelRepository.topologicalSort(decision);
-        subDecisions.sort(Comparator.comparing(TNamedElement::getName));
-        return subDecisions
-                .stream()
-                .map(d -> String.format("%s", defaultConstructor(qualifiedName(d))))
-                .collect(Collectors.joining(", "));
-    }
-
     public boolean hasDirectSubDecisions(TDecision decision) {
         return !this.dmnModelRepository.directSubDecisions(decision).isEmpty();
     }
