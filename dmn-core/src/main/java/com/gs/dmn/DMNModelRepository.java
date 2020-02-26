@@ -729,34 +729,6 @@ public class DMNModelRepository {
         return result;
     }
 
-    public List<DRGElementReference<TDecision>> allSubDecisions(TDRGElement parent) {
-        return this.drgElementFilter.filterDecisions(collectAllSubDecisions(parent));
-    }
-
-    protected List<DRGElementReference<TDecision>> collectAllSubDecisions(TDRGElement parent) {
-        List<DRGElementReference<TDecision>> result = new ArrayList<>();
-        // Add reference for direct children
-        List<TDMNElementReference> references = requiredDecisionReferences(parent);
-        for (TDMNElementReference reference: references) {
-            TDecision child = findDecisionByRef(parent, reference.getHref());
-            if (child != null) {
-                // Add reference for direct child
-                String importName = findImportName(parent, reference);
-                result.add(new DRGElementReference(this.getModel(child), child, importName));
-
-                // Process direct children and update reference
-                List<DRGElementReference<TDecision>> childReferences = collectAllSubDecisions(child);
-                for (DRGElementReference<TDecision> childReference: childReferences) {
-                    childReference.push(importName);
-                }
-                result.addAll(childReferences);
-            } else {
-                throw new DMNRuntimeException(String.format("Cannot find Decision for '%s' in parent '%s'", reference.getHref(), parent.getName()));
-            }
-        }
-        return result;
-    }
-
     public List<DRGElementReference<TInvocable>> directSubInvocables(TDRGElement element) {
         List<DRGElementReference<TInvocable>> result = new ArrayList<>();
         // Add reference for direct children
@@ -771,54 +743,6 @@ public class DMNModelRepository {
                 } else {
                     throw new DMNRuntimeException(String.format("Cannot find Invocable for '%s'", reference.getHref()));
                 }
-            }
-        }
-        return result;
-    }
-
-    public List<DRGElementReference<TInvocable>> allInvocables(TDRGElement parent) {
-        return this.drgElementFilter.filterInvocables(colectInvocables(parent));
-    }
-
-    protected List<DRGElementReference<TInvocable>> colectInvocables(TDRGElement parent) {
-        List<DRGElementReference<TInvocable>> result = new ArrayList<>();
-        // Add reference for direct children
-        List<TKnowledgeRequirement> knowledgeRequirements = knowledgeRequirements(parent);
-        for (TKnowledgeRequirement kr : knowledgeRequirements) {
-            TDMNElementReference reference = kr.getRequiredKnowledge();
-            if (reference != null) {
-                TInvocable child = findInvocableByRef(parent, reference.getHref());
-                if (child != null) {
-                    // Add reference to direct child
-                    String importName = findImportName(parent, reference);
-                    result.add(new DRGElementReference<>(this.getModel(child), child, importName));
-
-                    // Process child node
-                    Collection<DRGElementReference<TInvocable>> childReferences = colectInvocables(child);
-                    for (DRGElementReference<TInvocable> childReference: childReferences) {
-                        childReference.push(importName);
-                    }
-                    result.addAll(childReferences);
-                } else {
-                    throw new DMNRuntimeException(String.format("Cannot find Invocable for '%s'", reference.getHref()));
-                }
-            }
-        }
-
-        // Process direct decisions and update reference
-        List<TDMNElementReference> childReferences = requiredDecisionReferences(parent);
-        for (TDMNElementReference reference: childReferences) {
-            TDecision child = findDecisionByRef(parent, reference.getHref());
-            if (child != null) {
-                // Update reference for descendants
-                String importName = findImportName(parent, reference);
-                List<DRGElementReference<TInvocable>> inputReferences = colectInvocables(child);
-                for (DRGElementReference<TInvocable> inputReference: inputReferences) {
-                    inputReference.push(importName);
-                }
-                result.addAll(inputReferences);
-            } else {
-                throw new DMNRuntimeException(String.format("Cannot find Invocable for '%s' in parent '%s'", reference.getHref(), parent.getName()));
             }
         }
         return result;
