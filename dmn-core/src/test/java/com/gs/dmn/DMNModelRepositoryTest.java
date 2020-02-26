@@ -78,9 +78,9 @@ public class DMNModelRepositoryTest {
 
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
         List<String> expected = Arrays.asList(
-                "DMNReference(name='ApplicantData', model='Lending1', import='[]')",
-                "DMNReference(name='BureauData', model='Lending1', import='[]')",
-                "DMNReference(name='SupportingDocuments', model='Lending1', import='[]')"
+                "DMNReference(name='ApplicantData', import='[]')",
+                "DMNReference(name='BureauData', import='[]')",
+                "DMNReference(name='SupportingDocuments', import='[]')"
         );
         assertEquals(expected, actual);
     }
@@ -93,8 +93,8 @@ public class DMNModelRepositoryTest {
 
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
         List<String> expected = Arrays.asList(
-                "DMNReference(name='ApplicantData', model='Lending1', import='[]')",
-                "DMNReference(name='RequestedProduct', model='Lending1', import='[]')"
+                "DMNReference(name='ApplicantData', import='[]')",
+                "DMNReference(name='RequestedProduct', import='[]')"
         );
         assertEquals(expected, actual);
     }
@@ -107,8 +107,8 @@ public class DMNModelRepositoryTest {
 
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
         List<String> expected = Arrays.asList(
-                "DMNReference(name='BureauCallType', model='Lending1', import='[]')",
-                "DMNReference(name='Eligibility', model='Lending1', import='[]')"
+                "DMNReference(name='BureauCallType', import='[]')",
+                "DMNReference(name='Eligibility', import='[]')"
         );
         assertEquals(expected, actual);
     }
@@ -120,7 +120,7 @@ public class DMNModelRepositoryTest {
 
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
         List<String> expected = Arrays.asList(
-                "DMNReference(name='BureauCallTypeTable', model='Lending1', import='[]')"
+                "DMNReference(name='BureauCallTypeTable', import='[]')"
         );
         assertEquals(expected, actual);
     }
@@ -135,8 +135,8 @@ public class DMNModelRepositoryTest {
 
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
         List<String> expected = Arrays.asList(
-                "DMNReference(name='personName', model='model-a', import='[modelB1, modelA]')",
-                "DMNReference(name='personName', model='model-a', import='[modelB2, modelB1, modelA]')"
+                "DMNReference(name='personName', import='[modelB1, modelA]')",
+                "DMNReference(name='personName', import='[modelB2, modelB1, modelA]')"
         );
         assertEquals(expected, actual);
     }
@@ -151,8 +151,8 @@ public class DMNModelRepositoryTest {
 
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
         List<String> expected = Arrays.asList(
-                "DMNReference(name='personName', model='model-a', import='[modelB1, modelA]')",
-                "DMNReference(name='personName', model='model-a', import='[modelB2, modelB1, modelA]')"
+                "DMNReference(name='personName', import='[modelB1, modelA]')",
+                "DMNReference(name='personName', import='[modelB2, modelB1, modelA]')"
         );
         assertEquals(expected, actual);
     }
