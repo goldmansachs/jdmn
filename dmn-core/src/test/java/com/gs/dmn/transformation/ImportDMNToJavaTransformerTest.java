@@ -15,8 +15,6 @@ package com.gs.dmn.transformation;
 import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 
-import java.util.Map;
-
 public class ImportDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransformerTest {
     @Override
     protected String getInputPath() {
@@ -35,5 +33,6 @@ public class ImportDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
         doMultipleModelsTest("0003-name-conflicts");
         doMultipleModelsTest("0004-decision-tables");
         doMultipleModelsTest("0004-decision-tables-name-conflicts");
+//        doMultipleModelsTest("0005-multiple-input-data");
     }
 }
