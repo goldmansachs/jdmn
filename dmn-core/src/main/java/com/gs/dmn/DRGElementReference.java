@@ -15,50 +15,37 @@ package com.gs.dmn;
 import com.gs.dmn.runtime.interpreter.ImportPath;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
-
-import java.util.List;
-import java.util.Objects;
 
 public class DRGElementReference<T extends TDRGElement> {
-    private final TDefinitions model;
+    private final ImportPath importPath;
     private final T element;
-    private final ImportPath importPath = new ImportPath();
 
-    public DRGElementReference(TDefinitions model, T element, String importName) {
-        this.model = model;
+    public DRGElementReference(T element) {
+        this(element, new ImportPath());
+    }
+
+    public DRGElementReference(T element, ImportPath importPath) {
         this.element = element;
+        this.importPath = importPath;
+    }
+
+    public DRGElementReference(T element, String importName) {
+        this(element);
         if (!StringUtils.isBlank(importName)) {
             this.importPath.addPathElement(importName);
         }
-    }
-
-    public TDefinitions getModel() {
-        return model;
     }
 
     public T getElement() {
         return this.element;
     }
 
-    public List<String> getImportPathElements() {
-        return this.importPath.getPathElements();
-    }
-
-    public String getModelName() {
-        return this.model.getName();
+    public ImportPath getImportPath() {
+        return this.importPath;
     }
 
     public String getElementName() {
         return this.element.getName();
-    }
-
-    public String getQualifiedName() {
-        if (this.importPath.isEmpty()) {
-            return this.getElementName();
-        } else {
-            return String.format("%s.%s", this.getModelName(), this.getElementName());
-        }
     }
 
     public void push(String prefix) {
@@ -69,6 +56,6 @@ public class DRGElementReference<T extends TDRGElement> {
 
     @Override
     public String toString() {
-        return String.format("DMNReference(name='%s', model='%s', import='%s')", getElementName(), getModelName(), getImportPathElements());
+        return String.format("DMNReference(name='%s', import='%s')", getElementName(), this.importPath);
     }
 }

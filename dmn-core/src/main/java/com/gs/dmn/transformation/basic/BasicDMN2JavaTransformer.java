@@ -785,7 +785,7 @@ public class BasicDMN2JavaTransformer {
 
         List<Pair<String, Type>> parameters = new ArrayList<>();
         for (DRGElementReference<TInputData> inputData : allInputDataReferences) {
-            String parameterName = javaFriendlyName ? inputDataVariableName(inputData) : inputData.getQualifiedName();
+            String parameterName = javaFriendlyName ? inputDataVariableName(inputData) : inputData.getElementName();
             Type parameterType = toFEELType(inputData.getElement());
             parameters.add(new Pair<>(parameterName, parameterType));
         }
@@ -793,8 +793,9 @@ public class BasicDMN2JavaTransformer {
     }
 
     private String drgReferenceQualifiedName(DRGElementReference<? extends TDRGElement> reference) {
-        String modelName = reference.getModelName();
-        if (reference.getImportPathElements().isEmpty()) {
+        TDRGElement element = reference.getElement();
+        String modelName = this.dmnModelRepository.getModel(element).getName();
+        if (reference.getImportPath().isEmpty()) {
             modelName = "";
         }
         String elementName = reference.getElementName();

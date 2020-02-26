@@ -16,7 +16,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ImportPath {
     public static boolean isEmpty(String importName) {
@@ -71,6 +70,6 @@ public class ImportPath {
 
     @Override
     public String toString() {
-        return this.asString();
+        return String.format("%s", this.pathElements);
     }
 }
