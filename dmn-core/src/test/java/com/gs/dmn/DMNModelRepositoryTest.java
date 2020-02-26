@@ -114,23 +114,6 @@ public class DMNModelRepositoryTest {
     }
 
     @Test
-    public void testAllSubDecisions() {
-        TDRGElement root = dmnModelRepository.findDRGElementByName("Strategy");
-        List<DRGElementReference<TDecision>> references = dmnModelRepository.allSubDecisions(root);
-        dmnModelRepository.sortNamedElementReferences(references);
-
-        List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
-        List<String> expected = Arrays.asList(
-                "DMNReference(name='ApplicationRiskScore', model='Lending1', import='[]')",
-                "DMNReference(name='BureauCallType', model='Lending1', import='[]')",
-                "DMNReference(name='Eligibility', model='Lending1', import='[]')",
-                "DMNReference(name='Pre-bureauAffordability', model='Lending1', import='[]')",
-                "DMNReference(name='Pre-bureauRiskCategory', model='Lending1', import='[]')",
-                "DMNReference(name='RequiredMonthlyInstallment', model='Lending1', import='[]')");
-        assertEquals(expected, actual);
-    }
-
-    @Test
     public void testDirectSubInvocables() {
         TDRGElement root = dmnModelRepository.findDRGElementByName("BureauCallType");
         List<DRGElementReference<TInvocable>> references = dmnModelRepository.directSubInvocables(root);
@@ -138,24 +121,6 @@ public class DMNModelRepositoryTest {
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
         List<String> expected = Arrays.asList(
                 "DMNReference(name='BureauCallTypeTable', model='Lending1', import='[]')"
-        );
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void testAllInvocables() {
-        TDRGElement root = dmnModelRepository.findDRGElementByName("Routing");
-        List<DRGElementReference<TInvocable>> references = dmnModelRepository.allInvocables(root);
-        dmnModelRepository.sortNamedElementReferences(references);
-
-        List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
-        List<String> expected = Arrays.asList(
-                "DMNReference(name='AffordabilityCalculation', model='Lending1', import='[]')",
-                "DMNReference(name='ApplicationRiskScoreModel', model='Lending1', import='[]')",
-                "DMNReference(name='CreditContingencyFactorTable', model='Lending1', import='[]')",
-                "DMNReference(name='InstallmentCalculation', model='Lending1', import='[]')",
-                "DMNReference(name='Post-bureauRiskCategoryTable', model='Lending1', import='[]')",
-                "DMNReference(name='RoutingRules', model='Lending1', import='[]')"
         );
         assertEquals(expected, actual);
     }
