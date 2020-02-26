@@ -14,6 +14,7 @@ package com.gs.dmn;
 
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.runtime.interpreter.ImportPath;
 import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
@@ -668,11 +669,13 @@ public class DMNModelRepository {
         return result;
     }
 
-    public List<DRGElementReference<TInputData>> allInputDatas(TDRGElement parent) {
-        return this.drgElementFilter.filterInputs(collectAllInputDatas(parent));
+    public List<DRGElementReference<TInputData>> allInputDatas(DRGElementReference<? extends TDRGElement> parentReference) {
+        return this.drgElementFilter.filterInputs(collectAllInputDatas(parentReference));
     }
 
-    protected List<DRGElementReference<TInputData>> collectAllInputDatas(TDRGElement parent) {
+    protected List<DRGElementReference<TInputData>> collectAllInputDatas(DRGElementReference<? extends TDRGElement> parentReference) {
+        TDRGElement parent = parentReference.getElement();
+        ImportPath parentImportPath = parentReference.getImportPath();
         List<DRGElementReference<TInputData>> result = new ArrayList<>();
         // Add reference for direct children
         List<TDMNElementReference> references = requiredInputDataReferences(parent);
@@ -680,7 +683,7 @@ public class DMNModelRepository {
             TInputData child = findInputDataByRef(parent, reference.getHref());
             if (child != null) {
                 String importName = findImportName(parent, reference);
-                result.add(new DRGElementReference<>(child, importName));
+                result.add(new DRGElementReference<>(child, new ImportPath(parentImportPath, importName)));
             } else {
                 throw new DMNRuntimeException(String.format("Cannot find InputData for '%s' in parent '%s'", reference.getHref(), parent.getName()));
             }
@@ -693,10 +696,7 @@ public class DMNModelRepository {
             if (child != null) {
                 // Update reference for descendants
                 String importName = findImportName(parent, reference);
-                List<DRGElementReference<TInputData>> inputReferences = collectAllInputDatas(child);
-                for (DRGElementReference<TInputData> inputReference: inputReferences) {
-                    inputReference.push(importName);
-                }
+                List<DRGElementReference<TInputData>> inputReferences = collectAllInputDatas(new DRGElementReference<>(child, new ImportPath(parentImportPath, importName)));
                 result.addAll(inputReferences);
             } else {
                 throw new DMNRuntimeException(String.format("Cannot find Decision for '%s' in parent '%s'", reference.getHref(), parent.getName()));

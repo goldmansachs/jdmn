@@ -13,6 +13,7 @@
 package com.gs.dmn.tck;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
@@ -35,10 +36,7 @@ import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase.InputNode;
 import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase.ResultNode;
 import org.omg.dmn.tck.marshaller._20160719.ValueType;
 import org.omg.dmn.tck.marshaller._20160719.ValueType.Component;
-import org.omg.spec.dmn._20180521.model.TDRGElement;
-import org.omg.spec.dmn._20180521.model.TDecision;
-import org.omg.spec.dmn._20180521.model.TInputData;
-import org.omg.spec.dmn._20180521.model.TInvocable;
+import org.omg.spec.dmn._20180521.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -92,7 +90,8 @@ public class TCKUtil {
 
     public String drgElementArgumentList(ResultNode resultNode) {
         TDecision decision = (TDecision) findDRGElement(resultNode);
-        return dmnTransformer.drgElementArgumentList(decision);
+        TDefinitions model = this.dmnTransformer.getDMNModelRepository().getModel(decision);
+        return dmnTransformer.drgElementArgumentList(new DRGElementReference<TDRGElement>(decision));
     }
 
     public String inputDataVariableName(InputNode inputNode) {

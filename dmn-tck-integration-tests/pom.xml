@@ -1911,6 +1911,38 @@
                         </configuration>
                     </execution>
 
+                    <execution>
+                        <id>composite-0005-multiple-input-data</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${composite.diagram.folder}/0005-multiple-input-data</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0005_multiple_input_data</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+<!--
+                    <execution>
+                        <id>test-composite-0089-nested-inputs</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${composite.diagram.folder}/0089-nested-inputs</inputTestFileDirectory>
+                            <inputModelFileDirectory>${composite.diagram.folder}/0089-nested-inputs</inputModelFileDirectory>
+                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0089_nested_inputs</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+-->
+
                     <!-- non-compliant-->
 <!--
                     <execution>

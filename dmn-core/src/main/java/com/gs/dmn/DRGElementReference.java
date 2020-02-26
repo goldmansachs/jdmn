@@ -48,12 +48,6 @@ public class DRGElementReference<T extends TDRGElement> {
         return this.element.getName();
     }
 
-    public void push(String prefix) {
-        if (!StringUtils.isBlank(prefix)) {
-            this.importPath.add(0, prefix);
-        }
-    }
-
     @Override
     public String toString() {
         return String.format("DMNReference(name='%s', import='%s')", getElementName(), this.importPath);
