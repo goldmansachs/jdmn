@@ -213,26 +213,30 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
     }
 
     @Override
-    public String drgElementSignature(TDRGElement element) {
+    public String drgElementSignature(DRGElementReference<? extends TDRGElement> reference) {
+        TDRGElement element = reference.getElement();
         if (dmnModelRepository.isBKMLinkedToDecision(element)) {
             TDecision outputDecision = dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
-            List<Pair<String, Type>> parameters = inputDataParametersClosure(outputDecision);
+            DRGElementReference<TDecision> outputReference = new DRGElementReference<>(outputDecision);
+            List<Pair<String, Type>> parameters = inputDataParametersClosure(outputReference);
             String decisionSignature = parameters.stream().map(p -> String.format("%s %s", toJavaType(p.getRight()), p.getLeft())).collect(Collectors.joining(", "));
             return augmentSignature(decisionSignature);
         } else {
-            return super.drgElementSignature(element);
+            return super.drgElementSignature(reference);
         }
     }
 
     @Override
-    public String drgElementArgumentList(TDRGElement element) {
+    public String drgElementArgumentList(DRGElementReference<? extends TDRGElement> reference) {
+        TDRGElement element = reference.getElement();
         if (dmnModelRepository.isBKMLinkedToDecision(element)) {
             TDecision outputDecision = dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
-            List<Pair<String, Type>> parameters = inputDataParametersClosure(outputDecision);
+            DRGElementReference<TDecision> outputReference = new DRGElementReference<>(outputDecision);
+            List<Pair<String, Type>> parameters = inputDataParametersClosure(outputReference);
             String arguments = parameters.stream().map(p -> String.format("%s", p.getLeft())).collect(Collectors.joining(", "));
             return augmentArgumentList(arguments);
         } else {
-            return super.drgElementArgumentList(element);
+            return super.drgElementArgumentList(reference);
         }
     }
 
@@ -255,24 +259,27 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
     }
 
     @Override
-    public String drgElementConvertedArgumentList(TDRGElement element) {
+    public String drgElementConvertedArgumentList(DRGElementReference<? extends TDRGElement> reference) {
+        TDRGElement element = reference.getElement();
         if (dmnModelRepository.isBKMLinkedToDecision(element)) {
             TDecision outputDecision = dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
-            List<Pair<String, Type>> parameters = inputDataParametersClosure(outputDecision);
+            DRGElementReference<TDecision> outputReference = new DRGElementReference<>(outputDecision);
+            List<Pair<String, Type>> parameters = inputDataParametersClosure(outputReference);
             String arguments = parameters.stream().map(p -> String.format("%s", convertDecisionArgument(p.getLeft(), p.getRight()))).collect(Collectors.joining(", "));
             return augmentArgumentList(arguments);
         } else {
-            return super.drgElementConvertedArgumentList(element);
+            return super.drgElementConvertedArgumentList(reference);
         }
     }
 
     @Override
-    public List<String> drgElementArgumentNameList(TDRGElement element) {
+    public List<String> drgElementArgumentNameList(DRGElementReference<? extends TDRGElement> reference) {
+        TDRGElement element = reference.getElement();
         if (dmnModelRepository.isBKMLinkedToDecision(element)) {
             TDecision outputDecision = dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
             return super.drgElementArgumentNameList(outputDecision);
         } else {
-            return super.drgElementArgumentNameList(element);
+            return super.drgElementArgumentNameList(reference);
         }
     }
 
@@ -291,7 +298,8 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
         if (encapsulatedLogic == null) {
             List<FormalParameter> parameters = new ArrayList<>();
             TDecision outputDecision = dmnModelRepository.getOutputDecision(bkm);
-            List<DRGElementReference<TInputData>> allInputDataReferences = this.dmnModelRepository.allInputDatas(outputDecision);
+            DRGElementReference<TDecision> outputReference = new DRGElementReference<TDecision>(outputDecision);
+            List<DRGElementReference<TInputData>> allInputDataReferences = this.dmnModelRepository.allInputDatas(outputReference);
             List<TInputData> allInputDatas = this.dmnModelRepository.selectElement(allInputDataReferences);
             this.dmnModelRepository.sortNamedElements(allInputDatas);
             allInputDatas.stream().forEach(id -> parameters.add(new Parameter(id.getName(), drgElementOutputFEELType(id))));
@@ -371,7 +379,8 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
 
     private List<DRGElementReference<? extends TDRGElement>> collectIterationInputs(TDecision decision) {
         Set<DRGElementReference<? extends TDRGElement>> elementSet = new LinkedHashSet<>();
-        elementSet.addAll(this.dmnModelRepository.allInputDatas(decision));
+        DRGElementReference<TDecision> decisionReference = new DRGElementReference<>(decision);
+        elementSet.addAll(this.dmnModelRepository.allInputDatas(decisionReference));
         elementSet.addAll(this.dmnModelRepository.directSubDecisions(decision));
         List<DRGElementReference<? extends TDRGElement>> elements = new ArrayList<>(elementSet);
         this.dmnModelRepository.sortNamedElementReferences(elements);

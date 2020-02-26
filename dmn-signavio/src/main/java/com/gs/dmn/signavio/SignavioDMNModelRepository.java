@@ -16,6 +16,7 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.runtime.interpreter.ImportPath;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
 import com.gs.dmn.signavio.extension.SignavioExtension;
@@ -23,7 +24,9 @@ import org.omg.spec.dmn._20180521.model.*;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static com.gs.dmn.serialization.DMNVersion.DMN_12;
 
@@ -106,15 +109,18 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
     }
 
     @Override
-    protected List<DRGElementReference<TInputData>> collectAllInputDatas(TDRGElement parent) {
+    protected List<DRGElementReference<TInputData>> collectAllInputDatas(DRGElementReference<? extends TDRGElement> parentReference) {
+        TDRGElement parent = parentReference.getElement();
+        ImportPath parentImportPath = parentReference.getImportPath();
         List<DRGElementReference<TInputData>> result = new ArrayList<>();
         result.addAll(directInputDatas(parent));
         // Add inputs used in iteration body / topLevelDecision
         if (isMultiInstanceDecision(parent)) {
             MultiInstanceDecisionLogic multiInstanceDecisionLogic = extension.multiInstanceDecisionLogic(parent);
             TDecision topLevelDecision = multiInstanceDecisionLogic.getTopLevelDecision();
+            DRGElementReference<? extends TDRGElement> topLevelReference = new DRGElementReference<>(topLevelDecision);
 
-            List<DRGElementReference<TInputData>> inputDataList = allInputDatas(topLevelDecision);
+            List<DRGElementReference<TInputData>> inputDataList = allInputDatas(topLevelReference);
             inputDataList.removeIf(tInputDataDMNReference -> tInputDataDMNReference.getElement() == multiInstanceDecisionLogic.getIterator());
             result.addAll(inputDataList);
         }
@@ -125,10 +131,9 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
             TDecision child = findDecisionByRef(parent, reference.getHref());
             if (child != null) {
                 String importName = findImportName(parent, reference);
-                List<DRGElementReference<TInputData>> inputReferences = collectAllInputDatas(child);
-                for (DRGElementReference<TInputData> inputReference: inputReferences) {
-                    inputReference.push(importName);
-                }
+                TDefinitions model = this.getModel(child);
+                DRGElementReference childReference = new DRGElementReference(child, new ImportPath(parentImportPath, importName));
+                List<DRGElementReference<TInputData>> inputReferences = collectAllInputDatas(childReference);
                 result.addAll(inputReferences);
             } else {
                 throw new DMNRuntimeException(String.format("Cannot find Decision for '%s' in parent '%s'", reference.getHref(), parent.getName()));

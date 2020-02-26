@@ -88,7 +88,7 @@ public class DMNModelRepositoryTest {
     @Test
     public void testAllInputDatas() {
         TDRGElement root = dmnModelRepository.findDRGElementByName("Pre-bureauAffordability");
-        List<DRGElementReference<TInputData>> references = dmnModelRepository.allInputDatas(root);
+        List<DRGElementReference<TInputData>> references = dmnModelRepository.allInputDatas(makeRootReference(root));
         dmnModelRepository.sortNamedElementReferences(references);
 
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
@@ -98,7 +98,6 @@ public class DMNModelRepositoryTest {
         );
         assertEquals(expected, actual);
     }
-
 
     @Test
     public void testDirectSubDecisions() {
@@ -130,7 +129,7 @@ public class DMNModelRepositoryTest {
         this.dmnModelRepository = readDMN("composite/input/0003-name-conflicts");
 
         TDRGElement root = dmnModelRepository.findDRGElementByName("modelCDecisionBasedOnBs");
-        List<DRGElementReference<TInputData>> references = dmnModelRepository.collectAllInputDatas(root);
+        List<DRGElementReference<TInputData>> references = dmnModelRepository.collectAllInputDatas(makeRootReference(root));
         dmnModelRepository.sortNamedElementReferences(references);
 
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
@@ -146,7 +145,7 @@ public class DMNModelRepositoryTest {
         this.dmnModelRepository = readDMN("composite/input/0003-name-conflicts");
 
         TDRGElement root = dmnModelRepository.findDRGElementByName("modelCDecisionBasedOnBs");
-        List<DRGElementReference<TInputData>> references = dmnModelRepository.collectAllInputDatas(root);
+        List<DRGElementReference<TInputData>> references = dmnModelRepository.collectAllInputDatas(makeRootReference(root));
         dmnModelRepository.sortNamedElementReferences(references);
 
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
@@ -161,5 +160,9 @@ public class DMNModelRepositoryTest {
         File input = new File(DMNModelRepositoryTest.class.getClassLoader().getResource(pathName).getFile());
         List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = dmnReader.readModels(input);
         return new DMNModelRepository(pairs);
+    }
+
+    private DRGElementReference<? extends TDRGElement> makeRootReference(TDRGElement root) {
+        return new DRGElementReference<>(root);
     }
 }

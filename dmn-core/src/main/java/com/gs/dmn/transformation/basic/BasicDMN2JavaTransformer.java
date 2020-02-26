@@ -293,12 +293,18 @@ public class BasicDMN2JavaTransformer {
     }
 
     public String drgElementSignature(TDRGElement element) {
+        DRGElementReference<TDRGElement> reference = new DRGElementReference<>(element);
+        return drgElementSignature(reference);
+    }
+
+    public String drgElementSignature(DRGElementReference<? extends TDRGElement> reference) {
+        TDRGElement element = reference.getElement();
         if (element instanceof TBusinessKnowledgeModel) {
-            List<Pair<String, String>> parameters = bkmParameters((TBusinessKnowledgeModel) element);
+            List<Pair<String, String>> parameters = bkmParameters((DRGElementReference<TBusinessKnowledgeModel>) reference);
             String signature = parameters.stream().map(p -> String.format("%s %s", p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
             return augmentSignature(signature);
         } else if (element instanceof TDecision) {
-            List<Pair<String, Type>> parameters = inputDataParametersClosure((TDecision) element);
+            List<Pair<String, Type>> parameters = inputDataParametersClosure((DRGElementReference<TDecision>) reference);
             String decisionSignature = parameters.stream().map(p -> String.format("%s %s", toJavaType(p.getRight()), p.getLeft())).collect(Collectors.joining(", "));
             return augmentSignature(decisionSignature);
         } else {
@@ -306,17 +312,19 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    public String drgElementArgumentList(DRGElementReference<? extends TDRGElement> reference) {
-        return drgElementArgumentList(reference.getElement());
+    public String drgElementArgumentList(TDRGElement element) {
+        DRGElementReference<? extends TDRGElement> reference = new DRGElementReference<TDRGElement>(element);
+        return drgElementArgumentList(reference);
     }
 
-    public String drgElementArgumentList(TDRGElement element) {
+    public String drgElementArgumentList(DRGElementReference<? extends TDRGElement> reference) {
+        TDRGElement element = reference.getElement();
         if (element instanceof TBusinessKnowledgeModel) {
-            List<Pair<String, String>> parameters = bkmParameters((TBusinessKnowledgeModel) element);
+            List<Pair<String, String>> parameters = bkmParameters((DRGElementReference<TBusinessKnowledgeModel>) reference);
             String arguments = parameters.stream().map(p -> String.format("%s", p.getLeft())).collect(Collectors.joining(", "));
             return augmentArgumentList(arguments);
         } else if (element instanceof TDecision) {
-            List<Pair<String, Type>> parameters = inputDataParametersClosure((TDecision) element);
+            List<Pair<String, Type>> parameters = inputDataParametersClosure((DRGElementReference<TDecision>) reference);
             String arguments = parameters.stream().map(p -> String.format("%s", p.getLeft())).collect(Collectors.joining(", "));
             return augmentArgumentList(arguments);
         } else {
@@ -325,12 +333,18 @@ public class BasicDMN2JavaTransformer {
     }
 
     public String drgElementConvertedArgumentList(TDRGElement element) {
+        DRGElementReference<? extends TDRGElement> reference = new DRGElementReference<>(element);
+        return drgElementConvertedArgumentList(reference);
+    }
+
+    public String drgElementConvertedArgumentList(DRGElementReference<? extends TDRGElement> reference) {
+        TDRGElement element = reference.getElement();
         if (element instanceof TBusinessKnowledgeModel) {
-            List<Pair<String, String>> parameters = bkmParameters((TBusinessKnowledgeModel) element);
+            List<Pair<String, String>> parameters = bkmParameters((DRGElementReference<TBusinessKnowledgeModel>) reference);
             String arguments = parameters.stream().map(p -> String.format("%s", p.getLeft())).collect(Collectors.joining(", "));
             return augmentArgumentList(arguments);
         } else if (element instanceof TDecision) {
-            List<Pair<String, Type>> parameters = inputDataParametersClosure((TDecision) element);
+            List<Pair<String, Type>> parameters = inputDataParametersClosure((DRGElementReference<TDecision>) reference);
             String arguments = parameters.stream().map(p -> String.format("%s", convertDecisionArgument(p.getLeft(), p.getRight()))).collect(Collectors.joining(", "));
             return augmentArgumentList(arguments);
         } else {
@@ -339,18 +353,24 @@ public class BasicDMN2JavaTransformer {
     }
 
     public List<String> drgElementArgumentNameList(TDRGElement element) {
-        return drgElementArgumentNameList(element, true);
+        DRGElementReference<? extends TDRGElement> reference = new DRGElementReference<>(element);
+        return drgElementArgumentNameList(reference);
     }
 
-    public List<String> drgElementArgumentNameList(TDRGElement element, boolean javaFriendlyName) {
+    public List<String> drgElementArgumentNameList(DRGElementReference<? extends TDRGElement> reference) {
+        return drgElementArgumentNameList(reference, true);
+    }
+
+    public List<String> drgElementArgumentNameList(DRGElementReference<? extends TDRGElement> reference, boolean javaFriendlyName) {
+        TDRGElement element = reference.getElement();
         if (element instanceof TBusinessKnowledgeModel) {
-            List<Pair<String, String>> parameters = bkmParameters((TBusinessKnowledgeModel) element, javaFriendlyName);
+            List<Pair<String, String>> parameters = bkmParameters((DRGElementReference<TBusinessKnowledgeModel>) reference, javaFriendlyName);
             return parameters.stream().map(Pair::getLeft).collect(Collectors.toList());
         } else if (element instanceof TDecisionService) {
-            List<Pair<String, String>> parameters = dsParameters((TDecisionService) element, javaFriendlyName);
+            List<Pair<String, String>> parameters = dsParameters((DRGElementReference<TDecisionService>) reference, javaFriendlyName);
             return parameters.stream().map(Pair::getLeft).collect(Collectors.toList());
         } else if (element instanceof TDecision) {
-            List<Pair<String, Type>> parameters = inputDataParametersClosure((TDecision) element, javaFriendlyName);
+            List<Pair<String, Type>> parameters = inputDataParametersClosure((DRGElementReference<TDecision>) reference, javaFriendlyName);
             return parameters.stream().map(Pair::getLeft).collect(Collectors.toList());
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
@@ -359,7 +379,7 @@ public class BasicDMN2JavaTransformer {
 
     public boolean shouldGenerateApplyWithConversionFromString(TDRGElement element) {
         if (element instanceof TDecision) {
-            List<Pair<String, Type>> parameters = inputDataParametersClosure((TDecision) element);
+            List<Pair<String, Type>> parameters = inputDataParametersClosure(new DRGElementReference<>((TDecision) element));
             return parameters.stream().anyMatch(p -> p.getRight() != StringType.STRING);
         } else if (element instanceof TBusinessKnowledgeModel) {
             return false;
@@ -370,7 +390,7 @@ public class BasicDMN2JavaTransformer {
 
     public String drgElementSignatureWithConversionFromString(TDRGElement element) {
         if (element instanceof TDecision) {
-            List<Pair<String, Type>> parameters = inputDataParametersClosure((TDecision) element);
+            List<Pair<String, Type>> parameters = inputDataParametersClosure(new DRGElementReference<>((TDecision) element));
             String decisionSignature = parameters.stream().map(p -> String.format("%s %s", toStringJavaType(p.getRight()), p.getLeft())).collect(Collectors.joining(", "));
             return augmentSignature(decisionSignature);
         } else {
@@ -380,7 +400,7 @@ public class BasicDMN2JavaTransformer {
 
     public String drgElementArgumentListWithConversionFromString(TDRGElement element) {
         if (element instanceof TDecision) {
-            List<Pair<String, Type>> parameters = inputDataParametersClosure((TDecision) element);
+            List<Pair<String, Type>> parameters = inputDataParametersClosure(new DRGElementReference<>((TDecision) element));
             String arguments = parameters.stream().map(p -> String.format("%s", convertDecisionArgumentFromString(p.getLeft(), p.getRight()))).collect(Collectors.joining(", "));
             return augmentArgumentList(arguments);
         } else {
@@ -424,7 +444,7 @@ public class BasicDMN2JavaTransformer {
             String javaParameters = parameters.stream().map(p -> String.format("%s %s", p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
             return augmentSignature(javaParameters);
         } else if (element instanceof TBusinessKnowledgeModel) {
-            return drgElementSignature(element);
+            return drgElementSignature(new DRGElementReference<>(element));
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
         }
@@ -436,7 +456,7 @@ public class BasicDMN2JavaTransformer {
             String argumentList = parameters.stream().map(p -> String.format("%s", p.getLeft())).collect(Collectors.joining(", "));
             return augmentArgumentList(argumentList);
         } else if (element instanceof TBusinessKnowledgeModel) {
-            return drgElementArgumentList(element);
+            return drgElementArgumentList(new DRGElementReference<>(element));
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
         }
@@ -595,13 +615,15 @@ public class BasicDMN2JavaTransformer {
         return bkmFEELParameters(bkm).stream().map(FormalParameter::getName).collect(Collectors.toList());
     }
 
-    private List<Pair<String, String>> bkmParameters(TBusinessKnowledgeModel bkm) {
-        return bkmParameters(bkm, true);
+    protected List<Pair<String, String>> bkmParameters(DRGElementReference<TBusinessKnowledgeModel> reference) {
+        return bkmParameters(reference, true);
     }
 
-    private List<Pair<String, String>> bkmParameters(TBusinessKnowledgeModel bkm, boolean javaFriendlyName) {
+    protected List<Pair<String, String>> bkmParameters(DRGElementReference<TBusinessKnowledgeModel> reference, boolean javaFriendlyName) {
         List<Pair<String, String>> parameters = new ArrayList<>();
-        List<TInformationItem> formalParameters = bkm.getEncapsulatedLogic().getFormalParameter();
+        TBusinessKnowledgeModel bkm = reference.getElement();
+        TFunctionDefinition encapsulatedLogic = bkm.getEncapsulatedLogic();
+        List<TInformationItem> formalParameters = encapsulatedLogic.getFormalParameter();
         for (TInformationItem parameter : formalParameters) {
             String parameterName = javaFriendlyName ? informationItemVariableName(parameter) : parameter.getName();
             String parameterType = informationItemTypeName(parameter);
@@ -639,21 +661,24 @@ public class BasicDMN2JavaTransformer {
         return dsFEELParameters(service).stream().map(FormalParameter::getName).collect(Collectors.toList());
     }
 
-    private List<Pair<String, String>> dsParameters(TDecisionService service) {
-        return dsParameters(service, true);
+    private List<Pair<String, String>> dsParameters(DRGElementReference<TDecisionService> reference) {
+        return dsParameters(reference, true);
     }
 
-    private List<Pair<String, String>> dsParameters(TDecisionService service, boolean javaFriendlyName) {
+    private List<Pair<String, String>> dsParameters(DRGElementReference<TDecisionService> reference, boolean javaFriendlyName) {
+        TDecisionService service = reference.getElement();
         List<Pair<String, String>> parameters = new ArrayList<>();
         for (TDMNElementReference er: service.getInputData()) {
-            TInputData inputData = getDMNModelRepository().findInputDataByRef(service, er.getHref());
-            String parameterName = javaFriendlyName ? drgElementVariableName(inputData) : inputData.getName();
+            TInputData inputData = dmnModelRepository.findInputDataByRef(service, er.getHref());
+            String importName = dmnModelRepository.findImportName(service, er);
+            String parameterName = javaFriendlyName ? drgElementVariableName(new DRGElementReference<>(inputData, importName)) : inputData.getName();
             Type parameterType = toFEELType(inputData);
             parameters.add(new Pair(parameterName, parameterType));
         }
         for (TDMNElementReference er: service.getInputDecision()) {
-            TDecision decision = getDMNModelRepository().findDecisionByRef(service, er.getHref());
-            String parameterName = javaFriendlyName ? drgElementVariableName(decision) : decision.getName();
+            TDecision decision = dmnModelRepository.findDecisionByRef(service, er.getHref());
+            String importName = dmnModelRepository.findImportName(service, er);
+            String parameterName = javaFriendlyName ? drgElementVariableName(new DRGElementReference<>(decision, importName)) : decision.getName();
             Type parameterType = drgElementOutputFEELType(decision);
             parameters.add(new Pair(parameterName, parameterType));
         }
@@ -775,12 +800,12 @@ public class BasicDMN2JavaTransformer {
         return JsonSerializer.class.getName() + ".OBJECT_MAPPER";
     }
 
-    public List<Pair<String, Type>> inputDataParametersClosure(TDecision decision) {
-        return inputDataParametersClosure(decision, true);
+    public List<Pair<String, Type>> inputDataParametersClosure(DRGElementReference<TDecision> reference) {
+        return inputDataParametersClosure(reference, true);
     }
 
-    public List<Pair<String, Type>> inputDataParametersClosure(TDecision decision, boolean javaFriendlyName) {
-        List<DRGElementReference<TInputData>> allInputDataReferences = this.dmnModelRepository.allInputDatas(decision);
+    public List<Pair<String, Type>> inputDataParametersClosure(DRGElementReference<TDecision> reference, boolean javaFriendlyName) {
+        List<DRGElementReference<TInputData>> allInputDataReferences = this.dmnModelRepository.allInputDatas(reference);
         this.dmnModelRepository.sortNamedElementReferences(allInputDataReferences);
 
         List<Pair<String, Type>> parameters = new ArrayList<>();

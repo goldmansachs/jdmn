@@ -33,6 +33,6 @@ public class ImportDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
         doMultipleModelsTest("0003-name-conflicts");
         doMultipleModelsTest("0004-decision-tables");
         doMultipleModelsTest("0004-decision-tables-name-conflicts");
-//        doMultipleModelsTest("0005-multiple-input-data");
+        doMultipleModelsTest("0005-multiple-input-data");
     }
 }

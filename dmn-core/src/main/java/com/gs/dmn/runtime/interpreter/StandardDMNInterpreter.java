@@ -13,6 +13,7 @@
 package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.*;
@@ -931,7 +932,8 @@ public class StandardDMNInterpreter implements DMNInterpreter {
 
     private Arguments makeArguments(TDRGElement element, RuntimeEnvironment runtimeEnvironment) {
         Arguments arguments = new Arguments();
-        List<String> parameters = basicDMNTransformer.drgElementArgumentNameList(element, false);
+        DRGElementReference<? extends TDRGElement> reference = new DRGElementReference<TDRGElement>(element);
+        List<String> parameters = basicDMNTransformer.drgElementArgumentNameList(reference, false);
         parameters.forEach(p -> arguments.put(p, runtimeEnvironment.lookupBinding(p)));
         return arguments;
     }
