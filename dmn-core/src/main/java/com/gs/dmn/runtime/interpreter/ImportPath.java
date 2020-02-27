@@ -54,12 +54,6 @@ public class ImportPath {
         }
     }
 
-    public void add(int index, String pathElement) {
-        if (!StringUtils.isEmpty(pathElement)) {
-            this.pathElements.add(index, pathElement);
-        }
-    }
-
     public boolean isEmpty() {
         return this.pathElements.isEmpty();
     }
