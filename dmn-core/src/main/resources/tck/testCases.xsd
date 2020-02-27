@@ -61,6 +61,7 @@
 					</xs:complexType>
 				</xs:element>
 			</xs:sequence>
+			<xs:anyAttribute namespace="##other" processContents="lax"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:complexType name="valueType">
