@@ -48,7 +48,8 @@ public class ${testClassName} extends ${decisionBaseClass} {
     <#list testCase.inputNode>
         // Initialize input data
         <#items as input>
-        ${tckUtil.toJavaType(input)} ${tckUtil.inputDataVariableName(input)} = ${tckUtil.toJavaExpression(testCases, testCase, input)};
+        <#assign inputInfo = tckUtil.extractInputNodeInfo(testCases, testCase, input) >
+        ${tckUtil.toJavaType(inputInfo)} ${tckUtil.inputDataVariableName(inputInfo)} = ${tckUtil.toJavaExpression(inputInfo)};
         </#items>
     </#list>
 </#macro>
@@ -57,7 +58,8 @@ public class ${testClassName} extends ${decisionBaseClass} {
     <#list testCase.resultNode>
         <#items as result>
         // Check ${result.name}
-        checkValues(${tckUtil.toJavaExpression(testCases, result)}, new ${tckUtil.qualifiedName(testCases, result)}().apply(${tckUtil.drgElementArgumentsExtraCache(tckUtil.drgElementArgumentsExtra(tckUtil.drgElementArgumentList(result)))}));
+        <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
+        checkValues(${tckUtil.toJavaExpression(resultInfo)}, new ${tckUtil.qualifiedName(resultInfo)}().apply(${tckUtil.drgElementArgumentsExtraCache(tckUtil.drgElementArgumentsExtra(tckUtil.drgElementArgumentList(resultInfo)))}));
         </#items>
     </#list>
 </#macro>
