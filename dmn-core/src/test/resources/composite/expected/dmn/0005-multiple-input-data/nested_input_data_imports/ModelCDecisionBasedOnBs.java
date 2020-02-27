@@ -1,11 +1,11 @@
-package model_c;
+package nested_input_data_imports;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"decision.ftl", "ModelCDecisionBasedOnBs"})
 @com.gs.dmn.runtime.annotation.DRGElement(
-    namespace = "model_c",
+    namespace = "nested_input_data_imports",
     name = "ModelCDecisionBasedOnBs",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 )
 public class ModelCDecisionBasedOnBs extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "model_c",
+        "nested_input_data_imports",
         "ModelCDecisionBasedOnBs",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
@@ -35,21 +35,21 @@ public class ModelCDecisionBasedOnBs extends com.gs.dmn.runtime.DefaultDMNBaseDe
         this.model_b_evaluatingSayHello = model_b_evaluatingSayHello;
     }
 
-    public Object apply(String say_hello_1id1d_personName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(say_hello_1id1d_personName, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+    public Object apply(String model_a_personName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+        return apply(model_a_personName, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
     }
 
-    public Object apply(String say_hello_1id1d_personName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public Object apply(String model_a_personName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
             // Start decision 'ModelCDecisionBasedOnBs'
             long modelCDecisionBasedOnBsStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments modelCDecisionBasedOnBsArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            modelCDecisionBasedOnBsArguments_.put("say_hello_1id1d_personName", say_hello_1id1d_personName);
+            modelCDecisionBasedOnBsArguments_.put("model_a_personName", model_a_personName);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, modelCDecisionBasedOnBsArguments_);
 
             // Apply child decisions
-            String model_b2_evaluatingB2SayHello = this.model_b2_evaluatingB2SayHello.apply(say_hello_1id1d_personName, annotationSet_, eventListener_, externalExecutor_);
-            String model_b_evaluatingSayHello = this.model_b_evaluatingSayHello.apply(say_hello_1id1d_personName, annotationSet_, eventListener_, externalExecutor_);
+            String model_b2_evaluatingB2SayHello = this.model_b2_evaluatingB2SayHello.apply(model_a_personName, annotationSet_, eventListener_, externalExecutor_);
+            String model_b_evaluatingSayHello = this.model_b_evaluatingSayHello.apply(model_a_personName, annotationSet_, eventListener_, externalExecutor_);
 
             // Evaluate decision 'ModelCDecisionBasedOnBs'
             Object output_ = evaluate(model_b2_evaluatingB2SayHello, model_b_evaluatingSayHello, annotationSet_, eventListener_, externalExecutor_);

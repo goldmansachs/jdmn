@@ -23,33 +23,33 @@ public class EvaluatingSayHello extends com.gs.dmn.runtime.DefaultDMNBaseDecisio
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
-    private final say_hello_1id1d.GreetThePerson say_hello_1id1d_greetThePerson;
+    private final model_a.GreetThePerson model_a_greetThePerson;
 
     public EvaluatingSayHello() {
-        this(new say_hello_1id1d.GreetThePerson());
+        this(new model_a.GreetThePerson());
     }
 
-    public EvaluatingSayHello(say_hello_1id1d.GreetThePerson say_hello_1id1d_greetThePerson) {
-        this.say_hello_1id1d_greetThePerson = say_hello_1id1d_greetThePerson;
+    public EvaluatingSayHello(model_a.GreetThePerson model_a_greetThePerson) {
+        this.model_a_greetThePerson = model_a_greetThePerson;
     }
 
-    public String apply(String say_hello_1id1d_personName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(say_hello_1id1d_personName, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+    public String apply(String model_a_personName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+        return apply(model_a_personName, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
     }
 
-    public String apply(String say_hello_1id1d_personName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public String apply(String model_a_personName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
             // Start decision 'EvaluatingSayHello'
             long evaluatingSayHelloStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments evaluatingSayHelloArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            evaluatingSayHelloArguments_.put("say_hello_1id1d_personName", say_hello_1id1d_personName);
+            evaluatingSayHelloArguments_.put("model_a_personName", model_a_personName);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, evaluatingSayHelloArguments_);
 
             // Apply child decisions
-            String say_hello_1id1d_greetThePerson = this.say_hello_1id1d_greetThePerson.apply(say_hello_1id1d_personName, annotationSet_, eventListener_, externalExecutor_);
+            String model_a_greetThePerson = this.model_a_greetThePerson.apply(model_a_personName, annotationSet_, eventListener_, externalExecutor_);
 
             // Evaluate decision 'EvaluatingSayHello'
-            String output_ = evaluate(say_hello_1id1d_greetThePerson, annotationSet_, eventListener_, externalExecutor_);
+            String output_ = evaluate(model_a_greetThePerson, annotationSet_, eventListener_, externalExecutor_);
 
             // End decision 'EvaluatingSayHello'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, evaluatingSayHelloArguments_, output_, (System.currentTimeMillis() - evaluatingSayHelloStartTime_));
@@ -61,7 +61,7 @@ public class EvaluatingSayHello extends com.gs.dmn.runtime.DefaultDMNBaseDecisio
         }
     }
 
-    protected String evaluate(String say_hello_1id1d_greetThePerson, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
-        return stringAdd("Evaluating Say Hello to: ", say_hello_1id1d_greetThePerson);
+    protected String evaluate(String model_a_greetThePerson, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+        return stringAdd("Evaluating Say Hello to: ", model_a_greetThePerson);
     }
 }
