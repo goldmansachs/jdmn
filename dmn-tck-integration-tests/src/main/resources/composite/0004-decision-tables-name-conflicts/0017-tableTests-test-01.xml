@@ -3,7 +3,7 @@
 		xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.omg.org/spec/DMN/20160719/testcase ../../testCases.xsd"
-		xmlns:gs="http://wwww.gs.com/dmn"
+		xmlns:gs="http://www.gs.com/dmn"
 		xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<modelName>decisionTables</modelName>
 	<labels>
