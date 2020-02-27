@@ -38,6 +38,7 @@ import com.gs.dmn.runtime.listener.Arguments;
 import com.gs.dmn.runtime.listener.EventListener;
 import com.gs.dmn.runtime.listener.LoggingEventListener;
 import com.gs.dmn.runtime.listener.NopEventListener;
+import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.JsonSerializer;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
@@ -1526,6 +1527,9 @@ public class BasicDMN2JavaTransformer {
     }
 
     public String javaModelPackageName(String modelName) {
+        if (modelName != null && modelName.endsWith(DMNConstants.DMN_FILE_EXTENSION)) {
+            modelName = modelName.substring(0, modelName.length() - 4);
+        }
         if (this.onePackage) {
             modelName = "";
         }

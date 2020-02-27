@@ -38,6 +38,6 @@ public class ImportTestCasesToJUnitTransformerTest extends AbstractTCKTestCasesT
         doMultipleModelsTest("0003-name-conflicts", "0003-name-conflicts");
         doMultipleModelsTest("0004-decision-tables", "0004-decision-tables");
         doMultipleModelsTest("0004-decision-tables-name-conflicts", "0004-decision-tables-name-conflicts");
-//        doMultipleModelsTest("0005-multiple-input-data", "0005-multiple-input-data");
+        doMultipleModelsTest("0005-multiple-input-data", "0005-multiple-input-data");
     }
 }
