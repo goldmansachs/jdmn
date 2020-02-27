@@ -54,6 +54,7 @@ public class TCKUtil {
     private static String GS_NAMESPACE = "http://www.gs.com/dmn";
     private static final QName NAMESPACE_QNAME = new QName(GS_NAMESPACE, "namespace");
     private static final boolean IGNORE_ELEMENT_TYPE = false;
+    private final DMNModelRepository dmnModelRepository;
 
     private final BasicDMN2JavaTransformer dmnTransformer;
     private final StandardFEELLib feelLib;
@@ -61,180 +62,47 @@ public class TCKUtil {
     public TCKUtil(BasicDMN2JavaTransformer dmnTransformer, StandardFEELLib feelLib) {
         this.dmnTransformer = dmnTransformer;
         this.feelLib = feelLib;
+        this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
     }
 
     //
-    // Delegate methods
+    // Translator - Input nodes
     //
-    public String drgElementClassName(ResultNode resultNode) {
-        TDecision decision = (TDecision) findDRGElement(resultNode);
-        return dmnTransformer.drgElementClassName(decision);
-    }
-
-    public String drgElementVariableName(ResultNode resultNode) {
-        TDecision decision = (TDecision) findDRGElement(resultNode);
-        return dmnTransformer.drgElementVariableName(decision);
-    }
-
-    public String drgElementOutputType(ResultNode resultNode) {
-        TDecision decision = (TDecision) findDRGElement(resultNode);
-        return dmnTransformer.drgElementOutputType(decision);
-    }
-
-    public String drgElementArgumentsExtra(String arguments) {
-        return dmnTransformer.drgElementArgumentsExtra(arguments);
-    }
-
-    public String drgElementArgumentList(ResultNode resultNode) {
-        TDecision decision = (TDecision) findDRGElement(resultNode);
-        TDefinitions model = this.dmnTransformer.getDMNModelRepository().getModel(decision);
-        return dmnTransformer.drgElementArgumentList(new DRGElementReference<TDRGElement>(decision));
-    }
-
-    public String inputDataVariableName(InputNode inputNode) {
+    public InputNodeInfo extractInputNodeInfo(TestCases testCases, TestCase testCase, InputNode inputNode) {
         TDRGElement element = findDRGElement(inputNode);
+        DRGElementReference<TDRGElement> reference = new DRGElementReference<>(element);
+        return new InputNodeInfo(testCases.getModelName(), inputNode.getName(), reference, inputNode);
+    }
+
+    public String toJavaType(InputNodeInfo info) {
+        Type feelType = toFEELType(info);
+        return this.dmnTransformer.toJavaType(feelType);
+    }
+
+    public String inputDataVariableName(InputNodeInfo info) {
+        TDRGElement element = info.getReference().getElement();
         if (element == null) {
-            throw new DMNRuntimeException(String.format("Cannot find element '%s'", inputNode.getName()));
+            throw new DMNRuntimeException(String.format("Cannot find element '%s'", info.getNodeName()));
         } else if (element instanceof TInputData) {
-            return dmnTransformer.inputDataVariableName((TInputData) element);
+            return this.dmnTransformer.inputDataVariableName((TInputData) element);
         } else {
             throw new UnsupportedOperationException(String.format("'%s' not supported", element.getClass().getSimpleName()));
         }
     }
 
-    public String assertClassName() {
-        return dmnTransformer.assertClassName();
-    }
-
-    public String annotationSetClassName() {
-        return dmnTransformer.annotationSetClassName();
-    }
-
-    public String annotationSetVariableName() {
-        return dmnTransformer.annotationSetVariableName();
-    }
-
-    public String eventListenerClassName() {
-        return dmnTransformer.eventListenerClassName();
-    }
-
-    public String defaultEventListenerClassName() {
-        return dmnTransformer.defaultEventListenerClassName();
-    }
-
-    public String eventListenerVariableName() {
-        return dmnTransformer.eventListenerVariableName();
-    }
-
-    public String externalExecutorClassName() {
-        return dmnTransformer.externalExecutorClassName();
-    }
-
-    public String externalExecutorVariableName() {
-        return dmnTransformer.externalExecutorVariableName();
-    }
-
-    public String defaultExternalExecutorClassName() {
-        return dmnTransformer.defaultExternalExecutorClassName();
-    }
-
-    public String cacheInterfaceName() {
-        return dmnTransformer.cacheInterfaceName();
-    }
-
-    public String cacheVariableName() {
-        return dmnTransformer.cacheVariableName();
-    }
-
-    public String defaultCacheClassName() {
-        return dmnTransformer.defaultCacheClassName();
-    }
-
-    public boolean isCaching() {
-        return dmnTransformer.isCaching();
-    }
-
-    public boolean isCaching(String element) {
-        return dmnTransformer.isCaching(element);
-    }
-
-    public String drgElementSignatureExtraCache(String signature) {
-        return dmnTransformer.drgElementSignatureExtraCache(signature);
-    }
-
-    public String drgElementArgumentsExtraCache(String arguments) {
-        return dmnTransformer.drgElementArgumentsExtraCache(arguments);
-    }
-
-    public String drgElementDefaultArgumentsExtraCache(String arguments) {
-        return dmnTransformer.drgElementDefaultArgumentsExtraCache(arguments);
-    }
-
-    public String getter(String outputName) {
-        return dmnTransformer.getter(outputName);
-    }
-
-    public String upperCaseFirst(String name) {
-        return dmnTransformer.upperCaseFirst(name);
-    }
-
-    public String lowerCaseFirst(String name) {
-        return dmnTransformer.lowerCaseFirst(name);
-    }
-
-    public String qualifiedName(TestCases testCases, ResultNode result) {
-        String pkg = dmnTransformer.javaModelPackageName(testCases.getModelName());
-        String cls = drgElementClassName(result);
-        return dmnTransformer.qualifiedName(pkg, cls);
-    }
-
-    // For input parameters
-    public String toJavaType(InputNode inputNode) {
-        Type feelType = toFEELType(inputNode);
-        return dmnTransformer.toJavaType(feelType);
-    }
-
-    // For input parameters
-    public String toJavaExpression(TestCases testCases, TestCase testCase, InputNode inputNode) {
-        Type inputType = toFEELType(inputNode);
-        return toJavaExpression(inputNode, inputType);
-    }
-
-    // For expected values
-    public String toJavaExpression(TestCases testCases, ResultNode resultNode) {
-        Type outputType = toFEELType(resultNode);
-        return toJavaExpression(resultNode.getExpected(), outputType);
-    }
-
-    private List<Pair<String, String>> sortParameters(List<Pair<String, String>> parameters) {
-        parameters.sort(Comparator.comparing(Pair::getLeft));
-        return parameters;
+    public String toJavaExpression(InputNodeInfo info) {
+        Type inputType = toFEELType(info);
+        return toJavaExpression(info.getValue(), inputType);
     }
 
     private TDRGElement findDRGElement(InputNode node) {
         try {
-            DMNModelRepository dmnModelRepository = dmnTransformer.getDMNModelRepository();
             String namespace = getNamespace(node);
             String name = node.getName();
             if (namespace != null) {
-                return dmnModelRepository.findDRGElementByName(namespace, name);
+                return this.dmnModelRepository.findDRGElementByName(namespace, name);
             } else {
-                return dmnModelRepository.findDRGElementByName(name);
-            }
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    private TDRGElement findDRGElement(ResultNode node) {
-        try {
-            DMNModelRepository dmnModelRepository = dmnTransformer.getDMNModelRepository();
-            String namespace = getNamespace(node);
-            String name = node.getName();
-            if (namespace != null) {
-                return dmnModelRepository.findDRGElementByName(namespace, name);
-            } else {
-                return dmnModelRepository.findDRGElementByName(name);
+                return this.dmnModelRepository.findDRGElementByName(name);
             }
         } catch (Exception e) {
             return null;
@@ -245,12 +113,179 @@ public class TCKUtil {
         return node.getOtherAttributes().get(NAMESPACE_QNAME);
     }
 
+    private Type toFEELType(InputNodeInfo info) {
+        try {
+            QualifiedName typeRef = getTypeRef(info);
+            return this.dmnTransformer.toFEELType(typeRef);
+        } catch (Exception e) {
+            throw new DMNRuntimeException(String.format("Cannot resolve FEEL type for node '%s'", info.getNodeName()));
+        }
+    }
+
+    private QualifiedName getTypeRef(InputNodeInfo node) {
+        TDRGElement element = node.getReference().getElement();
+        QualifiedName typeRef;
+        if (element == null) {
+            throw new DMNRuntimeException(String.format("Cannot find element '%s'.", node.getNodeName()));
+        } else if (element instanceof TInputData) {
+            String varTypeRef = ((TInputData) element).getVariable().getTypeRef();
+            typeRef = QualifiedName.toQualifiedName(varTypeRef);
+        } else {
+            throw new UnsupportedOperationException(String.format("Cannot resolve FEEL type for node '%s'. '%s' not supported", node.getNodeName(), element.getClass().getSimpleName()));
+        }
+        return typeRef;
+    }
+
+    //
+    // Translator - Result nodes
+    //
+    public ResultNodeInfo extractResultNodeInfo(TestCases testCases, TestCase testCase, ResultNode resultNode) {
+        TDRGElement element = findDRGElement(resultNode);
+        DRGElementReference<TDRGElement> reference = new DRGElementReference<>(element);
+        return new ResultNodeInfo(testCases.getModelName(), resultNode.getName(), reference, resultNode.getExpected());
+    }
+
+    public String toJavaExpression(ResultNodeInfo info) {
+        Type outputType = toFEELType(info);
+        return toJavaExpression(info.getExpectedValue(), outputType);
+    }
+
+    public String qualifiedName(ResultNodeInfo info) {
+        String pkg = this.dmnTransformer.javaModelPackageName(info.getModelName());
+        String cls = this.dmnTransformer.drgElementClassName(info.getReference().getElement());
+        return this.dmnTransformer.qualifiedName(pkg, cls);
+    }
+
+    public String drgElementArgumentsExtraCache(String arguments) {
+        return this.dmnTransformer.drgElementArgumentsExtraCache(arguments);
+    }
+
+    public String drgElementArgumentsExtra(String arguments) {
+        return this.dmnTransformer.drgElementArgumentsExtra(arguments);
+    }
+
+    public String drgElementArgumentList(ResultNodeInfo info) {
+        TDecision decision = (TDecision) info.getReference().getElement();
+        return this.dmnTransformer.drgElementArgumentList(new DRGElementReference<TDRGElement>(decision));
+    }
+
+    private TDRGElement findDRGElement(ResultNode node) {
+        try {
+            String namespace = getNamespace(node);
+            String name = node.getName();
+            if (namespace != null) {
+                return this.dmnModelRepository.findDRGElementByName(namespace, name);
+            } else {
+                return this.dmnModelRepository.findDRGElementByName(name);
+            }
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     private String getNamespace(ResultNode node) {
         return node.getOtherAttributes().get(NAMESPACE_QNAME);
     }
 
-    private String getNamespace(TestCase testCase) {
-        return testCase.getOtherAttributes().get(NAMESPACE_QNAME);
+    private Type toFEELType(ResultNodeInfo resultNode) {
+        try {
+            QualifiedName typeRef = getTypeRef(resultNode);
+            return this.dmnTransformer.toFEELType(typeRef);
+        } catch (Exception e) {
+            throw new DMNRuntimeException(String.format("Cannot resolve FEEL type for node '%s'", resultNode.getNodeName()));
+        }
+    }
+
+    private QualifiedName getTypeRef(ResultNodeInfo node) {
+        TDRGElement element = node.getReference().getElement();
+        QualifiedName typeRef;
+        if (element == null) {
+            throw new DMNRuntimeException(String.format("Cannot find element '%s'.", node.getNodeName()));
+        } else if (element instanceof TDecision) {
+            typeRef = QualifiedName.toQualifiedName(((TDecision) element).getVariable().getTypeRef());
+        } else {
+            throw new UnsupportedOperationException(String.format("Cannot resolve FEEL type for node '%s'. '%s' not supported", node.getNodeName(), element.getClass().getSimpleName()));
+        }
+        return typeRef;
+    }
+
+    //
+    // Translator - helper delegated methods
+    //
+    public String assertClassName() {
+        return this.dmnTransformer.assertClassName();
+    }
+
+    public String annotationSetClassName() {
+        return this.dmnTransformer.annotationSetClassName();
+    }
+
+    public String annotationSetVariableName() {
+        return this.dmnTransformer.annotationSetVariableName();
+    }
+
+    public String eventListenerClassName() {
+        return this.dmnTransformer.eventListenerClassName();
+    }
+
+    public String defaultEventListenerClassName() {
+        return this.dmnTransformer.defaultEventListenerClassName();
+    }
+
+    public String eventListenerVariableName() {
+        return this.dmnTransformer.eventListenerVariableName();
+    }
+
+    public String externalExecutorClassName() {
+        return this.dmnTransformer.externalExecutorClassName();
+    }
+
+    public String externalExecutorVariableName() {
+        return this.dmnTransformer.externalExecutorVariableName();
+    }
+
+    public String defaultExternalExecutorClassName() {
+        return this.dmnTransformer.defaultExternalExecutorClassName();
+    }
+
+    public String cacheInterfaceName() {
+        return this.dmnTransformer.cacheInterfaceName();
+    }
+
+    public String cacheVariableName() {
+        return this.dmnTransformer.cacheVariableName();
+    }
+
+    public String defaultCacheClassName() {
+        return this.dmnTransformer.defaultCacheClassName();
+    }
+
+    public boolean isCaching() {
+        return this.dmnTransformer.isCaching();
+    }
+
+
+    //
+    // Interpreter
+    //
+    public Result evaluate(DMNInterpreter interpreter, TestCase testCase, ResultNode resultNode) {
+        TDRGElement drgElement = findDRGElement(testCase, resultNode);
+        ImportPath importPath = null;
+        return interpreter.evaluate(importPath, drgElement, makeArgs(drgElement, testCase), makeEnvironment(testCase));
+    }
+
+    public Object expectedValue(TestCase testCase, ResultNode resultNode) {
+        if (IGNORE_ELEMENT_TYPE) {
+            return makeValue(resultNode.getExpected());
+        } else {
+            TDRGElement drgElement = findDRGElement(testCase, resultNode);
+            if (drgElement == null) {
+                throw new DMNRuntimeException(String.format("Cannot find DRG element '%s'", resultNode.getName()));
+            }
+            Environment environment = this.dmnTransformer.makeEnvironment(drgElement);
+            Type elementType = this.dmnTransformer.drgElementOutputFEELType(drgElement, environment);
+            return makeValue(resultNode.getExpected(), elementType);
+        }
     }
 
     private TDRGElement findDRGElement(TestCase testCase, ResultNode resultNode) {
@@ -259,62 +294,80 @@ public class TCKUtil {
             String namespace = pair.getLeft();
             String name = pair.getRight();
             if (namespace != null) {
-                return dmnTransformer.getDMNModelRepository().findDRGElementByName(namespace, name);
+                return this.dmnModelRepository.findDRGElementByName(namespace, name);
             } else {
-                return dmnTransformer.getDMNModelRepository().findDRGElementByName(name);
+                return this.dmnModelRepository.findDRGElementByName(name);
             }
         } catch (Exception e) {
             return null;
         }
     }
 
-    private Type toFEELType(InputNode inputNode) {
-        try {
-            QualifiedName typeRef = getTypeRef(inputNode);
-            return dmnTransformer.toFEELType(typeRef);
-        } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot resolve FEEL type for node '%s'", inputNode.getName()));
-        }
-    }
-
-    private Type toFEELType(ResultNode resultNode) {
-        try {
-            QualifiedName typeRef = getTypeRef(resultNode);
-            return dmnTransformer.toFEELType(typeRef);
-        } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot resolve FEEL type for node '%s'", resultNode.getName()));
-        }
-    }
-
-    private QualifiedName getTypeRef(InputNode node) {
-        TDRGElement element = findDRGElement(node);
-        QualifiedName typeRef;
-        if (element == null) {
-            throw new DMNRuntimeException(String.format("Cannot find element '%s'.", node.getName()));
-        } else if (element instanceof TInputData) {
-            String varTypeRef = ((TInputData) element).getVariable().getTypeRef();
-            typeRef = QualifiedName.toQualifiedName(varTypeRef);
+    private Pair<String, String> drgElementQualifiedName(TestCase testCase, ResultNode resultNode) {
+        String elementToEvaluate;
+        String namespace;
+        if (testCase.getType() == TestCaseType.DECISION) {
+            elementToEvaluate = resultNode.getName();
+            namespace = getNamespace(resultNode);
+        } else if (testCase.getType() == TestCaseType.DECISION_SERVICE) {
+            elementToEvaluate = testCase.getInvocableName();
+            namespace = getNamespace(testCase);
+        } else if (testCase.getType() == TestCaseType.BKM) {
+            elementToEvaluate = testCase.getInvocableName();
+            namespace = getNamespace(testCase);
         } else {
-            throw new UnsupportedOperationException(String.format("Cannot resolve FEEL type for node '%s'. '%s' not supported", node.getName(), element.getClass().getSimpleName()));
+            throw new IllegalArgumentException(String.format("Not supported type '%s'", testCase.getType()));
         }
-        return typeRef;
+        return new Pair<>(namespace, elementToEvaluate);
     }
 
-    private QualifiedName getTypeRef(ResultNode node) {
-        TDRGElement element = findDRGElement(node);
-        QualifiedName typeRef;
-        if (element == null) {
-            throw new DMNRuntimeException(String.format("Cannot find element '%s'.", node.getName()));
-        } else if (element instanceof TDecision) {
-            typeRef = QualifiedName.toQualifiedName(((TDecision) element).getVariable().getTypeRef());
-        } else {
-            throw new UnsupportedOperationException(String.format("Cannot resolve FEEL type for node '%s'. '%s' not supported", node.getName(), element.getClass().getSimpleName()));
+    private String getNamespace(TestCase testCase) {
+        return testCase.getOtherAttributes().get(NAMESPACE_QNAME);
+    }
+
+    private RuntimeEnvironment makeEnvironment(TestCase testCase) {
+        RuntimeEnvironment runtimeEnvironment = RuntimeEnvironmentFactory.instance().makeEnvironment();
+        List<InputNode> inputNode = testCase.getInputNode();
+        for (int i = 0; i < inputNode.size(); i++) {
+            InputNode input = inputNode.get(i);
+            try {
+                Object value = makeInputValue(input);
+                String name = input.getName();
+                runtimeEnvironment.bind(name, value);
+            } catch (Exception e) {
+                LOGGER.error("Cannot make environment ", e);
+                throw new DMNRuntimeException(String.format("Cannot process input node '%s' for TestCase %d for DM '%s'", input.getName(), i, testCase.getName()), e);
+            }
         }
-        return typeRef;
+        return runtimeEnvironment;
+    }
+
+    private List<Object> makeArgs(TDRGElement drgElement, TestCase testCase) {
+        List<Object> args = new ArrayList<>();
+        if (drgElement instanceof TInvocable) {
+            // Preserve de order in the call
+            List<FormalParameter> formalParameters = this.dmnTransformer.invFEELParameters(drgElement);
+            Map<String, Object> map = new LinkedHashMap<>();
+            List<InputNode> inputNode = testCase.getInputNode();
+            for (int i = 0; i < inputNode.size(); i++) {
+                TestCase.InputNode input = inputNode.get(i);
+                try {
+                    Object value = makeValue(input);
+                    map.put(input.getName(), value);
+                } catch (Exception e) {
+                    LOGGER.error("Cannot make arguments", e);
+                    throw new DMNRuntimeException(String.format("Cannot process input node '%s' for TestCase %d for DRGElement '%s'", input.getName(), i, drgElement.getName()), e);
+                }
+            }
+            for (FormalParameter parameter: formalParameters) {
+                args.add(map.get(parameter.getName()));
+            }
+        }
+        return args;
     }
 
     //
-    // Make java expressions for TestCases
+    // Make java expressions from ValueType
     //
     private String toJavaExpression(ValueType valueType, Type type) {
         if (valueType.getValue() != null) {
@@ -354,7 +407,7 @@ public class TCKUtil {
             String value = toJavaExpression(listValueType, elementType);
             javaList.add(value);
         }
-        return String.format("asList(%s)", javaList.stream().collect(Collectors.joining(", ")));
+        return String.format("asList(%s)", String.join(", ", javaList));
     }
 
     private String toJavaExpression(List<Component> components, ItemDefinitionType type) {
@@ -365,7 +418,7 @@ public class TCKUtil {
             String name = c.getName();
             Type memberType = type.getMemberType(name);
             String value = toJavaExpression(c, memberType);
-            argumentList.add(new Pair(name, value));
+            argumentList.add(new Pair<>(name, value));
             present.add(name);
         }
         // Add the missing members
@@ -376,90 +429,9 @@ public class TCKUtil {
             }
         }
         sortParameters(argumentList);
-        String interfaceName = dmnTransformer.toJavaType(type);
+        String interfaceName = this.dmnTransformer.toJavaType(type);
         String arguments = argumentList.stream().map(Pair::getRight).collect(Collectors.joining(", "));
-        return dmnTransformer.constructor(dmnTransformer.itemDefinitionJavaClassName(interfaceName), arguments);
-    }
-
-    public RuntimeEnvironment makeEnvironment(TestCase testCase) {
-        RuntimeEnvironment runtimeEnvironment = RuntimeEnvironmentFactory.instance().makeEnvironment();
-        List<InputNode> inputNode = testCase.getInputNode();
-        for (int i = 0; i < inputNode.size(); i++) {
-            InputNode input = inputNode.get(i);
-            try {
-                Object value = makeInputValue(input);
-                String name = input.getName();
-                runtimeEnvironment.bind(name, value);
-            } catch (Exception e) {
-                LOGGER.error("Cannot make environment ", e);
-                throw new DMNRuntimeException(String.format("Cannot process input node '%s' for TestCase %d for DM '%s'", input.getName(), i, testCase.getName()), e);
-            }
-        }
-        return runtimeEnvironment;
-    }
-
-    public List<Object> makeArgs(TDRGElement drgElement, TestCase testCase) {
-        List<Object> args = new ArrayList<>();
-        if (drgElement instanceof TInvocable) {
-            // Preserve de order in the call
-            List<FormalParameter> formalParameters = dmnTransformer.invFEELParameters(drgElement);
-            Map<String, Object> map = new LinkedHashMap<>();
-            List<InputNode> inputNode = testCase.getInputNode();
-            for (int i = 0; i < inputNode.size(); i++) {
-                TestCase.InputNode input = inputNode.get(i);
-                try {
-                    Object value = makeValue(input);
-                    map.put(input.getName(), value);
-                } catch (Exception e) {
-                    LOGGER.error("Cannot make arguments", e);
-                    throw new DMNRuntimeException(String.format("Cannot process input node '%s' for TestCase %d for DRGElement '%s'", input.getName(), i, drgElement.getName()), e);
-                }
-            }
-            for (FormalParameter parameter: formalParameters) {
-                args.add(map.get(parameter.getName()));
-            }
-        }
-        return args;
-    }
-
-    private Pair<String, String> drgElementQualifiedName(TestCase testCase, ResultNode resultNode) {
-        String elementToEvaluate;
-        String namespace;
-        if (testCase.getType() == TestCaseType.DECISION) {
-            elementToEvaluate = resultNode.getName();
-            namespace = getNamespace(resultNode);
-        } else if (testCase.getType() == TestCaseType.DECISION_SERVICE) {
-            elementToEvaluate = testCase.getInvocableName();
-            namespace = getNamespace(testCase);
-        } else if (testCase.getType() == TestCaseType.BKM) {
-            elementToEvaluate = testCase.getInvocableName();
-            namespace = getNamespace(testCase);
-        } else {
-            throw new IllegalArgumentException(String.format("Not supported type '%s'", testCase.getType()));
-        }
-        return new Pair<>(namespace, elementToEvaluate);
-    }
-
-    public Object expectedValue(TestCase testCase, ResultNode resultNode) {
-        if (IGNORE_ELEMENT_TYPE) {
-            Object expectedValue = makeValue(resultNode.getExpected());
-            return expectedValue;
-        } else {
-            TDRGElement drgElement = findDRGElement(testCase, resultNode);
-            if (drgElement == null) {
-                throw new DMNRuntimeException(String.format("Cannot find DRG element '%s'", resultNode.getName()));
-            }
-            Environment environment = dmnTransformer.makeEnvironment(drgElement);
-            Type elementType = dmnTransformer.drgElementOutputFEELType(drgElement, environment);
-            Object expectedValue = makeValue(resultNode.getExpected(), elementType);
-            return expectedValue;
-        }
-    }
-
-    public Result evaluate(DMNInterpreter interpreter, TestCase testCase, ResultNode resultNode) {
-        TDRGElement drgElement = findDRGElement(testCase, resultNode);
-        ImportPath importPath = null;
-        return interpreter.evaluate(importPath, drgElement, makeArgs(drgElement, testCase), makeEnvironment(testCase));
+        return this.dmnTransformer.constructor(this.dmnTransformer.itemDefinitionJavaClassName(interfaceName), arguments);
     }
 
     private Object makeInputValue(InputNode inputNode) {
@@ -468,10 +440,10 @@ public class TCKUtil {
         } else {
             TDRGElement drgElement = findDRGElement(inputNode);
             if (drgElement instanceof TInputData) {
-                Type type = dmnTransformer.drgElementOutputFEELType(drgElement);
+                Type type = this.dmnTransformer.drgElementOutputFEELType(drgElement);
                 return makeValue(inputNode, type);
             } else if (drgElement instanceof TDecision) {
-                Type type = dmnTransformer.drgElementOutputFEELType(drgElement);
+                Type type = this.dmnTransformer.drgElementOutputFEELType(drgElement);
                 return makeValue(inputNode, type);
             } else {
                 return makeValue(inputNode, null);
@@ -518,7 +490,7 @@ public class TCKUtil {
         throw new DMNRuntimeException(String.format("Cannot make value for input '%s'", valueType));
     }
 
-    private List makeList(ValueType valueType) {
+    private List<?> makeList(ValueType valueType) {
         List<Object> javaList = new ArrayList<>();
         ValueType.List list = valueType.getList().getValue();
         for (ValueType listValueType : list.getItem()) {
@@ -579,7 +551,12 @@ public class TCKUtil {
         return value instanceof Duration;
     }
 
-    public Object makeValue(ValueType valueType, Type type) {
+    private List<Pair<String, String>> sortParameters(List<Pair<String, String>> parameters) {
+        parameters.sort(Comparator.comparing(Pair::getLeft));
+        return parameters;
+    }
+
+    private Object makeValue(ValueType valueType, Type type) {
         if (valueType.getValue() != null) {
             Object value = jaxbElementValue(valueType.getValue());
             String text = getTextContent(value);
@@ -623,7 +600,7 @@ public class TCKUtil {
         throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
     }
 
-    private List makeList(ValueType valueType, ListType listType) {
+    private List<?> makeList(ValueType valueType, ListType listType) {
         List<Object> javaList = new ArrayList<>();
         ValueType.List list = valueType.getList().getValue();
         for (ValueType listValueType : list.getItem()) {
@@ -738,10 +715,10 @@ public class TCKUtil {
 
     private Object jaxbElementValue(Object value) {
         if (value instanceof JAXBElement) {
-            if (((JAXBElement) value).isNil()) {
+            if (((JAXBElement<?>) value).isNil()) {
                 return null;
             } else {
-                value = ((JAXBElement) value).getValue();
+                value = ((JAXBElement<?>) value).getValue();
             }
         }
         return value;
