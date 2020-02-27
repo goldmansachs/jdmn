@@ -189,6 +189,10 @@ public class DMNModelRepository {
         return names;
     }
 
+    public TDefinitions getModel(String namespace) {
+        return this.definitionsMap.get(namespace);
+    }
+
     public TDefinitions getModel(TNamedElement element) {
         return this.elementMap.get(element);
     }
