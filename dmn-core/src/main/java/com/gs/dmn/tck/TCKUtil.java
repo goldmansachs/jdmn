@@ -50,16 +50,13 @@ import java.util.stream.Collectors;
 
 public class TCKUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(TCKUtil.class);
-    private static final QName NAMESPACE_QNAME;
 
-    static {
-        String GS_NAMESPACE = "http://wwww.gs.com/dmn";
-        NAMESPACE_QNAME = new QName(GS_NAMESPACE, "namespace");
-    }
+    private static String GS_NAMESPACE = "http://www.gs.com/dmn";
+    private static final QName NAMESPACE_QNAME = new QName(GS_NAMESPACE, "namespace");
+    private static final boolean IGNORE_ELEMENT_TYPE = false;
 
     private final BasicDMN2JavaTransformer dmnTransformer;
     private final StandardFEELLib feelLib;
-    private static final boolean IGNORE_ELEMENT_TYPE = false;
 
     public TCKUtil(BasicDMN2JavaTransformer dmnTransformer, StandardFEELLib feelLib) {
         this.dmnTransformer = dmnTransformer;
