@@ -1,11 +1,11 @@
-package say_hello_1id1d;
+package model_a;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"decision.ftl", "GreetThePerson"})
 @com.gs.dmn.runtime.annotation.DRGElement(
-    namespace = "say_hello_1id1d",
+    namespace = "model_a",
     name = "GreetThePerson",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 )
 public class GreetThePerson extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "say_hello_1id1d",
+        "model_a",
         "GreetThePerson",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
