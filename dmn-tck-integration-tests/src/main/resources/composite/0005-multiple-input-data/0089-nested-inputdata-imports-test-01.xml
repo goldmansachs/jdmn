@@ -2,9 +2,12 @@
 <testCases
   xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  xsi:schemaLocation="" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:gs="http://www.gs.com/dmn"
+  gs:namespace="http://www.trisotech.com/definitions/_10435dcd-8774-4575-a338-49dd554a0928"
+>
 
-  <modelName>0089-nested-inputdata-imports.dmn</modelName>
+  <modelName>Nested Input Data Imports</modelName>
   <labels>
     <label>Compliance Level 3</label>
   </labels>
