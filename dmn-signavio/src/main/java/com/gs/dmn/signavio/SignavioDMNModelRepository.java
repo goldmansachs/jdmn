@@ -120,7 +120,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
             TDecision topLevelDecision = multiInstanceDecisionLogic.getTopLevelDecision();
             DRGElementReference<? extends TDRGElement> topLevelReference = new DRGElementReference<>(topLevelDecision);
 
-            List<DRGElementReference<TInputData>> inputDataList = allInputDatas(topLevelReference);
+            List<DRGElementReference<TInputData>> inputDataList = collectAllInputDatas(topLevelReference);
             inputDataList.removeIf(tInputDataDMNReference -> tInputDataDMNReference.getElement() == multiInstanceDecisionLogic.getIterator());
             result.addAll(inputDataList);
         }

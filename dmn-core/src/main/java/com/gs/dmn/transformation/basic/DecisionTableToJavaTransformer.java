@@ -255,7 +255,7 @@ public class DecisionTableToJavaTransformer {
     }
 
     public String ruleSignature(TDecision decision) {
-        List<DRGElementReference<? extends TDRGElement>> elementReferences = this.dmnModelRepository.sortedUniqueInputs(decision);
+        List<DRGElementReference<? extends TDRGElement>> elementReferences = this.dmnModelRepository.sortedUniqueInputs(decision, dmnTransformer.drgElementFilter);
         List<? extends TDRGElement> elements = this.dmnModelRepository.selectDRGElement(elementReferences);
 
         List<Pair<String, String>> parameters = new ArrayList<>();
@@ -269,7 +269,7 @@ public class DecisionTableToJavaTransformer {
     }
 
     public String ruleArgumentList(TDecision decision) {
-        List<DRGElementReference<? extends TDRGElement>> elementReferences = this.dmnModelRepository.sortedUniqueInputs(decision);
+        List<DRGElementReference<? extends TDRGElement>> elementReferences = this.dmnModelRepository.sortedUniqueInputs(decision, this.dmnTransformer.drgElementFilter);
         List<? extends TDRGElement> elements = this.dmnModelRepository.selectDRGElement(elementReferences);
 
         List<String> arguments = new ArrayList<>();

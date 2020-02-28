@@ -48,6 +48,14 @@ public class DRGElementReference<T extends TDRGElement> {
         return this.element.getName();
     }
 
+    public String getQualifiedName() {
+        if (this.importPath.isEmpty()) {
+            return getElementName();
+        } else {
+            return String.format("%s.%s", String.join(".", this.importPath.getPathElements()), getElementName());
+        }
+    }
+
     @Override
     public String toString() {
         return String.format("DMNReference(name='%s', import='%s')", getElementName(), this.importPath);

@@ -88,7 +88,7 @@ public class DMNModelRepositoryTest {
     @Test
     public void testAllInputDatas() {
         TDRGElement root = dmnModelRepository.findDRGElementByName("Pre-bureauAffordability");
-        List<DRGElementReference<TInputData>> references = dmnModelRepository.allInputDatas(makeRootReference(root));
+        List<DRGElementReference<TInputData>> references = dmnModelRepository.allInputDatas(makeRootReference(root), new DRGElementFilter(dmnModelRepository, true));
         dmnModelRepository.sortNamedElementReferences(references);
 
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());

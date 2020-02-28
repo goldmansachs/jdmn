@@ -56,8 +56,6 @@ public class DMNModelRepository {
     protected Map<String, TBusinessKnowledgeModel> businessKnowledgeModelByRef = new LinkedHashMap<>();
     protected Map<String, TDecisionService> decisionServiceByRef = new LinkedHashMap<>();
 
-    protected final DRGElementFilter drgElementFilter = new DRGElementFilter(this);
-
     public DMNModelRepository() {
         this(OBJECT_FACTORY.createTDefinitions(), new PrefixNamespaceMappings());
     }
@@ -204,8 +202,8 @@ public class DMNModelRepository {
 
     public String getQualifiedId(TNamedElement element) {
         String namespace = getModel(element).getNamespace();
-        String elementName = element.getId();
-        return String.format("%s#%s", namespace, elementName);
+        String id = element.getId();
+        return String.format("%s#%s", namespace, id);
     }
 
     public List<TDRGElement> drgElements() {
@@ -673,8 +671,8 @@ public class DMNModelRepository {
         return result;
     }
 
-    public List<DRGElementReference<TInputData>> allInputDatas(DRGElementReference<? extends TDRGElement> parentReference) {
-        return this.drgElementFilter.filterInputs(collectAllInputDatas(parentReference));
+    public List<DRGElementReference<TInputData>> allInputDatas(DRGElementReference<? extends TDRGElement> parentReference, DRGElementFilter drgElementFilter) {
+        return drgElementFilter.filterInputs(collectAllInputDatas(parentReference));
     }
 
     protected List<DRGElementReference<TInputData>> collectAllInputDatas(DRGElementReference<? extends TDRGElement> parentReference) {
@@ -842,7 +840,7 @@ public class DMNModelRepository {
         return null;
     }
 
-    public List<DRGElementReference<? extends TDRGElement>> sortedUniqueInputs(TDecision decision) {
+    public List<DRGElementReference<? extends TDRGElement>> sortedUniqueInputs(TDecision decision, DRGElementFilter drgElementFilter) {
         List<DRGElementReference<? extends TDRGElement>> inputs = new ArrayList<>();
         inputs.addAll(directInputDatas(decision));
         inputs.addAll(directSubDecisions(decision));
