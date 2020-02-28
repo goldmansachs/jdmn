@@ -33,16 +33,6 @@ public class DRGElementFilter {
         return elements.stream().filter(e -> seen.add(getQualifiedName(e))).collect(Collectors.toList());
     }
 
-    public List<DRGElementReference<TDecision>> filterDecisions(List<DRGElementReference<TDecision>> elements) {
-        LinkedHashSet<String> seen = new LinkedHashSet<>();
-        return elements.stream().filter(e -> seen.add(getQualifiedName(e))).collect(Collectors.toList());
-    }
-
-    public List<DRGElementReference<TInvocable>> filterInvocables(List<DRGElementReference<TInvocable>> elements) {
-        LinkedHashSet<String> seen = new LinkedHashSet<>();
-        return elements.stream().filter(e -> seen.add(getQualifiedName(e))).collect(Collectors.toList());
-    }
-
     public List<DRGElementReference<? extends TDRGElement>> filterDRGElements(List<DRGElementReference<? extends TDRGElement>> elements) {
         LinkedHashSet<String> seen = new LinkedHashSet<>();
         return elements.stream().filter(e -> seen.add(getQualifiedName(e))).collect(Collectors.toList());
