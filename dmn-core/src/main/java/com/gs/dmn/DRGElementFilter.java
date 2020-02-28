@@ -23,9 +23,15 @@ import java.util.stream.Collectors;
 
 public class DRGElementFilter {
     private final DMNModelRepository dmnModelRepository;
+    private final boolean singletonInputData;
 
     public DRGElementFilter(DMNModelRepository dmnModelRepository) {
+        this(dmnModelRepository, true);
+    }
+
+    public DRGElementFilter(DMNModelRepository dmnModelRepository, boolean singletonInputData) {
         this.dmnModelRepository = dmnModelRepository;
+        this.singletonInputData = singletonInputData;
     }
 
     public List<DRGElementReference<TInputData>> filterInputs(List<DRGElementReference<TInputData>> elements) {
@@ -38,8 +44,12 @@ public class DRGElementFilter {
         return elements.stream().filter(e -> seen.add(getQualifiedName(e))).collect(Collectors.toList());
     }
 
-    private String getQualifiedName(DRGElementReference<? extends TDRGElement> e) {
-        return dmnModelRepository.getQualifiedId(e.getElement());
+    private String getQualifiedName(DRGElementReference<? extends TDRGElement> reference) {
+        if (singletonInputData) {
+            return dmnModelRepository.getQualifiedId(reference.getElement());
+        } else {
+            return reference.getQualifiedName();
+        }
     }
 
 }

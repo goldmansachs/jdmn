@@ -13,6 +13,7 @@
 package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.DRGElementFilter;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.semantics.environment.*;
 import com.gs.dmn.feel.analysis.semantics.type.*;
@@ -77,6 +78,8 @@ public class BasicDMN2JavaTransformer {
 
     private final LazyEvaluationOptimisation lazyEvaluationOptimisation;
     private final Set<String> cachedElements;
+    private final boolean singletonInputData;
+    protected final DRGElementFilter drgElementFilter;
 
     public BasicDMN2JavaTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, FEELTypeTranslator feelTypeTranslator, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         this.dmnModelRepository = dmnModelRepository;
@@ -87,6 +90,8 @@ public class BasicDMN2JavaTransformer {
         this.onePackage = InputParamUtil.getOptionalBooleanParam(inputParameters, "onePackage", "" + onePackageDefault);
         this.caching = InputParamUtil.getOptionalBooleanParam(inputParameters, "caching");
         this.feelTranslator = new FEELTranslatorImpl(this);
+        this.singletonInputData = InputParamUtil.getOptionalBooleanParam(inputParameters, "singletonInputData", "true");
+        this.drgElementFilter = new DRGElementFilter(this.dmnModelRepository, this.singletonInputData);
 
         this.contextToJavaTransformer = new ContextToJavaTransformer(this);
         this.decisionTableToJavaTransformer = new DecisionTableToJavaTransformer(this);
@@ -806,7 +811,7 @@ public class BasicDMN2JavaTransformer {
     }
 
     public List<Pair<String, Type>> inputDataParametersClosure(DRGElementReference<TDecision> reference, boolean javaFriendlyName) {
-        List<DRGElementReference<TInputData>> allInputDataReferences = this.dmnModelRepository.allInputDatas(reference);
+        List<DRGElementReference<TInputData>> allInputDataReferences = this.dmnModelRepository.allInputDatas(reference, this.drgElementFilter);
         this.dmnModelRepository.sortNamedElementReferences(allInputDataReferences);
 
         List<Pair<String, Type>> parameters = new ArrayList<>();
