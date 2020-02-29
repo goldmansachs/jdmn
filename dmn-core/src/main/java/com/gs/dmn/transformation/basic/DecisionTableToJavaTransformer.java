@@ -255,12 +255,12 @@ public class DecisionTableToJavaTransformer {
     }
 
     public String ruleSignature(TDecision decision) {
-        List<DRGElementReference<? extends TDRGElement>> elementReferences = this.dmnModelRepository.sortedUniqueInputs(decision, dmnTransformer.drgElementFilter);
-        List<? extends TDRGElement> elements = this.dmnModelRepository.selectDRGElement(elementReferences);
+        List<DRGElementReference<? extends TDRGElement>> references = this.dmnModelRepository.sortedUniqueInputs(decision, dmnTransformer.drgElementFilter);
 
         List<Pair<String, String>> parameters = new ArrayList<>();
-        for (TDRGElement element : elements) {
-            String parameterName = ruleParameterName(element);
+        for (DRGElementReference<? extends TDRGElement> reference : references) {
+            TDRGElement element = reference.getElement();
+            String parameterName = ruleParameterName(reference);
             String parameterJavaType = dmnTransformer.lazyEvaluationType(element, dmnTransformer.parameterJavaType(element));
             parameters.add(new Pair<>(parameterName, parameterJavaType));
         }
@@ -269,12 +269,11 @@ public class DecisionTableToJavaTransformer {
     }
 
     public String ruleArgumentList(TDecision decision) {
-        List<DRGElementReference<? extends TDRGElement>> elementReferences = this.dmnModelRepository.sortedUniqueInputs(decision, this.dmnTransformer.drgElementFilter);
-        List<? extends TDRGElement> elements = this.dmnModelRepository.selectDRGElement(elementReferences);
+        List<DRGElementReference<? extends TDRGElement>> references = this.dmnModelRepository.sortedUniqueInputs(decision, this.dmnTransformer.drgElementFilter);
 
         List<String> arguments = new ArrayList<>();
-        for (TDRGElement element : elements) {
-            String argumentName = ruleArgumentName(element);
+        for (DRGElementReference<? extends TDRGElement> reference : references) {
+            String argumentName = ruleArgumentName(reference);
             arguments.add(argumentName);
         }
         String argumentList = String.join(", ", arguments);
@@ -304,6 +303,16 @@ public class DecisionTableToJavaTransformer {
         return dmnTransformer.augmentArgumentList(argumentList);
     }
 
+    private String ruleParameterName(DRGElementReference<? extends TDRGElement> reference) {
+        TDRGElement element = reference.getElement();
+        if (element instanceof TInputData) {
+            return dmnTransformer.inputDataVariableName(reference);
+        } else if (element instanceof TDecision) {
+            return dmnTransformer.drgElementVariableName(reference);
+        }
+        throw new UnsupportedOperationException(String.format("Not supported '%s'", element.getClass().getName()));
+    }
+
     private String ruleParameterName(TNamedElement element) {
         if (element instanceof TInputData) {
             return dmnTransformer.inputDataVariableName((TInputData) element);
@@ -311,6 +320,16 @@ public class DecisionTableToJavaTransformer {
             return dmnTransformer.drgElementVariableName((TDecision) element);
         } else if (element instanceof TInformationItem) {
             return dmnTransformer.parameterVariableName(((TInformationItem) element));
+        }
+        throw new UnsupportedOperationException(String.format("Not supported '%s'", element.getClass().getName()));
+    }
+
+    private String ruleArgumentName(DRGElementReference<? extends TDRGElement> reference) {
+        TDRGElement element = reference.getElement();
+        if (element instanceof TInputData) {
+            return dmnTransformer.inputDataVariableName(reference);
+        } else if (element instanceof TDecision) {
+            return dmnTransformer.drgElementVariableName(reference);
         }
         throw new UnsupportedOperationException(String.format("Not supported '%s'", element.getClass().getName()));
     }
