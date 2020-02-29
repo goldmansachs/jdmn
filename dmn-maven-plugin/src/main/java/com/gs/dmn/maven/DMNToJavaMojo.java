@@ -103,8 +103,13 @@ public class DMNToJavaMojo extends AbstractDMNMojo {
 
     private void validateParameters(DMNDialectDefinition dmnDialect, DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, Map<String, String> inputParameters) {
         boolean onePackage = InputParamUtil.getOptionalBooleanParam(inputParameters, "onePackage");
+        String singletonInputData = InputParamUtil.getOptionalParam(inputParameters, "singletonInputData");
+        String caching = InputParamUtil.getOptionalParam(inputParameters, "caching");
         if (onePackage) {
-            this.getLog().warn(String.format("Use 'onePackage' carefully, names must be uniques across all the DMs.", this.inputFileDirectory, this.outputFileDirectory));
+            this.getLog().warn("Use 'onePackage' carefully, names must be uniques across all the DMs.");
+        }
+        if ("false".equals(singletonInputData) && "true".equals(caching)) {
+            this.getLog().error(String.format("Incompatible 'singletonInputData=%s' and 'caching=%s'", singletonInputData, caching));
         }
     }
 }

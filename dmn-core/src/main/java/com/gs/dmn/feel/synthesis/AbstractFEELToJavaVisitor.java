@@ -81,7 +81,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
             ImportContextType importContextType = (ImportContextType) sourceType;
             String importName = importContextType.getImportName();
             String modelName = ImportPath.isEmpty(importName) ? "" : importContextType.getModelName();
-            return this.dmnTransformer.drgReferenceQualifiedName(modelName, memberName);
+            return this.dmnTransformer.drgReferenceQualifiedName(modelName, new ImportPath(importName), memberName);
         } else if (sourceType instanceof ContextType) {
             Type memberType = ((ContextType) sourceType).getMemberType(memberName);
             String javaType = dmnTransformer.toJavaType(memberType);

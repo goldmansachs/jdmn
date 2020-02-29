@@ -162,7 +162,12 @@ public class DMNModelRepository {
     }
 
     public TDefinitions getRootDefinitions() {
-        return this.allDefinitions.get(0);
+        int size = this.getAllDefinitions().size();
+        if (size == 1) {
+            return this.allDefinitions.get(0);
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot resolve root DM, there are '%d' DMs", size));
+        }
     }
 
     public List<TDefinitions> getAllDefinitions() {

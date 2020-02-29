@@ -125,6 +125,14 @@ public class BasicDMN2JavaTransformer {
         return feelType instanceof ListType;
     }
 
+    public boolean isOnePackage() {
+        return onePackage;
+    }
+
+    public boolean isSingletonInputData() {
+        return singletonInputData;
+    }
+
     //
     // TItemDefinition related functions
     //
@@ -569,7 +577,7 @@ public class BasicDMN2JavaTransformer {
             throw new DMNRuntimeException(String.format("Variable name cannot be null. InputData id '%s'", inputData.getId()));
         }
         String modelName = this.dmnModelRepository.getModelName(inputData);
-        return drgReferenceQualifiedName(modelName, name);
+        return drgReferenceQualifiedName(modelName, new ImportPath(), name);
     }
 
     public Type toFEELType(TInputData inputData) {
@@ -826,23 +834,32 @@ public class BasicDMN2JavaTransformer {
     private String drgReferenceQualifiedName(DRGElementReference<? extends TDRGElement> reference) {
         TDRGElement element = reference.getElement();
         String modelName = this.dmnModelRepository.getModel(element).getName();
-        if (reference.getImportPath().isEmpty()) {
-            modelName = "";
-        }
         String elementName = reference.getElementName();
-        return drgReferenceQualifiedName(modelName, elementName);
+        return drgReferenceQualifiedName(modelName, reference.getImportPath(), elementName);
     }
 
-    public String drgReferenceQualifiedName(String modelName, String elementName) {
-        String javaModelName =  javaModelName(modelName);
+    public String drgReferenceQualifiedName(String modelName, ImportPath importPath, String elementName) {
         if (this.onePackage) {
-            javaModelName = "";
-        }
-        String javaElementName = lowerCaseFirst(elementName);
-        if (StringUtils.isBlank(javaModelName)) {
-            return javaElementName;
+            return lowerCaseFirst(elementName);
+        } else if (this.singletonInputData) {
+            if (importPath.isEmpty()) {
+                modelName = "";
+            }
+            String javaModelName =  javaModelName(modelName);
+            String javaElementName = lowerCaseFirst(elementName);
+            if (StringUtils.isBlank(javaModelName)) {
+                return javaElementName;
+            } else {
+                return String.format("%s_%s", javaModelName, javaElementName);
+            }
         } else {
-            return String.format("%s_%s", javaModelName, javaElementName);
+            String prefix = importPath.getPathElements().stream().map(this::javaModelName).collect(Collectors.joining("_"));
+            String javaElementName = lowerCaseFirst(elementName);
+            if (StringUtils.isBlank(prefix)) {
+                return javaElementName;
+            } else {
+                return String.format("%s_%s", prefix, javaElementName);
+            }
         }
     }
 

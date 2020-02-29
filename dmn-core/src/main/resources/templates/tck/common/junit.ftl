@@ -59,7 +59,11 @@ public class ${testClassName} extends ${decisionBaseClass} {
         <#items as result>
         // Check ${result.name}
         <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
+        <#if tckUtil.isCaching()>
         checkValues(${tckUtil.toJavaExpression(resultInfo)}, new ${tckUtil.qualifiedName(resultInfo)}().apply(${tckUtil.drgElementArgumentsExtraCache(tckUtil.drgElementArgumentsExtra(tckUtil.drgElementArgumentList(resultInfo)))}));
+        <#else>
+        checkValues(${tckUtil.toJavaExpression(resultInfo)}, new ${tckUtil.qualifiedName(resultInfo)}().apply(${tckUtil.drgElementArgumentsExtra(tckUtil.drgElementArgumentList(resultInfo))}));
+        </#if>
         </#items>
     </#list>
 </#macro>
