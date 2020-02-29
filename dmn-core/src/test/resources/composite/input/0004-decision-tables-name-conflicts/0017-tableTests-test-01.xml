@@ -4,24 +4,10 @@
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.omg.org/spec/DMN/20160719/testcase ../../testCases.xsd"
 		xmlns:gs="http://www.gs.com/dmn"
-		xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+		namespace="http://www.provider.com/definitions/decisions"
+>
 	<modelName>decisionTables</modelName>
-	<labels>
-		<label>Compliance Level 3</label>
-		<label>Literal Expression</label>
-		<label>Item Definition</label>
-		<label>Decision Table: Single Output</label>
-		<label>Hit Policy: UNIQUE</label>
-		<label>Hit Policy: PRIORITY</label>
-		<label>FEEL Arithmetic</label>
-		<label>FEEL Functions: date and time</label>
-		<label>Data Type: String</label>
-		<label>Data Type: Number</label>
-		<label>Data Type: Boolean</label>
-		<label>Data Type: Structure</label>
-		<label>Data Type: Collection</label>
-		<label>Data Type: Date</label>
-	</labels>
 	<testCase id="001">
 		<inputNode name="structA">
 			<component name="name">
@@ -59,7 +45,7 @@
 		</resultNode>
 	</testCase>
 	<testCase id="003">
-		<inputNode name="dateD" gs:namespace="http://www.provider.com/definitions/decision-inputs-1">
+		<inputNode name="dateD" namespace="http://www.provider.com/definitions/decision-inputs-1">
 			<value xsi:type="xsd:date">2016-11-01</value>
 		</inputNode>
 		<resultNode name="dateCompare1" type="decision">
@@ -69,10 +55,10 @@
 		</resultNode>
 	</testCase>
 	<testCase id="004">
-		<inputNode name="dateD" gs:namespace="http://www.provider.com/definitions/decision-inputs-1">
+		<inputNode name="dateD" namespace="http://www.provider.com/definitions/decision-inputs-1">
 			<value xsi:type="xsd:date">2016-11-01</value>
 		</inputNode>
-		<inputNode name="dateD" gs:namespace="http://www.provider.com/definitions/decision-inputs-2">
+		<inputNode name="dateD" namespace="http://www.provider.com/definitions/decision-inputs-2">
 			<value xsi:type="xsd:date">2016-11-02</value>
 		</inputNode>
 		<resultNode name="dateCompare2" type="decision">

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <definitions
 		xmlns="http://www.omg.org/spec/DMN/20180521/MODEL/"
-		namespace="http://www.trisotech.com/definitions/decisions"
+		namespace="http://www.provider.com/definitions/decisions"
 		name="decisionTables">
 
 	<import namespace="http://www.provider.com/definitions/decision-inputs"

@@ -6,7 +6,7 @@
         xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/"
         xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/"
         id="_10435dcd-8774-4575-a338-49dd554a0928" name="Model C"
-        namespace="http://www.provider.com/definitions/main">
+        namespace="http://www.provider.com/definitions/model-c">
 
     <import namespace="http://www.provider.com/definitions/model-b1"
                      name="modelB1"
