@@ -1,22 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.omg.org/spec/DMN/20160719/testcase ../../testCases.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<testCases
+		xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.omg.org/spec/DMN/20160719/testcase ../../testCases.xsd"
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+		namespace="http://www.provider.com/definitions/decisions"
+>
 	<modelName>decisionTables</modelName>
-	<labels>
-		<label>Compliance Level 3</label>
-		<label>Literal Expression</label>
-		<label>Item Definition</label>
-		<label>Decision Table: Single Output</label>
-		<label>Hit Policy: UNIQUE</label>
-		<label>Hit Policy: PRIORITY</label>
-		<label>FEEL Arithmetic</label>
-		<label>FEEL Functions: date and time</label>
-		<label>Data Type: String</label>
-		<label>Data Type: Number</label>
-		<label>Data Type: Boolean</label>
-		<label>Data Type: Structure</label>
-		<label>Data Type: Collection</label>
-		<label>Data Type: Date</label>
-	</labels>
 	<testCase id="001">
 		<inputNode name="structA">
 			<component name="name">
