@@ -106,7 +106,7 @@ public class DMNToJavaMojo extends AbstractDMNMojo {
         String singletonInputData = InputParamUtil.getOptionalParam(inputParameters, "singletonInputData");
         String caching = InputParamUtil.getOptionalParam(inputParameters, "caching");
         if (onePackage) {
-            this.getLog().warn("Use 'onePackage' carefully, names must be uniques across all the DMs.");
+            this.getLog().warn("Use 'onePackage' carefully, names must be unique across all the DMs.");
         }
         if ("false".equals(singletonInputData) && "true".equals(caching)) {
             this.getLog().error(String.format("Incompatible 'singletonInputData=%s' and 'caching=%s'", singletonInputData, caching));
