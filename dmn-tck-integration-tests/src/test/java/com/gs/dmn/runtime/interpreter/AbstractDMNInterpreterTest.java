@@ -37,6 +37,8 @@ import org.omg.spec.dmn._20180521.model.TDefinitions;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,56 +61,100 @@ public abstract class AbstractDMNInterpreterTest {
     private FEELLib lib;
 
     protected void doSingleModelTest(String dmnFileName, String... testSuffixes) {
-        this.doMultipleModelsTest(Arrays.asList(dmnFileName), testSuffixes);
+        doMultipleModelsTest(Arrays.asList(dmnFileName), testSuffixes);
     }
 
     protected void doMultipleModelsTest(List<String> dmnFileNames, String... testSuffixes) {
-        String errorMessage = String.format("Tested failed for diagram '%s'", dmnFileNames);
+        String errorMessage = String.format("Tested failed for DM '%s'", dmnFileNames);
         try {
             // Read DMN files
             List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = readModels(dmnFileNames);
             DMNModelRepository repository = new DMNModelRepository(pairs);
 
-            // Transform definitions
+            // Read TestCases filers
+            Pair<List<String>, List<TestCases>> pair = findTestCases(dmnFileNames, testSuffixes);
+
+            // Transform definitions and test cases
             dmnTransformer = new ToSimpleNameTransformer(LOGGER);
-            repository = dmnTransformer.transform(repository);
+            dmnTransformer.transform(repository, pair.getRight());
 
             // Set-up execution
             this.interpreter = getDialectDefinition().createDMNInterpreter(repository);
             this.basicTransformer = interpreter.getBasicDMNTransformer();
             this.lib = interpreter.getFeelLib();
 
-            // Check test files
-            for (String dmnFileName: dmnFileNames) {
-                if (testSuffixes == null || testSuffixes.length == 0) {
-                    URL inputPathURL = getClass().getClassLoader().getResource(getTestCasesInputPath()).toURI().toURL();
-                    File inputPathFolder = new File(inputPathURL.getFile());
-                    List<String> testFileNames = new ArrayList<>();
-                    List<TestCases> testCasesList = new ArrayList<>();
-                    for (File child : inputPathFolder.listFiles()) {
-                        if (isTCKFile(child) && child.getName().startsWith(dmnFileName)) {
-                            TestCases testCases = testCasesReader.read(child);
-                            testFileNames.add(child.getName());
-                            testCasesList.add(testCases);
-                        }
-                    }
-                    doTest(testFileNames, testCasesList, interpreter, repository);
-                } else {
-                    List<String> testFileNames = new ArrayList<>();
-                    List<TestCases> testCasesList = new ArrayList<>();
-                    for (String testSuffix : testSuffixes) {
-                        String testPathName = getTestCasesInputPath() + "/" + dmnFileName + testSuffix + DEFAULT_TEST_CASE_FILE_EXTENSION;
-                        URL testURL = getClass().getClassLoader().getResource(testPathName).toURI().toURL();
-                        TestCases testCases = testCasesReader.read(testURL);
-                        testCasesList.add(testCases);
-                        testFileNames.add(new File(testURL.getFile()).getName());
-                    }
-                    doTest(testFileNames, testCasesList, interpreter, repository);
-                }
-            }
+            // Execute tests
+            doTest(pair.getLeft(), pair.getRight(), interpreter, repository);
         } catch (Exception e) {
             throw new DMNRuntimeException(errorMessage, e);
         }
+    }
+
+    protected void doMultipleModelsTest(String dmnFolderName, String testFolderName, String... testSuffixes) {
+        String errorMessage = String.format("Tested failed for diagram '%s'", dmnFolderName);
+        try {
+            // Read DMN files
+            File dmnInputFile = new File(resource(this.getDMNInputPath() + "/" + dmnFolderName));
+            DMNModelRepository repository = new DMNModelRepository(this.reader.readModels(dmnInputFile));
+
+            // Read TestCases filers
+            File testCasesInputFile = new File(resource(this.getTestCasesInputPath() + "/" + dmnFolderName));
+            Pair<List<String>, List<TestCases>> pair = findTestCasesInFolder(testCasesInputFile);
+
+            // Transform definitions and test cases
+            dmnTransformer = new ToSimpleNameTransformer(LOGGER);
+            dmnTransformer.transform(repository, pair.getRight());
+
+            // Set-up execution
+            this.interpreter = getDialectDefinition().createDMNInterpreter(repository);
+            this.basicTransformer = interpreter.getBasicDMNTransformer();
+            this.lib = interpreter.getFeelLib();
+
+            // Execute tests
+            doTest(pair.getLeft(), pair.getRight(), interpreter, repository);
+        } catch (Exception e) {
+            throw new DMNRuntimeException(errorMessage, e);
+        }
+    }
+
+    private Pair<List<String>, List<TestCases>> findTestCasesInFolder(File testCasesInputFile) {
+        List<String> testFileNames = new ArrayList<>();
+        List<TestCases> testCasesList = new ArrayList<>();
+        for (File child: testCasesInputFile.listFiles()) {
+            if (isTCKFile(child)) {
+                TestCases testCases = testCasesReader.read(child);
+                testFileNames.add(child.getName());
+                testCasesList.add(testCases);
+            }
+        }
+        return new Pair<>(testFileNames, testCasesList);
+    }
+
+    private Pair<List<String>, List<TestCases>> findTestCases(List<String> dmnFileNames, String... testSuffixes) throws Exception {
+        List<String> testFileNames = new ArrayList<>();
+        List<TestCases> testCasesList = new ArrayList<>();
+        for (String dmnFileName: dmnFileNames) {
+            if (testSuffixes == null || testSuffixes.length == 0) {
+                URL testInputPathURL = getClass().getClassLoader().getResource(getTestCasesInputPath()).toURI().toURL();
+                File testInputPathFolder = new File(testInputPathURL.getFile());
+                for (File child : testInputPathFolder.listFiles()) {
+                    if (isTCKFile(child) && child.getName().startsWith(dmnFileName)) {
+                        TestCases testCases = testCasesReader.read(child);
+                        testFileNames.add(child.getName());
+                        testCasesList.add(testCases);
+                    }
+                }
+            } else {
+                for (String testSuffix : testSuffixes) {
+                    String testPathName = getTestCasesInputPath() + "/" + dmnFileName + testSuffix + DEFAULT_TEST_CASE_FILE_EXTENSION;
+                    URL testURL = getClass().getClassLoader().getResource(testPathName).toURI().toURL();
+                    TestCases testCases = testCasesReader.read(testURL);
+                    testCasesList.add(testCases);
+                    testFileNames.add(new File(testURL.getFile()).getName());
+                }
+            }
+        }
+        return new Pair<>(testFileNames, testCasesList);
     }
 
     protected void doTest(List<String> testCaseFileNameList, List<TestCases> testCasesList, DMNInterpreter interpreter, DMNModelRepository repository) {
@@ -149,20 +195,31 @@ public abstract class AbstractDMNInterpreterTest {
         }
     }
 
+    private List<Pair<TDefinitions, PrefixNamespaceMappings>> readModels(List<String> dmnFileNames) throws Exception {
+        List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = new ArrayList<>();
+        for (String dmnFileName: dmnFileNames) {
+            URI dmnFileURI = resource(getDMNInputPath() + "/" + dmnFileName + DMNConstants.DMN_FILE_EXTENSION);
+            Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(dmnFileURI.toURL());
+            pairs.add(pair);
+        }
+        return pairs;
+    }
+
+    protected URI resource(String path) {
+        try {
+            URL url = this.getClass().getClassLoader().getResource(path);
+            if (url == null) {
+                throw new DMNRuntimeException(String.format("Cannot find resource '%s'", path));
+            }
+            return url.toURI();
+        } catch (URISyntaxException e) {
+            throw new DMNRuntimeException(e);
+        }
+    }
+
     protected abstract DMNDialectDefinition getDialectDefinition();
 
     protected abstract String getDMNInputPath();
 
     protected abstract String getTestCasesInputPath();
-
-    private List<Pair<TDefinitions, PrefixNamespaceMappings>> readModels(List<String> dmnFileNames) throws Exception {
-        List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = new ArrayList<>();
-        for (String dmnFileName: dmnFileNames) {
-            String dmnPathName = getDMNInputPath() + "/" + dmnFileName + DMNConstants.DMN_FILE_EXTENSION;
-            URL dmnFileURL = getClass().getClassLoader().getResource(dmnPathName).toURI().toURL();
-            Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(dmnFileURL);
-            pairs.add(pair);
-        }
-        return pairs;
-    }
 }
