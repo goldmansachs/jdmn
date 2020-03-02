@@ -58,11 +58,11 @@ public abstract class AbstractDMNInterpreterTest {
     private BasicDMN2JavaTransformer basicTransformer;
     private FEELLib lib;
 
-    protected void doTestDiagram(String dmnFileName, String... testSuffixes) {
-        this.doTestDiagram(Arrays.asList(dmnFileName), testSuffixes);
+    protected void doSingleModelTest(String dmnFileName, String... testSuffixes) {
+        this.doMultipleModelsTest(Arrays.asList(dmnFileName), testSuffixes);
     }
 
-    protected void doTestDiagram(List<String> dmnFileNames, String... testSuffixes) {
+    protected void doMultipleModelsTest(List<String> dmnFileNames, String... testSuffixes) {
         String errorMessage = String.format("Tested failed for diagram '%s'", dmnFileNames);
         try {
             // Read DMN files
