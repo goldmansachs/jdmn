@@ -33,14 +33,14 @@ public interface DMNDialectDefinition {
     //
     // FEEL Processors
     //
-    FEELInterpreter createFEELInterpreter(DMNModelRepository repository);
+    FEELInterpreter createFEELInterpreter(DMNModelRepository repository, Map<String, String> inputParameters);
 
     FEELTranslator createFEELTranslator(DMNModelRepository repository, Map<String, String> inputParameters);
 
     //
     // DMN Processors
     //
-    DMNInterpreter createDMNInterpreter(DMNModelRepository repository);
+    DMNInterpreter createDMNInterpreter(DMNModelRepository repository, Map<String, String> inputParameters);
 
     DMNToJavaTransformer createDMNToJavaTransformer(DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger);
 

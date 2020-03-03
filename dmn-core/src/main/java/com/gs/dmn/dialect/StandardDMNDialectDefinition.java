@@ -32,7 +32,6 @@ import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class StandardDMNDialectDefinition extends AbstractDMNDialectDefinition {
@@ -40,8 +39,8 @@ public class StandardDMNDialectDefinition extends AbstractDMNDialectDefinition {
     // DMN Processors
     //
     @Override
-    public DMNInterpreter createDMNInterpreter(DMNModelRepository repository) {
-        return new StandardDMNInterpreter(createBasicTransformer(repository, new NopLazyEvaluationDetector(), new LinkedHashMap<>()), createFEELLib());
+    public DMNInterpreter createDMNInterpreter(DMNModelRepository repository, Map<String, String> inputParameters) {
+        return new StandardDMNInterpreter(createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters), createFEELLib());
     }
 
     @Override

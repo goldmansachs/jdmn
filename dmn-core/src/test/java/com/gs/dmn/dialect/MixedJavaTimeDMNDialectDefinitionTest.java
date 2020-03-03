@@ -40,7 +40,7 @@ public class MixedJavaTimeDMNDialectDefinitionTest {
 
     @Test
     public void testCreateDMNInterpreter() {
-        DMNInterpreter dmnInterpreter = dialect.createDMNInterpreter(REPOSITORY);
+        DMNInterpreter dmnInterpreter = dialect.createDMNInterpreter(REPOSITORY, new LinkedHashMap<>());
         assertEquals(StandardDMNInterpreter.class.getName(), dmnInterpreter.getClass().getName());
     }
 

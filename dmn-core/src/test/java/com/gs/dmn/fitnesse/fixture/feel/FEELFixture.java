@@ -16,10 +16,12 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.interpreter.FEELInterpreter;
 import com.gs.dmn.fitnesse.fixture.AbstractFixture;
 
+import java.util.LinkedHashMap;
+
 public class FEELFixture extends AbstractFixture {
     protected final FEELInterpreter feelInterpreter;
 
     public FEELFixture() {
-        this.feelInterpreter = this.dialectDefinition.createFEELInterpreter(new DMNModelRepository());
+        this.feelInterpreter = this.dialectDefinition.createFEELInterpreter(new DMNModelRepository(), new LinkedHashMap<>());
     }
 }

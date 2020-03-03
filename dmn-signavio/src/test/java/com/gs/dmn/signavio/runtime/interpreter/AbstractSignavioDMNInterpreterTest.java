@@ -32,6 +32,7 @@ import org.omg.spec.dmn._20180521.model.TDefinitions;
 import org.slf4j.LoggerFactory;
 
 import java.net.URL;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -53,7 +54,7 @@ public abstract class AbstractSignavioDMNInterpreterTest {
             URL url = getClass().getClassLoader().getResource(pathName).toURI().toURL();
             Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(url);
             DMNModelRepository repository = new SignavioDMNModelRepository(pair, "http://www.provider.com/schema/dmn/1.1/");
-            DMNInterpreter interpreter = dialectDefinition.createDMNInterpreter(repository);
+            DMNInterpreter interpreter = dialectDefinition.createDMNInterpreter(repository, new LinkedHashMap<>());
 
             TDRGElement decision = repository.findDRGElementByName(decisionName);
             Result actualResult = interpreter.evaluate(null, decision, null, runtimeEnvironment);

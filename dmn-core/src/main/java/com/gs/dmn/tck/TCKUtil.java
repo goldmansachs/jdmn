@@ -44,7 +44,6 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
-import javax.xml.namespace.QName;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -308,7 +307,9 @@ public class TCKUtil {
     public Result evaluate(DMNInterpreter interpreter, TestCases testCases, TestCase testCase, ResultNode resultNode) {
         TDRGElement drgElement = findDRGElement(testCases, testCase, resultNode);
         ImportPath importPath = null;
-        return interpreter.evaluate(importPath, drgElement, makeArgs(drgElement, testCase), makeEnvironment(testCases, testCase));
+        RuntimeEnvironment runtimeEnvironment = makeEnvironment(testCases, testCase);
+        List<Object> args = makeArgs(drgElement, testCase);
+        return interpreter.evaluate(importPath, drgElement, args, runtimeEnvironment);
     }
 
     public Object expectedValue(TestCases testCases, TestCase testCase, ResultNode resultNode) {

@@ -444,13 +444,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
 
     private void addBinding(RuntimeEnvironment runtimeEnvironment, ImportPath importPath, String importName, String name) {
         if (!ImportPath.isEmpty(importPath)) {
-            List<String> pathElements = importPath.getPathElements();
-            String rootName = pathElements.get(0);
-            Object value = runtimeEnvironment.lookupBinding(rootName);
-            for (int i = 1; i < pathElements.size(); i++) {
-                value = ((Context) value).get(pathElements.get(i));
-            }
-            value = ((Context) value).get(name);
+            Object value = lookupBinding(runtimeEnvironment, importPath, name);
             if (ImportPath.isEmpty(importName)) {
                 runtimeEnvironment.bind(name, value);
             } else {
