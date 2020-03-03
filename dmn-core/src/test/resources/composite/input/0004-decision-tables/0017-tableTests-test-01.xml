@@ -8,7 +8,7 @@
 >
 	<modelName>decisionTables</modelName>
 	<testCase id="001">
-		<inputNode name="structA">
+		<inputNode name="structA" namespace="http://www.provider.com/definitions/decision-inputs">
 			<component name="name">
 				<value xsi:type="xsd:string">widget</value>
 			</component>
@@ -23,7 +23,7 @@
 		</resultNode>
 	</testCase>
 	<testCase id="002">
-		<inputNode name="structA">
+		<inputNode name="structA" namespace="http://www.provider.com/definitions/decision-inputs">
 			<component name="name">
 				<value xsi:type="xsd:string">widget</value>
 			</component>
@@ -31,10 +31,10 @@
 				<value xsi:type="xsd:decimal">20</value>
 			</component>
 		</inputNode>
-		<inputNode name="numB">
+		<inputNode name="numB" namespace="http://www.provider.com/definitions/decision-inputs">
 			<value xsi:type="xsd:decimal">9</value>
 		</inputNode>
-		<inputNode name="numC">
+		<inputNode name="numC" namespace="http://www.provider.com/definitions/decision-inputs">
 			<value xsi:type="xsd:decimal">10</value>
 		</inputNode>
 		<resultNode name="priceInRange" type="decision">
@@ -44,7 +44,7 @@
 		</resultNode>
 	</testCase>
 	<testCase id="003">
-		<inputNode name="dateD">
+		<inputNode name="dateD" namespace="http://www.provider.com/definitions/decision-inputs">
 			<value xsi:type="xsd:date">2016-11-01</value>
 		</inputNode>
 		<resultNode name="dateCompare1" type="decision">
@@ -54,10 +54,10 @@
 		</resultNode>
 	</testCase>
 	<testCase id="004">
-		<inputNode name="dateD">
+		<inputNode name="dateD" namespace="http://www.provider.com/definitions/decision-inputs">
 			<value xsi:type="xsd:date">2016-11-01</value>
 		</inputNode>
-		<inputNode name="dateE">
+		<inputNode name="dateE" namespace="http://www.provider.com/definitions/decision-inputs">
 			<value xsi:type="xsd:date">2016-11-02</value>
 		</inputNode>
 		<resultNode name="dateCompare2" type="decision">
