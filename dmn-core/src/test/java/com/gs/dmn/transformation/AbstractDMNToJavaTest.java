@@ -85,7 +85,7 @@ public abstract class AbstractDMNToJavaTest extends AbstractTransformerTest {
 
     @Override
     protected Map<String, String> makeInputParameters() {
-        Map<String, String> inputParams = new LinkedHashMap<String, String>();
+        Map<String, String> inputParams = new LinkedHashMap<>();
         inputParams.put("dmnVersion", "1.1");
         inputParams.put("modelVersion", "2.0");
         inputParams.put("platformVersion", "1.0");

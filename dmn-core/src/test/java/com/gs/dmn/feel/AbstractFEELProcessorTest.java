@@ -37,6 +37,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
@@ -49,7 +50,7 @@ public abstract class AbstractFEELProcessorTest {
 
     private final RuntimeEnvironmentFactory runtimeEnvironmentFactory = RuntimeEnvironmentFactory.instance();
 
-    protected final DMNInterpreter dmnInterpreter = dialectDefinition.createDMNInterpreter(new DMNModelRepository());
+    protected final DMNInterpreter dmnInterpreter = dialectDefinition.createDMNInterpreter(new DMNModelRepository(), new LinkedHashMap<>());
     protected final BasicDMN2JavaTransformer dmnTransformer = dmnInterpreter.getBasicDMNTransformer();
     protected final EnvironmentFactory environmentFactory = dmnTransformer.getEnvironmentFactory();
     protected final StandardFEELLib lib = (StandardFEELLib) dmnInterpreter.getFeelLib();

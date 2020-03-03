@@ -73,15 +73,15 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
     }
 
     protected String makeNavigation(Expression element, Type sourceType, String source, String memberName, String memberVariableName) {
-        if (sourceType instanceof ItemDefinitionType) {
-            Type memberType = ((ItemDefinitionType) sourceType).getMemberType(memberName);
-            String javaType = dmnTransformer.toJavaType(memberType);
-            return makeSafeAccessor(javaType, source, dmnTransformer.getter(memberName));
-        } else if (sourceType instanceof ImportContextType) {
+        if (sourceType instanceof ImportContextType) {
             ImportContextType importContextType = (ImportContextType) sourceType;
             String importName = importContextType.getImportName();
             String modelName = ImportPath.isEmpty(importName) ? "" : importContextType.getModelName();
             return this.dmnTransformer.drgReferenceQualifiedName(modelName, new ImportPath(importName), memberName);
+        } else if (sourceType instanceof ItemDefinitionType) {
+            Type memberType = ((ItemDefinitionType) sourceType).getMemberType(memberName);
+            String javaType = dmnTransformer.toJavaType(memberType);
+            return makeSafeAccessor(javaType, source, dmnTransformer.getter(memberName));
         } else if (sourceType instanceof ContextType) {
             Type memberType = ((ContextType) sourceType).getMemberType(memberName);
             String javaType = dmnTransformer.toJavaType(memberType);

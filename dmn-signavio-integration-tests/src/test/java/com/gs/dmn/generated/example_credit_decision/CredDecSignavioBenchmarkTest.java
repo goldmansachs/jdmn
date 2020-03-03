@@ -34,6 +34,7 @@ import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -89,7 +90,7 @@ public class CredDecSignavioBenchmarkTest {
 
         String pathName = "exported/dmn/complex/Example credit decision.dmn";
         DMNModelRepository repository = readDMN(pathName);
-        DMNInterpreter interpreter = dialectDefinition.createDMNInterpreter(repository);
+        DMNInterpreter interpreter = dialectDefinition.createDMNInterpreter(repository, new LinkedHashMap<>());
 
         RuntimeEnvironment runtimeEnvironment = RuntimeEnvironmentFactory.instance().makeEnvironment();
         runtimeEnvironment.bind("applicant", applicant);

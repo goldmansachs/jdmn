@@ -29,6 +29,7 @@ import org.junit.Test;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
 
 import java.math.BigDecimal;
+import java.util.LinkedHashMap;
 
 import static org.junit.Assert.assertEquals;
 
@@ -66,7 +67,7 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
         String pathName = "tck/cl3/0020-vacation-days.dmn";
         DMNModelRepository repository = readDMN(pathName);
         nameTransformer.transform(repository);
-        DMNInterpreter interpreter = this.dialectDefinition.createDMNInterpreter(repository);
+        DMNInterpreter interpreter = this.dialectDefinition.createDMNInterpreter(repository, new LinkedHashMap<>());
 
         RuntimeEnvironment runtimeEnvironment = RuntimeEnvironmentFactory.instance().makeEnvironment();
         runtimeEnvironment.bind("Age", lib.number(i1));
@@ -83,7 +84,7 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
     @Override
     protected void applyDecision() {
         AnnotationSet annotationSet = new AnnotationSet();
-        decision.apply((String) null, (String) null, annotationSet);
+        decision.apply((String) null, null, annotationSet);
     }
 
 }
