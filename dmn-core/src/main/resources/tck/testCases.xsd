@@ -59,6 +59,7 @@
 						<xs:attribute name="type" type="testCaseType" default="decision"/>
 						<xs:attribute name="invocableName" type="xs:string"/> <!-- if type==decisionService, this attribute will point at which DS to invoke. -->
 						<xs:attribute name="name" type="xs:string"/>
+						<xs:attribute name="namespace" type="xs:string" use="optional"/>
 						<xs:anyAttribute namespace="##other" processContents="lax"/>
 					</xs:complexType>
 				</xs:element>
