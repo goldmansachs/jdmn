@@ -165,12 +165,12 @@ public abstract class AbstractDMNInterpreterTest {
             String testCaseFileName = testCaseFileNameList.get(i);
             TestCases testCases = actualTestCasesList.get(i);
             for (TestCase testCase : testCases.getTestCase()) {
-                doTest(testCaseFileName, testCase, interpreter);
+                doTest(testCaseFileName, testCases, testCase, interpreter);
             }
         }
     }
 
-    private void doTest(String testCaseFileName, TestCase testCase, DMNInterpreter interpreter) {
+    private void doTest(String testCaseFileName, TestCases testCases, TestCase testCase, DMNInterpreter interpreter) {
         TCKUtil tckUtil = new TCKUtil(basicTransformer, (StandardFEELLib) lib);
 
         List<ResultNode> resultNode = testCase.getResultNode();
@@ -180,8 +180,8 @@ public abstract class AbstractDMNInterpreterTest {
             Object actualValue = null;
             String message = String.format("Unexpected result in test case in file '%s' test case '%s' for result node '%s'", testCaseFileName, testCase.getId(), res.getName());
             try {
-                expectedValue = tckUtil.expectedValue(testCase, res);
-                actualResult = tckUtil.evaluate(interpreter, testCase, res);
+                expectedValue = tckUtil.expectedValue(testCases, testCase, res);
+                actualResult = tckUtil.evaluate(interpreter, testCases, testCase, res);
                 actualValue = Result.value(actualResult);
             } catch (Exception e) {
                 LOGGER.error(ExceptionUtils.getStackTrace(e));

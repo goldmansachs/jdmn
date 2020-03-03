@@ -3,7 +3,7 @@
   xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-  namespace="http://www.provider.com/definitions/model-b1"
+  namespace="http://www.provider.com/definitions/model-c"
 >
 
   <modelName>Model C</modelName>

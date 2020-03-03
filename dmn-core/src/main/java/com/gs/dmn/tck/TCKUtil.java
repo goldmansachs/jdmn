@@ -74,7 +74,7 @@ public class TCKUtil {
             Pair<DRGElementReference<? extends TDRGElement>, ValueType> pair = extractReferenceAndValue(definitions, inputNode);
             return new InputNodeInfo(testCases.getModelName(), inputNode.getName(), pair.getLeft(), pair.getRight());
         } else {
-            TDRGElement element = findDRGElement(inputNode);
+            TDRGElement element = findDRGElement(testCases, testCase, inputNode);
             if (element == null) {
                 throw new DMNRuntimeException(String.format("Cannot find DRG element for InputNode '%s'", inputNode.getName()));
             }
@@ -141,27 +141,6 @@ public class TCKUtil {
         return new Pair(new DRGElementReference<>(element, path), value);
     }
 
-    private TDefinitions getRootModel(TestCases testCases) {
-        TDefinitions definitions;
-        if (this.dmnModelRepository.getAllDefinitions().size() == 1) {
-            // One single DM
-            definitions = this.dmnModelRepository.getRootDefinitions();
-        } else {
-            // Find DM by namespace
-            String namespace = getNamespace(testCases);
-            if (!StringUtils.isEmpty(namespace)) {
-                definitions = this.dmnModelRepository.getModel(namespace);
-            } else {
-                throw new DMNRuntimeException(String.format("Missing namespace for TestCases '%s'", testCases.getModelName()));
-            }
-        }
-        if (definitions == null) {
-            throw new DMNRuntimeException(String.format("Cannot find root DM for TestCases '%s'", testCases.getModelName()));
-        } else {
-            return definitions;
-        }
-    }
-
     private TImport getImport(TDefinitions definitions, String name) {
         for (TImport imp: definitions.getImport()) {
             if (imp.getName().equals(name)) {
@@ -192,28 +171,6 @@ public class TCKUtil {
         return toJavaExpression(info.getValue(), inputType);
     }
 
-    private TDRGElement findDRGElement(InputNode node) {
-        try {
-            String namespace = getNamespace(node);
-            String name = node.getName();
-            if (namespace != null) {
-                return this.dmnModelRepository.findDRGElementByName(namespace, name);
-            } else {
-                return this.dmnModelRepository.findDRGElementByName(name);
-            }
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    private String getNamespace(TestCases testCases) {
-        return testCases.getNamespace();
-    }
-
-    private String getNamespace(InputNode node) {
-        return node.getNamespace();
-    }
-
     private Type toFEELType(InputNodeInfo info) {
         try {
             QualifiedName typeRef = getTypeRef(info);
@@ -241,7 +198,7 @@ public class TCKUtil {
     // Translator - Result nodes
     //
     public ResultNodeInfo extractResultNodeInfo(TestCases testCases, TestCase testCase, ResultNode resultNode) {
-        TDRGElement element = findDRGElement(resultNode);
+        TDRGElement element = findDRGElement(testCases, testCase, resultNode);
         DRGElementReference<TDRGElement> reference = new DRGElementReference<>(element);
         return new ResultNodeInfo(testCases.getModelName(), resultNode.getName(), reference, resultNode.getExpected());
     }
@@ -270,24 +227,6 @@ public class TCKUtil {
         return this.dmnTransformer.drgElementArgumentList(new DRGElementReference<TDRGElement>(decision));
     }
 
-    private TDRGElement findDRGElement(ResultNode node) {
-        try {
-            String namespace = getNamespace(node);
-            String name = node.getName();
-            if (namespace != null) {
-                return this.dmnModelRepository.findDRGElementByName(namespace, name);
-            } else {
-                return this.dmnModelRepository.findDRGElementByName(name);
-            }
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    private String getNamespace(ResultNode node) {
-        return node.getOtherAttributes().get(NAMESPACE_QNAME);
-    }
-
     private Type toFEELType(ResultNodeInfo resultNode) {
         try {
             QualifiedName typeRef = getTypeRef(resultNode);
@@ -308,6 +247,86 @@ public class TCKUtil {
             throw new UnsupportedOperationException(String.format("Cannot resolve FEEL type for node '%s'. '%s' not supported", node.getNodeName(), element.getClass().getSimpleName()));
         }
         return typeRef;
+    }
+
+    //
+    // Model - lookup methods
+    //
+    private TDefinitions getRootModel(TestCases testCases) {
+        TDefinitions definitions;
+        if (this.dmnModelRepository.getAllDefinitions().size() == 1) {
+            // One single DM
+            definitions = this.dmnModelRepository.getRootDefinitions();
+        } else {
+            // Find DM by namespace
+            String namespace = getNamespace(testCases);
+            if (!StringUtils.isEmpty(namespace)) {
+                definitions = this.dmnModelRepository.getModel(namespace);
+            } else {
+                throw new DMNRuntimeException(String.format("Missing namespace for TestCases '%s'", testCases.getModelName()));
+            }
+        }
+        if (definitions == null) {
+            throw new DMNRuntimeException(String.format("Cannot find root DM for TestCases '%s'", testCases.getModelName()));
+        } else {
+            return definitions;
+        }
+    }
+
+    private TDRGElement findDRGElement(TestCases testCases, TestCase testCase, InputNode node) {
+        try {
+            String namespace = getNamespace(testCases, testCase, node);
+            String name = node.getName();
+            if (namespace != null) {
+                return this.dmnModelRepository.findDRGElementByName(namespace, name);
+            } else {
+                return this.dmnModelRepository.findDRGElementByName(name);
+            }
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private TDRGElement findDRGElement(TestCases testCases, TestCase testCase, ResultNode node) {
+        try {
+            String namespace = getNamespace(testCases, testCase, node);
+            String name = node.getName();
+            if (namespace != null) {
+                return this.dmnModelRepository.findDRGElementByName(namespace, name);
+            } else {
+                return this.dmnModelRepository.findDRGElementByName(name);
+            }
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private String getNamespace(TestCases testCases) {
+        return testCases.getNamespace();
+    }
+
+    private String getNamespace(TestCases testCases, TestCase testCase, InputNode node) {
+        String namespace = getNamespace(node);
+        if (StringUtils.isEmpty(namespace)) {
+            namespace = getNamespace(testCases);
+        }
+        return namespace;
+    }
+
+    private String getNamespace(TestCases testCases, TestCase testCase, ResultNode node) {
+        String namespace = getNamespace(node);
+        if (StringUtils.isEmpty(namespace)) {
+            namespace = getNamespace(testCases);
+        }
+        return namespace;
+    }
+
+    private String getNamespace(InputNode node) {
+        return node.getNamespace();
+    }
+
+    private String getNamespace(ResultNode node) {
+        return node.getNamespace();
     }
 
     //
@@ -365,17 +384,16 @@ public class TCKUtil {
         return this.dmnTransformer.isCaching();
     }
 
-
     //
     // Interpreter
     //
-    public Result evaluate(DMNInterpreter interpreter, TestCase testCase, ResultNode resultNode) {
+    public Result evaluate(DMNInterpreter interpreter, TestCases testCases, TestCase testCase, ResultNode resultNode) {
         TDRGElement drgElement = findDRGElement(testCase, resultNode);
         ImportPath importPath = null;
-        return interpreter.evaluate(importPath, drgElement, makeArgs(drgElement, testCase), makeEnvironment(testCase));
+        return interpreter.evaluate(importPath, drgElement, makeArgs(drgElement, testCase), makeEnvironment(testCases, testCase));
     }
 
-    public Object expectedValue(TestCase testCase, ResultNode resultNode) {
+    public Object expectedValue(TestCases testCases, TestCase testCase, ResultNode resultNode) {
         if (IGNORE_ELEMENT_TYPE) {
             return makeValue(resultNode.getExpected());
         } else {
@@ -426,13 +444,13 @@ public class TCKUtil {
         return testCase.getOtherAttributes().get(NAMESPACE_QNAME);
     }
 
-    private RuntimeEnvironment makeEnvironment(TestCase testCase) {
+    private RuntimeEnvironment makeEnvironment(TestCases testCases, TestCase testCase) {
         RuntimeEnvironment runtimeEnvironment = RuntimeEnvironmentFactory.instance().makeEnvironment();
         List<InputNode> inputNode = testCase.getInputNode();
         for (int i = 0; i < inputNode.size(); i++) {
             InputNode input = inputNode.get(i);
             try {
-                Object value = makeInputValue(input);
+                Object value = makeInputValue(testCases, testCase, input);
                 String name = input.getName();
                 runtimeEnvironment.bind(name, value);
             } catch (Exception e) {
@@ -535,11 +553,11 @@ public class TCKUtil {
         return this.dmnTransformer.constructor(this.dmnTransformer.itemDefinitionJavaClassName(interfaceName), arguments);
     }
 
-    private Object makeInputValue(InputNode inputNode) {
+    private Object makeInputValue(TestCases testCases, TestCase testCase, InputNode inputNode) {
         if (IGNORE_ELEMENT_TYPE) {
             return makeValue(inputNode);
         } else {
-            TDRGElement drgElement = findDRGElement(inputNode);
+            TDRGElement drgElement = findDRGElement(testCases, testCase, inputNode);
             if (drgElement instanceof TInputData) {
                 Type type = this.dmnTransformer.drgElementOutputFEELType(drgElement);
                 return makeValue(inputNode, type);

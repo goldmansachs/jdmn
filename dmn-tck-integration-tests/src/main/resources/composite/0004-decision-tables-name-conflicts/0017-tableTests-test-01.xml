@@ -3,13 +3,12 @@
 		xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.omg.org/spec/DMN/20160719/testcase ../../testCases.xsd"
-		xmlns:gs="http://www.gs.com/dmn"
 		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 		namespace="http://www.provider.com/definitions/decisions"
 >
 	<modelName>decisionTables</modelName>
 	<testCase id="001">
-		<inputNode name="structA">
+		<inputNode name="structA" namespace="http://www.provider.com/definitions/decision-inputs-1">
 			<component name="name">
 				<value xsi:type="xsd:string">widget</value>
 			</component>
@@ -24,7 +23,7 @@
 		</resultNode>
 	</testCase>
 	<testCase id="002">
-		<inputNode name="structA">
+		<inputNode name="structA" namespace="http://www.provider.com/definitions/decision-inputs-1">
 			<component name="name">
 				<value xsi:type="xsd:string">widget</value>
 			</component>
@@ -32,10 +31,10 @@
 				<value xsi:type="xsd:decimal">20</value>
 			</component>
 		</inputNode>
-		<inputNode name="numB">
+		<inputNode name="numB" namespace="http://www.provider.com/definitions/decision-inputs-1">
 			<value xsi:type="xsd:decimal">9</value>
 		</inputNode>
-		<inputNode name="numC">
+		<inputNode name="numC" namespace="http://www.provider.com/definitions/decision-inputs-1">
 			<value xsi:type="xsd:decimal">10</value>
 		</inputNode>
 		<resultNode name="priceInRange" type="decision">
