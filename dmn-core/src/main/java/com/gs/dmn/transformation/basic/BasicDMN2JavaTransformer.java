@@ -64,11 +64,8 @@ public class BasicDMN2JavaTransformer {
     protected final DMNModelRepository dmnModelRepository;
     protected final EnvironmentFactory environmentFactory;
     protected final FEELTypeTranslator feelTypeTranslator;
-    protected final FEELTranslator feelTranslator;
-    private final String javaRootPackage;
-    private final boolean onePackage;
-    private final boolean caching;
 
+    protected final FEELTranslator feelTranslator;
     private final ContextToJavaTransformer contextToJavaTransformer;
     private final DecisionTableToJavaTransformer decisionTableToJavaTransformer;
     private final FunctionDefinitionToJavaTransformer functionDefinitionToJavaTransformer;
@@ -76,23 +73,22 @@ public class BasicDMN2JavaTransformer {
     private final InvocationToJavaTransformer invocationToJavaTransformer;
     private final RelationToJavaTransformer relationToJavaTransformer;
 
+    private final String javaRootPackage;
+    private final boolean onePackage;
+    private final boolean caching;
+    private final Integer cachingThreshold;
+    private final boolean singletonInputData;
+
     private final LazyEvaluationOptimisation lazyEvaluationOptimisation;
     private final Set<String> cachedElements;
-    private final boolean singletonInputData;
     protected final DRGElementFilter drgElementFilter;
 
     public BasicDMN2JavaTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, FEELTypeTranslator feelTypeTranslator, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         this.dmnModelRepository = dmnModelRepository;
         this.environmentFactory = environmentFactory;
         this.feelTypeTranslator = feelTypeTranslator;
-        this.javaRootPackage = InputParamUtil.getOptionalParam(inputParameters, "javaRootPackage");
-        boolean onePackageDefault = dmnModelRepository.getAllDefinitions().size() == 1;
-        this.onePackage = InputParamUtil.getOptionalBooleanParam(inputParameters, "onePackage", "" + onePackageDefault);
-        this.caching = InputParamUtil.getOptionalBooleanParam(inputParameters, "caching");
-        this.feelTranslator = new FEELTranslatorImpl(this);
-        this.singletonInputData = InputParamUtil.getOptionalBooleanParam(inputParameters, "singletonInputData", "true");
-        this.drgElementFilter = new DRGElementFilter(this.dmnModelRepository, this.singletonInputData);
 
+        this.feelTranslator = new FEELTranslatorImpl(this);
         this.contextToJavaTransformer = new ContextToJavaTransformer(this);
         this.decisionTableToJavaTransformer = new DecisionTableToJavaTransformer(this);
         this.functionDefinitionToJavaTransformer = new FunctionDefinitionToJavaTransformer(this);
@@ -100,8 +96,17 @@ public class BasicDMN2JavaTransformer {
         this.literalExpressionToJavaTransformer = new LiteralExpressionToJavaTransformer(this);
         this.relationToJavaTransformer = new RelationToJavaTransformer(this);
 
+        this.javaRootPackage = InputParamUtil.getOptionalParam(inputParameters, "javaRootPackage");
+        boolean onePackageDefault = dmnModelRepository.getAllDefinitions().size() == 1;
+        this.onePackage = InputParamUtil.getOptionalBooleanParam(inputParameters, "onePackage", "" + onePackageDefault);
+        this.caching = InputParamUtil.getOptionalBooleanParam(inputParameters, "caching");
+        String cachingThresholdParam = InputParamUtil.getOptionalParam(inputParameters, "cachingThreshold", "1");
+        this.cachingThreshold = Integer.parseInt(cachingThresholdParam);
+        this.singletonInputData = InputParamUtil.getOptionalBooleanParam(inputParameters, "singletonInputData", "true");
+
         this.lazyEvaluationOptimisation = lazyEvaluationDetector.detect(this.dmnModelRepository);
-        this.cachedElements = this.dmnModelRepository.computeCachedElements(caching);
+        this.cachedElements = this.dmnModelRepository.computeCachedElements(caching, cachingThreshold);
+        this.drgElementFilter = new DRGElementFilter(this.dmnModelRepository, this.singletonInputData);
     }
 
     public DMNModelRepository getDMNModelRepository() {
@@ -180,7 +185,7 @@ public class BasicDMN2JavaTransformer {
         List<TItemDefinition> itemComponents = itemDefinition.getItemComponent();
         this.dmnModelRepository.sortNamedElements(itemComponents);
         for (TItemDefinition child : itemComponents) {
-            parameters.add(new Pair(itemDefinitionVariableName(child), itemDefinitionTypeName(child)));
+            parameters.add(new Pair<>(itemDefinitionVariableName(child), itemDefinitionTypeName(child)));
         }
         return parameters.stream().map(p -> String.format("%s %s", p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
     }
@@ -381,7 +386,7 @@ public class BasicDMN2JavaTransformer {
             List<Pair<String, String>> parameters = bkmParameters((DRGElementReference<TBusinessKnowledgeModel>) reference, javaFriendlyName);
             return parameters.stream().map(Pair::getLeft).collect(Collectors.toList());
         } else if (element instanceof TDecisionService) {
-            List<Pair<String, String>> parameters = dsParameters((DRGElementReference<TDecisionService>) reference, javaFriendlyName);
+            List<Pair<String, Type>> parameters = dsParameters((DRGElementReference<TDecisionService>) reference, javaFriendlyName);
             return parameters.stream().map(Pair::getLeft).collect(Collectors.toList());
         } else if (element instanceof TDecision) {
             List<Pair<String, Type>> parameters = inputDataParametersClosure((DRGElementReference<TDecision>) reference, javaFriendlyName);
@@ -641,7 +646,7 @@ public class BasicDMN2JavaTransformer {
         for (TInformationItem parameter : formalParameters) {
             String parameterName = javaFriendlyName ? informationItemVariableName(parameter) : parameter.getName();
             String parameterType = informationItemTypeName(parameter);
-            parameters.add(new Pair(parameterName, parameterType));
+            parameters.add(new Pair<>(parameterName, parameterType));
         }
         return parameters;
     }
@@ -675,26 +680,26 @@ public class BasicDMN2JavaTransformer {
         return dsFEELParameters(service).stream().map(FormalParameter::getName).collect(Collectors.toList());
     }
 
-    private List<Pair<String, String>> dsParameters(DRGElementReference<TDecisionService> reference) {
+    private List<Pair<String, Type>> dsParameters(DRGElementReference<TDecisionService> reference) {
         return dsParameters(reference, true);
     }
 
-    private List<Pair<String, String>> dsParameters(DRGElementReference<TDecisionService> reference, boolean javaFriendlyName) {
+    private List<Pair<String, Type>> dsParameters(DRGElementReference<TDecisionService> reference, boolean javaFriendlyName) {
         TDecisionService service = reference.getElement();
-        List<Pair<String, String>> parameters = new ArrayList<>();
+        List<Pair<String, Type>> parameters = new ArrayList<>();
         for (TDMNElementReference er: service.getInputData()) {
             TInputData inputData = dmnModelRepository.findInputDataByRef(service, er.getHref());
             String importName = dmnModelRepository.findImportName(service, er);
             String parameterName = javaFriendlyName ? drgElementVariableName(new DRGElementReference<>(inputData, importName)) : inputData.getName();
             Type parameterType = toFEELType(inputData);
-            parameters.add(new Pair(parameterName, parameterType));
+            parameters.add(new Pair<>(parameterName, parameterType));
         }
         for (TDMNElementReference er: service.getInputDecision()) {
             TDecision decision = dmnModelRepository.findDecisionByRef(service, er.getHref());
             String importName = dmnModelRepository.findImportName(service, er);
             String parameterName = javaFriendlyName ? drgElementVariableName(new DRGElementReference<>(decision, importName)) : decision.getName();
             Type parameterType = drgElementOutputFEELType(decision);
-            parameters.add(new Pair(parameterName, parameterType));
+            parameters.add(new Pair<>(parameterName, parameterType));
         }
         return parameters;
     }
@@ -1017,11 +1022,11 @@ public class BasicDMN2JavaTransformer {
         return caching;
     }
 
-    public boolean isCaching(String element) {
+    public boolean isCached(String elementName) {
         if (!caching) {
             return false;
         }
-        return cachedElements.contains(element);
+        return cachedElements.contains(elementName);
     }
 
     public String drgElementSignatureExtraCache(String signature) {
@@ -1790,7 +1795,7 @@ public class BasicDMN2JavaTransformer {
                 addContextEntryDeclaration(contextEnvironment, name, entryType);
             }
         }
-        return new Pair(contextEnvironment, literalExpressionMap);
+        return new Pair<>(contextEnvironment, literalExpressionMap);
     }
 
     Type entryType(TContextEntry entry, TExpression expression, Expression feelExpression) {
@@ -1861,7 +1866,7 @@ public class BasicDMN2JavaTransformer {
                     String name = variable.getName();
                     Type entryType = entryType(entry, contextEnvironment);
                     contextEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(name, entryType));
-                    members.add(new Pair(name, entryType));
+                    members.add(new Pair<>(name, entryType));
                 } else {
                     returnType = entryType(entry, contextEnvironment);
                 }

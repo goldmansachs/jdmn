@@ -50,6 +50,9 @@ public class ${testClassName} extends ${decisionBaseClass} {
         <#items as input>
         <#assign inputInfo = tckUtil.extractInputNodeInfo(testCases, testCase, input) >
         ${tckUtil.toJavaType(inputInfo)} ${tckUtil.inputDataVariableName(inputInfo)} = ${tckUtil.toJavaExpression(inputInfo)};
+        <#if tckUtil.isCached(inputInfo)>
+        ${tckUtil.cacheVariableName()}.bind("${tckUtil.inputDataVariableName(inputInfo)}", ${tckUtil.inputDataVariableName(inputInfo)});
+        </#if>
         </#items>
     </#list>
 </#macro>
