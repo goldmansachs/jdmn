@@ -105,7 +105,7 @@ public class DMNModelRepository {
         }
     }
 
-    public Set<String> computeCachedElements(boolean cachingFlag) {
+    public Set<String> computeCachedElements(boolean cachingFlag, int cachingThreshold) {
         if (!cachingFlag) {
             return new LinkedHashSet<>();
         }
@@ -122,7 +122,7 @@ public class DMNModelRepository {
 
         Set<String> result = new LinkedHashSet<>();
         for(Map.Entry<String, Integer> entry: map.entrySet()) {
-            if (entry.getValue() > 1) {
+            if (entry.getValue() > cachingThreshold) {
                 String key = entry.getKey();
                 TDecision drgElement = this.findDecisionByRef(parentMap.get(key), key);
                 if (drgElement != null) {
@@ -457,8 +457,7 @@ public class DMNModelRepository {
 
     public TDRGElement findDRGElementByRef(String href) {
         try {
-            String key = href;
-            if (!this.drgElementByRef.containsKey(key)) {
+            if (!this.drgElementByRef.containsKey(href)) {
                 String id = extractId(href);
                 TDRGElement value = null;
                 for (TDRGElement element: drgElements()) {
@@ -467,9 +466,9 @@ public class DMNModelRepository {
                         break;
                     }
                 }
-                this.drgElementByRef.put(key, value);
+                this.drgElementByRef.put(href, value);
             }
-            TDRGElement result = this.drgElementByRef.get(key);
+            TDRGElement result = this.drgElementByRef.get(href);
             if (result == null) {
                 throw new DMNRuntimeException(String.format("Cannot find DRG element for href='%s'", href));
             } else {

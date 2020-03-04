@@ -213,7 +213,7 @@ import static ${transformer.qualifiedName(subBKM)}.${transformer.bkmFunctionName
     Expression
 -->
 <#macro expressionApplyBody drgElement>
-        <#if transformer.isCaching(modelRepository.name(drgElement))>
+        <#if transformer.isCached(modelRepository.name(drgElement))>
             if (cache_.contains("${modelRepository.name(drgElement)}")) {
                 // Retrieve value from cache
                 ${transformer.drgElementOutputType(drgElement)} output_ = (${transformer.drgElementOutputType(drgElement)})cache_.lookup("${modelRepository.name(drgElement)}");

@@ -23,6 +23,7 @@ import org.omg.spec.dmn._20180521.model.*;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -65,9 +66,15 @@ public class DMNModelRepositoryTest {
 
     @Test
     public void testCachedElements() {
-        Set<String> cachedElements = dmnModelRepository.computeCachedElements(true);
+        Set<String> cachedElements = dmnModelRepository.computeCachedElements(true, 1);
+        List<String> expected = Arrays.asList("Pre-bureauRiskCategory", "RequiredMonthlyInstallment", "Post-bureauRiskCategory", "ApplicationRiskScore");
+        assertEquals(expected, new ArrayList<>(cachedElements));
 
-        assertEquals(Arrays.asList("Pre-bureauRiskCategory", "RequiredMonthlyInstallment", "Post-bureauRiskCategory", "ApplicationRiskScore"), cachedElements.stream().collect(Collectors.toList()));
+        cachedElements = dmnModelRepository.computeCachedElements(true, 0);
+        expected = Arrays.asList(
+                "Pre-bureauRiskCategory", "Pre-bureauAffordability", "RequiredMonthlyInstallment", "Post-bureauRiskCategory", "ApplicationRiskScore",
+                "Post-bureauAffordability", "BureauCallType", "Eligibility");
+        assertEquals(expected, new ArrayList<>(cachedElements));
     }
 
     @Test

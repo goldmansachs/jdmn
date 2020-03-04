@@ -73,7 +73,7 @@ public class TCKUtil {
         } else {
             TDRGElement element = findDRGElement(testCases, testCase, inputNode);
             if (element == null) {
-                throw new DMNRuntimeException(String.format("Cannot find DRG element for InputNode '%s'", inputNode.getName()));
+                throw new DMNRuntimeException(String.format("Cannot find DRG element for InputNode '%s' for TestCase '%s' in TestCases '%s'", inputNode.getName(), testCase.getId(), testCases.getModelName()));
             }
             ImportPath importPath = findImportPath(definitions, element);
             DRGElementReference<TDRGElement> reference = new DRGElementReference<>(element, importPath == null ? new ImportPath() : importPath);
@@ -135,7 +135,7 @@ public class TCKUtil {
         }
 
         // Make result
-        return new Pair(new DRGElementReference<>(element, path), value);
+        return new Pair<>(new DRGElementReference<>(element, path), value);
     }
 
     private TImport getImport(TDefinitions definitions, String name) {
@@ -158,6 +158,8 @@ public class TCKUtil {
             throw new DMNRuntimeException(String.format("Cannot find element '%s'", info.getNodeName()));
         } else if (element instanceof TInputData) {
             return this.dmnTransformer.inputDataVariableName(info.getReference());
+        } else if (element instanceof TDecision) {
+            return this.dmnTransformer.drgElementVariableName(info.getReference());
         } else {
             throw new UnsupportedOperationException(String.format("'%s' not supported", element.getClass().getSimpleName()));
         }
@@ -184,6 +186,9 @@ public class TCKUtil {
             throw new DMNRuntimeException(String.format("Cannot find element '%s'.", node.getNodeName()));
         } else if (element instanceof TInputData) {
             String varTypeRef = ((TInputData) element).getVariable().getTypeRef();
+            typeRef = QualifiedName.toQualifiedName(varTypeRef);
+        } else if (element instanceof TDecision) {
+            String varTypeRef = ((TDecision) element).getVariable().getTypeRef();
             typeRef = QualifiedName.toQualifiedName(varTypeRef);
         } else {
             throw new UnsupportedOperationException(String.format("Cannot resolve FEEL type for node '%s'. '%s' not supported", node.getNodeName(), element.getClass().getSimpleName()));
@@ -299,6 +304,10 @@ public class TCKUtil {
 
     public boolean isCaching() {
         return this.dmnTransformer.isCaching();
+    }
+
+    public boolean isCached(InputNodeInfo info) {
+        return this.dmnTransformer.isCached(info.getReference().getElementName());
     }
 
     //
