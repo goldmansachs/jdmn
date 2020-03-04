@@ -113,8 +113,8 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
         // Apply rule
         DecideRuleOutput output_ = new DecideRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            true,
-            true
+            Boolean.TRUE,
+            Boolean.TRUE
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

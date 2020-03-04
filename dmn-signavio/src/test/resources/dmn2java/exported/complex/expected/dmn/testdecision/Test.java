@@ -83,7 +83,7 @@ public class Test extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
 
         // Apply rule
         TestRuleOutput output_ = new TestRuleOutput(false);
-        if (Boolean.TRUE == true) {
+        if (Boolean.TRUE == Boolean.TRUE) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -111,7 +111,7 @@ public class Test extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
 
         // Apply rule
         TestRuleOutput output_ = new TestRuleOutput(false);
-        if (Boolean.TRUE == true) {
+        if (Boolean.TRUE == Boolean.TRUE) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

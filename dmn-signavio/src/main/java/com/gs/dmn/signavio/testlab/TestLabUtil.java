@@ -176,7 +176,7 @@ public class TestLabUtil {
             if (expressionList != null) {
                 List<String> elements = expressionList
                         .stream().map(e -> toJavaExpression(elementType(inputType), e, decision)).collect(Collectors.toList());
-                String exp = elements.stream().collect(Collectors.joining(", "));
+                String exp = String.join(", ", elements);
                 return this.dmnTransformer.asList(exp);
             } else {
                 return "null";
@@ -206,7 +206,7 @@ public class TestLabUtil {
                     String arg = toJavaExpression(memberType, p.getRight(), decision);
                     args.add(arg);
                 }
-                String arguments = args.stream().collect(Collectors.joining(", "));
+                String arguments = String.join(", ", args);
                 return dmnTransformer.constructor(dmnTransformer.itemDefinitionJavaClassName(dmnTransformer.toJavaType(inputType)), arguments);
             } else {
                 return "null";

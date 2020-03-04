@@ -217,7 +217,7 @@ public class Comparator extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
 
         // Apply rule
         ComparatorRuleOutput output_ = new ComparatorRuleOutput(false);
-        if (Boolean.TRUE == true) {
+        if (Boolean.TRUE == Boolean.TRUE) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

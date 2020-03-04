@@ -101,7 +101,7 @@ public class DatetimeFormula extends com.gs.dmn.signavio.runtime.DefaultSignavio
 
         // Apply rule
         DatetimeFormulaRuleOutput output_ = new DatetimeFormulaRuleOutput(false);
-        if (Boolean.TRUE == true) {
+        if (Boolean.TRUE == Boolean.TRUE) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -129,7 +129,7 @@ public class DatetimeFormula extends com.gs.dmn.signavio.runtime.DefaultSignavio
 
         // Apply rule
         DatetimeFormulaRuleOutput output_ = new DatetimeFormulaRuleOutput(false);
-        if (Boolean.TRUE == true) {
+        if (Boolean.TRUE == Boolean.TRUE) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

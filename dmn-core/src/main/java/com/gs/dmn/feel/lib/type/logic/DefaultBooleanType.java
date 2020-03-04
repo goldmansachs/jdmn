@@ -65,9 +65,9 @@ public class DefaultBooleanType extends BaseType implements BooleanType {
     @Override
     public Boolean binaryBooleanOr(Object first, Object second) {
         if (isBooleanTrue(first) || isBooleanTrue(second)) {
-            return true;
+            return TRUE;
         } else if (isBooleanFalse(first) && isBooleanFalse(second)) {
-            return false;
+            return FALSE;
         } else {
             return null;
         }
@@ -102,9 +102,9 @@ public class DefaultBooleanType extends BaseType implements BooleanType {
     @Override
     public Boolean binaryBooleanAnd(Object first, Object second) {
         if (isBooleanFalse(first) || isBooleanFalse(second)) {
-            return false;
+            return FALSE;
         } else if (isBooleanTrue(first) && isBooleanTrue(second)) {
-            return true;
+            return TRUE;
         } else {
             return null;
         }
@@ -113,11 +113,11 @@ public class DefaultBooleanType extends BaseType implements BooleanType {
     @Override
     public Boolean booleanEqual(Boolean first, Boolean second) {
         if (first == null && second == null) {
-            return true;
+            return TRUE;
         } else if (first == null) {
-            return false;
+            return FALSE;
         } else if (second == null) {
-            return false;
+            return FALSE;
         } else {
             return first.equals(second);
         }

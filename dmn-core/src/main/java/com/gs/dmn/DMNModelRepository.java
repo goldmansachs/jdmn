@@ -68,7 +68,7 @@ public class DMNModelRepository {
     }
 
     public DMNModelRepository(TDefinitions rootDefinitions, PrefixNamespaceMappings prefixNamespaceMappings) {
-        this(rootDefinitions, Arrays.asList(), prefixNamespaceMappings);
+        this(rootDefinitions, Collections.emptyList(), prefixNamespaceMappings);
     }
 
     public DMNModelRepository(TDefinitions rootDefinitions, List<TDefinitions> importedDefinitions, PrefixNamespaceMappings prefixNamespaceMappings) {
