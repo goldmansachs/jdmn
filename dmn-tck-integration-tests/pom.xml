@@ -1882,63 +1882,63 @@
                     </execution>
 
                     <execution>
-                        <id>composite-0004-decision-tables-name-conflicts</id>
+                        <id>composite-0005-decision-tables-name-conflicts</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${composite.diagram.folder}/0004-decision-tables-name-conflicts</inputFileDirectory>
+                            <inputFileDirectory>${composite.diagram.folder}/0005-decision-tables-name-conflicts</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.composite_0004_decision_tables_name_conflicts</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.composite_0005_decision_tables_name_conflicts</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>test-composite-0004-decision-tables-name-conflicts</id>
+                        <id>test-composite-0005-decision-tables-name-conflicts</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>tck-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${composite.diagram.folder}/0004-decision-tables-name-conflicts</inputTestFileDirectory>
-                            <inputModelFileDirectory>${composite.diagram.folder}/0004-decision-tables-name-conflicts</inputModelFileDirectory>
+                            <inputTestFileDirectory>src/main/resources/composite/0005-decision-tables-name-conflicts</inputTestFileDirectory>
+                            <inputModelFileDirectory>src/main/resources/composite/0005-decision-tables-name-conflicts</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.composite_0004_decision_tables_name_conflicts</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.composite_0005_decision_tables_name_conflicts</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
 
                     <execution>
-                        <id>composite-0005-multiple-input-data</id>
+                        <id>composite-0006-multiple-input-data</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${composite.diagram.folder}/0005-multiple-input-data</inputFileDirectory>
+                            <inputFileDirectory>src/main/resources/composite/0006-multiple-input-data</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.composite_0005_multiple_input_data</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.composite_0006_multiple_input_data</javaRootPackage>
                                 <singletonInputData>false</singletonInputData>
                                 <caching>false</caching>
                             </inputParameters>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>test-composite-0089-nested-inputs</id>
+                        <id>test-composite-0006-multiple-input-data</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>tck-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${composite.diagram.folder}/0005-multiple-input-data</inputTestFileDirectory>
-                            <inputModelFileDirectory>${composite.diagram.folder}/0005-multiple-input-data</inputModelFileDirectory>
+                            <inputTestFileDirectory>src/main/resources/composite/0006-multiple-input-data</inputTestFileDirectory>
+                            <inputModelFileDirectory>src/main/resources/composite/0006-multiple-input-data</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.composite_0005_multiple_input_data</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.composite_0006_multiple_input_data</javaRootPackage>
                                 <singletonInputData>false</singletonInputData>
                                 <caching>false</caching>
                             </inputParameters>
