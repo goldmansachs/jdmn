@@ -1945,6 +1945,72 @@
                         </configuration>
                     </execution>
 
+                    <execution>
+                        <id>composite-0007-name-conflicts-same-decision-singleton</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>src/main/resources/composite/0007-name-conflicts-same-decision-singleton</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0007_name_conflicts_same_decision_singleton</javaRootPackage>
+                                <caching>false</caching>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-composite-0007-name-conflicts-same-decision-singleton</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>src/main/resources/composite/0007-name-conflicts-same-decision-singleton</inputTestFileDirectory>
+                            <inputModelFileDirectory>src/main/resources/composite/0007-name-conflicts-same-decision-singleton</inputModelFileDirectory>
+                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0007_name_conflicts_same_decision_singleton</javaRootPackage>
+                                <caching>false</caching>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>composite-0008-name-conflicts-same-decision-no-singleton</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>src/main/resources/composite/0008-name-conflicts-same-decision-no-singleton</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0008_name_conflicts_same_decision_no_singleton</javaRootPackage>
+                                <singletonInputData>false</singletonInputData>
+                                <caching>false</caching>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-0008-name-conflicts-same-decision-no-singleton</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>src/main/resources/composite/0008-name-conflicts-same-decision-no-singleton</inputTestFileDirectory>
+                            <inputModelFileDirectory>src/main/resources/composite/0008-name-conflicts-same-decision-no-singleton</inputModelFileDirectory>
+                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0008_name_conflicts_same_decision_no_singleton</javaRootPackage>
+                                <singletonInputData>false</singletonInputData>
+                                <caching>false</caching>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
                     <!-- non-compliant-->
 <!--
                     <execution>
