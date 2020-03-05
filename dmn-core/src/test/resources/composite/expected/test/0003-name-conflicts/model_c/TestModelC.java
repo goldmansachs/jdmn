@@ -1,3 +1,4 @@
+package model_c;
 
 import java.util.*;
 import java.util.stream.Collectors;

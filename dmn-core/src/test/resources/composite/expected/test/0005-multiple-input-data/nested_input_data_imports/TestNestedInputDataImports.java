@@ -1,3 +1,4 @@
+package nested_input_data_imports;
 
 import java.util.*;
 import java.util.stream.Collectors;

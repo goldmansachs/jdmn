@@ -99,17 +99,17 @@ public class TCKTestCasesToJUnitTransformer extends AbstractDMNTransformer {
 
     protected void processTemplate(TestCases testCases, String baseTemplatePath, String templateName, BasicDMN2JavaTransformer dmnTransformer, Path outputPath, String testClassName) {
         try {
-            // Make parameters
-            Map<String, Object> params = makeTemplateParams(testCases, dmnTransformer);
-            params.put("packageName", javaRootPackage);
-            params.put("testClassName", testClassName);
-            params.put("decisionBaseClass", decisionBaseClass);
-
             // Make output file
             String javaPackageName = dmnTransformer.javaModelPackageName(testCases.getModelName());
             String relativeFilePath = javaPackageName.replace('.', '/');
             String fileExtension = ".java";
             File outputFile = makeOutputFile(outputPath, relativeFilePath, testClassName, fileExtension);
+
+            // Make parameters
+            Map<String, Object> params = makeTemplateParams(testCases, dmnTransformer);
+            params.put("packageName", javaPackageName);
+            params.put("testClassName", testClassName);
+            params.put("decisionBaseClass", decisionBaseClass);
 
             // Process template
             processTemplate(baseTemplatePath, templateName, params, outputFile, true);
