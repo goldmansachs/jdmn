@@ -13,22 +13,21 @@
 package com.gs.dmn.tck;
 
 import com.gs.dmn.DRGElementReference;
-import org.omg.dmn.tck.marshaller._20160719.ValueType;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
 
 public class NodeInfo {
-    private final String modelName;
+    private final String rootModelName;
     private final String nodeName;
     private final DRGElementReference<? extends TDRGElement> reference;
 
-    public NodeInfo(String modelName, String nodeName, DRGElementReference<? extends TDRGElement> reference) {
-        this.modelName = modelName;
+    public NodeInfo(String rootModelName, String nodeName, DRGElementReference<? extends TDRGElement> reference) {
+        this.rootModelName = rootModelName;
         this.nodeName = nodeName;
         this.reference = reference;
     }
 
-    public String getModelName() {
-        return modelName;
+    public String getRootModelName() {
+        return rootModelName;
     }
 
     public String getNodeName() {

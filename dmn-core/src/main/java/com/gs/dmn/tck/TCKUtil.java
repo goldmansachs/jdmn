@@ -67,43 +67,72 @@ public class TCKUtil {
     //
     public InputNodeInfo extractInputNodeInfo(TestCases testCases, TestCase testCase, InputNode inputNode) {
         TDefinitions definitions = getRootModel(testCases);
-        if (!this.dmnTransformer.isSingletonInputData()) {
-            Pair<DRGElementReference<? extends TDRGElement>, ValueType> pair = extractReferenceAndValue(definitions, inputNode);
-            return new InputNodeInfo(testCases.getModelName(), inputNode.getName(), pair.getLeft(), pair.getRight());
-        } else {
-            TDRGElement element = findDRGElement(testCases, testCase, inputNode);
-            if (element == null) {
+        if (this.dmnTransformer.isSingletonInputData()) {
+            String namespace = getNamespace(testCases, testCase, inputNode);
+            DRGElementReference<? extends TDRGElement> reference = extractInfoFromModel(definitions, namespace, inputNode.getName());
+            if (reference == null) {
                 throw new DMNRuntimeException(String.format("Cannot find DRG element for InputNode '%s' for TestCase '%s' in TestCases '%s'", inputNode.getName(), testCase.getId(), testCases.getModelName()));
             }
-            ImportPath importPath = findImportPath(definitions, element);
-            DRGElementReference<TDRGElement> reference = new DRGElementReference<>(element, importPath == null ? new ImportPath() : importPath);
             return new InputNodeInfo(testCases.getModelName(), inputNode.getName(), reference, inputNode);
+        } else {
+            Pair<DRGElementReference<? extends TDRGElement>, ValueType> pair = extractInfoFromValue(definitions, inputNode);
+            if (pair == null || pair.getLeft() == null) {
+                throw new DMNRuntimeException(String.format("Cannot find DRG element for InputNode '%s' for TestCase '%s' in TestCases '%s'", inputNode.getName(), testCase.getId(), testCases.getModelName()));
+            }
+            return new InputNodeInfo(testCases.getModelName(), inputNode.getName(), pair.getLeft(), pair.getRight());
         }
     }
 
-    private ImportPath findImportPath(TDefinitions definitions, TDRGElement element) {
-        return findImportPath(definitions, element, new ImportPath());
+    private DRGElementReference<? extends TDRGElement> extractInfoFromModel(TDefinitions rootDefinitions, String elementNamespace, String elementName) {
+        if (elementNamespace == null) {
+            return extractInfoFromModel(rootDefinitions, elementName, new ImportPath());
+        } else {
+            return extractInfoFromModel(rootDefinitions, elementNamespace, elementName, new ImportPath());
+        }
     }
 
-    private ImportPath findImportPath(TDefinitions definitions, TDRGElement element, ImportPath importPath) {
-        for (TDRGElement drg: this.dmnModelRepository.drgElements(definitions)) {
-            if (drg.getName().equals(element.getName())) {
-                return new ImportPath(importPath, "");
+    private DRGElementReference<? extends TDRGElement> extractInfoFromModel(TDefinitions definitions, String elementNamespace, String elementName, ImportPath importPath) {
+        if (definitions.getNamespace().equals(elementNamespace)) {
+            // Found model, lookup element by name
+            for (TDRGElement drg: this.dmnModelRepository.drgElements(definitions)) {
+                if (drg.getName().equals(elementName)) {
+                    return new DRGElementReference<>(drg, importPath);
+                }
+            }
+        } else {
+            // Lookup in imports
+            for (TImport imp: definitions.getImport()) {
+                String namespace = imp.getNamespace();
+                TDefinitions child = this.dmnModelRepository.getModel(namespace);
+                DRGElementReference<? extends TDRGElement> result = extractInfoFromModel(child, elementNamespace, elementName, new ImportPath(importPath, imp.getName()));
+                if (result != null) {
+                    return result;
+                }
             }
         }
+        return null;
+    }
+
+    private DRGElementReference<? extends TDRGElement> extractInfoFromModel(TDefinitions definitions, String elementName, ImportPath importPath) {
+        // Lookup element by name
+        for (TDRGElement drg: this.dmnModelRepository.drgElements(definitions)) {
+            if (drg.getName().equals(elementName)) {
+                return new DRGElementReference<>(drg, importPath);
+            }
+        }
+        // Lookup in imports
         for (TImport imp: definitions.getImport()) {
             String namespace = imp.getNamespace();
             TDefinitions child = this.dmnModelRepository.getModel(namespace);
-            ImportPath result = findImportPath(child, element, importPath);
+            DRGElementReference<? extends TDRGElement> result = extractInfoFromModel(child, elementName, new ImportPath(importPath, imp.getName()));
             if (result != null) {
-                result.addPathElement(imp.getName());
                 return result;
             }
         }
         return null;
     }
 
-    public Pair<DRGElementReference<? extends TDRGElement>, ValueType> extractReferenceAndValue(TDefinitions definitions, InputNode node) {
+    public Pair<DRGElementReference<? extends TDRGElement>, ValueType> extractInfoFromValue(TDefinitions definitions, InputNode node) {
         // Navigate the import paths if needed
         String name = node.getName();
         ImportPath path = new ImportPath();
@@ -211,7 +240,7 @@ public class TCKUtil {
     }
 
     public String qualifiedName(ResultNodeInfo info) {
-        String pkg = this.dmnTransformer.javaModelPackageName(info.getModelName());
+        String pkg = this.dmnTransformer.javaModelPackageName(info.getRootModelName());
         String cls = this.dmnTransformer.drgElementClassName(info.getReference().getElement());
         return this.dmnTransformer.qualifiedName(pkg, cls);
     }
