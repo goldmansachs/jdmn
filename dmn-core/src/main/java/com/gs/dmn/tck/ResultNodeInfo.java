@@ -19,8 +19,8 @@ import org.omg.spec.dmn._20180521.model.TDRGElement;
 public class ResultNodeInfo extends NodeInfo {
     private final ValueType expectedValue;
 
-    public ResultNodeInfo(String modelName, String nodeName, DRGElementReference<TDRGElement> reference, ValueType expectedValue) {
-        super(modelName, nodeName, reference);
+    public ResultNodeInfo(String rootModelName, String nodeName, DRGElementReference<TDRGElement> reference, ValueType expectedValue) {
+        super(rootModelName, nodeName, reference);
         this.expectedValue = expectedValue;
     }
 

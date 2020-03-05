@@ -19,8 +19,8 @@ import org.omg.spec.dmn._20180521.model.TDRGElement;
 public class InputNodeInfo extends NodeInfo {
     private final ValueType value;
 
-    public InputNodeInfo(String modelName, String nodeName, DRGElementReference<? extends TDRGElement> reference, ValueType value) {
-        super(modelName, nodeName, reference);
+    public InputNodeInfo(String rootModelName, String nodeName, DRGElementReference<? extends TDRGElement> reference, ValueType value) {
+        super(rootModelName, nodeName, reference);
         this.value = value;
     }
 
