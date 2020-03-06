@@ -1720,7 +1720,8 @@ public class BasicDMN2JavaTransformer {
             Declaration importDeclaration = elementEnvironment.lookupVariableDeclaration(importName);
             if (importDeclaration == null) {
                 String modelName = this.dmnModelRepository.getModelName(child);
-                ImportContextType contextType = new ImportContextType(modelName, importName);
+                String namespace = this.dmnModelRepository.getNamespace(child);
+                ImportContextType contextType = new ImportContextType(namespace, modelName, importName);
                 contextType.addMember(declaration.getName(), new ArrayList<>(), type);
                 importDeclaration = environmentFactory.makeVariableDeclaration(importName, contextType);
                 elementEnvironment.addDeclaration(importDeclaration);
