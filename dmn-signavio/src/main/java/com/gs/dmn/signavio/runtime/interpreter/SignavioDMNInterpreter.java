@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.signavio.runtime.interpreter;
 
-import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
@@ -70,8 +69,7 @@ public class SignavioDMNInterpreter extends StandardDMNInterpreter {
         RuntimeEnvironment newRuntimeEnvironment = runtimeEnvironmentFactory.makeEnvironment(runtimeEnvironment);
         for (Object obj : sourceList) {
             newRuntimeEnvironment.bind(lambdaParamName, obj);
-            String topNamespace = this.dmnModelRepository.getNamespace(topLevelDecision);
-            applyDecision(new DRGElementReference<>(topNamespace, topLevelDecision), newRuntimeEnvironment);
+            applyDecision(this.dmnModelRepository.makeDRGElementReference(topLevelDecision), newRuntimeEnvironment);
             outputList.add(newRuntimeEnvironment.lookupBinding(topLevelVariableName));
         }
 

@@ -312,8 +312,7 @@ public class BasicDMN2JavaTransformer {
     }
 
     public String drgElementSignature(TDRGElement element) {
-        String namespace = this.dmnModelRepository.getNamespace(element);
-        DRGElementReference<TDRGElement> reference = new DRGElementReference<>(namespace, element);
+        DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
         return drgElementSignature(reference);
     }
 
@@ -333,8 +332,7 @@ public class BasicDMN2JavaTransformer {
     }
 
     public String drgElementArgumentList(TDRGElement element) {
-        String namespace = this.dmnModelRepository.getNamespace(element);
-        DRGElementReference<? extends TDRGElement> reference = new DRGElementReference<>(namespace, element);
+        DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
         return drgElementArgumentList(reference);
     }
 
@@ -354,8 +352,7 @@ public class BasicDMN2JavaTransformer {
     }
 
     public String drgElementConvertedArgumentList(TDRGElement element) {
-        String namespace = this.dmnModelRepository.getNamespace(element);
-        DRGElementReference<? extends TDRGElement> reference = new DRGElementReference<>(namespace, element);
+        DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
         return drgElementConvertedArgumentList(reference);
     }
 
@@ -375,8 +372,7 @@ public class BasicDMN2JavaTransformer {
     }
 
     public List<String> drgElementArgumentNameList(TDRGElement element) {
-        String namespace = this.dmnModelRepository.getNamespace(element);
-        DRGElementReference<? extends TDRGElement> reference = new DRGElementReference<>(namespace, element);
+        DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
         return drgElementArgumentNameList(reference);
     }
 
@@ -402,8 +398,7 @@ public class BasicDMN2JavaTransformer {
 
     public boolean shouldGenerateApplyWithConversionFromString(TDRGElement element) {
         if (element instanceof TDecision) {
-            String namespace = this.dmnModelRepository.getNamespace(element);
-            List<Pair<String, Type>> parameters = inputDataParametersClosure(new DRGElementReference<>(namespace, (TDecision) element));
+            List<Pair<String, Type>> parameters = inputDataParametersClosure(this.dmnModelRepository.makeDRGElementReference((TDecision) element));
             return parameters.stream().anyMatch(p -> p.getRight() != StringType.STRING);
         } else if (element instanceof TBusinessKnowledgeModel) {
             return false;
@@ -414,8 +409,7 @@ public class BasicDMN2JavaTransformer {
 
     public String drgElementSignatureWithConversionFromString(TDRGElement element) {
         if (element instanceof TDecision) {
-            String namespace = this.dmnModelRepository.getNamespace(element);
-            List<Pair<String, Type>> parameters = inputDataParametersClosure(new DRGElementReference<>(namespace, (TDecision) element));
+            List<Pair<String, Type>> parameters = inputDataParametersClosure(this.dmnModelRepository.makeDRGElementReference((TDecision) element));
             String decisionSignature = parameters.stream().map(p -> String.format("%s %s", toStringJavaType(p.getRight()), p.getLeft())).collect(Collectors.joining(", "));
             return augmentSignature(decisionSignature);
         } else {
@@ -425,8 +419,7 @@ public class BasicDMN2JavaTransformer {
 
     public String drgElementArgumentListWithConversionFromString(TDRGElement element) {
         if (element instanceof TDecision) {
-            String namespace = this.dmnModelRepository.getNamespace(element);
-            List<Pair<String, Type>> parameters = inputDataParametersClosure(new DRGElementReference<>(namespace, (TDecision) element));
+            List<Pair<String, Type>> parameters = inputDataParametersClosure(this.dmnModelRepository.makeDRGElementReference((TDecision) element));
             String arguments = parameters.stream().map(p -> String.format("%s", convertDecisionArgumentFromString(p.getLeft(), p.getRight()))).collect(Collectors.joining(", "));
             return augmentArgumentList(arguments);
         } else {
@@ -470,8 +463,7 @@ public class BasicDMN2JavaTransformer {
             String javaParameters = parameters.stream().map(p -> String.format("%s %s", p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
             return augmentSignature(javaParameters);
         } else if (element instanceof TBusinessKnowledgeModel) {
-            String namespace = this.dmnModelRepository.getNamespace(element);
-            return drgElementSignature(new DRGElementReference<>(namespace, element));
+            return drgElementSignature(this.dmnModelRepository.makeDRGElementReference(element));
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
         }
@@ -483,8 +475,7 @@ public class BasicDMN2JavaTransformer {
             String argumentList = parameters.stream().map(p -> String.format("%s", p.getLeft())).collect(Collectors.joining(", "));
             return augmentArgumentList(argumentList);
         } else if (element instanceof TBusinessKnowledgeModel) {
-            String namespace = this.dmnModelRepository.getNamespace(element);
-            return drgElementArgumentList(new DRGElementReference<>(namespace, element));
+            return drgElementArgumentList(this.dmnModelRepository.makeDRGElementReference(element));
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
         }
@@ -699,16 +690,14 @@ public class BasicDMN2JavaTransformer {
         for (TDMNElementReference er: service.getInputData()) {
             TInputData inputData = dmnModelRepository.findInputDataByRef(service, er.getHref());
             String importName = dmnModelRepository.findImportName(service, er);
-            String namespace = this.dmnModelRepository.getNamespace(inputData);
-            String parameterName = javaFriendlyName ? drgElementVariableName(new DRGElementReference<>(namespace, inputData, importName)) : inputData.getName();
+            String parameterName = javaFriendlyName ? drgElementVariableName(this.dmnModelRepository.makeDRGElementReference(inputData, importName)) : inputData.getName();
             Type parameterType = toFEELType(inputData);
             parameters.add(new Pair<>(parameterName, parameterType));
         }
         for (TDMNElementReference er: service.getInputDecision()) {
             TDecision decision = dmnModelRepository.findDecisionByRef(service, er.getHref());
             String importName = dmnModelRepository.findImportName(service, er);
-            String namespace = this.dmnModelRepository.getNamespace(decision);
-            String parameterName = javaFriendlyName ? drgElementVariableName(new DRGElementReference<>(namespace, decision, importName)) : decision.getName();
+            String parameterName = javaFriendlyName ? drgElementVariableName(this.dmnModelRepository.makeDRGElementReference(decision, importName)) : decision.getName();
             Type parameterType = drgElementOutputFEELType(decision);
             parameters.add(new Pair<>(parameterName, parameterType));
         }

@@ -217,8 +217,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
         TDRGElement element = reference.getElement();
         if (dmnModelRepository.isBKMLinkedToDecision(element)) {
             TDecision outputDecision = dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
-            String namespace = this.dmnModelRepository.getNamespace(outputDecision);
-            DRGElementReference<TDecision> outputReference = new DRGElementReference<>(namespace, outputDecision);
+            DRGElementReference<TDecision> outputReference = this.dmnModelRepository.makeDRGElementReference(outputDecision);
             List<Pair<String, Type>> parameters = inputDataParametersClosure(outputReference);
             String decisionSignature = parameters.stream().map(p -> String.format("%s %s", toJavaType(p.getRight()), p.getLeft())).collect(Collectors.joining(", "));
             return augmentSignature(decisionSignature);
@@ -232,8 +231,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
         TDRGElement element = reference.getElement();
         if (dmnModelRepository.isBKMLinkedToDecision(element)) {
             TDecision outputDecision = dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
-            String namespace = this.dmnModelRepository.getNamespace(outputDecision);
-            DRGElementReference<TDecision> outputReference = new DRGElementReference<>(namespace, outputDecision);
+            DRGElementReference<TDecision> outputReference = this.dmnModelRepository.makeDRGElementReference(outputDecision);
             List<Pair<String, Type>> parameters = inputDataParametersClosure(outputReference);
             String arguments = parameters.stream().map(p -> String.format("%s", p.getLeft())).collect(Collectors.joining(", "));
             return augmentArgumentList(arguments);
@@ -265,8 +263,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
         TDRGElement element = reference.getElement();
         if (dmnModelRepository.isBKMLinkedToDecision(element)) {
             TDecision outputDecision = dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
-            String namespace = this.dmnModelRepository.getNamespace(outputDecision);
-            DRGElementReference<TDecision> outputReference = new DRGElementReference<>(namespace, outputDecision);
+            DRGElementReference<TDecision> outputReference = this.dmnModelRepository.makeDRGElementReference(outputDecision);
             List<Pair<String, Type>> parameters = inputDataParametersClosure(outputReference);
             String arguments = parameters.stream().map(p -> String.format("%s", convertDecisionArgument(p.getLeft(), p.getRight()))).collect(Collectors.joining(", "));
             return augmentArgumentList(arguments);
@@ -301,8 +298,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
         if (encapsulatedLogic == null) {
             List<FormalParameter> parameters = new ArrayList<>();
             TDecision outputDecision = dmnModelRepository.getOutputDecision(bkm);
-            String namespace = this.dmnModelRepository.getNamespace(outputDecision);
-            DRGElementReference<TDecision> outputReference = new DRGElementReference<>(namespace, outputDecision);
+            DRGElementReference<TDecision> outputReference = this.dmnModelRepository.makeDRGElementReference(outputDecision);
             List<DRGElementReference<TInputData>> allInputDataReferences = this.dmnModelRepository.allInputDatas(outputReference, this.drgElementFilter);
             List<TInputData> allInputDatas = this.dmnModelRepository.selectElement(allInputDataReferences);
             this.dmnModelRepository.sortNamedElements(allInputDatas);
@@ -383,8 +379,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
 
     private List<DRGElementReference<? extends TDRGElement>> collectIterationInputs(TDecision decision) {
         Set<DRGElementReference<? extends TDRGElement>> elementSet = new LinkedHashSet<>();
-        String namespace = this.dmnModelRepository.getNamespace(decision);
-        DRGElementReference<TDecision> decisionReference = new DRGElementReference<>(namespace, decision);
+        DRGElementReference<TDecision> decisionReference = this.dmnModelRepository.makeDRGElementReference(decision);
         elementSet.addAll(this.dmnModelRepository.allInputDatas(decisionReference, this.drgElementFilter));
         elementSet.addAll(this.dmnModelRepository.directSubDecisions(decision));
         List<DRGElementReference<? extends TDRGElement>> elements = new ArrayList<>(elementSet);
