@@ -54,7 +54,7 @@ public class ImportPath {
         }
     }
 
-    public boolean isEmpty() {
+    private boolean isEmpty() {
         return this.pathElements.isEmpty();
     }
 

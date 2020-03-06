@@ -847,7 +847,7 @@ public class BasicDMN2JavaTransformer {
         if (this.onePackage) {
             return lowerCaseFirst(elementName);
         } else if (this.singletonInputData) {
-            if (importPath.isEmpty()) {
+            if (ImportPath.isEmpty(importPath)) {
                 modelName = "";
             }
             String javaModelName =  javaModelName(modelName);
