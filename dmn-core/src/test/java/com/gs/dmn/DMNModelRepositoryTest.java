@@ -170,6 +170,7 @@ public class DMNModelRepositoryTest {
     }
 
     private DRGElementReference<? extends TDRGElement> makeRootReference(TDRGElement root) {
-        return new DRGElementReference<>(root);
+        String namespace = this.dmnModelRepository.getNamespace(root);
+        return new DRGElementReference<>(namespace, root);
     }
 }
