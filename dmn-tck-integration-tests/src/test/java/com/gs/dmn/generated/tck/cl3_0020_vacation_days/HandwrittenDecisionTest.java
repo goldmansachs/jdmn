@@ -14,6 +14,7 @@ package com.gs.dmn.generated.tck.cl3_0020_vacation_days;
 
 import com.gs.dmn.AbstractHandwrittenDecisionTest;
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.feel.lib.FEELLib;
@@ -75,7 +76,8 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
 
         String drgElementName = nameTransformer.transformName("Total Vacation Days");
         TDRGElement drgElement = repository.findDRGElementByName(drgElementName);
-        Result result = interpreter.evaluate(null, drgElement, null, runtimeEnvironment);
+        String namespace = repository.getNamespace(drgElement);
+        Result result = interpreter.evaluate(new DRGElementReference<>(namespace, drgElement), null, runtimeEnvironment);
         Object actual = Result.value(result);
 
         assertEquals(expected, ((BigDecimal) actual).toPlainString());

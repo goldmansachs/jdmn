@@ -13,6 +13,7 @@
 package com.gs.dmn.generated.example_credit_decision;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.generated.example_credit_decision.type.ApplicantImpl;
 import com.gs.dmn.log.BuildLogger;
@@ -98,7 +99,8 @@ public class CredDecSignavioBenchmarkTest {
         runtimeEnvironment.bind("lendingThreshold", lendingThreshold);
 
         TDRGElement decision = repository.findDRGElementByName("generateOutputData");
-        Object result = interpreter.evaluate(null, decision, null, runtimeEnvironment);
+        String namespace = repository.getNamespace(decision);
+        Object result = interpreter.evaluate(new DRGElementReference<>(namespace, decision), null, runtimeEnvironment);
         System.out.println(result);
 
         long endTime = System.currentTimeMillis();
