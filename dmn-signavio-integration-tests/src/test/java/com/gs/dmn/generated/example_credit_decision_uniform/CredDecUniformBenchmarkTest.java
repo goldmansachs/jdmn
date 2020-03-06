@@ -13,7 +13,6 @@
 package com.gs.dmn.generated.example_credit_decision_uniform;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.generated.example_credit_decision_uniform.type.ApplicantImpl;
 import com.gs.dmn.log.BuildLogger;
@@ -99,8 +98,7 @@ public class CredDecUniformBenchmarkTest {
         runtimeEnvironment.bind("lendingThreshold", lendingThreshold);
 
         TDRGElement decision = repository.findDRGElementByName("generateOutputData");
-        String namespace = repository.getNamespace(decision);
-        Object result = interpreter.evaluate(new DRGElementReference<>(namespace, decision), null, runtimeEnvironment);
+        Object result = interpreter.evaluate(repository.makeDRGElementReference(decision), null, runtimeEnvironment);
         System.out.println(result);
 
         long endTime = System.currentTimeMillis();

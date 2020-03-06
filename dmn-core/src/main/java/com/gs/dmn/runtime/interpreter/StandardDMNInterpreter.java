@@ -137,11 +137,10 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         Environment environment = basicDMNTransformer.makeEnvironment(invocable, context.getEnvironment());
         FEELContext invocationContext = FEELContext.makeContext(environment, context.getRuntimeEnvironment());
         Result result;
-        String invocableNamespace = this.dmnModelRepository.getNamespace(invocable);
         if (invocable instanceof TDecisionService) {
-            result = evaluate(new DRGElementReference<>(invocableNamespace, (TDecisionService) invocable), argList, invocationContext);
+            result = evaluate(this.dmnModelRepository.makeDRGElementReference(invocable), argList, invocationContext);
         } else if (invocable instanceof TBusinessKnowledgeModel) {
-            result = evaluate(new DRGElementReference<>(invocableNamespace, (TBusinessKnowledgeModel) invocable), argList, invocationContext);
+            result = evaluate(this.dmnModelRepository.makeDRGElementReference(invocable), argList, invocationContext);
         } else {
             throw new IllegalArgumentException(String.format("Not supported type '%s'", invocable.getClass().getSimpleName()));
         }
@@ -241,12 +240,11 @@ public class StandardDMNInterpreter implements DMNInterpreter {
             TDecision decision = dmnModelRepository.findDecisionByRef(service, outputDecisionReference.getHref());
             outputDecisions.add(decision);
 
-            String decisionNamespace = dmnModelRepository.getNamespace(decision);
             String importName = dmnModelRepository.findImportName(service, outputDecisionReference);
             ImportPath decisionImportPath = new ImportPath(serviceReference.getImportPath(), importName);
             outputDecisionImportPaths.add(decisionImportPath);
 
-            applyDecision(new DRGElementReference<>(decisionNamespace, decision, decisionImportPath), serviceRuntimeEnvironment);
+            applyDecision(this.dmnModelRepository.makeDRGElementReference(decision, decisionImportPath), serviceRuntimeEnvironment);
         }
 
         // Make context result
@@ -286,7 +284,6 @@ public class StandardDMNInterpreter implements DMNInterpreter {
             TDMNElementReference requiredKnowledge = requirement.getRequiredKnowledge();
             String href = requiredKnowledge.getHref();
             TInvocable invocable = this.dmnModelRepository.findInvocableByRef(parent, href);
-            String invocableNamespace = this.dmnModelRepository.getNamespace(invocable);
 
             // Calculate import path
             String importName = dmnModelRepository.findImportName(parent, requiredKnowledge);
@@ -294,9 +291,9 @@ public class StandardDMNInterpreter implements DMNInterpreter {
 
             // Evaluate invocable
             if (invocable instanceof TBusinessKnowledgeModel) {
-                applyBKM(new DRGElementReference<>(invocableNamespace, (TBusinessKnowledgeModel) invocable, invocableImportPath), runtimeEnvironment);
+                applyBKM(this.dmnModelRepository.makeDRGElementReference((TBusinessKnowledgeModel) invocable, invocableImportPath), runtimeEnvironment);
             } else if (invocable instanceof TDecisionService) {
-                applyDecisionService(new DRGElementReference<>(invocableNamespace, (TDecisionService) invocable, invocableImportPath), runtimeEnvironment);
+                applyDecisionService(this.dmnModelRepository.makeDRGElementReference((TDecisionService) invocable, invocableImportPath), runtimeEnvironment);
             } else {
                 throw new UnsupportedOperationException(String.format("Not supported invocable '%s'", invocable.getClass().getSimpleName()));
             }
@@ -448,10 +445,9 @@ public class StandardDMNInterpreter implements DMNInterpreter {
                 addBinding(runtimeEnvironment, childImportPath, importName, inputName);
             } else if (requiredDecision != null) {
                 TDecision child = dmnModelRepository.findDecisionByRef(parent, requiredDecision.getHref());
-                String childNamespace = this.dmnModelRepository.getNamespace(child);
                 String importName = dmnModelRepository.findImportName(parent, requiredDecision);
                 ImportPath childImportPath = new ImportPath(importPath, importName);
-                evaluateDecision(new DRGElementReference<>(childNamespace, child, childImportPath), runtimeEnvironment);
+                evaluateDecision(this.dmnModelRepository.makeDRGElementReference(child, childImportPath), runtimeEnvironment);
                 String inputName = child.getName();
 
                 // Add new binding to match path in parent
@@ -531,7 +527,6 @@ public class StandardDMNInterpreter implements DMNInterpreter {
             if (bkm == null) {
                 throw new DMNRuntimeException(String.format("Cannot find BKM for '%s'", bkmName));
             }
-            String bkmNamespace = this.dmnModelRepository.getNamespace(bkm);
             List<Object> argList = new ArrayList<>();
             List<String> formalParameterList = basicDMNTransformer.bkmFEELParameterNames(bkm);
             for(String paramName: formalParameterList) {
@@ -544,7 +539,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
             }
             Environment parentEnvironment = basicDMNTransformer.makeEnvironment(element);
             FEELContext context = FEELContext.makeContext(parentEnvironment, runtimeEnvironment);
-            return evaluate(new DRGElementReference<>(bkmNamespace, bkm), argList, context);
+            return evaluate(this.dmnModelRepository.makeDRGElementReference(bkm), argList, context);
         } else {
             throw new UnsupportedOperationException(String.format("Not supported '%s'", body.getClass().getSimpleName()));
         }
@@ -947,8 +942,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
 
     private Arguments makeArguments(TDRGElement element, RuntimeEnvironment runtimeEnvironment) {
         Arguments arguments = new Arguments();
-        String namespace = this.dmnModelRepository.getNamespace(element);
-        DRGElementReference<? extends TDRGElement> reference = new DRGElementReference<TDRGElement>(namespace, element);
+        DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
         List<String> parameters = basicDMNTransformer.drgElementArgumentNameList(reference, false);
         parameters.forEach(p -> arguments.put(p, runtimeEnvironment.lookupBinding(p)));
         return arguments;
