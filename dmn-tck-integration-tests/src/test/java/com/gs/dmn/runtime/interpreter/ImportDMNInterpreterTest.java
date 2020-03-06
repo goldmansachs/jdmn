@@ -41,6 +41,8 @@ public class ImportDMNInterpreterTest extends AbstractDMNInterpreterTest {
 //        doMultipleModelsTest("0004-decision-tables", "0004-decision-tables");
 //        doMultipleModelsTest("0005-decision-tables-name-conflicts", "0005-decision-tables-name-conflicts");
         doMultipleModelsTest("0006-multiple-input-data", "0006-multiple-input-data", new Pair<>("singletonInputData", "false"));
+//        doMultipleModelsTest("0007-name-conflicts-same-decision-singleton", "0007-name-conflicts-same-decision-singleton");
+//        doMultipleModelsTest("0008-name-conflicts-same-decision-no-singleton", "0008-name-conflicts-same-decision-no-singleton", new Pair<>("singletonInputData", "false"));
     }
 }
 
