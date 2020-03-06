@@ -18,22 +18,28 @@ import org.omg.spec.dmn._20180521.model.TDRGElement;
 
 public class DRGElementReference<T extends TDRGElement> {
     private final ImportPath importPath;
+    private final String namespace;
     private final T element;
 
-    public DRGElementReference(T element) {
-        this(element, new ImportPath());
+    public DRGElementReference(String namespace, T element) {
+        this(namespace, element, new ImportPath());
     }
 
-    public DRGElementReference(T element, ImportPath importPath) {
+    public DRGElementReference(String namespace, T element, ImportPath importPath) {
+        this.namespace = namespace;
         this.element = element;
         this.importPath = importPath;
     }
 
-    public DRGElementReference(T element, String importName) {
-        this(element);
+    public DRGElementReference(String namespace, T element, String importName) {
+        this(namespace, element);
         if (!StringUtils.isBlank(importName)) {
             this.importPath.addPathElement(importName);
         }
+    }
+
+    public String getNamespace() {
+        return namespace;
     }
 
     public T getElement() {

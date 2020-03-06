@@ -926,7 +926,8 @@ public class StandardDMNInterpreter implements DMNInterpreter {
 
     private Arguments makeArguments(TDRGElement element, RuntimeEnvironment runtimeEnvironment) {
         Arguments arguments = new Arguments();
-        DRGElementReference<? extends TDRGElement> reference = new DRGElementReference<TDRGElement>(element);
+        String namespace = this.dmnModelRepository.getNamespace(element);
+        DRGElementReference<? extends TDRGElement> reference = new DRGElementReference<TDRGElement>(namespace, element);
         List<String> parameters = basicDMNTransformer.drgElementArgumentNameList(reference, false);
         parameters.forEach(p -> arguments.put(p, runtimeEnvironment.lookupBinding(p)));
         return arguments;

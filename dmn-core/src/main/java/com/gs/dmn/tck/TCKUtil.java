@@ -96,7 +96,8 @@ public class TCKUtil {
             // Found model, lookup element by name
             for (TDRGElement drg: this.dmnModelRepository.drgElements(definitions)) {
                 if (drg.getName().equals(elementName)) {
-                    return new DRGElementReference<>(drg, importPath);
+                    String namespace = this.dmnModelRepository.getNamespace(drg);
+                    return new DRGElementReference<>(namespace, drg, importPath);
                 }
             }
         } else {
@@ -117,7 +118,8 @@ public class TCKUtil {
         // Lookup element by name
         for (TDRGElement drg: this.dmnModelRepository.drgElements(definitions)) {
             if (drg.getName().equals(elementName)) {
-                return new DRGElementReference<>(drg, importPath);
+                String namespace = this.dmnModelRepository.getNamespace(drg);
+                return new DRGElementReference<>(namespace, drg, importPath);
             }
         }
         // Lookup in imports
@@ -164,7 +166,8 @@ public class TCKUtil {
         }
 
         // Make result
-        return new Pair<>(new DRGElementReference<>(element, path), value);
+        String namespace = this.dmnModelRepository.getNamespace(element);
+        return new Pair<>(new DRGElementReference<>(namespace, element, path), value);
     }
 
     private TImport getImport(TDefinitions definitions, String name) {
@@ -230,7 +233,8 @@ public class TCKUtil {
     //
     public ResultNodeInfo extractResultNodeInfo(TestCases testCases, TestCase testCase, ResultNode resultNode) {
         TDRGElement element = findDRGElement(testCases, testCase, resultNode);
-        DRGElementReference<TDRGElement> reference = new DRGElementReference<>(element);
+        String namespace = this.dmnModelRepository.getNamespace(element);
+        DRGElementReference<TDRGElement> reference = new DRGElementReference<>(namespace, element);
         return new ResultNodeInfo(testCases.getModelName(), resultNode.getName(), reference, resultNode.getExpected());
     }
 
@@ -255,7 +259,8 @@ public class TCKUtil {
 
     public String drgElementArgumentList(ResultNodeInfo info) {
         TDecision decision = (TDecision) info.getReference().getElement();
-        return this.dmnTransformer.drgElementArgumentList(new DRGElementReference<TDRGElement>(decision));
+        String namespace = this.dmnModelRepository.getNamespace(decision);
+        return this.dmnTransformer.drgElementArgumentList(new DRGElementReference<TDRGElement>(namespace, decision));
     }
 
     private Type toFEELType(ResultNodeInfo resultNode) {

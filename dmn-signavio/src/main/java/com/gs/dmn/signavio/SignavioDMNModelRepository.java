@@ -118,7 +118,8 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         if (isMultiInstanceDecision(parent)) {
             MultiInstanceDecisionLogic multiInstanceDecisionLogic = extension.multiInstanceDecisionLogic(parent);
             TDecision topLevelDecision = multiInstanceDecisionLogic.getTopLevelDecision();
-            DRGElementReference<? extends TDRGElement> topLevelReference = new DRGElementReference<>(topLevelDecision);
+            String namespace = this.getNamespace(topLevelDecision);
+            DRGElementReference<? extends TDRGElement> topLevelReference = new DRGElementReference<>(namespace, topLevelDecision);
 
             List<DRGElementReference<TInputData>> inputDataList = collectAllInputDatas(topLevelReference);
             inputDataList.removeIf(tInputDataDMNReference -> tInputDataDMNReference.getElement() == multiInstanceDecisionLogic.getIterator());
@@ -131,8 +132,8 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
             TDecision child = findDecisionByRef(parent, reference.getHref());
             if (child != null) {
                 String importName = findImportName(parent, reference);
-                TDefinitions model = this.getModel(child);
-                DRGElementReference childReference = new DRGElementReference(child, new ImportPath(parentImportPath, importName));
+                String namespace = this.getNamespace(child);
+                DRGElementReference<TDecision> childReference = new DRGElementReference<>(namespace, child, new ImportPath(parentImportPath, importName));
                 List<DRGElementReference<TInputData>> inputReferences = collectAllInputDatas(childReference);
                 result.addAll(inputReferences);
             } else {

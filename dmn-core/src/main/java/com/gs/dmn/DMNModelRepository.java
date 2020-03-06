@@ -35,9 +35,9 @@ public class DMNModelRepository {
 
     protected final List<TDefinitions> allDefinitions = new ArrayList<>();
 
-    protected final Map<String, TDefinitions> definitionsMap = new LinkedHashMap<>();
+    protected final Map<String, TDefinitions> namespaceToDefinitions = new LinkedHashMap<>();
 
-    protected final Map<TNamedElement, TDefinitions> elementMap = new LinkedHashMap<>();
+    protected final Map<TNamedElement, TDefinitions> elementToDefinitions = new LinkedHashMap<>();
 
     protected final PrefixNamespaceMappings prefixNamespaceMappings;
 
@@ -74,8 +74,8 @@ public class DMNModelRepository {
             for (Pair<TDefinitions, PrefixNamespaceMappings> pair: pairList) {
                 TDefinitions definitions = pair.getLeft();
                 this.allDefinitions.add(definitions);
-                if (!this.definitionsMap.containsKey(definitions.getNamespace())) {
-                    this.definitionsMap.put(definitions.getNamespace(), definitions);
+                if (!this.namespaceToDefinitions.containsKey(definitions.getNamespace())) {
+                    this.namespaceToDefinitions.put(definitions.getNamespace(), definitions);
                 } else {
                     throw new DMNRuntimeException(String.format("Duplicated model namespace '%s'", definitions.getNamespace()));
                 }
@@ -90,10 +90,10 @@ public class DMNModelRepository {
 
             // Set derived properties
             for (TNamedElement element: itemDefinitions(definitions)) {
-                this.elementMap.put(element, definitions);
+                this.elementToDefinitions.put(element, definitions);
             }
             for (TDRGElement element: drgElements(definitions)) {
-                this.elementMap.put(element, definitions);
+                this.elementToDefinitions.put(element, definitions);
             }
         }
     }
@@ -179,7 +179,7 @@ public class DMNModelRepository {
     }
 
     public void addElementMap(TDRGElement element, TDefinitions definitions) {
-        this.elementMap.put(element, definitions);
+        this.elementToDefinitions.put(element, definitions);
     }
 
     public List<String> getImportedNames() {
@@ -193,15 +193,19 @@ public class DMNModelRepository {
     }
 
     public TDefinitions getModel(String namespace) {
-        return this.definitionsMap.get(namespace);
+        return this.namespaceToDefinitions.get(namespace);
     }
 
     public TDefinitions getModel(TNamedElement element) {
-        return this.elementMap.get(element);
+        return this.elementToDefinitions.get(element);
+    }
+
+    public String getNamespace(TNamedElement element) {
+        return this.elementToDefinitions.get(element).getNamespace();
     }
 
     public String getModelName(TNamedElement element) {
-        TDefinitions definitions = this.elementMap.get(element);
+        TDefinitions definitions = this.elementToDefinitions.get(element);
         return definitions == null ? "" : definitions.getName();
     }
 
@@ -587,9 +591,9 @@ public class DMNModelRepository {
     protected TDefinitions findChildDefinitions(TDRGElement parent, String href) {
         String namespace = extractNamespace(href);
         if (StringUtils.isEmpty(namespace)) {
-            return this.elementMap.get(parent);
+            return this.elementToDefinitions.get(parent);
         } else {
-            return this.definitionsMap.get(namespace);
+            return this.namespaceToDefinitions.get(namespace);
         }
     }
 
@@ -616,7 +620,7 @@ public class DMNModelRepository {
     }
 
     public TDRGElement findDRGElementByName(String namespace, String name) {
-        TDefinitions definitions = this.definitionsMap.get(namespace);
+        TDefinitions definitions = this.namespaceToDefinitions.get(namespace);
         if (definitions == null) {
             throw new DMNRuntimeException(String.format("Cannot find model for namespace '%s'", namespace));
         }
@@ -667,7 +671,8 @@ public class DMNModelRepository {
             TInputData child = findInputDataByRef(parent, reference.getHref());
             if (child != null) {
                 String importName = findImportName(parent, reference);
-                result.add(new DRGElementReference<>(child, importName));
+                String namespace = getNamespace(child);
+                result.add(new DRGElementReference<>(namespace, child, importName));
             } else {
                 throw new DMNRuntimeException(String.format("Cannot find InputData for '%s' in parent '%s'", reference.getHref(), parent.getName()));
             }
@@ -688,8 +693,9 @@ public class DMNModelRepository {
         for (TDMNElementReference reference: references) {
             TInputData child = findInputDataByRef(parent, reference.getHref());
             if (child != null) {
+                String namespace = getNamespace(child);
                 String importName = findImportName(parent, reference);
-                result.add(new DRGElementReference<>(child, new ImportPath(parentImportPath, importName)));
+                result.add(new DRGElementReference<>(namespace, child, new ImportPath(parentImportPath, importName)));
             } else {
                 throw new DMNRuntimeException(String.format("Cannot find InputData for '%s' in parent '%s'", reference.getHref(), parent.getName()));
             }
@@ -701,8 +707,9 @@ public class DMNModelRepository {
             TDecision child = findDecisionByRef(parent, reference.getHref());
             if (child != null) {
                 // Update reference for descendants
+                String namespace = getNamespace(child);
                 String importName = findImportName(parent, reference);
-                List<DRGElementReference<TInputData>> inputReferences = collectAllInputDatas(new DRGElementReference<>(child, new ImportPath(parentImportPath, importName)));
+                List<DRGElementReference<TInputData>> inputReferences = collectAllInputDatas(new DRGElementReference<>(namespace, child, new ImportPath(parentImportPath, importName)));
                 result.addAll(inputReferences);
             } else {
                 throw new DMNRuntimeException(String.format("Cannot find Decision for '%s' in parent '%s'", reference.getHref(), parent.getName()));
@@ -719,16 +726,18 @@ public class DMNModelRepository {
                 TDMNElementReference reference = ir.getRequiredDecision();
                 if (reference != null) {
                     TDecision child = findDecisionByRef(parent, reference.getHref());
+                    String namespace = getNamespace(child);
                     String importName = findImportName(parent, reference);
-                    result.add(new DRGElementReference<>(child, importName));
+                    result.add(new DRGElementReference<>(namespace, child, importName));
                 }
             }
         } else if (parent instanceof TDecisionService) {
             // Add reference for direct children
             for (TDMNElementReference outputDecisionRef : ((TDecisionService) parent).getOutputDecision()) {
                 TDecision child = findDecisionByRef(parent, outputDecisionRef.getHref());
+                String namespace = getNamespace(child);
                 String importName = findImportName(parent, outputDecisionRef);
-                result.add(new DRGElementReference<>(child, importName));
+                result.add(new DRGElementReference<>(namespace, child, importName));
             }
         }
         sortNamedElementReferences(result);
@@ -744,8 +753,9 @@ public class DMNModelRepository {
             if (reference != null) {
                 TInvocable invocable = findInvocableByRef(element, reference.getHref());
                 if (invocable != null) {
+                    String namespace = getNamespace(invocable);
                     String importName = findImportName(element, reference);
-                    result.add(new DRGElementReference<>(invocable, importName));
+                    result.add(new DRGElementReference<>(namespace, invocable, importName));
                 } else {
                     throw new DMNRuntimeException(String.format("Cannot find Invocable for '%s'", reference.getHref()));
                 }
@@ -1120,7 +1130,7 @@ public class DMNModelRepository {
         }
 
         // Find reference for child
-        String childNamespace = this.elementMap.get(child).getNamespace();
+        String childNamespace = getNamespace(child);
         String childRefSuffix = childNamespace +  "#" + child.getId();
         for (TDMNElementReference reference: references) {
             if (reference.getHref().endsWith(childRefSuffix))  {
@@ -1131,7 +1141,7 @@ public class DMNModelRepository {
     }
 
     public String findImportName(TDRGElement parent, TDMNElementReference reference) {
-        TDefinitions parentDefinitions = this.elementMap.get(parent);
+        TDefinitions parentDefinitions = this.elementToDefinitions.get(parent);
         String referenceNamespace = extractNamespace(reference.getHref());
         if (referenceNamespace == null) {
             return null;
