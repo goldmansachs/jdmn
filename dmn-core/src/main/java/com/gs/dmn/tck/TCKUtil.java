@@ -348,11 +348,10 @@ public class TCKUtil {
     // Interpreter
     //
     public Result evaluate(DMNInterpreter interpreter, TestCases testCases, TestCase testCase, ResultNode resultNode) {
-        TDRGElement drgElement = findDRGElement(testCases, testCase, resultNode);
-        ImportPath importPath = null;
+        ResultNodeInfo info = extractResultNodeInfo(testCases, testCase, resultNode);
         RuntimeEnvironment runtimeEnvironment = makeEnvironment(testCases, testCase);
-        List<Object> args = makeArgs(drgElement, testCase);
-        return interpreter.evaluate(importPath, drgElement, args, runtimeEnvironment);
+        List<Object> args = makeArgs(info.getReference().getElement(), testCase);
+        return interpreter.evaluate(info.getReference(), args, runtimeEnvironment);
     }
 
     public Object expectedValue(TestCases testCases, TestCase testCase, ResultNode resultNode) {

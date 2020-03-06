@@ -13,6 +13,7 @@
 package com.gs.dmn.signavio.runtime.interpreter;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.log.BuildLogger;
@@ -57,7 +58,8 @@ public abstract class AbstractSignavioDMNInterpreterTest {
             DMNInterpreter interpreter = dialectDefinition.createDMNInterpreter(repository, new LinkedHashMap<>());
 
             TDRGElement decision = repository.findDRGElementByName(decisionName);
-            Result actualResult = interpreter.evaluate(null, decision, null, runtimeEnvironment);
+            String namespace = repository.getNamespace(decision);
+            Result actualResult = interpreter.evaluate(new DRGElementReference<>(namespace, decision), null, runtimeEnvironment);
             Object actualValue = Result.value(actualResult);
 
             assertEquals(errorMessage, expectedResult, actualValue);

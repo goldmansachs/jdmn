@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.runtime.interpreter;
 
+import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
@@ -30,9 +31,9 @@ public interface DMNInterpreter {
     //
     // Evaluate DRG nodes
     //
-    Result evaluate(ImportPath importPath, TDRGElement drgElement, List<Object> args, RuntimeEnvironment runtimeEnvironment);
+    Result evaluate(DRGElementReference<? extends TDRGElement> reference, List<Object> args, RuntimeEnvironment runtimeEnvironment);
 
-    Result evaluate(ImportPath importPath, TDRGElement drgElement, List<Object> args, FEELContext context);
+    Result evaluate(DRGElementReference<? extends TDRGElement> reference, List<Object> args, FEELContext context);
 
     Result evaluate(TInvocable invocable, List<Object> argList, FEELContext context);
 
