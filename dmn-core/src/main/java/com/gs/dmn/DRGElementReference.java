@@ -55,7 +55,7 @@ public class DRGElementReference<T extends TDRGElement> {
     }
 
     public String getQualifiedName() {
-        if (this.importPath.isEmpty()) {
+        if (ImportPath.isEmpty(importPath)) {
             return getElementName();
         } else {
             return String.format("%s.%s", String.join(".", this.importPath.getPathElements()), getElementName());
