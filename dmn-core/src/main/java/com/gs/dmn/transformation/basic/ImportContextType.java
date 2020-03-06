@@ -14,22 +14,23 @@ package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.feel.analysis.semantics.type.*;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
-import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
-
 public class ImportContextType extends ContextType implements CompositeDataType {
-    private final String modelName;
+    private final String memberNamespace;
+    private final String memberModelName;
     private final String importName;
 
-    public ImportContextType(String modelName, String importName) {
-        this.modelName = modelName;
+    public ImportContextType(String memberNamespace, String memberModelName, String importName) {
+        this.memberNamespace = memberNamespace;
+        this.memberModelName = memberModelName;
         this.importName = importName;
     }
 
-    public String getModelName() {
-        return modelName;
+    public String getMemberNamespace() {
+        return memberNamespace;
+    }
+
+    public String getMemberModelName() {
+        return memberModelName;
     }
 
     public String getImportName() {
@@ -38,6 +39,6 @@ public class ImportContextType extends ContextType implements CompositeDataType 
 
     @Override
     public String toString() {
-        return String.format("ImportContextType(%s, model='%s', import='%s')", super.toString(), modelName, importName);
+        return String.format("ImportContextType(%s, namespace='%s' model='%s', import='%s')", super.toString(), memberNamespace, memberModelName, importName);
     }
 }

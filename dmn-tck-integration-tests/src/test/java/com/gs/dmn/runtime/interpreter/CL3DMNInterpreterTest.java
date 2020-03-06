@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.runtime.interpreter;
 
+import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -86,6 +87,6 @@ public abstract class CL3DMNInterpreterTest extends AbstractDMNInterpreterTest {
         doSingleModelTest("0085-decision-services");
         doMultipleModelsTest(Arrays.asList("0086-import", "0086-imported-model"));
         doSingleModelTest("0087-chapter-11-example");
-        doMultipleModelsTest(Arrays.asList("0089-nested-inputdata-imports", "0089-model-b", "0089-model-b2", "0089-model-a"));
+        doMultipleModelsTest(Arrays.asList("0089-nested-inputdata-imports", "0089-model-b", "0089-model-b2", "0089-model-a"), new Pair<>("singletonInputData", "false"));
     }
 }
