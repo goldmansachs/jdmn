@@ -13,24 +13,20 @@
 package com.gs.dmn;
 
 import org.omg.spec.dmn._20180521.model.TDRGElement;
-import org.omg.spec.dmn._20180521.model.TDecision;
 import org.omg.spec.dmn._20180521.model.TInputData;
-import org.omg.spec.dmn._20180521.model.TInvocable;
 
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class DRGElementFilter {
-    private final DMNModelRepository dmnModelRepository;
     private final boolean singletonInputData;
 
-    public DRGElementFilter(DMNModelRepository dmnModelRepository) {
-        this(dmnModelRepository, true);
+    public DRGElementFilter() {
+        this(true);
     }
 
-    public DRGElementFilter(DMNModelRepository dmnModelRepository, boolean singletonInputData) {
-        this.dmnModelRepository = dmnModelRepository;
+    public DRGElementFilter(boolean singletonInputData) {
         this.singletonInputData = singletonInputData;
     }
 
@@ -45,10 +41,10 @@ public class DRGElementFilter {
     }
 
     private String getQualifiedName(DRGElementReference<? extends TDRGElement> reference) {
-        if (singletonInputData) {
-            return dmnModelRepository.getQualifiedId(reference.getElement());
+        if (this.singletonInputData) {
+            return reference.getQualifiedHref();
         } else {
-            return reference.getQualifiedName();
+            return reference.getQualifiedImportName();
         }
     }
 

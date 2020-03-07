@@ -39,7 +39,7 @@ public class DRGElementReference<T extends TDRGElement> {
     }
 
     public String getNamespace() {
-        return namespace;
+        return this.namespace;
     }
 
     public T getElement() {
@@ -54,8 +54,13 @@ public class DRGElementReference<T extends TDRGElement> {
         return this.element.getName();
     }
 
-    public String getQualifiedName() {
-        if (ImportPath.isEmpty(importPath)) {
+    public String getQualifiedHref() {
+        String id = this.element.getId();
+        return String.format("%s#%s", this.namespace, id);
+    }
+
+    public String getQualifiedImportName() {
+        if (ImportPath.isEmpty(this.importPath)) {
             return getElementName();
         } else {
             return String.format("%s.%s", String.join(".", this.importPath.getPathElements()), getElementName());
