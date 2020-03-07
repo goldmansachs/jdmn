@@ -85,9 +85,9 @@ public class DMNModelRepositoryTest {
 
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
         List<String> expected = Arrays.asList(
-                "DMNReference(name='ApplicantData', import='[]')",
-                "DMNReference(name='BureauData', import='[]')",
-                "DMNReference(name='SupportingDocuments', import='[]')"
+                "DMNReference(import='[]', namespace='http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b', model='Lending1', element='ApplicantData')",
+                "DMNReference(import='[]', namespace='http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b', model='Lending1', element='BureauData')",
+                "DMNReference(import='[]', namespace='http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b', model='Lending1', element='SupportingDocuments')"
         );
         assertEquals(expected, actual);
     }
@@ -100,8 +100,8 @@ public class DMNModelRepositoryTest {
 
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
         List<String> expected = Arrays.asList(
-                "DMNReference(name='ApplicantData', import='[]')",
-                "DMNReference(name='RequestedProduct', import='[]')"
+                "DMNReference(import='[]', namespace='http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b', model='Lending1', element='ApplicantData')",
+                "DMNReference(import='[]', namespace='http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b', model='Lending1', element='RequestedProduct')"
         );
         assertEquals(expected, actual);
     }
@@ -113,8 +113,8 @@ public class DMNModelRepositoryTest {
 
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
         List<String> expected = Arrays.asList(
-                "DMNReference(name='BureauCallType', import='[]')",
-                "DMNReference(name='Eligibility', import='[]')"
+                "DMNReference(import='[]', namespace='http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b', model='Lending1', element='BureauCallType')",
+                "DMNReference(import='[]', namespace='http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b', model='Lending1', element='Eligibility')"
         );
         assertEquals(expected, actual);
     }
@@ -126,7 +126,7 @@ public class DMNModelRepositoryTest {
 
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
         List<String> expected = Arrays.asList(
-                "DMNReference(name='BureauCallTypeTable', import='[]')"
+                "DMNReference(import='[]', namespace='http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b', model='Lending1', element='BureauCallTypeTable')"
         );
         assertEquals(expected, actual);
     }
@@ -141,8 +141,8 @@ public class DMNModelRepositoryTest {
 
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
         List<String> expected = Arrays.asList(
-                "DMNReference(name='personName', import='[modelB1, modelA]')",
-                "DMNReference(name='personName', import='[modelB2, modelB1, modelA]')"
+                "DMNReference(import='[modelB1, modelA]', namespace='http://www.provider.com/definitions/model-a', model='model-a', element='personName')",
+                "DMNReference(import='[modelB2, modelB1, modelA]', namespace='http://www.provider.com/definitions/model-a', model='model-a', element='personName')"
         );
         assertEquals(expected, actual);
     }
@@ -157,8 +157,8 @@ public class DMNModelRepositoryTest {
 
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
         List<String> expected = Arrays.asList(
-                "DMNReference(name='personName', import='[modelB1, modelA]')",
-                "DMNReference(name='personName', import='[modelB2, modelB1, modelA]')"
+                "DMNReference(import='[modelB1, modelA]', namespace='http://www.provider.com/definitions/model-a', model='model-a', element='personName')",
+                "DMNReference(import='[modelB2, modelB1, modelA]', namespace='http://www.provider.com/definitions/model-a', model='model-a', element='personName')"
         );
         assertEquals(expected, actual);
     }

@@ -690,14 +690,14 @@ public class BasicDMN2JavaTransformer {
         for (TDMNElementReference er: service.getInputData()) {
             TInputData inputData = this.dmnModelRepository.findInputDataByRef(service, er.getHref());
             String importName = this.dmnModelRepository.findImportName(service, er);
-            String parameterName = javaFriendlyName ? drgElementVariableName(this.dmnModelRepository.makeDRGElementReference(inputData, importName)) : inputData.getName();
+            String parameterName = javaFriendlyName ? drgElementVariableName(this.dmnModelRepository.makeDRGElementReference(importName, inputData)) : inputData.getName();
             Type parameterType = toFEELType(inputData);
             parameters.add(new Pair<>(parameterName, parameterType));
         }
         for (TDMNElementReference er: service.getInputDecision()) {
             TDecision decision = this.dmnModelRepository.findDecisionByRef(service, er.getHref());
             String importName = this.dmnModelRepository.findImportName(service, er);
-            String parameterName = javaFriendlyName ? drgElementVariableName(this.dmnModelRepository.makeDRGElementReference(decision, importName)) : decision.getName();
+            String parameterName = javaFriendlyName ? drgElementVariableName(this.dmnModelRepository.makeDRGElementReference(importName, decision)) : decision.getName();
             Type parameterType = drgElementOutputFEELType(decision);
             parameters.add(new Pair<>(parameterName, parameterType));
         }

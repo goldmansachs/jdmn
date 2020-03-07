@@ -19,20 +19,22 @@ import org.omg.spec.dmn._20180521.model.TDRGElement;
 public class DRGElementReference<T extends TDRGElement> {
     private final ImportPath importPath;
     private final String namespace;
+    private final String modelName;
     private final T element;
 
-    public DRGElementReference(String namespace, T element) {
-        this(namespace, element, new ImportPath());
+    public DRGElementReference(String namespace, String modelName, T element) {
+        this(new ImportPath(), namespace, modelName, element);
     }
 
-    public DRGElementReference(String namespace, T element, ImportPath importPath) {
+    public DRGElementReference(ImportPath importPath, String namespace, String modelName, T element) {
         this.namespace = namespace;
+        this.modelName = modelName;
         this.element = element;
         this.importPath = importPath;
     }
 
-    public DRGElementReference(String namespace, T element, String importName) {
-        this(namespace, element);
+    public DRGElementReference(String importName, String namespace, String modelName, T element) {
+        this(namespace, modelName, element);
         if (!StringUtils.isBlank(importName)) {
             this.importPath.addPathElement(importName);
         }
@@ -40,6 +42,10 @@ public class DRGElementReference<T extends TDRGElement> {
 
     public String getNamespace() {
         return this.namespace;
+    }
+
+    public String getModelName() {
+        return this.modelName;
     }
 
     public T getElement() {
@@ -69,6 +75,6 @@ public class DRGElementReference<T extends TDRGElement> {
 
     @Override
     public String toString() {
-        return String.format("DMNReference(name='%s', import='%s')", getElementName(), this.importPath);
+        return String.format("DMNReference(import='%s', namespace='%s', model='%s', element='%s')", this.importPath, this.namespace, this.modelName, this.element.getName());
     }
 }

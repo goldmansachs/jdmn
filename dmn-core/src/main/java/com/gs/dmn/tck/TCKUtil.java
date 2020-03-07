@@ -96,7 +96,7 @@ public class TCKUtil {
             // Found model, lookup element by name
             for (TDRGElement drg: this.dmnModelRepository.drgElements(definitions)) {
                 if (drg.getName().equals(elementName)) {
-                    return this.dmnModelRepository.makeDRGElementReference(drg, importPath);
+                    return this.dmnModelRepository.makeDRGElementReference(importPath, drg);
                 }
             }
         } else {
@@ -117,7 +117,7 @@ public class TCKUtil {
         // Lookup element by name
         for (TDRGElement drg: this.dmnModelRepository.drgElements(definitions)) {
             if (drg.getName().equals(elementName)) {
-                return this.dmnModelRepository.makeDRGElementReference(drg, importPath);
+                return this.dmnModelRepository.makeDRGElementReference(importPath, drg);
             }
         }
         // Lookup in imports
@@ -140,7 +140,7 @@ public class TCKUtil {
         ValueType value = node;
         while (import_ != null) {
             path.addPathElement(name);
-            definitions = dmnModelRepository.getModel(import_.getNamespace());
+            definitions = this.dmnModelRepository.getModel(import_.getNamespace());
             name = null;
             if (value.getComponent() != null && value.getComponent().size() == 1) {
                 Component component = value.getComponent().get(0);
@@ -151,7 +151,7 @@ public class TCKUtil {
         }
 
         // Find DRG element and value
-        List<TDRGElement> drgElements = dmnModelRepository.drgElements(definitions);
+        List<TDRGElement> drgElements = this.dmnModelRepository.drgElements(definitions);
         TDRGElement element = null;
         for (TDRGElement e: drgElements) {
             if (e.getName().equals(name)) {
@@ -164,7 +164,7 @@ public class TCKUtil {
         }
 
         // Make result
-        return new Pair<>(this.dmnModelRepository.makeDRGElementReference(element, path), value);
+        return new Pair<>(this.dmnModelRepository.makeDRGElementReference(path, element), value);
     }
 
     private TImport getImport(TDefinitions definitions, String name) {
@@ -597,7 +597,7 @@ public class TCKUtil {
             if (text == null) {
                 return null;
             } else if (isNumber(value)) {
-                return feelLib.number(text);
+                return this.feelLib.number(text);
             } else if (isString(value)) {
                 return text;
             } else if (isBoolean(value)) {
@@ -607,17 +607,17 @@ public class TCKUtil {
                     return Boolean.parseBoolean(text);
                 }
             } else if (isDate(value)) {
-                return feelLib.date(text);
+                return this.feelLib.date(text);
             } else if (isTime(value)) {
-                return feelLib.time(text);
+                return this.feelLib.time(text);
             } else if (isDateTime(value)) {
-                return feelLib.dateAndTime(text);
+                return this.feelLib.dateAndTime(text);
             } else if (isDurationTime(value)) {
-                return feelLib.duration(text);
+                return this.feelLib.duration(text);
             } else {
                 Object obj = valueType.getValue().getValue();
                 if (obj instanceof Number) {
-                    obj = feelLib.number(obj.toString());
+                    obj = this.feelLib.number(obj.toString());
                 }
                 return obj;
             }
@@ -702,7 +702,7 @@ public class TCKUtil {
             if (text == null) {
                 return null;
             } else if (isNumber(value, type)) {
-                return feelLib.number(text);
+                return this.feelLib.number(text);
             } else if (isString(value, type)) {
                 return text;
             } else if (isBoolean(value, type)) {
@@ -712,17 +712,17 @@ public class TCKUtil {
                     return Boolean.parseBoolean(text);
                 }
             } else if (isDate(value, type)) {
-                return feelLib.date(text);
+                return this.feelLib.date(text);
             } else if (isTime(value, type)) {
-                return feelLib.time(text);
+                return this.feelLib.time(text);
             } else if (isDateTime(value, type)) {
-                return feelLib.dateAndTime(text);
+                return this.feelLib.dateAndTime(text);
             } else if (isDurationTime(value, type)) {
-                return feelLib.duration(text);
+                return this.feelLib.duration(text);
             } else {
                 Object obj = valueType.getValue().getValue();
                 if (obj instanceof Number) {
-                    obj = feelLib.number(obj.toString());
+                    obj = this.feelLib.number(obj.toString());
                 }
                 return obj;
             }
@@ -838,13 +838,13 @@ public class TCKUtil {
         if (value instanceof String) {
             return (String) value;
         } else if (value instanceof Number) {
-            return feelLib.string(value);
+            return this.feelLib.string(value);
         } else if (value instanceof Boolean) {
             return value.toString();
         } else if (value instanceof XMLGregorianCalendar) {
-            return feelLib.string(value);
+            return this.feelLib.string(value);
         } else if (value instanceof Duration) {
-            return feelLib.string(value);
+            return this.feelLib.string(value);
         } else if (value instanceof org.w3c.dom.Element) {
             return ((org.w3c.dom.Element) value).getTextContent();
         } else {

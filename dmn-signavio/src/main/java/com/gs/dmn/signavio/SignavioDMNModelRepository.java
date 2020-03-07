@@ -36,8 +36,8 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
             "signavio", "sigExt"
     };
 
-    private QName diagramId = new QName(schemaNamespace, "diagramId");
-    private QName shapeId = new QName(schemaNamespace, "shapeId");
+    private QName diagramId = new QName(this.schemaNamespace, "diagramId");
+    private QName shapeId = new QName(this.schemaNamespace, "shapeId");
 
     public final SignavioExtension extension = new SignavioExtension(this);
 
@@ -64,7 +64,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         super(pairs);
         for (Pair<TDefinitions, PrefixNamespaceMappings> pair: pairs) {
             TDefinitions definitions = pair.getLeft();
-            List<Object> elementList = extension.findExtensions(definitions.getExtensionElements(), DMN_12.getNamespace(), "decisionService");
+            List<Object> elementList = this.extension.findExtensions(definitions.getExtensionElements(), DMN_12.getNamespace(), "decisionService");
             for(Object element: elementList) {
                 Object value = ((JAXBElement) element).getValue();
                 if (value instanceof TDecisionService) {
@@ -75,23 +75,23 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
     }
 
     public String getSchemaNamespace() {
-        return schemaNamespace;
+        return this.schemaNamespace;
     }
 
     public String[] getSchemaPrefixes() {
-        return schemaPrefixes;
+        return this.schemaPrefixes;
     }
 
     public QName getDiagramIdQName() {
-        return diagramId;
+        return this.diagramId;
     }
 
     public QName getShapeIdQName() {
-        return shapeId;
+        return this.shapeId;
     }
 
     public SignavioExtension getExtension() {
-        return extension;
+        return this.extension;
     }
 
     public boolean isBKMLinkedToDecision(TNamedElement element) {
@@ -105,7 +105,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
     }
 
     public boolean isMultiInstanceDecision(TDRGElement decision) {
-        return extension.isMultiInstanceDecision(decision);
+        return this.extension.isMultiInstanceDecision(decision);
     }
 
     @Override
@@ -116,7 +116,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         result.addAll(directInputDatas(parent));
         // Add inputs used in iteration body / topLevelDecision
         if (isMultiInstanceDecision(parent)) {
-            MultiInstanceDecisionLogic multiInstanceDecisionLogic = extension.multiInstanceDecisionLogic(parent);
+            MultiInstanceDecisionLogic multiInstanceDecisionLogic = this.extension.multiInstanceDecisionLogic(parent);
             TDecision topLevelDecision = multiInstanceDecisionLogic.getTopLevelDecision();
             DRGElementReference<? extends TDRGElement> topLevelReference = makeDRGElementReference(topLevelDecision);
 
@@ -131,7 +131,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
             TDecision child = findDecisionByRef(parent, reference.getHref());
             if (child != null) {
                 String importName = findImportName(parent, reference);
-                DRGElementReference<TDecision> childReference = makeDRGElementReference(child, new ImportPath(parentImportPath, importName));
+                DRGElementReference<TDecision> childReference = makeDRGElementReference(new ImportPath(parentImportPath, importName), child);
                 List<DRGElementReference<TInputData>> inputReferences = collectAllInputDatas(childReference);
                 result.addAll(inputReferences);
             } else {
