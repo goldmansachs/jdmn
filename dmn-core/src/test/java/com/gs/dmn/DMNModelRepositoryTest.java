@@ -46,18 +46,18 @@ public class DMNModelRepositoryTest {
     @Test
     public void testFindDecisionByRef() {
         String id = "d_BureauCallType";
-        TDefinitions definitions = dmnModelRepository.getRootDefinitions();
+        TDefinitions definitions = this.dmnModelRepository.getRootDefinitions();
         String namespace = definitions.getNamespace();
-        TDecision decision = dmnModelRepository.findDecisionByRef(null,namespace + "#" + id);
+        TDecision decision = this.dmnModelRepository.findDecisionByRef(null,namespace + "#" + id);
         assertEquals(id, decision.getId());
         assertEquals("BureauCallType", decision.getName());
     }
 
     @Test
     public void testTopologicalSort() {
-        TDMNElement root = dmnModelRepository.findDRGElementByName("Strategy");
+        TDMNElement root = this.dmnModelRepository.findDRGElementByName("Strategy");
 
-        List<TDecision> decisions = dmnModelRepository.topologicalSort((TDecision)root);
+        List<TDecision> decisions = this.dmnModelRepository.topologicalSort((TDecision)root);
 
         List<String> actual = decisions.stream().map(TNamedElement::getName).collect(Collectors.toList());
         List<String> expected = Arrays.asList("ApplicationRiskScore", "Pre-bureauRiskCategory", "BureauCallType", "RequiredMonthlyInstallment", "Pre-bureauAffordability", "Eligibility");
@@ -66,11 +66,11 @@ public class DMNModelRepositoryTest {
 
     @Test
     public void testCachedElements() {
-        Set<String> cachedElements = dmnModelRepository.computeCachedElements(true, 1);
+        Set<String> cachedElements = this.dmnModelRepository.computeCachedElements(true, 1);
         List<String> expected = Arrays.asList("Pre-bureauRiskCategory", "RequiredMonthlyInstallment", "Post-bureauRiskCategory", "ApplicationRiskScore");
         assertEquals(expected, new ArrayList<>(cachedElements));
 
-        cachedElements = dmnModelRepository.computeCachedElements(true, 0);
+        cachedElements = this.dmnModelRepository.computeCachedElements(true, 0);
         expected = Arrays.asList(
                 "Pre-bureauRiskCategory", "Pre-bureauAffordability", "RequiredMonthlyInstallment", "Post-bureauRiskCategory", "ApplicationRiskScore",
                 "Post-bureauAffordability", "BureauCallType", "Eligibility");
@@ -79,9 +79,9 @@ public class DMNModelRepositoryTest {
 
     @Test
     public void testDirectInputDatas() {
-        TDRGElement root = dmnModelRepository.findDRGElementByName("Adjudication");
-        List<DRGElementReference<TInputData>> references = dmnModelRepository.directInputDatas(root);
-        dmnModelRepository.sortNamedElementReferences(references);
+        TDRGElement root = this.dmnModelRepository.findDRGElementByName("Adjudication");
+        List<DRGElementReference<TInputData>> references = this.dmnModelRepository.directInputDatas(root);
+        this.dmnModelRepository.sortNamedElementReferences(references);
 
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
         List<String> expected = Arrays.asList(
@@ -94,9 +94,9 @@ public class DMNModelRepositoryTest {
 
     @Test
     public void testAllInputDatas() {
-        TDRGElement root = dmnModelRepository.findDRGElementByName("Pre-bureauAffordability");
-        List<DRGElementReference<TInputData>> references = dmnModelRepository.allInputDatas(makeRootReference(root), new DRGElementFilter(dmnModelRepository, true));
-        dmnModelRepository.sortNamedElementReferences(references);
+        TDRGElement root = this.dmnModelRepository.findDRGElementByName("Pre-bureauAffordability");
+        List<DRGElementReference<TInputData>> references = this.dmnModelRepository.allInputDatas(makeRootReference(root), new DRGElementFilter(true));
+        this.dmnModelRepository.sortNamedElementReferences(references);
 
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
         List<String> expected = Arrays.asList(
@@ -108,8 +108,8 @@ public class DMNModelRepositoryTest {
 
     @Test
     public void testDirectSubDecisions() {
-        TDRGElement root = dmnModelRepository.findDRGElementByName("Strategy");
-        List<DRGElementReference<TDecision>> references = dmnModelRepository.directSubDecisions(root);
+        TDRGElement root = this.dmnModelRepository.findDRGElementByName("Strategy");
+        List<DRGElementReference<TDecision>> references = this.dmnModelRepository.directSubDecisions(root);
 
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
         List<String> expected = Arrays.asList(
@@ -121,8 +121,8 @@ public class DMNModelRepositoryTest {
 
     @Test
     public void testDirectSubInvocables() {
-        TDRGElement root = dmnModelRepository.findDRGElementByName("BureauCallType");
-        List<DRGElementReference<TInvocable>> references = dmnModelRepository.directSubInvocables(root);
+        TDRGElement root = this.dmnModelRepository.findDRGElementByName("BureauCallType");
+        List<DRGElementReference<TInvocable>> references = this.dmnModelRepository.directSubInvocables(root);
 
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
         List<String> expected = Arrays.asList(
@@ -135,9 +135,9 @@ public class DMNModelRepositoryTest {
     public void testCollectAllInputDatas() {
         this.dmnModelRepository = readDMN("composite/input/0003-name-conflicts");
 
-        TDRGElement root = dmnModelRepository.findDRGElementByName("modelCDecisionBasedOnBs");
-        List<DRGElementReference<TInputData>> references = dmnModelRepository.collectAllInputDatas(makeRootReference(root));
-        dmnModelRepository.sortNamedElementReferences(references);
+        TDRGElement root = this.dmnModelRepository.findDRGElementByName("modelCDecisionBasedOnBs");
+        List<DRGElementReference<TInputData>> references = this.dmnModelRepository.collectAllInputDatas(makeRootReference(root));
+        this.dmnModelRepository.sortNamedElementReferences(references);
 
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
         List<String> expected = Arrays.asList(
@@ -151,9 +151,9 @@ public class DMNModelRepositoryTest {
     public void testAllInputDatasWithImports() {
         this.dmnModelRepository = readDMN("composite/input/0003-name-conflicts");
 
-        TDRGElement root = dmnModelRepository.findDRGElementByName("modelCDecisionBasedOnBs");
-        List<DRGElementReference<TInputData>> references = dmnModelRepository.collectAllInputDatas(makeRootReference(root));
-        dmnModelRepository.sortNamedElementReferences(references);
+        TDRGElement root = this.dmnModelRepository.findDRGElementByName("modelCDecisionBasedOnBs");
+        List<DRGElementReference<TInputData>> references = this.dmnModelRepository.collectAllInputDatas(makeRootReference(root));
+        this.dmnModelRepository.sortNamedElementReferences(references);
 
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
         List<String> expected = Arrays.asList(
@@ -165,7 +165,7 @@ public class DMNModelRepositoryTest {
 
     private DMNModelRepository readDMN(String pathName) {
         File input = new File(DMNModelRepositoryTest.class.getClassLoader().getResource(pathName).getFile());
-        List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = dmnReader.readModels(input);
+        List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = this.dmnReader.readModels(input);
         return new DMNModelRepository(pairs);
     }
 

@@ -175,7 +175,7 @@ public class DMNModelRepository {
     }
 
     public PrefixNamespaceMappings getPrefixNamespaceMappings() {
-        return prefixNamespaceMappings;
+        return this.prefixNamespaceMappings;
     }
 
     public void addElementMap(TDRGElement element, TDefinitions definitions) {
@@ -207,12 +207,6 @@ public class DMNModelRepository {
     public String getModelName(TNamedElement element) {
         TDefinitions definitions = this.elementToDefinitions.get(element);
         return definitions == null ? "" : definitions.getName();
-    }
-
-    public String getQualifiedId(TNamedElement element) {
-        String namespace = getModel(element).getNamespace();
-        String id = element.getId();
-        return String.format("%s#%s", namespace, id);
     }
 
     public List<TDRGElement> drgElements() {
