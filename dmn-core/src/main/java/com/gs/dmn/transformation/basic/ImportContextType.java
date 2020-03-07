@@ -12,33 +12,36 @@
  */
 package com.gs.dmn.transformation.basic;
 
+import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.semantics.type.*;
+import org.omg.spec.dmn._20180521.model.TDRGElement;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class ImportContextType extends ContextType implements CompositeDataType {
-    private final String memberNamespace;
-    private final String memberModelName;
     private final String importName;
+    private final Map<String, DRGElementReference<? extends TDRGElement>> referenceMap = new LinkedHashMap<>();
 
-    public ImportContextType(String memberNamespace, String memberModelName, String importName) {
-        this.memberNamespace = memberNamespace;
-        this.memberModelName = memberModelName;
+    public ImportContextType(String importName) {
         this.importName = importName;
-    }
-
-    public String getMemberNamespace() {
-        return memberNamespace;
-    }
-
-    public String getMemberModelName() {
-        return memberModelName;
     }
 
     public String getImportName() {
         return importName;
     }
 
+    public DRGElementReference<? extends TDRGElement> getMemberReference(String name) {
+        DRGElementReference<? extends TDRGElement> reference = this.referenceMap.get(name);
+        return reference;
+    }
+
+    public void addMemberReference(String name, DRGElementReference<? extends TDRGElement> reference) {
+        this.referenceMap.put(name, reference);
+    }
+
     @Override
     public String toString() {
-        return String.format("ImportContextType(%s, namespace='%s' model='%s', import='%s')", super.toString(), memberNamespace, memberModelName, importName);
+        return String.format("ImportContextType(importName='%s' %s)", this.importName, super.toString());
     }
 }

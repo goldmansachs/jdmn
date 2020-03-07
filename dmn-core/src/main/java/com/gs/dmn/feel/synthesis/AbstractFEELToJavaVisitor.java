@@ -22,7 +22,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.QualifiedName;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.DateTimeLiteral;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.runtime.interpreter.ImportPath;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.basic.ImportContextType;
 import org.apache.commons.lang3.StringUtils;
@@ -76,8 +75,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         if (sourceType instanceof ImportContextType) {
             ImportContextType importContextType = (ImportContextType) sourceType;
             String importName = importContextType.getImportName();
-            String modelName = ImportPath.isEmpty(importName) ? "" : importContextType.getMemberModelName();
-            return this.dmnTransformer.drgReferenceQualifiedName(modelName, new ImportPath(importName), memberName);
+            return this.dmnTransformer.drgReferenceQualifiedName(importContextType.getMemberReference(memberName));
         } else if (sourceType instanceof ItemDefinitionType) {
             Type memberType = ((ItemDefinitionType) sourceType).getMemberType(memberName);
             String javaType = dmnTransformer.toJavaType(memberType);
