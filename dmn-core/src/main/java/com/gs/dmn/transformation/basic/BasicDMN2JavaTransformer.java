@@ -582,7 +582,7 @@ public class BasicDMN2JavaTransformer {
             throw new DMNRuntimeException(String.format("Variable name cannot be null. InputData id '%s'", inputData.getId()));
         }
         String modelName = this.dmnModelRepository.getModelName(inputData);
-        return drgReferenceQualifiedName(modelName, new ImportPath(), name);
+        return drgReferenceQualifiedName(new ImportPath(), modelName, name);
     }
 
     public Type toFEELType(TInputData inputData) {
@@ -840,10 +840,10 @@ public class BasicDMN2JavaTransformer {
         TDRGElement element = reference.getElement();
         String modelName = this.dmnModelRepository.getModel(element).getName();
         String elementName = reference.getElementName();
-        return drgReferenceQualifiedName(modelName, reference.getImportPath(), elementName);
+        return drgReferenceQualifiedName(reference.getImportPath(), modelName, elementName);
     }
 
-    private String drgReferenceQualifiedName(String modelName, ImportPath importPath, String elementName) {
+    private String drgReferenceQualifiedName(ImportPath importPath, String modelName, String elementName) {
         if (this.onePackage) {
             return lowerCaseFirst(elementName);
         } else if (this.singletonInputData) {

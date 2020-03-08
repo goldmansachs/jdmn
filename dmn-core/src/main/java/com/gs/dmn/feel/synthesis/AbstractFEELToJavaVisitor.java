@@ -74,7 +74,6 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
     protected String makeNavigation(Expression element, Type sourceType, String source, String memberName, String memberVariableName) {
         if (sourceType instanceof ImportContextType) {
             ImportContextType importContextType = (ImportContextType) sourceType;
-            String importName = importContextType.getImportName();
             return this.dmnTransformer.drgReferenceQualifiedName(importContextType.getMemberReference(memberName));
         } else if (sourceType instanceof ItemDefinitionType) {
             Type memberType = ((ItemDefinitionType) sourceType).getMemberType(memberName);
