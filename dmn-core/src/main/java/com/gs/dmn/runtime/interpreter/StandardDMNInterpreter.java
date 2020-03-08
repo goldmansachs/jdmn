@@ -369,7 +369,6 @@ public class StandardDMNInterpreter implements DMNInterpreter {
                 TInputData child = this.dmnModelRepository.findInputDataByRef(parent, requiredInput.getHref());
                 String importName = this.dmnModelRepository.findImportName(parent, requiredInput);
                 ImportPath childImportPath = new ImportPath(importPath, importName);
-                String inputName = child.getName();
 
                 // Add new binding to match path in parent
                 addBinding(runtimeEnvironment, this.dmnModelRepository.makeDRGElementReference(childImportPath, child), importName);
@@ -378,7 +377,6 @@ public class StandardDMNInterpreter implements DMNInterpreter {
                 String importName = this.dmnModelRepository.findImportName(parent, requiredDecision);
                 ImportPath childImportPath = new ImportPath(importPath, importName);
                 evaluateDecision(this.dmnModelRepository.makeDRGElementReference(childImportPath, child), runtimeEnvironment);
-                String inputName = child.getName();
 
                 // Add new binding to match path in parent
                 addBinding(runtimeEnvironment, this.dmnModelRepository.makeDRGElementReference(childImportPath, child), importName);

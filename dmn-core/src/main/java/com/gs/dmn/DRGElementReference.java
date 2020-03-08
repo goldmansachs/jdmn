@@ -13,31 +13,27 @@
 package com.gs.dmn;
 
 import com.gs.dmn.runtime.interpreter.ImportPath;
-import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
 
 public class DRGElementReference<T extends TDRGElement> {
+    // Import path from the root node
     private final ImportPath importPath;
+    // Namespace of DM containing that contains the definition of the element
     private final String namespace;
+    // Name of DM that contains the definition of the element
     private final String modelName;
+    // The DRG element
     private final T element;
 
-    public DRGElementReference(String namespace, String modelName, T element) {
-        this(new ImportPath(), namespace, modelName, element);
-    }
-
     public DRGElementReference(ImportPath importPath, String namespace, String modelName, T element) {
+        this.importPath = importPath;
         this.namespace = namespace;
         this.modelName = modelName;
         this.element = element;
-        this.importPath = importPath;
     }
 
-    public DRGElementReference(String importName, String namespace, String modelName, T element) {
-        this(namespace, modelName, element);
-        if (!StringUtils.isBlank(importName)) {
-            this.importPath.addPathElement(importName);
-        }
+    public ImportPath getImportPath() {
+        return this.importPath;
     }
 
     public String getNamespace() {
@@ -50,10 +46,6 @@ public class DRGElementReference<T extends TDRGElement> {
 
     public T getElement() {
         return this.element;
-    }
-
-    public ImportPath getImportPath() {
-        return this.importPath;
     }
 
     public String getElementName() {
