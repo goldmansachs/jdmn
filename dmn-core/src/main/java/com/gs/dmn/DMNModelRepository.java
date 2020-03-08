@@ -659,15 +659,15 @@ public class DMNModelRepository {
     }
 
     public <T extends TDRGElement> DRGElementReference<T> makeDRGElementReference(T element) {
-        return new DRGElementReference<>(new ImportPath(), getNamespace(element), getModelName(element), element);
+        return makeDRGElementReference(new ImportPath(), element);
+    }
+
+    public <T extends TDRGElement> DRGElementReference<T> makeDRGElementReference(String importName, T element) {
+        return makeDRGElementReference(new ImportPath(importName), element);
     }
 
     public <T extends TDRGElement> DRGElementReference<T> makeDRGElementReference(ImportPath importPath, T element) {
         return new DRGElementReference<>(importPath, getNamespace(element), getModelName(element), element);
-    }
-
-    public <T extends TDRGElement> DRGElementReference<T> makeDRGElementReference(String importName, T element) {
-        return new DRGElementReference<>(importName, getNamespace(element), getModelName(element), element);
     }
 
     public List<DRGElementReference<TInputData>> directInputDatas(TDRGElement parent) {
