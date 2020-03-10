@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.synthesis;
 
+import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.type.*;
@@ -25,6 +26,7 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.basic.ImportContextType;
 import org.apache.commons.lang3.StringUtils;
+import org.omg.spec.dmn._20180521.model.TDRGElement;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -74,7 +76,9 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
     protected String makeNavigation(Expression element, Type sourceType, String source, String memberName, String memberVariableName) {
         if (sourceType instanceof ImportContextType) {
             ImportContextType importContextType = (ImportContextType) sourceType;
-            return this.dmnTransformer.drgReferenceQualifiedName(importContextType.getMemberReference(memberName));
+            DRGElementReference<? extends TDRGElement> memberReference = importContextType.getMemberReference(memberName);
+            String javaName = this.dmnTransformer.drgReferenceQualifiedName(memberReference);
+            return this.dmnTransformer.lazyEvaluation(memberReference.getElementName(), javaName);
         } else if (sourceType instanceof ItemDefinitionType) {
             Type memberType = ((ItemDefinitionType) sourceType).getMemberType(memberName);
             String javaType = dmnTransformer.toJavaType(memberType);
