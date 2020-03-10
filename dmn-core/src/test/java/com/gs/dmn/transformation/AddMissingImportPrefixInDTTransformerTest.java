@@ -12,12 +12,11 @@
  */
 package com.gs.dmn.transformation;
 
+import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 import org.omg.spec.dmn._20180521.model.TLiteralExpression;
 
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -26,38 +25,27 @@ public class AddMissingImportPrefixInDTTransformerTest {
     private Set<String> names = new LinkedHashSet<>(Arrays.asList("ident1", "ident2"));
 
     @Test
-    public void testAddMissingPrefixWhenNull() {
-        String text = null;
-        TLiteralExpression exp = makeExpression(text);
-        transformer.addMissingPrefix(exp, names);
-        assertEquals(text, exp.getText());
-    }
-
-    @Test
-    public void testAddMissingPrefixWhenEmpty() {
-        String text = "";
-        TLiteralExpression exp = makeExpression(text);
-        transformer.addMissingPrefix(exp, names);
-        assertEquals(text, exp.getText());
-    }
-
-    @Test
-    public void testAddMissingPrefixWhenLiteral() {
-        TLiteralExpression exp = makeExpression("\"ident1\"");
-        transformer.addMissingPrefix(exp, names);
-        assertEquals("\"ident1\"  ", exp.getText());
-    }
-
-    @Test
     public void testAddMissingPrefix() {
-        TLiteralExpression exp = makeExpression("ident1+ident2");
-        transformer.addMissingPrefix(exp, names);
-        assertEquals("ident1.ident1 + ident2.ident2  ", exp.getText());
+        List<Pair<String, String>> testCases = Arrays.asList(
+                // Empty
+                new Pair<>(null, null),
+                new Pair<>("", ""),
+                // String literal
+                new Pair<>("\"ident1\"", "\"ident1\""),
+                new Pair<>("ident1+ident2", "ident1.ident1 + ident2.ident2"),
+                // Unary tests
+                new Pair<>("> ident1+ident2", "> ident1.ident1 + ident2.ident2"),
+                new Pair<>("starts with(?, ident1)", "starts with ( ? , ident1.ident1 )"),
+                // Function name same as argument
+                new Pair<>("ident1(?, ident1)", "ident1 ( ? , ident1.ident1 )"),
+                // Member name same as source
+                new Pair<>("ident1.ident1+4", "ident1.ident1 . ident1 + 4")
+        );
+        for (Pair<String, String> pair: testCases) {
+            String text = pair.getLeft();
+            String newText = transformer.addMissingPrefix(text, names);
+            assertEquals(pair.getRight(), newText);
+        }
     }
 
-    private TLiteralExpression makeExpression(String text) {
-        TLiteralExpression exp = new TLiteralExpression();
-        exp.setText(text);
-        return exp;
-    }
 }
