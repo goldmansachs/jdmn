@@ -1994,7 +1994,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>test-0008-name-conflicts-same-decision-no-singleton</id>
+                        <id>test-composite-0008-name-conflicts-same-decision-no-singleton</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>tck-to-java</goal>
@@ -2005,6 +2005,46 @@
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0008_name_conflicts_same_decision_no_singleton</javaRootPackage>
+                                <singletonInputData>false</singletonInputData>
+                                <caching>false</caching>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>lazy-composite-0008-name-conflicts-same-decision-no-singleton</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>src/main/resources/composite/0008-name-conflicts-same-decision-no-singleton</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <lazyEvaluationDetectors>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
+                            </lazyEvaluationDetectors>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.lazy_composite_0008_name_conflicts_same_decision_no_singleton</javaRootPackage>
+                                <singletonInputData>false</singletonInputData>
+                                <caching>false</caching>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-lazy-composite-0008-name-conflicts-same-decision-no-singleton</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>src/main/resources/composite/0008-name-conflicts-same-decision-no-singleton</inputTestFileDirectory>
+                            <inputModelFileDirectory>src/main/resources/composite/0008-name-conflicts-same-decision-no-singleton</inputModelFileDirectory>
+                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
+                            <lazyEvaluationDetectors>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
+                            </lazyEvaluationDetectors>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.lazy_composite_0008_name_conflicts_same_decision_no_singleton</javaRootPackage>
                                 <singletonInputData>false</singletonInputData>
                                 <caching>false</caching>
                             </inputParameters>

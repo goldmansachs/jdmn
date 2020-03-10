@@ -445,7 +445,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         if (result.size() == 1) {
             return String.format("(%s)", result.get(0));
         } else {
-            return String.format("booleanOr(%s)", result.stream().collect(Collectors.joining(", ")));
+            return String.format("booleanOr(%s)", String.join(", ", result));
         }
     }
 
@@ -620,7 +620,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
             return inputExpressionToJava(context);
         } else {
             String javaName = javaFriendlyVariableName(name);
-            return dmnTransformer.isLazyEvaluated(name) ? javaName + ".getOrCompute()" : javaName;
+            return dmnTransformer.lazyEvaluation(name, javaName);
         }
     }
 
@@ -641,7 +641,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         if (operands.size() == 1) {
             return operands.get(0);
         } else {
-            return String.format("booleanOr(%s)", operands.stream().collect(Collectors.joining(", ")));
+            return String.format("booleanOr(%s)", String.join(", ", operands));
         }
     }
 

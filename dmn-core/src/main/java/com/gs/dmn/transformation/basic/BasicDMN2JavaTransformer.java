@@ -907,8 +907,8 @@ public class BasicDMN2JavaTransformer {
         return isLazyEvaluated(input) ? String.format("%s<%s>", lazyEvalClassName(), inputJavaType) : inputJavaType;
     }
 
-    String lazyEvaluationArgument(TDRGElement parent, String name) {
-        return isLazyEvaluated(name) ? String.format("%s.getOrCompute()", name) : name;
+    public String lazyEvaluation(String elementName, String javaName) {
+        return isLazyEvaluated(elementName) ? String.format("%s.getOrCompute()", javaName) : javaName;
     }
 
     public String pairClassName() {
