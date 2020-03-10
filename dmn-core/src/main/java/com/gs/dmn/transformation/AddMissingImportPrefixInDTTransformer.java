@@ -23,6 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.spec.dmn._20180521.model.*;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -66,39 +67,95 @@ public class AddMissingImportPrefixInDTTransformer extends SimpleDMNTransformer<
             }
         }
 
-        // Add missing import prefix in OutputEntry
+        // Add missing import prefix in InputClause
+        for (TInputClause input: decisionTable.getInput()) {
+            if (input != null) {
+                addMissingPrefix(input.getInputExpression(), names);
+            }
+        }
+
+        // Add missing import prefix in OutputClause
+        for (TOutputClause output: decisionTable.getOutput()) {
+            if (output != null) {
+                addMissingPrefix(output.getOutputValues(), names);
+                addMissingPrefix(output.getDefaultOutputEntry(), names);
+            }
+        }
+
+        // Add missing import prefix in Rule
         for (TDecisionRule rule: decisionTable.getRule()) {
-            List<TLiteralExpression> outputEntry = rule.getOutputEntry();
+            // InputEntry
+            for (TUnaryTests test: rule.getInputEntry()) {
+                addMissingPrefix(test, names);
+            }
+            // OutputEntry
             for (TLiteralExpression exp: rule.getOutputEntry()) {
                 addMissingPrefix(exp, names);
             }
         }
     }
 
-    void addMissingPrefix(TLiteralExpression exp, Set<String> names) {
-        if (exp == null || StringUtils.isEmpty(exp.getText())) {
-            return;
+    private void addMissingPrefix(TLiteralExpression exp, Set<String> names) {
+        if (exp != null) {
+            String newText = addMissingPrefix(exp.getText(), names);
+            exp.setText(newText);
         }
-        String oldText = exp.getText();
-        StringBuilder newText = new StringBuilder();
-        Lexer lexer = makeLexer(oldText);
+    }
+
+    private void addMissingPrefix(TUnaryTests test, Set<String> names) {
+        if (test != null) {
+            String newText = addMissingPrefix(test.getText(), names);
+            test.setText(newText);
+        }
+    }
+
+    String addMissingPrefix(String text, Set<String> names) {
+        if (StringUtils.isEmpty(text)) {
+            return text;
+        }
+
+        // Extract tokens
+        Lexer lexer = makeLexer(text);
+        List<Token> tokens = new ArrayList<>();
         Token token;
         do {
             token = lexer.nextToken();
-            if (token.getType() == FEELLexer.NAME) {
-                String name = token.getText();
-                if (names.contains(name)) {
+            tokens.add(token);
+        } while (token.getType() != FEELLexer.EOF);
+
+        // Add prefix
+        StringBuilder newText = new StringBuilder();
+        int card = tokens.size() - 1;
+        for (int i = 0; i < card; i++) {
+            token = tokens.get(i);
+            String tokenText = token.getText();
+            if (isInputName(i, tokens)) {
+                // Replace name
+                if (names.contains(tokenText)) {
                     // Prefix same with DRG name
-                    newText.append(name).append(".").append(name);
+                    newText.append(tokenText).append(".").append(tokenText);
                 } else {
-                    newText.append(name);
+                    newText.append(tokenText);
                 }
-            } else if (token.getType() != FEELLexer.EOF) {
-                newText.append(token.getText());
+            } else {
+                newText.append(tokenText);
             }
             newText.append(" ");
-        } while (token.getType() != FEELLexer.EOF);
-        exp.setText(newText.toString());
+        }
+        return newText.toString().trim();
+    }
+
+    private boolean isInputName(int index, List<Token> tokens) {
+        if (tokens.get(index).getType() != FEELLexer.NAME) {
+            return false;
+        }
+        if (index + 1 < tokens.size() && tokens.get(index + 1).getType() == FEELLexer.PAREN_OPEN) {
+            return false;
+        }
+        if (index - 1 >= 0 && tokens.get(index - 1).getType() == FEELLexer.DOT) {
+            return false;
+        }
+        return true;
     }
 
     private Lexer makeLexer(java.lang.String text) {
