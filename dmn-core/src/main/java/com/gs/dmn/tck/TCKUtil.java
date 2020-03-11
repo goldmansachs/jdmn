@@ -14,7 +14,6 @@ package com.gs.dmn.tck;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.lib.StandardFEELLib;
@@ -350,17 +349,8 @@ public class TCKUtil {
     }
 
     public Object expectedValue(TestCases testCases, TestCase testCase, ResultNode resultNode) {
-        if (IGNORE_ELEMENT_TYPE) {
-            return makeValue(resultNode.getExpected());
-        } else {
-            TDRGElement drgElement = findDRGElement(testCases, testCase, resultNode);
-            if (drgElement == null) {
-                throw new DMNRuntimeException(String.format("Cannot find DRG element '%s'", resultNode.getName()));
-            }
-            Environment environment = this.dmnTransformer.makeEnvironment(drgElement);
-            Type elementType = this.dmnTransformer.drgElementOutputFEELType(drgElement, environment);
-            return makeValue(resultNode.getExpected(), elementType);
-        }
+        ResultNodeInfo info = extractResultNodeInfo(testCases, testCase, resultNode);
+        return makeValue(info.getExpectedValue());
     }
 
     private RuntimeEnvironment makeEnvironment(TestCases testCases, TestCase testCase) {
@@ -369,9 +359,16 @@ public class TCKUtil {
         for (int i = 0; i < inputNode.size(); i++) {
             InputNode input = inputNode.get(i);
             try {
-                Object value = makeInputValue(testCases, testCase, input);
-                String name = input.getName();
-                runtimeEnvironment.bind(name, value);
+                if (this.dmnTransformer.isSingletonInputData()) {
+                    InputNodeInfo info = extractInputNodeInfo(testCases, testCase, input);
+                    String name = this.dmnTransformer.bindingName(info.getReference());
+                    Object value = makeValue(info.getValue());
+                    runtimeEnvironment.bind(name, value);
+                } else {
+                    String name = input.getName();
+                    Object value = makeInputValue(testCases, testCase, input);
+                    runtimeEnvironment.bind(name, value);
+                }
             } catch (Exception e) {
                 LOGGER.error("Cannot make environment ", e);
                 throw new DMNRuntimeException(String.format("Cannot process input node '%s' for TestCase %d for DM '%s'", input.getName(), i, testCase.getName()), e);

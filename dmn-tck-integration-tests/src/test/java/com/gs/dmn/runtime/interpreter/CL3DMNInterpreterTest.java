@@ -85,7 +85,7 @@ public abstract class CL3DMNInterpreterTest extends AbstractDMNInterpreterTest {
         doSingleModelTest("0076-feel-external-java");
         doSingleModelTest("0082-feel-coercion");
         doSingleModelTest("0085-decision-services");
-        doMultipleModelsTest(Arrays.asList("0086-import", "0086-imported-model"));
+        doMultipleModelsTest(Arrays.asList("0086-import", "0086-imported-model"), new Pair<>("singletonInputData", "false"));
         doSingleModelTest("0087-chapter-11-example");
         doMultipleModelsTest(Arrays.asList("0089-nested-inputdata-imports", "0089-model-b", "0089-model-b2", "0089-model-a"), new Pair<>("singletonInputData", "false"));
     }

@@ -23,7 +23,7 @@ public class LoggingEventListener implements SimpleEventListener {
 
     @Override
     public void startDRGElement(DRGElement element, Arguments arguments) {
-        logger.info("Start element '{}' with inputs {}", element.getName(), arguments);
+        logger.info("Start element '{}' with inputs '{}'", element.getName(), arguments);
     }
 
     @Override

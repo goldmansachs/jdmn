@@ -43,11 +43,10 @@ import java.net.URL;
 import java.util.*;
 
 import static com.gs.dmn.tck.TestCasesReader.isTCKFile;
-import static org.junit.Assert.assertTrue;
 
 public abstract class AbstractDMNInterpreterTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractDMNInterpreterTest.class));
-    private static final boolean IGNORE_ERROR_RESULT = true;
+    private static final boolean IGNORE_ERROR = true;
 
     private final DMNReader reader = new DMNReader(LOGGER, false);
     private final TestCasesReader testCasesReader = new TestCasesReader(LOGGER);
@@ -173,20 +172,21 @@ public abstract class AbstractDMNInterpreterTest {
             Object expectedValue = null;
             Result actualResult;
             Object actualValue = null;
-            String message = String.format("Unexpected result in test case in file '%s' test case '%s' for result node '%s'", testCaseFileName, testCase.getId(), res.getName());
+            String testLocation = String.format("Unexpected result in test file '%s', TestCase.id='%s', ResultNode.name='%s'.", testCaseFileName, testCase.getId(), res.getName());
             try {
                 expectedValue = tckUtil.expectedValue(testCases, testCase, res);
                 actualResult = tckUtil.evaluate(interpreter, testCases, testCase, res);
                 actualValue = Result.value(actualResult);
+                String errorMessage = String.format("%s ResultNode '%s' output mismatch, expected '%s' actual '%s'", testLocation, res.getName(), expectedValue, actualValue);
+                Assert.assertEquals(errorMessage, expectedValue, actualValue);
             } catch (Exception e) {
-                LOGGER.error(ExceptionUtils.getStackTrace(e));
-                if (!IGNORE_ERROR_RESULT && !res.isErrorResult()) {
-                    e.printStackTrace();
-                    DMNRuntimeException dmnRuntimeException = new DMNRuntimeException(message, e);
-                    assertTrue(dmnRuntimeException.getMessage() + ". " + e.getMessage() + String.format(".  Expected '%s' actual '%s'", expectedValue, actualValue), res.isErrorResult());
+                String stackTrace = ExceptionUtils.getStackTrace(e);
+                LOGGER.error(stackTrace);
+                if (!IGNORE_ERROR) {
+                    String errorMessage = String.format("%s ResultNode '%s' output mismatch, expected '%s' actual '%s'", testLocation, res.getName(), expectedValue, actualValue);
+                    Assert.assertEquals(errorMessage, expectedValue, actualValue);
                 }
             }
-            Assert.assertEquals(message, expectedValue, actualValue);
         }
     }
 

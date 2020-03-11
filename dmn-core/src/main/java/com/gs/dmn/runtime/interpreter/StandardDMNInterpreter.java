@@ -847,80 +847,105 @@ public class StandardDMNInterpreter implements DMNInterpreter {
     // Binding
     //
     private Object lookupBinding(RuntimeEnvironment runtimeEnvironment, DRGElementReference<? extends TDRGElement> reference) {
-        ImportPath importPath = reference.getImportPath();
-        String name = reference.getElementName();
-
-        if (ImportPath.isEmpty(importPath)) {
-            return runtimeEnvironment.lookupBinding(name);
+        if (this.basicDMNTransformer.isSingletonInputData()) {
+            Object value = runtimeEnvironment.lookupBinding(this.basicDMNTransformer.bindingName(reference));
+            return value;
         } else {
-            List<String> pathElements = importPath.getPathElements();
-            // Lookup root context
-            String rootName = pathElements.get(0);
-            Object obj = runtimeEnvironment.lookupBinding(rootName);
-            if (obj instanceof Context) {
-                // Lookup inner contexts
-                Context parentContext = (Context) obj;
-                for (int i = 1; i < pathElements.size(); i++) {
-                    String childName = pathElements.get(i);
-                    Context childContext = (Context) parentContext.get(childName);
-                    if (childContext == null) {
-                        childContext = new Context();
-                        parentContext.put(childName, childContext);
-                    }
-                    parentContext = childContext;
-                }
-                // lookup name
-                return parentContext.get(name);
+            ImportPath importPath = reference.getImportPath();
+            String name = reference.getElementName();
+
+            if (ImportPath.isEmpty(importPath)) {
+                return runtimeEnvironment.lookupBinding(name);
             } else {
-                throw new DMNRuntimeException(String.format("Context value expected, found '%s'", obj.getClass().getSimpleName()));
+                List<String> pathElements = importPath.getPathElements();
+                // Lookup root context
+                String rootName = pathElements.get(0);
+                Object obj = runtimeEnvironment.lookupBinding(rootName);
+                if (obj instanceof Context) {
+                    // Lookup inner contexts
+                    Context parentContext = (Context) obj;
+                    for (int i = 1; i < pathElements.size(); i++) {
+                        String childName = pathElements.get(i);
+                        Context childContext = (Context) parentContext.get(childName);
+                        if (childContext == null) {
+                            childContext = new Context();
+                            parentContext.put(childName, childContext);
+                        }
+                        parentContext = childContext;
+                    }
+                    // lookup name
+                    return parentContext.get(name);
+                } else {
+                    throw new DMNRuntimeException(String.format("Context value expected, found '%s'", obj.getClass().getSimpleName()));
+                }
             }
         }
     }
 
     private void bind(RuntimeEnvironment runtimeEnvironment, DRGElementReference<? extends TDRGElement> reference, Object value) {
-        ImportPath importPath = reference.getImportPath();
-        String name = reference.getElementName();
-
-        if (ImportPath.isEmpty(importPath)) {
-            runtimeEnvironment.bind(name, value);
+        if (this.basicDMNTransformer.isSingletonInputData()) {
+            runtimeEnvironment.bind(this.basicDMNTransformer.bindingName(reference), value);
         } else {
-            try {
-                List<String> pathElements = importPath.getPathElements();
-                // lookup or bind root context
-                String rootName = pathElements.get(0);
-                Context parentContext = (Context) runtimeEnvironment.lookupBinding(rootName);
-                if (parentContext == null) {
-                    parentContext = new Context();
-                    runtimeEnvironment.bind(rootName, parentContext);
-                }
-                // lookup or bind inner contexts
-                for (int i = 1; i < pathElements.size(); i++) {
-                    String childName = pathElements.get(i);
-                    Context childContext = (Context) parentContext.get(childName);
-                    if (childContext == null) {
-                        childContext = new Context();
-                        parentContext.put(childName, childContext);
+            ImportPath importPath = reference.getImportPath();
+            String name = reference.getElementName();
+
+            if (ImportPath.isEmpty(importPath)) {
+                runtimeEnvironment.bind(name, value);
+            } else {
+                try {
+                    List<String> pathElements = importPath.getPathElements();
+                    // lookup or bind root context
+                    String rootName = pathElements.get(0);
+                    Context parentContext = (Context) runtimeEnvironment.lookupBinding(rootName);
+                    if (parentContext == null) {
+                        parentContext = new Context();
+                        runtimeEnvironment.bind(rootName, parentContext);
                     }
-                    parentContext = childContext;
+                    // lookup or bind inner contexts
+                    for (int i = 1; i < pathElements.size(); i++) {
+                        String childName = pathElements.get(i);
+                        Context childContext = (Context) parentContext.get(childName);
+                        if (childContext == null) {
+                            childContext = new Context();
+                            parentContext.put(childName, childContext);
+                        }
+                        parentContext = childContext;
+                    }
+                    // bind name -> value
+                    parentContext.put(name, value);
+                } catch (Exception e) {
+                    throw new DMNRuntimeException(String.format("cannot bind value to '%s.%s'", importPath.asString(), name));
                 }
-                // bind name -> value
-                parentContext.put(name, value);
-            } catch (Exception e) {
-                throw new DMNRuntimeException(String.format("cannot bind value to '%s.%s'", importPath.asString(), name));
             }
         }
     }
 
+    // Add binding required by parent: importName.elementName
     private void addBinding(RuntimeEnvironment runtimeEnvironment, DRGElementReference<? extends TDRGElement> reference, String importName) {
-        ImportPath importPath = reference.getImportPath();
-        String name = reference.getElementName();
-
-        if (!ImportPath.isEmpty(importPath)) {
+        if (this.basicDMNTransformer.isSingletonInputData()) {
+            String name = reference.getElementName();
             Object value = lookupBinding(runtimeEnvironment, reference);
             if (ImportPath.isEmpty(importName)) {
                 runtimeEnvironment.bind(name, value);
             } else {
-                bind(runtimeEnvironment, this.dmnModelRepository.makeDRGElementReference(new ImportPath(importName), reference.getElement()), value);
+                // Lookup / bind import name
+                Context parentContext = (Context) runtimeEnvironment.lookupBinding(importName);
+                if (parentContext == null) {
+                    parentContext = new Context();
+                    runtimeEnvironment.bind(importName, parentContext);
+                }
+                // bind name -> value
+                parentContext.put(name, value);
+            }
+        } else {
+            ImportPath importPath = reference.getImportPath();
+            if (!ImportPath.isEmpty(importPath)) {
+                Object value = lookupBinding(runtimeEnvironment, reference);
+                if (ImportPath.isEmpty(importName)) {
+                    runtimeEnvironment.bind(reference.getElementName(), value);
+                } else {
+                    bind(runtimeEnvironment, this.dmnModelRepository.makeDRGElementReference(new ImportPath(importName), reference.getElement()), value);
+                }
             }
         }
     }
