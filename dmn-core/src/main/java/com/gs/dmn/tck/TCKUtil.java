@@ -49,7 +49,6 @@ import java.util.stream.Collectors;
 public class TCKUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(TCKUtil.class);
 
-    private static final boolean IGNORE_ELEMENT_TYPE = false;
     private final DMNModelRepository dmnModelRepository;
 
     private final BasicDMN2JavaTransformer dmnTransformer;
@@ -366,7 +365,7 @@ public class TCKUtil {
                     runtimeEnvironment.bind(name, value);
                 } else {
                     String name = input.getName();
-                    Object value = makeInputValue(testCases, testCase, input);
+                    Object value = makeValue(input);
                     runtimeEnvironment.bind(name, value);
                 }
             } catch (Exception e) {
@@ -568,23 +567,6 @@ public class TCKUtil {
         String interfaceName = this.dmnTransformer.toJavaType(type);
         String arguments = argumentList.stream().map(Pair::getRight).collect(Collectors.joining(", "));
         return this.dmnTransformer.constructor(this.dmnTransformer.itemDefinitionJavaClassName(interfaceName), arguments);
-    }
-
-    private Object makeInputValue(TestCases testCases, TestCase testCase, InputNode inputNode) {
-        if (IGNORE_ELEMENT_TYPE) {
-            return makeValue(inputNode);
-        } else {
-            TDRGElement drgElement = findDRGElement(testCases, testCase, inputNode);
-            if (drgElement instanceof TInputData) {
-                Type type = this.dmnTransformer.drgElementOutputFEELType(drgElement);
-                return makeValue(inputNode, type);
-            } else if (drgElement instanceof TDecision) {
-                Type type = this.dmnTransformer.drgElementOutputFEELType(drgElement);
-                return makeValue(inputNode, type);
-            } else {
-                return makeValue(inputNode, null);
-            }
-        }
     }
 
     public Object makeValue(ValueType valueType) {
