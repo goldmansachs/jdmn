@@ -837,34 +837,42 @@ public class BasicDMN2JavaTransformer {
     }
 
     public String drgReferenceQualifiedName(DRGElementReference<? extends TDRGElement> reference) {
-        TDRGElement element = reference.getElement();
-        String modelName = this.dmnModelRepository.getModel(element).getName();
-        String elementName = reference.getElementName();
-        return drgReferenceQualifiedName(reference.getImportPath(), modelName, elementName);
+        return drgReferenceQualifiedName(reference.getImportPath(), reference.getModelName(), reference.getElementName());
     }
 
     private String drgReferenceQualifiedName(ImportPath importPath, String modelName, String elementName) {
+        Pair<List<String>, String> qName = qualifiedName(importPath, modelName, elementName);
+
+        String javaPrefix = qName.getLeft().stream().map(this::javaModelName).collect(Collectors.joining("_"));
+        String javaName = lowerCaseFirst(qName.getRight());
+        if (StringUtils.isBlank(javaPrefix)) {
+            return javaName;
+        } else {
+            return String.format("%s_%s", javaPrefix, javaName);
+        }
+    }
+
+    public String bindingName(DRGElementReference<? extends TDRGElement> reference) {
+        Pair<List<String>, String> qName = qualifiedName(reference.getImportPath(), reference.getModelName(), reference.getElementName());
+
+        String prefix = String.join(".", qName.getLeft());
+        if (StringUtils.isBlank(prefix)) {
+            return qName.getRight();
+        } else {
+            return String.format("%s.%s", prefix, qName.getRight());
+        }
+    }
+
+    private Pair<List<String>, String> qualifiedName(ImportPath importPath, String modelName, String elementName) {
         if (this.onePackage) {
-            return lowerCaseFirst(elementName);
+            return new Pair<>(Collections.emptyList(), elementName);
         } else if (this.singletonInputData) {
             if (ImportPath.isEmpty(importPath)) {
                 modelName = "";
             }
-            String javaModelName =  javaModelName(modelName);
-            String javaElementName = lowerCaseFirst(elementName);
-            if (StringUtils.isBlank(javaModelName)) {
-                return javaElementName;
-            } else {
-                return String.format("%s_%s", javaModelName, javaElementName);
-            }
+            return new Pair<>(Collections.singletonList(modelName), elementName);
         } else {
-            String prefix = importPath.getPathElements().stream().map(this::javaModelName).collect(Collectors.joining("_"));
-            String javaElementName = lowerCaseFirst(elementName);
-            if (StringUtils.isBlank(prefix)) {
-                return javaElementName;
-            } else {
-                return String.format("%s_%s", prefix, javaElementName);
-            }
+            return new Pair<>(importPath.getPathElements(), elementName);
         }
     }
 

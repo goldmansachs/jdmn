@@ -54,6 +54,7 @@ import com.gs.dmn.runtime.interpreter.*;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
+import com.gs.dmn.transformation.basic.ImportContextType;
 import org.omg.spec.dmn._20180521.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -995,7 +996,10 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
 
     private Object navigate(PathExpression element, Type sourceType, Object source, String member) {
         try {
-            if (sourceType instanceof ItemDefinitionType) {
+            if (sourceType instanceof ImportContextType) {
+                List<String> aliases = ((ImportContextType) sourceType).getAliases(member);
+                return ((com.gs.dmn.runtime.Context) source).get(member, aliases.toArray());
+            } else if (sourceType instanceof ItemDefinitionType) {
                 List<String> aliases = ((ItemDefinitionType) sourceType).getAliases(member);
                 if (source instanceof com.gs.dmn.runtime.Context) {
                     return ((com.gs.dmn.runtime.Context) source).get(member, aliases.toArray());
