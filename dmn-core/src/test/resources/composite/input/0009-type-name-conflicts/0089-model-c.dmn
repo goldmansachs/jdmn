@@ -15,20 +15,24 @@
                      name="modelB"
                      importType="http://www.omg.org/spec/DMN/20180521/MODEL/" />
 
-    <inputData id="_4f6c136c-8512-4d71-8bbf-7c9eb6e74063" name="a" label="A">
-        <variable name="a" id="_46b6677b-4a26-4bca-9532-9a57dd55b8ec" typeRef="modelstring"/>
+    <inputData id="input-a-a" name="aa" label="AA">
+        <variable id="input-a-a-var" name="aa" typeRef="modelA.A"/>
     </inputData>
 
-    <decision id="_fc1bff6c-b1ca-4a10-ba9a-23b8f5e86e6a" name="c" label="C">
-        <variable name="c" id="_2e323310-3d83-4c51-a256-3082e0ccacea" typeRef="Any"/>
-        <informationRequirement id="_e848f84a-25ef-432b-b944-2848f11ea91c">
-            <requiredInput href="http://www.provider.com/definitions/model-a#_4f6c136c-8512-4d71-8bbf-7c9eb6e74063"/>
+    <inputData id="input-b-a" name="ba" label="BA">
+        <variable id="input-b-a-var" name="ba" typeRef="modelB.A"/>
+    </inputData>
+
+    <decision id="decision-c" name="c" label="C">
+        <variable id="decision-c-var" name="c" typeRef="modelA.MyString"/>
+        <informationRequirement id="decision-c-ir-1">
+            <requiredInput href="#input-a-a"/>
         </informationRequirement>
-        <informationRequirement id="_dc7aa090-f5ce-4552-a467-2adb36d7e263">
-            <requiredInput href="http://www.provider.com/definitions/model-b#_4f6c136c-8512-4d71-8bbf-7c9eb6e74063"/>
+        <informationRequirement id="decision-c-ir-2">
+            <requiredInput href="#input-b-a"/>
         </informationRequirement>
-        <literalExpression id="_05fab753-c3c4-41a9-8984-e078f4aabe32" typeRef="string">
-            <text>"A: " + modelA.a + "; B: " + modelB.a</text>
+        <literalExpression id="decision-c-exp" typeRef="modelA.MyString">
+            <text>"AA: " + string(aa) + "; BA: " + ba</text>
         </literalExpression>
     </decision>
 </definitions>

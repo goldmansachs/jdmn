@@ -41,6 +41,7 @@ public class InvocationToJavaTransformer {
     }
 
     Statement invocationExpressionToJava(TDRGElement element, TInvocation invocation, Environment environment) {
+        TDefinitions model = this.dmnModelRepository.getModel(element);
         // Compute name-java binding for arguments
         Map<String, Statement> argBinding = new LinkedHashMap<>();
         for(TBinding binding: invocation.getBinding()) {
@@ -70,7 +71,7 @@ public class InvocationToJavaTransformer {
             String bkmFunctionName = dmnTransformer.bkmFunctionName(bkm);
             String argListString = argList.stream().map(s -> ((ExpressionStatement)s).getExpression()).collect(Collectors.joining(", "));
             String expressionText = String.format("%s(%s)", bkmFunctionName, dmnTransformer.drgElementArgumentsExtra(dmnTransformer.augmentArgumentList(argListString)));
-            Type expressionType = dmnTransformer.toFEELType(dmnTransformer.drgElementOutputTypeRef(bkm));
+            Type expressionType = dmnTransformer.toFEELType(model, dmnTransformer.drgElementOutputTypeRef(bkm));
             return new ExpressionStatement(expressionText, expressionType);
         } else {
             throw new DMNRuntimeException(String.format("Not supported '%s'", body.getClass().getSimpleName()));

@@ -36,5 +36,6 @@ public class ImportDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
         doMultipleModelsTest("0006-multiple-input-data", new Pair<>("singletonInputData", "false"));
         doMultipleModelsTest("0007-name-conflicts-same-decision-singleton");
         doMultipleModelsTest("0008-name-conflicts-same-decision-no-singleton", new Pair<>("singletonInputData", "false"));
+        doMultipleModelsTest("0009-type-name-conflicts", new Pair<>("onePackage", "true"));
     }
 }

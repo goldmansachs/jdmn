@@ -222,10 +222,11 @@ public class TestLabUtil {
     }
 
     TItemDefinition elementType(TItemDefinition type) {
+        TDefinitions model = this.dmnModelRepository.getModel(type);
         if (type.isIsCollection()) {
             String typeRef = type.getTypeRef();
             if (typeRef != null) {
-                return this.dmnModelRepository.lookupItemDefinition(QualifiedName.toQualifiedName(typeRef));
+                return this.dmnModelRepository.lookupItemDefinition(model, QualifiedName.toQualifiedName(model, typeRef));
             }
             List<TItemDefinition> itemComponent = type.getItemComponent();
             if (itemComponent.size() == 1) {
@@ -432,8 +433,10 @@ public class TestLabUtil {
 
     private Type toFEELType(ParameterDefinition parameterDefinition) {
         try {
+            TDRGElement element = findDRGElement(parameterDefinition);
+            TDefinitions model = this.dmnModelRepository.getModel(element);
             String typeRef = getTypeRef(parameterDefinition);
-            return dmnTransformer.toFEELType(QualifiedName.toQualifiedName(typeRef));
+            return dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot resolve FEEL type for requirementId requirement '%s' in DM '%s'", parameterDefinition.getId(), parameterDefinition.getModelName()));
         }
@@ -441,7 +444,9 @@ public class TestLabUtil {
 
     TItemDefinition lookupItemDefinition(ParameterDefinition parameterDefinition) {
         String typeRef = getTypeRef(parameterDefinition);
-        return dmnTransformer.getDMNModelRepository().lookupItemDefinition(QualifiedName.toQualifiedName(typeRef));
+        TDRGElement element = findDRGElement(parameterDefinition);
+        TDefinitions model = this.dmnModelRepository.getModel(element);
+        return dmnTransformer.getDMNModelRepository().lookupItemDefinition(model, QualifiedName.toQualifiedName(model, typeRef));
     }
 
     private String getTypeRef(ParameterDefinition parameterDefinition) {

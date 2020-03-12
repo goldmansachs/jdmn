@@ -60,11 +60,12 @@ public class TypeRefValidator extends SimpleDMNValidator {
     }
 
     private void validate(TDRGElement element, TInformationItem variable, DMNModelRepository dmnModelRepository, List<String> errors) {
+        TDefinitions model = dmnModelRepository.getModel(element);
         if (variable != null) {
             String varTypeRef = variable.getTypeRef();
             if (!isPrimitiveType(varTypeRef) && StringUtils.isNotEmpty(varTypeRef)) {
-                QualifiedName typeRef = QualifiedName.toQualifiedName(varTypeRef);
-                TItemDefinition itemDefinition = dmnModelRepository.lookupItemDefinition(typeRef);
+                QualifiedName typeRef = QualifiedName.toQualifiedName(model, varTypeRef);
+                TItemDefinition itemDefinition = dmnModelRepository.lookupItemDefinition(model, typeRef);
                 if (itemDefinition == null) {
                     String error = String.format("Cannot find type '%s' for DRGElement '%s'", typeRef.toString(), element.getName());
                     errors.add(error);

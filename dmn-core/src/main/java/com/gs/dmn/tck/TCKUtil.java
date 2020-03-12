@@ -200,7 +200,9 @@ public class TCKUtil {
     private Type toFEELType(InputNodeInfo info) {
         try {
             QualifiedName typeRef = getTypeRef(info);
-            return this.dmnTransformer.toFEELType(typeRef);
+            TDRGElement element = info.getReference().getElement();
+            TDefinitions model = this.dmnModelRepository.getModel(element);
+            return this.dmnTransformer.toFEELType(model, typeRef);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot resolve FEEL type for node '%s'", info.getNodeName()));
         }
@@ -208,15 +210,16 @@ public class TCKUtil {
 
     private QualifiedName getTypeRef(InputNodeInfo node) {
         TDRGElement element = node.getReference().getElement();
+        TDefinitions model = this.dmnModelRepository.getModel(element);
         QualifiedName typeRef;
         if (element == null) {
             throw new DMNRuntimeException(String.format("Cannot find element '%s'.", node.getNodeName()));
         } else if (element instanceof TInputData) {
             String varTypeRef = ((TInputData) element).getVariable().getTypeRef();
-            typeRef = QualifiedName.toQualifiedName(varTypeRef);
+            typeRef = QualifiedName.toQualifiedName(model, varTypeRef);
         } else if (element instanceof TDecision) {
             String varTypeRef = ((TDecision) element).getVariable().getTypeRef();
-            typeRef = QualifiedName.toQualifiedName(varTypeRef);
+            typeRef = QualifiedName.toQualifiedName(model, varTypeRef);
         } else {
             throw new UnsupportedOperationException(String.format("Cannot resolve FEEL type for node '%s'. '%s' not supported", node.getNodeName(), element.getClass().getSimpleName()));
         }
@@ -259,7 +262,9 @@ public class TCKUtil {
     private Type toFEELType(ResultNodeInfo resultNode) {
         try {
             QualifiedName typeRef = getTypeRef(resultNode);
-            return this.dmnTransformer.toFEELType(typeRef);
+            TDRGElement element = resultNode.getReference().getElement();
+            TDefinitions model = this.dmnModelRepository.getModel(element);
+            return this.dmnTransformer.toFEELType(model, typeRef);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot resolve FEEL type for node '%s'", resultNode.getNodeName()));
         }
@@ -267,11 +272,12 @@ public class TCKUtil {
 
     private QualifiedName getTypeRef(ResultNodeInfo node) {
         TDRGElement element = node.getReference().getElement();
+        TDefinitions model = this.dmnModelRepository.getModel(element);
         QualifiedName typeRef;
         if (element == null) {
             throw new DMNRuntimeException(String.format("Cannot find element '%s'.", node.getNodeName()));
         } else if (element instanceof TDecision) {
-            typeRef = QualifiedName.toQualifiedName(((TDecision) element).getVariable().getTypeRef());
+            typeRef = QualifiedName.toQualifiedName(model, ((TDecision) element).getVariable().getTypeRef());
         } else {
             throw new UnsupportedOperationException(String.format("Cannot resolve FEEL type for node '%s'. '%s' not supported", node.getNodeName(), element.getClass().getSimpleName()));
         }

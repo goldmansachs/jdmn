@@ -113,7 +113,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         for (int i = 0; i < formalParameterList.size(); i++) {
             TInformationItem param = formalParameterList.get(i);
             String name = param.getName();
-            Type type = this.basicDMNTransformer.toFEELType(QualifiedName.toQualifiedName(param.getTypeRef()));
+            Type type = this.basicDMNTransformer.toFEELType(null, QualifiedName.toQualifiedName(null, param.getTypeRef()));
             Object value = argList.get(i);
             functionEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(name, type));
             functionRuntimeEnvironment.bind(name, value);
@@ -163,6 +163,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
 
     private Result evaluateBKM(DRGElementReference<TBusinessKnowledgeModel> reference, List<Object> argList, FEELContext context) {
         TBusinessKnowledgeModel bkm = reference.getElement();
+        TDefinitions model = this.dmnModelRepository.getModel(bkm);
         RuntimeEnvironment bkmRuntimeEnvironment = this.runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment());
 
         // BKM start
@@ -177,7 +178,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         for (int i = 0; i < formalParameterList.size(); i++) {
             TInformationItem param = formalParameterList.get(i);
             String name = param.getName();
-            Type type = this.basicDMNTransformer.toFEELType(QualifiedName.toQualifiedName(param.getTypeRef()));
+            Type type = this.basicDMNTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, param.getTypeRef()));
             Object value = argList.get(i);
 
             // Check value and apply implicit conversions
@@ -463,6 +464,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
     }
 
     private Result evaluateContextExpression(TDRGElement element, TContext context, Environment environment, RuntimeEnvironment runtimeEnvironment, DRGElement elementAnnotation) {
+        TDefinitions model = this.dmnModelRepository.getModel(element);
         // Make context environment
         Pair<Environment, Map<TContextEntry, Expression>> pair = this.basicDMNTransformer.makeContextEnvironment(element, context, environment);
         Environment contextEnvironment = pair.getLeft();
@@ -512,7 +514,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
                 if (variable != null) {
                     String entryName = variable.getName();
                     output.add(entryName, contextRuntimeEnvironment.lookupBinding(entryName));
-                    type.addMember(entryName, new ArrayList<>(), this.basicDMNTransformer.toFEELType(variable.getTypeRef()));
+                    type.addMember(entryName, new ArrayList<>(), this.basicDMNTransformer.toFEELType(model, variable.getTypeRef()));
                 }
             }
             // Return value
@@ -521,6 +523,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
     }
 
     private Result evaluateListExpression(TDRGElement element, TList list, Environment environment, RuntimeEnvironment runtimeEnvironment, DRGElement elementAnnotation) {
+        TDefinitions model = this.dmnModelRepository.getModel(element);
         if (list.getExpression() == null) {
             return null;
         }
@@ -533,7 +536,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
             } else {
                 TExpression exp = expElement.getValue();
                 expResult = evaluateExpression(element, exp, environment, runtimeEnvironment, elementAnnotation);
-                elementType = this.basicDMNTransformer.toFEELType(exp.getTypeRef());
+                elementType = this.basicDMNTransformer.toFEELType(model, exp.getTypeRef());
             }
             resultValue.add(Result.value(expResult));
         }

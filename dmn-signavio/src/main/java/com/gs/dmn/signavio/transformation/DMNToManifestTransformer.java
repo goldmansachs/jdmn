@@ -48,7 +48,7 @@ public class DMNToManifestTransformer {
                 String label = inputData.getLabel();
                 String javaParameterName = dmnTransformer.inputDataVariableName(inputData);
                 String javaTypeName = dmnTransformer.drgElementOutputType(inputData);
-                com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(definitions, QualifiedName.toQualifiedName(inputData.getVariable().getTypeRef()));
+                com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(definitions, QualifiedName.toQualifiedName(definitions, inputData.getVariable().getTypeRef()));
                 manifest.addElement(new InputData(id, name, label, javaParameterName, javaTypeName, typeRef));
             }
             for (TBusinessKnowledgeModel bkm : this.dmnModelRepository.businessKnowledgeModels(definitions)) {
@@ -70,7 +70,7 @@ public class DMNToManifestTransformer {
                 String javaParameterName = dmnTransformer.drgElementVariableName(decision);
                 String javaTypeName = dmnTransformer.qualifiedName(dmnTransformer.javaModelPackageName(definitions.getName()), dmnTransformer.drgElementClassName(decision));
                 String javaOutputTypeName = dmnTransformer.drgElementOutputType(decision);
-                com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(definitions, QualifiedName.toQualifiedName(decision.getVariable().getTypeRef()));
+                com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(definitions, QualifiedName.toQualifiedName(definitions, decision.getVariable().getTypeRef()));
                 List<DRGElementReference> references = makeMetadataInformationReferences(decision);
                 List<DRGElementReference> knowledgeReferences = makeMetadataKnowledgeReferences(decision.getKnowledgeRequirement());
                 List<ExtensionElement> extensions = ((BasicSignavioDMN2JavaTransformer)dmnTransformer).makeMetadataExtensions(decision);
@@ -118,7 +118,7 @@ public class DMNToManifestTransformer {
         String name = itemDefinition.getName();
         String label = itemDefinition.getLabel();
         boolean isCollection = itemDefinition.isIsCollection();
-        com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(model, QualifiedName.toQualifiedName(itemDefinition.getTypeRef()));
+        com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(model, QualifiedName.toQualifiedName(model, itemDefinition.getTypeRef()));
         String allowedValues = makeMetadataAllowedValues(itemDefinition.getAllowedValues());
 
         List<TItemDefinition> children = itemDefinition.getItemComponent();

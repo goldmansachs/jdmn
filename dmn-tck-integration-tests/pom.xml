@@ -2051,6 +2051,36 @@
                         </configuration>
                     </execution>
 
+                    <execution>
+                        <id>composite-0009-type-name-conflicts</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>src/main/resources/composite/0009-type-name-conflicts</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0009_type_name_conflicts</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-0009-type-name-conflicts</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>src/main/resources/composite/0009-type-name-conflicts</inputTestFileDirectory>
+                            <inputModelFileDirectory>src/main/resources/composite/0009-type-name-conflicts</inputModelFileDirectory>
+                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0009_type_name_conflicts</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
                     <!-- non-compliant-->
 <!--
                     <execution>

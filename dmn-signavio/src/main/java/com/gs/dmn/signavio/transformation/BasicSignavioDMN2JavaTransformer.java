@@ -118,6 +118,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
 
     @Override
     protected void addDeclaration(TDRGElement parent, Environment parentEnvironment, TDRGElement child, Environment childEnvironment) {
+        TDefinitions childModel = this.dmnModelRepository.getModel(child);
         if (child instanceof TInputData) {
             Declaration declaration = makeVariableDeclaration(child, ((TInputData) child).getVariable(), childEnvironment);
             addDeclaration(parentEnvironment, (VariableDeclaration) declaration, parent, child);
@@ -130,7 +131,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
             } else {
                 TFunctionDefinition functionDefinition = bkm.getEncapsulatedLogic();
                 functionDefinition.getFormalParameter().forEach(
-                        p -> parentEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(p.getName(), toFEELType(QualifiedName.toQualifiedName(p.getTypeRef())))));
+                        p -> parentEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(p.getName(), toFEELType(childModel, QualifiedName.toQualifiedName(childModel, p.getTypeRef())))));
                 FunctionDeclaration declaration = makeInvocableDeclaration(bkm, childEnvironment);
                 addDeclaration(parentEnvironment, declaration, parent, child);
             }
@@ -192,6 +193,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
     }
 
     public Type externalFunctionReturnFEELType(TNamedElement element, Expression body) {
+        TDefinitions model = this.dmnModelRepository.getModel(element);
         if (body instanceof Context) {
             Expression javaExpression = ((Context) body).entry("java").getExpression();
             if (javaExpression instanceof Context) {
@@ -199,7 +201,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
                 if (returnTypeExp instanceof StringLiteral) {
                     String lexeme = ((StringLiteral) returnTypeExp).getLexeme();
                     String typeName = StringEscapeUtil.stripQuotes(lexeme);
-                    return toFEELType(QualifiedName.toQualifiedName(typeName));
+                    return toFEELType(model, QualifiedName.toQualifiedName(model, typeName));
                 }
             }
         }
@@ -409,6 +411,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
     // Free text LiteralExpression related functions
     //
     public String freeTextLiteralExpressionToJava(TDRGElement element) {
+        TDefinitions model = this.dmnModelRepository.getModel(element);
         TLiteralExpression expression = (TLiteralExpression) dmnModelRepository.expression(element);
         Environment environment = this.makeEnvironment(element);
         Expression literalExpression = feelTranslator.analyzeExpression(expression.getText(), FEELContext.makeContext(environment));
@@ -426,7 +429,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
             }
             Type expressionType = body.getType();
             Statement statement = new ExpressionStatement(javaCode, expressionType);
-            Type expectedType = toFEELType(drgElementOutputTypeRef(element));
+            Type expectedType = toFEELType(model, drgElementOutputTypeRef(element));
             Statement result = convertExpression(statement, expectedType);
             return ((ExpressionStatement) result).getExpression();
         } else {

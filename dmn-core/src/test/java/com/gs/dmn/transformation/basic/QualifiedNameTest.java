@@ -19,31 +19,35 @@ import static org.junit.Assert.assertNull;
 
 public class QualifiedNameTest {
     @Test
-    public void testConstructorWithNamespace() {
-        QualifiedName qualifiedName = new QualifiedName("abc");
-        assertEquals(null, qualifiedName.getNamespace());
-        assertEquals("abc", qualifiedName.getLocalPart());
+    public void testConstructorWithNullString() {
+        QualifiedName qualifiedName = QualifiedName.toQualifiedName(null, null);
+        assertNull(qualifiedName);
+    }
+
+    @Test
+    public void testConstructorWithEmptyString() {
+        QualifiedName qualifiedName = QualifiedName.toQualifiedName(null, "");
+        assertNull(qualifiedName);
+    }
+
+    @Test
+    public void testConstructorForFEELTypes() {
+        QualifiedName qualifiedName = QualifiedName.toQualifiedName(null,"feel.string");
+        assertEquals("feel", qualifiedName.getNamespace());
+        assertEquals("string", qualifiedName.getLocalPart());
     }
 
     @Test
     public void testConstructorWhenMissingNamespace() {
-        QualifiedName qualifiedName = new QualifiedName("abc");
-        assertEquals(null, qualifiedName.getNamespace());
+        QualifiedName qualifiedName = QualifiedName.toQualifiedName(null,"abc");
+        assertNull(qualifiedName.getNamespace());
         assertEquals("abc", qualifiedName.getLocalPart());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testConstructorWithNullString() {
-        new QualifiedName(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testConstructorWithEmpty() {
-        new QualifiedName("");
-    }
-
     @Test
-    public void testFactoryWithNullQName() {
-        assertNull(QualifiedName.toQualifiedName((String) null));
+    public void testConstructorWhenDotInName() {
+        QualifiedName qualifiedName = QualifiedName.toQualifiedName(null,"test.abc");
+        assertNull(qualifiedName.getNamespace());
+        assertEquals("test.abc", qualifiedName.getLocalPart());
     }
 }
