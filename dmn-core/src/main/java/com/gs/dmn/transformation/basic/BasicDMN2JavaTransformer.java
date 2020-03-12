@@ -1252,7 +1252,7 @@ public class BasicDMN2JavaTransformer {
             Type expectedType = toFEELType(drgElementOutputTypeRef(element));
             return convertExpression(statement, expectedType);
         } else if (expression instanceof TInvocation) {
-            return this.invocationToJavaTransformer.expressionToJava((TInvocation) expression, element);
+            return this.invocationToJavaTransformer.expressionToJava(element, (TInvocation) expression);
         } else if (expression instanceof TRelation) {
             return this.relationToJavaTransformer.expressionToJava(element, (TRelation) expression);
         } else {
@@ -1268,7 +1268,7 @@ public class BasicDMN2JavaTransformer {
         } else if (expression instanceof TLiteralExpression) {
             return this.literalExpressionToJavaTransformer.literalExpressionToJava(((TLiteralExpression) expression).getText(), environment, element);
         } else if (expression instanceof TInvocation) {
-            return this.invocationToJavaTransformer.invocationExpressionToJava((TInvocation) expression, environment, element);
+            return this.invocationToJavaTransformer.invocationExpressionToJava(element, (TInvocation) expression, environment);
         } else if (expression instanceof TRelation) {
             return this.relationToJavaTransformer.relationExpressionToJava(element, (TRelation) expression, environment);
         } else {
