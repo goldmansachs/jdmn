@@ -42,11 +42,11 @@ public class SignavioDMNInterpreter extends StandardDMNInterpreter {
     }
 
     @Override
-    protected Result evaluateExpression(TExpression expression, Environment environment, RuntimeEnvironment runtimeEnvironment, TDRGElement element, DRGElement elementAnnotation) {
+    protected Result evaluateExpression(TDRGElement element, TExpression expression, Environment environment, RuntimeEnvironment runtimeEnvironment, DRGElement elementAnnotation) {
         if (element instanceof TDecision && this.dmnModelRepository.isMultiInstanceDecision(element)) {
             return evaluateMultipleInstanceDecision((TDecision) element, environment, runtimeEnvironment, elementAnnotation);
         } else {
-            return super.evaluateExpression(expression, environment, runtimeEnvironment, element, elementAnnotation);
+            return super.evaluateExpression(element, expression, environment, runtimeEnvironment, elementAnnotation);
         }
     }
 
@@ -61,7 +61,7 @@ public class SignavioDMNInterpreter extends StandardDMNInterpreter {
         String topLevelVariableName = getBasicDMNTransformer().drgElementVariableName(topLevelDecision);
 
         // Evaluate source
-        Result result = evaluateLiteralExpression(iterationExpression, environment, runtimeEnvironment, decision);
+        Result result = evaluateLiteralExpression(decision, iterationExpression, environment, runtimeEnvironment);
         List sourceList = (List) Result.value(result);
 
         // Iterate over source

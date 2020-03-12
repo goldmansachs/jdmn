@@ -48,10 +48,10 @@ public class TypeRefValidator extends SimpleDMNValidator {
                 logger.debug(String.format("Validate element '%s'", element.getName()));
                 if (element instanceof TInputData) {
                     TInformationItem variable = ((TInputData) element).getVariable();
-                    validate(variable, element, dmnModelRepository, errors);
+                    validate(element, variable, dmnModelRepository, errors);
                 } else if (element instanceof TDecision) {
                     TInformationItem variable = ((TDecision) element).getVariable();
-                    validate(variable, element, dmnModelRepository, errors);
+                    validate(element, variable, dmnModelRepository, errors);
                 }
             }
         }
@@ -59,7 +59,7 @@ public class TypeRefValidator extends SimpleDMNValidator {
         return errors;
     }
 
-    private void validate(TInformationItem variable, TDRGElement element, DMNModelRepository dmnModelRepository, List<String> errors) {
+    private void validate(TDRGElement element, TInformationItem variable, DMNModelRepository dmnModelRepository, List<String> errors) {
         if (variable != null) {
             String varTypeRef = variable.getTypeRef();
             if (!isPrimitiveType(varTypeRef) && StringUtils.isNotEmpty(varTypeRef)) {

@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.signavio.testlab;
 
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.analysis.semantics.type.ContextType;
 import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
@@ -38,8 +39,10 @@ public class TestLabUtil {
 
     private final BasicDMN2JavaTransformer dmnTransformer;
     private final Map<String, TDRGElement> cache = new LinkedHashMap<>();
+    private final DMNModelRepository dmnModelRepository;
 
     public TestLabUtil(BasicDMN2JavaTransformer dmnTransformer) {
+        this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
         this.dmnTransformer = dmnTransformer;
     }
 
@@ -222,7 +225,7 @@ public class TestLabUtil {
         if (type.isIsCollection()) {
             String typeRef = type.getTypeRef();
             if (typeRef != null) {
-                return dmnTransformer.getDMNModelRepository().lookupItemDefinition(QualifiedName.toQualifiedName(typeRef));
+                return this.dmnModelRepository.lookupItemDefinition(QualifiedName.toQualifiedName(typeRef));
             }
             List<TItemDefinition> itemComponent = type.getItemComponent();
             if (itemComponent.size() == 1) {

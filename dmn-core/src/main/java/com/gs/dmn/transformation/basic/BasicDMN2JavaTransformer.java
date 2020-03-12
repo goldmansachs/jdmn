@@ -286,9 +286,9 @@ public class BasicDMN2JavaTransformer {
         } else {
             // Infer type from body
             if (element instanceof TDecision) {
-                return expressionType(((TDecision) element).getExpression(), environment);
+                return expressionType(element, ((TDecision) element).getExpression(), environment);
             } else if (element instanceof TBusinessKnowledgeModel) {
-                Type type = expressionType(((TBusinessKnowledgeModel) element).getEncapsulatedLogic(), environment);
+                Type type = expressionType(element, ((TBusinessKnowledgeModel) element).getEncapsulatedLogic(), environment);
                 return ((FunctionType)type).getReturnType();
             } else if (element instanceof TDecisionService) {
                 return makeDSOutputType((TDecisionService) element, environment);
@@ -1410,11 +1410,11 @@ public class BasicDMN2JavaTransformer {
         if (typeRef == null) {
             return null;
         }
-        String namespace = typeRef.getNamespace();
-        if (DMNVersion.LATEST.getFeelPrefix().equals(namespace)) {
+        String importName = typeRef.getNamespace();
+        if (DMNVersion.LATEST.getFeelPrefix().equals(importName)) {
             String typeName = typeRef.getLocalPart();
             return FEELTypes.FEEL_NAME_TO_FEEL_TYPE.get(typeName);
-        } else if (StringUtils.isBlank(namespace)) {
+        } else if (StringUtils.isBlank(importName)) {
             String typeName = typeRef.getLocalPart();
             return FEELTypes.FEEL_NAME_TO_FEEL_TYPE.get(typeName);
         } else {
@@ -1735,7 +1735,7 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    public Environment makeFunctionDefinitionEnvironment(TFunctionDefinition functionDefinition, Environment parentEnvironment) {
+    public Environment makeFunctionDefinitionEnvironment(TNamedElement element, TFunctionDefinition functionDefinition, Environment parentEnvironment) {
         Environment environment = this.environmentFactory.makeEnvironment(parentEnvironment);
         functionDefinition.getFormalParameter().forEach(
                 p -> environment.addDeclaration(this.environmentFactory.makeVariableDeclaration(p.getName(), toFEELType(QualifiedName.toQualifiedName(p.getTypeRef())))));
@@ -1781,13 +1781,13 @@ public class BasicDMN2JavaTransformer {
         return environmentFactory.makeEnvironment(makeEnvironment(element));
     }
 
-    public Pair<Environment, Map<TContextEntry, Expression>> makeContextEnvironment(TContext context, Environment parentEnvironment) {
+    public Pair<Environment, Map<TContextEntry, Expression>> makeContextEnvironment(TNamedElement element, TContext context, Environment parentEnvironment) {
         Environment contextEnvironment = this.environmentFactory.makeEnvironment(parentEnvironment);
         Map<TContextEntry, Expression> literalExpressionMap = new LinkedHashMap<>();
         for(TContextEntry entry: context.getContextEntry()) {
             TInformationItem variable = entry.getVariable();
-            JAXBElement<? extends TExpression> element = entry.getExpression();
-            TExpression expression = element == null ? null : element.getValue();
+            JAXBElement<? extends TExpression> jElement = entry.getExpression();
+            TExpression expression = jElement == null ? null : jElement.getValue();
             Expression feelExpression = null;
             if (expression instanceof TLiteralExpression) {
                 feelExpression = this.feelTranslator.analyzeExpression(((TLiteralExpression) expression).getText(), FEELContext.makeContext(contextEnvironment));
@@ -1797,9 +1797,9 @@ public class BasicDMN2JavaTransformer {
                 String name = variable.getName();
                 Type entryType;
                 if (expression instanceof TLiteralExpression) {
-                    entryType = entryType(entry, expression, feelExpression);
+                    entryType = entryType(element, entry, expression, feelExpression);
                 } else {
-                    entryType = entryType(entry, contextEnvironment);
+                    entryType = entryType(element, entry, contextEnvironment);
                 }
                 addContextEntryDeclaration(contextEnvironment, name, entryType);
             }
@@ -1807,9 +1807,9 @@ public class BasicDMN2JavaTransformer {
         return new Pair<>(contextEnvironment, literalExpressionMap);
     }
 
-    Type entryType(TContextEntry entry, TExpression expression, Expression feelExpression) {
+    Type entryType(TNamedElement element, TContextEntry entry, TExpression expression, Expression feelExpression) {
         TInformationItem variable = entry.getVariable();
-        Type entryType = variableType(variable);
+        Type entryType = variableType(element, variable);
         if (entryType != null) {
             return entryType;
         }
@@ -1831,17 +1831,17 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    Type entryType(TContextEntry entry, Environment contextEnvironment) {
+    Type entryType(TNamedElement element, TContextEntry entry, Environment contextEnvironment) {
         TInformationItem variable = entry.getVariable();
-        Type feelType = variableType(variable);
+        Type feelType = variableType(element, variable);
         if (feelType != null) {
             return feelType;
         }
-        feelType = expressionType(entry.getExpression(), contextEnvironment);
+        feelType = expressionType(element, entry.getExpression(), contextEnvironment);
         return feelType == null ? AnyType.ANY : feelType;
     }
 
-    Type variableType(TInformationItem variable) {
+    Type variableType(TNamedElement element, TInformationItem variable) {
         if (variable != null) {
             QualifiedName typeRef = QualifiedName.toQualifiedName(variable.getTypeRef());
             if (typeRef != null) {
@@ -1851,11 +1851,11 @@ public class BasicDMN2JavaTransformer {
         return null;
     }
 
-    private Type expressionType(JAXBElement<? extends TExpression> element, Environment environment) {
-        return element == null ? null : expressionType(element.getValue(), environment);
+    private Type expressionType(TNamedElement element, JAXBElement<? extends TExpression> jElement, Environment environment) {
+        return jElement == null ? null : expressionType(element, jElement.getValue(), environment);
     }
 
-    Type expressionType(TExpression expression, Environment environment) {
+    Type expressionType(TNamedElement element, TExpression expression, Environment environment) {
         if (expression == null) {
             return null;
         }
@@ -1873,11 +1873,11 @@ public class BasicDMN2JavaTransformer {
                 TInformationItem variable = entry.getVariable();
                 if (variable != null) {
                     String name = variable.getName();
-                    Type entryType = entryType(entry, contextEnvironment);
+                    Type entryType = entryType(element, entry, contextEnvironment);
                     contextEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(name, entryType));
                     members.add(new Pair<>(name, entryType));
                 } else {
-                    returnType = entryType(entry, contextEnvironment);
+                    returnType = entryType(element, entry, contextEnvironment);
                 }
             }
             // Infer return type
@@ -1891,7 +1891,7 @@ public class BasicDMN2JavaTransformer {
                 return returnType;
             }
         } else if (expression instanceof TFunctionDefinition) {
-            Type type = functionDefinitionType((TFunctionDefinition) expression, environment);
+            Type type = functionDefinitionType(element, (TFunctionDefinition) expression, environment);
             return type;
         } else if (expression instanceof TLiteralExpression) {
             Type type = literalExpressionType((TLiteralExpression) expression, environment);
@@ -1914,7 +1914,7 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    private Type functionDefinitionType(TFunctionDefinition functionDefinition, Environment environment) {
+    private Type functionDefinitionType(TNamedElement element, TFunctionDefinition functionDefinition, Environment environment) {
         JAXBElement<? extends TExpression> expressionElement = functionDefinition.getExpression();
         if (expressionElement != null) {
             TExpression body = expressionElement.getValue();
@@ -1922,11 +1922,11 @@ public class BasicDMN2JavaTransformer {
             if (typeRef != null) {
                 return toFEELType(typeRef);
             } else {
-                Environment functionDefinitionEnvironment = makeFunctionDefinitionEnvironment(functionDefinition, environment);
+                Environment functionDefinitionEnvironment = makeFunctionDefinitionEnvironment(element, functionDefinition, environment);
                 TFunctionKind kind = functionDefinition.getKind();
                 Type bodyType = null;
                 if (isFEELFunction(kind)) {
-                    bodyType = expressionType(body, functionDefinitionEnvironment);
+                    bodyType = expressionType(element, body, functionDefinitionEnvironment);
                 } else if (isJavaFunction(kind)) {
                     bodyType = AnyType.ANY;
                 }
@@ -1957,7 +1957,7 @@ public class BasicDMN2JavaTransformer {
         return expression.getType();
     }
 
-    public Environment makeRelationEnvironment(TRelation relation, Environment environment) {
+    public Environment makeRelationEnvironment(TNamedElement element, TRelation relation, Environment environment) {
         Environment relationEnvironment = this.environmentFactory.makeEnvironment(environment);
         for(TInformationItem column: relation.getColumn()) {
             QualifiedName typeRef = QualifiedName.toQualifiedName(column.getTypeRef());
@@ -1984,7 +1984,7 @@ public class BasicDMN2JavaTransformer {
             if (!variableType.isValid()) {
                 TExpression expression = this.dmnModelRepository.expression(element);
                 if (expression != null) {
-                    variableType = expressionType(expression, environment);
+                    variableType = expressionType(element, expression, environment);
                     variableType.validate();
                 }
             }

@@ -91,11 +91,11 @@ public class SimplifyTypesForMIDTransformer extends SimpleDMNTransformer<TestLab
                     Type midElementType = ((ListType) midType).getElementType();
                     if (midElementType.equivalentTo(bodyDecisionType) && basicTransformer.isComplexType(bodyDecisionType)) {
                         TItemDefinition midItemDefinitionType = signavioRepository.lookupItemDefinition(midDecisionTypeRef);
-                        String namespace = bodyDecisionTypeRef.getNamespace();
-                        if (StringUtils.isEmpty(namespace)) {
+                        String importName = bodyDecisionTypeRef.getNamespace();
+                        if (StringUtils.isEmpty(importName)) {
                             midItemDefinitionType.setTypeRef(String.format("%s", bodyDecisionTypeRef.getLocalPart()));
                         } else {
-                            midItemDefinitionType.setTypeRef(String.format("%s.%s", namespace, bodyDecisionTypeRef.getLocalPart()));
+                            midItemDefinitionType.setTypeRef(String.format("%s.%s", importName, bodyDecisionTypeRef.getLocalPart()));
                         }
                         midItemDefinitionType.getItemComponent().clear();
                     }
