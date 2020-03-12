@@ -32,7 +32,9 @@ import com.gs.dmn.transformation.DMNToJavaTransformer;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.gs.dmn.transformation.DMNToJavaTransformer.DECISION_RULE_OUTPUT_CLASS_SUFFIX;
@@ -96,15 +98,17 @@ public class DecisionTableToJavaTransformer {
     }
 
     private Type toFEELType(TDRGElement element, TOutputClause outputClause) {
+        TDefinitions model = this.dmnModelRepository.getModel(element);
+
         // Check TOutputClause.typeRef
-        QualifiedName outputClauseTypeRef = QualifiedName.toQualifiedName(outputClause.getTypeRef());
+        QualifiedName outputClauseTypeRef = QualifiedName.toQualifiedName(model, outputClause.getTypeRef());
         if (outputClauseTypeRef != null) {
-            return dmnTransformer.toFEELType(outputClauseTypeRef);
+            return dmnTransformer.toFEELType(model, outputClauseTypeRef);
         }
         // Derive from parent typeRef
         QualifiedName parentTypeRef = this.dmnModelRepository.typeRef(element);
         if (this.dmnModelRepository.isCompoundDecisionTable(element)) {
-            TItemDefinition itemDefinition = this.dmnModelRepository.lookupItemDefinition(parentTypeRef);
+            TItemDefinition itemDefinition = this.dmnModelRepository.lookupItemDefinition(model, parentTypeRef);
             if (itemDefinition != null) {
                 for (TItemDefinition child : itemDefinition.getItemComponent()) {
                     if (child.getName().equals(outputClause.getName())) {
@@ -114,7 +118,7 @@ public class DecisionTableToJavaTransformer {
             }
             throw new DMNRuntimeException(String.format("Cannot map typeRef of output clause '%s' in element '%s' to java", outputClause.getId(), element.getName()));
         } else {
-            Type parentType = dmnTransformer.toFEELType(parentTypeRef);
+            Type parentType = dmnTransformer.toFEELType(model, parentTypeRef);
             TDecisionTable decisionTable = dmnModelRepository.decisionTable(element);
             if (decisionTable.getHitPolicy() == THitPolicy.COLLECT) {
                 if (decisionTable.getAggregation() == null) {

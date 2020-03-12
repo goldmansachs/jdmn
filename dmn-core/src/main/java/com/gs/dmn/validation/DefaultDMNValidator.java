@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class DefaultDMNValidator extends SimpleDMNValidator {
     public DefaultDMNValidator() {
@@ -124,6 +123,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
     }
 
     protected void validateDecision(TDecision decision, DMNModelRepository dmnModelRepository, List<String> errors) {
+        TDefinitions model = dmnModelRepository.getModel(decision);
         validateNamedElement(decision, errors);
         TInformationItem variable = decision.getVariable();
         validateVariable(decision, variable, errors);
@@ -135,7 +135,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
                 errors.add(String.format("Decision name and variable name should be the same. Found '%s' and '%s'", decisionName, variableName));
             }
             // decision/variable/@typeRef is not null
-            QualifiedName typeRef = QualifiedName.toQualifiedName(variable.getTypeRef());
+            QualifiedName typeRef = QualifiedName.toQualifiedName(model, variable.getTypeRef());
             if (typeRef == null) {
                 errors.add(String.format("Variable typRef is missing in decision '%s'", decisionName));
             }

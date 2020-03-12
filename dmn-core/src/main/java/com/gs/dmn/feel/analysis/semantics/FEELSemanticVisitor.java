@@ -552,8 +552,8 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
 
     @Override
     public Object visit(NamedTypeExpression element, FEELContext context) {
-        com.gs.dmn.transformation.basic.QualifiedName typeRef = com.gs.dmn.transformation.basic.QualifiedName.toQualifiedName(element.getQualifiedName());
-        element.setType(dmnTransformer.toFEELType(typeRef));
+        com.gs.dmn.transformation.basic.QualifiedName typeRef = com.gs.dmn.transformation.basic.QualifiedName.toQualifiedName(null, element.getQualifiedName());
+        element.setType(dmnTransformer.toFEELType(null, typeRef));
         return element;
     }
 

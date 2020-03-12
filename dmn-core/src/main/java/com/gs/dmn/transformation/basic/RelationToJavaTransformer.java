@@ -49,7 +49,8 @@ public class RelationToJavaTransformer {
     }
 
     Statement relationExpressionToJava(TDRGElement element, TRelation relation, Environment relationEnvironment) {
-        Type resultType = dmnTransformer.toFEELType(dmnTransformer.drgElementOutputTypeRef(element));
+        TDefinitions model = this.modelRepository.getModel(element);
+        Type resultType = dmnTransformer.toFEELType(model, dmnTransformer.drgElementOutputTypeRef(element));
         if (relation.getRow() == null) {
             return new ExpressionStatement("null", resultType);
         }

@@ -385,7 +385,8 @@ public class DMNModelRepository {
                 || itemDefinition.getTypeRef() == null) {
             return null;
         }
-        return lookupItemDefinition(QualifiedName.toQualifiedName(itemDefinition.getTypeRef()));
+        TDefinitions model = getModel(itemDefinition);
+        return lookupItemDefinition(model, QualifiedName.toQualifiedName(model, itemDefinition.getTypeRef()));
     }
 
     protected void sortDRGElements(List<JAXBElement<? extends TDRGElement>> elements) {
@@ -823,14 +824,32 @@ public class DMNModelRepository {
         }
     }
 
-    public TItemDefinition lookupItemDefinition(QualifiedName typeRef) {
-        return lookupItemDefinition(itemDefinitions(), typeRef);
+    public TItemDefinition lookupItemDefinition(TDefinitions model, QualifiedName typeRef) {
+        if (typeRef == null) {
+            return null;
+        }
+        String importName = typeRef.getNamespace();
+        if (DMNVersion.LATEST.getFeelPrefix().equals(importName)) {
+            return null;
+        }
+
+        if (model == null) {
+            return lookupItemDefinition(itemDefinitions(), typeRef);
+        } else {
+            for (TImport import_: model.getImport()) {
+                if (import_.getName().equals(importName)) {
+                    String modelNamespace = import_.getNamespace();
+                    model = this.getModel(modelNamespace);
+                    if (model == null) {
+                        throw new DMNRuntimeException(String.format("Cannot find DM for '%s'", modelNamespace));
+                    }
+                }
+            }
+            return lookupItemDefinition(itemDefinitions(model), typeRef);
+        }
     }
 
     protected TItemDefinition lookupItemDefinition(List<TItemDefinition> itemDefinitionList, QualifiedName typeRef) {
-        if (typeRef == null || DMNVersion.LATEST.getFeelPrefix().equals(typeRef.getNamespace())) {
-            return null;
-        }
         for (TItemDefinition itemDefinition : itemDefinitionList) {
             if (typeRef.getLocalPart().equals(itemDefinition.getName())) {
                 return itemDefinition;
@@ -943,22 +962,23 @@ public class DMNModelRepository {
     }
 
     public QualifiedName typeRef(TNamedElement element) {
+        TDefinitions model = this.getModel(element);
         QualifiedName typeRef = null;
         if (element instanceof TInformationItem) {
-            typeRef = QualifiedName.toQualifiedName(((TInformationItem) element).getTypeRef());
+            typeRef = QualifiedName.toQualifiedName(model, ((TInformationItem) element).getTypeRef());
         }
         if (typeRef == null) {
             // Derive from variable
             TInformationItem variable = variable(element);
             if (variable != null) {
-                typeRef = QualifiedName.toQualifiedName(variable.getTypeRef());
+                typeRef = QualifiedName.toQualifiedName(model, variable.getTypeRef());
             }
         }
         if (typeRef == null) {
             // Derive from expression
             TExpression expression = expression(element);
             if (expression != null) {
-                typeRef = QualifiedName.toQualifiedName(expression.getTypeRef());
+                typeRef = QualifiedName.toQualifiedName(model, expression.getTypeRef());
                 if (typeRef == null) {
                     if (expression instanceof TContext) {
                         // Derive from return entry
@@ -967,7 +987,7 @@ public class DMNModelRepository {
                             if (ce.getVariable() == null) {
                                 JAXBElement<? extends TExpression> returnElement = ce.getExpression();
                                 if (returnElement != null) {
-                                    typeRef = QualifiedName.toQualifiedName(returnElement.getValue().getTypeRef());
+                                    typeRef = QualifiedName.toQualifiedName(model, returnElement.getValue().getTypeRef());
                                 }
                             }
                         }
@@ -975,12 +995,12 @@ public class DMNModelRepository {
                         // Derive from output clause
                         List<TOutputClause> outputList = ((TDecisionTable) expression).getOutput();
                         if (outputList.size() == 1) {
-                            typeRef = QualifiedName.toQualifiedName(outputList.get(0).getTypeRef());
+                            typeRef = QualifiedName.toQualifiedName(model, outputList.get(0).getTypeRef());
                             if (typeRef == null) {
                                 // Derive from rules
                                 List<TDecisionRule> ruleList = ((TDecisionTable) expression).getRule();
                                 List<TLiteralExpression> outputEntry = ruleList.get(0).getOutputEntry();
-                                typeRef = QualifiedName.toQualifiedName(outputEntry.get(0).getTypeRef());
+                                typeRef = QualifiedName.toQualifiedName(model, outputEntry.get(0).getTypeRef());
                             }
                         }
                     }

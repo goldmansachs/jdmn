@@ -54,6 +54,7 @@ public class ContextToJavaTransformer {
 
      private Statement contextExpressionToJava(TDRGElement element, TContext context, Environment contextEnvironment, Map<TContextEntry, Expression> literalExpressionMap) {
         // Translate to Java
+        TDefinitions model = this.dmnModelRepository.getModel(element);
         FEELContext feelContext = FEELContext.makeContext(contextEnvironment);
         CompoundStatement statement = new CompoundStatement();
         ExpressionStatement returnValue = null;
@@ -91,7 +92,7 @@ public class ContextToJavaTransformer {
         }
 
         // Add return statement
-        Type returnType = dmnTransformer.toFEELType(dmnTransformer.drgElementOutputTypeRef(element));
+        Type returnType = dmnTransformer.toFEELType(model, dmnTransformer.drgElementOutputTypeRef(element));
         if (returnValue != null) {
             String text = String.format("return %s;", returnValue.getExpression());
             statement.add(new ExpressionStatement(text, returnType));
