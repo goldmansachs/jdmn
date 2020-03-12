@@ -140,7 +140,7 @@
     "name" : "employed",
     "typeRef" : {
       "localName" : "employed",
-      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml"
     }
   }, {
     "@kind" : "inputData",
@@ -151,7 +151,7 @@
     "name" : "person",
     "typeRef" : {
       "localName" : "person",
-      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml"
     }
   }, {
     "@kind" : "decision",
@@ -170,7 +170,7 @@
     "name" : "decision",
     "typeRef" : {
       "localName" : "decision",
-      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml"
     }
   } ]
 }

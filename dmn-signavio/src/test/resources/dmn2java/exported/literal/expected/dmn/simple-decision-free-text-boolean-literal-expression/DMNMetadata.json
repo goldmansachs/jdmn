@@ -78,7 +78,7 @@
     "name" : "booleanInput",
     "typeRef" : {
       "localName" : "booleanInput",
-      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/bf9e1e5a0be94a8c9d4ff786d99acc08.xml"
     }
   }, {
     "@kind" : "inputData",
@@ -89,7 +89,7 @@
     "name" : "dateInput",
     "typeRef" : {
       "localName" : "dateInput",
-      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/bf9e1e5a0be94a8c9d4ff786d99acc08.xml"
     }
   }, {
     "@kind" : "inputData",
@@ -100,7 +100,7 @@
     "name" : "enumerationInput",
     "typeRef" : {
       "localName" : "enumerationInput",
-      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/bf9e1e5a0be94a8c9d4ff786d99acc08.xml"
     }
   }, {
     "@kind" : "inputData",
@@ -111,7 +111,7 @@
     "name" : "numberInput",
     "typeRef" : {
       "localName" : "numberInput",
-      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/bf9e1e5a0be94a8c9d4ff786d99acc08.xml"
     }
   }, {
     "@kind" : "inputData",
@@ -122,7 +122,7 @@
     "name" : "stringInput",
     "typeRef" : {
       "localName" : "stringInput",
-      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/bf9e1e5a0be94a8c9d4ff786d99acc08.xml"
     }
   }, {
     "@kind" : "decision",
@@ -147,7 +147,7 @@
     "name" : "decision",
     "typeRef" : {
       "localName" : "decision",
-      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/bf9e1e5a0be94a8c9d4ff786d99acc08.xml"
     }
   } ]
 }

@@ -41,7 +41,7 @@ public class DMNDialectTransformer {
 
     public Pair<TDefinitions, PrefixNamespaceMappings> transformDefinitions(org.omg.spec.dmn._20151101.model.TDefinitions dmn11Definitions) {
         TDefinitions definitions = transform(dmn11Definitions);
-        return new Pair(definitions, this.prefixNamespaceMappings);
+        return new Pair<>(definitions, this.prefixNamespaceMappings);
     }
 
     private TDefinitions transform(org.omg.spec.dmn._20151101.model.TDefinitions dmn11Definitions) {
@@ -798,11 +798,6 @@ public class DMNDialectTransformer {
     }
 
     private String transformNamespace(String namespace) {
-        for (DMNVersion version: VALUES) {
-            if (version.getNamespace().equals(namespace)) {
-                return LATEST.getNamespace();
-            }
-        }
         return namespace;
     }
 }

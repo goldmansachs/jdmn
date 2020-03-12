@@ -297,7 +297,7 @@
     "name" : "ages",
     "typeRef" : {
       "localName" : "ages",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "inputData",
@@ -308,7 +308,7 @@
     "name" : "day",
     "typeRef" : {
       "localName" : "day",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "inputData",
@@ -319,7 +319,7 @@
     "name" : "hour",
     "typeRef" : {
       "localName" : "hour",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "inputData",
@@ -330,7 +330,7 @@
     "name" : "minute",
     "typeRef" : {
       "localName" : "minute",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "inputData",
@@ -341,7 +341,7 @@
     "name" : "month",
     "typeRef" : {
       "localName" : "month",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "inputData",
@@ -352,7 +352,7 @@
     "name" : "names",
     "typeRef" : {
       "localName" : "names",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "inputData",
@@ -363,7 +363,7 @@
     "name" : "second",
     "typeRef" : {
       "localName" : "second",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "inputData",
@@ -374,7 +374,7 @@
     "name" : "year",
     "typeRef" : {
       "localName" : "year",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "decision",
@@ -391,7 +391,7 @@
     "name" : "accessCertainTemporalUnits",
     "typeRef" : {
       "localName" : "accessCertainTemporalUnits",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "decision",
@@ -412,7 +412,7 @@
     "name" : "buildDateStringInAnnotation",
     "typeRef" : {
       "localName" : "buildDateStringInAnnotation",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "decision",
@@ -429,7 +429,7 @@
     "name" : "describeAgesList",
     "typeRef" : {
       "localName" : "describeAgesList",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "decision",
@@ -456,7 +456,7 @@
     "name" : "generateTemporalObjects",
     "typeRef" : {
       "localName" : "generateTemporalObjects",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "decision",
@@ -473,7 +473,7 @@
     "name" : "negateSecond",
     "typeRef" : {
       "localName" : "negateSecond",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "decision",
@@ -490,7 +490,7 @@
     "name" : "noRuleMatchesMultiHit",
     "typeRef" : {
       "localName" : "noRuleMatchesMultiHit",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "decision",
@@ -507,7 +507,7 @@
     "name" : "noRuleMatchesSingleHit",
     "typeRef" : {
       "localName" : "noRuleMatchesSingleHit",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "decision",
@@ -524,7 +524,7 @@
     "name" : "temporalDiffs",
     "typeRef" : {
       "localName" : "temporalDiffs",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "decision",
@@ -557,7 +557,7 @@
     "name" : "zip",
     "typeRef" : {
       "localName" : "zip",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   } ]
 }
