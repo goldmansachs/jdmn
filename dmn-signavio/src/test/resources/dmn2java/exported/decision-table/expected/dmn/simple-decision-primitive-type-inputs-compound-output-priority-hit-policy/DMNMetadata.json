@@ -63,7 +63,7 @@
     "name" : "numberInput",
     "typeRef" : {
       "localName" : "numberInput",
-      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/05d196e8d5c44e038717f3ceb9d60049.xml"
     }
   }, {
     "@kind" : "inputData",
@@ -74,7 +74,7 @@
     "name" : "textInput",
     "typeRef" : {
       "localName" : "textInput",
-      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/05d196e8d5c44e038717f3ceb9d60049.xml"
     }
   }, {
     "@kind" : "decision",
@@ -93,7 +93,7 @@
     "name" : "decision",
     "typeRef" : {
       "localName" : "decision",
-      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/05d196e8d5c44e038717f3ceb9d60049.xml"
     }
   } ]
 }

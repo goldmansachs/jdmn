@@ -63,7 +63,7 @@
     "name" : "numberInput",
     "typeRef" : {
       "localName" : "numberInput",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "inputData",
@@ -74,7 +74,7 @@
     "name" : "textInput",
     "typeRef" : {
       "localName" : "textInput",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "decision",
@@ -93,7 +93,7 @@
     "name" : "decision",
     "typeRef" : {
       "localName" : "decision",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   } ]
 }

@@ -63,7 +63,7 @@
     "name" : "loan",
     "typeRef" : {
       "localName" : "loan",
-      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/364e3a8fdb6f4466977ac99ee9564f12.xml"
     }
   }, {
     "@kind" : "decision",
@@ -80,7 +80,7 @@
     "name" : "monthly",
     "typeRef" : {
       "localName" : "monthly",
-      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/364e3a8fdb6f4466977ac99ee9564f12.xml"
     }
   } ]
 }

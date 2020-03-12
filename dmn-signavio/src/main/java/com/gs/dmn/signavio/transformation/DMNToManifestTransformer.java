@@ -13,8 +13,8 @@
 package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.metadata.*;
-import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import org.omg.spec.dmn._20180521.model.*;
@@ -38,7 +38,7 @@ public class DMNToManifestTransformer {
         for (TDefinitions definitions: this.dmnModelRepository.getAllDefinitions()) {
             // Add types
             for (TItemDefinition itemDefinition : this.dmnModelRepository.itemDefinitions(definitions)) {
-                com.gs.dmn.runtime.metadata.Type type = makeMetadataType(itemDefinition);
+                com.gs.dmn.runtime.metadata.Type type = makeMetadataType(definitions, itemDefinition);
                 manifest.addType(type);
             }
             // Add elements
@@ -48,7 +48,7 @@ public class DMNToManifestTransformer {
                 String label = inputData.getLabel();
                 String javaParameterName = dmnTransformer.inputDataVariableName(inputData);
                 String javaTypeName = dmnTransformer.drgElementOutputType(inputData);
-                com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(QualifiedName.toQualifiedName(inputData.getVariable().getTypeRef()));
+                com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(definitions, QualifiedName.toQualifiedName(inputData.getVariable().getTypeRef()));
                 manifest.addElement(new InputData(id, name, label, javaParameterName, javaTypeName, typeRef));
             }
             for (TBusinessKnowledgeModel bkm : this.dmnModelRepository.businessKnowledgeModels(definitions)) {
@@ -58,7 +58,7 @@ public class DMNToManifestTransformer {
                 String javaFunctionName = dmnTransformer.bkmFunctionName(bkm);
                 String javaTypeName = dmnTransformer.qualifiedName(dmnTransformer.javaModelPackageName(definitions.getName()), dmnTransformer.drgElementClassName(bkm));
                 String javaOutputTypeName = dmnTransformer.drgElementOutputType(bkm);
-                com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(dmnTransformer.drgElementOutputTypeRef(bkm));
+                com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(definitions, dmnTransformer.drgElementOutputTypeRef(bkm));
                 List<DRGElementReference> knowledgeReferences = makeMetadataKnowledgeReferences(bkm.getKnowledgeRequirement());
                 com.gs.dmn.runtime.metadata.BKM element = new com.gs.dmn.runtime.metadata.BKM(id, name, label, javaFunctionName, javaTypeName, javaOutputTypeName, typeRef, knowledgeReferences);
                 manifest.addElement(element);
@@ -70,7 +70,7 @@ public class DMNToManifestTransformer {
                 String javaParameterName = dmnTransformer.drgElementVariableName(decision);
                 String javaTypeName = dmnTransformer.qualifiedName(dmnTransformer.javaModelPackageName(definitions.getName()), dmnTransformer.drgElementClassName(decision));
                 String javaOutputTypeName = dmnTransformer.drgElementOutputType(decision);
-                com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(QualifiedName.toQualifiedName(decision.getVariable().getTypeRef()));
+                com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(definitions, QualifiedName.toQualifiedName(decision.getVariable().getTypeRef()));
                 List<DRGElementReference> references = makeMetadataInformationReferences(decision);
                 List<DRGElementReference> knowledgeReferences = makeMetadataKnowledgeReferences(decision.getKnowledgeRequirement());
                 List<ExtensionElement> extensions = ((BasicSignavioDMN2JavaTransformer)dmnTransformer).makeMetadataExtensions(decision);
@@ -113,12 +113,12 @@ public class DMNToManifestTransformer {
         return href.startsWith("#") ? href.substring(1) : href;
     }
 
-    private com.gs.dmn.runtime.metadata.Type makeMetadataType(TItemDefinition itemDefinition) {
+    private com.gs.dmn.runtime.metadata.Type makeMetadataType(TDefinitions model, TItemDefinition itemDefinition) {
         String id = itemDefinition.getId();
         String name = itemDefinition.getName();
         String label = itemDefinition.getLabel();
         boolean isCollection = itemDefinition.isIsCollection();
-        com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(QualifiedName.toQualifiedName(itemDefinition.getTypeRef()));
+        com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(model, QualifiedName.toQualifiedName(itemDefinition.getTypeRef()));
         String allowedValues = makeMetadataAllowedValues(itemDefinition.getAllowedValues());
 
         List<TItemDefinition> children = itemDefinition.getItemComponent();
@@ -128,22 +128,19 @@ public class DMNToManifestTransformer {
         } else {
             List<com.gs.dmn.runtime.metadata.Type> subTypes = new ArrayList<>();
             for (TItemDefinition child : children) {
-                subTypes.add(makeMetadataType(child));
+                subTypes.add(makeMetadataType(model, child));
             }
             type = new CompositeType(id, name, label, isCollection, subTypes);
         }
         return type;
     }
 
-    private com.gs.dmn.runtime.metadata.QName makeMetadataTypeRef(QualifiedName typeRef) {
+    private com.gs.dmn.runtime.metadata.QName makeMetadataTypeRef(TDefinitions model, QualifiedName typeRef) {
         if (typeRef == null) {
             return null;
         }
-        String prefix = typeRef.getNamespace();
-        if (prefix == null) {
-            prefix = "";
-        }
-        String namespace = findNamespace(prefix);
+        String importName = typeRef.getNamespace();
+        String namespace = findNamespace(model, importName);
         return new com.gs.dmn.runtime.metadata.QName(namespace, typeRef.getLocalPart());
     }
 
@@ -151,12 +148,18 @@ public class DMNToManifestTransformer {
         return allowedValues == null ? null : allowedValues.getText();
     }
 
-    private String findNamespace(String prefix) {
-        PrefixNamespaceMappings prefixNamespaceMappings = dmnModelRepository.getPrefixNamespaceMappings();
-        if (DMN_11.getFeelPrefix().equals(prefix)) {
+    private String findNamespace(TDefinitions model, String importName) {
+        if (DMN_11.getFeelPrefix().equals(importName)) {
             return DMN_11.getFeelNamespace();
-        } else {
-            return prefixNamespaceMappings.get(prefix);
         }
+        for (TImport import_: model.getImport()) {
+            if (import_.getName().equals(importName)) {
+                model = this.dmnModelRepository.getModel(import_.getNamespace());
+                if (model == null) {
+                    throw new DMNRuntimeException(String.format("Cannot find model for import name '%s'", importName));
+                }
+            }
+        }
+        return model.getNamespace();
     }
 }

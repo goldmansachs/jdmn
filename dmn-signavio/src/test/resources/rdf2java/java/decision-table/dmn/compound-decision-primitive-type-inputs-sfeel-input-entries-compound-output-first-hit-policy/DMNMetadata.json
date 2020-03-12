@@ -143,7 +143,7 @@
     "name" : "booleanInput",
     "typeRef" : {
       "localName" : "booleanInput",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "inputData",
@@ -154,7 +154,7 @@
     "name" : "dD1TextInput",
     "typeRef" : {
       "localName" : "dD1TextInput",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "inputData",
@@ -165,7 +165,7 @@
     "name" : "dD2NumberInput",
     "typeRef" : {
       "localName" : "dD2NumberInput",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "inputData",
@@ -176,7 +176,7 @@
     "name" : "enumerationInput",
     "typeRef" : {
       "localName" : "enumerationInput",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "decision",
@@ -199,7 +199,7 @@
     "name" : "compoundOutputCompoundDecision",
     "typeRef" : {
       "localName" : "compoundOutputCompoundDecision",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "decision",
@@ -216,7 +216,7 @@
     "name" : "dependentDecision1",
     "typeRef" : {
       "localName" : "dependentDecision1",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "decision",
@@ -233,7 +233,7 @@
     "name" : "dependentDecision2",
     "typeRef" : {
       "localName" : "dependentDecision2",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   } ]
 }
