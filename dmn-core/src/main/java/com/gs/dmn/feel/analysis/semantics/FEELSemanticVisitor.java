@@ -36,6 +36,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,14 +131,14 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
         Environment parentEnvironment = context.getEnvironment();
         Environment bodyEnvironment = this.environmentFactory.makeEnvironment(parentEnvironment);
         element.getFormalParameters().forEach(
-                p -> bodyEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(p.getName(), p.getType()))
+                p -> bodyEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(p.getName(), p.getType()))
         );
 
         // Analyze body
         Expression body = element.getBody();
         if (element.isStaticTyped()) {
             // Analyze body
-            FEELContext functionDefinitionContext = FEELContext.makeContext(bodyEnvironment);
+            FEELContext functionDefinitionContext = FEELContext.makeContext(context.getElement(), bodyEnvironment);
             body.accept(this, functionDefinitionContext);
         } else {
             if (body.getType() == null) {
@@ -167,8 +168,8 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
 
     @Override
     public Object visit(Context element, FEELContext context) {
-        Environment entryEnvironment = environmentFactory.makeEnvironment(context.getEnvironment());
-        FEELContext entryContext = FEELContext.makeContext(entryEnvironment);
+        Environment entryEnvironment = this.environmentFactory.makeEnvironment(context.getEnvironment());
+        FEELContext entryContext = FEELContext.makeContext(context.getElement(), entryEnvironment);
         element.getEntries().forEach(ce -> ce.accept(this, entryContext));
         element.deriveType(entryContext.getEnvironment());
         return element;
@@ -178,7 +179,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
     public Object visit(ContextEntry element, FEELContext context) {
         ContextEntryKey key = (ContextEntryKey) element.getKey().accept(this, context);
         Expression expression = (Expression) element.getExpression().accept(this, context);
-        context.getEnvironment().addDeclaration(environmentFactory.makeVariableDeclaration(key.getKey(), expression.getType()));
+        context.getEnvironment().addDeclaration(this.environmentFactory.makeVariableDeclaration(key.getKey(), expression.getType()));
         return element;
     }
 
@@ -191,7 +192,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
     public Object visit(ForExpression element, FEELContext context) {
         List<Iterator> iterators = element.getIterators();
         FEELContext qParams = visitIterators(element, context, iterators);
-        qParams.getEnvironment().addDeclaration(environmentFactory.makeVariableDeclaration(ForExpression.PARTIAL_PARAMTER_NAME, new ListType(NullType.NULL)));
+        qParams.getEnvironment().addDeclaration(this.environmentFactory.makeVariableDeclaration(ForExpression.PARTIAL_PARAMTER_NAME, new ListType(NullType.NULL)));
         element.getBody().accept(this, qParams);
         element.deriveType(qParams.getEnvironment());
         qParams.getEnvironment().updateVariableDeclaration(ForExpression.PARTIAL_PARAMTER_NAME, element.getType());
@@ -332,8 +333,8 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
         value.accept(this, context);
 
         // Visit tests with value type injected in scope
-        Environment inEnvironment = environmentFactory.makeEnvironment(context.getEnvironment(), value);
-        FEELContext inParams = FEELContext.makeContext(inEnvironment);
+        Environment inEnvironment = this.environmentFactory.makeEnvironment(context.getEnvironment(), value);
+        FEELContext inParams = FEELContext.makeContext(context.getElement(), inEnvironment);
         element.getTests().forEach(t -> t.accept(this, inParams));
 
         element.deriveType(context.getEnvironment());
@@ -552,8 +553,9 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
 
     @Override
     public Object visit(NamedTypeExpression element, FEELContext context) {
-        com.gs.dmn.transformation.basic.QualifiedName typeRef = com.gs.dmn.transformation.basic.QualifiedName.toQualifiedName(null, element.getQualifiedName());
-        element.setType(dmnTransformer.toFEELType(null, typeRef));
+        TDefinitions model = this.dmnModelRepository.getModel(context.getElement());
+        com.gs.dmn.transformation.basic.QualifiedName typeRef = com.gs.dmn.transformation.basic.QualifiedName.toQualifiedName(model, element.getQualifiedName());
+        element.setType(this.dmnTransformer.toFEELType(null, typeRef));
         return element;
     }
 
@@ -589,8 +591,8 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
 
     private FEELContext visitIterators(final Expression element, FEELContext context, List<Iterator> iterators) {
         FEELSemanticVisitor visitor = this;
-        Environment qEnvironment = environmentFactory.makeEnvironment(context.getEnvironment());
-        FEELContext qParams = FEELContext.makeContext(qEnvironment);
+        Environment qEnvironment = this.environmentFactory.makeEnvironment(context.getEnvironment());
+        FEELContext qParams = FEELContext.makeContext(context.getElement(), qEnvironment);
         iterators.forEach(it -> {
             it.accept(visitor, qParams);
             String itName = it.getName();
@@ -603,7 +605,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
             } else {
                 throw new SemanticError(element, String.format("Cannot resolve iterator type for '%s'", domainType));
             }
-            qEnvironment.addDeclaration(environmentFactory.makeVariableDeclaration(itName, itType));
+            qEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(itName, itType));
         });
         return qParams;
     }

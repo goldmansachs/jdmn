@@ -171,7 +171,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     public Object visit(FunctionDefinition element, FEELContext context) {
         if (element.isStaticTyped()) {
             String body = (String)element.getBody().accept(this, context);
-            return dmnTransformer.functionDefinitionToJava(element, false, body);
+            return this.dmnTransformer.functionDefinitionToJava(element, false, body);
         } else {
             throw new DMNRuntimeException("Dynamic typing for FEEL functions not supported yet");
         }
@@ -185,7 +185,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     @Override
     public Object visit(Context element, FEELContext context) {
         String addMethods = element.getEntries().stream().map(e -> (String) e.accept(this, context)).collect(Collectors.joining(""));
-        return dmnTransformer.fluentConstructor(DMNToJavaTransformer.CONTEXT_CLASS_NAME, addMethods);
+        return this.dmnTransformer.fluentConstructor(DMNToJavaTransformer.CONTEXT_CLASS_NAME, addMethods);
     }
 
     @Override
@@ -225,9 +225,9 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(ForExpression element, FEELContext context) {
-        Environment forEnvironment = environmentFactory.makeEnvironment(context.getEnvironment());
-        FEELContext forContext = FEELContext.makeContext(forEnvironment);
-        forContext.getEnvironment().addDeclaration(environmentFactory.makeVariableDeclaration(ForExpression.PARTIAL_PARAMTER_NAME, element.getType()));
+        Environment forEnvironment = this.environmentFactory.makeEnvironment(context.getEnvironment());
+        FEELContext forContext = FEELContext.makeContext(context.getElement(), forEnvironment);
+        forContext.getEnvironment().addDeclaration(this.environmentFactory.makeVariableDeclaration(ForExpression.PARTIAL_PARAMTER_NAME, element.getType()));
 
         // Add code for each iterator
         StringBuilder result = new StringBuilder();
@@ -264,7 +264,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         String domain;
         if (expressionDomain instanceof Name) {
             String name = ((Name) expressionDomain).getName();
-            domain = dmnTransformer.javaFriendlyVariableName(name);
+            domain = this.dmnTransformer.javaFriendlyVariableName(name);
         } else if (expressionDomain instanceof RangeTest) {
             RangeTest test = (RangeTest) expressionDomain;
             String start = (String) test.getStart().accept(this, context);
@@ -331,7 +331,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
 
         // Convert source to list
         if (!(sourceType instanceof ListType)) {
-            source = dmnTransformer.asList(source);
+            source = this.dmnTransformer.asList(source);
         }
 
         // Filter
@@ -345,7 +345,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
             } else {
                 elementType = sourceType;
             }
-            String javaElementType = dmnTransformer.toJavaType(elementType);
+            String javaElementType = this.dmnTransformer.toJavaType(elementType);
 
             return String.format("(%s)(elementAt(%s, %s))", javaElementType, source, filter);
         } else {
@@ -354,11 +354,11 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     }
 
     private String newParameterName(String olderParameterName) {
-        if (filterCount == INITIAL_VALUE) {
-            filterCount++;
+        if (this.filterCount == INITIAL_VALUE) {
+            this.filterCount++;
             return olderParameterName;
         } else {
-            return String.format("%s_%d_", olderParameterName, ++filterCount);
+            return String.format("%s_%d_", olderParameterName, ++this.filterCount);
         }
     }
 
@@ -366,7 +366,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     public Object visit(InstanceOfExpression element, FEELContext context) {
         String leftOperand = (String) element.getLeftOperand().accept(this, context);
         Type rightOperandType = element.getRightOperand().getType();
-        String javaType = feelTypeTranslator.toJavaType(rightOperandType.toString());
+        String javaType = this.feelTypeTranslator.toJavaType(rightOperandType.toString());
         return String.format("%s instanceof %s", leftOperand, javaType);
     }
 
@@ -434,8 +434,8 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         Expression valueExp = element.getValue();
         List<PositiveUnaryTest> positiveUnaryTests = element.getTests();
 
-        Environment inEnvironment = environmentFactory.makeEnvironment(context.getEnvironment(), valueExp);
-        FEELContext inContext = FEELContext.makeContext(inEnvironment);
+        Environment inEnvironment = this.environmentFactory.makeEnvironment(context.getEnvironment(), valueExp);
+        FEELContext inContext = FEELContext.makeContext(context.getElement(), inEnvironment);
 
         List<String> result = new ArrayList<>();
         for (PositiveUnaryTest positiveUnaryTest: positiveUnaryTests) {
@@ -512,8 +512,8 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
             ParameterTypes parameterTypes = element.getParameters().getSignature();
             Declaration declaration = context.getEnvironment().lookupFunctionDeclaration(feelFunctionName, parameterTypes);
             if (declaration instanceof BusinessKnowledgeModelDeclaration) {
-                argumentsText = dmnTransformer.drgElementArgumentsExtra(dmnTransformer.augmentArgumentList(argumentsText));
-                String javaFunctionName = dmnTransformer.bkmFunctionName(feelFunctionName);
+                argumentsText = this.dmnTransformer.drgElementArgumentsExtra(this.dmnTransformer.augmentArgumentList(argumentsText));
+                String javaFunctionName = this.dmnTransformer.bkmFunctionName(feelFunctionName);
                 return String.format("%s(%s)", javaFunctionName, argumentsText);
             } else {
                 String javaFunctionName = javaFunctionName(feelFunctionName);
@@ -530,7 +530,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     }
 
     protected Object convertArgument(Object param, Conversion conversion) {
-        String conversionFunction = conversion.conversionFunction(conversion, dmnTransformer.toJavaType(conversion.getTargetType()));
+        String conversionFunction = conversion.conversionFunction(conversion, this.dmnTransformer.toJavaType(conversion.getTargetType()));
         if (conversionFunction != null) {
             param = String.format("%s(%s)", conversionFunction, param);
         }
@@ -574,7 +574,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     public Object visit(ListLiteral element, FEELContext context) {
         List<Expression> expressionList = element.getExpressionList();
         String elements = expressionList.stream().map(e -> (String) e.accept(this, context)).collect(Collectors.joining(", "));
-        return dmnTransformer.asList(elements);
+        return this.dmnTransformer.asList(elements);
     }
 
     @Override
@@ -620,7 +620,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
             return inputExpressionToJava(context);
         } else {
             String javaName = javaFriendlyVariableName(name);
-            return dmnTransformer.lazyEvaluation(name, javaName);
+            return this.dmnTransformer.lazyEvaluation(name, javaName);
         }
     }
 
@@ -631,7 +631,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         if (inputExpression == null) {
             throw new DMNRuntimeException("Missing inputExpression");
         } else {
-            SimpleExpressionsToJavaVisitor visitor = new SimpleExpressionsToJavaVisitor(dmnTransformer);
+            SimpleExpressionsToJavaVisitor visitor = new SimpleExpressionsToJavaVisitor(this.dmnTransformer);
             visitor.init();
             return (String) inputExpression.accept(visitor, context);
         }

@@ -39,23 +39,23 @@ public class ContextToJavaTransformer {
     }
 
     public Statement expressionToJava(TDRGElement element, TContext context) {
-        Environment elementEnvironment = dmnTransformer.makeEnvironment(element);
+        Environment elementEnvironment = this.dmnTransformer.makeEnvironment(element);
 
         // Make context environment
-        Pair<Environment, Map<TContextEntry, Expression>> pair = dmnTransformer.makeContextEnvironment(element, context, elementEnvironment);
+        Pair<Environment, Map<TContextEntry, Expression>> pair = this.dmnTransformer.makeContextEnvironment(element, context, elementEnvironment);
         return contextExpressionToJava(element, context, pair.getLeft(), pair.getRight());
     }
 
     Statement contextExpressionToJava(TDRGElement element, TContext context, Environment elementEnvironment) {
         // Make context environment
-        Pair<Environment, Map<TContextEntry, Expression>> pair = dmnTransformer.makeContextEnvironment(element, context, elementEnvironment);
+        Pair<Environment, Map<TContextEntry, Expression>> pair = this.dmnTransformer.makeContextEnvironment(element, context, elementEnvironment);
         return contextExpressionToJava(element, context, pair.getLeft(), pair.getRight());
     }
 
      private Statement contextExpressionToJava(TDRGElement element, TContext context, Environment contextEnvironment, Map<TContextEntry, Expression> literalExpressionMap) {
         // Translate to Java
         TDefinitions model = this.dmnModelRepository.getModel(element);
-        FEELContext feelContext = FEELContext.makeContext(contextEnvironment);
+        FEELContext feelContext = FEELContext.makeContext(element, contextEnvironment);
         CompoundStatement statement = new CompoundStatement();
         ExpressionStatement returnValue = null;
         for(TContextEntry entry: context.getContextEntry()) {
@@ -67,23 +67,23 @@ public class ContextToJavaTransformer {
                 TExpression expression = jaxbElement.getValue();
                 if (expression instanceof TLiteralExpression) {
                     Expression feelExpression = literalExpressionMap.get(entry);
-                    entryType = dmnTransformer.entryType(element, entry, expression, feelExpression);
-                    String stm = dmnTransformer.feelTranslator.expressionToJava(feelExpression, feelContext);
+                    entryType = this.dmnTransformer.entryType(element, entry, expression, feelExpression);
+                    String stm = this.dmnTransformer.feelTranslator.expressionToJava(feelExpression, feelContext);
                     value = new ExpressionStatement(stm, entryType);
                 } else {
-                    entryType = dmnTransformer.entryType(element, entry, contextEnvironment);
-                    value = (ExpressionStatement) dmnTransformer.expressionToJava(expression, contextEnvironment, element);
+                    entryType = this.dmnTransformer.entryType(element, entry, contextEnvironment);
+                    value = (ExpressionStatement) this.dmnTransformer.expressionToJava(expression, contextEnvironment, element);
                 }
             } else {
-                entryType = dmnTransformer.entryType(element, entry, contextEnvironment);
+                entryType = this.dmnTransformer.entryType(element, entry, contextEnvironment);
                 value = new ExpressionStatement("null", entryType);
             }
 
             // Add statement
             TInformationItem variable = entry.getVariable();
             if (variable != null) {
-                String javaName = dmnTransformer.lowerCaseFirst(variable.getName());
-                String javaType = dmnTransformer.toJavaType(entryType);
+                String javaName = this.dmnTransformer.lowerCaseFirst(variable.getName());
+                String javaType = this.dmnTransformer.toJavaType(entryType);
                 String assignmentText = String.format("%s %s = %s;", javaType, javaName, value.getExpression());
                 statement.add(new ExpressionStatement(assignmentText, entryType));
             } else {
@@ -92,15 +92,15 @@ public class ContextToJavaTransformer {
         }
 
         // Add return statement
-        Type returnType = dmnTransformer.toFEELType(model, dmnTransformer.drgElementOutputTypeRef(element));
+        Type returnType = this.dmnTransformer.toFEELType(model, this.dmnTransformer.drgElementOutputTypeRef(element));
         if (returnValue != null) {
             String text = String.format("return %s;", returnValue.getExpression());
             statement.add(new ExpressionStatement(text, returnType));
         } else {
             // Make complex type value
-            String complexJavaType = dmnTransformer.drgElementOutputType(element);
-            String complexTypeVariable = dmnTransformer.drgElementVariableName(element);
-            String expressionText = String.format("%s %s = %s;", dmnTransformer.itemDefinitionJavaClassName(complexJavaType), complexTypeVariable, dmnTransformer.defaultConstructor(dmnTransformer.itemDefinitionJavaClassName(complexJavaType)));
+            String complexJavaType = this.dmnTransformer.drgElementOutputType(element);
+            String complexTypeVariable = this.dmnTransformer.drgElementVariableName(element);
+            String expressionText = String.format("%s %s = %s;", this.dmnTransformer.itemDefinitionJavaClassName(complexJavaType), complexTypeVariable, this.dmnTransformer.defaultConstructor(this.dmnTransformer.itemDefinitionJavaClassName(complexJavaType)));
             statement.add(new ExpressionStatement(expressionText, returnType));
             // Add entries
             for(TContextEntry entry: context.getContextEntry()) {
@@ -109,16 +109,16 @@ public class ContextToJavaTransformer {
                 TExpression expression = jaxbElement == null ? null : jaxbElement.getValue();
                 if (expression instanceof TLiteralExpression) {
                     Expression feelExpression = literalExpressionMap.get(entry);
-                    entryType = dmnTransformer.entryType(element, entry, expression, feelExpression);
+                    entryType = this.dmnTransformer.entryType(element, entry, expression, feelExpression);
                 } else {
-                    entryType = dmnTransformer.entryType(element, entry, contextEnvironment);
+                    entryType = this.dmnTransformer.entryType(element, entry, contextEnvironment);
                 }
 
                 // Add statement
                 TInformationItem variable = entry.getVariable();
                 if (variable != null) {
-                    String javaContextEntryName = dmnTransformer.lowerCaseFirst(variable.getName());
-                    String entryText = String.format("%s.%s(%s);", complexTypeVariable, dmnTransformer.setter(javaContextEntryName), javaContextEntryName);
+                    String javaContextEntryName = this.dmnTransformer.lowerCaseFirst(variable.getName());
+                    String entryText = String.format("%s.%s(%s);", complexTypeVariable, this.dmnTransformer.setter(javaContextEntryName), javaContextEntryName);
                     statement.add(new ExpressionStatement(entryText, entryType));
                 }
             }

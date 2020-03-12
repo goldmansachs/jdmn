@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast;
 
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.AnyType;
@@ -22,23 +23,25 @@ import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 
 public abstract class AbstractAnalysisVisitor extends AbstractVisitor {
+    protected final DMNModelRepository dmnModelRepository;
     protected final BasicDMN2JavaTransformer dmnTransformer;
     protected final EnvironmentFactory environmentFactory;
     protected final FEELTypeTranslator feelTypeTranslator;
 
     protected AbstractAnalysisVisitor(BasicDMN2JavaTransformer dmnTransformer) {
+        this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
         this.dmnTransformer = dmnTransformer;
         this.environmentFactory = dmnTransformer.getEnvironmentFactory();
         this.feelTypeTranslator = dmnTransformer.getFEELTypeTranslator();
     }
 
     protected FEELContext makeFilterContext(FEELContext parentContext, Expression source, String filterVariableName) {
-        Environment environment = environmentFactory.makeEnvironment(parentContext.getEnvironment());
+        Environment environment = this.environmentFactory.makeEnvironment(parentContext.getEnvironment());
         Type itemType = AnyType.ANY;
         if (source.getType() instanceof ListType) {
             itemType = ((ListType) source.getType()).getElementType();
         }
-        environment.addDeclaration(environmentFactory.makeVariableDeclaration(filterVariableName, itemType));
-        return FEELContext.makeContext(environment);
+        environment.addDeclaration(this.environmentFactory.makeVariableDeclaration(filterVariableName, itemType));
+        return FEELContext.makeContext(parentContext.getElement(), environment);
     }
 }
