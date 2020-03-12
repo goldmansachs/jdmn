@@ -42,15 +42,15 @@ public class RelationToJavaTransformer {
         this.environmentFactory = dmnTransformer.getEnvironmentFactory();
     }
 
-    public Statement expressionToJava(TRelation relation, TDRGElement element) {
+    public Statement expressionToJava(TDRGElement element, TRelation relation) {
         Environment elementEnvironment = dmnTransformer.makeEnvironment(element);
 
         // Make relation environment
         Environment relationEnvironment = dmnTransformer.makeRelationEnvironment(relation, elementEnvironment);
-        return relationExpressionToJava(relation, relationEnvironment, element);
+        return relationExpressionToJava(element, relation, relationEnvironment);
     }
 
-    Statement relationExpressionToJava(TRelation relation, Environment relationEnvironment, TDRGElement element) {
+    Statement relationExpressionToJava(TDRGElement element, TRelation relation, Environment relationEnvironment) {
         Type resultType = dmnTransformer.toFEELType(dmnTransformer.drgElementOutputTypeRef(element));
         if (relation.getRow() == null) {
             return new ExpressionStatement("null", resultType);

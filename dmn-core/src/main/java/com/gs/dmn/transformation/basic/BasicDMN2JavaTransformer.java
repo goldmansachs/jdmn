@@ -1246,7 +1246,7 @@ public class BasicDMN2JavaTransformer {
     public Statement expressionToJava(TDRGElement element) {
         TExpression expression = this.dmnModelRepository.expression(element);
         if (expression instanceof TContext) {
-            return this.contextToJavaTransformer.expressionToJava((TContext) expression, element);
+            return this.contextToJavaTransformer.expressionToJava(element, (TContext) expression);
         } else if (expression instanceof TLiteralExpression) {
             Statement statement = this.literalExpressionToJavaTransformer.expressionToJava(((TLiteralExpression) expression).getText(), element);
             Type expectedType = toFEELType(drgElementOutputTypeRef(element));
@@ -1254,7 +1254,7 @@ public class BasicDMN2JavaTransformer {
         } else if (expression instanceof TInvocation) {
             return this.invocationToJavaTransformer.expressionToJava((TInvocation) expression, element);
         } else if (expression instanceof TRelation) {
-            return this.relationToJavaTransformer.expressionToJava((TRelation) expression, element);
+            return this.relationToJavaTransformer.expressionToJava(element, (TRelation) expression);
         } else {
             throw new UnsupportedOperationException(String.format("Not supported '%s'", expression.getClass().getSimpleName()));
         }
@@ -1262,15 +1262,15 @@ public class BasicDMN2JavaTransformer {
 
     Statement expressionToJava(TExpression expression, Environment environment, TDRGElement element) {
         if (expression instanceof TContext) {
-            return this.contextToJavaTransformer.contextExpressionToJava((TContext) expression, environment, element);
+            return this.contextToJavaTransformer.contextExpressionToJava(element, (TContext) expression, environment);
         } else if (expression instanceof TFunctionDefinition) {
-            return this.functionDefinitionToJavaTransformer.functionDefinitionToJava((TFunctionDefinition) expression, environment, element);
+            return this.functionDefinitionToJavaTransformer.functionDefinitionToJava(element, (TFunctionDefinition) expression, environment);
         } else if (expression instanceof TLiteralExpression) {
             return this.literalExpressionToJavaTransformer.literalExpressionToJava(((TLiteralExpression) expression).getText(), environment, element);
         } else if (expression instanceof TInvocation) {
             return this.invocationToJavaTransformer.invocationExpressionToJava((TInvocation) expression, environment, element);
         } else if (expression instanceof TRelation) {
-            return this.relationToJavaTransformer.relationExpressionToJava((TRelation) expression, environment, element);
+            return this.relationToJavaTransformer.relationExpressionToJava(element, (TRelation) expression, environment);
         } else {
             throw new UnsupportedOperationException(String.format("Not supported '%s'", expression.getClass().getSimpleName()));
         }
