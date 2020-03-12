@@ -42,13 +42,13 @@ public class ContextToJavaTransformer {
         Environment elementEnvironment = dmnTransformer.makeEnvironment(element);
 
         // Make context environment
-        Pair<Environment, Map<TContextEntry, Expression>> pair = dmnTransformer.makeContextEnvironment(context, elementEnvironment);
+        Pair<Environment, Map<TContextEntry, Expression>> pair = dmnTransformer.makeContextEnvironment(element, context, elementEnvironment);
         return contextExpressionToJava(element, context, pair.getLeft(), pair.getRight());
     }
 
     Statement contextExpressionToJava(TDRGElement element, TContext context, Environment elementEnvironment) {
         // Make context environment
-        Pair<Environment, Map<TContextEntry, Expression>> pair = dmnTransformer.makeContextEnvironment(context, elementEnvironment);
+        Pair<Environment, Map<TContextEntry, Expression>> pair = dmnTransformer.makeContextEnvironment(element, context, elementEnvironment);
         return contextExpressionToJava(element, context, pair.getLeft(), pair.getRight());
     }
 
@@ -66,15 +66,15 @@ public class ContextToJavaTransformer {
                 TExpression expression = jaxbElement.getValue();
                 if (expression instanceof TLiteralExpression) {
                     Expression feelExpression = literalExpressionMap.get(entry);
-                    entryType = dmnTransformer.entryType(entry, expression, feelExpression);
+                    entryType = dmnTransformer.entryType(element, entry, expression, feelExpression);
                     String stm = dmnTransformer.feelTranslator.expressionToJava(feelExpression, feelContext);
                     value = new ExpressionStatement(stm, entryType);
                 } else {
-                    entryType = dmnTransformer.entryType(entry, contextEnvironment);
+                    entryType = dmnTransformer.entryType(element, entry, contextEnvironment);
                     value = (ExpressionStatement) dmnTransformer.expressionToJava(expression, contextEnvironment, element);
                 }
             } else {
-                entryType = dmnTransformer.entryType(entry, contextEnvironment);
+                entryType = dmnTransformer.entryType(element, entry, contextEnvironment);
                 value = new ExpressionStatement("null", entryType);
             }
 
@@ -108,9 +108,9 @@ public class ContextToJavaTransformer {
                 TExpression expression = jaxbElement == null ? null : jaxbElement.getValue();
                 if (expression instanceof TLiteralExpression) {
                     Expression feelExpression = literalExpressionMap.get(entry);
-                    entryType = dmnTransformer.entryType(entry, expression, feelExpression);
+                    entryType = dmnTransformer.entryType(element, entry, expression, feelExpression);
                 } else {
-                    entryType = dmnTransformer.entryType(entry, contextEnvironment);
+                    entryType = dmnTransformer.entryType(element, entry, contextEnvironment);
                 }
 
                 // Add statement

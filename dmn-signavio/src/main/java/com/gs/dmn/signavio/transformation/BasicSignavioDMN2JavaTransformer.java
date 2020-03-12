@@ -76,7 +76,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
             if (feelExpression instanceof FunctionDefinition) {
                 if (((FunctionDefinition) feelExpression).isExternal()) {
                     Expression body = ((FunctionDefinition) feelExpression).getBody();
-                    return externalFunctionReturnFEELType(body);
+                    return externalFunctionReturnFEELType(element, body);
                 } else {
                     Type type = feelExpression.getType();
                     if (type instanceof FEELFunctionType) {
@@ -101,7 +101,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
             if (feelExpression instanceof FunctionDefinition) {
                 if (((FunctionDefinition) feelExpression).isExternal()) {
                     Expression body = ((FunctionDefinition) feelExpression).getBody();
-                    return externalFunctionReturnFEELType(body);
+                    return externalFunctionReturnFEELType(element, body);
                 } else {
                     Type type = feelExpression.getType();
                     if (type instanceof FEELFunctionType) {
@@ -191,7 +191,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
         throw new DMNRuntimeException(String.format("Missing methodName in '%s'", body));
     }
 
-    public Type externalFunctionReturnFEELType(Expression body) {
+    public Type externalFunctionReturnFEELType(TNamedElement element, Expression body) {
         if (body instanceof Context) {
             Expression javaExpression = ((Context) body).entry("java").getExpression();
             if (javaExpression instanceof Context) {
@@ -416,7 +416,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
             Expression body = ((FunctionDefinition) literalExpression).getBody();
             String javaCode;
             if (((FunctionDefinition) literalExpression).isExternal()) {
-                String returnJavaType = toJavaType(externalFunctionReturnFEELType(body));
+                String returnJavaType = toJavaType(externalFunctionReturnFEELType(element, body));
                 String className = externalFunctionClassName(body);
                 String methodName = externalFunctionMethodName(body);
                 String arguments = drgElementEvaluateArgumentList(element);

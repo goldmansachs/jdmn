@@ -12,26 +12,7 @@
  */
 package com.gs.dmn.transformation.basic;
 
-import com.gs.dmn.serialization.DMNVersion;
-
-import javax.xml.namespace.QName;
-
 public class QualifiedName {
-    public static QualifiedName toQualifiedName(QName qName) {
-        if (qName == null) {
-            return null;
-        }
-
-        String namespaceURI = qName.getNamespaceURI();
-        for (DMNVersion  version: DMNVersion.VALUES) {
-            if (version.getFeelNamespace().equals(namespaceURI)) {
-                return new QualifiedName(version.getFeelPrefix(), qName.getLocalPart());
-            }
-        }
-        String prefix = qName.getPrefix();
-        return new QualifiedName(prefix, qName.getLocalPart());
-    }
-
     public static QualifiedName toQualifiedName(String qName) {
         return qName == null ? null : new QualifiedName(qName);
     }
@@ -59,15 +40,15 @@ public class QualifiedName {
     }
 
     public String getNamespace() {
-        return namespace;
+        return this.namespace;
     }
 
     public String getLocalPart() {
-        return localPart;
+        return this.localPart;
     }
 
     @Override
     public String toString() {
-        return String.format("QualifiedName(%s, %s)", namespace, localPart);
+        return String.format("QualifiedName(%s, %s)", this.namespace, this.localPart);
     }
 }

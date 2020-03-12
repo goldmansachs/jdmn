@@ -19,10 +19,7 @@ import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.java.ExpressionStatement;
 import com.gs.dmn.transformation.java.Statement;
-import org.omg.spec.dmn._20180521.model.TDRGElement;
-import org.omg.spec.dmn._20180521.model.TExpression;
-import org.omg.spec.dmn._20180521.model.TList;
-import org.omg.spec.dmn._20180521.model.TRelation;
+import org.omg.spec.dmn._20180521.model.*;
 
 import javax.xml.bind.JAXBElement;
 import java.util.ArrayList;
@@ -43,10 +40,11 @@ public class RelationToJavaTransformer {
     }
 
     public Statement expressionToJava(TDRGElement element, TRelation relation) {
+        TDefinitions model = this.modelRepository.getModel(element);
         Environment elementEnvironment = dmnTransformer.makeEnvironment(element);
 
         // Make relation environment
-        Environment relationEnvironment = dmnTransformer.makeRelationEnvironment(relation, elementEnvironment);
+        Environment relationEnvironment = dmnTransformer.makeRelationEnvironment(model, relation, elementEnvironment);
         return relationExpressionToJava(element, relation, relationEnvironment);
     }
 
