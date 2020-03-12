@@ -34,7 +34,7 @@ public class FunctionDefinitionToJavaTransformer {
         this.environmentFactory = dmnTransformer.getEnvironmentFactory();
     }
 
-    public ExpressionStatement functionDefinitionToJava(TFunctionDefinition expression, Environment environment, TDRGElement element) {
+    public ExpressionStatement functionDefinitionToJava(TDRGElement element, TFunctionDefinition expression, Environment environment) {
         FunctionType functionType = (FunctionType) dmnTransformer.expressionType(expression, environment);
         TExpression bodyExpression = expression.getExpression().getValue();
         Environment functionDefinitionEnvironment = dmnTransformer.makeFunctionDefinitionEnvironment(expression, environment);
