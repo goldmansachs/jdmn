@@ -777,15 +777,7 @@ public class DMNDialectTransformer {
                 return String.format("%s.%s", DMN_11.getFeelPrefix(), localPart);
             }
         }
-        if (StringUtils.isBlank(prefix)) {
-            if (localPart.contains(".")) {
-                return String.format(".%s", localPart);
-            } else {
-                return localPart;
-            }
-        } else {
-            return String.format("%s.%s", prefix, localPart);
-        }
+        return localPart;
     }
 
     private String transformLanguage(String expressionLanguage) {

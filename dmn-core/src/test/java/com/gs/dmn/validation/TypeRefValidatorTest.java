@@ -30,7 +30,7 @@ public class TypeRefValidatorTest extends AbstractValidatorTest {
     @Test
     public void validate() {
         List<String> expectedErrors = Arrays.asList(
-           "Cannot find type 'QualifiedName(sig, applicant)' for DRGElement 'applicant'"
+           "Cannot find type 'QualifiedName(null, applicant)' for DRGElement 'applicant'"
         );
         validate(validator, "dmn/input/test-dmn-with-missing-type-ref.dmn", expectedErrors);
     }

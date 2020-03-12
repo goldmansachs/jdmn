@@ -12,7 +12,7 @@
             <typeRef>feel.number</typeRef>
         </itemComponent>
         <itemComponent isCollection="true" name="priorIssues" id="id-5bf135bcd0f2d1d6dabfb49f463ee763-relation-4" label="Prior issues" sigExt:slotId="4">
-            <typeRef>sig.creditIssueType</typeRef>
+            <typeRef>creditIssueType</typeRef>
         </itemComponent>
     </itemDefinition>
     <itemDefinition isCollection="false" name="assessApplicantAge" id="id-747970848a049f329dae6329a0601f86" label="Assess applicant age">
@@ -66,10 +66,10 @@
         <typeRef>feel.number</typeRef>
     </itemDefinition>
     <inputData name="applicant" id="id-d2376567fde3c9400ee327ecec21e36d" label="Applicant" sigExt:shapeId="sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D" sigExt:diagramId="9acf44f2b05343d79fc35140c493c1e0">
-        <variable typeRef="sig.applicant" name="applicant" id="id-d2376567fde3c9400ee327ecec21e36d_variable"/>
+        <variable typeRef="applicant" name="applicant" id="id-d2376567fde3c9400ee327ecec21e36d_variable"/>
     </inputData>
     <decision name="assessApplicantAge" id="id-98f1b72e74edaaae8d7fd9043f7e1bc4" label="Assess applicant age" sigExt:shapeId="sid-0C363FE4-468D-4273-9416-D1BCACB6248A" sigExt:diagramId="9acf44f2b05343d79fc35140c493c1e0">
-        <variable typeRef="sig.assessApplicantAge" name="Assess applicant age" id="id-98f1b72e74edaaae8d7fd9043f7e1bc4_variable"/>
+        <variable typeRef="assessApplicantAge" name="Assess applicant age" id="id-98f1b72e74edaaae8d7fd9043f7e1bc4_variable"/>
         <informationRequirement>
             <requiredInput href="#id-d2376567fde3c9400ee327ecec21e36d"/>
         </informationRequirement>
@@ -110,7 +110,7 @@
         </decisionTable>
     </decision>
     <decision name="assessIssue" id="id-0f2f9823e96f0599d2739fda4c5b3c79" label="Assess issue" sigExt:shapeId="sid-A4BAB8ED-94DC-48C4-8C4C-7C81DB1D8B9D" sigExt:diagramId="9acf44f2b05343d79fc35140c493c1e0">
-        <variable typeRef="sig.assessIssue" name="Assess issue" id="id-0f2f9823e96f0599d2739fda4c5b3c79_variable"/>
+        <variable typeRef="assessIssue" name="Assess issue" id="id-0f2f9823e96f0599d2739fda4c5b3c79_variable"/>
         <informationRequirement>
             <requiredInput href="#id-5dc69eb6de3b736e08d2029ca5ae436c"/>
         </informationRequirement>
@@ -130,13 +130,13 @@
                 <sigExt:topLevelDecisionId>id-0f2f9823e96f0599d2739fda4c5b3c79</sigExt:topLevelDecisionId>
             </sigExt:MultiInstanceDecisionLogic>
         </extensionElements>
-        <variable typeRef="sig.assessIssueRisk" name="Assess issue risk" id="id-90d13f677a4e3f0f8230a12f15301f00_variable"/>
+        <variable typeRef="assessIssueRisk" name="Assess issue risk" id="id-90d13f677a4e3f0f8230a12f15301f00_variable"/>
         <informationRequirement>
             <requiredDecision href="#id-bdfc5bfa4ce80fd221463ee66b277220"/>
         </informationRequirement>
     </decision>
     <decision name="compareAgainstLendingThreshold" id="id-8369770df890b566296308a9deebec47" label="Compare against lending threshold" sigExt:shapeId="sid-9E6EC21D-3D3D-4038-8D76-94613B753F13" sigExt:diagramId="9acf44f2b05343d79fc35140c493c1e0">
-        <variable typeRef="sig.compareAgainstLendingThreshold" name="Compare against lending threshold" id="id-8369770df890b566296308a9deebec47_variable"/>
+        <variable typeRef="compareAgainstLendingThreshold" name="Compare against lending threshold" id="id-8369770df890b566296308a9deebec47_variable"/>
         <informationRequirement>
             <requiredInput href="#id-5a7daa825c6a7542e30184a94034b435"/>
         </informationRequirement>
@@ -174,10 +174,10 @@
         </decisionTable>
     </decision>
     <inputData name="currentRiskAppetite" id="id-5dc69eb6de3b736e08d2029ca5ae436c" label="Current risk appetite" sigExt:shapeId="sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038" sigExt:diagramId="9acf44f2b05343d79fc35140c493c1e0">
-        <variable typeRef="sig.currentRiskAppetite" name="currentRiskAppetite" id="id-5dc69eb6de3b736e08d2029ca5ae436c_variable"/>
+        <variable typeRef="currentRiskAppetite" name="currentRiskAppetite" id="id-5dc69eb6de3b736e08d2029ca5ae436c_variable"/>
     </inputData>
     <decision name="generateOutputData" id="id-f3dfdd3ac42c255265e190eaf50dd65d" label="Generate output data" sigExt:shapeId="sid-8DBE416B-B1CA-43EC-BFE6-7D5DFA296EB6" sigExt:diagramId="9acf44f2b05343d79fc35140c493c1e0">
-        <variable typeRef="sig.generateOutputData" name="Generate output data" id="id-f3dfdd3ac42c255265e190eaf50dd65d_variable"/>
+        <variable typeRef="generateOutputData" name="Generate output data" id="id-f3dfdd3ac42c255265e190eaf50dd65d_variable"/>
         <informationRequirement>
             <requiredDecision href="#id-5b83918d6fc820d73123e7ca0e6d3ca6"/>
         </informationRequirement>
@@ -192,10 +192,10 @@
         </literalExpression>
     </decision>
     <inputData name="lendingThreshold" id="id-5a7daa825c6a7542e30184a94034b435" label="Lending threshold" sigExt:shapeId="sid-6CFB0C31-B181-4606-BE51-1960E8B86487" sigExt:diagramId="9acf44f2b05343d79fc35140c493c1e0">
-        <variable typeRef="sig.lendingThreshold" name="lendingThreshold" id="id-5a7daa825c6a7542e30184a94034b435_variable"/>
+        <variable typeRef="lendingThreshold" name="lendingThreshold" id="id-5a7daa825c6a7542e30184a94034b435_variable"/>
     </inputData>
     <decision name="makeCreditDecision" id="id-5b83918d6fc820d73123e7ca0e6d3ca6" label="Make credit decision" sigExt:shapeId="sid-31214799-6743-4B69-98A5-8C4D9C1BE010" sigExt:diagramId="9acf44f2b05343d79fc35140c493c1e0">
-        <variable typeRef="sig.makeCreditDecision" name="Make credit decision" id="id-5b83918d6fc820d73123e7ca0e6d3ca6_variable"/>
+        <variable typeRef="makeCreditDecision" name="Make credit decision" id="id-5b83918d6fc820d73123e7ca0e6d3ca6_variable"/>
         <informationRequirement>
             <requiredDecision href="#id-8369770df890b566296308a9deebec47"/>
         </informationRequirement>
@@ -236,10 +236,10 @@
         </decisionTable>
     </decision>
     <inputData name="priorIssue_iterator" id="id-78d6a4b25e15dc5d22fe0cce65554804" label="Prior issue" sigExt:shapeId="sid-671C977F-DF5F-4FF5-99D9-75D98516D4CD" sigExt:diagramId="9acf44f2b05343d79fc35140c493c1e0">
-        <variable typeRef="sig.priorIssue" name="priorIssue_iterator" id="id-78d6a4b25e15dc5d22fe0cce65554804_variable"/>
+        <variable typeRef="priorIssue" name="priorIssue_iterator" id="id-78d6a4b25e15dc5d22fe0cce65554804_variable"/>
     </inputData>
     <decision name="processPriorIssues" id="id-bdfc5bfa4ce80fd221463ee66b277220" label="Process prior issues" sigExt:shapeId="sid-F7FAA264-FA92-4952-A302-2BEADD9DCC59" sigExt:diagramId="9acf44f2b05343d79fc35140c493c1e0">
-        <variable typeRef="sig.processPriorIssues" name="Process prior issues" id="id-bdfc5bfa4ce80fd221463ee66b277220_variable"/>
+        <variable typeRef="processPriorIssues" name="Process prior issues" id="id-bdfc5bfa4ce80fd221463ee66b277220_variable"/>
         <informationRequirement>
             <requiredInput href="#id-d2376567fde3c9400ee327ecec21e36d"/>
         </informationRequirement>

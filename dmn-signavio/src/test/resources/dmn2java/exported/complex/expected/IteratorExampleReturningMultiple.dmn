@@ -21,116 +21,116 @@
     </itemDefinition>
     <itemDefinition isCollection="false" name="accountWithholdingAttributes" id="id-2b50ae7a44e3a28f9e240fd51a15c23e" label="Account Withholding Attributes" sigExt:glossaryId="9a56104a80834660a6616c2014914338">
         <itemComponent isCollection="false" name="firstTradeDate" id="id-2b50ae7a44e3a28f9e240fd51a15c23e-relation-0" label="First Trade Date" sigExt:slotId="0">
-            <typeRef>sig.accountFirstTradeDate</typeRef>
+            <typeRef>accountFirstTradeDate</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="taxDomicile" id="id-2b50ae7a44e3a28f9e240fd51a15c23e-relation-1" label="Tax Domicile" sigExt:slotId="1">
-            <typeRef>sig.accountTaxDomicileCode</typeRef>
+            <typeRef>accountTaxDomicileCode</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="bankIndustry" id="id-2b50ae7a44e3a28f9e240fd51a15c23e-relation-2" label="Bank Industry" sigExt:slotId="2">
-            <typeRef>sig.bankIndustry</typeRef>
+            <typeRef>bankIndustry</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="foreignTin" id="id-2b50ae7a44e3a28f9e240fd51a15c23e-relation-3" label="Foreign TIN" sigExt:slotId="3">
-            <typeRef>sig.foreignTin</typeRef>
+            <typeRef>foreignTin</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="intercompanyIndicator" id="id-2b50ae7a44e3a28f9e240fd51a15c23e-relation-4" label="Intercompany Indicator" sigExt:slotId="4">
-            <typeRef>sig.accountIntercompanyIndicator</typeRef>
+            <typeRef>accountIntercompanyIndicator</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="pFS" id="id-2b50ae7a44e3a28f9e240fd51a15c23e-relation-5" label="PFS" sigExt:slotId="5">
-            <typeRef>sig.presumptiveFatcaStatus</typeRef>
+            <typeRef>presumptiveFatcaStatus</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="qslFlag" id="id-2b50ae7a44e3a28f9e240fd51a15c23e-relation-6" label="QSL Flag" sigExt:slotId="6">
-            <typeRef>sig.qslFlag</typeRef>
+            <typeRef>qslFlag</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="docStatus" id="id-2b50ae7a44e3a28f9e240fd51a15c23e-relation-7" label="Doc Status" sigExt:slotId="7">
-            <typeRef>sig.taxDocumentStatus</typeRef>
+            <typeRef>taxDocumentStatus</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="payeeType" id="id-2b50ae7a44e3a28f9e240fd51a15c23e-relation-8" label="Payee Type" sigExt:slotId="8">
-            <typeRef>sig.taxPayeeType</typeRef>
+            <typeRef>taxPayeeType</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="treatyIndicator" id="id-2b50ae7a44e3a28f9e240fd51a15c23e-relation-9" label="Treaty Indicator" sigExt:slotId="9">
-            <typeRef>sig.taxTreatyBenefitsEligibilityIndicator</typeRef>
+            <typeRef>taxTreatyBenefitsEligibilityIndicator</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="paperType" id="id-2b50ae7a44e3a28f9e240fd51a15c23e-relation-10" label="Paper Type" sigExt:slotId="10">
-            <typeRef>sig.tefraPaperType</typeRef>
+            <typeRef>tefraPaperType</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="reportingStatus" id="id-2b50ae7a44e3a28f9e240fd51a15c23e-relation-11" label="Reporting Status" sigExt:slotId="11">
-            <typeRef>sig.tefraReportingStatus</typeRef>
+            <typeRef>tefraReportingStatus</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="usTin" id="id-2b50ae7a44e3a28f9e240fd51a15c23e-relation-12" label="US TIN" sigExt:slotId="12">
-            <typeRef>sig.entityTinCode</typeRef>
+            <typeRef>entityTinCode</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="tinSwornDate" id="id-2b50ae7a44e3a28f9e240fd51a15c23e-relation-13" label="TIN Sworn Date" sigExt:slotId="13">
-            <typeRef>sig.tinSwornDate</typeRef>
+            <typeRef>tinSwornDate</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="withholdingStatus" id="id-2b50ae7a44e3a28f9e240fd51a15c23e-relation-14" label="Withholding Status" sigExt:slotId="14">
-            <typeRef>sig.withholdingStatus</typeRef>
+            <typeRef>withholdingStatus</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="gPED" id="id-2b50ae7a44e3a28f9e240fd51a15c23e-relation-15" label="GPED" sigExt:slotId="15">
-            <typeRef>sig.accountGracePeriodEndDate</typeRef>
+            <typeRef>accountGracePeriodEndDate</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="gsleType" id="id-2b50ae7a44e3a28f9e240fd51a15c23e-relation-16" label="GSLE Type" sigExt:slotId="16">
-            <typeRef>sig.gsleType</typeRef>
+            <typeRef>gsleType</typeRef>
         </itemComponent>
     </itemDefinition>
     <itemDefinition isCollection="false" name="accountWithholdingAttributes2" id="id-a8878e0e670a02e3aed133217d847b06" label="Account Withholding Attributes">
         <itemComponent isCollection="false" name="firstTradeDate" id="id-a8878e0e670a02e3aed133217d847b06-relation-0" label="First Trade Date" sigExt:slotId="0">
-            <typeRef>sig.accountFirstTradeDate</typeRef>
+            <typeRef>accountFirstTradeDate</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="taxDomicile" id="id-a8878e0e670a02e3aed133217d847b06-relation-1" label="Tax Domicile" sigExt:slotId="1">
-            <typeRef>sig.accountTaxDomicileCode</typeRef>
+            <typeRef>accountTaxDomicileCode</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="bankIndustry" id="id-a8878e0e670a02e3aed133217d847b06-relation-2" label="Bank Industry" sigExt:slotId="2">
-            <typeRef>sig.bankIndustry</typeRef>
+            <typeRef>bankIndustry</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="foreignTin" id="id-a8878e0e670a02e3aed133217d847b06-relation-3" label="Foreign TIN" sigExt:slotId="3">
-            <typeRef>sig.foreignTin</typeRef>
+            <typeRef>foreignTin</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="intercompanyIndicator" id="id-a8878e0e670a02e3aed133217d847b06-relation-4" label="Intercompany Indicator" sigExt:slotId="4">
-            <typeRef>sig.accountIntercompanyIndicator</typeRef>
+            <typeRef>accountIntercompanyIndicator</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="pFS" id="id-a8878e0e670a02e3aed133217d847b06-relation-5" label="PFS" sigExt:slotId="5">
-            <typeRef>sig.presumptiveFatcaStatus</typeRef>
+            <typeRef>presumptiveFatcaStatus</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="qslFlag" id="id-a8878e0e670a02e3aed133217d847b06-relation-6" label="QSL Flag" sigExt:slotId="6">
-            <typeRef>sig.qslFlag</typeRef>
+            <typeRef>qslFlag</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="docStatus" id="id-a8878e0e670a02e3aed133217d847b06-relation-7" label="Doc Status" sigExt:slotId="7">
-            <typeRef>sig.taxDocumentStatus</typeRef>
+            <typeRef>taxDocumentStatus</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="payeeType" id="id-a8878e0e670a02e3aed133217d847b06-relation-8" label="Payee Type" sigExt:slotId="8">
-            <typeRef>sig.taxPayeeType</typeRef>
+            <typeRef>taxPayeeType</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="treatyIndicator" id="id-a8878e0e670a02e3aed133217d847b06-relation-9" label="Treaty Indicator" sigExt:slotId="9">
-            <typeRef>sig.taxTreatyBenefitsEligibilityIndicator</typeRef>
+            <typeRef>taxTreatyBenefitsEligibilityIndicator</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="paperType" id="id-a8878e0e670a02e3aed133217d847b06-relation-10" label="Paper Type" sigExt:slotId="10">
-            <typeRef>sig.tefraPaperType</typeRef>
+            <typeRef>tefraPaperType</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="reportingStatus" id="id-a8878e0e670a02e3aed133217d847b06-relation-11" label="Reporting Status" sigExt:slotId="11">
-            <typeRef>sig.tefraReportingStatus</typeRef>
+            <typeRef>tefraReportingStatus</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="usTin" id="id-a8878e0e670a02e3aed133217d847b06-relation-12" label="US TIN" sigExt:slotId="12">
-            <typeRef>sig.entityTinCode</typeRef>
+            <typeRef>entityTinCode</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="tinSwornDate" id="id-a8878e0e670a02e3aed133217d847b06-relation-13" label="TIN Sworn Date" sigExt:slotId="13">
-            <typeRef>sig.tinSwornDate</typeRef>
+            <typeRef>tinSwornDate</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="withholdingStatus" id="id-a8878e0e670a02e3aed133217d847b06-relation-14" label="Withholding Status" sigExt:slotId="14">
-            <typeRef>sig.withholdingStatus</typeRef>
+            <typeRef>withholdingStatus</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="gPED" id="id-a8878e0e670a02e3aed133217d847b06-relation-15" label="GPED" sigExt:slotId="15">
-            <typeRef>sig.accountGracePeriodEndDate</typeRef>
+            <typeRef>accountGracePeriodEndDate</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="gsleType" id="id-a8878e0e670a02e3aed133217d847b06-relation-16" label="GSLE Type" sigExt:slotId="16">
-            <typeRef>sig.gsleType</typeRef>
+            <typeRef>gsleType</typeRef>
         </itemComponent>
     </itemDefinition>
     <itemDefinition isCollection="false" name="assessCriteria" id="id-2c19f9f6fed13f6f7b41b38a32beebaf" label="AssessCriteria">
         <itemComponent isCollection="false" name="foreignTin" id="id-2c19f9f6fed13f6f7b41b38a32beebaf-relation-EA5FF6FC-94A4-4CB3-9A22-C20FF48D8833" label="Foreign TIN" sigExt:slotId="EA5FF6FC-94A4-4CB3-9A22-C20FF48D8833">
-            <typeRef>sig.foreignTin</typeRef>
+            <typeRef>foreignTin</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="output2" id="id-2c19f9f6fed13f6f7b41b38a32beebaf-relation-B762E17C-8FCE-4750-97CB-2CB17C7C65CB" label="Output 2" sigExt:slotId="B762E17C-8FCE-4750-97CB-2CB17C7C65CB">
-            <typeRef>sig.output2</typeRef>
+            <typeRef>output2</typeRef>
         </itemComponent>
     </itemDefinition>
     <itemDefinition isCollection="false" name="bankIndustry" id="id-ecd0183540b975efcba8ec2f88c02dc3" label="Bank Industry" sigExt:glossaryId="333c5e0c48ad4976b3beb0bd6c43f424">
@@ -138,10 +138,10 @@
     </itemDefinition>
     <itemDefinition isCollection="false" name="criteria" id="id-fd423f6cf0d49fb5691ffb5d2630859c" label="Criteria">
         <itemComponent isCollection="false" name="domicileCode" id="id-fd423f6cf0d49fb5691ffb5d2630859c-relation-0" label="DomicileCode" sigExt:slotId="0">
-            <typeRef>sig.accountTaxDomicileCode</typeRef>
+            <typeRef>accountTaxDomicileCode</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="foreignTIN" id="id-fd423f6cf0d49fb5691ffb5d2630859c-relation-2" label="ForeignTIN" sigExt:slotId="2">
-            <typeRef>sig.foreignTin</typeRef>
+            <typeRef>foreignTin</typeRef>
         </itemComponent>
     </itemDefinition>
     <itemDefinition isCollection="false" name="entityTinCode" id="id-10946cd814d3763d485d82472c63a09c" label="Entity TIN Code" sigExt:glossaryId="a97960310b4a47deb3a8688bc891aca1">
@@ -166,7 +166,7 @@
         </allowedValues>
     </itemDefinition>
     <itemDefinition isCollection="true" name="processElements" id="id-cb64719bc4236911b60f33d3b3224ed3" label="ProcessElements">
-        <typeRef>sig.assessCriteria</typeRef>
+        <typeRef>assessCriteria</typeRef>
     </itemDefinition>
     <itemDefinition isCollection="false" name="qslFlag" id="id-3077d64ca4aa277407d891d7f3c1e556" label="QSL Flag" sigExt:glossaryId="ba8ae5bb3ab446ab84d01f3e560e536a">
         <typeRef>feel.string</typeRef>
@@ -209,7 +209,7 @@
     </itemDefinition>
     <itemDefinition isCollection="false" name="withholdingAccounts" id="id-727324d07dd254738a7966b9b2583fa7" label="WithholdingAccounts">
         <itemComponent isCollection="true" name="accountList" id="id-727324d07dd254738a7966b9b2583fa7-relation-0" label="AccountList" sigExt:slotId="0">
-            <typeRef>sig.accountWithholdingAttributes</typeRef>
+            <typeRef>accountWithholdingAttributes</typeRef>
         </itemComponent>
     </itemDefinition>
     <itemDefinition isCollection="false" name="withholdingStatus" id="id-ad516687aa831100e9e9e2fc27876976" label="Withholding Status" sigExt:glossaryId="9f7c691b699344c0a70edbcd18e891dc">
@@ -219,10 +219,10 @@
         </allowedValues>
     </itemDefinition>
     <inputData name="accountWithholdingAttributes21_iterator" id="id-395f8c028effea0b138dfe07245f3abd" label="Account Withholding Attributes" sigExt:shapeId="sid-3A1A4345-ED3B-4395-B921-088202116507" sigExt:diagramId="3e06efd3571e4ef692b62ff41cabefcf">
-        <variable typeRef="sig.accountWithholdingAttributes2" name="accountWithholdingAttributes21_iterator" id="id-395f8c028effea0b138dfe07245f3abd_variable"/>
+        <variable typeRef="accountWithholdingAttributes2" name="accountWithholdingAttributes21_iterator" id="id-395f8c028effea0b138dfe07245f3abd_variable"/>
     </inputData>
     <decision name="assessCriteria" id="id-5ba0ab57952ac1c448829b2a0bcc1cd4" label="AssessCriteria" sigExt:shapeId="sid-0A485823-38C6-4E96-84F9-B5620165E1AD" sigExt:diagramId="3e06efd3571e4ef692b62ff41cabefcf">
-        <variable typeRef="sig.assessCriteria" name="AssessCriteria" id="id-5ba0ab57952ac1c448829b2a0bcc1cd4_variable"/>
+        <variable typeRef="assessCriteria" name="AssessCriteria" id="id-5ba0ab57952ac1c448829b2a0bcc1cd4_variable"/>
         <informationRequirement>
             <requiredInput href="#id-b1771aeb8736a06651de589a2b0c3140"/>
         </informationRequirement>
@@ -240,8 +240,8 @@
                     <text>accountWithholdingAttributes21_iterator.foreignTin</text>
                 </inputExpression>
             </input>
-            <output name="foreignTin" typeRef="sig.foreignTin" id="id-7d34dfc35149888ebdc6aa644b7e6e5d" label="Foreign TIN"/>
-            <output name="output2" typeRef="sig.output2" id="id-336a783f7b4a779174aa72078b870384" label="Output 2"/>
+            <output name="foreignTin" typeRef="foreignTin" id="id-7d34dfc35149888ebdc6aa644b7e6e5d" label="Foreign TIN"/>
+            <output name="output2" typeRef="output2" id="id-336a783f7b4a779174aa72078b870384" label="Output 2"/>
             <rule id="id-8eafd82118bfa4793689dd8ed7ce3f2d">
                 <description>string(-)</description>
                 <inputEntry>
@@ -260,7 +260,7 @@
         </decisionTable>
     </decision>
     <inputData name="criteria" id="id-b1771aeb8736a06651de589a2b0c3140" label="Criteria" sigExt:shapeId="sid-4EB97036-C7F4-4E1A-9E69-6E5CA0CF4455" sigExt:diagramId="3e06efd3571e4ef692b62ff41cabefcf">
-        <variable typeRef="sig.criteria" name="criteria" id="id-b1771aeb8736a06651de589a2b0c3140_variable"/>
+        <variable typeRef="criteria" name="criteria" id="id-b1771aeb8736a06651de589a2b0c3140_variable"/>
     </inputData>
     <decision name="processElements" id="id-abf4d13399bef0e15a9cb8f2029d0eda" label="ProcessElements" sigExt:shapeId="sid-1664306E-9F37-4E2F-BFCB-EE27F40507B9" sigExt:diagramId="3e06efd3571e4ef692b62ff41cabefcf">
         <extensionElements>
@@ -271,12 +271,12 @@
                 <sigExt:topLevelDecisionId>id-5ba0ab57952ac1c448829b2a0bcc1cd4</sigExt:topLevelDecisionId>
             </sigExt:MultiInstanceDecisionLogic>
         </extensionElements>
-        <variable typeRef="sig.processElements" name="ProcessElements" id="id-abf4d13399bef0e15a9cb8f2029d0eda_variable"/>
+        <variable typeRef="processElements" name="ProcessElements" id="id-abf4d13399bef0e15a9cb8f2029d0eda_variable"/>
         <informationRequirement>
             <requiredInput href="#id-46d7eee636b65c5242a63eec580b0244"/>
         </informationRequirement>
     </decision>
     <inputData name="withholdingAccounts" id="id-46d7eee636b65c5242a63eec580b0244" label="WithholdingAccounts" sigExt:shapeId="sid-9A53AD00-198E-48D9-A1A8-E88FC84FFB4F" sigExt:diagramId="3e06efd3571e4ef692b62ff41cabefcf">
-        <variable typeRef="sig.withholdingAccounts" name="withholdingAccounts" id="id-46d7eee636b65c5242a63eec580b0244_variable"/>
+        <variable typeRef="withholdingAccounts" name="withholdingAccounts" id="id-46d7eee636b65c5242a63eec580b0244_variable"/>
     </inputData>
 </definitions>

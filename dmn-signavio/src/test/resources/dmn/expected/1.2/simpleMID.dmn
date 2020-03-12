@@ -14,7 +14,7 @@
         <typeRef>feel.number</typeRef>
     </itemDefinition>
     <decision name="decide" id="id-1512301329aab38249e3624207658df2" label="decide" sigExt:shapeId="sid-A4ECA749-90FE-4E06-9B35-C544CC83FFCC" sigExt:diagramId="9e53b9fc18f94da39241c0319c532c9a">
-        <variable typeRef="sig.decide" name="decide" id="id-1512301329aab38249e3624207658df2_variable"/>
+        <variable typeRef="decide" name="decide" id="id-1512301329aab38249e3624207658df2_variable"/>
         <informationRequirement>
             <requiredInput href="#id-478006c112da0f37d337a994d51924de"/>
         </informationRequirement>
@@ -63,15 +63,15 @@
                 <sigExt:topLevelDecisionId>id-1512301329aab38249e3624207658df2</sigExt:topLevelDecisionId>
             </sigExt:MultiInstanceDecisionLogic>
         </extensionElements>
-        <variable typeRef="sig.mid" name="mid" id="id-1a22e9b5a3559ee94956a2fb15ff8a4d_variable"/>
+        <variable typeRef="mid" name="mid" id="id-1a22e9b5a3559ee94956a2fb15ff8a4d_variable"/>
         <informationRequirement>
             <requiredInput href="#id-16e27bd3dab9d90a677b69685f682a7b"/>
         </informationRequirement>
     </decision>
     <inputData name="numz" id="id-16e27bd3dab9d90a677b69685f682a7b" label="numz" sigExt:shapeId="sid-8D55DEE5-24FE-4C1D-932C-A0D7128516F3" sigExt:diagramId="9e53b9fc18f94da39241c0319c532c9a">
-        <variable typeRef="sig.numz" name="numz" id="id-16e27bd3dab9d90a677b69685f682a7b_variable"/>
+        <variable typeRef="numz" name="numz" id="id-16e27bd3dab9d90a677b69685f682a7b_variable"/>
     </inputData>
     <inputData name="numz2_iterator" id="id-478006c112da0f37d337a994d51924de" label="numz" sigExt:shapeId="sid-F149C66C-B0CE-4653-9E4B-FDA7D8CCBFA2" sigExt:diagramId="9e53b9fc18f94da39241c0319c532c9a">
-        <variable typeRef="sig.numz2" name="numz2_iterator" id="id-478006c112da0f37d337a994d51924de_variable"/>
+        <variable typeRef="numz2" name="numz2_iterator" id="id-478006c112da0f37d337a994d51924de_variable"/>
     </inputData>
 </definitions>

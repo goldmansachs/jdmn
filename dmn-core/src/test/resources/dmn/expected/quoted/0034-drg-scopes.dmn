@@ -160,10 +160,10 @@
     </itemDefinition>
     <itemDefinition isCollection="false" name="TypeDecisionA3" id="_cErw0PRQEeeUEfOdtC13fQ">
         <itemComponent isCollection="false" name="'resolve A 2.1'" id="_X6vqgPRREeeUEfOdtC13fQ">
-            <typeRef>.TypeDecisionA2.x</typeRef>
+            <typeRef>TypeDecisionA2.x</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="'resolve A 2.2'" id="_YDCq4PRREeeUEfOdtC13fQ">
-            <typeRef>.TypeDecisionA2.x</typeRef>
+            <typeRef>TypeDecisionA2.x</typeRef>
         </itemComponent>
     </itemDefinition>
     <itemDefinition isCollection="false" name="TypeDecisionB1" id="_dGucoPRQEeeUEfOdtC13fQ">
@@ -181,10 +181,10 @@
     </itemDefinition>
     <itemDefinition isCollection="false" name="TypeDecisionB3" id="_0XWDcPRQEeeUEfOdtC13fQ">
         <itemComponent isCollection="false" name="'resolve B 2.1'" id="_slUcIPRREeeUEfOdtC13fQ">
-            <typeRef>.TypeDecisionB2.x</typeRef>
+            <typeRef>TypeDecisionB2.x</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="'resolve B 2.2'" id="_ssyWEPRREeeUEfOdtC13fQ">
-            <typeRef>.TypeDecisionB2.x</typeRef>
+            <typeRef>TypeDecisionB2.x</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="'resolve A 3'" id="_s0jK8PRREeeUEfOdtC13fQ">
             <typeRef>TypeDecisionA3</typeRef>
@@ -292,7 +292,7 @@
         <extensionElements>
             <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_HQN7oPQJEeecaNY7kk20yA" id="_eyKtkPQKEeecaNY7kk20yA" name="" type="DMN_Expression"/>
         </extensionElements>
-        <variable typeRef=".TypeDecisionA2.x" name="'decision A 2.1'" id="_2VW6MfROEeeUEfOdtC13fQ"/>
+        <variable typeRef="TypeDecisionA2.x" name="'decision A 2.1'" id="_2VW6MfROEeeUEfOdtC13fQ"/>
         <informationRequirement>
             <requiredDecision href="#_DMwGMPQJEeecaNY7kk20yA"/>
         </informationRequirement>
@@ -309,7 +309,7 @@
         <extensionElements>
             <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_HrMAYPQJEeecaNY7kk20yA" id="_nOMesPQKEeecaNY7kk20yA" name="" type="DMN_Expression"/>
         </extensionElements>
-        <variable typeRef=".TypeDecisionA2.x" name="'decision A 2.2'" id="_r7oJcfRSEeeUEfOdtC13fQ"/>
+        <variable typeRef="TypeDecisionA2.x" name="'decision A 2.2'" id="_r7oJcfRSEeeUEfOdtC13fQ"/>
         <informationRequirement>
             <requiredDecision href="#_DMwGMPQJEeecaNY7kk20yA"/>
         </informationRequirement>
@@ -335,13 +335,13 @@
         </informationRequirement>
         <context id="_t-lNYPQKEeecaNY7kk20yA">
             <contextEntry>
-                <variable typeRef=".TypeDecisionA2.x" name="'resolve A 2.1'" id="_uV0ox_QKEeecaNY7kk20yA"/>
+                <variable typeRef="TypeDecisionA2.x" name="'resolve A 2.1'" id="_uV0ox_QKEeecaNY7kk20yA"/>
                 <literalExpression id="_uV0oyfQKEeecaNY7kk20yA">
                     <text>'decision A 2.1'</text>
                 </literalExpression>
             </contextEntry>
             <contextEntry>
-                <variable typeRef=".TypeDecisionA2.x" name="'resolve A 2.2'" id="_uUCgAPQKEeecaNY7kk20yA"/>
+                <variable typeRef="TypeDecisionA2.x" name="'resolve A 2.2'" id="_uUCgAPQKEeecaNY7kk20yA"/>
                 <literalExpression id="_uUCgAfQKEeecaNY7kk20yA">
                     <text>'decision A 2.2'</text>
                 </literalExpression>
@@ -378,7 +378,7 @@
         <extensionElements>
             <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_I_HtcPQJEeecaNY7kk20yA" id="_51714PQKEeecaNY7kk20yA" name="" type="DMN_Expression"/>
         </extensionElements>
-        <variable typeRef=".TypeDecisionB2.x" name="'decision B 2.1'" id="_QZqMwfRTEeeUEfOdtC13fQ"/>
+        <variable typeRef="TypeDecisionB2.x" name="'decision B 2.1'" id="_QZqMwfRTEeeUEfOdtC13fQ"/>
         <informationRequirement>
             <requiredDecision href="#_EL7rQPQJEeecaNY7kk20yA"/>
         </informationRequirement>
@@ -395,7 +395,7 @@
         <extensionElements>
             <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_JhYtAPQJEeecaNY7kk20yA" id="_-iazIPQKEeecaNY7kk20yA" name="" type="DMN_Expression"/>
         </extensionElements>
-        <variable typeRef=".TypeDecisionB2.x" name="'decision B 2.2'" id="_XAogwfRTEeeUEfOdtC13fQ"/>
+        <variable typeRef="TypeDecisionB2.x" name="'decision B 2.2'" id="_XAogwfRTEeeUEfOdtC13fQ"/>
         <informationRequirement>
             <requiredDecision href="#_EL7rQPQJEeecaNY7kk20yA"/>
         </informationRequirement>
@@ -424,13 +424,13 @@
         </informationRequirement>
         <context id="_DaII8PQLEeecaNY7kk20yA">
             <contextEntry>
-                <variable typeRef=".TypeDecisionB2.x" name="'resolve B 2.1'" id="_DuFmwPQLEeecaNY7kk20yA"/>
+                <variable typeRef="TypeDecisionB2.x" name="'resolve B 2.1'" id="_DuFmwPQLEeecaNY7kk20yA"/>
                 <literalExpression id="_DuFmwfQLEeecaNY7kk20yA">
                     <text>'decision B 2.1'</text>
                 </literalExpression>
             </contextEntry>
             <contextEntry>
-                <variable typeRef=".TypeDecisionB2.x" name="'resolve B 2.2'" id="_DsTeEPQLEeecaNY7kk20yA"/>
+                <variable typeRef="TypeDecisionB2.x" name="'resolve B 2.2'" id="_DsTeEPQLEeecaNY7kk20yA"/>
                 <literalExpression id="_DsTeEfQLEeecaNY7kk20yA">
                     <text>'decision B 2.2'</text>
                 </literalExpression>
