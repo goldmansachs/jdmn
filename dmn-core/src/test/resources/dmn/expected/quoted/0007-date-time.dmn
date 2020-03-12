@@ -32,7 +32,7 @@
         </itemComponent>
     </itemDefinition>
     <decision name="Date" id="_bd547a08-c157-47ca-84d4-ac6f3d5bdeda">
-        <variable typeRef="tns.tDateVariants" name="Date"/>
+        <variable typeRef="tDateVariants" name="Date"/>
         <informationRequirement>
             <requiredInput href="#_74a9c3ad-a813-444e-88ee-8a91096ee233"/>
         </informationRequirement>

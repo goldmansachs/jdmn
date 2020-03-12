@@ -15,7 +15,7 @@
         </itemComponent>
     </itemDefinition>
     <itemDefinition isCollection="true" name="tLoanTable" label="tLoanTable">
-        <typeRef>tns.tLoanProduct</typeRef>
+        <typeRef>tLoanProduct</typeRef>
     </itemDefinition>
     <itemDefinition isCollection="false" name="tMetric" label="tMetric">
         <itemComponent isCollection="false" name="lenderName" id="_59994d58-3220-4cc6-8d91-783a008ac472">
@@ -44,27 +44,27 @@
         </itemComponent>
     </itemDefinition>
     <itemDefinition isCollection="true" name="tMetrics" label="tMetrics">
-        <typeRef>tns.tMetric</typeRef>
+        <typeRef>tMetric</typeRef>
     </itemDefinition>
     <itemDefinition isCollection="false" name="tRankedProducts" label="tRankedProducts">
         <itemComponent isCollection="false" name="metricsTable" id="_0ee333d1-03fc-4a77-8798-d0b351a19a36">
-            <typeRef>tns.tMetrics</typeRef>
+            <typeRef>tMetrics</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="rankByRate" id="_f0790a52-d95d-466a-bc51-5766c046c717">
-            <typeRef>tns.tMetrics</typeRef>
+            <typeRef>tMetrics</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="rankByDownPmt" id="_d54127c6-8418-45df-89da-2f84bedae37c">
-            <typeRef>tns.tMetrics</typeRef>
+            <typeRef>tMetrics</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="rankByMonthlyPmt" id="_7f98fed9-552a-4b57-99de-495cb96e8484">
-            <typeRef>tns.tMetrics</typeRef>
+            <typeRef>tMetrics</typeRef>
         </itemComponent>
         <itemComponent isCollection="false" name="rankByEquityPct" id="_897183a6-2ca8-4437-b21d-8ba90555a9e0">
-            <typeRef>tns.tMetrics</typeRef>
+            <typeRef>tMetrics</typeRef>
         </itemComponent>
     </itemDefinition>
     <decision name="Bankrates" id="_c5dd7a17-b588-4daf-8c9b-677e65ce87be">
-        <variable typeRef="tns.tLoanTable" name="Bankrates"/>
+        <variable typeRef="tLoanTable" name="Bankrates"/>
         <relation>
             <column name="lenderName" id="_23af7b70-cc60-4d84-8e5f-60d5a4ebfe86"/>
             <column name="rate" id="_11fb4b39-53a6-4670-90c7-7f1b21bf3936"/>
@@ -215,9 +215,9 @@
     <businessKnowledgeModel name="FinancialMetrics" id="_83059f2e-2862-45a9-97a7-71ffaa860586">
         <variable name="FinancialMetrics"/>
         <encapsulatedLogic>
-            <formalParameter typeRef="tns.tLoanProduct" name="product"/>
+            <formalParameter typeRef="tLoanProduct" name="product"/>
             <formalParameter typeRef="feel.number" name="requestedAmt"/>
-            <context typeRef="tns.tMetric">
+            <context typeRef="tMetric">
                 <contextEntry>
                     <variable typeRef="feel.string" name="lenderName"/>
                     <literalExpression>
@@ -276,7 +276,7 @@
         </knowledgeRequirement>
     </businessKnowledgeModel>
     <decision name="RankedProducts" id="_715940be-0f5d-4701-8155-fcba85874aa1">
-        <variable typeRef="tns.tRankedProducts" name="RankedProducts"/>
+        <variable typeRef="tRankedProducts" name="RankedProducts"/>
         <informationRequirement>
             <requiredInput href="#_67c50a4c-3002-4d0a-9acf-4c76cb0364fa"/>
         </informationRequirement>
@@ -288,31 +288,31 @@
         </knowledgeRequirement>
         <context>
             <contextEntry>
-                <variable typeRef="tns.tMetrics" name="metricsTable"/>
+                <variable typeRef="tMetrics" name="metricsTable"/>
                 <literalExpression>
                     <text>for i in Bankrates return FinancialMetrics(i,RequestedAmt)</text>
                 </literalExpression>
             </contextEntry>
             <contextEntry>
-                <variable typeRef="tns.tMetrics" name="rankByRate"/>
+                <variable typeRef="tMetrics" name="rankByRate"/>
                 <literalExpression>
                     <text>sort(metricsTable, function(x,y) x.rate&lt;y.rate)</text>
                 </literalExpression>
             </contextEntry>
             <contextEntry>
-                <variable typeRef="tns.tMetrics" name="rankByDownPmt"/>
+                <variable typeRef="tMetrics" name="rankByDownPmt"/>
                 <literalExpression>
                     <text>sort(metricsTable, function(x,y) x.downPmtAmt&lt;y.downPmtAmt)</text>
                 </literalExpression>
             </contextEntry>
             <contextEntry>
-                <variable typeRef="tns.tMetrics" name="rankByMonthlyPmt"/>
+                <variable typeRef="tMetrics" name="rankByMonthlyPmt"/>
                 <literalExpression>
                     <text>sort(metricsTable, function(x,y) x.paymentAmt&lt;y.paymentAmt)</text>
                 </literalExpression>
             </contextEntry>
             <contextEntry>
-                <variable typeRef="tns.tMetrics" name="rankByEquityPct"/>
+                <variable typeRef="tMetrics" name="rankByEquityPct"/>
                 <literalExpression>
                     <text>sort(metricsTable, function(x,y) x.equity36moPct&gt;y.equity36moPct)</text>
                 </literalExpression>

@@ -27,6 +27,7 @@ import com.gs.dmn.transformation.SimpleDMNTransformer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
+import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.TDecision;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
 import org.omg.spec.dmn._20180521.model.TInputData;
@@ -90,7 +91,12 @@ public class SimplifyTypesForMIDTransformer extends SimpleDMNTransformer<TestLab
                     Type midElementType = ((ListType) midType).getElementType();
                     if (midElementType.equivalentTo(bodyDecisionType) && basicTransformer.isComplexType(bodyDecisionType)) {
                         TItemDefinition midItemDefinitionType = signavioRepository.lookupItemDefinition(midDecisionTypeRef);
-                        midItemDefinitionType.setTypeRef(String.format("%s.%s", bodyDecisionTypeRef.getNamespace(), bodyDecisionTypeRef.getLocalPart()));
+                        String namespace = bodyDecisionTypeRef.getNamespace();
+                        if (StringUtils.isEmpty(namespace)) {
+                            midItemDefinitionType.setTypeRef(String.format("%s", bodyDecisionTypeRef.getLocalPart()));
+                        } else {
+                            midItemDefinitionType.setTypeRef(String.format("%s.%s", namespace, bodyDecisionTypeRef.getLocalPart()));
+                        }
                         midItemDefinitionType.getItemComponent().clear();
                     }
                 }

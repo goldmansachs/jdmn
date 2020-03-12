@@ -96,7 +96,7 @@
         </allowedValues>
     </itemDefinition>
     <decision name="Adjudication" id="d_Adjudication">
-        <variable typeRef="tns.tAdjudication" name="Adjudication"/>
+        <variable typeRef="tAdjudication" name="Adjudication"/>
         <informationRequirement>
             <requiredInput href="#i_BureauData"/>
         </informationRequirement>
@@ -116,7 +116,7 @@
             <formalParameter typeRef="feel.number" name="MonthlyIncome"/>
             <formalParameter typeRef="feel.number" name="MonthlyRepayments"/>
             <formalParameter typeRef="feel.number" name="MonthlyExpenses"/>
-            <formalParameter typeRef="tns.tRiskCategory" name="RiskCategory"/>
+            <formalParameter typeRef="tRiskCategory" name="RiskCategory"/>
             <formalParameter typeRef="feel.number" name="RequiredMonthlyInstallment"/>
             <context>
                 <contextEntry>
@@ -157,7 +157,7 @@
         </knowledgeRequirement>
     </businessKnowledgeModel>
     <inputData name="ApplicantData" id="i_ApplicantData">
-        <variable typeRef="tns.tApplicantData" name="ApplicantData"/>
+        <variable typeRef="tApplicantData" name="ApplicantData"/>
     </inputData>
     <decision name="ApplicationRiskScore" id="d_ApplicationRiskScore">
         <variable typeRef="feel.number" name="ApplicationRiskScore"/>
@@ -381,7 +381,7 @@
         </encapsulatedLogic>
     </businessKnowledgeModel>
     <decision name="BureauCallType" id="d_BureauCallType">
-        <variable typeRef="tns.tBureauCallType" name="BureauCallType"/>
+        <variable typeRef="tBureauCallType" name="BureauCallType"/>
         <informationRequirement>
             <requiredDecision href="#d_Pre-bureauRiskCategory"/>
         </informationRequirement>
@@ -403,7 +403,7 @@
     <businessKnowledgeModel name="BureauCallTypeTable" id="b_BureauCallTypeTable">
         <variable typeRef="feel.string" name="BureauCallTypeTable"/>
         <encapsulatedLogic>
-            <formalParameter typeRef="tns.tRiskCategory" name="Pre-bureauRiskCategory"/>
+            <formalParameter typeRef="tRiskCategory" name="Pre-bureauRiskCategory"/>
             <decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row" outputLabel="BureauCallTypeTable">
                 <input id="_fcd1287d-7572-4523-ab27-33eff68d965b" label="Pre-bureauRiskCategory">
                     <inputExpression typeRef="feel.string">
@@ -439,12 +439,12 @@
         </encapsulatedLogic>
     </businessKnowledgeModel>
     <inputData name="BureauData" id="i_BureauData">
-        <variable typeRef="tns.tBureauData" name="BureauData"/>
+        <variable typeRef="tBureauData" name="BureauData"/>
     </inputData>
     <businessKnowledgeModel name="CreditContingencyFactorTable" id="b_CreditContingencyFactorTable">
         <variable typeRef="feel.number" name="CreditContingencyFactorTable"/>
         <encapsulatedLogic>
-            <formalParameter typeRef="tns.tRiskCategory" name="RiskCategory"/>
+            <formalParameter typeRef="tRiskCategory" name="RiskCategory"/>
             <decisionTable hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row" outputLabel="CreditContingencyFactorTable">
                 <input id="_7cdd3950-9a45-41f0-bef0-dc54240fe4c2" label="RiskCategory">
                     <inputExpression typeRef="feel.string">
@@ -483,7 +483,7 @@
         </encapsulatedLogic>
     </businessKnowledgeModel>
     <decision name="Eligibility" id="d_Eligibility">
-        <variable typeRef="tns.tEligibility" name="Eligibility"/>
+        <variable typeRef="tEligibility" name="Eligibility"/>
         <informationRequirement>
             <requiredDecision href="#d_Pre-bureauAffordability"/>
         </informationRequirement>
@@ -523,7 +523,7 @@
     <businessKnowledgeModel name="EligibilityRules" id="b_EligibilityRules">
         <variable typeRef="feel.string" name="EligibilityRules"/>
         <encapsulatedLogic>
-            <formalParameter typeRef="tns.tRiskCategory" name="Pre-bureauRiskCategory"/>
+            <formalParameter typeRef="tRiskCategory" name="Pre-bureauRiskCategory"/>
             <formalParameter typeRef="feel.boolean" name="Pre-bureauAffordability"/>
             <formalParameter typeRef="feel.number" name="Age"/>
             <decisionTable hitPolicy="PRIORITY" preferredOrientation="Rule-as-Row" outputLabel="EligibilityRules">
@@ -685,7 +685,7 @@
         </invocation>
     </decision>
     <decision name="Post-bureauRiskCategory" id="d_Post-bureauRiskCategory">
-        <variable typeRef="tns.tRiskCategory" name="Post-bureauRiskCategory"/>
+        <variable typeRef="tRiskCategory" name="Post-bureauRiskCategory"/>
         <informationRequirement>
             <requiredDecision href="#d_ApplicationRiskScore"/>
         </informationRequirement>
@@ -981,7 +981,7 @@
         </invocation>
     </decision>
     <decision name="Pre-bureauRiskCategory" id="d_Pre-bureauRiskCategory">
-        <variable typeRef="tns.tRiskCategory" name="Pre-bureauRiskCategory"/>
+        <variable typeRef="tRiskCategory" name="Pre-bureauRiskCategory"/>
         <informationRequirement>
             <requiredDecision href="#d_ApplicationRiskScore"/>
         </informationRequirement>
@@ -1118,7 +1118,7 @@
         </encapsulatedLogic>
     </businessKnowledgeModel>
     <inputData name="RequestedProduct" id="i_RequestedProduct">
-        <variable typeRef="tns.tRequestedProduct" name="RequestedProduct"/>
+        <variable typeRef="tRequestedProduct" name="RequestedProduct"/>
     </inputData>
     <decision name="RequiredMonthlyInstallment" id="d_RequiredMonthlyInstallment">
         <variable typeRef="feel.number" name="RequiredMonthlyInstallment"/>
@@ -1159,7 +1159,7 @@
         </invocation>
     </decision>
     <decision name="Routing" id="d_Routing">
-        <variable typeRef="tns.tRouting" name="Routing"/>
+        <variable typeRef="tRouting" name="Routing"/>
         <informationRequirement>
             <requiredDecision href="#d_Post-bureauAffordability"/>
         </informationRequirement>
@@ -1205,7 +1205,7 @@
     <businessKnowledgeModel name="RoutingRules" id="b_RoutingRules">
         <variable typeRef="feel.string" name="RoutingRules"/>
         <encapsulatedLogic>
-            <formalParameter typeRef="tns.tRiskCategory" name="Post-bureauRiskCategory"/>
+            <formalParameter typeRef="tRiskCategory" name="Post-bureauRiskCategory"/>
             <formalParameter typeRef="feel.boolean" name="Post-bureauAffordability"/>
             <formalParameter typeRef="feel.boolean" name="Bankrupt"/>
             <formalParameter typeRef="feel.number" name="CreditScore"/>
@@ -1326,7 +1326,7 @@
     <decision name="Strategy" id="d_Strategy">
         <question>Is credit bureau call required?</question>
         <allowedAnswers>Yes (BUREAU) or No (DECLINE, THROUGH)</allowedAnswers>
-        <variable typeRef="tns.tStrategy" name="Strategy"/>
+        <variable typeRef="tStrategy" name="Strategy"/>
         <informationRequirement>
             <requiredDecision href="#d_BureauCallType"/>
         </informationRequirement>
