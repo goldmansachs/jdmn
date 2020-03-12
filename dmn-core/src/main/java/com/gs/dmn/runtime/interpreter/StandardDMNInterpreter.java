@@ -83,7 +83,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
     @Override
     public Result evaluate(DRGElementReference<? extends TDRGElement> reference, List<Object> args, RuntimeEnvironment runtimeEnvironment) {
         Environment environment = this.basicDMNTransformer.makeEnvironment(reference.getElement());
-        return evaluate(reference, args, FEELContext.makeContext(environment, runtimeEnvironment));
+        return evaluate(reference, args, FEELContext.makeContext(reference.getElement(), environment, runtimeEnvironment));
     }
 
     @Override
@@ -110,10 +110,11 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         Environment functionEnvironment = this.environmentFactory.makeEnvironment(context.getEnvironment());
         RuntimeEnvironment functionRuntimeEnvironment = this.runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment());
         List<TInformationItem> formalParameterList = functionDefinition.getFormalParameter();
+        TDefinitions model = this.dmnModelRepository.getModel(context.getElement());
         for (int i = 0; i < formalParameterList.size(); i++) {
             TInformationItem param = formalParameterList.get(i);
             String name = param.getName();
-            Type type = this.basicDMNTransformer.toFEELType(null, QualifiedName.toQualifiedName(null, param.getTypeRef()));
+            Type type = this.basicDMNTransformer.toFEELType(null, QualifiedName.toQualifiedName(model, param.getTypeRef()));
             Object value = argList.get(i);
             functionEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(name, type));
             functionRuntimeEnvironment.bind(name, value);
@@ -135,7 +136,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
     @Override
     public Result evaluate(TInvocable invocable, List<Object> argList, FEELContext context) {
         Environment environment = this.basicDMNTransformer.makeEnvironment(invocable, context.getEnvironment());
-        FEELContext invocationContext = FEELContext.makeContext(environment, context.getRuntimeEnvironment());
+        FEELContext invocationContext = FEELContext.makeContext(invocable, environment, context.getRuntimeEnvironment());
         Result result;
         if (invocable instanceof TDecisionService) {
             result = evaluate(this.dmnModelRepository.makeDRGElementReference(invocable), argList, invocationContext);
@@ -397,7 +398,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         } else if (expression instanceof TContext) {
             result = evaluateContextExpression(element, (TContext) expression, environment, runtimeEnvironment, elementAnnotation);
         } else if (expression instanceof TDecisionTable) {
-            result = evaluateDecisionTable((TDecisionTable)expression, environment, runtimeEnvironment, element, elementAnnotation);
+            result = evaluateDecisionTable(element, (TDecisionTable)expression, environment, runtimeEnvironment, elementAnnotation);
         } else if (expression instanceof TFunctionDefinition) {
             result = evaluateFunctionDefinitionExpression((TFunctionDefinition)expression, environment, runtimeEnvironment, element, elementAnnotation);
         } else if (expression instanceof TInvocation) {
@@ -421,7 +422,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
     }
 
     protected Result evaluateLiteralExpression(TDRGElement element, String text, Environment environment, RuntimeEnvironment runtimeEnvironment) {
-        FEELContext context = FEELContext.makeContext(environment, runtimeEnvironment);
+        FEELContext context = FEELContext.makeContext(element, environment, runtimeEnvironment);
         Result result = this.feelInterpreter.evaluateExpression(text, context);
         return result;
     }
@@ -456,7 +457,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
                 }
             }
             Environment parentEnvironment = this.basicDMNTransformer.makeEnvironment(element);
-            FEELContext context = FEELContext.makeContext(parentEnvironment, runtimeEnvironment);
+            FEELContext context = FEELContext.makeContext(element, parentEnvironment, runtimeEnvironment);
             return evaluate(this.dmnModelRepository.makeDRGElementReference(bkm), argList, context);
         } else {
             throw new UnsupportedOperationException(String.format("Not supported '%s'", body.getClass().getSimpleName()));
@@ -472,7 +473,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
 
         // Evaluate entries
         RuntimeEnvironment contextRuntimeEnvironment = this.runtimeEnvironmentFactory.makeEnvironment(runtimeEnvironment);
-        FEELContext feelContext = FEELContext.makeContext(contextEnvironment, contextRuntimeEnvironment);
+        FEELContext feelContext = FEELContext.makeContext(element, contextEnvironment, contextRuntimeEnvironment);
         Result returnResult = null;
         for(TContextEntry entry: context.getContextEntry()) {
             // Evaluate entry value
@@ -585,13 +586,13 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         return new Result(expression, ANY);
     }
 
-    private Result evaluateDecisionTable(TDecisionTable decisionTable, Environment environment, RuntimeEnvironment runtimeEnvironment, TDRGElement element, DRGElement elementAnnotation) {
+    private Result evaluateDecisionTable(TDRGElement element, TDecisionTable decisionTable, Environment environment, RuntimeEnvironment runtimeEnvironment, DRGElement elementAnnotation) {
         // Evaluate InputClauses
         List<InputClausePair> inputClauseList = new ArrayList<>();
         for (TInputClause inputClause : decisionTable.getInput()) {
             TLiteralExpression inputExpression = inputClause.getInputExpression();
             String inputExpressionText = inputExpression.getText();
-            FEELContext feelContext = FEELContext.makeContext(environment, runtimeEnvironment);
+            FEELContext feelContext = FEELContext.makeContext(element, environment, runtimeEnvironment);
             Expression expression = this.feelInterpreter.analyzeExpression(inputExpressionText, feelContext);
             Result inputExpressionResult = this.feelInterpreter.evaluateExpression(expression, feelContext);
             Object inputExpressionValue = Result.value(inputExpressionResult);
@@ -629,7 +630,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
             String text = unaryTest.getText();
             Environment inputEntryEnvironment = this.basicDMNTransformer.makeInputEntryEnvironment(element, inputClauseList.get(index).getExpression());
             RuntimeEnvironment inputEntryRuntimeEnvironment = this.runtimeEnvironmentFactory.makeInputEntryEnvironment(inputClauseList, runtimeEnvironment, index);
-            FEELContext context = FEELContext.makeContext(inputEntryEnvironment, inputEntryRuntimeEnvironment);
+            FEELContext context = FEELContext.makeContext(element, inputEntryEnvironment, inputEntryRuntimeEnvironment);
             Expression ast = this.feelInterpreter.analyzeUnaryTests(text, context);
             Result result = this.feelInterpreter.evaluateUnaryTests((UnaryTests) ast, context);
             Object testMatched = Result.value(result);

@@ -305,7 +305,7 @@ public class BasicDMN2JavaTransformer {
         }
         try {
             Environment environment = makeEnvironment(element);
-            Statement statement = this.literalExpressionToJavaTransformer.literalExpressionToJava(description, environment, element);
+            Statement statement = this.literalExpressionToJavaTransformer.literalExpressionToJava(element, description, environment);
             return ((ExpressionStatement)statement).getExpression();
         } catch (Exception e) {
             LOGGER.warn(String.format("Cannot process description '%s' for element '%s'", description, element == null ? "" : element.getName()));
@@ -1274,7 +1274,7 @@ public class BasicDMN2JavaTransformer {
         } else if (expression instanceof TFunctionDefinition) {
             return this.functionDefinitionToJavaTransformer.functionDefinitionToJava(element, (TFunctionDefinition) expression, environment);
         } else if (expression instanceof TLiteralExpression) {
-            return this.literalExpressionToJavaTransformer.literalExpressionToJava(((TLiteralExpression) expression).getText(), environment, element);
+            return this.literalExpressionToJavaTransformer.literalExpressionToJava(element, ((TLiteralExpression) expression).getText(), environment);
         } else if (expression instanceof TInvocation) {
             return this.invocationToJavaTransformer.invocationExpressionToJava(element, (TInvocation) expression, environment);
         } else if (expression instanceof TRelation) {
@@ -1417,7 +1417,7 @@ public class BasicDMN2JavaTransformer {
     public String toJavaType(TDecision decision) {
         Environment environment = makeEnvironment(decision);
         TLiteralExpression expression = (TLiteralExpression) decision.getExpression().getValue();
-        Type type = this.feelTranslator.analyzeExpression(expression.getText(), FEELContext.makeContext(environment)).getType();
+        Type type = this.feelTranslator.analyzeExpression(expression.getText(), FEELContext.makeContext(decision, environment)).getType();
         return toJavaType(type);
     }
 
@@ -1782,7 +1782,7 @@ public class BasicDMN2JavaTransformer {
             TExpression expression = jElement == null ? null : jElement.getValue();
             Expression feelExpression = null;
             if (expression instanceof TLiteralExpression) {
-                feelExpression = this.feelTranslator.analyzeExpression(((TLiteralExpression) expression).getText(), FEELContext.makeContext(contextEnvironment));
+                feelExpression = this.feelTranslator.analyzeExpression(((TLiteralExpression) expression).getText(), FEELContext.makeContext(element, contextEnvironment));
                 literalExpressionMap.put(entry, feelExpression);
             }
             if (variable != null) {
@@ -1889,7 +1889,7 @@ public class BasicDMN2JavaTransformer {
             Type type = functionDefinitionType(element, (TFunctionDefinition) expression, environment);
             return type;
         } else if (expression instanceof TLiteralExpression) {
-            Type type = literalExpressionType((TLiteralExpression) expression, environment);
+            Type type = literalExpressionType(element, (TLiteralExpression) expression, environment);
             return type;
         } else if (expression instanceof TInvocation) {
             TExpression body = ((TInvocation) expression).getExpression().getValue();
@@ -1947,8 +1947,8 @@ public class BasicDMN2JavaTransformer {
         return kind == TFunctionKind.JAVA;
     }
 
-    private Type literalExpressionType(TLiteralExpression body, Environment environment) {
-        FEELContext context = FEELContext.makeContext(environment);
+    private Type literalExpressionType(TNamedElement element, TLiteralExpression body, Environment environment) {
+        FEELContext context = FEELContext.makeContext(element, environment);
         Expression expression = this.feelTranslator.analyzeExpression(body.getText(), context);
         return expression.getType();
     }
