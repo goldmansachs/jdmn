@@ -75,7 +75,7 @@
     Multi Instance drgElement
 -->
 <#macro multiInstanceDecisionApplyBody drgElement>
-        <#if transformer.isCaching(modelRepository.name(drgElement))>
+        <#if transformer.isCached(modelRepository.name(drgElement))>
             if (cache_.contains("${modelRepository.name(drgElement)}")) {
                 // Retrieve value from cache
                 ${transformer.drgElementOutputType(drgElement)} output_ = (${transformer.drgElementOutputType(drgElement)})cache_.lookup("${modelRepository.name(drgElement)}");
@@ -147,7 +147,7 @@
 <#macro importRequiredBKMs drgElement>
     <#list modelRepository.directSubInvocables(drgElement)>
         <#items as subBKM>
-import static ${transformer.qualifiedName(javaPackageName, transformer.drgElementClassName(subBKM))}.${transformer.bkmFunctionName(subBKM)};
+import static ${transformer.qualifiedName(subBKM)}.${transformer.bkmFunctionName(subBKM)};
         </#items>
 
     </#list>
@@ -159,7 +159,7 @@ import static ${transformer.qualifiedName(javaPackageName, transformer.drgElemen
 <#macro addSubDecisionFields drgElement>
     <#list modelRepository.directSubDecisions(drgElement)>
         <#items as subDecision>
-    private final ${transformer.qualifiedName(javaPackageName, transformer.drgElementClassName(subDecision))} ${transformer.drgElementVariableName(subDecision)};
+    private final ${transformer.qualifiedName(subDecision)} ${transformer.drgElementVariableName(subDecision)};
         </#items>
     </#list>
 </#macro>
@@ -310,7 +310,7 @@ import static ${transformer.qualifiedName(javaPackageName, transformer.drgElemen
     Expression
 -->
 <#macro expressionApplyBody drgElement>
-        <#if transformer.isCaching(modelRepository.name(drgElement))>
+        <#if transformer.isCached(modelRepository.name(drgElement))>
             if (cache_.contains("${modelRepository.name(drgElement)}")) {
                 // Retrieve value from cache
                 ${transformer.drgElementOutputType(drgElement)} output_ = (${transformer.drgElementOutputType(drgElement)})cache_.lookup("${modelRepository.name(drgElement)}");

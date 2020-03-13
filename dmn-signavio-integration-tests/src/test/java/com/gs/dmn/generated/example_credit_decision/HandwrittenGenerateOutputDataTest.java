@@ -39,13 +39,11 @@ public class HandwrittenGenerateOutputDataTest extends AbstractHandwrittenDecisi
         List<com.gs.dmn.generated.example_credit_decision.type.GenerateOutputData> expected = decision.asList(new com.gs.dmn.generated.example_credit_decision.type.GenerateOutputDataImpl(decision.number("27.5"), "Accept", decision.numericUnaryMinus(decision.number("7.5"))));
         checkValues(expected, generateOutputDataOutput);
 
-        assertEquals(1, annotationSet_.size());
+        assertEquals(2, annotationSet_.size());
         Annotation annotation = annotationSet_.get(0);
         assertEquals("compareAgainstLendingThreshold", annotation.getDecisionName());
         assertEquals(0, annotation.getRuleIndex());
         assertEquals("Raw issue score is -7.50, Age-weighted score is 60, Acceptance threshold is 25", annotation.getAnnotation());
-
-        assertEquals(1, annotationSet_.size());
     }
 
     @Test

@@ -41,7 +41,7 @@ public class DMNDialectTransformer {
 
     public Pair<TDefinitions, PrefixNamespaceMappings> transformDefinitions(org.omg.spec.dmn._20151101.model.TDefinitions dmn11Definitions) {
         TDefinitions definitions = transform(dmn11Definitions);
-        return new Pair(definitions, this.prefixNamespaceMappings);
+        return new Pair<>(definitions, this.prefixNamespaceMappings);
     }
 
     private TDefinitions transform(org.omg.spec.dmn._20151101.model.TDefinitions dmn11Definitions) {
@@ -777,15 +777,7 @@ public class DMNDialectTransformer {
                 return String.format("%s.%s", DMN_11.getFeelPrefix(), localPart);
             }
         }
-        if (StringUtils.isBlank(prefix)) {
-            if (localPart.contains(".")) {
-                return String.format(".%s", localPart);
-            } else {
-                return localPart;
-            }
-        } else {
-            return String.format("%s.%s", prefix, localPart);
-        }
+        return localPart;
     }
 
     private String transformLanguage(String expressionLanguage) {
@@ -798,11 +790,6 @@ public class DMNDialectTransformer {
     }
 
     private String transformNamespace(String namespace) {
-        for (DMNVersion version: VALUES) {
-            if (version.getNamespace().equals(namespace)) {
-                return LATEST.getNamespace();
-            }
-        }
         return namespace;
     }
 }

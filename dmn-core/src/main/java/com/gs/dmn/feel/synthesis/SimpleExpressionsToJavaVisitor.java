@@ -282,7 +282,7 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
     public Object visit(Name element, FEELContext context) {
         String name = element.getName();
         String javaName = javaFriendlyVariableName(name);
-        return dmnTransformer.isLazyEvaluated(name) ? javaName + ".getOrCompute()" : javaName;
+        return dmnTransformer.lazyEvaluation(name, javaName);
     }
 
     private String makeNavigationPath(Expression element, String sourceName, String memberName, FEELContext params) {

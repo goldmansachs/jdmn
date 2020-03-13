@@ -43,13 +43,13 @@ public class SignavioDMNDialectDefinitionTest {
     private static final DMNModelRepository REPOSITORY = new SignavioDMNModelRepository();
 
     @Test
-    public void testCreateDMNInterpreter() throws Exception {
-        DMNInterpreter dmnInterpreter = dialect.createDMNInterpreter(REPOSITORY);
+    public void testCreateDMNInterpreter() {
+        DMNInterpreter dmnInterpreter = dialect.createDMNInterpreter(REPOSITORY, new LinkedHashMap<>());
         assertEquals(SignavioDMNInterpreter.class.getName(), dmnInterpreter.getClass().getName());
     }
 
     @Test
-    public void testCreateDMNToJavaTransformer() throws Exception {
+    public void testCreateDMNToJavaTransformer() {
         Map<String, String> inputParameters = new LinkedHashMap<>();
         inputParameters.put("dmnVersion", "1.1");
         inputParameters.put("modelVersion", "1.2");
@@ -59,25 +59,25 @@ public class SignavioDMNDialectDefinitionTest {
     }
 
     @Test
-    public void testCreateBasicTransformer() throws Exception {
+    public void testCreateBasicTransformer() {
         BasicDMN2JavaTransformer basicTransformer = dialect.createBasicTransformer(REPOSITORY, new NopLazyEvaluationDetector(), new LinkedHashMap<>());
         assertEquals(BasicSignavioDMN2JavaTransformer.class.getName(), basicTransformer.getClass().getName());
     }
 
     @Test
-    public void testCreateTypeTranslator() throws Exception {
+    public void testCreateTypeTranslator() {
         FEELTypeTranslator typeTranslator = dialect.createTypeTranslator();
         assertEquals(StandardFEELTypeTranslator.class.getName(), typeTranslator.getClass().getName());
     }
 
     @Test
-    public void testCreateFEELLib() throws Exception {
+    public void testCreateFEELLib() {
         FEELLib feelLib = dialect.createFEELLib();
         assertEquals(DefaultSignavioLib.class.getName(), feelLib.getClass().getName());
     }
 
     @Test
-    public void testGetDecisionBaseClass() throws Exception {
+    public void testGetDecisionBaseClass() {
         String decisionBaseClass = dialect.getDecisionBaseClass();
         assertEquals(DefaultSignavioBaseDecision.class.getName(), decisionBaseClass);
     }

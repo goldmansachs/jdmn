@@ -25,6 +25,7 @@ import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import fit.ColumnFixture;
+import org.omg.spec.dmn._20180521.model.TNamedElement;
 
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
@@ -35,7 +36,7 @@ public class AbstractFixture extends ColumnFixture {
     protected Scope scope;
 
     public AbstractFixture() {
-        this.lib = (StandardFEELLib) dialectDefinition.createFEELLib();
+        this.lib = (StandardFEELLib) this.dialectDefinition.createFEELLib();
 
         fitnesse.slim.converters.ConverterRegistry.addConverter(Scope.class, new ScopeConverter());
         fitnesse.slim.converters.ConverterRegistry.addConverter(Context.class, new ContextConverter());
@@ -47,10 +48,10 @@ public class AbstractFixture extends ColumnFixture {
         this.scope = scope;
     }
 
-    protected FEELContext makeContext() {
-        Environment environment = makeEnvironment(scope);
-        RuntimeEnvironment runtimeEnvironment = makeRuntimeEnvironment(scope);
-        return FEELContext.makeContext(environment, runtimeEnvironment);
+    protected FEELContext makeContext(TNamedElement element) {
+        Environment environment = makeEnvironment(this.scope);
+        RuntimeEnvironment runtimeEnvironment = makeRuntimeEnvironment(this.scope);
+        return FEELContext.makeContext(element, environment, runtimeEnvironment);
     }
 
     protected Environment makeEnvironment(Scope scope) {
@@ -97,7 +98,7 @@ public class AbstractFixture extends ColumnFixture {
             if (!(value instanceof String)) {
                 value = value.toString();
             }
-            return lib.number((String) value);
+            return this.lib.number((String) value);
         } else if (type == BooleanType.BOOLEAN) {
             if (!(value instanceof String)) {
                 value = value.toString();
@@ -107,22 +108,22 @@ public class AbstractFixture extends ColumnFixture {
             if (!(value instanceof String)) {
                 value = value.toString();
             }
-            return lib.date((String) value);
+            return this.lib.date((String) value);
         } else if (type == TimeType.TIME) {
             if (!(value instanceof String)) {
                 value = value.toString();
             }
-            return lib.time((String) value);
+            return this.lib.time((String) value);
         } else if (type == DateTimeType.DATE_AND_TIME) {
             if (!(value instanceof String)) {
                 value = value.toString();
             }
-            return lib.dateAndTime((String) value);
+            return this.lib.dateAndTime((String) value);
         } else if (type == DurationType.YEARS_AND_MONTHS_DURATION || type == DurationType.DAYS_AND_TIME_DURATION) {
             if (!(value instanceof String)) {
                 value = value.toString();
             }
-            return lib.duration((String) value);
+            return this.lib.duration((String) value);
         }
         return value;
     }

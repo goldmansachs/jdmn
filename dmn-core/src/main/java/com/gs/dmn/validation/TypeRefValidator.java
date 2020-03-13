@@ -42,27 +42,30 @@ public class TypeRefValidator extends SimpleDMNValidator {
             throw new IllegalArgumentException("Missing definitions");
         }
 
-        List<TDRGElement> drgElements = dmnModelRepository.drgElements();
-        for (TDRGElement element: drgElements) {
-            logger.debug(String.format("Validate element '%s'", element.getName()));
-            if (element instanceof TInputData) {
-                TInformationItem variable = ((TInputData) element).getVariable();
-                validate(variable, element, dmnModelRepository, errors);
-            } else if (element instanceof TDecision) {
-                TInformationItem variable = ((TDecision) element).getVariable();
-                validate(variable, element, dmnModelRepository, errors);
+        for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
+            List<TDRGElement> drgElements = dmnModelRepository.drgElements(definitions);
+            for (TDRGElement element: drgElements) {
+                logger.debug(String.format("Validate element '%s'", element.getName()));
+                if (element instanceof TInputData) {
+                    TInformationItem variable = ((TInputData) element).getVariable();
+                    validate(element, variable, dmnModelRepository, errors);
+                } else if (element instanceof TDecision) {
+                    TInformationItem variable = ((TDecision) element).getVariable();
+                    validate(element, variable, dmnModelRepository, errors);
+                }
             }
         }
 
         return errors;
     }
 
-    private void validate(TInformationItem variable, TDRGElement element, DMNModelRepository dmnModelRepository, List<String> errors) {
+    private void validate(TDRGElement element, TInformationItem variable, DMNModelRepository dmnModelRepository, List<String> errors) {
+        TDefinitions model = dmnModelRepository.getModel(element);
         if (variable != null) {
             String varTypeRef = variable.getTypeRef();
             if (!isPrimitiveType(varTypeRef) && StringUtils.isNotEmpty(varTypeRef)) {
-                QualifiedName typeRef = QualifiedName.toQualifiedName(varTypeRef);
-                TItemDefinition itemDefinition = dmnModelRepository.lookupItemDefinition(typeRef);
+                QualifiedName typeRef = QualifiedName.toQualifiedName(model, varTypeRef);
+                TItemDefinition itemDefinition = dmnModelRepository.lookupItemDefinition(model, typeRef);
                 if (itemDefinition == null) {
                     String error = String.format("Cannot find type '%s' for DRGElement '%s'", typeRef.toString(), element.getName());
                     errors.add(error);

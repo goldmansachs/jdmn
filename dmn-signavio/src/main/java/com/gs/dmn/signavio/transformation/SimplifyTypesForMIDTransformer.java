@@ -27,6 +27,7 @@ import com.gs.dmn.transformation.SimpleDMNTransformer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
+import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.TDecision;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
 import org.omg.spec.dmn._20180521.model.TInputData;
@@ -61,12 +62,12 @@ public class SimplifyTypesForMIDTransformer extends SimpleDMNTransformer<TestLab
     }
 
     @Override
-    public Pair<DMNModelRepository, TestLab> transform(DMNModelRepository repository, TestLab testLab) {
+    public Pair<DMNModelRepository, List<TestLab>> transform(DMNModelRepository repository, List<TestLab> testLabList) {
         if (inputDataClasses == null) {
             transform(repository);
         }
 
-        return new Pair<>(repository, testLab);
+        return new Pair<>(repository, testLabList);
     }
 
     private DMNModelRepository removeDuplicateInformationRequirements(DMNModelRepository repository, BuildLogger logger) {
@@ -79,18 +80,25 @@ public class SimplifyTypesForMIDTransformer extends SimpleDMNTransformer<TestLab
             signavioRepository = new SignavioDMNModelRepository(definitions, repository.getPrefixNamespaceMappings());
         }
         for(TDecision decision: signavioRepository.decisions()) {
+            TDefinitions decisionModel = repository.getModel(decision);
             if (signavioRepository.isMultiInstanceDecision(decision)) {
                 MultiInstanceDecisionLogic midLogic = signavioRepository.getExtension().multiInstanceDecisionLogic(decision);
                 TDecision bodyDecision = midLogic.getTopLevelDecision();
+                TDefinitions bodyDecisionModel = repository.getModel(bodyDecision);
                 QualifiedName midDecisionTypeRef = signavioRepository.typeRef(decision);
                 QualifiedName bodyDecisionTypeRef = signavioRepository.typeRef(bodyDecision);
-                Type midType = basicTransformer.toFEELType(midDecisionTypeRef);
-                Type bodyDecisionType = basicTransformer.toFEELType(bodyDecisionTypeRef);
+                Type midType = basicTransformer.toFEELType(decisionModel, midDecisionTypeRef);
+                Type bodyDecisionType = basicTransformer.toFEELType(bodyDecisionModel, bodyDecisionTypeRef);
                 if (midType instanceof ListType) {
                     Type midElementType = ((ListType) midType).getElementType();
                     if (midElementType.equivalentTo(bodyDecisionType) && basicTransformer.isComplexType(bodyDecisionType)) {
-                        TItemDefinition midItemDefinitionType = signavioRepository.lookupItemDefinition(midDecisionTypeRef);
-                        midItemDefinitionType.setTypeRef(String.format("%s.%s", bodyDecisionTypeRef.getNamespace(), bodyDecisionTypeRef.getLocalPart()));
+                        TItemDefinition midItemDefinitionType = signavioRepository.lookupItemDefinition(decisionModel, midDecisionTypeRef);
+                        String importName = bodyDecisionTypeRef.getNamespace();
+                        if (StringUtils.isEmpty(importName)) {
+                            midItemDefinitionType.setTypeRef(String.format("%s", bodyDecisionTypeRef.getLocalPart()));
+                        } else {
+                            midItemDefinitionType.setTypeRef(String.format("%s.%s", importName, bodyDecisionTypeRef.getLocalPart()));
+                        }
                         midItemDefinitionType.getItemComponent().clear();
                     }
                 }

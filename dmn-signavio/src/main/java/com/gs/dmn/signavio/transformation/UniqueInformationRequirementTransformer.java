@@ -52,12 +52,12 @@ public class UniqueInformationRequirementTransformer extends SimpleDMNTransforme
     }
 
     @Override
-    public Pair<DMNModelRepository, TestLab> transform(DMNModelRepository repository, TestLab testLab) {
+    public Pair<DMNModelRepository, List<TestLab>> transform(DMNModelRepository repository, List<TestLab> testLabList) {
         if (inputDataClasses == null) {
             transform(repository);
         }
 
-        return new Pair<>(repository, testLab);
+        return new Pair<>(repository, testLabList);
     }
 
     private DMNModelRepository removeDuplicateInformationRequirements(DMNModelRepository repository, BuildLogger logger) {

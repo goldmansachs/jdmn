@@ -28,6 +28,7 @@ import org.omg.spec.dmn._20180521.model.TDefinitions;
 import org.omg.spec.dmn._20180521.model.TInputData;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -55,15 +56,26 @@ public class MergeInputDataTransformerTest extends AbstractFileTransformerTest {
 
         // Transform TestLab
         File testLabFile = new File(CLASS_LOADER.getResource(path + this.testLabFile).getFile());
-        TestLab testLab = testReader.read(testLabFile);
-        TestLab actualTestLab = transformer.transform(actualRepository, testLab).getRight();
+        List<TestLab> testLabList = new ArrayList<>();
+        if (testLabFile.isFile()) {
+            TestLab testLab = testReader.read(testLabFile);
+            testLabList.add(testLab);
+        } else {
+            for (File child: testLabFile.listFiles()) {
+                TestLab testLab = testReader.read(child);
+                testLabList.add(testLab);
+            }
+
+        }
+        List<TestLab> actualTestLabList = transformer.transform(actualRepository, testLabList).getRight();
 
         // Check output
-        check(actualRepository.getRootDefinitions(), actualTestLab);
+        TDefinitions definitions = actualRepository.getRootDefinitions();
+        check(definitions, actualTestLabList);
     }
 
-    private void check(TDefinitions actualDefinitions, TestLab actualTestLab) throws Exception {
-        // Check for duplicate InputData
+    private void check(TDefinitions actualDefinitions, List<TestLab> actualTestLabList) throws Exception {
+        // Check definitions for duplicate InputData
         List<TInputData> inputDataList = new SignavioDMNModelRepository(actualDefinitions, new PrefixNamespaceMappings()).inputDatas();
         for(TInputData inputData1: inputDataList) {
             TInputData duplicate = null;
@@ -77,22 +89,26 @@ public class MergeInputDataTransformerTest extends AbstractFileTransformerTest {
                 fail(String.format("Duplicate '%s' and '%s'", inputData1.getName(), duplicate.getName()));
             }
         }
-        // Check for missing parameters
-        for(TInputData inputData: inputDataList) {
-            boolean found = false;
-            for(InputParameterDefinition ipd: actualTestLab.getInputParameterDefinitions()) {
-                if (inputData.getLabel().equals(ipd.getRequirementName())) {
-                    found = true;
-                    break;
+        // Check definitions
+        checkDefinitions(actualDefinitions, dmnFile);
+
+        for (TestLab actualTestLab: actualTestLabList) {
+            // Check TestLab for missing parameters
+            for (TInputData inputData : inputDataList) {
+                boolean found = false;
+                for (InputParameterDefinition ipd : actualTestLab.getInputParameterDefinitions()) {
+                    if (inputData.getLabel().equals(ipd.getRequirementName())) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    fail("Missing parameter " + inputData.getLabel());
                 }
             }
-            if (!found) {
-                fail("Missing parameter " + inputData.getLabel());
-            }
+            // Check TestLab
+            checkTestLab(actualTestLab, testLabFile);
         }
-
-        checkDefinitions(actualDefinitions, dmnFile);
-        checkTestLab(actualTestLab, testLabFile);
     }
 
     private void checkDefinitions(TDefinitions actualDefinitions, String fileName) throws Exception {

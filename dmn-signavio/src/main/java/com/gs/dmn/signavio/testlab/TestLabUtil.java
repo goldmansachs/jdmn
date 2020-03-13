@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.signavio.testlab;
 
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.analysis.semantics.type.ContextType;
 import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
@@ -38,8 +39,10 @@ public class TestLabUtil {
 
     private final BasicDMN2JavaTransformer dmnTransformer;
     private final Map<String, TDRGElement> cache = new LinkedHashMap<>();
+    private final DMNModelRepository dmnModelRepository;
 
     public TestLabUtil(BasicDMN2JavaTransformer dmnTransformer) {
+        this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
         this.dmnTransformer = dmnTransformer;
     }
 
@@ -126,7 +129,9 @@ public class TestLabUtil {
         return dmnTransformer.lowerCaseFirst(name);
     }
 
-    public String qualifiedName(String pkg, String cls) {
+    public String qualifiedName(TestLab testLab, OutputParameterDefinition rootOutputParameter) {
+        String pkg = dmnTransformer.javaModelPackageName(rootOutputParameter.getModelName());
+        String cls = drgElementClassName(rootOutputParameter);
         return dmnTransformer.qualifiedName(pkg, cls);
     }
 
@@ -192,7 +197,7 @@ public class TestLabUtil {
                     pairs.add(pair);
                     present.add(pair.getLeft());
                 }
-                // Top-upo the missing ones
+                // Add the missing members
                 for (String member: members) {
                     if (!present.contains(member)) {
                         ImmutablePair<String, Expression> pair = new ImmutablePair<>(member, null);
@@ -217,10 +222,11 @@ public class TestLabUtil {
     }
 
     TItemDefinition elementType(TItemDefinition type) {
+        TDefinitions model = this.dmnModelRepository.getModel(type);
         if (type.isIsCollection()) {
             String typeRef = type.getTypeRef();
             if (typeRef != null) {
-                return dmnTransformer.getDMNModelRepository().lookupItemDefinition(QualifiedName.toQualifiedName(typeRef));
+                return this.dmnModelRepository.lookupItemDefinition(model, QualifiedName.toQualifiedName(model, typeRef));
             }
             List<TItemDefinition> itemComponent = type.getItemComponent();
             if (itemComponent.size() == 1) {
@@ -427,8 +433,10 @@ public class TestLabUtil {
 
     private Type toFEELType(ParameterDefinition parameterDefinition) {
         try {
+            TDRGElement element = findDRGElement(parameterDefinition);
+            TDefinitions model = this.dmnModelRepository.getModel(element);
             String typeRef = getTypeRef(parameterDefinition);
-            return dmnTransformer.toFEELType(QualifiedName.toQualifiedName(typeRef));
+            return dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot resolve FEEL type for requirementId requirement '%s' in DM '%s'", parameterDefinition.getId(), parameterDefinition.getModelName()));
         }
@@ -436,7 +444,9 @@ public class TestLabUtil {
 
     TItemDefinition lookupItemDefinition(ParameterDefinition parameterDefinition) {
         String typeRef = getTypeRef(parameterDefinition);
-        return dmnTransformer.getDMNModelRepository().lookupItemDefinition(QualifiedName.toQualifiedName(typeRef));
+        TDRGElement element = findDRGElement(parameterDefinition);
+        TDefinitions model = this.dmnModelRepository.getModel(element);
+        return dmnTransformer.getDMNModelRepository().lookupItemDefinition(model, QualifiedName.toQualifiedName(model, typeRef));
     }
 
     private String getTypeRef(ParameterDefinition parameterDefinition) {

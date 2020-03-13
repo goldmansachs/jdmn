@@ -13,6 +13,7 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.DefaultDMNValidator;
@@ -24,32 +25,44 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public abstract class AbstractDMNToJavaTest extends AbstractTransformerTest {
-    protected void doTestFolder() throws Exception {
+    protected void doFolderTest() throws Exception {
         String inputPath = getInputPath();
         File folder = path(inputPath).toFile();
         if (folder.listFiles() != null) {
             for(File file: folder.listFiles()) {
                 if (file.isFile() && file.getName().endsWith(DMNConstants.DMN_FILE_EXTENSION)) {
-                    doTest(diagramName(file));
+                    doSingleModelTest(diagramName(file));
                 }
             }
         }
     }
 
-    protected void doTest(String diagramName) throws Exception {
+    protected void doSingleModelTest(String dmnFileName, Pair<String, String>... extraInputParameters) throws Exception {
         String path = getInputPath();
-        String inputFilePath = path + "/" + diagramName + DMNConstants.DMN_FILE_EXTENSION;
-        String expectedOutputPath = getExpectedPath() + "/" + friendlyFolderName(diagramName.toLowerCase());
+        String inputFilePath = path + "/" + dmnFileName + DMNConstants.DMN_FILE_EXTENSION;
+        String expectedOutputPath = getExpectedPath() + "/" + friendlyFolderName(dmnFileName.toLowerCase());
         URI resource = resource(inputFilePath);
-        doTest(resource.getPath(), expectedOutputPath);
+        doTest(resource.getPath(), expectedOutputPath, extraInputParameters);
     }
 
-    protected void doTest(String inputFilePath, String expectedOutputPath) throws Exception {
+    protected void doMultipleModelsTest(String dmnFolderName, Pair<String, String>... extraInputParameters) throws Exception {
+        String path = getInputPath();
+        String inputFilePath = path + "/" + dmnFolderName;
+        String expectedOutputPath = getExpectedPath() + "/" + friendlyFolderName(dmnFolderName.toLowerCase());
+        URI resource = resource(inputFilePath);
+        doTest(resource.getPath(), expectedOutputPath, extraInputParameters);
+    }
+
+    protected void doTest(String inputFilePath, String expectedOutputPath, Pair<String, String>... extraInputParameters) throws Exception {
         File outputFolder = new File("target/" + expectedOutputPath);
         outputFolder.mkdirs();
 
         Path inputPath = new File(inputFilePath).toPath();
-        FileTransformer transformer = makeTransformer(makeInputParameters(), LOGGER);
+        Map<String, String> inputParameters = makeInputParameters();
+        for (Pair<String, String> pair: extraInputParameters) {
+            inputParameters.put(pair.getLeft(), pair.getRight());
+        }
+        FileTransformer transformer = makeTransformer(inputParameters, LOGGER);
         transformer.transform(inputPath, outputFolder.toPath());
 
         File expectedOutputFolder = new File(resource(expectedOutputPath));
@@ -72,7 +85,7 @@ public abstract class AbstractDMNToJavaTest extends AbstractTransformerTest {
 
     @Override
     protected Map<String, String> makeInputParameters() {
-        Map<String, String> inputParams = new LinkedHashMap<String, String>();
+        Map<String, String> inputParams = new LinkedHashMap<>();
         inputParams.put("dmnVersion", "1.1");
         inputParams.put("modelVersion", "2.0");
         inputParams.put("platformVersion", "1.0");

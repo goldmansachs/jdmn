@@ -12,7 +12,7 @@
     specific language governing permissions and limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -31,6 +31,7 @@
         <platform.version>${project.parent.version}</platform.version>
 
         <tck.diagram.folder>${project.basedir}/src/main/resources/tck</tck.diagram.folder>
+        <composite.diagram.folder>${project.basedir}/src/main/resources/composite</composite.diagram.folder>
 
         <generated.java.folder>${project.build.directory}/generated-sources/dmn</generated.java.folder>
         <generated.root.package>com.gs.dmn.generated</generated.root.package>
@@ -636,43 +637,6 @@
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0003_iteration</javaRootPackage>
-                            </inputParameters>
-                        </configuration>
-                    </execution>
-
-                    <execution>
-                        <id>cl3-0004-lending-dag</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>dmn-to-java</goal>
-                        </goals>
-                        <configuration>
-                            <templateProvider>com.gs.dmn.transformation.template.DagTemplateProvider</templateProvider>
-                            <lazyEvaluationDetectors>
-                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
-                            </lazyEvaluationDetectors>
-                            <inputFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending_dag</javaRootPackage>
-                                <caching>false</caching>
-                            </inputParameters>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>test-cl3-0004-lending-dag</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>tck-to-java</goal>
-                        </goals>
-                        <configuration>
-                            <templateProvider>com.gs.dmn.transformation.template.DagTemplateProvider</templateProvider>
-                            <inputTestFileDirectory>${tck.diagram.folder}/cl3/0004-lending-test-01.xml</inputTestFileDirectory>
-                            <inputModelFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending_dag</javaRootPackage>
-                                <caching>false</caching>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1758,6 +1722,361 @@
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_9001_recursive_function</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <!-- Composite models -->
+                    <execution>
+                        <id>composite-0001-no-name-conflicts-one-package</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${composite.diagram.folder}/0001-no-name-conflicts-one-package</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0001_no_name_conflicts_one_package</javaRootPackage>
+                                <onePackage>true</onePackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-composite-0001-no-name-conflicts-one-package</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${composite.diagram.folder}/0001-no-name-conflicts-one-package</inputTestFileDirectory>
+                            <inputModelFileDirectory>${composite.diagram.folder}/0001-no-name-conflicts-one-package</inputModelFileDirectory>
+                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0001_no_name_conflicts_one_package</javaRootPackage>
+                                <onePackage>true</onePackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>composite-0002-no-name-conflicts</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${composite.diagram.folder}/0002-no-name-conflicts</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0002_no_name_conflicts</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-composite-0002-no-name-conflicts</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${composite.diagram.folder}/0002-no-name-conflicts</inputTestFileDirectory>
+                            <inputModelFileDirectory>${composite.diagram.folder}/0002-no-name-conflicts</inputModelFileDirectory>
+                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0002_no_name_conflicts</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>composite-0003-name-conflicts</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${composite.diagram.folder}/0003-name-conflicts</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0003_name_conflicts</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-composite-0003-name-conflicts</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${composite.diagram.folder}/0003-name-conflicts</inputTestFileDirectory>
+                            <inputModelFileDirectory>${composite.diagram.folder}/0003-name-conflicts</inputModelFileDirectory>
+                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0003_name_conflicts</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>composite-0004-decision-tables-one-package</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${composite.diagram.folder}/0004-decision-tables</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0004_decision_tables_one_package</javaRootPackage>
+                                <onePackage>true</onePackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-composite-0004-decision-tables-one-package</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${composite.diagram.folder}/0004-decision-tables</inputTestFileDirectory>
+                            <inputModelFileDirectory>${composite.diagram.folder}/0004-decision-tables</inputModelFileDirectory>
+                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0004_decision_tables_one_package</javaRootPackage>
+                                <onePackage>true</onePackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>composite-0004-decision-tables</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${composite.diagram.folder}/0004-decision-tables</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0004_decision_tables</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-composite-0004-decision-tables</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${composite.diagram.folder}/0004-decision-tables</inputTestFileDirectory>
+                            <inputModelFileDirectory>${composite.diagram.folder}/0004-decision-tables</inputModelFileDirectory>
+                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0004_decision_tables</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>composite-0005-decision-tables-name-conflicts</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${composite.diagram.folder}/0005-decision-tables-name-conflicts</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0005_decision_tables_name_conflicts</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-composite-0005-decision-tables-name-conflicts</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>src/main/resources/composite/0005-decision-tables-name-conflicts</inputTestFileDirectory>
+                            <inputModelFileDirectory>src/main/resources/composite/0005-decision-tables-name-conflicts</inputModelFileDirectory>
+                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0005_decision_tables_name_conflicts</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>composite-0006-multiple-input-data</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>src/main/resources/composite/0006-multiple-input-data</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0006_multiple_input_data</javaRootPackage>
+                                <singletonInputData>false</singletonInputData>
+                                <caching>false</caching>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-composite-0006-multiple-input-data</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>src/main/resources/composite/0006-multiple-input-data</inputTestFileDirectory>
+                            <inputModelFileDirectory>src/main/resources/composite/0006-multiple-input-data</inputModelFileDirectory>
+                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0006_multiple_input_data</javaRootPackage>
+                                <singletonInputData>false</singletonInputData>
+                                <caching>false</caching>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>composite-0007-name-conflicts-same-decision-singleton</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>src/main/resources/composite/0007-name-conflicts-same-decision-singleton</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0007_name_conflicts_same_decision_singleton</javaRootPackage>
+                                <caching>false</caching>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-composite-0007-name-conflicts-same-decision-singleton</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>src/main/resources/composite/0007-name-conflicts-same-decision-singleton</inputTestFileDirectory>
+                            <inputModelFileDirectory>src/main/resources/composite/0007-name-conflicts-same-decision-singleton</inputModelFileDirectory>
+                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0007_name_conflicts_same_decision_singleton</javaRootPackage>
+                                <caching>false</caching>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>composite-0008-name-conflicts-same-decision-no-singleton</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>src/main/resources/composite/0008-name-conflicts-same-decision-no-singleton</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0008_name_conflicts_same_decision_no_singleton</javaRootPackage>
+                                <singletonInputData>false</singletonInputData>
+                                <caching>false</caching>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-composite-0008-name-conflicts-same-decision-no-singleton</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>src/main/resources/composite/0008-name-conflicts-same-decision-no-singleton</inputTestFileDirectory>
+                            <inputModelFileDirectory>src/main/resources/composite/0008-name-conflicts-same-decision-no-singleton</inputModelFileDirectory>
+                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0008_name_conflicts_same_decision_no_singleton</javaRootPackage>
+                                <singletonInputData>false</singletonInputData>
+                                <caching>false</caching>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>lazy-composite-0008-name-conflicts-same-decision-no-singleton</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>src/main/resources/composite/0008-name-conflicts-same-decision-no-singleton</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <lazyEvaluationDetectors>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
+                            </lazyEvaluationDetectors>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.lazy_composite_0008_name_conflicts_same_decision_no_singleton</javaRootPackage>
+                                <singletonInputData>false</singletonInputData>
+                                <caching>false</caching>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-lazy-composite-0008-name-conflicts-same-decision-no-singleton</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>src/main/resources/composite/0008-name-conflicts-same-decision-no-singleton</inputTestFileDirectory>
+                            <inputModelFileDirectory>src/main/resources/composite/0008-name-conflicts-same-decision-no-singleton</inputModelFileDirectory>
+                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
+                            <lazyEvaluationDetectors>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
+                            </lazyEvaluationDetectors>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.lazy_composite_0008_name_conflicts_same_decision_no_singleton</javaRootPackage>
+                                <singletonInputData>false</singletonInputData>
+                                <caching>false</caching>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>composite-0009-type-name-conflicts</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>src/main/resources/composite/0009-type-name-conflicts</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0009_type_name_conflicts</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-0009-type-name-conflicts</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>src/main/resources/composite/0009-type-name-conflicts</inputTestFileDirectory>
+                            <inputModelFileDirectory>src/main/resources/composite/0009-type-name-conflicts</inputModelFileDirectory>
+                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.composite_0009_type_name_conflicts</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>

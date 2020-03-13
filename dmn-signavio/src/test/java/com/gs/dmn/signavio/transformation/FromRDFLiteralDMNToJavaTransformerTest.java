@@ -39,7 +39,7 @@ public class FromRDFLiteralDMNToJavaTransformerTest extends AbstractSignavioDMNT
                 "simple-decision-feel-string-literal-expression"
         );
         for (String diagram : diagrams) {
-            doTest(diagram);
+            doSingleModelTest(diagram);
         }
     }
 
@@ -54,7 +54,7 @@ public class FromRDFLiteralDMNToJavaTransformerTest extends AbstractSignavioDMNT
                 "simple-decision-free-text-string-literal-expression"
         );
         for (String diagram : diagrams) {
-            doTest(diagram);
+            doSingleModelTest(diagram);
         }
     }
 }

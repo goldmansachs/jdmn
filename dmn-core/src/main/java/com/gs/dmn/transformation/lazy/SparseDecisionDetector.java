@@ -31,12 +31,8 @@ public class SparseDecisionDetector extends SimpleLazyEvaluationDetector {
 
     public SparseDecisionDetector(Map<String, String> inputParameters, BuildLogger logger) {
         super(inputParameters, logger);
-        String sparsityThresholdParam = InputParamUtil.getOptionalParam(inputParameters, "sparsityThreshold");
-        if (sparsityThresholdParam == null) {
-            this.sparsityThreshold = 0.0;
-        } else {
-            this.sparsityThreshold = Double.parseDouble(sparsityThresholdParam);
-        }
+        String sparsityThresholdParam = InputParamUtil.getOptionalParam(inputParameters, "sparsityThreshold", "0.0");
+        this.sparsityThreshold = Double.parseDouble(sparsityThresholdParam);
     }
 
     @Override
@@ -64,7 +60,7 @@ public class SparseDecisionDetector extends SimpleLazyEvaluationDetector {
             }
         }
 
-        logger.info(String.format("Decisions to be lazy evaluated: '%s'", lazyEvaluationOptimisation.getLazyEvaluatedDecisions().stream().collect(Collectors.joining(", "))));
+        logger.info(String.format("Decisions to be lazy evaluated: '%s'", String.join(", ", lazyEvaluationOptimisation.getLazyEvaluatedDecisions())));
         return lazyEvaluationOptimisation;
     }
 

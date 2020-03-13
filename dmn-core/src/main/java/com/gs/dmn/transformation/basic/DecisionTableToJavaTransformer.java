@@ -13,6 +13,7 @@
 package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
@@ -31,7 +32,9 @@ import com.gs.dmn.transformation.DMNToJavaTransformer;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.gs.dmn.transformation.DMNToJavaTransformer.DECISION_RULE_OUTPUT_CLASS_SUFFIX;
@@ -51,7 +54,7 @@ public class DecisionTableToJavaTransformer {
 
     public String defaultValue(TDRGElement element) {
         if (this.dmnModelRepository.isDecisionTableExpression(element)) {
-            TDecisionTable decisionTable = (TDecisionTable) dmnModelRepository.expression(element);
+            TDecisionTable decisionTable = (TDecisionTable) this.dmnModelRepository.expression(element);
             if (this.dmnModelRepository.hasDefaultValue(decisionTable)) {
                 if (this.dmnModelRepository.isCompoundDecisionTable(element)) {
                     List<String> values = new ArrayList<>();
@@ -59,9 +62,9 @@ public class DecisionTableToJavaTransformer {
                     for(TOutputClause outputClause: output) {
                         values.add(defaultValue(element, outputClause));
                     }
-                    String defaultValue = dmnTransformer.constructor(dmnTransformer.itemDefinitionJavaClassName(dmnTransformer.drgElementOutputClassName(element)), values.stream().collect(Collectors.joining(", ")));
-                    if (dmnTransformer.isList(element)) {
-                        return dmnTransformer.asList(defaultValue);
+                    String defaultValue = this.dmnTransformer.constructor(this.dmnTransformer.itemDefinitionJavaClassName(this.dmnTransformer.drgElementOutputClassName(element)), String.join(", ", values));
+                    if (this.dmnTransformer.isList(element)) {
+                        return this.dmnTransformer.asList(defaultValue);
                     } else {
                         return defaultValue;
                     }
@@ -82,7 +85,7 @@ public class DecisionTableToJavaTransformer {
         if (defaultOutputEntry == null) {
             return "null";
         } else {
-            return dmnTransformer.literalExpressionToJava(defaultOutputEntry.getText(), element);
+            return this.dmnTransformer.literalExpressionToJava(defaultOutputEntry.getText(), element);
         }
     }
 
@@ -91,30 +94,32 @@ public class DecisionTableToJavaTransformer {
     //
     public String outputClauseClassName(TDRGElement element, TOutputClause outputClause) {
         Type type = toFEELType(element, outputClause);
-        return dmnTransformer.toJavaType(type);
+        return this.dmnTransformer.toJavaType(type);
     }
 
     private Type toFEELType(TDRGElement element, TOutputClause outputClause) {
+        TDefinitions model = this.dmnModelRepository.getModel(element);
+
         // Check TOutputClause.typeRef
-        QualifiedName outputClauseTypeRef = QualifiedName.toQualifiedName(outputClause.getTypeRef());
+        QualifiedName outputClauseTypeRef = QualifiedName.toQualifiedName(model, outputClause.getTypeRef());
         if (outputClauseTypeRef != null) {
-            return dmnTransformer.toFEELType(outputClauseTypeRef);
+            return this.dmnTransformer.toFEELType(model, outputClauseTypeRef);
         }
         // Derive from parent typeRef
         QualifiedName parentTypeRef = this.dmnModelRepository.typeRef(element);
         if (this.dmnModelRepository.isCompoundDecisionTable(element)) {
-            TItemDefinition itemDefinition = this.dmnModelRepository.lookupItemDefinition(parentTypeRef);
+            TItemDefinition itemDefinition = this.dmnModelRepository.lookupItemDefinition(model, parentTypeRef);
             if (itemDefinition != null) {
                 for (TItemDefinition child : itemDefinition.getItemComponent()) {
                     if (child.getName().equals(outputClause.getName())) {
-                        return dmnTransformer.toFEELType(child);
+                        return this.dmnTransformer.toFEELType(child);
                     }
                 }
             }
             throw new DMNRuntimeException(String.format("Cannot map typeRef of output clause '%s' in element '%s' to java", outputClause.getId(), element.getName()));
         } else {
-            Type parentType = dmnTransformer.toFEELType(parentTypeRef);
-            TDecisionTable decisionTable = dmnModelRepository.decisionTable(element);
+            Type parentType = this.dmnTransformer.toFEELType(model, parentTypeRef);
+            TDecisionTable decisionTable = this.dmnModelRepository.decisionTable(element);
             if (decisionTable.getHitPolicy() == THitPolicy.COLLECT) {
                 if (decisionTable.getAggregation() == null) {
                     if (parentType instanceof ListType) {
@@ -133,7 +138,7 @@ public class DecisionTableToJavaTransformer {
         if (name == null) {
             throw new DMNRuntimeException(String.format("Variable name cannot be null. OutputClause id '%s'", outputClause.getId()));
         }
-        return dmnTransformer.lowerCaseFirst(name);
+        return this.dmnTransformer.lowerCaseFirst(name);
     }
 
     public String outputClausePriorityVariableName(TDRGElement element, TOutputClause outputClause) {
@@ -141,12 +146,12 @@ public class DecisionTableToJavaTransformer {
         if (name == null) {
             throw new DMNRuntimeException(String.format("Variable name cannot be null. OutputClause id '%s'", outputClause.getId()));
         }
-        return dmnTransformer.lowerCaseFirst(name + DMNToJavaTransformer.PRIORITY_SUFFIX);
+        return this.dmnTransformer.lowerCaseFirst(name + DMNToJavaTransformer.PRIORITY_SUFFIX);
     }
 
     public Integer priority(TDRGElement element, TLiteralExpression literalExpression, int outputIndex) {
         String outputEntryText = literalExpression.getText();
-        TExpression tExpression = dmnModelRepository.expression(element);
+        TExpression tExpression = this.dmnModelRepository.expression(element);
         if (tExpression instanceof TDecisionTable) {
             TOutputClause tOutputClause = ((TDecisionTable) tExpression).getOutput().get(outputIndex);
             TUnaryTests outputValues = tOutputClause.getOutputValues();
@@ -172,23 +177,23 @@ public class DecisionTableToJavaTransformer {
 
     public String getter(TDRGElement element, TOutputClause output) {
         String name = this.dmnModelRepository.outputClauseName(element, output);
-        return dmnTransformer.getter(dmnTransformer.lowerCaseFirst(name));
+        return this.dmnTransformer.getter(this.dmnTransformer.lowerCaseFirst(name));
     }
 
     public String priorityGetter(TDRGElement element, TOutputClause output) {
-        return dmnTransformer.getter(dmnTransformer.lowerCaseFirst(this.dmnModelRepository.outputClauseName(element, output) + DMNToJavaTransformer.PRIORITY_SUFFIX));
+        return this.dmnTransformer.getter(this.dmnTransformer.lowerCaseFirst(this.dmnModelRepository.outputClauseName(element, output) + DMNToJavaTransformer.PRIORITY_SUFFIX));
     }
 
     public String setter(TDRGElement element, TOutputClause output) {
-        return dmnTransformer.setter(dmnTransformer.lowerCaseFirst(this.dmnModelRepository.outputClauseName(element, output)));
+        return this.dmnTransformer.setter(this.dmnTransformer.lowerCaseFirst(this.dmnModelRepository.outputClauseName(element, output)));
     }
 
     public String prioritySetter(TDRGElement element, TOutputClause output) {
-        return dmnTransformer.setter(dmnTransformer.lowerCaseFirst(this.dmnModelRepository.outputClauseName(element, output)) + DMNToJavaTransformer.PRIORITY_SUFFIX);
+        return this.dmnTransformer.setter(this.dmnTransformer.lowerCaseFirst(this.dmnModelRepository.outputClauseName(element, output)) + DMNToJavaTransformer.PRIORITY_SUFFIX);
     }
 
     private List<TOutputClause> sortOutputClauses(TDRGElement element, List<TOutputClause> parameters) {
-        parameters.sort(Comparator.comparing(o -> dmnModelRepository.outputClauseName(element, o)));
+        parameters.sort(Comparator.comparing(o -> this.dmnModelRepository.outputClauseName(element, o)));
         return parameters;
     }
 
@@ -219,7 +224,7 @@ public class DecisionTableToJavaTransformer {
     }
 
     public HitPolicy hitPolicy(TDRGElement element) {
-        TExpression expression = dmnModelRepository.expression(element);
+        TExpression expression = this.dmnModelRepository.expression(element);
         if (expression instanceof TDecisionTable) {
             THitPolicy hitPolicy = ((TDecisionTable) expression).getHitPolicy();
             return HitPolicy.fromValue(hitPolicy.value());
@@ -237,7 +242,7 @@ public class DecisionTableToJavaTransformer {
     // Rules
     //
     public String ruleOutputClassName(TDRGElement element) {
-        return dmnTransformer.upperCaseFirst(element.getName() + DECISION_RULE_OUTPUT_CLASS_SUFFIX);
+        return this.dmnTransformer.upperCaseFirst(element.getName() + DECISION_RULE_OUTPUT_CLASS_SUFFIX);
     }
 
     public String abstractRuleOutputClassName() {
@@ -254,34 +259,29 @@ public class DecisionTableToJavaTransformer {
     }
 
     public String ruleSignature(TDecision decision) {
-        Set<TDRGElement> elementSet = new LinkedHashSet<>();
-        this.dmnModelRepository.collectInputs(decision, elementSet);
-        List<TDRGElement> elements = new ArrayList<>(elementSet);
-        this.dmnModelRepository.sortNamedElements(elements);
+        List<DRGElementReference<? extends TDRGElement>> references = this.dmnModelRepository.sortedUniqueInputs(decision, this.dmnTransformer.drgElementFilter);
 
         List<Pair<String, String>> parameters = new ArrayList<>();
-        for (TDRGElement element : elements) {
-            String parameterName = ruleParameterName(element);
-            String parameterJavaType = dmnTransformer.lazyEvaluationType(element, dmnTransformer.parameterJavaType(element));
+        for (DRGElementReference<? extends TDRGElement> reference : references) {
+            TDRGElement element = reference.getElement();
+            String parameterName = ruleParameterName(reference);
+            String parameterJavaType = this.dmnTransformer.lazyEvaluationType(element, this.dmnTransformer.parameterJavaType(element));
             parameters.add(new Pair<>(parameterName, parameterJavaType));
         }
         String signature = parameters.stream().map(p -> String.format("%s %s", p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
-        return dmnTransformer.augmentSignature(signature);
+        return this.dmnTransformer.augmentSignature(signature);
     }
 
     public String ruleArgumentList(TDecision decision) {
-        Set<TDRGElement> elementSet = new LinkedHashSet<>();
-        this.dmnModelRepository.collectInputs(decision, elementSet);
-        List<TDRGElement> elements = new ArrayList<>(elementSet);
-        this.dmnModelRepository.sortNamedElements(elements);
+        List<DRGElementReference<? extends TDRGElement>> references = this.dmnModelRepository.sortedUniqueInputs(decision, this.dmnTransformer.drgElementFilter);
 
         List<String> arguments = new ArrayList<>();
-        for (TDRGElement element : elements) {
-            String argumentName = ruleArgumentName(element);
+        for (DRGElementReference<? extends TDRGElement> reference : references) {
+            String argumentName = ruleArgumentName(reference);
             arguments.add(argumentName);
         }
-        String argumentList = arguments.stream().collect(Collectors.joining(", "));
-        return dmnTransformer.augmentArgumentList(argumentList);
+        String argumentList = String.join(", ", arguments);
+        return this.dmnTransformer.augmentArgumentList(argumentList);
     }
 
     public String ruleSignature(TBusinessKnowledgeModel bkm) {
@@ -289,11 +289,11 @@ public class DecisionTableToJavaTransformer {
         List<TInformationItem> formalParameters = bkm.getEncapsulatedLogic().getFormalParameter();
         for (TNamedElement element : formalParameters) {
             String parameterName = ruleParameterName(element);
-            String parameterJavaType = dmnTransformer.parameterJavaType(element);
+            String parameterJavaType = this.dmnTransformer.parameterJavaType(element);
             parameters.add(new Pair<>(parameterName, parameterJavaType));
         }
         String signature = parameters.stream().map(p -> String.format("%s %s", p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
-        return dmnTransformer.augmentSignature(signature);
+        return this.dmnTransformer.augmentSignature(signature);
     }
 
     public String ruleArgumentList(TBusinessKnowledgeModel bkm) {
@@ -303,28 +303,48 @@ public class DecisionTableToJavaTransformer {
             String argumentName = ruleArgumentName(element);
             arguments.add(argumentName);
         }
-        String argumentList = arguments.stream().collect(Collectors.joining(", "));
-        return dmnTransformer.augmentArgumentList(argumentList);
+        String argumentList = String.join(", ", arguments);
+        return this.dmnTransformer.augmentArgumentList(argumentList);
+    }
+
+    private String ruleParameterName(DRGElementReference<? extends TDRGElement> reference) {
+        TDRGElement element = reference.getElement();
+        if (element instanceof TInputData) {
+            return this.dmnTransformer.inputDataVariableName(reference);
+        } else if (element instanceof TDecision) {
+            return this.dmnTransformer.drgElementVariableName(reference);
+        }
+        throw new UnsupportedOperationException(String.format("Not supported '%s'", element.getClass().getName()));
     }
 
     private String ruleParameterName(TNamedElement element) {
         if (element instanceof TInputData) {
-            return dmnTransformer.inputDataVariableName((TInputData) element);
+            return this.dmnTransformer.inputDataVariableName((TInputData) element);
         } else if (element instanceof TDecision) {
-            return dmnTransformer.drgElementVariableName((TDecision) element);
+            return this.dmnTransformer.drgElementVariableName((TDecision) element);
         } else if (element instanceof TInformationItem) {
-            return dmnTransformer.parameterVariableName(((TInformationItem) element));
+            return this.dmnTransformer.parameterVariableName(((TInformationItem) element));
+        }
+        throw new UnsupportedOperationException(String.format("Not supported '%s'", element.getClass().getName()));
+    }
+
+    private String ruleArgumentName(DRGElementReference<? extends TDRGElement> reference) {
+        TDRGElement element = reference.getElement();
+        if (element instanceof TInputData) {
+            return this.dmnTransformer.inputDataVariableName(reference);
+        } else if (element instanceof TDecision) {
+            return this.dmnTransformer.drgElementVariableName(reference);
         }
         throw new UnsupportedOperationException(String.format("Not supported '%s'", element.getClass().getName()));
     }
 
     private String ruleArgumentName(TNamedElement element) {
         if (element instanceof TInputData) {
-            return dmnTransformer.inputDataVariableName((TInputData) element);
+            return this.dmnTransformer.inputDataVariableName((TInputData) element);
         } else if (element instanceof TDecision) {
-            return dmnTransformer.drgElementVariableName(((TDecision) element));
+            return this.dmnTransformer.drgElementVariableName(((TDecision) element));
         } else if (element instanceof TInformationItem) {
-            return dmnTransformer.parameterVariableName(((TInformationItem) element));
+            return this.dmnTransformer.parameterVariableName(((TInformationItem) element));
         }
         throw new UnsupportedOperationException(String.format("Not supported '%s'", element.getClass().getName()));
     }
@@ -333,7 +353,7 @@ public class DecisionTableToJavaTransformer {
     // Rule condition
     //
     public String condition(TDRGElement element, TDecisionRule rule) {
-        TExpression decisionTable = dmnModelRepository.expression(element);
+        TExpression decisionTable = this.dmnModelRepository.expression(element);
         if (decisionTable instanceof TDecisionTable) {
             List<String> conditionParts = new ArrayList<>();
             for (int i = 0; i < rule.getInputEntry().size(); i++) {
@@ -366,30 +386,30 @@ public class DecisionTableToJavaTransformer {
 
     private String inputEntryToJava(TDRGElement element, String inputExpressionText, String inputEntryText) {
         // Analyze input expression
-        Environment inputExpressionEnvironment = dmnTransformer.makeEnvironment(element);
-        FEELContext inputExpressionContext = FEELContext.makeContext(inputExpressionEnvironment);
-        Expression inputExpression = feelTranslator.analyzeSimpleExpressions(inputExpressionText, inputExpressionContext);
+        Environment inputExpressionEnvironment = this.dmnTransformer.makeEnvironment(element);
+        FEELContext inputExpressionContext = FEELContext.makeContext(element, inputExpressionEnvironment);
+        Expression inputExpression = this.feelTranslator.analyzeSimpleExpressions(inputExpressionText, inputExpressionContext);
 
         // Generate code for input entry
-        Environment inputEntryEnvironment = dmnTransformer.makeInputEntryEnvironment(element, inputExpression);
-        FEELContext inputEntryContext = FEELContext.makeContext(inputEntryEnvironment);
-        return feelTranslator.unaryTestsToJava(inputEntryText, inputEntryContext);
+        Environment inputEntryEnvironment = this.dmnTransformer.makeInputEntryEnvironment(element, inputExpression);
+        FEELContext inputEntryContext = FEELContext.makeContext(element, inputEntryEnvironment);
+        return this.feelTranslator.unaryTestsToJava(inputEntryText, inputEntryContext);
     }
 
     public String outputEntryToJava(TDRGElement element, TLiteralExpression outputEntryExpression, int outputIndex) {
-        TExpression tExpression = dmnModelRepository.expression(element);
+        TExpression tExpression = this.dmnModelRepository.expression(element);
         if (tExpression instanceof TDecisionTable) {
             // Analyze output expression
             String outputEntryText = outputEntryExpression.getText();
-            Environment outputEntryEnvironment = dmnTransformer.makeOutputEntryEnvironment(element, environmentFactory);
+            Environment outputEntryEnvironment = this.dmnTransformer.makeOutputEntryEnvironment(element, this.environmentFactory);
             if ("-".equals(outputEntryText)) {
                 outputEntryText = "null";
             }
-            Expression feelOutputEntryExpression = feelTranslator.analyzeSimpleExpressions(outputEntryText, FEELContext.makeContext(outputEntryEnvironment));
+            Expression feelOutputEntryExpression = this.feelTranslator.analyzeSimpleExpressions(outputEntryText, FEELContext.makeContext(element, outputEntryEnvironment));
 
             // Generate code
-            FEELContext context = FEELContext.makeContext(outputEntryEnvironment);
-            return feelTranslator.simpleExpressionsToJava(feelOutputEntryExpression, context);
+            FEELContext context = FEELContext.makeContext(element, outputEntryEnvironment);
+            return this.feelTranslator.simpleExpressionsToJava(feelOutputEntryExpression, context);
         } else {
             throw new UnsupportedOperationException(String.format("Not supported '%s'", tExpression.getClass().getSimpleName()));
         }
@@ -405,7 +425,7 @@ public class DecisionTableToJavaTransformer {
 
     public String annotation(TDRGElement element, TDecisionRule rule) {
         String description = rule.getDescription();
-        return dmnTransformer.annotation(element, description);
+        return this.dmnTransformer.annotation(element, description);
     }
 
     public String ruleAnnotationClassName() {

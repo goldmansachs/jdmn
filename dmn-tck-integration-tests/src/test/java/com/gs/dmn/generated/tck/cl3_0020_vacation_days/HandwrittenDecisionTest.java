@@ -26,8 +26,10 @@ import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.NameTransformer;
 import com.gs.dmn.transformation.ToQuotedNameTransformer;
 import org.junit.Test;
+import org.omg.spec.dmn._20180521.model.TDRGElement;
 
 import java.math.BigDecimal;
+import java.util.LinkedHashMap;
 
 import static org.junit.Assert.assertEquals;
 
@@ -65,14 +67,15 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
         String pathName = "tck/cl3/0020-vacation-days.dmn";
         DMNModelRepository repository = readDMN(pathName);
         nameTransformer.transform(repository);
-        DMNInterpreter interpreter = this.dialectDefinition.createDMNInterpreter(repository);
+        DMNInterpreter interpreter = this.dialectDefinition.createDMNInterpreter(repository, new LinkedHashMap<>());
 
-        RuntimeEnvironment environment = RuntimeEnvironmentFactory.instance().makeEnvironment();
-        environment.bind("Age", lib.number(i1));
-        environment.bind(nameTransformer.transformName("Years of Service"), lib.number(i2));
+        RuntimeEnvironment runtimeEnvironment = RuntimeEnvironmentFactory.instance().makeEnvironment();
+        runtimeEnvironment.bind("Age", lib.number(i1));
+        runtimeEnvironment.bind(nameTransformer.transformName("Years of Service"), lib.number(i2));
 
         String drgElementName = nameTransformer.transformName("Total Vacation Days");
-        Result result = interpreter.evaluate(null, drgElementName, environment);
+        TDRGElement drgElement = repository.findDRGElementByName(drgElementName);
+        Result result = interpreter.evaluate(repository.makeDRGElementReference(drgElement), null, runtimeEnvironment);
         Object actual = Result.value(result);
 
         assertEquals(expected, ((BigDecimal) actual).toPlainString());
@@ -81,7 +84,7 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
     @Override
     protected void applyDecision() {
         AnnotationSet annotationSet = new AnnotationSet();
-        decision.apply((String) null, (String) null, annotationSet);
+        decision.apply((String) null, null, annotationSet);
     }
 
 }

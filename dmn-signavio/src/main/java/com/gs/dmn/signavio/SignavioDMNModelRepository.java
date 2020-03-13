@@ -13,7 +13,10 @@
 package com.gs.dmn.signavio;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.runtime.interpreter.ImportPath;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
 import com.gs.dmn.signavio.extension.SignavioExtension;
@@ -21,8 +24,9 @@ import org.omg.spec.dmn._20180521.model.*;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import static com.gs.dmn.serialization.DMNVersion.DMN_12;
 
@@ -32,28 +36,21 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
             "signavio", "sigExt"
     };
 
-    private QName diagramId = new QName(schemaNamespace, "diagramId");
-    private QName shapeId = new QName(schemaNamespace, "shapeId");
+    private QName diagramId = new QName(this.schemaNamespace, "diagramId");
+    private QName shapeId = new QName(this.schemaNamespace, "shapeId");
 
     public final SignavioExtension extension = new SignavioExtension(this);
 
     public SignavioDMNModelRepository() {
-        super();
-    }
-
-    public SignavioDMNModelRepository(Pair<TDefinitions, PrefixNamespaceMappings> pair) {
-        this(pair.getLeft(), pair.getRight());
+        this(OBJECT_FACTORY.createTDefinitions(), new PrefixNamespaceMappings());
     }
 
     public SignavioDMNModelRepository(TDefinitions definitions, PrefixNamespaceMappings prefixNamespaceMappings) {
-        super(definitions, prefixNamespaceMappings);
-        List<Object> elementList = extension.findExtensions(definitions.getExtensionElements(), DMN_12.getNamespace(), "decisionService");
-        for(Object element: elementList) {
-            Object value = ((JAXBElement) element).getValue();
-            if (value instanceof TDecisionService) {
-                this.addElementMap((TDecisionService)value, definitions);
-            }
-        }
+        this(new Pair<>(definitions, prefixNamespaceMappings));
+    }
+
+    public SignavioDMNModelRepository(Pair<TDefinitions, PrefixNamespaceMappings> pair) {
+        this(Arrays.asList(pair));
     }
 
     public SignavioDMNModelRepository(Pair<TDefinitions, PrefixNamespaceMappings> pair, String schemaNamespace) {
@@ -63,24 +60,38 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         this.shapeId = new QName(schemaNamespace, "shapeId");
     }
 
+    public SignavioDMNModelRepository(List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs) {
+        super(pairs);
+        for (Pair<TDefinitions, PrefixNamespaceMappings> pair: pairs) {
+            TDefinitions definitions = pair.getLeft();
+            List<Object> elementList = this.extension.findExtensions(definitions.getExtensionElements(), DMN_12.getNamespace(), "decisionService");
+            for(Object element: elementList) {
+                Object value = ((JAXBElement) element).getValue();
+                if (value instanceof TDecisionService) {
+                    this.addElementMap((TDecisionService)value, definitions);
+                }
+            }
+        }
+    }
+
     public String getSchemaNamespace() {
-        return schemaNamespace;
+        return this.schemaNamespace;
     }
 
     public String[] getSchemaPrefixes() {
-        return schemaPrefixes;
+        return this.schemaPrefixes;
     }
 
     public QName getDiagramIdQName() {
-        return diagramId;
+        return this.diagramId;
     }
 
     public QName getShapeIdQName() {
-        return shapeId;
+        return this.shapeId;
     }
 
     public SignavioExtension getExtension() {
-        return extension;
+        return this.extension;
     }
 
     public boolean isBKMLinkedToDecision(TNamedElement element) {
@@ -94,24 +105,40 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
     }
 
     public boolean isMultiInstanceDecision(TDRGElement decision) {
-        return extension.isMultiInstanceDecision(decision);
+        return this.extension.isMultiInstanceDecision(decision);
     }
 
     @Override
-    public void collectInputDatas(TDRGElement element, Set<TInputData> inputDatas) {
-        inputDatas.addAll(directInputDatas(element));
+    protected List<DRGElementReference<TInputData>> collectAllInputDatas(DRGElementReference<? extends TDRGElement> parentReference) {
+        TDRGElement parent = parentReference.getElement();
+        ImportPath parentImportPath = parentReference.getImportPath();
+        List<DRGElementReference<TInputData>> result = new ArrayList<>();
+        result.addAll(directInputDatas(parent));
         // Add inputs used in iteration body / topLevelDecision
-        if (isMultiInstanceDecision(element)) {
-            MultiInstanceDecisionLogic multiInstanceDecisionLogic = extension.multiInstanceDecisionLogic(element);
+        if (isMultiInstanceDecision(parent)) {
+            MultiInstanceDecisionLogic multiInstanceDecisionLogic = this.extension.multiInstanceDecisionLogic(parent);
             TDecision topLevelDecision = multiInstanceDecisionLogic.getTopLevelDecision();
+            DRGElementReference<? extends TDRGElement> topLevelReference = makeDRGElementReference(topLevelDecision);
 
-            List<TInputData> inputDataSet = allInputDatas(topLevelDecision);
-            inputDataSet.remove(multiInstanceDecisionLogic.getIterator());
-            inputDatas.addAll(inputDataSet);
+            List<DRGElementReference<TInputData>> inputDataList = collectAllInputDatas(topLevelReference);
+            inputDataList.removeIf(tInputDataDMNReference -> tInputDataDMNReference.getElement() == multiInstanceDecisionLogic.getIterator());
+            result.addAll(inputDataList);
         }
-        for (TDecision child : directSubDecisions(element)) {
-            collectInputDatas(child, inputDatas);
+
+        // Process direct children
+        List<TDMNElementReference> childReferences = requiredDecisionReferences(parent);
+        for (TDMNElementReference reference: childReferences) {
+            TDecision child = findDecisionByRef(parent, reference.getHref());
+            if (child != null) {
+                String importName = findImportName(parent, reference);
+                DRGElementReference<TDecision> childReference = makeDRGElementReference(new ImportPath(parentImportPath, importName), child);
+                List<DRGElementReference<TInputData>> inputReferences = collectAllInputDatas(childReference);
+                result.addAll(inputReferences);
+            } else {
+                throw new DMNRuntimeException(String.format("Cannot find Decision for '%s' in parent '%s'", reference.getHref(), parent.getName()));
+            }
         }
+        return result;
     }
 
     public void addItemDefinition(TDefinitions definitions, TItemDefinition itemDefinition) {

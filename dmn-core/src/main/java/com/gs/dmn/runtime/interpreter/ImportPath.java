@@ -16,7 +16,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ImportPath {
     public static boolean isEmpty(String importName) {
@@ -29,6 +28,9 @@ public class ImportPath {
 
     private List<String> pathElements = new ArrayList<>();
 
+    public ImportPath() {
+    }
+
     public ImportPath(String pathElement) {
         if (!StringUtils.isEmpty(pathElement)) {
             this.pathElements.add(pathElement);
@@ -39,25 +41,29 @@ public class ImportPath {
         if (parent !=  null) {
             this.pathElements.addAll(parent.pathElements);
         }
-        if (!StringUtils.isEmpty(pathElement)) {
-            this.pathElements.add(pathElement);
-        }
+        this.addPathElement(pathElement);
     }
 
     public List<String> getPathElements() {
         return this.pathElements;
     }
 
-    public boolean isEmpty() {
+    public void addPathElement(String pathElement) {
+        if (!StringUtils.isEmpty(pathElement)) {
+            this.pathElements.add(pathElement);
+        }
+    }
+
+    private boolean isEmpty() {
         return this.pathElements.isEmpty();
     }
 
     public String asString() {
-        return pathElements.stream().collect(Collectors.joining("."));
+        return String.join(".", pathElements);
     }
 
     @Override
     public String toString() {
-        return this.asString();
+        return String.format("%s", this.pathElements);
     }
 }

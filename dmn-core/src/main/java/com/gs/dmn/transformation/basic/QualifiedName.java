@@ -13,61 +13,51 @@
 package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.serialization.DMNVersion;
-
-import javax.xml.namespace.QName;
+import org.omg.spec.dmn._20180521.model.TDefinitions;
+import org.omg.spec.dmn._20180521.model.TImport;
 
 public class QualifiedName {
-    public static QualifiedName toQualifiedName(QName qName) {
-        if (qName == null) {
+    public static QualifiedName toQualifiedName(TDefinitions model, String qName) {
+        if (qName == null || qName.isEmpty()) {
             return null;
         }
-
-        String namespaceURI = qName.getNamespaceURI();
-        for (DMNVersion  version: DMNVersion.VALUES) {
-            if (version.getFeelNamespace().equals(namespaceURI)) {
-                return new QualifiedName(version.getFeelPrefix(), qName.getLocalPart());
-            }
+        if (qName.startsWith(DMNVersion.LATEST.getFeelPrefix() + ".")) {
+            String prefix = DMNVersion.LATEST.getFeelPrefix();
+            String localPart = qName.substring(qName.indexOf('.') + 1);
+            return new QualifiedName(prefix, localPart);
         }
-        String prefix = qName.getPrefix();
-        return new QualifiedName(prefix, qName.getLocalPart());
-    }
-
-    public static QualifiedName toQualifiedName(String qName) {
-        return qName == null ? null : new QualifiedName(qName);
+        if (model == null) {
+            return new QualifiedName(null, qName);
+        } else {
+            for (TImport import_: model.getImport()) {
+                String importName = import_.getName();
+                if (qName.startsWith(importName + '.')) {
+                    String localPart = qName.substring(qName.indexOf('.') + 1);
+                    return new QualifiedName(importName, localPart);
+                }
+            }
+            return new QualifiedName(null, qName);
+        }
     }
 
     private final String namespace;
     private final String localPart;
 
-    public QualifiedName(String name) {
-        if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException(String.format("Invalid qualified name '%s'", name));
-        }
-        int index = name.indexOf('.');
-        if (index != -1) {
-            this.namespace = name.substring(0, index);
-            this.localPart = name.substring(index + 1);
-        } else {
-            this.namespace = null;
-            this.localPart = name;
-        }
-    }
-
-    public QualifiedName(String namespace, String localPart) {
+    private QualifiedName(String namespace, String localPart) {
         this.namespace = namespace;
         this.localPart = localPart;
     }
 
     public String getNamespace() {
-        return namespace;
+        return this.namespace;
     }
 
     public String getLocalPart() {
-        return localPart;
+        return this.localPart;
     }
 
     @Override
     public String toString() {
-        return String.format("QualifiedName(%s, %s)", namespace, localPart);
+        return String.format("QualifiedName(%s, %s)", this.namespace, this.localPart);
     }
 }

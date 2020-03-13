@@ -34,16 +34,16 @@ public class LiteralExpressionToJavaTransformer {
     }
 
     public Statement expressionToJava(String expressionText, TDRGElement element) {
-        Environment environment = dmnTransformer.makeEnvironment(element);
-        return literalExpressionToJava(expressionText, environment, element);
+        Environment environment = this.dmnTransformer.makeEnvironment(element);
+        return literalExpressionToJava(element, expressionText, environment);
     }
 
-    Statement literalExpressionToJava(String expressionText, Environment environment, TDRGElement element) {
-        FEELContext context = FEELContext.makeContext(environment);
-        Expression expression = feelTranslator.analyzeExpression(expressionText, context);
+    Statement literalExpressionToJava(TDRGElement element, String expressionText, Environment environment) {
+        FEELContext context = FEELContext.makeContext(element, environment);
+        Expression expression = this.feelTranslator.analyzeExpression(expressionText, context);
         Type expressionType = expression.getType();
 
-        String javaExpression = feelTranslator.expressionToJava(expression, context);
+        String javaExpression = this.feelTranslator.expressionToJava(expression, context);
         return new ExpressionStatement(javaExpression, expressionType);
     }
 }

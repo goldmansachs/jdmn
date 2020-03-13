@@ -12,13 +12,14 @@
  */
 package com.gs.dmn.runtime.interpreter;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
+import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TFunctionDefinition;
+import org.omg.spec.dmn._20180521.model.TInvocable;
 
 import java.util.List;
 
@@ -27,16 +28,17 @@ public interface DMNInterpreter {
 
     FEELLib getFeelLib();
 
-    Result evaluate(ImportPath importPath, String drgElementName, RuntimeEnvironment runtimeEnvironment);
+    //
+    // Evaluate DRG nodes
+    //
+    Result evaluate(DRGElementReference<? extends TDRGElement> reference, List<Object> args, RuntimeEnvironment runtimeEnvironment);
 
-    Result evaluateInvocation(ImportPath importPath, String drgElementName, List<Object> args, RuntimeEnvironment context);
+    Result evaluate(DRGElementReference<? extends TDRGElement> reference, List<Object> args, FEELContext context);
 
-    Result evaluateInvocation(ImportPath importPath, TDRGElement drgElement, List<Object> args, FEELContext context);
-
-    Result evaluateInvocation(TFunctionDefinition functionDefinition, List<Object> args, FEELContext context);
+    Result evaluate(TInvocable invocable, List<Object> argList, FEELContext context);
 
     //
-    // Expression evaluation
+    // Evaluate expressions
     //
-    Result evaluateLiteralExpression(String text, Environment environment, RuntimeEnvironment runtimeEnvironment);
+    Result evaluate(TFunctionDefinition functionDefinition, List<Object> args, FEELContext context);
 }

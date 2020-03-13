@@ -64,7 +64,7 @@ public abstract class AbstractSignavioDMNToJavaTest extends AbstractDMNToJavaTes
 
     @Override
     protected Map<String, String> makeInputParameters() {
-        Map<String, String> inputParams = new LinkedHashMap<String, String>();
+        Map<String, String> inputParams = new LinkedHashMap<>();
         inputParams.put("environmentFactoryClass", SignavioEnvironmentFactory.class.getName());
         inputParams.put("decisionBaseClass", DefaultSignavioBaseDecision.class.getName());
         inputParams.put("dmnVersion", "1.1");

@@ -44,6 +44,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static com.gs.dmn.serialization.DMNVersion.DMN_11;
+import static com.gs.dmn.signavio.rdf2dmn.RDFToDMNTransformer.RDF_FILE_EXTENSION;
+import static com.gs.dmn.signavio.rdf2dmn.RDFToDMNTransformer.isRDFFile;
 import static org.junit.Assert.*;
 
 public abstract class AbstractRDFToDMNTransformerTest {
@@ -56,7 +58,7 @@ public abstract class AbstractRDFToDMNTransformerTest {
 
     protected void doTest(String diagramName) throws Exception {
         String outputPath = getOutputPath();
-        String inputPath = getInputPath() + "/" + diagramName + ".xml";
+        String inputPath = getInputPath() + "/" + diagramName + RDF_FILE_EXTENSION;
         String expectedPath = getExpectedPath();
         doTestFolder(inputPath, outputPath, expectedPath, diagramName);
     }
@@ -66,7 +68,7 @@ public abstract class AbstractRDFToDMNTransformerTest {
         File[] files = inputFolder.listFiles();
         assertNotNull("Not empty folder", files);
         for (File child : files) {
-            if (child.isFile() && child.getName().endsWith(".xml")) {
+            if (isRDFFile(child)) {
                 String fileName = child.getName();
                 int index = fileName.lastIndexOf(".");
                 String diagramName = fileName.substring(0, index);

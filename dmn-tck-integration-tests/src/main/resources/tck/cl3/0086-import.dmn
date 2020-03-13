@@ -84,7 +84,7 @@
             </dmndi:DMNShape>
             <dmndi:DMNShape id="_42d5102d-9f7a-4ba7-9f11-e4371b8527e6" dmnElementRef="include1:_32543811-b499-4608-b784-6c6f294b1c58">
                 <dc:Bounds x="394" y="151" width="152" height="59"/>
-                <dmndi:DMNLabel sharedStyle="LS_c3e08836-7973-4e4d-af2b-d46b23725c13_0" xmlns:trisodmn="http://www.trisotech.com/2016/triso/dmn" trisodmn:defaultBounds="true">
+                <dmndi:DMNLabel sharedStyle="LS_c3e08836-7973-4e4d-af2b-d46b23725c13_0" xmlns:trisodmn="http://www.trisotech.com/2016/triso/dmn" trisodefaultBounds="true">
                     <dc:Bounds height="12" width="94" x="422" y="174"/>
                 </dmndi:DMNLabel>
             </dmndi:DMNShape>

@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.runtime.interpreter;
 
+import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -25,67 +26,67 @@ public abstract class CL3DMNInterpreterTest extends AbstractDMNInterpreterTest {
     @Test
     public void testCL3() {
         // DMN 1.1 files
-        doTestDiagram("0001-filter");
-        doTestDiagram("0002-string-functions");
-        doTestDiagram("0003-iteration");
-        doTestDiagram("0004-lending");
-        doTestDiagram("0005-literal-invocation");
-        doTestDiagram("0006-join");
-        doTestDiagram("0007-date-time");
-        doTestDiagram("0008-listGen");
-        doTestDiagram("0009-append-flatten");
-        doTestDiagram("0010-concatenate");
-        doTestDiagram("0011-insert-remove");
-        doTestDiagram("0013-sort");
-        doTestDiagram("0014-loan-comparison");
-        doTestDiagram("0016-some-every");
-        doTestDiagram("0017-tableTests");
-        doTestDiagram("0020-vacation-days");
-        doTestDiagram("0021-singleton-list");
-        doTestDiagram("0030-user-defined-functions");
-        doTestDiagram("0031-user-defined-functions");
-        doTestDiagram("0032-conditionals");
-        doTestDiagram("0033-for-loops");
-        doTestDiagram("0034-drg-scopes");
-        doTestDiagram("0035-test-structure-output");
-        doTestDiagram("0036-dt-variable-input");
-        doTestDiagram("0037-dt-on-bkm-implicit-params");
-        doTestDiagram("0038-dt-on-bkm-explicit-params");
-        doTestDiagram("0039-dt-list-semantics");
-        doTestDiagram("0040-singlenestedcontext");
-        doTestDiagram("0041-multiple-nestedcontext");
-        doTestDiagram("1100-feel-decimal-function");
-        doTestDiagram("1101-feel-floor-function");
-        doTestDiagram("1102-feel-ceiling-function");
-        doTestDiagram("1103-feel-substring-function");
-        doTestDiagram("1104-feel-string-length-function");
-        doTestDiagram("1105-feel-upper-case-function");
-        doTestDiagram("1106-feel-lower-case-function");
-        doTestDiagram("1107-feel-substring-before-function");
-        doTestDiagram("1108-feel-substring-after-function");
-        doTestDiagram("1109-feel-replace-function");
-        doTestDiagram("1110-feel-contains-function");
-        doTestDiagram("1115-feel-date-function");
-        doTestDiagram("1116-feel-time-function");
-        doTestDiagram("1117-feel-date-and-time-function");
-        doTestDiagram("1120-feel-duration-function");
-        doTestDiagram("1121-feel-years-and-months-duration-function");
+        doSingleModelTest("0001-filter");
+        doSingleModelTest("0002-string-functions");
+        doSingleModelTest("0003-iteration");
+        doSingleModelTest("0004-lending");
+        doSingleModelTest("0005-literal-invocation");
+        doSingleModelTest("0006-join");
+        doSingleModelTest("0007-date-time");
+        doSingleModelTest("0008-listGen");
+        doSingleModelTest("0009-append-flatten");
+        doSingleModelTest("0010-concatenate");
+        doSingleModelTest("0011-insert-remove");
+        doSingleModelTest("0013-sort");
+        doSingleModelTest("0014-loan-comparison");
+        doSingleModelTest("0016-some-every");
+        doSingleModelTest("0017-tableTests");
+        doSingleModelTest("0020-vacation-days");
+        doSingleModelTest("0021-singleton-list");
+        doSingleModelTest("0030-user-defined-functions");
+        doSingleModelTest("0031-user-defined-functions");
+        doSingleModelTest("0032-conditionals");
+        doSingleModelTest("0033-for-loops");
+        doSingleModelTest("0034-drg-scopes");
+        doSingleModelTest("0035-test-structure-output");
+        doSingleModelTest("0036-dt-variable-input");
+        doSingleModelTest("0037-dt-on-bkm-implicit-params");
+        doSingleModelTest("0038-dt-on-bkm-explicit-params");
+        doSingleModelTest("0039-dt-list-semantics");
+        doSingleModelTest("0040-singlenestedcontext");
+        doSingleModelTest("0041-multiple-nestedcontext");
+        doSingleModelTest("1100-feel-decimal-function");
+        doSingleModelTest("1101-feel-floor-function");
+        doSingleModelTest("1102-feel-ceiling-function");
+        doSingleModelTest("1103-feel-substring-function");
+        doSingleModelTest("1104-feel-string-length-function");
+        doSingleModelTest("1105-feel-upper-case-function");
+        doSingleModelTest("1106-feel-lower-case-function");
+        doSingleModelTest("1107-feel-substring-before-function");
+        doSingleModelTest("1108-feel-substring-after-function");
+        doSingleModelTest("1109-feel-replace-function");
+        doSingleModelTest("1110-feel-contains-function");
+        doSingleModelTest("1115-feel-date-function");
+        doSingleModelTest("1116-feel-time-function");
+        doSingleModelTest("1117-feel-date-and-time-function");
+        doSingleModelTest("1120-feel-duration-function");
+        doSingleModelTest("1121-feel-years-and-months-duration-function");
 
-        doTestDiagram("0030-static-user-defined-functions");
-        doTestDiagram("0031-static-user-defined-functions");
-        doTestDiagram("9001-recursive-function");
+        doSingleModelTest("0030-static-user-defined-functions");
+        doSingleModelTest("0031-static-user-defined-functions");
+        doSingleModelTest("9001-recursive-function");
 
         // DMN 1.2 files
-        doTestDiagram("0012-list-functions");
-        doTestDiagram("0034-drg-scopes-2");
-        doTestDiagram("0068-feel-equality");
-        doTestDiagram("0070-feel-instance-of");
-        doTestDiagram("0074-feel-properties");
-        doTestDiagram("0076-feel-external-java");
-        doTestDiagram("0082-feel-coercion");
-        doTestDiagram("0085-decision-services");
-        doTestDiagram("0086-import", Arrays.asList("0086-imported-model"));
-        doTestDiagram("0087-chapter-11-example");
-        doTestDiagram("0089-nested-inputdata-imports", Arrays.asList("0089-model-b", "0089-model-b2", "0089-model-a"));
+        doSingleModelTest("0012-list-functions");
+        doSingleModelTest("0034-drg-scopes-2");
+        doSingleModelTest("0068-feel-equality");
+        doSingleModelTest("0070-feel-instance-of");
+        doSingleModelTest("0074-feel-properties");
+        doSingleModelTest("0076-feel-external-java");
+        doSingleModelTest("0082-feel-coercion");
+        doSingleModelTest("0085-decision-services");
+        doMultipleModelsTest(Arrays.asList("0086-import", "0086-imported-model"), new Pair<>("singletonInputData", "false"));
+        doSingleModelTest("0087-chapter-11-example");
+        doMultipleModelsTest(Arrays.asList("0089-nested-inputdata-imports", "0089-model-b", "0089-model-b2", "0089-model-a"), new Pair<>("singletonInputData", "false"));
     }
 }

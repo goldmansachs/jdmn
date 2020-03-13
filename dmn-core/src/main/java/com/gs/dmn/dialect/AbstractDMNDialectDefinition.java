@@ -27,8 +27,8 @@ public abstract class AbstractDMNDialectDefinition implements DMNDialectDefiniti
     // FEEL Processors
     //
     @Override
-    public FEELInterpreter createFEELInterpreter(DMNModelRepository repository) {
-        DMNInterpreter dmnInterpreter = createDMNInterpreter(repository);
+    public FEELInterpreter createFEELInterpreter(DMNModelRepository repository, Map<String, String> inputParameters) {
+        DMNInterpreter dmnInterpreter = createDMNInterpreter(repository, inputParameters);
         return new FEELInterpreterImpl(dmnInterpreter);
     }
 
