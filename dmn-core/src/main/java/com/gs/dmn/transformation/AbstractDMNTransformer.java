@@ -15,7 +15,6 @@ package com.gs.dmn.transformation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
@@ -26,7 +25,6 @@ import com.gs.dmn.validation.DMNValidator;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -55,18 +53,9 @@ public abstract class AbstractDMNTransformer extends AbstractTemplateBasedTransf
         this.decisionBaseClass = dialectDefinition.getDecisionBaseClass();
     }
 
-    protected DMNModelRepository readDMN(File file) {
-        if (isDMNFile(file)) {
-            Pair<TDefinitions, PrefixNamespaceMappings> result = dmnReader.read(file);
-            DMNModelRepository repository = new DMNModelRepository(result.getLeft(), result.getRight());
-            return repository;
-        } else {
-            throw new DMNRuntimeException(String.format("Invalid DMN file %s", file.getAbsoluteFile()));
-        }
-    }
-
-    protected boolean isDMNFile(File file) {
-        return file.isFile() && file.getName().endsWith(".dmn");
+    protected DMNModelRepository readModels(File file) {
+        List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = dmnReader.readModels(file);
+        return new DMNModelRepository(pairs);
     }
 
     protected void handleValidationErrors(List<String> errors) {

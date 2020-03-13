@@ -13,6 +13,7 @@
 package com.gs.dmn.signavio.validation;
 
 import com.gs.dmn.DMNModelRepository;
+import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,10 @@ public class LabelDuplicationDRGElementValidator extends LabelDuplicationValidat
             return errors;
         }
 
-        validateElements(dmnModelRepository.drgElements(), errors);
+        for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
+            validateElements(dmnModelRepository.drgElements(definitions), errors);
+        }
+
         return errors;
     }
 }

@@ -12,61 +12,23 @@
  */
 package com.gs.dmn.serialization;
 
-import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import static com.gs.dmn.serialization.DMNConstants.XSD_NS;
-import static com.gs.dmn.serialization.DMNConstants.XSD_PREFIX;
-
-public class DMNNamespacePrefixMapper extends NamespacePrefixMapper {
-    private final String userNamespace;
-    private final String userPrefix;
+public class DMNNamespacePrefixMapper extends AbstractNamespacePrefixMapper {
     private final DMNVersion version;
-
-    private final Map<String, String> namespaceMap = new LinkedHashMap<>();
 
     public DMNNamespacePrefixMapper() {
         this(null, null);
     }
 
     public DMNNamespacePrefixMapper(String namespace, String prefix) {
-        this(namespace, prefix, DMNVersion.DMN_12);
+        this(namespace, prefix, DMNVersion.LATEST);
     }
 
     public DMNNamespacePrefixMapper(String namespace, String prefix, DMNVersion version) {
-        this.userNamespace = namespace;
-        this.userPrefix = prefix;
+        super(namespace, prefix, version.getNamespaceMap());
         this.version = version;
-
-        this.namespaceMap.put(XSD_NS, XSD_PREFIX);
-        this.namespaceMap.putAll(version.getNamespaceMap());
-        if (!StringUtils.isEmpty(userNamespace) && !StringUtils.isEmpty(userPrefix)) {
-            this.namespaceMap.put(userNamespace, userPrefix);
-        }
-    }
-
-    @Override
-    public String getPreferredPrefix(String namespaceUri, String suggestion, boolean requirePrefix) {
-        return namespaceMap.getOrDefault(namespaceUri, suggestion);
-    }
-
-    @Override
-    public String[] getPreDeclaredNamespaceUris() {
-        return namespaceMap.keySet().toArray(new String[]{});
-    }
-
-    public String getUserNamespace() {
-        return userNamespace;
-    }
-
-    public String getUserPrefix() {
-        return userPrefix;
     }
 
     public DMNVersion getVersion() {
-        return version;
+        return this.version;
     }
 }

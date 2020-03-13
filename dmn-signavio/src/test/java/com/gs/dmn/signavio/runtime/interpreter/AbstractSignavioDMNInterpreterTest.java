@@ -27,10 +27,12 @@ import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
+import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
 import org.slf4j.LoggerFactory;
 
 import java.net.URL;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -45,16 +47,17 @@ public abstract class AbstractSignavioDMNInterpreterTest {
         doTest(config.getDecisionName(), config.getDiagramName(), config.getRuntimeContext(), config.getExpectedResult());
     }
 
-    protected void doTest(String decisionName, String diagramName, RuntimeEnvironment runtimeContext, Object expectedResult) throws Exception {
+    protected void doTest(String decisionName, String diagramName, RuntimeEnvironment runtimeEnvironment, Object expectedResult) throws Exception {
         String errorMessage = String.format("Tested failed for diagram '%s'", diagramName);
         try {
             String pathName = getInputPath() + "/" + diagramName + DMNConstants.DMN_FILE_EXTENSION;
             URL url = getClass().getClassLoader().getResource(pathName).toURI().toURL();
             Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(url);
             DMNModelRepository repository = new SignavioDMNModelRepository(pair, "http://www.provider.com/schema/dmn/1.1/");
-            DMNInterpreter interpreter = dialectDefinition.createDMNInterpreter(repository);
+            DMNInterpreter interpreter = dialectDefinition.createDMNInterpreter(repository, new LinkedHashMap<>());
 
-            Result actualResult = interpreter.evaluate(null, decisionName, runtimeContext);
+            TDRGElement decision = repository.findDRGElementByName(decisionName);
+            Result actualResult = interpreter.evaluate(repository.makeDRGElementReference(decision), null, runtimeEnvironment);
             Object actualValue = Result.value(actualResult);
 
             assertEquals(errorMessage, expectedResult, actualValue);

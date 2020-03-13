@@ -20,7 +20,6 @@ import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.InputParamUtil;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
-import com.gs.dmn.transformation.template.DagTemplateProvider;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -103,9 +102,14 @@ public class DMNToJavaMojo extends AbstractDMNMojo {
     }
 
     private void validateParameters(DMNDialectDefinition dmnDialect, DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, Map<String, String> inputParameters) {
-        boolean caching = InputParamUtil.getOptionalBooleanParam(inputParameters, "caching");
-        if (templateProvider instanceof DagTemplateProvider && caching) {
-            throw new IllegalArgumentException("'DagTemplateProvider' and 'caching' are not compatible. Please set 'caching' to false");
+        boolean onePackage = InputParamUtil.getOptionalBooleanParam(inputParameters, "onePackage");
+        String singletonInputData = InputParamUtil.getOptionalParam(inputParameters, "singletonInputData");
+        String caching = InputParamUtil.getOptionalParam(inputParameters, "caching");
+        if (onePackage) {
+            this.getLog().warn("Use 'onePackage' carefully, names must be unique across all the DMs.");
+        }
+        if ("false".equals(singletonInputData) && "true".equals(caching)) {
+            this.getLog().error(String.format("Incompatible 'singletonInputData=%s' and 'caching=%s'", singletonInputData, caching));
         }
     }
 }

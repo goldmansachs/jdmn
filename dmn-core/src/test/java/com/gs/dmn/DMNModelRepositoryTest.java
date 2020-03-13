@@ -19,13 +19,11 @@ import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import org.junit.Before;
 import org.junit.Test;
-import org.omg.spec.dmn._20180521.model.TDMNElement;
-import org.omg.spec.dmn._20180521.model.TDecision;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
-import org.omg.spec.dmn._20180521.model.TNamedElement;
+import org.omg.spec.dmn._20180521.model.*;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -48,34 +46,130 @@ public class DMNModelRepositoryTest {
     @Test
     public void testFindDecisionByRef() {
         String id = "d_BureauCallType";
-        String namespace = dmnModelRepository.getRootDefinitions().getNamespace();
-        TDecision decision = dmnModelRepository.findDecisionByRef(null,namespace + "#" + id);
+        TDefinitions definitions = this.dmnModelRepository.getRootDefinitions();
+        String namespace = definitions.getNamespace();
+        TDecision decision = this.dmnModelRepository.findDecisionByRef(null,namespace + "#" + id);
         assertEquals(id, decision.getId());
         assertEquals("BureauCallType", decision.getName());
     }
 
     @Test
     public void testTopologicalSort() {
-        TDMNElement root = dmnModelRepository.findDRGElementByName("Strategy");
+        TDMNElement root = this.dmnModelRepository.findDRGElementByName("Strategy");
 
-        List<TDecision> decisions = dmnModelRepository.topologicalSort((TDecision)root);
+        List<TDecision> decisions = this.dmnModelRepository.topologicalSort((TDecision)root);
 
-        List<String> actualNames = decisions.stream().map(TNamedElement::getName).collect(Collectors.toList());
-        List<String> expectedNames = Arrays.asList("ApplicationRiskScore", "Pre-bureauRiskCategory", "BureauCallType", "RequiredMonthlyInstallment", "Pre-bureauAffordability", "Eligibility");
-        assertEquals(expectedNames, actualNames);
+        List<String> actual = decisions.stream().map(TNamedElement::getName).collect(Collectors.toList());
+        List<String> expected = Arrays.asList("ApplicationRiskScore", "Pre-bureauRiskCategory", "BureauCallType", "RequiredMonthlyInstallment", "Pre-bureauAffordability", "Eligibility");
+        assertEquals(expected, actual);
     }
 
     @Test
     public void testCachedElements() {
-        Set<String> cachedElements = dmnModelRepository.computeCachedElements(true);
+        Set<String> cachedElements = this.dmnModelRepository.computeCachedElements(true, 1);
+        List<String> expected = Arrays.asList("Pre-bureauRiskCategory", "RequiredMonthlyInstallment", "Post-bureauRiskCategory", "ApplicationRiskScore");
+        assertEquals(expected, new ArrayList<>(cachedElements));
 
-        assertEquals(Arrays.asList("Pre-bureauRiskCategory", "RequiredMonthlyInstallment", "Post-bureauRiskCategory", "ApplicationRiskScore"), cachedElements.stream().collect(Collectors.toList()));
+        cachedElements = this.dmnModelRepository.computeCachedElements(true, 0);
+        expected = Arrays.asList(
+                "Pre-bureauRiskCategory", "Pre-bureauAffordability", "RequiredMonthlyInstallment", "Post-bureauRiskCategory", "ApplicationRiskScore",
+                "Post-bureauAffordability", "BureauCallType", "Eligibility");
+        assertEquals(expected, new ArrayList<>(cachedElements));
+    }
+
+    @Test
+    public void testDirectInputDatas() {
+        TDRGElement root = this.dmnModelRepository.findDRGElementByName("Adjudication");
+        List<DRGElementReference<TInputData>> references = this.dmnModelRepository.directInputDatas(root);
+        this.dmnModelRepository.sortNamedElementReferences(references);
+
+        List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
+        List<String> expected = Arrays.asList(
+                "DMNReference(import='[]', namespace='http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b', model='Lending1', element='ApplicantData')",
+                "DMNReference(import='[]', namespace='http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b', model='Lending1', element='BureauData')",
+                "DMNReference(import='[]', namespace='http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b', model='Lending1', element='SupportingDocuments')"
+        );
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testAllInputDatas() {
+        TDRGElement root = this.dmnModelRepository.findDRGElementByName("Pre-bureauAffordability");
+        List<DRGElementReference<TInputData>> references = this.dmnModelRepository.allInputDatas(makeRootReference(root), new DRGElementFilter(true));
+        this.dmnModelRepository.sortNamedElementReferences(references);
+
+        List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
+        List<String> expected = Arrays.asList(
+                "DMNReference(import='[]', namespace='http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b', model='Lending1', element='ApplicantData')",
+                "DMNReference(import='[]', namespace='http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b', model='Lending1', element='RequestedProduct')"
+        );
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testDirectSubDecisions() {
+        TDRGElement root = this.dmnModelRepository.findDRGElementByName("Strategy");
+        List<DRGElementReference<TDecision>> references = this.dmnModelRepository.directSubDecisions(root);
+
+        List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
+        List<String> expected = Arrays.asList(
+                "DMNReference(import='[]', namespace='http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b', model='Lending1', element='BureauCallType')",
+                "DMNReference(import='[]', namespace='http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b', model='Lending1', element='Eligibility')"
+        );
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testDirectSubInvocables() {
+        TDRGElement root = this.dmnModelRepository.findDRGElementByName("BureauCallType");
+        List<DRGElementReference<TInvocable>> references = this.dmnModelRepository.directSubInvocables(root);
+
+        List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
+        List<String> expected = Arrays.asList(
+                "DMNReference(import='[]', namespace='http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b', model='Lending1', element='BureauCallTypeTable')"
+        );
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testCollectAllInputDatas() {
+        this.dmnModelRepository = readDMN("composite/input/0003-name-conflicts");
+
+        TDRGElement root = this.dmnModelRepository.findDRGElementByName("modelCDecisionBasedOnBs");
+        List<DRGElementReference<TInputData>> references = this.dmnModelRepository.collectAllInputDatas(makeRootReference(root));
+        this.dmnModelRepository.sortNamedElementReferences(references);
+
+        List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
+        List<String> expected = Arrays.asList(
+                "DMNReference(import='[modelB1, modelA]', namespace='http://www.provider.com/definitions/model-a', model='model-a', element='personName')",
+                "DMNReference(import='[modelB2, modelB1, modelA]', namespace='http://www.provider.com/definitions/model-a', model='model-a', element='personName')"
+        );
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testAllInputDatasWithImports() {
+        this.dmnModelRepository = readDMN("composite/input/0003-name-conflicts");
+
+        TDRGElement root = this.dmnModelRepository.findDRGElementByName("modelCDecisionBasedOnBs");
+        List<DRGElementReference<TInputData>> references = this.dmnModelRepository.collectAllInputDatas(makeRootReference(root));
+        this.dmnModelRepository.sortNamedElementReferences(references);
+
+        List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
+        List<String> expected = Arrays.asList(
+                "DMNReference(import='[modelB1, modelA]', namespace='http://www.provider.com/definitions/model-a', model='model-a', element='personName')",
+                "DMNReference(import='[modelB2, modelB1, modelA]', namespace='http://www.provider.com/definitions/model-a', model='model-a', element='personName')"
+        );
+        assertEquals(expected, actual);
     }
 
     private DMNModelRepository readDMN(String pathName) {
         File input = new File(DMNModelRepositoryTest.class.getClassLoader().getResource(pathName).getFile());
-        Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(input);
-        return new DMNModelRepository(pair);
+        List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = this.dmnReader.readModels(input);
+        return new DMNModelRepository(pairs);
     }
 
+    private DRGElementReference<? extends TDRGElement> makeRootReference(TDRGElement root) {
+        return this.dmnModelRepository.makeDRGElementReference(root);
+    }
 }

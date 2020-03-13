@@ -14,7 +14,7 @@ package com.gs.dmn.tck;
 
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.serialization.DMNNamespacePrefixMapper;
+import com.gs.dmn.serialization.TCKNamespacePrefixMapper;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import javax.xml.bind.*;
@@ -26,7 +26,16 @@ import static com.gs.dmn.serialization.DMNConstants.TCK_NS;
 import static com.gs.dmn.serialization.DMNConstants.TCK_PACKAGE;
 
 public class TestCasesReader {
-    public static final String TEST_FILE_EXTENSION = ".xml";
+    public static final String DEFAULT_TEST_CASE_FILE_EXTENSION = ".xml";
+    private static final String TEST_CASE_FILE_EXTENSION = ".tck";
+
+    public static boolean isTCKFile(File file) {
+        return file != null && file.isFile() &&
+                (
+                    file.getName().endsWith(DEFAULT_TEST_CASE_FILE_EXTENSION) || file.getName().endsWith(TEST_CASE_FILE_EXTENSION)
+                );
+    }
+
     private static final JAXBContext JAXB_CONTEXT;
 
     static {
@@ -72,7 +81,7 @@ public class TestCasesReader {
         }
     }
 
-    public void write(TestCases testCases, File file, DMNNamespacePrefixMapper namespacePrefixMapper) {
+    public void write(TestCases testCases, File file, TCKNamespacePrefixMapper namespacePrefixMapper) {
         try {
             Marshaller marshaller = JAXB_CONTEXT.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);

@@ -140,7 +140,7 @@
     "name" : "employed",
     "typeRef" : {
       "localName" : "employed",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "inputData",
@@ -151,7 +151,7 @@
     "name" : "person",
     "typeRef" : {
       "localName" : "person",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "decision",
@@ -170,7 +170,7 @@
     "name" : "decision",
     "typeRef" : {
       "localName" : "decision",
-      "namespace" : "http://www.gs.com/cip"
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   } ]
 }

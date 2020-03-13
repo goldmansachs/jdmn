@@ -59,7 +59,6 @@ import java.util.stream.Collectors;
 import static com.gs.dmn.serialization.DMNVersion.DMN_11;
 
 public class RDFToDMNTransformer extends AbstractFileTransformer {
-
     public static final String NUMBER_TYPE = "number";
     public static final String BOOLEAN_TYPE = "boolean";
     public static final String STRING_TYPE = "string";
@@ -72,6 +71,12 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
     public static final List<String> FEEL_DATA_TYPES = Arrays.asList(
             NUMBER_TYPE, BOOLEAN_TYPE, STRING_TYPE, DATE_TYPE, TIME_TYPE, DATETIME_TYPE, DURATION_TYPE, ENUMERATION_TYPE
     );
+
+    public static String RDF_FILE_EXTENSION = ".xml";
+
+    public static boolean isRDFFile(File file) {
+        return file != null && file.isFile() && file.getName().endsWith(RDF_FILE_EXTENSION);
+    }
 
     private static final Map<String, String> FUNCTION_RETURN_TYPE = new LinkedHashMap<String, String>();
     static {
@@ -99,17 +104,41 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
     }
 
     @Override
-    protected boolean shouldTransform(File inputFile) {
-        String name = inputFile.getName();
-        if (inputFile.isDirectory()) {
-            return !name.endsWith(".svn");
+    protected boolean shouldTransformFile(File inputFile) {
+        if (inputFile == null) {
+            return false;
+        } else if (inputFile.isDirectory()) {
+            return !inputFile.getName().endsWith(".svn");
         } else {
-            return name.endsWith(".xml");
+            return isRDFFile(inputFile);
         }
     }
 
     @Override
-    protected void transformFile(File child, File root, Path outputPath) {
+    protected void transformFile(File inputFile, File inputRoot, Path outputPath) {
+        if (inputFile.isDirectory()) {
+            if (shouldTransformFile(inputFile)) {
+                logger.info(String.format("Scanning folder '%s'", inputFile.getPath()));
+                File[] files = inputFile.listFiles();
+                if (files != null) {
+                    for (File child : files) {
+                        transformFile(child, inputRoot, outputPath);
+                    }
+                }
+            }
+        } else {
+            try {
+                if (shouldTransformFile(inputFile)) {
+                    logger.info(String.format("Transforming file '%s'", inputFile.getPath()));
+                    transformLeaf(inputFile, inputRoot, outputPath);
+                }
+            } catch (Exception e) {
+                throw new DMNRuntimeException(String.format("Failed to transform diagram '%s'", inputFile.getPath()), e);
+            }
+        }
+    }
+
+    private void transformLeaf(File child, File root, Path outputPath) {
         try (FileInputStream inputStream = new FileInputStream(child.toURI().getPath())) {
             File outputFolder = outputFolder(child, root, outputPath);
             File outputFile = new File(outputFolder, diagramName(child) + DMNConstants.DMN_FILE_EXTENSION);

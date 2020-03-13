@@ -19,10 +19,7 @@ import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.java.ExpressionStatement;
 import com.gs.dmn.transformation.java.Statement;
-import org.omg.spec.dmn._20180521.model.TDRGElement;
-import org.omg.spec.dmn._20180521.model.TExpression;
-import org.omg.spec.dmn._20180521.model.TList;
-import org.omg.spec.dmn._20180521.model.TRelation;
+import org.omg.spec.dmn._20180521.model.*;
 
 import javax.xml.bind.JAXBElement;
 import java.util.ArrayList;
@@ -42,16 +39,18 @@ public class RelationToJavaTransformer {
         this.environmentFactory = dmnTransformer.getEnvironmentFactory();
     }
 
-    public Statement expressionToJava(TRelation relation, TDRGElement element) {
+    public Statement expressionToJava(TDRGElement element, TRelation relation) {
+        TDefinitions model = this.modelRepository.getModel(element);
         Environment elementEnvironment = dmnTransformer.makeEnvironment(element);
 
         // Make relation environment
-        Environment relationEnvironment = dmnTransformer.makeRelationEnvironment(relation, elementEnvironment);
-        return relationExpressionToJava(relation, relationEnvironment, element);
+        Environment relationEnvironment = dmnTransformer.makeRelationEnvironment(model, relation, elementEnvironment);
+        return relationExpressionToJava(element, relation, relationEnvironment);
     }
 
-    Statement relationExpressionToJava(TRelation relation, Environment relationEnvironment, TDRGElement element) {
-        Type resultType = dmnTransformer.toFEELType(dmnTransformer.drgElementOutputTypeRef(element));
+    Statement relationExpressionToJava(TDRGElement element, TRelation relation, Environment relationEnvironment) {
+        TDefinitions model = this.modelRepository.getModel(element);
+        Type resultType = dmnTransformer.toFEELType(model, dmnTransformer.drgElementOutputTypeRef(element));
         if (relation.getRow() == null) {
             return new ExpressionStatement("null", resultType);
         }

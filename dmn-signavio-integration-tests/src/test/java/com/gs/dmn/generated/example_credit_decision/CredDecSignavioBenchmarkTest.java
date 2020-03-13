@@ -24,6 +24,7 @@ import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
+import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
@@ -33,6 +34,7 @@ import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -88,14 +90,15 @@ public class CredDecSignavioBenchmarkTest {
 
         String pathName = "exported/dmn/complex/Example credit decision.dmn";
         DMNModelRepository repository = readDMN(pathName);
-        DMNInterpreter interpreter = dialectDefinition.createDMNInterpreter(repository);
+        DMNInterpreter interpreter = dialectDefinition.createDMNInterpreter(repository, new LinkedHashMap<>());
 
-        RuntimeEnvironment environment = RuntimeEnvironmentFactory.instance().makeEnvironment();
-        environment.bind("applicant", applicant);
-        environment.bind("currentRiskAppetite", currentRiskAppetite);
-        environment.bind("lendingThreshold", lendingThreshold);
+        RuntimeEnvironment runtimeEnvironment = RuntimeEnvironmentFactory.instance().makeEnvironment();
+        runtimeEnvironment.bind("applicant", applicant);
+        runtimeEnvironment.bind("currentRiskAppetite", currentRiskAppetite);
+        runtimeEnvironment.bind("lendingThreshold", lendingThreshold);
 
-        Object result = interpreter.evaluate(null,"generateOutputData", environment);
+        TDRGElement decision = repository.findDRGElementByName("generateOutputData");
+        Object result = interpreter.evaluate(repository.makeDRGElementReference(decision), null, runtimeEnvironment);
         System.out.println(result);
 
         long endTime = System.currentTimeMillis();

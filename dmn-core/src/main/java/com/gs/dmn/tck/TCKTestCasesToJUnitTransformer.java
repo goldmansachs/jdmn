@@ -26,12 +26,17 @@ import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.StopWatch;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import static com.gs.dmn.tck.TestCasesReader.isTCKFile;
 
 public class TCKTestCasesToJUnitTransformer extends AbstractDMNTransformer {
     protected final BasicDMN2JavaTransformer basicTransformer;
@@ -41,7 +46,7 @@ public class TCKTestCasesToJUnitTransformer extends AbstractDMNTransformer {
 
     public TCKTestCasesToJUnitTransformer(DMNDialectDefinition dialectDefinition, DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, Map<String, String> inputParameters, BuildLogger logger) {
         super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
-        DMNModelRepository repository = readDMN(inputModelPath.toFile());
+        DMNModelRepository repository = readModels(inputModelPath.toFile());
         this.basicTransformer = this.dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);
         handleValidationErrors(this.dmnValidator.validate(repository));
         this.testCasesReader = new TestCasesReader(logger);
@@ -49,39 +54,62 @@ public class TCKTestCasesToJUnitTransformer extends AbstractDMNTransformer {
     }
 
     @Override
-    protected boolean shouldTransform(File inputFile) {
-        String name = inputFile.getName();
-        return name.endsWith(TestCasesReader.TEST_FILE_EXTENSION) && !name.endsWith(".svn");
+    protected boolean shouldTransformFile(File inputFile) {
+        if (inputFile == null) {
+            return false;
+        } else if (inputFile.isDirectory()) {
+            return !inputFile.getName().endsWith(".svn");
+        } else {
+            return isTCKFile(inputFile);
+        }
     }
 
     @Override
-    protected void transformFile(File child, File root, Path outputPath) {
+    protected void transformFile(File file, File root, Path outputPath) {
         try {
-            logger.info("Processing TCK TestCases ...");
+            logger.info(String.format("Processing TCK file '%s'", file.getPath()));
+            StopWatch watch = new StopWatch();
+            watch.start();
 
-            TestCases testCases = testCasesReader.read(child);
-            testCases = (TestCases) dmnTransformer.transform(basicTransformer.getDMNModelRepository(), testCases).getRight();
+            List<TestCases> testCasesList = new ArrayList<>();
+            if (file.isFile()) {
+                TestCases testCases = testCasesReader.read(file);
+                testCasesList.add(testCases);
+            } else if (file.isDirectory()) {
+                for (File child: file.listFiles()) {
+                    if (shouldTransformFile(child)) {
+                        TestCases testCases = testCasesReader.read(child);
+                        testCasesList.add(testCases);
+                    }
+                }
+            }
+            testCasesList = (List<TestCases>) dmnTransformer.transform(basicTransformer.getDMNModelRepository(), testCasesList).getRight();
 
-            String javaClassName = testClassName(testCases, basicTransformer);
-            processTemplate(testCases, templateProvider.testBaseTemplatePath(), templateProvider.testTemplateName(), basicTransformer, outputPath, javaClassName);
+            for (TestCases testCases: testCasesList) {
+                String javaClassName = testClassName(testCases, basicTransformer);
+                processTemplate(testCases, templateProvider.testBaseTemplatePath(), templateProvider.testTemplateName(), basicTransformer, outputPath, javaClassName);
+            }
+
+            watch.stop();
+            logger.info("TCK processing time: " + watch.toString());
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Error during transforming %s.", child.getName()), e);
+            throw new DMNRuntimeException(String.format("Error during transforming %s.", file.getName()), e);
         }
     }
 
     protected void processTemplate(TestCases testCases, String baseTemplatePath, String templateName, BasicDMN2JavaTransformer dmnTransformer, Path outputPath, String testClassName) {
         try {
-            // Make parameters
-            Map<String, Object> params = makeTemplateParams(testCases, dmnTransformer);
-            params.put("packageName", javaRootPackage);
-            params.put("testClassName", testClassName);
-            params.put("decisionBaseClass", decisionBaseClass);
-
             // Make output file
-            String javaPackageName = dmnTransformer.javaRootPackageName();
+            String javaPackageName = dmnTransformer.javaModelPackageName(testCases.getModelName());
             String relativeFilePath = javaPackageName.replace('.', '/');
             String fileExtension = ".java";
             File outputFile = makeOutputFile(outputPath, relativeFilePath, testClassName, fileExtension);
+
+            // Make parameters
+            Map<String, Object> params = makeTemplateParams(testCases, dmnTransformer);
+            params.put("packageName", javaPackageName);
+            params.put("testClassName", testClassName);
+            params.put("decisionBaseClass", decisionBaseClass);
 
             // Process template
             processTemplate(baseTemplatePath, templateName, params, outputFile, true);

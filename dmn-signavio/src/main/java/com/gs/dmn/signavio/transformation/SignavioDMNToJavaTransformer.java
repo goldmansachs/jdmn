@@ -36,6 +36,8 @@ import java.io.File;
 import java.nio.file.Path;
 import java.util.Map;
 
+import static com.gs.dmn.serialization.DMNReader.isDMNFile;
+
 public class SignavioDMNToJavaTransformer extends DMNToJavaTransformer {
     private static final String DMN_METADATA_FILE_NAME = "DMNMetadata";
     private String schemaNamespace;
@@ -49,7 +51,7 @@ public class SignavioDMNToJavaTransformer extends DMNToJavaTransformer {
     }
 
     @Override
-    protected DMNModelRepository readDMN(File file) {
+    protected DMNModelRepository readModels(File file) {
         if (isDMNFile(file)) {
             Pair<TDefinitions, PrefixNamespaceMappings> result = dmnReader.read(file);
             DMNModelRepository repository = new SignavioDMNModelRepository(result, this.schemaNamespace);

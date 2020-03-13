@@ -36,9 +36,13 @@ import org.omg.spec.dmn._20180521.model.TDefinitions;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.gs.dmn.serialization.DMNReader.isDMNFile;
+import static com.gs.dmn.signavio.testlab.TestLabReader.isTestLabFile;
 
 public class TestLabToJUnitTransformer extends AbstractDMNTransformer {
     private final TestLabReader testLabReader = new TestLabReader();
@@ -55,7 +59,7 @@ public class TestLabToJUnitTransformer extends AbstractDMNTransformer {
         if (StringUtils.isEmpty(this.schemaNamespace)) {
             this.schemaNamespace = "http://www.signavio.com/schema/dmn/1.1/";
         }
-        DMNModelRepository repository = readDMN(inputModelPath.toFile());
+        DMNModelRepository repository = readModels(inputModelPath.toFile());
         this.basicTransformer = this.dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);
         DMNModelRepository dmnModelRepository = this.basicTransformer.getDMNModelRepository();
         this.dmnValidator.validate(dmnModelRepository);
@@ -65,36 +69,56 @@ public class TestLabToJUnitTransformer extends AbstractDMNTransformer {
     }
 
     @Override
-    protected boolean shouldTransform(File inputFile) {
-        String name = inputFile.getName();
-        return name.endsWith(TestLabReader.TEST_LAB_FILE_EXTENSION) && !name.endsWith(".svn");
-    }
-
-    @Override
-    protected void transformFile(File child, File root, Path outputPath) {
-        try {
-            logger.info(String.format("Processing TestLab file '%s'", child.getPath()));
-            StopWatch watch = new StopWatch();
-            watch.start();
-
-            TestLab testLab = testLabReader.read(child);
-            testLabValidator.validate(testLab);
-            testLabEnhancer.enhance(testLab);
-
-            testLab = (TestLab) this.dmnTransformer.transform(basicTransformer.getDMNModelRepository(), testLab).getRight();
-
-            String javaClassName = testClassName(testLab, basicTransformer);
-            processTemplate(testLab, templateProvider.testBaseTemplatePath(), templateProvider.testTemplateName(), basicTransformer, outputPath, javaClassName);
-
-            watch.stop();
-            logger.info("TestLab processing time: " + watch.toString());
-        } catch (IOException e) {
-            throw new DMNRuntimeException(String.format("Error during transforming %s.", child.getName()), e);
+    protected boolean shouldTransformFile(File inputFile) {
+        if (inputFile == null) {
+            return false;
+        } else if (inputFile.isDirectory()) {
+            return !inputFile.getName().endsWith(".svn");
+        } else {
+            return isTestLabFile(inputFile);
         }
     }
 
     @Override
-    protected DMNModelRepository readDMN(File file) {
+    protected void transformFile(File file, File root, Path outputPath) {
+        try {
+            logger.info(String.format("Processing TestLab file '%s'", file.getPath()));
+            StopWatch watch = new StopWatch();
+            watch.start();
+
+            List<TestLab> testLabList = new ArrayList<>();
+            if (file.isFile()) {
+                TestLab testLab = testLabReader.read(file);
+                testLabValidator.validate(testLab);
+                testLabEnhancer.enhance(testLab);
+                testLabList.add(testLab);
+            } else {
+                for (File child: file.listFiles()) {
+                    if (shouldTransformFile(child)) {
+                        TestLab testLab = testLabReader.read(child);
+                        testLabValidator.validate(testLab);
+                        testLabEnhancer.enhance(testLab);
+                        testLabList.add(testLab);
+                    }
+                }
+            }
+
+            testLabList = (List<TestLab>) this.dmnTransformer.transform(basicTransformer.getDMNModelRepository(), testLabList).getRight();
+
+            for (TestLab testLab: testLabList) {
+                String javaClassName = testClassName(testLab, basicTransformer);
+                processTemplate(testLab, templateProvider.testBaseTemplatePath(), templateProvider.testTemplateName(), basicTransformer, outputPath, javaClassName);
+            }
+
+            watch.stop();
+            logger.info("TestLab processing time: " + watch.toString());
+        } catch (IOException e) {
+            throw new DMNRuntimeException(String.format("Error during transforming %s.", file.getName()), e);
+        }
+    }
+
+    @Override
+    protected DMNModelRepository readModels(File file) {
         if (isDMNFile(file)) {
             Pair<TDefinitions, PrefixNamespaceMappings> result = dmnReader.read(file);
             SignavioDMNModelRepository repository = new SignavioDMNModelRepository(result, this.schemaNamespace);
@@ -106,14 +130,15 @@ public class TestLabToJUnitTransformer extends AbstractDMNTransformer {
 
     private void processTemplate(TestLab testLab, String baseTemplatePath, String templateName, BasicDMN2JavaTransformer dmnTransformer, Path outputPath, String testClassName) {
         try {
+            String javaPackageName = dmnTransformer.javaModelPackageName(testLab.getModelName());
+
             // Make parameters
             Map<String, Object> params = makeTemplateParams(testLab, dmnTransformer);
-            params.put("packageName", javaRootPackage);
+            params.put("packageName", javaPackageName);
             params.put("testClassName", testClassName);
             params.put("decisionBaseClass", decisionBaseClass);
 
             // Make output file
-            String javaPackageName = dmnTransformer.javaRootPackageName();
             String relativeFilePath = javaPackageName.replace('.', '/');
             String fileExtension = ".java";
             File outputFile = makeOutputFile(outputPath, relativeFilePath, testClassName, fileExtension);

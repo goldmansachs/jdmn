@@ -16,21 +16,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LexicalContext {
-    private List<String> names;
+    private List<String> names = new ArrayList<>();
     private boolean ordered = false;
 
     public LexicalContext(String... names) {
         this.names =  new ArrayList<>();
         if (names != null) {
             for(String name: names) {
-                this.names.add(name);
+                addName(name);
             }
         }
     }
 
     public LexicalContext(List<String> names) {
         if (names != null) {
-            this.names = names;
+            addNames(names);
         }
     }
 
@@ -45,8 +45,10 @@ public class LexicalContext {
     }
 
     public void addName(String name) {
-        this.ordered = false;
-        this.names.add(name);
+        if (name != null) {
+            this.ordered = false;
+            this.names.add(name);
+        }
     }
 
     public List<String> orderedNames() {

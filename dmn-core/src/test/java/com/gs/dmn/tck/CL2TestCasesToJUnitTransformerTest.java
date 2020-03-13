@@ -32,12 +32,12 @@ public class CL2TestCasesToJUnitTransformerTest extends AbstractTCKTestCasesToJU
 
     @Test
     public void testCL2() throws Exception {
-        doTest("0004-simpletable-U", "0004-simpletable-U-test-01");
-        doTest("0005-simpletable-A", "0005-simpletable-A-test-01");
-        doTest("0006-simpletable-P1", "0006-simpletable-P1-test-01");
-        doTest("0007-simpletable-P2", "0007-simpletable-P2-test-01");
-        doTest("0008-LX-arithmetic", "0008-LX-arithmetic-test-01");
-        doTest("0009-invocation-arithmetic", "0009-invocation-arithmetic-test-01");
-        doTest("0010-multi-output-U", "0010-multi-output-U-test-01");
+        doSingleModelTest("0004-simpletable-U", "0004-simpletable-U-test-01");
+        doSingleModelTest("0005-simpletable-A", "0005-simpletable-A-test-01");
+        doSingleModelTest("0006-simpletable-P1", "0006-simpletable-P1-test-01");
+        doSingleModelTest("0007-simpletable-P2", "0007-simpletable-P2-test-01");
+        doSingleModelTest("0008-LX-arithmetic", "0008-LX-arithmetic-test-01");
+        doSingleModelTest("0009-invocation-arithmetic", "0009-invocation-arithmetic-test-01");
+        doSingleModelTest("0010-multi-output-U", "0010-multi-output-U-test-01");
     }
 }

@@ -26,7 +26,7 @@ public class FEELExpressionFixture extends FEELFixture {
     }
 
     public Object output() {
-        Result result = feelInterpreter.evaluateExpression(expression, makeContext());
+        Result result = this.feelInterpreter.evaluateExpression(this.expression, makeContext(null));
         return Result.value(result);
     }
 }

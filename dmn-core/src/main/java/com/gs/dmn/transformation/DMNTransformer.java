@@ -14,12 +14,14 @@ package com.gs.dmn.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.runtime.Pair;
+
+import java.util.List;
 import java.util.Map;
 
 public interface DMNTransformer<T> {
     DMNModelRepository transform(DMNModelRepository repository);
 
-    Pair<DMNModelRepository, T> transform(DMNModelRepository repository, T testCases);
+    Pair<DMNModelRepository, List<T>> transform(DMNModelRepository repository, List<T> testCasesList);
 
     default void configure(Map<String, Object> configuration) { }
 }

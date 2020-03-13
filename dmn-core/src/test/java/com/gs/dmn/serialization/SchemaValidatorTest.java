@@ -24,7 +24,7 @@ public class SchemaValidatorTest {
 
         SchemaValidator validator = new SchemaValidator(schemaLocation, "org.omg.dmn.tck.marshaller._20160719");
         File dmnFileFolder = new File(SchemaValidatorTest.class.getClassLoader().getResource("tck").getFile());
-        validate(dmnFileFolder, validator, TestCasesReader.TEST_FILE_EXTENSION);
+        validate(dmnFileFolder, validator, TestCasesReader.DEFAULT_TEST_CASE_FILE_EXTENSION);
     }
 
     private void validate(File file, SchemaValidator validator, String extension) {

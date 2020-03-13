@@ -22,7 +22,7 @@ public class RuleDescriptionTransformerTest extends AbstractFileTransformerTest 
     private final RuleDescriptionTransformer transformer = new RuleDescriptionTransformer(LOGGER);
 
     @Test
-    public void testTransformForIncorrectLists() throws Exception {
+    public void testTransformForIncorrectLists() {
         TDecisionRule rule = makeRule("[ , string(\"\") ,  , string(\"\") , ]");
         transformer.cleanRuleDescription(rule);
 
@@ -30,7 +30,7 @@ public class RuleDescriptionTransformerTest extends AbstractFileTransformerTest 
     }
 
     @Test
-    public void testTransformForIllegalString() throws Exception {
+    public void testTransformForIllegalString() {
         TDecisionRule rule = makeRule("[ string(-) ]");
         transformer.cleanRuleDescription(rule);
 
@@ -38,7 +38,7 @@ public class RuleDescriptionTransformerTest extends AbstractFileTransformerTest 
     }
 
     @Test
-    public void testTransformForIllegalCharacters() throws Exception {
+    public void testTransformForIllegalCharacters() {
         TDecisionRule rule = makeRule("[ string(\"abc \u00A0 123\") ]");
         transformer.cleanRuleDescription(rule);
 

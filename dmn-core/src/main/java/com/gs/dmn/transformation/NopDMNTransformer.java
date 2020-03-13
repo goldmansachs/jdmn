@@ -15,6 +15,8 @@ package com.gs.dmn.transformation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.runtime.Pair;
 
+import java.util.List;
+
 public class NopDMNTransformer<T> extends SimpleDMNTransformer<T> {
     @Override
     public DMNModelRepository transform(DMNModelRepository repository) {
@@ -22,7 +24,7 @@ public class NopDMNTransformer<T> extends SimpleDMNTransformer<T> {
     }
 
     @Override
-    public Pair<DMNModelRepository, T> transform(DMNModelRepository repository, T testCases) {
+    public Pair<DMNModelRepository, List<T>> transform(DMNModelRepository repository, List<T> testCases) {
         return new Pair(repository, testCases);
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<dmn:definitions xmlns:dmn="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:tns="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" expressionLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" namespace="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" name="0034-drg-scopes" id="_7X638PQIEeecaNY7kk20yA">
-    <dmn:extensionElements>
-        <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_7X638PQIEeecaNY7kk20yA" id="_7ZtAoPQIEeecaNY7kk20yA" name="0034-drg-scopes" type="Dmn">
+<definitions xmlns="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:tns="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" expressionLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" namespace="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" name="0034-drg-scopes" id="_7X638PQIEeecaNY7kk20yA">
+    <extensionElements>
+        <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_7X638PQIEeecaNY7kk20yA" id="_7ZtAoPQIEeecaNY7kk20yA" name="0034-drg-scopes" type="Dmn">
             <layout:node href="#_9z0SoPQIEeecaNY7kk20yA" id="_9020cPQIEeecaNY7kk20yA" type="2003">
                 <layout:location x="90" y="20"/>
             </layout:node>
@@ -147,398 +147,398 @@
                 <layout:bendpoints points="[62, -3, -256, -3]$[309, -26, -9, -26]"/>
             </layout:edge>
         </layout:container>
-    </dmn:extensionElements>
-    <dmn:itemDefinition isCollection="false" name="TypeDecisionA1" id="_Vvl3APRQEeeUEfOdtC13fQ">
-        <dmn:itemComponent isCollection="false" name="resolveA" id="_fMLGMPRQEeeUEfOdtC13fQ">
-            <dmn:typeRef>feel.string</dmn:typeRef>
-        </dmn:itemComponent>
-    </dmn:itemDefinition>
-    <dmn:itemDefinition isCollection="false" name="TypeDecisionA2.x" id="_Zp-B4PRQEeeUEfOdtC13fQ">
-        <dmn:itemComponent isCollection="false" name="resolveA1" id="_HRrmgPRREeeUEfOdtC13fQ">
-            <dmn:typeRef>TypeDecisionA1</dmn:typeRef>
-        </dmn:itemComponent>
-    </dmn:itemDefinition>
-    <dmn:itemDefinition isCollection="false" name="TypeDecisionA3" id="_cErw0PRQEeeUEfOdtC13fQ">
-        <dmn:itemComponent isCollection="false" name="resolveA21" id="_X6vqgPRREeeUEfOdtC13fQ">
-            <dmn:typeRef>.TypeDecisionA2.x</dmn:typeRef>
-        </dmn:itemComponent>
-        <dmn:itemComponent isCollection="false" name="resolveA22" id="_YDCq4PRREeeUEfOdtC13fQ">
-            <dmn:typeRef>.TypeDecisionA2.x</dmn:typeRef>
-        </dmn:itemComponent>
-    </dmn:itemDefinition>
-    <dmn:itemDefinition isCollection="false" name="TypeDecisionB1" id="_dGucoPRQEeeUEfOdtC13fQ">
-        <dmn:itemComponent isCollection="false" name="resolveB" id="_CJ7pkPRREeeUEfOdtC13fQ">
-            <dmn:typeRef>feel.string</dmn:typeRef>
-        </dmn:itemComponent>
-        <dmn:itemComponent isCollection="false" name="resolveA" id="_Rv7fUPRXEeeUEfOdtC13fQ">
-            <dmn:typeRef>feel.string</dmn:typeRef>
-        </dmn:itemComponent>
-    </dmn:itemDefinition>
-    <dmn:itemDefinition isCollection="false" name="TypeDecisionB2.x" id="_xac0gPRQEeeUEfOdtC13fQ">
-        <dmn:itemComponent isCollection="false" name="resolveB1" id="_jeTNQPRREeeUEfOdtC13fQ">
-            <dmn:typeRef>TypeDecisionB1</dmn:typeRef>
-        </dmn:itemComponent>
-    </dmn:itemDefinition>
-    <dmn:itemDefinition isCollection="false" name="TypeDecisionB3" id="_0XWDcPRQEeeUEfOdtC13fQ">
-        <dmn:itemComponent isCollection="false" name="resolveB21" id="_slUcIPRREeeUEfOdtC13fQ">
-            <dmn:typeRef>.TypeDecisionB2.x</dmn:typeRef>
-        </dmn:itemComponent>
-        <dmn:itemComponent isCollection="false" name="resolveB22" id="_ssyWEPRREeeUEfOdtC13fQ">
-            <dmn:typeRef>.TypeDecisionB2.x</dmn:typeRef>
-        </dmn:itemComponent>
-        <dmn:itemComponent isCollection="false" name="resolveA3" id="_s0jK8PRREeeUEfOdtC13fQ">
-            <dmn:typeRef>TypeDecisionA3</dmn:typeRef>
-        </dmn:itemComponent>
-    </dmn:itemDefinition>
-    <dmn:itemDefinition isCollection="false" name="TypeDecisionC1" id="_11IQEPRQEeeUEfOdtC13fQ">
-        <dmn:itemComponent isCollection="false" name="resolveC" id="_8-PyYPRREeeUEfOdtC13fQ">
-            <dmn:typeRef>feel.string</dmn:typeRef>
-        </dmn:itemComponent>
-        <dmn:itemComponent isCollection="false" name="resolveA3" id="_9kn14PRREeeUEfOdtC13fQ">
-            <dmn:typeRef>TypeDecisionA3</dmn:typeRef>
-        </dmn:itemComponent>
-        <dmn:itemComponent isCollection="false" name="resolveB3" id="_9u4lIPRREeeUEfOdtC13fQ">
-            <dmn:typeRef>TypeDecisionB3</dmn:typeRef>
-        </dmn:itemComponent>
-    </dmn:itemDefinition>
-    <dmn:itemDefinition isCollection="false" name="TypeDecisionC4" id="_5G3GkPRQEeeUEfOdtC13fQ">
-        <dmn:itemComponent isCollection="false" name="resolveC3" id="_WmQuYPRSEeeUEfOdtC13fQ">
-            <dmn:typeRef>feel.string</dmn:typeRef>
-        </dmn:itemComponent>
-    </dmn:itemDefinition>
-    <dmn:inputData name="A" id="_9z0SoPQIEeecaNY7kk20yA">
-        <dmn:variable typeRef="feel.string" name="A" id="_twf9MPROEeeUEfOdtC13fQ"/>
-    </dmn:inputData>
-    <dmn:inputData name="B" id="_AV-tYPQJEeecaNY7kk20yA">
-        <dmn:variable typeRef="feel.string" name="B" id="_vFQJofROEeeUEfOdtC13fQ"/>
-    </dmn:inputData>
-    <dmn:businessKnowledgeModel name="BKMI" id="_TCzY4PQJEeecaNY7kk20yA">
-        <dmn:extensionElements>
-            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_TCzY4PQJEeecaNY7kk20yA" id="_3_-kYPQLEeecaNY7kk20yA" name="" type="DMN_Expression"/>
-        </dmn:extensionElements>
-        <dmn:encapsulatedLogic id="_3_-kYfQLEeecaNY7kk20yA">
-            <dmn:formalParameter typeRef="feel.string" name="param" id="_5F-jIPQLEeecaNY7kk20yA"/>
-            <dmn:literalExpression typeRef="feel.string" id="_3_-kYvQLEeecaNY7kk20yA">
-                <dmn:text>"BKM I" + " # " + BKMII(param)</dmn:text>
-            </dmn:literalExpression>
-        </dmn:encapsulatedLogic>
-        <dmn:knowledgeRequirement>
-            <dmn:requiredKnowledge href="#_UL_1kPQJEeecaNY7kk20yA"/>
-        </dmn:knowledgeRequirement>
-    </dmn:businessKnowledgeModel>
-    <dmn:businessKnowledgeModel name="BKMII" id="_UL_1kPQJEeecaNY7kk20yA">
-        <dmn:extensionElements>
-            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_UL_1kPQJEeecaNY7kk20yA" id="_68UZsPQLEeecaNY7kk20yA" name="" type="DMN_Expression"/>
-        </dmn:extensionElements>
-        <dmn:encapsulatedLogic id="_68UZsfQLEeecaNY7kk20yA">
-            <dmn:formalParameter typeRef="feel.string" name="param" id="_7lAxYPQLEeecaNY7kk20yA"/>
-            <dmn:literalExpression typeRef="feel.string" id="_68UZsvQLEeecaNY7kk20yA">
-                <dmn:text>"BKM II" + " # " + BKMIII(param) + " # " + BKMIV(param)</dmn:text>
-            </dmn:literalExpression>
-        </dmn:encapsulatedLogic>
-        <dmn:knowledgeRequirement>
-            <dmn:requiredKnowledge href="#_U6fTQPQJEeecaNY7kk20yA"/>
-        </dmn:knowledgeRequirement>
-        <dmn:knowledgeRequirement>
-            <dmn:requiredKnowledge href="#_UgthUPQJEeecaNY7kk20yA"/>
-        </dmn:knowledgeRequirement>
-    </dmn:businessKnowledgeModel>
-    <dmn:businessKnowledgeModel name="BKMIII" id="_U6fTQPQJEeecaNY7kk20yA">
-        <dmn:extensionElements>
-            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_U6fTQPQJEeecaNY7kk20yA" id="_HJ1fcPQMEeecaNY7kk20yA" name="" type="DMN_Expression"/>
-        </dmn:extensionElements>
-        <dmn:encapsulatedLogic id="_HJ1fcfQMEeecaNY7kk20yA">
-            <dmn:formalParameter typeRef="feel.string" name="param" id="_H52AEPQMEeecaNY7kk20yA"/>
-            <dmn:literalExpression typeRef="feel.string" id="_HJ1fcvQMEeecaNY7kk20yA">
-                <dmn:text>"BKM III" + " # " + param</dmn:text>
-            </dmn:literalExpression>
-        </dmn:encapsulatedLogic>
-    </dmn:businessKnowledgeModel>
-    <dmn:businessKnowledgeModel name="BKMIV" id="_UgthUPQJEeecaNY7kk20yA">
-        <dmn:extensionElements>
-            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_UgthUPQJEeecaNY7kk20yA" id="_MvwmIPQMEeecaNY7kk20yA" name="" type="DMN_Expression"/>
-        </dmn:extensionElements>
-        <dmn:encapsulatedLogic id="_MvwmIfQMEeecaNY7kk20yA">
-            <dmn:formalParameter typeRef="feel.string" name="param" id="_N8gGEPQMEeecaNY7kk20yA"/>
-            <dmn:literalExpression typeRef="feel.string" id="_MvwmIvQMEeecaNY7kk20yA">
-                <dmn:text>"BKM IV" + " # " + BKMIII(param)</dmn:text>
-            </dmn:literalExpression>
-        </dmn:encapsulatedLogic>
-        <dmn:knowledgeRequirement>
-            <dmn:requiredKnowledge href="#_U6fTQPQJEeecaNY7kk20yA"/>
-        </dmn:knowledgeRequirement>
-    </dmn:businessKnowledgeModel>
-    <dmn:inputData name="C" id="_3kDvUPQJEeecaNY7kk20yA">
-        <dmn:variable typeRef="feel.string" name="C" id="_fPmDEfRPEeeUEfOdtC13fQ"/>
-    </dmn:inputData>
-    <dmn:decision name="decisionA1" id="_DMwGMPQJEeecaNY7kk20yA">
-        <dmn:extensionElements>
-            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_DMwGMPQJEeecaNY7kk20yA" id="_ZsYfgPQKEeecaNY7kk20yA" name="" type="DMN_Expression"/>
-        </dmn:extensionElements>
-        <dmn:variable typeRef="TypeDecisionA1" name="decisionA1" id="_iX6XgfRSEeeUEfOdtC13fQ"/>
-        <dmn:informationRequirement>
-            <dmn:requiredInput href="#_9z0SoPQIEeecaNY7kk20yA"/>
-        </dmn:informationRequirement>
-        <dmn:context id="_a-zwsPQKEeecaNY7kk20yA">
-            <dmn:contextEntry>
-                <dmn:variable typeRef="feel.string" name="resolveA" id="_bAS-d_QKEeecaNY7kk20yA"/>
-                <dmn:literalExpression id="_bAS-ePQKEeecaNY7kk20yA">
-                    <dmn:text>A</dmn:text>
-                </dmn:literalExpression>
-            </dmn:contextEntry>
-        </dmn:context>
-    </dmn:decision>
-    <dmn:decision name="decisionA21" id="_HQN7oPQJEeecaNY7kk20yA">
-        <dmn:extensionElements>
-            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_HQN7oPQJEeecaNY7kk20yA" id="_eyKtkPQKEeecaNY7kk20yA" name="" type="DMN_Expression"/>
-        </dmn:extensionElements>
-        <dmn:variable typeRef=".TypeDecisionA2.x" name="decisionA21" id="_2VW6MfROEeeUEfOdtC13fQ"/>
-        <dmn:informationRequirement>
-            <dmn:requiredDecision href="#_DMwGMPQJEeecaNY7kk20yA"/>
-        </dmn:informationRequirement>
-        <dmn:context id="_fHePMPQKEeecaNY7kk20yA">
-            <dmn:contextEntry>
-                <dmn:variable typeRef="TypeDecisionA1" name="resolveA1" id="_fgqLQPQKEeecaNY7kk20yA"/>
-                <dmn:literalExpression id="_fgqLQfQKEeecaNY7kk20yA">
-                    <dmn:text>decisionA1</dmn:text>
-                </dmn:literalExpression>
-            </dmn:contextEntry>
-        </dmn:context>
-    </dmn:decision>
-    <dmn:decision name="decisionA22" id="_HrMAYPQJEeecaNY7kk20yA">
-        <dmn:extensionElements>
-            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_HrMAYPQJEeecaNY7kk20yA" id="_nOMesPQKEeecaNY7kk20yA" name="" type="DMN_Expression"/>
-        </dmn:extensionElements>
-        <dmn:variable typeRef=".TypeDecisionA2.x" name="decisionA22" id="_r7oJcfRSEeeUEfOdtC13fQ"/>
-        <dmn:informationRequirement>
-            <dmn:requiredDecision href="#_DMwGMPQJEeecaNY7kk20yA"/>
-        </dmn:informationRequirement>
-        <dmn:context id="_nk2rMPQKEeecaNY7kk20yA">
-            <dmn:contextEntry>
-                <dmn:variable typeRef="TypeDecisionA1" name="resolveA1" id="_pel0APQKEeecaNY7kk20yA"/>
-                <dmn:literalExpression id="_pel0AfQKEeecaNY7kk20yA">
-                    <dmn:text>decisionA1</dmn:text>
-                </dmn:literalExpression>
-            </dmn:contextEntry>
-        </dmn:context>
-    </dmn:decision>
-    <dmn:decision name="decisionA3" id="_LGRAIPQJEeecaNY7kk20yA">
-        <dmn:extensionElements>
-            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_LGRAIPQJEeecaNY7kk20yA" id="_tooykPQKEeecaNY7kk20yA" name="" type="DMN_Expression"/>
-        </dmn:extensionElements>
-        <dmn:variable typeRef="TypeDecisionA3" name="decisionA3" id="_42grgfRSEeeUEfOdtC13fQ"/>
-        <dmn:informationRequirement>
-            <dmn:requiredDecision href="#_HQN7oPQJEeecaNY7kk20yA"/>
-        </dmn:informationRequirement>
-        <dmn:informationRequirement>
-            <dmn:requiredDecision href="#_HrMAYPQJEeecaNY7kk20yA"/>
-        </dmn:informationRequirement>
-        <dmn:context id="_t-lNYPQKEeecaNY7kk20yA">
-            <dmn:contextEntry>
-                <dmn:variable typeRef=".TypeDecisionA2.x" name="resolveA21" id="_uV0ox_QKEeecaNY7kk20yA"/>
-                <dmn:literalExpression id="_uV0oyfQKEeecaNY7kk20yA">
-                    <dmn:text>decisionA21</dmn:text>
-                </dmn:literalExpression>
-            </dmn:contextEntry>
-            <dmn:contextEntry>
-                <dmn:variable typeRef=".TypeDecisionA2.x" name="resolveA22" id="_uUCgAPQKEeecaNY7kk20yA"/>
-                <dmn:literalExpression id="_uUCgAfQKEeecaNY7kk20yA">
-                    <dmn:text>decisionA22</dmn:text>
-                </dmn:literalExpression>
-            </dmn:contextEntry>
-        </dmn:context>
-    </dmn:decision>
-    <dmn:decision name="decisionB1" id="_EL7rQPQJEeecaNY7kk20yA">
-        <dmn:extensionElements>
-            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_EL7rQPQJEeecaNY7kk20yA" id="_3WFvUPQKEeecaNY7kk20yA" name="" type="DMN_Expression"/>
-        </dmn:extensionElements>
-        <dmn:variable typeRef="TypeDecisionB1" name="decisionB1" id="_Lnbz4fRTEeeUEfOdtC13fQ"/>
-        <dmn:informationRequirement>
-            <dmn:requiredInput href="#_9z0SoPQIEeecaNY7kk20yA"/>
-        </dmn:informationRequirement>
-        <dmn:informationRequirement>
-            <dmn:requiredInput href="#_AV-tYPQJEeecaNY7kk20yA"/>
-        </dmn:informationRequirement>
-        <dmn:context id="_31avoPQKEeecaNY7kk20yA">
-            <dmn:contextEntry>
-                <dmn:variable typeRef="feel.string" name="resolveB" id="_3259Z_QKEeecaNY7kk20yA"/>
-                <dmn:literalExpression id="_3259aPQKEeecaNY7kk20yA">
-                    <dmn:text>B</dmn:text>
-                </dmn:literalExpression>
-            </dmn:contextEntry>
-            <dmn:contextEntry>
-                <dmn:variable typeRef="feel.string" name="resolveA" id="_OjGW8PRXEeeUEfOdtC13fQ"/>
-                <dmn:literalExpression id="_OjGW8fRXEeeUEfOdtC13fQ">
-                    <dmn:text>A</dmn:text>
-                </dmn:literalExpression>
-            </dmn:contextEntry>
-        </dmn:context>
-    </dmn:decision>
-    <dmn:decision name="decisionB21" id="_I_HtcPQJEeecaNY7kk20yA">
-        <dmn:extensionElements>
-            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_I_HtcPQJEeecaNY7kk20yA" id="_51714PQKEeecaNY7kk20yA" name="" type="DMN_Expression"/>
-        </dmn:extensionElements>
-        <dmn:variable typeRef=".TypeDecisionB2.x" name="decisionB21" id="_QZqMwfRTEeeUEfOdtC13fQ"/>
-        <dmn:informationRequirement>
-            <dmn:requiredDecision href="#_EL7rQPQJEeecaNY7kk20yA"/>
-        </dmn:informationRequirement>
-        <dmn:context id="_6LkusPQKEeecaNY7kk20yA">
-            <dmn:contextEntry>
-                <dmn:variable typeRef="TypeDecisionB1" name="resolveB1" id="_6ijrUPQKEeecaNY7kk20yA"/>
-                <dmn:literalExpression id="_6ijrUfQKEeecaNY7kk20yA">
-                    <dmn:text>decisionB1</dmn:text>
-                </dmn:literalExpression>
-            </dmn:contextEntry>
-        </dmn:context>
-    </dmn:decision>
-    <dmn:decision name="decisionB22" id="_JhYtAPQJEeecaNY7kk20yA">
-        <dmn:extensionElements>
-            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_JhYtAPQJEeecaNY7kk20yA" id="_-iazIPQKEeecaNY7kk20yA" name="" type="DMN_Expression"/>
-        </dmn:extensionElements>
-        <dmn:variable typeRef=".TypeDecisionB2.x" name="decisionB22" id="_XAogwfRTEeeUEfOdtC13fQ"/>
-        <dmn:informationRequirement>
-            <dmn:requiredDecision href="#_EL7rQPQJEeecaNY7kk20yA"/>
-        </dmn:informationRequirement>
-        <dmn:context id="_-2Y4APQKEeecaNY7kk20yA">
-            <dmn:contextEntry>
-                <dmn:variable typeRef="TypeDecisionB1" name="resolveB1" id="__NOqsPQKEeecaNY7kk20yA"/>
-                <dmn:literalExpression id="__NOqsfQKEeecaNY7kk20yA">
-                    <dmn:text>decisionB1</dmn:text>
-                </dmn:literalExpression>
-            </dmn:contextEntry>
-        </dmn:context>
-    </dmn:decision>
-    <dmn:decision name="decisionB3" id="_Mk9LsPQJEeecaNY7kk20yA">
-        <dmn:extensionElements>
-            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_Mk9LsPQJEeecaNY7kk20yA" id="_DB-usPQLEeecaNY7kk20yA" name="" type="DMN_Expression"/>
-        </dmn:extensionElements>
-        <dmn:variable typeRef="TypeDecisionB3" name="decisionB3" id="_cNLeIfRTEeeUEfOdtC13fQ"/>
-        <dmn:informationRequirement>
-            <dmn:requiredDecision href="#_I_HtcPQJEeecaNY7kk20yA"/>
-        </dmn:informationRequirement>
-        <dmn:informationRequirement>
-            <dmn:requiredDecision href="#_JhYtAPQJEeecaNY7kk20yA"/>
-        </dmn:informationRequirement>
-        <dmn:informationRequirement>
-            <dmn:requiredDecision href="#_LGRAIPQJEeecaNY7kk20yA"/>
-        </dmn:informationRequirement>
-        <dmn:context id="_DaII8PQLEeecaNY7kk20yA">
-            <dmn:contextEntry>
-                <dmn:variable typeRef=".TypeDecisionB2.x" name="resolveB21" id="_DuFmwPQLEeecaNY7kk20yA"/>
-                <dmn:literalExpression id="_DuFmwfQLEeecaNY7kk20yA">
-                    <dmn:text>decisionB21</dmn:text>
-                </dmn:literalExpression>
-            </dmn:contextEntry>
-            <dmn:contextEntry>
-                <dmn:variable typeRef=".TypeDecisionB2.x" name="resolveB22" id="_DsTeEPQLEeecaNY7kk20yA"/>
-                <dmn:literalExpression id="_DsTeEfQLEeecaNY7kk20yA">
-                    <dmn:text>decisionB22</dmn:text>
-                </dmn:literalExpression>
-            </dmn:contextEntry>
-            <dmn:contextEntry>
-                <dmn:variable typeRef="TypeDecisionA3" name="resolveA3" id="_jrA5kPQPEeecaNY7kk20yA"/>
-                <dmn:literalExpression id="_jrA5kfQPEeecaNY7kk20yA">
-                    <dmn:text>decisionA3</dmn:text>
-                </dmn:literalExpression>
-            </dmn:contextEntry>
-        </dmn:context>
-    </dmn:decision>
-    <dmn:decision name="decisionC1" id="_OWzj0PQJEeecaNY7kk20yA">
-        <dmn:extensionElements>
-            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_OWzj0PQJEeecaNY7kk20yA" id="_LZBSIPQLEeecaNY7kk20yA" name="" type="DMN_Expression"/>
-        </dmn:extensionElements>
-        <dmn:variable typeRef="TypeDecisionC1" name="decisionC1" id="_tu_IAfRTEeeUEfOdtC13fQ"/>
-        <dmn:informationRequirement>
-            <dmn:requiredDecision href="#_LGRAIPQJEeecaNY7kk20yA"/>
-        </dmn:informationRequirement>
-        <dmn:informationRequirement>
-            <dmn:requiredDecision href="#_Mk9LsPQJEeecaNY7kk20yA"/>
-        </dmn:informationRequirement>
-        <dmn:informationRequirement>
-            <dmn:requiredInput href="#_3kDvUPQJEeecaNY7kk20yA"/>
-        </dmn:informationRequirement>
-        <dmn:context id="_L3HjYPQLEeecaNY7kk20yA">
-            <dmn:contextEntry>
-                <dmn:variable typeRef="feel.string" name="resolveC" id="_L4mxIfQLEeecaNY7kk20yA"/>
-                <dmn:literalExpression id="_L4mxIvQLEeecaNY7kk20yA">
-                    <dmn:text>C</dmn:text>
-                </dmn:literalExpression>
-            </dmn:contextEntry>
-            <dmn:contextEntry>
-                <dmn:variable typeRef="TypeDecisionA3" name="resolveA3" id="_N3kYMPQLEeecaNY7kk20yA"/>
-                <dmn:literalExpression id="_N3kYMfQLEeecaNY7kk20yA">
-                    <dmn:text>decisionA3</dmn:text>
-                </dmn:literalExpression>
-            </dmn:contextEntry>
-            <dmn:contextEntry>
-                <dmn:variable typeRef="TypeDecisionB3" name="resolveB3" id="_N1oegPQLEeecaNY7kk20yA"/>
-                <dmn:literalExpression id="_N1oegfQLEeecaNY7kk20yA">
-                    <dmn:text>decisionB3</dmn:text>
-                </dmn:literalExpression>
-            </dmn:contextEntry>
-        </dmn:context>
-    </dmn:decision>
-    <dmn:decision name="decisionC2" id="_Zf4KAPQJEeecaNY7kk20yA">
-        <dmn:extensionElements>
-            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_Zf4KAPQJEeecaNY7kk20yA" id="_hzhwUPQLEeecaNY7kk20yA" name="" type="DMN_Expression"/>
-        </dmn:extensionElements>
-        <dmn:variable typeRef="feel.string" name="decisionC2" id="_7jmHYfRTEeeUEfOdtC13fQ"/>
-        <dmn:informationRequirement>
-            <dmn:requiredDecision href="#_OWzj0PQJEeecaNY7kk20yA"/>
-        </dmn:informationRequirement>
-        <dmn:knowledgeRequirement>
-            <dmn:requiredKnowledge href="#_TCzY4PQJEeecaNY7kk20yA"/>
-        </dmn:knowledgeRequirement>
-        <dmn:invocation id="_lUEe4PQLEeecaNY7kk20yA">
-            <dmn:literalExpression id="_lWdEifQLEeecaNY7kk20yA">
-                <dmn:text>BKMI</dmn:text>
-            </dmn:literalExpression>
-            <dmn:binding>
-                <dmn:parameter typeRef="feel.string" name="param" id="_lWdEivQLEeecaNY7kk20yA"/>
-                <dmn:literalExpression id="_lWdEi_QLEeecaNY7kk20yA">
-                    <dmn:text>"decision C 2"</dmn:text>
-                </dmn:literalExpression>
-            </dmn:binding>
-        </dmn:invocation>
-    </dmn:decision>
-    <dmn:decision name="decisionC3" id="_XsZaMPQJEeecaNY7kk20yA">
-        <dmn:extensionElements>
-            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_XsZaMPQJEeecaNY7kk20yA" id="_s3udkPQLEeecaNY7kk20yA" name="" type="DMN_Expression"/>
-        </dmn:extensionElements>
-        <dmn:variable typeRef="feel.string" name="decisionC3" id="_9uAJcfRTEeeUEfOdtC13fQ"/>
-        <dmn:informationRequirement>
-            <dmn:requiredDecision href="#_Zf4KAPQJEeecaNY7kk20yA"/>
-        </dmn:informationRequirement>
-        <dmn:knowledgeRequirement>
-            <dmn:requiredKnowledge href="#_UL_1kPQJEeecaNY7kk20yA"/>
-        </dmn:knowledgeRequirement>
-        <dmn:invocation id="_tjkP4PQLEeecaNY7kk20yA">
-            <dmn:literalExpression id="_tlgJpfQLEeecaNY7kk20yA">
-                <dmn:text>BKMII</dmn:text>
-            </dmn:literalExpression>
-            <dmn:binding>
-                <dmn:parameter typeRef="feel.string" name="param" id="_tlgJpvQLEeecaNY7kk20yA"/>
-                <dmn:literalExpression id="_tlgJp_QLEeecaNY7kk20yA">
-                    <dmn:text>"decision C 3"</dmn:text>
-                </dmn:literalExpression>
-            </dmn:binding>
-        </dmn:invocation>
-    </dmn:decision>
-    <dmn:decision name="decisionC4" id="_tX2SoPQMEeecaNY7kk20yA">
-        <dmn:extensionElements>
-            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns:dmn="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_tX2SoPQMEeecaNY7kk20yA" id="_1LM6MPQMEeecaNY7kk20yA" name="" type="DMN_Expression"/>
-        </dmn:extensionElements>
-        <dmn:variable typeRef="TypeDecisionC4" name="decisionC4" id="_B1nfEfRUEeeUEfOdtC13fQ"/>
-        <dmn:informationRequirement>
-            <dmn:requiredDecision href="#_XsZaMPQJEeecaNY7kk20yA"/>
-        </dmn:informationRequirement>
-        <dmn:context id="_1pWOwPQMEeecaNY7kk20yA">
-            <dmn:contextEntry>
-                <dmn:variable typeRef="feel.string" name="resolveC3" id="_4nGZbPQMEeecaNY7kk20yA"/>
-                <dmn:literalExpression id="_4nGZbvQMEeecaNY7kk20yA">
-                    <dmn:text>decisionC3</dmn:text>
-                </dmn:literalExpression>
-            </dmn:contextEntry>
-        </dmn:context>
-    </dmn:decision>
-</dmn:definitions>
+    </extensionElements>
+    <itemDefinition isCollection="false" name="TypeDecisionA1" id="_Vvl3APRQEeeUEfOdtC13fQ">
+        <itemComponent isCollection="false" name="resolveA" id="_fMLGMPRQEeeUEfOdtC13fQ">
+            <typeRef>feel.string</typeRef>
+        </itemComponent>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="TypeDecisionA2.x" id="_Zp-B4PRQEeeUEfOdtC13fQ">
+        <itemComponent isCollection="false" name="resolveA1" id="_HRrmgPRREeeUEfOdtC13fQ">
+            <typeRef>TypeDecisionA1</typeRef>
+        </itemComponent>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="TypeDecisionA3" id="_cErw0PRQEeeUEfOdtC13fQ">
+        <itemComponent isCollection="false" name="resolveA21" id="_X6vqgPRREeeUEfOdtC13fQ">
+            <typeRef>TypeDecisionA2.x</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="resolveA22" id="_YDCq4PRREeeUEfOdtC13fQ">
+            <typeRef>TypeDecisionA2.x</typeRef>
+        </itemComponent>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="TypeDecisionB1" id="_dGucoPRQEeeUEfOdtC13fQ">
+        <itemComponent isCollection="false" name="resolveB" id="_CJ7pkPRREeeUEfOdtC13fQ">
+            <typeRef>feel.string</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="resolveA" id="_Rv7fUPRXEeeUEfOdtC13fQ">
+            <typeRef>feel.string</typeRef>
+        </itemComponent>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="TypeDecisionB2.x" id="_xac0gPRQEeeUEfOdtC13fQ">
+        <itemComponent isCollection="false" name="resolveB1" id="_jeTNQPRREeeUEfOdtC13fQ">
+            <typeRef>TypeDecisionB1</typeRef>
+        </itemComponent>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="TypeDecisionB3" id="_0XWDcPRQEeeUEfOdtC13fQ">
+        <itemComponent isCollection="false" name="resolveB21" id="_slUcIPRREeeUEfOdtC13fQ">
+            <typeRef>TypeDecisionB2.x</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="resolveB22" id="_ssyWEPRREeeUEfOdtC13fQ">
+            <typeRef>TypeDecisionB2.x</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="resolveA3" id="_s0jK8PRREeeUEfOdtC13fQ">
+            <typeRef>TypeDecisionA3</typeRef>
+        </itemComponent>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="TypeDecisionC1" id="_11IQEPRQEeeUEfOdtC13fQ">
+        <itemComponent isCollection="false" name="resolveC" id="_8-PyYPRREeeUEfOdtC13fQ">
+            <typeRef>feel.string</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="resolveA3" id="_9kn14PRREeeUEfOdtC13fQ">
+            <typeRef>TypeDecisionA3</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="resolveB3" id="_9u4lIPRREeeUEfOdtC13fQ">
+            <typeRef>TypeDecisionB3</typeRef>
+        </itemComponent>
+    </itemDefinition>
+    <itemDefinition isCollection="false" name="TypeDecisionC4" id="_5G3GkPRQEeeUEfOdtC13fQ">
+        <itemComponent isCollection="false" name="resolveC3" id="_WmQuYPRSEeeUEfOdtC13fQ">
+            <typeRef>feel.string</typeRef>
+        </itemComponent>
+    </itemDefinition>
+    <inputData name="A" id="_9z0SoPQIEeecaNY7kk20yA">
+        <variable typeRef="feel.string" name="A" id="_twf9MPROEeeUEfOdtC13fQ"/>
+    </inputData>
+    <inputData name="B" id="_AV-tYPQJEeecaNY7kk20yA">
+        <variable typeRef="feel.string" name="B" id="_vFQJofROEeeUEfOdtC13fQ"/>
+    </inputData>
+    <businessKnowledgeModel name="BKMI" id="_TCzY4PQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_TCzY4PQJEeecaNY7kk20yA" id="_3_-kYPQLEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <encapsulatedLogic id="_3_-kYfQLEeecaNY7kk20yA">
+            <formalParameter typeRef="feel.string" name="param" id="_5F-jIPQLEeecaNY7kk20yA"/>
+            <literalExpression typeRef="feel.string" id="_3_-kYvQLEeecaNY7kk20yA">
+                <text>"BKM I" + " # " + BKMII(param)</text>
+            </literalExpression>
+        </encapsulatedLogic>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_UL_1kPQJEeecaNY7kk20yA"/>
+        </knowledgeRequirement>
+    </businessKnowledgeModel>
+    <businessKnowledgeModel name="BKMII" id="_UL_1kPQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_UL_1kPQJEeecaNY7kk20yA" id="_68UZsPQLEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <encapsulatedLogic id="_68UZsfQLEeecaNY7kk20yA">
+            <formalParameter typeRef="feel.string" name="param" id="_7lAxYPQLEeecaNY7kk20yA"/>
+            <literalExpression typeRef="feel.string" id="_68UZsvQLEeecaNY7kk20yA">
+                <text>"BKM II" + " # " + BKMIII(param) + " # " + BKMIV(param)</text>
+            </literalExpression>
+        </encapsulatedLogic>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_U6fTQPQJEeecaNY7kk20yA"/>
+        </knowledgeRequirement>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_UgthUPQJEeecaNY7kk20yA"/>
+        </knowledgeRequirement>
+    </businessKnowledgeModel>
+    <businessKnowledgeModel name="BKMIII" id="_U6fTQPQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_U6fTQPQJEeecaNY7kk20yA" id="_HJ1fcPQMEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <encapsulatedLogic id="_HJ1fcfQMEeecaNY7kk20yA">
+            <formalParameter typeRef="feel.string" name="param" id="_H52AEPQMEeecaNY7kk20yA"/>
+            <literalExpression typeRef="feel.string" id="_HJ1fcvQMEeecaNY7kk20yA">
+                <text>"BKM III" + " # " + param</text>
+            </literalExpression>
+        </encapsulatedLogic>
+    </businessKnowledgeModel>
+    <businessKnowledgeModel name="BKMIV" id="_UgthUPQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_UgthUPQJEeecaNY7kk20yA" id="_MvwmIPQMEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <encapsulatedLogic id="_MvwmIfQMEeecaNY7kk20yA">
+            <formalParameter typeRef="feel.string" name="param" id="_N8gGEPQMEeecaNY7kk20yA"/>
+            <literalExpression typeRef="feel.string" id="_MvwmIvQMEeecaNY7kk20yA">
+                <text>"BKM IV" + " # " + BKMIII(param)</text>
+            </literalExpression>
+        </encapsulatedLogic>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_U6fTQPQJEeecaNY7kk20yA"/>
+        </knowledgeRequirement>
+    </businessKnowledgeModel>
+    <inputData name="C" id="_3kDvUPQJEeecaNY7kk20yA">
+        <variable typeRef="feel.string" name="C" id="_fPmDEfRPEeeUEfOdtC13fQ"/>
+    </inputData>
+    <decision name="decisionA1" id="_DMwGMPQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_DMwGMPQJEeecaNY7kk20yA" id="_ZsYfgPQKEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <variable typeRef="TypeDecisionA1" name="decisionA1" id="_iX6XgfRSEeeUEfOdtC13fQ"/>
+        <informationRequirement>
+            <requiredInput href="#_9z0SoPQIEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <context id="_a-zwsPQKEeecaNY7kk20yA">
+            <contextEntry>
+                <variable typeRef="feel.string" name="resolveA" id="_bAS-d_QKEeecaNY7kk20yA"/>
+                <literalExpression id="_bAS-ePQKEeecaNY7kk20yA">
+                    <text>A</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+    <decision name="decisionA21" id="_HQN7oPQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_HQN7oPQJEeecaNY7kk20yA" id="_eyKtkPQKEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <variable typeRef="TypeDecisionA2.x" name="decisionA21" id="_2VW6MfROEeeUEfOdtC13fQ"/>
+        <informationRequirement>
+            <requiredDecision href="#_DMwGMPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <context id="_fHePMPQKEeecaNY7kk20yA">
+            <contextEntry>
+                <variable typeRef="TypeDecisionA1" name="resolveA1" id="_fgqLQPQKEeecaNY7kk20yA"/>
+                <literalExpression id="_fgqLQfQKEeecaNY7kk20yA">
+                    <text>decisionA1</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+    <decision name="decisionA22" id="_HrMAYPQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_HrMAYPQJEeecaNY7kk20yA" id="_nOMesPQKEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <variable typeRef="TypeDecisionA2.x" name="decisionA22" id="_r7oJcfRSEeeUEfOdtC13fQ"/>
+        <informationRequirement>
+            <requiredDecision href="#_DMwGMPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <context id="_nk2rMPQKEeecaNY7kk20yA">
+            <contextEntry>
+                <variable typeRef="TypeDecisionA1" name="resolveA1" id="_pel0APQKEeecaNY7kk20yA"/>
+                <literalExpression id="_pel0AfQKEeecaNY7kk20yA">
+                    <text>decisionA1</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+    <decision name="decisionA3" id="_LGRAIPQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_LGRAIPQJEeecaNY7kk20yA" id="_tooykPQKEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <variable typeRef="TypeDecisionA3" name="decisionA3" id="_42grgfRSEeeUEfOdtC13fQ"/>
+        <informationRequirement>
+            <requiredDecision href="#_HQN7oPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#_HrMAYPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <context id="_t-lNYPQKEeecaNY7kk20yA">
+            <contextEntry>
+                <variable typeRef="TypeDecisionA2.x" name="resolveA21" id="_uV0ox_QKEeecaNY7kk20yA"/>
+                <literalExpression id="_uV0oyfQKEeecaNY7kk20yA">
+                    <text>decisionA21</text>
+                </literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable typeRef="TypeDecisionA2.x" name="resolveA22" id="_uUCgAPQKEeecaNY7kk20yA"/>
+                <literalExpression id="_uUCgAfQKEeecaNY7kk20yA">
+                    <text>decisionA22</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+    <decision name="decisionB1" id="_EL7rQPQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_EL7rQPQJEeecaNY7kk20yA" id="_3WFvUPQKEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <variable typeRef="TypeDecisionB1" name="decisionB1" id="_Lnbz4fRTEeeUEfOdtC13fQ"/>
+        <informationRequirement>
+            <requiredInput href="#_9z0SoPQIEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#_AV-tYPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <context id="_31avoPQKEeecaNY7kk20yA">
+            <contextEntry>
+                <variable typeRef="feel.string" name="resolveB" id="_3259Z_QKEeecaNY7kk20yA"/>
+                <literalExpression id="_3259aPQKEeecaNY7kk20yA">
+                    <text>B</text>
+                </literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable typeRef="feel.string" name="resolveA" id="_OjGW8PRXEeeUEfOdtC13fQ"/>
+                <literalExpression id="_OjGW8fRXEeeUEfOdtC13fQ">
+                    <text>A</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+    <decision name="decisionB21" id="_I_HtcPQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_I_HtcPQJEeecaNY7kk20yA" id="_51714PQKEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <variable typeRef="TypeDecisionB2.x" name="decisionB21" id="_QZqMwfRTEeeUEfOdtC13fQ"/>
+        <informationRequirement>
+            <requiredDecision href="#_EL7rQPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <context id="_6LkusPQKEeecaNY7kk20yA">
+            <contextEntry>
+                <variable typeRef="TypeDecisionB1" name="resolveB1" id="_6ijrUPQKEeecaNY7kk20yA"/>
+                <literalExpression id="_6ijrUfQKEeecaNY7kk20yA">
+                    <text>decisionB1</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+    <decision name="decisionB22" id="_JhYtAPQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_JhYtAPQJEeecaNY7kk20yA" id="_-iazIPQKEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <variable typeRef="TypeDecisionB2.x" name="decisionB22" id="_XAogwfRTEeeUEfOdtC13fQ"/>
+        <informationRequirement>
+            <requiredDecision href="#_EL7rQPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <context id="_-2Y4APQKEeecaNY7kk20yA">
+            <contextEntry>
+                <variable typeRef="TypeDecisionB1" name="resolveB1" id="__NOqsPQKEeecaNY7kk20yA"/>
+                <literalExpression id="__NOqsfQKEeecaNY7kk20yA">
+                    <text>decisionB1</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+    <decision name="decisionB3" id="_Mk9LsPQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_Mk9LsPQJEeecaNY7kk20yA" id="_DB-usPQLEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <variable typeRef="TypeDecisionB3" name="decisionB3" id="_cNLeIfRTEeeUEfOdtC13fQ"/>
+        <informationRequirement>
+            <requiredDecision href="#_I_HtcPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#_JhYtAPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#_LGRAIPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <context id="_DaII8PQLEeecaNY7kk20yA">
+            <contextEntry>
+                <variable typeRef="TypeDecisionB2.x" name="resolveB21" id="_DuFmwPQLEeecaNY7kk20yA"/>
+                <literalExpression id="_DuFmwfQLEeecaNY7kk20yA">
+                    <text>decisionB21</text>
+                </literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable typeRef="TypeDecisionB2.x" name="resolveB22" id="_DsTeEPQLEeecaNY7kk20yA"/>
+                <literalExpression id="_DsTeEfQLEeecaNY7kk20yA">
+                    <text>decisionB22</text>
+                </literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable typeRef="TypeDecisionA3" name="resolveA3" id="_jrA5kPQPEeecaNY7kk20yA"/>
+                <literalExpression id="_jrA5kfQPEeecaNY7kk20yA">
+                    <text>decisionA3</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+    <decision name="decisionC1" id="_OWzj0PQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_OWzj0PQJEeecaNY7kk20yA" id="_LZBSIPQLEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <variable typeRef="TypeDecisionC1" name="decisionC1" id="_tu_IAfRTEeeUEfOdtC13fQ"/>
+        <informationRequirement>
+            <requiredDecision href="#_LGRAIPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#_Mk9LsPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#_3kDvUPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <context id="_L3HjYPQLEeecaNY7kk20yA">
+            <contextEntry>
+                <variable typeRef="feel.string" name="resolveC" id="_L4mxIfQLEeecaNY7kk20yA"/>
+                <literalExpression id="_L4mxIvQLEeecaNY7kk20yA">
+                    <text>C</text>
+                </literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable typeRef="TypeDecisionA3" name="resolveA3" id="_N3kYMPQLEeecaNY7kk20yA"/>
+                <literalExpression id="_N3kYMfQLEeecaNY7kk20yA">
+                    <text>decisionA3</text>
+                </literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable typeRef="TypeDecisionB3" name="resolveB3" id="_N1oegPQLEeecaNY7kk20yA"/>
+                <literalExpression id="_N1oegfQLEeecaNY7kk20yA">
+                    <text>decisionB3</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+    <decision name="decisionC2" id="_Zf4KAPQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_Zf4KAPQJEeecaNY7kk20yA" id="_hzhwUPQLEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <variable typeRef="feel.string" name="decisionC2" id="_7jmHYfRTEeeUEfOdtC13fQ"/>
+        <informationRequirement>
+            <requiredDecision href="#_OWzj0PQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_TCzY4PQJEeecaNY7kk20yA"/>
+        </knowledgeRequirement>
+        <invocation id="_lUEe4PQLEeecaNY7kk20yA">
+            <literalExpression id="_lWdEifQLEeecaNY7kk20yA">
+                <text>BKMI</text>
+            </literalExpression>
+            <binding>
+                <parameter typeRef="feel.string" name="param" id="_lWdEivQLEeecaNY7kk20yA"/>
+                <literalExpression id="_lWdEi_QLEeecaNY7kk20yA">
+                    <text>"decision C 2"</text>
+                </literalExpression>
+            </binding>
+        </invocation>
+    </decision>
+    <decision name="decisionC3" id="_XsZaMPQJEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_XsZaMPQJEeecaNY7kk20yA" id="_s3udkPQLEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <variable typeRef="feel.string" name="decisionC3" id="_9uAJcfRTEeeUEfOdtC13fQ"/>
+        <informationRequirement>
+            <requiredDecision href="#_Zf4KAPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_UL_1kPQJEeecaNY7kk20yA"/>
+        </knowledgeRequirement>
+        <invocation id="_tjkP4PQLEeecaNY7kk20yA">
+            <literalExpression id="_tlgJpfQLEeecaNY7kk20yA">
+                <text>BKMII</text>
+            </literalExpression>
+            <binding>
+                <parameter typeRef="feel.string" name="param" id="_tlgJpvQLEeecaNY7kk20yA"/>
+                <literalExpression id="_tlgJp_QLEeecaNY7kk20yA">
+                    <text>"decision C 3"</text>
+                </literalExpression>
+            </binding>
+        </invocation>
+    </decision>
+    <decision name="decisionC4" id="_tX2SoPQMEeecaNY7kk20yA">
+        <extensionElements>
+            <layout:container xmlns:layout="https://products.bfs-intra.net/milestones/vr/spec/20170328/dmndi.xsd" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" href="#_tX2SoPQMEeecaNY7kk20yA" id="_1LM6MPQMEeecaNY7kk20yA" name="" type="DMN_Expression"/>
+        </extensionElements>
+        <variable typeRef="TypeDecisionC4" name="decisionC4" id="_B1nfEfRUEeeUEfOdtC13fQ"/>
+        <informationRequirement>
+            <requiredDecision href="#_XsZaMPQJEeecaNY7kk20yA"/>
+        </informationRequirement>
+        <context id="_1pWOwPQMEeecaNY7kk20yA">
+            <contextEntry>
+                <variable typeRef="feel.string" name="resolveC3" id="_4nGZbPQMEeecaNY7kk20yA"/>
+                <literalExpression id="_4nGZbvQMEeecaNY7kk20yA">
+                    <text>decisionC3</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+</definitions>

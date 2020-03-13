@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class DefaultDMNValidator extends SimpleDMNValidator {
     public DefaultDMNValidator() {
@@ -45,45 +44,48 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
             throw new IllegalArgumentException("Missing definitions");
         }
 
-        logger.debug("Validate unique 'DRGElement.id'");
-        validateUnique(
-                "DRGElement", "id", false,
-                new ArrayList<>(dmnModelRepository.drgElements()), TDMNElement::getId, null, errors
-        );
+        for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
+            logger.debug("Validate unique 'DRGElement.id'");
+            validateUnique(
+                    "DRGElement", "id", false, dmnModelRepository,
+                    new ArrayList<>(dmnModelRepository.drgElements(definitions)), f -> f.getId(), null, errors
+            );
 
-        logger.debug("Validate unique 'DRGElement.name'");
-        validateUnique(
-                "DRGElement", "name", false,
-                new ArrayList<>(dmnModelRepository.drgElements()), TNamedElement::getName, null, errors
-        );
+            logger.debug("Validate unique 'DRGElement.name'");
+            validateUnique(
+                    "DRGElement", "name", false, dmnModelRepository,
+                    new ArrayList<>(dmnModelRepository.drgElements(definitions)), e -> ((TNamedElement)e).getName(), null, errors
+            );
 
-        logger.debug("Validate unique 'ItemDefinition.name'");
-        validateUnique(
-                "ItemDefinition", "name", false,
-                new ArrayList<>(dmnModelRepository.itemDefinitions()), TNamedElement::getName, null, errors
-        );
-        for (TDRGElement element : dmnModelRepository.drgElements()) {
-            logger.debug(String.format("Validate element '%s'", element.getName()));
-            if (element instanceof TInputData) {
-                validateInputData((TInputData) element, errors);
-            } else if (element instanceof TBusinessKnowledgeModel) {
-                validateBusinessKnowledgeModel((TBusinessKnowledgeModel) element, errors);
-            } else if (element instanceof TDecision) {
-                validateDecision((TDecision) element, dmnModelRepository, errors);
+            logger.debug("Validate unique 'ItemDefinition.name'");
+            validateUnique(
+                    "ItemDefinition", "name", false, dmnModelRepository,
+                    new ArrayList<>(dmnModelRepository.itemDefinitions(definitions)), e -> ((TNamedElement)e).getName(), null, errors
+            );
+
+            for (TDRGElement element : dmnModelRepository.drgElements(definitions)) {
+                logger.debug(String.format("Validate element '%s'", element.getName()));
+                if (element instanceof TInputData) {
+                    validateInputData((TInputData) element, errors);
+                } else if (element instanceof TBusinessKnowledgeModel) {
+                    validateBusinessKnowledgeModel((TBusinessKnowledgeModel) element, errors);
+                } else if (element instanceof TDecision) {
+                    validateDecision((TDecision) element, dmnModelRepository, errors);
+                }
             }
         }
 
         return errors;
     }
 
-    private void validateUnique(String elementType, String property, boolean isOptionalProperty, List<TNamedElement> elements, Function<TNamedElement, String> accessor, String errorMessage, List<String> errors) {
+    private void validateUnique(String elementType, String property, boolean isOptionalProperty, DMNModelRepository dmnModelRepository, List<? extends TDMNElement> elements, Function<TDMNElement, String> accessor, String errorMessage, List<String> errors) {
         if (errorMessage == null) {
             errorMessage = String.format("The '%s' of a '%s' must be unique.", property, elementType);
         }
         // Create a map
         Map<String, List<TDMNElement>> map = new LinkedHashMap<>();
         for (TDMNElement element : elements) {
-            String key = accessor.apply((TNamedElement) element);
+            String key = accessor.apply(element);
             if (!isOptionalProperty || key != null) {
                 List<TDMNElement> list = map.get(key);
                 if (list == null) {
@@ -105,7 +107,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         }
         // Report error
         if (!duplicates.isEmpty()) {
-            String message = duplicates.stream().collect(Collectors.joining(", "));
+            String message = String.join(", ", duplicates);
             errors.add(String.format("%s Found duplicates for '%s'.", errorMessage, message));
         }
     }
@@ -121,6 +123,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
     }
 
     protected void validateDecision(TDecision decision, DMNModelRepository dmnModelRepository, List<String> errors) {
+        TDefinitions model = dmnModelRepository.getModel(decision);
         validateNamedElement(decision, errors);
         TInformationItem variable = decision.getVariable();
         validateVariable(decision, variable, errors);
@@ -132,7 +135,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
                 errors.add(String.format("Decision name and variable name should be the same. Found '%s' and '%s'", decisionName, variableName));
             }
             // decision/variable/@typeRef is not null
-            QualifiedName typeRef = QualifiedName.toQualifiedName(variable.getTypeRef());
+            QualifiedName typeRef = QualifiedName.toQualifiedName(model, variable.getTypeRef());
             if (typeRef == null) {
                 errors.add(String.format("Variable typRef is missing in decision '%s'", decisionName));
             }
@@ -142,10 +145,17 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
 
         // Validate requirements
         List<TInformationRequirement> informationRequirement = decision.getInformationRequirement();
-        List<TNamedElement> references = informationRequirement.stream()
-                .map(ir -> ir.getRequiredDecision() != null ? dmnModelRepository.findDecisionByRef(decision, ir.getRequiredDecision().getHref()) : dmnModelRepository.findInputDataByRef(decision, ir.getRequiredInput().getHref())).collect(Collectors.toList());
-        validateUnique("DRGElement", "name", false,
-                references, TNamedElement::getName, decision.getName(), errors);
+        Function<TDMNElement, String> accessor =
+                (TDMNElement e) -> {
+                    TInformationRequirement ir = (TInformationRequirement) e;
+                    if (ir.getRequiredInput() != null) {
+                        return ir.getRequiredInput().getHref();
+                    } else {
+                        return ir.getRequiredDecision().getHref();
+                    }
+                };
+        validateUnique("TInformationRequirement", "href", false, dmnModelRepository,
+                informationRequirement, accessor, decision.getName(), errors);
 
         // Validate expression
         JAXBElement<? extends TExpression> element = decision.getExpression();

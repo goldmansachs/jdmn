@@ -28,6 +28,7 @@
 									<xs:complexContent>
 										<xs:extension base="valueType">
 											<xs:attribute name="name" use="required"/>
+											<xs:attribute name="namespace" type="xs:string" use="optional"/>
 										</xs:extension>
 									</xs:complexContent>
 								</xs:complexType>
@@ -40,8 +41,10 @@
 									</xs:sequence>
 									<xs:attribute name="errorResult" type="xs:boolean" default="false"/>
 									<xs:attribute name="name" use="required"/>
+									<xs:attribute name="namespace" type="xs:string" use="optional"/>
 									<xs:attribute name="type" type="xs:string"/>
 									<xs:attribute name="cast" type="xs:string"/>
+									<xs:anyAttribute namespace="##other" processContents="lax"/>
 								</xs:complexType>
 							</xs:element>
 							<xs:element name="extensionElements" minOccurs="0" maxOccurs="1">
@@ -56,10 +59,13 @@
 						<xs:attribute name="type" type="testCaseType" default="decision"/>
 						<xs:attribute name="invocableName" type="xs:string"/> <!-- if type==decisionService, this attribute will point at which DS to invoke. -->
 						<xs:attribute name="name" type="xs:string"/>
+						<xs:attribute name="namespace" type="xs:string" use="optional"/>
 						<xs:anyAttribute namespace="##other" processContents="lax"/>
 					</xs:complexType>
 				</xs:element>
 			</xs:sequence>
+			<xs:attribute name="namespace" type="xs:string" use="optional"/>
+			<xs:anyAttribute namespace="##other" processContents="lax"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:complexType name="valueType">

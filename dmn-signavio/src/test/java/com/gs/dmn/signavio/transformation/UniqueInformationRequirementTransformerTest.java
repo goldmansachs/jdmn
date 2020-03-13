@@ -35,7 +35,7 @@ public class UniqueInformationRequirementTransformerTest extends AbstractFileTra
     private final DMNTransformer<TestLab> transformer = new UniqueInformationRequirementTransformer(LOGGER);
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
     private TestLabReader testReader = new TestLabReader();
-    private static final ClassLoader CLASS_LOADER = MergeInputDataTransformerTest.class.getClassLoader();
+    private static final ClassLoader CLASS_LOADER = UniqueInformationRequirementTransformerTest.class.getClassLoader();
 
     @Test
     public void testTransform() throws Exception {
@@ -51,7 +51,7 @@ public class UniqueInformationRequirementTransformerTest extends AbstractFileTra
         checkDefinitions(actualRepository.getRootDefinitions(), "simpleMID-with-ir-duplicates.dmn");
     }
 
-    private void checkDefinitions(TDefinitions actualDefinitions, String fileName) throws Exception {
+    private void checkDefinitions(TDefinitions actualDefinitions, String fileName) {
         for(JAXBElement<? extends TDRGElement> jaxbElement: actualDefinitions.getDrgElement()) {
             TDRGElement drgElement = jaxbElement.getValue();
             if (drgElement instanceof TDecision) {
