@@ -629,6 +629,12 @@ public class BasicDMN2JavaTransformer {
         return javaFriendlyName(name);
     }
 
+    public String bkmQualifiedFunctionName(TBusinessKnowledgeModel bkm) {
+        String javaPackageName = qualifiedName(bkm);
+        String javaFunctionName = bkmFunctionName(bkm);
+        return qualifiedName(javaPackageName, javaFunctionName);
+    }
+
     protected List<FormalParameter> bkmFEELParameters(TBusinessKnowledgeModel bkm) {
         TDefinitions model = this.dmnModelRepository.getModel(bkm);
         List<FormalParameter> parameters = new ArrayList<>();
@@ -1769,7 +1775,7 @@ public class BasicDMN2JavaTransformer {
 
     private FunctionType makeDSType(TDecisionService decisionService, Environment environment) {
         List<FormalParameter> parameters = dsFEELParameters(decisionService);
-        FunctionType type = new DMNFunctionType(parameters, makeDSOutputType(decisionService, environment));
+        FunctionType type = new DMNFunctionType(parameters, makeDSOutputType(decisionService, environment), decisionService);
         return type;
     }
 
@@ -1942,7 +1948,7 @@ public class BasicDMN2JavaTransformer {
                     parameters.add(new FormalParameter(param.getName(), paramType));
                 }
                 if (bodyType != null) {
-                    return new DMNFunctionType(parameters, bodyType);
+                    return new DMNFunctionType(parameters, bodyType, element);
                 }
             }
         }
@@ -2037,6 +2043,6 @@ public class BasicDMN2JavaTransformer {
         }
         List<FormalParameter> parameters = bkmFEELParameters(bkm);
         Type returnType = drgElementOutputFEELType(bkm, environment);
-        return this.environmentFactory.makeBusinessKnowledgeModelDeclaration(name, new DMNFunctionType(parameters, returnType));
+        return this.environmentFactory.makeBusinessKnowledgeModelDeclaration(name, new DMNFunctionType(parameters, returnType, bkm));
     }
 }

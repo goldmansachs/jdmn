@@ -2,8 +2,6 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static FinancialMetrics.FinancialMetrics;
-
 @javax.annotation.Generated(value = {"decision.ftl", "RankedProducts"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
@@ -81,7 +79,7 @@ public class RankedProducts extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     protected type.TRankedProducts evaluate(List<type.TLoanProduct> bankrates, java.math.BigDecimal requestedAmt, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
-        List<type.TMetric> metricsTable = bankrates.stream().map(i -> FinancialMetrics(i, requestedAmt, annotationSet_, eventListener_, externalExecutor_)).collect(Collectors.toList());
+        List<type.TMetric> metricsTable = bankrates.stream().map(i -> FinancialMetrics.FinancialMetrics(i, requestedAmt, annotationSet_, eventListener_, externalExecutor_)).collect(Collectors.toList());
         List<type.TMetric> rankByRate = sort(metricsTable, new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {type.TMetric x = (type.TMetric)args[0]; type.TMetric y = (type.TMetric)args[1];return numericLessThan(((java.math.BigDecimal)(x != null ? x.getRate() : null)), ((java.math.BigDecimal)(y != null ? y.getRate() : null)));}});
         List<type.TMetric> rankByDownPmt = sort(metricsTable, new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {type.TMetric x = (type.TMetric)args[0]; type.TMetric y = (type.TMetric)args[1];return numericLessThan(((java.math.BigDecimal)(x != null ? x.getDownPmtAmt() : null)), ((java.math.BigDecimal)(y != null ? y.getDownPmtAmt() : null)));}});
         List<type.TMetric> rankByMonthlyPmt = sort(metricsTable, new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {type.TMetric x = (type.TMetric)args[0]; type.TMetric y = (type.TMetric)args[1];return numericLessThan(((java.math.BigDecimal)(x != null ? x.getPaymentAmt() : null)), ((java.math.BigDecimal)(y != null ? y.getPaymentAmt() : null)));}});
