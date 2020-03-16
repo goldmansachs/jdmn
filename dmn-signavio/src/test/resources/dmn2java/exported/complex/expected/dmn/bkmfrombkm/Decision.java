@@ -2,8 +2,6 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static Logic.logic;
-
 @javax.annotation.Generated(value = {"decision-with-extension.ftl", "decision"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
@@ -73,6 +71,6 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     }
 
     protected String evaluate(javax.xml.datatype.XMLGregorianCalendar d, javax.xml.datatype.XMLGregorianCalendar t, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
-        return logic(d, t, annotationSet_, eventListener_, externalExecutor_);
+        return Logic.logic(d, t, annotationSet_, eventListener_, externalExecutor_);
     }
 }

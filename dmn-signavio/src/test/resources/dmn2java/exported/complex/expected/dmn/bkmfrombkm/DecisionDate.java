@@ -2,8 +2,6 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static ImportedLogicDates.importedLogicDates;
-
 @javax.annotation.Generated(value = {"decision-with-extension.ftl", "decisionDate"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
@@ -72,6 +70,6 @@ public class DecisionDate extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
     }
 
     protected List<String> evaluate(javax.xml.datatype.XMLGregorianCalendar dateInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
-        return importedLogicDates(dateInput, annotationSet_, eventListener_, externalExecutor_);
+        return ImportedLogicDates.importedLogicDates(dateInput, annotationSet_, eventListener_, externalExecutor_);
     }
 }

@@ -68,7 +68,7 @@ public class InvocationToJavaTransformer {
                     throw new UnsupportedOperationException(String.format("Cannot find binding for parameter '%s'", paramName));
                 }
             }
-            String bkmFunctionName = dmnTransformer.bkmFunctionName(bkm);
+            String bkmFunctionName = dmnTransformer.bkmQualifiedFunctionName(bkm);
             String argListString = argList.stream().map(s -> ((ExpressionStatement)s).getExpression()).collect(Collectors.joining(", "));
             String expressionText = String.format("%s(%s)", bkmFunctionName, dmnTransformer.drgElementArgumentsExtra(dmnTransformer.augmentArgumentList(argListString)));
             Type expressionType = dmnTransformer.toFEELType(model, dmnTransformer.drgElementOutputTypeRef(bkm));

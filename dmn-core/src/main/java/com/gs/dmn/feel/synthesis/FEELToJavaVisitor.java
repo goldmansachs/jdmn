@@ -47,6 +47,9 @@ import com.gs.dmn.runtime.interpreter.PositionalArguments;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import org.apache.commons.lang3.StringUtils;
+import org.omg.spec.dmn._20180521.model.TBusinessKnowledgeModel;
+import org.omg.spec.dmn._20180521.model.TKnowledgeRequirement;
+import org.omg.spec.dmn._20180521.model.TNamedElement;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -513,8 +516,10 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
             Declaration declaration = context.getEnvironment().lookupFunctionDeclaration(feelFunctionName, parameterTypes);
             if (declaration instanceof BusinessKnowledgeModelDeclaration) {
                 argumentsText = this.dmnTransformer.drgElementArgumentsExtra(this.dmnTransformer.augmentArgumentList(argumentsText));
-                String javaFunctionName = this.dmnTransformer.bkmFunctionName(feelFunctionName);
-                return String.format("%s(%s)", javaFunctionName, argumentsText);
+                FunctionType type = ((BusinessKnowledgeModelDeclaration) declaration).getType();
+                TBusinessKnowledgeModel invocable = (TBusinessKnowledgeModel) ((DMNFunctionType) type).getInvocable();
+                String javaQualifiedName = this.dmnTransformer.bkmQualifiedFunctionName(invocable);
+                return String.format("%s(%s)", javaQualifiedName, argumentsText);
             } else {
                 String javaFunctionName = javaFunctionName(feelFunctionName);
                 if (functionType instanceof FEELFunctionType || functionType instanceof DMNFunctionType) {
@@ -525,7 +530,18 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
             }
         } else {
             String functionCode = (String) function.accept(this, context);
-            return String.format("%s.apply(%s)", functionCode, argumentsText);
+            if (function.getType() instanceof DMNFunctionType) {
+                TNamedElement invocable = ((DMNFunctionType) function.getType()).getInvocable();
+                if (invocable instanceof TBusinessKnowledgeModel) {
+                    argumentsText = this.dmnTransformer.drgElementArgumentsExtra(this.dmnTransformer.augmentArgumentList(argumentsText));
+                    String javaQualifiedName = this.dmnTransformer.bkmQualifiedFunctionName((TBusinessKnowledgeModel) invocable);
+                    return String.format("%s(%s)", javaQualifiedName, argumentsText);
+                } else {
+                    return String.format("%s.apply(%s)", functionCode, argumentsText);
+                }
+            } else {
+                return String.format("%s.apply(%s)", functionCode, argumentsText);
+            }
         }
     }
 
