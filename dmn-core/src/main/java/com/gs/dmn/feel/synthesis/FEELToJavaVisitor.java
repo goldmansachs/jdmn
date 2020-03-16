@@ -510,38 +510,22 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         List<FormalParameter> formalParameters = functionType.getParameters();
         List<Object> argList = arguments.argumentList(formalParameters);
         String argumentsText = argList.stream().map(Object::toString).collect(Collectors.joining(", "));
-        if (function instanceof Name || function instanceof QualifiedName && ((QualifiedName) function).getNames().size() == 1) {
-            String feelFunctionName = functionName(function);
-            ParameterTypes parameterTypes = element.getParameters().getSignature();
-            Declaration declaration = context.getEnvironment().lookupFunctionDeclaration(feelFunctionName, parameterTypes);
-            if (declaration instanceof BusinessKnowledgeModelDeclaration) {
+        String javaFunctionCode = (String) function.accept(this, context);
+        if (functionType instanceof BuiltinFunctionType) {
+            return String.format("%s(%s)", javaFunctionCode, argumentsText);
+        } else if (functionType instanceof DMNFunctionType) {
+            TNamedElement invocable = ((DMNFunctionType) functionType).getInvocable();
+            if (invocable instanceof TBusinessKnowledgeModel) {
                 argumentsText = this.dmnTransformer.drgElementArgumentsExtra(this.dmnTransformer.augmentArgumentList(argumentsText));
-                FunctionType type = ((BusinessKnowledgeModelDeclaration) declaration).getType();
-                TBusinessKnowledgeModel invocable = (TBusinessKnowledgeModel) ((DMNFunctionType) type).getInvocable();
-                String javaQualifiedName = this.dmnTransformer.bkmQualifiedFunctionName(invocable);
+                String javaQualifiedName = this.dmnTransformer.bkmQualifiedFunctionName((TBusinessKnowledgeModel) invocable);
                 return String.format("%s(%s)", javaQualifiedName, argumentsText);
             } else {
-                String javaFunctionName = javaFunctionName(feelFunctionName);
-                if (functionType instanceof FEELFunctionType || functionType instanceof DMNFunctionType) {
-                    return String.format("%s.apply(%s)", javaFunctionName, argumentsText);
-                } else {
-                    return String.format("%s(%s)", javaFunctionName, argumentsText);
-                }
+                return String.format("%s.apply(%s)", javaFunctionCode, argumentsText);
             }
+        } else if (functionType instanceof FEELFunctionType) {
+            return String.format("%s.apply(%s)", javaFunctionCode, argumentsText);
         } else {
-            String functionCode = (String) function.accept(this, context);
-            if (function.getType() instanceof DMNFunctionType) {
-                TNamedElement invocable = ((DMNFunctionType) function.getType()).getInvocable();
-                if (invocable instanceof TBusinessKnowledgeModel) {
-                    argumentsText = this.dmnTransformer.drgElementArgumentsExtra(this.dmnTransformer.augmentArgumentList(argumentsText));
-                    String javaQualifiedName = this.dmnTransformer.bkmQualifiedFunctionName((TBusinessKnowledgeModel) invocable);
-                    return String.format("%s(%s)", javaQualifiedName, argumentsText);
-                } else {
-                    return String.format("%s.apply(%s)", functionCode, argumentsText);
-                }
-            } else {
-                return String.format("%s.apply(%s)", functionCode, argumentsText);
-            }
+            throw new DMNRuntimeException(String.format("Not supported function type '%s' in '%s'", functionType, element));
         }
     }
 
