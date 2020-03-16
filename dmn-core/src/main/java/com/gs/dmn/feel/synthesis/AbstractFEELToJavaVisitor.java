@@ -26,6 +26,7 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.basic.ImportContextType;
 import org.apache.commons.lang3.StringUtils;
+import org.omg.spec.dmn._20180521.model.TBusinessKnowledgeModel;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
 
 import java.util.LinkedHashMap;
@@ -77,8 +78,14 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         if (sourceType instanceof ImportContextType) {
             ImportContextType importContextType = (ImportContextType) sourceType;
             DRGElementReference<? extends TDRGElement> memberReference = importContextType.getMemberReference(memberName);
-            String javaName = this.dmnTransformer.drgReferenceQualifiedName(memberReference);
-            return this.dmnTransformer.lazyEvaluation(memberReference.getElementName(), javaName);
+            TDRGElement drgElement = memberReference.getElement();
+            if (drgElement instanceof TBusinessKnowledgeModel) {
+                String javaQualifiedName = this.dmnTransformer.bkmQualifiedFunctionName((TBusinessKnowledgeModel) drgElement);
+                return javaQualifiedName;
+            } else {
+                String javaName = this.dmnTransformer.drgReferenceQualifiedName(memberReference);
+                return this.dmnTransformer.lazyEvaluation(memberReference.getElementName(), javaName);
+            }
         } else if (sourceType instanceof ItemDefinitionType) {
             Type memberType = ((ItemDefinitionType) sourceType).getMemberType(memberName);
             String javaType = dmnTransformer.toJavaType(memberType);
