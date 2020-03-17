@@ -25,7 +25,7 @@ public abstract class NamedExpression extends Expression {
     public void deriveType(Environment environment) {
         Type type;
         String name = getName();
-        // Loopup for variables
+        // Lookup for variables
         Declaration declaration = environment.lookupVariableDeclaration(name);
         if (declaration instanceof VariableDeclaration) {
             type = ((VariableDeclaration) declaration).getType();

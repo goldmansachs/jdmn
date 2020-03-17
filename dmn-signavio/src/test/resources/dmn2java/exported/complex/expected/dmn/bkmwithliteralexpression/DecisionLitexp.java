@@ -2,8 +2,6 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static LitexpLogic.litexpLogic;
-
 @javax.annotation.Generated(value = {"decision-with-extension.ftl", "decisionLitexp"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
@@ -78,6 +76,6 @@ public class DecisionLitexp extends com.gs.dmn.signavio.runtime.DefaultSignavioB
     }
 
     protected List<type.Zip> evaluate(List<String> censored, List<String> labels, List<java.math.BigDecimal> numz, String redgreenblue1, String redgreenblue2, List<String> redgreenbluelist1, List<String> redgreenbluelist2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
-        return litexpLogic(censored, numz, labels, redgreenblue1, redgreenbluelist1, redgreenblue2, redgreenbluelist2, annotationSet_, eventListener_, externalExecutor_);
+        return LitexpLogic.litexpLogic(censored, numz, labels, redgreenblue1, redgreenbluelist1, redgreenblue2, redgreenbluelist2, annotationSet_, eventListener_, externalExecutor_);
     }
 }

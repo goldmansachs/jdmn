@@ -2,8 +2,6 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static BureauCallTypeTable.BureauCallTypeTable;
-
 @javax.annotation.Generated(value = {"decision.ftl", "BureauCallType"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
@@ -81,6 +79,6 @@ public class BureauCallType extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     protected String evaluate(String preBureauRiskCategory, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
-        return BureauCallTypeTable(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_);
+        return BureauCallTypeTable.BureauCallTypeTable(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_);
     }
 }

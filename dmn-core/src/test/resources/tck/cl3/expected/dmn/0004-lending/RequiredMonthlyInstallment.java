@@ -2,8 +2,6 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static InstallmentCalculation.InstallmentCalculation;
-
 @javax.annotation.Generated(value = {"decision.ftl", "RequiredMonthlyInstallment"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
@@ -72,6 +70,6 @@ public class RequiredMonthlyInstallment extends com.gs.dmn.runtime.DefaultDMNBas
     }
 
     protected java.math.BigDecimal evaluate(type.TRequestedProduct requestedProduct, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
-        return InstallmentCalculation(((String)(requestedProduct != null ? requestedProduct.getProductType() : null)), ((java.math.BigDecimal)(requestedProduct != null ? requestedProduct.getRate() : null)), ((java.math.BigDecimal)(requestedProduct != null ? requestedProduct.getTerm() : null)), ((java.math.BigDecimal)(requestedProduct != null ? requestedProduct.getAmount() : null)), annotationSet_, eventListener_, externalExecutor_);
+        return InstallmentCalculation.InstallmentCalculation(((String)(requestedProduct != null ? requestedProduct.getProductType() : null)), ((java.math.BigDecimal)(requestedProduct != null ? requestedProduct.getRate() : null)), ((java.math.BigDecimal)(requestedProduct != null ? requestedProduct.getTerm() : null)), ((java.math.BigDecimal)(requestedProduct != null ? requestedProduct.getAmount() : null)), annotationSet_, eventListener_, externalExecutor_);
     }
 }

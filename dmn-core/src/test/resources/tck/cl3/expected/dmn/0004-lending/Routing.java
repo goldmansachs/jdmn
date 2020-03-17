@@ -2,8 +2,6 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static RoutingRules.RoutingRules;
-
 @javax.annotation.Generated(value = {"decision.ftl", "Routing"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
@@ -86,6 +84,6 @@ public class Routing extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     protected String evaluate(type.TBureauData bureauData, Boolean postBureauAffordability, String postBureauRiskCategory, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
-        return RoutingRules(postBureauRiskCategory, postBureauAffordability, ((Boolean)(bureauData != null ? bureauData.getBankrupt() : null)), ((java.math.BigDecimal)(bureauData != null ? bureauData.getCreditScore() : null)), annotationSet_, eventListener_, externalExecutor_);
+        return RoutingRules.RoutingRules(postBureauRiskCategory, postBureauAffordability, ((Boolean)(bureauData != null ? bureauData.getBankrupt() : null)), ((java.math.BigDecimal)(bureauData != null ? bureauData.getCreditScore() : null)), annotationSet_, eventListener_, externalExecutor_);
     }
 }

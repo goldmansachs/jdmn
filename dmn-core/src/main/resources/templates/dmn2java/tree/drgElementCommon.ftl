@@ -50,18 +50,6 @@
 </#macro>
 
 <#--
-    Import required BKMs
--->
-<#macro importRequiredBKMs drgElement>
-    <#list modelRepository.directSubInvocables(drgElement)>
-        <#items as subBKM>
-import static ${transformer.qualifiedName(subBKM)}.${transformer.bkmFunctionName(subBKM)};
-        </#items>
-
-    </#list>
-</#macro>
-
-<#--
     Sub decisions fields
 -->
 <#macro addSubDecisionFields drgElement>

@@ -14,14 +14,22 @@ package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
+import org.omg.spec.dmn._20180521.model.TNamedElement;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class DMNFunctionType extends FunctionType {
-    public DMNFunctionType(List<FormalParameter> parameters, Type returnType) {
+    private final TNamedElement invocable;
+
+    public DMNFunctionType(List<FormalParameter> parameters, Type returnType, TNamedElement invocable) {
         super(parameters, returnType);
+        this.invocable = invocable;
+    }
+
+    public TNamedElement getInvocable() {
+        return invocable;
     }
 
     @Override
