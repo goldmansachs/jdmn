@@ -6,7 +6,6 @@ package ${javaPackageName};
 import java.util.*;
 import java.util.stream.Collectors;
 
-<@importRequiredBKMs drgElement />
 @javax.annotation.Generated(value = {"bkm.ftl", "${modelRepository.name(drgElement)}"})
 @${transformer.drgElementAnnotationClassName()}(
     namespace = "${javaPackageName}",

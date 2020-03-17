@@ -2,9 +2,6 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static MonthlyPayment.monthlyPayment;
-import static Equity36Mo.equity36Mo;
-
 @javax.annotation.Generated(value = {"bkm.ftl", "FinancialMetrics"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
@@ -64,8 +61,8 @@ public class FinancialMetrics extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
         java.math.BigDecimal fee = ((java.math.BigDecimal)(product != null ? product.getFee() : null));
         java.math.BigDecimal loanAmt = numericAdd(numericMultiply(requestedAmt, numericAdd(number("1"), numericDivide(points, number("100")))), fee);
         java.math.BigDecimal downPmtAmt = numericMultiply(number("0.2"), loanAmt);
-        java.math.BigDecimal paymentAmt = monthlyPayment(loanAmt, rate, number("360"), annotationSet_, eventListener_, externalExecutor_);
-        java.math.BigDecimal equity36moPct = numericSubtract(number("1"), numericMultiply(numericDivide(equity36Mo(loanAmt, rate, number("36"), paymentAmt, annotationSet_, eventListener_, externalExecutor_), requestedAmt), number("0.8")));
+        java.math.BigDecimal paymentAmt = MonthlyPayment.monthlyPayment(loanAmt, rate, number("360"), annotationSet_, eventListener_, externalExecutor_);
+        java.math.BigDecimal equity36moPct = numericSubtract(number("1"), numericMultiply(numericDivide(Equity36Mo.equity36Mo(loanAmt, rate, number("36"), paymentAmt, annotationSet_, eventListener_, externalExecutor_), requestedAmt), number("0.8")));
         type.TMetricImpl financialMetrics = new type.TMetricImpl();
         financialMetrics.setLenderName(lenderName);
         financialMetrics.setRate(rate);

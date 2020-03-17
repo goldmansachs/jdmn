@@ -42,5 +42,6 @@ public class ImportTestCasesToJUnitTransformerTest extends AbstractTCKTestCasesT
         doMultipleModelsTest("0007-name-conflicts-same-decision-singleton", "0007-name-conflicts-same-decision-singleton");
         doMultipleModelsTest("0008-name-conflicts-same-decision-no-singleton", "0008-name-conflicts-same-decision-no-singleton", new Pair<>("singletonInputData", "false"));
         doMultipleModelsTest("0009-type-name-conflicts", "0009-type-name-conflicts", new Pair<>("onePackage", "true"));
+        doMultipleModelsTest("0010-bkm-name-conflicts", "0010-bkm-name-conflicts");
     }
 }

@@ -2,8 +2,6 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static PMT.PMT;
-
 @javax.annotation.Generated(value = {"decision.ftl", "MonthlyPayment"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
@@ -73,6 +71,6 @@ public class MonthlyPayment extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     protected java.math.BigDecimal evaluate(type.TLoan loan, java.math.BigDecimal fee, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
-        return numericAdd(PMT(((java.math.BigDecimal)(loan != null ? loan.getAmount() : null)), ((java.math.BigDecimal)(loan != null ? loan.getRate() : null)), ((java.math.BigDecimal)(loan != null ? loan.getTerm() : null)), annotationSet_, eventListener_, externalExecutor_), fee);
+        return numericAdd(PMT.PMT(((java.math.BigDecimal)(loan != null ? loan.getAmount() : null)), ((java.math.BigDecimal)(loan != null ? loan.getRate() : null)), ((java.math.BigDecimal)(loan != null ? loan.getTerm() : null)), annotationSet_, eventListener_, externalExecutor_), fee);
     }
 }

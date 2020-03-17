@@ -201,8 +201,8 @@ public class BasicDMN2JavaTransformer {
     //
     // TInformationItem related functions
     //
-    public String informationItemTypeName(TInformationItem element) {
-        TDefinitions model = this.dmnModelRepository.getModel(element);
+    public String informationItemTypeName(TBusinessKnowledgeModel bkm, TInformationItem element) {
+        TDefinitions model = this.dmnModelRepository.getModel(bkm);
         Type type = toFEELType(model, QualifiedName.toQualifiedName(model, element.getTypeRef()));
         return toJavaType(type);
     }
@@ -629,6 +629,12 @@ public class BasicDMN2JavaTransformer {
         return javaFriendlyName(name);
     }
 
+    public String bkmQualifiedFunctionName(TBusinessKnowledgeModel bkm) {
+        String javaPackageName = qualifiedName(bkm);
+        String javaFunctionName = bkmFunctionName(bkm);
+        return qualifiedName(javaPackageName, javaFunctionName);
+    }
+
     protected List<FormalParameter> bkmFEELParameters(TBusinessKnowledgeModel bkm) {
         TDefinitions model = this.dmnModelRepository.getModel(bkm);
         List<FormalParameter> parameters = new ArrayList<>();
@@ -651,7 +657,7 @@ public class BasicDMN2JavaTransformer {
         List<TInformationItem> formalParameters = encapsulatedLogic.getFormalParameter();
         for (TInformationItem parameter : formalParameters) {
             String parameterName = javaFriendlyName ? informationItemVariableName(parameter) : parameter.getName();
-            String parameterType = informationItemTypeName(parameter);
+            String parameterType = informationItemTypeName(bkm, parameter);
             parameters.add(new Pair<>(parameterName, parameterType));
         }
         return parameters;
@@ -1660,6 +1666,20 @@ public class BasicDMN2JavaTransformer {
         // Add declaration of element to support recursion
         addDeclaration(element, elementEnvironment, element, elementEnvironment);
 
+        // Add declaration for parameters
+        if (element instanceof  TBusinessKnowledgeModel) {
+            Environment bkmEnvironment = this.environmentFactory.makeEnvironment(elementEnvironment);
+            TDefinitions definitions = this.dmnModelRepository.getModel(element);
+            TFunctionDefinition functionDefinition = ((TBusinessKnowledgeModel) element).getEncapsulatedLogic();
+            if (functionDefinition != null) {
+                functionDefinition.getFormalParameter().forEach(
+                        p -> {
+                            bkmEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(p.getName(), toFEELType(definitions, QualifiedName.toQualifiedName(definitions, p.getTypeRef()))));
+                        });
+                elementEnvironment = bkmEnvironment;
+            }
+        }
+
         return elementEnvironment;
     }
 
@@ -1668,14 +1688,10 @@ public class BasicDMN2JavaTransformer {
             throw new IllegalArgumentException("Cannot add declaration for null DRG element");
         }
 
-        TDefinitions childModel = this.dmnModelRepository.getModel(child);
         if (child instanceof TInputData) {
             Declaration declaration = makeVariableDeclaration(child, ((TInputData) child).getVariable(), childEnvironment);
             addDeclaration(parentEnvironment, (VariableDeclaration) declaration, parent, child);
         } else if (child instanceof TBusinessKnowledgeModel) {
-            TFunctionDefinition functionDefinition = ((TBusinessKnowledgeModel) child).getEncapsulatedLogic();
-            functionDefinition.getFormalParameter().forEach(
-                    p -> parentEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(p.getName(), toFEELType(childModel, QualifiedName.toQualifiedName(childModel, p.getTypeRef())))));
             FunctionDeclaration declaration = makeInvocableDeclaration((TBusinessKnowledgeModel) child, childEnvironment);
             addDeclaration(parentEnvironment, declaration, parent, child);
         } else if (child instanceof TDecision) {
@@ -1759,7 +1775,7 @@ public class BasicDMN2JavaTransformer {
 
     private FunctionType makeDSType(TDecisionService decisionService, Environment environment) {
         List<FormalParameter> parameters = dsFEELParameters(decisionService);
-        FunctionType type = new DMNFunctionType(parameters, makeDSOutputType(decisionService, environment));
+        FunctionType type = new DMNFunctionType(parameters, makeDSOutputType(decisionService, environment), decisionService);
         return type;
     }
 
@@ -1774,7 +1790,7 @@ public class BasicDMN2JavaTransformer {
     }
 
     public Pair<Environment, Map<TContextEntry, Expression>> makeContextEnvironment(TNamedElement element, TContext context, Environment parentEnvironment) {
-        Environment contextEnvironment = this.environmentFactory.makeEnvironment(parentEnvironment);
+        Environment contextEnvironment = this.makeEnvironment((TDRGElement) element, parentEnvironment);
         Map<TContextEntry, Expression> literalExpressionMap = new LinkedHashMap<>();
         for(TContextEntry entry: context.getContextEntry()) {
             TInformationItem variable = entry.getVariable();
@@ -1932,7 +1948,7 @@ public class BasicDMN2JavaTransformer {
                     parameters.add(new FormalParameter(param.getName(), paramType));
                 }
                 if (bodyType != null) {
-                    return new DMNFunctionType(parameters, bodyType);
+                    return new DMNFunctionType(parameters, bodyType, element);
                 }
             }
         }
@@ -2027,6 +2043,6 @@ public class BasicDMN2JavaTransformer {
         }
         List<FormalParameter> parameters = bkmFEELParameters(bkm);
         Type returnType = drgElementOutputFEELType(bkm, environment);
-        return this.environmentFactory.makeBusinessKnowledgeModelDeclaration(name, new DMNFunctionType(parameters, returnType));
+        return this.environmentFactory.makeBusinessKnowledgeModelDeclaration(name, new DMNFunctionType(parameters, returnType, bkm));
     }
 }

@@ -2,8 +2,6 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static FACT.FACT;
-
 @javax.annotation.Generated(value = {"decision.ftl", "main"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
@@ -72,6 +70,6 @@ public class Main extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     protected java.math.BigDecimal evaluate(java.math.BigDecimal n, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
-        return FACT(n, annotationSet_, eventListener_, externalExecutor_);
+        return FACT.FACT(n, annotationSet_, eventListener_, externalExecutor_);
     }
 }
