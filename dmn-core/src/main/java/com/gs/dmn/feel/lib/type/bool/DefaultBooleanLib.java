@@ -12,15 +12,14 @@
  */
 package com.gs.dmn.feel.lib.type.bool;
 
-import java.time.Duration;
-import java.time.Period;
-import java.time.format.DateTimeParseException;
-import java.time.temporal.TemporalAmount;
 import java.util.Arrays;
 import java.util.List;
 
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
+
 public class DefaultBooleanLib {
-    public Boolean and(List list) {
+    public Boolean and(List<Object> list) {
         return all(list);
     }
 
@@ -28,15 +27,15 @@ public class DefaultBooleanLib {
         return all(args);
     }
 
-    public Boolean all(List list) {
+    public Boolean all(List<Object> list) {
         if (list == null) {
             return null;
         }
 
         if (list.stream().anyMatch(b -> b == Boolean.FALSE)) {
-            return false;
+            return FALSE;
         } else if (list.stream().allMatch(b -> b == Boolean.TRUE)) {
-            return true;
+            return TRUE;
         } else {
             return null;
         }
@@ -50,7 +49,7 @@ public class DefaultBooleanLib {
         return all(Arrays.asList(args));
     }
 
-    public Boolean or(List list) {
+    public Boolean or(List<Object> list) {
         return any(list);
     }
 
@@ -58,15 +57,15 @@ public class DefaultBooleanLib {
         return any(args);
     }
 
-    public Boolean any(List list) {
+    public Boolean any(List<Object> list) {
         if (list == null) {
             return null;
         }
 
         if (list.stream().anyMatch(b -> b == Boolean.TRUE)) {
-            return true;
+            return TRUE;
         } else if (list.stream().allMatch(b -> b == Boolean.FALSE)) {
-            return false;
+            return FALSE;
         } else {
             return null;
         }

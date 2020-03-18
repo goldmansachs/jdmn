@@ -21,24 +21,13 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.namespace.QName;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 import static com.gs.dmn.serialization.DMNVersion.DMN_11;
 import static com.gs.dmn.serialization.DMNVersion.DMN_12;
 
 public class DMNWriter extends DMNSerializer {
-    protected static final Map<DMNVersion, JAXBContext> JAXB_CONTEXTS = new LinkedHashMap<>();
-
-    static {
-        try {
-            JAXB_CONTEXTS.put(DMN_11, JAXBContext.newInstance(DMN_11.getJavaPackage()));
-            JAXB_CONTEXTS.put(DMN_12, JAXBContext.newInstance(DMN_12.getJavaPackage()));
-        } catch (JAXBException e) {
-            throw new DMNRuntimeException("Cannot create JAXB Context", e);
-        }
-    }
 
     public DMNWriter(BuildLogger logger) {
         super(logger);
@@ -46,8 +35,7 @@ public class DMNWriter extends DMNSerializer {
 
     public void write(Object definitions, File output, DMNNamespacePrefixMapper namespacePrefixMapper) {
         try {
-            Marshaller marshaller = makeMarshaller(namespacePrefixMapper);
-            write(marshaller, definitions, output);
+            write(definitions, new FileOutputStream(output), namespacePrefixMapper);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot write DMN to '%s'", output.getPath()), e);
         }
@@ -68,28 +56,11 @@ public class DMNWriter extends DMNSerializer {
         }
 
         DMNVersion version = namespacePrefixMapper.getVersion();
-        JAXBContext context = JAXB_CONTEXTS.get(version);
-        if (context == null) {
-            throw new IllegalArgumentException(String.format("Cannot find context for '%s'", version.getVersion()));
-        }
+        JAXBContext context = getJAXBContext(version);
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", namespacePrefixMapper);
         return marshaller;
-    }
-
-    private void write(Marshaller marshaller, Object definitions, File output) throws JAXBException {
-        if (definitions instanceof org.omg.spec.dmn._20151101.model.TDefinitions) {
-            QName qName = new QName(DMN_11.getNamespace(), "definitions");
-            JAXBElement<org.omg.spec.dmn._20151101.model.TDefinitions> root = new JAXBElement<org.omg.spec.dmn._20151101.model.TDefinitions>(qName, org.omg.spec.dmn._20151101.model.TDefinitions.class, (org.omg.spec.dmn._20151101.model.TDefinitions) definitions);
-            marshaller.marshal(root, output);
-        } else if (definitions instanceof org.omg.spec.dmn._20180521.model.TDefinitions) {
-            QName qName = new QName(DMN_12.getNamespace(), "definitions");
-            JAXBElement<org.omg.spec.dmn._20180521.model.TDefinitions> root = new JAXBElement<org.omg.spec.dmn._20180521.model.TDefinitions>(qName, org.omg.spec.dmn._20180521.model.TDefinitions.class, (org.omg.spec.dmn._20180521.model.TDefinitions) definitions);
-            marshaller.marshal(root, output);
-        } else {
-            throw new DMNRuntimeException(String.format("'%s' is not supported", definitions.getClass()));
-        }
     }
 
     private void write(Marshaller marshaller, Object definitions, OutputStream output) throws JAXBException {

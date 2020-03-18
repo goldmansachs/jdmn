@@ -120,12 +120,12 @@ public class Sum extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
         // Apply rule
         SumRuleOutput output_ = new SumRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            true,
-            true,
-            true,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
             (booleanEqual(numericLessEqualThan(sum(dateFormula), sum(datetimeFormula)), Boolean.FALSE)),
             (booleanEqual(numericGreaterEqualThan(sum(datetimeFormula), sum(timeFormula)), Boolean.TRUE)),
-            true
+            Boolean.TRUE
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -155,12 +155,12 @@ public class Sum extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
         // Apply rule
         SumRuleOutput output_ = new SumRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            true,
-            true,
-            true,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
             (booleanEqual(numericLessEqualThan(sum(dateFormula), sum(datetimeFormula)), Boolean.TRUE)),
             (booleanEqual(numericGreaterEqualThan(sum(datetimeFormula), sum(timeFormula)), Boolean.FALSE)),
-            true
+            Boolean.TRUE
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -190,12 +190,12 @@ public class Sum extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
         // Apply rule
         SumRuleOutput output_ = new SumRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            true,
-            true,
-            true,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
             (booleanEqual(numericLessEqualThan(sum(dateFormula), sum(datetimeFormula)), Boolean.TRUE)),
             (booleanEqual(numericGreaterEqualThan(sum(datetimeFormula), sum(timeFormula)), Boolean.TRUE)),
-            true
+            Boolean.TRUE
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -225,9 +225,9 @@ public class Sum extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
         // Apply rule
         SumRuleOutput output_ = new SumRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            true,
-            true,
-            true,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
             (booleanEqual(numericLessEqualThan(sum(dateFormula), sum(datetimeFormula)), Boolean.FALSE)),
             (booleanEqual(numericGreaterEqualThan(sum(datetimeFormula), sum(timeFormula)), Boolean.FALSE)),
             (booleanEqual(numericGreaterEqualThan(sum(dateFormula), sum(timeFormula)), Boolean.TRUE))
@@ -260,9 +260,9 @@ public class Sum extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
         // Apply rule
         SumRuleOutput output_ = new SumRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            true,
-            true,
-            true,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
             (booleanEqual(numericLessEqualThan(sum(dateFormula), sum(datetimeFormula)), Boolean.FALSE)),
             (booleanEqual(numericGreaterEqualThan(sum(datetimeFormula), sum(timeFormula)), Boolean.FALSE)),
             (booleanEqual(numericGreaterEqualThan(sum(dateFormula), sum(timeFormula)), Boolean.FALSE))

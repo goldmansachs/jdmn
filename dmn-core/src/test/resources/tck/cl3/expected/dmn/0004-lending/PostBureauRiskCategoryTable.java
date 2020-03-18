@@ -290,7 +290,7 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
         if (Boolean.TRUE == booleanAnd(
             (booleanEqual(existingCustomer, Boolean.FALSE)),
             (numericGreaterThan(applicationRiskScore, number("130"))),
-            true
+            Boolean.TRUE
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

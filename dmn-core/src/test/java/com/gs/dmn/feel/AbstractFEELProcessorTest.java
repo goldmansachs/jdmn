@@ -80,7 +80,7 @@ public abstract class AbstractFEELProcessorTest {
         doSimpleUnaryTestsTest(entries, "input", "-",
                 "Any()",
                 "boolean",
-                "true",
+                "Boolean.TRUE",
                 true,
                 true);
     }

@@ -13,11 +13,36 @@
 package com.gs.dmn.serialization;
 
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.runtime.DMNRuntimeException;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class DMNSerializer {
+    protected static final Map<DMNVersion, JAXBContext> JAXB_CONTEXTS = new HashMap<>();
+
+    static {
+        try {
+            JAXB_CONTEXTS.put(DMNVersion.DMN_11, JAXBContext.newInstance(DMNVersion.DMN_11.getJavaPackage()));
+            JAXB_CONTEXTS.put(DMNVersion.DMN_12, JAXBContext.newInstance(DMNVersion.DMN_12.getJavaPackage()));
+        } catch (JAXBException e) {
+            throw new DMNRuntimeException("Cannot create JAXB Context", e);
+        }
+    }
+
     protected final BuildLogger logger;
 
     protected DMNSerializer(BuildLogger logger) {
         this.logger = logger;
+    }
+
+    protected JAXBContext getJAXBContext(DMNVersion dmnVersion) {
+        JAXBContext context = JAXB_CONTEXTS.get(dmnVersion);
+        if (context == null) {
+            throw new IllegalArgumentException(String.format("Cannot find context for '%s'", dmnVersion.getVersion()));
+        }
+        return context;
     }
 }

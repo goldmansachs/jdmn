@@ -99,7 +99,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            true,
+            Boolean.TRUE,
             (numericGreaterEqualThan(((java.math.BigDecimal)(testPersonType6_iterator != null ? testPersonType6_iterator.getAge() : null)), number("18")))
         )) {
             // Rule match
@@ -130,7 +130,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            true,
+            Boolean.TRUE,
             (numericLessThan(((java.math.BigDecimal)(testPersonType6_iterator != null ? testPersonType6_iterator.getAge() : null)), number("18")))
         )) {
             // Rule match
