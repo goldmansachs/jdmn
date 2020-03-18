@@ -134,9 +134,9 @@ public class ApprovalStatus extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         ApprovalStatusRuleOutput output_ = new ApprovalStatusRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            true,
-            true,
-            true
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

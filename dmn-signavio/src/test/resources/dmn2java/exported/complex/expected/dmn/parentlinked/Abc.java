@@ -97,7 +97,7 @@ public class Abc extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
 
         // Apply rule
         AbcRuleOutput output_ = new AbcRuleOutput(false);
-        if (Boolean.TRUE == true) {
+        if (Boolean.TRUE == Boolean.TRUE) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
