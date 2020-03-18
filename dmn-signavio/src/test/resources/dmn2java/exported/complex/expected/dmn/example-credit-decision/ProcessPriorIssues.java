@@ -216,7 +216,7 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
 
         // Apply rule
         ProcessPriorIssuesRuleOutput output_ = new ProcessPriorIssuesRuleOutput(false);
-        if (Boolean.TRUE == true) {
+        if (Boolean.TRUE == Boolean.TRUE) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

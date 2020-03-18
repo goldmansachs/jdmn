@@ -100,9 +100,9 @@ public class BuildDateStringInAnnotation extends com.gs.dmn.signavio.runtime.Def
         // Apply rule
         BuildDateStringInAnnotationRuleOutput output_ = new BuildDateStringInAnnotationRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            true,
-            true,
-            true
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

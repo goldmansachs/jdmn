@@ -66,7 +66,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
         doUnaryTestsTest(entries, "input", "-",
                 "Any()",
                 "boolean",
-                "true",
+                "Boolean.TRUE",
                 true,
                 true);
     }

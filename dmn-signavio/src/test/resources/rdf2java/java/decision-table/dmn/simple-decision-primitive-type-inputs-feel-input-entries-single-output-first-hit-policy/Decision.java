@@ -233,7 +233,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             (dateTimeLessThan(dateAndTimeInput, dateAndTime("2016-08-01T11:00:00Z"))),
             (numericLessThan(numberInput, numericUnaryMinus(number("1")))),
             (contains(textInput, "b")),
-            true,
+            Boolean.TRUE,
             booleanOr((stringEqual(enumerationInput, "e1")), (stringEqual(enumerationInput, "e2")))
         )) {
             // Rule match
@@ -269,7 +269,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             (dateTimeLessEqualThan(dateAndTimeInput, dateAndTime("2016-08-01T11:00:00Z"))),
             (numericGreaterEqualThan(numberInput, numericUnaryMinus(number("1")))),
             booleanNot((contains(textInput, "b"))),
-            true,
+            Boolean.TRUE,
             booleanNot(booleanOr((stringEqual(enumerationInput, "e1")), (stringEqual(enumerationInput, "e2"))))
         )) {
             // Rule match
@@ -305,8 +305,8 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             (dateTimeGreaterThan(dateAndTimeInput, dateAndTime("2016-08-01T11:00:00Z"))),
             (numericGreaterThan(numberInput, numericUnaryMinus(number("1")))),
             (startsWith(textInput, "ab")),
-            true,
-            true
+            Boolean.TRUE,
+            Boolean.TRUE
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -341,8 +341,8 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             (dateTimeGreaterEqualThan(dateAndTimeInput, dateAndTime("2016-08-01T11:00:00Z"))),
             (booleanAnd(numericGreaterEqualThan(numberInput, number("1")), numericLessThan(numberInput, number("2")))),
             (endsWith(textInput, "bc")),
-            true,
-            true
+            Boolean.TRUE,
+            Boolean.TRUE
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -372,13 +372,13 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            true,
-            true,
-            true,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
             booleanNot((booleanAnd(numericGreaterEqualThan(numberInput, number("1")), numericLessThan(numberInput, number("2"))))),
-            true,
-            true,
-            true
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

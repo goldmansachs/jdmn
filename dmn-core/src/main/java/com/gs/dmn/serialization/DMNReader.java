@@ -25,7 +25,6 @@ import org.xml.sax.InputSource;
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -44,17 +43,6 @@ import java.util.Map;
 public class DMNReader extends DMNSerializer {
     public static boolean isDMNFile(File file) {
         return file != null && file.isFile() && file.getName().endsWith(DMNConstants.DMN_FILE_EXTENSION);
-    }
-
-    protected static final Map<DMNVersion, JAXBContext> JAXB_CONTEXTS = new LinkedHashMap<>();
-
-    static {
-        try {
-            JAXB_CONTEXTS.put(DMNVersion.DMN_11, JAXBContext.newInstance(DMNVersion.DMN_11.getJavaPackage()));
-            JAXB_CONTEXTS.put(DMNVersion.DMN_12, JAXBContext.newInstance(DMNVersion.DMN_12.getJavaPackage()));
-        } catch (JAXBException e) {
-            throw new DMNRuntimeException("Cannot create JAXB Context", e);
-        }
     }
 
     private final boolean validateSchema;
@@ -228,10 +216,7 @@ public class DMNReader extends DMNSerializer {
     }
 
     private Unmarshaller makeUnmarshaller(DMNVersion dmnVersion) throws Exception {
-        JAXBContext context = JAXB_CONTEXTS.get(dmnVersion);
-        if (context == null) {
-            throw new IllegalArgumentException(String.format("Cannot find context for '%s'", dmnVersion.getVersion()));
-        }
+        JAXBContext context = getJAXBContext(dmnVersion);
         Unmarshaller u = context.createUnmarshaller();
         if (validateSchema) {
             setSchema(u, dmnVersion);
@@ -241,13 +226,8 @@ public class DMNReader extends DMNSerializer {
 
     private void setSchema(Unmarshaller u, DMNVersion dmnVersion) throws Exception {
         SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        for (DMNVersion version: DMNVersion.VALUES) {
-            if (version == dmnVersion) {
-                URI schemaURI = getClass().getClassLoader().getResource(version.getSchemaLocation()).toURI();
-                Schema schema = sf.newSchema(schemaURI.toURL());
-                u.setSchema(schema);
-                break;
-            }
-        }
-   }
+        URI schemaURI = getClass().getClassLoader().getResource(dmnVersion.getSchemaLocation()).toURI();
+        Schema schema = sf.newSchema(schemaURI.toURL());
+        u.setSchema(schema);
+    }
 }

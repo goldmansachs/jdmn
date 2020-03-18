@@ -114,7 +114,7 @@ public class Strategy extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         StrategyRuleOutput output_ = new StrategyRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
             (stringEqual(eligibility, "INELIGIBLE")),
-            true
+            Boolean.TRUE
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
