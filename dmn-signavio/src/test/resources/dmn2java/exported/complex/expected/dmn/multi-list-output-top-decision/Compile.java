@@ -110,8 +110,8 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         // Apply rule
         CompileRuleOutput output_ = new CompileRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            true,
-            true,
+            Boolean.TRUE,
+            Boolean.TRUE,
             (listEqual(trafficLight, asList("Red")))
         )) {
             // Rule match
@@ -144,8 +144,8 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         // Apply rule
         CompileRuleOutput output_ = new CompileRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            true,
-            true,
+            Boolean.TRUE,
+            Boolean.TRUE,
             (listEqual(trafficLight, asList("Yellow")))
         )) {
             // Rule match
@@ -178,8 +178,8 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         // Apply rule
         CompileRuleOutput output_ = new CompileRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            true,
-            true,
+            Boolean.TRUE,
+            Boolean.TRUE,
             (listEqual(trafficLight, asList("Green")))
         )) {
             // Rule match
@@ -212,8 +212,8 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         // Apply rule
         CompileRuleOutput output_ = new CompileRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            true,
-            true,
+            Boolean.TRUE,
+            Boolean.TRUE,
             (notContainsAny(trafficLight, asList("Red", "Green")))
         )) {
             // Rule match
@@ -246,8 +246,8 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         // Apply rule
         CompileRuleOutput output_ = new CompileRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            true,
-            true,
+            Boolean.TRUE,
+            Boolean.TRUE,
             (containsOnly(trafficLight, asList("Red", "Green")))
         )) {
             // Rule match
@@ -280,8 +280,8 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         // Apply rule
         CompileRuleOutput output_ = new CompileRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            true,
-            true,
+            Boolean.TRUE,
+            Boolean.TRUE,
             booleanNot((notContainsAny(trafficLight, asList("Yellow"))))
         )) {
             // Rule match
@@ -314,8 +314,8 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         // Apply rule
         CompileRuleOutput output_ = new CompileRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            true,
-            true,
+            Boolean.TRUE,
+            Boolean.TRUE,
             (containsOnly(trafficLight, asList("Red")))
         )) {
             // Rule match
@@ -348,8 +348,8 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         // Apply rule
         CompileRuleOutput output_ = new CompileRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            true,
-            true,
+            Boolean.TRUE,
+            Boolean.TRUE,
             (containsOnly(trafficLight, asList("Green")))
         )) {
             // Rule match

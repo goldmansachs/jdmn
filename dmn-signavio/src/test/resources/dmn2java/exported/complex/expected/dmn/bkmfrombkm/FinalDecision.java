@@ -114,8 +114,8 @@ public class FinalDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
         // Apply rule
         FinalDecisionRuleOutput output_ = new FinalDecisionRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            true,
-            true,
+            Boolean.TRUE,
+            Boolean.TRUE,
             (booleanEqual(numericGreaterEqualThan(count(decisionDate), number("3")), Boolean.TRUE)),
             (booleanEqual(numericGreaterEqualThan(count(decisionTime), number("3")), Boolean.TRUE))
         )) {
@@ -147,8 +147,8 @@ public class FinalDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
         // Apply rule
         FinalDecisionRuleOutput output_ = new FinalDecisionRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            true,
-            true,
+            Boolean.TRUE,
+            Boolean.TRUE,
             (booleanEqual(numericGreaterEqualThan(count(decisionDate), number("3")), Boolean.FALSE)),
             (booleanEqual(numericGreaterEqualThan(count(decisionTime), number("3")), Boolean.TRUE))
         )) {
@@ -180,8 +180,8 @@ public class FinalDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
         // Apply rule
         FinalDecisionRuleOutput output_ = new FinalDecisionRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            true,
-            true,
+            Boolean.TRUE,
+            Boolean.TRUE,
             (booleanEqual(numericGreaterEqualThan(count(decisionDate), number("3")), Boolean.TRUE)),
             (booleanEqual(numericGreaterEqualThan(count(decisionTime), number("3")), Boolean.FALSE))
         )) {
@@ -213,8 +213,8 @@ public class FinalDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
         // Apply rule
         FinalDecisionRuleOutput output_ = new FinalDecisionRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            true,
-            true,
+            Boolean.TRUE,
+            Boolean.TRUE,
             (booleanEqual(numericGreaterEqualThan(count(decisionDate), number("3")), Boolean.FALSE)),
             (booleanEqual(numericGreaterEqualThan(count(decisionTime), number("3")), Boolean.FALSE))
         )) {

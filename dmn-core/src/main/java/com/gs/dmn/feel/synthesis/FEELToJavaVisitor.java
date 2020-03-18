@@ -105,7 +105,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(Any element, FEELContext context) {
-        return "true";
+        return "Boolean.TRUE";
     }
 
     @Override
