@@ -27,7 +27,7 @@ public class JsonSerializer {
 
     static {
         OBJECT_MAPPER.setVisibility(OBJECT_MAPPER.getSerializationConfig().getDefaultVisibilityChecker()
-                .withFieldVisibility(JsonAutoDetect.Visibility.ANY)
+                .withFieldVisibility(JsonAutoDetect.Visibility.NONE)
                 .withGetterVisibility(JsonAutoDetect.Visibility.PUBLIC_ONLY)
                 .withSetterVisibility(JsonAutoDetect.Visibility.PUBLIC_ONLY)
                 .withCreatorVisibility(JsonAutoDetect.Visibility.NONE)
