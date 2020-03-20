@@ -32,14 +32,6 @@ public abstract class AbstractHandwrittenDecisionTest {
 
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
 
-    protected String toJson(Object object) {
-        try {
-            return JsonSerializer.OBJECT_MAPPER.writeValueAsString(object);
-        } catch (JsonProcessingException e) {
-            return null;
-        }
-    }
-
     protected abstract void applyDecision();
 
     @Test
