@@ -24,13 +24,9 @@ import java.util.stream.Collectors;
 @JsonPropertyOrder(value = {"dmnVersion", "modelVersion", "platformVersion", "types", "elements"})
 public class DMNMetadata {
     private String dmnVersion;
-
     private String modelVersion;
-
     private String platformVersion;
-
     private final List<Type> types = new ArrayList<>();
-
     private final List<DRGElement> elements = new ArrayList<>();
 
     // Required by ObjectMapper
@@ -44,7 +40,7 @@ public class DMNMetadata {
     }
 
     @JsonGetter("dmnVersion")
-    public String getDMNVersion() {
+    public String getDmnVersion() {
         return dmnVersion;
     }
 

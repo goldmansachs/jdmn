@@ -87,7 +87,7 @@
         <jaxb.plugin.version>2.4</jaxb.plugin.version>
         <antlr4.version>4.7.2</antlr4.version>
 
-        <jackson.version>2.9.7</jackson.version>
+        <jackson.version>2.10.2</jackson.version>
         <jackson.core.version>${jackson.version}</jackson.core.version>
         <jackson.databind.version>${jackson.version}</jackson.databind.version>
         <jackson.annotations.version>${jackson.version}</jackson.annotations.version>
