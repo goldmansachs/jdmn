@@ -29,7 +29,7 @@ public class DMNMetadataTest {
     public void testMetadata() throws Exception {
         File metadataFile = new File(getClass().getClassLoader().getResource("com/gs/dmn/generated/example_credit_decision/DMNMetadata.json").getFile());
         DMNMetadata dmnMetadata = JsonSerializer.OBJECT_MAPPER.readValue(metadataFile, DMNMetadata.class);
-        assertEquals("1.3", dmnMetadata.getDMNVersion());
+        assertEquals("1.3", dmnMetadata.getDmnVersion());
         assertEquals("1.0", dmnMetadata.getModelVersion());
         assertNotNull(dmnMetadata.getPlatformVersion());
 

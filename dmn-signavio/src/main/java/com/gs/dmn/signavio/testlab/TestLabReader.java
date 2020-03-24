@@ -13,7 +13,9 @@
 package com.gs.dmn.signavio.testlab;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,14 +28,15 @@ public class TestLabReader {
         return file != null && file.isFile() && file.getName().endsWith(TEST_LAB_FILE_EXTENSION);
     }
 
-    public static final ObjectMapper MAPPER = new ObjectMapper();
+    public static final ObjectMapper MAPPER;
 
     static {
-        MAPPER.setVisibility(MAPPER.getSerializationConfig().getDefaultVisibilityChecker()
-                .withFieldVisibility(JsonAutoDetect.Visibility.ANY)
-                .withGetterVisibility(JsonAutoDetect.Visibility.NONE)
-                .withSetterVisibility(JsonAutoDetect.Visibility.NONE)
-                .withCreatorVisibility(JsonAutoDetect.Visibility.NONE));
+        MAPPER = JsonMapper.builder()
+                .visibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY)
+                .visibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NONE)
+                .visibility(PropertyAccessor.SETTER, JsonAutoDetect.Visibility.NONE)
+                .visibility(PropertyAccessor.CREATOR, JsonAutoDetect.Visibility.NONE)
+                .build();
     }
 
     public TestLab read(File inputFile) throws IOException {
