@@ -19,7 +19,6 @@ import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import com.gs.dmn.validation.DMNValidator;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
 
@@ -31,7 +30,6 @@ import static org.junit.Assert.assertEquals;
 
 public class LabelDuplicationDRGElementValidatorTest extends AbstractFileTransformerTest {
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
-    private static final ClassLoader CLASS_LOADER = LabelDuplicationDRGElementValidatorTest.class.getClassLoader();
 
     private DMNValidator validator = new LabelDuplicationDRGElementValidator();
 
@@ -39,7 +37,7 @@ public class LabelDuplicationDRGElementValidatorTest extends AbstractFileTransfo
     public void testValidate() throws Exception {
         String path = "dmn2java/exported/complex/input/";
         String diagramName = "Linked Decision Test.dmn";
-        URL url = CLASS_LOADER.getResource(path + diagramName).toURI().toURL();
+        URL url = resource(path + diagramName).toURL();
         Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(url);
         DMNModelRepository repository = new SignavioDMNModelRepository(pair);
 
