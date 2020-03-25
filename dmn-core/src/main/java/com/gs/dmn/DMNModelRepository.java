@@ -51,10 +51,6 @@ public class DMNModelRepository {
     protected Map<String, TDRGElement> drgElementByName = new LinkedHashMap<>();
     protected Map<String, TBusinessKnowledgeModel> knowledgeModelByName = new LinkedHashMap<>();
     protected Map<String, TDRGElement> drgElementByRef = new LinkedHashMap<>();
-    protected Map<String, TInputData> inputDataByRef = new LinkedHashMap<>();
-    protected Map<String, TDecision> decisionByRef = new LinkedHashMap<>();
-    protected Map<String, TBusinessKnowledgeModel> businessKnowledgeModelByRef = new LinkedHashMap<>();
-    protected Map<String, TDecisionService> decisionServiceByRef = new LinkedHashMap<>();
 
     public DMNModelRepository() {
         this(OBJECT_FACTORY.createTDefinitions(), new PrefixNamespaceMappings());
@@ -409,33 +405,12 @@ public class DMNModelRepository {
         return references.stream().map(DRGElementReference::getElement).collect(Collectors.toList());
     }
 
-    public TDRGElement findDRGElementByRef(String href) {
-        try {
-            if (!this.drgElementByRef.containsKey(href)) {
-                String id = extractId(href);
-                TDRGElement value = null;
-                for (TDRGElement element: drgElements()) {
-                    if (sameId(element, id)) {
-                        value = element;
-                        break;
-                    }
-                }
-                this.drgElementByRef.put(href, value);
-            }
-            TDRGElement result = this.drgElementByRef.get(href);
-            if (result == null) {
-                throw new DMNRuntimeException(String.format("Cannot find DRG element for href='%s'", href));
-            } else {
-                return result;
-            }
-        } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot find DRG element for href='%s'", href), e);
-        }
-    }
-
     public TDRGElement findDRGElementByRef(TDRGElement parent, String href) {
         try {
             TDefinitions definitions = findChildDefinitions(parent, href);
+            if (definitions == null) {
+                throw new DMNRuntimeException(String.format("Cannot find model for href='%s'", href));
+            }
             String key = makeRef(definitions.getNamespace(), href);
             if (!this.drgElementByRef.containsKey(key)) {
                 TDRGElement value = null;
@@ -459,82 +434,29 @@ public class DMNModelRepository {
     }
 
     public TDecision findDecisionByRef(TDRGElement parent, String href) {
-        TDefinitions definitions = findChildDefinitions(parent, href);
-        String key = makeRef(definitions.getNamespace(), href);
-        if (!this.decisionByRef.containsKey(key)) {
-            TDecision value = null;
-            for (TDecision decision : decisions(definitions)) {
-                if (sameId(decision, href)) {
-                    value = decision;
-                    break;
-                }
-            }
-            this.decisionByRef.put(key, value);
-        }
-        TDecision result = this.decisionByRef.get(key);
-        if (result == null) {
-            throw new DMNRuntimeException(String.format("Cannot find decision for href='%s'", href));
+        TDRGElement drgElement = findDRGElementByRef(parent, href);
+        if (drgElement instanceof TDecision) {
+            return (TDecision) drgElement;
         } else {
-            return result;
+            throw new DMNRuntimeException(String.format("Cannot find Decision element for href='%s'", href));
         }
     }
 
     public TInputData findInputDataByRef(TDRGElement parent, String href) {
-        TDefinitions definitions = findChildDefinitions(parent, href);
-        if (definitions == null) {
-            throw new DMNRuntimeException(String.format("Cannot find model for href='%s'", href));
-        }
-        String key = makeRef(definitions.getNamespace(), href);
-        if (!this.inputDataByRef.containsKey(key)) {
-            TInputData value = null;
-            for (TInputData inputData : inputDatas(definitions)) {
-                if (sameId(inputData, href)) {
-                    value = inputData;
-                    break;
-                }
-            }
-            this.inputDataByRef.put(key, value);
-        }
-        TInputData result = this.inputDataByRef.get(key);
-        if (result == null) {
-            throw new DMNRuntimeException(String.format("Cannot find input data for href='%s'", href));
+        TDRGElement drgElement = findDRGElementByRef(parent, href);
+        if (drgElement instanceof TInputData) {
+            return (TInputData) drgElement;
         } else {
-            return result;
+            throw new DMNRuntimeException(String.format("Cannot find InputData element for href='%s'", href));
         }
     }
 
     public TInvocable findInvocableByRef(TDRGElement parent, String href) {
-        TDefinitions definitions = findChildDefinitions(parent, href);
-        String key = makeRef(definitions.getNamespace(), href);
-        if (!this.businessKnowledgeModelByRef.containsKey(key)) {
-            TBusinessKnowledgeModel value = null;
-            for (TBusinessKnowledgeModel knowledgeModel : businessKnowledgeModels(definitions)) {
-                if (sameId(knowledgeModel, href)) {
-                    value = knowledgeModel;
-                    break;
-                }
-            }
-            this.businessKnowledgeModelByRef.put(key, value);
-        }
-        TInvocable result = this.businessKnowledgeModelByRef.get(key);
-        if (result != null) {
-            return result;
-        }
-        if (!this.decisionServiceByRef.containsKey(key)) {
-            TDecisionService value = null;
-            for (TDecisionService service : decisionServices(definitions)) {
-                if (sameId(service, href)) {
-                    value = service;
-                    break;
-                }
-            }
-            this.decisionServiceByRef.put(key, value);
-        }
-        result = this.decisionServiceByRef.get(key);
-        if (result == null) {
-            throw new DMNRuntimeException(String.format("Cannot find invocable (knowledge model or decision service) for href='%s'", href));
+        TDRGElement drgElement = findDRGElementByRef(parent, href);
+        if (drgElement instanceof TInvocable) {
+            return (TInvocable) drgElement;
         } else {
-            return result;
+            throw new DMNRuntimeException(String.format("Cannot find TInvocable element for href='%s'", href));
         }
     }
 
