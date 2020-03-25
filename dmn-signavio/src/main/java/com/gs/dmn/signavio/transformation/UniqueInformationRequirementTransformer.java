@@ -18,10 +18,7 @@ import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.SimpleDMNTransformer;
-import org.omg.spec.dmn._20180521.model.TDMNElementReference;
-import org.omg.spec.dmn._20180521.model.TDecision;
-import org.omg.spec.dmn._20180521.model.TInformationRequirement;
-import org.omg.spec.dmn._20180521.model.TInputData;
+import org.omg.spec.dmn._20180521.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,26 +58,28 @@ public class UniqueInformationRequirementTransformer extends SimpleDMNTransforme
     }
 
     private DMNModelRepository removeDuplicateInformationRequirements(DMNModelRepository repository, BuildLogger logger) {
-        for(TDecision decision: repository.decisions()) {
-            List<String> hrefs = new ArrayList<>();
-            List<TInformationRequirement> newList = new ArrayList<>();
-            for(TInformationRequirement ir: decision.getInformationRequirement()) {
-                String href = null;
-                TDMNElementReference requiredInput = ir.getRequiredInput();
-                TDMNElementReference requiredDecision = ir.getRequiredDecision();
-                if (requiredInput != null) {
-                    href = requiredInput.getHref();
+        for (TDefinitions definitions: repository.getAllDefinitions()) {
+            for(TDecision decision: repository.decisions(definitions)) {
+                List<String> hrefs = new ArrayList<>();
+                List<TInformationRequirement> newList = new ArrayList<>();
+                for(TInformationRequirement ir: decision.getInformationRequirement()) {
+                    String href = null;
+                    TDMNElementReference requiredInput = ir.getRequiredInput();
+                    TDMNElementReference requiredDecision = ir.getRequiredDecision();
+                    if (requiredInput != null) {
+                        href = requiredInput.getHref();
+                    }
+                    if (requiredDecision != null) {
+                        href = requiredDecision.getHref();
+                    }
+                    if (!hrefs.contains(href)) {
+                        newList.add(ir);
+                        hrefs.add(href);
+                    }
                 }
-                if (requiredDecision != null) {
-                    href = requiredDecision.getHref();
-                }
-                if (!hrefs.contains(href)) {
-                    newList.add(ir);
-                    hrefs.add(href);
-                }
+                decision.getInformationRequirement().clear();
+                decision.getInformationRequirement().addAll(newList);
             }
-            decision.getInformationRequirement().clear();
-            decision.getInformationRequirement().addAll(newList);
         }
 
         return repository;
