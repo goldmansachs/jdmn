@@ -24,9 +24,8 @@ import org.omg.spec.dmn._20180521.model.*;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.gs.dmn.serialization.DMNVersion.DMN_12;
 
@@ -41,6 +40,8 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
 
     public final SignavioExtension extension = new SignavioExtension(this);
 
+    private final Map<String, TDRGElement> cache = new LinkedHashMap<>();
+
     public SignavioDMNModelRepository() {
         this(OBJECT_FACTORY.createTDefinitions(), new PrefixNamespaceMappings());
     }
@@ -50,7 +51,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
     }
 
     public SignavioDMNModelRepository(Pair<TDefinitions, PrefixNamespaceMappings> pair) {
-        this(Arrays.asList(pair));
+        this(Collections.singletonList(pair));
     }
 
     public SignavioDMNModelRepository(Pair<TDefinitions, PrefixNamespaceMappings> pair, String schemaNamespace) {
@@ -144,5 +145,107 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
     public void addItemDefinition(TDefinitions definitions, TItemDefinition itemDefinition) {
         definitions.getItemDefinition().add(itemDefinition);
         this.itemDefinitions.add(itemDefinition);
+    }
+
+    public TDRGElement findDRGElementById(String id) {
+        String key = makeKey(id);
+        if (!cache.containsKey(key)) {
+            TDRGElement result = null;
+            List<TDRGElement> drgElements = drgElements();
+            for (TDRGElement element : drgElements) {
+                if (sameId(element, id)) {
+                    result = element;
+                    break;
+                }
+            }
+            cache.put(key, result);
+        }
+        return cache.get(key);
+    }
+
+    public TDRGElement findDRGElementByDiagramAndShapeIds(String diagramId, String shapeId) {
+        String key = makeKey(diagramId, shapeId);
+        if (!cache.containsKey(key)) {
+            TDRGElement result = null;
+            List<TDRGElement> drgElements = drgElements();
+            for (TDRGElement element : drgElements) {
+                if (idEndsWith(element, shapeId) || (sameDiagramId(element, diagramId) && sameShapeId(element, shapeId))) {
+                    result = element;
+                    break;
+                }
+            }
+            cache.put(key, result);
+        }
+        return cache.get(key);
+    }
+
+    public TDRGElement findDRGElementByLabel(String label, String diagramId, String shapeId) {
+        String key = makeKey(label, diagramId, shapeId);
+        if (!cache.containsKey(key)) {
+            TDRGElement result;
+            List<TDRGElement> drgElements = drgElements();
+            List<TDRGElement> elements = drgElements.stream().filter(element -> sameLabel(element, label)).collect(Collectors.toList());
+            if (elements.size() == 0) {
+                result = null;
+            } else if (elements.size() == 1) {
+                result = elements.get(0);
+            } else {
+                List<TDRGElement> sameShapeIdElements = elements.stream().filter(e -> sameShapeId(e, shapeId)).collect(Collectors.toList());
+                QName diagramQName = getDiagramIdQName();
+                String newDiagramID = elements.stream().filter(e -> sameShapeId(e, shapeId)).map(e -> e.getOtherAttributes().get(diagramQName)).collect(Collectors.joining(", "));
+                if (sameShapeIdElements.size() == 1) {
+                    LOGGER.warn(String.format("Incorrect diagramId for test input with label '%s' diagramId='%s' shapeId='%s'. DiagramId should be '%s'", label, diagramId, shapeId, newDiagramID));
+                    result = sameShapeIdElements.get(0);
+                } else {
+                    throw new DMNRuntimeException(String.format("Multiple DRGElements for label '%s' with diagramId='%s' shapeId='%s'. Diagram ID should be one of '%s'", label, diagramId, shapeId, newDiagramID));
+                }
+            }
+            cache.put(key, result);
+        }
+        return cache.get(key);
+    }
+
+    public boolean idEndsWith(TNamedElement element, String id) {
+        return id != null && element.getId().endsWith(id);
+    }
+
+    private boolean sameId(TNamedElement element, String id) {
+        return id != null && id.equals(element.getId());
+    }
+
+    private boolean sameDiagramId(TDRGElement element, String id) {
+        if (id == null) {
+            return false;
+        }
+        Map<QName, String> otherAttributes = element.getOtherAttributes();
+        QName diagramIdQName = getDiagramIdQName();
+        String shapeId = otherAttributes.get(diagramIdQName);
+        return id.equals(shapeId);
+    }
+
+    private boolean sameShapeId(TDRGElement element, String id) {
+        if (id == null) {
+            return false;
+        }
+        Map<QName, String> otherAttributes = element.getOtherAttributes();
+        QName shapeIdQName = this.getShapeIdQName();
+        String shapeId = otherAttributes.get(shapeIdQName);
+        return id.equals(shapeId);
+    }
+
+    public boolean sameLabel(TNamedElement element, String label) {
+        return label != null && label.equals(element.getLabel());
+    }
+
+    private String makeKey(String id) {
+        return String.format("%s::", id);
+    }
+
+    private String makeKey(String diagramId, String shapeId) {
+        return String.format("%s:%s:", diagramId, shapeId);
+    }
+
+    private String makeKey(String label, String diagramId, String shapeId) {
+        return String.format("%s:%s:%s", label, diagramId, shapeId);
     }
 }
