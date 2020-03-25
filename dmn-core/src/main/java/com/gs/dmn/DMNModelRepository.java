@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 public class DMNModelRepository {
     protected static final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DMNModelRepository.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(DMNModelRepository.class);
 
     protected final List<TDefinitions> allDefinitions = new ArrayList<>();
 
@@ -531,8 +531,8 @@ public class DMNModelRepository {
         return element.getId().equals(id);
     }
 
-    protected boolean sameName(TNamedElement element, String href) {
-        return element.getName().equals(href);
+    public boolean sameName(TNamedElement element, String name) {
+        return element.getName().equals(name);
     }
 
     public <T extends TDRGElement> DRGElementReference<T> makeDRGElementReference(T element) {
