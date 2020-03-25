@@ -43,7 +43,7 @@ public class GenerateMissingItemDefinitionsTransformer extends SimpleDMNTransfor
 
     private List<TItemDefinition> definitions;
 
-
+    private boolean transformRepository = true;
 
     public GenerateMissingItemDefinitionsTransformer() {
         this(new Slf4jBuildLogger(LOGGER));
@@ -77,12 +77,15 @@ public class GenerateMissingItemDefinitionsTransformer extends SimpleDMNTransfor
             logger.info(String.format("Generated new item definition for \"%s\"", definition.getName()));
         }
 
+        this.transformRepository = false;
         return repository;
     }
 
     @Override
     public Pair<DMNModelRepository, List<TestLab>> transform(DMNModelRepository repository, List<TestLab> testCasesList) {
-        transform(repository);
+        if (this.transformRepository) {
+            transform(repository);
+        }
 
         return new Pair<>(repository, testCasesList);
     }
@@ -104,10 +107,10 @@ public class GenerateMissingItemDefinitionsTransformer extends SimpleDMNTransfor
             reportInvalidConfig(String.format("Configuration does not have expected structure (expecting \"%s\" node)", ELEMENT_DEFINITIONS));
         }
 
-        List definitionList = null;
-        Object definitionConfig = ((Map)definitionsNode).get(ELEMENT_DEFINITION);
+        List<Object> definitionList = null;
+        Object definitionConfig = ((Map<String, Object>) definitionsNode).get(ELEMENT_DEFINITION);
         if (definitionConfig instanceof List) {
-            definitionList = (List)definitionConfig;
+            definitionList = (List<Object>) definitionConfig;
         }
         else if (definitionConfig instanceof Map) {
             definitionList = Collections.singletonList(definitionConfig);
@@ -122,7 +125,7 @@ public class GenerateMissingItemDefinitionsTransformer extends SimpleDMNTransfor
                 reportInvalidConfig("Definition entry does not have expected structure");
             }
 
-            Map def = (Map)definitionObj;
+            Map<String, Object> def = (Map<String, Object>) definitionObj;
             Object name = def.get(FIELD_NAME);
             Object type = def.get(FIELD_TYPE);
             Object isCollection = def.get(FIELD_COLLECTION);
