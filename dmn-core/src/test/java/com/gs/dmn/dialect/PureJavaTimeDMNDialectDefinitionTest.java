@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.dialect;
 
+import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.lib.PureJavaTimeFEELLib;
@@ -34,7 +35,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public class PureJavaTimeDMNDialectDefinitionTest {
+public class PureJavaTimeDMNDialectDefinitionTest extends AbstractTest {
     private final DMNDialectDefinition dialect = new PureJavaTimeDMNDialectDefinition();
     private static final DMNModelRepository REPOSITORY = new DMNModelRepository();
 

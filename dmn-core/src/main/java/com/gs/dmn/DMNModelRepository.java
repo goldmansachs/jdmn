@@ -65,7 +65,7 @@ public class DMNModelRepository {
     }
 
     public DMNModelRepository(Pair<TDefinitions, PrefixNamespaceMappings> pair) {
-        this(Arrays.asList(pair));
+        this(Collections.singletonList(pair));
     }
 
     public DMNModelRepository(List<Pair<TDefinitions, PrefixNamespaceMappings>> pairList) {
@@ -407,52 +407,6 @@ public class DMNModelRepository {
 
     public List<? extends TDRGElement> selectDRGElement(List<DRGElementReference<? extends TDRGElement>> references) {
         return references.stream().map(DRGElementReference::getElement).collect(Collectors.toList());
-    }
-
-    public List<TDecision> topologicalSort(TDRGElement decision) {
-        List<TDecision> result = new ArrayList<>();
-        topologicalSort((TDecision) decision, result);
-        result.remove(decision);
-        return result;
-    }
-
-    protected void topologicalSort(TDecision parent, List<TDecision> decisions) {
-        if (!decisions.contains(parent)) {
-            for (TInformationRequirement ir: parent.getInformationRequirement()) {
-                TDMNElementReference requiredDecision = ir.getRequiredDecision();
-                if (requiredDecision != null) {
-                    TDecision child = findDecisionByRef(parent, requiredDecision.getHref());
-                    if (child != null) {
-                        topologicalSort(child, decisions);
-                    }
-                }
-            }
-            decisions.add(parent);
-        }
-    }
-
-    public List<Object> topologicalSortWithMarkers(TDRGElement decision) {
-        List<Object> objects = new ArrayList<>();
-        topologicalSortWithMarkers((TDecision) decision, objects);
-        objects.remove(0);
-        objects.remove(objects.size() - 1);
-        return objects;
-    }
-
-    protected void topologicalSortWithMarkers(TDecision parent, List<Object> objects) {
-        if (!objects.contains(parent)) {
-            objects.add(new StartMarker(parent));
-            for (TInformationRequirement ir: parent.getInformationRequirement()) {
-                TDMNElementReference requiredDecision = ir.getRequiredDecision();
-                if (requiredDecision != null) {
-                    TDecision child = findDecisionByRef(parent, requiredDecision.getHref());
-                    if (child != null) {
-                        topologicalSortWithMarkers(child, objects);
-                    }
-                }
-            }
-            objects.add(parent);
-        }
     }
 
     public TDRGElement findDRGElementByRef(String href) {

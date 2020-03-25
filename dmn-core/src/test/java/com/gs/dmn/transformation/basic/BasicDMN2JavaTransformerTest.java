@@ -12,11 +12,10 @@
  */
 package com.gs.dmn.transformation.basic;
 
+import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
-import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
@@ -25,7 +24,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.omg.spec.dmn._20180521.model.TDecision;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.LinkedHashMap;
@@ -33,9 +31,7 @@ import java.util.LinkedHashMap;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-public class BasicDMN2JavaTransformerTest {
-    private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(BasicDMN2JavaTransformerTest.class));
-
+public class BasicDMN2JavaTransformerTest extends AbstractTest {
     private final DMNDialectDefinition dialectDefinition = new StandardDMNDialectDefinition();
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
     private BasicDMN2JavaTransformer dmnTransformer;
@@ -140,7 +136,7 @@ public class BasicDMN2JavaTransformerTest {
     }
 
     private DMNModelRepository readDMN(String pathName) {
-        File input = new File(BasicDMN2JavaTransformerTest.class.getClassLoader().getResource(pathName).getFile());
+        File input = new File(resource(pathName));
         Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(input);
         return new DMNModelRepository(pair);
     }
