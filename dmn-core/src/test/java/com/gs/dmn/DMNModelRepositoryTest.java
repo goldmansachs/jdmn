@@ -12,15 +12,12 @@
  */
 package com.gs.dmn;
 
-import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import org.junit.Before;
 import org.junit.Test;
 import org.omg.spec.dmn._20180521.model.*;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -31,9 +28,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
-public class DMNModelRepositoryTest {
-    private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(DMNModelRepositoryTest.class));
-
+public class DMNModelRepositoryTest extends AbstractTest {
     private DMNModelRepository dmnModelRepository;
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
 
@@ -51,17 +46,6 @@ public class DMNModelRepositoryTest {
         TDecision decision = this.dmnModelRepository.findDecisionByRef(null,namespace + "#" + id);
         assertEquals(id, decision.getId());
         assertEquals("BureauCallType", decision.getName());
-    }
-
-    @Test
-    public void testTopologicalSort() {
-        TDMNElement root = this.dmnModelRepository.findDRGElementByName("Strategy");
-
-        List<TDecision> decisions = this.dmnModelRepository.topologicalSort((TDecision)root);
-
-        List<String> actual = decisions.stream().map(TNamedElement::getName).collect(Collectors.toList());
-        List<String> expected = Arrays.asList("ApplicationRiskScore", "Pre-bureauRiskCategory", "BureauCallType", "RequiredMonthlyInstallment", "Pre-bureauAffordability", "Eligibility");
-        assertEquals(expected, actual);
     }
 
     @Test
@@ -164,7 +148,7 @@ public class DMNModelRepositoryTest {
     }
 
     private DMNModelRepository readDMN(String pathName) {
-        File input = new File(DMNModelRepositoryTest.class.getClassLoader().getResource(pathName).getFile());
+        File input = new File(resource(pathName));
         List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs = this.dmnReader.readModels(input);
         return new DMNModelRepository(pairs);
     }

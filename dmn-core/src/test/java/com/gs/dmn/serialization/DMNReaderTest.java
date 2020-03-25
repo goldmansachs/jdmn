@@ -12,12 +12,10 @@
  */
 package com.gs.dmn.serialization;
 
-import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.log.Slf4jBuildLogger;
+import com.gs.dmn.AbstractTest;
 import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 import org.omg.spec.dmn._20180521.model.*;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBElement;
 import java.io.File;
@@ -25,14 +23,12 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class DMNReaderTest {
-    private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(DMNReaderTest.class));
-
+public class DMNReaderTest extends AbstractTest {
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
 
     @Test
     public void testRead() {
-        File input = new File(DMNReaderTest.class.getClassLoader().getResource("dmn/input/test-dmn.dmn").getFile());
+        File input = new File(resource("dmn/input/test-dmn.dmn"));
 
         Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(input);
         TDefinitions definitions = pair.getLeft();
