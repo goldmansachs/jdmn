@@ -430,20 +430,6 @@ public class TCKUtil {
         }
     }
 
-    private TDRGElement findDRGElement(TestCases testCases, TestCase testCase, InputNode node) {
-        try {
-            String namespace = getNamespace(testCases, testCase, node);
-            String name = node.getName();
-            if (namespace != null) {
-                return this.dmnModelRepository.findDRGElementByName(namespace, name);
-            } else {
-                return this.dmnModelRepository.findDRGElementByName(name);
-            }
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
     private TDRGElement findDRGElement(TestCases testCases, TestCase testCase, ResultNode node) {
         try {
             String namespace = getNamespace(testCases, testCase, node);

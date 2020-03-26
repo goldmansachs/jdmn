@@ -56,7 +56,7 @@ public abstract class AbstractSignavioDMNInterpreterTest {
             DMNModelRepository repository = new SignavioDMNModelRepository(pair, "http://www.provider.com/schema/dmn/1.1/");
             DMNInterpreter interpreter = dialectDefinition.createDMNInterpreter(repository, new LinkedHashMap<>());
 
-            TDRGElement decision = repository.findDRGElementByName(decisionName);
+            TDRGElement decision = repository.findDRGElementByName(repository.getRootDefinitions(), decisionName);
             Result actualResult = interpreter.evaluate(repository.makeDRGElementReference(decision), null, runtimeEnvironment);
             Object actualValue = Result.value(actualResult);
 

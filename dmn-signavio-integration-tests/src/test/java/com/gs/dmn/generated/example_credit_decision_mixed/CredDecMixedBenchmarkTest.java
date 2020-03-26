@@ -97,7 +97,7 @@ public class CredDecMixedBenchmarkTest {
         runtimeEnvironment.bind("currentRiskAppetite", currentRiskAppetite);
         runtimeEnvironment.bind("lendingThreshold", lendingThreshold);
 
-        TDRGElement decision = repository.findDRGElementByName("generateOutputData");
+        TDRGElement decision = repository.findDRGElementByName(repository.getRootDefinitions(), "generateOutputData");
         Object result = interpreter.evaluate(repository.makeDRGElementReference(decision), null, runtimeEnvironment);
         System.out.println(result);
 
