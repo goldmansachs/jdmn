@@ -68,13 +68,15 @@ public class RuleDescriptionTransformer extends SimpleDMNTransformer<TestLab> {
     }
 
     private DMNModelRepository cleanRuleDescription(DMNModelRepository repository, BuildLogger logger) {
-        for(TDecision decision: repository.decisions()) {
-            TExpression expression = repository.expression(decision);
-            if (expression instanceof TDecisionTable) {
-                LOGGER.debug("Cleaning descriptions for '{}'", decision.getName());
-                List<TDecisionRule> rules = ((TDecisionTable) expression).getRule();
-                for (TDecisionRule rule: rules) {
-                    cleanRuleDescription(rule);
+        for (TDefinitions definitions: repository.getAllDefinitions()) {
+            for(TDecision decision: repository.decisions(definitions)) {
+                TExpression expression = repository.expression(decision);
+                if (expression instanceof TDecisionTable) {
+                    logger.debug(String.format("Cleaning descriptions for '%s'", decision.getName()));
+                    List<TDecisionRule> rules = ((TDecisionTable) expression).getRule();
+                    for (TDecisionRule rule: rules) {
+                        cleanRuleDescription(rule);
+                    }
                 }
             }
         }

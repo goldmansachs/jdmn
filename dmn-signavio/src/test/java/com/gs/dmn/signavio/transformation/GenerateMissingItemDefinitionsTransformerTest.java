@@ -124,10 +124,7 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileT
 
     @SuppressWarnings("unchecked")
     private RepositoryTransformResult executeTransformation(String dmnFilePath, String transformerConfigFilePath) throws Exception {
-        File dmnFile = new File(resource(dmnFilePath));
-
         DMNTransformer<TestLab> transformer = new GenerateMissingItemDefinitionsTransformer(LOGGER);
-
         if (transformerConfigFilePath != null) {
             File configFile = new File(resource(transformerConfigFilePath));
             Map<String, Object> configuration = MAPPER.readValue(configFile, Map.class);
@@ -135,13 +132,12 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileT
             transformer.configure(configuration);
         }
 
+        File dmnFile = new File(resource(dmnFilePath));
         DMNModelRepository repository = new SignavioDMNModelRepository(dmnReader.read(dmnFile));
-
-        List<TItemDefinition> definitions = new ArrayList<>(repository.itemDefinitions());
-
+        List<TItemDefinition> definitions = new ArrayList<>(repository.itemDefinitions(repository.getRootDefinitions()));
         DMNModelRepository transformed = transformer.transform(repository);
-        List<TItemDefinition> transformedDefinitions = new ArrayList<>(transformed.itemDefinitions());
 
+        List<TItemDefinition> transformedDefinitions = new ArrayList<>(transformed.itemDefinitions(transformed.getRootDefinitions()));
         return new RepositoryTransformResult(definitions, transformedDefinitions);
     }
 

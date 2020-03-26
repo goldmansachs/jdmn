@@ -43,10 +43,7 @@ public class DMNModelRepository {
 
     // Derived properties to optimise search
     protected List<TDRGElement> drgElements;
-    protected List<TDecision> decisions;
-    protected List<TInputData> inputDatas;
     protected List<TBusinessKnowledgeModel> businessKnowledgeModels;
-    protected List<TDecisionService> decisionServices;
     protected List<TItemDefinition> itemDefinitions;
     protected Map<String, TDRGElement> drgElementByName = new LinkedHashMap<>();
     protected Map<String, TBusinessKnowledgeModel> knowledgeModelByName = new LinkedHashMap<>();
@@ -206,7 +203,7 @@ public class DMNModelRepository {
         return definitions == null ? null : definitions.getName();
     }
 
-    public List<TDRGElement> drgElements() {
+    protected List<TDRGElement> drgElements() {
         if (this.drgElements == null) {
             this.drgElements = new ArrayList<>();
             for (TDefinitions definitions: this.allDefinitions) {
@@ -216,27 +213,7 @@ public class DMNModelRepository {
         return this.drgElements;
     }
 
-    public List<TDecision> decisions() {
-        if (this.decisions == null) {
-            this.decisions = new ArrayList<>();
-            for (TDefinitions definitions: this.allDefinitions) {
-                decisions(definitions, this.decisions);
-            }
-        }
-        return this.decisions;
-    }
-
-    public List<TInputData> inputDatas() {
-        if (this.inputDatas == null) {
-            this.inputDatas = new ArrayList<>();
-            for (TDefinitions definitions: this.allDefinitions) {
-                inputDatas(definitions, this.inputDatas);
-            }
-        }
-        return this.inputDatas;
-    }
-
-    public List<TBusinessKnowledgeModel> businessKnowledgeModels() {
+    private List<TBusinessKnowledgeModel> businessKnowledgeModels() {
         if (this.businessKnowledgeModels == null) {
             this.businessKnowledgeModels = new ArrayList<>();
             for (TDefinitions definitions: this.allDefinitions) {
@@ -246,17 +223,7 @@ public class DMNModelRepository {
         return this.businessKnowledgeModels;
     }
 
-    public List<TDecisionService> decisionServices() {
-        if (this.decisionServices == null) {
-            this.decisionServices = new ArrayList<>();
-            for (TDefinitions definitions: this.allDefinitions) {
-                decisionServices(definitions, this.decisionServices);
-            }
-        }
-        return this.decisionServices;
-    }
-
-    public List<TItemDefinition> itemDefinitions() {
+    private List<TItemDefinition> itemDefinitions() {
         if (this.itemDefinitions == null) {
             this.itemDefinitions = new ArrayList<>();
             for (TDefinitions definitions: this.allDefinitions) {
