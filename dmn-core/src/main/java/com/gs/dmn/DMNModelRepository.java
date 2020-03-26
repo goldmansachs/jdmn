@@ -457,6 +457,13 @@ public class DMNModelRepository {
         if (definitions == null) {
             throw new DMNRuntimeException(String.format("Cannot find model for namespace '%s'", namespace));
         }
+        return findDRGElementByName(definitions, name);
+    }
+
+    public TDRGElement findDRGElementByName(TDefinitions definitions, String name) {
+        if (definitions == null) {
+            throw new DMNRuntimeException(String.format("Cannot find element for name='%s'. Missing DM", name));
+        }
         for (TDRGElement element: findDRGElements(definitions)) {
             if (element.getName().equals(name)) {
                 return element;

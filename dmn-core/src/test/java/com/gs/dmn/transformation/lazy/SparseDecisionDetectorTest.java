@@ -54,8 +54,9 @@ public class SparseDecisionDetectorTest extends AbstractTest {
 
     @Test
     public void testIsSparseDecisionTable() {
-        checkDecisionTable(dmnModelRepository.findDRGElementByName("EligibilityRules"), 0.75, true);
-        checkDecisionTable(dmnModelRepository.findDRGElementByName("Strategy"), 0.75, false);
+        TDefinitions definitions = this.dmnModelRepository.getRootDefinitions();
+        checkDecisionTable(dmnModelRepository.findDRGElementByName(definitions, "EligibilityRules"), 0.75, true);
+        checkDecisionTable(dmnModelRepository.findDRGElementByName(definitions, "Strategy"), 0.75, false);
     }
 
     private void checkDecisionTable(TDRGElement element, Double sparsityThreshold, boolean expectedResult) {
