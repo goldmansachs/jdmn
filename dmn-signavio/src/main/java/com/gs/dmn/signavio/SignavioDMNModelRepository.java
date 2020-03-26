@@ -149,40 +149,40 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
 
     public TDRGElement findDRGElementById(String id) {
         String key = makeKey(id);
-        if (!cache.containsKey(key)) {
-            TDRGElement result = null;
+        TDRGElement result = cache.get(key);
+        if (result == null) {
             List<TDRGElement> drgElements = findAllDRGElements();
             for (TDRGElement element : drgElements) {
                 if (sameId(element, id)) {
                     result = element;
+                    cache.put(key, result);
                     break;
                 }
             }
-            cache.put(key, result);
         }
-        return cache.get(key);
+        return result;
     }
 
     public TDRGElement findDRGElementByDiagramAndShapeIds(String diagramId, String shapeId) {
         String key = makeKey(diagramId, shapeId);
-        if (!cache.containsKey(key)) {
-            TDRGElement result = null;
+        TDRGElement result = cache.get(key);
+        if (result == null) {
             List<TDRGElement> drgElements = findAllDRGElements();
             for (TDRGElement element : drgElements) {
                 if (idEndsWith(element, shapeId) || (sameDiagramId(element, diagramId) && sameShapeId(element, shapeId))) {
                     result = element;
+                    cache.put(key, result);
                     break;
                 }
             }
-            cache.put(key, result);
         }
-        return cache.get(key);
+        return result;
     }
 
     public TDRGElement findDRGElementByLabel(String label, String diagramId, String shapeId) {
         String key = makeKey(label, diagramId, shapeId);
-        if (!cache.containsKey(key)) {
-            TDRGElement result;
+        TDRGElement result = cache.get(key);
+        if (result == null) {
             List<TDRGElement> drgElements = findAllDRGElements();
             List<TDRGElement> elements = drgElements.stream().filter(element -> sameLabel(element, label)).collect(Collectors.toList());
             if (elements.size() == 0) {
@@ -200,9 +200,11 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
                     throw new DMNRuntimeException(String.format("Multiple DRGElements for label '%s' with diagramId='%s' shapeId='%s'. Diagram ID should be one of '%s'", label, diagramId, shapeId, newDiagramID));
                 }
             }
-            cache.put(key, result);
+            if (result != null) {
+                cache.put(key, result);
+            }
         }
-        return cache.get(key);
+        return result;
     }
 
     public boolean idEndsWith(TNamedElement element, String id) {
