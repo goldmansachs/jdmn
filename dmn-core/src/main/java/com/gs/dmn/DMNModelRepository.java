@@ -42,7 +42,6 @@ public class DMNModelRepository {
     protected final PrefixNamespaceMappings prefixNamespaceMappings;
 
     // Derived properties to optimise search
-    protected List<TDRGElement> drgElements;
     protected List<TBusinessKnowledgeModel> businessKnowledgeModels;
     protected List<TItemDefinition> itemDefinitions;
     protected Map<String, TDRGElement> drgElementByName = new LinkedHashMap<>();
@@ -205,16 +204,6 @@ public class DMNModelRepository {
     public String getModelName(TNamedElement element) {
         TDefinitions definitions = this.elementToDefinitions.get(element);
         return definitions == null ? null : definitions.getName();
-    }
-
-    protected List<TDRGElement> findAllDRGElements() {
-        if (this.drgElements == null) {
-            this.drgElements = new ArrayList<>();
-            for (TDefinitions definitions: this.allDefinitions) {
-                collectDRGElements(definitions, this.drgElements);
-            }
-        }
-        return this.drgElements;
     }
 
     private List<TBusinessKnowledgeModel> findAllBKMs() {
@@ -480,9 +469,11 @@ public class DMNModelRepository {
         TDRGElement result = this.drgElementByName.get(name);
         if (result == null) {
             List<TDRGElement> value = new ArrayList<>();
-            for (TDRGElement element : findAllDRGElements()) {
-                if (sameName(element, name)) {
-                    value.add(element);
+            for (TDefinitions definitions: getAllDefinitions()) {
+                for (TDRGElement element : findDRGElements(definitions)) {
+                    if (sameName(element, name)) {
+                        value.add(element);
+                    }
                 }
             }
             if (value.size() == 1) {

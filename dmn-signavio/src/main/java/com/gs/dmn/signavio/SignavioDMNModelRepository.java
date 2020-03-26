@@ -151,7 +151,8 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         String key = makeKey(id);
         TDRGElement result = cache.get(key);
         if (result == null) {
-            List<TDRGElement> drgElements = findAllDRGElements();
+            TDefinitions definitions = getRootDefinitions();
+            List<TDRGElement> drgElements = findDRGElements(definitions);
             for (TDRGElement element : drgElements) {
                 if (sameId(element, id)) {
                     result = element;
@@ -167,7 +168,8 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         String key = makeKey(diagramId, shapeId);
         TDRGElement result = cache.get(key);
         if (result == null) {
-            List<TDRGElement> drgElements = findAllDRGElements();
+            TDefinitions definitions = getRootDefinitions();
+            List<TDRGElement> drgElements = findDRGElements(definitions);
             for (TDRGElement element : drgElements) {
                 if (idEndsWith(element, shapeId) || (sameDiagramId(element, diagramId) && sameShapeId(element, shapeId))) {
                     result = element;
@@ -183,7 +185,8 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         String key = makeKey(label, diagramId, shapeId);
         TDRGElement result = cache.get(key);
         if (result == null) {
-            List<TDRGElement> drgElements = findAllDRGElements();
+            TDefinitions definitions = getRootDefinitions();
+            List<TDRGElement> drgElements = findDRGElements(definitions);
             List<TDRGElement> elements = drgElements.stream().filter(element -> sameLabel(element, label)).collect(Collectors.toList());
             if (elements.size() == 0) {
                 result = null;
