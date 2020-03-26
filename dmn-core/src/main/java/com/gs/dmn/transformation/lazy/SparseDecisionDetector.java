@@ -40,20 +40,22 @@ public class SparseDecisionDetector extends SimpleLazyEvaluationDetector {
         LazyEvaluationOptimisation lazyEvaluationOptimisation = new LazyEvaluationOptimisation();
         logger.info("Scanning for sparse decisions ...");
 
-        for (TDecision decision : modelRepository.decisions()) {
-            JAXBElement<? extends TExpression> element = decision.getExpression();
-            TExpression expression = element == null ? null : element.getValue();
-            if (expression instanceof TDecisionTable && isSparseDecisionTable((TDecisionTable) expression, sparsityThreshold)) {
+        for (TDefinitions definitions: modelRepository.getAllDefinitions()) {
+            for (TDecision decision : modelRepository.decisions(definitions)) {
+                JAXBElement<? extends TExpression> element = decision.getExpression();
+                TExpression expression = element == null ? null : element.getValue();
+                if (expression instanceof TDecisionTable && isSparseDecisionTable((TDecisionTable) expression, sparsityThreshold)) {
 
-                logger.info(String.format("Found sparse decision '%s'", decision.getName()));
+                    logger.info(String.format("Found sparse decision '%s'", decision.getName()));
 
-                for (TInformationRequirement ir : decision.getInformationRequirement()) {
-                    TDMNElementReference requiredDecision = ir.getRequiredDecision();
-                    if (requiredDecision != null) {
-                        String href = requiredDecision.getHref();
-                        TDecision drgElement = modelRepository.findDecisionByRef(decision, href);
-                        if (drgElement != null) {
-                            lazyEvaluationOptimisation.addLazyEvaluatedDecision(drgElement.getName());
+                    for (TInformationRequirement ir : decision.getInformationRequirement()) {
+                        TDMNElementReference requiredDecision = ir.getRequiredDecision();
+                        if (requiredDecision != null) {
+                            String href = requiredDecision.getHref();
+                            TDecision drgElement = modelRepository.findDecisionByRef(decision, href);
+                            if (drgElement != null) {
+                                lazyEvaluationOptimisation.addLazyEvaluatedDecision(drgElement.getName());
+                            }
                         }
                     }
                 }
