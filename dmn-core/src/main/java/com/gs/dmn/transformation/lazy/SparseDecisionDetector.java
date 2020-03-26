@@ -20,7 +20,6 @@ import org.omg.spec.dmn._20180521.model.*;
 
 import javax.xml.bind.JAXBElement;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class SparseDecisionDetector extends SimpleLazyEvaluationDetector {
     private final double sparsityThreshold;
@@ -41,7 +40,7 @@ public class SparseDecisionDetector extends SimpleLazyEvaluationDetector {
         logger.info("Scanning for sparse decisions ...");
 
         for (TDefinitions definitions: modelRepository.getAllDefinitions()) {
-            for (TDecision decision : modelRepository.decisions(definitions)) {
+            for (TDecision decision : modelRepository.findDecisions(definitions)) {
                 JAXBElement<? extends TExpression> element = decision.getExpression();
                 TExpression expression = element == null ? null : element.getValue();
                 if (expression instanceof TDecisionTable && isSparseDecisionTable((TDecisionTable) expression, sparsityThreshold)) {

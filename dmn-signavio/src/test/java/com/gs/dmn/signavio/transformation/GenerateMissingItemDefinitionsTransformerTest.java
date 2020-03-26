@@ -134,10 +134,10 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileT
 
         File dmnFile = new File(resource(dmnFilePath));
         DMNModelRepository repository = new SignavioDMNModelRepository(dmnReader.read(dmnFile));
-        List<TItemDefinition> definitions = new ArrayList<>(repository.itemDefinitions(repository.getRootDefinitions()));
+        List<TItemDefinition> definitions = new ArrayList<>(repository.findItemDefinitions(repository.getRootDefinitions()));
         DMNModelRepository transformed = transformer.transform(repository);
 
-        List<TItemDefinition> transformedDefinitions = new ArrayList<>(transformed.itemDefinitions(transformed.getRootDefinitions()));
+        List<TItemDefinition> transformedDefinitions = new ArrayList<>(transformed.findItemDefinitions(transformed.getRootDefinitions()));
         return new RepositoryTransformResult(definitions, transformedDefinitions);
     }
 

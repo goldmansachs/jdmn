@@ -134,7 +134,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     // Replace old names with new names in expressions
     protected void replace(DMNModelRepository repository) {
         for (TDefinitions definitions: repository.getAllDefinitions()) {
-            for (TDRGElement element : repository.drgElements(definitions)) {
+            for (TDRGElement element : repository.findDRGElements(definitions)) {
                 if (element instanceof TBusinessKnowledgeModel) {
                     // Replace old names with new names in body
                     LexicalContext lexicalContext = makeLexicalContext(element, repository);
@@ -244,10 +244,10 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
             }
         }
         for (TDefinitions definitions: repository.getAllDefinitions()) {
-            for (TItemDefinition itemDefinition : repository.itemDefinitions(definitions)) {
+            for (TItemDefinition itemDefinition : repository.findItemDefinitions(definitions)) {
                 renameItemDefinitionMembers(itemDefinition);
             }
-            for (TDRGElement element : repository.drgElements(definitions)) {
+            for (TDRGElement element : repository.findDRGElements(definitions)) {
                 if (element instanceof TInputData) {
                     // Rename element and variable
                     renameElement(element);

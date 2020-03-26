@@ -27,7 +27,7 @@ public class LabelDuplicationDRGElementValidator extends LabelDuplicationValidat
         }
 
         for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
-            validateElements(dmnModelRepository.drgElements(definitions), errors);
+            validateElements(dmnModelRepository.findDRGElements(definitions), errors);
         }
 
         return errors;

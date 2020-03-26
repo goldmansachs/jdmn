@@ -86,10 +86,10 @@ public class DMNModelRepository {
             normalize(definitions);
 
             // Set derived properties
-            for (TNamedElement element: itemDefinitions(definitions)) {
+            for (TNamedElement element: findItemDefinitions(definitions)) {
                 this.elementToDefinitions.put(element, definitions);
             }
-            for (TDRGElement element: drgElements(definitions)) {
+            for (TDRGElement element: findDRGElements(definitions)) {
                 this.elementToDefinitions.put(element, definitions);
             }
         }
@@ -112,7 +112,7 @@ public class DMNModelRepository {
         Map<String, Integer> map = new LinkedHashMap<>();
         Map<String, TDecision> parentMap = new LinkedHashMap<>();
         for (TDefinitions definitions: this.getAllDefinitions()) {
-            for (TDecision decision : decisions(definitions)) {
+            for (TDecision decision : findDecisions(definitions)) {
                 addCachedChildren(definitions, decision, parentMap, map);
             }
         }
@@ -207,27 +207,27 @@ public class DMNModelRepository {
         return definitions == null ? null : definitions.getName();
     }
 
-    protected List<TDRGElement> drgElements() {
+    protected List<TDRGElement> findAllDRGElements() {
         if (this.drgElements == null) {
             this.drgElements = new ArrayList<>();
             for (TDefinitions definitions: this.allDefinitions) {
-                drgElements(definitions, this.drgElements);
+                collectDRGElements(definitions, this.drgElements);
             }
         }
         return this.drgElements;
     }
 
-    private List<TBusinessKnowledgeModel> businessKnowledgeModels() {
+    private List<TBusinessKnowledgeModel> findAllBKMs() {
         if (this.businessKnowledgeModels == null) {
             this.businessKnowledgeModels = new ArrayList<>();
             for (TDefinitions definitions: this.allDefinitions) {
-                businessKnowledgeModels(definitions, this.businessKnowledgeModels);
+                collectBKMs(definitions, this.businessKnowledgeModels);
             }
         }
         return this.businessKnowledgeModels;
     }
 
-    private List<TItemDefinition> itemDefinitions() {
+    private List<TItemDefinition> findAllItemDefinitions() {
         if (this.itemDefinitions == null) {
             this.itemDefinitions = new ArrayList<>();
             for (TDefinitions definitions: this.allDefinitions) {
@@ -237,58 +237,58 @@ public class DMNModelRepository {
         return this.itemDefinitions;
     }
 
-    public List<TDRGElement> drgElements(TDefinitions definitions) {
+    public List<TDRGElement> findDRGElements(TDefinitions definitions) {
         List<TDRGElement> result = this.drgElementsByModel.get(definitions);
         if (result == null) {
             result = new ArrayList<>();
-            drgElements(definitions, result);
+            collectDRGElements(definitions, result);
             this.drgElementsByModel.put(definitions, result);
         }
         return result;
     }
 
-    public List<TDecision> decisions(TDefinitions definitions) {
+    public List<TDecision> findDecisions(TDefinitions definitions) {
         List<TDecision> result = this.decisionsByModel.get(definitions);
         if (result == null) {
             result = new ArrayList<>();
-            decisions(definitions, result);
+            collectDecisions(definitions, result);
             this.decisionsByModel.put(definitions, result);
         }
         return result;
     }
 
-    public List<TInputData> inputDatas(TDefinitions definitions) {
+    public List<TInputData> findInputDatas(TDefinitions definitions) {
         List<TInputData> result = this.inputDatasByModel.get(definitions);
         if (result == null) {
             result = new ArrayList<>();
-            inputDatas(definitions, result);
+            collectInputDatas(definitions, result);
             this.inputDatasByModel.put(definitions, result);
         }
         return result;
     }
 
-    public List<TBusinessKnowledgeModel> businessKnowledgeModels(TDefinitions definitions) {
+    public List<TBusinessKnowledgeModel> findBKMs(TDefinitions definitions) {
         List<TBusinessKnowledgeModel> result = this.bkmsByModel.get(definitions);
         if (result == null) {
             result = new ArrayList<>();
-            businessKnowledgeModels(definitions, result);
+            collectBKMs(definitions, result);
             this.bkmsByModel.put(definitions, result);
         }
         return result;
     }
 
-    public List<TItemDefinition> itemDefinitions(TDefinitions definitions) {
+    public List<TItemDefinition> findItemDefinitions(TDefinitions definitions) {
         return definitions.getItemDefinition();
     }
 
-    protected void drgElements(TDefinitions definitions, List<TDRGElement> result) {
+    protected void collectDRGElements(TDefinitions definitions, List<TDRGElement> result) {
         for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
             TDRGElement element = jaxbElement.getValue();
             result.add(element);
         }
     }
 
-    protected void decisions(TDefinitions definitions, List<TDecision> result) {
+    protected void collectDecisions(TDefinitions definitions, List<TDecision> result) {
         for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
             TDRGElement element = jaxbElement.getValue();
             if (element instanceof TDecision) {
@@ -297,7 +297,7 @@ public class DMNModelRepository {
         }
     }
 
-    protected void inputDatas(TDefinitions definitions, List<TInputData> result) {
+    protected void collectInputDatas(TDefinitions definitions, List<TInputData> result) {
         for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
             TDRGElement element = jaxbElement.getValue();
             if (element instanceof TInputData) {
@@ -306,7 +306,7 @@ public class DMNModelRepository {
         }
     }
 
-    protected void businessKnowledgeModels(TDefinitions definitions, List<TBusinessKnowledgeModel> result) {
+    protected void collectBKMs(TDefinitions definitions, List<TBusinessKnowledgeModel> result) {
         for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
             TDRGElement element = jaxbElement.getValue();
             if (element instanceof TBusinessKnowledgeModel) {
@@ -386,7 +386,7 @@ public class DMNModelRepository {
             String key = makeRef(definitions.getNamespace(), href);
             if (!this.drgElementByRef.containsKey(key)) {
                 TDRGElement value = null;
-                for (TDRGElement element : drgElements(definitions)) {
+                for (TDRGElement element : findDRGElements(definitions)) {
                     if (sameId(element, href)) {
                         value = element;
                         break;
@@ -444,7 +444,7 @@ public class DMNModelRepository {
     public TBusinessKnowledgeModel findKnowledgeModelByName(String name) {
         if (!this.knowledgeModelByName.containsKey(name)) {
             List<TBusinessKnowledgeModel> value = new ArrayList<>();
-            for (TBusinessKnowledgeModel knowledgeModel : businessKnowledgeModels()) {
+            for (TBusinessKnowledgeModel knowledgeModel : findAllBKMs()) {
                 if (sameName(knowledgeModel, name)) {
                     value.add(knowledgeModel);
                 }
@@ -468,7 +468,7 @@ public class DMNModelRepository {
         if (definitions == null) {
             throw new DMNRuntimeException(String.format("Cannot find model for namespace '%s'", namespace));
         }
-        for (TDRGElement element: drgElements(definitions)) {
+        for (TDRGElement element: findDRGElements(definitions)) {
             if (element.getName().equals(name)) {
                 return element;
             }
@@ -479,7 +479,7 @@ public class DMNModelRepository {
     public TDRGElement findDRGElementByName(String name) {
         if (!this.drgElementByName.containsKey(name)) {
             List<TDRGElement> value = new ArrayList<>();
-            for (TDRGElement element : drgElements()) {
+            for (TDRGElement element : findAllDRGElements()) {
                 if (sameName(element, name)) {
                     value.add(element);
                 }
@@ -682,7 +682,7 @@ public class DMNModelRepository {
         }
 
         if (model == null) {
-            return lookupItemDefinition(itemDefinitions(), typeRef);
+            return lookupItemDefinition(findAllItemDefinitions(), typeRef);
         } else {
             for (TImport import_: model.getImport()) {
                 if (import_.getName().equals(importName)) {
@@ -693,7 +693,7 @@ public class DMNModelRepository {
                     }
                 }
             }
-            return lookupItemDefinition(itemDefinitions(model), typeRef);
+            return lookupItemDefinition(findItemDefinitions(model), typeRef);
         }
     }
 
@@ -707,7 +707,7 @@ public class DMNModelRepository {
     }
 
     public TItemDefinition lookupItemDefinition(String name) {
-        return lookupItemDefinition(itemDefinitions(), name);
+        return lookupItemDefinition(findAllItemDefinitions(), name);
     }
 
     protected TItemDefinition lookupItemDefinition(List<TItemDefinition> itemDefinitionList, String name) {
