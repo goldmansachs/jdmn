@@ -48,6 +48,10 @@ public class DMNModelRepository {
     protected Map<String, TDRGElement> drgElementByName = new LinkedHashMap<>();
     protected Map<String, TBusinessKnowledgeModel> knowledgeModelByName = new LinkedHashMap<>();
     protected Map<String, TDRGElement> drgElementByRef = new LinkedHashMap<>();
+    protected Map<TDefinitions, List<TDRGElement>> drgElementsByModel = new LinkedHashMap<>();
+    protected Map<TDefinitions, List<TDecision>> decisionsByModel = new LinkedHashMap<>();
+    protected Map<TDefinitions, List<TInputData>> inputDatasByModel = new LinkedHashMap<>();
+    protected Map<TDefinitions, List<TBusinessKnowledgeModel>> bkmsByModel = new LinkedHashMap<>();
 
     public DMNModelRepository() {
         this(OBJECT_FACTORY.createTDefinitions(), new PrefixNamespaceMappings());
@@ -234,32 +238,42 @@ public class DMNModelRepository {
     }
 
     public List<TDRGElement> drgElements(TDefinitions definitions) {
-        List<TDRGElement> result = new ArrayList<>();
-        drgElements(definitions, result);
+        List<TDRGElement> result = this.drgElementsByModel.get(definitions);
+        if (result == null) {
+            result = new ArrayList<>();
+            drgElements(definitions, result);
+            this.drgElementsByModel.put(definitions, result);
+        }
         return result;
     }
 
     public List<TDecision> decisions(TDefinitions definitions) {
-        List<TDecision> result = new ArrayList<>();
-        decisions(definitions, result);
+        List<TDecision> result = this.decisionsByModel.get(definitions);
+        if (result == null) {
+            result = new ArrayList<>();
+            decisions(definitions, result);
+            this.decisionsByModel.put(definitions, result);
+        }
         return result;
     }
 
     public List<TInputData> inputDatas(TDefinitions definitions) {
-        List<TInputData> result = new ArrayList<>();
-        inputDatas(definitions, result);
+        List<TInputData> result = this.inputDatasByModel.get(definitions);
+        if (result == null) {
+            result = new ArrayList<>();
+            inputDatas(definitions, result);
+            this.inputDatasByModel.put(definitions, result);
+        }
         return result;
     }
 
     public List<TBusinessKnowledgeModel> businessKnowledgeModels(TDefinitions definitions) {
-        List<TBusinessKnowledgeModel> result = new ArrayList<>();
-        businessKnowledgeModels(definitions, result);
-        return result;
-    }
-
-    public List<TDecisionService> decisionServices(TDefinitions definitions) {
-        List<TDecisionService> result = new ArrayList<>();
-        decisionServices(definitions, result);
+        List<TBusinessKnowledgeModel> result = this.bkmsByModel.get(definitions);
+        if (result == null) {
+            result = new ArrayList<>();
+            businessKnowledgeModels(definitions, result);
+            this.bkmsByModel.put(definitions, result);
+        }
         return result;
     }
 
@@ -297,15 +311,6 @@ public class DMNModelRepository {
             TDRGElement element = jaxbElement.getValue();
             if (element instanceof TBusinessKnowledgeModel) {
                 result.add((TBusinessKnowledgeModel) element);
-            }
-        }
-    }
-
-    protected void decisionServices(TDefinitions definitions, List<TDecisionService> result) {
-        for (JAXBElement<? extends TDRGElement> jaxbElement : definitions.getDrgElement()) {
-            TDRGElement element = jaxbElement.getValue();
-            if (element instanceof TDecisionService) {
-                result.add((TDecisionService) element);
             }
         }
     }
