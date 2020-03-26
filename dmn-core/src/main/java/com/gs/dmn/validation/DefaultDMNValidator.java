@@ -48,22 +48,22 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
             logger.debug("Validate unique 'DRGElement.id'");
             validateUnique(
                     "DRGElement", "id", false, dmnModelRepository,
-                    new ArrayList<>(dmnModelRepository.drgElements(definitions)), f -> f.getId(), null, errors
+                    new ArrayList<>(dmnModelRepository.findDRGElements(definitions)), TDMNElement::getId, null, errors
             );
 
             logger.debug("Validate unique 'DRGElement.name'");
             validateUnique(
                     "DRGElement", "name", false, dmnModelRepository,
-                    new ArrayList<>(dmnModelRepository.drgElements(definitions)), e -> ((TNamedElement)e).getName(), null, errors
+                    new ArrayList<>(dmnModelRepository.findDRGElements(definitions)), e -> ((TNamedElement)e).getName(), null, errors
             );
 
             logger.debug("Validate unique 'ItemDefinition.name'");
             validateUnique(
                     "ItemDefinition", "name", false, dmnModelRepository,
-                    new ArrayList<>(dmnModelRepository.itemDefinitions(definitions)), e -> ((TNamedElement)e).getName(), null, errors
+                    new ArrayList<>(dmnModelRepository.findItemDefinitions(definitions)), e -> ((TNamedElement)e).getName(), null, errors
             );
 
-            for (TDRGElement element : dmnModelRepository.drgElements(definitions)) {
+            for (TDRGElement element : dmnModelRepository.findDRGElements(definitions)) {
                 logger.debug(String.format("Validate element '%s'", element.getName()));
                 if (element instanceof TInputData) {
                     validateInputData((TInputData) element, errors);

@@ -75,7 +75,7 @@ public class MergeInputDataTransformerTest extends AbstractFileTransformerTest {
     private void check(TDefinitions actualDefinitions, List<TestLab> actualTestLabList) throws Exception {
         // Check definitions for duplicate InputData
         SignavioDMNModelRepository signavioDMNModelRepository = new SignavioDMNModelRepository(actualDefinitions, new PrefixNamespaceMappings());
-        List<TInputData> inputDataList = signavioDMNModelRepository.inputDatas(actualDefinitions);
+        List<TInputData> inputDataList = signavioDMNModelRepository.findInputDatas(actualDefinitions);
         for(TInputData inputData1: inputDataList) {
             TInputData duplicate = null;
             for(TInputData inputData2: inputDataList) {
@@ -111,7 +111,7 @@ public class MergeInputDataTransformerTest extends AbstractFileTransformerTest {
     }
 
     private void checkDefinitions(TDefinitions actualDefinitions, String fileName) throws Exception {
-        assertEquals(2, new SignavioDMNModelRepository(actualDefinitions, new PrefixNamespaceMappings()).inputDatas(actualDefinitions).size());
+        assertEquals(2, new SignavioDMNModelRepository(actualDefinitions, new PrefixNamespaceMappings()).findInputDatas(actualDefinitions).size());
 
         File actualDMNFile = new File("target/" + fileName);
         dmnWriter.write(actualDefinitions, actualDMNFile, new DMNNamespacePrefixMapper(actualDefinitions.getNamespace(), "sig"));

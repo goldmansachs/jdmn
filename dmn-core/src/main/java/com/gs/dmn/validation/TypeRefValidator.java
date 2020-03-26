@@ -43,7 +43,7 @@ public class TypeRefValidator extends SimpleDMNValidator {
         }
 
         for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
-            List<TDRGElement> drgElements = dmnModelRepository.drgElements(definitions);
+            List<TDRGElement> drgElements = dmnModelRepository.findDRGElements(definitions);
             for (TDRGElement element: drgElements) {
                 logger.debug(String.format("Validate element '%s'", element.getName()));
                 if (element instanceof TInputData) {

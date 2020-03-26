@@ -37,12 +37,12 @@ public class DMNToManifestTransformer {
         DMNMetadata manifest = new DMNMetadata(dmnVersion, modelVersion, platformVersion);
         for (TDefinitions definitions: this.dmnModelRepository.getAllDefinitions()) {
             // Add types
-            for (TItemDefinition itemDefinition : this.dmnModelRepository.itemDefinitions(definitions)) {
+            for (TItemDefinition itemDefinition : this.dmnModelRepository.findItemDefinitions(definitions)) {
                 com.gs.dmn.runtime.metadata.Type type = makeMetadataType(definitions, itemDefinition);
                 manifest.addType(type);
             }
             // Add elements
-            for (TInputData inputData : this.dmnModelRepository.inputDatas(definitions)) {
+            for (TInputData inputData : this.dmnModelRepository.findInputDatas(definitions)) {
                 String id = inputData.getId();
                 String name = inputData.getName();
                 String label = inputData.getLabel();
@@ -51,7 +51,7 @@ public class DMNToManifestTransformer {
                 com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(definitions, QualifiedName.toQualifiedName(definitions, inputData.getVariable().getTypeRef()));
                 manifest.addElement(new InputData(id, name, label, javaParameterName, javaTypeName, typeRef));
             }
-            for (TBusinessKnowledgeModel bkm : this.dmnModelRepository.businessKnowledgeModels(definitions)) {
+            for (TBusinessKnowledgeModel bkm : this.dmnModelRepository.findBKMs(definitions)) {
                 String id = bkm.getId();
                 String name = bkm.getName();
                 String label = bkm.getLabel();
@@ -63,7 +63,7 @@ public class DMNToManifestTransformer {
                 com.gs.dmn.runtime.metadata.BKM element = new com.gs.dmn.runtime.metadata.BKM(id, name, label, javaFunctionName, javaTypeName, javaOutputTypeName, typeRef, knowledgeReferences);
                 manifest.addElement(element);
             }
-            for (TDecision decision : this.dmnModelRepository.decisions(definitions)) {
+            for (TDecision decision : this.dmnModelRepository.findDecisions(definitions)) {
                 String id = decision.getId();
                 String name = decision.getName();
                 String label = decision.getLabel();

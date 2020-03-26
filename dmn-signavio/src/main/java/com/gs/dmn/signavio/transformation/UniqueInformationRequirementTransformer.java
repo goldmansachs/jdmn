@@ -59,7 +59,7 @@ public class UniqueInformationRequirementTransformer extends SimpleDMNTransforme
 
     private DMNModelRepository removeDuplicateInformationRequirements(DMNModelRepository repository, BuildLogger logger) {
         for (TDefinitions definitions: repository.getAllDefinitions()) {
-            for(TDecision decision: repository.decisions(definitions)) {
+            for(TDecision decision: repository.findDecisions(definitions)) {
                 List<String> hrefs = new ArrayList<>();
                 List<TInformationRequirement> newList = new ArrayList<>();
                 for(TInformationRequirement ir: decision.getInformationRequirement()) {

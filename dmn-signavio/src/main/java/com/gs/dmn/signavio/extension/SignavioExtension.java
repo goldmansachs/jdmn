@@ -30,7 +30,6 @@ import javax.xml.bind.JAXBElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import static com.gs.dmn.serialization.DMNVersion.DMN_12;
 
@@ -75,7 +74,7 @@ public class SignavioExtension {
             return tagName.equals(name) &&
                     namespace.equals(namespaceURI);
         } else if (extension instanceof JAXBElement) {
-            JAXBElement element = (JAXBElement<?>)extension;
+            JAXBElement<?> element = (JAXBElement<?>)extension;
             String namespaceURI = element.getName().getNamespaceURI();
             String name = element.getName().getLocalPart();
             return tagName.equals(name) &&
@@ -154,7 +153,7 @@ public class SignavioExtension {
     private TDRGElement findDRGElementByPartialId(String iteratorShapeId) {
         String suffix = iteratorShapeId.substring(3);
         for (TDefinitions definitions: this.dmnModelRepository.getAllDefinitions()) {
-            for (TDRGElement element: this.dmnModelRepository.drgElements(definitions)) {
+            for (TDRGElement element: this.dmnModelRepository.findDRGElements(definitions)) {
                 if (element.getId().endsWith(suffix)) {
                     return element;
                 }

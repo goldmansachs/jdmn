@@ -54,7 +54,7 @@ public class RuleDescriptionValidator extends SimpleDMNValidator {
         }
 
         for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
-            for (TDecision decision : dmnModelRepository.decisions(definitions)) {
+            for (TDecision decision : dmnModelRepository.findDecisions(definitions)) {
                 TExpression expression = dmnModelRepository.expression(decision);
                 if (expression instanceof TDecisionTable) {
                     List<TDecisionRule> rules = ((TDecisionTable) expression).getRule();

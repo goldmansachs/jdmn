@@ -116,7 +116,7 @@ public class MergeInputDataTransformer extends SimpleDMNTransformer<TestLab> {
             List<TInputData> inputDataInClass = pair.getRight();
             if (inputDataInClass.size() >= 2) {
                 // For each decision
-                List<TDecision> decisions = repository.decisions(definitions);
+                List<TDecision> decisions = repository.findDecisions(definitions);
                 for(TDecision decision: decisions) {
                     // Replace InputData in InformationRequirements with representative
                     List<TInformationRequirement> informationRequirementList = decision.getInformationRequirement();
@@ -185,7 +185,7 @@ public class MergeInputDataTransformer extends SimpleDMNTransformer<TestLab> {
     private Map<String, Pair<TInputData, List<TInputData>>> inputDataEquivalenceClasses(DMNModelRepository dmnModelRepository) {
         Map<String, Pair<TInputData, List<TInputData>>> inputDataClasses = new LinkedHashMap<>();
         TDefinitions definitions = dmnModelRepository.getRootDefinitions();
-        List<TInputData> inputDataList = dmnModelRepository.inputDatas(definitions);
+        List<TInputData> inputDataList = dmnModelRepository.findInputDatas(definitions);
         for(TInputData inputData: inputDataList) {
             String label = inputData.getLabel();
             Pair<TInputData, List<TInputData>> inputDataClass = inputDataClasses.computeIfAbsent(label, k -> new Pair<>(null, new ArrayList<>()));
@@ -214,7 +214,7 @@ public class MergeInputDataTransformer extends SimpleDMNTransformer<TestLab> {
 
     private void removeDRGElement(TDefinitions definitions, TDRGElement drgElement) {
         JAXBElement<?> elementToRemove = null;
-        for(JAXBElement element: definitions.getDrgElement()) {
+        for(JAXBElement<?> element: definitions.getDrgElement()) {
             if (element.getValue() == drgElement) {
                 elementToRemove = element;
             }

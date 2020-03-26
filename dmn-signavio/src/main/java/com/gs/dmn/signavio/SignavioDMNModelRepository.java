@@ -67,7 +67,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
             TDefinitions definitions = pair.getLeft();
             List<Object> elementList = this.extension.findExtensions(definitions.getExtensionElements(), DMN_12.getNamespace(), "decisionService");
             for(Object element: elementList) {
-                Object value = ((JAXBElement) element).getValue();
+                Object value = ((JAXBElement<?>) element).getValue();
                 if (value instanceof TDecisionService) {
                     this.addElementMap((TDecisionService)value, definitions);
                 }
@@ -151,7 +151,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         String key = makeKey(id);
         if (!cache.containsKey(key)) {
             TDRGElement result = null;
-            List<TDRGElement> drgElements = drgElements();
+            List<TDRGElement> drgElements = findAllDRGElements();
             for (TDRGElement element : drgElements) {
                 if (sameId(element, id)) {
                     result = element;
@@ -167,7 +167,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         String key = makeKey(diagramId, shapeId);
         if (!cache.containsKey(key)) {
             TDRGElement result = null;
-            List<TDRGElement> drgElements = drgElements();
+            List<TDRGElement> drgElements = findAllDRGElements();
             for (TDRGElement element : drgElements) {
                 if (idEndsWith(element, shapeId) || (sameDiagramId(element, diagramId) && sameShapeId(element, shapeId))) {
                     result = element;
@@ -183,7 +183,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         String key = makeKey(label, diagramId, shapeId);
         if (!cache.containsKey(key)) {
             TDRGElement result;
-            List<TDRGElement> drgElements = drgElements();
+            List<TDRGElement> drgElements = findAllDRGElements();
             List<TDRGElement> elements = drgElements.stream().filter(element -> sameLabel(element, label)).collect(Collectors.toList());
             if (elements.size() == 0) {
                 result = null;

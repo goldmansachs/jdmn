@@ -44,13 +44,13 @@ public class UniqueNameValidator extends SimpleDMNValidator {
             logger.debug("Validate unique 'DRGElement.name'");
             validateUnique(
                     "DRGElement", "name", false,
-                    new ArrayList<>(dmnModelRepository.drgElements(definitions)), TNamedElement::getName, null, errors
+                    new ArrayList<>(dmnModelRepository.findDRGElements(definitions)), TNamedElement::getName, null, errors
             );
 
             logger.debug("Validate unique 'ItemDefinition.name'");
             validateUnique(
                     "ItemDefinition", "name", false,
-                    new ArrayList<>(dmnModelRepository.itemDefinitions(definitions)), TNamedElement::getName, null, errors
+                    new ArrayList<>(dmnModelRepository.findItemDefinitions(definitions)), TNamedElement::getName, null, errors
             );
         }
 
