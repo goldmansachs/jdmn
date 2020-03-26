@@ -349,7 +349,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
     }
 
     public String iterationExpressionToJava(TDecision decision, String iterationExpression) {
-        return literalExpressionToJava(iterationExpression, decision);
+        return literalExpressionToJava(decision, iterationExpression);
     }
 
     private String iterationSignature(TDecision decision) {
@@ -433,7 +433,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
             Statement result = convertExpression(statement, expectedType);
             return ((ExpressionStatement) result).getExpression();
         } else {
-            return super.literalExpressionToJava(expression.getText(), element);
+            return super.literalExpressionToJava(element, expression.getText());
         }
     }
 

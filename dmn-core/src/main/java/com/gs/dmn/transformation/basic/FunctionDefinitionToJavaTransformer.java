@@ -38,7 +38,7 @@ public class FunctionDefinitionToJavaTransformer {
         FunctionType functionType = (FunctionType) dmnTransformer.expressionType(element, expression, environment);
         TExpression bodyExpression = expression.getExpression().getValue();
         Environment functionDefinitionEnvironment = dmnTransformer.makeFunctionDefinitionEnvironment(element, expression, environment);
-        ExpressionStatement statement = (ExpressionStatement) dmnTransformer.expressionToJava(bodyExpression, functionDefinitionEnvironment, element);
+        ExpressionStatement statement = (ExpressionStatement) dmnTransformer.expressionToJava(element, bodyExpression, functionDefinitionEnvironment);
         String body = statement.getExpression();
 
         String expressionText = functionDefinitionToJava(functionType, body, false);

@@ -178,7 +178,7 @@ public class TestLabUtil {
             return "null";
         } else if (isSimple(inputExpression)) {
             String feelExpression = inputExpression.toFEELExpression();
-            return dmnTransformer.literalExpressionToJava(feelExpression, decision);
+            return dmnTransformer.literalExpressionToJava(decision, feelExpression);
         } else if (isList(inputExpression)) {
             List<Expression> expressionList = ((ListExpression) inputExpression).getElements();
             if (expressionList != null) {
