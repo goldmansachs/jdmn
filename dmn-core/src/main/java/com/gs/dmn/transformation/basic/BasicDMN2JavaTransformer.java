@@ -1274,7 +1274,7 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    Statement expressionToJava(TExpression expression, Environment environment, TDRGElement element) {
+    Statement expressionToJava(TDRGElement element, TExpression expression, Environment environment) {
         if (expression instanceof TContext) {
             return this.contextToJavaTransformer.contextExpressionToJava(element, (TContext) expression, environment);
         } else if (expression instanceof TFunctionDefinition) {
@@ -1290,7 +1290,7 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    public String literalExpressionToJava(String expressionText, TDRGElement element) {
+    public String literalExpressionToJava(TDRGElement element, String expressionText) {
         Statement statement = this.literalExpressionToJavaTransformer.expressionToJava(expressionText, element);
         return ((ExpressionStatement)statement).getExpression();
     }

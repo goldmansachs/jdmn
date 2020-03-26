@@ -85,7 +85,7 @@ public class DecisionTableToJavaTransformer {
         if (defaultOutputEntry == null) {
             return "null";
         } else {
-            return this.dmnTransformer.literalExpressionToJava(defaultOutputEntry.getText(), element);
+            return this.dmnTransformer.literalExpressionToJava(element, defaultOutputEntry.getText());
         }
     }
 
