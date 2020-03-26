@@ -384,17 +384,16 @@ public class DMNModelRepository {
                 throw new DMNRuntimeException(String.format("Cannot find model for href='%s'", href));
             }
             String key = makeRef(definitions.getNamespace(), href);
-            if (!this.drgElementByRef.containsKey(key)) {
-                TDRGElement value = null;
+            TDRGElement result = this.drgElementByRef.get(key);
+            if (result == null) {
                 for (TDRGElement element : findDRGElements(definitions)) {
                     if (sameId(element, href)) {
-                        value = element;
+                        result = element;
+                        this.drgElementByRef.put(key, result);
                         break;
                     }
                 }
-                this.drgElementByRef.put(key, value);
             }
-            TDRGElement result = this.drgElementByRef.get(key);
             if (result == null) {
                 throw new DMNRuntimeException(String.format("Cannot find DRG element for href='%s'", href));
             } else {
@@ -442,7 +441,8 @@ public class DMNModelRepository {
     }
 
     public TBusinessKnowledgeModel findKnowledgeModelByName(String name) {
-        if (!this.knowledgeModelByName.containsKey(name)) {
+        TBusinessKnowledgeModel result = this.knowledgeModelByName.get(name);
+        if (result == null) {
             List<TBusinessKnowledgeModel> value = new ArrayList<>();
             for (TBusinessKnowledgeModel knowledgeModel : findAllBKMs()) {
                 if (sameName(knowledgeModel, name)) {
@@ -450,12 +450,12 @@ public class DMNModelRepository {
                 }
             }
             if (value.size() == 1) {
-                this.knowledgeModelByName.put(name, value.get(0));
+                result = value.get(0);
+                this.knowledgeModelByName.put(name, result);
             } else if (value.size() > 1) {
                 throw new DMNRuntimeException(String.format("Found %s business knowledge models for name='%s'", value.size(), name));
             }
         }
-        TBusinessKnowledgeModel result = this.knowledgeModelByName.get(name);
         if (result == null) {
             throw new DMNRuntimeException(String.format("Cannot find business knowledge model for name='%s'", name));
         } else {
@@ -477,7 +477,8 @@ public class DMNModelRepository {
     }
 
     public TDRGElement findDRGElementByName(String name) {
-        if (!this.drgElementByName.containsKey(name)) {
+        TDRGElement result = this.drgElementByName.get(name);
+        if (result == null) {
             List<TDRGElement> value = new ArrayList<>();
             for (TDRGElement element : findAllDRGElements()) {
                 if (sameName(element, name)) {
@@ -485,12 +486,12 @@ public class DMNModelRepository {
                 }
             }
             if (value.size() == 1) {
-                this.drgElementByName.put(name, value.get(0));
+                result = value.get(0);
+                this.drgElementByName.put(name, result);
             } else if (value.size() > 1) {
                 throw new DMNRuntimeException(String.format("Found %s business knowledge models for name='%s'", value.size(), name));
             }
         }
-        TDRGElement result = this.drgElementByName.get(name);
         if (result == null) {
             throw new DMNRuntimeException(String.format("Cannot find element for name='%s'", name));
         } else {
