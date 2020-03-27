@@ -107,14 +107,14 @@
     </properties>
 
     <modules>
+        <module>dmn-runtime</module>
         <module>dmn-core</module>
         <module>dmn-maven-plugin</module>
+        <module>dmn-signavio</module>
 
         <module>dmn-tck-integration-tests</module>
-        <module>dmn-jpa-integration-tests</module>
-
-        <module>dmn-signavio</module>
         <module>dmn-signavio-integration-tests</module>
+        <module>dmn-jpa-integration-tests</module>
 
         <module>dmn-aggregate</module>
     </modules>
@@ -348,6 +348,12 @@ specific language governing permissions and limitations under the License.]]></i
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.goldmansachs.jdmn</groupId>
+                <artifactId>jdmn-runtime</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>com.goldmansachs.jdmn</groupId>
                 <artifactId>jdmn-core</artifactId>
