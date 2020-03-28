@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.generated.cd_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy;
+package com.gs.dmn.generated.sd_feel_date_literal_expression;
 
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
@@ -20,25 +20,26 @@ import java.math.BigDecimal;
 
 import static org.junit.Assert.assertEquals;
 
-public class HandwrittenCompoundOutputCompoundDecisionTest extends AbstractHandwrittenDecisionTest {
-    private final CompoundOutputCompoundDecision decision = new CompoundOutputCompoundDecision();
+public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
+    private final Decision decision = new Decision();
 
     @Test
     public void testApply() throws Exception {
-        check("true", "e1", "1", "a", "r11", "r12");
-        check("true", "e2", "1", "a", "r21", "r22");
+        AnnotationSet annotationSet = new AnnotationSet();
+        BigDecimal output = decision.apply(null, "1965-03-29", null, null, null, annotationSet);
+        assertEquals("29", output.toString());
     }
 
-    private void check(String booleanInput, String enumerationInput, String numberInput, String textInput, String expectedFirstOutput, String expectedSecondOutput) {
+    @Test(expected = NullPointerException.class)
+    public void testApplyWhenNull() throws Exception {
         AnnotationSet annotationSet = new AnnotationSet();
-        com.gs.dmn.generated.cd_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy.type.CompoundOutputCompoundDecision output = decision.apply(booleanInput, textInput, numberInput, enumerationInput, annotationSet);
-        assertEquals(expectedFirstOutput, output.getFirstOutput());
-        assertEquals(expectedSecondOutput, output.getSecondOutput());
+        BigDecimal output = decision.apply(null, (String)null, null, null, null, annotationSet);
+        assertEquals("29", output.intValue());
     }
 
     @Override
     protected void applyDecision() {
         AnnotationSet annotationSet = new AnnotationSet();
-        decision.apply(Boolean.TRUE, "e1", BigDecimal.ONE, "a", annotationSet);
+        decision.apply(null, "1965-03-29", null, null, null, annotationSet);
     }
 }
