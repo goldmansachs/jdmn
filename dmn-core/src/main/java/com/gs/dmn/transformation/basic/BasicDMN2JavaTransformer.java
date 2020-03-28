@@ -1624,13 +1624,13 @@ public class BasicDMN2JavaTransformer {
     }
 
     public DRGElementKind elementKind(TDRGElement element) {
-        return DRGElementKind.kindByClass(element);
+        return DRGElementKind.kindByClass(element.getClass());
     }
 
     public ExpressionKind expressionKind(TDRGElement element) {
         TExpression expression = this.dmnModelRepository.expression(element);
         if (expression != null) {
-            return ExpressionKind.kindByClass(expression);
+            return ExpressionKind.kindByClass(expression.getClass());
         }
         return ExpressionKind.OTHER;
     }

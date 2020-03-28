@@ -13,7 +13,6 @@
 package com.gs.dmn.runtime;
 
 import com.gs.dmn.runtime.annotation.HitPolicy;
-import org.omg.spec.dmn._20180521.model.THitPolicy;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -38,17 +37,16 @@ public class RuleOutputList {
     }
 
     public RuleOutput applySingle(HitPolicy hitPolicy) {
-        THitPolicy tHitPolicy = getHitPolicy(hitPolicy);
-        if (tHitPolicy == null) {
-            tHitPolicy = THitPolicy.UNIQUE;
+        if (hitPolicy == null) {
+            hitPolicy = HitPolicy.UNIQUE;
         }
-        if (tHitPolicy == THitPolicy.UNIQUE) {
+        if (hitPolicy == HitPolicy.UNIQUE) {
             if (this.matchedRuleResults.size() == 1) {
                 return this.matchedRuleResults.get(0);
             } else {
                 return null;
             }
-        } else if (tHitPolicy == THitPolicy.ANY) {
+        } else if (hitPolicy == HitPolicy.ANY) {
             if (this.matchedRuleResults.size() > 0) {
                 Set<RuleOutput> distinctResults = new HashSet<>(this.matchedRuleResults);
                 if (distinctResults.size() == 1) {
@@ -59,13 +57,13 @@ public class RuleOutputList {
             } else {
                 return null;
             }
-        } else if (tHitPolicy == THitPolicy.FIRST) {
+        } else if (hitPolicy == HitPolicy.FIRST) {
             if (this.matchedRuleResults.size() > 0) {
                 return this.matchedRuleResults.get(0);
             } else {
                 return null;
             }
-        } else if (tHitPolicy == THitPolicy.PRIORITY) {
+        } else if (hitPolicy == HitPolicy.PRIORITY) {
             if (this.matchedRuleResults.size() > 0) {
                 List<RuleOutput> sortedRuleOutputs = sort(this.matchedRuleResults);
                 return sortedRuleOutputs.get(0);
@@ -73,21 +71,20 @@ public class RuleOutputList {
                 return null;
             }
         } else {
-            throw new UnsupportedOperationException(String.format("Not supported single hit policy %s.", tHitPolicy.name()));
+            throw new UnsupportedOperationException(String.format("Not supported single hit policy %s.", hitPolicy.name()));
         }
     }
 
     public List<? extends RuleOutput> applyMultiple(HitPolicy hitPolicy) {
         List<RuleOutput> matchedRuleOutputs = this.getMatchedRuleResults();
-        THitPolicy tHitPolicy = THitPolicy.fromValue(hitPolicy.value());
-        if (tHitPolicy == THitPolicy.COLLECT) {
+        if (hitPolicy == HitPolicy.COLLECT) {
             return matchedRuleOutputs;
-        } else if (tHitPolicy == THitPolicy.RULE_ORDER) {
+        } else if (hitPolicy == HitPolicy.RULE_ORDER) {
             return matchedRuleOutputs;
-        } else if (tHitPolicy == THitPolicy.OUTPUT_ORDER) {
+        } else if (hitPolicy == HitPolicy.OUTPUT_ORDER) {
             return sort(matchedRuleOutputs);
         } else {
-            throw new UnsupportedOperationException(String.format("Not supported multiple hit policy %s.", tHitPolicy.name()));
+            throw new UnsupportedOperationException(String.format("Not supported multiple hit policy %s.", hitPolicy.name()));
         }
     }
 
@@ -98,14 +95,5 @@ public class RuleOutputList {
             RuleOutput result = matchedRuleOutputs.get(0);
             return result.sort(matchedRuleOutputs);
         }
-    }
-
-    private THitPolicy getHitPolicy(HitPolicy hitPolicy) {
-        THitPolicy tHitPolicy = null;
-        try {
-            tHitPolicy = THitPolicy.fromValue(hitPolicy.name());
-        } catch (Exception e) {
-        }
-        return tHitPolicy;
     }
 }

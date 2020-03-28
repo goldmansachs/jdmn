@@ -12,8 +12,6 @@
  */
 package com.gs.dmn.runtime.annotation;
 
-import org.omg.spec.dmn._20180521.model.*;
-
 public enum DRGElementKind {
     DECISION,
     DECISION_SERVICE,
@@ -22,16 +20,17 @@ public enum DRGElementKind {
     INPUT_DATA,
     OTHER;
 
-    public static DRGElementKind kindByClass(TDRGElement element) {
-        if (element instanceof TDecision) {
+    public static DRGElementKind kindByClass(Class drgElementClass) {
+        String className = drgElementClass.getSimpleName();
+        if ("TDecision".equals(className)) {
             return DECISION;
-        } else if (element instanceof TDecisionService) {
+        } else if ("TDecisionService".equals(className)) {
             return DECISION_SERVICE;
-        } else if (element instanceof TBusinessKnowledgeModel) {
+        } else if ("TBusinessKnowledgeModel".equals(className)) {
             return BUSINESS_KNOWLEDGE_MODEL;
-        } else if (element instanceof TInputData) {
+        } else if ("TInputData".equals(className)) {
             return INPUT_DATA;
-        } else if (element instanceof TKnowledgeSource) {
+        } else if ("TKnowledgeSource".equals(className)) {
             return KNOWLEDGE_SOURCE;
         }
         return OTHER;
