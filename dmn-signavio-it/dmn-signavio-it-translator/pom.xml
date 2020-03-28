@@ -114,7 +114,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/compound-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.compound_decision_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.cd_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -130,7 +130,7 @@
                             <inputModelFileDirectory>${generated.dmn.diagram.folder}/decision-table/compound-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.compound_decision_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.cd_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -145,7 +145,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-compound-output-output-order-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.simple_decision_primitive_type_inputs_compound_output_output_order_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_primitive_type_inputs_compound_output_output_order_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -160,7 +160,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-compound-output-priority-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.simple_decision_primitive_type_inputs_compound_output_priority_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_primitive_type_inputs_compound_output_priority_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -175,7 +175,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.simple_decision_primitive_type_inputs_feel_input_entries_single_output_first_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_primitive_type_inputs_feel_input_entries_single_output_first_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -191,7 +191,7 @@
                             <inputModelFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.simple_decision_primitive_type_inputs_feel_input_entries_single_output_first_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_primitive_type_inputs_feel_input_entries_single_output_first_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -206,7 +206,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-feel-input-entries-single-output-unique-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.simple_decision_primitive_type_inputs_feel_input_entries_single_output_unique_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_primitive_type_inputs_feel_input_entries_single_output_unique_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -221,7 +221,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-sfeel-input-entries-single-output-first-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.simple_decision_primitive_type_inputs_sfeel_input_entries_single_output_first_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_primitive_type_inputs_sfeel_input_entries_single_output_first_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -236,7 +236,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.simple_decision_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -251,7 +251,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-single-output-collect-count-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.simple_decision_primitive_type_inputs_single_output_collect_count_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_primitive_type_inputs_single_output_collect_count_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -266,7 +266,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-single-output-collect-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.simple_decision_primitive_type_inputs_single_output_collect_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_primitive_type_inputs_single_output_collect_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -281,7 +281,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-single-output-collect-min-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.simple_decision_primitive_type_inputs_single_output_collect_min_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_primitive_type_inputs_single_output_collect_min_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -296,7 +296,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-single-output-collect-sum-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.simple_decision_primitive_type_inputs_single_output_collect_sum_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_primitive_type_inputs_single_output_collect_sum_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -311,7 +311,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-single-output-priority-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.simple_decision_primitive_type_inputs_single_output_priority_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_primitive_type_inputs_single_output_priority_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -326,7 +326,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-list-inputs-feel-input-entries-single-output-unique-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.simple_decision_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -344,7 +344,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/literal/simple-decision-feel-boolean-literal-expression.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.simple_decision_feel_boolean_literal_expression</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_feel_boolean_literal_expression</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -359,7 +359,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/literal/simple-decision-feel-complex-literal-expression.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.simple_decision_feel_complex_literal_expression</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_feel_complex_literal_expression</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -374,7 +374,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/literal/simple-decision-feel-date-literal-expression.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.simple_decision_feel_date_literal_expression</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_feel_date_literal_expression</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -389,7 +389,7 @@
                             <inputFileDirectory>${generated.dmn.diagram.folder}/literal/simple-decision-feel-string-literal-expression.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.simple_decision_feel_string_literal_expression</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_feel_string_literal_expression</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -695,7 +695,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/simple-decision-complex-type-inputs-feel-input-entries-single-output-collect-hit-policy.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.simple_decision_complex_type_inputs_feel_input_entries_single_output_collect_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_complex_type_inputs_feel_input_entries_single_output_collect_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -710,7 +710,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/simple-decision-complex-type-inputs-feel-input-entries-single-output-collect-hit-policy.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.simple_decision_complex_type_inputs_feel_input_entries_single_output_collect_hit_policy</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_complex_type_inputs_feel_input_entries_single_output_collect_hit_policy</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1120,7 +1120,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/simple-decision-with-bkm.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.simple_decision_with_bkm</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_with_bkm</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1135,7 +1135,7 @@
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/simple-decision-with-bkm.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.simple_decision_with_bkm</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_with_bkm</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1271,7 +1271,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/simple-decision-with-user-function.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.simple_decision_with_user_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_with_user_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1286,7 +1286,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/simple-decision-with-external-function.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.simple_decision_with_external_function</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_with_external_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1301,7 +1301,7 @@
                             <inputFileDirectory>${dmn.diagram.folder}/complex/ExternalFunctions.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.simple_decision_with_external_function_complex_type</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_with_external_function_complex_type</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
