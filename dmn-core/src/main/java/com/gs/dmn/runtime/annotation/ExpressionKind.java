@@ -12,8 +12,6 @@
  */
 package com.gs.dmn.runtime.annotation;
 
-import org.omg.spec.dmn._20180521.model.*;
-
 public enum ExpressionKind {
     FUNCTION_DEFINITION,
     DECISION_TABLE,
@@ -24,20 +22,21 @@ public enum ExpressionKind {
     LITERAL_EXPRESSION,
     OTHER;
 
-    public static ExpressionKind kindByClass(TExpression exp) {
-        if (exp instanceof TFunctionDefinition) {
+    public static ExpressionKind kindByClass(Class expClass) {
+        String expClassName = expClass.getSimpleName();
+        if ("TFunctionDefinition".equals(expClassName)) {
             return FUNCTION_DEFINITION;
-        } else if (exp instanceof TDecisionTable) {
+        } else if ("TDecisionTable".equals(expClassName)) {
             return DECISION_TABLE;
-        } else if (exp instanceof TRelation) {
+        } else if ("TRelation".equals(expClassName)) {
             return RELATION;
-        } else if (exp instanceof TList) {
+        } else if ("TList".equals(expClassName)) {
             return LIST;
-        } else if (exp instanceof TContext) {
+        } else if ("TContext".equals(expClassName)) {
             return CONTEXT;
-        } else if (exp instanceof TInvocation) {
+        } else if ("TInvocation".equals(expClassName)) {
             return INVOCATION;
-        } else if (exp instanceof TLiteralExpression) {
+        } else if ("TLiteralExpression".equals(expClassName)) {
             return LITERAL_EXPRESSION;
         }
         return OTHER;
