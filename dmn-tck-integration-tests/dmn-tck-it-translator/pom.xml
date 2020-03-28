@@ -36,8 +36,8 @@
         <model.version>1.0</model.version>
         <platform.version>${project.parent.version}</platform.version>
 
-        <tck.diagram.folder>${project.basedir}/../dmn-tck-integration-tests-interpreter/src/main/resources/tck</tck.diagram.folder>
-        <composite.diagram.folder>${project.basedir}/../dmn-tck-integration-tests-interpreter/src/main/resources/composite</composite.diagram.folder>
+        <tck.diagram.folder>${project.basedir}/../dmn-tck-it-interpreter/src/main/resources/tck</tck.diagram.folder>
+        <composite.diagram.folder>${project.basedir}/../dmn-tck-it-interpreter/src/main/resources/composite</composite.diagram.folder>
 
         <generated.java.folder>${project.build.directory}/generated-sources/dmn</generated.java.folder>
         <generated.root.package>com.gs.dmn.generated</generated.root.package>
