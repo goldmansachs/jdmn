@@ -25,6 +25,7 @@ import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.NameTransformer;
 import com.gs.dmn.transformation.ToQuotedNameTransformer;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
@@ -51,7 +52,8 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
         assertEquals("30", decision.apply("60", "20", annotationSet).toPlainString());
     }
 
-    @Test
+    // Ignore as interpreter is tested in the other module
+    @Ignore
     public void applyInterpreter() throws Exception {
         checkInterpreter("27", "16", "1");
         checkInterpreter("22", "25", "5");

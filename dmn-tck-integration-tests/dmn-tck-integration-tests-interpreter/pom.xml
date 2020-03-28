@@ -1,5 +1,4 @@
 <!--
-
     Copyright 2016 Goldman Sachs.
 
     Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
@@ -17,21 +16,23 @@
 
     <parent>
         <groupId>com.goldmansachs.jdmn</groupId>
-        <artifactId>jdmn-parent</artifactId>
+        <artifactId>jdmn-tck-integration-tests</artifactId>
         <version>3.5.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>jdmn-tck-integration-tests</artifactId>
-    <name>jDMN: TCK Integration Tests</name>
-    <packaging>pom</packaging>
-
-    <modules>
-        <module>dmn-tck-integration-tests-interpreter</module>
-        <module>dmn-tck-integration-tests-translator</module>
-    </modules>
+    <artifactId>jdmn-tck-integration-tests-interpreter</artifactId>
+	<name>jDMN: TCK Integration Tests Interpreter</name>
+    <packaging>jar</packaging>
 
     <properties>
         <line.coverage.minimum>0.00</line.coverage.minimum>
         <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>  <!-- not deploying this module to Maven central -->
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.goldmansachs.jdmn</groupId>
+            <artifactId>jdmn-core</artifactId>
+        </dependency>
+    </dependencies>
 </project>
