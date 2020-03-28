@@ -10,9 +10,10 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.generated.simple_decision_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy;
+package com.gs.dmn.generated.sd_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy;
 
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
+import com.gs.dmn.generated.simple_decision_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy.CompoundOutputDecision;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
 import org.junit.Test;
 
