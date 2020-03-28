@@ -112,8 +112,8 @@
         <module>dmn-maven-plugin</module>
         <module>dmn-signavio</module>
 
-        <module>dmn-tck-integration-tests</module>
-        <module>dmn-signavio-integration-tests</module>
+        <module>dmn-tck-it</module>
+        <module>dmn-signavio-it</module>
         <module>dmn-jpa-it</module>
 
         <module>dmn-aggregate</module>
