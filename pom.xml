@@ -53,7 +53,7 @@
         <connection>scm:git:https://github.com/goldmansachs/jdmn.git</connection>
         <developerConnection>scm:git:https://github.com/goldmansachs/jdmn.git</developerConnection>
       <tag>HEAD</tag>
-  </scm>
+    </scm>
 
     <issueManagement>
         <system>GitHub</system>
@@ -114,7 +114,7 @@
 
         <module>dmn-tck-integration-tests</module>
         <module>dmn-signavio-integration-tests</module>
-        <module>dmn-jpa-integration-tests</module>
+        <module>dmn-jpa-it</module>
 
         <module>dmn-aggregate</module>
     </modules>
