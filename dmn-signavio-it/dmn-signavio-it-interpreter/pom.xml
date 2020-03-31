@@ -29,6 +29,18 @@
         <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>  <!-- not deploying this module to Maven central -->
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.goldmansachs.jdmn</groupId>
+            <artifactId>jdmn-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.goldmansachs.jdmn</groupId>
+            <artifactId>jdmn-signavio</artifactId>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>

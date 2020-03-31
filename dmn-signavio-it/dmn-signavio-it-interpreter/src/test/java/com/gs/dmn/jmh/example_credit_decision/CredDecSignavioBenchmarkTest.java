@@ -10,20 +10,20 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.generated.example_credit_decision_mixed;
+package com.gs.dmn.jmh.example_credit_decision;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.generated.example_credit_decision_mixed.type.ApplicantImpl;
+import com.gs.dmn.jmh.ApplicantImpl;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
-import com.gs.dmn.runtime.annotation.AnnotationSet;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
-import com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition;
+import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
+import com.gs.dmn.signavio.feel.lib.DefaultSignavioLib;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;
@@ -35,23 +35,15 @@ import org.slf4j.LoggerFactory;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @State(Scope.Benchmark)
-public class CredDecMixedBenchmarkTest {
-    private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(CredDecMixedBenchmarkTest.class));
+public class CredDecSignavioBenchmarkTest {
+    private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(CredDecSignavioBenchmarkTest.class));
 
-    private static final DMNDialectDefinition dialectDefinition = new MixedJavaTimeSignavioDMNDialectDefinition();
+    private static final DMNDialectDefinition dialectDefinition = new SignavioDMNDialectDefinition();
     private static final DMNReader dmnReader = new DMNReader(LOGGER, false);
-    private static final GenerateOutputData decision = new GenerateOutputData();
-
-    @Benchmark
-    @BenchmarkMode(Mode.All)
-    @OutputTimeUnit(TimeUnit.MILLISECONDS)
-    public void testCompiler() {
-        executeCompiled(System.currentTimeMillis());
-    }
+    private static final DefaultSignavioLib lib = (DefaultSignavioLib) dialectDefinition.createFEELLib();
 
     @Benchmark
     @BenchmarkMode(Mode.All)
@@ -60,33 +52,15 @@ public class CredDecMixedBenchmarkTest {
         executeInterpreter(System.currentTimeMillis());
     }
 
-    private void executeCompiled(long startTime) {
-        AnnotationSet annotationSet = new AnnotationSet();
-        ApplicantImpl applicant = new ApplicantImpl();
-        applicant.setName("Amy");
-        applicant.setAge(decision.number("38"));
-        applicant.setCreditScore(decision.number("100"));
-        applicant.setPriorIssues(decision.asList("Late payment"));
-
-        BigDecimal currentRiskAppetite = decision.number("50");
-        BigDecimal lendingThreshold = decision.number("25");
-
-        List<?> result = decision.apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet);
-        System.out.println(result);
-
-        long endTime = System.currentTimeMillis();
-        System.out.println(String.format("Compiled version took %s ms", endTime - startTime));
-    }
-
     public void executeInterpreter(long startTime) throws Exception {
         ApplicantImpl applicant = new ApplicantImpl();
         applicant.setName("Amy");
-        applicant.setAge(decision.number("38"));
-        applicant.setCreditScore(decision.number("100"));
-        applicant.setPriorIssues(decision.asList("Late payment"));
+        applicant.setAge(lib.number("38"));
+        applicant.setCreditScore(lib.number("100"));
+        applicant.setPriorIssues(lib.asList("Late payment"));
 
-        BigDecimal currentRiskAppetite = decision.number("50");
-        BigDecimal lendingThreshold = decision.number("25");
+        BigDecimal currentRiskAppetite = lib.number("50");
+        BigDecimal lendingThreshold = lib.number("25");
 
         String pathName = "exported/dmn/complex/Example credit decision.dmn";
         DMNModelRepository repository = readDMN(pathName);
@@ -112,7 +86,7 @@ public class CredDecMixedBenchmarkTest {
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(CredDecMixedBenchmarkTest.class.getSimpleName())
+                .include(CredDecSignavioBenchmarkTest.class.getSimpleName())
                 .warmupIterations(10)
                 .measurementIterations(20)
                 .forks(1)
