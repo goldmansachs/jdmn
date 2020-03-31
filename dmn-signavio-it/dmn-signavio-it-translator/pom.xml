@@ -43,7 +43,7 @@
     <dependencies>
         <dependency>
             <groupId>com.goldmansachs.jdmn</groupId>
-            <artifactId>jdmn-core</artifactId>
+            <artifactId>jdmn-runtime</artifactId>
         </dependency>
 
         <dependency>
@@ -1811,5 +1811,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

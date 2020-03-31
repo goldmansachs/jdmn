@@ -12,26 +12,11 @@
  */
 package com.gs.dmn;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.log.Slf4jBuildLogger;
-import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.serialization.DMNReader;
-import com.gs.dmn.serialization.JsonSerializer;
-import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import org.junit.Test;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
-import org.slf4j.LoggerFactory;
-
-import java.net.URL;
 
 import static org.junit.Assert.assertTrue;
 
 public abstract class AbstractHandwrittenDecisionTest {
-    private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractHandwrittenDecisionTest.class));
-
-    private final DMNReader dmnReader = new DMNReader(LOGGER, false);
-
     protected abstract void applyDecision();
 
     @Test
@@ -40,11 +25,5 @@ public abstract class AbstractHandwrittenDecisionTest {
         applyDecision();
         long after = System.currentTimeMillis();
         assertTrue("Takes longer than 500ms", after - before < 500);
-    }
-
-    protected DMNModelRepository readDMN(String pathName) throws Exception {
-        URL url = this.getClass().getClassLoader().getResource(pathName).toURI().toURL();
-        Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(url);
-        return new DMNModelRepository(pair);
     }
 }

@@ -24,13 +24,6 @@
 	<name>jDMN: TCK Integration Tests Translator</name>
     <packaging>jar</packaging>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.goldmansachs.jdmn</groupId>
-            <artifactId>jdmn-core</artifactId>
-        </dependency>
-    </dependencies>
-
     <properties>
         <dmn.version>1.1</dmn.version>
         <model.version>1.0</model.version>
@@ -46,6 +39,13 @@
         <line.coverage.minimum>0.00</line.coverage.minimum>
         <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>  <!-- not deploying this module to Maven central -->
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.goldmansachs.jdmn</groupId>
+            <artifactId>jdmn-runtime</artifactId>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>

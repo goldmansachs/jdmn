@@ -13,32 +13,13 @@
 package com.gs.dmn.generated.tck.cl3_0020_vacation_days;
 
 import com.gs.dmn.AbstractHandwrittenDecisionTest;
-import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.dialect.StandardDMNDialectDefinition;
-import com.gs.dmn.feel.lib.FEELLib;
-import com.gs.dmn.log.NopBuildLogger;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
-import com.gs.dmn.runtime.interpreter.DMNInterpreter;
-import com.gs.dmn.runtime.interpreter.Result;
-import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
-import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
-import com.gs.dmn.transformation.NameTransformer;
-import com.gs.dmn.transformation.ToQuotedNameTransformer;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.omg.spec.dmn._20180521.model.TDRGElement;
-import org.omg.spec.dmn._20180521.model.TDefinitions;
-
-import java.math.BigDecimal;
-import java.util.LinkedHashMap;
 
 import static org.junit.Assert.assertEquals;
 
 public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
-    private final DMNDialectDefinition dialectDefinition = new StandardDMNDialectDefinition();
     private final TotalVacationDays decision = new TotalVacationDays();
-    private final NameTransformer nameTransformer = new ToQuotedNameTransformer(new NopBuildLogger());
 
     @Test
     public void applyCompiler() {
@@ -52,43 +33,9 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
         assertEquals("30", decision.apply("60", "20", annotationSet).toPlainString());
     }
 
-    // Ignore as interpreter is tested in the other module
-    @Ignore
-    public void applyInterpreter() throws Exception {
-        checkInterpreter("27", "16", "1");
-        checkInterpreter("22", "25", "5");
-        checkInterpreter("24", "25", "20");
-        checkInterpreter("30", "44", "30");
-        checkInterpreter("24", "50", "20");
-        checkInterpreter("30", "50", "30");
-        checkInterpreter("30", "60", "20");
-    }
-
-    private void checkInterpreter(String expected, String i1, String i2) throws Exception {
-        FEELLib lib = this.dialectDefinition.createFEELLib();
-
-        String pathName = "tck/cl3/0020-vacation-days.dmn";
-        DMNModelRepository repository = readDMN(pathName);
-        nameTransformer.transform(repository);
-        DMNInterpreter interpreter = this.dialectDefinition.createDMNInterpreter(repository, new LinkedHashMap<>());
-
-        RuntimeEnvironment runtimeEnvironment = RuntimeEnvironmentFactory.instance().makeEnvironment();
-        runtimeEnvironment.bind("Age", lib.number(i1));
-        runtimeEnvironment.bind(nameTransformer.transformName("Years of Service"), lib.number(i2));
-
-        String drgElementName = nameTransformer.transformName("Total Vacation Days");
-        TDefinitions definitions = repository.getRootDefinitions();
-        TDRGElement drgElement = repository.findDRGElementByName(definitions, drgElementName);
-        Result result = interpreter.evaluate(repository.makeDRGElementReference(drgElement), null, runtimeEnvironment);
-        Object actual = Result.value(result);
-
-        assertEquals(expected, ((BigDecimal) actual).toPlainString());
-    }
-
     @Override
     protected void applyDecision() {
         AnnotationSet annotationSet = new AnnotationSet();
         decision.apply((String) null, null, annotationSet);
     }
-
 }
