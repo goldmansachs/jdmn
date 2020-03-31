@@ -14,7 +14,6 @@ package com.gs.dmn.runtime;
 
 import com.gs.dmn.runtime.annotation.HitPolicy;
 import org.junit.Test;
-import org.omg.spec.dmn._20180521.model.THitPolicy;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,14 +28,14 @@ public class RuleOutputListTest {
     public static final DefaultCompoundOutput STRING_LIST_1 = new DefaultCompoundOutput(Arrays.asList("value1"), 2);
     public static final DefaultCompoundOutput STRING_LIST_2 = new DefaultCompoundOutput(Arrays.asList("value2"), 1);
 
-    private final HitPolicy UNIQUE = HitPolicy.fromValue(THitPolicy.UNIQUE.value());
-    private final HitPolicy FIRST = HitPolicy.fromValue(THitPolicy.FIRST.value());
-    private final HitPolicy PRIORITY = HitPolicy.fromValue(THitPolicy.PRIORITY.value());
-    private final HitPolicy ANY = HitPolicy.fromValue(THitPolicy.ANY.value());
+    private final HitPolicy UNIQUE = HitPolicy.fromValue("UNIQUE");
+    private final HitPolicy FIRST = HitPolicy.fromValue("FIRST");
+    private final HitPolicy PRIORITY = HitPolicy.fromValue("PRIORITY");
+    private final HitPolicy ANY = HitPolicy.fromValue("ANY");
 
-    private final HitPolicy COLLECT = HitPolicy.fromValue(THitPolicy.COLLECT.value());
-    private final HitPolicy RULE_ORDER = HitPolicy.fromValue(THitPolicy.RULE_ORDER.value());
-    private final HitPolicy OUTPUT_ORDER = HitPolicy.fromValue(THitPolicy.OUTPUT_ORDER.value());
+    private final HitPolicy COLLECT = HitPolicy.fromValue("COLLECT");
+    private final HitPolicy RULE_ORDER = HitPolicy.fromValue("RULE ORDER");
+    private final HitPolicy OUTPUT_ORDER = HitPolicy.fromValue("OUTPUT ORDER");
 
     @Test
     public void testApplyUnique() {
