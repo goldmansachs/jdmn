@@ -10,19 +10,17 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.generated;
+package com.gs.dmn.runtime.metadata;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.gs.dmn.serialization.JsonSerializer;
+import org.junit.Test;
 
-public abstract class AbstractHandwrittenDecisionTest {
-    protected String toJson(Object object) {
-        try {
-            return JsonSerializer.OBJECT_MAPPER.writeValueAsString(object);
-        } catch (JsonProcessingException e) {
-            return null;
-        }
+import static org.junit.Assert.assertEquals;
+
+public class MetadataValidatorTest {
+    private final MetadataValidator validator = new MetadataValidator();
+
+    @Test
+    public void testMetadata() {
+        assertEquals("Invalid metadata", false, validator.validate("com.gs.dmn.runtime.metadata", this.getClass().getClassLoader()));
     }
-
-    protected abstract void applyDecision();
 }

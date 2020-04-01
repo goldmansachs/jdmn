@@ -45,11 +45,6 @@
             <groupId>com.goldmansachs.jdmn</groupId>
             <artifactId>jdmn-runtime</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>com.goldmansachs.jdmn</groupId>
-            <artifactId>jdmn-signavio</artifactId>
-        </dependency>
     </dependencies>
 
     <profiles>
