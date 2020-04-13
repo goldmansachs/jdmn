@@ -30,7 +30,6 @@ import org.omg.spec.dmn._20180521.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.namespace.QName;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -38,11 +37,15 @@ public class TestLabUtil {
     protected static final Logger LOGGER = LoggerFactory.getLogger(TestLabUtil.class);
 
     private final BasicDMN2JavaTransformer dmnTransformer;
-    private final Map<String, TDRGElement> cache = new LinkedHashMap<>();
-    private final DMNModelRepository dmnModelRepository;
+    private final SignavioDMNModelRepository dmnModelRepository;
 
     public TestLabUtil(BasicDMN2JavaTransformer dmnTransformer) {
-        this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
+        DMNModelRepository dmnModelRepository = dmnTransformer.getDMNModelRepository();
+        if (dmnModelRepository instanceof SignavioDMNModelRepository) {
+            this.dmnModelRepository = (SignavioDMNModelRepository) dmnModelRepository;
+        } else {
+            this.dmnModelRepository = new SignavioDMNModelRepository(dmnModelRepository.getRootDefinitions(), dmnModelRepository.getPrefixNamespaceMappings());
+        }
         this.dmnTransformer = dmnTransformer;
     }
 
@@ -137,12 +140,12 @@ public class TestLabUtil {
 
     public TDRGElement findDRGElement(ParameterDefinition parameterDefinition) {
         String id = parameterDefinition.getId();
-        TDRGElement element = findDRGElementById(id);
+        TDRGElement element = this.dmnModelRepository.findDRGElementById(id);
         if (element == null) {
-            element = findDRGElementByDiagramAndShapeIds(parameterDefinition.getDiagramId(), parameterDefinition.getShapeId());
+            element = this.dmnModelRepository.findDRGElementByDiagramAndShapeIds(parameterDefinition.getDiagramId(), parameterDefinition.getShapeId());
         }
         if (element == null) {
-            element = findDRGElementByLabel(parameterDefinition.getRequirementName(), parameterDefinition.getDiagramId(), parameterDefinition.getShapeId());
+            element = this.dmnModelRepository.findDRGElementByLabel(parameterDefinition.getRequirementName(), parameterDefinition.getDiagramId(), parameterDefinition.getShapeId());
         }
         return element;
     }
@@ -175,7 +178,7 @@ public class TestLabUtil {
             return "null";
         } else if (isSimple(inputExpression)) {
             String feelExpression = inputExpression.toFEELExpression();
-            return dmnTransformer.literalExpressionToJava(feelExpression, decision);
+            return dmnTransformer.literalExpressionToJava(decision, feelExpression);
         } else if (isList(inputExpression)) {
             List<Expression> expressionList = ((ListExpression) inputExpression).getElements();
             if (expressionList != null) {
@@ -251,26 +254,26 @@ public class TestLabUtil {
             }
             if (!StringUtils.isBlank(name)) {
                 for(TItemDefinition child: itemComponent) {
-                    if (sameName(child, name)) {
+                    if (this.dmnModelRepository.sameName(child, name)) {
                         return child;
                     }
                 }
             }
             if (!StringUtils.isBlank(label)) {
                 for(TItemDefinition child: itemComponent) {
-                    if (sameLabel(child, label)) {
+                    if (this.dmnModelRepository.sameLabel(child, label)) {
                         return child;
                     }
                 }
             }
             if (!StringUtils.isBlank(id)) {
                 for (TItemDefinition child : itemComponent) {
-                    if (sameId(child, id)) {
+                    if (this.dmnModelRepository.sameId(child, id)) {
                         return child;
                     }
                 }
                 for(TItemDefinition child: itemComponent) {
-                    if (idEndsWith(child, id)) {
+                    if (this.dmnModelRepository.idEndsWith(child, id)) {
                         return child;
                     }
                 }
@@ -337,100 +340,6 @@ public class TestLabUtil {
         return parameters;
     }
 
-    private TDRGElement findDRGElementById(String id) {
-        String key = makeKey(id);
-        if (!cache.containsKey(key)) {
-            TDRGElement result = null;
-            List<TDRGElement> drgElements = dmnTransformer.getDMNModelRepository().drgElements();
-            for (TDRGElement element : drgElements) {
-                if (sameId(element, id)) {
-                    result = element;
-                    break;
-                }
-            }
-            cache.put(key, result);
-        }
-        return cache.get(key);
-    }
-
-    private TDRGElement findDRGElementByDiagramAndShapeIds(String diagramId, String shapeId) {
-        String key = makeKey(diagramId, shapeId);
-        if (!cache.containsKey(key)) {
-            TDRGElement result = null;
-            List<TDRGElement> drgElements = dmnTransformer.getDMNModelRepository().drgElements();
-            for (TDRGElement element : drgElements) {
-                if (idEndsWith(element, shapeId) || (sameDiagramId(element, diagramId) && sameShapeId(element, shapeId))) {
-                    result = element;
-                    break;
-                }
-            }
-            cache.put(key, result);
-        }
-        return cache.get(key);
-    }
-
-    private TDRGElement findDRGElementByLabel(String label, String diagramId, String shapeId) {
-        String key = makeKey(label, diagramId, shapeId);
-        if (!cache.containsKey(key)) {
-            TDRGElement result;
-            List<TDRGElement> drgElements = dmnTransformer.getDMNModelRepository().drgElements();
-            List<TDRGElement> elements = drgElements.stream().filter(element -> sameLabel(element, label)).collect(Collectors.toList());
-            if (elements.size() == 0) {
-                result = null;
-            } else if (elements.size() == 1) {
-                result = elements.get(0);
-            } else {
-                List<TDRGElement> sameShapeIdElements = elements.stream().filter(e -> sameShapeId(e, shapeId)).collect(Collectors.toList());
-                QName diagramQName = ((SignavioDMNModelRepository)dmnTransformer.getDMNModelRepository()).getDiagramIdQName();
-                String newDiagramID = elements.stream().filter(e -> sameShapeId(e, shapeId)).map(e -> e.getOtherAttributes().get(diagramQName)).collect(Collectors.joining(", "));
-                if (sameShapeIdElements.size() == 1) {
-                    LOGGER.warn(String.format("Incorrect diagramId for test input with label '%s' diagramId='%s' shapeId='%s'. DiagramId should be '%s'", label, diagramId, shapeId, newDiagramID));
-                    result = sameShapeIdElements.get(0);
-                } else {
-                    throw new DMNRuntimeException(String.format("Multiple DRGElements for label '%s' with diagramId='%s' shapeId='%s'. Diagram ID should be one of '%s'", label, diagramId, shapeId, newDiagramID));
-                }
-            }
-            cache.put(key, result);
-        }
-        return cache.get(key);
-    }
-
-    private boolean idEndsWith(TNamedElement element, String id) {
-        return id != null && element.getId().endsWith(id);
-    }
-
-    private boolean sameId(TNamedElement element, String id) {
-        return id != null && id.equals(element.getId());
-    }
-
-    private boolean sameDiagramId(TDRGElement element, String id) {
-        if (id == null) {
-            return false;
-        }
-        Map<QName, String> otherAttributes = element.getOtherAttributes();
-        QName diagramIdQName = ((SignavioDMNModelRepository) this.dmnTransformer.getDMNModelRepository()).getDiagramIdQName();
-        String shapeId = otherAttributes.get(diagramIdQName);
-        return id.equals(shapeId);
-    }
-
-    private boolean sameShapeId(TDRGElement element, String id) {
-        if (id == null) {
-            return false;
-        }
-        Map<QName, String> otherAttributes = element.getOtherAttributes();
-        QName shapeIdQName = ((SignavioDMNModelRepository) this.dmnTransformer.getDMNModelRepository()).getShapeIdQName();
-        String shapeId = otherAttributes.get(shapeIdQName);
-        return id.equals(shapeId);
-    }
-
-    private boolean sameName(TNamedElement element, String name) {
-        return name != null && name.equals(element.getName());
-    }
-
-    private boolean sameLabel(TNamedElement element, String label) {
-        return label != null && label.equals(element.getLabel());
-    }
-
     private Type toFEELType(ParameterDefinition parameterDefinition) {
         try {
             TDRGElement element = findDRGElement(parameterDefinition);
@@ -460,17 +369,5 @@ public class TestLabUtil {
             throw new UnsupportedOperationException(String.format("Cannot resolve FEEL type for requirementId requirement '%s'. '%s' not supported", parameterDefinition.getId(), element.getClass().getSimpleName()));
         }
         return typeRef;
-    }
-
-    private String makeKey(String id) {
-        return String.format("%s::", id);
-    }
-
-    private String makeKey(String diagramId, String shapeId) {
-        return String.format("%s:%s:", diagramId, shapeId);
-    }
-
-    private String makeKey(String label, String diagramId, String shapeId) {
-        return String.format("%s:%s:%s", label, diagramId, shapeId);
     }
 }

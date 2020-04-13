@@ -52,7 +52,7 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
     protected final String modelVersion;
     protected final String platformVersion;
 
-    public DMNToJavaTransformer(DMNDialectDefinition dialectDefinition, DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
+    public DMNToJavaTransformer(DMNDialectDefinition dialectDefinition, DMNValidator dmnValidator, DMNTransformer<?> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
         super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
 
         this.dmnVersion = InputParamUtil.getRequiredParam(inputParameters, "dmnVersion");
@@ -95,15 +95,15 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
         for(TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
             // Generate data types
             List<String> generatedClasses = new ArrayList<>();
-            List<TItemDefinition> itemDefinitions = dmnModelRepository.itemDefinitions(definitions);
+            List<TItemDefinition> itemDefinitions = dmnModelRepository.findItemDefinitions(definitions);
             transformItemDefinitionList(definitions, itemDefinitions, dmnTransformer, generatedClasses, outputPath);
 
             // Generate BKMs
-            List<TBusinessKnowledgeModel> businessKnowledgeModels = dmnModelRepository.businessKnowledgeModels(definitions);
+            List<TBusinessKnowledgeModel> businessKnowledgeModels = dmnModelRepository.findBKMs(definitions);
             transformBKMList(definitions, businessKnowledgeModels, dmnTransformer, generatedClasses, outputPath);
 
             // Generate decisions
-            List<TDecision> decisions = dmnModelRepository.decisions(definitions);
+            List<TDecision> decisions = dmnModelRepository.findDecisions(definitions);
             transformDecisionList(definitions, decisions, dmnTransformer, generatedClasses, outputPath, decisionBaseClass);
         }
     }

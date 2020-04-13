@@ -47,7 +47,7 @@ public class InvocationToJavaTransformer {
         for(TBinding binding: invocation.getBinding()) {
             String argName= binding.getParameter().getName();
             TExpression argExpression = binding.getExpression().getValue();
-            Statement argJava = dmnTransformer.expressionToJava(argExpression, environment, element);
+            Statement argJava = dmnTransformer.expressionToJava(element, argExpression, environment);
             argBinding.put(argName, argJava);
         }
         // Build call

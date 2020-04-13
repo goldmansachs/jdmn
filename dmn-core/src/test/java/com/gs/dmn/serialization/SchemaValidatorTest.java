@@ -12,18 +12,19 @@
  */
 package com.gs.dmn.serialization;
 
+import com.gs.dmn.AbstractTest;
 import com.gs.dmn.tck.TestCasesReader;
 import org.junit.Test;
 
 import java.io.File;
 
-public class SchemaValidatorTest {
+public class SchemaValidatorTest extends AbstractTest {
     @Test
     public void testValidateForTCKFiles() {
-        File schemaLocation = new File(SchemaValidatorTest.class.getClassLoader().getResource("tck/testCases.xsd").getFile());
+        File schemaLocation = new File(resource("tck/testCases.xsd"));
 
         SchemaValidator validator = new SchemaValidator(schemaLocation, "org.omg.dmn.tck.marshaller._20160719");
-        File dmnFileFolder = new File(SchemaValidatorTest.class.getClassLoader().getResource("tck").getFile());
+        File dmnFileFolder = new File(resource("tck"));
         validate(dmnFileFolder, validator, TestCasesReader.DEFAULT_TEST_CASE_FILE_EXTENSION);
     }
 

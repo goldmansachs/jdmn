@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.transformation.basic;
 
+import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.junit.Test;
@@ -21,7 +22,7 @@ import java.util.LinkedHashMap;
 
 import static org.junit.Assert.assertEquals;
 
-public class DecisionTableToJavaTransformerTest {
+public class DecisionTableToJavaTransformerTest extends AbstractTest {
     final DecisionTableToJavaTransformer transformer = new DecisionTableToJavaTransformer(new BasicDMN2JavaTransformer(new DMNModelRepository(), null, null, new NopLazyEvaluationDetector(), new LinkedHashMap<>()));
 
     @Test

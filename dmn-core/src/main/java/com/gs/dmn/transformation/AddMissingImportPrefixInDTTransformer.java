@@ -33,10 +33,12 @@ public class AddMissingImportPrefixInDTTransformer extends SimpleDMNTransformer<
 
     @Override
     public DMNModelRepository transform(DMNModelRepository repository) {
-        for (TDecision decision: repository.decisions()) {
-            TExpression expression = repository.expression(decision);
-            if (expression instanceof TDecisionTable) {
-                transform(repository, decision, (TDecisionTable) expression);
+        for (TDefinitions definitions: repository.getAllDefinitions()) {
+            for (TDecision decision: repository.findDecisions(definitions)) {
+                TExpression expression = repository.expression(decision);
+                if (expression instanceof TDecisionTable) {
+                    transform(repository, decision, (TDecisionTable) expression);
+                }
             }
         }
         this.transformRepository = false;

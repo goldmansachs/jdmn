@@ -37,14 +37,10 @@ import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20151101.model.*;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -78,7 +74,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
         return file != null && file.isFile() && file.getName().endsWith(RDF_FILE_EXTENSION);
     }
 
-    private static final Map<String, String> FUNCTION_RETURN_TYPE = new LinkedHashMap<String, String>();
+    private static final Map<String, String> FUNCTION_RETURN_TYPE = new LinkedHashMap<>();
     static {
         FUNCTION_RETURN_TYPE.put("concat", STRING_TYPE);
         FUNCTION_RETURN_TYPE.put("count", NUMBER_TYPE);
@@ -90,6 +86,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
     private final String prefix;
 
     private RDFModel rdfModel;
+    private final RDFReader rdfReader;
     private final DMNDialectDefinition dialectDefinition = new SignavioDMNDialectDefinition();
     private final BasicDMN2JavaTransformer dmnTransformer = dialectDefinition.createBasicTransformer(new SignavioDMNModelRepository(), new NopLazyEvaluationDetector(), new LinkedHashMap<>());
     private final DMNReader dmnReader;
@@ -99,6 +96,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
         super(inputParameters, logger);
         this.dmnReader = new DMNReader(logger, false);
         this.dmnWriter = new DMNWriter(logger);
+        this.rdfReader = new RDFReader(logger);
         this.namespace = InputParamUtil.getRequiredParam(inputParameters, "namespace");
         this.prefix = InputParamUtil.getRequiredParam(inputParameters, "prefix");
     }
@@ -154,13 +152,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
     }
 
     private TDefinitions transform(String name, InputStream inputStream) throws Exception {
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, ""); // Compliant
-        dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, ""); // compliant
-        dbf.setNamespaceAware(true);
-        DocumentBuilder db = dbf.newDocumentBuilder();
-        Document document = db.parse(inputStream);
-        rdfModel = new RDFModel(document);
+        this.rdfModel = rdfReader.readModel(name, inputStream);
 
         TDefinitions root = OBJECT_FACTORY.createTDefinitions();
         root.setNamespace(DMN_11.getNamespace());
@@ -442,15 +434,11 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
     private void addDRGElements(TDefinitions root) {
         for (Element decision : rdfModel.findAllDecision()) {
             TDecision tDecision = makeDecision(root, decision);
-            if (tDecision != null) {
-                root.getDrgElement().add(OBJECT_FACTORY.createDecision(tDecision));
-            }
+            root.getDrgElement().add(OBJECT_FACTORY.createDecision(tDecision));
         }
         for (Element inputData : rdfModel.findAllInputData()) {
             TInputData tInputData = makeInputData(inputData);
-            if (tInputData != null) {
-                root.getDrgElement().add(OBJECT_FACTORY.createInputData(tInputData));
-            }
+            root.getDrgElement().add(OBJECT_FACTORY.createInputData(tInputData));
         }
     }
 

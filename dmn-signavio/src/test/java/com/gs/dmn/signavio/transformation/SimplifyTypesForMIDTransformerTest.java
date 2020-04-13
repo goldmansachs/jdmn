@@ -20,10 +20,8 @@ import com.gs.dmn.serialization.DMNWriter;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.TestLab;
-import com.gs.dmn.signavio.testlab.TestLabReader;
 import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
 
@@ -33,15 +31,13 @@ public class SimplifyTypesForMIDTransformerTest extends AbstractFileTransformerT
     private final DMNTransformer<TestLab> transformer = new SimplifyTypesForMIDTransformer(LOGGER);
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
     private final DMNWriter dmnWriter = new DMNWriter(LOGGER);
-    private TestLabReader testReader = new TestLabReader();
-    private static final ClassLoader CLASS_LOADER = SimplifyTypesForMIDTransformerTest.class.getClassLoader();
 
     @Test
     public void testTransform() throws Exception {
         String path = "dmn2java/exported/complex/input/";
 
         // Transform DMN
-        File dmnFile = new File(CLASS_LOADER.getResource(path + "IteratorExampleReturningMultiple.dmn").getFile());
+        File dmnFile = new File(resource(path + "IteratorExampleReturningMultiple.dmn"));
         Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(dmnFile);
         DMNModelRepository repository = new SignavioDMNModelRepository(pair, "http://www.provider.com/schema/dmn/1.1/");
         DMNModelRepository actualRepository = transformer.transform(repository);
@@ -56,7 +52,7 @@ public class SimplifyTypesForMIDTransformerTest extends AbstractFileTransformerT
         dmnWriter.write(actualDefinitions, actualDMNFile, new DMNNamespacePrefixMapper(actualDefinitions.getNamespace(), "sig"));
 
         String path = "dmn2java/exported/complex/expected/";
-        File expectedDMNFile = new File(CLASS_LOADER.getResource(path + fileName).getFile());
+        File expectedDMNFile = new File(resource(path + fileName));
 
         compareFile(expectedDMNFile, actualDMNFile);
     }

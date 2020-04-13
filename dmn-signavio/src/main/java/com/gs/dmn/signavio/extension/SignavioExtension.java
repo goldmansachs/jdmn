@@ -30,7 +30,6 @@ import javax.xml.bind.JAXBElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import static com.gs.dmn.serialization.DMNVersion.DMN_12;
 
@@ -59,7 +58,7 @@ public class SignavioExtension {
     private TDecisionService decisionService(TDefinitions definitions, String serviceId) {
         List<Object> elementList = findExtensions(definitions.getExtensionElements(), DMN_12.getNamespace(), "decisionService");
         for(Object element: elementList) {
-            Object value = ((JAXBElement) element).getValue();
+            Object value = ((JAXBElement<?>) element).getValue();
             if (value instanceof TDecisionService && dmnModelRepository.sameId((TNamedElement) value, serviceId)) {
                 return (TDecisionService) value;
             }
@@ -75,7 +74,7 @@ public class SignavioExtension {
             return tagName.equals(name) &&
                     namespace.equals(namespaceURI);
         } else if (extension instanceof JAXBElement) {
-            JAXBElement element = (JAXBElement)extension;
+            JAXBElement<?> element = (JAXBElement<?>)extension;
             String namespaceURI = element.getName().getNamespaceURI();
             String name = element.getName().getLocalPart();
             return tagName.equals(name) &&
@@ -153,8 +152,14 @@ public class SignavioExtension {
     //
     private TDRGElement findDRGElementByPartialId(String iteratorShapeId) {
         String suffix = iteratorShapeId.substring(3);
-        Optional<TDRGElement> tdrgElementOptional = dmnModelRepository.drgElements().stream().filter(d -> d.getId().endsWith(suffix)).findFirst();
-        return tdrgElementOptional.orElse(null);
+        for (TDefinitions definitions: this.dmnModelRepository.getAllDefinitions()) {
+            for (TDRGElement element: this.dmnModelRepository.findDRGElements(definitions)) {
+                if (element.getId().endsWith(suffix)) {
+                    return element;
+                }
+            }
+        }
+        return null;
     }
 
     public List<Object> findExtensions(TDMNElement.ExtensionElements extensionElements, String namespace, String extensionName) {

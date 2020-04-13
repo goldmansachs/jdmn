@@ -35,8 +35,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 public class MergeInputDataTransformerTest extends AbstractFileTransformerTest {
-    private static final ClassLoader CLASS_LOADER = MergeInputDataTransformerTest.class.getClassLoader();
-
     private final MergeInputDataTransformer transformer = new MergeInputDataTransformer(LOGGER);
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
     private DMNWriter dmnWriter = new DMNWriter(LOGGER);
@@ -49,13 +47,13 @@ public class MergeInputDataTransformerTest extends AbstractFileTransformerTest {
         String path = "dmn/input/";
 
         // Transform DMN
-        File dmnFile = new File(CLASS_LOADER.getResource(path + this.dmnFile).getFile());
+        File dmnFile = new File(resource(path + this.dmnFile));
         Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(dmnFile);
         DMNModelRepository repository = new SignavioDMNModelRepository(pair);
         DMNModelRepository actualRepository = transformer.transform(repository);
 
         // Transform TestLab
-        File testLabFile = new File(CLASS_LOADER.getResource(path + this.testLabFile).getFile());
+        File testLabFile = new File(resource(path + this.testLabFile));
         List<TestLab> testLabList = new ArrayList<>();
         if (testLabFile.isFile()) {
             TestLab testLab = testReader.read(testLabFile);
@@ -76,7 +74,8 @@ public class MergeInputDataTransformerTest extends AbstractFileTransformerTest {
 
     private void check(TDefinitions actualDefinitions, List<TestLab> actualTestLabList) throws Exception {
         // Check definitions for duplicate InputData
-        List<TInputData> inputDataList = new SignavioDMNModelRepository(actualDefinitions, new PrefixNamespaceMappings()).inputDatas();
+        SignavioDMNModelRepository signavioDMNModelRepository = new SignavioDMNModelRepository(actualDefinitions, new PrefixNamespaceMappings());
+        List<TInputData> inputDataList = signavioDMNModelRepository.findInputDatas(actualDefinitions);
         for(TInputData inputData1: inputDataList) {
             TInputData duplicate = null;
             for(TInputData inputData2: inputDataList) {
@@ -112,13 +111,13 @@ public class MergeInputDataTransformerTest extends AbstractFileTransformerTest {
     }
 
     private void checkDefinitions(TDefinitions actualDefinitions, String fileName) throws Exception {
-        assertEquals(2, new SignavioDMNModelRepository(actualDefinitions, new PrefixNamespaceMappings()).inputDatas().size());
+        assertEquals(2, new SignavioDMNModelRepository(actualDefinitions, new PrefixNamespaceMappings()).findInputDatas(actualDefinitions).size());
 
         File actualDMNFile = new File("target/" + fileName);
         dmnWriter.write(actualDefinitions, actualDMNFile, new DMNNamespacePrefixMapper(actualDefinitions.getNamespace(), "sig"));
 
         String path = "dmn/expected/";
-        File expectedDMNFile = new File(CLASS_LOADER.getResource(path + fileName).getFile());
+        File expectedDMNFile = new File(resource(path + fileName));
 
         compareFile(expectedDMNFile, actualDMNFile);
     }
@@ -131,7 +130,7 @@ public class MergeInputDataTransformerTest extends AbstractFileTransformerTest {
         testReader.write(actualTestLab, actualTestLabFile);
 
         String path = "dmn/expected/";
-        File expectedTestLabFile = new File(CLASS_LOADER.getResource(path + fileName).getFile());
+        File expectedTestLabFile = new File(resource(path + fileName));
 
         compareFile(expectedTestLabFile, actualTestLabFile);
     }
