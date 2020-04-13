@@ -133,26 +133,26 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
 
     // Replace old names with new names in expressions
     protected void replace(DMNModelRepository repository) {
-        for (TDRGElement element : repository.drgElements()) {
-            if (element instanceof TInputData) {
-            } else if (element instanceof TBusinessKnowledgeModel) {
-                // Replace old names with new names in body
-                LexicalContext lexicalContext = makeLexicalContext(element, repository);
-                TFunctionDefinition encapsulatedLogic = ((TBusinessKnowledgeModel) element).getEncapsulatedLogic();
-                if (encapsulatedLogic != null) {
-                    JAXBElement<? extends TExpression> expression = encapsulatedLogic.getExpression();
+        for (TDefinitions definitions: repository.getAllDefinitions()) {
+            for (TDRGElement element : repository.findDRGElements(definitions)) {
+                if (element instanceof TBusinessKnowledgeModel) {
+                    // Replace old names with new names in body
+                    LexicalContext lexicalContext = makeLexicalContext(element, repository);
+                    TFunctionDefinition encapsulatedLogic = ((TBusinessKnowledgeModel) element).getEncapsulatedLogic();
+                    if (encapsulatedLogic != null) {
+                        JAXBElement<? extends TExpression> expression = encapsulatedLogic.getExpression();
+                        if (expression != null) {
+                            replace(expression.getValue(), lexicalContext);
+                        }
+                    }
+                } else if (element instanceof TDecision) {
+                    // Replace old names with new names in body
+                    LexicalContext lexicalContext = makeLexicalContext(element, repository);
+                    JAXBElement<? extends TExpression> expression = ((TDecision) element).getExpression();
                     if (expression != null) {
                         replace(expression.getValue(), lexicalContext);
                     }
                 }
-            } else if (element instanceof TDecision) {
-                // Replace old names with new names in body
-                LexicalContext lexicalContext = makeLexicalContext(element, repository);
-                JAXBElement<? extends TExpression> expression = ((TDecision) element).getExpression();
-                if (expression != null) {
-                    replace(expression.getValue(), lexicalContext);
-                }
-            } else {
             }
         }
     }
@@ -243,39 +243,40 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
                 }
             }
         }
-        for (TItemDefinition itemDefinition : repository.itemDefinitions()) {
-            renameItemDefinitionMembers(itemDefinition);
-        }
-        for (TDRGElement element : repository.drgElements()) {
-            if (element instanceof TInputData) {
-                // Rename element and variable
-                renameElement(element);
-                renameElement(((TInputData) element).getVariable());
-            } else if (element instanceof TBusinessKnowledgeModel) {
-                // Rename element and variable
-                renameElement(element);
-                renameElement(((TBusinessKnowledgeModel) element).getVariable());
+        for (TDefinitions definitions: repository.getAllDefinitions()) {
+            for (TItemDefinition itemDefinition : repository.findItemDefinitions(definitions)) {
+                renameItemDefinitionMembers(itemDefinition);
+            }
+            for (TDRGElement element : repository.findDRGElements(definitions)) {
+                if (element instanceof TInputData) {
+                    // Rename element and variable
+                    renameElement(element);
+                    renameElement(((TInputData) element).getVariable());
+                } else if (element instanceof TBusinessKnowledgeModel) {
+                    // Rename element and variable
+                    renameElement(element);
+                    renameElement(((TBusinessKnowledgeModel) element).getVariable());
 
-                // Rename in body
-                TFunctionDefinition encapsulatedLogic = ((TBusinessKnowledgeModel) element).getEncapsulatedLogic();
-                if (encapsulatedLogic != null) {
-                    List<TInformationItem> formalParameterList = encapsulatedLogic.getFormalParameter();
-                    for (TInformationItem param : formalParameterList) {
-                        renameElement(param);
+                    // Rename in body
+                    TFunctionDefinition encapsulatedLogic = ((TBusinessKnowledgeModel) element).getEncapsulatedLogic();
+                    if (encapsulatedLogic != null) {
+                        List<TInformationItem> formalParameterList = encapsulatedLogic.getFormalParameter();
+                        for (TInformationItem param : formalParameterList) {
+                            renameElement(param);
+                        }
+                        rename(encapsulatedLogic);
                     }
-                    rename(encapsulatedLogic);
-                }
-            } else if (element instanceof TDecision) {
-                // Rename element and variable
-                renameElement(element);
-                renameElement(((TDecision) element).getVariable());
+                } else if (element instanceof TDecision) {
+                    // Rename element and variable
+                    renameElement(element);
+                    renameElement(((TDecision) element).getVariable());
 
-                // Rename in body
-                JAXBElement<? extends TExpression> expression = ((TDecision) element).getExpression();
-                if (expression != null) {
-                    rename(expression.getValue());
+                    // Rename in body
+                    JAXBElement<? extends TExpression> expression = ((TDecision) element).getExpression();
+                    if (expression != null) {
+                        rename(expression.getValue());
+                    }
                 }
-            } else {
             }
         }
     }
@@ -579,7 +580,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
             return;
         }
         renamedElements.add(element);
-        if (element != null && element.getName() != null) {
+        if (element.getName() != null) {
             String fieldName = "name";
             String newValue = transformName(element.getName());
             setField(element, fieldName, newValue);
@@ -594,7 +595,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
             return;
         }
         renamedElements.add(element);
-        if (element != null && element.getName() != null) {
+        if (element.getName() != null) {
             String fieldName = "name";
             String newValue = transformName(element.getName());
             setField(element, fieldName, newValue);

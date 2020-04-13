@@ -1274,7 +1274,7 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    Statement expressionToJava(TExpression expression, Environment environment, TDRGElement element) {
+    Statement expressionToJava(TDRGElement element, TExpression expression, Environment environment) {
         if (expression instanceof TContext) {
             return this.contextToJavaTransformer.contextExpressionToJava(element, (TContext) expression, environment);
         } else if (expression instanceof TFunctionDefinition) {
@@ -1290,7 +1290,7 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    public String literalExpressionToJava(String expressionText, TDRGElement element) {
+    public String literalExpressionToJava(TDRGElement element, String expressionText) {
         Statement statement = this.literalExpressionToJavaTransformer.expressionToJava(expressionText, element);
         return ((ExpressionStatement)statement).getExpression();
     }
@@ -1624,13 +1624,13 @@ public class BasicDMN2JavaTransformer {
     }
 
     public DRGElementKind elementKind(TDRGElement element) {
-        return DRGElementKind.kindByClass(element);
+        return DRGElementKind.kindByClass(element.getClass());
     }
 
     public ExpressionKind expressionKind(TDRGElement element) {
         TExpression expression = this.dmnModelRepository.expression(element);
         if (expression != null) {
-            return ExpressionKind.kindByClass(expression);
+            return ExpressionKind.kindByClass(expression.getClass());
         }
         return ExpressionKind.OTHER;
     }

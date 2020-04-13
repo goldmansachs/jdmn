@@ -79,27 +79,29 @@ public class SimplifyTypesForMIDTransformer extends SimpleDMNTransformer<TestLab
             TDefinitions definitions = repository.getRootDefinitions();
             signavioRepository = new SignavioDMNModelRepository(definitions, repository.getPrefixNamespaceMappings());
         }
-        for(TDecision decision: signavioRepository.decisions()) {
-            TDefinitions decisionModel = repository.getModel(decision);
-            if (signavioRepository.isMultiInstanceDecision(decision)) {
-                MultiInstanceDecisionLogic midLogic = signavioRepository.getExtension().multiInstanceDecisionLogic(decision);
-                TDecision bodyDecision = midLogic.getTopLevelDecision();
-                TDefinitions bodyDecisionModel = repository.getModel(bodyDecision);
-                QualifiedName midDecisionTypeRef = signavioRepository.typeRef(decision);
-                QualifiedName bodyDecisionTypeRef = signavioRepository.typeRef(bodyDecision);
-                Type midType = basicTransformer.toFEELType(decisionModel, midDecisionTypeRef);
-                Type bodyDecisionType = basicTransformer.toFEELType(bodyDecisionModel, bodyDecisionTypeRef);
-                if (midType instanceof ListType) {
-                    Type midElementType = ((ListType) midType).getElementType();
-                    if (midElementType.equivalentTo(bodyDecisionType) && basicTransformer.isComplexType(bodyDecisionType)) {
-                        TItemDefinition midItemDefinitionType = signavioRepository.lookupItemDefinition(decisionModel, midDecisionTypeRef);
-                        String importName = bodyDecisionTypeRef.getNamespace();
-                        if (StringUtils.isEmpty(importName)) {
-                            midItemDefinitionType.setTypeRef(String.format("%s", bodyDecisionTypeRef.getLocalPart()));
-                        } else {
-                            midItemDefinitionType.setTypeRef(String.format("%s.%s", importName, bodyDecisionTypeRef.getLocalPart()));
+        for (TDefinitions definitions: signavioRepository.getAllDefinitions()) {
+            for(TDecision decision: signavioRepository.findDecisions(definitions)) {
+                TDefinitions decisionModel = repository.getModel(decision);
+                if (signavioRepository.isMultiInstanceDecision(decision)) {
+                    MultiInstanceDecisionLogic midLogic = signavioRepository.getExtension().multiInstanceDecisionLogic(decision);
+                    TDecision bodyDecision = midLogic.getTopLevelDecision();
+                    TDefinitions bodyDecisionModel = repository.getModel(bodyDecision);
+                    QualifiedName midDecisionTypeRef = signavioRepository.typeRef(decision);
+                    QualifiedName bodyDecisionTypeRef = signavioRepository.typeRef(bodyDecision);
+                    Type midType = basicTransformer.toFEELType(decisionModel, midDecisionTypeRef);
+                    Type bodyDecisionType = basicTransformer.toFEELType(bodyDecisionModel, bodyDecisionTypeRef);
+                    if (midType instanceof ListType) {
+                        Type midElementType = ((ListType) midType).getElementType();
+                        if (midElementType.equivalentTo(bodyDecisionType) && basicTransformer.isComplexType(bodyDecisionType)) {
+                            TItemDefinition midItemDefinitionType = signavioRepository.lookupItemDefinition(decisionModel, midDecisionTypeRef);
+                            String importName = bodyDecisionTypeRef.getNamespace();
+                            if (StringUtils.isEmpty(importName)) {
+                                midItemDefinitionType.setTypeRef(String.format("%s", bodyDecisionTypeRef.getLocalPart()));
+                            } else {
+                                midItemDefinitionType.setTypeRef(String.format("%s.%s", importName, bodyDecisionTypeRef.getLocalPart()));
+                            }
+                            midItemDefinitionType.getItemComponent().clear();
                         }
-                        midItemDefinitionType.getItemComponent().clear();
                     }
                 }
             }

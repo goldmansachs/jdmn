@@ -38,7 +38,7 @@ public class UniqueInformationRequirementValidator extends SimpleDMNValidator {
         }
 
         for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
-            for (TDRGElement element : dmnModelRepository.drgElements(definitions)) {
+            for (TDRGElement element : dmnModelRepository.findDRGElements(definitions)) {
                 if (element instanceof TDecision) {
                     List<TInformationRequirement> irList = ((TDecision) element).getInformationRequirement();
                     validate(getReferences(irList), element, "InformationRequirement", errors);

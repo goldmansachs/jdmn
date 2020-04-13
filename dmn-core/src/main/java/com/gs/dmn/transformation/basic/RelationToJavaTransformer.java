@@ -78,7 +78,7 @@ public class RelationToJavaTransformer {
                     if (expression == null) {
                         argValue = "null";
                     } else {
-                        Statement statement = dmnTransformer.expressionToJava(expression, relationEnvironment, element);
+                        Statement statement = dmnTransformer.expressionToJava(element, expression, relationEnvironment);
                         argValue = ((ExpressionStatement)statement).getExpression();
                     }
                     argPairList.add(new Pair<String, String>(argNameList.get(i), argValue));

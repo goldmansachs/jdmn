@@ -12,15 +12,15 @@
  */
 package com.gs.dmn.transformation.formatter;
 
+import com.gs.dmn.AbstractTest;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class JavaFormatterTest {
+public abstract class JavaFormatterTest extends AbstractTest {
     protected void doTest() throws IOException {
         doTest("TFnLibrary.txt");
         doTest("TFnLibraryImpl.txt");
@@ -36,8 +36,7 @@ public abstract class JavaFormatterTest {
     }
 
     private String readResource(String actualPath) throws IOException {
-        URL resource = this.getClass().getClassLoader().getResource(actualPath);
-        File file = new File(resource.getFile());
+        File file = new File(resource(actualPath));
         return FileUtils.readFileToString(file, "UTF-8");
     }
 

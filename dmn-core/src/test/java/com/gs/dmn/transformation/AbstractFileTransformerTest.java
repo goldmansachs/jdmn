@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.transformation;
 
+import com.gs.dmn.AbstractTest;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
@@ -29,20 +30,8 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class AbstractFileTransformerTest {
+public class AbstractFileTransformerTest extends AbstractTest {
     protected static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractFileTransformerTest.class));
-
-    protected URI resource(String path) {
-        try {
-            URL url = this.getClass().getClassLoader().getResource(path);
-            if (url == null) {
-                throw new DMNRuntimeException(String.format("Cannot find resource '%s'", path));
-            }
-            return url.toURI();
-        } catch (URISyntaxException e) {
-            throw new DMNRuntimeException(e);
-        }
-    }
 
     protected void compareFile(File expectedOutputFile, File actualOutputFile) throws Exception {
         if (expectedOutputFile.isDirectory() && actualOutputFile.isDirectory()) {

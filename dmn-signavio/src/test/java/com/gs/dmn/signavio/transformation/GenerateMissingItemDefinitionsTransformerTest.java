@@ -21,7 +21,6 @@ import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.omg.spec.dmn._20180521.model.TItemDefinition;
 
@@ -30,7 +29,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileTransformerTest {
-    private static final ClassLoader CLASS_LOADER = GenerateMissingItemDefinitionsTransformerTest.class.getClassLoader();
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static final String BASE_PATH = "dmn2java/exported/complex";
 
@@ -126,24 +124,20 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileT
 
     @SuppressWarnings("unchecked")
     private RepositoryTransformResult executeTransformation(String dmnFilePath, String transformerConfigFilePath) throws Exception {
-        File dmnFile = new File(CLASS_LOADER.getResource(dmnFilePath).getFile());
-
         DMNTransformer<TestLab> transformer = new GenerateMissingItemDefinitionsTransformer(LOGGER);
-
         if (transformerConfigFilePath != null) {
-            File configFile = new File(CLASS_LOADER.getResource(transformerConfigFilePath).getFile());
+            File configFile = new File(resource(transformerConfigFilePath));
             Map<String, Object> configuration = MAPPER.readValue(configFile, Map.class);
 
             transformer.configure(configuration);
         }
 
+        File dmnFile = new File(resource(dmnFilePath));
         DMNModelRepository repository = new SignavioDMNModelRepository(dmnReader.read(dmnFile));
-
-        List<TItemDefinition> definitions = new ArrayList<>(repository.itemDefinitions());
-
+        List<TItemDefinition> definitions = new ArrayList<>(repository.findItemDefinitions(repository.getRootDefinitions()));
         DMNModelRepository transformed = transformer.transform(repository);
-        List<TItemDefinition> transformedDefinitions = new ArrayList<>(transformed.itemDefinitions());
 
+        List<TItemDefinition> transformedDefinitions = new ArrayList<>(transformed.findItemDefinitions(transformed.getRootDefinitions()));
         return new RepositoryTransformResult(definitions, transformedDefinitions);
     }
 
@@ -165,11 +159,11 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractFileT
                                                List<String> expectedNewDefinitions, List<String> expectedRemovedDefinitions) {
 
         List<String> newDefinitions = identifyNewDefinitions(transformResult.getBeforeTransform(), transformResult.getAfterTransform());
-        Assert.assertTrue("Missing expected new definition", expectedNewDefinitions.stream().allMatch(newDefinitions::contains));
+        Assert.assertTrue("Missing expected new definition", newDefinitions.containsAll(expectedNewDefinitions));
         Assert.assertEquals("Incorrect number of new definitions", expectedNewDefinitions.size(), newDefinitions.size());
 
         List<String> removedDefinitions = identifyNewDefinitions(transformResult.getAfterTransform(), transformResult.getBeforeTransform());
-        Assert.assertTrue("Expected removed definition is still present", expectedRemovedDefinitions.stream().allMatch(removedDefinitions::contains));
+        Assert.assertTrue("Expected removed definition is still present", removedDefinitions.containsAll(expectedRemovedDefinitions));
         Assert.assertEquals("Incorrect number of removed definitions", expectedRemovedDefinitions.size(), removedDefinitions.size());
     }
 

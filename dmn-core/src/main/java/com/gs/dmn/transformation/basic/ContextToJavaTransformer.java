@@ -72,7 +72,7 @@ public class ContextToJavaTransformer {
                     value = new ExpressionStatement(stm, entryType);
                 } else {
                     entryType = this.dmnTransformer.entryType(element, entry, contextEnvironment);
-                    value = (ExpressionStatement) this.dmnTransformer.expressionToJava(expression, contextEnvironment, element);
+                    value = (ExpressionStatement) this.dmnTransformer.expressionToJava(element, expression, contextEnvironment);
                 }
             } else {
                 entryType = this.dmnTransformer.entryType(element, entry, contextEnvironment);

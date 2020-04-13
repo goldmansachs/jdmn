@@ -92,7 +92,7 @@ public class TCKUtil {
     private DRGElementReference<? extends TDRGElement> extractInfoFromModel(TDefinitions definitions, String elementNamespace, String elementName, ImportPath importPath) {
         if (definitions.getNamespace().equals(elementNamespace)) {
             // Found model, lookup element by name
-            for (TDRGElement drg: this.dmnModelRepository.drgElements(definitions)) {
+            for (TDRGElement drg: this.dmnModelRepository.findDRGElements(definitions)) {
                 if (drg.getName().equals(elementName)) {
                     return this.dmnModelRepository.makeDRGElementReference(importPath, drg);
                 }
@@ -113,7 +113,7 @@ public class TCKUtil {
 
     private DRGElementReference<? extends TDRGElement> extractInfoFromModel(TDefinitions definitions, String elementName, ImportPath importPath) {
         // Lookup element by name
-        for (TDRGElement drg: this.dmnModelRepository.drgElements(definitions)) {
+        for (TDRGElement drg: this.dmnModelRepository.findDRGElements(definitions)) {
             if (drg.getName().equals(elementName)) {
                 return this.dmnModelRepository.makeDRGElementReference(importPath, drg);
             }
@@ -149,7 +149,7 @@ public class TCKUtil {
         }
 
         // Find DRG element and value
-        List<TDRGElement> drgElements = this.dmnModelRepository.drgElements(definitions);
+        List<TDRGElement> drgElements = this.dmnModelRepository.findDRGElements(definitions);
         TDRGElement element = null;
         for (TDRGElement e: drgElements) {
             if (e.getName().equals(name)) {
@@ -427,20 +427,6 @@ public class TCKUtil {
             throw new DMNRuntimeException(String.format("Cannot find root DM for TestCases '%s'", testCases.getModelName()));
         } else {
             return definitions;
-        }
-    }
-
-    private TDRGElement findDRGElement(TestCases testCases, TestCase testCase, InputNode node) {
-        try {
-            String namespace = getNamespace(testCases, testCase, node);
-            String name = node.getName();
-            if (namespace != null) {
-                return this.dmnModelRepository.findDRGElementByName(namespace, name);
-            } else {
-                return this.dmnModelRepository.findDRGElementByName(name);
-            }
-        } catch (Exception e) {
-            return null;
         }
     }
 

@@ -12,10 +12,8 @@
  */
 package com.gs.dmn.transformation.lazy;
 
+import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.DMNModelRepositoryTest;
-import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
@@ -25,7 +23,6 @@ import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TDecisionTable;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
 import org.omg.spec.dmn._20180521.model.TExpression;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -35,9 +32,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public class SparseDecisionDetectorTest {
-    private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(DMNModelRepositoryTest.class));
-
+public class SparseDecisionDetectorTest extends AbstractTest {
     private SparseDecisionDetector detector;
     private DMNModelRepository dmnModelRepository;
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
@@ -59,8 +54,9 @@ public class SparseDecisionDetectorTest {
 
     @Test
     public void testIsSparseDecisionTable() {
-        checkDecisionTable(dmnModelRepository.findDRGElementByName("EligibilityRules"), 0.75, true);
-        checkDecisionTable(dmnModelRepository.findDRGElementByName("Strategy"), 0.75, false);
+        TDefinitions definitions = this.dmnModelRepository.getRootDefinitions();
+        checkDecisionTable(dmnModelRepository.findDRGElementByName(definitions, "EligibilityRules"), 0.75, true);
+        checkDecisionTable(dmnModelRepository.findDRGElementByName(definitions, "Strategy"), 0.75, false);
     }
 
     private void checkDecisionTable(TDRGElement element, Double sparsityThreshold, boolean expectedResult) {
@@ -71,7 +67,7 @@ public class SparseDecisionDetectorTest {
     }
 
     private DMNModelRepository readDMN(String pathName) {
-        File input = new File(DMNModelRepositoryTest.class.getClassLoader().getResource(pathName).getFile());
+        File input = new File(resource(pathName));
         Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(input);
         return new DMNModelRepository(pair);
     }

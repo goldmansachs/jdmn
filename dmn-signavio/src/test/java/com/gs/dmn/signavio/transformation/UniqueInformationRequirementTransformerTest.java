@@ -18,7 +18,6 @@ import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.TestLab;
-import com.gs.dmn.signavio.testlab.TestLabReader;
 import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
 import org.junit.Test;
@@ -34,15 +33,13 @@ import static org.junit.Assert.fail;
 public class UniqueInformationRequirementTransformerTest extends AbstractFileTransformerTest {
     private final DMNTransformer<TestLab> transformer = new UniqueInformationRequirementTransformer(LOGGER);
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
-    private TestLabReader testReader = new TestLabReader();
-    private static final ClassLoader CLASS_LOADER = UniqueInformationRequirementTransformerTest.class.getClassLoader();
 
     @Test
-    public void testTransform() throws Exception {
+    public void testTransform() {
         String path = "dmn/input/";
 
         // Transform DMN
-        File dmnFile = new File(CLASS_LOADER.getResource(path + "simpleMID-with-ir-duplicates.dmn").getFile());
+        File dmnFile = new File(resource(path + "simpleMID-with-ir-duplicates.dmn"));
         Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(dmnFile);
         DMNModelRepository repository = new SignavioDMNModelRepository(pair);
         DMNModelRepository actualRepository = transformer.transform(repository);

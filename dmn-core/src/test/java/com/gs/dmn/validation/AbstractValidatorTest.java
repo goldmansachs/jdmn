@@ -13,22 +13,19 @@
 */
 package com.gs.dmn.validation;
 
+import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class AbstractValidatorTest {
-    private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractValidatorTest.class));
+public class AbstractValidatorTest extends AbstractTest {
     private final DMNReader reader = new DMNReader(LOGGER, false);
 
     protected void validate(DMNValidator validator, String path, List<String> expectedErrors) {
@@ -39,7 +36,7 @@ public class AbstractValidatorTest {
     }
 
     private DMNModelRepository makeRepository(String path) {
-        File input = new File(DefaultDMNValidatorTest.class.getClassLoader().getResource(path).getFile());
+        File input = new File(resource(path));
         Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(input);
         return new DMNModelRepository(pair);
     }
