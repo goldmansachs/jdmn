@@ -27,6 +27,6 @@ public class SignavioTreeTemplateProvider extends TreeTemplateProvider {
 
     @Override
     public String testBaseTemplatePath() {
-        return "/templates/testlab";
+        return "/templates/testlab/java";
     }
 }
