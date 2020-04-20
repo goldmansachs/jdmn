@@ -15,6 +15,7 @@ package com.gs.dmn.signavio.transformation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.InputParameterDefinition;
@@ -28,10 +29,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MergeInputDataTransformer extends SimpleDMNTransformer<TestLab> {
     private static final Logger LOGGER = LoggerFactory.getLogger(MergeInputDataTransformer.class);
@@ -68,19 +66,47 @@ public class MergeInputDataTransformer extends SimpleDMNTransformer<TestLab> {
     }
 
     private void transform(TestLab testLab, SignavioDMNModelRepository repository) {
+        // Check for conflicts between the values of the InputData in the same equivalence class
+        List<TestCase> testCases = testLab.getTestCases();
+        for(TestCase testCase: testCases) {
+            List<Expression> inputValues = testCase.getInputValues();
+            for(int i=0; i<testLab.getInputParameterDefinitions().size()-1; i++) {
+                InputParameterDefinition firstParameter = testLab.getInputParameterDefinitions().get(i);
+                String firstRequirementName = equivalenceKey(firstParameter);
+                Expression firstExpression = inputValues.get(i);
+                List<Expression> classValues = new ArrayList<>();
+                classValues.add(firstExpression);
+                boolean error = false;
+                for (int j = i + 1; j < testLab.getInputParameterDefinitions().size(); j++) {
+                    InputParameterDefinition secondParameter = testLab.getInputParameterDefinitions().get(j);
+                    String secondRequirementName = equivalenceKey(secondParameter);
+                    if (firstRequirementName.equals(secondRequirementName)) {
+                        Expression secondExpression = inputValues.get(j);
+                        if (!Objects.equals(firstExpression, secondExpression)) {
+                            throw new DMNRuntimeException(String.format("Cannot merge, incompatible values for InputData '%s' '%s' and '%s'", firstRequirementName, firstExpression, secondExpression));
+                        }
+                    }
+                }
+            }
+        }
+
         // Calculate parameters to remove
         List<InputParameterDefinition> toRemove = new ArrayList<>();
         List<Integer> indexToRemove = new ArrayList<>();
         List<String> labels = new ArrayList<>();
         for(int i=0; i<testLab.getInputParameterDefinitions().size(); i++) {
             InputParameterDefinition ipd = testLab.getInputParameterDefinitions().get(i);
-            String requirementName = ipd.getRequirementName();
+            String requirementName = equivalenceKey(ipd);
             if (labels.contains(requirementName)) {
                 toRemove.add(ipd);
                 indexToRemove.add(i);
             } else {
                 labels.add(requirementName);
-                TInputData representative = this.inputDataClasses.get(requirementName).getLeft();
+                Pair<TInputData, List<TInputData>> pair = this.inputDataClasses.get(requirementName);
+                if (pair == null) {
+                    throw new DMNRuntimeException(String.format("Cannot find InputData for input parameter with requirementName='%s'", requirementName));
+                }
+                TInputData representative = pair.getLeft();
                 QName diagramIdQName = repository.getDiagramIdQName();
                 String representativeDiagramId = representative.getOtherAttributes().get(diagramIdQName);
                 QName shapeIdQName = repository.getShapeIdQName();
@@ -94,14 +120,17 @@ public class MergeInputDataTransformer extends SimpleDMNTransformer<TestLab> {
         testLab.getInputParameterDefinitions().removeAll(toRemove);
 
         // Remove corresponding Input Values
-        List<TestCase> testCases = testLab.getTestCases();
+        testCases = testLab.getTestCases();
         for(TestCase testCase: testCases) {
-            List<Expression> expToRemove = new ArrayList<>();
             List<Expression> inputValues = testCase.getInputValues();
-            for(Integer index: indexToRemove) {
-                expToRemove.add(inputValues.get(index));
+            List<Expression> newList = new ArrayList<>();
+            for (int i=0; i<inputValues.size(); i++) {
+                if (!indexToRemove.contains(i)) {
+                    newList.add(inputValues.get(i));
+                }
             }
-            testCase.getInputValues().removeAll(expToRemove);
+            inputValues.clear();
+            inputValues.addAll(newList);
         }
     }
 
@@ -187,7 +216,7 @@ public class MergeInputDataTransformer extends SimpleDMNTransformer<TestLab> {
         TDefinitions definitions = dmnModelRepository.getRootDefinitions();
         List<TInputData> inputDataList = dmnModelRepository.findInputDatas(definitions);
         for(TInputData inputData: inputDataList) {
-            String label = inputData.getLabel();
+            String label = equivalenceKey(inputData);
             Pair<TInputData, List<TInputData>> inputDataClass = inputDataClasses.computeIfAbsent(label, k -> new Pair<>(null, new ArrayList<>()));
             inputDataClass.getRight().add(inputData);
         }
@@ -233,5 +262,14 @@ public class MergeInputDataTransformer extends SimpleDMNTransformer<TestLab> {
             }
         }
         return representative;
+    }
+
+    protected String equivalenceKey(TInputData inputData) {
+        return inputData.getLabel().trim();
+    }
+
+    private String equivalenceKey(InputParameterDefinition firstParameter) {
+        // requirement name is the label of corresponding InputData
+        return firstParameter.getRequirementName();
     }
 }

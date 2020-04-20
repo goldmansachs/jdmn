@@ -50,6 +50,28 @@ public class Slot extends TestLabElement {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Slot slot = (Slot) o;
+
+        if (id != null ? !id.equals(slot.id) : slot.id != null) return false;
+        if (name != null ? !name.equals(slot.name) : slot.name != null) return false;
+        if (value != null ? !value.equals(slot.value) : slot.value != null) return false;
+        return itemComponentName != null ? itemComponentName.equals(slot.itemComponentName) : slot.itemComponentName == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (value != null ? value.hashCode() : 0);
+        result = 31 * result + (itemComponentName != null ? itemComponentName.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return String.format("%s(%s, %s, %s, %s)", this.getClass().getSimpleName(), name, itemComponentName, id, value);
     }
