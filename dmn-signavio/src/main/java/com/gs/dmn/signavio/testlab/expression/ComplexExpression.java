@@ -33,6 +33,21 @@ public class ComplexExpression extends Expression {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ComplexExpression that = (ComplexExpression) o;
+
+        return slots != null ? slots.equals(that.slots) : that.slots == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return slots != null ? slots.hashCode() : 0;
+    }
+
+    @Override
     public String toString() {
         return String.format("%s(%s)", this.getClass().getSimpleName(), slots);
     }
