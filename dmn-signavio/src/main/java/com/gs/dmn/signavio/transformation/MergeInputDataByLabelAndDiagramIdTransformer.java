@@ -14,22 +14,28 @@ package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.InputParameterDefinition;
 import org.omg.spec.dmn._20180521.model.TInputData;
 
-public class MergeInputDataTransformer extends AbstractMergeInputDataTransformer {
-    public MergeInputDataTransformer(BuildLogger logger) {
+public class MergeInputDataByLabelAndDiagramIdTransformer extends AbstractMergeInputDataTransformer {
+    public MergeInputDataByLabelAndDiagramIdTransformer(BuildLogger logger) {
         super(logger);
     }
 
     @Override
     protected String equivalenceKey(TInputData inputData, DMNModelRepository dmnModelRepository) {
-        return inputData.getLabel().trim();
+        return String.format("%s-%s", diagramId(inputData, dmnModelRepository), inputData.getLabel().trim());
     }
 
     @Override
     protected String equivalenceKey(InputParameterDefinition parameter) {
         // requirement name is the label of corresponding InputData
-        return parameter.getRequirementName().trim();
+        return String.format("%s-%s", parameter.getDiagramId(), parameter.getRequirementName().trim());
+    }
+
+    private String diagramId(TInputData inputData, DMNModelRepository repository) {
+        SignavioDMNModelRepository signavioRepository = (SignavioDMNModelRepository) repository;
+        return inputData.getOtherAttributes().get(signavioRepository.getDiagramIdQName());
     }
 }
