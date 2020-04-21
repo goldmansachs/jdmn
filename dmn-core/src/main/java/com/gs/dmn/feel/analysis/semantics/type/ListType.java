@@ -72,7 +72,6 @@ public class ListType extends Type {
         ListType listType = (ListType) o;
 
         return elementType != null ? elementType.equals(listType.elementType) : listType.elementType == null;
-
     }
 
     @Override

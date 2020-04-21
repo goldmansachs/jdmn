@@ -20,9 +20,9 @@ import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
 public class ItemDefinitionType extends NamedType implements CompositeDataType {
     public static final Type ANY_ITEM_DEFINITION = new ItemDefinitionType("");
 
+    private final String modelName;
     private final Map<String, Type> members = new LinkedHashMap<>();
     private final Map<String, List<String>> aliases = new LinkedHashMap<>();
-    private final String modelName;
 
     public ItemDefinitionType(String name) {
         this(name, null);
@@ -156,14 +156,17 @@ public class ItemDefinitionType extends NamedType implements CompositeDataType {
 
         ItemDefinitionType that = (ItemDefinitionType) o;
 
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (modelName != null ? !modelName.equals(that.modelName) : that.modelName != null) return false;
         if (!members.equals(that.members)) return false;
         return aliases.equals(that.aliases);
-
     }
 
     @Override
     public int hashCode() {
-        int result = members.hashCode();
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (modelName != null ? modelName.hashCode() : 0);
+        result = 31 * result + members.hashCode();
         result = 31 * result + aliases.hashCode();
         return result;
     }
@@ -171,7 +174,7 @@ public class ItemDefinitionType extends NamedType implements CompositeDataType {
     @Override
     public String toString() {
         String members = this.members.entrySet().stream().map(e -> String.format("%s = %s", toList(e.getKey(), this.aliases.get(e.getKey())), e.getValue())).collect(Collectors.joining(", "));
-        return String.format("ItemDefinitionType(%s)", members);
+        return String.format("ItemDefinitionType(%s, %s)", name, members);
     }
 
     private String toList(String name, List<String> aliases) {
