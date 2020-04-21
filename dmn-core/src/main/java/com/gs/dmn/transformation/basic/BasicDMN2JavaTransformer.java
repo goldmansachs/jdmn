@@ -83,6 +83,9 @@ public class BasicDMN2JavaTransformer {
     private final Set<String> cachedElements;
     protected final DRGElementFilter drgElementFilter;
 
+    protected final FEELTypeCache feelTypeCache;
+    protected final JavaTypeCache javaTypeCache;
+
     public BasicDMN2JavaTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, FEELTypeTranslator feelTypeTranslator, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         this.dmnModelRepository = dmnModelRepository;
         this.environmentFactory = environmentFactory;
@@ -107,6 +110,9 @@ public class BasicDMN2JavaTransformer {
         this.lazyEvaluationOptimisation = lazyEvaluationDetector.detect(this.dmnModelRepository);
         this.cachedElements = this.dmnModelRepository.computeCachedElements(this.caching, this.cachingThreshold);
         this.drgElementFilter = new DRGElementFilter(this.singletonInputData);
+
+        this.feelTypeCache = new FEELTypeCache();
+        this.javaTypeCache = new JavaTypeCache();
     }
 
     public DMNModelRepository getDMNModelRepository() {
@@ -1344,6 +1350,15 @@ public class BasicDMN2JavaTransformer {
     }
 
     public Type toFEELType(TDefinitions model, String typeName) {
+        Type type = this.feelTypeCache.get(model, typeName);
+        if (type == null) {
+            type = toFEELTypeNoCache(model, typeName);
+            this.feelTypeCache.put(model, typeName, type);
+        }
+        return type;
+    }
+
+    private Type toFEELTypeNoCache(TDefinitions model, String typeName) {
         if (StringUtils.isBlank(typeName)) {
             return null;
         }
@@ -1362,6 +1377,15 @@ public class BasicDMN2JavaTransformer {
     }
 
     public Type toFEELType(TDefinitions model, QualifiedName typeRef) {
+        Type type = this.feelTypeCache.get(model, typeRef);
+        if (type == null) {
+            type = toFEELTypeNoCache(model, typeRef);
+            this.feelTypeCache.put(model, typeRef, type);
+        }
+        return type;
+    }
+
+    private Type toFEELTypeNoCache(TDefinitions model, QualifiedName typeRef) {
         // Lookup primitive types
         Type primitiveType = lookupPrimitiveType(typeRef);
         if (primitiveType != null) {
@@ -1376,6 +1400,15 @@ public class BasicDMN2JavaTransformer {
     }
 
     Type toFEELType(TItemDefinition itemDefinition) {
+        Type type = this.feelTypeCache.get(itemDefinition);
+        if (type == null) {
+            type = toFEELTypeNoCache(itemDefinition);
+            this.feelTypeCache.put(itemDefinition, type);
+        }
+        return type;
+    }
+
+    private Type toFEELTypeNoCache(TItemDefinition itemDefinition) {
         itemDefinition = this.dmnModelRepository.normalize(itemDefinition);
         TDefinitions model = this.dmnModelRepository.getModel(itemDefinition);
         QualifiedName typeRef = QualifiedName.toQualifiedName(model, itemDefinition.getTypeRef());
@@ -1421,6 +1454,15 @@ public class BasicDMN2JavaTransformer {
     // Common functions
     //
     public String toJavaType(TDecision decision) {
+        String javaType = this.javaTypeCache.get(decision);
+        if (javaType == null) {
+            javaType = toJavaTypeNoCache(decision);
+            this.javaTypeCache.put(decision, javaType);
+        }
+        return javaType;
+    }
+
+    private String toJavaTypeNoCache(TDecision decision) {
         Environment environment = makeEnvironment(decision);
         TLiteralExpression expression = (TLiteralExpression) decision.getExpression().getValue();
         Type type = this.feelTranslator.analyzeExpression(expression.getText(), FEELContext.makeContext(decision, environment)).getType();
@@ -1432,6 +1474,15 @@ public class BasicDMN2JavaTransformer {
     }
 
     public String toJavaType(Type type) {
+        String javaType = this.javaTypeCache.get(type);
+        if (javaType == null) {
+            javaType = toJavaTypeNoCache(type);
+            this.javaTypeCache.put(type, javaType);
+        }
+        return javaType;
+    }
+
+    private String toJavaTypeNoCache(Type type) {
         if (type instanceof NamedType) {
             String typeName = ((NamedType) type).getName();
             String primitiveType = this.feelTypeTranslator.toJavaType(typeName);
