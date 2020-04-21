@@ -18,6 +18,10 @@ import com.gs.dmn.signavio.testlab.InputParameterDefinition;
 import org.omg.spec.dmn._20180521.model.TInputData;
 
 public class MergeInputDataTransformer extends AbstractMergeInputDataTransformer {
+    public MergeInputDataTransformer() {
+        super();
+    }
+
     public MergeInputDataTransformer(BuildLogger logger) {
         super(logger);
     }

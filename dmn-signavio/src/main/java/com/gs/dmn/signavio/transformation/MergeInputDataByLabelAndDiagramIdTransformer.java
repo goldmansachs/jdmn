@@ -19,6 +19,10 @@ import com.gs.dmn.signavio.testlab.InputParameterDefinition;
 import org.omg.spec.dmn._20180521.model.TInputData;
 
 public class MergeInputDataByLabelAndDiagramIdTransformer extends AbstractMergeInputDataTransformer {
+    public MergeInputDataByLabelAndDiagramIdTransformer() {
+        super();
+    }
+
     public MergeInputDataByLabelAndDiagramIdTransformer(BuildLogger logger) {
         super(logger);
     }
