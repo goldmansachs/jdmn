@@ -36,6 +36,7 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
 
     private final BuildLogger logger;
     private Map<String, Pair<TInputData, List<TInputData>>> inputDataClasses;
+    private boolean forceMerge = true;
 
     public AbstractMergeInputDataTransformer() {
         this(new Slf4jBuildLogger(LOGGER));
@@ -67,23 +68,22 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
 
     private void transform(TestLab testLab, SignavioDMNModelRepository repository) {
         // Check for conflicts between the values of the InputData in the same equivalence class
-        List<TestCase> testCases = testLab.getTestCases();
-        for(TestCase testCase: testCases) {
-            List<Expression> inputValues = testCase.getInputValues();
-            for(int i=0; i<testLab.getInputParameterDefinitions().size()-1; i++) {
-                InputParameterDefinition firstParameter = testLab.getInputParameterDefinitions().get(i);
-                String firstRequirementName = equivalenceKey(firstParameter);
-                Expression firstExpression = inputValues.get(i);
-                List<Expression> classValues = new ArrayList<>();
-                classValues.add(firstExpression);
-                boolean error = false;
-                for (int j = i + 1; j < testLab.getInputParameterDefinitions().size(); j++) {
-                    InputParameterDefinition secondParameter = testLab.getInputParameterDefinitions().get(j);
-                    String secondRequirementName = equivalenceKey(secondParameter);
-                    if (firstRequirementName.equals(secondRequirementName)) {
-                        Expression secondExpression = inputValues.get(j);
-                        if (!Objects.equals(firstExpression, secondExpression)) {
-                            throw new DMNRuntimeException(String.format("Cannot merge, incompatible values for InputData '%s' '%s' and '%s'", firstRequirementName, firstExpression, secondExpression));
+        if (!forceMerge) {
+            List<TestCase> testCases = testLab.getTestCases();
+            for(TestCase testCase: testCases) {
+                List<Expression> inputValues = testCase.getInputValues();
+                for(int i=0; i<testLab.getInputParameterDefinitions().size()-1; i++) {
+                    InputParameterDefinition firstParameter = testLab.getInputParameterDefinitions().get(i);
+                    String firstRequirementName = equivalenceKey(firstParameter);
+                    Expression firstExpression = inputValues.get(i);
+                    for (int j = i + 1; j < testLab.getInputParameterDefinitions().size(); j++) {
+                        InputParameterDefinition secondParameter = testLab.getInputParameterDefinitions().get(j);
+                        String secondRequirementName = equivalenceKey(secondParameter);
+                        if (firstRequirementName.equals(secondRequirementName)) {
+                            Expression secondExpression = inputValues.get(j);
+                            if (!Objects.equals(firstExpression, secondExpression)) {
+                                throw new DMNRuntimeException(String.format("Cannot merge, incompatible values for InputData '%s' '%s' and '%s'", firstRequirementName, firstExpression, secondExpression));
+                            }
                         }
                     }
                 }
@@ -120,7 +120,7 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
         testLab.getInputParameterDefinitions().removeAll(toRemove);
 
         // Remove corresponding Input Values
-        testCases = testLab.getTestCases();
+        List<TestCase> testCases = testLab.getTestCases();
         for(TestCase testCase: testCases) {
             List<Expression> inputValues = testCase.getInputValues();
             List<Expression> newList = new ArrayList<>();
