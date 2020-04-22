@@ -305,6 +305,24 @@ public class BasicDMN2JavaTransformer {
         throw new DMNRuntimeException(String.format("Cannot infer the output type of '%s'", element.getName()));
     }
 
+    public Type drgElementVariableFEELType(TDRGElement element, Environment environment) {
+        TDefinitions model = this.dmnModelRepository.getModel(element);
+        QualifiedName typeRef = this.dmnModelRepository.typeRef(model, element);
+        Type type = typeRef == null ? null : toFEELType(model, typeRef);
+        if (type == null || !type.isValid()) {
+            // Infer type from body
+            if (element instanceof TDecision) {
+                return expressionType(element, ((TDecision) element).getExpression(), environment);
+            } else if (element instanceof TBusinessKnowledgeModel) {
+                return expressionType(element, ((TBusinessKnowledgeModel) element).getEncapsulatedLogic(), environment);
+            } else if (element instanceof TDecisionService) {
+                return makeDSType((TDecisionService) element, environment);
+            }
+            throw new DMNRuntimeException(String.format("Cannot infer the output type of '%s'", element.getName()));
+        }
+        return type;
+    }
+
     public String annotation(TDRGElement element, String description) {
         if (StringUtils.isBlank(description)) {
             return "\"\"";
@@ -2048,21 +2066,8 @@ public class BasicDMN2JavaTransformer {
 
         TDefinitions model = this.dmnModelRepository.getModel(element);
         QualifiedName typeRef = this.dmnModelRepository.typeRef(model, element);
-        // TODO unify the code below (remove if)
-        if (typeRef != null) {
-            Type variableType = toFEELType(model, typeRef);
-            if (!variableType.isValid()) {
-                TExpression expression = this.dmnModelRepository.expression(element);
-                if (expression != null) {
-                    variableType = expressionType(element, expression, environment);
-                    variableType.validate();
-                }
-            }
-            return this.environmentFactory.makeVariableDeclaration(name, variableType);
-        } else {
-            Type variableType = drgElementOutputFEELType(element, environment);
-            return this.environmentFactory.makeVariableDeclaration(name, variableType);
-        }
+        Type variableType = drgElementVariableFEELType(element, environment);
+        return this.environmentFactory.makeVariableDeclaration(name, variableType);
     }
 
     protected FunctionDeclaration makeInvocableDeclaration(TInvocable invocable, Environment environment) {
