@@ -283,12 +283,12 @@ public class BasicDMN2JavaTransformer {
     }
 
     public Type drgElementOutputFEELType(TDRGElement element) {
-        return drgElementOutputFEELType(element, makeEnvironment((TDRGElement) element));
+        return drgElementOutputFEELType(element, makeEnvironment(element));
     }
 
     public Type drgElementOutputFEELType(TDRGElement element, Environment environment) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
-        QualifiedName typeRef = this.dmnModelRepository.typeRef(element);
+        QualifiedName typeRef = this.dmnModelRepository.typeRef(model, element);
         if (typeRef != null) {
             return toFEELType(model, typeRef);
         } else {
@@ -559,7 +559,7 @@ public class BasicDMN2JavaTransformer {
     public QualifiedName drgElementOutputTypeRef(TDRGElement element) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         if (element instanceof TBusinessKnowledgeModel) {
-            QualifiedName typeRef = this.dmnModelRepository.typeRef(element);
+            QualifiedName typeRef = this.dmnModelRepository.typeRef(model, element);
             if (typeRef == null) {
                 throw new DMNRuntimeException(String.format("Cannot infer return type for BKM '%s'", element.getName()));
             }
@@ -1803,10 +1803,12 @@ public class BasicDMN2JavaTransformer {
 
     private Type makeDSOutputType(TDecisionService decisionService, Environment environment) {
         TDefinitions model = this.dmnModelRepository.getModel(decisionService);
+        // Derive from variable
         TInformationItem variable = decisionService.getVariable();
         if (variable != null && variable.getTypeRef() != null) {
             return toFEELType(model, variable.getTypeRef());
         }
+        // Derive from decisions
         List<TDMNElementReference> outputDecisions = decisionService.getOutputDecision();
         if (outputDecisions.size() == 1) {
             TDecision decision = getDMNModelRepository().findDecisionByRef(decisionService, outputDecisions.get(0).getHref());
@@ -2035,7 +2037,7 @@ public class BasicDMN2JavaTransformer {
     }
 
     protected Declaration makeVariableDeclaration(TDRGElement element, TInformationItem variable, Environment environment) {
-        TDefinitions model = this.dmnModelRepository.getModel(element);
+        // Check variable
         String name = element.getName();
         if (StringUtils.isBlank(name) && variable != null) {
             name = variable.getName();
@@ -2043,7 +2045,9 @@ public class BasicDMN2JavaTransformer {
         if (StringUtils.isBlank(name) || variable == null) {
             throw new DMNRuntimeException(String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable));
         }
-        QualifiedName typeRef = this.dmnModelRepository.typeRef(element);
+
+        TDefinitions model = this.dmnModelRepository.getModel(element);
+        QualifiedName typeRef = this.dmnModelRepository.typeRef(model, element);
         // TODO unify the code below (remove if)
         if (typeRef != null) {
             Type variableType = toFEELType(model, typeRef);

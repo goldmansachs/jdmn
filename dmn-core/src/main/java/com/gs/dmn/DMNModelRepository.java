@@ -807,8 +807,7 @@ public class DMNModelRepository {
         return QualifiedName.toQualifiedName(model, variable.getTypeRef());
     }
 
-    public QualifiedName typeRef(TDRGElement element) {
-        TDefinitions model = this.getModel(element);
+    public QualifiedName typeRef(TDefinitions model, TDRGElement element) {
         QualifiedName typeRef = null;
         // Derive from variable
         TInformationItem variable = variable(element);

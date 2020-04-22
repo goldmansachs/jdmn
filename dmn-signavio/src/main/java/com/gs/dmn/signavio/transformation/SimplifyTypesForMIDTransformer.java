@@ -86,8 +86,8 @@ public class SimplifyTypesForMIDTransformer extends SimpleDMNTransformer<TestLab
                     MultiInstanceDecisionLogic midLogic = signavioRepository.getExtension().multiInstanceDecisionLogic(decision);
                     TDecision bodyDecision = midLogic.getTopLevelDecision();
                     TDefinitions bodyDecisionModel = repository.getModel(bodyDecision);
-                    QualifiedName midDecisionTypeRef = signavioRepository.typeRef(decision);
-                    QualifiedName bodyDecisionTypeRef = signavioRepository.typeRef(bodyDecision);
+                    QualifiedName midDecisionTypeRef = signavioRepository.typeRef(decisionModel, decision);
+                    QualifiedName bodyDecisionTypeRef = signavioRepository.typeRef(bodyDecisionModel, bodyDecision);
                     Type midType = basicTransformer.toFEELType(decisionModel, midDecisionTypeRef);
                     Type bodyDecisionType = basicTransformer.toFEELType(bodyDecisionModel, bodyDecisionTypeRef);
                     if (midType instanceof ListType) {

@@ -106,7 +106,7 @@ public class DecisionTableToJavaTransformer {
             return this.dmnTransformer.toFEELType(model, outputClauseTypeRef);
         }
         // Derive from parent typeRef
-        QualifiedName parentTypeRef = this.dmnModelRepository.typeRef(element);
+        QualifiedName parentTypeRef = this.dmnModelRepository.typeRef(model, element);
         if (this.dmnModelRepository.isCompoundDecisionTable(element)) {
             TItemDefinition itemDefinition = this.dmnModelRepository.lookupItemDefinition(model, parentTypeRef);
             if (itemDefinition != null) {
