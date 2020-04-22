@@ -33,15 +33,13 @@ public class DMNModelRepository {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(DMNModelRepository.class);
 
-    protected final List<TDefinitions> allDefinitions = new ArrayList<>();
-
-    protected final Map<String, TDefinitions> namespaceToDefinitions = new LinkedHashMap<>();
-
-    protected final Map<TNamedElement, TDefinitions> elementToDefinitions = new LinkedHashMap<>();
-
-    protected final PrefixNamespaceMappings prefixNamespaceMappings;
+    protected final List<Pair<TDefinitions, PrefixNamespaceMappings>> pairList;
 
     // Derived properties to optimise search
+    protected final PrefixNamespaceMappings prefixNamespaceMappings = new PrefixNamespaceMappings();
+    protected final List<TDefinitions> allDefinitions = new ArrayList<>();
+    protected final Map<String, TDefinitions> namespaceToDefinitions = new LinkedHashMap<>();
+    protected final Map<TNamedElement, TDefinitions> elementToDefinitions = new LinkedHashMap<>();
     protected List<TBusinessKnowledgeModel> businessKnowledgeModels;
     protected List<TItemDefinition> itemDefinitions;
     protected Map<String, TDRGElement> drgElementByName = new LinkedHashMap<>();
@@ -65,7 +63,7 @@ public class DMNModelRepository {
     }
 
     public DMNModelRepository(List<Pair<TDefinitions, PrefixNamespaceMappings>> pairList) {
-        this.prefixNamespaceMappings = new PrefixNamespaceMappings();
+        this.pairList = pairList;
         if (pairList != null) {
             for (Pair<TDefinitions, PrefixNamespaceMappings> pair: pairList) {
                 TDefinitions definitions = pair.getLeft();
@@ -92,6 +90,11 @@ public class DMNModelRepository {
                 this.elementToDefinitions.put(element, definitions);
             }
         }
+    }
+
+    @Override
+    public DMNModelRepository clone() {
+        return new DMNModelRepository(this.pairList);
     }
 
     protected void normalize(TDefinitions definitions) {
