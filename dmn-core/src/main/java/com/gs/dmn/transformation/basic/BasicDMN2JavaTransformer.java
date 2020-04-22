@@ -2064,8 +2064,6 @@ public class BasicDMN2JavaTransformer {
             throw new DMNRuntimeException(String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable));
         }
 
-        TDefinitions model = this.dmnModelRepository.getModel(element);
-        QualifiedName typeRef = this.dmnModelRepository.typeRef(model, element);
         Type variableType = drgElementVariableFEELType(element, environment);
         return this.environmentFactory.makeVariableDeclaration(name, variableType);
     }
