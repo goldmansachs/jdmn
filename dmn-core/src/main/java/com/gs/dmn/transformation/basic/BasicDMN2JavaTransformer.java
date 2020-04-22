@@ -1707,11 +1707,11 @@ public class BasicDMN2JavaTransformer {
 
         // Add declaration for each direct child
         List<DRGElementReference<? extends TDRGElement>> directReferences = getDMNModelRepository().directDRGElements(element);
-        List<? extends TDRGElement> elements = this.dmnModelRepository.selectDRGElement(directReferences);
-        for (TDRGElement e: elements) {
+        for (DRGElementReference<? extends TDRGElement> reference: directReferences) {
             // Create child environment to infer type if needed
-            Environment childEnvironment = makeEnvironment(e, elementEnvironment);
-            addDeclaration(element, elementEnvironment, e, childEnvironment);
+            TDRGElement child = reference.getElement();
+            Environment childEnvironment = makeEnvironment(child, elementEnvironment);
+            addDeclaration(element, elementEnvironment, child, childEnvironment);
         }
 
         // Add declaration of element to support recursion
