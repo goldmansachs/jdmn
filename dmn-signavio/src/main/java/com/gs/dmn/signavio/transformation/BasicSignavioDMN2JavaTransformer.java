@@ -54,7 +54,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
     // BKM
     //
     @Override
-    public String drgElementOutputType(TNamedElement element) {
+    public String drgElementOutputType(TDRGElement element) {
         if (this.dmnModelRepository.isBKMLinkedToDecision(element)) {
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
             return super.drgElementOutputType(outputDecision);
@@ -67,7 +67,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
     }
 
     @Override
-    public Type drgElementOutputFEELType(TNamedElement element) {
+    public Type drgElementOutputFEELType(TDRGElement element) {
         if (this.dmnModelRepository.isBKMLinkedToDecision(element)) {
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
             return super.drgElementOutputFEELType(outputDecision);
@@ -92,7 +92,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
     }
 
     @Override
-    public Type drgElementOutputFEELType(TNamedElement element, Environment environment) {
+    public Type drgElementOutputFEELType(TDRGElement element, Environment environment) {
         if (this.dmnModelRepository.isBKMLinkedToDecision(element)) {
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
             return super.drgElementOutputFEELType(outputDecision);
