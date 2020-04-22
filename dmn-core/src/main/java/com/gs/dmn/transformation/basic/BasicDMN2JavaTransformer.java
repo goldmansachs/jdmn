@@ -269,7 +269,7 @@ public class BasicDMN2JavaTransformer {
         return drgElementOutputType(reference.getElement());
     }
 
-    public String drgElementOutputType(TNamedElement element) {
+    public String drgElementOutputType(TDRGElement element) {
         Type type = drgElementOutputFEELType(element);
         return toJavaType(type);
     }
@@ -282,11 +282,11 @@ public class BasicDMN2JavaTransformer {
         return toJavaType(type);
     }
 
-    public Type drgElementOutputFEELType(TNamedElement element) {
+    public Type drgElementOutputFEELType(TDRGElement element) {
         return drgElementOutputFEELType(element, makeEnvironment((TDRGElement) element));
     }
 
-    public Type drgElementOutputFEELType(TNamedElement element, Environment environment) {
+    public Type drgElementOutputFEELType(TDRGElement element, Environment environment) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         QualifiedName typeRef = this.dmnModelRepository.typeRef(element);
         if (typeRef != null) {
@@ -894,23 +894,24 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    public String parameterJavaType(TNamedElement element) {
+    public String parameterJavaType(TDefinitions model, TInformationItem element) {
+        return parameterType(model, element);
+    }
+
+    public String parameterJavaType(TDRGElement element) {
         String parameterJavaType;
         if (element instanceof TInputData) {
             parameterJavaType = inputDataType((TInputData) element);
         } else if (element instanceof TDecision) {
             parameterJavaType = drgElementOutputType(element);
-        } else if (element instanceof TInformationItem) {
-            parameterJavaType = parameterType((TInformationItem) element);
         } else {
             throw new UnsupportedOperationException(String.format("'%s' is not supported", element.getClass().getSimpleName()));
         }
         return parameterJavaType;
     }
 
-    private String parameterType(TInformationItem element) {
-        TDefinitions model = this.dmnModelRepository.getModel(element);
-        QualifiedName typeRef = this.dmnModelRepository.typeRef(element);
+    private String parameterType(TDefinitions model, TInformationItem element) {
+        QualifiedName typeRef = this.dmnModelRepository.typeRef(model, element);
         if (typeRef == null) {
             throw new IllegalArgumentException(String.format("Cannot resolve typeRef for element '%s'", element.getName()));
         }
@@ -2033,7 +2034,7 @@ public class BasicDMN2JavaTransformer {
         return relationEnvironment;
     }
 
-    protected Declaration makeVariableDeclaration(TNamedElement element, TInformationItem variable, Environment environment) {
+    protected Declaration makeVariableDeclaration(TDRGElement element, TInformationItem variable, Environment environment) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         String name = element.getName();
         if (StringUtils.isBlank(name) && variable != null) {

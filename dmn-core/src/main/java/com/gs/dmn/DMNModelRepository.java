@@ -803,18 +803,17 @@ public class DMNModelRepository {
         return list == null || list.isEmpty();
     }
 
-    public QualifiedName typeRef(TNamedElement element) {
+    public QualifiedName typeRef(TDefinitions model, TInformationItem variable) {
+        return QualifiedName.toQualifiedName(model, variable.getTypeRef());
+    }
+
+    public QualifiedName typeRef(TDRGElement element) {
         TDefinitions model = this.getModel(element);
         QualifiedName typeRef = null;
-        if (element instanceof TInformationItem) {
-            typeRef = QualifiedName.toQualifiedName(model, ((TInformationItem) element).getTypeRef());
-        }
-        if (typeRef == null) {
-            // Derive from variable
-            TInformationItem variable = variable(element);
-            if (variable != null) {
-                typeRef = QualifiedName.toQualifiedName(model, variable.getTypeRef());
-            }
+        // Derive from variable
+        TInformationItem variable = variable(element);
+        if (variable != null) {
+            typeRef = QualifiedName.toQualifiedName(model, variable.getTypeRef());
         }
         if (typeRef == null) {
             // Derive from expression

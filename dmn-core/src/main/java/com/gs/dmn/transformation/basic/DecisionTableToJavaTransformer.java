@@ -286,10 +286,11 @@ public class DecisionTableToJavaTransformer {
 
     public String ruleSignature(TBusinessKnowledgeModel bkm) {
         List<Pair<String, String>> parameters = new ArrayList<>();
+        TDefinitions model = this.dmnModelRepository.getModel(bkm);
         List<TInformationItem> formalParameters = bkm.getEncapsulatedLogic().getFormalParameter();
-        for (TNamedElement element : formalParameters) {
-            String parameterName = ruleParameterName(element);
-            String parameterJavaType = this.dmnTransformer.parameterJavaType(element);
+        for (TInformationItem parameter : formalParameters) {
+            String parameterName = ruleParameterName(parameter);
+            String parameterJavaType = this.dmnTransformer.parameterJavaType(model, parameter);
             parameters.add(new Pair<>(parameterName, parameterJavaType));
         }
         String signature = parameters.stream().map(p -> String.format("%s %s", p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
@@ -317,15 +318,8 @@ public class DecisionTableToJavaTransformer {
         throw new UnsupportedOperationException(String.format("Not supported '%s'", element.getClass().getName()));
     }
 
-    private String ruleParameterName(TNamedElement element) {
-        if (element instanceof TInputData) {
-            return this.dmnTransformer.inputDataVariableName((TInputData) element);
-        } else if (element instanceof TDecision) {
-            return this.dmnTransformer.drgElementVariableName((TDecision) element);
-        } else if (element instanceof TInformationItem) {
-            return this.dmnTransformer.parameterVariableName(((TInformationItem) element));
-        }
-        throw new UnsupportedOperationException(String.format("Not supported '%s'", element.getClass().getName()));
+    private String ruleParameterName(TInformationItem element) {
+        return this.dmnTransformer.parameterVariableName(element);
     }
 
     private String ruleArgumentName(DRGElementReference<? extends TDRGElement> reference) {
