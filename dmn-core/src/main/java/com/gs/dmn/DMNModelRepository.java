@@ -358,14 +358,6 @@ public class DMNModelRepository {
         references.sort(Comparator.comparing((DRGElementReference<? extends TNamedElement> o) -> removeSingleQuotes(o.getElementName())));
     }
 
-    public <T extends TDRGElement> List<T> selectElement(List<DRGElementReference<T>> references) {
-        return references.stream().map(DRGElementReference::getElement).collect(Collectors.toList());
-    }
-
-    public List<? extends TDRGElement> selectDRGElement(List<DRGElementReference<? extends TDRGElement>> references) {
-        return references.stream().map(DRGElementReference::getElement).collect(Collectors.toList());
-    }
-
     public TDRGElement findDRGElementByRef(TDRGElement parent, String href) {
         try {
             TDefinitions definitions = findChildDefinitions(parent, href);

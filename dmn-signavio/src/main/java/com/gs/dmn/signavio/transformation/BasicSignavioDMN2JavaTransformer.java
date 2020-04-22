@@ -302,9 +302,11 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision(bkm);
             DRGElementReference<TDecision> outputReference = this.dmnModelRepository.makeDRGElementReference(outputDecision);
             List<DRGElementReference<TInputData>> allInputDataReferences = this.dmnModelRepository.allInputDatas(outputReference, this.drgElementFilter);
-            List<TInputData> allInputDatas = this.dmnModelRepository.selectElement(allInputDataReferences);
-            this.dmnModelRepository.sortNamedElements(allInputDatas);
-            allInputDatas.stream().forEach(id -> parameters.add(new Parameter(id.getName(), drgElementOutputFEELType(id))));
+            this.dmnModelRepository.sortNamedElementReferences(allInputDataReferences);
+            for (DRGElementReference<TInputData> reference: allInputDataReferences) {
+                TInputData id = reference.getElement();
+                parameters.add(new Parameter(id.getName(), drgElementOutputFEELType(id)));
+            }
             return parameters;
         } else {
             return super.bkmFEELParameters(bkm);
@@ -354,10 +356,9 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
 
     private String iterationSignature(TDecision decision) {
         List<DRGElementReference<? extends TDRGElement>> dmnReferences = collectIterationInputs(decision);
-        List<? extends TDRGElement> elements = this.dmnModelRepository.selectDRGElement(dmnReferences);
-
         List<Pair<String, String>> parameters = new ArrayList<>();
-        for (TDRGElement element : elements) {
+        for (DRGElementReference<? extends TDRGElement> reference : dmnReferences) {
+            TDRGElement element = reference.getElement();
             String parameterName = iterationParameterName(element);
             String parameterJavaType = lazyEvaluationType(element, parameterJavaType(element));
             parameters.add(new Pair<>(parameterName, parameterJavaType));
@@ -368,10 +369,10 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
 
     private String iterationArgumentList(TDecision decision) {
         List<DRGElementReference<? extends TDRGElement>> dmnReferences = collectIterationInputs(decision);
-        List<? extends TDRGElement> elements = this.dmnModelRepository.selectDRGElement(dmnReferences);
 
         List<String> arguments = new ArrayList<>();
-        for (TDRGElement element : elements) {
+        for (DRGElementReference<? extends TDRGElement> reference: dmnReferences) {
+            TDRGElement element = reference.getElement();
             String argumentName = iterationArgumentName(element);
             arguments.add(argumentName);
         }
