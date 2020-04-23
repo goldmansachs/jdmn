@@ -295,16 +295,8 @@ public class BasicDMN2JavaTransformer {
             return toFEELType(model, typeRef);
         } else {
             // Infer type from body
-            if (element instanceof TDecision) {
-                return expressionType(element, ((TDecision) element).getExpression(), environment);
-            } else if (element instanceof TBusinessKnowledgeModel) {
-                Type type = expressionType(element, ((TBusinessKnowledgeModel) element).getEncapsulatedLogic(), environment);
-                return ((FunctionType)type).getReturnType();
-            } else if (element instanceof TDecisionService) {
-                return makeDSOutputType((TDecisionService) element, environment);
-            }
+            return inferDRGElementOutputFEELType(element, environment);
         }
-        throw new DMNRuntimeException(String.format("Cannot infer the output type of '%s'", element.getName()));
     }
 
     public Type drgElementVariableFEELType(TDRGElement element, Environment environment) {
@@ -313,16 +305,32 @@ public class BasicDMN2JavaTransformer {
         Type type = typeRef == null ? null : toFEELType(model, typeRef);
         if (type == null || !type.isValid()) {
             // Infer type from body
-            if (element instanceof TDecision) {
-                return expressionType(element, ((TDecision) element).getExpression(), environment);
-            } else if (element instanceof TBusinessKnowledgeModel) {
-                return expressionType(element, ((TBusinessKnowledgeModel) element).getEncapsulatedLogic(), environment);
-            } else if (element instanceof TDecisionService) {
-                return makeDSType((TDecisionService) element, environment);
-            }
-            throw new DMNRuntimeException(String.format("Cannot infer the output type of '%s'", element.getName()));
+            return inferDRGElementVariableFEELType(element, environment);
         }
         return type;
+    }
+
+    private Type inferDRGElementOutputFEELType(TDRGElement element, Environment environment) {
+        if (element instanceof TDecision) {
+            return expressionType(element, ((TDecision) element).getExpression(), environment);
+        } else if (element instanceof TBusinessKnowledgeModel) {
+            Type type = expressionType(element, ((TBusinessKnowledgeModel) element).getEncapsulatedLogic(), environment);
+            return ((FunctionType)type).getReturnType();
+        } else if (element instanceof TDecisionService) {
+            return makeDSOutputType((TDecisionService) element, environment);
+        }
+        throw new DMNRuntimeException(String.format("Cannot infer the output type of '%s'", element.getName()));
+    }
+
+    private Type inferDRGElementVariableFEELType(TDRGElement element, Environment environment) {
+        if (element instanceof TDecision) {
+            return expressionType(element, ((TDecision) element).getExpression(), environment);
+        } else if (element instanceof TBusinessKnowledgeModel) {
+            return expressionType(element, ((TBusinessKnowledgeModel) element).getEncapsulatedLogic(), environment);
+        } else if (element instanceof TDecisionService) {
+            return makeDSType((TDecisionService) element, environment);
+        }
+        throw new DMNRuntimeException(String.format("Cannot infer the output type of '%s'", element.getName()));
     }
 
     public String annotation(TDRGElement element, String description) {
