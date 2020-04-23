@@ -117,26 +117,26 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
     }
 
     @Override
-    protected Declaration makeDeclaration(TDRGElement parent, Environment parentEnvironment, TDRGElement child, Environment childEnvironment) {
+    protected Declaration makeDeclaration(TDRGElement parent, Environment parentEnvironment, TDRGElement child) {
         TDefinitions childModel = this.dmnModelRepository.getModel(child);
         Declaration declaration;
         if (child instanceof TInputData) {
-            declaration = makeVariableDeclaration(child, ((TInputData) child).getVariable(), childEnvironment);
+            declaration = makeVariableDeclaration(child, ((TInputData) child).getVariable());
         } else if (child instanceof TBusinessKnowledgeModel) {
             TBusinessKnowledgeModel bkm = (TBusinessKnowledgeModel) child;
             if (this.dmnModelRepository.isBKMLinkedToDecision(bkm)) {
                 TDecision outputDecision = this.dmnModelRepository.getOutputDecision(bkm);
-                declaration = makeVariableDeclaration(child, outputDecision.getVariable(), childEnvironment);
+                declaration = makeVariableDeclaration(child, outputDecision.getVariable());
             } else {
                 TFunctionDefinition functionDefinition = bkm.getEncapsulatedLogic();
                 functionDefinition.getFormalParameter().forEach(
                         p -> parentEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(p.getName(), toFEELType(childModel, QualifiedName.toQualifiedName(childModel, p.getTypeRef())))));
-                declaration = makeInvocableDeclaration(bkm, childEnvironment);
+                declaration = makeInvocableDeclaration(bkm);
             }
         } else if (child instanceof TDecision) {
-            declaration = makeVariableDeclaration(child, ((TDecision) child).getVariable(), childEnvironment);
+            declaration = makeVariableDeclaration(child, ((TDecision) child).getVariable());
         } else if (child instanceof TDecisionService) {
-            declaration = makeInvocableDeclaration((TDecisionService) child, childEnvironment);
+            declaration = makeInvocableDeclaration((TDecisionService) child);
         } else {
             throw new UnsupportedOperationException(String.format("'%s' is not supported yet", child.getClass().getSimpleName()));
         }

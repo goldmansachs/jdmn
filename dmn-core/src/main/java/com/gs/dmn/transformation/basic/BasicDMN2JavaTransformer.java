@@ -299,6 +299,18 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
+    public Type drgElementVariableFEELType(TDRGElement element) {
+        TDefinitions model = this.dmnModelRepository.getModel(element);
+        QualifiedName typeRef = this.dmnModelRepository.typeRef(model, element);
+        Type type = typeRef == null ? null : toFEELType(model, typeRef);
+        if (type == null || !type.isValid()) {
+            // Infer type from body
+            Environment environment = makeEnvironment(element);
+            return inferDRGElementVariableFEELType(element, environment);
+        }
+        return type;
+    }
+
     public Type drgElementVariableFEELType(TDRGElement element, Environment environment) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         QualifiedName typeRef = this.dmnModelRepository.typeRef(model, element);
@@ -317,7 +329,7 @@ public class BasicDMN2JavaTransformer {
             Type type = expressionType(element, ((TBusinessKnowledgeModel) element).getEncapsulatedLogic(), environment);
             return ((FunctionType)type).getReturnType();
         } else if (element instanceof TDecisionService) {
-            return makeDSOutputType((TDecisionService) element, environment);
+            return makeDSOutputType((TDecisionService) element);
         }
         throw new DMNRuntimeException(String.format("Cannot infer the output type of '%s'", element.getName()));
     }
@@ -328,7 +340,7 @@ public class BasicDMN2JavaTransformer {
         } else if (element instanceof TBusinessKnowledgeModel) {
             return expressionType(element, ((TBusinessKnowledgeModel) element).getEncapsulatedLogic(), environment);
         } else if (element instanceof TDecisionService) {
-            return makeDSType((TDecisionService) element, environment);
+            return makeDSType((TDecisionService) element);
         }
         throw new DMNRuntimeException(String.format("Cannot infer the output type of '%s'", element.getName()));
     }
@@ -1746,13 +1758,14 @@ public class BasicDMN2JavaTransformer {
         for (DRGElementReference<? extends TDRGElement> reference: directReferences) {
             // Create child environment to infer type if needed
             TDRGElement child = reference.getElement();
-            Environment childEnvironment = makeEnvironment(child, elementEnvironment);
-            Declaration declaration = makeDeclaration(element, elementEnvironment, child, childEnvironment);
+            Declaration declaration = makeDeclaration(element, elementEnvironment, child);
             addDeclaration(elementEnvironment, declaration, element, child);
         }
 
+        // Add it to cache to avoid infinite loops
+        this.environmentCache.put(element, elementEnvironment);
         // Add declaration of element to support recursion
-        Declaration declaration = makeDeclaration(element, elementEnvironment, element, elementEnvironment);
+        Declaration declaration = makeDeclaration(element, elementEnvironment, element);
         addDeclaration(elementEnvironment, declaration, element, element);
 
         // Add declaration for parameters
@@ -1772,20 +1785,20 @@ public class BasicDMN2JavaTransformer {
         return elementEnvironment;
     }
 
-    protected Declaration makeDeclaration(TDRGElement parent, Environment parentEnvironment, TDRGElement child, Environment childEnvironment) {
+    protected Declaration makeDeclaration(TDRGElement parent, Environment parentEnvironment, TDRGElement child) {
         if (parent == null || child == null) {
             throw new IllegalArgumentException("Cannot add declaration for null DRG element");
         }
 
         Declaration declaration;
         if (child instanceof TInputData) {
-            declaration = makeVariableDeclaration(child, ((TInputData) child).getVariable(), childEnvironment);
+            declaration = makeVariableDeclaration(child, ((TInputData) child).getVariable());
         } else if (child instanceof TBusinessKnowledgeModel) {
-            declaration = makeInvocableDeclaration((TBusinessKnowledgeModel) child, childEnvironment);
+            declaration = makeInvocableDeclaration((TBusinessKnowledgeModel) child);
         } else if (child instanceof TDecision) {
-            declaration = makeVariableDeclaration(child, ((TDecision) child).getVariable(), childEnvironment);
+            declaration = makeVariableDeclaration(child, ((TDecision) child).getVariable());
         } else if (child instanceof TDecisionService) {
-            declaration = makeInvocableDeclaration((TDecisionService) child, childEnvironment);
+            declaration = makeInvocableDeclaration((TDecisionService) child);
         } else {
             throw new UnsupportedOperationException(String.format("'%s' is not supported yet", child.getClass().getSimpleName()));
         }
@@ -1827,7 +1840,7 @@ public class BasicDMN2JavaTransformer {
         return environment;
     }
 
-    private Type makeDSOutputType(TDecisionService decisionService, Environment environment) {
+    private Type makeDSOutputType(TDecisionService decisionService) {
         TDefinitions model = this.dmnModelRepository.getModel(decisionService);
         // Derive from variable
         TInformationItem variable = decisionService.getVariable();
@@ -1835,6 +1848,7 @@ public class BasicDMN2JavaTransformer {
             return toFEELType(model, variable.getTypeRef());
         }
         // Derive from decisions
+        Environment environment = makeEnvironment(decisionService);
         List<TDMNElementReference> outputDecisions = decisionService.getOutputDecision();
         if (outputDecisions.size() == 1) {
             TDecision decision = getDMNModelRepository().findDecisionByRef(decisionService, outputDecisions.get(0).getHref());
@@ -1853,9 +1867,9 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    private FunctionType makeDSType(TDecisionService decisionService, Environment environment) {
+    private FunctionType makeDSType(TDecisionService decisionService) {
         List<FormalParameter> parameters = dsFEELParameters(decisionService);
-        FunctionType type = new DMNFunctionType(parameters, makeDSOutputType(decisionService, environment), decisionService);
+        FunctionType type = new DMNFunctionType(parameters, makeDSOutputType(decisionService), decisionService);
         return type;
     }
 
@@ -2062,7 +2076,7 @@ public class BasicDMN2JavaTransformer {
         return relationEnvironment;
     }
 
-    protected Declaration makeVariableDeclaration(TDRGElement element, TInformationItem variable, Environment environment) {
+    protected Declaration makeVariableDeclaration(TDRGElement element, TInformationItem variable) {
         // Check variable
         String name = element.getName();
         if (StringUtils.isBlank(name) && variable != null) {
@@ -2072,21 +2086,21 @@ public class BasicDMN2JavaTransformer {
             throw new DMNRuntimeException(String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable));
         }
 
-        Type variableType = drgElementVariableFEELType(element, environment);
+        Type variableType = drgElementVariableFEELType(element);
         return this.environmentFactory.makeVariableDeclaration(name, variableType);
     }
 
-    protected FunctionDeclaration makeInvocableDeclaration(TInvocable invocable, Environment environment) {
+    protected FunctionDeclaration makeInvocableDeclaration(TInvocable invocable) {
         if (invocable instanceof TBusinessKnowledgeModel) {
-            return makeBKMDeclaration((TBusinessKnowledgeModel) invocable, environment);
+            return makeBKMDeclaration((TBusinessKnowledgeModel) invocable);
         } else if (invocable instanceof TDecisionService) {
-            return makeDSDeclaration((TDecisionService) invocable, environment);
+            return makeDSDeclaration((TDecisionService) invocable);
         } else {
             throw new UnsupportedOperationException(String.format("'%s' is not supported yet", invocable.getClass().getSimpleName()));
         }
     }
 
-    protected FunctionDeclaration makeDSDeclaration(TDecisionService ds, Environment environment) {
+    protected FunctionDeclaration makeDSDeclaration(TDecisionService ds) {
         TInformationItem variable = ds.getVariable();
         String name = ds.getName();
         if (StringUtils.isBlank(name) && variable != null) {
@@ -2095,11 +2109,11 @@ public class BasicDMN2JavaTransformer {
         if (StringUtils.isBlank(name)) {
             throw new DMNRuntimeException(String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable));
         }
-        FunctionType serviceType = makeDSType(ds, environment);
+        FunctionType serviceType = makeDSType(ds);
         return this.environmentFactory.makeDecisionServiceDeclaration(name, serviceType);
     }
 
-    protected FunctionDeclaration makeBKMDeclaration(TBusinessKnowledgeModel bkm, Environment environment) {
+    protected FunctionDeclaration makeBKMDeclaration(TBusinessKnowledgeModel bkm) {
         TInformationItem variable = bkm.getVariable();
         String name = bkm.getName();
         if (StringUtils.isBlank(name) && variable != null) {
@@ -2109,7 +2123,7 @@ public class BasicDMN2JavaTransformer {
             throw new DMNRuntimeException(String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable));
         }
         List<FormalParameter> parameters = bkmFEELParameters(bkm);
-        Type returnType = drgElementOutputFEELType(bkm, environment);
+        Type returnType = drgElementOutputFEELType(bkm);
         return this.environmentFactory.makeBusinessKnowledgeModelDeclaration(name, new DMNFunctionType(parameters, returnType, bkm));
     }
 }
