@@ -85,6 +85,7 @@ public class BasicDMN2JavaTransformer {
 
     protected final FEELTypeCache feelTypeCache;
     protected final JavaTypeCache javaTypeCache;
+    protected final EnvironmentCache environmentCache;
 
     public BasicDMN2JavaTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, FEELTypeTranslator feelTypeTranslator, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         this.dmnModelRepository = dmnModelRepository;
@@ -113,6 +114,7 @@ public class BasicDMN2JavaTransformer {
 
         this.feelTypeCache = new FEELTypeCache();
         this.javaTypeCache = new JavaTypeCache();
+        this.environmentCache = new EnvironmentCache();
     }
 
     public DMNModelRepository getDMNModelRepository() {
@@ -1717,6 +1719,15 @@ public class BasicDMN2JavaTransformer {
     // Environment related functions
     //
     public Environment makeEnvironment(TDRGElement element) {
+        Environment environment = environmentCache.get(element);
+        if (environment == null) {
+            environment = makeEnvironmentNoCache(element);
+            this.environmentCache.put(element, environment);
+        }
+        return environment;
+    }
+
+    private Environment makeEnvironmentNoCache(TDRGElement element) {
         Environment parentEnvironment = this.environmentFactory.getRootEnvironment();
         return makeEnvironment(element, parentEnvironment);
     }
