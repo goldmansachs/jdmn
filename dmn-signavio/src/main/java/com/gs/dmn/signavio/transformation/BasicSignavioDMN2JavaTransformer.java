@@ -117,33 +117,30 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
     }
 
     @Override
-    protected void addDeclaration(TDRGElement parent, Environment parentEnvironment, TDRGElement child, Environment childEnvironment) {
+    protected Declaration makeDeclaration(TDRGElement parent, Environment parentEnvironment, TDRGElement child, Environment childEnvironment) {
         TDefinitions childModel = this.dmnModelRepository.getModel(child);
+        Declaration declaration;
         if (child instanceof TInputData) {
-            Declaration declaration = makeVariableDeclaration(child, ((TInputData) child).getVariable(), childEnvironment);
-            addDeclaration(parentEnvironment, declaration, parent, child);
+            declaration = makeVariableDeclaration(child, ((TInputData) child).getVariable(), childEnvironment);
         } else if (child instanceof TBusinessKnowledgeModel) {
             TBusinessKnowledgeModel bkm = (TBusinessKnowledgeModel) child;
             if (this.dmnModelRepository.isBKMLinkedToDecision(bkm)) {
                 TDecision outputDecision = this.dmnModelRepository.getOutputDecision(bkm);
-                Declaration declaration = makeVariableDeclaration(child, outputDecision.getVariable(), childEnvironment);
-                addDeclaration(parentEnvironment, declaration, parent, child);
+                declaration = makeVariableDeclaration(child, outputDecision.getVariable(), childEnvironment);
             } else {
                 TFunctionDefinition functionDefinition = bkm.getEncapsulatedLogic();
                 functionDefinition.getFormalParameter().forEach(
                         p -> parentEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(p.getName(), toFEELType(childModel, QualifiedName.toQualifiedName(childModel, p.getTypeRef())))));
-                FunctionDeclaration declaration = makeInvocableDeclaration(bkm, childEnvironment);
-                addDeclaration(parentEnvironment, declaration, parent, child);
+                declaration = makeInvocableDeclaration(bkm, childEnvironment);
             }
         } else if (child instanceof TDecision) {
-            Declaration declaration = makeVariableDeclaration(child, ((TDecision) child).getVariable(), childEnvironment);
-            addDeclaration(parentEnvironment, declaration, parent, child);
+            declaration = makeVariableDeclaration(child, ((TDecision) child).getVariable(), childEnvironment);
         } else if (child instanceof TDecisionService) {
-            FunctionDeclaration functionDeclaration = makeInvocableDeclaration((TDecisionService) child, childEnvironment);
-            addDeclaration(parentEnvironment, functionDeclaration, parent, child);
+            declaration = makeInvocableDeclaration((TDecisionService) child, childEnvironment);
         } else {
             throw new UnsupportedOperationException(String.format("'%s' is not supported yet", child.getClass().getSimpleName()));
         }
+        return declaration;
     }
 
     public String drgElementOutputFieldName(TDRGElement element, int outputIndex) {

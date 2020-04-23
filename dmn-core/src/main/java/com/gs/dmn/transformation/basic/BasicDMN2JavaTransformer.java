@@ -1741,11 +1741,13 @@ public class BasicDMN2JavaTransformer {
             // Create child environment to infer type if needed
             TDRGElement child = reference.getElement();
             Environment childEnvironment = makeEnvironment(child, elementEnvironment);
-            addDeclaration(element, elementEnvironment, child, childEnvironment);
+            Declaration declaration = makeDeclaration(element, elementEnvironment, child, childEnvironment);
+            addDeclaration(elementEnvironment, declaration, element, child);
         }
 
         // Add declaration of element to support recursion
-        addDeclaration(element, elementEnvironment, element, elementEnvironment);
+        Declaration declaration = makeDeclaration(element, elementEnvironment, element, elementEnvironment);
+        addDeclaration(elementEnvironment, declaration, element, element);
 
         // Add declaration for parameters
         if (element instanceof  TBusinessKnowledgeModel) {
@@ -1764,26 +1766,24 @@ public class BasicDMN2JavaTransformer {
         return elementEnvironment;
     }
 
-    protected void addDeclaration(TDRGElement parent, Environment parentEnvironment, TDRGElement child, Environment childEnvironment) {
+    protected Declaration makeDeclaration(TDRGElement parent, Environment parentEnvironment, TDRGElement child, Environment childEnvironment) {
         if (parent == null || child == null) {
             throw new IllegalArgumentException("Cannot add declaration for null DRG element");
         }
 
+        Declaration declaration;
         if (child instanceof TInputData) {
-            Declaration declaration = makeVariableDeclaration(child, ((TInputData) child).getVariable(), childEnvironment);
-            addDeclaration(parentEnvironment, declaration, parent, child);
+            declaration = makeVariableDeclaration(child, ((TInputData) child).getVariable(), childEnvironment);
         } else if (child instanceof TBusinessKnowledgeModel) {
-            FunctionDeclaration declaration = makeInvocableDeclaration((TBusinessKnowledgeModel) child, childEnvironment);
-            addDeclaration(parentEnvironment, declaration, parent, child);
+            declaration = makeInvocableDeclaration((TBusinessKnowledgeModel) child, childEnvironment);
         } else if (child instanceof TDecision) {
-            Declaration declaration = makeVariableDeclaration(child, ((TDecision) child).getVariable(), childEnvironment);
-            addDeclaration(parentEnvironment, declaration, parent, child);
+            declaration = makeVariableDeclaration(child, ((TDecision) child).getVariable(), childEnvironment);
         } else if (child instanceof TDecisionService) {
-            FunctionDeclaration declaration = makeInvocableDeclaration((TDecisionService) child, childEnvironment);
-            addDeclaration(parentEnvironment, declaration, parent, child);
+            declaration = makeInvocableDeclaration((TDecisionService) child, childEnvironment);
         } else {
             throw new UnsupportedOperationException(String.format("'%s' is not supported yet", child.getClass().getSimpleName()));
         }
+        return declaration;
     }
 
     protected void addDeclaration(Environment elementEnvironment, Declaration declaration, TDRGElement parent, TDRGElement child) {
