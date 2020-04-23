@@ -121,13 +121,13 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
         TDefinitions childModel = this.dmnModelRepository.getModel(child);
         if (child instanceof TInputData) {
             Declaration declaration = makeVariableDeclaration(child, ((TInputData) child).getVariable(), childEnvironment);
-            addDeclaration(parentEnvironment, (VariableDeclaration) declaration, parent, child);
+            addDeclaration(parentEnvironment, declaration, parent, child);
         } else if (child instanceof TBusinessKnowledgeModel) {
             TBusinessKnowledgeModel bkm = (TBusinessKnowledgeModel) child;
             if (this.dmnModelRepository.isBKMLinkedToDecision(bkm)) {
                 TDecision outputDecision = this.dmnModelRepository.getOutputDecision(bkm);
                 Declaration declaration = makeVariableDeclaration(child, outputDecision.getVariable(), childEnvironment);
-                addDeclaration(parentEnvironment, (VariableDeclaration) declaration, parent, child);
+                addDeclaration(parentEnvironment, declaration, parent, child);
             } else {
                 TFunctionDefinition functionDefinition = bkm.getEncapsulatedLogic();
                 functionDefinition.getFormalParameter().forEach(
@@ -137,7 +137,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
             }
         } else if (child instanceof TDecision) {
             Declaration declaration = makeVariableDeclaration(child, ((TDecision) child).getVariable(), childEnvironment);
-            addDeclaration(parentEnvironment, (VariableDeclaration) declaration, parent, child);
+            addDeclaration(parentEnvironment, declaration, parent, child);
         } else if (child instanceof TDecisionService) {
             FunctionDeclaration functionDeclaration = makeInvocableDeclaration((TDecisionService) child, childEnvironment);
             addDeclaration(parentEnvironment, functionDeclaration, parent, child);

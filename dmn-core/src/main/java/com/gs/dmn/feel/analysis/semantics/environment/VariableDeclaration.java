@@ -22,6 +22,7 @@ public class VariableDeclaration extends Declaration {
         this.type = type;
     }
 
+    @Override
     public Type getType() {
         return type;
     }
