@@ -1484,9 +1484,7 @@ public class BasicDMN2JavaTransformer {
     }
 
     private String toJavaTypeNoCache(TDecision decision) {
-        Environment environment = makeEnvironment(decision);
-        TLiteralExpression expression = (TLiteralExpression) decision.getExpression().getValue();
-        Type type = this.feelTranslator.analyzeExpression(expression.getText(), FEELContext.makeContext(decision, environment)).getType();
+        Type type = this.drgElementOutputFEELType(decision);
         return toJavaType(type);
     }
 
