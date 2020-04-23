@@ -23,6 +23,7 @@ public class FunctionDeclaration extends Declaration {
         this.type = type;
     }
 
+    @Override
     public FunctionType getType() {
         return type;
     }

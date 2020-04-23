@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.semantics.environment;
 
+import com.gs.dmn.feel.analysis.semantics.type.Type;
+
 public abstract class Declaration {
     protected final String name;
 
@@ -22,4 +24,6 @@ public abstract class Declaration {
     public String getName() {
         return name;
     }
+
+    public abstract Type getType();
 }

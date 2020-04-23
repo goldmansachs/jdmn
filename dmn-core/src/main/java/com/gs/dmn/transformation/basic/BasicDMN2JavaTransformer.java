@@ -1771,13 +1771,13 @@ public class BasicDMN2JavaTransformer {
 
         if (child instanceof TInputData) {
             Declaration declaration = makeVariableDeclaration(child, ((TInputData) child).getVariable(), childEnvironment);
-            addDeclaration(parentEnvironment, (VariableDeclaration) declaration, parent, child);
+            addDeclaration(parentEnvironment, declaration, parent, child);
         } else if (child instanceof TBusinessKnowledgeModel) {
             FunctionDeclaration declaration = makeInvocableDeclaration((TBusinessKnowledgeModel) child, childEnvironment);
             addDeclaration(parentEnvironment, declaration, parent, child);
         } else if (child instanceof TDecision) {
             Declaration declaration = makeVariableDeclaration(child, ((TDecision) child).getVariable(), childEnvironment);
-            addDeclaration(parentEnvironment, (VariableDeclaration) declaration, parent, child);
+            addDeclaration(parentEnvironment, declaration, parent, child);
         } else if (child instanceof TDecisionService) {
             FunctionDeclaration declaration = makeInvocableDeclaration((TDecisionService) child, childEnvironment);
             addDeclaration(parentEnvironment, declaration, parent, child);
@@ -1786,17 +1786,8 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    protected void addDeclaration(Environment elementEnvironment, VariableDeclaration declaration, TDRGElement parent, TDRGElement child) {
+    protected void addDeclaration(Environment elementEnvironment, Declaration declaration, TDRGElement parent, TDRGElement child) {
         Type type = declaration.getType();
-        addDeclaration(elementEnvironment, declaration, type, parent, child);
-    }
-
-    protected void addDeclaration(Environment elementEnvironment, FunctionDeclaration declaration, TDRGElement parent, TDRGElement child) {
-        FunctionType type = declaration.getType();
-        addDeclaration(elementEnvironment, declaration, type, parent, child);
-    }
-
-    protected void addDeclaration(Environment elementEnvironment, Declaration declaration, Type type, TDRGElement parent, TDRGElement child) {
         String importName = this.dmnModelRepository.findChildImportName(parent, child);
         if (ImportPath.isEmpty(importName)) {
             elementEnvironment.addDeclaration(declaration);
