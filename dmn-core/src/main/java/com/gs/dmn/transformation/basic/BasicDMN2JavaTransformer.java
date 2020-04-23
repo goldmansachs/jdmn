@@ -1784,19 +1784,19 @@ public class BasicDMN2JavaTransformer {
         return declaration;
     }
 
-    protected void addDeclaration(Environment elementEnvironment, Declaration declaration, TDRGElement parent, TDRGElement child) {
+    protected void addDeclaration(Environment parentEnvironment, Declaration declaration, TDRGElement parent, TDRGElement child) {
         Type type = declaration.getType();
         String importName = this.dmnModelRepository.findChildImportName(parent, child);
         if (ImportPath.isEmpty(importName)) {
-            elementEnvironment.addDeclaration(declaration);
+            parentEnvironment.addDeclaration(declaration);
         } else {
-            Declaration importDeclaration = elementEnvironment.lookupVariableDeclaration(importName);
+            Declaration importDeclaration = parentEnvironment.lookupVariableDeclaration(importName);
             if (importDeclaration == null) {
                 ImportContextType contextType = new ImportContextType(importName);
                 contextType.addMember(declaration.getName(), new ArrayList<>(), type);
                 contextType.addMemberReference(declaration.getName(), this.dmnModelRepository.makeDRGElementReference(importName, child));
                 importDeclaration = this.environmentFactory.makeVariableDeclaration(importName, contextType);
-                elementEnvironment.addDeclaration(importDeclaration);
+                parentEnvironment.addDeclaration(importDeclaration);
             } else if (importDeclaration instanceof VariableDeclaration) {
                 Type importType = ((VariableDeclaration) importDeclaration).getType();
                 if (importType instanceof ImportContextType) {
@@ -1861,7 +1861,7 @@ public class BasicDMN2JavaTransformer {
         return environmentFactory.makeEnvironment(makeEnvironment(element));
     }
 
-    public Pair<Environment, Map<TContextEntry, Expression>> makeContextEnvironment(TNamedElement element, TContext context, Environment parentEnvironment) {
+    public Pair<Environment, Map<TContextEntry, Expression>> makeContextEnvironment(TDRGElement element, TContext context, Environment parentEnvironment) {
         Environment contextEnvironment = this.makeEnvironment((TDRGElement) element, parentEnvironment);
         Map<TContextEntry, Expression> literalExpressionMap = new LinkedHashMap<>();
         for(TContextEntry entry: context.getContextEntry()) {
@@ -1912,7 +1912,7 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    Type entryType(TNamedElement element, TContextEntry entry, Environment contextEnvironment) {
+    Type entryType(TDRGElement element, TContextEntry entry, Environment contextEnvironment) {
         TInformationItem variable = entry.getVariable();
         Type feelType = variableType(element, variable);
         if (feelType != null) {
@@ -1933,11 +1933,11 @@ public class BasicDMN2JavaTransformer {
         return null;
     }
 
-    private Type expressionType(TNamedElement element, JAXBElement<? extends TExpression> jElement, Environment environment) {
+    private Type expressionType(TDRGElement element, JAXBElement<? extends TExpression> jElement, Environment environment) {
         return jElement == null ? null : expressionType(element, jElement.getValue(), environment);
     }
 
-    Type expressionType(TNamedElement element, TExpression expression, Environment environment) {
+    Type expressionType(TDRGElement element, TExpression expression, Environment environment) {
         if (expression == null) {
             return null;
         }
@@ -1997,7 +1997,7 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    private Type functionDefinitionType(TNamedElement element, TFunctionDefinition functionDefinition, Environment environment) {
+    private Type functionDefinitionType(TDRGElement element, TFunctionDefinition functionDefinition, Environment environment) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         JAXBElement<? extends TExpression> expressionElement = functionDefinition.getExpression();
         if (expressionElement != null) {
