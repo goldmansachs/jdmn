@@ -17,14 +17,13 @@ import org.omg.spec.dmn._20180521.model.TDecision;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.WeakHashMap;
 
-public class JavaTypeCache {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(JavaTypeCache.class);
+public class JavaTypeMemoizer {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(JavaTypeMemoizer.class);
 
-    private Map<TDecision, String> javaTypeOfElement = new LinkedHashMap<>();
-    private Map<Type, String> javaTypeOfType = new LinkedHashMap<>();
+    private final WeakHashMap<TDecision, String> javaTypeOfElement = new WeakHashMap<>();
+    private final WeakHashMap<Type, String> javaTypeOfType = new WeakHashMap<>();
 
     public String get(TDecision decision) {
         return this.javaTypeOfElement.get(decision);

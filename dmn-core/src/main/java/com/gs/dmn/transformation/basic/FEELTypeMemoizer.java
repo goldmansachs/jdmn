@@ -12,18 +12,19 @@
  */
 package com.gs.dmn.transformation.basic;
 
-import com.gs.dmn.feel.analysis.semantics.type.*;
-import org.omg.spec.dmn._20180521.model.*;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
+import org.omg.spec.dmn._20180521.model.TDefinitions;
+import org.omg.spec.dmn._20180521.model.TItemDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.WeakHashMap;
 
-public class FEELTypeCache {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(FEELTypeCache.class);
+public class FEELTypeMemoizer {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(FEELTypeMemoizer.class);
 
-    private Map<String, Type> typeOfQName = new LinkedHashMap<>();
-    private Map<TItemDefinition, Type> typeOfItemDefinition = new LinkedHashMap<>();
+    private final WeakHashMap<String, Type> typeOfQName = new WeakHashMap<>();
+    private final WeakHashMap<TItemDefinition, Type> typeOfItemDefinition = new WeakHashMap<>();
 
     public Type get(TDefinitions model, QualifiedName qName) {
         String key = makeKey(model, qName);

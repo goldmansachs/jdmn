@@ -83,9 +83,9 @@ public class BasicDMN2JavaTransformer {
     private final Set<String> cachedElements;
     protected final DRGElementFilter drgElementFilter;
 
-    protected final FEELTypeCache feelTypeCache;
-    protected final JavaTypeCache javaTypeCache;
-    protected final EnvironmentCache environmentCache;
+    protected final FEELTypeMemoizer feelTypeMemoizer;
+    protected final JavaTypeMemoizer javaTypeMemoizer;
+    protected final EnvironmentMemoizer environmentMemoizer;
 
     public BasicDMN2JavaTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, FEELTypeTranslator feelTypeTranslator, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         this.dmnModelRepository = dmnModelRepository;
@@ -112,9 +112,9 @@ public class BasicDMN2JavaTransformer {
         this.cachedElements = this.dmnModelRepository.computeCachedElements(this.caching, this.cachingThreshold);
         this.drgElementFilter = new DRGElementFilter(this.singletonInputData);
 
-        this.feelTypeCache = new FEELTypeCache();
-        this.javaTypeCache = new JavaTypeCache();
-        this.environmentCache = new EnvironmentCache();
+        this.feelTypeMemoizer = new FEELTypeMemoizer();
+        this.javaTypeMemoizer = new JavaTypeMemoizer();
+        this.environmentMemoizer = new EnvironmentMemoizer();
     }
 
     public DMNModelRepository getDMNModelRepository() {
@@ -1391,10 +1391,10 @@ public class BasicDMN2JavaTransformer {
     }
 
     public Type toFEELType(TDefinitions model, String typeName) {
-        Type type = this.feelTypeCache.get(model, typeName);
+        Type type = this.feelTypeMemoizer.get(model, typeName);
         if (type == null) {
             type = toFEELTypeNoCache(model, typeName);
-            this.feelTypeCache.put(model, typeName, type);
+            this.feelTypeMemoizer.put(model, typeName, type);
         }
         return type;
     }
@@ -1418,10 +1418,10 @@ public class BasicDMN2JavaTransformer {
     }
 
     public Type toFEELType(TDefinitions model, QualifiedName typeRef) {
-        Type type = this.feelTypeCache.get(model, typeRef);
+        Type type = this.feelTypeMemoizer.get(model, typeRef);
         if (type == null) {
             type = toFEELTypeNoCache(model, typeRef);
-            this.feelTypeCache.put(model, typeRef, type);
+            this.feelTypeMemoizer.put(model, typeRef, type);
         }
         return type;
     }
@@ -1441,10 +1441,10 @@ public class BasicDMN2JavaTransformer {
     }
 
     Type toFEELType(TItemDefinition itemDefinition) {
-        Type type = this.feelTypeCache.get(itemDefinition);
+        Type type = this.feelTypeMemoizer.get(itemDefinition);
         if (type == null) {
             type = toFEELTypeNoCache(itemDefinition);
-            this.feelTypeCache.put(itemDefinition, type);
+            this.feelTypeMemoizer.put(itemDefinition, type);
         }
         return type;
     }
@@ -1495,10 +1495,10 @@ public class BasicDMN2JavaTransformer {
     // Common functions
     //
     public String toJavaType(TDecision decision) {
-        String javaType = this.javaTypeCache.get(decision);
+        String javaType = this.javaTypeMemoizer.get(decision);
         if (javaType == null) {
             javaType = toJavaTypeNoCache(decision);
-            this.javaTypeCache.put(decision, javaType);
+            this.javaTypeMemoizer.put(decision, javaType);
         }
         return javaType;
     }
@@ -1513,10 +1513,10 @@ public class BasicDMN2JavaTransformer {
     }
 
     public String toJavaType(Type type) {
-        String javaType = this.javaTypeCache.get(type);
+        String javaType = this.javaTypeMemoizer.get(type);
         if (javaType == null) {
             javaType = toJavaTypeNoCache(type);
-            this.javaTypeCache.put(type, javaType);
+            this.javaTypeMemoizer.put(type, javaType);
         }
         return javaType;
     }
@@ -1737,10 +1737,10 @@ public class BasicDMN2JavaTransformer {
     // Environment related functions
     //
     public Environment makeEnvironment(TDRGElement element) {
-        Environment environment = environmentCache.get(element);
+        Environment environment = environmentMemoizer.get(element);
         if (environment == null) {
             environment = makeEnvironmentNoCache(element);
-            this.environmentCache.put(element, environment);
+            this.environmentMemoizer.put(element, environment);
         }
         return environment;
     }
@@ -1763,7 +1763,7 @@ public class BasicDMN2JavaTransformer {
         }
 
         // Add it to cache to avoid infinite loops
-        this.environmentCache.put(element, elementEnvironment);
+        this.environmentMemoizer.put(element, elementEnvironment);
         // Add declaration of element to support recursion
         Declaration declaration = makeDeclaration(element, elementEnvironment, element);
         addDeclaration(elementEnvironment, declaration, element, element);
