@@ -17,13 +17,12 @@ import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.WeakHashMap;
 
-public class EnvironmentCache {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(EnvironmentCache.class);
+public class EnvironmentMemoizer {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(EnvironmentMemoizer.class);
 
-    private Map<TDRGElement, Environment> environmentOfElement = new LinkedHashMap<>();
+    private final WeakHashMap<TDRGElement, Environment> environmentOfElement = new WeakHashMap<>();
 
     public Environment get(TDRGElement tdrgElement) {
         return this.environmentOfElement.get(tdrgElement);
