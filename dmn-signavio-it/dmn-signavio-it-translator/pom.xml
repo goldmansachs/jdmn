@@ -1594,6 +1594,12 @@
                             <dmnTransformers>
                                 <dmnTransformer>com.gs.dmn.signavio.transformation.RuleDescriptionTransformer</dmnTransformer>
                                 <dmnTransformer>
+                                    <name>com.gs.dmn.signavio.transformation.MergeInputDataTransformer</name>
+                                    <configuration>
+                                        <forceMerge>false</forceMerge>
+                                    </configuration>
+                                </dmnTransformer>
+                                <dmnTransformer>
                                     <name>com.gs.dmn.signavio.transformation.GenerateMissingItemDefinitionsTransformer</name>
                                     <configuration>
                                         <!-- TypeRef allows both DMN 1.1 (':') and DMN 1.2 ('.') delimiter -->
@@ -1633,6 +1639,12 @@
                             </inputParameters>
                             <dmnTransformers>
                                 <dmnTransformer>com.gs.dmn.signavio.transformation.RuleDescriptionTransformer</dmnTransformer>
+                                <dmnTransformer>
+                                    <name>com.gs.dmn.signavio.transformation.MergeInputDataTransformer</name>
+                                    <configuration>
+                                        <forceMerge>false</forceMerge>
+                                    </configuration>
+                                </dmnTransformer>
                                 <dmnTransformer>
                                     <name>com.gs.dmn.signavio.transformation.GenerateMissingItemDefinitionsTransformer</name>
                                     <configuration>

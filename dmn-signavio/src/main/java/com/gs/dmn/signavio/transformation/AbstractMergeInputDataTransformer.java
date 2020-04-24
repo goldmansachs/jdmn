@@ -33,6 +33,7 @@ import java.util.*;
 
 public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransformer<TestLab> {
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractMergeInputDataTransformer.class);
+    private static final String FORCE_MERGE = "forceMerge";
 
     private final BuildLogger logger;
     private Map<String, Pair<TInputData, List<TInputData>>> inputDataClasses;
@@ -44,6 +45,18 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
 
     public AbstractMergeInputDataTransformer(BuildLogger logger) {
         this.logger = logger;
+    }
+
+    @Override
+    public void configure(Map<String, Object> configuration) {
+        if (!(configuration == null || configuration.isEmpty())) {
+            Object forceMergeStr = configuration.get(FORCE_MERGE);
+            if (forceMergeStr instanceof String && configuration.size() == 1) {
+                this.forceMerge = Boolean.parseBoolean((String) forceMergeStr);
+            } else {
+                throw new DMNRuntimeException(String.format("Invalid transformer configuration: %s. Configuration does not have expected structure (expecting \"%s\" node)", FORCE_MERGE));
+            }
+        }
     }
 
     @Override
