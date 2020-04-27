@@ -15,6 +15,7 @@ package com.gs.dmn.transformation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.analysis.scanner.LexicalContext;
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
@@ -36,7 +37,7 @@ import java.util.Set;
 import static com.gs.dmn.feel.analysis.scanner.ContextDependentFEELLexer.*;
 
 public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(NameTransformer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NameTransformer.class);
     private DMNModelRepository repository;
 
     public static boolean isSimpleNameStart(int codePoint) {
@@ -62,6 +63,10 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     protected final BuildLogger logger;
     private boolean transformDefinition = true;
     private final Set<TDMNElement> renamedElements = new LinkedHashSet<>();
+
+    public NameTransformer() {
+        this(new Slf4jBuildLogger(LOGGER));
+    }
 
     public NameTransformer(BuildLogger logger) {
         this.logger = logger;

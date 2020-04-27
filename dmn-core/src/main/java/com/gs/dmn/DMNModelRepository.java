@@ -33,15 +33,13 @@ public class DMNModelRepository {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(DMNModelRepository.class);
 
-    protected final List<TDefinitions> allDefinitions = new ArrayList<>();
-
-    protected final Map<String, TDefinitions> namespaceToDefinitions = new LinkedHashMap<>();
-
-    protected final Map<TNamedElement, TDefinitions> elementToDefinitions = new LinkedHashMap<>();
-
-    protected final PrefixNamespaceMappings prefixNamespaceMappings;
+    protected final List<Pair<TDefinitions, PrefixNamespaceMappings>> pairList;
 
     // Derived properties to optimise search
+    protected final PrefixNamespaceMappings prefixNamespaceMappings = new PrefixNamespaceMappings();
+    protected final List<TDefinitions> allDefinitions = new ArrayList<>();
+    protected final Map<String, TDefinitions> namespaceToDefinitions = new LinkedHashMap<>();
+    protected final Map<TNamedElement, TDefinitions> elementToDefinitions = new LinkedHashMap<>();
     protected List<TBusinessKnowledgeModel> businessKnowledgeModels;
     protected List<TItemDefinition> itemDefinitions;
     protected Map<String, TDRGElement> drgElementByName = new LinkedHashMap<>();
@@ -65,7 +63,7 @@ public class DMNModelRepository {
     }
 
     public DMNModelRepository(List<Pair<TDefinitions, PrefixNamespaceMappings>> pairList) {
-        this.prefixNamespaceMappings = new PrefixNamespaceMappings();
+        this.pairList = pairList;
         if (pairList != null) {
             for (Pair<TDefinitions, PrefixNamespaceMappings> pair: pairList) {
                 TDefinitions definitions = pair.getLeft();
@@ -92,6 +90,11 @@ public class DMNModelRepository {
                 this.elementToDefinitions.put(element, definitions);
             }
         }
+    }
+
+    @Override
+    public DMNModelRepository clone() {
+        return new DMNModelRepository(this.pairList);
     }
 
     protected void normalize(TDefinitions definitions) {
@@ -356,14 +359,6 @@ public class DMNModelRepository {
 
     public void sortNamedElementReferences(List<? extends DRGElementReference<? extends TNamedElement>> references) {
         references.sort(Comparator.comparing((DRGElementReference<? extends TNamedElement> o) -> removeSingleQuotes(o.getElementName())));
-    }
-
-    public <T extends TDRGElement> List<T> selectElement(List<DRGElementReference<T>> references) {
-        return references.stream().map(DRGElementReference::getElement).collect(Collectors.toList());
-    }
-
-    public List<? extends TDRGElement> selectDRGElement(List<DRGElementReference<? extends TDRGElement>> references) {
-        return references.stream().map(DRGElementReference::getElement).collect(Collectors.toList());
     }
 
     public TDRGElement findDRGElementByRef(TDRGElement parent, String href) {
@@ -808,18 +803,16 @@ public class DMNModelRepository {
         return list == null || list.isEmpty();
     }
 
-    public QualifiedName typeRef(TNamedElement element) {
-        TDefinitions model = this.getModel(element);
+    public QualifiedName typeRef(TDefinitions model, TInformationItem variable) {
+        return QualifiedName.toQualifiedName(model, variable.getTypeRef());
+    }
+
+    public QualifiedName typeRef(TDefinitions model, TDRGElement element) {
         QualifiedName typeRef = null;
-        if (element instanceof TInformationItem) {
-            typeRef = QualifiedName.toQualifiedName(model, ((TInformationItem) element).getTypeRef());
-        }
-        if (typeRef == null) {
-            // Derive from variable
-            TInformationItem variable = variable(element);
-            if (variable != null) {
-                typeRef = QualifiedName.toQualifiedName(model, variable.getTypeRef());
-            }
+        // Derive from variable
+        TInformationItem variable = variable(element);
+        if (variable != null) {
+            typeRef = QualifiedName.toQualifiedName(model, variable.getTypeRef());
         }
         if (typeRef == null) {
             // Derive from expression

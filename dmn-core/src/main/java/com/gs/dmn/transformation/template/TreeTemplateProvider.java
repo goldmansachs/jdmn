@@ -15,7 +15,7 @@ package com.gs.dmn.transformation.template;
 public class TreeTemplateProvider implements TemplateProvider {
     @Override
     public String baseTemplatePath() {
-        return "/templates/dmn2java";
+        return "/templates/dmn/java";
     }
 
     @Override
@@ -45,7 +45,7 @@ public class TreeTemplateProvider implements TemplateProvider {
 
     @Override
     public String testBaseTemplatePath() {
-        return "/templates/tck";
+        return "/templates/tck/java";
     }
 
     @Override

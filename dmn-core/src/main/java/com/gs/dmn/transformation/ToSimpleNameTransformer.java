@@ -15,7 +15,6 @@ package com.gs.dmn.transformation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.NopBuildLogger;
-import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.*;
 import com.gs.dmn.tck.TestCasesReader;
@@ -31,7 +30,7 @@ public class ToSimpleNameTransformer extends NameTransformer {
     private final NameMappings namesMapping = new NameMappings();
 
     public ToSimpleNameTransformer() {
-        super(new Slf4jBuildLogger(LOGGER));
+        super();
     }
 
     public ToSimpleNameTransformer(BuildLogger logger) {
