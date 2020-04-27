@@ -14,6 +14,8 @@ package com.gs.dmn.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.analysis.syntax.antlrv4.FEELLexer;
+import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -22,6 +24,8 @@ import org.antlr.v4.runtime.Token;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.spec.dmn._20180521.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -29,7 +33,18 @@ import java.util.List;
 import java.util.Set;
 
 public class AddMissingImportPrefixInDTTransformer extends SimpleDMNTransformer<TestCases> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AddMissingImportPrefixInDTTransformer.class);
+
+    private final BuildLogger logger;
     private boolean transformRepository = true;
+
+    public AddMissingImportPrefixInDTTransformer() {
+        this(new Slf4jBuildLogger(LOGGER));
+    }
+
+    public AddMissingImportPrefixInDTTransformer(BuildLogger logger) {
+        this.logger = logger;
+    }
 
     @Override
     public DMNModelRepository transform(DMNModelRepository repository) {
@@ -37,6 +52,7 @@ public class AddMissingImportPrefixInDTTransformer extends SimpleDMNTransformer<
             for (TDecision decision: repository.findDecisions(definitions)) {
                 TExpression expression = repository.expression(decision);
                 if (expression instanceof TDecisionTable) {
+                    logger.debug(String.format("Process decision table in decision '%s'", decision.getName()));
                     transform(repository, decision, (TDecisionTable) expression);
                 }
             }

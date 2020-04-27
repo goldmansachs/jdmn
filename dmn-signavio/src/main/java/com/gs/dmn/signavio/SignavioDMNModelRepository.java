@@ -75,6 +75,11 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         }
     }
 
+    @Override
+    public SignavioDMNModelRepository clone() {
+        return new SignavioDMNModelRepository(this.pairList);
+    }
+
     public String getSchemaNamespace() {
         return this.schemaNamespace;
     }

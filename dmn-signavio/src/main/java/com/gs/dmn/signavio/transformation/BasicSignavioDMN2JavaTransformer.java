@@ -54,7 +54,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
     // BKM
     //
     @Override
-    public String drgElementOutputType(TNamedElement element) {
+    public String drgElementOutputType(TDRGElement element) {
         if (this.dmnModelRepository.isBKMLinkedToDecision(element)) {
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
             return super.drgElementOutputType(outputDecision);
@@ -67,7 +67,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
     }
 
     @Override
-    public Type drgElementOutputFEELType(TNamedElement element) {
+    public Type drgElementOutputFEELType(TDRGElement element) {
         if (this.dmnModelRepository.isBKMLinkedToDecision(element)) {
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
             return super.drgElementOutputFEELType(outputDecision);
@@ -92,7 +92,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
     }
 
     @Override
-    public Type drgElementOutputFEELType(TNamedElement element, Environment environment) {
+    public Type drgElementOutputFEELType(TDRGElement element, Environment environment) {
         if (this.dmnModelRepository.isBKMLinkedToDecision(element)) {
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
             return super.drgElementOutputFEELType(outputDecision);
@@ -117,33 +117,30 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
     }
 
     @Override
-    protected void addDeclaration(TDRGElement parent, Environment parentEnvironment, TDRGElement child, Environment childEnvironment) {
+    protected Declaration makeDeclaration(TDRGElement parent, Environment parentEnvironment, TDRGElement child) {
         TDefinitions childModel = this.dmnModelRepository.getModel(child);
+        Declaration declaration;
         if (child instanceof TInputData) {
-            Declaration declaration = makeVariableDeclaration(child, ((TInputData) child).getVariable(), childEnvironment);
-            addDeclaration(parentEnvironment, (VariableDeclaration) declaration, parent, child);
+            declaration = makeVariableDeclaration(child, ((TInputData) child).getVariable());
         } else if (child instanceof TBusinessKnowledgeModel) {
             TBusinessKnowledgeModel bkm = (TBusinessKnowledgeModel) child;
             if (this.dmnModelRepository.isBKMLinkedToDecision(bkm)) {
                 TDecision outputDecision = this.dmnModelRepository.getOutputDecision(bkm);
-                Declaration declaration = makeVariableDeclaration(child, outputDecision.getVariable(), childEnvironment);
-                addDeclaration(parentEnvironment, (VariableDeclaration) declaration, parent, child);
+                declaration = makeVariableDeclaration(child, outputDecision.getVariable());
             } else {
                 TFunctionDefinition functionDefinition = bkm.getEncapsulatedLogic();
                 functionDefinition.getFormalParameter().forEach(
                         p -> parentEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(p.getName(), toFEELType(childModel, QualifiedName.toQualifiedName(childModel, p.getTypeRef())))));
-                FunctionDeclaration declaration = makeInvocableDeclaration(bkm, childEnvironment);
-                addDeclaration(parentEnvironment, declaration, parent, child);
+                declaration = makeInvocableDeclaration(bkm);
             }
         } else if (child instanceof TDecision) {
-            Declaration declaration = makeVariableDeclaration(child, ((TDecision) child).getVariable(), childEnvironment);
-            addDeclaration(parentEnvironment, (VariableDeclaration) declaration, parent, child);
+            declaration = makeVariableDeclaration(child, ((TDecision) child).getVariable());
         } else if (child instanceof TDecisionService) {
-            FunctionDeclaration functionDeclaration = makeInvocableDeclaration((TDecisionService) child, childEnvironment);
-            addDeclaration(parentEnvironment, functionDeclaration, parent, child);
+            declaration = makeInvocableDeclaration((TDecisionService) child);
         } else {
             throw new UnsupportedOperationException(String.format("'%s' is not supported yet", child.getClass().getSimpleName()));
         }
+        return declaration;
     }
 
     public String drgElementOutputFieldName(TDRGElement element, int outputIndex) {
@@ -302,9 +299,11 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision(bkm);
             DRGElementReference<TDecision> outputReference = this.dmnModelRepository.makeDRGElementReference(outputDecision);
             List<DRGElementReference<TInputData>> allInputDataReferences = this.dmnModelRepository.allInputDatas(outputReference, this.drgElementFilter);
-            List<TInputData> allInputDatas = this.dmnModelRepository.selectElement(allInputDataReferences);
-            this.dmnModelRepository.sortNamedElements(allInputDatas);
-            allInputDatas.stream().forEach(id -> parameters.add(new Parameter(id.getName(), drgElementOutputFEELType(id))));
+            this.dmnModelRepository.sortNamedElementReferences(allInputDataReferences);
+            for (DRGElementReference<TInputData> reference: allInputDataReferences) {
+                TInputData id = reference.getElement();
+                parameters.add(new Parameter(id.getName(), drgElementOutputFEELType(id)));
+            }
             return parameters;
         } else {
             return super.bkmFEELParameters(bkm);
@@ -354,10 +353,9 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
 
     private String iterationSignature(TDecision decision) {
         List<DRGElementReference<? extends TDRGElement>> dmnReferences = collectIterationInputs(decision);
-        List<? extends TDRGElement> elements = this.dmnModelRepository.selectDRGElement(dmnReferences);
-
         List<Pair<String, String>> parameters = new ArrayList<>();
-        for (TDRGElement element : elements) {
+        for (DRGElementReference<? extends TDRGElement> reference : dmnReferences) {
+            TDRGElement element = reference.getElement();
             String parameterName = iterationParameterName(element);
             String parameterJavaType = lazyEvaluationType(element, parameterJavaType(element));
             parameters.add(new Pair<>(parameterName, parameterJavaType));
@@ -368,10 +366,10 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
 
     private String iterationArgumentList(TDecision decision) {
         List<DRGElementReference<? extends TDRGElement>> dmnReferences = collectIterationInputs(decision);
-        List<? extends TDRGElement> elements = this.dmnModelRepository.selectDRGElement(dmnReferences);
 
         List<String> arguments = new ArrayList<>();
-        for (TDRGElement element : elements) {
+        for (DRGElementReference<? extends TDRGElement> reference: dmnReferences) {
+            TDRGElement element = reference.getElement();
             String argumentName = iterationArgumentName(element);
             arguments.add(argumentName);
         }

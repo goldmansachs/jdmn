@@ -14,6 +14,7 @@ package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 
+import java.lang.reflect.Field;
 import java.util.*;
 
 public class TypeDeserializer {
@@ -85,7 +86,9 @@ public class TypeDeserializer {
                     stack.pop();
                     stack.push(top);
                 } else if (top instanceof ItemDefinitionType) {
-                    int j = 0;
+                    String typeName = children.get(0).toString();
+                    setTypeName(((ItemDefinitionType) top), typeName);
+                    int j = 1;
                     List<String> names = new ArrayList<>();
                     while (j < size) {
                         Object child = children.get(j);
@@ -124,5 +127,15 @@ public class TypeDeserializer {
             }
         }
         return (Type) stack.pop();
+    }
+
+    private void setTypeName(ItemDefinitionType top, String typeName) {
+        try {
+            Field nameField = top.getClass().getSuperclass().getDeclaredField("name");
+            nameField.setAccessible(true);
+            nameField.set(top, typeName);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

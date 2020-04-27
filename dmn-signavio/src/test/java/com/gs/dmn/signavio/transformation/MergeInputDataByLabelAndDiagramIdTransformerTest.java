@@ -10,23 +10,21 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.signavio.transformation.template;
+package com.gs.dmn.signavio.transformation;
 
-import com.gs.dmn.transformation.template.TreeTemplateProvider;
-
-public class SignavioTreeTemplateProvider extends TreeTemplateProvider {
+public class MergeInputDataByLabelAndDiagramIdTransformerTest extends AbstractMergeInputDataTransformerTest {
     @Override
-    public String bkmTemplateName() {
-        return "tree/signavio-bkm.ftl";
+    protected AbstractMergeInputDataTransformer getTransformer() {
+        return new MergeInputDataByLabelAndDiagramIdTransformer(LOGGER);
     }
 
     @Override
-    public String decisionTemplateName() {
-        return "tree/signavio-decision.ftl";
+    protected String getDMNFileName() {
+        return "simple-decision-with-bkm-clone-multiple-diagrams.dmn";
     }
 
     @Override
-    public String testBaseTemplatePath() {
-        return "/templates/testlab/java";
+    protected String getTestLabFileName() {
+        return "simple-decision-with-bkm-clone-multiple-diagrams.json";
     }
 }

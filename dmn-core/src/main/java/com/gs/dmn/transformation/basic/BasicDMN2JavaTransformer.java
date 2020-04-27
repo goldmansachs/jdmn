@@ -83,6 +83,10 @@ public class BasicDMN2JavaTransformer {
     private final Set<String> cachedElements;
     protected final DRGElementFilter drgElementFilter;
 
+    protected final FEELTypeMemoizer feelTypeMemoizer;
+    protected final JavaTypeMemoizer javaTypeMemoizer;
+    protected final EnvironmentMemoizer environmentMemoizer;
+
     public BasicDMN2JavaTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, FEELTypeTranslator feelTypeTranslator, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         this.dmnModelRepository = dmnModelRepository;
         this.environmentFactory = environmentFactory;
@@ -107,6 +111,10 @@ public class BasicDMN2JavaTransformer {
         this.lazyEvaluationOptimisation = lazyEvaluationDetector.detect(this.dmnModelRepository);
         this.cachedElements = this.dmnModelRepository.computeCachedElements(this.caching, this.cachingThreshold);
         this.drgElementFilter = new DRGElementFilter(this.singletonInputData);
+
+        this.feelTypeMemoizer = new FEELTypeMemoizer();
+        this.javaTypeMemoizer = new JavaTypeMemoizer();
+        this.environmentMemoizer = new EnvironmentMemoizer();
     }
 
     public DMNModelRepository getDMNModelRepository() {
@@ -263,7 +271,7 @@ public class BasicDMN2JavaTransformer {
         return drgElementOutputType(reference.getElement());
     }
 
-    public String drgElementOutputType(TNamedElement element) {
+    public String drgElementOutputType(TDRGElement element) {
         Type type = drgElementOutputFEELType(element);
         return toJavaType(type);
     }
@@ -276,25 +284,63 @@ public class BasicDMN2JavaTransformer {
         return toJavaType(type);
     }
 
-    public Type drgElementOutputFEELType(TNamedElement element) {
-        return drgElementOutputFEELType(element, makeEnvironment((TDRGElement) element));
+    public Type drgElementOutputFEELType(TDRGElement element) {
+        return drgElementOutputFEELType(element, makeEnvironment(element));
     }
 
-    public Type drgElementOutputFEELType(TNamedElement element, Environment environment) {
+    public Type drgElementOutputFEELType(TDRGElement element, Environment environment) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
-        QualifiedName typeRef = this.dmnModelRepository.typeRef(element);
+        QualifiedName typeRef = this.dmnModelRepository.typeRef(model, element);
         if (typeRef != null) {
             return toFEELType(model, typeRef);
         } else {
             // Infer type from body
-            if (element instanceof TDecision) {
-                return expressionType(element, ((TDecision) element).getExpression(), environment);
-            } else if (element instanceof TBusinessKnowledgeModel) {
-                Type type = expressionType(element, ((TBusinessKnowledgeModel) element).getEncapsulatedLogic(), environment);
-                return ((FunctionType)type).getReturnType();
-            } else if (element instanceof TDecisionService) {
-                return makeDSOutputType((TDecisionService) element, environment);
-            }
+            return inferDRGElementOutputFEELType(element, environment);
+        }
+    }
+
+    public Type drgElementVariableFEELType(TDRGElement element) {
+        TDefinitions model = this.dmnModelRepository.getModel(element);
+        QualifiedName typeRef = this.dmnModelRepository.typeRef(model, element);
+        Type type = typeRef == null ? null : toFEELType(model, typeRef);
+        if (type == null || !type.isValid()) {
+            // Infer type from body
+            Environment environment = makeEnvironment(element);
+            return inferDRGElementVariableFEELType(element, environment);
+        }
+        return type;
+    }
+
+    public Type drgElementVariableFEELType(TDRGElement element, Environment environment) {
+        TDefinitions model = this.dmnModelRepository.getModel(element);
+        QualifiedName typeRef = this.dmnModelRepository.typeRef(model, element);
+        Type type = typeRef == null ? null : toFEELType(model, typeRef);
+        if (type == null || !type.isValid()) {
+            // Infer type from body
+            return inferDRGElementVariableFEELType(element, environment);
+        }
+        return type;
+    }
+
+    private Type inferDRGElementOutputFEELType(TDRGElement element, Environment environment) {
+        if (element instanceof TDecision) {
+            return expressionType(element, ((TDecision) element).getExpression(), environment);
+        } else if (element instanceof TBusinessKnowledgeModel) {
+            Type type = expressionType(element, ((TBusinessKnowledgeModel) element).getEncapsulatedLogic(), environment);
+            return ((FunctionType)type).getReturnType();
+        } else if (element instanceof TDecisionService) {
+            return makeDSOutputType((TDecisionService) element);
+        }
+        throw new DMNRuntimeException(String.format("Cannot infer the output type of '%s'", element.getName()));
+    }
+
+    private Type inferDRGElementVariableFEELType(TDRGElement element, Environment environment) {
+        if (element instanceof TDecision) {
+            return expressionType(element, ((TDecision) element).getExpression(), environment);
+        } else if (element instanceof TBusinessKnowledgeModel) {
+            return expressionType(element, ((TBusinessKnowledgeModel) element).getEncapsulatedLogic(), environment);
+        } else if (element instanceof TDecisionService) {
+            return makeDSType((TDecisionService) element);
         }
         throw new DMNRuntimeException(String.format("Cannot infer the output type of '%s'", element.getName()));
     }
@@ -553,7 +599,7 @@ public class BasicDMN2JavaTransformer {
     public QualifiedName drgElementOutputTypeRef(TDRGElement element) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         if (element instanceof TBusinessKnowledgeModel) {
-            QualifiedName typeRef = this.dmnModelRepository.typeRef(element);
+            QualifiedName typeRef = this.dmnModelRepository.typeRef(model, element);
             if (typeRef == null) {
                 throw new DMNRuntimeException(String.format("Cannot infer return type for BKM '%s'", element.getName()));
             }
@@ -888,23 +934,24 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    public String parameterJavaType(TNamedElement element) {
+    public String parameterJavaType(TDefinitions model, TInformationItem element) {
+        return parameterType(model, element);
+    }
+
+    public String parameterJavaType(TDRGElement element) {
         String parameterJavaType;
         if (element instanceof TInputData) {
             parameterJavaType = inputDataType((TInputData) element);
         } else if (element instanceof TDecision) {
             parameterJavaType = drgElementOutputType(element);
-        } else if (element instanceof TInformationItem) {
-            parameterJavaType = parameterType((TInformationItem) element);
         } else {
             throw new UnsupportedOperationException(String.format("'%s' is not supported", element.getClass().getSimpleName()));
         }
         return parameterJavaType;
     }
 
-    private String parameterType(TInformationItem element) {
-        TDefinitions model = this.dmnModelRepository.getModel(element);
-        QualifiedName typeRef = this.dmnModelRepository.typeRef(element);
+    private String parameterType(TDefinitions model, TInformationItem element) {
+        QualifiedName typeRef = this.dmnModelRepository.typeRef(model, element);
         if (typeRef == null) {
             throw new IllegalArgumentException(String.format("Cannot resolve typeRef for element '%s'", element.getName()));
         }
@@ -1344,6 +1391,15 @@ public class BasicDMN2JavaTransformer {
     }
 
     public Type toFEELType(TDefinitions model, String typeName) {
+        Type type = this.feelTypeMemoizer.get(model, typeName);
+        if (type == null) {
+            type = toFEELTypeNoCache(model, typeName);
+            this.feelTypeMemoizer.put(model, typeName, type);
+        }
+        return type;
+    }
+
+    private Type toFEELTypeNoCache(TDefinitions model, String typeName) {
         if (StringUtils.isBlank(typeName)) {
             return null;
         }
@@ -1362,6 +1418,15 @@ public class BasicDMN2JavaTransformer {
     }
 
     public Type toFEELType(TDefinitions model, QualifiedName typeRef) {
+        Type type = this.feelTypeMemoizer.get(model, typeRef);
+        if (type == null) {
+            type = toFEELTypeNoCache(model, typeRef);
+            this.feelTypeMemoizer.put(model, typeRef, type);
+        }
+        return type;
+    }
+
+    private Type toFEELTypeNoCache(TDefinitions model, QualifiedName typeRef) {
         // Lookup primitive types
         Type primitiveType = lookupPrimitiveType(typeRef);
         if (primitiveType != null) {
@@ -1376,6 +1441,15 @@ public class BasicDMN2JavaTransformer {
     }
 
     Type toFEELType(TItemDefinition itemDefinition) {
+        Type type = this.feelTypeMemoizer.get(itemDefinition);
+        if (type == null) {
+            type = toFEELTypeNoCache(itemDefinition);
+            this.feelTypeMemoizer.put(itemDefinition, type);
+        }
+        return type;
+    }
+
+    private Type toFEELTypeNoCache(TItemDefinition itemDefinition) {
         itemDefinition = this.dmnModelRepository.normalize(itemDefinition);
         TDefinitions model = this.dmnModelRepository.getModel(itemDefinition);
         QualifiedName typeRef = QualifiedName.toQualifiedName(model, itemDefinition.getTypeRef());
@@ -1421,9 +1495,16 @@ public class BasicDMN2JavaTransformer {
     // Common functions
     //
     public String toJavaType(TDecision decision) {
-        Environment environment = makeEnvironment(decision);
-        TLiteralExpression expression = (TLiteralExpression) decision.getExpression().getValue();
-        Type type = this.feelTranslator.analyzeExpression(expression.getText(), FEELContext.makeContext(decision, environment)).getType();
+        String javaType = this.javaTypeMemoizer.get(decision);
+        if (javaType == null) {
+            javaType = toJavaTypeNoCache(decision);
+            this.javaTypeMemoizer.put(decision, javaType);
+        }
+        return javaType;
+    }
+
+    private String toJavaTypeNoCache(TDecision decision) {
+        Type type = this.drgElementOutputFEELType(decision);
         return toJavaType(type);
     }
 
@@ -1432,6 +1513,15 @@ public class BasicDMN2JavaTransformer {
     }
 
     public String toJavaType(Type type) {
+        String javaType = this.javaTypeMemoizer.get(type);
+        if (javaType == null) {
+            javaType = toJavaTypeNoCache(type);
+            this.javaTypeMemoizer.put(type, javaType);
+        }
+        return javaType;
+    }
+
+    private String toJavaTypeNoCache(Type type) {
         if (type instanceof NamedType) {
             String typeName = ((NamedType) type).getName();
             String primitiveType = this.feelTypeTranslator.toJavaType(typeName);
@@ -1647,6 +1737,15 @@ public class BasicDMN2JavaTransformer {
     // Environment related functions
     //
     public Environment makeEnvironment(TDRGElement element) {
+        Environment environment = environmentMemoizer.get(element);
+        if (environment == null) {
+            environment = makeEnvironmentNoCache(element);
+            this.environmentMemoizer.put(element, environment);
+        }
+        return environment;
+    }
+
+    private Environment makeEnvironmentNoCache(TDRGElement element) {
         Environment parentEnvironment = this.environmentFactory.getRootEnvironment();
         return makeEnvironment(element, parentEnvironment);
     }
@@ -1656,15 +1755,18 @@ public class BasicDMN2JavaTransformer {
 
         // Add declaration for each direct child
         List<DRGElementReference<? extends TDRGElement>> directReferences = getDMNModelRepository().directDRGElements(element);
-        List<? extends TDRGElement> elements = this.dmnModelRepository.selectDRGElement(directReferences);
-        for (TDRGElement e: elements) {
+        for (DRGElementReference<? extends TDRGElement> reference: directReferences) {
             // Create child environment to infer type if needed
-            Environment childEnvironment = makeEnvironment(e, elementEnvironment);
-            addDeclaration(element, elementEnvironment, e, childEnvironment);
+            TDRGElement child = reference.getElement();
+            Declaration declaration = makeDeclaration(element, elementEnvironment, child);
+            addDeclaration(elementEnvironment, declaration, element, child);
         }
 
+        // Add it to cache to avoid infinite loops
+        this.environmentMemoizer.put(element, elementEnvironment);
         // Add declaration of element to support recursion
-        addDeclaration(element, elementEnvironment, element, elementEnvironment);
+        Declaration declaration = makeDeclaration(element, elementEnvironment, element);
+        addDeclaration(elementEnvironment, declaration, element, element);
 
         // Add declaration for parameters
         if (element instanceof  TBusinessKnowledgeModel) {
@@ -1683,50 +1785,39 @@ public class BasicDMN2JavaTransformer {
         return elementEnvironment;
     }
 
-    protected void addDeclaration(TDRGElement parent, Environment parentEnvironment, TDRGElement child, Environment childEnvironment) {
+    protected Declaration makeDeclaration(TDRGElement parent, Environment parentEnvironment, TDRGElement child) {
         if (parent == null || child == null) {
             throw new IllegalArgumentException("Cannot add declaration for null DRG element");
         }
 
+        Declaration declaration;
         if (child instanceof TInputData) {
-            Declaration declaration = makeVariableDeclaration(child, ((TInputData) child).getVariable(), childEnvironment);
-            addDeclaration(parentEnvironment, (VariableDeclaration) declaration, parent, child);
+            declaration = makeVariableDeclaration(child, ((TInputData) child).getVariable());
         } else if (child instanceof TBusinessKnowledgeModel) {
-            FunctionDeclaration declaration = makeInvocableDeclaration((TBusinessKnowledgeModel) child, childEnvironment);
-            addDeclaration(parentEnvironment, declaration, parent, child);
+            declaration = makeInvocableDeclaration((TBusinessKnowledgeModel) child);
         } else if (child instanceof TDecision) {
-            Declaration declaration = makeVariableDeclaration(child, ((TDecision) child).getVariable(), childEnvironment);
-            addDeclaration(parentEnvironment, (VariableDeclaration) declaration, parent, child);
+            declaration = makeVariableDeclaration(child, ((TDecision) child).getVariable());
         } else if (child instanceof TDecisionService) {
-            FunctionDeclaration declaration = makeInvocableDeclaration((TDecisionService) child, childEnvironment);
-            addDeclaration(parentEnvironment, declaration, parent, child);
+            declaration = makeInvocableDeclaration((TDecisionService) child);
         } else {
             throw new UnsupportedOperationException(String.format("'%s' is not supported yet", child.getClass().getSimpleName()));
         }
+        return declaration;
     }
 
-    protected void addDeclaration(Environment elementEnvironment, VariableDeclaration declaration, TDRGElement parent, TDRGElement child) {
+    protected void addDeclaration(Environment parentEnvironment, Declaration declaration, TDRGElement parent, TDRGElement child) {
         Type type = declaration.getType();
-        addDeclaration(elementEnvironment, declaration, type, parent, child);
-    }
-
-    protected void addDeclaration(Environment elementEnvironment, FunctionDeclaration declaration, TDRGElement parent, TDRGElement child) {
-        FunctionType type = declaration.getType();
-        addDeclaration(elementEnvironment, declaration, type, parent, child);
-    }
-
-    protected void addDeclaration(Environment elementEnvironment, Declaration declaration, Type type, TDRGElement parent, TDRGElement child) {
         String importName = this.dmnModelRepository.findChildImportName(parent, child);
         if (ImportPath.isEmpty(importName)) {
-            elementEnvironment.addDeclaration(declaration);
+            parentEnvironment.addDeclaration(declaration);
         } else {
-            Declaration importDeclaration = elementEnvironment.lookupVariableDeclaration(importName);
+            Declaration importDeclaration = parentEnvironment.lookupVariableDeclaration(importName);
             if (importDeclaration == null) {
                 ImportContextType contextType = new ImportContextType(importName);
                 contextType.addMember(declaration.getName(), new ArrayList<>(), type);
                 contextType.addMemberReference(declaration.getName(), this.dmnModelRepository.makeDRGElementReference(importName, child));
                 importDeclaration = this.environmentFactory.makeVariableDeclaration(importName, contextType);
-                elementEnvironment.addDeclaration(importDeclaration);
+                parentEnvironment.addDeclaration(importDeclaration);
             } else if (importDeclaration instanceof VariableDeclaration) {
                 Type importType = ((VariableDeclaration) importDeclaration).getType();
                 if (importType instanceof ImportContextType) {
@@ -1749,12 +1840,15 @@ public class BasicDMN2JavaTransformer {
         return environment;
     }
 
-    private Type makeDSOutputType(TDecisionService decisionService, Environment environment) {
+    private Type makeDSOutputType(TDecisionService decisionService) {
         TDefinitions model = this.dmnModelRepository.getModel(decisionService);
+        // Derive from variable
         TInformationItem variable = decisionService.getVariable();
         if (variable != null && variable.getTypeRef() != null) {
             return toFEELType(model, variable.getTypeRef());
         }
+        // Derive from decisions
+        Environment environment = makeEnvironment(decisionService);
         List<TDMNElementReference> outputDecisions = decisionService.getOutputDecision();
         if (outputDecisions.size() == 1) {
             TDecision decision = getDMNModelRepository().findDecisionByRef(decisionService, outputDecisions.get(0).getHref());
@@ -1773,9 +1867,9 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    private FunctionType makeDSType(TDecisionService decisionService, Environment environment) {
+    private FunctionType makeDSType(TDecisionService decisionService) {
         List<FormalParameter> parameters = dsFEELParameters(decisionService);
-        FunctionType type = new DMNFunctionType(parameters, makeDSOutputType(decisionService, environment), decisionService);
+        FunctionType type = new DMNFunctionType(parameters, makeDSOutputType(decisionService), decisionService);
         return type;
     }
 
@@ -1789,7 +1883,7 @@ public class BasicDMN2JavaTransformer {
         return environmentFactory.makeEnvironment(makeEnvironment(element));
     }
 
-    public Pair<Environment, Map<TContextEntry, Expression>> makeContextEnvironment(TNamedElement element, TContext context, Environment parentEnvironment) {
+    public Pair<Environment, Map<TContextEntry, Expression>> makeContextEnvironment(TDRGElement element, TContext context, Environment parentEnvironment) {
         Environment contextEnvironment = this.makeEnvironment((TDRGElement) element, parentEnvironment);
         Map<TContextEntry, Expression> literalExpressionMap = new LinkedHashMap<>();
         for(TContextEntry entry: context.getContextEntry()) {
@@ -1840,7 +1934,7 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    Type entryType(TNamedElement element, TContextEntry entry, Environment contextEnvironment) {
+    Type entryType(TDRGElement element, TContextEntry entry, Environment contextEnvironment) {
         TInformationItem variable = entry.getVariable();
         Type feelType = variableType(element, variable);
         if (feelType != null) {
@@ -1861,11 +1955,11 @@ public class BasicDMN2JavaTransformer {
         return null;
     }
 
-    private Type expressionType(TNamedElement element, JAXBElement<? extends TExpression> jElement, Environment environment) {
+    private Type expressionType(TDRGElement element, JAXBElement<? extends TExpression> jElement, Environment environment) {
         return jElement == null ? null : expressionType(element, jElement.getValue(), environment);
     }
 
-    Type expressionType(TNamedElement element, TExpression expression, Environment environment) {
+    Type expressionType(TDRGElement element, TExpression expression, Environment environment) {
         if (expression == null) {
             return null;
         }
@@ -1925,7 +2019,7 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    private Type functionDefinitionType(TNamedElement element, TFunctionDefinition functionDefinition, Environment environment) {
+    private Type functionDefinitionType(TDRGElement element, TFunctionDefinition functionDefinition, Environment environment) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         JAXBElement<? extends TExpression> expressionElement = functionDefinition.getExpression();
         if (expressionElement != null) {
@@ -1982,8 +2076,8 @@ public class BasicDMN2JavaTransformer {
         return relationEnvironment;
     }
 
-    protected Declaration makeVariableDeclaration(TNamedElement element, TInformationItem variable, Environment environment) {
-        TDefinitions model = this.dmnModelRepository.getModel(element);
+    protected Declaration makeVariableDeclaration(TDRGElement element, TInformationItem variable) {
+        // Check variable
         String name = element.getName();
         if (StringUtils.isBlank(name) && variable != null) {
             name = variable.getName();
@@ -1991,35 +2085,22 @@ public class BasicDMN2JavaTransformer {
         if (StringUtils.isBlank(name) || variable == null) {
             throw new DMNRuntimeException(String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable));
         }
-        QualifiedName typeRef = this.dmnModelRepository.typeRef(element);
-        // TODO unify the code below (remove if)
-        if (typeRef != null) {
-            Type variableType = toFEELType(model, typeRef);
-            if (!variableType.isValid()) {
-                TExpression expression = this.dmnModelRepository.expression(element);
-                if (expression != null) {
-                    variableType = expressionType(element, expression, environment);
-                    variableType.validate();
-                }
-            }
-            return this.environmentFactory.makeVariableDeclaration(name, variableType);
-        } else {
-            Type variableType = drgElementOutputFEELType(element, environment);
-            return this.environmentFactory.makeVariableDeclaration(name, variableType);
-        }
+
+        Type variableType = drgElementVariableFEELType(element);
+        return this.environmentFactory.makeVariableDeclaration(name, variableType);
     }
 
-    protected FunctionDeclaration makeInvocableDeclaration(TInvocable invocable, Environment environment) {
+    protected FunctionDeclaration makeInvocableDeclaration(TInvocable invocable) {
         if (invocable instanceof TBusinessKnowledgeModel) {
-            return makeBKMDeclaration((TBusinessKnowledgeModel) invocable, environment);
+            return makeBKMDeclaration((TBusinessKnowledgeModel) invocable);
         } else if (invocable instanceof TDecisionService) {
-            return makeDSDeclaration((TDecisionService) invocable, environment);
+            return makeDSDeclaration((TDecisionService) invocable);
         } else {
             throw new UnsupportedOperationException(String.format("'%s' is not supported yet", invocable.getClass().getSimpleName()));
         }
     }
 
-    protected FunctionDeclaration makeDSDeclaration(TDecisionService ds, Environment environment) {
+    protected FunctionDeclaration makeDSDeclaration(TDecisionService ds) {
         TInformationItem variable = ds.getVariable();
         String name = ds.getName();
         if (StringUtils.isBlank(name) && variable != null) {
@@ -2028,11 +2109,11 @@ public class BasicDMN2JavaTransformer {
         if (StringUtils.isBlank(name)) {
             throw new DMNRuntimeException(String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable));
         }
-        FunctionType serviceType = makeDSType(ds, environment);
+        FunctionType serviceType = makeDSType(ds);
         return this.environmentFactory.makeDecisionServiceDeclaration(name, serviceType);
     }
 
-    protected FunctionDeclaration makeBKMDeclaration(TBusinessKnowledgeModel bkm, Environment environment) {
+    protected FunctionDeclaration makeBKMDeclaration(TBusinessKnowledgeModel bkm) {
         TInformationItem variable = bkm.getVariable();
         String name = bkm.getName();
         if (StringUtils.isBlank(name) && variable != null) {
@@ -2042,7 +2123,7 @@ public class BasicDMN2JavaTransformer {
             throw new DMNRuntimeException(String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable));
         }
         List<FormalParameter> parameters = bkmFEELParameters(bkm);
-        Type returnType = drgElementOutputFEELType(bkm, environment);
+        Type returnType = drgElementOutputFEELType(bkm);
         return this.environmentFactory.makeBusinessKnowledgeModelDeclaration(name, new DMNFunctionType(parameters, returnType, bkm));
     }
 }

@@ -13,17 +13,17 @@
     "shapeId" : "sid-8D4FB4D7-6503-4FC2-B91A-A12B8C72FA3B",
     "diagramId" : "2521256910f54d44b0a90fa88a1aa917"
   }, {
-    "id" : "2521256910f54d44b0a90fa88a1aa917/sid-51423E05-DA13-44BF-9227-7AA7B88C67AC",
+    "id" : "2521256910f54d44b0a90fa88a1aa917-1/sid-51423E05-DA13-44BF-9227-7AA7B88C67AC",
     "modelName" : "simple-decision-with-bkm-clone",
     "requirementName" : "A",
     "shapeId" : "sid-51423E05-DA13-44BF-9227-7AA7B88C67AC-1",
-    "diagramId" : "2521256910f54d44b0a90fa88a1aa917"
+    "diagramId" : "2521256910f54d44b0a90fa88a1aa917-1"
   }, {
-    "id" : "2521256910f54d44b0a90fa88a1aa917/sid-8D4FB4D7-6503-4FC2-B91A-A12B8C72FA3B",
+    "id" : "2521256910f54d44b0a90fa88a1aa917-1/sid-8D4FB4D7-6503-4FC2-B91A-A12B8C72FA3B",
     "modelName" : "simple-decision-with-bkm-clone",
     "requirementName" : "B",
     "shapeId" : "sid-8D4FB4D7-6503-4FC2-B91A-A12B8C72FA3B-1",
-    "diagramId" : "2521256910f54d44b0a90fa88a1aa917"
+    "diagramId" : "2521256910f54d44b0a90fa88a1aa917-1"
   } ],
   "outputParameterDefinitions" : [ {
     "id" : "2521256910f54d44b0a90fa88a1aa917/sid-D8E2188A-C75B-406C-85C9-3C1B2E1B149D",

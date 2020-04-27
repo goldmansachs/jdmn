@@ -13,12 +13,11 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.log.Slf4jBuildLogger;
 import org.apache.commons.lang3.StringUtils;
 
 public class ToQuotedNameTransformer extends NameTransformer {
     public ToQuotedNameTransformer() {
-        super(new Slf4jBuildLogger(LOGGER));
+        super();
     }
 
     public ToQuotedNameTransformer(BuildLogger logger) {
