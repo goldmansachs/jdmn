@@ -23,6 +23,7 @@
     <properties>
         <xmlunit.version>2.1.1</xmlunit.version>
         <jdom.version>2.0.2</jdom.version>
+        <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../dmn-aggregate/${aggregate.report.dir}</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
     <artifactId>jdmn-signavio</artifactId>
