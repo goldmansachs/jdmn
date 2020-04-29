@@ -54,7 +54,7 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
             if (forceMergeStr instanceof String && configuration.size() == 1) {
                 this.forceMerge = Boolean.parseBoolean((String) forceMergeStr);
             } else {
-                throw new DMNRuntimeException(String.format("Invalid transformer configuration: %s. Configuration does not have expected structure (expecting \"%s\" node)", FORCE_MERGE));
+                throw new DMNRuntimeException(String.format("Invalid transformer configuration: %s. Configuration does not have expected structure (expecting \"%s\" node)", configuration, FORCE_MERGE));
             }
         }
     }
