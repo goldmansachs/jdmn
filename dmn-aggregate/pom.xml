@@ -32,6 +32,11 @@
     <dependencies>
         <dependency>
             <groupId>com.goldmansachs.jdmn</groupId>
+            <artifactId>jdmn-runtime</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.goldmansachs.jdmn</groupId>
             <artifactId>jdmn-core</artifactId>
             <version>${project.version}</version>
         </dependency>

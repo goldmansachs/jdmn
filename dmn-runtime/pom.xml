@@ -24,6 +24,10 @@
 	<name>jDMN: Runtime</name>
     <packaging>jar</packaging>
 
+    <properties>
+        <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../dmn-aggregate/${aggregate.report.dir}</sonar.coverage.jacoco.xmlReportPaths>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.reflections</groupId>
