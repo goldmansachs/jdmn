@@ -32,6 +32,8 @@
         <antlr.source.directory>${project.basedir}/src/main/resources/dmn/${dmn.version}</antlr.source.directory>
         <antlr.generated>${project.basedir}/target/generated-sources/antlrv4</antlr.generated>
         <antlr.target.directory>${antlr.generated}/com/gs/dmn/feel/analysis/syntax/antlrv4</antlr.target.directory>
+
+        <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../dmn-aggregate/${aggregate.report.dir}</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
     <artifactId>jdmn-core</artifactId>
