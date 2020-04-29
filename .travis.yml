@@ -8,6 +8,9 @@ before_install:
 install:
   - true
 
+git:
+  depth: false
+
 env:
   - JAVA7_HOME=/usr/lib/jvm/java-7-openjdk-amd64
 
