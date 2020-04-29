@@ -63,7 +63,7 @@ public class DMNReader extends DMNSerializer {
                     Pair<TDefinitions, PrefixNamespaceMappings> pair = read(file);
                     pairs.add(pair);
                 } else {
-                    logger.warn(String.format("Skipping file '%s", file.getAbsoluteFile()));
+                    logger.warn(String.format("Skipping file '%s", file == null ? null : file.getAbsoluteFile()));
                 }
             }
             return pairs;

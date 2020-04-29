@@ -26,7 +26,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBElement;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class DMNModelRepository {
     protected static final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
@@ -1037,8 +1036,7 @@ public class DMNModelRepository {
     public static String extractId(String href) {
         if (hasNamespace(href)) {
             href = href.substring(href.indexOf('#') + 1);
-        }
-        if (href.startsWith("#")) {
+        } else if (href != null && href.startsWith("#")) {
             href = href.substring(1);
         }
         return href;

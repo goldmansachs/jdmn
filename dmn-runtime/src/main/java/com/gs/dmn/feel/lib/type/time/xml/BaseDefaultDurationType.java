@@ -17,22 +17,17 @@ import org.slf4j.Logger;
 
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public abstract class BaseDefaultDurationType extends BaseType {
-    private static final ThreadLocal<GregorianCalendar> GREGORIAN = new ThreadLocal<GregorianCalendar>() {
-        @Override
-        protected GregorianCalendar initialValue()
-        {
-            return new GregorianCalendar(
-                1970,
-                1,
-                1,
-                0,
-                0,
-                0);
-        }
-    };
+    private static final ThreadLocal<GregorianCalendar> GREGORIAN = ThreadLocal.withInitial(() -> new GregorianCalendar(
+        1970,
+            Calendar.JANUARY,
+        1,
+        0,
+        0,
+        0));
 
     public BaseDefaultDurationType(Logger logger) {
         super(logger);

@@ -173,11 +173,11 @@ public class DefaultDurationType extends BaseDefaultDurationType implements Dura
                 long months = (first.getYears() * 12 + first.getMonths()) / second.intValue();
                 return this.dataTypeFactory.newDurationYearMonth(String.format("P%dM", months));
             } else if (isDaysAndTime(first)) {
-                long hours = 24 * first.getDays() + first.getHours();
-                long minutes = 60 * hours + first.getMinutes();
-                long seconds = 60 * minutes + first.getSeconds();
+                long hours = 24L * first.getDays() + first.getHours();
+                long minutes = 60L * hours + first.getMinutes();
+                long seconds = 60L * minutes + first.getSeconds();
                 seconds = seconds / second.intValue();
-                return this.dataTypeFactory.newDurationDayTime(seconds * 1000);
+                return this.dataTypeFactory.newDurationDayTime(seconds * 1000L);
             } else {
                 throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
             }
