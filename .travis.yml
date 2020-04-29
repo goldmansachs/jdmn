@@ -1,4 +1,5 @@
 language: java
+dist: trusty
 jdk: openjdk8
 
 before_install:
@@ -22,5 +23,5 @@ addons:
 
 script:
   # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
-  - mvn -B -Dorg.slf4j.simpleLogger.showDateTime=true -Dorg.slf4j.simpleLogger.dateTimeFormat=HH:mm:ss:SSS -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean install sonar:sonar -Dsonar.organization=goldmansachs -Dsonar.projectKey=goldmansachs_jdmn -Psonar-coverage -e
+  - mvn -B -e -X -Dorg.slf4j.simpleLogger.showDateTime=true -Dorg.slf4j.simpleLogger.dateTimeFormat=HH:mm:ss:SSS -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean install sonar:sonar -Dsonar.organization=goldmansachs -Dsonar.projectKey=goldmansachs_jdmn -Psonar-coverage
 
