@@ -22,7 +22,7 @@ public class CL2TckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
 
     @Override
     protected String getExpectedPath() {
-        return "tck/cl2/expected/dmn";
+        return "tck/cl2/expected/java/dmn";
     }
 
     @Test

@@ -27,7 +27,7 @@ public class CL2TestCasesToJUnitTransformerTest extends AbstractTCKTestCasesToJU
 
     @Override
     protected String getExpectedPath() {
-        return "tck/cl2/expected/test";
+        return "tck/cl2/expected/java/test";
     }
 
     @Test

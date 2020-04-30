@@ -28,7 +28,7 @@ public class ImportTestCasesToJUnitTransformerTest extends AbstractTCKTestCasesT
 
     @Override
     protected String getExpectedPath() {
-        return "composite/expected/test";
+        return "composite/expected/java/test";
     }
 
     @Test
