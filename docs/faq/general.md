@@ -60,8 +60,9 @@ A dialect is a jDMN abstraction introduced to support variations both of source 
 
 The supported dialects are the following:
 1. StandardDMNDialectDefinition
-2. UniformJavaTimeDMNDialectDefinition
-3. MixedJavaTimeDMNDialectDefinition
+2. MixedJavaTimeDMNDialectDefinition
+3. PureJavaTimeDMNDialectDefinition
+
 
 The dialects map the FEEL primitive types to Java types as follows:
 
@@ -69,8 +70,8 @@ The dialects map the FEEL primitive types to Java types as follows:
 FEEL type |	number | string	| boolean | date |	time | date and time | duration
 ----------|--------|--------|---------|------|-------|---------------|---------
 ```StandardDMNDialectDefinition``` | ```java.math.BigDecimal``` | ```java.lang.String``` | ```java.lang.Boolean``` | ```javax.xml.datatype.XMLGregorianCalendar``` | ```javax.xml.datatype.XMLGregorianCalendar``` | ```javax.xml.datatype.XMLGregorianCalendar``` | ```javax.xml.datatype.Duration```
-```UniformJavaTimeDMNDialectDefinition``` | ```java.math.BigDecimal``` | ```java.lang.String``` | ```java.lang.Boolean``` | ```java.time.ZonedDateTime``` | ```java.time.ZonedDateTime``` | ```java.time.ZonedDateTime``` | ```javax.xml.datatype.Duration```
 ```MixedJavaTimeDMNDialectDefinition``` | ```java.math.BigDecimal``` | ```java.lang.String``` | ```java.lang.Boolean``` | ```java.time.LocalDate``` | ```java.time.OffsetTime``` | ```java.time.ZonedDateTime``` | ```javax.xml.datatype.Duration```
+```PureJavaTimeDMNDialectDefinition``` | ```java.math.BigDecimal``` | ```java.lang.String``` | ```java.lang.Boolean``` | ```java.time.LocalDate``` | ```java.time.temporal.Temporal``` | ```java.time.temporal.Temporal``` | ```java.time.temporal.TemporalAmount```
 
 The recommended dialect is MixedJavaTimeDMNDialectDefinition. It's a bit more faster than the others and more user friendly.
 
