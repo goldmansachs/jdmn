@@ -89,14 +89,14 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         } else if (sourceType instanceof ItemDefinitionType) {
             Type memberType = ((ItemDefinitionType) sourceType).getMemberType(memberName);
             String javaType = dmnTransformer.toJavaType(memberType);
-            return makeSafeAccessor(javaType, source, dmnTransformer.getter(memberName));
+            return this.expressionFactory.makeItemDefinitionAccessor(javaType, source, memberName);
         } else if (sourceType instanceof ContextType) {
             Type memberType = ((ContextType) sourceType).getMemberType(memberName);
             String javaType = dmnTransformer.toJavaType(memberType);
-            return String.format("((%s)((%s)%s).%s)", javaType, dmnTransformer.contextClassName(), source, dmnTransformer.contextGetter(memberName));
+            return this.expressionFactory.makeContextAccessor(javaType, source, memberName);
         } else if (sourceType instanceof ListType) {
             String filter = makeNavigation(element, ((ListType) sourceType).getElementType(), "x", memberName, memberVariableName);
-            return String.format("%s.stream().map(x -> %s).collect(Collectors.toList())", source, filter);
+            return this.expressionFactory.makeCollectionMap(source, filter);
         } else if (sourceType instanceof DateType) {
             return String.format("%s(%s)", javaMemberFunctionName(memberName), source);
         } else if (sourceType instanceof TimeType) {
@@ -107,7 +107,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
             return String.format("%s(%s)", javaMemberFunctionName(memberName), source);
         } else if (sourceType instanceof AnyType) {
             // source is Context
-            return String.format("((%s)(%s)).get(\"%s\", asList())", dmnTransformer.contextClassName(), source, memberName);
+            return this.expressionFactory.makeContextSelectExpression(dmnTransformer.contextClassName(), source, memberName);
         } else {
             throw new SemanticError(element, String.format("Cannot generate navigation path '%s'", element.toString()));
         }
@@ -157,10 +157,6 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
                 throw new DMNRuntimeException(String.format("Operator '%s' cannot be applied to '%s' and '%s'", feelOperator, leftOpd, rightOpd));
             }
         }
-    }
-
-    protected String makeSafeAccessor(String javaType, String source, String accessorMethod) {
-        return String.format("((%s)(%s != null ? %s.%s : null))", javaType, source, source, accessorMethod);
     }
 
     protected String listTestOperator(String feelOperatorName, Expression leftOperand, Expression rightOperand) {

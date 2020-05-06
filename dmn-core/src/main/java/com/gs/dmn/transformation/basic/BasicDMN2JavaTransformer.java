@@ -24,6 +24,8 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinitio
 import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.FEELTranslatorImpl;
+import com.gs.dmn.feel.synthesis.expression.JavaExpressionFactory;
+import com.gs.dmn.feel.synthesis.expression.NativeExpressionFactory;
 import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
 import com.gs.dmn.runtime.*;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
@@ -41,7 +43,6 @@ import com.gs.dmn.runtime.listener.LoggingEventListener;
 import com.gs.dmn.runtime.listener.NopEventListener;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DMNVersion;
-import com.gs.dmn.serialization.JsonSerializer;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.InputParamUtil;
 import com.gs.dmn.transformation.java.CompoundStatement;
@@ -64,6 +65,7 @@ public class BasicDMN2JavaTransformer {
     protected final DMNModelRepository dmnModelRepository;
     protected final EnvironmentFactory environmentFactory;
     protected final FEELTypeTranslator feelTypeTranslator;
+    private final JavaExpressionFactory expressionFactory = new JavaExpressionFactory(this);
 
     protected final FEELTranslator feelTranslator;
     private final ContextToJavaTransformer contextToJavaTransformer;
@@ -133,6 +135,10 @@ public class BasicDMN2JavaTransformer {
         return this.feelTranslator;
     }
 
+    public NativeExpressionFactory getExpressionFactory() {
+        return this.expressionFactory;
+    }
+
     public boolean isList(TDRGElement element) {
         Type feelType = drgElementOutputFEELType(element);
         return feelType instanceof ListType;
@@ -196,7 +202,7 @@ public class BasicDMN2JavaTransformer {
         for (TItemDefinition child : itemComponents) {
             parameters.add(new Pair<>(itemDefinitionVariableName(child), itemDefinitionJavaQualifiedInterfaceName(child)));
         }
-        return parameters.stream().map(p -> String.format("%s %s", p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
+        return parameters.stream().map(p -> this.expressionFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
     }
 
     public String getter(TItemDefinition itemDefinition) {
@@ -230,19 +236,11 @@ public class BasicDMN2JavaTransformer {
     }
 
     public String defaultConstructor(String className) {
-        return constructor(className, "");
+        return this.expressionFactory.constructor(className, "");
     }
 
     public String constructor(String className, String arguments) {
-        return String.format("new %s(%s)", className, arguments);
-    }
-
-    public String fluentConstructor(String className, String addMethods) {
-        return String.format("new %s()%s", className, addMethods);
-    }
-
-    public String functionalInterfaceConstructor(String functionalInterface, String returnType, String applyMethod) {
-        return String.format("new %s<%s>() {%s}", functionalInterface, returnType, applyMethod);
+        return this.expressionFactory.constructor(className, arguments);
     }
 
     //
@@ -369,11 +367,11 @@ public class BasicDMN2JavaTransformer {
         TDRGElement element = reference.getElement();
         if (element instanceof TBusinessKnowledgeModel) {
             List<Pair<String, String>> parameters = bkmParameters((DRGElementReference<TBusinessKnowledgeModel>) reference);
-            String signature = parameters.stream().map(p -> String.format("%s %s", p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
+            String signature = parameters.stream().map(p -> this.expressionFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
             return augmentSignature(signature);
         } else if (element instanceof TDecision) {
             List<Pair<String, Type>> parameters = inputDataParametersClosure((DRGElementReference<TDecision>) reference);
-            String decisionSignature = parameters.stream().map(p -> String.format("%s %s", toJavaType(p.getRight()), p.getLeft())).collect(Collectors.joining(", "));
+            String decisionSignature = parameters.stream().map(p -> this.expressionFactory.nullableParameter(toJavaType(p.getRight()), p.getLeft())).collect(Collectors.joining(", "));
             return augmentSignature(decisionSignature);
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
@@ -459,7 +457,7 @@ public class BasicDMN2JavaTransformer {
     public String drgElementSignatureWithConversionFromString(TDRGElement element) {
         if (element instanceof TDecision) {
             List<Pair<String, Type>> parameters = inputDataParametersClosure(this.dmnModelRepository.makeDRGElementReference((TDecision) element));
-            String decisionSignature = parameters.stream().map(p -> String.format("%s %s", toStringJavaType(p.getRight()), p.getLeft())).collect(Collectors.joining(", "));
+            String decisionSignature = parameters.stream().map(p -> this.expressionFactory.nullableParameter(toStringJavaType(p.getRight()), p.getLeft())).collect(Collectors.joining(", "));
             return augmentSignature(decisionSignature);
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
@@ -469,7 +467,7 @@ public class BasicDMN2JavaTransformer {
     public String drgElementArgumentListWithConversionFromString(TDRGElement element) {
         if (element instanceof TDecision) {
             List<Pair<String, Type>> parameters = inputDataParametersClosure(this.dmnModelRepository.makeDRGElementReference((TDecision) element));
-            String arguments = parameters.stream().map(p -> String.format("%s", convertDecisionArgumentFromString(p.getLeft(), p.getRight()))).collect(Collectors.joining(", "));
+            String arguments = parameters.stream().map(p -> String.format("%s", this.expressionFactory.convertDecisionArgumentFromString(p.getLeft(), p.getRight()))).collect(Collectors.joining(", "));
             return augmentArgumentList(arguments);
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
@@ -479,7 +477,7 @@ public class BasicDMN2JavaTransformer {
     public String decisionConstructorSignature(TDecision decision) {
         List<DRGElementReference<TDecision>> subDecisionReferences = this.dmnModelRepository.directSubDecisions(decision);
         this.dmnModelRepository.sortNamedElementReferences(subDecisionReferences);
-        return subDecisionReferences.stream().map(d -> String.format("%s %s", qualifiedName(d), drgElementVariableName(d))).collect(Collectors.joining(", "));
+        return subDecisionReferences.stream().map(d -> this.expressionFactory.decisionConstructorParameter(d)).collect(Collectors.joining(", "));
     }
 
     public String decisionConstructorNewArgumentList(TDecision decision) {
@@ -509,7 +507,7 @@ public class BasicDMN2JavaTransformer {
     protected String drgElementDirectSignature(TDRGElement element) {
         if (element instanceof TDecision) {
             List<Pair<String, String>> parameters = directInformationRequirementParameters(element);
-            String javaParameters = parameters.stream().map(p -> String.format("%s %s", p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
+            String javaParameters = parameters.stream().map(p -> this.expressionFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
             return augmentSignature(javaParameters);
         } else if (element instanceof TBusinessKnowledgeModel) {
             return drgElementSignature(this.dmnModelRepository.makeDRGElementReference(element));
@@ -768,7 +766,7 @@ public class BasicDMN2JavaTransformer {
     //
     protected String convertDecisionArgument(String paramName, Type type) {
         if (type instanceof ItemDefinitionType) {
-            return convertToItemDefinitionType(paramName, (ItemDefinitionType) type);
+            return this.expressionFactory.convertToItemDefinitionType(paramName, (ItemDefinitionType) type);
         } else {
             return paramName;
         }
@@ -788,80 +786,32 @@ public class BasicDMN2JavaTransformer {
             Type expressionElementType = ((ListType) expressionType).getElementType();
             if (expectedElementType instanceof ItemDefinitionType) {
                 if (expressionElementType.conformsTo(expectedElementType) || expressionElementType == AnyType.ANY || expressionElementType instanceof ContextType) {
-                    String conversionText = String.format("%s.stream().map(x -> " + convertToItemDefinitionType("x", (ItemDefinitionType) expectedElementType) + ").collect(Collectors.toList())", javaExpression, toJavaType(expectedElementType));
+                    String conversionText = this.expressionFactory.makeListConversion(javaExpression, (ItemDefinitionType) expectedElementType);
                     return new ExpressionStatement(conversionText, expectedType);
                 }
             }
         } else if (expectedType instanceof ListType) {
-            return new ExpressionStatement(convertElementToList(javaExpression, expectedType), expectedType);
+            return new ExpressionStatement(this.expressionFactory.convertElementToList(javaExpression, expectedType), expectedType);
         } else if (expressionType instanceof ListType) {
-            return new ExpressionStatement(convertListToElement(javaExpression, expectedType), expectedType);
+            return new ExpressionStatement(this.expressionFactory.convertListToElement(javaExpression, expectedType), expectedType);
         } else if (expectedType instanceof ItemDefinitionType) {
             if (expressionType.conformsTo(expectedType) || expressionType == AnyType.ANY || expressionType instanceof ContextType) {
-                return new ExpressionStatement(convertToItemDefinitionType(javaExpression, (ItemDefinitionType) expectedType), expectedType);
+                return new ExpressionStatement(this.expressionFactory.convertToItemDefinitionType(javaExpression, (ItemDefinitionType) expectedType), expectedType);
             }
         }
         return statement;
     }
 
-    private String convertListToElement(String expression, Type type) {
-        return String.format("this.<%s>%s", toJavaType(type), asElement(expression));
-    }
-
-    private String convertElementToList(String expression, Type type) {
-        return String.format("%s", asList(expression));
-    }
-
-    String convertToItemDefinitionType(String expression, ItemDefinitionType type) {
-        String convertMethodName = convertMethodName(type);
-        String interfaceName = toJavaType(type);
-        return String.format("%s.%s(%s)", interfaceName, convertMethodName, expression);
-    }
-
     public String convertMethodName(TItemDefinition itemDefinition) {
-        String javaInterfaceName = upperCaseFirst(itemDefinition.getName());
-        return String.format("to%s", javaInterfaceName);
-    }
-
-    private String convertMethodName(ItemDefinitionType type) {
-        String javaInterfaceName = upperCaseFirst(type.getName());
-        return String.format("to%s", javaInterfaceName);
-    }
-
-    private String convertDecisionArgumentFromString(String paramName, Type type) {
-        if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
-            String conversionMethod = FEELTypes.FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.get(type);
-            if (conversionMethod != null) {
-                return String.format("(%s != null ? %s(%s) : null)", paramName, conversionMethod, paramName);
-            } else if (type == StringType.STRING) {
-                return paramName;
-            } else if (type == BooleanType.BOOLEAN) {
-                return String.format("(%s != null ? Boolean.valueOf(%s) : null)", paramName, paramName);
-            } else {
-                throw new DMNRuntimeException(String.format("Cannot convert String to type '%s'", type));
-            }
-        } else if (type instanceof ListType) {
-            Type elementType = ((ListType) type).getElementType();
-            String arrayElementType;
-            if (elementType instanceof ListType) {
-                arrayElementType = "java.util.List";
-            } else if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(elementType)) {
-                arrayElementType = toJavaType(elementType);
-            } else {
-                arrayElementType = itemDefinitionJavaSimpleClassName(toJavaType(elementType));
-            }
-            return String.format("(%s != null ? asList(%s.readValue(%s, %s[].class)) : null)", paramName, objectMapper(), paramName, arrayElementType);
-        } else {
-            return String.format("(%s != null ? %s.readValue(%s, %s.class) : null)", paramName, objectMapper(), paramName, itemDefinitionJavaSimpleClassName(toJavaType(type)));
-        }
+        return this.expressionFactory.convertMethodName(itemDefinition);
     }
 
     protected String augmentSignature(String signature) {
-        String extra = String.format("%s %s", annotationSetClassName(), annotationSetVariableName());
+        String annotationParameter = this.expressionFactory.parameter(annotationSetClassName(), annotationSetVariableName());
         if (StringUtils.isBlank(signature)) {
-            return extra;
+            return annotationParameter;
         } else {
-            return String.format("%s, %s", signature, extra);
+            return String.format("%s, %s", signature, annotationParameter);
         }
     }
 
@@ -872,10 +822,6 @@ public class BasicDMN2JavaTransformer {
         } else {
             return String.format("%s, %s", arguments, extra);
         }
-    }
-
-    private String objectMapper() {
-        return JsonSerializer.class.getName() + ".OBJECT_MAPPER";
     }
 
     public List<Pair<String, Type>> inputDataParametersClosure(DRGElementReference<TDecision> reference) {
@@ -1057,17 +1003,12 @@ public class BasicDMN2JavaTransformer {
     }
 
     public String drgElementSignatureExtra(String signature) {
+        String listenerParameter = this.expressionFactory.parameter(eventListenerClassName(), eventListenerVariableName());
+        String executorParameter = this.expressionFactory.parameter(externalExecutorClassName(), externalExecutorVariableName());
         if (StringUtils.isBlank(signature)) {
-            return String.format("%s %s, %s %s",
-                    eventListenerClassName(), eventListenerVariableName(),
-                    externalExecutorClassName(), externalExecutorVariableName()
-            );
+            return String.format("%s, %s", listenerParameter, executorParameter);
         } else {
-            return String.format("%s, %s %s, %s %s",
-                    signature,
-                    eventListenerClassName(), eventListenerVariableName(),
-                    externalExecutorClassName(), externalExecutorVariableName()
-            );
+            return String.format("%s, %s, %s", signature, listenerParameter, executorParameter);
         }
     }
 
@@ -1080,10 +1021,12 @@ public class BasicDMN2JavaTransformer {
     }
 
     public String drgElementDefaultArgumentsExtra(String arguments) {
+        String loggerArgument = constructor(loggingEventListenerClassName(), "LOGGER");
+        String executorArgument = defaultConstructor(defaultExternalExecutorClassName());
         if (StringUtils.isBlank(arguments)) {
-            return String.format("new %s(LOGGER), new %s()", loggingEventListenerClassName(), defaultExternalExecutorClassName());
+            return String.format("%s, %s", loggerArgument, executorArgument);
         } else {
-            return String.format("%s, new %s(LOGGER), new %s()", arguments, loggingEventListenerClassName(), defaultExternalExecutorClassName());
+            return String.format("%s, %s, %s", arguments, loggerArgument, executorArgument);
         }
     }
 
@@ -1103,15 +1046,11 @@ public class BasicDMN2JavaTransformer {
             return signature;
         }
 
+        String cacheParameter = this.expressionFactory.parameter(cacheInterfaceName(), cacheVariableName());
         if (StringUtils.isBlank(signature)) {
-            return String.format("%s %s",
-                    cacheInterfaceName(), cacheVariableName()
-            );
+            return cacheParameter;
         } else {
-            return String.format("%s, %s %s",
-                    signature,
-                    cacheInterfaceName(), cacheVariableName()
-            );
+            return String.format("%s, %s", signature, cacheParameter);
         }
     }
 
@@ -1132,10 +1071,11 @@ public class BasicDMN2JavaTransformer {
             return arguments;
         }
 
+        String defaultCacheArgument = defaultConstructor(defaultCacheClassName());
         if (StringUtils.isBlank(arguments)) {
-            return String.format("new %s()", defaultCacheClassName());
+            return defaultCacheArgument;
         } else {
-            return String.format("%s, new %s()", arguments, defaultCacheClassName());
+            return String.format("%s, %s", arguments, defaultCacheArgument);
         }
     }
 
@@ -1230,8 +1170,8 @@ public class BasicDMN2JavaTransformer {
         return this.decisionTableToJavaTransformer.aggregation(decisionTable);
     }
 
-    public String aggregator(TDRGElement element, TDecisionTable decisionTable, TOutputClause outputClause, String variableName) {
-        return this.decisionTableToJavaTransformer.aggregator(element, decisionTable, outputClause, variableName);
+    public String aggregator(TDRGElement element, TDecisionTable decisionTable, TOutputClause outputClause, String ruleOutputListVariable) {
+        return this.decisionTableToJavaTransformer.aggregator(element, decisionTable, outputClause, ruleOutputListVariable);
     }
 
     public String annotation(TDRGElement element, TDecisionRule rule) {
@@ -1347,23 +1287,6 @@ public class BasicDMN2JavaTransformer {
         return this.functionDefinitionToJavaTransformer.functionDefinitionToJava(element, body, convertTypeToContext);
     }
 
-    public String applyMethod(FunctionType functionType, String signature, boolean convertTypeToContext, String body) {
-        String returnType = toJavaType(convertType(functionType.getReturnType(), convertTypeToContext));
-        String parametersAssignment = parametersAssignment(functionType.getParameters(), convertTypeToContext);
-        return applyMethod(returnType, signature, parametersAssignment, body);
-    }
-
-    private String parametersAssignment(List<FormalParameter> formalParameters, boolean convertTypeToContext) {
-        List<String> parameters = new ArrayList<>();
-        for(int i = 0; i< formalParameters.size(); i++) {
-            FormalParameter p = formalParameters.get(i);
-            String type = toJavaType(convertType(p.getType(), convertTypeToContext));
-            String name = javaFriendlyVariableName(p.getName());
-            parameters.add(String.format("%s %s = (%s)args[%s];", type, name, type, i));
-        }
-        return String.join(" ", parameters);
-    }
-
     public Type convertType(Type type, boolean convertToContext) {
         if (convertToContext) {
             if (type instanceof ItemDefinitionType) {
@@ -1371,16 +1294,6 @@ public class BasicDMN2JavaTransformer {
             }
         }
         return type;
-    }
-
-
-    private String applyMethod(String returnType, String signature, String parametersAssignment, String body) {
-        return String.format(
-                "public %s apply(%s) {" +
-                    "%s" +
-                    "return %s;" +
-                "}",
-                returnType, signature, parametersAssignment, body);
     }
 
     //
@@ -1540,18 +1453,28 @@ public class BasicDMN2JavaTransformer {
             return contextClassName();
         } else if (type instanceof ListType) {
             if (((ListType) type).getElementType() instanceof AnyType) {
-                return String.format("%s<? extends Object>", DMNToJavaTransformer.LIST_TYPE);
+                return makeListType(DMNToJavaTransformer.LIST_TYPE);
             } else {
                 String elementType = toJavaType(((ListType) type).getElementType());
-                return String.format("%s<%s>", DMNToJavaTransformer.LIST_TYPE, elementType);
+                return makeListType(DMNToJavaTransformer.LIST_TYPE, elementType);
             }
-        } else if (type instanceof AnyType) {
-            return "Object";
         } else if (type instanceof FunctionType) {
             String returnType = toJavaType(((FunctionType) type).getReturnType());
-            return String.format("%s<%s>", LambdaExpression.class.getName(), returnType);
+            return makeFunctionType(LambdaExpression.class.getName(), returnType);
         }
         throw new IllegalArgumentException(String.format("Cannot map type '%s' to Java", type));
+    }
+
+    protected String makeListType(String listType, String elementType) {
+        return String.format("%s<%s>", listType, elementType);
+    }
+
+    protected String makeListType(String listType) {
+        return String.format("%s<? extends Object>", listType);
+    }
+
+    protected String makeFunctionType(String name, String returnType) {
+        return String.format("%s<%s>", name, returnType);
     }
 
     public String qualifiedName(String pkg, String name) {
@@ -1727,11 +1650,7 @@ public class BasicDMN2JavaTransformer {
     }
 
     public String asList(String exp) {
-        return String.format("asList(%s)", exp);
-    }
-
-    public String asElement(String exp) {
-        return String.format("asElement(%s)", exp);
+        return this.expressionFactory.asList(exp);
     }
 
     //
