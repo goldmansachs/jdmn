@@ -17,6 +17,7 @@ import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
+import com.gs.dmn.feel.synthesis.expression.NativeExpressionFactory;
 import com.gs.dmn.runtime.LambdaExpression;
 import com.gs.dmn.transformation.java.ExpressionStatement;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
@@ -27,18 +28,20 @@ public class FunctionDefinitionToJavaTransformer {
     private final BasicDMN2JavaTransformer dmnTransformer;
     private final DMNModelRepository modelRepository;
     private final EnvironmentFactory environmentFactory;
+    private final NativeExpressionFactory expressionFactory;
 
     FunctionDefinitionToJavaTransformer(BasicDMN2JavaTransformer dmnTransformer) {
         this.modelRepository = dmnTransformer.getDMNModelRepository();
         this.dmnTransformer = dmnTransformer;
         this.environmentFactory = dmnTransformer.getEnvironmentFactory();
+        this.expressionFactory = dmnTransformer.getExpressionFactory();
     }
 
     public ExpressionStatement functionDefinitionToJava(TDRGElement element, TFunctionDefinition expression, Environment environment) {
-        FunctionType functionType = (FunctionType) dmnTransformer.expressionType(element, expression, environment);
+        FunctionType functionType = (FunctionType) this.dmnTransformer.expressionType(element, expression, environment);
         TExpression bodyExpression = expression.getExpression().getValue();
-        Environment functionDefinitionEnvironment = dmnTransformer.makeFunctionDefinitionEnvironment(element, expression, environment);
-        ExpressionStatement statement = (ExpressionStatement) dmnTransformer.expressionToJava(element, bodyExpression, functionDefinitionEnvironment);
+        Environment functionDefinitionEnvironment = this.dmnTransformer.makeFunctionDefinitionEnvironment(element, expression, environment);
+        ExpressionStatement statement = (ExpressionStatement) this.dmnTransformer.expressionToJava(element, bodyExpression, functionDefinitionEnvironment);
         String body = statement.getExpression();
 
         String expressionText = functionDefinitionToJava(functionType, body, false);
@@ -51,15 +54,15 @@ public class FunctionDefinitionToJavaTransformer {
     }
 
     private String functionDefinitionToJava(FunctionType functionType, String body, boolean convertToContext) {
-        String returnType = dmnTransformer.toJavaType(dmnTransformer.convertType(functionType.getReturnType(), convertToContext));
+        String returnType = this.dmnTransformer.toJavaType(this.dmnTransformer.convertType(functionType.getReturnType(), convertToContext));
         String signature = "Object... args";
-        String applyMethod = dmnTransformer.applyMethod(functionType, signature, convertToContext, body);
+        String applyMethod = this.expressionFactory.applyMethod(functionType, signature, convertToContext, body);
         return functionDefinitionToJava(returnType, applyMethod);
     }
 
     private String functionDefinitionToJava(String returnType, String applyMethod) {
         String functionalInterface = LambdaExpression.class.getName();
-        return dmnTransformer.functionalInterfaceConstructor(functionalInterface, returnType, applyMethod);
+        return this.expressionFactory.functionalInterfaceConstructor(functionalInterface, returnType, applyMethod);
     }
 
 }

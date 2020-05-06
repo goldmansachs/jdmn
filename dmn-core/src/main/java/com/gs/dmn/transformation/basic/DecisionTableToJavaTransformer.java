@@ -22,6 +22,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
+import com.gs.dmn.feel.synthesis.expression.NativeExpressionFactory;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.RuleOutput;
@@ -44,12 +45,14 @@ public class DecisionTableToJavaTransformer {
     private final DMNModelRepository dmnModelRepository;
     private final FEELTranslator feelTranslator;
     private final EnvironmentFactory environmentFactory;
+    private final NativeExpressionFactory expressionFactory;
 
     DecisionTableToJavaTransformer(BasicDMN2JavaTransformer dmnTransformer) {
         this.dmnTransformer = dmnTransformer;
         this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
         this.feelTranslator = dmnTransformer.getFEELTranslator();
         this.environmentFactory = dmnTransformer.getEnvironmentFactory();
+        this.expressionFactory = dmnTransformer.getExpressionFactory();
     }
 
     public String defaultValue(TDRGElement element) {
@@ -64,7 +67,7 @@ public class DecisionTableToJavaTransformer {
                     }
                     String defaultValue = this.dmnTransformer.constructor(this.dmnTransformer.itemDefinitionJavaSimpleClassName(this.dmnTransformer.drgElementOutputClassName(element)), String.join(", ", values));
                     if (this.dmnTransformer.isList(element)) {
-                        return this.dmnTransformer.asList(defaultValue);
+                        return this.expressionFactory.asList(defaultValue);
                     } else {
                         return defaultValue;
                     }
@@ -142,11 +145,7 @@ public class DecisionTableToJavaTransformer {
     }
 
     public String outputClausePriorityVariableName(TDRGElement element, TOutputClause outputClause) {
-        String name = this.dmnModelRepository.outputClauseName(element, outputClause);
-        if (name == null) {
-            throw new DMNRuntimeException(String.format("Variable name cannot be null. OutputClause id '%s'", outputClause.getId()));
-        }
-        return this.dmnTransformer.lowerCaseFirst(name + DMNToJavaTransformer.PRIORITY_SUFFIX);
+        return outputClauseVariableName(element, outputClause) + DMNToJavaTransformer.PRIORITY_SUFFIX;
     }
 
     public Integer priority(TDRGElement element, TLiteralExpression literalExpression, int outputIndex) {
@@ -176,20 +175,19 @@ public class DecisionTableToJavaTransformer {
     }
 
     public String getter(TDRGElement element, TOutputClause output) {
-        String name = this.dmnModelRepository.outputClauseName(element, output);
-        return this.dmnTransformer.getter(this.dmnTransformer.lowerCaseFirst(name));
+        return this.dmnTransformer.getter(this.dmnTransformer.outputClauseVariableName(element, output));
     }
 
     public String priorityGetter(TDRGElement element, TOutputClause output) {
-        return this.dmnTransformer.getter(this.dmnTransformer.lowerCaseFirst(this.dmnModelRepository.outputClauseName(element, output) + DMNToJavaTransformer.PRIORITY_SUFFIX));
+        return this.dmnTransformer.getter(this.outputClausePriorityVariableName(element, output));
     }
 
     public String setter(TDRGElement element, TOutputClause output) {
-        return this.dmnTransformer.setter(this.dmnTransformer.lowerCaseFirst(this.dmnModelRepository.outputClauseName(element, output)));
+        return this.dmnTransformer.setter(this.dmnTransformer.outputClauseVariableName(element, output));
     }
 
     public String prioritySetter(TDRGElement element, TOutputClause output) {
-        return this.dmnTransformer.setter(this.dmnTransformer.lowerCaseFirst(this.dmnModelRepository.outputClauseName(element, output)) + DMNToJavaTransformer.PRIORITY_SUFFIX);
+        return this.dmnTransformer.setter(this.outputClausePriorityVariableName(element, output));
     }
 
     private List<TOutputClause> sortOutputClauses(TDRGElement element, List<TOutputClause> parameters) {
@@ -200,24 +198,18 @@ public class DecisionTableToJavaTransformer {
     //
     // Aggregation and hit policy
     //
-    public String aggregator(TDRGElement element, TDecisionTable decisionTable, TOutputClause outputClause, String variableName) {
+    public String aggregator(TDRGElement element, TDecisionTable decisionTable, TOutputClause outputClause, String ruleOutputListVariableName) {
         TBuiltinAggregator aggregation = decisionTable.getAggregation();
         String decisionRuleOutputClassName = ruleOutputClassName(element);
-        String getter = getter(element, outputClause);
+        String outputClauseVariableName = this.dmnTransformer.outputClauseVariableName(element, outputClause);
         if (aggregation == TBuiltinAggregator.MIN) {
-            return String.format("min(%s.stream().map(o -> ((%s)o).%s).collect(Collectors.toList()))",
-                    variableName, decisionRuleOutputClassName, getter
-            );
+            return this.expressionFactory.makeMinAggregator(ruleOutputListVariableName, decisionRuleOutputClassName, outputClauseVariableName);
         } else if (aggregation == TBuiltinAggregator.MAX) {
-            return String.format("max(%s.stream().map(o -> ((%s)o).%s).collect(Collectors.toList()))",
-                    variableName, decisionRuleOutputClassName, getter
-            );
+            return this.expressionFactory.makeMaxAggregator(ruleOutputListVariableName, decisionRuleOutputClassName, outputClauseVariableName);
         } else if (aggregation == TBuiltinAggregator.COUNT) {
-            return "number(String.format(\"%d\", " + variableName + ".size()))";
+            return this.expressionFactory.makeCountAggregator(ruleOutputListVariableName);
         } else if (aggregation == TBuiltinAggregator.SUM) {
-            return String.format("sum(%s.stream().map(o -> ((%s)o).%s).collect(Collectors.toList()))",
-                    variableName, decisionRuleOutputClassName, getter
-            );
+            return this.expressionFactory.makeSumAggregator(ruleOutputListVariableName, decisionRuleOutputClassName, outputClauseVariableName);
         } else {
             throw new UnsupportedOperationException(String.format("Not supported '%s' aggregation.", aggregation));
         }
@@ -268,7 +260,7 @@ public class DecisionTableToJavaTransformer {
             String parameterJavaType = this.dmnTransformer.lazyEvaluationType(element, this.dmnTransformer.parameterJavaType(element));
             parameters.add(new Pair<>(parameterName, parameterJavaType));
         }
-        String signature = parameters.stream().map(p -> String.format("%s %s", p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
+        String signature = parameters.stream().map(p -> this.expressionFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
         return this.dmnTransformer.augmentSignature(signature);
     }
 
@@ -293,7 +285,7 @@ public class DecisionTableToJavaTransformer {
             String parameterJavaType = this.dmnTransformer.parameterJavaType(model, parameter);
             parameters.add(new Pair<>(parameterName, parameterJavaType));
         }
-        String signature = parameters.stream().map(p -> String.format("%s %s", p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
+        String signature = parameters.stream().map(p -> this.expressionFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
         return this.dmnTransformer.augmentSignature(signature);
     }
 
@@ -355,14 +347,17 @@ public class DecisionTableToJavaTransformer {
                 String condition = condition(element, decisionTable, inputEntry, i);
                 conditionParts.add(condition);
             }
+            String left = this.expressionFactory.trueConstant();
+            String right;
             if (conditionParts.size() == 1) {
-                return String.format("Boolean.TRUE == %s", conditionParts.get(0));
+                right = conditionParts.get(0);
             } else {
                 String indent3tabs = "            ";
                 String indent2tabs = "        ";
                 String operands = conditionParts.stream().collect(Collectors.joining(",\n" + indent3tabs));
-                return String.format("Boolean.TRUE == booleanAnd(\n%s%s\n%s)", indent3tabs, operands, indent2tabs);
+                right = String.format("booleanAnd(\n%s%s\n%s)", indent3tabs, operands, indent2tabs);
             }
+            return this.expressionFactory.makeEquality(left, right);
         }
         throw new DMNRuntimeException("Cannot build condition for " + decisionTable.getClass().getSimpleName());
     }

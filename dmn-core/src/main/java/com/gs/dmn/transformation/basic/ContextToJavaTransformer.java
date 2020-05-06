@@ -18,6 +18,7 @@ import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.feel.synthesis.expression.NativeExpressionFactory;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.java.CompoundStatement;
 import com.gs.dmn.transformation.java.ExpressionStatement;
@@ -31,11 +32,13 @@ public class ContextToJavaTransformer {
     private final DMNModelRepository dmnModelRepository;
     private final BasicDMN2JavaTransformer dmnTransformer;
     private final EnvironmentFactory environmentFactory;
+    private final NativeExpressionFactory expressionFactory;
 
     ContextToJavaTransformer(BasicDMN2JavaTransformer dmnTransformer) {
         this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
         this.dmnTransformer = dmnTransformer;
         this.environmentFactory = dmnTransformer.getEnvironmentFactory();
+        this.expressionFactory = dmnTransformer.getExpressionFactory();
     }
 
     public Statement expressionToJava(TDRGElement element, TContext context) {
@@ -82,9 +85,9 @@ public class ContextToJavaTransformer {
             // Add statement
             TInformationItem variable = entry.getVariable();
             if (variable != null) {
-                String javaName = this.dmnTransformer.lowerCaseFirst(variable.getName());
-                String javaType = this.dmnTransformer.toJavaType(entryType);
-                String assignmentText = String.format("%s %s = %s;", javaType, javaName, value.getExpression());
+                String name = this.dmnTransformer.lowerCaseFirst(variable.getName());
+                String type = this.dmnTransformer.toJavaType(entryType);
+                String assignmentText = this.expressionFactory.makeVariableAssignment(type, name, value.getExpression());
                 statement.add(new ExpressionStatement(assignmentText, entryType));
             } else {
                 returnValue = value;
@@ -94,13 +97,13 @@ public class ContextToJavaTransformer {
         // Add return statement
         Type returnType = this.dmnTransformer.toFEELType(model, this.dmnTransformer.drgElementOutputTypeRef(element));
         if (returnValue != null) {
-            String text = String.format("return %s;", returnValue.getExpression());
+            String text = this.expressionFactory.makeReturn(returnValue.getExpression());
             statement.add(new ExpressionStatement(text, returnType));
         } else {
             // Make complex type value
             String complexJavaType = this.dmnTransformer.drgElementOutputType(element);
             String complexTypeVariable = this.dmnTransformer.drgElementVariableName(element);
-            String expressionText = String.format("%s %s = %s;", this.dmnTransformer.itemDefinitionJavaSimpleClassName(complexJavaType), complexTypeVariable, this.dmnTransformer.defaultConstructor(this.dmnTransformer.itemDefinitionJavaSimpleClassName(complexJavaType)));
+            String expressionText = this.expressionFactory.makeVariableAssignment(this.dmnTransformer.itemDefinitionJavaSimpleClassName(complexJavaType), complexTypeVariable, this.dmnTransformer.defaultConstructor(this.dmnTransformer.itemDefinitionJavaSimpleClassName(complexJavaType)));
             statement.add(new ExpressionStatement(expressionText, returnType));
             // Add entries
             for(TContextEntry entry: context.getContextEntry()) {
@@ -118,12 +121,12 @@ public class ContextToJavaTransformer {
                 TInformationItem variable = entry.getVariable();
                 if (variable != null) {
                     String javaContextEntryName = this.dmnTransformer.lowerCaseFirst(variable.getName());
-                    String entryText = String.format("%s.%s(%s);", complexTypeVariable, this.dmnTransformer.setter(javaContextEntryName), javaContextEntryName);
+                    String entryText = this.expressionFactory.makeMemberAssignment(complexTypeVariable, javaContextEntryName, javaContextEntryName);
                     statement.add(new ExpressionStatement(entryText, entryType));
                 }
             }
             // Return value
-            String returnText = String.format("return %s;", complexTypeVariable);
+            String returnText = this.expressionFactory.makeReturn(complexTypeVariable);
             statement.add(new ExpressionStatement(returnText, returnType));
         }
         return statement;

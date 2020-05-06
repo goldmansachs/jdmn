@@ -205,7 +205,7 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
 
             // Make output file
             String relativeFilePath = javaPackageName.replace('.', '/');
-            String fileExtension = ".java";
+            String fileExtension = getFileExtension();
             File outputFile = makeOutputFile(outputPath, relativeFilePath, javaClassName, fileExtension);
 
             // Process template
@@ -222,7 +222,7 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
 
             // Make output file
             String relativeFilePath = javaPackageName.replace('.', '/');
-            String fileExtension = ".java";
+            String fileExtension = getFileExtension();
             File outputFile = makeOutputFile(outputPath, relativeFilePath, javaClassName, fileExtension);
 
             // Process template
@@ -239,7 +239,7 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
 
             // Make output file
             String relativeFilePath = javaPackageName.replace('.', '/');
-            String fileExtension = ".java";
+            String fileExtension = getFileExtension();
             File outputFile = makeOutputFile(outputPath, relativeFilePath, javaClassName, fileExtension);
 
             // Process template
@@ -247,6 +247,10 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot process template '%s' for decision '%s'", templateName, decision.getName()), e);
         }
+    }
+
+    protected String getFileExtension() {
+        return ".java";
     }
 
     //
