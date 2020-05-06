@@ -128,9 +128,9 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
             String typePackageName = dmnTransformer.javaTypePackageName(definitions.getName());
 
             // Generate interface and class
-            String javaInterfaceName = dmnTransformer.itemDefinitionJavaInterfaceName(itemDefinition);
+            String javaInterfaceName = dmnTransformer.itemDefinitionJavaSimpleInterfaceName(itemDefinition);
             transformItemDefinition(itemDefinition, dmnTransformer, templateProvider.baseTemplatePath(), templateProvider.itemDefinitionInterfaceTemplate(), generatedClasses, outputPath, typePackageName, javaInterfaceName);
-            transformItemDefinition(itemDefinition, dmnTransformer, templateProvider.baseTemplatePath(), templateProvider.itemDefinitionClassTemplate(), generatedClasses, outputPath, typePackageName, dmnTransformer.itemDefinitionJavaClassName(javaInterfaceName));
+            transformItemDefinition(itemDefinition, dmnTransformer, templateProvider.baseTemplatePath(), templateProvider.itemDefinitionClassTemplate(), generatedClasses, outputPath, typePackageName, dmnTransformer.itemDefinitionJavaSimpleClassName(javaInterfaceName));
 
             // Process children
             transformItemDefinitionList(definitions, itemDefinition.getItemComponent(), dmnTransformer, generatedClasses, outputPath);
@@ -256,7 +256,7 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
         Map<String, Object> params = new HashMap<>();
         params.put("itemDefinition", itemDefinition);
 
-        String qualifiedName = dmnTransformer.qualifiedName(javaPackageName, dmnTransformer.itemDefinitionJavaInterfaceName(itemDefinition));
+        String qualifiedName = dmnTransformer.qualifiedName(javaPackageName, dmnTransformer.itemDefinitionJavaSimpleInterfaceName(itemDefinition));
         String serializationClass = typeDeserializationConfigurer.deserializeTypeAs(qualifiedName);
         params.put("serializationClass", serializationClass);
 
