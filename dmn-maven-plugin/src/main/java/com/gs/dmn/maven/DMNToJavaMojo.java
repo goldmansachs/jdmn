@@ -33,7 +33,7 @@ import java.util.Map;
 @SuppressWarnings("CanBeFinal")
 @Mojo(name = "dmn-to-java", defaultPhase = LifecyclePhase.GENERATE_SOURCES, configurator = "dmn-mojo-configurator")
 public class DMNToJavaMojo extends AbstractDMNMojo {
-    @Parameter(required = true, defaultValue = "com.gs.dmn.dialect.DMNStandardDialectDefinition")
+    @Parameter(required = true, defaultValue = "com.gs.dmn.dialect.StandardDMNDialectDefinition")
     public String dmnDialect;
 
     @Parameter(required = false)
