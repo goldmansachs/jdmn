@@ -32,7 +32,7 @@ import java.util.Map;
 @SuppressWarnings("CanBeFinal")
 @Mojo(name = "tck-to-java", defaultPhase = LifecyclePhase.GENERATE_TEST_SOURCES, configurator = "dmn-mojo-configurator")
 public class TCKToJUnitMojo extends AbstractDMNMojo {
-    @Parameter(required = true, defaultValue = "com.gs.dmn.dialect.DMNStandardDialectDefinition")
+    @Parameter(required = true, defaultValue = "com.gs.dmn.dialect.StandardDMNDialectDefinition")
     public String dmnDialect;
 
     @Parameter(required = false)
