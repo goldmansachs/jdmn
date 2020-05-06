@@ -100,7 +100,7 @@ public class ContextToJavaTransformer {
             // Make complex type value
             String complexJavaType = this.dmnTransformer.drgElementOutputType(element);
             String complexTypeVariable = this.dmnTransformer.drgElementVariableName(element);
-            String expressionText = String.format("%s %s = %s;", this.dmnTransformer.itemDefinitionJavaClassName(complexJavaType), complexTypeVariable, this.dmnTransformer.defaultConstructor(this.dmnTransformer.itemDefinitionJavaClassName(complexJavaType)));
+            String expressionText = String.format("%s %s = %s;", this.dmnTransformer.itemDefinitionJavaSimpleClassName(complexJavaType), complexTypeVariable, this.dmnTransformer.defaultConstructor(this.dmnTransformer.itemDefinitionJavaSimpleClassName(complexJavaType)));
             statement.add(new ExpressionStatement(expressionText, returnType));
             // Add entries
             for(TContextEntry entry: context.getContextEntry()) {

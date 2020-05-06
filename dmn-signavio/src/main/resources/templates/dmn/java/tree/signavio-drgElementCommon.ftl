@@ -296,7 +296,8 @@ import static ${transformer.qualifiedName(subBKM)}.${transformer.bkmFunctionName
 <#macro addConversionMethod drgElement>
     <#if modelRepository.isCompoundDecisionTable(drgElement)>
     public ${transformer.drgElementOutputClassName(drgElement)} toDecisionOutput(${transformer.ruleOutputClassName(drgElement)} ruleOutput_) {
-        ${transformer.itemDefinitionJavaClassName(transformer.drgElementOutputClassName(drgElement))} result_ = ${transformer.defaultConstructor(transformer.itemDefinitionJavaClassName(transformer.drgElementOutputClassName(drgElement)))};
+        <#assign simpleClassName = transformer.itemDefinitionJavaSimpleClassName(transformer.drgElementOutputClassName(drgElement))>
+        ${simpleClassName} result_ = ${transformer.defaultConstructor(simpleClassName)};
         <#assign expression = modelRepository.expression(drgElement)>
         <#list expression.output as output>
         result_.${transformer.setter(drgElement, output)}(ruleOutput_ == null ? null : ruleOutput_.${transformer.getter(drgElement, output)});

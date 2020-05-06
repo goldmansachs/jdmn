@@ -215,7 +215,7 @@ public class TestLabUtil {
                     args.add(arg);
                 }
                 String arguments = String.join(", ", args);
-                return dmnTransformer.constructor(dmnTransformer.itemDefinitionJavaClassName(dmnTransformer.toJavaType(inputType)), arguments);
+                return dmnTransformer.constructor(dmnTransformer.itemDefinitionJavaSimpleClassName(dmnTransformer.toJavaType(inputType)), arguments);
             } else {
                 return "null";
             }

@@ -155,8 +155,9 @@ public class BasicDMN2JavaTransformer {
                 || type instanceof ListType && ((ListType) type).getElementType() instanceof ItemDefinitionType;
     }
 
-    public String itemDefinitionJavaInterfaceName(TItemDefinition itemDefinition) {
+    public String itemDefinitionJavaSimpleInterfaceName(TItemDefinition itemDefinition) {
         Type type = toFEELType(itemDefinition);
+        // ItemDefinition can be a complex type with isCollection = true
         if (type instanceof ListType && ((ListType) type).getElementType() instanceof ItemDefinitionType) {
             type = ((ListType) type).getElementType();
         }
@@ -167,15 +168,15 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
-    public String itemDefinitionJavaInterfaceName(String className) {
+    public String itemDefinitionJavaSimpleInterfaceName(String className) {
         return className.substring(0, className.length() - "Impl".length());
     }
 
-    public String itemDefinitionJavaClassName(String interfaceName) {
+    public String itemDefinitionJavaSimpleClassName(String interfaceName) {
         return interfaceName + "Impl";
     }
 
-    public String itemDefinitionTypeName(TItemDefinition itemDefinition) {
+    public String itemDefinitionJavaQualifiedInterfaceName(TItemDefinition itemDefinition) {
         Type type = toFEELType(itemDefinition);
         return toJavaType(type);
     }
@@ -193,7 +194,7 @@ public class BasicDMN2JavaTransformer {
         List<TItemDefinition> itemComponents = itemDefinition.getItemComponent();
         this.dmnModelRepository.sortNamedElements(itemComponents);
         for (TItemDefinition child : itemComponents) {
-            parameters.add(new Pair<>(itemDefinitionVariableName(child), itemDefinitionTypeName(child)));
+            parameters.add(new Pair<>(itemDefinitionVariableName(child), itemDefinitionJavaQualifiedInterfaceName(child)));
         }
         return parameters.stream().map(p -> String.format("%s %s", p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
     }
@@ -847,11 +848,11 @@ public class BasicDMN2JavaTransformer {
             } else if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(elementType)) {
                 arrayElementType = toJavaType(elementType);
             } else {
-                arrayElementType = itemDefinitionJavaClassName(toJavaType(elementType));
+                arrayElementType = itemDefinitionJavaSimpleClassName(toJavaType(elementType));
             }
             return String.format("(%s != null ? asList(%s.readValue(%s, %s[].class)) : null)", paramName, objectMapper(), paramName, arrayElementType);
         } else {
-            return String.format("(%s != null ? %s.readValue(%s, %s.class) : null)", paramName, objectMapper(), paramName, itemDefinitionJavaClassName(toJavaType(type)));
+            return String.format("(%s != null ? %s.readValue(%s, %s.class) : null)", paramName, objectMapper(), paramName, itemDefinitionJavaSimpleClassName(toJavaType(type)));
         }
     }
 
