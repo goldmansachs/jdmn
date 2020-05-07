@@ -130,7 +130,7 @@ public class DMNToJavaTransformer extends AbstractDMNTransformer {
             // Generate interface and class
             String javaInterfaceName = dmnTransformer.itemDefinitionJavaSimpleInterfaceName(itemDefinition);
             transformItemDefinition(itemDefinition, dmnTransformer, templateProvider.baseTemplatePath(), templateProvider.itemDefinitionInterfaceTemplate(), generatedClasses, outputPath, typePackageName, javaInterfaceName);
-            transformItemDefinition(itemDefinition, dmnTransformer, templateProvider.baseTemplatePath(), templateProvider.itemDefinitionClassTemplate(), generatedClasses, outputPath, typePackageName, dmnTransformer.itemDefinitionJavaSimpleClassName(javaInterfaceName));
+            transformItemDefinition(itemDefinition, dmnTransformer, templateProvider.baseTemplatePath(), templateProvider.itemDefinitionClassTemplate(), generatedClasses, outputPath, typePackageName, dmnTransformer.itemDefinitionJavaClassName(javaInterfaceName));
 
             // Process children
             transformItemDefinitionList(definitions, itemDefinition.getItemComponent(), dmnTransformer, generatedClasses, outputPath);

@@ -33,7 +33,9 @@ public interface NativeExpressionFactory {
     //
     String constructor(String className, String arguments);
 
-    String defaultConstructor(String className);
+    default String defaultConstructor(String className) {
+        return constructor(className, "");
+    }
 
     String fluentConstructor(String className, String addMethods);
 
@@ -90,6 +92,9 @@ public interface NativeExpressionFactory {
 
     String makeMemberAssignment(String complexTypeVariable, String memberName, String value);
 
+    //
+    // Equality
+    //
     String makeEquality(String left, String right);
 
     //
