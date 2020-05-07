@@ -22,7 +22,7 @@ public interface ${javaClassName} extends ${transformer.dmnTypeClassName()} {
         } else if (${javaClassName}.class.isAssignableFrom(other.getClass())) {
             return (${javaClassName})other;
         } else if (other instanceof ${transformer.contextClassName()}) {
-            ${transformer.itemDefinitionJavaSimpleClassName(javaClassName)} result_ = new ${transformer.itemDefinitionJavaSimpleClassName(javaClassName)}();
+            ${transformer.itemDefinitionJavaClassName(javaClassName)} result_ = new ${transformer.itemDefinitionJavaClassName(javaClassName)}();
         <#list itemDefinition.itemComponent as child>
             <#if modelRepository.label(child)?has_content>
             result_.${transformer.setter(child)}((${transformer.itemDefinitionJavaQualifiedInterfaceName(child)})((${transformer.contextClassName()})other).get("${modelRepository.name(child)}", "${modelRepository.label(child)}"));

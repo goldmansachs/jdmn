@@ -65,7 +65,7 @@ public class BasicDMN2JavaTransformer {
     protected final DMNModelRepository dmnModelRepository;
     protected final EnvironmentFactory environmentFactory;
     protected final FEELTypeTranslator feelTypeTranslator;
-    private final JavaExpressionFactory expressionFactory = new JavaExpressionFactory(this);
+    protected NativeExpressionFactory expressionFactory;
 
     protected final FEELTranslator feelTranslator;
     private final ContextToJavaTransformer contextToJavaTransformer;
@@ -93,6 +93,7 @@ public class BasicDMN2JavaTransformer {
         this.dmnModelRepository = dmnModelRepository;
         this.environmentFactory = environmentFactory;
         this.feelTypeTranslator = feelTypeTranslator;
+        setExpressionFactory();
 
         this.feelTranslator = new FEELTranslatorImpl(this);
         this.contextToJavaTransformer = new ContextToJavaTransformer(this);
@@ -117,6 +118,10 @@ public class BasicDMN2JavaTransformer {
         this.feelTypeMemoizer = new FEELTypeMemoizer();
         this.javaTypeMemoizer = new JavaTypeMemoizer();
         this.environmentMemoizer = new EnvironmentMemoizer();
+    }
+
+    protected void setExpressionFactory() {
+        this.expressionFactory = new JavaExpressionFactory(this);
     }
 
     public DMNModelRepository getDMNModelRepository() {
@@ -178,7 +183,7 @@ public class BasicDMN2JavaTransformer {
         return className.substring(0, className.length() - "Impl".length());
     }
 
-    public String itemDefinitionJavaSimpleClassName(String interfaceName) {
+    public String itemDefinitionJavaClassName(String interfaceName) {
         return interfaceName + "Impl";
     }
 

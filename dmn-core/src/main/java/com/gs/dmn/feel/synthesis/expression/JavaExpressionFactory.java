@@ -43,11 +43,6 @@ public class JavaExpressionFactory implements NativeExpressionFactory {
     }
 
     @Override
-    public String defaultConstructor(String className) {
-        return constructor(className, "");
-    }
-
-    @Override
     public String fluentConstructor(String className, String addMethods) {
         return String.format("new %s()%s", className, addMethods);
     }
@@ -187,11 +182,13 @@ public class JavaExpressionFactory implements NativeExpressionFactory {
         return String.format("%s.%s(%s);", complexTypeVariable, this.dmnTransformer.setter(memberName), value);
     }
 
+    //
+    // Equality
+    //
     @Override
     public String makeEquality(String left, String right) {
         return String.format("%s == %s", left, right);
     }
-
 
     //
     // Functions
@@ -247,9 +244,9 @@ public class JavaExpressionFactory implements NativeExpressionFactory {
 
     @Override
     public String decisionConstructorParameter(DRGElementReference<TDecision> d) {
-        return String.format("%s %s", dmnTransformer.qualifiedName(d), dmnTransformer.drgElementVariableName(d));
+        return String.format("%s %s", this.dmnTransformer.qualifiedName(d), this.dmnTransformer.drgElementVariableName(d));
     }
-    
+
     //
     // Literal
     //
@@ -303,6 +300,7 @@ public class JavaExpressionFactory implements NativeExpressionFactory {
         return String.format("to%s", javaInterfaceName);
     }
 
+    @Override
     public String convertDecisionArgumentFromString(String paramName, Type type) {
         if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
             String conversionMethod = FEELTypes.FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.get(type);
@@ -321,16 +319,17 @@ public class JavaExpressionFactory implements NativeExpressionFactory {
             if (elementType instanceof ListType) {
                 arrayElementType = "java.util.List";
             } else if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(elementType)) {
-                arrayElementType = dmnTransformer.toJavaType(elementType);
+                arrayElementType = this.dmnTransformer.toJavaType(elementType);
             } else {
-                arrayElementType = dmnTransformer.itemDefinitionJavaSimpleClassName(dmnTransformer.toJavaType(elementType));
+                arrayElementType = this.dmnTransformer.itemDefinitionJavaClassName(this.dmnTransformer.toJavaType(elementType));
             }
             return String.format("(%s != null ? asList(%s.readValue(%s, %s[].class)) : null)", paramName, objectMapper(), paramName, arrayElementType);
         } else {
-            return String.format("(%s != null ? %s.readValue(%s, %s.class) : null)", paramName, objectMapper(), paramName, dmnTransformer.itemDefinitionJavaSimpleClassName(dmnTransformer.toJavaType(type)));
+            return String.format("(%s != null ? %s.readValue(%s, %s.class) : null)", paramName, objectMapper(), paramName, dmnTransformer.itemDefinitionJavaClassName(dmnTransformer.toJavaType(type)));
         }
     }
 
+    @Override
     public String conversionFunction(Conversion conversion, String javaType) {
         if (conversion.getKind() == ConversionKind.NONE) {
             return null;

@@ -187,7 +187,7 @@
 <#macro addConversionMethod drgElement>
     <#if modelRepository.isCompoundDecisionTable(drgElement)>
     public ${transformer.drgElementOutputClassName(drgElement)} toDecisionOutput(${transformer.ruleOutputClassName(drgElement)} ruleOutput_) {
-        <#assign simpleClassName = transformer.itemDefinitionJavaSimpleClassName(transformer.drgElementOutputClassName(drgElement))>
+        <#assign simpleClassName = transformer.itemDefinitionJavaClassName(transformer.drgElementOutputClassName(drgElement))>
         ${simpleClassName} result_ = ${transformer.defaultConstructor(simpleClassName)};
         <#assign expression = modelRepository.expression(drgElement)>
         <#list expression.output as output>

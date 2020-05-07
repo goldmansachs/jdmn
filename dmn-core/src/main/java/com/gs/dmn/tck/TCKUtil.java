@@ -558,7 +558,7 @@ public class TCKUtil {
         sortParameters(argumentList);
         String interfaceName = this.dmnTransformer.toJavaType(type);
         String arguments = argumentList.stream().map(Pair::getRight).collect(Collectors.joining(", "));
-        return this.dmnTransformer.constructor(this.dmnTransformer.itemDefinitionJavaSimpleClassName(interfaceName), arguments);
+        return this.dmnTransformer.constructor(this.dmnTransformer.itemDefinitionJavaClassName(interfaceName), arguments);
     }
 
     public Object makeValue(ValueType valueType) {
