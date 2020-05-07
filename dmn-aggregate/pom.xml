@@ -65,6 +65,12 @@
         </dependency>
         <dependency>
             <groupId>com.goldmansachs.jdmn</groupId>
+            <artifactId>jdmn-tck-integration-tests-kotlin-translator</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.goldmansachs.jdmn</groupId>
             <artifactId>jdmn-signavio-integration-tests-interpreter</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
