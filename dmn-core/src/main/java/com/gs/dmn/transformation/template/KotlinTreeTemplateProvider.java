@@ -17,4 +17,9 @@ public class KotlinTreeTemplateProvider extends TreeTemplateProvider {
     public String baseTemplatePath() {
         return "/templates/dmn/kotlin";
     }
+
+    @Override
+    public String testBaseTemplatePath() {
+        return "/templates/tck/kotlin";
+    }
 }
