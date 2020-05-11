@@ -38,13 +38,13 @@ import java.util.Map;
 
 import static com.gs.dmn.tck.TestCasesReader.isTCKFile;
 
-public class TCKTestCasesToJUnitTransformer extends AbstractTestCasesToJUnitTransformer {
+public class TCKTestCasesToJavaJUnitTransformer extends AbstractTestCasesToJUnitTransformer {
     protected final BasicDMN2JavaTransformer basicTransformer;
 
     protected final TestCasesReader testCasesReader;
     private final TCKUtil tckUtil;
 
-    public TCKTestCasesToJUnitTransformer(DMNDialectDefinition dialectDefinition, DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, Map<String, String> inputParameters, BuildLogger logger) {
+    public TCKTestCasesToJavaJUnitTransformer(DMNDialectDefinition dialectDefinition, DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, Map<String, String> inputParameters, BuildLogger logger) {
         super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
         DMNModelRepository repository = readModels(inputModelPath.toFile());
         this.basicTransformer = this.dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);
