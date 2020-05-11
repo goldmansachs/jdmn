@@ -14,7 +14,7 @@ package com.gs.dmn.tck;
 
 import org.junit.Test;
 
-public class CL3TestCasesToJUnitTransformerTest extends AbstractTCKTestCasesToJUnitTransformerTest {
+public class CL3TestCasesToJavaJUnitTransformerTest extends AbstractTCKTestCasesToJavaJUnitTransformerTest {
     @Override
     protected String getDMNInputPath() {
         return "tck/cl3/input";

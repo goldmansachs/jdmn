@@ -24,29 +24,14 @@ import com.gs.dmn.transformation.template.TemplateProvider;
 
 import java.util.Map;
 
-public abstract class AbstractTckDMNToKotlinTransformerTest extends AbstractDMNToJavaTest {
+public abstract class AbstractTckDMNToKotlinTransformerTest extends AbstractTckDMNToNativeTransformerTest {
     @Override
     protected DMNDialectDefinition makeDialectDefinition() {
         return new KotlinStandardDMNDialectDefinition();
     }
 
     @Override
-    protected DMNTransformer makeDMNTransformer(BuildLogger logger) {
-        return new ToSimpleNameTransformer(logger);
-    }
-
-    @Override
     protected TemplateProvider makeTemplateProvider() {
         return new KotlinTreeTemplateProvider();
-    }
-
-    @Override
-    protected LazyEvaluationDetector makeLazyEvaluationDetector(Map<String, String> inputParameters, BuildLogger logger) {
-        return new NopLazyEvaluationDetector();
-    }
-
-    @Override
-    protected TypeDeserializationConfigurer makeTypeDeserializationConfigurer(BuildLogger logger) {
-        return new DefaultTypeDeserializationConfigurer();
     }
 }

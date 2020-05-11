@@ -12,8 +12,6 @@
  */
 package com.gs.dmn.tck;
 
-import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.environment.DefaultDMNEnvironmentFactory;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DefaultDMNBaseDecision;
@@ -21,14 +19,12 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
-import com.gs.dmn.transformation.AbstractTestTransformerTest;
+import com.gs.dmn.transformation.AbstractTestCasesTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.FileTransformer;
 import com.gs.dmn.transformation.ToSimpleNameTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
-import com.gs.dmn.transformation.template.TemplateProvider;
-import com.gs.dmn.transformation.template.TreeTemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.DefaultDMNValidator;
 
@@ -37,7 +33,7 @@ import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends AbstractTestTransformerTest {
+public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends AbstractTestCasesTransformerTest {
     public void doSingleModelTest(String dmnFileName, String testFileName, Pair<String, String>... extraInputParameters) throws Exception {
         String dmnPath = getDMNInputPath() + "/";
         String testCasesPath = getTestCasesInputPath() + "/";
@@ -61,11 +57,6 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends Abstrac
     }
 
     @Override
-    protected DMNDialectDefinition makeDialectDefinition() {
-        return new StandardDMNDialectDefinition();
-    }
-
-    @Override
     protected DMNValidator makeDMNValidator(BuildLogger logger) {
         return new DefaultDMNValidator(logger);
     }
@@ -73,11 +64,6 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends Abstrac
     @Override
     protected DMNTransformer makeDMNTransformer(BuildLogger logger) {
         return new ToSimpleNameTransformer(logger);
-    }
-
-    @Override
-    protected TemplateProvider makeTemplateProvider(){
-        return new TreeTemplateProvider();
     }
 
     @Override
@@ -99,9 +85,7 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends Abstrac
     }
 
     @Override
-    protected FileTransformer makeTransformer(Path inputModelPath, Map<String, String> inputParameters, BuildLogger logger) {
-        return new TCKTestCasesToJUnitTransformer(makeDialectDefinition(), makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, LOGGER), makeTypeDeserializationConfigurer(logger), inputModelPath, inputParameters, logger);
-    }
+    protected abstract FileTransformer makeTransformer(Path inputModelPath, Map<String, String> inputParameters, BuildLogger logger);
 
     protected abstract String getDMNInputPath();
 
