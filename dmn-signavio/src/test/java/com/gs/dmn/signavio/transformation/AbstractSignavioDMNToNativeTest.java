@@ -31,14 +31,48 @@ import com.gs.dmn.validation.NopDMNValidator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public abstract class AbstractSignavioDMNToJavaTest extends AbstractSignavioDMNToNativeTest {
+public abstract class AbstractSignavioDMNToNativeTest extends AbstractDMNTransformerTest {
     @Override
     protected DMNDialectDefinition makeDialectDefinition() {
         return new SignavioDMNDialectDefinition();
     }
 
     @Override
+    protected DMNValidator makeDMNValidator(BuildLogger logger) {
+        return new NopDMNValidator();
+    }
+
+    @Override
+    protected DMNTransformer makeDMNTransformer(BuildLogger logger) {
+        return new RuleDescriptionTransformer();
+    }
+
+    @Override
     protected TemplateProvider makeTemplateProvider() {
         return new SignavioTreeTemplateProvider();
     }
+
+    @Override
+    protected LazyEvaluationDetector makeLazyEvaluationDetector(Map<String, String> inputParameters, BuildLogger logger) {
+        return new NopLazyEvaluationDetector();
+    }
+
+    @Override
+    protected TypeDeserializationConfigurer makeTypeDeserializationConfigurer(BuildLogger logger) {
+        return new DefaultTypeDeserializationConfigurer();
+    }
+
+    @Override
+    protected Map<String, String> makeInputParameters() {
+        Map<String, String> inputParams = new LinkedHashMap<>();
+        inputParams.put("environmentFactoryClass", SignavioEnvironmentFactory.class.getName());
+        inputParams.put("decisionBaseClass", DefaultSignavioBaseDecision.class.getName());
+        inputParams.put("dmnVersion", "1.1");
+        inputParams.put("modelVersion", "2.0");
+        inputParams.put("platformVersion", "1.0");
+        inputParams.put("semanticValidation", "false");
+        inputParams.put("signavioSchemaNamespace", "http://www.provider.com/schema/dmn/1.1/");
+        return inputParams;
+    }
+
 }

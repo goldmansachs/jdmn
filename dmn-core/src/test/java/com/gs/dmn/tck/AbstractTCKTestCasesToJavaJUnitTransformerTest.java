@@ -10,28 +10,31 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.transformation;
+package com.gs.dmn.tck;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
-import com.gs.dmn.serialization.TypeDeserializationConfigurer;
-import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
-import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
+import com.gs.dmn.transformation.FileTransformer;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.transformation.template.TreeTemplateProvider;
 
+import java.nio.file.Path;
 import java.util.Map;
 
-public abstract class AbstractTckDMNToJavaTransformerTest extends AbstractTckDMNToNativeTransformerTest {
+public abstract class AbstractTCKTestCasesToJavaJUnitTransformerTest extends AbstractTCKTestCasesToJUnitTransformerTest {
+    @Override
+    protected FileTransformer makeTransformer(Path inputModelPath, Map<String, String> inputParameters, BuildLogger logger) {
+        return new TCKTestCasesToJUnitTransformer(makeDialectDefinition(), makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, LOGGER), makeTypeDeserializationConfigurer(logger), inputModelPath, inputParameters, logger);
+    }
+
     @Override
     protected DMNDialectDefinition makeDialectDefinition() {
         return new StandardDMNDialectDefinition();
     }
 
     @Override
-    protected TemplateProvider makeTemplateProvider() {
+    protected TemplateProvider makeTemplateProvider(){
         return new TreeTemplateProvider();
     }
 }

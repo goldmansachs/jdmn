@@ -15,7 +15,7 @@ package com.gs.dmn.tck;
 import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 
-public class ImportTestCasesToJUnitTransformerTest extends AbstractTCKTestCasesToJUnitTransformerTest {
+public class ImportTestCasesToJavaJUnitTransformerTest extends AbstractTCKTestCasesToJavaJUnitTransformerTest {
     @Override
     protected String getDMNInputPath() {
         return "composite/input";

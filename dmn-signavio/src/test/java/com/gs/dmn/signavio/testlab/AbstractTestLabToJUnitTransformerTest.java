@@ -21,7 +21,7 @@ import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision;
 import com.gs.dmn.signavio.runtime.SignavioEnvironmentFactory;
 import com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider;
-import com.gs.dmn.transformation.AbstractTestTransformerTest;
+import com.gs.dmn.transformation.AbstractTestCasesTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.FileTransformer;
 import com.gs.dmn.transformation.NopDMNTransformer;
@@ -36,12 +36,7 @@ import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public abstract class AbstractTestLabToJUnitTransformerTest extends AbstractTestTransformerTest {
-    @Override
-    protected DMNDialectDefinition makeDialectDefinition() {
-        return new SignavioDMNDialectDefinition();
-    }
-
+public abstract class AbstractTestLabToJUnitTransformerTest extends AbstractTestCasesTransformerTest {
     @Override
     protected DMNValidator makeDMNValidator(BuildLogger logger) {
         return new NopDMNValidator();
@@ -53,11 +48,6 @@ public abstract class AbstractTestLabToJUnitTransformerTest extends AbstractTest
     }
 
     @Override
-    public TemplateProvider makeTemplateProvider() {
-        return new SignavioTreeTemplateProvider();
-    }
-
-    @Override
     protected LazyEvaluationDetector makeLazyEvaluationDetector(Map<String, String> inputParameters, BuildLogger logger) {
         return new NopLazyEvaluationDetector();
     }
@@ -65,11 +55,6 @@ public abstract class AbstractTestLabToJUnitTransformerTest extends AbstractTest
     @Override
     protected TypeDeserializationConfigurer makeTypeDeserializationConfigurer(BuildLogger logger) {
         return new DefaultTypeDeserializationConfigurer();
-    }
-
-    @Override
-    protected FileTransformer makeTransformer(Path inputModelPath, Map<String, String> inputParameters, BuildLogger logger) {
-        return new TestLabToJUnitTransformer(makeDialectDefinition(), makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, logger), makeTypeDeserializationConfigurer(logger), inputModelPath, inputParameters, logger);
     }
 
     @Override

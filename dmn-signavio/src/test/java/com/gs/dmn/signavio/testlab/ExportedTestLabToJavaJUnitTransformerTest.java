@@ -14,7 +14,7 @@ package com.gs.dmn.signavio.testlab;
 
 import org.junit.Test;
 
-public class ExportedTestLabToJUnitTransformerTest extends AbstractTestLabToJUnitTransformerTest {
+public class ExportedTestLabToJavaJUnitTransformerTest extends AbstractTestLabToJavaJUnitTransformerTestJava {
     @Test
     public void testNullSafeTests() throws Exception {
         doTest("Null Safe Tests");

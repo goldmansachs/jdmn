@@ -24,7 +24,7 @@ import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public abstract class AbstractDMNToJavaTest extends AbstractTransformerTest {
+public abstract class AbstractDMNTransformerTest extends AbstractTransformerTest {
     protected void doFolderTest() throws Exception {
         String inputPath = getInputPath();
         File folder = path(inputPath).toFile();

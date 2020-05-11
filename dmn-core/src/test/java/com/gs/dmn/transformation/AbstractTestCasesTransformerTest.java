@@ -19,7 +19,7 @@ import java.io.File;
 import java.nio.file.Path;
 import java.util.Map;
 
-public abstract class AbstractTestTransformerTest extends AbstractTransformerTest {
+public abstract class AbstractTestCasesTransformerTest extends AbstractTransformerTest {
     protected void doTest(String inputTestFilePath, String inputModelFilePath, String expectedOutputPath, Pair<String, String>... extraInputParameters) throws Exception {
         File outputFolder = new File("target/" + expectedOutputPath);
         outputFolder.mkdirs();
