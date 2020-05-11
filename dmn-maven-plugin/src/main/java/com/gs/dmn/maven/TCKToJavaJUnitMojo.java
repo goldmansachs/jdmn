@@ -15,14 +15,13 @@ package com.gs.dmn.maven;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.maven.configuration.components.DMNTransformerComponent;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
-import com.gs.dmn.signavio.testlab.TestLabToJUnitTransformer;
+import com.gs.dmn.tck.TCKTestCasesToJUnitTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.FileTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -31,9 +30,9 @@ import java.io.File;
 import java.util.Map;
 
 @SuppressWarnings("CanBeFinal")
-@Mojo(name = "testlab-to-java", defaultPhase = LifecyclePhase.GENERATE_TEST_SOURCES, configurator = "dmn-mojo-configurator")
-public class TestLabToJUnitMojo extends AbstractDMNMojo {
-    @Parameter(required = true, defaultValue = "com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition")
+@Mojo(name = "tck-to-java", defaultPhase = LifecyclePhase.GENERATE_TEST_SOURCES, configurator = "dmn-mojo-configurator")
+public class TCKToJavaJUnitMojo extends AbstractDMNMojo {
+    @Parameter(required = true, defaultValue = "com.gs.dmn.dialect.StandardDMNDialectDefinition")
     public String dmnDialect;
 
     @Parameter(required = false)
@@ -42,7 +41,7 @@ public class TestLabToJUnitMojo extends AbstractDMNMojo {
     @Parameter(required = false)
     public DMNTransformerComponent[] dmnTransformers;
 
-    @Parameter(required = true, defaultValue = "com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider")
+    @Parameter(required = true, defaultValue = "com.gs.dmn.transformation.template.TreeTemplateProvider")
     public String templateProvider;
 
     @Parameter(required = false)
@@ -54,24 +53,24 @@ public class TestLabToJUnitMojo extends AbstractDMNMojo {
     @Parameter(required = false)
     public Map<String, String> inputParameters;
 
-    @Parameter(required = true, defaultValue = "${project.basedir}/src/main/resources/signavio")
+    @Parameter(required = true, defaultValue = "${project.basedir}/src/main/resources/tck")
     public File inputTestFileDirectory;
 
-    @Parameter(required = true, defaultValue = "${project.basedir}/src/main/resources/signavio")
+    @Parameter(required = true, defaultValue = "${project.basedir}/src/main/resources/tck")
     public File inputModelFileDirectory;
 
     @Parameter(required = true, defaultValue = "${project.build.directory}/generated-test-sources/junit")
     public File outputFileDirectory;
 
     @Override
-    public void execute() throws MojoExecutionException, MojoFailureException {
+    public void execute() throws MojoExecutionException {
         checkMandatoryField(inputTestFileDirectory, "inputTestFileDirectory");
         checkMandatoryField(inputModelFileDirectory, "inputModelFileDirectory");
         checkMandatoryField(outputFileDirectory, "outputFileDirectory");
         checkMandatoryField(dmnDialect, "dmnDialect");
 
         try {
-            // Create transformer
+            // Create arguments
             MavenBuildLogger logger = new MavenBuildLogger(this.getLog());
             Class<?> dialectClass = Class.forName(dmnDialect);
             DMNDialectDefinition dmnDialect = (DMNDialectDefinition) dialectClass.newInstance();
@@ -80,7 +79,9 @@ public class TestLabToJUnitMojo extends AbstractDMNMojo {
             TemplateProvider templateProvider = makeTemplateProvider(this.templateProvider, logger);
             LazyEvaluationDetector lazyEvaluationDetector = makeLazyEvaluationDetector(this.lazyEvaluationDetectors, logger, this.inputParameters);
             TypeDeserializationConfigurer typeDeserializationConfigurer = makeTypeDeserializationConfigurer(this.typeDeserializationConfigurer, logger);
-            FileTransformer transformer = new TestLabToJUnitTransformer(
+
+            // Create transformer
+            FileTransformer transformer = new TCKTestCasesToJUnitTransformer(
                     dmnDialect, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer,
                     inputModelFileDirectory.toPath(), inputParameters,
                     logger

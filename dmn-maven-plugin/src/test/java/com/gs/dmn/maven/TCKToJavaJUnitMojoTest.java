@@ -24,8 +24,8 @@ import java.io.File;
 
 import static org.junit.Assert.assertTrue;
 
-public class TCKToJUnitMojoTest extends AbstractMojoTest {
-    private final TCKToJUnitMojo mojo = new TCKToJUnitMojo();
+public class TCKToJavaJUnitMojoTest extends AbstractMojoTest {
+    private final TCKToJavaJUnitMojo mojo = new TCKToJavaJUnitMojo();
     private final MavenProject project = new MavenProject();
 
     @Test(expected = IllegalArgumentException.class)
