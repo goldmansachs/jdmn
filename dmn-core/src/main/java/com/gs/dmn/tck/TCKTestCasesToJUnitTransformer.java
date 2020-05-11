@@ -19,7 +19,7 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
-import com.gs.dmn.transformation.AbstractDMNTransformer;
+import com.gs.dmn.transformation.AbstractTestCasesToJUnitTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
@@ -38,7 +38,7 @@ import java.util.Map;
 
 import static com.gs.dmn.tck.TestCasesReader.isTCKFile;
 
-public class TCKTestCasesToJUnitTransformer extends AbstractDMNTransformer {
+public class TCKTestCasesToJUnitTransformer extends AbstractTestCasesToJUnitTransformer {
     protected final BasicDMN2JavaTransformer basicTransformer;
 
     protected final TestCasesReader testCasesReader;
@@ -102,7 +102,7 @@ public class TCKTestCasesToJUnitTransformer extends AbstractDMNTransformer {
             // Make output file
             String javaPackageName = dmnTransformer.javaModelPackageName(testCases.getModelName());
             String relativeFilePath = javaPackageName.replace('.', '/');
-            String fileExtension = ".java";
+            String fileExtension = getFileExtension();
             File outputFile = makeOutputFile(outputPath, relativeFilePath, testClassName, fileExtension);
 
             // Make parameters
@@ -131,5 +131,10 @@ public class TCKTestCasesToJUnitTransformer extends AbstractDMNTransformer {
         params.put("testCases", testCases);
         params.put("tckUtil", tckUtil);
         return params;
+    }
+
+    @Override
+    protected String getFileExtension() {
+        return ".java";
     }
 }

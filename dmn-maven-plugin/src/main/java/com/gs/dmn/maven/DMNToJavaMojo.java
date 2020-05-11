@@ -16,7 +16,7 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.maven.configuration.components.DMNTransformerComponent;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
-import com.gs.dmn.transformation.DMNToJavaTransformer;
+import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.InputParamUtil;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
@@ -80,7 +80,7 @@ public class DMNToJavaMojo extends AbstractDMNMojo {
             validateParameters(dmnDialect, dmnValidator, dmnTransformer, templateProvider, inputParameters);
 
             // Create transformer
-            DMNToJavaTransformer transformer = dmnDialect.createDMNToJavaTransformer(
+            AbstractDMNToNativeTransformer transformer = dmnDialect.createDMNToJavaTransformer(
                     dmnValidator,
                     dmnTransformer,
                     templateProvider,

@@ -21,13 +21,10 @@ import com.gs.dmn.validation.DMNValidator;
 
 import java.util.Map;
 
-public class DMNToKotlinTransformer extends AbstractDMNToNativeTransformer {
-    public DMNToKotlinTransformer(DMNDialectDefinition dialectDefinition, DMNValidator dmnValidator, DMNTransformer<?> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
+public abstract class AbstractTestCasesToJUnitTransformer extends AbstractDMNTransformer {
+    public AbstractTestCasesToJUnitTransformer(DMNDialectDefinition dialectDefinition, DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
         super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
     }
 
-    @Override
-    protected String getFileExtension() {
-        return ".kt";
-    }
+    protected abstract String getFileExtension();
 }
