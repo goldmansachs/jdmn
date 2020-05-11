@@ -27,7 +27,7 @@ import com.gs.dmn.signavio.runtime.SignavioEnvironmentFactory;
 import com.gs.dmn.signavio.runtime.interpreter.SignavioDMNInterpreter;
 import com.gs.dmn.signavio.transformation.BasicSignavioDMN2JavaTransformer;
 import com.gs.dmn.signavio.transformation.SignavioDMNToJavaTransformer;
-import com.gs.dmn.transformation.DMNToJavaTransformer;
+import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
@@ -48,7 +48,7 @@ public class SignavioDMNDialectDefinition extends AbstractDMNDialectDefinition {
     }
 
     @Override
-    public DMNToJavaTransformer createDMNToJavaTransformer(DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
+    public AbstractDMNToNativeTransformer createDMNToJavaTransformer(DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
         return new SignavioDMNToJavaTransformer(this, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
     }
 
