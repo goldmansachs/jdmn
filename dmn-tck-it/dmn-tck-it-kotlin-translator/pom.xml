@@ -104,7 +104,7 @@
                         <id>test-cl2-0001-input-data-string</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0001-input-data-string-test-01.xml</inputTestFileDirectory>
@@ -134,7 +134,7 @@
                         <id>test-cl2-0002-input-data-number.dmn</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0002-input-data-number-test-01.xml</inputTestFileDirectory>
@@ -164,7 +164,7 @@
                         <id>test-cl2-0003-input-data-string-allowed-values</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0003-input-data-string-allowed-values-test-01.xml</inputTestFileDirectory>
@@ -194,7 +194,7 @@
                         <id>test-cl2-0004-simpletable-U</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0004-simpletable-U-test-01.xml</inputTestFileDirectory>
@@ -224,7 +224,7 @@
                         <id>test-cl2-0005-simpletable-A</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0005-simpletable-A-test-01.xml</inputTestFileDirectory>
@@ -254,7 +254,7 @@
                         <id>test-cl2-0006-simpletable-P1</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0006-simpletable-P1-test-01.xml</inputTestFileDirectory>
@@ -284,7 +284,7 @@
                         <id>test-cl2-0007-simpletable-P2</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0007-simpletable-P2-test-01.xml</inputTestFileDirectory>
@@ -314,7 +314,7 @@
                         <id>test-cl2-0008-LX-arithmetic</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0008-LX-arithmetic-test-01.xml</inputTestFileDirectory>
@@ -344,7 +344,7 @@
                         <id>test-cl2-0009-invocation-arithmetic</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0009-invocation-arithmetic-test-01.xml</inputTestFileDirectory>
@@ -374,7 +374,7 @@
                         <id>test-cl2-0010-multi-output-U</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0010-multi-output-U-test-01.xml</inputTestFileDirectory>
@@ -404,7 +404,7 @@
                         <id>test-cl2-0100-feel-constants</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0100-feel-constants-test-01.xml</inputTestFileDirectory>
@@ -434,7 +434,7 @@
                         <id>test-cl2-0101-feel-constants</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0101-feel-constants-test-01.xml</inputTestFileDirectory>
@@ -464,7 +464,7 @@
                         <id>test-cl2-0102-feel-constants</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0102-feel-constants-test-01.xml</inputTestFileDirectory>
@@ -494,7 +494,7 @@
                         <id>test-cl2-0105-feel-math</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0105-feel-math-test-01.xml</inputTestFileDirectory>
@@ -524,7 +524,7 @@
                         <id>test-cl2-0106-feel-ternary-logic</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0106-feel-ternary-logic-test-01.xml</inputTestFileDirectory>
@@ -554,7 +554,7 @@
                         <id>test-cl2-0107-feel-ternary-logic-not</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0107-feel-ternary-logic-not-test-01.xml</inputTestFileDirectory>
