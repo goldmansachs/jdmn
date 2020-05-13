@@ -6,7 +6,7 @@ import java.util.*;
 
 @javax.annotation.Generated(value = {"itemDefinition.ftl", "${modelRepository.name(itemDefinition)}"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
-public class ${javaClassName} implements ${transformer.itemDefinitionJavaInterfaceName(javaClassName)} {
+public class ${javaClassName} implements ${transformer.itemDefinitionJavaSimpleInterfaceName(javaClassName)} {
     <@addFields itemDefinition />
 
     public ${javaClassName}() {
@@ -23,7 +23,7 @@ public class ${javaClassName} implements ${transformer.itemDefinitionJavaInterfa
 <#macro addFields itemDefinition>
     <#list itemDefinition.itemComponent as child>
         <#assign memberName = transformer.itemDefinitionVariableName(child)/>
-        <#assign memberType = transformer.itemDefinitionTypeName(child)/>
+        <#assign memberType = transformer.itemDefinitionJavaQualifiedInterfaceName(child)/>
         private ${memberType} ${memberName};
     </#list>
 </#macro>
@@ -37,7 +37,7 @@ public class ${javaClassName} implements ${transformer.itemDefinitionJavaInterfa
 <#macro addAccessors itemDefinition>
     <#list itemDefinition.itemComponent as child>
         <#assign memberName = transformer.itemDefinitionVariableName(child)/>
-        <#assign memberType = transformer.itemDefinitionTypeName(child)/>
+        <#assign memberType = transformer.itemDefinitionJavaQualifiedInterfaceName(child)/>
     @com.fasterxml.jackson.annotation.JsonGetter("${transformer.escapeInString(modelRepository.displayName(child))}")
     public ${memberType} ${transformer.getter(child)} {
         return this.${memberName};

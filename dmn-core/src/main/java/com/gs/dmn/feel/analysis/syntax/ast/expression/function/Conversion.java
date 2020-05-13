@@ -13,7 +13,6 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 import com.gs.dmn.feel.analysis.semantics.type.Type;
-import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.Objects;
 
@@ -32,18 +31,6 @@ public class Conversion {
 
     public Type getTargetType() {
         return targetType;
-    }
-
-    public String conversionFunction(Conversion conversion, String javaType) {
-        if (conversion.kind == ConversionKind.NONE) {
-            return null;
-        } else if (conversion.kind == ConversionKind.ELEMENT_TO_LIST) {
-            return "asList";
-        } else if (conversion.kind == ConversionKind.LIST_TO_ELEMENT) {
-            return String.format("this.<%s>asElement", javaType);
-        } else {
-            throw new DMNRuntimeException(String.format("Conversion '%s' is not supported yet", conversion));
-        }
     }
 
     @Override

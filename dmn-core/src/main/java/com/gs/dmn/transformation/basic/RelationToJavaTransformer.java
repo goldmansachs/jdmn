@@ -16,6 +16,7 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.feel.synthesis.expression.NativeExpressionFactory;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.java.ExpressionStatement;
 import com.gs.dmn.transformation.java.Statement;
@@ -32,11 +33,13 @@ public class RelationToJavaTransformer {
     private final DMNModelRepository modelRepository;
     private final String indent = "\t\t\t\t";
     private final EnvironmentFactory environmentFactory;
+    private final NativeExpressionFactory expressionFactory;
 
     RelationToJavaTransformer(BasicDMN2JavaTransformer dmnTransformer) {
         this.modelRepository = dmnTransformer.getDMNModelRepository();
         this.dmnTransformer = dmnTransformer;
         this.environmentFactory = dmnTransformer.getEnvironmentFactory();
+        this.expressionFactory = dmnTransformer.getExpressionFactory();
     }
 
     public Statement expressionToJava(TDRGElement element, TRelation relation) {
@@ -90,7 +93,7 @@ public class RelationToJavaTransformer {
         }
 
         // Make a list
-        String result = dmnTransformer.asList(rowValues.stream().collect(Collectors.joining(",\n" + indent)));
+        String result = expressionFactory.asList(rowValues.stream().collect(Collectors.joining(",\n" + indent)));
         return new ExpressionStatement(result, resultType);
     }
 }

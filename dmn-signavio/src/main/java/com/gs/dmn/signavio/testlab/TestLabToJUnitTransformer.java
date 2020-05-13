@@ -20,7 +20,7 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
-import com.gs.dmn.transformation.AbstractDMNTransformer;
+import com.gs.dmn.transformation.AbstractTestCasesToJUnitTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.InputParamUtil;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
@@ -44,7 +44,7 @@ import java.util.Map;
 import static com.gs.dmn.serialization.DMNReader.isDMNFile;
 import static com.gs.dmn.signavio.testlab.TestLabReader.isTestLabFile;
 
-public class TestLabToJUnitTransformer extends AbstractDMNTransformer {
+public class TestLabToJUnitTransformer extends AbstractTestCasesToJUnitTransformer {
     private final TestLabReader testLabReader = new TestLabReader();
     private final TestLabValidator testLabValidator = new TestLabValidator();
 
@@ -140,7 +140,7 @@ public class TestLabToJUnitTransformer extends AbstractDMNTransformer {
 
             // Make output file
             String relativeFilePath = javaPackageName.replace('.', '/');
-            String fileExtension = ".java";
+            String fileExtension = getFileExtension();
             File outputFile = makeOutputFile(outputPath, relativeFilePath, testClassName, fileExtension);
 
             // Process template
@@ -171,5 +171,10 @@ public class TestLabToJUnitTransformer extends AbstractDMNTransformer {
         params.put("testLab", testLab);
         params.put("testLabUtil", testLabUtil);
         return params;
+    }
+
+    @Override
+    protected String getFileExtension() {
+        return ".java";
     }
 }

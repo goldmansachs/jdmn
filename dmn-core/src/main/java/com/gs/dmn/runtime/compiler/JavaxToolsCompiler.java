@@ -16,6 +16,7 @@ import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
+import com.gs.dmn.feel.synthesis.expression.NativeExpressionFactory;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import org.apache.commons.lang3.StringUtils;
@@ -50,7 +51,8 @@ public class JavaxToolsCompiler extends JavaCompilerImpl {
         String signature = "Object... args";
         boolean convertToContext = true;
         String body = feelTranslator.expressionToJava(element.getBody(), context);
-        String applyMethod = dmnTransformer.applyMethod(functionType, signature, convertToContext, body);
+        NativeExpressionFactory expressionFactory = dmnTransformer.getExpressionFactory();
+        String applyMethod = expressionFactory.applyMethod(functionType, signature, convertToContext, body);
 
         // Class parts
         String packageName = "com.gs.dmn.runtime";

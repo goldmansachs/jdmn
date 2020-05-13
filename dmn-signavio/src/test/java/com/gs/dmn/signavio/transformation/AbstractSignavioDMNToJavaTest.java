@@ -20,7 +20,7 @@ import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision;
 import com.gs.dmn.signavio.runtime.SignavioEnvironmentFactory;
 import com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider;
-import com.gs.dmn.transformation.AbstractDMNToJavaTest;
+import com.gs.dmn.transformation.AbstractDMNTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
@@ -31,48 +31,14 @@ import com.gs.dmn.validation.NopDMNValidator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public abstract class AbstractSignavioDMNToJavaTest extends AbstractDMNToJavaTest {
+public abstract class AbstractSignavioDMNToJavaTest extends AbstractSignavioDMNToNativeTest {
     @Override
     protected DMNDialectDefinition makeDialectDefinition() {
         return new SignavioDMNDialectDefinition();
     }
 
     @Override
-    protected DMNValidator makeDMNValidator(BuildLogger logger) {
-        return new NopDMNValidator();
-    }
-
-    @Override
-    protected DMNTransformer makeDMNTransformer(BuildLogger logger) {
-        return new RuleDescriptionTransformer();
-    }
-
-    @Override
     protected TemplateProvider makeTemplateProvider() {
         return new SignavioTreeTemplateProvider();
     }
-
-    @Override
-    protected LazyEvaluationDetector makeLazyEvaluationDetector(Map<String, String> inputParameters, BuildLogger logger) {
-        return new NopLazyEvaluationDetector();
-    }
-
-    @Override
-    protected TypeDeserializationConfigurer makeTypeDeserializationConfigurer(BuildLogger logger) {
-        return new DefaultTypeDeserializationConfigurer();
-    }
-
-    @Override
-    protected Map<String, String> makeInputParameters() {
-        Map<String, String> inputParams = new LinkedHashMap<>();
-        inputParams.put("environmentFactoryClass", SignavioEnvironmentFactory.class.getName());
-        inputParams.put("decisionBaseClass", DefaultSignavioBaseDecision.class.getName());
-        inputParams.put("dmnVersion", "1.1");
-        inputParams.put("modelVersion", "2.0");
-        inputParams.put("platformVersion", "1.0");
-        inputParams.put("semanticValidation", "false");
-        inputParams.put("signavioSchemaNamespace", "http://www.provider.com/schema/dmn/1.1/");
-        return inputParams;
-    }
-
 }
