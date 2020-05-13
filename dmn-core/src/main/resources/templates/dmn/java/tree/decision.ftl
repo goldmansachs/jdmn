@@ -50,6 +50,18 @@ public class ${javaClassName} extends ${decisionBaseClass} {
         }
     }
 
+    <#if transformer.isCaching()>
+    public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtra(transformer.drgElementSignatureWithConversionFromString(drgElement))}) {
+        try {
+            ${transformer.cacheInterfaceName()} ${transformer.cacheVariableName()} = new ${transformer.defaultCacheClassName()}();
+            return apply(${transformer.drgElementArgumentsExtraCache(transformer.drgElementArgumentsExtra(transformer.drgElementArgumentListWithConversionFromString(drgElement)))});
+        } catch (Exception e) {
+            logError("Cannot apply decision '${javaClassName}'", e);
+            return null;
+        }
+    }
+
+    </#if>
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraCache(transformer.drgElementSignatureExtra(transformer.drgElementSignatureWithConversionFromString(drgElement)))}) {
         try {
             return apply(${transformer.drgElementArgumentsExtraCache(transformer.drgElementArgumentsExtra(transformer.drgElementArgumentListWithConversionFromString(drgElement)))});
