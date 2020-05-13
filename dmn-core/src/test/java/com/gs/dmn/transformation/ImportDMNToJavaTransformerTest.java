@@ -23,7 +23,7 @@ public class ImportDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
 
     @Override
     protected String getExpectedPath() {
-        return "composite/expected/dmn";
+        return "composite/expected/java/dmn";
     }
 
     @Test

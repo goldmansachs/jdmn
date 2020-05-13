@@ -17,6 +17,7 @@ import com.gs.dmn.feel.analysis.semantics.type.ContextType;
 import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.feel.synthesis.expression.NativeExpressionFactory;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.expression.*;
@@ -38,6 +39,7 @@ public class TestLabUtil {
 
     private final BasicDMN2JavaTransformer dmnTransformer;
     private final SignavioDMNModelRepository dmnModelRepository;
+    private final NativeExpressionFactory expressionFactory;
 
     public TestLabUtil(BasicDMN2JavaTransformer dmnTransformer) {
         DMNModelRepository dmnModelRepository = dmnTransformer.getDMNModelRepository();
@@ -47,6 +49,7 @@ public class TestLabUtil {
             this.dmnModelRepository = new SignavioDMNModelRepository(dmnModelRepository.getRootDefinitions(), dmnModelRepository.getPrefixNamespaceMappings());
         }
         this.dmnTransformer = dmnTransformer;
+        this.expressionFactory = dmnTransformer.getExpressionFactory();
     }
 
     //
@@ -185,7 +188,7 @@ public class TestLabUtil {
                 List<String> elements = expressionList
                         .stream().map(e -> toJavaExpression(elementType(inputType), e, decision)).collect(Collectors.toList());
                 String exp = String.join(", ", elements);
-                return this.dmnTransformer.asList(exp);
+                return this.expressionFactory.asList(exp);
             } else {
                 return "null";
             }

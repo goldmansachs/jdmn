@@ -25,9 +25,9 @@ public interface ${javaClassName} extends ${transformer.dmnTypeClassName()} {
             ${transformer.itemDefinitionJavaClassName(javaClassName)} result_ = new ${transformer.itemDefinitionJavaClassName(javaClassName)}();
         <#list itemDefinition.itemComponent as child>
             <#if modelRepository.label(child)?has_content>
-            result_.${transformer.setter(child)}((${transformer.itemDefinitionTypeName(child)})((${transformer.contextClassName()})other).get("${modelRepository.name(child)}", "${modelRepository.label(child)}"));
+            result_.${transformer.setter(child)}((${transformer.itemDefinitionJavaQualifiedInterfaceName(child)})((${transformer.contextClassName()})other).get("${modelRepository.name(child)}", "${modelRepository.label(child)}"));
             <#else>
-            result_.${transformer.setter(child)}((${transformer.itemDefinitionTypeName(child)})((${transformer.contextClassName()})other).get("${modelRepository.name(child)}"));
+            result_.${transformer.setter(child)}((${transformer.itemDefinitionJavaQualifiedInterfaceName(child)})((${transformer.contextClassName()})other).get("${modelRepository.name(child)}"));
             </#if>
         </#list>
             return result_;
@@ -42,7 +42,7 @@ public interface ${javaClassName} extends ${transformer.dmnTypeClassName()} {
 <#macro addAccessors itemDefinition>
     <#list itemDefinition.itemComponent as child>
         <#assign memberName = transformer.itemDefinitionVariableName(child)/>
-        <#assign memberType = transformer.itemDefinitionTypeName(child)/>
+        <#assign memberType = transformer.itemDefinitionJavaQualifiedInterfaceName(child)/>
     @com.fasterxml.jackson.annotation.JsonGetter("${transformer.escapeInString(modelRepository.displayName(child))}")
     ${memberType} ${transformer.getter(child)};
 

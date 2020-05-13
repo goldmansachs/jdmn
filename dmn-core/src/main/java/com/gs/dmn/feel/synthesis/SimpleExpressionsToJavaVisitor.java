@@ -25,7 +25,8 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Multiplication;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.comparison.BetweenExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.comparison.InExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.comparison.Relational;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.*;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Conjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Disjunction;
@@ -245,7 +246,7 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
     @Override
     public Object visit(BooleanLiteral element, FEELContext context) {
         String value = element.getLexeme();
-        return "true".equals(value) ? "Boolean.TRUE" : "Boolean.FALSE";
+        return "true".equals(value) ? this.expressionFactory.trueConstant() : this.expressionFactory.falseConstant();
     }
 
     @Override

@@ -26,7 +26,7 @@ public class FEELToJavaForInterpreterVisitor extends FEELToJavaVisitor {
     protected String makeNavigation(Expression element, Type sourceType, String source, String memberName, String memberVariableName) {
         if (sourceType instanceof ItemDefinitionType) {
             String javaType = dmnTransformer.toJavaType(((ItemDefinitionType) sourceType).getMemberType(memberName));
-            return String.format("((%s)%s.%s)", javaType, source, dmnTransformer.contextGetter(memberName));
+            return this.expressionFactory.makeItemDefinitionSelectExpression(source, memberName, javaType);
         } else {
             return super.makeNavigation(element, sourceType, source, memberName, memberVariableName);
         }

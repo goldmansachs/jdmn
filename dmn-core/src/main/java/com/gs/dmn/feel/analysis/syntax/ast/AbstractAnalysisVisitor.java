@@ -19,6 +19,7 @@ import com.gs.dmn.feel.analysis.semantics.type.AnyType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.feel.synthesis.expression.NativeExpressionFactory;
 import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 
@@ -27,12 +28,14 @@ public abstract class AbstractAnalysisVisitor extends AbstractVisitor {
     protected final BasicDMN2JavaTransformer dmnTransformer;
     protected final EnvironmentFactory environmentFactory;
     protected final FEELTypeTranslator feelTypeTranslator;
+    protected final NativeExpressionFactory expressionFactory;
 
     protected AbstractAnalysisVisitor(BasicDMN2JavaTransformer dmnTransformer) {
         this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
         this.dmnTransformer = dmnTransformer;
         this.environmentFactory = dmnTransformer.getEnvironmentFactory();
         this.feelTypeTranslator = dmnTransformer.getFEELTypeTranslator();
+        this.expressionFactory = dmnTransformer.getExpressionFactory();
     }
 
     protected FEELContext makeFilterContext(FEELContext parentContext, Expression source, String filterVariableName) {
