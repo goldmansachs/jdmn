@@ -16,8 +16,8 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.AbstractDMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.lib.FEELLib;
-import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
-import com.gs.dmn.feel.synthesis.type.StandardFEELTypeTranslator;
+import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
+import com.gs.dmn.feel.synthesis.type.StandardNativeTypeFactory;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
@@ -62,8 +62,8 @@ public class SignavioDMNDialectDefinition extends AbstractDMNDialectDefinition {
     // Execution engine
     //
     @Override
-    public FEELTypeTranslator createTypeTranslator() {
-        return new StandardFEELTypeTranslator();
+    public NativeTypeFactory createTypeTranslator() {
+        return new StandardNativeTypeFactory();
     }
 
     @Override

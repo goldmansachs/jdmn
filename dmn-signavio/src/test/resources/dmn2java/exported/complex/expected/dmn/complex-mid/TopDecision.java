@@ -142,10 +142,7 @@ public class TopDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
 
         // Apply rule
         TopDecisionRuleOutput output_ = new TopDecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
-            (stringEqual(decision, "Don't Consider")),
-            Boolean.TRUE
-        )) {
+        if (Boolean.TRUE == (stringEqual(decision, "Don't Consider"))) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -173,10 +170,7 @@ public class TopDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
 
         // Apply rule
         TopDecisionRuleOutput output_ = new TopDecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
-            Boolean.TRUE,
-            booleanNot((notContainsAny(smallMid, asList("Reject"))))
-        )) {
+        if (Boolean.TRUE == booleanNot((notContainsAny(smallMid, asList("Reject"))))) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

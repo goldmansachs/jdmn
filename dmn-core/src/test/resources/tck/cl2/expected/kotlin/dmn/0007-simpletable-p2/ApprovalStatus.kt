@@ -120,11 +120,7 @@ class ApprovalStatus() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
         // Apply rule
         var output_: ApprovalStatusRuleOutput = ApprovalStatusRuleOutput(false)
-        if (true == booleanAnd(
-            true,
-            true,
-            true
-        )) {
+        if (true == true) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 

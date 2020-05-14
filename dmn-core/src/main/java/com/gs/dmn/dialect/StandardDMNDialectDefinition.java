@@ -17,8 +17,8 @@ import com.gs.dmn.feel.analysis.semantics.environment.DefaultDMNEnvironmentFacto
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.lib.DefaultFEELLib;
 import com.gs.dmn.feel.lib.FEELLib;
-import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
-import com.gs.dmn.feel.synthesis.type.StandardFEELTypeTranslator;
+import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
+import com.gs.dmn.feel.synthesis.type.StandardNativeTypeFactory;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DefaultDMNBaseDecision;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
@@ -63,8 +63,8 @@ public class StandardDMNDialectDefinition extends AbstractDMNDialectDefinition {
     // DMN execution
     //
     @Override
-    public FEELTypeTranslator createTypeTranslator() {
-        return new StandardFEELTypeTranslator();
+    public NativeTypeFactory createTypeTranslator() {
+        return new StandardNativeTypeFactory();
     }
 
     @Override

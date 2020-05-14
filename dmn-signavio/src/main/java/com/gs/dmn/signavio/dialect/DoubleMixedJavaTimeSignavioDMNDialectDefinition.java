@@ -13,8 +13,8 @@
 package com.gs.dmn.signavio.dialect;
 
 import com.gs.dmn.feel.lib.FEELLib;
-import com.gs.dmn.feel.synthesis.type.DoubleMixedJavaTimeFEELTypeTranslator;
-import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
+import com.gs.dmn.feel.synthesis.type.DoubleMixedJavaTimeNativeTypeFactory;
+import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.signavio.feel.lib.DoubleMixedJavaTimeSignavioLib;
 import com.gs.dmn.signavio.runtime.DoubleMixedJavaTimeSignavioBaseDecision;
 
@@ -23,8 +23,8 @@ public class DoubleMixedJavaTimeSignavioDMNDialectDefinition extends SignavioDMN
     // Execution engine
     //
     @Override
-    public FEELTypeTranslator createTypeTranslator() {
-        return new DoubleMixedJavaTimeFEELTypeTranslator();
+    public NativeTypeFactory createTypeTranslator() {
+        return new DoubleMixedJavaTimeNativeTypeFactory();
     }
 
     @Override

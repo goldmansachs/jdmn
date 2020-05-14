@@ -272,8 +272,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         var output_: PostBureauRiskCategoryTableRuleOutput = PostBureauRiskCategoryTableRuleOutput(false)
         if (true == booleanAnd(
             (booleanEqual(existingCustomer, false)),
-            (numericGreaterThan(applicationRiskScore, number("130"))),
-            true
+            (numericGreaterThan(applicationRiskScore, number("130")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)

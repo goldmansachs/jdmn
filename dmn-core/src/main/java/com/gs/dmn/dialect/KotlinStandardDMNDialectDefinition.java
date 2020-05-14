@@ -17,8 +17,8 @@ import com.gs.dmn.feel.analysis.semantics.environment.DefaultDMNEnvironmentFacto
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.lib.DefaultFEELLib;
 import com.gs.dmn.feel.lib.FEELLib;
-import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
-import com.gs.dmn.feel.synthesis.type.StandardFEELTypeToKotlinTranslator;
+import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
+import com.gs.dmn.feel.synthesis.type.StandardNativeTypeToKotlinFactory;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DefaultDMNBaseDecision;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
@@ -64,8 +64,8 @@ public class KotlinStandardDMNDialectDefinition extends AbstractDMNDialectDefini
     // DMN execution
     //
     @Override
-    public FEELTypeTranslator createTypeTranslator() {
-        return new StandardFEELTypeToKotlinTranslator();
+    public NativeTypeFactory createTypeTranslator() {
+        return new StandardNativeTypeToKotlinFactory();
     }
 
     @Override

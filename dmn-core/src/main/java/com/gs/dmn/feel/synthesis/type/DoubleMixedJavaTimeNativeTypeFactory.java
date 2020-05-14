@@ -26,7 +26,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
-public class DoubleMixedJavaTimeFEELTypeTranslator implements FEELTypeTranslator {
+public class DoubleMixedJavaTimeNativeTypeFactory extends JavaTypeFactory {
     private static final Map<String, String> TIME_FEEL_TO_JAVA_TYPE = new LinkedHashMap<>();
     static {
         TIME_FEEL_TO_JAVA_TYPE.put(ENUMERATION.getName(), String.class.getSimpleName());

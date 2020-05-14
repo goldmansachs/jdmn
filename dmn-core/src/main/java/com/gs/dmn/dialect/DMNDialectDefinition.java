@@ -16,7 +16,7 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.interpreter.FEELInterpreter;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
-import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
+import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
@@ -49,7 +49,7 @@ public interface DMNDialectDefinition {
     //
     // Execution engine
     //
-    FEELTypeTranslator createTypeTranslator();
+    NativeTypeFactory createTypeTranslator();
 
     FEELLib createFEELLib();
 

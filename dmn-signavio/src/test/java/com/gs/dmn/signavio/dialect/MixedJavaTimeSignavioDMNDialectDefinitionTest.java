@@ -15,8 +15,8 @@ package com.gs.dmn.signavio.dialect;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.lib.FEELLib;
-import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
-import com.gs.dmn.feel.synthesis.type.MixedJavaTimeFEELTypeTranslator;
+import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
+import com.gs.dmn.feel.synthesis.type.MixedJavaTimeNativeTypeFactory;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
@@ -66,8 +66,8 @@ public class MixedJavaTimeSignavioDMNDialectDefinitionTest {
 
     @Test
     public void testCreateTypeTranslator() {
-        FEELTypeTranslator typeTranslator = dialect.createTypeTranslator();
-        assertEquals(MixedJavaTimeFEELTypeTranslator.class.getName(), typeTranslator.getClass().getName());
+        NativeTypeFactory typeTranslator = dialect.createTypeTranslator();
+        assertEquals(MixedJavaTimeNativeTypeFactory.class.getName(), typeTranslator.getClass().getName());
     }
 
     @Test

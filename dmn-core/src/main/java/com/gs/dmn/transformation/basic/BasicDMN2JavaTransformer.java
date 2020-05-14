@@ -26,7 +26,7 @@ import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.FEELTranslatorImpl;
 import com.gs.dmn.feel.synthesis.expression.JavaExpressionFactory;
 import com.gs.dmn.feel.synthesis.expression.NativeExpressionFactory;
-import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
+import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.*;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
 import com.gs.dmn.runtime.annotation.DRGElementKind;
@@ -64,7 +64,7 @@ public class BasicDMN2JavaTransformer {
 
     protected final DMNModelRepository dmnModelRepository;
     protected final EnvironmentFactory environmentFactory;
-    protected final FEELTypeTranslator feelTypeTranslator;
+    protected final NativeTypeFactory typeFactory;
     protected NativeExpressionFactory expressionFactory;
 
     protected final FEELTranslator feelTranslator;
@@ -89,10 +89,10 @@ public class BasicDMN2JavaTransformer {
     protected final JavaTypeMemoizer javaTypeMemoizer;
     protected final EnvironmentMemoizer environmentMemoizer;
 
-    public BasicDMN2JavaTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, FEELTypeTranslator feelTypeTranslator, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
+    public BasicDMN2JavaTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory feelTypeTranslator, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         this.dmnModelRepository = dmnModelRepository;
         this.environmentFactory = environmentFactory;
-        this.feelTypeTranslator = feelTypeTranslator;
+        this.typeFactory = feelTypeTranslator;
         setExpressionFactory();
 
         this.feelTranslator = new FEELTranslatorImpl(this);
@@ -132,12 +132,16 @@ public class BasicDMN2JavaTransformer {
         return this.environmentFactory;
     }
 
-    public FEELTypeTranslator getFEELTypeTranslator() {
-        return this.feelTypeTranslator;
+    public NativeTypeFactory getFEELTypeTranslator() {
+        return this.typeFactory;
     }
 
     public FEELTranslator getFEELTranslator() {
         return this.feelTranslator;
+    }
+
+    public NativeTypeFactory getTypeFactory() {
+        return this.typeFactory;
     }
 
     public NativeExpressionFactory getExpressionFactory() {
@@ -1443,7 +1447,7 @@ public class BasicDMN2JavaTransformer {
     private String toJavaTypeNoCache(Type type) {
         if (type instanceof NamedType) {
             String typeName = ((NamedType) type).getName();
-            String primitiveType = this.feelTypeTranslator.toJavaType(typeName);
+            String primitiveType = this.typeFactory.toJavaType(typeName);
             if (!StringUtils.isBlank(primitiveType)) {
                 return primitiveType;
             } else {

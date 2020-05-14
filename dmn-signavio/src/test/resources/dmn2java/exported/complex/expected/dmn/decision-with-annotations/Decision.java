@@ -107,15 +107,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
-            (numericEqual(numberInput, number("1"))),
-            Boolean.TRUE,
-            Boolean.TRUE,
-            Boolean.TRUE,
-            Boolean.TRUE,
-            Boolean.TRUE,
-            Boolean.TRUE
-        )) {
+        if (Boolean.TRUE == (numericEqual(numberInput, number("1")))) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -143,15 +135,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
-            Boolean.TRUE,
-            (stringEqual(stringInput, "abc")),
-            Boolean.TRUE,
-            Boolean.TRUE,
-            Boolean.TRUE,
-            Boolean.TRUE,
-            Boolean.TRUE
-        )) {
+        if (Boolean.TRUE == (stringEqual(stringInput, "abc"))) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -179,15 +163,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
-            Boolean.TRUE,
-            Boolean.TRUE,
-            (booleanEqual(booleanInput, Boolean.TRUE)),
-            Boolean.TRUE,
-            Boolean.TRUE,
-            Boolean.TRUE,
-            Boolean.TRUE
-        )) {
+        if (Boolean.TRUE == (booleanEqual(booleanInput, Boolean.TRUE))) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -215,15 +191,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
-            Boolean.TRUE,
-            Boolean.TRUE,
-            Boolean.TRUE,
-            (dateEqual(dateInput, date("2017-01-01"))),
-            Boolean.TRUE,
-            Boolean.TRUE,
-            Boolean.TRUE
-        )) {
+        if (Boolean.TRUE == (dateEqual(dateInput, date("2017-01-01")))) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -251,15 +219,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
-            Boolean.TRUE,
-            Boolean.TRUE,
-            Boolean.TRUE,
-            Boolean.TRUE,
-            (stringEqual(enumerationInput, "E1")),
-            Boolean.TRUE,
-            Boolean.TRUE
-        )) {
+        if (Boolean.TRUE == (stringEqual(enumerationInput, "E1"))) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -288,11 +248,6 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            Boolean.TRUE,
-            Boolean.TRUE,
-            Boolean.TRUE,
-            Boolean.TRUE,
-            Boolean.TRUE,
             (stringEqual(((String)(person != null ? person.getName() : null)), "Peter")),
             (numericEqual(((java.math.BigDecimal)(person != null ? person.getAge() : null)), number("10")))
         )) {
