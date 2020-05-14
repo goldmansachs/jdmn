@@ -69,11 +69,7 @@ class EligibilityRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         var output_: EligibilityRulesRuleOutput = EligibilityRulesRuleOutput(false)
-        if (true == booleanAnd(
-            (stringEqual(preBureauRiskCategory, "DECLINE")),
-            true,
-            true
-        )) {
+        if (true == (stringEqual(preBureauRiskCategory, "DECLINE"))) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -102,11 +98,7 @@ class EligibilityRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         var output_: EligibilityRulesRuleOutput = EligibilityRulesRuleOutput(false)
-        if (true == booleanAnd(
-            true,
-            (booleanEqual(preBureauAffordability, false)),
-            true
-        )) {
+        if (true == (booleanEqual(preBureauAffordability, false))) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -135,11 +127,7 @@ class EligibilityRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         var output_: EligibilityRulesRuleOutput = EligibilityRulesRuleOutput(false)
-        if (true == booleanAnd(
-            true,
-            true,
-            (numericLessThan(age, number("18")))
-        )) {
+        if (true == (numericLessThan(age, number("18")))) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -168,11 +156,7 @@ class EligibilityRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         var output_: EligibilityRulesRuleOutput = EligibilityRulesRuleOutput(false)
-        if (true == booleanAnd(
-            true,
-            true,
-            true
-        )) {
+        if (true == true) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 

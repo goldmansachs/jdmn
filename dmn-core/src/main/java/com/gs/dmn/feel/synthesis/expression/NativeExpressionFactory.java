@@ -22,7 +22,9 @@ import com.gs.dmn.runtime.Pair;
 import org.omg.spec.dmn._20180521.model.TDecision;
 import org.omg.spec.dmn._20180521.model.TItemDefinition;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Octavian Patrascoiu on 06-May-20.
@@ -140,4 +142,12 @@ public interface NativeExpressionFactory {
     String convertDecisionArgumentFromString(String paramName, Type type);
 
     String conversionFunction(Conversion conversion, String javaType);
+
+    default List<String> optimizeAndArguments(List<String> conditionParts) {
+        List<String> result = conditionParts.stream().filter(c -> !trueConstant().equals(c)).collect(Collectors.toList());
+        if (result.size() == 0) {
+            result.add(trueConstant());
+        }
+        return result;
+    }
 }

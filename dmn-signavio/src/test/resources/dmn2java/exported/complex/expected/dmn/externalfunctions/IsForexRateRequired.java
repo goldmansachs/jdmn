@@ -134,13 +134,7 @@ public class IsForexRateRequired extends com.gs.dmn.signavio.runtime.DefaultSign
 
         // Apply rule
         IsForexRateRequiredRuleOutput output_ = new IsForexRateRequiredRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
-            Boolean.TRUE,
-            Boolean.TRUE,
-            Boolean.TRUE,
-            Boolean.TRUE,
-            Boolean.TRUE
-        )) {
+        if (Boolean.TRUE == Boolean.TRUE) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

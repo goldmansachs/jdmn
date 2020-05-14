@@ -71,12 +71,7 @@ class RoutingRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         var output_: RoutingRulesRuleOutput = RoutingRulesRuleOutput(false)
-        if (true == booleanAnd(
-            true,
-            (booleanEqual(postBureauAffordability, false)),
-            true,
-            true
-        )) {
+        if (true == (booleanEqual(postBureauAffordability, false))) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -105,12 +100,7 @@ class RoutingRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         var output_: RoutingRulesRuleOutput = RoutingRulesRuleOutput(false)
-        if (true == booleanAnd(
-            true,
-            true,
-            (booleanEqual(bankrupt, true)),
-            true
-        )) {
+        if (true == (booleanEqual(bankrupt, true))) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -139,12 +129,7 @@ class RoutingRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         var output_: RoutingRulesRuleOutput = RoutingRulesRuleOutput(false)
-        if (true == booleanAnd(
-            (stringEqual(postBureauRiskCategory, "HIGH")),
-            true,
-            true,
-            true
-        )) {
+        if (true == (stringEqual(postBureauRiskCategory, "HIGH"))) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -173,12 +158,7 @@ class RoutingRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         var output_: RoutingRulesRuleOutput = RoutingRulesRuleOutput(false)
-        if (true == booleanAnd(
-            true,
-            true,
-            true,
-            (numericLessThan(creditScore, number("580")))
-        )) {
+        if (true == (numericLessThan(creditScore, number("580")))) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -207,12 +187,7 @@ class RoutingRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         var output_: RoutingRulesRuleOutput = RoutingRulesRuleOutput(false)
-        if (true == booleanAnd(
-            true,
-            true,
-            true,
-            true
-        )) {
+        if (true == true) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
