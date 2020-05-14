@@ -16,8 +16,8 @@ import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.lib.PureJavaTimeFEELLib;
-import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
-import com.gs.dmn.feel.synthesis.type.PureJavaTimeFEELTypeTranslator;
+import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
+import com.gs.dmn.feel.synthesis.type.PureJavaTimeNativeTypeFactory;
 import com.gs.dmn.runtime.PureJavaTimeDMNBaseDecision;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
@@ -64,8 +64,8 @@ public class PureJavaTimeDMNDialectDefinitionTest extends AbstractTest {
 
     @Test
     public void testCreateTypeTranslator() {
-        FEELTypeTranslator typeTranslator = dialect.createTypeTranslator();
-        assertEquals(PureJavaTimeFEELTypeTranslator.class.getName(), typeTranslator.getClass().getName());
+        NativeTypeFactory typeTranslator = dialect.createTypeTranslator();
+        assertEquals(PureJavaTimeNativeTypeFactory.class.getName(), typeTranslator.getClass().getName());
     }
 
     @Test

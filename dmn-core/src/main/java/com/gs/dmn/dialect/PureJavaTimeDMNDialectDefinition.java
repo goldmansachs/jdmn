@@ -14,8 +14,8 @@ package com.gs.dmn.dialect;
 
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.lib.PureJavaTimeFEELLib;
-import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
-import com.gs.dmn.feel.synthesis.type.PureJavaTimeFEELTypeTranslator;
+import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
+import com.gs.dmn.feel.synthesis.type.PureJavaTimeNativeTypeFactory;
 import com.gs.dmn.runtime.PureJavaTimeDMNBaseDecision;
 
 public class PureJavaTimeDMNDialectDefinition extends StandardDMNDialectDefinition {
@@ -23,8 +23,8 @@ public class PureJavaTimeDMNDialectDefinition extends StandardDMNDialectDefiniti
     // DMN execution
     //
     @Override
-    public FEELTypeTranslator createTypeTranslator() {
-        return new PureJavaTimeFEELTypeTranslator();
+    public NativeTypeFactory createTypeTranslator() {
+        return new PureJavaTimeNativeTypeFactory();
     }
 
     @Override

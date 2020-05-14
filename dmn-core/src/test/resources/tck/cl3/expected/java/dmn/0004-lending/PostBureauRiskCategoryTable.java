@@ -289,8 +289,7 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
         PostBureauRiskCategoryTableRuleOutput output_ = new PostBureauRiskCategoryTableRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
             (booleanEqual(existingCustomer, Boolean.FALSE)),
-            (numericGreaterThan(applicationRiskScore, number("130"))),
-            Boolean.TRUE
+            (numericGreaterThan(applicationRiskScore, number("130")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

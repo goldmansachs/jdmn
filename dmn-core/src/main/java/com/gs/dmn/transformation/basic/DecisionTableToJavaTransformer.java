@@ -347,14 +347,16 @@ public class DecisionTableToJavaTransformer {
                 String condition = condition(element, decisionTable, inputEntry, i);
                 conditionParts.add(condition);
             }
+            // Optimize AND operator
+            List<String> optimizedConditionParts = this.expressionFactory.optimizeAndArguments(conditionParts);
             String left = this.expressionFactory.trueConstant();
             String right;
-            if (conditionParts.size() == 1) {
-                right = conditionParts.get(0);
+            if (optimizedConditionParts.size() == 1) {
+                right = optimizedConditionParts.get(0);
             } else {
                 String indent3tabs = "            ";
                 String indent2tabs = "        ";
-                String operands = conditionParts.stream().collect(Collectors.joining(",\n" + indent3tabs));
+                String operands = optimizedConditionParts.stream().collect(Collectors.joining(",\n" + indent3tabs));
                 right = String.format("booleanAnd(\n%s%s\n%s)", indent3tabs, operands, indent2tabs);
             }
             return this.expressionFactory.makeEquality(left, right);

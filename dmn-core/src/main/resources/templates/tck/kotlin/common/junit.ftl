@@ -18,7 +18,7 @@ import java.util.*
 import java.util.stream.Collectors
 
 @javax.annotation.Generated(value = ["junit.ftl", "${testCases.modelName}"])
-class ${testClassName} : ${decisionBaseClass} {
+class ${testClassName} : ${decisionBaseClass}() {
     <@addTestCases />
 }
 <#macro addTestCases>
@@ -33,7 +33,7 @@ class ${testClassName} : ${decisionBaseClass} {
 
         </#items>
     </#list>
-    private fun checkValues(Object expected, Object actual) {
+    private fun checkValues(expected: Any?, actual: Any?) {
         ${tckUtil.assertClassName()}.assertEquals(expected, actual)
     }
 </#macro>

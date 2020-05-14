@@ -20,14 +20,14 @@ import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.synthesis.expression.NativeExpressionFactory;
-import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
+import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 
 public abstract class AbstractAnalysisVisitor extends AbstractVisitor {
     protected final DMNModelRepository dmnModelRepository;
     protected final BasicDMN2JavaTransformer dmnTransformer;
     protected final EnvironmentFactory environmentFactory;
-    protected final FEELTypeTranslator feelTypeTranslator;
+    protected final NativeTypeFactory feelTypeTranslator;
     protected final NativeExpressionFactory expressionFactory;
 
     protected AbstractAnalysisVisitor(BasicDMN2JavaTransformer dmnTransformer) {

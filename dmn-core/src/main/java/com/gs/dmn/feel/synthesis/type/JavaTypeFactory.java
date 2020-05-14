@@ -12,8 +12,9 @@
  */
 package com.gs.dmn.feel.synthesis.type;
 
-public interface FEELTypeTranslator {
-    String toJavaType(String feelType);
-
-    String toQualifiedJavaType(String feelType);
+public abstract class JavaTypeFactory implements NativeTypeFactory {
+    @Override
+    public String nullableType(String type) {
+        return type;
+    }
 }

@@ -86,10 +86,7 @@ class ExtraDaysCase1() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
         // Apply rule
         var output_: ExtraDaysCase1RuleOutput = ExtraDaysCase1RuleOutput(false)
-        if (true == booleanAnd(
-            booleanOr((numericLessThan(age, number("18"))), (numericGreaterEqualThan(age, number("60")))),
-            true
-        )) {
+        if (true == booleanOr((numericLessThan(age, number("18"))), (numericGreaterEqualThan(age, number("60"))))) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -117,10 +114,7 @@ class ExtraDaysCase1() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
         // Apply rule
         var output_: ExtraDaysCase1RuleOutput = ExtraDaysCase1RuleOutput(false)
-        if (true == booleanAnd(
-            true,
-            (numericGreaterEqualThan(yearsOfService, number("30")))
-        )) {
+        if (true == (numericGreaterEqualThan(yearsOfService, number("30")))) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 

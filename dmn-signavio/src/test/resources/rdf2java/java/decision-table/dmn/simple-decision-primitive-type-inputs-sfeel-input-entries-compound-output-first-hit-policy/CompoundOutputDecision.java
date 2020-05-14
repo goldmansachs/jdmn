@@ -208,10 +208,7 @@ public class CompoundOutputDecision extends com.gs.dmn.signavio.runtime.DefaultS
             (dateLessThan(dateInput, date("2016-08-01"))),
             (timeLessThan(timeInput, time("12:00:00Z"))),
             (dateTimeLessThan(dateAndTimeInput, dateAndTime("2016-08-01T11:00:00Z"))),
-            (numericLessThan(numberInput, numericUnaryMinus(number("1")))),
-            Boolean.TRUE,
-            Boolean.TRUE,
-            Boolean.TRUE
+            (numericLessThan(numberInput, numericUnaryMinus(number("1"))))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -245,10 +242,7 @@ public class CompoundOutputDecision extends com.gs.dmn.signavio.runtime.DefaultS
             (dateLessEqualThan(dateInput, date("2016-08-01"))),
             (timeLessEqualThan(timeInput, time("12:00:00Z"))),
             (dateTimeLessEqualThan(dateAndTimeInput, dateAndTime("2016-08-01T11:00:00Z"))),
-            (numericGreaterEqualThan(numberInput, numericUnaryMinus(number("1")))),
-            Boolean.TRUE,
-            Boolean.TRUE,
-            Boolean.TRUE
+            (numericGreaterEqualThan(numberInput, numericUnaryMinus(number("1"))))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -282,10 +276,7 @@ public class CompoundOutputDecision extends com.gs.dmn.signavio.runtime.DefaultS
             (dateGreaterThan(dateInput, date("2016-08-01"))),
             (timeGreaterThan(timeInput, time("12:00:00Z"))),
             (dateTimeGreaterThan(dateAndTimeInput, dateAndTime("2016-08-01T11:00:00Z"))),
-            (numericGreaterThan(numberInput, numericUnaryMinus(number("1")))),
-            Boolean.TRUE,
-            Boolean.TRUE,
-            Boolean.TRUE
+            (numericGreaterThan(numberInput, numericUnaryMinus(number("1"))))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -318,11 +309,7 @@ public class CompoundOutputDecision extends com.gs.dmn.signavio.runtime.DefaultS
         if (Boolean.TRUE == booleanAnd(
             (dateGreaterEqualThan(dateInput, date("2016-08-01"))),
             (timeGreaterEqualThan(timeInput, time("12:00:00Z"))),
-            (dateTimeGreaterEqualThan(dateAndTimeInput, dateAndTime("2016-08-01T11:00:00Z"))),
-            Boolean.TRUE,
-            Boolean.TRUE,
-            Boolean.TRUE,
-            Boolean.TRUE
+            (dateTimeGreaterEqualThan(dateAndTimeInput, dateAndTime("2016-08-01T11:00:00Z")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
