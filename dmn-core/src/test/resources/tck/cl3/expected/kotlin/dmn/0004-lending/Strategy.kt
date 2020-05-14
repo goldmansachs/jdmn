@@ -91,10 +91,7 @@ class Strategy(val bureauCallType : BureauCallType = BureauCallType(), val eligi
 
         // Apply rule
         var output_: StrategyRuleOutput = StrategyRuleOutput(false)
-        if (true == booleanAnd(
-            (stringEqual(eligibility, "INELIGIBLE")),
-            true
-        )) {
+        if (true == (stringEqual(eligibility, "INELIGIBLE"))) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 

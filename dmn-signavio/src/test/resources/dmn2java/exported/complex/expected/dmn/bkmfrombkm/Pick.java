@@ -117,9 +117,6 @@ public class Pick extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
         // Apply rule
         PickRuleOutput output_ = new PickRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            Boolean.TRUE,
-            Boolean.TRUE,
-            Boolean.TRUE,
             (booleanEqual(numericLessEqualThan(count(dateOperators), count(datetimeOperators)), Boolean.FALSE)),
             (booleanEqual(numericGreaterEqualThan(count(datetimeOperators), count(timeOperators)), Boolean.TRUE))
         )) {
@@ -151,9 +148,6 @@ public class Pick extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
         // Apply rule
         PickRuleOutput output_ = new PickRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            Boolean.TRUE,
-            Boolean.TRUE,
-            Boolean.TRUE,
             (booleanEqual(numericLessEqualThan(count(dateOperators), count(datetimeOperators)), Boolean.TRUE)),
             (booleanEqual(numericGreaterEqualThan(count(datetimeOperators), count(timeOperators)), Boolean.FALSE))
         )) {
@@ -185,9 +179,6 @@ public class Pick extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
         // Apply rule
         PickRuleOutput output_ = new PickRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            Boolean.TRUE,
-            Boolean.TRUE,
-            Boolean.TRUE,
             (booleanEqual(numericLessEqualThan(count(dateOperators), count(datetimeOperators)), Boolean.TRUE)),
             (booleanEqual(numericGreaterEqualThan(count(datetimeOperators), count(timeOperators)), Boolean.TRUE))
         )) {

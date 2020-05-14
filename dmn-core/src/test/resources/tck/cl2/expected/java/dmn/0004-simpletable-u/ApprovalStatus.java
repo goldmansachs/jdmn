@@ -167,7 +167,6 @@ public class ApprovalStatus extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         ApprovalStatusRuleOutput output_ = new ApprovalStatusRuleOutput(false);
         if (Boolean.TRUE == booleanAnd(
-            Boolean.TRUE,
             (stringEqual(riskCategory, "High")),
             (booleanEqual(isAffordable, Boolean.TRUE))
         )) {
@@ -198,11 +197,7 @@ public class ApprovalStatus extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         ApprovalStatusRuleOutput output_ = new ApprovalStatusRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
-            Boolean.TRUE,
-            Boolean.TRUE,
-            (booleanEqual(isAffordable, Boolean.FALSE))
-        )) {
+        if (Boolean.TRUE == (booleanEqual(isAffordable, Boolean.FALSE))) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
