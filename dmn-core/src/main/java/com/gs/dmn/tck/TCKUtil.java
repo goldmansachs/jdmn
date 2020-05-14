@@ -17,6 +17,7 @@ import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.lib.StandardFEELLib;
+import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
@@ -53,11 +54,13 @@ public class TCKUtil {
 
     private final BasicDMN2JavaTransformer dmnTransformer;
     private final StandardFEELLib feelLib;
+    private final NativeTypeFactory typeFactory;
 
     public TCKUtil(BasicDMN2JavaTransformer dmnTransformer, StandardFEELLib feelLib) {
         this.dmnTransformer = dmnTransformer;
         this.feelLib = feelLib;
         this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
+        this.typeFactory = dmnTransformer.getTypeFactory();
     }
 
     //

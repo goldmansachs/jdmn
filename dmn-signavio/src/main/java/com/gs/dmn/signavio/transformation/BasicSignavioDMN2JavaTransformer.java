@@ -24,7 +24,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.StringLiteral;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
-import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
+import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.metadata.ExtensionElement;
@@ -45,7 +45,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
 
     private final SignavioDMNModelRepository dmnModelRepository;
 
-    public BasicSignavioDMN2JavaTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, FEELTypeTranslator feelTypeTranslator, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
+    public BasicSignavioDMN2JavaTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory feelTypeTranslator, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         super(dmnModelRepository, environmentFactory, feelTypeTranslator, lazyEvaluationDetector, inputParameters);
         this.dmnModelRepository = (SignavioDMNModelRepository) super.getDMNModelRepository();
     }

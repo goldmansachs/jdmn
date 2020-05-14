@@ -16,8 +16,8 @@ import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.lib.MixedJavaTimeFEELLib;
-import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
-import com.gs.dmn.feel.synthesis.type.MixedJavaTimeFEELTypeTranslator;
+import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
+import com.gs.dmn.feel.synthesis.type.MixedJavaTimeNativeTypeFactory;
 import com.gs.dmn.runtime.MixedJavaTimeDMNBaseDecision;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
@@ -64,8 +64,8 @@ public class MixedJavaTimeDMNDialectDefinitionTest extends AbstractTest {
 
     @Test
     public void testCreateTypeTranslator() {
-        FEELTypeTranslator typeTranslator = dialect.createTypeTranslator();
-        assertEquals(MixedJavaTimeFEELTypeTranslator.class.getName(), typeTranslator.getClass().getName());
+        NativeTypeFactory typeTranslator = dialect.createTypeTranslator();
+        assertEquals(MixedJavaTimeNativeTypeFactory.class.getName(), typeTranslator.getClass().getName());
     }
 
     @Test
