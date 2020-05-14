@@ -43,7 +43,7 @@ import com.gs.dmn.feel.synthesis.AbstractFEELToJavaVisitor;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.FEELTranslatorForInterpreter;
 import com.gs.dmn.feel.synthesis.JavaOperator;
-import com.gs.dmn.feel.synthesis.type.FEELTypeTranslator;
+import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.LambdaExpression;
 import com.gs.dmn.runtime.Pair;
@@ -73,7 +73,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
 
     private final DMNInterpreter dmnInterpreter;
     private final FEELLib lib;
-    private final FEELTypeTranslator typeTranslator;
+    private final NativeTypeFactory typeTranslator;
     private final FEELTranslator feelTranslator;
 
 //    private static final JavaCompiler JAVA_COMPILER = new JavaAssistCompiler();
