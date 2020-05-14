@@ -179,7 +179,7 @@ public class TCKUtil {
 
     public String toJavaType(InputNodeInfo info) {
         Type feelType = toFEELType(info);
-        return this.dmnTransformer.toJavaType(feelType);
+        return this.typeFactory.nullableType(this.dmnTransformer.toJavaType(feelType));
     }
 
     public String inputDataVariableName(InputNodeInfo info) {
