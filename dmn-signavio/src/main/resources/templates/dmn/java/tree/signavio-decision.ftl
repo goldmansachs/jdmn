@@ -88,7 +88,7 @@ public class ${javaClassName} extends ${decisionBaseClass} {
         return apply(${transformer.drgElementDefaultArgumentsExtraCache(transformer.drgElementDefaultArgumentsExtra(transformer.drgElementArgumentList(drgElement)))});
     }
 
-    public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraCache(transformer.drgElementSignatureExtra(transformer.drgElementSignature(drgElement)))}) {
+    public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraCache(drgElement)}) {
         <@applyMethodBody drgElement />
     }
     <@evaluateExpressionMethod drgElement />
