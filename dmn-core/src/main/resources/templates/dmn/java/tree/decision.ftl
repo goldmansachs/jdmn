@@ -73,7 +73,7 @@ public class ${javaClassName} extends ${decisionBaseClass} {
 
     </#if>
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignature(drgElement)}) {
-        return apply(${transformer.drgElementDefaultArgumentsExtraCache(transformer.drgElementDefaultArgumentsExtra(transformer.drgElementArgumentList(drgElement)))});
+        return apply(${transformer.drgElementDefaultArgumentsExtraCache(drgElement)});
     }
 
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraCache(drgElement)}) {

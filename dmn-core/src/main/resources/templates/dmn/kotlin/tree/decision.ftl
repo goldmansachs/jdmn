@@ -50,7 +50,7 @@ class ${javaClassName}(${transformer.decisionConstructorSignature(drgElement)}) 
 
     </#if>
     fun apply(${transformer.drgElementSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
-        return apply(${transformer.drgElementDefaultArgumentsExtraCache(transformer.drgElementDefaultArgumentsExtra(transformer.drgElementArgumentList(drgElement)))})
+        return apply(${transformer.drgElementDefaultArgumentsExtraCache(drgElement)})
     }
 
     fun apply(${transformer.drgElementSignatureExtraCache(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {

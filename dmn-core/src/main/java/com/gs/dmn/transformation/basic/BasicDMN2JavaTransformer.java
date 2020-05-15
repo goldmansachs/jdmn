@@ -501,6 +501,16 @@ public class BasicDMN2JavaTransformer {
         return drgElementDefaultArgumentsExtra(arguments);
     }
 
+    public String drgElementDefaultArgumentsExtraCache(TDRGElement element) {
+        String arguments = drgElementDefaultArgumentsExtra(element);
+        return drgElementDefaultArgumentsExtraCache(arguments);
+    }
+
+    private String drgElementDefaultArgumentsExtra(TDRGElement element) {
+        String arguments = drgElementArgumentList(element);
+        return drgElementDefaultArgumentsExtra(arguments);
+    }
+
     public String drgElementArgumentListWithConversionFromString(TDRGElement element) {
         if (element instanceof TDecision) {
             List<Pair<String, Type>> parameters = inputDataParametersClosure(this.dmnModelRepository.makeDRGElementReference((TDecision) element));
