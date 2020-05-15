@@ -136,7 +136,7 @@
     BKM linked to Decision
 -->
 <#macro addEvaluateBKMLinkedToDecisionMethod drgElement>
-    protected ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementSignatureExtra(transformer.drgElementSignature(drgElement))}) {
+    protected ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementSignatureExtra(drgElement)}) {
         return ${transformer.bkmLinkedToDecisionToJava(drgElement)};
     }
 </#macro>

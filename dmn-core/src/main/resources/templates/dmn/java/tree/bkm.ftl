@@ -32,11 +32,11 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     private ${javaClassName}() {
     }
 
-    public static ${transformer.drgElementOutputType(drgElement)} ${transformer.bkmFunctionName(drgElement)}(${transformer.drgElementSignatureExtra(transformer.drgElementSignature(drgElement))}) {
+    public static ${transformer.drgElementOutputType(drgElement)} ${transformer.bkmFunctionName(drgElement)}(${transformer.drgElementSignatureExtra(drgElement)}) {
         return INSTANCE.apply(${transformer.drgElementArgumentsExtra(transformer.drgElementArgumentList(drgElement))});
     }
 
-    private ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtra(transformer.drgElementSignature(drgElement))}) {
+    private ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtra(drgElement)}) {
         <@applyMethodBody drgElement />
     }
     <@evaluateExpressionMethod drgElement />
