@@ -463,6 +463,14 @@ public class BasicDMN2JavaTransformer {
         }
     }
 
+    public String drgElementSignatureExtraCacheWithConversionFromString(TDRGElement element) {
+        return drgElementSignatureExtraCache(drgElementSignatureExtraWithConversionFromString(element));
+    }
+
+    public String drgElementSignatureExtraWithConversionFromString(TDRGElement element) {
+        return drgElementSignatureExtra(drgElementSignatureWithConversionFromString(element));
+    }
+
     public String drgElementSignatureWithConversionFromString(TDRGElement element) {
         if (element instanceof TDecision) {
             List<Pair<String, Type>> parameters = inputDataParametersClosure(this.dmnModelRepository.makeDRGElementReference((TDecision) element));
@@ -471,6 +479,26 @@ public class BasicDMN2JavaTransformer {
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
         }
+    }
+
+    public String drgElementArgumentsExtraCacheWithConversionFromString(TDRGElement element) {
+        String arguments = drgElementArgumentsExtraWithConversionFromString(element);
+        return drgElementArgumentsExtraCache(arguments);
+    }
+
+    private String drgElementArgumentsExtraWithConversionFromString(TDRGElement element) {
+        String arguments = drgElementArgumentListWithConversionFromString(element);
+        return drgElementArgumentsExtra(arguments);
+    }
+
+    public String drgElementDefaultArgumentsExtraCacheWithConversionFromString(TDRGElement element) {
+        String arguments = drgElementDefaultArgumentsExtraWithConversionFromString(element);
+        return drgElementDefaultArgumentsExtraCache(arguments);
+    }
+
+    private String drgElementDefaultArgumentsExtraWithConversionFromString(TDRGElement element) {
+        String arguments = drgElementArgumentListWithConversionFromString(element);
+        return drgElementDefaultArgumentsExtra(arguments);
     }
 
     public String drgElementArgumentListWithConversionFromString(TDRGElement element) {

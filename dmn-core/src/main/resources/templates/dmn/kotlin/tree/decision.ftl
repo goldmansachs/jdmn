@@ -20,7 +20,7 @@ class ${javaClassName}(${transformer.decisionConstructorSignature(drgElement)}) 
     <#if transformer.shouldGenerateApplyWithConversionFromString(drgElement)>
     fun apply(${transformer.drgElementSignatureWithConversionFromString(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
         return try {
-            apply(${transformer.drgElementDefaultArgumentsExtraCache(transformer.drgElementDefaultArgumentsExtra(transformer.drgElementArgumentListWithConversionFromString(drgElement)))})
+            apply(${transformer.drgElementDefaultArgumentsExtraCacheWithConversionFromString(drgElement)})
         } catch (e: Exception) {
             logError("Cannot apply decision '${javaClassName}'", e)
             null
@@ -28,10 +28,10 @@ class ${javaClassName}(${transformer.decisionConstructorSignature(drgElement)}) 
     }
 
     <#if transformer.isCaching()>
-    fun apply(${transformer.drgElementSignatureExtra(transformer.drgElementSignatureWithConversionFromString(drgElement))}): ${transformer.drgElementOutputType(drgElement)} {
+    fun apply(${transformer.drgElementSignatureExtraWithConversionFromString(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
         return try {
             val ${transformer.cacheVariableName()} = ${transformer.defaultCacheClassName()}()
-            apply(${transformer.drgElementArgumentsExtraCache(transformer.drgElementArgumentsExtra(transformer.drgElementArgumentListWithConversionFromString(drgElement)))})
+            apply(${transformer.drgElementArgumentsExtraCacheWithConversionFromString(drgElement)})
         } catch (e: Exception) {
             logError("Cannot apply decision '${javaClassName}'", e)
             null
@@ -39,9 +39,9 @@ class ${javaClassName}(${transformer.decisionConstructorSignature(drgElement)}) 
     }
 
     </#if>
-    fun apply(${transformer.drgElementSignatureExtraCache(transformer.drgElementSignatureExtra(transformer.drgElementSignatureWithConversionFromString(drgElement)))}): ${transformer.drgElementOutputType(drgElement)} {
+    fun apply(${transformer.drgElementSignatureExtraCacheWithConversionFromString(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
         return try {
-            apply(${transformer.drgElementArgumentsExtraCache(transformer.drgElementArgumentsExtra(transformer.drgElementArgumentListWithConversionFromString(drgElement)))})
+            apply(${transformer.drgElementArgumentsExtraCacheWithConversionFromString(drgElement)})
         } catch (e: Exception) {
             logError("Cannot apply decision '${javaClassName}'", e)
             null
