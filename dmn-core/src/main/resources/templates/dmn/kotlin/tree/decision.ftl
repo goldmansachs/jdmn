@@ -53,7 +53,7 @@ class ${javaClassName}(${transformer.decisionConstructorSignature(drgElement)}) 
         return apply(${transformer.drgElementDefaultArgumentsExtraCache(transformer.drgElementDefaultArgumentsExtra(transformer.drgElementArgumentList(drgElement)))})
     }
 
-    fun apply(${transformer.drgElementSignatureExtraCache(transformer.drgElementSignatureExtra(transformer.drgElementSignature(drgElement)))}): ${transformer.drgElementOutputType(drgElement)} {
+    fun apply(${transformer.drgElementSignatureExtraCache(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
         <@applyMethodBody drgElement />
     }
     <@evaluateExpressionMethod drgElement />

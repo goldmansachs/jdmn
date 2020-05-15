@@ -1011,6 +1011,16 @@ public class BasicDMN2JavaTransformer {
         return DefaultCache.class.getName();
     }
 
+    public String drgElementSignatureExtra(DRGElementReference<? extends TDRGElement> reference) {
+        String signature = drgElementSignature(reference);
+        return drgElementSignatureExtra(signature);
+    }
+
+    public String drgElementSignatureExtra(TDRGElement element) {
+        String signature = drgElementSignature(element);
+        return drgElementSignatureExtra(signature);
+    }
+
     public String drgElementSignatureExtra(String signature) {
         String listenerParameter = this.expressionFactory.parameter(eventListenerClassName(), eventListenerVariableName());
         String executorParameter = this.expressionFactory.parameter(externalExecutorClassName(), externalExecutorVariableName());
@@ -1019,6 +1029,16 @@ public class BasicDMN2JavaTransformer {
         } else {
             return String.format("%s, %s, %s", signature, listenerParameter, executorParameter);
         }
+    }
+
+    public String drgElementArgumentsExtra(DRGElementReference<? extends TDRGElement> reference) {
+        String arguments = drgElementArgumentList(reference);
+        return drgElementArgumentsExtra(arguments);
+    }
+
+    public String drgElementArgumentsExtra(TDRGElement element) {
+        String arguments = drgElementArgumentList(element);
+        return drgElementArgumentsExtra(arguments);
     }
 
     public String drgElementArgumentsExtra(String arguments) {
@@ -1050,6 +1070,16 @@ public class BasicDMN2JavaTransformer {
         return this.cachedElements.contains(elementName);
     }
 
+    public String drgElementSignatureExtraCache(DRGElementReference<? extends TDRGElement> reference) {
+        String signature = drgElementSignatureExtra(reference);
+        return drgElementSignatureExtraCache(signature);
+    }
+
+    public String drgElementSignatureExtraCache(TDRGElement element) {
+        String signature = drgElementSignatureExtra(element);
+        return drgElementSignatureExtraCache(signature);
+    }
+
     public String drgElementSignatureExtraCache(String signature) {
         if (!this.caching) {
             return signature;
@@ -1061,6 +1091,16 @@ public class BasicDMN2JavaTransformer {
         } else {
             return String.format("%s, %s", signature, cacheParameter);
         }
+    }
+
+    public String drgElementArgumentsExtraCache(DRGElementReference<? extends TDRGElement> reference) {
+        String arguments = drgElementArgumentsExtra(reference);
+        return drgElementArgumentsExtraCache(arguments);
+    }
+
+    public String drgElementArgumentsExtraCache(TDRGElement element) {
+        String arguments = drgElementArgumentsExtra(element);
+        return drgElementArgumentsExtraCache(arguments);
     }
 
     public String drgElementArgumentsExtraCache(String arguments) {
