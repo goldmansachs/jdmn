@@ -544,11 +544,11 @@ public class BasicDMN2JavaTransformer {
     // Evaluate method related functions
     //
     public String drgElementEvaluateSignature(TDRGElement element) {
-        return drgElementSignatureExtra(drgElementDirectSignature(element));
+        return drgElementSignatureExtraCache(drgElementSignatureExtra(drgElementDirectSignature(element)));
     }
 
     public String drgElementEvaluateArgumentList(TDRGElement element) {
-        return drgElementArgumentsExtra(drgElementDirectArgumentList(element));
+        return drgElementArgumentsExtraCache(drgElementArgumentsExtra(drgElementDirectArgumentList(element)));
     }
 
     protected String drgElementDirectSignature(TDRGElement element) {

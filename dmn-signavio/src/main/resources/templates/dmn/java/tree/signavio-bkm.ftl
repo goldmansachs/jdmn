@@ -44,11 +44,11 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     private ${javaClassName}() {
     }
 
-    public static ${transformer.drgElementOutputType(drgElement)} ${transformer.bkmFunctionName(drgElement)}(${transformer.drgElementSignatureExtra(drgElement)}) {
-        return INSTANCE.apply(${transformer.drgElementArgumentsExtra(drgElement)});
+    public static ${transformer.drgElementOutputType(drgElement)} ${transformer.bkmFunctionName(drgElement)}(${transformer.drgElementSignatureExtraCache(drgElement)}) {
+        return INSTANCE.apply(${transformer.drgElementArgumentsExtraCache(drgElement)});
     }
 
-    private ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtra(drgElement)}) {
+    private ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraCache(drgElement)}) {
         <@applyMethodBody drgElement />
     }
     <@evaluateExpressionMethod drgElement />

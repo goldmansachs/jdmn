@@ -84,7 +84,7 @@
             } else {
                 <@applySubDecisionsIndent "    " drgElement/>
                 // Iterate and aggregate
-                ${transformer.drgElementOutputType(drgElement)} output_ = evaluate(${transformer.drgElementArgumentsExtraCache(transformer.drgElementEvaluateArgumentList(drgElement))});
+                ${transformer.drgElementOutputType(drgElement)} output_ = evaluate(${transformer.drgElementEvaluateArgumentList(drgElement)});
                 cache_.bind("${modelRepository.name(drgElement)}", output_);
 
                 <@endDRGElementAndReturnIndent "    " drgElement "output_" />
@@ -92,14 +92,14 @@
         <#else>
             <@applySubDecisions drgElement/>
             // Iterate and aggregate
-            ${transformer.drgElementOutputType(drgElement)} output_ = evaluate(${transformer.drgElementArgumentsExtraCache(transformer.drgElementEvaluateArgumentList(drgElement))});
+            ${transformer.drgElementOutputType(drgElement)} output_ = evaluate(${transformer.drgElementEvaluateArgumentList(drgElement)});
 
             <@endDRGElementAndReturn drgElement "output_" />
         </#if>
 </#macro>
 
 <#macro addEvaluateIterationMethod drgElement>
-    protected ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementSignatureExtraCache(transformer.drgElementEvaluateSignature(drgElement))}) {
+    protected ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementEvaluateSignature(drgElement)}) {
         <#assign multiInstanceDecision = transformer.multiInstanceDecisionLogic(drgElement)/>
         <#assign iterationExpression = multiInstanceDecision.iterationExpression/>
         <#assign iterator = multiInstanceDecision.iterator/>
@@ -136,7 +136,7 @@
     BKM linked to Decision
 -->
 <#macro addEvaluateBKMLinkedToDecisionMethod drgElement>
-    protected ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementSignatureExtra(drgElement)}) {
+    protected ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementEvaluateSignature(drgElement)}) {
         return ${transformer.bkmLinkedToDecisionToJava(drgElement)};
     }
 </#macro>
