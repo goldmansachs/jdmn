@@ -70,7 +70,7 @@ public class InvocationToJavaTransformer {
             }
             String bkmFunctionName = dmnTransformer.bkmQualifiedFunctionName(bkm);
             String argListString = argList.stream().map(s -> ((ExpressionStatement)s).getExpression()).collect(Collectors.joining(", "));
-            String expressionText = String.format("%s(%s)", bkmFunctionName, dmnTransformer.drgElementArgumentsExtra(dmnTransformer.augmentArgumentList(argListString)));
+            String expressionText = String.format("%s(%s)", bkmFunctionName, dmnTransformer.drgElementArgumentsExtraCache(dmnTransformer.drgElementArgumentsExtra(dmnTransformer.augmentArgumentList(argListString))));
             Type expressionType = dmnTransformer.toFEELType(model, dmnTransformer.drgElementOutputTypeRef(bkm));
             return new ExpressionStatement(expressionText, expressionType);
         } else {

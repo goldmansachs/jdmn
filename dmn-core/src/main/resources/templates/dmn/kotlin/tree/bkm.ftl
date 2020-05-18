@@ -19,7 +19,7 @@ import java.util.stream.Collectors
 class ${javaClassName} : ${decisionBaseClass} {
     private constructor() {}
 
-    private fun apply(${transformer.drgElementSignatureExtra(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+    private fun apply(${transformer.drgElementSignatureExtraCache(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
         <@applyMethodBody drgElement />
     }
     <@evaluateExpressionMethod drgElement />
@@ -37,8 +37,8 @@ class ${javaClassName} : ${decisionBaseClass} {
 
         val INSTANCE = ${javaClassName}()
 
-        fun ${transformer.bkmFunctionName(drgElement)}(${transformer.drgElementSignatureExtra(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
-            return INSTANCE.apply(${transformer.drgElementArgumentsExtra(drgElement)})
+        fun ${transformer.bkmFunctionName(drgElement)}(${transformer.drgElementSignatureExtraCache(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+            return INSTANCE.apply(${transformer.drgElementArgumentsExtraCache(drgElement)})
         }
     }
 }
