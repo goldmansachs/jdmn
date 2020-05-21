@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Copyright 2016 Goldman Sachs.
 
@@ -25,7 +26,6 @@
     <packaging>jar</packaging>
 
     <properties>
-        <dmn.version>1.1</dmn.version>
         <model.version>1.0</model.version>
         <platform.version>${project.parent.version}</platform.version>
 
