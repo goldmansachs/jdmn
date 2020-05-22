@@ -44,7 +44,7 @@ import java.util.Map;
 import static com.gs.dmn.serialization.DMNReader.isDMNFile;
 import static com.gs.dmn.signavio.testlab.TestLabReader.isTestLabFile;
 
-public class TestLabToJUnitTransformer extends AbstractTestCasesToJUnitTransformer {
+public class TestLabToJavaJUnitTransformer extends AbstractTestCasesToJUnitTransformer {
     private final TestLabReader testLabReader = new TestLabReader();
     private final TestLabValidator testLabValidator = new TestLabValidator();
 
@@ -53,7 +53,7 @@ public class TestLabToJUnitTransformer extends AbstractTestCasesToJUnitTransform
     private final TestLabUtil testLabUtil;
     private final TestLabEnhancer testLabEnhancer;
 
-    public TestLabToJUnitTransformer(DMNDialectDefinition dialectDefinition, DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, Map<String, String> inputParameters, BuildLogger logger) {
+    public TestLabToJavaJUnitTransformer(DMNDialectDefinition dialectDefinition, DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, Map<String, String> inputParameters, BuildLogger logger) {
         super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
         this.schemaNamespace = InputParamUtil.getOptionalParam(inputParameters, "signavioSchemaNamespace");
         if (StringUtils.isEmpty(this.schemaNamespace)) {

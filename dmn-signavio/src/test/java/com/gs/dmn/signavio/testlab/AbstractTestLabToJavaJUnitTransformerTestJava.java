@@ -14,26 +14,12 @@ package com.gs.dmn.signavio.testlab;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.serialization.DMNConstants;
-import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
-import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
-import com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision;
-import com.gs.dmn.signavio.runtime.SignavioEnvironmentFactory;
 import com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider;
-import com.gs.dmn.transformation.AbstractTestCasesTransformerTest;
-import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.FileTransformer;
-import com.gs.dmn.transformation.NopDMNTransformer;
-import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
-import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
-import com.gs.dmn.validation.DMNValidator;
-import com.gs.dmn.validation.NopDMNValidator;
 
-import java.net.URLDecoder;
 import java.nio.file.Path;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 public abstract class AbstractTestLabToJavaJUnitTransformerTestJava extends AbstractTestLabToJUnitTransformerTest {
@@ -49,6 +35,6 @@ public abstract class AbstractTestLabToJavaJUnitTransformerTestJava extends Abst
 
     @Override
     protected FileTransformer makeTransformer(Path inputModelPath, Map<String, String> inputParameters, BuildLogger logger) {
-        return new TestLabToJUnitTransformer(makeDialectDefinition(), makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, logger), makeTypeDeserializationConfigurer(logger), inputModelPath, inputParameters, logger);
+        return new TestLabToJavaJUnitTransformer(makeDialectDefinition(), makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, logger), makeTypeDeserializationConfigurer(logger), inputModelPath, inputParameters, logger);
     }
 }

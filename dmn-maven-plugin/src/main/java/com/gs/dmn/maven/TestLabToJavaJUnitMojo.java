@@ -15,7 +15,7 @@ package com.gs.dmn.maven;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.maven.configuration.components.DMNTransformerComponent;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
-import com.gs.dmn.signavio.testlab.TestLabToJUnitTransformer;
+import com.gs.dmn.signavio.testlab.TestLabToJavaJUnitTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.FileTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
@@ -80,7 +80,7 @@ public class TestLabToJavaJUnitMojo extends AbstractDMNMojo {
             TemplateProvider templateProvider = makeTemplateProvider(this.templateProvider, logger);
             LazyEvaluationDetector lazyEvaluationDetector = makeLazyEvaluationDetector(this.lazyEvaluationDetectors, logger, this.inputParameters);
             TypeDeserializationConfigurer typeDeserializationConfigurer = makeTypeDeserializationConfigurer(this.typeDeserializationConfigurer, logger);
-            FileTransformer transformer = new TestLabToJUnitTransformer(
+            FileTransformer transformer = new TestLabToJavaJUnitTransformer(
                     dmnDialect,
                     dmnValidator,
                     dmnTransformer,
