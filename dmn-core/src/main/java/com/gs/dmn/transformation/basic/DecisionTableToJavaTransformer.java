@@ -67,7 +67,7 @@ public class DecisionTableToJavaTransformer {
                         values.add(defaultValue(element, outputClause));
                     }
                     String defaultValue = this.dmnTransformer.constructor(this.dmnTransformer.itemDefinitionJavaClassName(this.dmnTransformer.drgElementOutputClassName(element)), String.join(", ", values));
-                    if (this.dmnTransformer.isList(element)) {
+                    if (this.dmnTransformer.hasListType(element)) {
                         return this.expressionFactory.asList(((ListType) feelType).getElementType(), defaultValue);
                     } else {
                         return defaultValue;
