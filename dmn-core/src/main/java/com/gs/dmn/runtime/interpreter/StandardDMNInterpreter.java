@@ -814,7 +814,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
             }
             // Return result
             if (this.dmnModelRepository.isCompoundDecisionTable(element)) {
-                if (dmnTransformer.isList(element)) {
+                if (dmnTransformer.hasListType(element)) {
                     return Arrays.asList(defaultValue);
                 } else {
                     return defaultValue;

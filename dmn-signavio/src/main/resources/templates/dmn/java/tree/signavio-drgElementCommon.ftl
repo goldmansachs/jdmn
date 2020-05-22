@@ -202,7 +202,7 @@ import static ${transformer.qualifiedName(subBKM)}.${transformer.bkmFunctionName
             output_ = ${transformer.defaultValue(drgElement)};
             <#if !modelRepository.hasAggregator(expression)>
             if (output_ == null) {
-                output_ = this.asList();
+                output_ = ${transformer.asEmptyList(drgElement)};
             }
             </#if>
         } else {

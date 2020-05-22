@@ -63,7 +63,7 @@ public class Test extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
             // Default value
             output_ = null;
             if (output_ == null) {
-                output_ = this.asList();
+                output_ = asList();
             }
         } else {
             List<? extends com.gs.dmn.runtime.RuleOutput> ruleOutputs_ = ruleOutputList_.applyMultiple(com.gs.dmn.runtime.annotation.HitPolicy.COLLECT);

@@ -148,7 +148,7 @@ public class BasicDMN2JavaTransformer {
         return this.expressionFactory;
     }
 
-    public boolean isList(TDRGElement element) {
+    public boolean hasListType(TDRGElement element) {
         Type feelType = drgElementOutputFEELType(element);
         return feelType instanceof ListType;
     }
@@ -1734,6 +1734,14 @@ public class BasicDMN2JavaTransformer {
             return ExpressionKind.kindByClass(expression.getClass());
         }
         return ExpressionKind.OTHER;
+    }
+
+    public String asEmptyList(TDRGElement element) {
+        Type type = drgElementOutputFEELType(element);
+        if (type instanceof ListType) {
+            return this.expressionFactory.asList(((ListType) type).getElementType(), "");
+        }
+        throw new DMNRuntimeException(String.format("Expected List Type found '%s' instead", type));
     }
 
     public String asList(Type elementType, String exp) {

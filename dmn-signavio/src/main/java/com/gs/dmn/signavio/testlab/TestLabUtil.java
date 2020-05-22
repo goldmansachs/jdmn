@@ -111,7 +111,7 @@ public class TestLabUtil {
 
     public boolean hasListType(ParameterDefinition parameterDefinition) {
         TDRGElement element = findDRGElement(parameterDefinition);
-        return this.dmnTransformer.isList(element);
+        return this.dmnTransformer.hasListType(element);
     }
 
     public boolean isSimple(Expression expression) {
