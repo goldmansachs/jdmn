@@ -21,6 +21,7 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.JsonSerializer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.TDecision;
 import org.omg.spec.dmn._20180521.model.TItemDefinition;
 
@@ -266,8 +267,13 @@ public class KotlinExpressionFactory implements NativeExpressionFactory {
         return String.format("%s", asElement(expression));
     }
 
-    public String asList(String exp) {
-        return String.format("asList(%s)", exp);
+    public String asList(Type elementType, String exp) {
+        if (StringUtils.isBlank(exp)) {
+            String elementJavaType = nullableType(this.dmnTransformer.toJavaType(elementType));
+            return String.format("asList<%s>()", elementJavaType);
+        } else {
+            return String.format("asList(%s)", exp);
+        }
     }
 
     public String asElement(String exp) {
@@ -275,7 +281,7 @@ public class KotlinExpressionFactory implements NativeExpressionFactory {
     }
 
     public String convertElementToList(String expression, Type type) {
-        return String.format("%s", asList(expression));
+        return String.format("%s", asList(type, expression));
     }
 
     public String makeListConversion(String javaExpression, ItemDefinitionType expectedElementType) {

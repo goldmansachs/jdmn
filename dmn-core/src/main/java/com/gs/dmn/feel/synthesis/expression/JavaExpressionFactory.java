@@ -267,7 +267,7 @@ public class JavaExpressionFactory implements NativeExpressionFactory {
         return String.format("this.<%s>%s", dmnTransformer.toJavaType(type), asElement(expression));
     }
 
-    public String asList(String exp) {
+    public String asList(Type elementType, String exp) {
         return String.format("asList(%s)", exp);
     }
 
@@ -276,7 +276,7 @@ public class JavaExpressionFactory implements NativeExpressionFactory {
     }
 
     public String convertElementToList(String expression, Type type) {
-        return String.format("%s", asList(expression));
+        return String.format("%s", asList(type, expression));
     }
 
     public String makeListConversion(String javaExpression, ItemDefinitionType expectedElementType) {

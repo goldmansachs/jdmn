@@ -1736,8 +1736,8 @@ public class BasicDMN2JavaTransformer {
         return ExpressionKind.OTHER;
     }
 
-    public String asList(String exp) {
-        return this.expressionFactory.asList(exp);
+    public String asList(Type elementType, String exp) {
+        return this.expressionFactory.asList(elementType, exp);
     }
 
     //
