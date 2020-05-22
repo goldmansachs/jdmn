@@ -18,6 +18,7 @@ import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.synthesis.expression.NativeExpressionFactory;
+import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.expression.*;
@@ -40,6 +41,7 @@ public class TestLabUtil {
     private final BasicDMN2JavaTransformer dmnTransformer;
     private final SignavioDMNModelRepository dmnModelRepository;
     private final NativeExpressionFactory expressionFactory;
+    private final NativeTypeFactory typeFactory;
 
     public TestLabUtil(BasicDMN2JavaTransformer dmnTransformer) {
         DMNModelRepository dmnModelRepository = dmnTransformer.getDMNModelRepository();
@@ -50,6 +52,7 @@ public class TestLabUtil {
         }
         this.dmnTransformer = dmnTransformer;
         this.expressionFactory = dmnTransformer.getExpressionFactory();
+        this.typeFactory = dmnTransformer.getTypeFactory();
     }
 
     //
@@ -185,10 +188,11 @@ public class TestLabUtil {
         } else if (isList(inputExpression)) {
             List<Expression> expressionList = ((ListExpression) inputExpression).getElements();
             if (expressionList != null) {
+                Type elementType = elementType(inputType);
                 List<String> elements = expressionList
-                        .stream().map(e -> toJavaExpression(elementType(inputType), e, decision)).collect(Collectors.toList());
+                        .stream().map(e -> toJavaExpression(elementType, e, decision)).collect(Collectors.toList());
                 String exp = String.join(", ", elements);
-                return this.expressionFactory.asList(exp);
+                return this.expressionFactory.asList(elementType, exp);
             } else {
                 return "null";
             }

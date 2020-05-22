@@ -16,6 +16,8 @@ import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
+import com.gs.dmn.feel.analysis.semantics.type.ListType;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;
@@ -263,7 +265,8 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
     public Object visit(ListLiteral element, FEELContext context) {
         List<Expression> expressionList = element.getExpressionList();
         String elements = expressionList.stream().map(e -> (String) e.accept(this, context)).collect(Collectors.joining(", "));
-        return dmnTransformer.asList(elements);
+        Type elementType = ((ListType) element.getType()).getElementType();
+        return dmnTransformer.asList(elementType, elements);
     }
 
     @Override

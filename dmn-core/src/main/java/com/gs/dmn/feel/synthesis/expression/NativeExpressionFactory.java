@@ -22,13 +22,9 @@ import com.gs.dmn.runtime.Pair;
 import org.omg.spec.dmn._20180521.model.TDecision;
 import org.omg.spec.dmn._20180521.model.TItemDefinition;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by Octavian Patrascoiu on 06-May-20.
- */
 public interface NativeExpressionFactory {
     //
     // Constructor
@@ -127,7 +123,7 @@ public interface NativeExpressionFactory {
     //
     String convertListToElement(String expression, Type type);
 
-    String asList(String exp);
+    String asList(Type elementType, String exp);
 
     String asElement(String exp);
 

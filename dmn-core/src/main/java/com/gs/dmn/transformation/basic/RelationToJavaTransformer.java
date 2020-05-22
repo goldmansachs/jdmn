@@ -15,6 +15,7 @@ package com.gs.dmn.transformation.basic;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
+import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.synthesis.expression.NativeExpressionFactory;
 import com.gs.dmn.runtime.Pair;
@@ -93,7 +94,8 @@ public class RelationToJavaTransformer {
         }
 
         // Make a list
-        String result = expressionFactory.asList(rowValues.stream().collect(Collectors.joining(",\n" + indent)));
+        Type elementType = ((ListType) resultType).getElementType();
+        String result = expressionFactory.asList(elementType, rowValues.stream().collect(Collectors.joining(",\n" + indent)));
         return new ExpressionStatement(result, resultType);
     }
 }

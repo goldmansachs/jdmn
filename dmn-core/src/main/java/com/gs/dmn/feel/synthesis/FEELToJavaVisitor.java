@@ -319,7 +319,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
 
         // Convert source to list
         if (!(sourceType instanceof ListType)) {
-            source = this.dmnTransformer.asList(source);
+            source = this.dmnTransformer.asList(sourceType, source);
         }
 
         // Filter
@@ -559,7 +559,8 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     public Object visit(ListLiteral element, FEELContext context) {
         List<Expression> expressionList = element.getExpressionList();
         String elements = expressionList.stream().map(e -> (String) e.accept(this, context)).collect(Collectors.joining(", "));
-        return this.dmnTransformer.asList(elements);
+        Type elementType = ((ListType) element.getType()).getElementType();
+        return this.dmnTransformer.asList(elementType, elements);
     }
 
     @Override
