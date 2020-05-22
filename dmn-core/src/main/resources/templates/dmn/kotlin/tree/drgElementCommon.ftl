@@ -160,9 +160,9 @@
         <#items as rule>
         <#if modelRepository.isFirstSingleHit(expression.hitPolicy) && modelRepository.atLeastTwoRules(expression)>
         <#if rule?is_first>
-        val tempRuleOutput_: ${transformer.abstractRuleOutputClassName()} = rule${rule_index}(${transformer.drgElementArgumentsExtra(transformer.ruleArgumentList(drgElement))})
+        var tempRuleOutput_: ${transformer.abstractRuleOutputClassName()} = rule${rule_index}(${transformer.drgElementArgumentsExtra(transformer.ruleArgumentList(drgElement))})
         ruleOutputList_.add(tempRuleOutput_)
-        val matched_: Boolean = tempRuleOutput_.isMatched()
+        var matched_: Boolean = tempRuleOutput_.isMatched()
         <#else >
         if (!matched_) {
             tempRuleOutput_ = rule${rule_index}(${transformer.drgElementArgumentsExtra(transformer.ruleArgumentList(drgElement))})
@@ -197,7 +197,7 @@
         <#if transformer.isCached(modelRepository.name(drgElement))>
             if (cache_.contains("${modelRepository.name(drgElement)}")) {
                 // Retrieve value from cache
-                var output_:${transformer.drgElementOutputType(drgElement)} = cache_.lookup("${modelRepository.name(drgElement)}") as (${transformer.drgElementOutputType(drgElement)})
+                var output_:${transformer.drgElementOutputType(drgElement)} = cache_.lookup("${modelRepository.name(drgElement)}") as ${transformer.drgElementOutputType(drgElement)}
 
                 <@endDRGElementAndReturnIndent "    " drgElement "output_" />
             } else {
