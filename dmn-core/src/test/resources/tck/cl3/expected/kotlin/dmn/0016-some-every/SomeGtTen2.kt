@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class SomeGtTen2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     fun apply(priceTable2: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): Boolean? {
         return try {
-            apply(priceTable2?.let({ (com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, Array<Any?>::class.java)).toList() as List<type.TItemPrice?>?}), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+            apply(priceTable2?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<type.TItemPrice?>?>() {}) }), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
         } catch (e: Exception) {
             logError("Cannot apply decision 'SomeGtTen2'", e)
             null
@@ -24,7 +24,7 @@ class SomeGtTen2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
     fun apply(priceTable2: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): Boolean? {
         return try {
-            apply(priceTable2?.let({ (com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, Array<Any?>::class.java)).toList() as List<type.TItemPrice?>?}), annotationSet_, eventListener_, externalExecutor_)
+            apply(priceTable2?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<type.TItemPrice?>?>() {}) }), annotationSet_, eventListener_, externalExecutor_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'SomeGtTen2'", e)
             null
