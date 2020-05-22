@@ -82,8 +82,14 @@ public class TCKToJavaJUnitMojo extends AbstractDMNMojo {
 
             // Create transformer
             FileTransformer transformer = new TCKTestCasesToJavaJUnitTransformer(
-                    dmnDialect, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer,
-                    inputModelFileDirectory.toPath(), inputParameters,
+                    dmnDialect,
+                    dmnValidator,
+                    dmnTransformer,
+                    templateProvider,
+                    lazyEvaluationDetector,
+                    typeDeserializationConfigurer,
+                    inputModelFileDirectory.toPath(),
+                    inputParameters,
                     logger
             );
 

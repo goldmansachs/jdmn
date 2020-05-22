@@ -82,8 +82,14 @@ public class TCKToKotlinJUnitMojo extends AbstractDMNMojo {
 
             // Create transformer
             FileTransformer transformer = new TCKTestCasesToKotlinJUnitTransformer(
-                    dmnDialect, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer,
-                    inputModelFileDirectory.toPath(), inputParameters,
+                    dmnDialect,
+                    dmnValidator,
+                    dmnTransformer,
+                    templateProvider,
+                    lazyEvaluationDetector,
+                    typeDeserializationConfigurer,
+                    inputModelFileDirectory.toPath(),
+                    inputParameters,
                     logger
             );
 
