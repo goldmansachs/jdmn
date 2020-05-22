@@ -59,7 +59,7 @@ class Join() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     }
 
     private fun evaluate(deptTable: List<type.TDeptTable?>?, employeeTable: List<type.TEmployeeTable?>?, lastName: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): String? {
-        return (elementAt(deptTable?.filter({ item -> numericEqual(item?.let({ it.number as java.math.BigDecimal }), (elementAt(employeeTable?.filter({ item_1_ -> stringEqual(item_1_?.let({ it.name as String }), lastName) })?.map({ x -> x?.let({ it.deptNum as java.math.BigDecimal }) }), number("1")) as java.math.BigDecimal)) })?.map({ x -> x?.let({ it.manager as String }) }), number("1")) as String) as String?
+        return (elementAt(deptTable?.filter({ item -> numericEqual(item?.let({ it.number as java.math.BigDecimal? }), (elementAt(employeeTable?.filter({ item_1_ -> stringEqual(item_1_?.let({ it.name as String? }), lastName) })?.map({ x -> x?.let({ it.deptNum as java.math.BigDecimal? }) }), number("1")) as java.math.BigDecimal?)) })?.map({ x -> x?.let({ it.manager as String? }) }), number("1")) as String?) as String?
     }
 
     companion object {

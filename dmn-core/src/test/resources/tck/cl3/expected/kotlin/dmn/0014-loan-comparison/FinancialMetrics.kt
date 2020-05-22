@@ -38,10 +38,10 @@ class FinancialMetrics : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     private fun evaluate(product: type.TLoanProduct?, requestedAmt: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): type.TMetric? {
-        val lenderName: String? = product?.let({ it.lenderName as String }) as String?
-        val rate: java.math.BigDecimal? = product?.let({ it.rate as java.math.BigDecimal }) as java.math.BigDecimal?
-        val points: java.math.BigDecimal? = product?.let({ it.points as java.math.BigDecimal }) as java.math.BigDecimal?
-        val fee: java.math.BigDecimal? = product?.let({ it.fee as java.math.BigDecimal }) as java.math.BigDecimal?
+        val lenderName: String? = product?.let({ it.lenderName as String? }) as String?
+        val rate: java.math.BigDecimal? = product?.let({ it.rate as java.math.BigDecimal? }) as java.math.BigDecimal?
+        val points: java.math.BigDecimal? = product?.let({ it.points as java.math.BigDecimal? }) as java.math.BigDecimal?
+        val fee: java.math.BigDecimal? = product?.let({ it.fee as java.math.BigDecimal? }) as java.math.BigDecimal?
         val loanAmt: java.math.BigDecimal? = numericAdd(numericMultiply(requestedAmt, numericAdd(number("1"), numericDivide(points, number("100")))), fee) as java.math.BigDecimal?
         val downPmtAmt: java.math.BigDecimal? = numericMultiply(number("0.2"), loanAmt) as java.math.BigDecimal?
         val paymentAmt: java.math.BigDecimal? = MonthlyPayment.monthlyPayment(loanAmt, rate, number("360"), annotationSet_, eventListener_, externalExecutor_) as java.math.BigDecimal?
