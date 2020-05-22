@@ -491,6 +491,16 @@ public class BasicDMN2JavaTransformer {
         return drgElementArgumentsExtra(arguments);
     }
 
+    public String drgElementArgumentsExtraCacheWithConvertedArgumentList(TDRGElement element) {
+        String arguments = drgElementArgumentsExtraWithConvertedArgumentList(element);
+        return drgElementArgumentsExtraCache(arguments);
+    }
+
+    private String drgElementArgumentsExtraWithConvertedArgumentList(TDRGElement element) {
+        String arguments = drgElementConvertedArgumentList(element);
+        return drgElementArgumentsExtra(arguments);
+    }
+
     public String drgElementDefaultArgumentsExtraCacheWithConversionFromString(TDRGElement element) {
         String arguments = drgElementDefaultArgumentsExtraWithConversionFromString(element);
         return drgElementDefaultArgumentsExtraCache(arguments);

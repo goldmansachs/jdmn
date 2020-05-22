@@ -107,7 +107,7 @@
         <#assign topLevelDecision = multiInstanceDecision.topLevelDecision/>
         <#assign sourceList = transformer.iterationExpressionToJava(drgElement, iterationExpression) />
         <#assign lambdaParamName = transformer.inputDataVariableName(iterator) />
-        <#assign lambdaBody = "${transformer.drgElementVariableName(topLevelDecision)}.apply(${transformer.drgElementArgumentsExtraCache(transformer.drgElementArgumentsExtra(transformer.drgElementConvertedArgumentList(topLevelDecision)))})" />
+        <#assign lambdaBody = "${transformer.drgElementVariableName(topLevelDecision)}.apply(${transformer.drgElementArgumentsExtraCacheWithConvertedArgumentList(topLevelDecision)})" />
         ${transformer.qualifiedName(javaPackageName, transformer.drgElementClassName(topLevelDecision))} ${transformer.drgElementVariableName(topLevelDecision)} = new ${transformer.qualifiedName(javaPackageName, transformer.drgElementClassName(topLevelDecision))}();
         <#if aggregator == "COLLECT">
         return ${sourceList}.stream().map(${lambdaParamName} -> ${lambdaBody}).collect(Collectors.toList());
