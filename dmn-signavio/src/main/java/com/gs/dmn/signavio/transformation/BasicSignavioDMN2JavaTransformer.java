@@ -218,7 +218,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
             DRGElementReference<TDecision> outputReference = this.dmnModelRepository.makeDRGElementReference(outputDecision);
             List<Pair<String, Type>> parameters = inputDataParametersClosure(outputReference);
-            String decisionSignature = parameters.stream().map(p -> String.format("%s %s", toJavaType(p.getRight()), p.getLeft())).collect(Collectors.joining(", "));
+            String decisionSignature = parameters.stream().map(p -> this.expressionFactory.nullableParameter(toJavaType(p.getRight()), p.getLeft())).collect(Collectors.joining(", "));
             return augmentSignature(decisionSignature);
         } else {
             return super.drgElementSignature(reference);
@@ -360,7 +360,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
             String parameterJavaType = lazyEvaluationType(element, parameterJavaType(element));
             parameters.add(new Pair<>(parameterName, parameterJavaType));
         }
-        String signature = parameters.stream().map(p -> String.format("%s %s", p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
+        String signature = parameters.stream().map(p -> this.expressionFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
         return augmentSignature(signature);
     }
 
@@ -421,7 +421,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
                 String className = externalFunctionClassName(body);
                 String methodName = externalFunctionMethodName(body);
                 String arguments = drgElementEvaluateArgumentList(element);
-                javaCode = String.format("(%s)%s.execute(\"%s\", \"%s\", new Object[] {%s})", returnJavaType, externalExecutorVariableName(), className, methodName, arguments);
+                javaCode = this.expressionFactory.makeExternalExecutorCall(externalExecutorVariableName(), className, methodName, arguments, returnJavaType);
             } else {
                 javaCode = this.feelTranslator.expressionToJava(body, FEELContext.makeContext(element, environment));
             }

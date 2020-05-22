@@ -233,6 +233,11 @@ public class KotlinExpressionFactory implements NativeExpressionFactory {
         return String.format("val %s: %s = args[%s] as %s;", name, nullableType, i, nullableType);
     }
 
+    @Override
+    public String makeExternalExecutorCall(String externalExecutorVariableName, String className, String methodName, String arguments, String returnNativeType) {
+        return String.format("%s.execute(\"%s\", \"%s\", arrayOf(%s)) as %s", externalExecutorVariableName, className, methodName, arguments, returnNativeType);
+    }
+
     //
     // Parameters
     //
