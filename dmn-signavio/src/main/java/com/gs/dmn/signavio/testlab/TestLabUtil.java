@@ -159,7 +159,8 @@ public class TestLabUtil {
     // For input parameters
     public String toJavaType(InputParameterDefinition inputParameterDefinition) {
         Type feelType = toFEELType(inputParameterDefinition);
-        return dmnTransformer.toJavaType(feelType);
+        String type = dmnTransformer.toJavaType(feelType);
+        return this.typeFactory.nullableType(type);
     }
 
     // For input parameters

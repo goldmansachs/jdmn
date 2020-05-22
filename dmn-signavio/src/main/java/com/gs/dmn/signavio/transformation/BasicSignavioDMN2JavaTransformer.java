@@ -14,7 +14,10 @@ package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
-import com.gs.dmn.feel.analysis.semantics.environment.*;
+import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
+import com.gs.dmn.feel.analysis.semantics.environment.Environment;
+import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
+import com.gs.dmn.feel.analysis.semantics.environment.Parameter;
 import com.gs.dmn.feel.analysis.semantics.type.FEELFunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
@@ -55,15 +58,17 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
     //
     @Override
     public String drgElementOutputType(TDRGElement element) {
+        String outputType;
         if (this.dmnModelRepository.isBKMLinkedToDecision(element)) {
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
-            return super.drgElementOutputType(outputDecision);
+            outputType = super.drgElementOutputType(outputDecision);
         } else if (element instanceof TDecision && this.dmnModelRepository.isFreeTextLiteralExpression(element)) {
             Type type = drgElementOutputFEELType(element);
-            return toJavaType(type);
+            outputType = toJavaType(type);
         } else {
-            return super.drgElementOutputType(element);
+            outputType = super.drgElementOutputType(element);
         }
+        return this.typeFactory.nullableType(outputType);
     }
 
     @Override
