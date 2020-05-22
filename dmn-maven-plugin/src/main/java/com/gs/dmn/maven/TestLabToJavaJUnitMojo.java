@@ -81,8 +81,14 @@ public class TestLabToJavaJUnitMojo extends AbstractDMNMojo {
             LazyEvaluationDetector lazyEvaluationDetector = makeLazyEvaluationDetector(this.lazyEvaluationDetectors, logger, this.inputParameters);
             TypeDeserializationConfigurer typeDeserializationConfigurer = makeTypeDeserializationConfigurer(this.typeDeserializationConfigurer, logger);
             FileTransformer transformer = new TestLabToJUnitTransformer(
-                    dmnDialect, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer,
-                    inputModelFileDirectory.toPath(), inputParameters,
+                    dmnDialect,
+                    dmnValidator,
+                    dmnTransformer,
+                    templateProvider,
+                    lazyEvaluationDetector,
+                    typeDeserializationConfigurer,
+                    inputModelFileDirectory.toPath(),
+                    inputParameters,
                     logger
             );
 
