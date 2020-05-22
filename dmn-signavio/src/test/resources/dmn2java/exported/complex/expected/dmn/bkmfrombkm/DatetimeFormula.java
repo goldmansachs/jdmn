@@ -2,7 +2,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision-with-extension.ftl", "datetimeFormula"})
+@javax.annotation.Generated(value = {"signavio-decision.ftl", "datetimeFormula"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
     name = "datetimeFormula",

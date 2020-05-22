@@ -2,7 +2,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"bkm-with-extension.ftl", "importedLogicTime"})
+@javax.annotation.Generated(value = {"signavio-bkm.ftl", "importedLogicTime"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
     name = "importedLogicTime",

@@ -2,7 +2,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision-with-extension.ftl", "product"})
+@javax.annotation.Generated(value = {"signavio-decision.ftl", "product"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
     name = "product",

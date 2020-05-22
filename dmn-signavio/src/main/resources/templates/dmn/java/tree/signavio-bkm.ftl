@@ -18,7 +18,7 @@ package ${javaPackageName};
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"bkm-with-extension.ftl", "${modelRepository.name(drgElement)}"})
+@javax.annotation.Generated(value = {"signavio-bkm.ftl", "${modelRepository.name(drgElement)}"})
 @${transformer.drgElementAnnotationClassName()}(
     namespace = "${javaPackageName}",
     name = "${modelRepository.name(drgElement)}",
