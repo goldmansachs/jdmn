@@ -102,6 +102,8 @@ public interface NativeExpressionFactory {
 
     String applyMethod(FunctionType functionType, String signature, boolean convertTypeToContext, String body);
 
+    String makeExternalExecutorCall(String externalExecutorVariableName, String className, String methodName, String arguments, String returnJavaType);
+
     //
     // Parameters
     //

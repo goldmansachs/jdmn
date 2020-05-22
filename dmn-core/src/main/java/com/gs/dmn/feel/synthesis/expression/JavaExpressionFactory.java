@@ -229,6 +229,11 @@ public class JavaExpressionFactory implements NativeExpressionFactory {
         return String.format("%s %s = (%s)args[%s];", type, name, type, i);
     }
 
+    @Override
+    public String makeExternalExecutorCall(String externalExecutorVariableName, String className, String methodName, String arguments, String returnNativeType) {
+        return String.format("(%s)%s.execute(\"%s\", \"%s\", new Object[] {%s})", returnNativeType, externalExecutorVariableName, className, methodName, arguments);
+    }
+
     //
     // Parameters
     //
