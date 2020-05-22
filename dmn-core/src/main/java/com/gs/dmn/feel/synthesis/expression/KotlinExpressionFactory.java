@@ -319,18 +319,11 @@ public class KotlinExpressionFactory implements NativeExpressionFactory {
                 throw new DMNRuntimeException(String.format("Cannot convert String to type '%s'", type));
             }
         } else if (type instanceof ListType) {
-            Type elementType = ((ListType) type).getElementType();
-            String arrayElementType;
-            if (elementType instanceof ListType) {
-                arrayElementType = "java.util.List";
-            } else if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(elementType)) {
-                arrayElementType = this.dmnTransformer.toJavaType(elementType);
-            } else {
-                arrayElementType = this.dmnTransformer.itemDefinitionJavaClassName(this.dmnTransformer.toJavaType(elementType));
-            }
-            return String.format("%s?.let({ (%s.readValue(it, Array<Any?>::class.java)).toList() as %s})", paramName, objectMapper(), nullableType(dmnTransformer.toJavaType(type)));
+            String javaType = nullableType(this.dmnTransformer.toJavaType(type));
+            return String.format("%s?.let({ %s.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<%s>() {}) })", paramName, objectMapper(), javaType);
         } else {
-            return String.format("%s?.let({ %s.readValue(it, %s::class.java) })", paramName, objectMapper(), dmnTransformer.itemDefinitionJavaClassName(dmnTransformer.toJavaType(type)));
+            String javaType = dmnTransformer.itemDefinitionJavaClassName(dmnTransformer.toJavaType(type));
+            return String.format("%s?.let({ %s.readValue(it, %s::class.java) })", paramName, objectMapper(), javaType);
         }
     }
 

@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class Decision2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     fun apply(employees: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): String? {
         return try {
-            apply(employees?.let({ (com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, Array<Any?>::class.java)).toList() as List<String?>?}), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+            apply(employees?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<String?>?>() {}) }), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
         } catch (e: Exception) {
             logError("Cannot apply decision 'Decision2'", e)
             null
@@ -24,7 +24,7 @@ class Decision2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
     fun apply(employees: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): String? {
         return try {
-            apply(employees?.let({ (com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, Array<Any?>::class.java)).toList() as List<String?>?}), annotationSet_, eventListener_, externalExecutor_)
+            apply(employees?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<String?>?>() {}) }), annotationSet_, eventListener_, externalExecutor_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'Decision2'", e)
             null

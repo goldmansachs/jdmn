@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class Join() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     fun apply(deptTable: String?, employeeTable: String?, lastName: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): String? {
         return try {
-            apply(deptTable?.let({ (com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, Array<Any?>::class.java)).toList() as List<type.TDeptTable?>?}), employeeTable?.let({ (com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, Array<Any?>::class.java)).toList() as List<type.TEmployeeTable?>?}), lastName, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+            apply(deptTable?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<type.TDeptTable?>?>() {}) }), employeeTable?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<type.TEmployeeTable?>?>() {}) }), lastName, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
         } catch (e: Exception) {
             logError("Cannot apply decision 'Join'", e)
             null
@@ -24,7 +24,7 @@ class Join() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
     fun apply(deptTable: String?, employeeTable: String?, lastName: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): String? {
         return try {
-            apply(deptTable?.let({ (com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, Array<Any?>::class.java)).toList() as List<type.TDeptTable?>?}), employeeTable?.let({ (com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, Array<Any?>::class.java)).toList() as List<type.TEmployeeTable?>?}), lastName, annotationSet_, eventListener_, externalExecutor_)
+            apply(deptTable?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<type.TDeptTable?>?>() {}) }), employeeTable?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<type.TEmployeeTable?>?>() {}) }), lastName, annotationSet_, eventListener_, externalExecutor_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'Join'", e)
             null
