@@ -59,17 +59,21 @@ public class KotlinExpressionFactory implements NativeExpressionFactory {
     @Override
     public String makeItemDefinitionAccessor(String javaType, String source, String memberName) {
         memberName = this.dmnTransformer.lowerCaseFirst(memberName);
-        return String.format("%s?.let({ it.%s as %s })", source, memberName, javaType);
+        String nullableType = nullableType(javaType);
+        return String.format("%s?.let({ it.%s as %s })", source, memberName, nullableType);
     }
 
     @Override
     public String makeItemDefinitionSelectExpression(String source, String memberName, String memberType) {
-        return String.format("(%s.%s) as %s", source, memberName, memberType);
+        String nullableType = nullableType(memberType);
+        return String.format("(%s.%s) as %s", source, memberName, nullableType);
     }
 
     @Override
     public String makeContextAccessor(String javaType, String source, String memberName) {
-        return String.format("((%s as %s).%s as %s)", source, this.dmnTransformer.contextClassName(), this.dmnTransformer.contextGetter(memberName), javaType);
+        String contextClassName = this.dmnTransformer.contextClassName();
+        String nullableType = nullableType(javaType);
+        return String.format("((%s as %s).%s as %s)", source, contextClassName, this.dmnTransformer.contextGetter(memberName), nullableType);
     }
 
     @Override
@@ -91,7 +95,8 @@ public class KotlinExpressionFactory implements NativeExpressionFactory {
     }
 
     public String makeCollectionNumericFilter(String javaElementType, String source, String filter) {
-        return String.format("(elementAt(%s, %s) as %s)", source, filter, javaElementType);
+        String nullableType = nullableType(javaElementType);
+        return String.format("(elementAt(%s, %s) as %s)", source, filter, nullableType);
     }
 
     @Override
@@ -150,7 +155,7 @@ public class KotlinExpressionFactory implements NativeExpressionFactory {
 
     @Override
     public String makeCountAggregator(String ruleOutputListVariableName) {
-        return "number(String.format(\"%d\", " + ruleOutputListVariableName + "?.size()))";
+        return "number(String.format(\"%d\", " + ruleOutputListVariableName + "?.size))";
     }
 
     @Override

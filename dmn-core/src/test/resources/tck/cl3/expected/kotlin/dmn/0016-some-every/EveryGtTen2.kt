@@ -57,7 +57,7 @@ class EveryGtTen2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     }
 
     private fun evaluate(priceTable2: List<type.TItemPrice?>?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): Boolean? {
-        return booleanAnd(priceTable2?.stream()?.map({ i -> numericGreaterThan(i?.let({ it.price as java.math.BigDecimal }), number("10")) })?.collect(Collectors.toList())?.toList()) as Boolean?
+        return booleanAnd(priceTable2?.stream()?.map({ i -> numericGreaterThan(i?.let({ it.price as java.math.BigDecimal? }), number("10")) })?.collect(Collectors.toList())?.toList()) as Boolean?
     }
 
     companion object {
