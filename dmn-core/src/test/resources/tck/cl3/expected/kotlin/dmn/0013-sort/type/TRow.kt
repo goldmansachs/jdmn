@@ -74,7 +74,7 @@ interface TRow : com.gs.dmn.runtime.DMNType {
                 result_.col4 = other.get("col4") as java.math.BigDecimal?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
-                return toTRow(other)
+                return toTRow(other.toContext())
             } else {
                 throw com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.javaClass.getSimpleName(), TRow::class.java.getSimpleName()))
             }
