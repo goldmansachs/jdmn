@@ -74,7 +74,7 @@ interface TFnInvocationNamedResult : com.gs.dmn.runtime.DMNType {
                 result_.multiplicationResultNamed = other.get("multiplicationResultNamed") as java.math.BigDecimal?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
-                return toTFnInvocationNamedResult(other)
+                return toTFnInvocationNamedResult(other.toContext())
             } else {
                 throw com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.javaClass.getSimpleName(), TFnInvocationNamedResult::class.java.getSimpleName()))
             }

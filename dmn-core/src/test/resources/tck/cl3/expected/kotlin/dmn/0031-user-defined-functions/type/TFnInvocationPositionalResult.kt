@@ -66,7 +66,7 @@ interface TFnInvocationPositionalResult : com.gs.dmn.runtime.DMNType {
                 result_.multiplicationResultPositional = other.get("multiplicationResultPositional") as java.math.BigDecimal?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
-                return toTFnInvocationPositionalResult(other)
+                return toTFnInvocationPositionalResult(other.toContext())
             } else {
                 throw com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.javaClass.getSimpleName(), TFnInvocationPositionalResult::class.java.getSimpleName()))
             }

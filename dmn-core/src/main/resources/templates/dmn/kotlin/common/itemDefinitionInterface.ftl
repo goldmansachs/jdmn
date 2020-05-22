@@ -113,7 +113,7 @@ interface ${javaClassName} : ${transformer.dmnTypeClassName()} {
             </#list>
                 return result_
             } else if (other is ${transformer.dmnTypeClassName()}) {
-                return ${transformer.convertMethodName(itemDefinition)}(other)
+                return ${transformer.convertMethodName(itemDefinition)}(other.toContext())
             } else {
                 throw ${transformer.dmnRuntimeExceptionClassName()}(String.format("Cannot convert '%s' to '%s'", other.javaClass.getSimpleName(), ${javaClassName}::class.java.getSimpleName()))
             }
