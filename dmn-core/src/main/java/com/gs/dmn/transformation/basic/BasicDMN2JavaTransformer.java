@@ -86,7 +86,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     protected final DRGElementFilter drgElementFilter;
 
     protected final FEELTypeMemoizer feelTypeMemoizer;
-    protected final JavaTypeMemoizer javaTypeMemoizer;
+    protected final JavaTypeMemoizer nativeTypeMemoizer;
     protected final EnvironmentMemoizer environmentMemoizer;
 
     public BasicDMN2JavaTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory feelTypeTranslator, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
@@ -116,7 +116,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         this.drgElementFilter = new DRGElementFilter(this.singletonInputData);
 
         this.feelTypeMemoizer = new FEELTypeMemoizer();
-        this.javaTypeMemoizer = new JavaTypeMemoizer();
+        this.nativeTypeMemoizer = new JavaTypeMemoizer();
         this.environmentMemoizer = new EnvironmentMemoizer();
     }
 
@@ -660,13 +660,13 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
             if (input instanceof TInputData) {
                 TInputData inputData = (TInputData) input;
                 String parameterName = inputDataVariableName(reference);
-                String parameterJavaType = inputDataType(inputData);
-                parameters.add(new Pair<>(parameterName, parameterJavaType));
+                String parameterNativeType = inputDataType(inputData);
+                parameters.add(new Pair<>(parameterName, parameterNativeType));
             } else if (input instanceof TDecision) {
                 TDecision subDecision = (TDecision) input;
                 String parameterName = drgElementVariableName(reference);
-                String parameterJavaType = drgElementOutputType(subDecision);
-                parameters.add(new Pair<>(parameterName, lazyEvaluationType(input, parameterJavaType)));
+                String parameterNativeType = drgElementOutputType(subDecision);
+                parameters.add(new Pair<>(parameterName, lazyEvaluationType(input, parameterNativeType)));
             } else {
                 throw new UnsupportedOperationException(String.format("'%s' is not supported yet", input.getClass().getSimpleName()));
             }
@@ -1034,15 +1034,15 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String parameterNativeType(TDRGElement element) {
-        String parameterJavaType;
+        String parameterNativeType;
         if (element instanceof TInputData) {
-            parameterJavaType = inputDataType((TInputData) element);
+            parameterNativeType = inputDataType((TInputData) element);
         } else if (element instanceof TDecision) {
-            parameterJavaType = drgElementOutputType(element);
+            parameterNativeType = drgElementOutputType(element);
         } else {
             throw new UnsupportedOperationException(String.format("'%s' is not supported", element.getClass().getSimpleName()));
         }
-        return parameterJavaType;
+        return parameterNativeType;
     }
 
     private String parameterType(TDefinitions model, TInformationItem element) {
@@ -1070,8 +1070,8 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public String lazyEvaluationType(TDRGElement input, String inputJavaType) {
-        return isLazyEvaluated(input) ? String.format("%s<%s>", lazyEvalClassName(), inputJavaType) : inputJavaType;
+    public String lazyEvaluationType(TDRGElement input, String inputNativeType) {
+        return isLazyEvaluated(input) ? String.format("%s<%s>", lazyEvalClassName(), inputNativeType) : inputNativeType;
     }
 
     @Override
@@ -1711,7 +1711,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
             String modelName = definitions == null ? null : definitions.getName();
             type = new ItemDefinitionType(itemDefinition.getName(), modelName);
             for(TItemDefinition item: itemComponent) {
-                ((ItemDefinitionType)type).addMember(item.getName(), Arrays.asList(item.getLabel()), toFEELType(item));
+                ((ItemDefinitionType)type).addMember(item.getName(), Collections.singletonList(item.getLabel()), toFEELType(item));
             }
         }
         if (itemDefinition.isIsCollection()) {
@@ -1742,15 +1742,15 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     //
     @Override
     public String toNativeType(TDecision decision) {
-        String javaType = this.javaTypeMemoizer.get(decision);
+        String javaType = this.nativeTypeMemoizer.get(decision);
         if (javaType == null) {
-            javaType = toJavaTypeNoCache(decision);
-            this.javaTypeMemoizer.put(decision, javaType);
+            javaType = toNativeTypeNoCache(decision);
+            this.nativeTypeMemoizer.put(decision, javaType);
         }
         return javaType;
     }
 
-    private String toJavaTypeNoCache(TDecision decision) {
+    private String toNativeTypeNoCache(TDecision decision) {
         Type type = this.drgElementOutputFEELType(decision);
         return toNativeType(type);
     }
@@ -1762,18 +1762,18 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String toNativeType(Type type) {
-        String javaType = this.javaTypeMemoizer.get(type);
+        String javaType = this.nativeTypeMemoizer.get(type);
         if (javaType == null) {
-            javaType = toJavaTypeNoCache(type);
-            this.javaTypeMemoizer.put(type, javaType);
+            javaType = toNativeTypeNoCache(type);
+            this.nativeTypeMemoizer.put(type, javaType);
         }
         return javaType;
     }
 
-    private String toJavaTypeNoCache(Type type) {
+    private String toNativeTypeNoCache(Type type) {
         if (type instanceof NamedType) {
             String typeName = ((NamedType) type).getName();
-            String primitiveType = this.typeFactory.toJavaType(typeName);
+            String primitiveType = this.typeFactory.toNativeType(typeName);
             if (!StringUtils.isBlank(primitiveType)) {
                 return primitiveType;
             } else {
@@ -2144,7 +2144,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
                 TDecision decision = getDMNModelRepository().findDecisionByRef(decisionService, er.getHref());
                 String decisionName = decision.getName();
                 VariableDeclaration declaration = (VariableDeclaration) environment.lookupVariableDeclaration(decisionName);
-                type.addMember(decisionName, Arrays.asList(), declaration.getType());
+                type.addMember(decisionName, Collections.emptyList(), declaration.getType());
             }
             return type;
         }
