@@ -23,7 +23,7 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.expression.*;
 import com.gs.dmn.signavio.transformation.BasicSignavioDMN2JavaTransformer;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -38,12 +38,12 @@ import java.util.stream.Collectors;
 public class TestLabUtil {
     protected static final Logger LOGGER = LoggerFactory.getLogger(TestLabUtil.class);
 
-    private final BasicDMN2JavaTransformer dmnTransformer;
+    private final BasicDMNToNativeTransformer dmnTransformer;
     private final SignavioDMNModelRepository dmnModelRepository;
     private final NativeExpressionFactory expressionFactory;
     private final NativeTypeFactory typeFactory;
 
-    public TestLabUtil(BasicDMN2JavaTransformer dmnTransformer) {
+    public TestLabUtil(BasicDMNToNativeTransformer dmnTransformer) {
         DMNModelRepository dmnModelRepository = dmnTransformer.getDMNModelRepository();
         if (dmnModelRepository instanceof SignavioDMNModelRepository) {
             this.dmnModelRepository = (SignavioDMNModelRepository) dmnModelRepository;
@@ -139,7 +139,7 @@ public class TestLabUtil {
     }
 
     public String qualifiedName(TestLab testLab, OutputParameterDefinition rootOutputParameter) {
-        String pkg = dmnTransformer.javaModelPackageName(rootOutputParameter.getModelName());
+        String pkg = dmnTransformer.nativeModelPackageName(rootOutputParameter.getModelName());
         String cls = drgElementClassName(rootOutputParameter);
         return dmnTransformer.qualifiedName(pkg, cls);
     }
@@ -157,41 +157,41 @@ public class TestLabUtil {
     }
 
     // For input parameters
-    public String toJavaType(InputParameterDefinition inputParameterDefinition) {
+    public String toNativeType(InputParameterDefinition inputParameterDefinition) {
         Type feelType = toFEELType(inputParameterDefinition);
-        String type = dmnTransformer.toJavaType(feelType);
+        String type = dmnTransformer.toNativeType(feelType);
         return this.typeFactory.nullableType(type);
     }
 
     // For input parameters
-    public String toJavaExpression(TestLab testLab, TestCase testCase, int inputIndex) {
+    public String toNativeExpression(TestLab testLab, TestCase testCase, int inputIndex) {
         Type inputType = toFEELType(testLab.getInputParameterDefinitions().get(inputIndex));
         Expression inputExpression = testCase.getInputValues().get(inputIndex);
         TDecision decision = (TDecision) findDRGElement(testLab.getRootOutputParameter());
 
-        return toJavaExpression(inputType, inputExpression, decision);
+        return toNativeExpression(inputType, inputExpression, decision);
     }
 
     // For expected values
-    public String toJavaExpression(TestLab testLab, Expression expression) {
+    public String toNativeExpression(TestLab testLab, Expression expression) {
         Type outputType = toFEELType(testLab.getRootOutputParameter());
         TDecision decision = (TDecision) findDRGElement(testLab.getRootOutputParameter());
 
-        return toJavaExpression(outputType, expression, decision);
+        return toNativeExpression(outputType, expression, decision);
     }
 
-    private String toJavaExpression(Type inputType, Expression inputExpression, TDecision decision) {
+    private String toNativeExpression(Type inputType, Expression inputExpression, TDecision decision) {
         if (inputExpression == null) {
             return "null";
         } else if (isSimple(inputExpression)) {
             String feelExpression = inputExpression.toFEELExpression();
-            return dmnTransformer.literalExpressionToJava(decision, feelExpression);
+            return dmnTransformer.literalExpressionToNative(decision, feelExpression);
         } else if (isList(inputExpression)) {
             List<Expression> expressionList = ((ListExpression) inputExpression).getElements();
             if (expressionList != null) {
                 Type elementType = elementType(inputType);
                 List<String> elements = expressionList
-                        .stream().map(e -> toJavaExpression(elementType, e, decision)).collect(Collectors.toList());
+                        .stream().map(e -> toNativeExpression(elementType, e, decision)).collect(Collectors.toList());
                 String exp = String.join(", ", elements);
                 return this.expressionFactory.asList(elementType, exp);
             } else {
@@ -219,11 +219,11 @@ public class TestLabUtil {
                 List<String> args = new ArrayList<>();
                 for(Pair<String, Expression> p: pairs) {
                     Type memberType = memberType(inputType, p.getLeft());
-                    String arg = toJavaExpression(memberType, p.getRight(), decision);
+                    String arg = toNativeExpression(memberType, p.getRight(), decision);
                     args.add(arg);
                 }
                 String arguments = String.join(", ", args);
-                return dmnTransformer.constructor(dmnTransformer.itemDefinitionJavaClassName(dmnTransformer.toJavaType(inputType)), arguments);
+                return dmnTransformer.constructor(dmnTransformer.itemDefinitionNativeClassName(dmnTransformer.toNativeType(inputType)), arguments);
             } else {
                 return "null";
             }

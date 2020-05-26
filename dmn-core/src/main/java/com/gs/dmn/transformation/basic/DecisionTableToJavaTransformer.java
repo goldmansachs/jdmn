@@ -66,7 +66,7 @@ public class DecisionTableToJavaTransformer {
                     for(TOutputClause outputClause: output) {
                         values.add(defaultValue(element, outputClause));
                     }
-                    String defaultValue = this.dmnTransformer.constructor(this.dmnTransformer.itemDefinitionJavaClassName(this.dmnTransformer.drgElementOutputClassName(element)), String.join(", ", values));
+                    String defaultValue = this.dmnTransformer.constructor(this.dmnTransformer.itemDefinitionNativeClassName(this.dmnTransformer.drgElementOutputClassName(element)), String.join(", ", values));
                     if (this.dmnTransformer.hasListType(element)) {
                         return this.expressionFactory.asList(((ListType) feelType).getElementType(), defaultValue);
                     } else {
@@ -89,7 +89,7 @@ public class DecisionTableToJavaTransformer {
         if (defaultOutputEntry == null) {
             return "null";
         } else {
-            return this.dmnTransformer.literalExpressionToJava(element, defaultOutputEntry.getText());
+            return this.dmnTransformer.literalExpressionToNative(element, defaultOutputEntry.getText());
         }
     }
 
@@ -98,7 +98,7 @@ public class DecisionTableToJavaTransformer {
     //
     public String outputClauseClassName(TDRGElement element, TOutputClause outputClause) {
         Type type = toFEELType(element, outputClause);
-        return this.dmnTransformer.toJavaType(type);
+        return this.dmnTransformer.toNativeType(type);
     }
 
     private Type toFEELType(TDRGElement element, TOutputClause outputClause) {
@@ -258,7 +258,7 @@ public class DecisionTableToJavaTransformer {
         for (DRGElementReference<? extends TDRGElement> reference : references) {
             TDRGElement element = reference.getElement();
             String parameterName = ruleParameterName(reference);
-            String parameterJavaType = this.dmnTransformer.lazyEvaluationType(element, this.dmnTransformer.parameterJavaType(element));
+            String parameterJavaType = this.dmnTransformer.lazyEvaluationType(element, this.dmnTransformer.parameterNativeType(element));
             parameters.add(new Pair<>(parameterName, parameterJavaType));
         }
         String signature = parameters.stream().map(p -> this.expressionFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
@@ -283,7 +283,7 @@ public class DecisionTableToJavaTransformer {
         List<TInformationItem> formalParameters = bkm.getEncapsulatedLogic().getFormalParameter();
         for (TInformationItem parameter : formalParameters) {
             String parameterName = ruleParameterName(parameter);
-            String parameterJavaType = this.dmnTransformer.parameterJavaType(model, parameter);
+            String parameterJavaType = this.dmnTransformer.parameterNativeType(model, parameter);
             parameters.add(new Pair<>(parameterName, parameterJavaType));
         }
         String signature = parameters.stream().map(p -> this.expressionFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));

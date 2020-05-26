@@ -24,7 +24,7 @@ import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.SimpleDMNTransformer;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.apache.commons.lang3.StringUtils;
@@ -71,7 +71,7 @@ public class SimplifyTypesForMIDTransformer extends SimpleDMNTransformer<TestLab
     }
 
     private DMNModelRepository removeDuplicateInformationRequirements(DMNModelRepository repository, BuildLogger logger) {
-        BasicDMN2JavaTransformer basicTransformer = SIGNAVIO_DIALECT.createBasicTransformer(repository, new NopLazyEvaluationDetector(), new LinkedHashMap<>());
+        BasicDMNToNativeTransformer basicTransformer = SIGNAVIO_DIALECT.createBasicTransformer(repository, new NopLazyEvaluationDetector(), new LinkedHashMap<>());
         SignavioDMNModelRepository signavioRepository;
         if (repository instanceof SignavioDMNModelRepository) {
             signavioRepository = (SignavioDMNModelRepository) repository;

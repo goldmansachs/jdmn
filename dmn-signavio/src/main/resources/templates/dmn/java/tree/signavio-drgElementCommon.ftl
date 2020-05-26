@@ -105,7 +105,7 @@
         <#assign iterator = multiInstanceDecision.iterator/>
         <#assign aggregator = multiInstanceDecision.aggregator/>
         <#assign topLevelDecision = multiInstanceDecision.topLevelDecision/>
-        <#assign sourceList = transformer.iterationExpressionToJava(drgElement, iterationExpression) />
+        <#assign sourceList = transformer.iterationExpressionToNative(drgElement, iterationExpression) />
         <#assign lambdaParamName = transformer.inputDataVariableName(iterator) />
         <#assign lambdaBody = "${transformer.drgElementVariableName(topLevelDecision)}.apply(${transformer.drgElementArgumentsExtraCacheWithConvertedArgumentList(topLevelDecision)})" />
         ${transformer.qualifiedName(javaPackageName, transformer.drgElementClassName(topLevelDecision))} ${transformer.drgElementVariableName(topLevelDecision)} = new ${transformer.qualifiedName(javaPackageName, transformer.drgElementClassName(topLevelDecision))}();
@@ -137,7 +137,7 @@
 -->
 <#macro addEvaluateBKMLinkedToDecisionMethod drgElement>
     protected ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementEvaluateSignature(drgElement)}) {
-        return ${transformer.bkmLinkedToDecisionToJava(drgElement)};
+        return ${transformer.bkmLinkedToDecisionToNative(drgElement)};
     }
 </#macro>
 
@@ -250,7 +250,7 @@ import static ${transformer.qualifiedName(subBKM)}.${transformer.bkmFunctionName
             // Compute output
             output_.setMatched(true);
             <#list expression.output as output>
-            output_.${transformer.setter(drgElement, output)}(${transformer.outputEntryToJava(drgElement, rule.outputEntry[output_index], output_index)});
+            output_.${transformer.setter(drgElement, output)}(${transformer.outputEntryToNative(drgElement, rule.outputEntry[output_index], output_index)});
                 <#if modelRepository.isOutputOrderHit(expression.hitPolicy) && transformer.priority(drgElement, rule.outputEntry[output_index], output_index)?exists>
             output_.${transformer.prioritySetter(drgElement, output)}(${transformer.priority(drgElement, rule.outputEntry[output_index], output_index)});
                 </#if>
@@ -296,7 +296,7 @@ import static ${transformer.qualifiedName(subBKM)}.${transformer.bkmFunctionName
 <#macro addConversionMethod drgElement>
     <#if modelRepository.isCompoundDecisionTable(drgElement)>
     public ${transformer.drgElementOutputClassName(drgElement)} toDecisionOutput(${transformer.ruleOutputClassName(drgElement)} ruleOutput_) {
-        <#assign simpleClassName = transformer.itemDefinitionJavaClassName(transformer.drgElementOutputClassName(drgElement))>
+        <#assign simpleClassName = transformer.itemDefinitionNativeClassName(transformer.drgElementOutputClassName(drgElement))>
         ${simpleClassName} result_ = ${transformer.defaultConstructor(simpleClassName)};
         <#assign expression = modelRepository.expression(drgElement)>
         <#list expression.output as output>
@@ -337,9 +337,9 @@ import static ${transformer.qualifiedName(subBKM)}.${transformer.bkmFunctionName
 <#macro addEvaluateExpressionMethod drgElement>
     protected ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementEvaluateSignature(drgElement)}) {
     <#if modelRepository.isFreeTextLiteralExpression(drgElement)>
-        return ${transformer.freeTextLiteralExpressionToJava(drgElement)};
+        return ${transformer.freeTextLiteralExpressionToNative(drgElement)};
     <#else>
-        <#assign stm = transformer.expressionToJava(drgElement)>
+        <#assign stm = transformer.expressionToNative(drgElement)>
         <#if transformer.isCompoundStatement(stm)>
             <#list stm.statements as child>
         ${child.expression}

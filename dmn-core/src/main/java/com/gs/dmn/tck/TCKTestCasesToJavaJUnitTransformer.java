@@ -21,7 +21,7 @@ import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.AbstractTestCasesToJUnitTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
@@ -39,7 +39,7 @@ import java.util.Map;
 import static com.gs.dmn.tck.TestCasesReader.isTCKFile;
 
 public class TCKTestCasesToJavaJUnitTransformer extends AbstractTestCasesToJUnitTransformer {
-    protected final BasicDMN2JavaTransformer basicTransformer;
+    protected final BasicDMNToNativeTransformer basicTransformer;
 
     protected final TestCasesReader testCasesReader;
     private final TCKUtil tckUtil;
@@ -97,10 +97,10 @@ public class TCKTestCasesToJavaJUnitTransformer extends AbstractTestCasesToJUnit
         }
     }
 
-    protected void processTemplate(TestCases testCases, String baseTemplatePath, String templateName, BasicDMN2JavaTransformer dmnTransformer, Path outputPath, String testClassName) {
+    protected void processTemplate(TestCases testCases, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer dmnTransformer, Path outputPath, String testClassName) {
         try {
             // Make output file
-            String javaPackageName = dmnTransformer.javaModelPackageName(testCases.getModelName());
+            String javaPackageName = dmnTransformer.nativeModelPackageName(testCases.getModelName());
             String relativeFilePath = javaPackageName.replace('.', '/');
             String fileExtension = getFileExtension();
             File outputFile = makeOutputFile(outputPath, relativeFilePath, testClassName, fileExtension);
@@ -118,15 +118,15 @@ public class TCKTestCasesToJavaJUnitTransformer extends AbstractTestCasesToJUnit
         }
     }
 
-    protected String testClassName(TestCases testCases, BasicDMN2JavaTransformer dmnTransformer) {
+    protected String testClassName(TestCases testCases, BasicDMNToNativeTransformer dmnTransformer) {
         String modelName = testCases.getModelName();
         if (modelName.endsWith(DMNConstants.DMN_FILE_EXTENSION)) {
             modelName = modelName.substring(0, modelName.length() - 4);
         }
-        return StringUtils.capitalize(dmnTransformer.javaFriendlyName("Test" + modelName));
+        return StringUtils.capitalize(dmnTransformer.nativeFriendlyName("Test" + modelName));
     }
 
-    private Map<String, Object> makeTemplateParams(TestCases testCases, BasicDMN2JavaTransformer dmnTransformer) {
+    private Map<String, Object> makeTemplateParams(TestCases testCases, BasicDMNToNativeTransformer dmnTransformer) {
         Map<String, Object> params = new HashMap<>();
         params.put("testCases", testCases);
         params.put("tckUtil", tckUtil);

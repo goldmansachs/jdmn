@@ -44,7 +44,7 @@ import com.gs.dmn.runtime.interpreter.Arguments;
 import com.gs.dmn.runtime.interpreter.NamedArguments;
 import com.gs.dmn.runtime.interpreter.PositionalArguments;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.TBusinessKnowledgeModel;
 import org.omg.spec.dmn._20180521.model.TNamedElement;
@@ -59,7 +59,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     private static final int INITIAL_VALUE = -1;
     private int filterCount = INITIAL_VALUE;
 
-    public FEELToJavaVisitor(BasicDMN2JavaTransformer dmnTransformer) {
+    public FEELToJavaVisitor(BasicDMNToNativeTransformer dmnTransformer) {
         super(dmnTransformer);
     }
 
@@ -172,7 +172,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     public Object visit(FunctionDefinition element, FEELContext context) {
         if (element.isStaticTyped()) {
             String body = (String)element.getBody().accept(this, context);
-            return this.dmnTransformer.functionDefinitionToJava(element, false, body);
+            return this.dmnTransformer.functionDefinitionToNative(element, false, body);
         } else {
             throw new DMNRuntimeException("Dynamic typing for FEEL functions not supported yet");
         }
@@ -252,7 +252,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         String domain;
         if (expressionDomain instanceof Name) {
             String name = ((Name) expressionDomain).getName();
-            domain = this.dmnTransformer.javaFriendlyVariableName(name);
+            domain = this.dmnTransformer.nativeFriendlyVariableName(name);
         } else if (expressionDomain instanceof RangeTest) {
             RangeTest test = (RangeTest) expressionDomain;
             String start = (String) test.getStart().accept(this, context);
@@ -333,7 +333,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
             } else {
                 elementType = sourceType;
             }
-            String javaElementType = this.dmnTransformer.toJavaType(elementType);
+            String javaElementType = this.dmnTransformer.toNativeType(elementType);
 
             return this.expressionFactory.makeCollectionNumericFilter(javaElementType, source, filter);
         } else {
@@ -515,7 +515,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     }
 
     protected Object convertArgument(Object param, Conversion conversion) {
-        String conversionFunction = this.expressionFactory.conversionFunction(conversion, this.dmnTransformer.toJavaType(conversion.getTargetType()));
+        String conversionFunction = this.expressionFactory.conversionFunction(conversion, this.dmnTransformer.toNativeType(conversion.getTargetType()));
         if (conversionFunction != null) {
             param = String.format("%s(%s)", conversionFunction, param);
         }

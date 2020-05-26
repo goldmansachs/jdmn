@@ -86,7 +86,7 @@ public class ContextToJavaTransformer {
             TInformationItem variable = entry.getVariable();
             if (variable != null) {
                 String name = this.dmnTransformer.lowerCaseFirst(variable.getName());
-                String type = this.dmnTransformer.toJavaType(entryType);
+                String type = this.dmnTransformer.toNativeType(entryType);
                 String assignmentText = this.expressionFactory.makeVariableAssignment(type, name, value.getExpression());
                 statement.add(new ExpressionStatement(assignmentText, entryType));
             } else {
@@ -103,7 +103,7 @@ public class ContextToJavaTransformer {
             // Make complex type value
             String complexJavaType = this.dmnTransformer.drgElementOutputType(element);
             String complexTypeVariable = this.dmnTransformer.drgElementVariableName(element);
-            String expressionText = this.expressionFactory.makeVariableAssignment(this.dmnTransformer.itemDefinitionJavaClassName(complexJavaType), complexTypeVariable, this.dmnTransformer.defaultConstructor(this.dmnTransformer.itemDefinitionJavaClassName(complexJavaType)));
+            String expressionText = this.expressionFactory.makeVariableAssignment(this.dmnTransformer.itemDefinitionNativeClassName(complexJavaType), complexTypeVariable, this.dmnTransformer.defaultConstructor(this.dmnTransformer.itemDefinitionNativeClassName(complexJavaType)));
             statement.add(new ExpressionStatement(expressionText, returnType));
             // Add entries
             for(TContextEntry entry: context.getContextEntry()) {

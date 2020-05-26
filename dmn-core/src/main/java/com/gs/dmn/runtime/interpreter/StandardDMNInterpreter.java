@@ -31,7 +31,7 @@ import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.runtime.listener.Arguments;
 import com.gs.dmn.runtime.listener.EventListener;
 import com.gs.dmn.runtime.listener.*;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import org.omg.spec.dmn._20180521.model.*;
 import org.slf4j.Logger;
@@ -58,11 +58,11 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         EVENT_LISTENER = eventListener;
     }
 
-    private final BasicDMN2JavaTransformer basicDMNTransformer;
+    private final BasicDMNToNativeTransformer basicDMNTransformer;
     protected final FEELLib feelLib;
     private final FEELInterpreter feelInterpreter;
 
-    public StandardDMNInterpreter(BasicDMN2JavaTransformer basicDMNTransformer, FEELLib feelLib) {
+    public StandardDMNInterpreter(BasicDMNToNativeTransformer basicDMNTransformer, FEELLib feelLib) {
         this.basicDMNTransformer = basicDMNTransformer;
         this.dmnModelRepository = basicDMNTransformer.getDMNModelRepository();
         this.environmentFactory = basicDMNTransformer.getEnvironmentFactory();
@@ -71,7 +71,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
     }
 
     @Override
-    public BasicDMN2JavaTransformer getBasicDMNTransformer() {
+    public BasicDMNToNativeTransformer getBasicDMNTransformer() {
         return this.basicDMNTransformer;
     }
 
@@ -796,7 +796,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
         }
     }
 
-    private Object evaluateDefaultValue(TDRGElement element, TDecisionTable decisionTable, BasicDMN2JavaTransformer dmnTransformer, Environment environment, RuntimeEnvironment runtimeEnvironment, DRGElement elementAnnotation) {
+    private Object evaluateDefaultValue(TDRGElement element, TDecisionTable decisionTable, BasicDMNToNativeTransformer dmnTransformer, Environment environment, RuntimeEnvironment runtimeEnvironment, DRGElement elementAnnotation) {
         if (this.dmnModelRepository.hasDefaultValue(decisionTable)) {
             // Evaluate and collect default values
             List<TOutputClause> outputClauses = decisionTable.getOutput();

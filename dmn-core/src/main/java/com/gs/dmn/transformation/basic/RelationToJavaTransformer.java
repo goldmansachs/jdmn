@@ -63,7 +63,7 @@ public class RelationToJavaTransformer {
         String javaType = dmnTransformer.drgElementOutputClassName(element);
 
         // Constructor argument names
-        List<String> argNameList = relation.getColumn().stream().map(c -> dmnTransformer.javaFriendlyVariableName(c.getName())).collect(Collectors.toList());
+        List<String> argNameList = relation.getColumn().stream().map(c -> dmnTransformer.nativeFriendlyVariableName(c.getName())).collect(Collectors.toList());
 
         // Scan relation and translate each row to a Java constructor invocation
         List<String> rowValues = new ArrayList<>();
@@ -89,7 +89,7 @@ public class RelationToJavaTransformer {
                 }
                 argPairList.sort(Comparator.comparing(Pair::getLeft));
                 String argList = argPairList.stream().map(Pair::getRight).collect(Collectors.joining(", "));
-                rowValues.add(dmnTransformer.constructor(dmnTransformer.itemDefinitionJavaClassName(javaType), argList));
+                rowValues.add(dmnTransformer.constructor(dmnTransformer.itemDefinitionNativeClassName(javaType), argList));
             }
         }
 

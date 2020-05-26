@@ -134,7 +134,7 @@
             // Compute output
             output_.setMatched(true)
             <#list expression.output as output>
-            output_.${transformer.outputClauseVariableName(drgElement, output)} = ${transformer.outputEntryToJava(drgElement, rule.outputEntry[output_index], output_index)}
+            output_.${transformer.outputClauseVariableName(drgElement, output)} = ${transformer.outputEntryToNative(drgElement, rule.outputEntry[output_index], output_index)}
                 <#if modelRepository.isOutputOrderHit(expression.hitPolicy) && transformer.priority(drgElement, rule.outputEntry[output_index], output_index)?exists>
             output_.${transformer.outputClausePriorityVariableName(drgElement, output)} = ${transformer.priority(drgElement, rule.outputEntry[output_index], output_index)}
                 </#if>
@@ -180,7 +180,7 @@
 <#macro addConversionMethod drgElement>
     <#if modelRepository.isCompoundDecisionTable(drgElement)>
     fun toDecisionOutput(ruleOutput_: ${transformer.ruleOutputClassName(drgElement)}): ${transformer.drgElementOutputClassName(drgElement)} {
-        val result_: ${transformer.itemDefinitionJavaClassName(transformer.drgElementOutputClassName(drgElement))} = ${transformer.defaultConstructor(transformer.itemDefinitionJavaClassName(transformer.drgElementOutputClassName(drgElement)))}
+        val result_: ${transformer.itemDefinitionNativeClassName(transformer.drgElementOutputClassName(drgElement))} = ${transformer.defaultConstructor(transformer.itemDefinitionNativeClassName(transformer.drgElementOutputClassName(drgElement)))}
         <#assign expression = modelRepository.expression(drgElement)>
         <#list expression.output as output>
         result_.${transformer.outputClauseVariableName(drgElement, output)} = ruleOutput_.let({ it.${transformer.outputClauseVariableName(drgElement, output)} })
@@ -219,7 +219,7 @@
 
 <#macro addEvaluateExpressionMethod drgElement>
     private fun evaluate(${transformer.drgElementEvaluateSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
-    <#assign stm = transformer.expressionToJava(drgElement)>
+    <#assign stm = transformer.expressionToNative(drgElement)>
     <#if transformer.isCompoundStatement(stm)>
         <#list stm.statements as child>
         ${child.expression}

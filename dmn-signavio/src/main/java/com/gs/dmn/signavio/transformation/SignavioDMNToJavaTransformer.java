@@ -25,7 +25,7 @@ import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.InputParamUtil;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
@@ -62,15 +62,15 @@ public class SignavioDMNToJavaTransformer extends DMNToJavaTransformer {
     }
 
     @Override
-    protected void transform(BasicDMN2JavaTransformer dmnTransformer, DMNModelRepository dmnModelRepository, Path outputPath) {
+    protected void transform(BasicDMNToNativeTransformer dmnTransformer, DMNModelRepository dmnModelRepository, Path outputPath) {
         super.transform(dmnTransformer, dmnModelRepository, outputPath);
 
         // Generate metadata
         processManifest(dmnTransformer, DMN_METADATA_FILE_NAME, outputPath);
     }
 
-    private void processManifest(BasicDMN2JavaTransformer dmnTransformer, String jsonFileName, Path outputPath) {
-        String javaPackageName = dmnTransformer.javaRootPackageName();
+    private void processManifest(BasicDMNToNativeTransformer dmnTransformer, String jsonFileName, Path outputPath) {
+        String javaPackageName = dmnTransformer.nativeRootPackageName();
         String filePath = javaPackageName.replace('.', '/');
         String fileExtension = ".json";
 

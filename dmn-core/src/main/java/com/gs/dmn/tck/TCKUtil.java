@@ -26,7 +26,7 @@ import com.gs.dmn.runtime.interpreter.ImportPath;
 import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCaseType;
@@ -52,11 +52,11 @@ public class TCKUtil {
 
     private final DMNModelRepository dmnModelRepository;
 
-    private final BasicDMN2JavaTransformer dmnTransformer;
+    private final BasicDMNToNativeTransformer dmnTransformer;
     private final StandardFEELLib feelLib;
     private final NativeTypeFactory typeFactory;
 
-    public TCKUtil(BasicDMN2JavaTransformer dmnTransformer, StandardFEELLib feelLib) {
+    public TCKUtil(BasicDMNToNativeTransformer dmnTransformer, StandardFEELLib feelLib) {
         this.dmnTransformer = dmnTransformer;
         this.feelLib = feelLib;
         this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
@@ -177,9 +177,9 @@ public class TCKUtil {
         return null;
     }
 
-    public String toJavaType(InputNodeInfo info) {
+    public String toNativeType(InputNodeInfo info) {
         Type feelType = toFEELType(info);
-        return this.typeFactory.nullableType(this.dmnTransformer.toJavaType(feelType));
+        return this.typeFactory.nullableType(this.dmnTransformer.toNativeType(feelType));
     }
 
     public String inputDataVariableName(InputNodeInfo info) {
@@ -195,9 +195,9 @@ public class TCKUtil {
         }
     }
 
-    public String toJavaExpression(InputNodeInfo info) {
+    public String toNativeExpression(InputNodeInfo info) {
         Type inputType = toFEELType(info);
-        return toJavaExpression(info.getValue(), inputType);
+        return toNativeExpression(info.getValue(), inputType);
     }
 
     private Type toFEELType(InputNodeInfo info) {
@@ -238,13 +238,13 @@ public class TCKUtil {
         return new ResultNodeInfo(testCases.getModelName(), resultNode.getName(), reference, resultNode.getExpected());
     }
 
-    public String toJavaExpression(ResultNodeInfo info) {
+    public String toNativeExpression(ResultNodeInfo info) {
         Type outputType = toFEELType(info);
-        return toJavaExpression(info.getExpectedValue(), outputType);
+        return toNativeExpression(info.getExpectedValue(), outputType);
     }
 
     public String qualifiedName(ResultNodeInfo info) {
-        String pkg = this.dmnTransformer.javaModelPackageName(info.getRootModelName());
+        String pkg = this.dmnTransformer.nativeModelPackageName(info.getRootModelName());
         String cls = this.dmnTransformer.drgElementClassName(info.getReference().getElement());
         return this.dmnTransformer.qualifiedName(pkg, cls);
     }
@@ -389,7 +389,7 @@ public class TCKUtil {
         List<Object> args = new ArrayList<>();
         if (drgElement instanceof TInvocable) {
             // Preserve de order in the call
-            List<FormalParameter> formalParameters = this.dmnTransformer.invFEELParameters(drgElement);
+            List<FormalParameter> formalParameters = this.dmnTransformer.invocableFEELParameters(drgElement);
             Map<String, Object> map = new LinkedHashMap<>();
             List<InputNode> inputNode = testCase.getInputNode();
             for (int i = 0; i < inputNode.size(); i++) {
@@ -499,7 +499,7 @@ public class TCKUtil {
     //
     // Make java expressions from ValueType
     //
-    private String toJavaExpression(ValueType valueType, Type type) {
+    private String toNativeExpression(ValueType valueType, Type type) {
         if (valueType.getValue() != null) {
             Object value = jaxbElementValue(valueType.getValue());
             String text = getTextContent(value);
@@ -523,31 +523,31 @@ public class TCKUtil {
                 throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
             }
         } else if (valueType.getList() != null) {
-            return toJavaExpression(valueType.getList().getValue(), (ListType) type);
+            return toNativeExpression(valueType.getList().getValue(), (ListType) type);
         } else if (valueType.getComponent() != null) {
-            return toJavaExpression(valueType.getComponent(), (ItemDefinitionType) type);
+            return toNativeExpression(valueType.getComponent(), (ItemDefinitionType) type);
         }
         throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
     }
 
-    private String toJavaExpression(ValueType.List list, ListType listType) {
+    private String toNativeExpression(ValueType.List list, ListType listType) {
         List<String> javaList = new ArrayList<>();
         for (ValueType listValueType : list.getItem()) {
             Type elementType = listType.getElementType();
-            String value = toJavaExpression(listValueType, elementType);
+            String value = toNativeExpression(listValueType, elementType);
             javaList.add(value);
         }
         return String.format("asList(%s)", String.join(", ", javaList));
     }
 
-    private String toJavaExpression(List<Component> components, ItemDefinitionType type) {
+    private String toNativeExpression(List<Component> components, ItemDefinitionType type) {
         List<Pair<String, String>> argumentList = new ArrayList<>();
         Set<String> members = type.getMembers();
         Set<String> present = new LinkedHashSet<>();
         for (Component c : components) {
             String name = c.getName();
             Type memberType = type.getMemberType(name);
-            String value = toJavaExpression(c, memberType);
+            String value = toNativeExpression(c, memberType);
             argumentList.add(new Pair<>(name, value));
             present.add(name);
         }
@@ -559,9 +559,9 @@ public class TCKUtil {
             }
         }
         sortParameters(argumentList);
-        String interfaceName = this.dmnTransformer.toJavaType(type);
+        String interfaceName = this.dmnTransformer.toNativeType(type);
         String arguments = argumentList.stream().map(Pair::getRight).collect(Collectors.joining(", "));
-        return this.dmnTransformer.constructor(this.dmnTransformer.itemDefinitionJavaClassName(interfaceName), arguments);
+        return this.dmnTransformer.constructor(this.dmnTransformer.itemDefinitionNativeClassName(interfaceName), arguments);
     }
 
     public Object makeValue(ValueType valueType) {

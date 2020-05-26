@@ -35,13 +35,13 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Disjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
-    public SimpleExpressionsToJavaVisitor(BasicDMN2JavaTransformer dmnTransformer) {
+    public SimpleExpressionsToJavaVisitor(BasicDMNToNativeTransformer dmnTransformer) {
         super(dmnTransformer);
     }
 
