@@ -26,8 +26,8 @@ import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
-public class DefaultDMNEnvironmentFactory extends EnvironmentFactory {
-    private static final EnvironmentFactory INSTANCE = new DefaultDMNEnvironmentFactory();
+public class StandardEnvironmentFactory extends EnvironmentFactory {
+    private static final EnvironmentFactory INSTANCE = new StandardEnvironmentFactory();
     private static final Environment ROOT_ENVIRONMENT;
 
     static {
@@ -39,12 +39,12 @@ public class DefaultDMNEnvironmentFactory extends EnvironmentFactory {
         return INSTANCE;
     }
 
-    private DefaultDMNEnvironmentFactory() {
+    private StandardEnvironmentFactory() {
     }
 
     @Override
     public Environment getRootEnvironment() {
-        return DefaultDMNEnvironmentFactory.ROOT_ENVIRONMENT;
+        return StandardEnvironmentFactory.ROOT_ENVIRONMENT;
     }
 
     private static void addFEELFunctions(Environment environment) {

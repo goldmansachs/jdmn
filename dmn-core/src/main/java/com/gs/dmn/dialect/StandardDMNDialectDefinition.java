@@ -13,7 +13,7 @@
 package com.gs.dmn.dialect;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.feel.analysis.semantics.environment.DefaultDMNEnvironmentFactory;
+import com.gs.dmn.feel.analysis.semantics.environment.StandardEnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.lib.DefaultFEELLib;
 import com.gs.dmn.feel.lib.FEELLib;
@@ -56,7 +56,7 @@ public class StandardDMNDialectDefinition extends AbstractDMNDialectDefinition {
     }
 
     private EnvironmentFactory createEnvironmentFactory() {
-        return DefaultDMNEnvironmentFactory.instance();
+        return StandardEnvironmentFactory.instance();
     }
 
     //

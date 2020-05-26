@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.tck;
 
-import com.gs.dmn.feel.analysis.semantics.environment.DefaultDMNEnvironmentFactory;
+import com.gs.dmn.feel.analysis.semantics.environment.StandardEnvironmentFactory;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DefaultDMNBaseDecision;
 import com.gs.dmn.runtime.Pair;
@@ -79,7 +79,7 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends Abstrac
     @Override
     protected Map<String, String> makeInputParameters() {
         LinkedHashMap<String, String> inputParams = new LinkedHashMap<String, String>();
-        inputParams.put("environmentFactoryClass", DefaultDMNEnvironmentFactory.class.getName());
+        inputParams.put("environmentFactoryClass", StandardEnvironmentFactory.class.getName());
         inputParams.put("decisionBaseClass", DefaultDMNBaseDecision.class.getName());
         return inputParams;
     }
