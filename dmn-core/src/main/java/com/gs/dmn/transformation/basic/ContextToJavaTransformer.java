@@ -15,9 +15,12 @@ package com.gs.dmn.transformation.basic;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
+import com.gs.dmn.feel.analysis.semantics.type.AnyType;
+import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.expression.NativeExpressionFactory;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.java.CompoundStatement;
@@ -26,19 +29,22 @@ import com.gs.dmn.transformation.java.Statement;
 import org.omg.spec.dmn._20180521.model.*;
 
 import javax.xml.bind.JAXBElement;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ContextToJavaTransformer {
     private final DMNModelRepository dmnModelRepository;
-    private final BasicDMN2JavaTransformer dmnTransformer;
+    private final BasicDMNToNativeTransformer dmnTransformer;
     private final EnvironmentFactory environmentFactory;
     private final NativeExpressionFactory expressionFactory;
+    private final FEELTranslator feelTranslator;
 
-    ContextToJavaTransformer(BasicDMN2JavaTransformer dmnTransformer) {
+    ContextToJavaTransformer(BasicDMNToNativeTransformer dmnTransformer) {
         this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
         this.dmnTransformer = dmnTransformer;
         this.environmentFactory = dmnTransformer.getEnvironmentFactory();
         this.expressionFactory = dmnTransformer.getExpressionFactory();
+        this.feelTranslator = dmnTransformer.getFEELTranslator();
     }
 
     public Statement expressionToNative(TDRGElement element, TContext context) {
@@ -70,15 +76,15 @@ public class ContextToJavaTransformer {
                 TExpression expression = jaxbElement.getValue();
                 if (expression instanceof TLiteralExpression) {
                     Expression feelExpression = literalExpressionMap.get(entry);
-                    entryType = this.dmnTransformer.entryType(element, entry, expression, feelExpression);
-                    String stm = this.dmnTransformer.feelTranslator.expressionToNative(feelExpression, feelContext);
+                    entryType = this.entryType(element, entry, expression, feelExpression);
+                    String stm = this.feelTranslator.expressionToNative(feelExpression, feelContext);
                     value = new ExpressionStatement(stm, entryType);
                 } else {
-                    entryType = this.dmnTransformer.entryType(element, entry, contextEnvironment);
+                    entryType = this.entryType(element, entry, contextEnvironment);
                     value = (ExpressionStatement) this.dmnTransformer.expressionToNative(element, expression, contextEnvironment);
                 }
             } else {
-                entryType = this.dmnTransformer.entryType(element, entry, contextEnvironment);
+                entryType = this.entryType(element, entry, contextEnvironment);
                 value = new ExpressionStatement("null", entryType);
             }
 
@@ -112,9 +118,9 @@ public class ContextToJavaTransformer {
                 TExpression expression = jaxbElement == null ? null : jaxbElement.getValue();
                 if (expression instanceof TLiteralExpression) {
                     Expression feelExpression = literalExpressionMap.get(entry);
-                    entryType = this.dmnTransformer.entryType(element, entry, expression, feelExpression);
+                    entryType = this.entryType(element, entry, expression, feelExpression);
                 } else {
-                    entryType = this.dmnTransformer.entryType(element, entry, contextEnvironment);
+                    entryType = this.entryType(element, entry, contextEnvironment);
                 }
 
                 // Add statement
@@ -130,5 +136,77 @@ public class ContextToJavaTransformer {
             statement.add(new ExpressionStatement(returnText, returnType));
         }
         return statement;
+    }
+
+    public Pair<Environment, Map<TContextEntry, Expression>> makeContextEnvironment(TDRGElement element, TContext context, Environment parentEnvironment) {
+        Environment contextEnvironment = this.dmnTransformer.makeEnvironment(element, parentEnvironment);
+        Map<TContextEntry, Expression> literalExpressionMap = new LinkedHashMap<>();
+        for(TContextEntry entry: context.getContextEntry()) {
+            TInformationItem variable = entry.getVariable();
+            JAXBElement<? extends TExpression> jElement = entry.getExpression();
+            TExpression expression = jElement == null ? null : jElement.getValue();
+            Expression feelExpression = null;
+            if (expression instanceof TLiteralExpression) {
+                feelExpression = this.feelTranslator.analyzeExpression(((TLiteralExpression) expression).getText(), FEELContext.makeContext(element, contextEnvironment));
+                literalExpressionMap.put(entry, feelExpression);
+            }
+            if (variable != null) {
+                String name = variable.getName();
+                Type entryType;
+                if (expression instanceof TLiteralExpression) {
+                    entryType = entryType(element, entry, expression, feelExpression);
+                } else {
+                    entryType = entryType(element, entry, contextEnvironment);
+                }
+                addContextEntryDeclaration(contextEnvironment, name, entryType);
+            }
+        }
+        return new Pair<>(contextEnvironment, literalExpressionMap);
+    }
+
+    Type entryType(TNamedElement element, TContextEntry entry, TExpression expression, Expression feelExpression) {
+        TDefinitions model = this.dmnModelRepository.getModel(element);
+        TInformationItem variable = entry.getVariable();
+        Type entryType = variableType(element, variable);
+        if (entryType != null) {
+            return entryType;
+        }
+        QualifiedName typeRef = expression == null ? null : QualifiedName.toQualifiedName(model, expression.getTypeRef());
+        if (typeRef != null) {
+            entryType = this.dmnTransformer.toFEELType(model, typeRef);
+        }
+        if (entryType == null) {
+            entryType = feelExpression.getType();
+        }
+        return entryType;
+    }
+
+    private void addContextEntryDeclaration(Environment contextEnvironment, String name, Type entryType) {
+        if (entryType instanceof FunctionType) {
+            contextEnvironment.addDeclaration(this.environmentFactory.makeFunctionDeclaration(name, (FunctionType) entryType));
+        } else {
+            contextEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(name, entryType));
+        }
+    }
+
+    Type entryType(TDRGElement element, TContextEntry entry, Environment contextEnvironment) {
+        TInformationItem variable = entry.getVariable();
+        Type feelType = variableType(element, variable);
+        if (feelType != null) {
+            return feelType;
+        }
+        feelType = this.dmnTransformer.expressionType(element, entry.getExpression(), contextEnvironment);
+        return feelType == null ? AnyType.ANY : feelType;
+    }
+
+    private Type variableType(TNamedElement element, TInformationItem variable) {
+        TDefinitions model = this.dmnModelRepository.getModel(element);
+        if (variable != null) {
+            QualifiedName typeRef = QualifiedName.toQualifiedName(model, variable.getTypeRef());
+            if (typeRef != null) {
+                return this.dmnTransformer.toFEELType(model, typeRef);
+            }
+        }
+        return null;
     }
 }

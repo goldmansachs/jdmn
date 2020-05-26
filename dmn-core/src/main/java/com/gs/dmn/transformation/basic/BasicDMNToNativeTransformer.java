@@ -13,6 +13,7 @@
 package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.DRGElementFilter;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
@@ -30,6 +31,7 @@ import com.gs.dmn.runtime.annotation.HitPolicy;
 import com.gs.dmn.transformation.java.Statement;
 import org.omg.spec.dmn._20180521.model.*;
 
+import javax.xml.bind.JAXBElement;
 import java.util.List;
 import java.util.Map;
 
@@ -45,6 +47,8 @@ public interface BasicDMNToNativeTransformer {
     NativeTypeFactory getTypeFactory();
 
     NativeExpressionFactory getExpressionFactory();
+
+    DRGElementFilter getDrgElementFilter();
 
     //
     // Configuration
@@ -214,6 +218,8 @@ public interface BasicDMNToNativeTransformer {
 
     String convertMethodName(TItemDefinition itemDefinition);
 
+    String augmentSignature(String signature);
+
     String augmentArgumentList(String arguments);
 
     List<Pair<String, Type>> inputDataParametersClosure(DRGElementReference<TDecision> reference);
@@ -233,6 +239,8 @@ public interface BasicDMNToNativeTransformer {
     boolean isLazyEvaluated(TDRGElement element);
 
     boolean isLazyEvaluated(String name);
+
+    String lazyEvaluationType(TDRGElement input, String inputJavaType);
 
     String lazyEvaluation(String elementName, String nativeName);
 
@@ -387,15 +395,21 @@ public interface BasicDMNToNativeTransformer {
     //
     // Expression related functions
     //
-    boolean isCompoundStatement(Statement stm);
+    Type expressionType(TDRGElement element, JAXBElement<? extends TExpression> jElement, Environment environment);
+
+    Type expressionType(TDRGElement element, TExpression expression, Environment environment);
+
+    Type convertType(Type type, boolean convertToContext);
 
     Statement expressionToNative(TDRGElement element);
+
+    Statement expressionToNative(TDRGElement element, TExpression expression, Environment environment);
 
     String literalExpressionToNative(TDRGElement element, String expressionText);
 
     String functionDefinitionToNative(FunctionDefinition element, boolean convertTypeToContext, String body);
 
-    Type convertType(Type type, boolean convertToContext);
+    boolean isCompoundStatement(Statement stm);
 
     //
     // Type related functions
@@ -405,6 +419,8 @@ public interface BasicDMNToNativeTransformer {
     Type toFEELType(TDefinitions model, String typeName);
 
     Type toFEELType(TDefinitions model, QualifiedName typeRef);
+
+    Type toFEELType(TItemDefinition itemDefinition);
 
     //
     // Common functions
@@ -463,6 +479,8 @@ public interface BasicDMNToNativeTransformer {
     Environment makeFunctionDefinitionEnvironment(TNamedElement element, TFunctionDefinition functionDefinition, Environment parentEnvironment);
 
     Environment makeInputEntryEnvironment(TDRGElement element, Expression inputExpression);
+
+    Environment makeOutputEntryEnvironment(TDRGElement element, EnvironmentFactory environmentFactory);
 
     Pair<Environment, Map<TContextEntry, Expression>> makeContextEnvironment(TDRGElement element, TContext context, Environment parentEnvironment);
 

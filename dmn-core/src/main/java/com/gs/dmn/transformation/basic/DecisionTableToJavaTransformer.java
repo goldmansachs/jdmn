@@ -41,13 +41,13 @@ import java.util.stream.Collectors;
 import static com.gs.dmn.transformation.DMNToJavaTransformer.DECISION_RULE_OUTPUT_CLASS_SUFFIX;
 
 public class DecisionTableToJavaTransformer {
-    private final BasicDMN2JavaTransformer dmnTransformer;
+    private final BasicDMNToNativeTransformer dmnTransformer;
     private final DMNModelRepository dmnModelRepository;
     private final FEELTranslator feelTranslator;
     private final EnvironmentFactory environmentFactory;
     private final NativeExpressionFactory expressionFactory;
 
-    DecisionTableToJavaTransformer(BasicDMN2JavaTransformer dmnTransformer) {
+    DecisionTableToJavaTransformer(BasicDMNToNativeTransformer dmnTransformer) {
         this.dmnTransformer = dmnTransformer;
         this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
         this.feelTranslator = dmnTransformer.getFEELTranslator();
@@ -62,7 +62,7 @@ public class DecisionTableToJavaTransformer {
             if (this.dmnModelRepository.hasDefaultValue(decisionTable)) {
                 if (this.dmnModelRepository.isCompoundDecisionTable(element)) {
                     List<String> values = new ArrayList<>();
-                    List<TOutputClause> output = sortOutputClauses(element, new ArrayList(decisionTable.getOutput()));
+                    List<TOutputClause> output = sortOutputClauses(element, new ArrayList<>(decisionTable.getOutput()));
                     for(TOutputClause outputClause: output) {
                         values.add(defaultValue(element, outputClause));
                     }
@@ -252,7 +252,7 @@ public class DecisionTableToJavaTransformer {
     }
 
     public String ruleSignature(TDecision decision) {
-        List<DRGElementReference<? extends TDRGElement>> references = this.dmnModelRepository.sortedUniqueInputs(decision, this.dmnTransformer.drgElementFilter);
+        List<DRGElementReference<? extends TDRGElement>> references = this.dmnModelRepository.sortedUniqueInputs(decision, this.dmnTransformer.getDrgElementFilter());
 
         List<Pair<String, String>> parameters = new ArrayList<>();
         for (DRGElementReference<? extends TDRGElement> reference : references) {
@@ -266,7 +266,7 @@ public class DecisionTableToJavaTransformer {
     }
 
     public String ruleArgumentList(TDecision decision) {
-        List<DRGElementReference<? extends TDRGElement>> references = this.dmnModelRepository.sortedUniqueInputs(decision, this.dmnTransformer.drgElementFilter);
+        List<DRGElementReference<? extends TDRGElement>> references = this.dmnModelRepository.sortedUniqueInputs(decision, this.dmnTransformer.getDrgElementFilter());
 
         List<String> arguments = new ArrayList<>();
         for (DRGElementReference<? extends TDRGElement> reference : references) {
@@ -393,7 +393,7 @@ public class DecisionTableToJavaTransformer {
         if (tExpression instanceof TDecisionTable) {
             // Analyze output expression
             String outputEntryText = outputEntryExpression.getText();
-            Environment outputEntryEnvironment = this.dmnTransformer.makeOutputEntryEnvironment(element, this.environmentFactory);
+            Environment outputEntryEnvironment = this.makeOutputEntryEnvironment(element, this.environmentFactory);
             if ("-".equals(outputEntryText)) {
                 outputEntryText = "null";
             }
@@ -426,5 +426,15 @@ public class DecisionTableToJavaTransformer {
 
     public String hitPolicyAnnotationClassName() {
         return HitPolicy.class.getName();
+    }
+
+    public Environment makeInputEntryEnvironment(TDRGElement element, Expression inputExpression) {
+        Environment environment = this.environmentFactory.makeEnvironment(this.dmnTransformer.makeEnvironment(element), inputExpression);
+        environment.addDeclaration(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER, this.environmentFactory.makeVariableDeclaration(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER, inputExpression.getType()));
+        return environment;
+    }
+
+    public Environment makeOutputEntryEnvironment(TDRGElement element, EnvironmentFactory environmentFactory) {
+        return environmentFactory.makeEnvironment(this.dmnTransformer.makeEnvironment(element));
     }
 }

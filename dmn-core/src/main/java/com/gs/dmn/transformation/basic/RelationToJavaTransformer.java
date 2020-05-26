@@ -30,13 +30,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class RelationToJavaTransformer {
-    private final BasicDMN2JavaTransformer dmnTransformer;
+    private final BasicDMNToNativeTransformer dmnTransformer;
     private final DMNModelRepository modelRepository;
     private final String indent = "\t\t\t\t";
     private final EnvironmentFactory environmentFactory;
     private final NativeExpressionFactory expressionFactory;
 
-    RelationToJavaTransformer(BasicDMN2JavaTransformer dmnTransformer) {
+    RelationToJavaTransformer(BasicDMNToNativeTransformer dmnTransformer) {
         this.modelRepository = dmnTransformer.getDMNModelRepository();
         this.dmnTransformer = dmnTransformer;
         this.environmentFactory = dmnTransformer.getEnvironmentFactory();
@@ -69,7 +69,6 @@ public class RelationToJavaTransformer {
         List<String> rowValues = new ArrayList<>();
         for(TList row: relation.getRow()) {
             // Translate value
-            String value;
             List<JAXBElement<? extends TExpression>> jaxbElementList = row.getExpression();
             if (jaxbElementList == null) {
                 rowValues.add("null");
@@ -85,7 +84,7 @@ public class RelationToJavaTransformer {
                         Statement statement = dmnTransformer.expressionToNative(element, expression, relationEnvironment);
                         argValue = ((ExpressionStatement)statement).getExpression();
                     }
-                    argPairList.add(new Pair<String, String>(argNameList.get(i), argValue));
+                    argPairList.add(new Pair<>(argNameList.get(i), argValue));
                 }
                 argPairList.sort(Comparator.comparing(Pair::getLeft));
                 String argList = argPairList.stream().map(Pair::getRight).collect(Collectors.joining(", "));
@@ -95,7 +94,7 @@ public class RelationToJavaTransformer {
 
         // Make a list
         Type elementType = ((ListType) resultType).getElementType();
-        String result = expressionFactory.asList(elementType, rowValues.stream().collect(Collectors.joining(",\n" + indent)));
+        String result = expressionFactory.asList(elementType, String.join(",\n" + indent, rowValues));
         return new ExpressionStatement(result, resultType);
     }
 }
