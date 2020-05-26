@@ -14,7 +14,6 @@ package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
-import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.environment.Parameter;
@@ -51,6 +50,11 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
     public BasicSignavioDMN2JavaTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory feelTypeTranslator, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         super(dmnModelRepository, environmentFactory, feelTypeTranslator, lazyEvaluationDetector, inputParameters);
         this.dmnModelRepository = (SignavioDMNModelRepository) super.getDMNModelRepository();
+    }
+
+    @Override
+    protected void setDMNEnvironmentFactory() {
+        this.dmnEnvironmentFactory = new SignavioDMNEnvironmentFactory(this);
     }
 
     //
@@ -119,33 +123,6 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
         } else {
             return super.drgElementOutputFEELType(element, environment);
         }
-    }
-
-    @Override
-    protected Declaration makeDeclaration(TDRGElement parent, Environment parentEnvironment, TDRGElement child) {
-        TDefinitions childModel = this.dmnModelRepository.getModel(child);
-        Declaration declaration;
-        if (child instanceof TInputData) {
-            declaration = makeVariableDeclaration(child, ((TInputData) child).getVariable());
-        } else if (child instanceof TBusinessKnowledgeModel) {
-            TBusinessKnowledgeModel bkm = (TBusinessKnowledgeModel) child;
-            if (this.dmnModelRepository.isBKMLinkedToDecision(bkm)) {
-                TDecision outputDecision = this.dmnModelRepository.getOutputDecision(bkm);
-                declaration = makeVariableDeclaration(child, outputDecision.getVariable());
-            } else {
-                TFunctionDefinition functionDefinition = bkm.getEncapsulatedLogic();
-                functionDefinition.getFormalParameter().forEach(
-                        p -> parentEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(p.getName(), toFEELType(childModel, QualifiedName.toQualifiedName(childModel, p.getTypeRef())))));
-                declaration = makeInvocableDeclaration(bkm);
-            }
-        } else if (child instanceof TDecision) {
-            declaration = makeVariableDeclaration(child, ((TDecision) child).getVariable());
-        } else if (child instanceof TDecisionService) {
-            declaration = makeInvocableDeclaration((TDecisionService) child);
-        } else {
-            throw new UnsupportedOperationException(String.format("'%s' is not supported yet", child.getClass().getSimpleName()));
-        }
-        return declaration;
     }
 
     public String drgElementOutputFieldName(TDRGElement element, int outputIndex) {
@@ -297,7 +274,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
     }
 
     @Override
-    protected List<FormalParameter> bkmFEELParameters(TBusinessKnowledgeModel bkm) {
+    public List<FormalParameter> bkmFEELParameters(TBusinessKnowledgeModel bkm) {
         TFunctionDefinition encapsulatedLogic = bkm.getEncapsulatedLogic();
         if (encapsulatedLogic == null) {
             List<FormalParameter> parameters = new ArrayList<>();
