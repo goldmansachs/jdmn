@@ -16,14 +16,14 @@ import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.lib.MixedJavaTimeFEELLib;
-import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.feel.synthesis.type.MixedJavaTimeNativeTypeFactory;
+import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.MixedJavaTimeDMNBaseDecision;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
-import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
+import com.gs.dmn.transformation.DMNToNativeTransformer;
 import com.gs.dmn.transformation.NopDMNTransformer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
@@ -52,7 +52,7 @@ public class MixedJavaTimeDMNDialectDefinitionTest extends AbstractTest {
         inputParameters.put("dmnVersion", "1.1");
         inputParameters.put("modelVersion", "1.2");
         inputParameters.put("platformVersion", "3.2");
-        AbstractDMNToNativeTransformer dmnToJavaTransformer = dialect.createDMNToJavaTransformer(new NopDMNValidator(), new NopDMNTransformer(), new TreeTemplateProvider(), new NopLazyEvaluationDetector(), new DefaultTypeDeserializationConfigurer(), inputParameters, null);
+        DMNToNativeTransformer dmnToJavaTransformer = dialect.createDMNToNativeTransformer(new NopDMNValidator(), new NopDMNTransformer(), new TreeTemplateProvider(), new NopLazyEvaluationDetector(), new DefaultTypeDeserializationConfigurer(), inputParameters, null);
         assertEquals(DMNToJavaTransformer.class.getName(), dmnToJavaTransformer.getClass().getName());
     }
 

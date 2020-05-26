@@ -35,7 +35,7 @@ import java.util.*;
 
 import static com.gs.dmn.serialization.DMNReader.isDMNFile;
 
-public abstract class AbstractDMNToNativeTransformer extends AbstractDMNTransformer {
+public abstract class AbstractDMNToNativeTransformer extends AbstractDMNTransformer implements DMNToNativeTransformer {
     public static final String DATA_PACKAGE = "type";
     public static final String DECISION_RULE_OUTPUT_CLASS_SUFFIX = "RuleOutput";
     public static final String PRIORITY_SUFFIX = "Priority";
