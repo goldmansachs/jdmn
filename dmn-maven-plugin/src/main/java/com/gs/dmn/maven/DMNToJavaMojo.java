@@ -80,7 +80,7 @@ public class DMNToJavaMojo extends AbstractDMNMojo {
             validateParameters(dmnDialect, dmnValidator, dmnTransformer, templateProvider, inputParameters);
 
             // Create transformer
-            FileTransformer transformer = dmnDialect.createDMNToJavaTransformer(
+            FileTransformer transformer = dmnDialect.createDMNToNativeTransformer(
                     dmnValidator,
                     dmnTransformer,
                     templateProvider,

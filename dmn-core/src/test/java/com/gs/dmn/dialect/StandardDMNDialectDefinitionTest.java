@@ -22,8 +22,8 @@ import com.gs.dmn.runtime.DefaultDMNBaseDecision;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
-import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
+import com.gs.dmn.transformation.DMNToNativeTransformer;
 import com.gs.dmn.transformation.NopDMNTransformer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
@@ -52,7 +52,7 @@ public class StandardDMNDialectDefinitionTest extends AbstractTest {
         inputParameters.put("dmnVersion", "1.1");
         inputParameters.put("modelVersion", "1.2");
         inputParameters.put("platformVersion", "3.2");
-        AbstractDMNToNativeTransformer dmnToJavaTransformer = dialect.createDMNToJavaTransformer(new NopDMNValidator(), new NopDMNTransformer(), new TreeTemplateProvider(), new NopLazyEvaluationDetector(), new DefaultTypeDeserializationConfigurer(), inputParameters, null);
+        DMNToNativeTransformer dmnToJavaTransformer = dialect.createDMNToNativeTransformer(new NopDMNValidator(), new NopDMNTransformer(), new TreeTemplateProvider(), new NopLazyEvaluationDetector(), new DefaultTypeDeserializationConfigurer(), inputParameters, null);
         assertEquals(DMNToJavaTransformer.class.getName(), dmnToJavaTransformer.getClass().getName());
     }
 

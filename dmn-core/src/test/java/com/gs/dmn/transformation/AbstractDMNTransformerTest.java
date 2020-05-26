@@ -80,7 +80,7 @@ public abstract class AbstractDMNTransformerTest extends AbstractTransformerTest
     }
 
     private FileTransformer makeTransformer(Map<String, String> inputParameters, BuildLogger logger) {
-        return makeDialectDefinition().createDMNToJavaTransformer(makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, logger), makeTypeDeserializationConfigurer(logger), inputParameters, logger);
+        return makeDialectDefinition().createDMNToNativeTransformer(makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, logger), makeTypeDeserializationConfigurer(logger), inputParameters, logger);
     }
 
     @Override
