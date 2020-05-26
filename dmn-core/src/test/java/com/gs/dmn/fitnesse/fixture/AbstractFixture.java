@@ -14,7 +14,7 @@ package com.gs.dmn.fitnesse.fixture;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
-import com.gs.dmn.feel.analysis.semantics.environment.DefaultDMNEnvironmentFactory;
+import com.gs.dmn.feel.analysis.semantics.environment.StandardEnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
@@ -55,21 +55,21 @@ public class AbstractFixture extends ColumnFixture {
     }
 
     protected Environment makeEnvironment(Scope scope) {
-        Environment environment = DefaultDMNEnvironmentFactory.instance().makeEnvironment();
+        Environment environment = StandardEnvironmentFactory.instance().makeEnvironment();
         if (scope != null) {
             for(ScopeEntry entry: scope) {
                 String name = entry.getName();
                 Type type = makeType(entry.getType());
-                environment.addDeclaration(DefaultDMNEnvironmentFactory.instance().makeVariableDeclaration(name, type));
+                environment.addDeclaration(StandardEnvironmentFactory.instance().makeVariableDeclaration(name, type));
             }
         }
         return environment;
     }
 
     protected Environment makeInputEntryEnvironment(Environment parent, Expression inputExpression) {
-        Environment environment = DefaultDMNEnvironmentFactory.instance().makeEnvironment(parent, inputExpression);
+        Environment environment = StandardEnvironmentFactory.instance().makeEnvironment(parent, inputExpression);
         if (inputExpression != null) {
-            environment.addDeclaration(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER, DefaultDMNEnvironmentFactory.instance().makeVariableDeclaration(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER, inputExpression.getType()));
+            environment.addDeclaration(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER, StandardEnvironmentFactory.instance().makeVariableDeclaration(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER, inputExpression.getType()));
         }
         return environment;
     }

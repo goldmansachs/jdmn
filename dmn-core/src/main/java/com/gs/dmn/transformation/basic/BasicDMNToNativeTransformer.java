@@ -484,9 +484,9 @@ public interface BasicDMNToNativeTransformer {
 
     Pair<Environment, Map<TContextEntry, Expression>> makeContextEnvironment(TDRGElement element, TContext context, Environment parentEnvironment);
 
+    Environment makeRelationEnvironment(TNamedElement element, TRelation relation, Environment environment);
+
     boolean isFEELFunction(TFunctionKind kind);
 
     boolean isJavaFunction(TFunctionKind kind);
-
-    Environment makeRelationEnvironment(TNamedElement element, TRelation relation, Environment environment);
 }
