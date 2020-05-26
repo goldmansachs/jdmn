@@ -15,7 +15,9 @@ package com.gs.dmn.transformation.basic;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementFilter;
 import com.gs.dmn.DRGElementReference;
-import com.gs.dmn.feel.analysis.semantics.environment.*;
+import com.gs.dmn.feel.analysis.semantics.environment.Environment;
+import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
+import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
@@ -64,6 +66,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     protected final DMNModelRepository dmnModelRepository;
     protected final EnvironmentFactory environmentFactory;
+    protected StandardDMNEnvironmentFactory dmnEnvironmentFactory;
     protected final NativeTypeFactory typeFactory;
     protected NativeExpressionFactory expressionFactory;
 
@@ -87,7 +90,6 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     protected final FEELTypeMemoizer feelTypeMemoizer;
     protected final JavaTypeMemoizer nativeTypeMemoizer;
-    protected final EnvironmentMemoizer environmentMemoizer;
 
     public BasicDMN2JavaTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory feelTypeTranslator, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         this.dmnModelRepository = dmnModelRepository;
@@ -96,6 +98,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         setExpressionFactory();
 
         this.feelTranslator = new FEELTranslatorImpl(this);
+        setDMNEnvironmentFactory();
         this.contextToJavaTransformer = new ContextToJavaTransformer(this);
         this.decisionTableToJavaTransformer = new DecisionTableToJavaTransformer(this);
         this.functionDefinitionToJavaTransformer = new FunctionDefinitionToJavaTransformer(this);
@@ -117,7 +120,10 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
         this.feelTypeMemoizer = new FEELTypeMemoizer();
         this.nativeTypeMemoizer = new JavaTypeMemoizer();
-        this.environmentMemoizer = new EnvironmentMemoizer();
+    }
+
+    protected void setDMNEnvironmentFactory() {
+        this.dmnEnvironmentFactory = new StandardDMNEnvironmentFactory(this);
     }
 
     protected void setExpressionFactory() {
@@ -135,8 +141,8 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public NativeTypeFactory getFEELTypeTranslator() {
-        return this.typeFactory;
+    public StandardDMNEnvironmentFactory getDMNEnvironmentFactory() {
+        return this.dmnEnvironmentFactory;
     }
 
     @Override
@@ -814,7 +820,8 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         return qualifiedName(javaPackageName, javaFunctionName);
     }
 
-    protected List<FormalParameter> bkmFEELParameters(TBusinessKnowledgeModel bkm) {
+    @Override
+    public List<FormalParameter> bkmFEELParameters(TBusinessKnowledgeModel bkm) {
         TDefinitions model = this.dmnModelRepository.getModel(bkm);
         List<FormalParameter> parameters = new ArrayList<>();
         bkm.getEncapsulatedLogic().getFormalParameter().forEach(p -> parameters.add(new FormalParameter(p.getName(), toFEELType(model, QualifiedName.toQualifiedName(model, p.getTypeRef())))));
@@ -1524,11 +1531,11 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
                 TInformationItem variable = entry.getVariable();
                 if (variable != null) {
                     String name = variable.getName();
-                    Type entryType = this.contextToJavaTransformer.entryType(element, entry, contextEnvironment);
+                    Type entryType = this.dmnEnvironmentFactory.entryType(element, entry, contextEnvironment);
                     contextEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(name, entryType));
                     members.add(new Pair<>(name, entryType));
                 } else {
-                    returnType = this.contextToJavaTransformer.entryType(element, entry, contextEnvironment);
+                    returnType = this.dmnEnvironmentFactory.entryType(element, entry, contextEnvironment);
                 }
             }
             // Infer return type
@@ -2020,107 +2027,36 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     //
     @Override
     public Environment makeEnvironment(TDRGElement element) {
-        Environment environment = environmentMemoizer.get(element);
-        if (environment == null) {
-            environment = makeEnvironmentNoCache(element);
-            this.environmentMemoizer.put(element, environment);
-        }
-        return environment;
-    }
-
-    private Environment makeEnvironmentNoCache(TDRGElement element) {
-        Environment parentEnvironment = this.environmentFactory.getRootEnvironment();
-        return makeEnvironment(element, parentEnvironment);
+        return this.dmnEnvironmentFactory.makeEnvironment(element);
     }
 
     @Override
     public Environment makeEnvironment(TDRGElement element, Environment parentEnvironment) {
-        Environment elementEnvironment = this.environmentFactory.makeEnvironment(parentEnvironment);
-
-        // Add declaration for each direct child
-        List<DRGElementReference<? extends TDRGElement>> directReferences = getDMNModelRepository().directDRGElements(element);
-        for (DRGElementReference<? extends TDRGElement> reference: directReferences) {
-            // Create child environment to infer type if needed
-            TDRGElement child = reference.getElement();
-            Declaration declaration = makeDeclaration(element, elementEnvironment, child);
-            addDeclaration(elementEnvironment, declaration, element, child);
-        }
-
-        // Add it to cache to avoid infinite loops
-        this.environmentMemoizer.put(element, elementEnvironment);
-        // Add declaration of element to support recursion
-        Declaration declaration = makeDeclaration(element, elementEnvironment, element);
-        addDeclaration(elementEnvironment, declaration, element, element);
-
-        // Add declaration for parameters
-        if (element instanceof  TBusinessKnowledgeModel) {
-            Environment bkmEnvironment = this.environmentFactory.makeEnvironment(elementEnvironment);
-            TDefinitions definitions = this.dmnModelRepository.getModel(element);
-            TFunctionDefinition functionDefinition = ((TBusinessKnowledgeModel) element).getEncapsulatedLogic();
-            if (functionDefinition != null) {
-                functionDefinition.getFormalParameter().forEach(
-                        p -> bkmEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(p.getName(), toFEELType(definitions, QualifiedName.toQualifiedName(definitions, p.getTypeRef())))));
-                elementEnvironment = bkmEnvironment;
-            }
-        }
-
-        return elementEnvironment;
-    }
-
-    protected Declaration makeDeclaration(TDRGElement parent, Environment parentEnvironment, TDRGElement child) {
-        if (parent == null || child == null) {
-            throw new IllegalArgumentException("Cannot add declaration for null DRG element");
-        }
-
-        Declaration declaration;
-        if (child instanceof TInputData) {
-            declaration = makeVariableDeclaration(child, ((TInputData) child).getVariable());
-        } else if (child instanceof TBusinessKnowledgeModel) {
-            declaration = makeInvocableDeclaration((TBusinessKnowledgeModel) child);
-        } else if (child instanceof TDecision) {
-            declaration = makeVariableDeclaration(child, ((TDecision) child).getVariable());
-        } else if (child instanceof TDecisionService) {
-            declaration = makeInvocableDeclaration((TDecisionService) child);
-        } else {
-            throw new UnsupportedOperationException(String.format("'%s' is not supported yet", child.getClass().getSimpleName()));
-        }
-        return declaration;
-    }
-
-    protected void addDeclaration(Environment parentEnvironment, Declaration declaration, TDRGElement parent, TDRGElement child) {
-        Type type = declaration.getType();
-        String importName = this.dmnModelRepository.findChildImportName(parent, child);
-        if (ImportPath.isEmpty(importName)) {
-            parentEnvironment.addDeclaration(declaration);
-        } else {
-            Declaration importDeclaration = parentEnvironment.lookupVariableDeclaration(importName);
-            if (importDeclaration == null) {
-                ImportContextType contextType = new ImportContextType(importName);
-                contextType.addMember(declaration.getName(), new ArrayList<>(), type);
-                contextType.addMemberReference(declaration.getName(), this.dmnModelRepository.makeDRGElementReference(importName, child));
-                importDeclaration = this.environmentFactory.makeVariableDeclaration(importName, contextType);
-                parentEnvironment.addDeclaration(importDeclaration);
-            } else if (importDeclaration instanceof VariableDeclaration) {
-                Type importType = importDeclaration.getType();
-                if (importType instanceof ImportContextType) {
-                    ((ImportContextType) importType).addMember(declaration.getName(), new ArrayList<>(), type);
-                    ((ImportContextType) importType).addMemberReference(declaration.getName(), this.dmnModelRepository.makeDRGElementReference(importName, child));
-                } else {
-                    throw new DMNRuntimeException(String.format("Cannot process declaration for '%s.%s'", importName, declaration.getName()));
-                }
-            } else {
-                throw new DMNRuntimeException(String.format("Cannot process declaration for '%s.%s'", importName, declaration.getName()));
-            }
-        }
+        return this.dmnEnvironmentFactory.makeEnvironment(element, parentEnvironment);
     }
 
     @Override
+    public Environment makeInputEntryEnvironment(TDRGElement element, Expression inputExpression) {
+        return this.dmnEnvironmentFactory.makeInputEntryEnvironment(element, inputExpression);
+    }
+
+    @Override
+    public Environment makeOutputEntryEnvironment(TDRGElement element, EnvironmentFactory environmentFactory) {
+        return this.dmnEnvironmentFactory.makeOutputEntryEnvironment(element, environmentFactory);
+    }
+
+    @Override
+    public Pair<Environment, Map<TContextEntry, Expression>> makeContextEnvironment(TDRGElement element, TContext context, Environment parentEnvironment) {
+        return this.dmnEnvironmentFactory.makeContextEnvironment(element, context, parentEnvironment);
+    }
+
+    @Override
+    public Environment makeRelationEnvironment(TNamedElement element, TRelation relation, Environment environment) {
+        return this.dmnEnvironmentFactory.makeRelationEnvironment(element, relation, environment);
+    }
+
     public Environment makeFunctionDefinitionEnvironment(TNamedElement element, TFunctionDefinition functionDefinition, Environment parentEnvironment) {
-        TDefinitions model = this.dmnModelRepository.getModel(element);
-        Environment environment = this.environmentFactory.makeEnvironment(parentEnvironment);
-        functionDefinition.getFormalParameter().forEach(
-                p -> environment.addDeclaration(this.environmentFactory.makeVariableDeclaration(p.getName(), toFEELType(model, QualifiedName.toQualifiedName(model, p.getTypeRef())))));
-        return environment;
+        return this.dmnEnvironmentFactory.makeFunctionDefinitionEnvironment(element, functionDefinition, parentEnvironment);
     }
 
     private Type makeDSOutputType(TDecisionService decisionService) {
@@ -2150,24 +2086,10 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         }
     }
 
-    private FunctionType makeDSType(TDecisionService decisionService) {
+    @Override
+    public FunctionType makeDSType(TDecisionService decisionService) {
         List<FormalParameter> parameters = dsFEELParameters(decisionService);
         return new DMNFunctionType(parameters, makeDSOutputType(decisionService), decisionService);
-    }
-
-    @Override
-    public Environment makeInputEntryEnvironment(TDRGElement element, Expression inputExpression) {
-        return this.decisionTableToJavaTransformer.makeInputEntryEnvironment(element, inputExpression);
-    }
-
-    @Override
-    public Environment makeOutputEntryEnvironment(TDRGElement element, EnvironmentFactory environmentFactory) {
-        return this.decisionTableToJavaTransformer.makeOutputEntryEnvironment(element, environmentFactory);
-    }
-
-    @Override
-    public Pair<Environment, Map<TContextEntry, Expression>> makeContextEnvironment(TDRGElement element, TContext context, Environment parentEnvironment) {
-        return this.contextToJavaTransformer.makeContextEnvironment(element, context, parentEnvironment);
     }
 
     @Override
@@ -2219,70 +2141,5 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         FEELContext context = FEELContext.makeContext(element, environment);
         Expression expression = this.feelTranslator.analyzeExpression(body.getText(), context);
         return expression.getType();
-    }
-
-    @Override
-    public Environment makeRelationEnvironment(TNamedElement element, TRelation relation, Environment environment) {
-        TDefinitions model = this.dmnModelRepository.getModel(element);
-        Environment relationEnvironment = this.environmentFactory.makeEnvironment(environment);
-        for(TInformationItem column: relation.getColumn()) {
-            QualifiedName typeRef = QualifiedName.toQualifiedName(model, column.getTypeRef());
-            if (typeRef != null) {
-                String name = column.getName();
-                relationEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(name, toFEELType(model, typeRef)));
-            }
-        }
-        return relationEnvironment;
-    }
-
-    protected Declaration makeVariableDeclaration(TDRGElement element, TInformationItem variable) {
-        // Check variable
-        String name = element.getName();
-        if (StringUtils.isBlank(name) && variable != null) {
-            name = variable.getName();
-        }
-        if (StringUtils.isBlank(name) || variable == null) {
-            throw new DMNRuntimeException(String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable));
-        }
-
-        Type variableType = drgElementVariableFEELType(element);
-        return this.environmentFactory.makeVariableDeclaration(name, variableType);
-    }
-
-    protected FunctionDeclaration makeInvocableDeclaration(TInvocable invocable) {
-        if (invocable instanceof TBusinessKnowledgeModel) {
-            return makeBKMDeclaration((TBusinessKnowledgeModel) invocable);
-        } else if (invocable instanceof TDecisionService) {
-            return makeDSDeclaration((TDecisionService) invocable);
-        } else {
-            throw new UnsupportedOperationException(String.format("'%s' is not supported yet", invocable.getClass().getSimpleName()));
-        }
-    }
-
-    protected FunctionDeclaration makeDSDeclaration(TDecisionService ds) {
-        TInformationItem variable = ds.getVariable();
-        String name = ds.getName();
-        if (StringUtils.isBlank(name) && variable != null) {
-            name = variable.getName();
-        }
-        if (StringUtils.isBlank(name)) {
-            throw new DMNRuntimeException(String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable));
-        }
-        FunctionType serviceType = makeDSType(ds);
-        return this.environmentFactory.makeDecisionServiceDeclaration(name, serviceType);
-    }
-
-    protected FunctionDeclaration makeBKMDeclaration(TBusinessKnowledgeModel bkm) {
-        TInformationItem variable = bkm.getVariable();
-        String name = bkm.getName();
-        if (StringUtils.isBlank(name) && variable != null) {
-            name = variable.getName();
-        }
-        if (StringUtils.isBlank(name)) {
-            throw new DMNRuntimeException(String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable));
-        }
-        List<FormalParameter> parameters = bkmFEELParameters(bkm);
-        Type returnType = drgElementOutputFEELType(bkm);
-        return this.environmentFactory.makeBusinessKnowledgeModelDeclaration(name, new DMNFunctionType(parameters, returnType, bkm));
     }
 }

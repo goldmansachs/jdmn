@@ -84,7 +84,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         this.dmnInterpreter = dmnInterpreter;
         this.feelTranslator = new FEELTranslatorForInterpreter(dmnInterpreter.getBasicDMNTransformer());
         this.lib = dmnInterpreter.getFeelLib();
-        this.typeTranslator = dmnInterpreter.getBasicDMNTransformer().getFEELTypeTranslator();
+        this.typeTranslator = dmnInterpreter.getBasicDMNTransformer().getTypeFactory();
     }
 
     @Override

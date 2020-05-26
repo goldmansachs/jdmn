@@ -393,7 +393,7 @@ public class DecisionTableToJavaTransformer {
         if (tExpression instanceof TDecisionTable) {
             // Analyze output expression
             String outputEntryText = outputEntryExpression.getText();
-            Environment outputEntryEnvironment = this.makeOutputEntryEnvironment(element, this.environmentFactory);
+            Environment outputEntryEnvironment = this.dmnTransformer.makeOutputEntryEnvironment(element, this.environmentFactory);
             if ("-".equals(outputEntryText)) {
                 outputEntryText = "null";
             }
@@ -426,15 +426,5 @@ public class DecisionTableToJavaTransformer {
 
     public String hitPolicyAnnotationClassName() {
         return HitPolicy.class.getName();
-    }
-
-    public Environment makeInputEntryEnvironment(TDRGElement element, Expression inputExpression) {
-        Environment environment = this.environmentFactory.makeEnvironment(this.dmnTransformer.makeEnvironment(element), inputExpression);
-        environment.addDeclaration(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER, this.environmentFactory.makeVariableDeclaration(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER, inputExpression.getType()));
-        return environment;
-    }
-
-    public Environment makeOutputEntryEnvironment(TDRGElement element, EnvironmentFactory environmentFactory) {
-        return environmentFactory.makeEnvironment(this.dmnTransformer.makeEnvironment(element));
     }
 }
