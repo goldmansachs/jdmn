@@ -18,7 +18,7 @@ import java.util.*
 
 @javax.annotation.Generated(value = ["itemDefinition.ftl", "${modelRepository.name(itemDefinition)}"])
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
-class ${javaClassName} : ${transformer.itemDefinitionJavaSimpleInterfaceName(javaClassName)} {
+class ${javaClassName} : ${transformer.itemDefinitionNativeSimpleInterfaceName(javaClassName)} {
     <@addFields itemDefinition />
     constructor() {
     }
@@ -33,7 +33,7 @@ class ${javaClassName} : ${transformer.itemDefinitionJavaSimpleInterfaceName(jav
 <#macro addFields itemDefinition>
     <#list itemDefinition.itemComponent as child>
         <#assign memberName = transformer.itemDefinitionVariableName(child)/>
-        <#assign memberType = transformer.itemDefinitionJavaQualifiedInterfaceName(child)/>
+        <#assign memberType = transformer.itemDefinitionNativeQualifiedInterfaceName(child)/>
     @get:com.fasterxml.jackson.annotation.JsonGetter("${transformer.escapeInString(modelRepository.displayName(child))}")
     @set:com.fasterxml.jackson.annotation.JsonGetter("${transformer.escapeInString(modelRepository.displayName(child))}")
     override var ${memberName}: ${memberType} = null

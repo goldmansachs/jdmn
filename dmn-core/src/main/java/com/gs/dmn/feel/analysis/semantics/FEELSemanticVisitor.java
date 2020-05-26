@@ -35,7 +35,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
-    public FEELSemanticVisitor(BasicDMN2JavaTransformer dmnTransformer) {
+    public FEELSemanticVisitor(BasicDMNToNativeTransformer dmnTransformer) {
         super(dmnTransformer);
     }
 

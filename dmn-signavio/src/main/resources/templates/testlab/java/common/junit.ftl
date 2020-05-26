@@ -49,7 +49,7 @@ public class ${testClassName} extends ${decisionBaseClass} {
 <#macro addApplyPart testCase>
     <#list testCase.inputValues>
         <#items as input>
-        ${testLabUtil.toJavaType(testLab.inputParameterDefinitions[input?index])} ${testLabUtil.inputDataVariableName(testLab.inputParameterDefinitions[input?index])} = ${testLabUtil.toJavaExpression(testLab, testCase, input?index)};
+        ${testLabUtil.toNativeType(testLab.inputParameterDefinitions[input?index])} ${testLabUtil.inputDataVariableName(testLab.inputParameterDefinitions[input?index])} = ${testLabUtil.toNativeExpression(testLab, testCase, input?index)};
         </#items>
     </#list>
         ${testLabUtil.drgElementOutputType(rootOutputParameter)} ${testLabUtil.drgElementVariableName(rootOutputParameter)} = this.${testLabUtil.drgElementVariableName(rootOutputParameter)}.apply(${testLabUtil.drgElementArgumentList(rootOutputParameter)});
@@ -62,14 +62,14 @@ public class ${testClassName} extends ${decisionBaseClass} {
                 <#list expectedValue.slots>
                     <#items as slot>
                     <#if testLabUtil.hasListType(rootOutputParameter)>
-        checkValues(${testLabUtil.toJavaExpression(testLab, slot.value)}, ${testLabUtil.drgElementVariableName(rootOutputParameter)} == null ? null : ${testLabUtil.drgElementVariableName(rootOutputParameter)}.get(${expectedValue?index}).${testLabUtil.getter(testLabUtil.drgElementOutputFieldName(testLab, slot?index))});
+        checkValues(${testLabUtil.toNativeExpression(testLab, slot.value)}, ${testLabUtil.drgElementVariableName(rootOutputParameter)} == null ? null : ${testLabUtil.drgElementVariableName(rootOutputParameter)}.get(${expectedValue?index}).${testLabUtil.getter(testLabUtil.drgElementOutputFieldName(testLab, slot?index))});
                     <#else>
-        checkValues(${testLabUtil.toJavaExpression(testLab, slot.value)}, ${testLabUtil.drgElementVariableName(rootOutputParameter)} == null ? null : ${testLabUtil.drgElementVariableName(rootOutputParameter)}.${testLabUtil.getter(testLabUtil.drgElementOutputFieldName(testLab, slot?index))});
+        checkValues(${testLabUtil.toNativeExpression(testLab, slot.value)}, ${testLabUtil.drgElementVariableName(rootOutputParameter)} == null ? null : ${testLabUtil.drgElementVariableName(rootOutputParameter)}.${testLabUtil.getter(testLabUtil.drgElementOutputFieldName(testLab, slot?index))});
                     </#if>
                     </#items>
                 </#list>
             <#else>
-        checkValues(${testLabUtil.toJavaExpression(testLab, expectedValue)}, ${testLabUtil.drgElementVariableName(rootOutputParameter)});
+        checkValues(${testLabUtil.toNativeExpression(testLab, expectedValue)}, ${testLabUtil.drgElementVariableName(rootOutputParameter)});
             </#if>
         </#items>
     </#list>

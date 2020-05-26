@@ -32,7 +32,7 @@ interface ${javaClassName} : ${transformer.dmnTypeClassName()} {
 <#macro addMembers itemDefinition>
     <#list itemDefinition.itemComponent as child>
         <#assign memberName = transformer.itemDefinitionVariableName(child)/>
-        <#assign memberType = transformer.itemDefinitionJavaQualifiedInterfaceName(child)/>
+        <#assign memberType = transformer.itemDefinitionNativeQualifiedInterfaceName(child)/>
     @get:com.fasterxml.jackson.annotation.JsonGetter("${transformer.escapeInString(modelRepository.displayName(child))}")
     val ${transformer.itemDefinitionVariableName(child)}: ${memberType}
 
@@ -101,10 +101,10 @@ interface ${javaClassName} : ${transformer.dmnTypeClassName()} {
             } else if (other is ${javaClassName}?) {
                 return other
             } else if (other is ${transformer.contextClassName()}) {
-                var result_ = ${transformer.itemDefinitionJavaClassName(javaClassName)}()
+                var result_ = ${transformer.itemDefinitionNativeClassName(javaClassName)}()
             <#list itemDefinition.itemComponent as child>
                 <#assign member = transformer.itemDefinitionVariableName(child)/>
-                <#assign memberType = transformer.itemDefinitionJavaQualifiedInterfaceName(child)/>
+                <#assign memberType = transformer.itemDefinitionNativeQualifiedInterfaceName(child)/>
                 <#if modelRepository.label(child)?has_content>
                 result_.${member} = other.get("${modelRepository.name(child)}", "${modelRepository.label(child)}") as ${memberType}
                 <#else>

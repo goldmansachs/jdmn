@@ -32,7 +32,7 @@ import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.omg.spec.dmn._20180521.model.TNamedElement;
@@ -52,7 +52,7 @@ public abstract class AbstractFEELProcessorTest {
     private final RuntimeEnvironmentFactory runtimeEnvironmentFactory = RuntimeEnvironmentFactory.instance();
 
     protected final DMNInterpreter dmnInterpreter = this.dialectDefinition.createDMNInterpreter(new DMNModelRepository(), new LinkedHashMap<>());
-    protected final BasicDMN2JavaTransformer dmnTransformer = this.dmnInterpreter.getBasicDMNTransformer();
+    protected final BasicDMNToNativeTransformer dmnTransformer = this.dmnInterpreter.getBasicDMNTransformer();
     protected final EnvironmentFactory environmentFactory = this.dmnTransformer.getEnvironmentFactory();
     protected final StandardFEELLib lib = (StandardFEELLib) this.dmnInterpreter.getFeelLib();
 

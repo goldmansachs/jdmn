@@ -15,7 +15,7 @@ package com.gs.dmn.signavio.transformation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.metadata.*;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import org.omg.spec.dmn._20180521.model.*;
 
@@ -25,10 +25,10 @@ import java.util.List;
 import static com.gs.dmn.serialization.DMNVersion.DMN_11;
 
 public class DMNToManifestTransformer {
-    private final BasicDMN2JavaTransformer dmnTransformer;
+    private final BasicDMNToNativeTransformer dmnTransformer;
     private final DMNModelRepository dmnModelRepository;
 
-    public DMNToManifestTransformer(BasicDMN2JavaTransformer dmnTransformer) {
+    public DMNToManifestTransformer(BasicDMNToNativeTransformer dmnTransformer) {
         this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
         this.dmnTransformer = dmnTransformer;
     }
@@ -56,7 +56,7 @@ public class DMNToManifestTransformer {
                 String name = bkm.getName();
                 String label = bkm.getLabel();
                 String javaFunctionName = dmnTransformer.bkmFunctionName(bkm);
-                String javaTypeName = dmnTransformer.qualifiedName(dmnTransformer.javaModelPackageName(definitions.getName()), dmnTransformer.drgElementClassName(bkm));
+                String javaTypeName = dmnTransformer.qualifiedName(dmnTransformer.nativeModelPackageName(definitions.getName()), dmnTransformer.drgElementClassName(bkm));
                 String javaOutputTypeName = dmnTransformer.drgElementOutputType(bkm);
                 com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(definitions, dmnTransformer.drgElementOutputTypeRef(bkm));
                 List<DRGElementReference> knowledgeReferences = makeMetadataKnowledgeReferences(bkm.getKnowledgeRequirement());
@@ -68,7 +68,7 @@ public class DMNToManifestTransformer {
                 String name = decision.getName();
                 String label = decision.getLabel();
                 String javaParameterName = dmnTransformer.drgElementVariableName(decision);
-                String javaTypeName = dmnTransformer.qualifiedName(dmnTransformer.javaModelPackageName(definitions.getName()), dmnTransformer.drgElementClassName(decision));
+                String javaTypeName = dmnTransformer.qualifiedName(dmnTransformer.nativeModelPackageName(definitions.getName()), dmnTransformer.drgElementClassName(decision));
                 String javaOutputTypeName = dmnTransformer.drgElementOutputType(decision);
                 com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(definitions, QualifiedName.toQualifiedName(definitions, decision.getVariable().getTypeRef()));
                 List<DRGElementReference> references = makeMetadataInformationReferences(decision);

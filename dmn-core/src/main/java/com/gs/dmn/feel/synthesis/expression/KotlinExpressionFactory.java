@@ -20,7 +20,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.JsonSerializer;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.TDecision;
 import org.omg.spec.dmn._20180521.model.TItemDefinition;
@@ -29,10 +29,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KotlinExpressionFactory implements NativeExpressionFactory {
-    private final BasicDMN2JavaTransformer dmnTransformer;
+    private final BasicDMNToNativeTransformer dmnTransformer;
 
-    public KotlinExpressionFactory(BasicDMN2JavaTransformer basicDMN2JavaTransformer) {
-        this.dmnTransformer = basicDMN2JavaTransformer;
+    public KotlinExpressionFactory(BasicDMNToNativeTransformer basicDMNToNativeTransformer) {
+        this.dmnTransformer = basicDMNToNativeTransformer;
     }
 
     //
@@ -205,7 +205,7 @@ public class KotlinExpressionFactory implements NativeExpressionFactory {
 
     @Override
     public String applyMethod(FunctionType functionType, String signature, boolean convertTypeToContext, String body) {
-        String returnType = dmnTransformer.toJavaType(dmnTransformer.convertType(functionType.getReturnType(), convertTypeToContext));
+        String returnType = dmnTransformer.toNativeType(dmnTransformer.convertType(functionType.getReturnType(), convertTypeToContext));
         String parametersAssignment = parametersAssignment(functionType.getParameters(), convertTypeToContext);
         return applyMethod(returnType, signature, parametersAssignment, body);
     }
@@ -221,8 +221,8 @@ public class KotlinExpressionFactory implements NativeExpressionFactory {
         List<String> parameters = new ArrayList<>();
         for(int i = 0; i< formalParameters.size(); i++) {
             FormalParameter p = formalParameters.get(i);
-            String type = dmnTransformer.toJavaType(dmnTransformer.convertType(p.getType(), convertTypeToContext));
-            String name = dmnTransformer.javaFriendlyVariableName(p.getName());
+            String type = dmnTransformer.toNativeType(dmnTransformer.convertType(p.getType(), convertTypeToContext));
+            String name = dmnTransformer.nativeFriendlyVariableName(p.getName());
             parameters.add(makeLambdaParameterAssignment(type, name, i));
         }
         return String.join(" ", parameters);
@@ -279,7 +279,7 @@ public class KotlinExpressionFactory implements NativeExpressionFactory {
 
     public String asList(Type elementType, String exp) {
         if (StringUtils.isBlank(exp)) {
-            String elementJavaType = nullableType(this.dmnTransformer.toJavaType(elementType));
+            String elementJavaType = nullableType(this.dmnTransformer.toNativeType(elementType));
             return String.format("asList<%s>()", elementJavaType);
         } else {
             return String.format("asList(%s)", exp);
@@ -301,7 +301,7 @@ public class KotlinExpressionFactory implements NativeExpressionFactory {
 
     public String convertToItemDefinitionType(String expression, ItemDefinitionType type) {
         String convertMethodName = convertMethodName(type);
-        String interfaceName = dmnTransformer.toJavaType(type);
+        String interfaceName = dmnTransformer.toNativeType(type);
         return String.format("%s.%s(%s)", interfaceName, convertMethodName, expression);
     }
 
@@ -329,10 +329,10 @@ public class KotlinExpressionFactory implements NativeExpressionFactory {
                 throw new DMNRuntimeException(String.format("Cannot convert String to type '%s'", type));
             }
         } else if (type instanceof ListType) {
-            String javaType = nullableType(this.dmnTransformer.toJavaType(type));
+            String javaType = nullableType(this.dmnTransformer.toNativeType(type));
             return String.format("%s?.let({ %s.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<%s>() {}) })", paramName, objectMapper(), javaType);
         } else {
-            String javaType = dmnTransformer.itemDefinitionJavaClassName(dmnTransformer.toJavaType(type));
+            String javaType = dmnTransformer.itemDefinitionNativeClassName(dmnTransformer.toNativeType(type));
             return String.format("%s?.let({ %s.readValue(it, %s::class.java) })", paramName, objectMapper(), javaType);
         }
     }

@@ -28,7 +28,7 @@ import com.gs.dmn.tck.TCKUtil;
 import com.gs.dmn.tck.TestCasesReader;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.ToSimpleNameTransformer;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.dmn.tck.marshaller._20160719.TestCases.TestCase;
@@ -53,7 +53,7 @@ public abstract class AbstractDMNInterpreterTest {
 
     protected DMNInterpreter interpreter;
     private DMNTransformer dmnTransformer;
-    private BasicDMN2JavaTransformer basicTransformer;
+    private BasicDMNToNativeTransformer basicTransformer;
     private FEELLib lib;
 
     protected void doSingleModelTest(String dmnFileName, Pair<String, String>... extraInputParameters) {

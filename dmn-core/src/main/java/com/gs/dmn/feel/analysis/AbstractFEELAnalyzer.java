@@ -16,12 +16,12 @@ import com.gs.dmn.feel.analysis.semantics.FEELSemanticVisitor;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
 abstract class AbstractFEELAnalyzer implements FEELAnalyzer {
-    private final BasicDMN2JavaTransformer dmnTransformer;
+    private final BasicDMNToNativeTransformer dmnTransformer;
 
-    protected AbstractFEELAnalyzer(BasicDMN2JavaTransformer dmnTransformer) {
+    protected AbstractFEELAnalyzer(BasicDMNToNativeTransformer dmnTransformer) {
         this.dmnTransformer = dmnTransformer;
     }
 

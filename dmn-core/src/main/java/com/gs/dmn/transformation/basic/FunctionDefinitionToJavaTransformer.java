@@ -54,7 +54,7 @@ public class FunctionDefinitionToJavaTransformer {
     }
 
     private String functionDefinitionToJava(FunctionType functionType, String body, boolean convertToContext) {
-        String returnType = this.dmnTransformer.toJavaType(this.dmnTransformer.convertType(functionType.getReturnType(), convertToContext));
+        String returnType = this.dmnTransformer.toNativeType(this.dmnTransformer.convertType(functionType.getReturnType(), convertToContext));
         String signature = "Object... args";
         String applyMethod = this.expressionFactory.applyMethod(functionType, signature, convertToContext, body);
         return functionDefinitionToJava(returnType, applyMethod);

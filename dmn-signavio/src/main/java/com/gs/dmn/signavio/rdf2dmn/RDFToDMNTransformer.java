@@ -33,7 +33,7 @@ import com.gs.dmn.signavio.rdf2dmn.json.relation.Relation;
 import com.gs.dmn.transformation.AbstractFileTransformer;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.InputParamUtil;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20151101.model.*;
@@ -88,7 +88,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
     private RDFModel rdfModel;
     private final RDFReader rdfReader;
     private final DMNDialectDefinition dialectDefinition = new SignavioDMNDialectDefinition();
-    private final BasicDMN2JavaTransformer dmnTransformer = dialectDefinition.createBasicTransformer(new SignavioDMNModelRepository(), new NopLazyEvaluationDetector(), new LinkedHashMap<>());
+    private final BasicDMNToNativeTransformer dmnTransformer = dialectDefinition.createBasicTransformer(new SignavioDMNModelRepository(), new NopLazyEvaluationDetector(), new LinkedHashMap<>());
     private final DMNReader dmnReader;
     private final DMNWriter dmnWriter;
 
@@ -420,7 +420,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
     }
 
     String makeItemDefinitionName(String name) {
-        return dmnTransformer.javaFriendlyVariableName(name);
+        return dmnTransformer.nativeFriendlyVariableName(name);
     }
 
     String makeDecisionName(String name) {
@@ -642,13 +642,13 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
         String resourceId = reference.getShapeId();
         try {
             Element resource = rdfModel.findDescriptionById(resourceId);
-            StringBuilder text = new StringBuilder(dmnTransformer.javaFriendlyVariableName(rdfModel.getName(resource)));
+            StringBuilder text = new StringBuilder(dmnTransformer.nativeFriendlyVariableName(rdfModel.getName(resource)));
             List<String> pathElements = reference.getPathElements();
             if (pathElements != null) {
                 for (String pathElement : pathElements) {
                     String name = rdfModel.pathName(resource, pathElement);
                     if (!StringUtils.isBlank(name)) {
-                        text.append(".").append(dmnTransformer.javaFriendlyVariableName(name));
+                        text.append(".").append(dmnTransformer.nativeFriendlyVariableName(name));
                     }
                 }
             }
@@ -886,7 +886,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
     }
 
     private QName makeQName(String namespace, String name) {
-        String cleanName = dmnTransformer.javaFriendlyName(name);
+        String cleanName = dmnTransformer.nativeFriendlyName(name);
         return new QName(namespace, cleanName);
     }
 }

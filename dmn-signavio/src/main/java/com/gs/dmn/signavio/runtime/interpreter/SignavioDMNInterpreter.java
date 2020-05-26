@@ -24,7 +24,7 @@ import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.extension.Aggregator;
 import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
 import com.gs.dmn.signavio.transformation.BasicSignavioDMN2JavaTransformer;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TDecision;
 import org.omg.spec.dmn._20180521.model.TExpression;
@@ -36,7 +36,7 @@ import java.util.List;
 public class SignavioDMNInterpreter extends StandardDMNInterpreter {
     private final SignavioDMNModelRepository dmnModelRepository;
 
-    public SignavioDMNInterpreter(BasicDMN2JavaTransformer dmnTransformer, FEELLib feelLib) {
+    public SignavioDMNInterpreter(BasicDMNToNativeTransformer dmnTransformer, FEELLib feelLib) {
         super(dmnTransformer, feelLib);
         this.dmnModelRepository = (SignavioDMNModelRepository) this.getBasicDMNTransformer().getDMNModelRepository();
     }

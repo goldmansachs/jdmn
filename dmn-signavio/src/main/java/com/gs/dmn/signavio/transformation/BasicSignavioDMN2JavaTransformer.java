@@ -64,7 +64,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
             outputType = super.drgElementOutputType(outputDecision);
         } else if (element instanceof TDecision && this.dmnModelRepository.isFreeTextLiteralExpression(element)) {
             Type type = drgElementOutputFEELType(element);
-            outputType = toJavaType(type);
+            outputType = toNativeType(type);
         } else {
             outputType = super.drgElementOutputType(element);
         }
@@ -151,7 +151,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
     public String drgElementOutputFieldName(TDRGElement element, int outputIndex) {
         if (this.dmnModelRepository.isDecisionTableExpression(element)) {
             TDecisionTable decisionTable = (TDecisionTable) this.dmnModelRepository.expression(element);
-            return javaFriendlyVariableName(this.dmnModelRepository.outputClauseName(element, decisionTable.getOutput().get(outputIndex)));
+            return nativeFriendlyVariableName(this.dmnModelRepository.outputClauseName(element, decisionTable.getOutput().get(outputIndex)));
         } else if (this.dmnModelRepository.isLiteralExpression(element)) {
             return DECISION_OUTPUT_FIELD_NAME;
         } else {
@@ -223,7 +223,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
             DRGElementReference<TDecision> outputReference = this.dmnModelRepository.makeDRGElementReference(outputDecision);
             List<Pair<String, Type>> parameters = inputDataParametersClosure(outputReference);
-            String decisionSignature = parameters.stream().map(p -> this.expressionFactory.nullableParameter(toJavaType(p.getRight()), p.getLeft())).collect(Collectors.joining(", "));
+            String decisionSignature = parameters.stream().map(p -> this.expressionFactory.nullableParameter(toNativeType(p.getRight()), p.getLeft())).collect(Collectors.joining(", "));
             return augmentSignature(decisionSignature);
         } else {
             return super.drgElementSignature(reference);
@@ -287,7 +287,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
         }
     }
 
-    public String bkmLinkedToDecisionToJava(TBusinessKnowledgeModel bkm) {
+    public String bkmLinkedToDecisionToNative(TBusinessKnowledgeModel bkm) {
         TDecision outputDecision = this.dmnModelRepository.getOutputDecision(bkm);
         String decisionClassName = drgElementClassName(outputDecision);
         List<String> argNameList = drgElementArgumentNameList(outputDecision);
@@ -352,8 +352,8 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
         return this.dmnModelRepository.getExtension().multiInstanceDecisionLogic(decision);
     }
 
-    public String iterationExpressionToJava(TDecision decision, String iterationExpression) {
-        return literalExpressionToJava(decision, iterationExpression);
+    public String iterationExpressionToNative(TDecision decision, String iterationExpression) {
+        return literalExpressionToNative(decision, iterationExpression);
     }
 
     private String iterationSignature(TDecision decision) {
@@ -362,8 +362,8 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
         for (DRGElementReference<? extends TDRGElement> reference : dmnReferences) {
             TDRGElement element = reference.getElement();
             String parameterName = iterationParameterName(element);
-            String parameterJavaType = lazyEvaluationType(element, parameterJavaType(element));
-            parameters.add(new Pair<>(parameterName, parameterJavaType));
+            String parameterNativeType = lazyEvaluationType(element, parameterNativeType(element));
+            parameters.add(new Pair<>(parameterName, parameterNativeType));
         }
         String signature = parameters.stream().map(p -> this.expressionFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
         return augmentSignature(signature);
@@ -413,7 +413,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
     //
     // Free text LiteralExpression related functions
     //
-    public String freeTextLiteralExpressionToJava(TDRGElement element) {
+    public String freeTextLiteralExpressionToNative(TDRGElement element) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         TLiteralExpression expression = (TLiteralExpression) this.dmnModelRepository.expression(element);
         Environment environment = this.makeEnvironment(element);
@@ -422,11 +422,11 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
             Expression body = ((FunctionDefinition) literalExpression).getBody();
             String javaCode;
             if (((FunctionDefinition) literalExpression).isExternal()) {
-                String returnJavaType = toJavaType(externalFunctionReturnFEELType(element, body));
+                String returnNativeType = toNativeType(externalFunctionReturnFEELType(element, body));
                 String className = externalFunctionClassName(body);
                 String methodName = externalFunctionMethodName(body);
                 String arguments = drgElementEvaluateArgumentList(element);
-                javaCode = this.expressionFactory.makeExternalExecutorCall(externalExecutorVariableName(), className, methodName, arguments, returnJavaType);
+                javaCode = this.expressionFactory.makeExternalExecutorCall(externalExecutorVariableName(), className, methodName, arguments, returnNativeType);
             } else {
                 javaCode = this.feelTranslator.expressionToJava(body, FEELContext.makeContext(element, environment));
             }
@@ -436,7 +436,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
             Statement result = convertExpression(statement, expectedType);
             return ((ExpressionStatement) result).getExpression();
         } else {
-            return super.literalExpressionToJava(element, expression.getText());
+            return super.literalExpressionToNative(element, expression.getText());
         }
     }
 

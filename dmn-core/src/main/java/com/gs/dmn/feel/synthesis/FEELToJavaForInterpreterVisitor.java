@@ -15,17 +15,17 @@ package com.gs.dmn.feel.synthesis;
 import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
 public class FEELToJavaForInterpreterVisitor extends FEELToJavaVisitor {
-    public FEELToJavaForInterpreterVisitor(BasicDMN2JavaTransformer dmnTransformer) {
+    public FEELToJavaForInterpreterVisitor(BasicDMNToNativeTransformer dmnTransformer) {
         super(dmnTransformer);
     }
 
     @Override
     protected String makeNavigation(Expression element, Type sourceType, String source, String memberName, String memberVariableName) {
         if (sourceType instanceof ItemDefinitionType) {
-            String javaType = dmnTransformer.toJavaType(((ItemDefinitionType) sourceType).getMemberType(memberName));
+            String javaType = dmnTransformer.toNativeType(((ItemDefinitionType) sourceType).getMemberType(memberName));
             return this.expressionFactory.makeItemDefinitionSelectExpression(source, memberName, javaType);
         } else {
             return super.makeNavigation(element, sourceType, source, memberName, memberVariableName);

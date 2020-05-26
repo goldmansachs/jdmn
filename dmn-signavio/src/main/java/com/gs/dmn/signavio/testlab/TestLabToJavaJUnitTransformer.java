@@ -23,7 +23,7 @@ import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.transformation.AbstractTestCasesToJUnitTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.InputParamUtil;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
@@ -49,7 +49,7 @@ public class TestLabToJavaJUnitTransformer extends AbstractTestCasesToJUnitTrans
     private final TestLabValidator testLabValidator = new TestLabValidator();
 
     private String schemaNamespace;
-    private final BasicDMN2JavaTransformer basicTransformer;
+    private final BasicDMNToNativeTransformer basicTransformer;
     private final TestLabUtil testLabUtil;
     private final TestLabEnhancer testLabEnhancer;
 
@@ -128,9 +128,9 @@ public class TestLabToJavaJUnitTransformer extends AbstractTestCasesToJUnitTrans
         }
     }
 
-    private void processTemplate(TestLab testLab, String baseTemplatePath, String templateName, BasicDMN2JavaTransformer dmnTransformer, Path outputPath, String testClassName) {
+    private void processTemplate(TestLab testLab, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer dmnTransformer, Path outputPath, String testClassName) {
         try {
-            String javaPackageName = dmnTransformer.javaModelPackageName(testLab.getModelName());
+            String javaPackageName = dmnTransformer.nativeModelPackageName(testLab.getModelName());
 
             // Make parameters
             Map<String, Object> params = makeTemplateParams(testLab, dmnTransformer);
@@ -150,13 +150,13 @@ public class TestLabToJavaJUnitTransformer extends AbstractTestCasesToJUnitTrans
         }
     }
 
-    private String testClassName(TestLab testLab, BasicDMN2JavaTransformer dmnTransformer) {
+    private String testClassName(TestLab testLab, BasicDMNToNativeTransformer dmnTransformer) {
         List<OutputParameterDefinition> outputParameterDefinitions = testLab.getOutputParameterDefinitions();
         OutputParameterDefinition outputParameterDefinition = outputParameterDefinitions.get(0);
         return testClassName(dmnTransformer, outputParameterDefinition);
     }
 
-    private String testClassName(BasicDMN2JavaTransformer dmnTransformer, OutputParameterDefinition outputParameterDefinition) {
+    private String testClassName(BasicDMNToNativeTransformer dmnTransformer, OutputParameterDefinition outputParameterDefinition) {
         TDRGElement decision = testLabUtil.findDRGElement(outputParameterDefinition);
         if (decision instanceof TDecision) {
             String requirementName = decision.getName();
@@ -166,7 +166,7 @@ public class TestLabToJavaJUnitTransformer extends AbstractTestCasesToJUnitTrans
         }
     }
 
-    private Map<String, Object> makeTemplateParams(TestLab testLab, BasicDMN2JavaTransformer dmnTransformer) {
+    private Map<String, Object> makeTemplateParams(TestLab testLab, BasicDMNToNativeTransformer dmnTransformer) {
         Map<String, Object> params = new HashMap<>();
         params.put("testLab", testLab);
         params.put("testLabUtil", testLabUtil);

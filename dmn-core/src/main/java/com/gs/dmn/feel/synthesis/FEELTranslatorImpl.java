@@ -14,14 +14,14 @@ package com.gs.dmn.feel.synthesis;
 
 import com.gs.dmn.feel.analysis.FEELAnalyzer;
 import com.gs.dmn.feel.analysis.FEELAnalyzerImpl;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
 public class FEELTranslatorImpl extends AbstractFEELTranslator {
     public FEELTranslatorImpl(FEELAnalyzer feelAnalyzer, FEELToJavaVisitor expressionVisitor, SimpleExpressionsToJavaVisitor simpleExpressionsVisitor) {
         super(feelAnalyzer, expressionVisitor, simpleExpressionsVisitor);
     }
 
-    public FEELTranslatorImpl(BasicDMN2JavaTransformer dmnTransformer) {
+    public FEELTranslatorImpl(BasicDMNToNativeTransformer dmnTransformer) {
         this(new FEELAnalyzerImpl(dmnTransformer), new FEELToJavaVisitor(dmnTransformer), new SimpleExpressionsToJavaVisitor(dmnTransformer));
     }
 }

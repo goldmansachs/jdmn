@@ -49,7 +49,7 @@ class ${testClassName} : ${decisionBaseClass}() {
 <#macro addApplyPart testCase>
     <#list testCase.inputValues>
         <#items as input>
-        val ${testLabUtil.inputDataVariableName(testLab.inputParameterDefinitions[input?index])}: ${testLabUtil.toJavaType(testLab.inputParameterDefinitions[input?index])} = ${testLabUtil.toJavaExpression(testLab, testCase, input?index)}
+        val ${testLabUtil.inputDataVariableName(testLab.inputParameterDefinitions[input?index])}: ${testLabUtil.toNativeType(testLab.inputParameterDefinitions[input?index])} = ${testLabUtil.toNativeExpression(testLab, testCase, input?index)}
         </#items>
     </#list>
         val ${testLabUtil.drgElementVariableName(rootOutputParameter)}: ${testLabUtil.drgElementOutputType(rootOutputParameter)} = this.${testLabUtil.drgElementVariableName(rootOutputParameter)}.apply(${testLabUtil.drgElementArgumentList(rootOutputParameter)})
@@ -62,14 +62,14 @@ class ${testClassName} : ${decisionBaseClass}() {
                 <#list expectedValue.slots>
                     <#items as slot>
                     <#if testLabUtil.hasListType(rootOutputParameter)>
-        checkValues(${testLabUtil.toJavaExpression(testLab, slot.value)}, ${testLabUtil.drgElementVariableName(rootOutputParameter)}?.get(${expectedValue?index}).${testLabUtil.drgElementOutputFieldName(testLab, slot?index)})
+        checkValues(${testLabUtil.toNativeExpression(testLab, slot.value)}, ${testLabUtil.drgElementVariableName(rootOutputParameter)}?.get(${expectedValue?index}).${testLabUtil.drgElementOutputFieldName(testLab, slot?index)})
                     <#else>
-        checkValues(${testLabUtil.toJavaExpression(testLab, slot.value)}, ${testLabUtil.drgElementVariableName(rootOutputParameter)}?.${testLabUtil.drgElementOutputFieldName(testLab, slot?index)})
+        checkValues(${testLabUtil.toNativeExpression(testLab, slot.value)}, ${testLabUtil.drgElementVariableName(rootOutputParameter)}?.${testLabUtil.drgElementOutputFieldName(testLab, slot?index)})
                     </#if>
                     </#items>
                 </#list>
             <#else>
-        checkValues(${testLabUtil.toJavaExpression(testLab, expectedValue)}, ${testLabUtil.drgElementVariableName(rootOutputParameter)});
+        checkValues(${testLabUtil.toNativeExpression(testLab, expectedValue)}, ${testLabUtil.drgElementVariableName(rootOutputParameter)});
             </#if>
         </#items>
     </#list>

@@ -23,11 +23,11 @@ import com.gs.dmn.transformation.java.Statement;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
 
 public class LiteralExpressionToJavaTransformer {
-    private final BasicDMN2JavaTransformer dmnTransformer;
+    private final BasicDMNToNativeTransformer dmnTransformer;
     private final FEELTranslator feelTranslator;
     private final DMNModelRepository dmnModelRepository;
 
-    LiteralExpressionToJavaTransformer(BasicDMN2JavaTransformer dmnTransformer) {
+    LiteralExpressionToJavaTransformer(BasicDMNToNativeTransformer dmnTransformer) {
         this.dmnTransformer = dmnTransformer;
         this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
         this.feelTranslator = dmnTransformer.getFEELTranslator();

@@ -19,12 +19,12 @@ import com.gs.dmn.feel.lib.DefaultFEELLib;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.expression.NativeExpressionFactory;
 import com.gs.dmn.runtime.LambdaExpression;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import javassist.*;
 
 public class JavaAssistCompiler extends JavaCompilerImpl {
     @Override
-    public ClassData makeClassData(FunctionDefinition element, FEELContext context, BasicDMN2JavaTransformer dmnTransformer, FEELTranslator feelTranslator, String libClassName) {
+    public ClassData makeClassData(FunctionDefinition element, FEELContext context, BasicDMNToNativeTransformer dmnTransformer, FEELTranslator feelTranslator, String libClassName) {
         FunctionType functionType = (FunctionType) element.getType();
 
         // Apply method parts

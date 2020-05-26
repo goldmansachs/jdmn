@@ -41,12 +41,12 @@ public class BasicSignavioDMN2KotlinTransformer extends BasicSignavioDMN2JavaTra
 
     // Types
     @Override
-    public String itemDefinitionJavaQualifiedInterfaceName(TItemDefinition itemDefinition) {
-        return this.typeFactory.nullableType(super.itemDefinitionJavaQualifiedInterfaceName(itemDefinition));
+    public String itemDefinitionNativeQualifiedInterfaceName(TItemDefinition itemDefinition) {
+        return this.typeFactory.nullableType(super.itemDefinitionNativeQualifiedInterfaceName(itemDefinition));
     }
 
     @Override
-    public String itemDefinitionJavaClassName(String interfaceName) {
+    public String itemDefinitionNativeClassName(String interfaceName) {
         if (interfaceName.endsWith("?")) {
             return interfaceName.replace("?", "Impl?");
         } else {
@@ -75,7 +75,7 @@ public class BasicSignavioDMN2KotlinTransformer extends BasicSignavioDMN2JavaTra
     }
 
     @Override
-    public String lazyEvaluation(String elementName, String javaName) {
-        return isLazyEvaluated(elementName) ? String.format("%s?.getOrCompute()", javaName) : javaName;
+    public String lazyEvaluation(String elementName, String nativeName) {
+        return isLazyEvaluated(elementName) ? String.format("%s?.getOrCompute()", nativeName) : nativeName;
     }
 }
