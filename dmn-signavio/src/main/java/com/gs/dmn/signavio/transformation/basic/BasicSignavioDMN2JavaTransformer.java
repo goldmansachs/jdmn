@@ -10,14 +10,13 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.signavio.transformation;
+package com.gs.dmn.signavio.transformation.basic;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.environment.Parameter;
-import com.gs.dmn.feel.analysis.semantics.type.FEELFunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
@@ -57,6 +56,10 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
         this.dmnEnvironmentFactory = new SignavioDMNEnvironmentFactory(this);
     }
 
+    protected void setFEELTypeFactory() {
+        this.feelTypeFactory = new SignavioFEELTypeFactory(this);
+    }
+
     //
     // BKM
     //
@@ -72,57 +75,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
         } else {
             outputType = super.drgElementOutputType(element);
         }
-        return this.typeFactory.nullableType(outputType);
-    }
-
-    @Override
-    public Type drgElementOutputFEELType(TDRGElement element) {
-        if (this.dmnModelRepository.isBKMLinkedToDecision(element)) {
-            TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
-            return super.drgElementOutputFEELType(outputDecision);
-        } else if (element instanceof TDecision && this.dmnModelRepository.isFreeTextLiteralExpression(element)) {
-            Expression feelExpression = analyzeExpression(element);
-            if (feelExpression instanceof FunctionDefinition) {
-                if (((FunctionDefinition) feelExpression).isExternal()) {
-                    Expression body = ((FunctionDefinition) feelExpression).getBody();
-                    return externalFunctionReturnFEELType(element, body);
-                } else {
-                    Type type = feelExpression.getType();
-                    if (type instanceof FEELFunctionType) {
-                        type = ((FEELFunctionType) type).getReturnType();
-                    }
-                    return type;
-                }
-            }
-            return feelExpression.getType();
-        } else {
-            return super.drgElementOutputFEELType(element);
-        }
-    }
-
-    @Override
-    public Type drgElementOutputFEELType(TDRGElement element, Environment environment) {
-        if (this.dmnModelRepository.isBKMLinkedToDecision(element)) {
-            TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
-            return super.drgElementOutputFEELType(outputDecision);
-        } else if (element instanceof TDecision && this.dmnModelRepository.isFreeTextLiteralExpression(element)) {
-            Expression feelExpression = analyzeExpression(element);
-            if (feelExpression instanceof FunctionDefinition) {
-                if (((FunctionDefinition) feelExpression).isExternal()) {
-                    Expression body = ((FunctionDefinition) feelExpression).getBody();
-                    return externalFunctionReturnFEELType(element, body);
-                } else {
-                    Type type = feelExpression.getType();
-                    if (type instanceof FEELFunctionType) {
-                        type = ((FEELFunctionType) type).getReturnType();
-                    }
-                    return type;
-                }
-            }
-            return feelExpression.getType();
-        } else {
-            return super.drgElementOutputFEELType(element, environment);
-        }
+        return this.nativeTypeFactory.nullableType(outputType);
     }
 
     public String drgElementOutputFieldName(TDRGElement element, int outputIndex) {
@@ -169,28 +122,6 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
             }
         }
         throw new DMNRuntimeException(String.format("Missing methodName in '%s'", body));
-    }
-
-    public Type externalFunctionReturnFEELType(TNamedElement element, Expression body) {
-        TDefinitions model = this.dmnModelRepository.getModel(element);
-        if (body instanceof Context) {
-            Expression javaExpression = ((Context) body).entry("java").getExpression();
-            if (javaExpression instanceof Context) {
-                Expression returnTypeExp = ((Context) javaExpression).entry("returnType").getExpression();
-                if (returnTypeExp instanceof StringLiteral) {
-                    String lexeme = ((StringLiteral) returnTypeExp).getLexeme();
-                    String typeName = StringEscapeUtil.stripQuotes(lexeme);
-                    return toFEELType(model, QualifiedName.toQualifiedName(model, typeName));
-                }
-            }
-        }
-        throw new DMNRuntimeException(String.format("Missing returnType in '%s'", body));
-    }
-
-    private Expression analyzeExpression(TNamedElement element) {
-        TLiteralExpression expression = (TLiteralExpression) this.dmnModelRepository.expression(element);
-        Environment decisionEnvironment = makeEnvironment((TDecision) element);
-        return this.feelTranslator.analyzeExpression(expression.getText(), FEELContext.makeContext(element, decisionEnvironment));
     }
 
     @Override
@@ -399,7 +330,8 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
             Expression body = ((FunctionDefinition) literalExpression).getBody();
             String javaCode;
             if (((FunctionDefinition) literalExpression).isExternal()) {
-                String returnNativeType = toNativeType(externalFunctionReturnFEELType(element, body));
+                Type type = this.feelTypeFactory.externalFunctionReturnFEELType(element, body);
+                String returnNativeType = toNativeType(type);
                 String className = externalFunctionClassName(body);
                 String methodName = externalFunctionMethodName(body);
                 String arguments = drgElementEvaluateArgumentList(element);

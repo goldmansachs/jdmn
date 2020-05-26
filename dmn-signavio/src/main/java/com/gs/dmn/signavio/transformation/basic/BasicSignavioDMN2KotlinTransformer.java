@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.signavio.transformation;
+package com.gs.dmn.signavio.transformation.basic;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
@@ -42,7 +42,7 @@ public class BasicSignavioDMN2KotlinTransformer extends BasicSignavioDMN2JavaTra
     // Types
     @Override
     public String itemDefinitionNativeQualifiedInterfaceName(TItemDefinition itemDefinition) {
-        return this.typeFactory.nullableType(super.itemDefinitionNativeQualifiedInterfaceName(itemDefinition));
+        return this.nativeTypeFactory.nullableType(super.itemDefinitionNativeQualifiedInterfaceName(itemDefinition));
     }
 
     @Override
@@ -56,22 +56,22 @@ public class BasicSignavioDMN2KotlinTransformer extends BasicSignavioDMN2JavaTra
 
     @Override
     protected String makeListType(String listType, String elementType) {
-        return this.typeFactory.nullableType(String.format("%s<%s>", listType, this.typeFactory.nullableType(elementType)));
+        return this.nativeTypeFactory.nullableType(String.format("%s<%s>", listType, this.nativeTypeFactory.nullableType(elementType)));
     }
 
     @Override
     protected String makeListType(String listType) {
-        return this.typeFactory.nullableType(String.format("%s<Any?>", listType));
+        return this.nativeTypeFactory.nullableType(String.format("%s<Any?>", listType));
     }
 
     @Override
     protected String makeFunctionType(String name, String returnType) {
-        return this.typeFactory.nullableType(String.format("%s<%s>", name, this.typeFactory.nullableType(returnType)));
+        return this.nativeTypeFactory.nullableType(String.format("%s<%s>", name, this.nativeTypeFactory.nullableType(returnType)));
     }
 
     @Override
     public String drgElementOutputType(DRGElementReference<? extends TDRGElement> reference) {
-        return this.typeFactory.nullableType(super.drgElementOutputType(reference.getElement()));
+        return this.nativeTypeFactory.nullableType(super.drgElementOutputType(reference.getElement()));
     }
 
     @Override

@@ -17,7 +17,6 @@ import com.gs.dmn.DRGElementFilter;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
-import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
@@ -45,7 +44,9 @@ public interface BasicDMNToNativeTransformer {
 
     FEELTranslator getFEELTranslator();
 
-    NativeTypeFactory getTypeFactory();
+    StandardFEELTypeFactory getFEELTypeFactory();
+
+    NativeTypeFactory getNativeTypeFactory();
 
     NativeExpressionFactory getExpressionFactory();
 
@@ -211,8 +212,6 @@ public interface BasicDMNToNativeTransformer {
     //
     // Decision Service related functions
     //
-    FunctionType makeDSType(TDecisionService decisionService);
-
     List<FormalParameter> dsFEELParameters(TDecisionService service);
 
     String dsFunctionName(TDecisionService service);
