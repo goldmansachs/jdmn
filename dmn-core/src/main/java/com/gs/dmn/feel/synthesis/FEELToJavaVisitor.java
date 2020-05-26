@@ -114,8 +114,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     @Override
     public Object visit(ExpressionTest element, FEELContext context) {
         Expression expression = element.getExpression();
-        String condition = (String) expression.accept(this, context);
-        return condition;
+        return expression.accept(this, context);
     }
 
     @Override
@@ -235,7 +234,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         for (Iterator it : iterators) {
             IteratorDomain expressionDomain = it.getDomain();
             String domain = (String) expressionDomain.accept(this, forContext);
-            domainIterators.add(new Pair(domain, it.getName()));
+            domainIterators.add(new Pair<>(domain, it.getName()));
         }
         String body = (String) element.getBody().accept(this, forContext);
         return this.expressionFactory.makeForExpression(domainIterators, body);
@@ -354,7 +353,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     public Object visit(InstanceOfExpression element, FEELContext context) {
         String leftOperand = (String) element.getLeftOperand().accept(this, context);
         Type rightOperandType = element.getRightOperand().getType();
-        String javaType = this.feelTypeTranslator.toJavaType(rightOperandType.toString());
+        String javaType = this.feelTypeTranslator.toNativeType(rightOperandType.toString());
         return String.format("%s instanceof %s", leftOperand, javaType);
     }
 
