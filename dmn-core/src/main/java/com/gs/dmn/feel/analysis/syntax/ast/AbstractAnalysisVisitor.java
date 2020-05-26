@@ -34,7 +34,7 @@ public abstract class AbstractAnalysisVisitor extends AbstractVisitor {
         this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
         this.dmnTransformer = dmnTransformer;
         this.environmentFactory = dmnTransformer.getEnvironmentFactory();
-        this.feelTypeTranslator = dmnTransformer.getTypeFactory();
+        this.feelTypeTranslator = dmnTransformer.getNativeTypeFactory();
         this.expressionFactory = dmnTransformer.getExpressionFactory();
     }
 

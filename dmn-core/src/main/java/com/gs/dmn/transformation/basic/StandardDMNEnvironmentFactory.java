@@ -42,12 +42,15 @@ public class StandardDMNEnvironmentFactory {
     private final EnvironmentMemoizer environmentMemoizer;
     protected final BasicDMNToNativeTransformer dmnTransformer;
     private final FEELTranslator feelTranslator;
+    private final StandardFEELTypeFactory feelTypeFactory;
 
-    public StandardDMNEnvironmentFactory(BasicDMNToNativeTransformer basicDMNToNativeTransformer) {
-        this.dmnTransformer = basicDMNToNativeTransformer;
-        this.dmnModelRepository = basicDMNToNativeTransformer.getDMNModelRepository();
-        this.environmentFactory = basicDMNToNativeTransformer.getEnvironmentFactory();
-        this.feelTranslator = basicDMNToNativeTransformer.getFEELTranslator();
+    public StandardDMNEnvironmentFactory(BasicDMNToNativeTransformer dmnTranformer) {
+        this.dmnTransformer = dmnTranformer;
+        this.dmnModelRepository = dmnTranformer.getDMNModelRepository();
+        this.environmentFactory = dmnTranformer.getEnvironmentFactory();
+        this.feelTranslator = dmnTranformer.getFEELTranslator();
+        this.feelTypeFactory = dmnTranformer.getFEELTypeFactory();
+
         this.environmentMemoizer = new EnvironmentMemoizer();
     }
 
@@ -155,7 +158,7 @@ public class StandardDMNEnvironmentFactory {
     }
 
     public Environment makeOutputEntryEnvironment(TDRGElement element, EnvironmentFactory environmentFactory) {
-        return environmentFactory.makeEnvironment(this.dmnTransformer.makeEnvironment(element));
+        return this.environmentFactory.makeEnvironment(this.dmnTransformer.makeEnvironment(element));
     }
 
     //
@@ -169,7 +172,7 @@ public class StandardDMNEnvironmentFactory {
         return environment;
     }
 
-    protected Declaration makeVariableDeclaration(TDRGElement element, TInformationItem variable) {
+    public Declaration makeVariableDeclaration(TDRGElement element, TInformationItem variable) {
         // Check variable
         String name = element.getName();
         if (StringUtils.isBlank(name) && variable != null) {
@@ -202,7 +205,7 @@ public class StandardDMNEnvironmentFactory {
         if (StringUtils.isBlank(name)) {
             throw new DMNRuntimeException(String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable));
         }
-        FunctionType serviceType = this.dmnTransformer.makeDSType(ds);
+        FunctionType serviceType = this.feelTypeFactory.makeDSType(ds);
         return this.environmentFactory.makeDecisionServiceDeclaration(name, serviceType);
     }
 
@@ -310,5 +313,4 @@ public class StandardDMNEnvironmentFactory {
         }
         return relationEnvironment;
     }
-
 }

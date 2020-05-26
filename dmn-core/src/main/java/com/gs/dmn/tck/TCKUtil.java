@@ -60,7 +60,7 @@ public class TCKUtil {
         this.dmnTransformer = dmnTransformer;
         this.feelLib = feelLib;
         this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
-        this.typeFactory = dmnTransformer.getTypeFactory();
+        this.typeFactory = dmnTransformer.getNativeTypeFactory();
     }
 
     //
