@@ -37,30 +37,30 @@ public class FunctionDefinitionToJavaTransformer {
         this.expressionFactory = dmnTransformer.getExpressionFactory();
     }
 
-    public ExpressionStatement functionDefinitionToJava(TDRGElement element, TFunctionDefinition expression, Environment environment) {
+    public ExpressionStatement functionDefinitionToNative(TDRGElement element, TFunctionDefinition expression, Environment environment) {
         FunctionType functionType = (FunctionType) this.dmnTransformer.expressionType(element, expression, environment);
         TExpression bodyExpression = expression.getExpression().getValue();
         Environment functionDefinitionEnvironment = this.dmnTransformer.makeFunctionDefinitionEnvironment(element, expression, environment);
-        ExpressionStatement statement = (ExpressionStatement) this.dmnTransformer.expressionToJava(element, bodyExpression, functionDefinitionEnvironment);
+        ExpressionStatement statement = (ExpressionStatement) this.dmnTransformer.expressionToNative(element, bodyExpression, functionDefinitionEnvironment);
         String body = statement.getExpression();
 
-        String expressionText = functionDefinitionToJava(functionType, body, false);
+        String expressionText = functionDefinitionToNative(functionType, body, false);
         return new ExpressionStatement(expressionText, functionType);
     }
 
-    public String functionDefinitionToJava(FunctionDefinition element, String body, boolean convertToContext) {
+    public String functionDefinitionToNative(FunctionDefinition element, String body, boolean convertToContext) {
         FunctionType functionType = (FunctionType) element.getType();
-        return functionDefinitionToJava(functionType, body, convertToContext);
+        return functionDefinitionToNative(functionType, body, convertToContext);
     }
 
-    private String functionDefinitionToJava(FunctionType functionType, String body, boolean convertToContext) {
+    private String functionDefinitionToNative(FunctionType functionType, String body, boolean convertToContext) {
         String returnType = this.dmnTransformer.toNativeType(this.dmnTransformer.convertType(functionType.getReturnType(), convertToContext));
         String signature = "Object... args";
         String applyMethod = this.expressionFactory.applyMethod(functionType, signature, convertToContext, body);
-        return functionDefinitionToJava(returnType, applyMethod);
+        return functionDefinitionToNative(returnType, applyMethod);
     }
 
-    private String functionDefinitionToJava(String returnType, String applyMethod) {
+    private String functionDefinitionToNative(String returnType, String applyMethod) {
         String functionalInterface = LambdaExpression.class.getName();
         return this.expressionFactory.functionalInterfaceConstructor(functionalInterface, returnType, applyMethod);
     }

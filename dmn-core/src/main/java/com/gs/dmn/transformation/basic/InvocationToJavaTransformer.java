@@ -35,19 +35,19 @@ public class InvocationToJavaTransformer {
         this.dmnTransformer = dmnTransformer;
     }
 
-    public Statement expressionToJava(TDRGElement element, TInvocation invocation) {
+    public Statement expressionToNative(TDRGElement element, TInvocation invocation) {
         Environment environment = dmnTransformer.makeEnvironment(element);
-        return invocationExpressionToJava(element, invocation, environment);
+        return invocationExpressionToNative(element, invocation, environment);
     }
 
-    Statement invocationExpressionToJava(TDRGElement element, TInvocation invocation, Environment environment) {
+    Statement invocationExpressionToNative(TDRGElement element, TInvocation invocation, Environment environment) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         // Compute name-java binding for arguments
         Map<String, Statement> argBinding = new LinkedHashMap<>();
         for(TBinding binding: invocation.getBinding()) {
             String argName= binding.getParameter().getName();
             TExpression argExpression = binding.getExpression().getValue();
-            Statement argJava = dmnTransformer.expressionToJava(element, argExpression, environment);
+            Statement argJava = dmnTransformer.expressionToNative(element, argExpression, environment);
             argBinding.put(argName, argJava);
         }
         // Build call

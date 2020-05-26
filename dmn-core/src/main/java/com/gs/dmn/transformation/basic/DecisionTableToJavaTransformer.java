@@ -258,8 +258,8 @@ public class DecisionTableToJavaTransformer {
         for (DRGElementReference<? extends TDRGElement> reference : references) {
             TDRGElement element = reference.getElement();
             String parameterName = ruleParameterName(reference);
-            String parameterJavaType = this.dmnTransformer.lazyEvaluationType(element, this.dmnTransformer.parameterNativeType(element));
-            parameters.add(new Pair<>(parameterName, parameterJavaType));
+            String parameterNativeType = this.dmnTransformer.lazyEvaluationType(element, this.dmnTransformer.parameterNativeType(element));
+            parameters.add(new Pair<>(parameterName, parameterNativeType));
         }
         String signature = parameters.stream().map(p -> this.expressionFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
         return this.dmnTransformer.augmentSignature(signature);
@@ -283,8 +283,8 @@ public class DecisionTableToJavaTransformer {
         List<TInformationItem> formalParameters = bkm.getEncapsulatedLogic().getFormalParameter();
         for (TInformationItem parameter : formalParameters) {
             String parameterName = ruleParameterName(parameter);
-            String parameterJavaType = this.dmnTransformer.parameterNativeType(model, parameter);
-            parameters.add(new Pair<>(parameterName, parameterJavaType));
+            String parameterNativeType = this.dmnTransformer.parameterNativeType(model, parameter);
+            parameters.add(new Pair<>(parameterName, parameterNativeType));
         }
         String signature = parameters.stream().map(p -> this.expressionFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
         return this.dmnTransformer.augmentSignature(signature);
@@ -370,13 +370,13 @@ public class DecisionTableToJavaTransformer {
         String inputExpressionText = tInputClause.getInputExpression().getText();
         String inputEntryText = inputEntry.getText();
         try {
-            return inputEntryToJava(element, inputExpressionText, inputEntryText);
+            return inputEntryToNative(element, inputExpressionText, inputEntryText);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot build condition for input clause '%s' for entry '%s' in element '%s'", inputExpressionText, inputEntryText, element.getName()), e);
         }
     }
 
-    private String inputEntryToJava(TDRGElement element, String inputExpressionText, String inputEntryText) {
+    private String inputEntryToNative(TDRGElement element, String inputExpressionText, String inputEntryText) {
         // Analyze input expression
         Environment inputExpressionEnvironment = this.dmnTransformer.makeEnvironment(element);
         FEELContext inputExpressionContext = FEELContext.makeContext(element, inputExpressionEnvironment);
@@ -388,7 +388,7 @@ public class DecisionTableToJavaTransformer {
         return this.feelTranslator.unaryTestsToJava(inputEntryText, inputEntryContext);
     }
 
-    public String outputEntryToJava(TDRGElement element, TLiteralExpression outputEntryExpression, int outputIndex) {
+    public String outputEntryToNative(TDRGElement element, TLiteralExpression outputEntryExpression, int outputIndex) {
         TExpression tExpression = this.dmnModelRepository.expression(element);
         if (tExpression instanceof TDecisionTable) {
             // Analyze output expression
@@ -401,7 +401,7 @@ public class DecisionTableToJavaTransformer {
 
             // Generate code
             FEELContext context = FEELContext.makeContext(element, outputEntryEnvironment);
-            return this.feelTranslator.simpleExpressionsToJava(feelOutputEntryExpression, context);
+            return this.feelTranslator.simpleExpressionsToNative(feelOutputEntryExpression, context);
         } else {
             throw new UnsupportedOperationException(String.format("Not supported '%s'", tExpression.getClass().getSimpleName()));
         }

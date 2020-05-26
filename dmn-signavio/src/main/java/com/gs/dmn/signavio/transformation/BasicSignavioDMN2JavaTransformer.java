@@ -428,7 +428,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
                 String arguments = drgElementEvaluateArgumentList(element);
                 javaCode = this.expressionFactory.makeExternalExecutorCall(externalExecutorVariableName(), className, methodName, arguments, returnNativeType);
             } else {
-                javaCode = this.feelTranslator.expressionToJava(body, FEELContext.makeContext(element, environment));
+                javaCode = this.feelTranslator.expressionToNative(body, FEELContext.makeContext(element, environment));
             }
             Type expressionType = body.getType();
             Statement statement = new ExpressionStatement(javaCode, expressionType);

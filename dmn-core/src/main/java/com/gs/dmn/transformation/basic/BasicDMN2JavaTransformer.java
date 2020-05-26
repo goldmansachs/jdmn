@@ -396,7 +396,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         }
         try {
             Environment environment = makeEnvironment(element);
-            Statement statement = this.literalExpressionToJavaTransformer.literalExpressionToJava(element, description, environment);
+            Statement statement = this.literalExpressionToJavaTransformer.literalExpressionToNative(element, description, environment);
             return ((ExpressionStatement)statement).getExpression();
         } catch (Exception e) {
             LOGGER.warn(String.format("Cannot process description '%s' for element '%s'", description, element == null ? "" : element.getName()));
@@ -1360,7 +1360,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String outputEntryToNative(TDRGElement element, TLiteralExpression outputEntryExpression, int outputIndex) {
-        return this.decisionTableToJavaTransformer.outputEntryToJava(element, outputEntryExpression, outputIndex);
+        return this.decisionTableToJavaTransformer.outputEntryToNative(element, outputEntryExpression, outputIndex);
     }
 
     @Override
@@ -1507,31 +1507,31 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         TExpression expression = this.dmnModelRepository.expression(element);
         if (expression instanceof TContext) {
-            return this.contextToJavaTransformer.expressionToJava(element, (TContext) expression);
+            return this.contextToJavaTransformer.expressionToNative(element, (TContext) expression);
         } else if (expression instanceof TLiteralExpression) {
-            Statement statement = this.literalExpressionToJavaTransformer.expressionToJava(((TLiteralExpression) expression).getText(), element);
+            Statement statement = this.literalExpressionToJavaTransformer.expressionToNative(((TLiteralExpression) expression).getText(), element);
             Type expectedType = toFEELType(model, drgElementOutputTypeRef(element));
             return convertExpression(statement, expectedType);
         } else if (expression instanceof TInvocation) {
-            return this.invocationToJavaTransformer.expressionToJava(element, (TInvocation) expression);
+            return this.invocationToJavaTransformer.expressionToNative(element, (TInvocation) expression);
         } else if (expression instanceof TRelation) {
-            return this.relationToJavaTransformer.expressionToJava(element, (TRelation) expression);
+            return this.relationToJavaTransformer.expressionToNative(element, (TRelation) expression);
         } else {
             throw new UnsupportedOperationException(String.format("Not supported '%s'", expression.getClass().getSimpleName()));
         }
     }
 
-    Statement expressionToJava(TDRGElement element, TExpression expression, Environment environment) {
+    Statement expressionToNative(TDRGElement element, TExpression expression, Environment environment) {
         if (expression instanceof TContext) {
-            return this.contextToJavaTransformer.contextExpressionToJava(element, (TContext) expression, environment);
+            return this.contextToJavaTransformer.contextExpressionToNative(element, (TContext) expression, environment);
         } else if (expression instanceof TFunctionDefinition) {
-            return this.functionDefinitionToJavaTransformer.functionDefinitionToJava(element, (TFunctionDefinition) expression, environment);
+            return this.functionDefinitionToJavaTransformer.functionDefinitionToNative(element, (TFunctionDefinition) expression, environment);
         } else if (expression instanceof TLiteralExpression) {
-            return this.literalExpressionToJavaTransformer.literalExpressionToJava(element, ((TLiteralExpression) expression).getText(), environment);
+            return this.literalExpressionToJavaTransformer.literalExpressionToNative(element, ((TLiteralExpression) expression).getText(), environment);
         } else if (expression instanceof TInvocation) {
-            return this.invocationToJavaTransformer.invocationExpressionToJava(element, (TInvocation) expression, environment);
+            return this.invocationToJavaTransformer.invocationExpressionToNative(element, (TInvocation) expression, environment);
         } else if (expression instanceof TRelation) {
-            return this.relationToJavaTransformer.relationExpressionToJava(element, (TRelation) expression, environment);
+            return this.relationToJavaTransformer.relationExpressionToNative(element, (TRelation) expression, environment);
         } else {
             throw new UnsupportedOperationException(String.format("Not supported '%s'", expression.getClass().getSimpleName()));
         }
@@ -1539,13 +1539,13 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String literalExpressionToNative(TDRGElement element, String expressionText) {
-        Statement statement = this.literalExpressionToJavaTransformer.expressionToJava(expressionText, element);
+        Statement statement = this.literalExpressionToJavaTransformer.expressionToNative(expressionText, element);
         return ((ExpressionStatement)statement).getExpression();
     }
 
     @Override
     public String functionDefinitionToNative(FunctionDefinition element, boolean convertTypeToContext, String body) {
-        return this.functionDefinitionToJavaTransformer.functionDefinitionToJava(element, body, convertTypeToContext);
+        return this.functionDefinitionToJavaTransformer.functionDefinitionToNative(element, body, convertTypeToContext);
     }
 
     @Override

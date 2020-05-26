@@ -33,17 +33,17 @@ public class LiteralExpressionToJavaTransformer {
         this.feelTranslator = dmnTransformer.getFEELTranslator();
     }
 
-    public Statement expressionToJava(String expressionText, TDRGElement element) {
+    public Statement expressionToNative(String expressionText, TDRGElement element) {
         Environment environment = this.dmnTransformer.makeEnvironment(element);
-        return literalExpressionToJava(element, expressionText, environment);
+        return literalExpressionToNative(element, expressionText, environment);
     }
 
-    Statement literalExpressionToJava(TDRGElement element, String expressionText, Environment environment) {
+    Statement literalExpressionToNative(TDRGElement element, String expressionText, Environment environment) {
         FEELContext context = FEELContext.makeContext(element, environment);
         Expression expression = this.feelTranslator.analyzeExpression(expressionText, context);
         Type expressionType = expression.getType();
 
-        String javaExpression = this.feelTranslator.expressionToJava(expression, context);
+        String javaExpression = this.feelTranslator.expressionToNative(expression, context);
         return new ExpressionStatement(javaExpression, expressionType);
     }
 }
