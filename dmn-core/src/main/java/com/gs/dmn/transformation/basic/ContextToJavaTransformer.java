@@ -41,21 +41,21 @@ public class ContextToJavaTransformer {
         this.expressionFactory = dmnTransformer.getExpressionFactory();
     }
 
-    public Statement expressionToJava(TDRGElement element, TContext context) {
+    public Statement expressionToNative(TDRGElement element, TContext context) {
         Environment elementEnvironment = this.dmnTransformer.makeEnvironment(element);
 
         // Make context environment
         Pair<Environment, Map<TContextEntry, Expression>> pair = this.dmnTransformer.makeContextEnvironment(element, context, elementEnvironment);
-        return contextExpressionToJava(element, context, pair.getLeft(), pair.getRight());
+        return contextExpressionToNative(element, context, pair.getLeft(), pair.getRight());
     }
 
-    Statement contextExpressionToJava(TDRGElement element, TContext context, Environment elementEnvironment) {
+    Statement contextExpressionToNative(TDRGElement element, TContext context, Environment elementEnvironment) {
         // Make context environment
         Pair<Environment, Map<TContextEntry, Expression>> pair = this.dmnTransformer.makeContextEnvironment(element, context, elementEnvironment);
-        return contextExpressionToJava(element, context, pair.getLeft(), pair.getRight());
+        return contextExpressionToNative(element, context, pair.getLeft(), pair.getRight());
     }
 
-     private Statement contextExpressionToJava(TDRGElement element, TContext context, Environment contextEnvironment, Map<TContextEntry, Expression> literalExpressionMap) {
+     private Statement contextExpressionToNative(TDRGElement element, TContext context, Environment contextEnvironment, Map<TContextEntry, Expression> literalExpressionMap) {
         // Translate to Java
         TDefinitions model = this.dmnModelRepository.getModel(element);
         FEELContext feelContext = FEELContext.makeContext(element, contextEnvironment);
@@ -71,11 +71,11 @@ public class ContextToJavaTransformer {
                 if (expression instanceof TLiteralExpression) {
                     Expression feelExpression = literalExpressionMap.get(entry);
                     entryType = this.dmnTransformer.entryType(element, entry, expression, feelExpression);
-                    String stm = this.dmnTransformer.feelTranslator.expressionToJava(feelExpression, feelContext);
+                    String stm = this.dmnTransformer.feelTranslator.expressionToNative(feelExpression, feelContext);
                     value = new ExpressionStatement(stm, entryType);
                 } else {
                     entryType = this.dmnTransformer.entryType(element, entry, contextEnvironment);
-                    value = (ExpressionStatement) this.dmnTransformer.expressionToJava(element, expression, contextEnvironment);
+                    value = (ExpressionStatement) this.dmnTransformer.expressionToNative(element, expression, contextEnvironment);
                 }
             } else {
                 entryType = this.dmnTransformer.entryType(element, entry, contextEnvironment);

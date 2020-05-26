@@ -43,16 +43,16 @@ public class RelationToJavaTransformer {
         this.expressionFactory = dmnTransformer.getExpressionFactory();
     }
 
-    public Statement expressionToJava(TDRGElement element, TRelation relation) {
+    public Statement expressionToNative(TDRGElement element, TRelation relation) {
         TDefinitions model = this.modelRepository.getModel(element);
         Environment elementEnvironment = dmnTransformer.makeEnvironment(element);
 
         // Make relation environment
         Environment relationEnvironment = dmnTransformer.makeRelationEnvironment(model, relation, elementEnvironment);
-        return relationExpressionToJava(element, relation, relationEnvironment);
+        return relationExpressionToNative(element, relation, relationEnvironment);
     }
 
-    Statement relationExpressionToJava(TDRGElement element, TRelation relation, Environment relationEnvironment) {
+    Statement relationExpressionToNative(TDRGElement element, TRelation relation, Environment relationEnvironment) {
         TDefinitions model = this.modelRepository.getModel(element);
         Type resultType = dmnTransformer.toFEELType(model, dmnTransformer.drgElementOutputTypeRef(element));
         if (relation.getRow() == null) {
@@ -82,7 +82,7 @@ public class RelationToJavaTransformer {
                     if (expression == null) {
                         argValue = "null";
                     } else {
-                        Statement statement = dmnTransformer.expressionToJava(element, expression, relationEnvironment);
+                        Statement statement = dmnTransformer.expressionToNative(element, expression, relationEnvironment);
                         argValue = ((ExpressionStatement)statement).getExpression();
                     }
                     argPairList.add(new Pair<String, String>(argNameList.get(i), argValue));
