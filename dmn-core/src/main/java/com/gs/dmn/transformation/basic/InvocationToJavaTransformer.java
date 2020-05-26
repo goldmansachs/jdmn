@@ -27,10 +27,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class InvocationToJavaTransformer {
-    private final BasicDMN2JavaTransformer dmnTransformer;
+    private final BasicDMNToNativeTransformer dmnTransformer;
     private final DMNModelRepository dmnModelRepository;
 
-    InvocationToJavaTransformer(BasicDMN2JavaTransformer dmnTransformer) {
+    InvocationToJavaTransformer(BasicDMNToNativeTransformer dmnTransformer) {
         this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
         this.dmnTransformer = dmnTransformer;
     }
