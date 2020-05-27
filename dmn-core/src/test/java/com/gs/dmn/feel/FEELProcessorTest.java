@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel;
 
+import com.gs.dmn.dialect.DMNDialectDefinition;
+import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.interpreter.FEELInterpreterImpl;
@@ -32,16 +34,21 @@ import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static org.junit.Assert.assertEquals;
 
-public class FEELProcessorTest extends AbstractFEELProcessorTest {
+public class FEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
     @Before
     public void setUp() {
         this.feelTranslator = new FEELTranslatorImpl(dmnTransformer);
-        this.feelInterpreter = new FEELInterpreterImpl(dmnInterpreter);
+        this.feelInterpreter = new FEELInterpreterImpl<>(dmnInterpreter);
+    }
+
+    @Override
+    protected DMNDialectDefinition makeDialect() {
+        return new StandardDMNDialectDefinition();
     }
 
     @Test
     public void testUnaryTests() {
-        Object input = lib.number("1");
+        NUMBER input = lib.number("1");
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", NUMBER, input));
 
@@ -73,8 +80,8 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
 
     @Test
     public void testPositiveUnaryTest() {
-        Object inputNumber = lib.number("1");
-        Object inputDate = lib.date("2017-01-01");
+        NUMBER inputNumber = lib.number("1");
+        DATE inputDate = lib.date("2017-01-01");
         String inputString = "abc";
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("inputString", STRING, inputString),
@@ -763,8 +770,8 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
 
     @Test
     public void testList() {
-        Object number = lib.number("1");
-        List<Object> list = Arrays.asList(lib.number("1"));
+        NUMBER number = lib.number("1");
+        List<NUMBER> list = Arrays.asList(lib.number("1"));
 
         List<EnvironmentEntry> expressionPairs = Arrays.asList(
                 new EnvironmentEntry("number", NUMBER, number),
@@ -859,9 +866,9 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
 
     @Test
     public void testContext() {
-        Object dateInput = lib.date("2017-01-03");
+        DATE dateInput = lib.date("2017-01-03");
         String enumerationInput = "e1";
-        Object number = lib.number("1");
+        NUMBER number = lib.number("1");
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("x", NUMBER, number),
                 new EnvironmentEntry("dateInput", DATE, dateInput),
@@ -920,8 +927,8 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
 
     @Test
     public void testLogicExpression() {
-        boolean booleanA = true;
-        boolean booleanB = false;
+        Boolean booleanA = true;
+        Boolean booleanB = false;
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", NUMBER, lib.number("1")),
                 new EnvironmentEntry("booleanA", BOOLEAN, booleanA),
@@ -1008,9 +1015,9 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
 
     @Test
     public void testBetweenExpression() {
-        Object i = lib.number("1");
-        Object a = lib.number("1");
-        Object b = lib.number("1");
+        NUMBER i = lib.number("1");
+        NUMBER a = lib.number("1");
+        NUMBER b = lib.number("1");
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("i", NUMBER, i),
                 new EnvironmentEntry("a", NUMBER, a),
@@ -1308,7 +1315,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
 
     @Test
     public void testFilterExpression() {
-        List<Object> source = Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3"));
+        List<NUMBER> source = Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3"));
         ContextType employeeType = new ContextType();
         employeeType.addMember("id", Arrays.asList(), NumberType.NUMBER);
         employeeType.addMember("dept", Arrays.asList(), NumberType.NUMBER);
@@ -1330,7 +1337,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(item) = NumericLiteral(1))),Context(ContextEntry(ContextEntryKey(item) = NumericLiteral(2))),Context(ContextEntry(ContextEntryKey(item) = NumericLiteral(3)))), Relational(>=,PathExpression(Name(item), item),NumericLiteral(2)))",
                 "ListType(ContextType(item = number))",
                 "asList(new com.gs.dmn.runtime.Context().add(\"item\", number(\"1\")), new com.gs.dmn.runtime.Context().add(\"item\", number(\"2\")), new com.gs.dmn.runtime.Context().add(\"item\", number(\"3\"))).stream().filter(item -> numericGreaterEqualThan(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"item\")), number(\"2\"))).collect(Collectors.toList())",
-                lib.asList(new com.gs.dmn.runtime.Context().add("item", lib.number("1")), new com.gs.dmn.runtime.Context().add("item", lib.number("2")), new com.gs.dmn.runtime.Context().add("item", lib.number("3"))).stream().filter(item -> lib.numericGreaterEqualThan(((Context)item).get("item"), lib.number("2"))).collect(Collectors.toList()),
+                lib.asList(new com.gs.dmn.runtime.Context().add("item", lib.number("1")), new com.gs.dmn.runtime.Context().add("item", lib.number("2")), new com.gs.dmn.runtime.Context().add("item", lib.number("3"))).stream().filter(item -> lib.numericGreaterEqualThan((NUMBER)((Context)item).get("item"), lib.number("2"))).collect(Collectors.toList()),
                 lib.asList(new Context().add("item", lib.number("2")), new Context().add("item", lib.number("3"))));
         doExpressionTest(entries, "", "source[true]",
                 "FilterExpression(Name(source), BooleanLiteral(true))",
@@ -1360,19 +1367,19 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20)))",
                 "ListType(ContextType(id = number, dept = number, name = string))",
                 "employee.stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\"))).collect(Collectors.toList())",
-                employeeValue.stream().filter(item -> lib.numericEqual(item.get("dept"), lib.number("20"))).collect(Collectors.toList()),
+                employeeValue.stream().filter(item -> lib.numericEqual((NUMBER)((Context)item).get("dept"), lib.number("20"))).collect(Collectors.toList()),
                 Arrays.asList(employeeValue.get(1), employeeValue.get(2)));
         doExpressionTest(entries, "", "employee[item.dept = 20].name",
                 "PathExpression(FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20))), name)",
                 "ListType(string)",
                 "employee.stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\"))).collect(Collectors.toList()).stream().map(x -> ((String)((com.gs.dmn.runtime.Context)x).get(\"name\"))).collect(Collectors.toList())",
-                employeeValue.stream().filter(item -> lib.numericEqual(item.get("dept"), lib.number("20"))).collect(Collectors.toList()).stream().map(x -> x.get("name")).collect(Collectors.toList()),
+                employeeValue.stream().filter(item -> lib.numericEqual((NUMBER)((Context)item).get("dept"), lib.number("20"))).collect(Collectors.toList()).stream().map(x -> x.get("name")).collect(Collectors.toList()),
                 Arrays.asList(employeeValue.get(1).get("name"), employeeValue.get(2).get("name")));
         doExpressionTest(entries, "", "employee[dept = 20].name",
                 "PathExpression(FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20))), name)",
                 "ListType(string)",
                 "employee.stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\"))).collect(Collectors.toList()).stream().map(x -> ((String)((com.gs.dmn.runtime.Context)x).get(\"name\"))).collect(Collectors.toList())",
-                employeeValue.stream().filter(item -> lib.numericEqual(item.get("dept"), lib.number("20"))).collect(Collectors.toList()).stream().map(x -> (String) x.get("name")).collect(Collectors.toList()),
+                employeeValue.stream().filter(item -> lib.numericEqual((NUMBER)((Context)item).get("dept"), lib.number("20"))).collect(Collectors.toList()).stream().map(x -> (String) x.get("name")).collect(Collectors.toList()),
                 Arrays.asList(employeeValue.get(1).get("name"), employeeValue.get(2).get("name")));
 
         // numeric filter
@@ -1406,7 +1413,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(1)),ContextEntry(ContextEntryKey(y) = NumericLiteral(2))),Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(2)),ContextEntry(ContextEntryKey(y) = NumericLiteral(3)))), Relational(=,PathExpression(Name(item), x),NumericLiteral(1)))",
                 "ListType(ContextType(x = number, y = number))",
                 "asList(new com.gs.dmn.runtime.Context().add(\"x\", number(\"1\")).add(\"y\", number(\"2\")), new com.gs.dmn.runtime.Context().add(\"x\", number(\"2\")).add(\"y\", number(\"3\"))).stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"x\")), number(\"1\"))).collect(Collectors.toList())",
-                Arrays.asList(new com.gs.dmn.runtime.Context().add("x", lib.number("1")).add("y", lib.number("2")), new com.gs.dmn.runtime.Context().add("x", lib.number("2")).add("y", lib.number("3"))).stream().filter(item -> lib.numericEqual(item.get("x"), lib.number("1"))).collect(Collectors.toList()),
+                Arrays.asList(new com.gs.dmn.runtime.Context().add("x", lib.number("1")).add("y", lib.number("2")), new com.gs.dmn.runtime.Context().add("x", lib.number("2")).add("y", lib.number("3"))).stream().filter(item -> lib.numericEqual((NUMBER)((Context)item).get("x"), lib.number("1"))).collect(Collectors.toList()),
                 Arrays.asList(new com.gs.dmn.runtime.Context().add("x", lib.number("1")).add("y", lib.number("2"))));
     }
 
@@ -1453,7 +1460,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "FunctionInvocation(Name(date) -> PositionalParameters(NullLiteral()))",
                 "date",
                 "contains(null)",
-                lib.date(null),
+                lib.date((DATE_TIME) null),
                 true);
     }
 
@@ -1480,21 +1487,21 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:00\"), time offset)",
                 "days and time duration",
                 "timeOffset(dateAndTime(\"2018-12-10T10:30:00\"))",
-                lib.timeOffset(lib.dateAndTime("2018-12-10T10:30:00")),
+                lib.timeOffset((TIME) lib.dateAndTime("2018-12-10T10:30:00")),
                 null
         );
         doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:00@Etc/UTC\").timezone",
                 "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:00@Etc/UTC\"), timezone)",
                 "string",
                 "timezone(dateAndTime(\"2018-12-10T10:30:00@Etc/UTC\"))",
-                lib.timezone(lib.dateAndTime("2018-12-10T10:30:00@Etc/UTC")),
+                lib.timezone((TIME) lib.dateAndTime("2018-12-10T10:30:00@Etc/UTC")),
                 "Etc/UTC"
         );
         doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:00\").timezone",
                 "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:00\"), timezone)",
                 "string",
                 "timezone(dateAndTime(\"2018-12-10T10:30:00\"))",
-                lib.timezone(lib.dateAndTime("2018-12-10T10:30:00")),
+                lib.timezone((TIME) lib.dateAndTime("2018-12-10T10:30:00")),
                 null
         );
         doExpressionTest(entries, "", "time(\"10:30:00\").time offset",
@@ -1550,7 +1557,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:01\"), weekday)",
                 "number",
                 "weekday(dateAndTime(\"2018-12-10T10:30:01\"))",
-                lib.weekday(lib.dateAndTime("2018-12-10T10:30:01")),
+                lib.weekday((DATE) lib.dateAndTime("2018-12-10T10:30:01")),
                 lib.number("1"));
 
         doExpressionTest(entries, "", "time(\"10:30:01\").hour",
@@ -1563,7 +1570,7 @@ public class FEELProcessorTest extends AbstractFEELProcessorTest {
                 "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:01\"), hour)",
                 "number",
                 "hour(dateAndTime(\"2018-12-10T10:30:01\"))",
-                lib.hour(lib.dateAndTime("2018-12-10T10:30:01")),
+                lib.hour((TIME) lib.dateAndTime("2018-12-10T10:30:01")),
                 lib.number("10"));
     }
 

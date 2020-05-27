@@ -47,7 +47,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 
-public class StandardDMNInterpreter implements DMNInterpreter {
+public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     private static final Logger LOGGER = LoggerFactory.getLogger(StandardDMNInterpreter.class);
     protected static EventListener EVENT_LISTENER = new LoggingEventListener(LOGGER);
     protected final RuntimeEnvironmentFactory runtimeEnvironmentFactory = RuntimeEnvironmentFactory.instance();
@@ -59,15 +59,15 @@ public class StandardDMNInterpreter implements DMNInterpreter {
     }
 
     private final BasicDMNToNativeTransformer basicDMNTransformer;
-    protected final FEELLib feelLib;
+    protected final FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib;
     private final FEELInterpreter feelInterpreter;
 
-    public StandardDMNInterpreter(BasicDMNToNativeTransformer basicDMNTransformer, FEELLib feelLib) {
+    public StandardDMNInterpreter(BasicDMNToNativeTransformer basicDMNTransformer, FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib) {
         this.basicDMNTransformer = basicDMNTransformer;
         this.dmnModelRepository = basicDMNTransformer.getDMNModelRepository();
         this.environmentFactory = basicDMNTransformer.getEnvironmentFactory();
         this.feelLib = feelLib;
-        this.feelInterpreter = new FEELInterpreterImpl(this);
+        this.feelInterpreter = new FEELInterpreterImpl<NUMBER, DATE, TIME, DATE_TIME, DURATION>(this);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
     }
 
     @Override
-    public FEELLib getFeelLib() {
+    public FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> getFeelLib() {
         return this.feelLib;
     }
 
@@ -772,7 +772,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
                         return ruleOutputs.stream().map(r -> toDecisionOutput(element, decisionTable, (InterpretedRuleOutput) r)).collect(Collectors.toList());
                     }
                 } else {
-                    List<Object> decisionOutput = ruleOutputs.stream().map(r -> toDecisionOutput(element, decisionTable, (InterpretedRuleOutput) r)).collect(Collectors.toList());
+                    List decisionOutput = ruleOutputs.stream().map(r -> toDecisionOutput(element, decisionTable, (InterpretedRuleOutput) r)).collect(Collectors.toList());
                     if (this.dmnModelRepository.hasAggregator(decisionTable)) {
                         TBuiltinAggregator aggregation = decisionTable.getAggregation();
                         if (aggregation == TBuiltinAggregator.MIN) {
@@ -840,7 +840,7 @@ public class StandardDMNInterpreter implements DMNInterpreter {
                 newContext.put(key, ((Pair) ((Context) result).get(key)).getLeft());
             }
             return newContext;
-            // Simple decision
+        // Simple decision
         } else if (result instanceof Pair) {
             return ((Pair) result).getLeft();
         } else {

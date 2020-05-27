@@ -15,8 +15,8 @@ package com.gs.dmn.feel.interpreter;
 import com.gs.dmn.feel.analysis.FEELAnalyzerImpl;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 
-public class FEELInterpreterImpl extends AbstractFEELInterpreter {
-    public FEELInterpreterImpl(DMNInterpreter dmnInterpreter) {
+public class FEELInterpreterImpl<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
+    public FEELInterpreterImpl(DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter) {
         super(dmnInterpreter, new FEELAnalyzerImpl(dmnInterpreter.getBasicDMNTransformer()));
     }
 }
