@@ -23,7 +23,7 @@ public class PureJavaTimeKotlinStandardDMNDialectDefinition extends KotlinStanda
     // DMN execution
     //
     @Override
-    public NativeTypeFactory createTypeTranslator() {
+    public NativeTypeFactory createNativeTypeFactory() {
         return new PureJavaTimeKotlinNativeTypeFactory();
     }
 

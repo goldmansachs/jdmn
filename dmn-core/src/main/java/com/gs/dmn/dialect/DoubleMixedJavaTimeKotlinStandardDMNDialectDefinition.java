@@ -23,7 +23,7 @@ public class DoubleMixedJavaTimeKotlinStandardDMNDialectDefinition extends Kotli
     // DMN execution
     //
     @Override
-    public NativeTypeFactory createTypeTranslator() {
+    public NativeTypeFactory createNativeTypeFactory() {
         return new DoubleMixedJavaTimeKotlinNativeTypeFactory();
     }
 

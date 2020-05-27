@@ -23,7 +23,7 @@ public class MixedJavaTimeDMNDialectDefinition extends StandardDMNDialectDefinit
     // DMN execution
     //
     @Override
-    public NativeTypeFactory createTypeTranslator() {
+    public NativeTypeFactory createNativeTypeFactory() {
         return new MixedJavaTimeNativeTypeFactory();
     }
 

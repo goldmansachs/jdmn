@@ -23,7 +23,7 @@ public class DoubleMixedJavaTimeKotlinSignavioDMNDialectDefinition extends Kotli
     // Execution engine
     //
     @Override
-    public NativeTypeFactory createTypeTranslator() {
+    public NativeTypeFactory createNativeTypeFactory() {
         return new DoubleMixedJavaTimeKotlinNativeTypeFactory();
     }
 

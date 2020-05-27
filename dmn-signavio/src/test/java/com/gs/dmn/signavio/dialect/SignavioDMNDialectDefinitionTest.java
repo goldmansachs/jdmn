@@ -66,7 +66,7 @@ public class SignavioDMNDialectDefinitionTest {
 
     @Test
     public void testCreateTypeTranslator() {
-        NativeTypeFactory typeTranslator = dialect.createTypeTranslator();
+        NativeTypeFactory typeTranslator = dialect.createNativeTypeFactory();
         assertEquals(StandardNativeTypeFactory.class.getName(), typeTranslator.getClass().getName());
     }
 

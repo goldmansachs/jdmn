@@ -55,14 +55,14 @@ public class KotlinSignavioDMNDialectDefinition extends AbstractDMNDialectDefini
     @Override
     public BasicDMN2JavaTransformer createBasicTransformer(DMNModelRepository repository, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         EnvironmentFactory environmentFactory = createEnvironmentFactory();
-        return new BasicSignavioDMN2KotlinTransformer(repository, environmentFactory, createTypeTranslator(), lazyEvaluationDetector, inputParameters);
+        return new BasicSignavioDMN2KotlinTransformer(repository, environmentFactory, createNativeTypeFactory(), lazyEvaluationDetector, inputParameters);
     }
 
     //
     // Execution engine
     //
     @Override
-    public NativeTypeFactory createTypeTranslator() {
+    public NativeTypeFactory createNativeTypeFactory() {
         return new StandardNativeTypeToKotlinFactory();
     }
 

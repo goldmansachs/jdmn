@@ -23,7 +23,7 @@ public class MixedJavaTimeSignavioDMNDialectDefinition extends SignavioDMNDialec
     // Execution engine
     //
     @Override
-    public NativeTypeFactory createTypeTranslator() {
+    public NativeTypeFactory createNativeTypeFactory() {
         return new MixedJavaTimeNativeTypeFactory();
     }
 

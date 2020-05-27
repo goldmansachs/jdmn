@@ -65,7 +65,7 @@ public class MixedJavaTimeDMNDialectDefinitionTest extends AbstractTest {
 
     @Test
     public void testCreateTypeTranslator() {
-        NativeTypeFactory typeTranslator = dialect.createTypeTranslator();
+        NativeTypeFactory typeTranslator = dialect.createNativeTypeFactory();
         assertEquals(MixedJavaTimeNativeTypeFactory.class.getName(), typeTranslator.getClass().getName());
     }
 

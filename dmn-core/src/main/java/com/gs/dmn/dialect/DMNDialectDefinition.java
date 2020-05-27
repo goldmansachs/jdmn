@@ -49,7 +49,7 @@ public interface DMNDialectDefinition {
     //
     // Execution engine
     //
-    NativeTypeFactory createTypeTranslator();
+    NativeTypeFactory createNativeTypeFactory();
 
     FEELLib createFEELLib();
 
