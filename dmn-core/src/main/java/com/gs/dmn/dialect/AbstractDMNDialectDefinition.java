@@ -22,7 +22,7 @@ import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 
 import java.util.Map;
 
-public abstract class AbstractDMNDialectDefinition implements DMNDialectDefinition {
+public abstract class AbstractDMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> implements DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
     //
     // FEEL Processors
     //

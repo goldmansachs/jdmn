@@ -13,7 +13,6 @@
 package com.gs.dmn.dialect;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.feel.analysis.semantics.environment.StandardEnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.lib.DefaultFEELLib;
 import com.gs.dmn.feel.lib.FEELLib;
@@ -21,31 +20,27 @@ import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.feel.synthesis.type.StandardNativeTypeFactory;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DefaultDMNBaseDecision;
-import com.gs.dmn.runtime.interpreter.DMNInterpreter;
-import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.DMNToNativeTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
-import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
+import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
+import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
 import java.util.Map;
 
-public class StandardDMNDialectDefinition extends AbstractDMNDialectDefinition {
+public class StandardDMNDialectDefinition extends AbstractStandardDMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     //
     // DMN Processors
     //
     @Override
-    public DMNInterpreter createDMNInterpreter(DMNModelRepository repository, Map<String, String> inputParameters) {
-        return new StandardDMNInterpreter(createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters), createFEELLib());
-    }
-
-    @Override
-    public DMNToNativeTransformer createDMNToNativeTransformer(DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
+    public DMNToNativeTransformer createDMNToNativeTransformer(DMNValidator dmnValidator, DMNTransformer<TestCases> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
         return new DMNToJavaTransformer(this, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
     }
 
@@ -53,10 +48,6 @@ public class StandardDMNDialectDefinition extends AbstractDMNDialectDefinition {
     public BasicDMN2JavaTransformer createBasicTransformer(DMNModelRepository repository, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         EnvironmentFactory environmentFactory = createEnvironmentFactory();
         return new BasicDMN2JavaTransformer(repository, environmentFactory, createNativeTypeFactory(), lazyEvaluationDetector, inputParameters);
-    }
-
-    private EnvironmentFactory createEnvironmentFactory() {
-        return StandardEnvironmentFactory.instance();
     }
 
     //
@@ -68,7 +59,7 @@ public class StandardDMNDialectDefinition extends AbstractDMNDialectDefinition {
     }
 
     @Override
-    public FEELLib createFEELLib() {
+    public FEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> createFEELLib() {
         return new DefaultFEELLib();
     }
 

@@ -12,13 +12,47 @@
  */
 package com.gs.dmn.signavio.dialect;
 
+import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.lib.FEELLib;
-import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.feel.synthesis.type.MixedJavaTimeNativeTypeFactory;
+import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
+import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.signavio.feel.lib.MixedJavaTimeSignavioLib;
 import com.gs.dmn.signavio.runtime.MixedJavaTimeSignavioBaseDecision;
+import com.gs.dmn.signavio.testlab.TestLab;
+import com.gs.dmn.signavio.transformation.SignavioDMNToJavaTransformer;
+import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMN2JavaTransformer;
+import com.gs.dmn.transformation.DMNToNativeTransformer;
+import com.gs.dmn.transformation.DMNTransformer;
+import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
+import com.gs.dmn.transformation.template.TemplateProvider;
+import com.gs.dmn.validation.DMNValidator;
 
-public class MixedJavaTimeSignavioDMNDialectDefinition extends SignavioDMNDialectDefinition {
+import javax.xml.datatype.Duration;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.OffsetTime;
+import java.time.ZonedDateTime;
+import java.util.Map;
+
+public class MixedJavaTimeSignavioDMNDialectDefinition extends AbstractSignavioDMNDialectDefinition<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
+    //
+    // DMN processors
+    //
+    @Override
+    public DMNToNativeTransformer createDMNToNativeTransformer(DMNValidator dmnValidator, DMNTransformer<TestLab> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
+        return new SignavioDMNToJavaTransformer(this, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
+    }
+
+    @Override
+    public BasicDMN2JavaTransformer createBasicTransformer(DMNModelRepository repository, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
+        EnvironmentFactory environmentFactory = createEnvironmentFactory();
+        return new BasicSignavioDMN2JavaTransformer(repository, environmentFactory, createNativeTypeFactory(), lazyEvaluationDetector, inputParameters);
+    }
+
     //
     // Execution engine
     //
@@ -28,7 +62,7 @@ public class MixedJavaTimeSignavioDMNDialectDefinition extends SignavioDMNDialec
     }
 
     @Override
-    public FEELLib createFEELLib() {
+    public FEELLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> createFEELLib() {
         return new MixedJavaTimeSignavioLib();
     }
 
