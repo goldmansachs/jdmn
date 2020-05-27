@@ -69,12 +69,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     protected NativeExpressionFactory expressionFactory;
 
     protected final FEELTranslator feelTranslator;
-    private final ContextToJavaTransformer contextToJavaTransformer;
-    private final DecisionTableToJavaTransformer decisionTableToJavaTransformer;
-    private final FunctionDefinitionToJavaTransformer functionDefinitionToJavaTransformer;
-    private final LiteralExpressionToJavaTransformer literalExpressionToJavaTransformer;
-    private final InvocationToJavaTransformer invocationToJavaTransformer;
-    private final RelationToJavaTransformer relationToJavaTransformer;
+    private final DMNExpressionToNativeTransformer expressionToNativeTransformer;
 
     private final String javaRootPackage;
     private final boolean onePackage;
@@ -97,12 +92,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         this.feelTranslator = new FEELTranslatorImpl(this);
         setDMNEnvironmentFactory();
         setFEELTypeFactory();
-        this.contextToJavaTransformer = new ContextToJavaTransformer(this);
-        this.decisionTableToJavaTransformer = new DecisionTableToJavaTransformer(this);
-        this.functionDefinitionToJavaTransformer = new FunctionDefinitionToJavaTransformer(this);
-        this.invocationToJavaTransformer = new InvocationToJavaTransformer(this);
-        this.literalExpressionToJavaTransformer = new LiteralExpressionToJavaTransformer(this);
-        this.relationToJavaTransformer = new RelationToJavaTransformer(this);
+        this.expressionToNativeTransformer = new DMNExpressionToNativeTransformer(this);
 
         this.javaRootPackage = InputParamUtil.getOptionalParam(inputParameters, "javaRootPackage");
         boolean onePackageDefault = dmnModelRepository.getAllDefinitions().size() == 1;
@@ -368,7 +358,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         }
         try {
             Environment environment = makeEnvironment(element);
-            Statement statement = this.literalExpressionToJavaTransformer.literalExpressionToNative(element, description, environment);
+            Statement statement = this.expressionToNativeTransformer.literalExpressionToNative(element, description, environment);
             return ((ExpressionStatement)statement).getExpression();
         } catch (Exception e) {
             LOGGER.warn(String.format("Cannot process description '%s' for element '%s'", description, element == null ? "" : element.getName()));
@@ -1313,87 +1303,87 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     //
     @Override
     public String defaultValue(TDRGElement element) {
-        return this.decisionTableToJavaTransformer.defaultValue(element);
+        return this.expressionToNativeTransformer.defaultValue(element);
     }
 
     @Override
     public String defaultValue(TDRGElement element, TOutputClause output) {
-        return this.decisionTableToJavaTransformer.defaultValue(element, output);
+        return this.expressionToNativeTransformer.defaultValue(element, output);
     }
 
     @Override
     public String condition(TDRGElement element, TDecisionRule rule) {
-        return this.decisionTableToJavaTransformer.condition(element, rule);
+        return this.expressionToNativeTransformer.condition(element, rule);
     }
 
     @Override
     public String outputEntryToNative(TDRGElement element, TLiteralExpression outputEntryExpression, int outputIndex) {
-        return this.decisionTableToJavaTransformer.outputEntryToNative(element, outputEntryExpression, outputIndex);
+        return this.expressionToNativeTransformer.outputEntryToNative(element, outputEntryExpression, outputIndex);
     }
 
     @Override
     public String outputClauseClassName(TDRGElement element, TOutputClause outputClause) {
-        return this.decisionTableToJavaTransformer.outputClauseClassName(element, outputClause);
+        return this.expressionToNativeTransformer.outputClauseClassName(element, outputClause);
     }
 
     @Override
     public String outputClauseVariableName(TDRGElement element, TOutputClause outputClause) {
-        return this.decisionTableToJavaTransformer.outputClauseVariableName(element, outputClause);
+        return this.expressionToNativeTransformer.outputClauseVariableName(element, outputClause);
     }
 
     @Override
     public String outputClausePriorityVariableName(TDRGElement element, TOutputClause outputClause) {
-        return this.decisionTableToJavaTransformer.outputClausePriorityVariableName(element, outputClause);
+        return this.expressionToNativeTransformer.outputClausePriorityVariableName(element, outputClause);
     }
 
     @Override
     public String getter(TDRGElement element, TOutputClause output) {
-        return this.decisionTableToJavaTransformer.getter(element, output);
+        return this.expressionToNativeTransformer.getter(element, output);
     }
 
     @Override
     public String setter(TDRGElement element, TOutputClause output) {
-        return this.decisionTableToJavaTransformer.setter(element, output);
+        return this.expressionToNativeTransformer.setter(element, output);
     }
 
     @Override
     public Integer priority(TDRGElement element, TLiteralExpression literalExpression, int outputIndex) {
-        return this.decisionTableToJavaTransformer.priority(element, literalExpression, outputIndex);
+        return this.expressionToNativeTransformer.priority(element, literalExpression, outputIndex);
     }
 
     @Override
     public String priorityGetter(TDRGElement element, TOutputClause output) {
-        return this.decisionTableToJavaTransformer.priorityGetter(element, output);
+        return this.expressionToNativeTransformer.priorityGetter(element, output);
     }
 
     @Override
     public String prioritySetter(TDRGElement element, TOutputClause output) {
-        return this.decisionTableToJavaTransformer.prioritySetter(element, output);
+        return this.expressionToNativeTransformer.prioritySetter(element, output);
     }
 
     @Override
     public HitPolicy hitPolicy(TDRGElement element) {
-        return this.decisionTableToJavaTransformer.hitPolicy(element);
+        return this.expressionToNativeTransformer.hitPolicy(element);
     }
 
     @Override
     public String aggregation(TDecisionTable decisionTable) {
-        return this.decisionTableToJavaTransformer.aggregation(decisionTable);
+        return this.expressionToNativeTransformer.aggregation(decisionTable);
     }
 
     @Override
     public String aggregator(TDRGElement element, TDecisionTable decisionTable, TOutputClause outputClause, String ruleOutputListVariable) {
-        return this.decisionTableToJavaTransformer.aggregator(element, decisionTable, outputClause, ruleOutputListVariable);
+        return this.expressionToNativeTransformer.aggregator(element, decisionTable, outputClause, ruleOutputListVariable);
     }
 
     @Override
     public String annotation(TDRGElement element, TDecisionRule rule) {
-        return this.decisionTableToJavaTransformer.annotation(element, rule);
+        return this.expressionToNativeTransformer.annotation(element, rule);
     }
 
     @Override
     public String annotationEscapedText(TDecisionRule rule) {
-        return this.decisionTableToJavaTransformer.annotationEscapedText(rule);
+        return this.expressionToNativeTransformer.annotationEscapedText(rule);
     }
 
     @Override
@@ -1414,52 +1404,52 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     //
     @Override
     public String ruleOutputClassName(TDRGElement element) {
-        return this.decisionTableToJavaTransformer.ruleOutputClassName(element);
+        return this.expressionToNativeTransformer.ruleOutputClassName(element);
     }
 
     @Override
     public String ruleId(List<TDecisionRule> rules, TDecisionRule rule) {
-        return this.decisionTableToJavaTransformer.ruleId(rules, rule);
+        return this.expressionToNativeTransformer.ruleId(rules, rule);
     }
 
     @Override
     public String abstractRuleOutputClassName() {
-        return this.decisionTableToJavaTransformer.abstractRuleOutputClassName();
+        return this.expressionToNativeTransformer.abstractRuleOutputClassName();
     }
 
     @Override
     public String ruleOutputListClassName() {
-        return this.decisionTableToJavaTransformer.ruleOutputListClassName();
+        return this.expressionToNativeTransformer.ruleOutputListClassName();
     }
 
     @Override
     public String ruleSignature(TDecision decision) {
-        return this.decisionTableToJavaTransformer.ruleSignature(decision);
+        return this.expressionToNativeTransformer.ruleSignature(decision);
     }
 
     @Override
     public String ruleArgumentList(TDecision decision) {
-        return this.decisionTableToJavaTransformer.ruleArgumentList(decision);
+        return this.expressionToNativeTransformer.ruleArgumentList(decision);
     }
 
     @Override
     public String ruleSignature(TBusinessKnowledgeModel bkm) {
-        return this.decisionTableToJavaTransformer.ruleSignature(bkm);
+        return this.expressionToNativeTransformer.ruleSignature(bkm);
     }
 
     @Override
     public String ruleArgumentList(TBusinessKnowledgeModel bkm) {
-        return this.decisionTableToJavaTransformer.ruleArgumentList(bkm);
+        return this.expressionToNativeTransformer.ruleArgumentList(bkm);
     }
 
     @Override
     public String hitPolicyAnnotationClassName() {
-        return this.decisionTableToJavaTransformer.hitPolicyAnnotationClassName();
+        return this.expressionToNativeTransformer.hitPolicyAnnotationClassName();
     }
 
     @Override
     public String ruleAnnotationClassName() {
-        return this.decisionTableToJavaTransformer.ruleAnnotationClassName();
+        return this.expressionToNativeTransformer.ruleAnnotationClassName();
     }
 
     //
@@ -1485,15 +1475,15 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         TExpression expression = this.dmnModelRepository.expression(element);
         if (expression instanceof TContext) {
-            return this.contextToJavaTransformer.expressionToNative(element, (TContext) expression);
+            return this.expressionToNativeTransformer.contextExpressionToNative(element, (TContext) expression);
         } else if (expression instanceof TLiteralExpression) {
-            Statement statement = this.literalExpressionToJavaTransformer.expressionToNative(((TLiteralExpression) expression).getText(), element);
+            Statement statement = this.expressionToNativeTransformer.literalExpressionToNative(element, ((TLiteralExpression) expression).getText());
             Type expectedType = toFEELType(model, drgElementOutputTypeRef(element));
             return convertExpression(statement, expectedType);
         } else if (expression instanceof TInvocation) {
-            return this.invocationToJavaTransformer.expressionToNative(element, (TInvocation) expression);
+            return this.expressionToNativeTransformer.invocationExpressionToNative(element, (TInvocation) expression);
         } else if (expression instanceof TRelation) {
-            return this.relationToJavaTransformer.expressionToNative(element, (TRelation) expression);
+            return this.expressionToNativeTransformer.relationExpressionToNative(element, (TRelation) expression);
         } else {
             throw new UnsupportedOperationException(String.format("Not supported '%s'", expression.getClass().getSimpleName()));
         }
@@ -1502,15 +1492,15 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     @Override
     public Statement expressionToNative(TDRGElement element, TExpression expression, Environment environment) {
         if (expression instanceof TContext) {
-            return this.contextToJavaTransformer.contextExpressionToNative(element, (TContext) expression, environment);
+            return this.expressionToNativeTransformer.contextExpressionToNative(element, (TContext) expression, environment);
         } else if (expression instanceof TFunctionDefinition) {
-            return this.functionDefinitionToJavaTransformer.functionDefinitionToNative(element, (TFunctionDefinition) expression, environment);
+            return this.expressionToNativeTransformer.functionDefinitionToNative(element, (TFunctionDefinition) expression, environment);
         } else if (expression instanceof TLiteralExpression) {
-            return this.literalExpressionToJavaTransformer.literalExpressionToNative(element, ((TLiteralExpression) expression).getText(), environment);
+            return this.expressionToNativeTransformer.literalExpressionToNative(element, ((TLiteralExpression) expression).getText(), environment);
         } else if (expression instanceof TInvocation) {
-            return this.invocationToJavaTransformer.invocationExpressionToNative(element, (TInvocation) expression, environment);
+            return this.expressionToNativeTransformer.invocationExpressionToNative(element, (TInvocation) expression, environment);
         } else if (expression instanceof TRelation) {
-            return this.relationToJavaTransformer.relationExpressionToNative(element, (TRelation) expression, environment);
+            return this.expressionToNativeTransformer.relationExpressionToNative(element, (TRelation) expression, environment);
         } else {
             throw new UnsupportedOperationException(String.format("Not supported '%s'", expression.getClass().getSimpleName()));
         }
@@ -1518,13 +1508,13 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String literalExpressionToNative(TDRGElement element, String expressionText) {
-        Statement statement = this.literalExpressionToJavaTransformer.expressionToNative(expressionText, element);
+        Statement statement = this.expressionToNativeTransformer.literalExpressionToNative(element, expressionText);
         return ((ExpressionStatement)statement).getExpression();
     }
 
     @Override
     public String functionDefinitionToNative(FunctionDefinition element, boolean convertTypeToContext, String body) {
-        return this.functionDefinitionToJavaTransformer.functionDefinitionToNative(element, body, convertTypeToContext);
+        return this.expressionToNativeTransformer.functionDefinitionToNative(element, body, convertTypeToContext);
     }
 
     @Override

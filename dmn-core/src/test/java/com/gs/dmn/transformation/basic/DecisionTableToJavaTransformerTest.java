@@ -23,7 +23,7 @@ import java.util.LinkedHashMap;
 import static org.junit.Assert.assertEquals;
 
 public class DecisionTableToJavaTransformerTest extends AbstractTest {
-    final DecisionTableToJavaTransformer transformer = new DecisionTableToJavaTransformer(new BasicDMN2JavaTransformer(new DMNModelRepository(), null, null, new NopLazyEvaluationDetector(), new LinkedHashMap<>()));
+    final DMNExpressionToNativeTransformer transformer = new DMNExpressionToNativeTransformer(new BasicDMN2JavaTransformer(new DMNModelRepository(), null, null, new NopLazyEvaluationDetector(), new LinkedHashMap<>()));
 
     @Test
     public void testAnnotationEscapedText() {
