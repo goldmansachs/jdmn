@@ -29,8 +29,8 @@ public abstract class AbstractSignavioDMNDialectDefinition<NUMBER, DATE, TIME, D
     // DMN processors
     //
     @Override
-    public DMNInterpreter createDMNInterpreter(DMNModelRepository repository, Map<String, String> inputParameters) {
-        return new SignavioDMNInterpreter(createBasicTransformer(repository, new NopLazyEvaluationDetector(), new LinkedHashMap<>()), createFEELLib());
+    public DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> createDMNInterpreter(DMNModelRepository repository, Map<String, String> inputParameters) {
+        return new SignavioDMNInterpreter<>(createBasicTransformer(repository, new NopLazyEvaluationDetector(), new LinkedHashMap<>()), createFEELLib());
     }
 
     protected EnvironmentFactory createEnvironmentFactory() {

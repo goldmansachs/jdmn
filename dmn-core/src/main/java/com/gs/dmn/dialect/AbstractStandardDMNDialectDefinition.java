@@ -27,8 +27,8 @@ public abstract class AbstractStandardDMNDialectDefinition<NUMBER, DATE, TIME, D
     // DMN Processors
     //
     @Override
-    public DMNInterpreter createDMNInterpreter(DMNModelRepository repository, Map<String, String> inputParameters) {
-        return new StandardDMNInterpreter(createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters), createFEELLib());
+    public DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> createDMNInterpreter(DMNModelRepository repository, Map<String, String> inputParameters) {
+        return new StandardDMNInterpreter<>(createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters), createFEELLib());
     }
 
     protected EnvironmentFactory createEnvironmentFactory() {

@@ -40,7 +40,7 @@ public interface DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, T
     //
     // DMN Processors
     //
-    DMNInterpreter createDMNInterpreter(DMNModelRepository repository, Map<String, String> inputParameters);
+    DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> createDMNInterpreter(DMNModelRepository repository, Map<String, String> inputParameters);
 
     DMNToNativeTransformer createDMNToNativeTransformer(DMNValidator dmnValidator, DMNTransformer<TEST> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger);
 

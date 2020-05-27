@@ -23,10 +23,10 @@ import org.omg.spec.dmn._20180521.model.TInvocable;
 
 import java.util.List;
 
-public interface DMNInterpreter {
+public interface DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     BasicDMNToNativeTransformer getBasicDMNTransformer();
 
-    FEELLib getFeelLib();
+    FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> getFeelLib();
 
     //
     // Evaluate DRG nodes

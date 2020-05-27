@@ -28,8 +28,8 @@ public abstract class AbstractDMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME
     //
     @Override
     public FEELInterpreter createFEELInterpreter(DMNModelRepository repository, Map<String, String> inputParameters) {
-        DMNInterpreter dmnInterpreter = createDMNInterpreter(repository, inputParameters);
-        return new FEELInterpreterImpl(dmnInterpreter);
+        DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter = createDMNInterpreter(repository, inputParameters);
+        return new FEELInterpreterImpl<>(dmnInterpreter);
     }
 
     @Override
