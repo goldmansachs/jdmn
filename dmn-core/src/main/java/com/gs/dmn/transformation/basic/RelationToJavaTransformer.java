@@ -42,7 +42,7 @@ public class RelationToJavaTransformer {
         this.expressionFactory = dmnTransformer.getExpressionFactory();
     }
 
-    public Statement expressionToNative(TDRGElement element, TRelation relation) {
+    Statement expressionToNative(TDRGElement element, TRelation relation) {
         TDefinitions model = this.modelRepository.getModel(element);
         Environment elementEnvironment = dmnTransformer.makeEnvironment(element);
 

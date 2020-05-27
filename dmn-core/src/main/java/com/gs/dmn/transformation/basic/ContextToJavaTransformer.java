@@ -47,12 +47,11 @@ public class ContextToJavaTransformer {
         this.feelTranslator = dmnTransformer.getFEELTranslator();
     }
 
-    public Statement expressionToNative(TDRGElement element, TContext context) {
+    Statement expressionToNative(TDRGElement element, TContext context) {
         Environment elementEnvironment = this.dmnTransformer.makeEnvironment(element);
 
         // Make context environment
-        Pair<Environment, Map<TContextEntry, Expression>> pair = this.dmnTransformer.makeContextEnvironment(element, context, elementEnvironment);
-        return contextExpressionToNative(element, context, pair.getLeft(), pair.getRight());
+        return contextExpressionToNative(element, context, elementEnvironment);
     }
 
     Statement contextExpressionToNative(TDRGElement element, TContext context, Environment elementEnvironment) {

@@ -44,12 +44,13 @@ public class StandardDMNEnvironmentFactory {
     private final FEELTranslator feelTranslator;
     private final StandardFEELTypeFactory feelTypeFactory;
 
-    public StandardDMNEnvironmentFactory(BasicDMNToNativeTransformer dmnTranformer) {
-        this.dmnTransformer = dmnTranformer;
-        this.dmnModelRepository = dmnTranformer.getDMNModelRepository();
-        this.environmentFactory = dmnTranformer.getEnvironmentFactory();
-        this.feelTranslator = dmnTranformer.getFEELTranslator();
-        this.feelTypeFactory = dmnTranformer.getFEELTypeFactory();
+    public StandardDMNEnvironmentFactory(BasicDMNToNativeTransformer dmnTransformer) {
+        this.dmnTransformer = dmnTransformer;
+
+        this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
+        this.environmentFactory = dmnTransformer.getEnvironmentFactory();
+        this.feelTranslator = dmnTransformer.getFEELTranslator();
+        this.feelTypeFactory = dmnTransformer.getFEELTypeFactory();
 
         this.environmentMemoizer = new EnvironmentMemoizer();
     }

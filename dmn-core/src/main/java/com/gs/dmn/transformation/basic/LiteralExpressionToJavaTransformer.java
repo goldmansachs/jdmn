@@ -32,7 +32,7 @@ public class LiteralExpressionToJavaTransformer {
         this.feelTranslator = dmnTransformer.getFEELTranslator();
     }
 
-    public Statement expressionToNative(String expressionText, TDRGElement element) {
+    Statement expressionToNative(String expressionText, TDRGElement element) {
         Environment environment = this.dmnTransformer.makeEnvironment(element);
         return literalExpressionToNative(element, expressionText, environment);
     }
