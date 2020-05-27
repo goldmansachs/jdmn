@@ -34,7 +34,7 @@ public class FunctionDefinitionToJavaTransformer {
         this.expressionFactory = dmnTransformer.getExpressionFactory();
     }
 
-    public ExpressionStatement functionDefinitionToNative(TDRGElement element, TFunctionDefinition expression, Environment environment) {
+    ExpressionStatement functionDefinitionToNative(TDRGElement element, TFunctionDefinition expression, Environment environment) {
         FunctionType functionType = (FunctionType) this.dmnTransformer.expressionType(element, expression, environment);
         TExpression bodyExpression = expression.getExpression().getValue();
         Environment functionDefinitionEnvironment = this.dmnTransformer.makeFunctionDefinitionEnvironment(element, expression, environment);
@@ -45,7 +45,7 @@ public class FunctionDefinitionToJavaTransformer {
         return new ExpressionStatement(expressionText, functionType);
     }
 
-    public String functionDefinitionToNative(FunctionDefinition element, String body, boolean convertToContext) {
+    String functionDefinitionToNative(FunctionDefinition element, String body, boolean convertToContext) {
         FunctionType functionType = (FunctionType) element.getType();
         return functionDefinitionToNative(functionType, body, convertToContext);
     }

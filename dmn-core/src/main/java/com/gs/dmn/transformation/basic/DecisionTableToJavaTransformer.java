@@ -56,7 +56,7 @@ public class DecisionTableToJavaTransformer {
         this.expressionFactory = dmnTransformer.getExpressionFactory();
     }
 
-    public String defaultValue(TDRGElement element) {
+    String defaultValue(TDRGElement element) {
         if (this.dmnModelRepository.isDecisionTableExpression(element)) {
             Type feelType = this.dmnTransformer.drgElementOutputFEELType(element);
             TDecisionTable decisionTable = (TDecisionTable) this.dmnModelRepository.expression(element);
@@ -85,7 +85,7 @@ public class DecisionTableToJavaTransformer {
         }
     }
 
-    public String defaultValue(TDRGElement element, TOutputClause output) {
+    String defaultValue(TDRGElement element, TOutputClause output) {
         TLiteralExpression defaultOutputEntry = output.getDefaultOutputEntry();
         if (defaultOutputEntry == null) {
             return "null";
@@ -97,7 +97,7 @@ public class DecisionTableToJavaTransformer {
     //
     // Output Clause
     //
-    public String outputClauseClassName(TDRGElement element, TOutputClause outputClause) {
+    String outputClauseClassName(TDRGElement element, TOutputClause outputClause) {
         Type type = toFEELType(element, outputClause);
         return this.dmnTransformer.toNativeType(type);
     }

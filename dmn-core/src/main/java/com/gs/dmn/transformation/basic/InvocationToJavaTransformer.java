@@ -36,7 +36,7 @@ public class InvocationToJavaTransformer {
         this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
     }
 
-    public Statement expressionToNative(TDRGElement element, TInvocation invocation) {
+    Statement expressionToNative(TDRGElement element, TInvocation invocation) {
         Environment environment = dmnTransformer.makeEnvironment(element);
         return invocationExpressionToNative(element, invocation, environment);
     }
