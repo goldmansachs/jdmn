@@ -13,42 +13,35 @@
 package com.gs.dmn.signavio.dialect;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.dialect.AbstractDMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.feel.synthesis.type.StandardNativeTypeToKotlinFactory;
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.signavio.feel.lib.DefaultSignavioLib;
 import com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision;
-import com.gs.dmn.signavio.runtime.SignavioEnvironmentFactory;
-import com.gs.dmn.signavio.runtime.interpreter.SignavioDMNInterpreter;
+import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.transformation.SignavioDMNToKotlinTransformer;
 import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMN2KotlinTransformer;
 import com.gs.dmn.transformation.DMNToNativeTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
-import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 
-import java.util.LinkedHashMap;
+import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
 import java.util.Map;
 
-public class KotlinSignavioDMNDialectDefinition extends AbstractDMNDialectDefinition {
+public class KotlinSignavioDMNDialectDefinition extends AbstractSignavioDMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     //
     // DMN processors
     //
     @Override
-    public DMNInterpreter createDMNInterpreter(DMNModelRepository repository, Map<String, String> inputParameters) {
-        return new SignavioDMNInterpreter(createBasicTransformer(repository, new NopLazyEvaluationDetector(), new LinkedHashMap<>()), createFEELLib());
-    }
-
-    @Override
-    public DMNToNativeTransformer createDMNToNativeTransformer(DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
+    public DMNToNativeTransformer createDMNToNativeTransformer(DMNValidator dmnValidator, DMNTransformer<TestLab> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
         return new SignavioDMNToKotlinTransformer(this, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
     }
 
@@ -67,16 +60,12 @@ public class KotlinSignavioDMNDialectDefinition extends AbstractDMNDialectDefini
     }
 
     @Override
-    public FEELLib createFEELLib() {
+    public FEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> createFEELLib() {
         return new DefaultSignavioLib();
     }
 
     @Override
     public String getDecisionBaseClass() {
         return DefaultSignavioBaseDecision.class.getName();
-    }
-
-    private EnvironmentFactory createEnvironmentFactory() {
-        return SignavioEnvironmentFactory.instance();
     }
 }
