@@ -52,7 +52,7 @@ public class StandardDMNDialectDefinition extends AbstractDMNDialectDefinition {
     @Override
     public BasicDMN2JavaTransformer createBasicTransformer(DMNModelRepository repository, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         EnvironmentFactory environmentFactory = createEnvironmentFactory();
-        return new BasicDMN2JavaTransformer(repository, environmentFactory, createTypeTranslator(), lazyEvaluationDetector, inputParameters);
+        return new BasicDMN2JavaTransformer(repository, environmentFactory, createNativeTypeFactory(), lazyEvaluationDetector, inputParameters);
     }
 
     private EnvironmentFactory createEnvironmentFactory() {
@@ -63,7 +63,7 @@ public class StandardDMNDialectDefinition extends AbstractDMNDialectDefinition {
     // DMN execution
     //
     @Override
-    public NativeTypeFactory createTypeTranslator() {
+    public NativeTypeFactory createNativeTypeFactory() {
         return new StandardNativeTypeFactory();
     }
 

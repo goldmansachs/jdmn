@@ -65,7 +65,7 @@ public class PureJavaTimeDMNDialectDefinitionTest extends AbstractTest {
 
     @Test
     public void testCreateTypeTranslator() {
-        NativeTypeFactory typeTranslator = dialect.createTypeTranslator();
+        NativeTypeFactory typeTranslator = dialect.createNativeTypeFactory();
         assertEquals(PureJavaTimeNativeTypeFactory.class.getName(), typeTranslator.getClass().getName());
     }
 

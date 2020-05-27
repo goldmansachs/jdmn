@@ -25,13 +25,8 @@ import org.omg.spec.dmn._20180521.model.TItemDefinition;
 import java.util.Map;
 
 public class BasicSignavioDMN2KotlinTransformer extends BasicSignavioDMN2JavaTransformer {
-    private static final String DECISION_OUTPUT_FIELD_NAME = "value";
-
-    private final SignavioDMNModelRepository dmnModelRepository;
-
-    public BasicSignavioDMN2KotlinTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory feelTypeTranslator, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
-        super(dmnModelRepository, environmentFactory, feelTypeTranslator, lazyEvaluationDetector, inputParameters);
-        this.dmnModelRepository = (SignavioDMNModelRepository) super.getDMNModelRepository();
+    public BasicSignavioDMN2KotlinTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory nativeTypeFactory, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
+        super(dmnModelRepository, environmentFactory, nativeTypeFactory, lazyEvaluationDetector, inputParameters);
     }
 
     @Override

@@ -23,7 +23,7 @@ public class DoubleMixedJavaTimeSignavioDMNDialectDefinition extends SignavioDMN
     // Execution engine
     //
     @Override
-    public NativeTypeFactory createTypeTranslator() {
+    public NativeTypeFactory createNativeTypeFactory() {
         return new DoubleMixedJavaTimeNativeTypeFactory();
     }
 

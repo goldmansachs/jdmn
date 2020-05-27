@@ -23,7 +23,7 @@ public class MixedJavaTimeKotlinSignavioDMNDialectDefinition extends KotlinSigna
     // Execution engine
     //
     @Override
-    public NativeTypeFactory createTypeTranslator() {
+    public NativeTypeFactory createNativeTypeFactory() {
         return new MixedJavaTimeKotlinNativeTypeFactory();
     }
 
