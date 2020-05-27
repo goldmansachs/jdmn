@@ -31,8 +31,9 @@ public class InvocationToJavaTransformer {
     private final DMNModelRepository dmnModelRepository;
 
     InvocationToJavaTransformer(BasicDMNToNativeTransformer dmnTransformer) {
-        this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
         this.dmnTransformer = dmnTransformer;
+
+        this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
     }
 
     public Statement expressionToNative(TDRGElement element, TInvocation invocation) {

@@ -33,13 +33,12 @@ public class RelationToJavaTransformer {
     private final BasicDMNToNativeTransformer dmnTransformer;
     private final DMNModelRepository modelRepository;
     private final String indent = "\t\t\t\t";
-    private final EnvironmentFactory environmentFactory;
     private final NativeExpressionFactory expressionFactory;
 
     RelationToJavaTransformer(BasicDMNToNativeTransformer dmnTransformer) {
-        this.modelRepository = dmnTransformer.getDMNModelRepository();
         this.dmnTransformer = dmnTransformer;
-        this.environmentFactory = dmnTransformer.getEnvironmentFactory();
+
+        this.modelRepository = dmnTransformer.getDMNModelRepository();
         this.expressionFactory = dmnTransformer.getExpressionFactory();
     }
 
