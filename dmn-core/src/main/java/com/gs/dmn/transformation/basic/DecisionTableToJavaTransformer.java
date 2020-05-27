@@ -49,6 +49,7 @@ public class DecisionTableToJavaTransformer {
 
     DecisionTableToJavaTransformer(BasicDMNToNativeTransformer dmnTransformer) {
         this.dmnTransformer = dmnTransformer;
+
         this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
         this.feelTranslator = dmnTransformer.getFEELTranslator();
         this.environmentFactory = dmnTransformer.getEnvironmentFactory();

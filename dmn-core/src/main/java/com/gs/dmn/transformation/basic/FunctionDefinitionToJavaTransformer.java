@@ -26,14 +26,11 @@ import org.omg.spec.dmn._20180521.model.TFunctionDefinition;
 
 public class FunctionDefinitionToJavaTransformer {
     private final BasicDMNToNativeTransformer dmnTransformer;
-    private final DMNModelRepository modelRepository;
-    private final EnvironmentFactory environmentFactory;
     private final NativeExpressionFactory expressionFactory;
 
     FunctionDefinitionToJavaTransformer(BasicDMNToNativeTransformer dmnTransformer) {
-        this.modelRepository = dmnTransformer.getDMNModelRepository();
         this.dmnTransformer = dmnTransformer;
-        this.environmentFactory = dmnTransformer.getEnvironmentFactory();
+
         this.expressionFactory = dmnTransformer.getExpressionFactory();
     }
 

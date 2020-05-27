@@ -38,12 +38,13 @@ public class ContextToJavaTransformer {
     private final StandardDMNEnvironmentFactory dmnEnvironmentFactory;
 
     ContextToJavaTransformer(BasicDMNToNativeTransformer dmnTransformer) {
-        this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
         this.dmnTransformer = dmnTransformer;
+
+        this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
         this.environmentFactory = dmnTransformer.getEnvironmentFactory();
         this.expressionFactory = dmnTransformer.getExpressionFactory();
-        this.feelTranslator = dmnTransformer.getFEELTranslator();
         this.dmnEnvironmentFactory = dmnTransformer.getDMNEnvironmentFactory();
+        this.feelTranslator = dmnTransformer.getFEELTranslator();
     }
 
     public Statement expressionToNative(TDRGElement element, TContext context) {
