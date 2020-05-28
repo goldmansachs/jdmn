@@ -23,7 +23,7 @@ import java.time.temporal.*;
 import java.util.TimeZone;
 
 public class TemporalTimeLib extends BaseDateTimeLib {
-    private DefaultTimeLib timeLib = new DefaultTimeLib(DefaultFEELLib.DATA_TYPE_FACTORY);
+    private final DefaultTimeLib timeLib = new DefaultTimeLib(DefaultFEELLib.DATA_TYPE_FACTORY);
 
     public Temporal time(String literal) {
         if (StringUtils.isBlank(literal)) {

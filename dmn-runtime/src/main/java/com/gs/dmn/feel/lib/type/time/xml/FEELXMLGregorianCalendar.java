@@ -63,7 +63,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
     public static final String MIN_OFFSET = "+14:00";
     public static final String MAX_OFFSET = "-14:00";
 
-    private static int[] daysInMonth = {0,  // XML Schema months start at 1.
+    private static final int[] daysInMonth = {0,  // XML Schema months start at 1.
             31, 28, 31, 30, 31, 30,
             31, 31, 30, 31, 30, 31};
 

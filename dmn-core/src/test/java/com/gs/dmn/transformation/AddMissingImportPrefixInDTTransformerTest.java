@@ -21,8 +21,8 @@ import java.util.*;
 import static org.junit.Assert.*;
 
 public class AddMissingImportPrefixInDTTransformerTest {
-    private AddMissingImportPrefixInDTTransformer transformer = new AddMissingImportPrefixInDTTransformer();
-    private Set<String> names = new LinkedHashSet<>(Arrays.asList("ident1", "ident2"));
+    private final AddMissingImportPrefixInDTTransformer transformer = new AddMissingImportPrefixInDTTransformer();
+    private final Set<String> names = new LinkedHashSet<>(Arrays.asList("ident1", "ident2"));
 
     @Test
     public void testAddMissingPrefix() {

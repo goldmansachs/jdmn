@@ -31,7 +31,7 @@ import static com.gs.dmn.serialization.DMNVersion.DMN_12;
 
 public class SignavioDMNModelRepository extends DMNModelRepository {
     private String schemaNamespace = "http://www.signavio.com/schema/dmn/1.1/";
-    private String[] schemaPrefixes = new String[] {
+    private final String[] schemaPrefixes = new String[] {
             "signavio", "sigExt"
     };
 
