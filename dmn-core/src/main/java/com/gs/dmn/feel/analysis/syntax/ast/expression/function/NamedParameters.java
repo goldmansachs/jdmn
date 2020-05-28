@@ -50,7 +50,7 @@ public class NamedParameters extends Parameters {
     @Override
     public ParameterTypes getSignature() {
         Map<String, Type> signature = new LinkedHashMap<>();
-        parameters.entrySet().forEach(e -> signature.put(e.getKey(), e.getValue().getType()));
+        parameters.forEach((key, value) -> signature.put(key, value.getType()));
         return new NamedParameterTypes(signature);
     }
 
