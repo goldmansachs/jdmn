@@ -16,8 +16,6 @@ import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
 import org.junit.Test;
 
-import java.util.stream.Collectors;
-
 import static org.junit.Assert.assertEquals;
 
 public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
@@ -26,10 +24,10 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
     @Test
     public void testApply() {
         AnnotationSet annotationSet = new AnnotationSet();
-        assertEquals("r5, r4, r3, r2", decision.apply("1", "1", annotationSet).stream().collect(Collectors.joining(", ")));
-        assertEquals("r4, r2", decision.apply("1", null, annotationSet).stream().collect(Collectors.joining(", ")));
-        assertEquals("r3, r2", decision.apply((String)null, "1", annotationSet).stream().collect(Collectors.joining(", ")));
-        assertEquals("r2", decision.apply((String)null, null, annotationSet).stream().collect(Collectors.joining(", ")));
+        assertEquals("r5, r4, r3, r2", String.join(", ", decision.apply("1", "1", annotationSet)));
+        assertEquals("r4, r2", String.join(", ", decision.apply("1", null, annotationSet)));
+        assertEquals("r3, r2", String.join(", ", decision.apply((String) null, "1", annotationSet)));
+        assertEquals("r2", String.join(", ", decision.apply((String) null, null, annotationSet)));
     }
 
     @Override

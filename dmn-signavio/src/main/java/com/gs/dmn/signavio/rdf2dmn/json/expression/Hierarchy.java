@@ -17,7 +17,6 @@ import com.gs.dmn.signavio.rdf2dmn.json.Visitor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Hierarchy extends UnaryTest {
     private final List<String> path = new ArrayList<>();
@@ -27,7 +26,7 @@ public class Hierarchy extends UnaryTest {
     }
 
     public String getPathAsString() {
-        return path.stream().collect(Collectors.joining(", "));
+        return String.join(", ", path);
     }
 
     @Override
