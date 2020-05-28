@@ -67,7 +67,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         this.dmnModelRepository = basicDMNTransformer.getDMNModelRepository();
         this.environmentFactory = basicDMNTransformer.getEnvironmentFactory();
         this.feelLib = feelLib;
-        this.feelInterpreter = new FEELInterpreterImpl<NUMBER, DATE, TIME, DATE_TIME, DURATION>(this);
+        this.feelInterpreter = new FEELInterpreterImpl<>(this);
     }
 
     @Override
