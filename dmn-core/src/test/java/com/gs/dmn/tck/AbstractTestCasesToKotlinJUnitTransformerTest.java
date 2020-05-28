@@ -18,18 +18,22 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.transformation.FileTransformer;
 import com.gs.dmn.transformation.template.KotlinTreeTemplateProvider;
 import com.gs.dmn.transformation.template.TemplateProvider;
+import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
+import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.util.Map;
 
-public abstract class AbstractTestCasesToKotlinJUnitTransformerTest extends AbstractTCKTestCasesToJUnitTransformerTest {
+public abstract class AbstractTestCasesToKotlinJUnitTransformerTest extends AbstractTCKTestCasesToJUnitTransformerTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     @Override
     protected FileTransformer makeTransformer(Path inputModelPath, Map<String, String> inputParameters, BuildLogger logger) {
-        return new TCKTestCasesToKotlinJUnitTransformer(makeDialectDefinition(), makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, LOGGER), makeTypeDeserializationConfigurer(logger), inputModelPath, inputParameters, logger);
+        return new TCKTestCasesToKotlinJUnitTransformer<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration>(makeDialectDefinition(), makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, LOGGER), makeTypeDeserializationConfigurer(logger), inputModelPath, inputParameters, logger);
     }
 
     @Override
-    protected DMNDialectDefinition makeDialectDefinition() {
+    protected DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestCases> makeDialectDefinition() {
         return new KotlinStandardDMNDialectDefinition();
     }
 

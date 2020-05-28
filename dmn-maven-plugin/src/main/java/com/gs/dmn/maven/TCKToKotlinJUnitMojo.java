@@ -25,13 +25,14 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import java.io.File;
 import java.util.Map;
 
 @SuppressWarnings("CanBeFinal")
 @Mojo(name = "tck-to-kotlin", defaultPhase = LifecyclePhase.GENERATE_TEST_SOURCES, configurator = "dmn-mojo-configurator")
-public class TCKToKotlinJUnitMojo extends AbstractDMNMojo {
+public class TCKToKotlinJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
     @Parameter(required = true, defaultValue = "com.gs.dmn.dialect.KotlinStandardDMNDialectDefinition")
     public String dmnDialect;
 
@@ -73,15 +74,15 @@ public class TCKToKotlinJUnitMojo extends AbstractDMNMojo {
             // Create arguments
             MavenBuildLogger logger = new MavenBuildLogger(this.getLog());
             Class<?> dialectClass = Class.forName(dmnDialect);
-            DMNDialectDefinition dmnDialect = (DMNDialectDefinition) dialectClass.newInstance();
+            DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> dmnDialect = makeDialect(dialectClass);
             DMNValidator dmnValidator = makeDMNValidator(this.dmnValidators, logger);
-            DMNTransformer dmnTransformer = makeDMNTransformer(this.dmnTransformers, logger);
+            DMNTransformer<TestCases> dmnTransformer = makeDMNTransformer(this.dmnTransformers, logger);
             TemplateProvider templateProvider = makeTemplateProvider(this.templateProvider, logger);
             LazyEvaluationDetector lazyEvaluationDetector = makeLazyEvaluationDetector(this.lazyEvaluationDetectors, logger, this.inputParameters);
             TypeDeserializationConfigurer typeDeserializationConfigurer = makeTypeDeserializationConfigurer(this.typeDeserializationConfigurer, logger);
 
             // Create transformer
-            FileTransformer transformer = new TCKTestCasesToKotlinJUnitTransformer(
+            FileTransformer transformer = new TCKTestCasesToKotlinJUnitTransformer<>(
                     dmnDialect,
                     dmnValidator,
                     dmnTransformer,

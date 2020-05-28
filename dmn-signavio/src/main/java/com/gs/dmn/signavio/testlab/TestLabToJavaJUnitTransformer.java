@@ -44,7 +44,7 @@ import java.util.Map;
 import static com.gs.dmn.serialization.DMNReader.isDMNFile;
 import static com.gs.dmn.signavio.testlab.TestLabReader.isTestLabFile;
 
-public class TestLabToJavaJUnitTransformer extends AbstractTestCasesToJUnitTransformer {
+public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestCasesToJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> {
     private final TestLabReader testLabReader = new TestLabReader();
     private final TestLabValidator testLabValidator = new TestLabValidator();
 
@@ -53,7 +53,7 @@ public class TestLabToJavaJUnitTransformer extends AbstractTestCasesToJUnitTrans
     private final TestLabUtil testLabUtil;
     private final TestLabEnhancer testLabEnhancer;
 
-    public TestLabToJavaJUnitTransformer(DMNDialectDefinition dialectDefinition, DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, Map<String, String> inputParameters, BuildLogger logger) {
+    public TestLabToJavaJUnitTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> dialectDefinition, DMNValidator dmnValidator, DMNTransformer<TestLab> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, Map<String, String> inputParameters, BuildLogger logger) {
         super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
         this.schemaNamespace = InputParamUtil.getOptionalParam(inputParameters, "signavioSchemaNamespace");
         if (StringUtils.isEmpty(this.schemaNamespace)) {
@@ -103,7 +103,7 @@ public class TestLabToJavaJUnitTransformer extends AbstractTestCasesToJUnitTrans
                 }
             }
 
-            testLabList = (List<TestLab>) this.dmnTransformer.transform(basicTransformer.getDMNModelRepository(), testLabList).getRight();
+            testLabList = this.dmnTransformer.transform(basicTransformer.getDMNModelRepository(), testLabList).getRight();
 
             for (TestLab testLab: testLabList) {
                 String javaClassName = testClassName(testLab, basicTransformer);
@@ -121,8 +121,7 @@ public class TestLabToJavaJUnitTransformer extends AbstractTestCasesToJUnitTrans
     protected DMNModelRepository readModels(File file) {
         if (isDMNFile(file)) {
             Pair<TDefinitions, PrefixNamespaceMappings> result = dmnReader.read(file);
-            SignavioDMNModelRepository repository = new SignavioDMNModelRepository(result, this.schemaNamespace);
-            return repository;
+            return new SignavioDMNModelRepository(result, this.schemaNamespace);
         } else {
             throw new DMNRuntimeException(String.format("Invalid DMN file %s", file.getAbsoluteFile()));
         }

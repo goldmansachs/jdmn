@@ -23,8 +23,8 @@ import com.gs.dmn.validation.DMNValidator;
 import java.nio.file.Path;
 import java.util.Map;
 
-public class TestLabToKotlinJUnitTransformer extends TestLabToJavaJUnitTransformer {
-    public TestLabToKotlinJUnitTransformer(DMNDialectDefinition dialectDefinition, DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, Map<String, String> inputParameters, BuildLogger logger) {
+public class TestLabToKotlinJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
+    public TestLabToKotlinJUnitTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> dialectDefinition, DMNValidator dmnValidator, DMNTransformer<TestLab> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, Map<String, String> inputParameters, BuildLogger logger) {
         super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputModelPath, inputParameters, logger);
     }
 

@@ -35,7 +35,7 @@ import java.util.*;
 
 import static com.gs.dmn.serialization.DMNReader.isDMNFile;
 
-public abstract class AbstractDMNToNativeTransformer extends AbstractDMNTransformer implements DMNToNativeTransformer {
+public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractDMNTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> implements DMNToNativeTransformer {
     public static final String DATA_PACKAGE = "type";
     public static final String DECISION_RULE_OUTPUT_CLASS_SUFFIX = "RuleOutput";
     public static final String PRIORITY_SUFFIX = "Priority";
@@ -52,7 +52,7 @@ public abstract class AbstractDMNToNativeTransformer extends AbstractDMNTransfor
     protected final String modelVersion;
     protected final String platformVersion;
 
-    public AbstractDMNToNativeTransformer(DMNDialectDefinition dialectDefinition, DMNValidator dmnValidator, DMNTransformer<?> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
+    public AbstractDMNToNativeTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dialectDefinition, DMNValidator dmnValidator, DMNTransformer<TEST> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
         super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
 
         this.dmnVersion = InputParamUtil.getRequiredParam(inputParameters, "dmnVersion");

@@ -24,14 +24,18 @@ import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.junit.Test;
+import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
+import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 
 import static org.junit.Assert.assertNotNull;
 
 public abstract class AbstractCompilerTest {
-    private final DMNDialectDefinition dialectDefinition = new StandardDMNDialectDefinition();
+    private final DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestCases> dialectDefinition = new StandardDMNDialectDefinition();
 
     protected abstract JavaCompiler getCompiler();
 

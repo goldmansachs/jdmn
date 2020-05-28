@@ -24,7 +24,7 @@ import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public abstract class AbstractDMNTransformerTest extends AbstractTransformerTest {
+public abstract class AbstractDMNTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
     protected void doFolderTest() throws Exception {
         String inputPath = getInputPath();
         File folder = path(inputPath).toFile();
@@ -75,8 +75,8 @@ public abstract class AbstractDMNTransformerTest extends AbstractTransformerTest
     }
 
     @Override
-    protected DMNTransformer makeDMNTransformer(BuildLogger logger) {
-        return new NopDMNTransformer();
+    protected DMNTransformer<TEST> makeDMNTransformer(BuildLogger logger) {
+        return new NopDMNTransformer<>();
     }
 
     private FileTransformer makeTransformer(Map<String, String> inputParameters, BuildLogger logger) {

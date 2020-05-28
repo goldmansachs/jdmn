@@ -19,6 +19,7 @@ import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision;
 import com.gs.dmn.signavio.runtime.SignavioEnvironmentFactory;
+import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider;
 import com.gs.dmn.transformation.AbstractDMNTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
@@ -31,11 +32,9 @@ import com.gs.dmn.validation.NopDMNValidator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public abstract class AbstractSignavioDMNToNativeTest extends AbstractDMNTransformerTest {
+public abstract class AbstractSignavioDMNToNativeTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> {
     @Override
-    protected DMNDialectDefinition makeDialectDefinition() {
-        return new SignavioDMNDialectDefinition();
-    }
+    protected abstract DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> makeDialectDefinition();
 
     @Override
     protected DMNValidator makeDMNValidator(BuildLogger logger) {
@@ -43,7 +42,7 @@ public abstract class AbstractSignavioDMNToNativeTest extends AbstractDMNTransfo
     }
 
     @Override
-    protected DMNTransformer makeDMNTransformer(BuildLogger logger) {
+    protected DMNTransformer<TestLab> makeDMNTransformer(BuildLogger logger) {
         return new RuleDescriptionTransformer();
     }
 

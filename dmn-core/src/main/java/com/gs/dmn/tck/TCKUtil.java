@@ -47,16 +47,16 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class TCKUtil {
+public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     private static final Logger LOGGER = LoggerFactory.getLogger(TCKUtil.class);
 
     private final DMNModelRepository dmnModelRepository;
 
     private final BasicDMNToNativeTransformer dmnTransformer;
-    private final StandardFEELLib feelLib;
+    private final StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib;
     private final NativeTypeFactory typeFactory;
 
-    public TCKUtil(BasicDMNToNativeTransformer dmnTransformer, StandardFEELLib feelLib) {
+    public TCKUtil(BasicDMNToNativeTransformer dmnTransformer, StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib) {
         this.dmnTransformer = dmnTransformer;
         this.feelLib = feelLib;
         this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
