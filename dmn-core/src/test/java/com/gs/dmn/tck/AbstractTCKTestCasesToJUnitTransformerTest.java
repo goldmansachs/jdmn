@@ -27,13 +27,14 @@ import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.DefaultDMNValidator;
+import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import java.net.URLDecoder;
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends AbstractTestCasesTransformerTest {
+public abstract class AbstractTCKTestCasesToJUnitTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestCasesTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
     public void doSingleModelTest(String dmnFileName, String testFileName, Pair<String, String>... extraInputParameters) throws Exception {
         String dmnPath = getDMNInputPath() + "/";
         String testCasesPath = getTestCasesInputPath() + "/";
@@ -62,7 +63,7 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends Abstrac
     }
 
     @Override
-    protected DMNTransformer makeDMNTransformer(BuildLogger logger) {
+    protected DMNTransformer<TestCases> makeDMNTransformer(BuildLogger logger) {
         return new ToSimpleNameTransformer(logger);
     }
 

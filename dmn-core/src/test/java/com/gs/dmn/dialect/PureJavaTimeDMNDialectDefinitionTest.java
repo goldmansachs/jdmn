@@ -31,19 +31,24 @@ import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TreeTemplateProvider;
 import com.gs.dmn.validation.NopDMNValidator;
 import org.junit.Test;
+import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.temporal.Temporal;
+import java.time.temporal.TemporalAmount;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
 public class PureJavaTimeDMNDialectDefinitionTest extends AbstractTest {
-    private final DMNDialectDefinition dialect = new PureJavaTimeDMNDialectDefinition();
+    private final DMNDialectDefinition<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount, TestCases> dialect = new PureJavaTimeDMNDialectDefinition();
     private static final DMNModelRepository REPOSITORY = new DMNModelRepository();
 
     @Test
     public void testCreateDMNInterpreter() {
-        DMNInterpreter dmnInterpreter = dialect.createDMNInterpreter(REPOSITORY, new LinkedHashMap<>());
+        DMNInterpreter<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> dmnInterpreter = dialect.createDMNInterpreter(REPOSITORY, new LinkedHashMap<>());
         assertEquals(StandardDMNInterpreter.class.getName(), dmnInterpreter.getClass().getName());
     }
 
@@ -53,7 +58,7 @@ public class PureJavaTimeDMNDialectDefinitionTest extends AbstractTest {
         inputParameters.put("dmnVersion", "1.1");
         inputParameters.put("modelVersion", "1.2");
         inputParameters.put("platformVersion", "3.2");
-        DMNToNativeTransformer dmnToJavaTransformer = dialect.createDMNToNativeTransformer(new NopDMNValidator(), new NopDMNTransformer(), new TreeTemplateProvider(), new NopLazyEvaluationDetector(), new DefaultTypeDeserializationConfigurer(), inputParameters, null);
+        DMNToNativeTransformer dmnToJavaTransformer = dialect.createDMNToNativeTransformer(new NopDMNValidator(), new NopDMNTransformer<>(), new TreeTemplateProvider(), new NopLazyEvaluationDetector(), new DefaultTypeDeserializationConfigurer(), inputParameters, null);
         assertEquals(DMNToJavaTransformer.class.getName(), dmnToJavaTransformer.getClass().getName());
     }
 
@@ -71,7 +76,7 @@ public class PureJavaTimeDMNDialectDefinitionTest extends AbstractTest {
 
     @Test
     public void testCreateFEELLib() {
-        FEELLib feelLib = dialect.createFEELLib();
+        FEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> feelLib = dialect.createFEELLib();
         assertEquals(PureJavaTimeFEELLib.class.getName(), feelLib.getClass().getName());
     }
 

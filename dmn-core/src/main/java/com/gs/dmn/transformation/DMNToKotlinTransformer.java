@@ -18,11 +18,12 @@ import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
+import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import java.util.Map;
 
-public class DMNToKotlinTransformer extends AbstractDMNToNativeTransformer {
-    public DMNToKotlinTransformer(DMNDialectDefinition dialectDefinition, DMNValidator dmnValidator, DMNTransformer<?> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
+public class DMNToKotlinTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends DMNToJavaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
+    public DMNToKotlinTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> dialectDefinition, DMNValidator dmnValidator, DMNTransformer<TestCases> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
         super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
     }
 

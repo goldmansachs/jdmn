@@ -23,6 +23,7 @@ import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.feel.lib.MixedJavaTimeSignavioLib;
 import com.gs.dmn.signavio.runtime.MixedJavaTimeSignavioBaseDecision;
 import com.gs.dmn.signavio.runtime.interpreter.SignavioDMNInterpreter;
+import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.transformation.SignavioDMNToJavaTransformer;
 import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMN2JavaTransformer;
 import com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider;
@@ -33,18 +34,23 @@ import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.validation.NopDMNValidator;
 import org.junit.Test;
 
+import javax.xml.datatype.Duration;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.OffsetTime;
+import java.time.ZonedDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
 public class MixedJavaTimeSignavioDMNDialectDefinitionTest {
-    private final DMNDialectDefinition dialect = new MixedJavaTimeSignavioDMNDialectDefinition();
+    private final DMNDialectDefinition<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration, TestLab> dialect = new MixedJavaTimeSignavioDMNDialectDefinition();
     private static final DMNModelRepository REPOSITORY = new SignavioDMNModelRepository();
 
     @Test
     public void testCreateDMNInterpreter() {
-        DMNInterpreter dmnInterpreter = dialect.createDMNInterpreter(REPOSITORY, new LinkedHashMap<>());
+        DMNInterpreter<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> dmnInterpreter = dialect.createDMNInterpreter(REPOSITORY, new LinkedHashMap<>());
         assertEquals(SignavioDMNInterpreter.class.getName(), dmnInterpreter.getClass().getName());
     }
 
@@ -54,7 +60,7 @@ public class MixedJavaTimeSignavioDMNDialectDefinitionTest {
         inputParameters.put("dmnVersion", "1.1");
         inputParameters.put("modelVersion", "1.2");
         inputParameters.put("platformVersion", "3.2");
-        DMNToNativeTransformer dmnToJavaTransformer = dialect.createDMNToNativeTransformer(new NopDMNValidator(), new NopDMNTransformer(), new SignavioTreeTemplateProvider(), new NopLazyEvaluationDetector(), new DefaultTypeDeserializationConfigurer(), inputParameters, null);
+        DMNToNativeTransformer dmnToJavaTransformer = dialect.createDMNToNativeTransformer(new NopDMNValidator(), new NopDMNTransformer<>(), new SignavioTreeTemplateProvider(), new NopLazyEvaluationDetector(), new DefaultTypeDeserializationConfigurer(), inputParameters, null);
         assertEquals(SignavioDMNToJavaTransformer.class.getName(), dmnToJavaTransformer.getClass().getName());
     }
 
@@ -72,7 +78,7 @@ public class MixedJavaTimeSignavioDMNDialectDefinitionTest {
 
     @Test
     public void testCreateFEELLib() {
-        FEELLib feelLib = dialect.createFEELLib();
+        FEELLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> feelLib = dialect.createFEELLib();
         assertEquals(MixedJavaTimeSignavioLib.class.getName(), feelLib.getClass().getName());
     }
 

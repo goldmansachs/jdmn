@@ -14,10 +14,15 @@ package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
+import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
-public class StandardCL3DMNInterpreterTest extends CL3DMNInterpreterTest {
+import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
+
+public class StandardCL3DMNInterpreterTest extends CL3DMNInterpreterTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     @Override
-    protected DMNDialectDefinition getDialectDefinition() {
+    protected DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestCases> getDialectDefinition() {
         return new StandardDMNDialectDefinition();
     }
 

@@ -19,12 +19,15 @@ import com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider;
 import com.gs.dmn.transformation.FileTransformer;
 import com.gs.dmn.transformation.template.TemplateProvider;
 
+import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.util.Map;
 
-public abstract class AbstractTestLabToJavaJUnitTransformerTestJava extends AbstractTestLabToJUnitTransformerTest {
+public abstract class AbstractTestLabToJavaJUnitTransformerTestJava extends AbstractTestLabToJUnitTransformerTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     @Override
-    protected DMNDialectDefinition makeDialectDefinition() {
+    protected DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestLab> makeDialectDefinition() {
         return new SignavioDMNDialectDefinition();
     }
 
@@ -35,6 +38,6 @@ public abstract class AbstractTestLabToJavaJUnitTransformerTestJava extends Abst
 
     @Override
     protected FileTransformer makeTransformer(Path inputModelPath, Map<String, String> inputParameters, BuildLogger logger) {
-        return new TestLabToJavaJUnitTransformer(makeDialectDefinition(), makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, logger), makeTypeDeserializationConfigurer(logger), inputModelPath, inputParameters, logger);
+        return new TestLabToJavaJUnitTransformer<>(makeDialectDefinition(), makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, logger), makeTypeDeserializationConfigurer(logger), inputModelPath, inputParameters, logger);
     }
 }

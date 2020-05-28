@@ -38,19 +38,19 @@ import java.util.Map;
 
 import static com.gs.dmn.tck.TestCasesReader.isTCKFile;
 
-public class TCKTestCasesToJavaJUnitTransformer extends AbstractTestCasesToJUnitTransformer {
+public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestCasesToJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
     protected final BasicDMNToNativeTransformer basicTransformer;
 
     protected final TestCasesReader testCasesReader;
-    private final TCKUtil tckUtil;
+    private final TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckUtil;
 
-    public TCKTestCasesToJavaJUnitTransformer(DMNDialectDefinition dialectDefinition, DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, Map<String, String> inputParameters, BuildLogger logger) {
+    public TCKTestCasesToJavaJUnitTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> dialectDefinition, DMNValidator dmnValidator, DMNTransformer<TestCases> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, Map<String, String> inputParameters, BuildLogger logger) {
         super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
         DMNModelRepository repository = readModels(inputModelPath.toFile());
         this.basicTransformer = this.dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);
         handleValidationErrors(this.dmnValidator.validate(repository));
         this.testCasesReader = new TestCasesReader(logger);
-        this.tckUtil = new TCKUtil(basicTransformer, (StandardFEELLib) dialectDefinition.createFEELLib());
+        this.tckUtil = new TCKUtil<>(basicTransformer, (StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) dialectDefinition.createFEELLib());
     }
 
     @Override

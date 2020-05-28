@@ -44,17 +44,17 @@ import java.util.*;
 
 import static com.gs.dmn.tck.TestCasesReader.isTCKFile;
 
-public abstract class AbstractDMNInterpreterTest {
+public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractDMNInterpreterTest.class));
     private static final boolean IGNORE_ERROR = true;
 
     private final DMNReader reader = new DMNReader(LOGGER, false);
     private final TestCasesReader testCasesReader = new TestCasesReader(LOGGER);
 
-    protected DMNInterpreter interpreter;
-    private DMNTransformer dmnTransformer;
+    protected DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> interpreter;
+    private DMNTransformer<TestCases> dmnTransformer;
     private BasicDMNToNativeTransformer basicTransformer;
-    private FEELLib lib;
+    private FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib;
 
     protected void doSingleModelTest(String dmnFileName, Pair<String, String>... extraInputParameters) {
         doMultipleModelsTest(Arrays.asList(dmnFileName), extraInputParameters);
@@ -151,7 +151,7 @@ public abstract class AbstractDMNInterpreterTest {
         return new Pair<>(testFileNames, testCasesList);
     }
 
-    protected void doTest(List<String> testCaseFileNameList, List<TestCases> testCasesList, DMNInterpreter interpreter, DMNModelRepository repository) {
+    protected void doTest(List<String> testCaseFileNameList, List<TestCases> testCasesList, DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> interpreter, DMNModelRepository repository) {
         // Check all TestCases
         Pair<DMNModelRepository, List<TestCases>> result = dmnTransformer.transform(repository, testCasesList);
         List<TestCases> actualTestCasesList = result.getRight();
@@ -164,8 +164,8 @@ public abstract class AbstractDMNInterpreterTest {
         }
     }
 
-    private void doTest(String testCaseFileName, TestCases testCases, TestCase testCase, DMNInterpreter interpreter) {
-        TCKUtil tckUtil = new TCKUtil(basicTransformer, (StandardFEELLib) lib);
+    private void doTest(String testCaseFileName, TestCases testCases, TestCase testCase, DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> interpreter) {
+        TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckUtil = new TCKUtil<>(basicTransformer, (StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) lib);
 
         List<ResultNode> resultNode = testCase.getResultNode();
         for (ResultNode res : resultNode) {
@@ -220,7 +220,7 @@ public abstract class AbstractDMNInterpreterTest {
         return inputParams;
     }
 
-    protected abstract DMNDialectDefinition getDialectDefinition();
+    protected abstract DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> getDialectDefinition();
 
     protected abstract String getDMNInputPath();
 

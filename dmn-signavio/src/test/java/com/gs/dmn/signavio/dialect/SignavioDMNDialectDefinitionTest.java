@@ -23,6 +23,7 @@ import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.feel.lib.DefaultSignavioLib;
 import com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision;
 import com.gs.dmn.signavio.runtime.interpreter.SignavioDMNInterpreter;
+import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.transformation.SignavioDMNToJavaTransformer;
 import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMN2JavaTransformer;
 import com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider;
@@ -33,18 +34,21 @@ import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.validation.NopDMNValidator;
 import org.junit.Test;
 
+import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
 public class SignavioDMNDialectDefinitionTest {
-    private final DMNDialectDefinition dialect = new SignavioDMNDialectDefinition();
+    private final DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestLab> dialect = new SignavioDMNDialectDefinition();
     private static final DMNModelRepository REPOSITORY = new SignavioDMNModelRepository();
 
     @Test
     public void testCreateDMNInterpreter() {
-        DMNInterpreter dmnInterpreter = dialect.createDMNInterpreter(REPOSITORY, new LinkedHashMap<>());
+        DMNInterpreter<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> dmnInterpreter = dialect.createDMNInterpreter(REPOSITORY, new LinkedHashMap<>());
         assertEquals(SignavioDMNInterpreter.class.getName(), dmnInterpreter.getClass().getName());
     }
 
@@ -54,7 +58,7 @@ public class SignavioDMNDialectDefinitionTest {
         inputParameters.put("dmnVersion", "1.1");
         inputParameters.put("modelVersion", "1.2");
         inputParameters.put("platformVersion", "3.2");
-        DMNToNativeTransformer dmnToJavaTransformer = dialect.createDMNToNativeTransformer(new NopDMNValidator(), new NopDMNTransformer(), new SignavioTreeTemplateProvider(), new NopLazyEvaluationDetector(), new DefaultTypeDeserializationConfigurer(), inputParameters, null);
+        DMNToNativeTransformer dmnToJavaTransformer = dialect.createDMNToNativeTransformer(new NopDMNValidator(), new NopDMNTransformer<>(), new SignavioTreeTemplateProvider(), new NopLazyEvaluationDetector(), new DefaultTypeDeserializationConfigurer(), inputParameters, null);
         assertEquals(SignavioDMNToJavaTransformer.class.getName(), dmnToJavaTransformer.getClass().getName());
     }
 
@@ -72,7 +76,7 @@ public class SignavioDMNDialectDefinitionTest {
 
     @Test
     public void testCreateFEELLib() {
-        FEELLib feelLib = dialect.createFEELLib();
+        FEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> feelLib = dialect.createFEELLib();
         assertEquals(DefaultSignavioLib.class.getName(), feelLib.getClass().getName());
     }
 

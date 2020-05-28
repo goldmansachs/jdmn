@@ -19,9 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompositeDMNTransformer<T> implements DMNTransformer<T> {
-    private final List<DMNTransformer> transformers = new ArrayList<>();
+    private final List<DMNTransformer<T>> transformers = new ArrayList<>();
 
-    public CompositeDMNTransformer(List<DMNTransformer> transformers) {
+    public CompositeDMNTransformer(List<DMNTransformer<T>> transformers) {
         if (transformers != null) {
             this.transformers.addAll(transformers);
         }
@@ -29,7 +29,7 @@ public class CompositeDMNTransformer<T> implements DMNTransformer<T> {
 
     @Override
     public DMNModelRepository transform(DMNModelRepository repository) {
-        for(DMNTransformer transformer: this.transformers) {
+        for(DMNTransformer<T> transformer: this.transformers) {
             repository = transformer.transform(repository);
         }
         return repository;
@@ -37,8 +37,8 @@ public class CompositeDMNTransformer<T> implements DMNTransformer<T> {
 
     @Override
     public Pair<DMNModelRepository, List<T>> transform(DMNModelRepository repository, List<T> testCasesList) {
-        Pair<DMNModelRepository, List<T>> result = new Pair(repository, testCasesList);
-        for(DMNTransformer transformer: this.transformers) {
+        Pair<DMNModelRepository, List<T>> result = new Pair<>(repository, testCasesList);
+        for(DMNTransformer<T> transformer: this.transformers) {
             result = transformer.transform(result.getLeft(), result.getRight());
         }
         return result;

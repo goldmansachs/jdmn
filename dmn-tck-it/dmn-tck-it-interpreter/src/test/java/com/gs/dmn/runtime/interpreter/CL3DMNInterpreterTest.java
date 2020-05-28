@@ -17,7 +17,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-public abstract class CL3DMNInterpreterTest extends AbstractDMNInterpreterTest {
+public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     @Override
     protected String getDMNInputPath() {
         return "tck/cl3";

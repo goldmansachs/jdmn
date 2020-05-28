@@ -15,7 +15,6 @@ package com.gs.dmn.maven;
 import com.gs.dmn.signavio.rdf2dmn.RDFToDMNTransformer;
 import com.gs.dmn.transformation.FileTransformer;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -26,7 +25,7 @@ import java.util.Map;
 
 @SuppressWarnings("CanBeFinal")
 @Mojo(name = "rdf-to-dmn", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
-public class RDFToDMNMojo extends AbstractDMNMojo {
+public class RDFToDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
     @Parameter(required = false)
     public Map<String, String> inputParameters;
 
@@ -37,7 +36,7 @@ public class RDFToDMNMojo extends AbstractDMNMojo {
     public File outputFileDirectory;
 
     @Override
-    public void execute() throws MojoExecutionException, MojoFailureException {
+    public void execute() throws MojoExecutionException {
         checkMandatoryField(inputFileDirectory, "inputFileDirectory");
         checkMandatoryField(outputFileDirectory, "outputFileDirectory");
 
