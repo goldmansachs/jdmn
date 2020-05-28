@@ -17,7 +17,6 @@ import com.gs.dmn.signavio.testlab.TestLabVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @JsonPropertyOrder({ "type", "value" })
 public class ListExpression extends Expression {
@@ -40,7 +39,7 @@ public class ListExpression extends Expression {
                     elementsList.add("null");
                 }
             }
-            String elements = elementsList.stream().collect(Collectors.joining(", "));
+            String elements = String.join(", ", elementsList);
             return String.format("[%s]", elements);
         }
     }

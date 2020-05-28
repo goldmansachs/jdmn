@@ -900,7 +900,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
                 }
             }
             if (declaredMethod == null) {
-                throw new DMNRuntimeException(String.format("Cannot resolve '%s.%s(%s)", className, methodName, paramTypes.stream().collect(Collectors.joining(", "))));
+                throw new DMNRuntimeException(String.format("Cannot resolve '%s.%s(%s)", className, methodName, String.join(", ", paramTypes)));
             }
             Object[] args = makeArgs(declaredMethod, convertedArgList);
 
@@ -912,7 +912,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
                 return declaredMethod.invoke(obj, args);
             }
         } catch (Exception e) {
-            handleError(String.format("Cannot evaluate function '%s(%s)'", methodName, paramTypes.stream().collect(Collectors.joining(", "))), e);
+            handleError(String.format("Cannot evaluate function '%s(%s)'", methodName, String.join(", ", paramTypes)), e);
             return null;
         }
     }
