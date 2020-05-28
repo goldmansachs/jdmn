@@ -20,7 +20,7 @@ import java.io.InputStream;
 import java.util.List;
 
 public class MetadataValidator {
-    private static Logger LOGGER = LoggerFactory.getLogger(MetadataValidator.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MetadataValidator.class);
 
     public boolean validate(String pkg, ClassLoader classLoader) {
         String metadataPath = pkg.replace('.', '/');

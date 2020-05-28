@@ -23,7 +23,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class RuleDescriptionValidatorTest extends AbstractValidatorTest {
-    private RuleDescriptionValidator validator = new RuleDescriptionValidator();
+    private final RuleDescriptionValidator validator = new RuleDescriptionValidator();
 
     @Test
     public void testValidateIncorrectList() {

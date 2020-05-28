@@ -26,7 +26,7 @@ public class ImportPath {
         return importPath == null || importPath.isEmpty();
     }
 
-    private List<String> pathElements = new ArrayList<>();
+    private final List<String> pathElements = new ArrayList<>();
 
     public ImportPath() {
     }

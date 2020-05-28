@@ -31,7 +31,7 @@ import static org.junit.Assert.assertEquals;
 public class LabelDuplicationDRGElementValidatorTest extends AbstractFileTransformerTest {
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
 
-    private DMNValidator validator = new LabelDuplicationDRGElementValidator();
+    private final DMNValidator validator = new LabelDuplicationDRGElementValidator();
 
     @Test
     public void testValidate() throws Exception {
