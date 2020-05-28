@@ -78,7 +78,7 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends Abstrac
 
     @Override
     protected Map<String, String> makeInputParameters() {
-        LinkedHashMap<String, String> inputParams = new LinkedHashMap<String, String>();
+        LinkedHashMap<String, String> inputParams = new LinkedHashMap<>();
         inputParams.put("environmentFactoryClass", StandardEnvironmentFactory.class.getName());
         inputParams.put("decisionBaseClass", DefaultDMNBaseDecision.class.getName());
         return inputParams;

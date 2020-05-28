@@ -27,7 +27,7 @@ public class ToQuotedNameTransformerTest extends NameTransformerTest {
     public void testTransform() throws Exception {
         doTest(Arrays.asList("0004-lending.dmn"),
                 "0004-lending-test-01.xml", new LinkedHashMap<String, Pair<String, String>>() {{
-                    put("0004-lending.dmn", new Pair<String, String>("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b", "tns"));
+                    put("0004-lending.dmn", new Pair<>("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b", "tns"));
                     put("0004-lending-test-01.xml", new Pair<>("http://www.w3.org/2001/XMLSchema-instance", "xsi"));
                 }}
         );
