@@ -29,7 +29,8 @@ public class AnnotationSet extends LinkedList<Annotation> {
 
     public void addAnnotation(String decisionName, int ruleIndex, String annotation) {
         if (!StringUtils.isBlank(annotation)) {
-            Annotation element = new Annotation(decisionName, ruleIndex, annotation);
+            // Rules index starts from 0
+            Annotation element = new Annotation(decisionName, ruleIndex + 1, annotation);
             this.add(element);
         }
     }
