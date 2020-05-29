@@ -29,7 +29,9 @@ import org.omg.spec.dmn._20180521.model.TInputData;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.fail;
 
@@ -51,6 +53,9 @@ public abstract class AbstractMergeInputDataTransformerTest extends AbstractFile
         File dmnFile = new File(resource(path + getDMNFileName()));
         Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(dmnFile);
         DMNModelRepository repository = new SignavioDMNModelRepository(pair);
+        Map<String, Object> config = new LinkedHashMap<>();
+        config.put("forceMerge", "false");
+        transformer.configure(config);
         DMNModelRepository actualRepository = transformer.transform(repository);
 
         // Transform TestLab
