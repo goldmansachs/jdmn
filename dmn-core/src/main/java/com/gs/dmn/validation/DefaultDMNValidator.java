@@ -16,7 +16,7 @@ import com.google.common.base.Function;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
-import com.gs.dmn.transformation.DMNToJavaTransformer;
+import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.*;
@@ -246,7 +246,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
     }
 
     private boolean isSupported(String expressionLanguage) {
-        return expressionLanguage == null || DMNToJavaTransformer.SUPPORTED_LANGUAGES.contains(expressionLanguage);
+        return expressionLanguage == null || AbstractDMNToNativeTransformer.SUPPORTED_LANGUAGES.contains(expressionLanguage);
     }
 
     private void validateRule(TDecisionRule rule, List<String> errors) {
