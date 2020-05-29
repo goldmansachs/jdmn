@@ -56,11 +56,13 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
     private BasicDMNToNativeTransformer basicTransformer;
     private FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib;
 
-    protected void doSingleModelTest(String dmnFileName, Pair<String, String>... extraInputParameters) {
+    @SafeVarargs
+    protected final void doSingleModelTest(String dmnFileName, Pair<String, String>... extraInputParameters) {
         doMultipleModelsTest(Arrays.asList(dmnFileName), extraInputParameters);
     }
 
-    protected void doMultipleModelsTest(List<String> dmnFileNames, Pair<String, String>... extraInputParameters) {
+    @SafeVarargs
+    protected final void doMultipleModelsTest(List<String> dmnFileNames, Pair<String, String>... extraInputParameters) {
         String errorMessage = String.format("Tested failed for DM '%s'", dmnFileNames);
         try {
             // Read DMN files
@@ -90,7 +92,8 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
         }
     }
 
-    protected void doMultipleModelsTest(String dmnFolderName, String testFolderName, Pair<String, String>... extraInputParameters) {
+    @SafeVarargs
+    protected final void doMultipleModelsTest(String dmnFolderName, String testFolderName, Pair<String, String>... extraInputParameters) {
         String errorMessage = String.format("Tested failed for diagram '%s'", dmnFolderName);
         try {
             // Read DMN files
