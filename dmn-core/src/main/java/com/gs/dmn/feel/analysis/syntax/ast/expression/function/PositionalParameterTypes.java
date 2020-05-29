@@ -88,7 +88,7 @@ public class PositionalParameterTypes extends ParameterTypes {
             // Add new candidate
             if (different) {
                 PositionalParameterTypes newSignature = new PositionalParameterTypes(newTypes);
-                result.add(new Pair(newSignature, conversions));
+                result.add(new Pair<>(newSignature, conversions));
             }
 
             // Next sequence

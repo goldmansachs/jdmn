@@ -334,7 +334,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         Object key = element.getKey().accept(this, context);
         Object value = element.getExpression().accept(this, context);
         context.getRuntimeEnvironment().bind((String) key, value);
-        return new Pair(key, value);
+        return new Pair<>(key, value);
     }
 
     @Override
@@ -429,7 +429,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     public Object visit(RangeIteratorDomain element, FEELContext context) {
         Object start = element.getStart().accept(this, context);
         Object end = element.getEnd().accept(this, context);
-        return new Pair(start, end);
+        return new Pair<>(start, end);
     }
 
     @Override

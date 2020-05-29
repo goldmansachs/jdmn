@@ -44,7 +44,7 @@ public class TypeDeserializerTest {
         assertEquals(EnumerationType.ENUMERATION, resolver.deserialize(EnumerationType.ENUMERATION.toString()));
 
         // Composite types
-        ContextType contextType = new ContextType(new LinkedHashMap() {{
+        ContextType contextType = new ContextType(new LinkedHashMap<String, Type>() {{
             put("name", STRING);
         }});
         assertEquals(contextType, resolver.deserialize(contextType.toString()));
