@@ -22,17 +22,21 @@ import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.junit.Before;
 import org.junit.Test;
+import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.spec.dmn._20180521.model.TDecision;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
 
+import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 public class BasicDMN2JavaTransformerTest extends AbstractTest {
-    private final DMNDialectDefinition dialectDefinition = new StandardDMNDialectDefinition();
+    private final DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestCases> dialectDefinition = new StandardDMNDialectDefinition();
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
     private BasicDMN2JavaTransformer dmnTransformer;
     private String href;

@@ -14,8 +14,8 @@ package com.gs.dmn.fitnesse.fixture;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
-import com.gs.dmn.feel.analysis.semantics.environment.StandardEnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
+import com.gs.dmn.feel.analysis.semantics.environment.StandardEnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
@@ -25,18 +25,20 @@ import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import fit.ColumnFixture;
+import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.spec.dmn._20180521.model.TNamedElement;
 
 import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 
 public class AbstractFixture extends ColumnFixture {
-    protected final DMNDialectDefinition dialectDefinition = new StandardDMNDialectDefinition();
-    protected final StandardFEELLib lib;
+    protected final DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestCases> dialectDefinition = new StandardDMNDialectDefinition();
+    protected final StandardFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> lib;
     protected Scope scope;
 
     public AbstractFixture() {
-        this.lib = (StandardFEELLib) this.dialectDefinition.createFEELLib();
+        this.lib = (StandardFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration>) this.dialectDefinition.createFEELLib();
 
         fitnesse.slim.converters.ConverterRegistry.addConverter(Scope.class, new ScopeConverter());
         fitnesse.slim.converters.ConverterRegistry.addConverter(Context.class, new ContextConverter());

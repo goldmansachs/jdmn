@@ -12,8 +12,6 @@
  */
 package com.gs.dmn.feel;
 
-import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.interpreter.FEELInterpreterImpl;
@@ -23,6 +21,7 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,16 +33,11 @@ import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static org.junit.Assert.assertEquals;
 
-public class FEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
+public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
     @Before
     public void setUp() {
         this.feelTranslator = new FEELTranslatorImpl(dmnTransformer);
         this.feelInterpreter = new FEELInterpreterImpl<>(dmnInterpreter);
-    }
-
-    @Override
-    protected DMNDialectDefinition makeDialect() {
-        return new StandardDMNDialectDefinition();
     }
 
     @Test
