@@ -117,10 +117,10 @@ class DefaultSimpleOutput extends RuleOutput {
         results.forEach(decisionOutputRuleResult -> {
             String output = ((DefaultSimpleOutput)decisionOutputRuleResult).getOutput();
             Integer priority = ((DefaultSimpleOutput)decisionOutputRuleResult).getPriority();
-            Pair<String, Integer> pair = new Pair(output, priority);
+            Pair<String, Integer> pair = new Pair<>(output, priority);
             outputPairs.add(pair);
         });
-        outputPairs.sort(new PairComparator());
+        outputPairs.sort(new PairComparator<>());
 
         List<RuleOutput> result_ = new ArrayList<>();
         for(int i=0; i<results.size(); i++) {
@@ -161,10 +161,10 @@ class DefaultCompoundOutput extends RuleOutput {
         results.forEach(ruleResult -> {
             List<String> output1 = ((DefaultCompoundOutput)ruleResult).getOutput();
             Integer priority1 = ((DefaultCompoundOutput)ruleResult).getPriority();
-            Pair<List<String>, Integer> pair = new Pair(output1, priority1);
+            Pair<List<String>, Integer> pair = new Pair<>(output1, priority1);
             outputPairs.add(pair);
         });
-        outputPairs.sort(new PairComparator());
+        outputPairs.sort(new PairComparator<>());
 
         List<RuleOutput> result_ = new ArrayList<>();
         for(int i=0; i<results.size(); i++) {

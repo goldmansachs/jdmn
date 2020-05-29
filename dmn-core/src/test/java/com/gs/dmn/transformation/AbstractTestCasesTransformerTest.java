@@ -20,7 +20,8 @@ import java.nio.file.Path;
 import java.util.Map;
 
 public abstract class AbstractTestCasesTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
-    protected void doTest(String inputTestFilePath, String inputModelFilePath, String expectedOutputPath, Pair<String, String>... extraInputParameters) throws Exception {
+    @SafeVarargs
+    protected final void doTest(String inputTestFilePath, String inputModelFilePath, String expectedOutputPath, Pair<String, String>... extraInputParameters) throws Exception {
         File outputFolder = new File("target/" + expectedOutputPath);
         outputFolder.mkdirs();
 

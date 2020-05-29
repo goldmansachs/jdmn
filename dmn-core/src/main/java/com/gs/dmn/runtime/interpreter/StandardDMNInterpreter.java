@@ -670,9 +670,9 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                 Object value = Result.value(result);
                 if (this.dmnModelRepository.isOutputOrderHit(hitPolicy)) {
                     Object priority = this.basicDMNTransformer.priority(element, rule.getOutputEntry().get(0), 0);
-                    output = new Pair(value, priority);
+                    output = new Pair<>(value, priority);
                 } else {
-                    output = new Pair(value, null);
+                    output = new Pair<>(value, null);
                 }
                 return new InterpretedRuleOutput(ruleMatched, output);
             }
@@ -748,7 +748,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
     private boolean isFalse(Object o) {
         if (o instanceof List) {
-            if (((List) o).stream().anyMatch(t -> t == null || Boolean.FALSE.equals(o))) {
+            if (((List<Object>) o).stream().anyMatch(t -> t == null || Boolean.FALSE.equals(o))) {
                 return false;
             }
         }
