@@ -35,7 +35,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public abstract class AbstractTCKTestCasesToJUnitTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestCasesTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
-    public void doSingleModelTest(String dmnFileName, String testFileName, Pair<String, String>... extraInputParameters) throws Exception {
+    @SafeVarargs
+    public final void doSingleModelTest(String dmnFileName, String testFileName, Pair<String, String>... extraInputParameters) throws Exception {
         String dmnPath = getDMNInputPath() + "/";
         String testCasesPath = getTestCasesInputPath() + "/";
         String expectedPath = getExpectedPath() + "/" + friendlyFolderName(dmnFileName);
@@ -46,7 +47,8 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest<NUMBER, DATE, T
         super.doTest(decodedInputTestFilePath, decodedInputModelFilePath, expectedPath, extraInputParameters);
     }
 
-    public void doMultipleModelsTest(String dmnFolderName, String testFolderName, Pair<String, String>... extraInputParameters) throws Exception {
+    @SafeVarargs
+    public final void doMultipleModelsTest(String dmnFolderName, String testFolderName, Pair<String, String>... extraInputParameters) throws Exception {
         String dmnPath = getDMNInputPath() + "/";
         String testCasesPath = getTestCasesInputPath() + "/";
         String expectedPath = getExpectedPath() + "/" + friendlyFolderName(dmnFolderName);

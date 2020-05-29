@@ -302,7 +302,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testSimpleExpressions() {
-        List entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         doSimpleExpressionsTest(entries, "1, 2",
