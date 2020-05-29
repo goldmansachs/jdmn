@@ -12,25 +12,12 @@
  */
 package com.gs.dmn.dialect;
 
-import com.gs.dmn.AbstractTest;
-import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.lib.MixedJavaTimeFEELLib;
 import com.gs.dmn.feel.synthesis.type.MixedJavaTimeNativeTypeFactory;
-import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.MixedJavaTimeDMNBaseDecision;
-import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
-import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
-import com.gs.dmn.transformation.DMNToNativeTransformer;
-import com.gs.dmn.transformation.NopDMNTransformer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
-import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
-import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
-import com.gs.dmn.transformation.template.TreeTemplateProvider;
-import com.gs.dmn.validation.NopDMNValidator;
-import org.junit.Test;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import javax.xml.datatype.Duration;
@@ -38,52 +25,40 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-
-public class MixedJavaTimeDMNDialectDefinitionTest extends AbstractTest {
-    private final DMNDialectDefinition<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration, TestCases> dialect = new MixedJavaTimeDMNDialectDefinition();
-    private static final DMNModelRepository REPOSITORY = new DMNModelRepository();
-
-    @Test
-    public void testCreateDMNInterpreter() {
-        DMNInterpreter<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> dmnInterpreter = dialect.createDMNInterpreter(REPOSITORY, new LinkedHashMap<>());
-        assertEquals(StandardDMNInterpreter.class.getName(), dmnInterpreter.getClass().getName());
+public class MixedJavaTimeDMNDialectDefinitionTest extends AbstractStandardDMNDialectDefinitionTest<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
+    @Override
+    protected DMNDialectDefinition<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration, TestCases> makeDialect() {
+        return new MixedJavaTimeDMNDialectDefinition();
     }
 
-    @Test
-    public void testCreateDMNToJavaTransformer() {
-        Map<String, String> inputParameters = new LinkedHashMap<>();
-        inputParameters.put("dmnVersion", "1.1");
-        inputParameters.put("modelVersion", "1.2");
-        inputParameters.put("platformVersion", "3.2");
-        DMNToNativeTransformer dmnToJavaTransformer = dialect.createDMNToNativeTransformer(new NopDMNValidator(), new NopDMNTransformer<>(), new TreeTemplateProvider(), new NopLazyEvaluationDetector(), new DefaultTypeDeserializationConfigurer(), inputParameters, null);
-        assertEquals(DMNToJavaTransformer.class.getName(), dmnToJavaTransformer.getClass().getName());
+    @Override
+    protected String getExpectedDMNInterpreterClass() {
+        return StandardDMNInterpreter.class.getName();
     }
 
-    @Test
-    public void testCreateBasicTransformer() {
-        BasicDMNToNativeTransformer basicTransformer = dialect.createBasicTransformer(REPOSITORY, new NopLazyEvaluationDetector(), new LinkedHashMap<>());
-        assertEquals(BasicDMN2JavaTransformer.class.getName(), basicTransformer.getClass().getName());
+    @Override
+    protected String getExpectedDMNToNativeTransformerClass() {
+        return DMNToJavaTransformer.class.getName();
     }
 
-    @Test
-    public void testCreateTypeTranslator() {
-        NativeTypeFactory typeTranslator = dialect.createNativeTypeFactory();
-        assertEquals(MixedJavaTimeNativeTypeFactory.class.getName(), typeTranslator.getClass().getName());
+    @Override
+    protected String getBasicTransformerClass() {
+        return BasicDMN2JavaTransformer.class.getName();
     }
 
-    @Test
-    public void testCreateFEELLib() {
-        FEELLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> feelLib = dialect.createFEELLib();
-        assertEquals(MixedJavaTimeFEELLib.class.getName(), feelLib.getClass().getName());
+    @Override
+    protected String getExpectedNativeTypeFactoryClass() {
+        return MixedJavaTimeNativeTypeFactory.class.getName();
     }
 
-    @Test
-    public void testGetDecisionBaseClass() {
-        String decisionBaseClass = dialect.getDecisionBaseClass();
-        assertEquals(MixedJavaTimeDMNBaseDecision.class.getName(), decisionBaseClass);
+    @Override
+    protected String getExpectedFEELLibClass() {
+        return MixedJavaTimeFEELLib.class.getName();
+    }
+
+    @Override
+    protected String getExpectedDecisionBaseClass() {
+        return MixedJavaTimeDMNBaseDecision.class.getName();
     }
 }

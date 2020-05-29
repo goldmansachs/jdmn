@@ -13,24 +13,22 @@
 package com.gs.dmn.signavio.dialect;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.feel.synthesis.type.MixedJavaTimeNativeTypeFactory;
-import com.gs.dmn.signavio.feel.lib.MixedJavaTimeSignavioLib;
-import com.gs.dmn.signavio.runtime.MixedJavaTimeSignavioBaseDecision;
+import com.gs.dmn.feel.synthesis.type.StandardNativeTypeToKotlinFactory;
+import com.gs.dmn.signavio.feel.lib.DefaultSignavioLib;
+import com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision;
 import com.gs.dmn.signavio.runtime.interpreter.SignavioDMNInterpreter;
 import com.gs.dmn.signavio.testlab.TestLab;
-import com.gs.dmn.signavio.transformation.SignavioDMNToJavaTransformer;
-import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMN2JavaTransformer;
+import com.gs.dmn.signavio.transformation.SignavioDMNToKotlinTransformer;
+import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMN2KotlinTransformer;
 
 import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.OffsetTime;
-import java.time.ZonedDateTime;
 
-public class MixedJavaTimeSignavioDMNDialectDefinitionTest extends AbstractSignavioDMNDialectDefinitionTest<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
+public class KotlinSignavioDMNDialectDefinitionTest extends AbstractSignavioDMNDialectDefinitionTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     @Override
-    protected DMNDialectDefinition<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration, TestLab> makeDialect() {
-        return new MixedJavaTimeSignavioDMNDialectDefinition();
+    protected DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestLab> makeDialect() {
+        return new KotlinSignavioDMNDialectDefinition();
     }
 
     @Override
@@ -40,26 +38,26 @@ public class MixedJavaTimeSignavioDMNDialectDefinitionTest extends AbstractSigna
 
     @Override
     protected String getExpectedDMNToNativeTransformerClass() {
-        return SignavioDMNToJavaTransformer.class.getName();
+        return SignavioDMNToKotlinTransformer.class.getName();
     }
 
     @Override
     protected String getBasicTransformerClass() {
-        return BasicSignavioDMN2JavaTransformer.class.getName();
+        return BasicSignavioDMN2KotlinTransformer.class.getName();
     }
 
     @Override
     protected String getExpectedNativeTypeFactoryClass() {
-        return MixedJavaTimeNativeTypeFactory.class.getName();
+        return StandardNativeTypeToKotlinFactory.class.getName();
     }
 
     @Override
     protected String getExpectedFEELLibClass() {
-        return MixedJavaTimeSignavioLib.class.getName();
+        return DefaultSignavioLib.class.getName();
     }
 
     @Override
     protected String getExpectedDecisionBaseClass() {
-        return MixedJavaTimeSignavioBaseDecision.class.getName();
+        return DefaultSignavioBaseDecision.class.getName();
     }
 }
