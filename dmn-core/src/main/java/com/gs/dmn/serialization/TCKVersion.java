@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 public class TCKVersion {
-    public static final LinkedHashMap<String, String> TCK_1_OTHER_NAMESPACES = new LinkedHashMap<>();
+    protected static final LinkedHashMap<String, String> TCK_1_OTHER_NAMESPACES = new LinkedHashMap<>();
     public static final TCKVersion TCK_1 = new TCKVersion("1", "tck/testCases.xsd",
             null, "",
             TCK_1_OTHER_NAMESPACES,
@@ -29,7 +29,7 @@ public class TCKVersion {
 
     public static final TCKVersion LATEST = TCK_1;
 
-    public static final List<TCKVersion> VALUES = Arrays.asList(TCK_1);
+    protected static final List<TCKVersion> VALUES = Arrays.asList(TCK_1);
 
     public static TCKVersion fromVersion(String key) {
         for (TCKVersion version: VALUES) {

@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DMNVersion {
-    public static final LinkedHashMap<String, String> DMN_11_OTHER_NAMESPACES = new LinkedHashMap<>();
+    protected static final LinkedHashMap<String, String> DMN_11_OTHER_NAMESPACES = new LinkedHashMap<>();
     public static final DMNVersion DMN_11 = new DMNVersion("1.1", "dmn/1.1/dmn.xsd",
             null, "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
             "feel", "http://www.omg.org/spec/FEEL/20140401",
@@ -28,7 +28,7 @@ public class DMNVersion {
             "org.omg.spec.dmn._20151101.model"
     );
 
-    public static final LinkedHashMap<String, String> DMN_12_OTHER_NAMESPACES = new LinkedHashMap<>();
+    protected static final LinkedHashMap<String, String> DMN_12_OTHER_NAMESPACES = new LinkedHashMap<>();
     static {
         DMN_12_OTHER_NAMESPACES.put("http://www.omg.org/spec/DMN/20180521/DC/", "dc");
         DMN_12_OTHER_NAMESPACES.put("http://www.omg.org/spec/DMN/20180521/DMNDI/", "dmndi");
@@ -43,7 +43,7 @@ public class DMNVersion {
 
     public static final DMNVersion LATEST = DMN_12;
 
-    public static final List<DMNVersion> VALUES = Arrays.asList(DMN_11, DMN_12);
+    protected static final List<DMNVersion> VALUES = Arrays.asList(DMN_11, DMN_12);
 
     public static DMNVersion fromVersion(String key) {
         for (DMNVersion version: VALUES) {
