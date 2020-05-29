@@ -52,7 +52,7 @@ import com.gs.dmn.runtime.compiler.JavaxToolsCompiler;
 import com.gs.dmn.runtime.interpreter.*;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
-import com.gs.dmn.transformation.DMNToJavaTransformer;
+import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.ImportContextType;
 import org.omg.spec.dmn._20180521.model.*;
 import org.slf4j.Logger;
@@ -123,7 +123,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
 
     @Override
     public Object visit(NullTest element, FEELContext context) {
-        Object self = context.lookupRuntimeBinding(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER);
+        Object self = context.lookupRuntimeBinding(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER);
         return self == null;
     }
 
@@ -143,7 +143,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             if (endpoint instanceof FunctionInvocation) {
                 return endpoint.accept(this, context);
             } else {
-                Object self = context.lookupRuntimeBinding(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER);
+                Object self = context.lookupRuntimeBinding(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER);
                 if (operator == null) {
                     if (inputExpressionType.equivalentTo(endpointType)) {
                         return evaluateOperatorTest(element, "=", self, endpoint, context);
@@ -251,7 +251,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         Expression endExpression = element.getEnd();
 
         try {
-            Object self = context.lookupRuntimeBinding(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER);
+            Object self = context.lookupRuntimeBinding(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER);
             String leftOperator = element.isOpenStart() ? ">" : ">=";
             String rightOperator = element.isOpenEnd() ? "<" : "<=";
 
@@ -272,7 +272,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             Type listType = listLiteral.getType();
             Type listElementType = ((ListType) listType).getElementType();
             Type inputExpressionType = context.getEnvironment().getInputExpressionType();
-            Object self = context.lookupRuntimeBinding(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER);
+            Object self = context.lookupRuntimeBinding(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER);
 
             Object result;
             if (inputExpressionType.conformsTo(listType)) {
@@ -591,7 +591,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         Environment inEnvironment = this.environmentFactory.makeEnvironment(context.getEnvironment(), valueExp);
         RuntimeEnvironment inRuntimeEnvironment = runtimeEnvironmentFactory.makeEnvironment(context.getRuntimeEnvironment());
         FEELContext inParams = FEELContext.makeContext(context.getElement(), inEnvironment, inRuntimeEnvironment);
-        inParams.runtimeBind(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER, value);
+        inParams.runtimeBind(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER, value);
 
         List<Object> result = new ArrayList<>();
         List<PositiveUnaryTest> positiveUnaryTests = element.getTests();
@@ -1122,7 +1122,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     public Object visit(QualifiedName element, FEELContext context) {
         if (element.getNames().size() == 1) {
             String name = element.getNames().get(0);
-            if (name.equals(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER)) {
+            if (name.equals(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER)) {
                 return context.getEnvironment().getInputExpression().accept(this, context);
             } else {
                 return context.lookupRuntimeBinding(name);

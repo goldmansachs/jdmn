@@ -19,25 +19,29 @@ import static org.junit.Assert.*;
 
 public class NopBuildLoggerTest {
     private final NopBuildLogger logger = new NopBuildLogger();
-    private final String message = null;
+    private final String message = "";
 
     @Test
     public void debug() {
         logger.debug(message);
+        assertTrue(true);
     }
 
     @Test
     public void info() {
         logger.info(message);
+        assertTrue(true);
     }
 
     @Test
     public void warn() {
         logger.warn(message);
+        assertTrue(true);
     }
 
     @Test
     public void error() {
         logger.info(message);
+        assertTrue(true);
     }
 }
