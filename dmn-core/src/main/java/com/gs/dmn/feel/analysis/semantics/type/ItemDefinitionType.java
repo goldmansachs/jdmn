@@ -97,9 +97,7 @@ public class ItemDefinitionType extends NamedType implements CompositeDataType {
 
     public ContextType toContextType() {
         ContextType contextType = new ContextType();
-        members.entrySet().forEach(
-                entry -> contextType.addMember(entry.getKey(), aliases.get(entry.getKey()), entry.getValue())
-        );
+        members.forEach((key, value) -> contextType.addMember(key, aliases.get(key), value));
         return contextType;
     }
 

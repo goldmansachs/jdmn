@@ -20,7 +20,7 @@ import java.time.*;
 import java.time.temporal.Temporal;
 
 public class TemporalDateTimeLib extends BaseDateTimeLib {
-    private DefaultDateTimeLib dateTimeLib = new DefaultDateTimeLib();
+    private final DefaultDateTimeLib dateTimeLib = new DefaultDateTimeLib();
 
     public Temporal dateAndTime(String literal) {
         if (StringUtils.isBlank(literal)) {

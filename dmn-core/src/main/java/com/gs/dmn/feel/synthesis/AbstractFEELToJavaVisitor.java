@@ -23,7 +23,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.QualifiedName;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.DateTimeLiteral;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.ImportContextType;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.TBusinessKnowledgeModel;
@@ -61,7 +61,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         FEEL_2_JAVA_FUNCTION.put("date and time", "dateAndTime");
     }
 
-    public AbstractFEELToJavaVisitor(BasicDMN2JavaTransformer dmnTransformer) {
+    public AbstractFEELToJavaVisitor(BasicDMNToNativeTransformer dmnTransformer) {
         super(dmnTransformer);
     }
 
@@ -88,11 +88,11 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
             }
         } else if (sourceType instanceof ItemDefinitionType) {
             Type memberType = ((ItemDefinitionType) sourceType).getMemberType(memberName);
-            String javaType = dmnTransformer.toJavaType(memberType);
+            String javaType = dmnTransformer.toNativeType(memberType);
             return this.expressionFactory.makeItemDefinitionAccessor(javaType, source, memberName);
         } else if (sourceType instanceof ContextType) {
             Type memberType = ((ContextType) sourceType).getMemberType(memberName);
-            String javaType = dmnTransformer.toJavaType(memberType);
+            String javaType = dmnTransformer.toNativeType(memberType);
             return this.expressionFactory.makeContextAccessor(javaType, source, memberName);
         } else if (sourceType instanceof ListType) {
             String filter = makeNavigation(element, ((ListType) sourceType).getElementType(), "x", memberName, memberVariableName);
@@ -125,7 +125,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
     protected String javaFriendlyVariableName(String name) {
         name = dmnTransformer.getDMNModelRepository().removeSingleQuotes(name);
         String firstChar = Character.toString(Character.toLowerCase(name.charAt(0)));
-        return dmnTransformer.javaFriendlyName(name.length() == 1 ? firstChar : firstChar + name.substring(1));
+        return dmnTransformer.nativeFriendlyName(name.length() == 1 ? firstChar : firstChar + name.substring(1));
     }
 
     protected Object makeCondition(String feelOperator, Expression leftOperand, Expression rightOperand, FEELContext context) {

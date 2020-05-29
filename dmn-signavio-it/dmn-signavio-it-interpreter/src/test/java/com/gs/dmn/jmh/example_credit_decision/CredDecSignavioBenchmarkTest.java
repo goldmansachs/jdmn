@@ -24,6 +24,7 @@ import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.feel.lib.DefaultSignavioLib;
+import com.gs.dmn.signavio.testlab.TestLab;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;
@@ -32,6 +33,8 @@ import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.LinkedHashMap;
@@ -41,7 +44,7 @@ import java.util.concurrent.TimeUnit;
 public class CredDecSignavioBenchmarkTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(CredDecSignavioBenchmarkTest.class));
 
-    private static final DMNDialectDefinition dialectDefinition = new SignavioDMNDialectDefinition();
+    private static final DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestLab> dialectDefinition = new SignavioDMNDialectDefinition();
     private static final DMNReader dmnReader = new DMNReader(LOGGER, false);
     private static final DefaultSignavioLib lib = (DefaultSignavioLib) dialectDefinition.createFEELLib();
 
@@ -64,7 +67,7 @@ public class CredDecSignavioBenchmarkTest {
 
         String pathName = "exported/dmn/complex/Example credit decision.dmn";
         DMNModelRepository repository = readDMN(pathName);
-        DMNInterpreter interpreter = dialectDefinition.createDMNInterpreter(repository, new LinkedHashMap<>());
+        DMNInterpreter<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> interpreter = dialectDefinition.createDMNInterpreter(repository, new LinkedHashMap<>());
 
         RuntimeEnvironment runtimeEnvironment = RuntimeEnvironmentFactory.instance().makeEnvironment();
         runtimeEnvironment.bind("applicant", applicant);

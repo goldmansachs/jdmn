@@ -42,9 +42,9 @@ public class InterpretedRuleOutput extends RuleOutput {
             List<com.gs.dmn.runtime.Pair<Object, Integer>> decisionPairs = new ArrayList<>();
             matchedResults.forEach(matchedResult -> {
                 InterpretedRuleOutput interpretedRule = (InterpretedRuleOutput) matchedResult;
-                decisionPairs.add((Pair) interpretedRule.getResult());
+                decisionPairs.add((Pair<Object, Integer>) interpretedRule.getResult());
             });
-            decisionPairs.sort(new com.gs.dmn.runtime.PairComparator());
+            decisionPairs.sort(new com.gs.dmn.runtime.PairComparator<>());
             // Create new list
             List<InterpretedRuleOutput> newList = new ArrayList<>();
             for (int i = 0; i < matchedResults.size(); i++) {
@@ -64,9 +64,9 @@ public class InterpretedRuleOutput extends RuleOutput {
                 List<com.gs.dmn.runtime.Pair<Object, Integer>> decisionPairs = new ArrayList<>();
                 matchedResults.forEach(matchedResult -> {
                     InterpretedRuleOutput interpretedRule = (InterpretedRuleOutput) matchedResult;
-                    decisionPairs.add((Pair) ((Context) interpretedRule.getResult()).get(key));
+                    decisionPairs.add((Pair<Object, Integer>) ((Context) interpretedRule.getResult()).get(key));
                 });
-                decisionPairs.sort(new com.gs.dmn.runtime.PairComparator());
+                decisionPairs.sort(new com.gs.dmn.runtime.PairComparator<>());
                 // Add them to new list
                 for (int i = 0; i < decisionPairs.size(); i++) {
                     ((Context) newList.get(i).getResult()).put(key, decisionPairs.get(i));

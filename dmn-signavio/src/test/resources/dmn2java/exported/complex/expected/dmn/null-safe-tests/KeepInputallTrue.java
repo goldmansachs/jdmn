@@ -2,7 +2,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision-with-extension.ftl", "keepInputallTrue"})
+@javax.annotation.Generated(value = {"signavio-decision.ftl", "keepInputallTrue"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
     name = "keepInputallTrue",

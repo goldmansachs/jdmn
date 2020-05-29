@@ -14,10 +14,16 @@ package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.DoubleMixedJavaTimeDMNDialectDefinition;
+import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
-public class DoubleMixedCL3DMNInterpreterTest extends CL3DMNInterpreterTest {
+import javax.xml.datatype.Duration;
+import java.time.LocalDate;
+import java.time.OffsetTime;
+import java.time.ZonedDateTime;
+
+public class DoubleMixedCL3DMNInterpreterTest extends CL3DMNInterpreterTest<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     @Override
-    protected DMNDialectDefinition getDialectDefinition() {
+    protected DMNDialectDefinition<Double, LocalDate, OffsetTime, ZonedDateTime, Duration, TestCases> getDialectDefinition() {
         return new DoubleMixedJavaTimeDMNDialectDefinition();
     }
 

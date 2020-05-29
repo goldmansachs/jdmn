@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static com.gs.dmn.feel.analysis.syntax.antlrv4.FEELLexer.*;
 
@@ -313,7 +312,7 @@ public class ContextDependentFEELLexer {
     }
 
     private String makeLexeme(List<String> nameSegments) {
-        return nameSegments.stream().collect(Collectors.joining(""));
+        return String.join("", nameSegments);
     }
 
     private boolean isBeginLineComment(int ch) {

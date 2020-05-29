@@ -2,7 +2,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision-with-extension.ftl", "dateOperators"})
+@javax.annotation.Generated(value = {"signavio-decision.ftl", "dateOperators"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
     name = "dateOperators",
@@ -89,7 +89,7 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
             // Default value
             output_ = null;
             if (output_ == null) {
-                output_ = this.asList();
+                output_ = asList();
             }
         } else {
             List<? extends com.gs.dmn.runtime.RuleOutput> ruleOutputs_ = ruleOutputList_.applyMultiple(com.gs.dmn.runtime.annotation.HitPolicy.COLLECT);

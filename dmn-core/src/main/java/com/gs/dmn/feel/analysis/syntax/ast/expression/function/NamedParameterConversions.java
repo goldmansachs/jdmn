@@ -15,7 +15,7 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 import java.util.*;
 
 public class NamedParameterConversions extends ParameterConversions {
-    private Map<String, Conversion> conversions;
+    private final Map<String, Conversion> conversions;
 
     public NamedParameterConversions() {
         this(new LinkedHashMap<>());

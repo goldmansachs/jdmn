@@ -63,7 +63,7 @@ class PostBureauAffordability(val postBureauRiskCategory : PostBureauRiskCategor
     }
 
     private fun evaluate(applicantData: type.TApplicantData?, postBureauRiskCategory: String?, requiredMonthlyInstallment: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): Boolean? {
-        return AffordabilityCalculation.AffordabilityCalculation(applicantData?.let({ it.monthly as type.Monthly })?.let({ it.income as java.math.BigDecimal }), applicantData?.let({ it.monthly as type.Monthly })?.let({ it.repayments as java.math.BigDecimal }), applicantData?.let({ it.monthly as type.Monthly })?.let({ it.expenses as java.math.BigDecimal }), postBureauRiskCategory, requiredMonthlyInstallment, annotationSet_, eventListener_, externalExecutor_) as Boolean?
+        return AffordabilityCalculation.AffordabilityCalculation(applicantData?.let({ it.monthly as type.Monthly? })?.let({ it.income as java.math.BigDecimal? }), applicantData?.let({ it.monthly as type.Monthly? })?.let({ it.repayments as java.math.BigDecimal? }), applicantData?.let({ it.monthly as type.Monthly? })?.let({ it.expenses as java.math.BigDecimal? }), postBureauRiskCategory, requiredMonthlyInstallment, annotationSet_, eventListener_, externalExecutor_) as Boolean?
     }
 
     companion object {

@@ -90,7 +90,7 @@ public class TestCasesReader {
             }
 
             QName qName = new QName(TCK_NS, "testCases");
-            JAXBElement<TestCases> root = new JAXBElement<TestCases>(qName, TestCases.class, testCases);
+            JAXBElement<TestCases> root = new JAXBElement<>(qName, TestCases.class, testCases);
 
             marshaller.marshal(root, file);
         } catch (Exception e) {

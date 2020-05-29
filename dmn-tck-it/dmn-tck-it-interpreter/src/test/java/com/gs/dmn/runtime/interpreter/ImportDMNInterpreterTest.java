@@ -16,8 +16,13 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
+import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
-public class ImportDMNInterpreterTest extends AbstractDMNInterpreterTest {
+import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
+
+public class ImportDMNInterpreterTest extends AbstractDMNInterpreterTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     @Override
     protected String getDMNInputPath() {
         return "composite";
@@ -29,7 +34,7 @@ public class ImportDMNInterpreterTest extends AbstractDMNInterpreterTest {
     }
 
     @Override
-    protected DMNDialectDefinition getDialectDefinition() {
+    protected DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestCases> getDialectDefinition() {
         return new StandardDMNDialectDefinition();
     }
 

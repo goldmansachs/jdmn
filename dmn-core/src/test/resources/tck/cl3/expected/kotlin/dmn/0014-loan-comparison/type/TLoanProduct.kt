@@ -74,7 +74,7 @@ interface TLoanProduct : com.gs.dmn.runtime.DMNType {
                 result_.fee = other.get("fee") as java.math.BigDecimal?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
-                return toTLoanProduct(other)
+                return toTLoanProduct(other.toContext())
             } else {
                 throw com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.javaClass.getSimpleName(), TLoanProduct::class.java.getSimpleName()))
             }

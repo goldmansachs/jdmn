@@ -112,19 +112,19 @@ class AbstractFEELTranslator implements FEELTranslator {
     }
 
     @Override
-    public String expressionToJava(String text, FEELContext context) {
+    public String expressionToNative(String text, FEELContext context) {
         Expression expression = analyzeExpression(text, context);
-        return expressionToJava(expression, context);
+        return expressionToNative(expression, context);
     }
 
     @Override
-    public String expressionToJava(Expression expression, FEELContext context) {
+    public String expressionToNative(Expression expression, FEELContext context) {
         this.expressionVisitor.init();
         return (String) expression.accept(this.expressionVisitor, context);
     }
 
     @Override
-    public String simpleExpressionsToJava(Expression simpleExpressions, FEELContext context) {
+    public String simpleExpressionsToNative(Expression simpleExpressions, FEELContext context) {
         this.simpleExpressionsVisitor.init();
         String javaOutputEntryText = (String) simpleExpressions.accept(this.simpleExpressionsVisitor, context);
         return "-".equals(javaOutputEntryText) ? "null" : javaOutputEntryText;

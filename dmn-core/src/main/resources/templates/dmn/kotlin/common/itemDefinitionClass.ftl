@@ -1,3 +1,15 @@
+<#--
+    Copyright 2016 Goldman Sachs.
+
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+
+    You may obtain a copy of the License at
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations under the License.
+-->
 <#if javaPackageName?has_content>
 package ${javaPackageName}
 </#if>
@@ -6,7 +18,7 @@ import java.util.*
 
 @javax.annotation.Generated(value = ["itemDefinition.ftl", "${modelRepository.name(itemDefinition)}"])
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
-class ${javaClassName} : ${transformer.itemDefinitionJavaSimpleInterfaceName(javaClassName)} {
+class ${javaClassName} : ${transformer.itemDefinitionNativeSimpleInterfaceName(javaClassName)} {
     <@addFields itemDefinition />
     constructor() {
     }
@@ -21,7 +33,7 @@ class ${javaClassName} : ${transformer.itemDefinitionJavaSimpleInterfaceName(jav
 <#macro addFields itemDefinition>
     <#list itemDefinition.itemComponent as child>
         <#assign memberName = transformer.itemDefinitionVariableName(child)/>
-        <#assign memberType = transformer.itemDefinitionJavaQualifiedInterfaceName(child)/>
+        <#assign memberType = transformer.itemDefinitionNativeQualifiedInterfaceName(child)/>
     @get:com.fasterxml.jackson.annotation.JsonGetter("${transformer.escapeInString(modelRepository.displayName(child))}")
     @set:com.fasterxml.jackson.annotation.JsonGetter("${transformer.escapeInString(modelRepository.displayName(child))}")
     override var ${memberName}: ${memberType} = null

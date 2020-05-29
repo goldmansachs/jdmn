@@ -16,7 +16,6 @@ import com.gs.dmn.signavio.rdf2dmn.json.Context;
 import com.gs.dmn.signavio.rdf2dmn.json.Visitor;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Reference extends Expression {
     private String id;
@@ -37,7 +36,7 @@ public class Reference extends Expression {
 
     @Override
     public String toString() {
-        String list = pathElements.stream().collect(Collectors.joining(", "));
+        String list = String.join(", ", pathElements);
         return String.format("%s(%s, %s, %s)", this.getClass().getSimpleName(), id, shapeId, list);
     }
 

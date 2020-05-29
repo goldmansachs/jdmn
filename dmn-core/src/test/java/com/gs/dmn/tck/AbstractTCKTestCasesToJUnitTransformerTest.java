@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.tck;
 
-import com.gs.dmn.feel.analysis.semantics.environment.DefaultDMNEnvironmentFactory;
+import com.gs.dmn.feel.analysis.semantics.environment.StandardEnvironmentFactory;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DefaultDMNBaseDecision;
 import com.gs.dmn.runtime.Pair;
@@ -27,14 +27,16 @@ import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.DefaultDMNValidator;
+import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import java.net.URLDecoder;
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends AbstractTestCasesTransformerTest {
-    public void doSingleModelTest(String dmnFileName, String testFileName, Pair<String, String>... extraInputParameters) throws Exception {
+public abstract class AbstractTCKTestCasesToJUnitTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestCasesTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
+    @SafeVarargs
+    public final void doSingleModelTest(String dmnFileName, String testFileName, Pair<String, String>... extraInputParameters) throws Exception {
         String dmnPath = getDMNInputPath() + "/";
         String testCasesPath = getTestCasesInputPath() + "/";
         String expectedPath = getExpectedPath() + "/" + friendlyFolderName(dmnFileName);
@@ -45,7 +47,8 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends Abstrac
         super.doTest(decodedInputTestFilePath, decodedInputModelFilePath, expectedPath, extraInputParameters);
     }
 
-    public void doMultipleModelsTest(String dmnFolderName, String testFolderName, Pair<String, String>... extraInputParameters) throws Exception {
+    @SafeVarargs
+    public final void doMultipleModelsTest(String dmnFolderName, String testFolderName, Pair<String, String>... extraInputParameters) throws Exception {
         String dmnPath = getDMNInputPath() + "/";
         String testCasesPath = getTestCasesInputPath() + "/";
         String expectedPath = getExpectedPath() + "/" + friendlyFolderName(dmnFolderName);
@@ -62,7 +65,7 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends Abstrac
     }
 
     @Override
-    protected DMNTransformer makeDMNTransformer(BuildLogger logger) {
+    protected DMNTransformer<TestCases> makeDMNTransformer(BuildLogger logger) {
         return new ToSimpleNameTransformer(logger);
     }
 
@@ -78,8 +81,8 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest extends Abstrac
 
     @Override
     protected Map<String, String> makeInputParameters() {
-        LinkedHashMap<String, String> inputParams = new LinkedHashMap<String, String>();
-        inputParams.put("environmentFactoryClass", DefaultDMNEnvironmentFactory.class.getName());
+        LinkedHashMap<String, String> inputParams = new LinkedHashMap<>();
+        inputParams.put("environmentFactoryClass", StandardEnvironmentFactory.class.getName());
         inputParams.put("decisionBaseClass", DefaultDMNBaseDecision.class.getName());
         return inputParams;
     }

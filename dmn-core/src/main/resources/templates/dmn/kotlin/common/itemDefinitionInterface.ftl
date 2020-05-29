@@ -1,3 +1,15 @@
+<#--
+    Copyright 2016 Goldman Sachs.
+
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+
+    You may obtain a copy of the License at
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations under the License.
+-->
 <#if javaPackageName?has_content>
 package ${javaPackageName}
 </#if>
@@ -20,7 +32,7 @@ interface ${javaClassName} : ${transformer.dmnTypeClassName()} {
 <#macro addMembers itemDefinition>
     <#list itemDefinition.itemComponent as child>
         <#assign memberName = transformer.itemDefinitionVariableName(child)/>
-        <#assign memberType = transformer.itemDefinitionJavaQualifiedInterfaceName(child)/>
+        <#assign memberType = transformer.itemDefinitionNativeQualifiedInterfaceName(child)/>
     @get:com.fasterxml.jackson.annotation.JsonGetter("${transformer.escapeInString(modelRepository.displayName(child))}")
     val ${transformer.itemDefinitionVariableName(child)}: ${memberType}
 
@@ -89,10 +101,10 @@ interface ${javaClassName} : ${transformer.dmnTypeClassName()} {
             } else if (other is ${javaClassName}?) {
                 return other
             } else if (other is ${transformer.contextClassName()}) {
-                var result_ = ${transformer.itemDefinitionJavaClassName(javaClassName)}()
+                var result_ = ${transformer.itemDefinitionNativeClassName(javaClassName)}()
             <#list itemDefinition.itemComponent as child>
                 <#assign member = transformer.itemDefinitionVariableName(child)/>
-                <#assign memberType = transformer.itemDefinitionJavaQualifiedInterfaceName(child)/>
+                <#assign memberType = transformer.itemDefinitionNativeQualifiedInterfaceName(child)/>
                 <#if modelRepository.label(child)?has_content>
                 result_.${member} = other.get("${modelRepository.name(child)}", "${modelRepository.label(child)}") as ${memberType}
                 <#else>
@@ -101,7 +113,7 @@ interface ${javaClassName} : ${transformer.dmnTypeClassName()} {
             </#list>
                 return result_
             } else if (other is ${transformer.dmnTypeClassName()}) {
-                return ${transformer.convertMethodName(itemDefinition)}(other)
+                return ${transformer.convertMethodName(itemDefinition)}(other.toContext())
             } else {
                 throw ${transformer.dmnRuntimeExceptionClassName()}(String.format("Cannot convert '%s' to '%s'", other.javaClass.getSimpleName(), ${javaClassName}::class.java.getSimpleName()))
             }

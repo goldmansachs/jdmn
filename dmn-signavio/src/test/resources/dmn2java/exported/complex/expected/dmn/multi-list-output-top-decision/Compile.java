@@ -2,7 +2,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision-with-extension.ftl", "compile"})
+@javax.annotation.Generated(value = {"signavio-decision.ftl", "compile"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
     name = "compile",
@@ -89,7 +89,7 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             // Default value
             output_ = null;
             if (output_ == null) {
-                output_ = this.asList();
+                output_ = asList();
             }
         } else {
             List<? extends com.gs.dmn.runtime.RuleOutput> ruleOutputs_ = ruleOutputList_.applyMultiple(com.gs.dmn.runtime.annotation.HitPolicy.COLLECT);

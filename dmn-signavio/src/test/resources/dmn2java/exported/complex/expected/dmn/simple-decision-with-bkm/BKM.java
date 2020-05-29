@@ -2,7 +2,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"bkm-with-extension.ftl", "bKM"})
+@javax.annotation.Generated(value = {"signavio-bkm.ftl", "bKM"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
     name = "bKM",

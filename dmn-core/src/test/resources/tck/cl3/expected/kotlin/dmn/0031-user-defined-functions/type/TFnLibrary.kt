@@ -74,7 +74,7 @@ interface TFnLibrary : com.gs.dmn.runtime.DMNType {
                 result_.divideFn = other.get("divideFn") as kotlin.Any?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
-                return toTFnLibrary(other)
+                return toTFnLibrary(other.toContext())
             } else {
                 throw com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.javaClass.getSimpleName(), TFnLibrary::class.java.getSimpleName()))
             }

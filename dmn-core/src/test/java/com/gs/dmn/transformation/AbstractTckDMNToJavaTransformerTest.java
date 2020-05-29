@@ -14,19 +14,17 @@ package com.gs.dmn.transformation;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
-import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
-import com.gs.dmn.serialization.TypeDeserializationConfigurer;
-import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
-import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.transformation.template.TreeTemplateProvider;
+import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
-import java.util.Map;
+import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
 
-public abstract class AbstractTckDMNToJavaTransformerTest extends AbstractTckDMNToNativeTransformerTest {
+public abstract class AbstractTckDMNToJavaTransformerTest extends AbstractTckDMNToNativeTransformerTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     @Override
-    protected DMNDialectDefinition makeDialectDefinition() {
+    protected DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestCases> makeDialectDefinition() {
         return new StandardDMNDialectDefinition();
     }
 

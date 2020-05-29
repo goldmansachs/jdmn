@@ -35,12 +35,12 @@ public class BasicDMN2KotlinTransformer extends BasicDMN2JavaTransformer {
 
     // Types
     @Override
-    public String itemDefinitionJavaQualifiedInterfaceName(TItemDefinition itemDefinition) {
-        return this.typeFactory.nullableType(super.itemDefinitionJavaQualifiedInterfaceName(itemDefinition));
+    public String itemDefinitionNativeQualifiedInterfaceName(TItemDefinition itemDefinition) {
+        return this.nativeTypeFactory.nullableType(super.itemDefinitionNativeQualifiedInterfaceName(itemDefinition));
     }
 
     @Override
-    public String itemDefinitionJavaClassName(String interfaceName) {
+    public String itemDefinitionNativeClassName(String interfaceName) {
         if (interfaceName.endsWith("?")) {
             return interfaceName.replace("?", "Impl?");
         } else {
@@ -50,31 +50,31 @@ public class BasicDMN2KotlinTransformer extends BasicDMN2JavaTransformer {
 
     @Override
     protected String makeListType(String listType, String elementType) {
-        return this.typeFactory.nullableType(String.format("%s<%s>", listType, this.typeFactory.nullableType(elementType)));
+        return this.nativeTypeFactory.nullableType(String.format("%s<%s>", listType, this.nativeTypeFactory.nullableType(elementType)));
     }
 
     @Override
     protected String makeListType(String listType) {
-        return this.typeFactory.nullableType(String.format("%s<Any?>", listType));
+        return this.nativeTypeFactory.nullableType(String.format("%s<Any?>", listType));
     }
 
     @Override
     protected String makeFunctionType(String name, String returnType) {
-        return this.typeFactory.nullableType(String.format("%s<%s>", name, this.typeFactory.nullableType(returnType)));
+        return this.nativeTypeFactory.nullableType(String.format("%s<%s>", name, this.nativeTypeFactory.nullableType(returnType)));
     }
 
     @Override
     public String drgElementOutputType(DRGElementReference<? extends TDRGElement> reference) {
-        return this.typeFactory.nullableType(super.drgElementOutputType(reference.getElement()));
+        return this.nativeTypeFactory.nullableType(super.drgElementOutputType(reference.getElement()));
     }
 
     @Override
     public String drgElementOutputType(TDRGElement element) {
-        return this.typeFactory.nullableType(super.drgElementOutputType(element));
+        return this.nativeTypeFactory.nullableType(super.drgElementOutputType(element));
     }
 
     @Override
-    public String lazyEvaluation(String elementName, String javaName) {
-        return isLazyEvaluated(elementName) ? String.format("%s?.getOrCompute()", javaName) : javaName;
+    public String lazyEvaluation(String elementName, String nativeName) {
+        return isLazyEvaluated(elementName) ? String.format("%s?.getOrCompute()", nativeName) : nativeName;
     }
 }

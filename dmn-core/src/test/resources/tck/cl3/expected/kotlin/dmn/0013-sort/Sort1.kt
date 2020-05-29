@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class Sort1() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     fun apply(listA: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): List<java.math.BigDecimal?>? {
         return try {
-            apply(listA?.let({ (com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, Array<Any?>::class.java)).toList() as List<java.math.BigDecimal?>?}), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+            apply(listA?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal?>?>() {}) }), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
         } catch (e: Exception) {
             logError("Cannot apply decision 'Sort1'", e)
             null
@@ -24,7 +24,7 @@ class Sort1() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
     fun apply(listA: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): List<java.math.BigDecimal?>? {
         return try {
-            apply(listA?.let({ (com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, Array<Any?>::class.java)).toList() as List<java.math.BigDecimal?>?}), annotationSet_, eventListener_, externalExecutor_)
+            apply(listA?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal?>?>() {}) }), annotationSet_, eventListener_, externalExecutor_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'Sort1'", e)
             null

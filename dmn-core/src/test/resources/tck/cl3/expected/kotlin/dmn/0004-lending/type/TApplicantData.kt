@@ -82,7 +82,7 @@ interface TApplicantData : com.gs.dmn.runtime.DMNType {
                 result_.employmentStatus = other.get("EmploymentStatus") as String?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
-                return toTApplicantData(other)
+                return toTApplicantData(other.toContext())
             } else {
                 throw com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.javaClass.getSimpleName(), TApplicantData::class.java.getSimpleName()))
             }

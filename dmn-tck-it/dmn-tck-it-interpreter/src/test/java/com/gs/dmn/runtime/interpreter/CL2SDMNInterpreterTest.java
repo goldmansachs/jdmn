@@ -14,7 +14,7 @@ package com.gs.dmn.runtime.interpreter;
 
 import org.junit.Test;
 
-public abstract class CL2SDMNInterpreterTest extends AbstractDMNInterpreterTest {
+public abstract class CL2SDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     @Override
     protected String getDMNInputPath() {
         return "tck/cl2";

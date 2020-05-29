@@ -1,3 +1,15 @@
+<#--
+    Copyright 2016 Goldman Sachs.
+
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+
+    You may obtain a copy of the License at
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations under the License.
+-->
 <#include "drgElementCommon.ftl">
 <#if javaPackageName?has_content>
 package ${javaPackageName};
@@ -43,7 +55,7 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     <#if transformer.shouldGenerateApplyWithConversionFromString(drgElement)>
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureWithConversionFromString(drgElement)}) {
         try {
-            return apply(${transformer.drgElementDefaultArgumentsExtraCache(transformer.drgElementDefaultArgumentsExtra(transformer.drgElementArgumentListWithConversionFromString(drgElement)))});
+            return apply(${transformer.drgElementDefaultArgumentsExtraCacheWithConversionFromString(drgElement)});
         } catch (Exception e) {
             logError("Cannot apply decision '${javaClassName}'", e);
             return null;
@@ -51,10 +63,10 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     }
 
     <#if transformer.isCaching()>
-    public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtra(transformer.drgElementSignatureWithConversionFromString(drgElement))}) {
+    public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraWithConversionFromString(drgElement)}) {
         try {
             ${transformer.cacheInterfaceName()} ${transformer.cacheVariableName()} = new ${transformer.defaultCacheClassName()}();
-            return apply(${transformer.drgElementArgumentsExtraCache(transformer.drgElementArgumentsExtra(transformer.drgElementArgumentListWithConversionFromString(drgElement)))});
+            return apply(${transformer.drgElementArgumentsExtraCacheWithConversionFromString(drgElement)});
         } catch (Exception e) {
             logError("Cannot apply decision '${javaClassName}'", e);
             return null;
@@ -62,9 +74,9 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     }
 
     </#if>
-    public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraCache(transformer.drgElementSignatureExtra(transformer.drgElementSignatureWithConversionFromString(drgElement)))}) {
+    public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraCacheWithConversionFromString(drgElement)}) {
         try {
-            return apply(${transformer.drgElementArgumentsExtraCache(transformer.drgElementArgumentsExtra(transformer.drgElementArgumentListWithConversionFromString(drgElement)))});
+            return apply(${transformer.drgElementArgumentsExtraCacheWithConversionFromString(drgElement)});
         } catch (Exception e) {
             logError("Cannot apply decision '${javaClassName}'", e);
             return null;
@@ -73,10 +85,10 @@ public class ${javaClassName} extends ${decisionBaseClass} {
 
     </#if>
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignature(drgElement)}) {
-        return apply(${transformer.drgElementDefaultArgumentsExtraCache(transformer.drgElementDefaultArgumentsExtra(transformer.drgElementArgumentList(drgElement)))});
+        return apply(${transformer.drgElementDefaultArgumentsExtraCache(drgElement)});
     }
 
-    public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraCache(transformer.drgElementSignatureExtra(transformer.drgElementSignature(drgElement)))}) {
+    public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraCache(drgElement)}) {
         <@applyMethodBody drgElement />
     }
     <@evaluateExpressionMethod drgElement />

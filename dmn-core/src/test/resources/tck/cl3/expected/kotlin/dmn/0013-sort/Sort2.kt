@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class Sort2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     fun apply(tableB: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): List<type.TRow?>? {
         return try {
-            apply(tableB?.let({ (com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, Array<Any?>::class.java)).toList() as List<type.TRow?>?}), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+            apply(tableB?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<type.TRow?>?>() {}) }), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
         } catch (e: Exception) {
             logError("Cannot apply decision 'Sort2'", e)
             null
@@ -24,7 +24,7 @@ class Sort2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
     fun apply(tableB: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): List<type.TRow?>? {
         return try {
-            apply(tableB?.let({ (com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, Array<Any?>::class.java)).toList() as List<type.TRow?>?}), annotationSet_, eventListener_, externalExecutor_)
+            apply(tableB?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<type.TRow?>?>() {}) }), annotationSet_, eventListener_, externalExecutor_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'Sort2'", e)
             null
@@ -57,7 +57,7 @@ class Sort2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     }
 
     private fun evaluate(tableB: List<type.TRow?>?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): List<type.TRow?>? {
-        return sort(tableB, com.gs.dmn.runtime.LambdaExpression<Boolean> { args -> val x: type.TRow? = args[0] as type.TRow?; val y: type.TRow? = args[1] as type.TRow?;numericLessThan(x?.let({ it.col2 as java.math.BigDecimal }), y?.let({ it.col2 as java.math.BigDecimal })) })?.map({ x -> type.TRow.toTRow(x) }) as List<type.TRow?>?
+        return sort(tableB, com.gs.dmn.runtime.LambdaExpression<Boolean> { args -> val x: type.TRow? = args[0] as type.TRow?; val y: type.TRow? = args[1] as type.TRow?;numericLessThan(x?.let({ it.col2 as java.math.BigDecimal? }), y?.let({ it.col2 as java.math.BigDecimal? })) })?.map({ x -> type.TRow.toTRow(x) }) as List<type.TRow?>?
     }
 
     companion object {

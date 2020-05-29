@@ -2,7 +2,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision-with-extension.ftl", "comparator"})
+@javax.annotation.Generated(value = {"signavio-decision.ftl", "comparator"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
     name = "comparator",
@@ -85,7 +85,7 @@ public class Comparator extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
             // Default value
             output_ = null;
             if (output_ == null) {
-                output_ = this.asList();
+                output_ = asList();
             }
         } else {
             List<? extends com.gs.dmn.runtime.RuleOutput> ruleOutputs_ = ruleOutputList_.applyMultiple(com.gs.dmn.runtime.annotation.HitPolicy.COLLECT);

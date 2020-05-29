@@ -66,7 +66,7 @@ interface TEmployeeTable : com.gs.dmn.runtime.DMNType {
                 result_.deptNum = other.get("deptNum") as java.math.BigDecimal?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
-                return toTEmployeeTable(other)
+                return toTEmployeeTable(other.toContext())
             } else {
                 throw com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.javaClass.getSimpleName(), TEmployeeTable::class.java.getSimpleName()))
             }

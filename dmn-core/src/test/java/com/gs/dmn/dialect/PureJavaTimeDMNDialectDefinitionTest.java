@@ -12,71 +12,52 @@
  */
 package com.gs.dmn.dialect;
 
-import com.gs.dmn.AbstractTest;
-import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.lib.PureJavaTimeFEELLib;
-import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.feel.synthesis.type.PureJavaTimeNativeTypeFactory;
 import com.gs.dmn.runtime.PureJavaTimeDMNBaseDecision;
-import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
-import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
-import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
-import com.gs.dmn.transformation.NopDMNTransformer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
-import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
-import com.gs.dmn.transformation.template.TreeTemplateProvider;
-import com.gs.dmn.validation.NopDMNValidator;
-import org.junit.Test;
+import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.temporal.Temporal;
+import java.time.temporal.TemporalAmount;
 
-import static org.junit.Assert.assertEquals;
-
-public class PureJavaTimeDMNDialectDefinitionTest extends AbstractTest {
-    private final DMNDialectDefinition dialect = new PureJavaTimeDMNDialectDefinition();
-    private static final DMNModelRepository REPOSITORY = new DMNModelRepository();
-
-    @Test
-    public void testCreateDMNInterpreter() {
-        DMNInterpreter dmnInterpreter = dialect.createDMNInterpreter(REPOSITORY, new LinkedHashMap<>());
-        assertEquals(StandardDMNInterpreter.class.getName(), dmnInterpreter.getClass().getName());
+public class PureJavaTimeDMNDialectDefinitionTest extends AbstractStandardDMNDialectDefinitionTest<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> {
+    @Override
+    protected DMNDialectDefinition<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount, TestCases> makeDialect() {
+        return new PureJavaTimeDMNDialectDefinition();
     }
 
-    @Test
-    public void testCreateDMNToJavaTransformer() {
-        Map<String, String> inputParameters = new LinkedHashMap<>();
-        inputParameters.put("dmnVersion", "1.1");
-        inputParameters.put("modelVersion", "1.2");
-        inputParameters.put("platformVersion", "3.2");
-        AbstractDMNToNativeTransformer dmnToJavaTransformer = dialect.createDMNToJavaTransformer(new NopDMNValidator(), new NopDMNTransformer(), new TreeTemplateProvider(), new NopLazyEvaluationDetector(), new DefaultTypeDeserializationConfigurer(), inputParameters, null);
-        assertEquals(DMNToJavaTransformer.class.getName(), dmnToJavaTransformer.getClass().getName());
+    @Override
+    protected String getExpectedDMNInterpreterClass() {
+        return StandardDMNInterpreter.class.getName();
     }
 
-    @Test
-    public void testCreateBasicTransformer() {
-        BasicDMN2JavaTransformer basicTransformer = dialect.createBasicTransformer(REPOSITORY, new NopLazyEvaluationDetector(), new LinkedHashMap<>());
-        assertEquals(BasicDMN2JavaTransformer.class.getName(), basicTransformer.getClass().getName());
+    @Override
+    protected String getExpectedDMNToNativeTransformerClass() {
+        return DMNToJavaTransformer.class.getName();
     }
 
-    @Test
-    public void testCreateTypeTranslator() {
-        NativeTypeFactory typeTranslator = dialect.createTypeTranslator();
-        assertEquals(PureJavaTimeNativeTypeFactory.class.getName(), typeTranslator.getClass().getName());
+    @Override
+    protected String getBasicTransformerClass() {
+        return BasicDMN2JavaTransformer.class.getName();
     }
 
-    @Test
-    public void testCreateFEELLib() {
-        FEELLib feelLib = dialect.createFEELLib();
-        assertEquals(PureJavaTimeFEELLib.class.getName(), feelLib.getClass().getName());
+    @Override
+    protected String getExpectedNativeTypeFactoryClass() {
+        return PureJavaTimeNativeTypeFactory.class.getName();
     }
 
-    @Test
-    public void testGetDecisionBaseClass() {
-        String decisionBaseClass = dialect.getDecisionBaseClass();
-        assertEquals(PureJavaTimeDMNBaseDecision.class.getName(), decisionBaseClass);
+    @Override
+    protected String getExpectedFEELLibClass() {
+        return PureJavaTimeFEELLib.class.getName();
+    }
+
+    @Override
+    protected String getExpectedDecisionBaseClass() {
+        return PureJavaTimeDMNBaseDecision.class.getName();
     }
 }

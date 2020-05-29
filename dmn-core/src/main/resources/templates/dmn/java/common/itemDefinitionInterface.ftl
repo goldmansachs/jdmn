@@ -1,3 +1,15 @@
+<#--
+    Copyright 2016 Goldman Sachs.
+
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+
+    You may obtain a copy of the License at
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations under the License.
+-->
 <#if javaPackageName?has_content>
 package ${javaPackageName};
 </#if>
@@ -22,12 +34,12 @@ public interface ${javaClassName} extends ${transformer.dmnTypeClassName()} {
         } else if (${javaClassName}.class.isAssignableFrom(other.getClass())) {
             return (${javaClassName})other;
         } else if (other instanceof ${transformer.contextClassName()}) {
-            ${transformer.itemDefinitionJavaClassName(javaClassName)} result_ = new ${transformer.itemDefinitionJavaClassName(javaClassName)}();
+            ${transformer.itemDefinitionNativeClassName(javaClassName)} result_ = new ${transformer.itemDefinitionNativeClassName(javaClassName)}();
         <#list itemDefinition.itemComponent as child>
             <#if modelRepository.label(child)?has_content>
-            result_.${transformer.setter(child)}((${transformer.itemDefinitionJavaQualifiedInterfaceName(child)})((${transformer.contextClassName()})other).get("${modelRepository.name(child)}", "${modelRepository.label(child)}"));
+            result_.${transformer.setter(child)}((${transformer.itemDefinitionNativeQualifiedInterfaceName(child)})((${transformer.contextClassName()})other).get("${modelRepository.name(child)}", "${modelRepository.label(child)}"));
             <#else>
-            result_.${transformer.setter(child)}((${transformer.itemDefinitionJavaQualifiedInterfaceName(child)})((${transformer.contextClassName()})other).get("${modelRepository.name(child)}"));
+            result_.${transformer.setter(child)}((${transformer.itemDefinitionNativeQualifiedInterfaceName(child)})((${transformer.contextClassName()})other).get("${modelRepository.name(child)}"));
             </#if>
         </#list>
             return result_;
@@ -42,7 +54,7 @@ public interface ${javaClassName} extends ${transformer.dmnTypeClassName()} {
 <#macro addAccessors itemDefinition>
     <#list itemDefinition.itemComponent as child>
         <#assign memberName = transformer.itemDefinitionVariableName(child)/>
-        <#assign memberType = transformer.itemDefinitionJavaQualifiedInterfaceName(child)/>
+        <#assign memberType = transformer.itemDefinitionNativeQualifiedInterfaceName(child)/>
     @com.fasterxml.jackson.annotation.JsonGetter("${transformer.escapeInString(modelRepository.displayName(child))}")
     ${memberType} ${transformer.getter(child)};
 

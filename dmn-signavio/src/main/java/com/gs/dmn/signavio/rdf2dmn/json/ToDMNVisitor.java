@@ -23,7 +23,7 @@ import com.gs.dmn.signavio.rdf2dmn.json.decision.DecisionTable;
 import com.gs.dmn.signavio.rdf2dmn.json.decision.FreeTextExpression;
 import com.gs.dmn.signavio.rdf2dmn.json.decision.LiteralExpression;
 import com.gs.dmn.signavio.rdf2dmn.json.expression.*;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.w3c.dom.Element;
 
@@ -60,7 +60,7 @@ public class ToDMNVisitor implements Visitor {
 
     private final RDFModel rdfModel;
     private final DMNDialectDefinition dialectDefinition = new SignavioDMNDialectDefinition();
-    private final BasicDMN2JavaTransformer dmnTransformer = dialectDefinition.createBasicTransformer(new SignavioDMNModelRepository(), new NopLazyEvaluationDetector(), new LinkedHashMap<>());
+    private final BasicDMNToNativeTransformer dmnTransformer = dialectDefinition.createBasicTransformer(new SignavioDMNModelRepository(), new NopLazyEvaluationDetector(), new LinkedHashMap<>());
 
     public ToDMNVisitor(RDFModel rdfModel) {
         this.rdfModel = rdfModel;
@@ -159,11 +159,11 @@ public class ToDMNVisitor implements Visitor {
         String shapeId = reference.getShapeId();
         java.util.List<String> pathElements = reference.getPathElements();
         Element description = rdfModel.findDescriptionById(shapeId);
-        String root = dmnTransformer.javaFriendlyVariableName(rdfModel.getName(description));
+        String root = dmnTransformer.nativeFriendlyVariableName(rdfModel.getName(description));
         if (pathElements == null || pathElements.isEmpty() || rdfModel.hasSingleOutput(shapeId)) {
             return String.format("%s", root);
         } else {
-            String path = pathElements.stream().map(pe -> dmnTransformer.javaFriendlyVariableName(rdfModel.pathName(description, pe))).collect(Collectors.joining("."));
+            String path = pathElements.stream().map(pe -> dmnTransformer.nativeFriendlyVariableName(rdfModel.pathName(description, pe))).collect(Collectors.joining("."));
             return String.format("%s.%s", root, path);
         }
     }

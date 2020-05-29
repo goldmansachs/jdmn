@@ -18,7 +18,7 @@ package ${javaPackageName};
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"bkm-with-extension.ftl", "${modelRepository.name(drgElement)}"})
+@javax.annotation.Generated(value = {"signavio-bkm.ftl", "${modelRepository.name(drgElement)}"})
 @${transformer.drgElementAnnotationClassName()}(
     namespace = "${javaPackageName}",
     name = "${modelRepository.name(drgElement)}",
@@ -44,11 +44,11 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     private ${javaClassName}() {
     }
 
-    public static ${transformer.drgElementOutputType(drgElement)} ${transformer.bkmFunctionName(drgElement)}(${transformer.drgElementSignatureExtra(transformer.drgElementSignature(drgElement))}) {
-        return INSTANCE.apply(${transformer.drgElementArgumentsExtra(transformer.drgElementArgumentList(drgElement))});
+    public static ${transformer.drgElementOutputType(drgElement)} ${transformer.bkmFunctionName(drgElement)}(${transformer.drgElementSignatureExtraCache(drgElement)}) {
+        return INSTANCE.apply(${transformer.drgElementArgumentsExtraCache(drgElement)});
     }
 
-    private ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtra(transformer.drgElementSignature(drgElement))}) {
+    private ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraCache(drgElement)}) {
         <@applyMethodBody drgElement />
     }
     <@evaluateExpressionMethod drgElement />

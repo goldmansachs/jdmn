@@ -46,7 +46,7 @@ public class DMNReader extends DMNSerializer {
     }
 
     private final boolean validateSchema;
-    private DMNDialectTransformer transformer = new DMNDialectTransformer(logger);
+    private final DMNDialectTransformer transformer = new DMNDialectTransformer(logger);
 
     public DMNReader(BuildLogger logger, boolean validateSchema) {
         super(logger);

@@ -18,19 +18,19 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class AnnotationSet extends LinkedList<Annotation> {
     public void addAnnotation(String decisionName, int ruleIndex, List<String> annotationList) {
         if (annotationList != null && !annotationList.isEmpty()) {
-            String annotation = annotationList.stream().collect(Collectors.joining(" "));
+            String annotation = String.join(" ", annotationList);
             this.addAnnotation(decisionName, ruleIndex, annotation);
         }
     }
 
     public void addAnnotation(String decisionName, int ruleIndex, String annotation) {
         if (!StringUtils.isBlank(annotation)) {
-            Annotation element = new Annotation(decisionName, ruleIndex, annotation);
+            // Rules index starts from 0
+            Annotation element = new Annotation(decisionName, ruleIndex + 1, annotation);
             this.add(element);
         }
     }

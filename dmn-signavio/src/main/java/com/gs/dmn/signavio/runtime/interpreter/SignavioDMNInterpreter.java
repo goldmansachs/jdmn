@@ -23,8 +23,8 @@ import com.gs.dmn.runtime.listener.DRGElement;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.extension.Aggregator;
 import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
-import com.gs.dmn.signavio.transformation.BasicSignavioDMN2JavaTransformer;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TDecision;
 import org.omg.spec.dmn._20180521.model.TExpression;
@@ -33,10 +33,10 @@ import org.omg.spec.dmn._20180521.model.TInputData;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SignavioDMNInterpreter extends StandardDMNInterpreter {
+public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     private final SignavioDMNModelRepository dmnModelRepository;
 
-    public SignavioDMNInterpreter(BasicDMN2JavaTransformer dmnTransformer, FEELLib feelLib) {
+    public SignavioDMNInterpreter(BasicDMNToNativeTransformer dmnTransformer, FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib) {
         super(dmnTransformer, feelLib);
         this.dmnModelRepository = (SignavioDMNModelRepository) this.getBasicDMNTransformer().getDMNModelRepository();
     }
@@ -78,7 +78,7 @@ public class SignavioDMNInterpreter extends StandardDMNInterpreter {
         if (aggregator == Aggregator.COLLECT) {
             output = outputList;
         } else {
-            FEELLib feelLib = getFeelLib();
+            FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib = getFeelLib();
             if (aggregator == Aggregator.SUM) {
                 output = feelLib.sum(outputList);
             } else if (aggregator == Aggregator.MIN) {
@@ -108,7 +108,7 @@ public class SignavioDMNInterpreter extends StandardDMNInterpreter {
             return null;
         }
         if (value instanceof List && ((List) value).size() == 1 && !(expectedType instanceof ListType)) {
-            value = feelLib.asElement((List)value);
+            value = feelLib.asElement((List) value);
         }
         return new Result(value, expectedType);
     }

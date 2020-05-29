@@ -2,7 +2,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision-with-extension.ftl", "generateTemporalObjects"})
+@javax.annotation.Generated(value = {"signavio-decision.ftl", "generateTemporalObjects"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
     name = "generateTemporalObjects",

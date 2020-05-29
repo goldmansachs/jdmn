@@ -1,4 +1,16 @@
 <#--
+    Copyright 2016 Goldman Sachs.
+
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+
+    You may obtain a copy of the License at
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations under the License.
+-->
+<#--
     Apply method body
 -->
 <#macro applyMethodBody drgElement>
@@ -141,7 +153,7 @@
             // Compute output
             output_.setMatched(true);
             <#list expression.output as output>
-            output_.${transformer.setter(drgElement, output)}(${transformer.outputEntryToJava(drgElement, rule.outputEntry[output_index], output_index)});
+            output_.${transformer.setter(drgElement, output)}(${transformer.outputEntryToNative(drgElement, rule.outputEntry[output_index], output_index)});
                 <#if modelRepository.isOutputOrderHit(expression.hitPolicy) && transformer.priority(drgElement, rule.outputEntry[output_index], output_index)?exists>
             output_.${transformer.prioritySetter(drgElement, output)}(${transformer.priority(drgElement, rule.outputEntry[output_index], output_index)});
                 </#if>
@@ -187,7 +199,7 @@
 <#macro addConversionMethod drgElement>
     <#if modelRepository.isCompoundDecisionTable(drgElement)>
     public ${transformer.drgElementOutputClassName(drgElement)} toDecisionOutput(${transformer.ruleOutputClassName(drgElement)} ruleOutput_) {
-        <#assign simpleClassName = transformer.itemDefinitionJavaClassName(transformer.drgElementOutputClassName(drgElement))>
+        <#assign simpleClassName = transformer.itemDefinitionNativeClassName(transformer.drgElementOutputClassName(drgElement))>
         ${simpleClassName} result_ = ${transformer.defaultConstructor(simpleClassName)};
         <#assign expression = modelRepository.expression(drgElement)>
         <#list expression.output as output>
@@ -227,7 +239,7 @@
 
 <#macro addEvaluateExpressionMethod drgElement>
     protected ${transformer.drgElementOutputType(drgElement)} evaluate(${transformer.drgElementEvaluateSignature(drgElement)}) {
-    <#assign stm = transformer.expressionToJava(drgElement)>
+    <#assign stm = transformer.expressionToNative(drgElement)>
     <#if transformer.isCompoundStatement(stm)>
         <#list stm.statements as child>
         ${child.expression}
@@ -250,9 +262,9 @@
             ${extraIndent}// Apply child decisions
         <#items as subDecision>
             <#if transformer.isLazyEvaluated(subDecision)>
-            ${extraIndent}${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> ${transformer.drgElementVariableName(subDecision)} = new ${transformer.lazyEvalClassName()}<>(() -> this.${transformer.drgElementVariableName(subDecision)}.apply(${transformer.drgElementArgumentsExtraCache(transformer.drgElementArgumentsExtra(transformer.drgElementArgumentList(subDecision)))}));
+            ${extraIndent}${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> ${transformer.drgElementVariableName(subDecision)} = new ${transformer.lazyEvalClassName()}<>(() -> this.${transformer.drgElementVariableName(subDecision)}.apply(${transformer.drgElementArgumentsExtraCache(subDecision)}));
             <#else>
-            ${extraIndent}${transformer.drgElementOutputType(subDecision)} ${transformer.drgElementVariableName(subDecision)} = this.${transformer.drgElementVariableName(subDecision)}.apply(${transformer.drgElementArgumentsExtraCache(transformer.drgElementArgumentsExtra(transformer.drgElementArgumentList(subDecision)))});
+            ${extraIndent}${transformer.drgElementOutputType(subDecision)} ${transformer.drgElementVariableName(subDecision)} = this.${transformer.drgElementVariableName(subDecision)}.apply(${transformer.drgElementArgumentsExtraCache(subDecision)});
             </#if>
         </#items>
 

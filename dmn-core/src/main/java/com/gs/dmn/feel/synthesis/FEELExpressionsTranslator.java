@@ -17,9 +17,9 @@ import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
 interface FEELExpressionsTranslator extends FEELExpressionsAnalyzer {
-    String expressionToJava(String text, FEELContext context);
+    String expressionToNative(String text, FEELContext context);
 
-    String expressionToJava(Expression expression, FEELContext context);
+    String expressionToNative(Expression expression, FEELContext context);
 
-    String simpleExpressionsToJava(Expression simpleExpressions, FEELContext context);
+    String simpleExpressionsToNative(Expression simpleExpressions, FEELContext context);
 }

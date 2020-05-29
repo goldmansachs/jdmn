@@ -28,18 +28,18 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AbstractDMNTransformer extends AbstractTemplateBasedTransformer {
-    protected final DMNDialectDefinition dialectDefinition;
+public abstract class AbstractDMNTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractTemplateBasedTransformer {
+    protected final DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dialectDefinition;
     protected final DMNReader dmnReader;
     protected final DMNValidator dmnValidator;
-    protected final DMNTransformer dmnTransformer;
+    protected final DMNTransformer<TEST> dmnTransformer;
     protected final LazyEvaluationDetector lazyEvaluationDetector;
     protected final TypeDeserializationConfigurer typeDeserializationConfigurer;
 
     protected final String decisionBaseClass;
     protected final String javaRootPackage;
 
-    public AbstractDMNTransformer(DMNDialectDefinition dialectDefinition, DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
+    public AbstractDMNTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dialectDefinition, DMNValidator dmnValidator, DMNTransformer<TEST> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
         super(templateProvider, inputParameters, logger);
         this.dialectDefinition = dialectDefinition;
         this.dmnTransformer = dmnTransformer;

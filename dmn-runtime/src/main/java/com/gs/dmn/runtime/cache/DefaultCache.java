@@ -19,7 +19,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class DefaultCache implements Cache {
-    private static Logger LOGGER = LoggerFactory.getLogger(DefaultCache.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultCache.class);
 
     private final Map<String, Object> bindings = new LinkedHashMap<>();
 

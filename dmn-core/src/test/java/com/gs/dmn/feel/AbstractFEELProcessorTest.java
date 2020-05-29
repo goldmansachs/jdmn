@@ -14,7 +14,6 @@ package com.gs.dmn.feel;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
@@ -32,7 +31,7 @@ import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.omg.spec.dmn._20180521.model.TNamedElement;
@@ -46,22 +45,22 @@ import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static org.junit.Assert.assertEquals;
 
-public abstract class AbstractFEELProcessorTest {
-    private final DMNDialectDefinition dialectDefinition = new StandardDMNDialectDefinition();
+public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
+    private final DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dialectDefinition = makeDialect();
 
     private final RuntimeEnvironmentFactory runtimeEnvironmentFactory = RuntimeEnvironmentFactory.instance();
 
-    protected final DMNInterpreter dmnInterpreter = this.dialectDefinition.createDMNInterpreter(new DMNModelRepository(), new LinkedHashMap<>());
-    protected final BasicDMN2JavaTransformer dmnTransformer = this.dmnInterpreter.getBasicDMNTransformer();
+    protected final DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter = this.dialectDefinition.createDMNInterpreter(new DMNModelRepository(), new LinkedHashMap<>());
+    protected final BasicDMNToNativeTransformer dmnTransformer = this.dmnInterpreter.getBasicDMNTransformer();
     protected final EnvironmentFactory environmentFactory = this.dmnTransformer.getEnvironmentFactory();
-    protected final StandardFEELLib lib = (StandardFEELLib) this.dmnInterpreter.getFeelLib();
+    protected final StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib = (StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) this.dmnInterpreter.getFeelLib();
 
     protected FEELTranslator feelTranslator;
     protected FEELInterpreter feelInterpreter;
 
     @Test
     public void testSimpleUnaryTests() {
-        Object input = this.lib.number("1");
+        NUMBER input = this.lib.number("1");
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", NUMBER, input));
 
@@ -87,7 +86,7 @@ public abstract class AbstractFEELProcessorTest {
 
     @Test
     public void testSimplePositiveUnaryTests() {
-        Object number = this.lib.number("1");
+        NUMBER number = this.lib.number("1");
         String string = "e1";
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("number", NUMBER, number),
@@ -109,12 +108,12 @@ public abstract class AbstractFEELProcessorTest {
 
     @Test
     public void testSimplePositiveUnaryTest() {
-        Object number = this.lib.number("1");
+        NUMBER number = this.lib.number("1");
         String string = "1";
         boolean boolean_ = true;
-        Object date = this.lib.date("2017-01-03");
-        Object time = this.lib.time("12:00:00Z");
-        Object dateTime = this.lib.dateAndTime("2017-01-03T12:00:00Z");
+        DATE date = this.lib.date("2017-01-03");
+        TIME time = this.lib.time("12:00:00Z");
+        DATE_TIME dateTime = this.lib.dateAndTime("2017-01-03T12:00:00Z");
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("number", NUMBER, number),
                 new EnvironmentEntry("string", STRING, string),
@@ -260,7 +259,7 @@ public abstract class AbstractFEELProcessorTest {
 
     @Test
     public void testIntervalTest() {
-        Object input = this.lib.number("1");
+        NUMBER input = this.lib.number("1");
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", NUMBER, input));
 
@@ -286,7 +285,7 @@ public abstract class AbstractFEELProcessorTest {
 
     @Test(expected = SemanticError.class)
     public void testEqualityWhenTypeMismatch() {
-        boolean input = true;
+        Boolean input = true;
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", BOOLEAN, input));
 
@@ -303,7 +302,7 @@ public abstract class AbstractFEELProcessorTest {
 
     @Test
     public void testSimpleExpressions() {
-        List entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         doSimpleExpressionsTest(entries, "1, 2",
@@ -1257,14 +1256,14 @@ public abstract class AbstractFEELProcessorTest {
 
     private void doCodeGenerationTest(UnaryTests inputEntry, FEELContext inputEntryContext, String expectedJavaCode) {
         if (expectedJavaCode != null) {
-            String javaCode = this.feelTranslator.expressionToJava(inputEntry, inputEntryContext);
+            String javaCode = this.feelTranslator.expressionToNative(inputEntry, inputEntryContext);
             assertEquals("Generated code mismatch", expectedJavaCode, javaCode);
         }
     }
 
     private void doCodeGenerationTest(Expression expression, FEELContext expressionContext, String expectedJavaCode) {
         if (expectedJavaCode != null) {
-            String javaCode = this.feelTranslator.expressionToJava(expression, expressionContext);
+            String javaCode = this.feelTranslator.expressionToNative(expression, expressionContext);
             assertEquals("Generated code mismatch", expectedJavaCode, javaCode);
         }
     }
@@ -1312,4 +1311,6 @@ public abstract class AbstractFEELProcessorTest {
     protected TNamedElement getElement() {
         return null;
     }
+
+    protected abstract DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> makeDialect();
 }

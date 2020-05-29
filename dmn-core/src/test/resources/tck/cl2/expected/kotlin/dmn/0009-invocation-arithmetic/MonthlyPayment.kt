@@ -58,7 +58,7 @@ class MonthlyPayment() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     }
 
     private fun evaluate(loan: type.TLoan?, fee: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): java.math.BigDecimal? {
-        return numericAdd(PMT.PMT(loan?.let({ it.amount as java.math.BigDecimal }), loan?.let({ it.rate as java.math.BigDecimal }), loan?.let({ it.term as java.math.BigDecimal }), annotationSet_, eventListener_, externalExecutor_), fee) as java.math.BigDecimal?
+        return numericAdd(PMT.PMT(loan?.let({ it.amount as java.math.BigDecimal? }), loan?.let({ it.rate as java.math.BigDecimal? }), loan?.let({ it.term as java.math.BigDecimal? }), annotationSet_, eventListener_, externalExecutor_), fee) as java.math.BigDecimal?
     }
 
     companion object {

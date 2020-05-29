@@ -32,52 +32,52 @@ import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 import static org.junit.Assert.assertEquals;
 
 public class TypeEquivalenceTest {
-    public final Map<Pair<Type, Type>, Boolean> dataTypeTable = new LinkedHashMap() {{
-        put(new Pair(NUMBER, NUMBER), true);
-        put(new Pair(NUMBER, ANY), false);
+    public final Map<Pair<Type, Type>, Boolean> dataTypeTable = new LinkedHashMap<Pair<Type, Type>, Boolean>() {{
+        put(new Pair<>(NUMBER, NUMBER), true);
+        put(new Pair<>(NUMBER, ANY), false);
 
-        put(new Pair(BOOLEAN, BOOLEAN), true);
-        put(new Pair(BOOLEAN, ANY), false);
+        put(new Pair<>(BOOLEAN, BOOLEAN), true);
+        put(new Pair<>(BOOLEAN, ANY), false);
 
-        put(new Pair(STRING, STRING), true);
-        put(new Pair(STRING, ANY), false);
+        put(new Pair<>(STRING, STRING), true);
+        put(new Pair<>(STRING, ANY), false);
 
-        put(new Pair(DATE, DATE), true);
-        put(new Pair(DATE, ANY), false);
+        put(new Pair<>(DATE, DATE), true);
+        put(new Pair<>(DATE, ANY), false);
 
-        put(new Pair(DATE_AND_TIME, DATE_AND_TIME), true);
-        put(new Pair(DATE_AND_TIME, DATE_TIME), true);
-        put(new Pair(DATE_AND_TIME, DATE_TIME_CAMEL), true);
-        put(new Pair(DATE_AND_TIME, ANY), false);
+        put(new Pair<>(DATE_AND_TIME, DATE_AND_TIME), true);
+        put(new Pair<>(DATE_AND_TIME, DATE_TIME), true);
+        put(new Pair<>(DATE_AND_TIME, DATE_TIME_CAMEL), true);
+        put(new Pair<>(DATE_AND_TIME, ANY), false);
 
-        put(new Pair(DATE_TIME, DATE_AND_TIME), true);
-        put(new Pair(DATE_TIME, DATE_TIME), true);
-        put(new Pair(DATE_TIME, DATE_TIME_CAMEL), true);
-        put(new Pair(DATE_TIME, ANY), false);
+        put(new Pair<>(DATE_TIME, DATE_AND_TIME), true);
+        put(new Pair<>(DATE_TIME, DATE_TIME), true);
+        put(new Pair<>(DATE_TIME, DATE_TIME_CAMEL), true);
+        put(new Pair<>(DATE_TIME, ANY), false);
 
-        put(new Pair(DATE_TIME_CAMEL, DATE_AND_TIME), true);
-        put(new Pair(DATE_TIME_CAMEL, DATE_TIME), true);
-        put(new Pair(DATE_TIME_CAMEL, DATE_TIME_CAMEL), true);
-        put(new Pair(DATE_TIME_CAMEL, ANY), false);
+        put(new Pair<>(DATE_TIME_CAMEL, DATE_AND_TIME), true);
+        put(new Pair<>(DATE_TIME_CAMEL, DATE_TIME), true);
+        put(new Pair<>(DATE_TIME_CAMEL, DATE_TIME_CAMEL), true);
+        put(new Pair<>(DATE_TIME_CAMEL, ANY), false);
 
-        put(new Pair(TIME, TIME), true);
-        put(new Pair(TIME, ANY), false);
+        put(new Pair<>(TIME, TIME), true);
+        put(new Pair<>(TIME, ANY), false);
 
-        put(new Pair(DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION), true);
-        put(new Pair(DAYS_AND_TIME_DURATION, ANY), false);
+        put(new Pair<>(DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION), true);
+        put(new Pair<>(DAYS_AND_TIME_DURATION, ANY), false);
 
-        put(new Pair(YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION), true);
-        put(new Pair(YEARS_AND_MONTHS_DURATION, ANY), false);
+        put(new Pair<>(YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION), true);
+        put(new Pair<>(YEARS_AND_MONTHS_DURATION, ANY), false);
 
-        put(new Pair(ANY, ANY), true);
+        put(new Pair<>(ANY, ANY), true);
 
-        put(new Pair(NUMBER, STRING), false);
-        put(new Pair(BOOLEAN, NUMBER), false);
-        put(new Pair(DATE, NUMBER), false);
-        put(new Pair(DATE_AND_TIME, NUMBER), false);
-        put(new Pair(DATE_TIME_CAMEL, NUMBER), false);
-        put(new Pair(TIME, NUMBER), false);
-        put(new Pair(ANY, NUMBER), false);
+        put(new Pair<>(NUMBER, STRING), false);
+        put(new Pair<>(BOOLEAN, NUMBER), false);
+        put(new Pair<>(DATE, NUMBER), false);
+        put(new Pair<>(DATE_AND_TIME, NUMBER), false);
+        put(new Pair<>(DATE_TIME_CAMEL, NUMBER), false);
+        put(new Pair<>(TIME, NUMBER), false);
+        put(new Pair<>(ANY, NUMBER), false);
     }};
 
     @Test
@@ -118,13 +118,13 @@ public class TypeEquivalenceTest {
 
     @Test
     public void testContextType() {
-        ContextType type1 = new ContextType(new LinkedHashMap() {{
+        ContextType type1 = new ContextType(new LinkedHashMap<String, Type>() {{
             put("m", NUMBER);
         }});
-        ContextType type2 = new ContextType(new LinkedHashMap() {{
+        ContextType type2 = new ContextType(new LinkedHashMap<String, Type>() {{
             put("m", BOOLEAN);
         }});
-        ContextType type3 = new ContextType(new LinkedHashMap() {{
+        ContextType type3 = new ContextType(new LinkedHashMap<String, Type>() {{
             put("m", NUMBER);
             put("n", NUMBER);
         }});

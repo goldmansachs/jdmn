@@ -12,39 +12,33 @@
  */
 package com.gs.dmn.signavio.testlab;
 
-import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
-import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision;
 import com.gs.dmn.signavio.runtime.SignavioEnvironmentFactory;
-import com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider;
 import com.gs.dmn.transformation.AbstractTestCasesTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
-import com.gs.dmn.transformation.FileTransformer;
 import com.gs.dmn.transformation.NopDMNTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
-import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.NopDMNValidator;
 
 import java.net.URLDecoder;
-import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public abstract class AbstractTestLabToJUnitTransformerTest extends AbstractTestCasesTransformerTest {
+public abstract class AbstractTestLabToJUnitTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestCasesTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> {
     @Override
     protected DMNValidator makeDMNValidator(BuildLogger logger) {
         return new NopDMNValidator();
     }
 
     @Override
-    protected DMNTransformer makeDMNTransformer(BuildLogger logger) {
-        return new NopDMNTransformer();
+    protected DMNTransformer<TestLab> makeDMNTransformer(BuildLogger logger) {
+        return new NopDMNTransformer<>();
     }
 
     @Override

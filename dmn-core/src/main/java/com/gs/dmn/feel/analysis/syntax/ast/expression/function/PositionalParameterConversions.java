@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class PositionalParameterConversions extends ParameterConversions {
-    private List<Conversion> conversions = new ArrayList<>();
+    private final List<Conversion> conversions = new ArrayList<>();
 
     public PositionalParameterConversions() {
     }

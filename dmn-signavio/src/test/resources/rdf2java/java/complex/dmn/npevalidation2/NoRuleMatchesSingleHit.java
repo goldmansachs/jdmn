@@ -2,7 +2,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision-with-extension.ftl", "noRuleMatchesSingleHit"})
+@javax.annotation.Generated(value = {"signavio-decision.ftl", "noRuleMatchesSingleHit"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
     name = "noRuleMatchesSingleHit",
