@@ -23,7 +23,7 @@ import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
-import com.gs.dmn.transformation.DMNToJavaTransformer;
+import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import fit.ColumnFixture;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.spec.dmn._20180521.model.TNamedElement;
@@ -71,7 +71,7 @@ public class AbstractFixture extends ColumnFixture {
     protected Environment makeInputEntryEnvironment(Environment parent, Expression inputExpression) {
         Environment environment = StandardEnvironmentFactory.instance().makeEnvironment(parent, inputExpression);
         if (inputExpression != null) {
-            environment.addDeclaration(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER, StandardEnvironmentFactory.instance().makeVariableDeclaration(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER, inputExpression.getType()));
+            environment.addDeclaration(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER, StandardEnvironmentFactory.instance().makeVariableDeclaration(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER, inputExpression.getType()));
         }
         return environment;
     }

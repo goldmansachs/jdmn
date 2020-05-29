@@ -18,7 +18,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
-import com.gs.dmn.transformation.DMNToJavaTransformer;
+import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import org.omg.spec.dmn._20180521.model.TNamedElement;
 
 public class FEELSimpleUnaryTestsFixture extends FEELFixture {
@@ -54,7 +54,7 @@ public class FEELSimpleUnaryTestsFixture extends FEELFixture {
         Object inputExpressionValue = Result.value(inputExpressionResult);
 
         // Evaluate input entry
-        inputEntryContext.runtimeBind(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER, inputExpressionValue);
+        inputEntryContext.runtimeBind(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER, inputExpressionValue);
         Result result = this.feelInterpreter.evaluateUnaryTests(inputEntryTest, inputEntryContext);
         return Result.value(result);
     }
