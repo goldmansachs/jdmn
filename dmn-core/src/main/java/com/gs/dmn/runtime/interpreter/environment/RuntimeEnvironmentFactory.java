@@ -13,7 +13,7 @@
 package com.gs.dmn.runtime.interpreter.environment;
 
 import com.gs.dmn.runtime.interpreter.InputClausePair;
-import com.gs.dmn.transformation.DMNToJavaTransformer;
+import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 
 import java.util.List;
 
@@ -37,7 +37,7 @@ public class RuntimeEnvironmentFactory {
 
     public RuntimeEnvironment makeInputEntryEnvironment(List<InputClausePair> inputClauseList, RuntimeEnvironment runtimeEnvironment, int index) {
         RuntimeEnvironment inputEntryRuntimeEnvironment = makeEnvironment(runtimeEnvironment);
-        runtimeEnvironment.bind(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER, inputClauseList.get(index).getValue());
+        runtimeEnvironment.bind(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER, inputClauseList.get(index).getValue());
         return inputEntryRuntimeEnvironment;
     }
 
