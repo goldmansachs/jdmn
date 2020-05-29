@@ -23,7 +23,7 @@ import java.io.File;
 
 import static org.junit.Assert.assertTrue;
 
-public class TestLabToJUnitMojoTestJava extends AbstractMojoTest {
+public class TestLabToJavaJUnitMojoTestJava extends AbstractMojoTest {
     private final TestLabToJavaJUnitMojo mojo = new TestLabToJavaJUnitMojo();
     private final MavenProject project = new MavenProject();
 
