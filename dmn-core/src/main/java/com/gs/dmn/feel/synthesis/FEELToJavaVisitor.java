@@ -43,6 +43,7 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.interpreter.Arguments;
 import com.gs.dmn.runtime.interpreter.NamedArguments;
 import com.gs.dmn.runtime.interpreter.PositionalArguments;
+import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
@@ -601,7 +602,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     }
 
     protected Object nameToJava(String name, FEELContext context) {
-        if (name.equals(DMNToJavaTransformer.INPUT_ENTRY_PLACE_HOLDER)) {
+        if (name.equals(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER)) {
             return inputExpressionToJava(context);
         } else {
             String javaName = javaFriendlyVariableName(name);
