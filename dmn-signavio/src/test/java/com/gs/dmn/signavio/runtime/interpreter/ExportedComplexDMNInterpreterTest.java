@@ -16,9 +16,11 @@ import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision;
-import org.junit.Ignore;
 import org.junit.Test;
 
+import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 public class ExportedComplexDMNInterpreterTest extends AbstractSignavioDMNInterpreterTest {
@@ -184,7 +186,7 @@ public class ExportedComplexDMNInterpreterTest extends AbstractSignavioDMNInterp
     }
 
     @Override
-    protected FEELLib getLib() {
+    protected FEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> getLib() {
         return new DefaultSignavioBaseDecision();
     }
 }

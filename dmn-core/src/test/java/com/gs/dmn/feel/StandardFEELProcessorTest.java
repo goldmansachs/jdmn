@@ -10,26 +10,19 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.transformation;
+package com.gs.dmn.feel;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
-import com.gs.dmn.transformation.template.TemplateProvider;
-import com.gs.dmn.transformation.template.TreeTemplateProvider;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 
-public abstract class AbstractTckDMNToJavaTransformerTest extends AbstractTckDMNToNativeTransformerTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
+public abstract class StandardFEELProcessorTest extends AbstractStandardFEELProcessorTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     @Override
-    protected DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestCases> makeDialectDefinition() {
+    protected DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestCases> makeDialect() {
         return new StandardDMNDialectDefinition();
-    }
-
-    @Override
-    protected TemplateProvider makeTemplateProvider() {
-        return new TreeTemplateProvider();
     }
 }
