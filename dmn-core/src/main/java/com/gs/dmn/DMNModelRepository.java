@@ -17,7 +17,7 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.interpreter.ImportPath;
 import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
-import com.gs.dmn.transformation.DMNToJavaTransformer;
+import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.*;
@@ -766,7 +766,7 @@ public class DMNModelRepository {
     public boolean isFreeTextLiteralExpression(TNamedElement element) {
         TExpression expression = expression(element);
         return expression instanceof TLiteralExpression
-                && DMNToJavaTransformer.FREE_TEXT_LANGUAGE.equals(((TLiteralExpression)expression).getExpressionLanguage());
+                && AbstractDMNToNativeTransformer.FREE_TEXT_LANGUAGE.equals(((TLiteralExpression)expression).getExpressionLanguage());
     }
 
     public boolean isDecisionTableExpression(TDRGElement element) {
