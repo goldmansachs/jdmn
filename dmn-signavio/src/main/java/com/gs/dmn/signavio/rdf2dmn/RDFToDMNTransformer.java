@@ -30,8 +30,8 @@ import com.gs.dmn.signavio.rdf2dmn.json.expression.FunctionCall;
 import com.gs.dmn.signavio.rdf2dmn.json.expression.Reference;
 import com.gs.dmn.signavio.rdf2dmn.json.relation.EnumerationProperty;
 import com.gs.dmn.signavio.rdf2dmn.json.relation.Relation;
+import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import com.gs.dmn.transformation.AbstractFileTransformer;
-import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.InputParamUtil;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
@@ -527,7 +527,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
         tLiteralExpression.setText(text(expression));
         String expressionLanguage = expression.getExpressionLanguage();
         if (StringUtils.isBlank(expressionLanguage)) {
-            tLiteralExpression.setExpressionLanguage(DMNToJavaTransformer.FREE_TEXT_LANGUAGE);
+            tLiteralExpression.setExpressionLanguage(AbstractDMNToNativeTransformer.FREE_TEXT_LANGUAGE);
         }
         return tLiteralExpression;
     }
