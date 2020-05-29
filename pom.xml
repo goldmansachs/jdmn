@@ -102,7 +102,7 @@
         <sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
         <aggregate.report.dir>target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
         <sonar.exclusions>target/**/*</sonar.exclusions>
-        <line.coverage.minimum>0.60</line.coverage.minimum>
+        <line.coverage.minimum>0.50</line.coverage.minimum>
 
         <ban.snapshot>false</ban.snapshot>
     </properties>
