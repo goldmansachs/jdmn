@@ -2,7 +2,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision-with-extension.ftl", "allFalseAggregation"})
+@javax.annotation.Generated(value = {"signavio-decision.ftl", "allFalseAggregation"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
     name = "allFalseAggregation",

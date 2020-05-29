@@ -16,17 +16,17 @@ import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TFunctionDefinition;
 import org.omg.spec.dmn._20180521.model.TInvocable;
 
 import java.util.List;
 
-public interface DMNInterpreter {
-    BasicDMN2JavaTransformer getBasicDMNTransformer();
+public interface DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
+    BasicDMNToNativeTransformer getBasicDMNTransformer();
 
-    FEELLib getFeelLib();
+    FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> getFeelLib();
 
     //
     // Evaluate DRG nodes

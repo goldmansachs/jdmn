@@ -12,71 +12,51 @@
  */
 package com.gs.dmn.dialect;
 
-import com.gs.dmn.AbstractTest;
-import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.lib.DefaultFEELLib;
-import com.gs.dmn.feel.lib.FEELLib;
-import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.feel.synthesis.type.StandardNativeTypeFactory;
 import com.gs.dmn.runtime.DefaultDMNBaseDecision;
-import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
-import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
-import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
-import com.gs.dmn.transformation.NopDMNTransformer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
-import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
-import com.gs.dmn.transformation.template.TreeTemplateProvider;
-import com.gs.dmn.validation.NopDMNValidator;
-import org.junit.Test;
+import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
 
-import static org.junit.Assert.assertEquals;
-
-public class StandardDMNDialectDefinitionTest extends AbstractTest {
-    private final DMNDialectDefinition dialect = new StandardDMNDialectDefinition();
-    private static final DMNModelRepository REPOSITORY = new DMNModelRepository();
-
-    @Test
-    public void testCreateDMNInterpreter() {
-        DMNInterpreter dmnInterpreter = dialect.createDMNInterpreter(REPOSITORY, new LinkedHashMap<>());
-        assertEquals(StandardDMNInterpreter.class.getName(), dmnInterpreter.getClass().getName());
+public class StandardDMNDialectDefinitionTest extends AbstractStandardDMNDialectDefinitionTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
+    @Override
+    protected DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestCases> makeDialect() {
+        return new StandardDMNDialectDefinition();
     }
 
-    @Test
-    public void testCreateDMNToJavaTransformer() {
-        Map<String, String> inputParameters = new LinkedHashMap<>();
-        inputParameters.put("dmnVersion", "1.1");
-        inputParameters.put("modelVersion", "1.2");
-        inputParameters.put("platformVersion", "3.2");
-        AbstractDMNToNativeTransformer dmnToJavaTransformer = dialect.createDMNToJavaTransformer(new NopDMNValidator(), new NopDMNTransformer(), new TreeTemplateProvider(), new NopLazyEvaluationDetector(), new DefaultTypeDeserializationConfigurer(), inputParameters, null);
-        assertEquals(DMNToJavaTransformer.class.getName(), dmnToJavaTransformer.getClass().getName());
+    @Override
+    protected String getExpectedDMNInterpreterClass() {
+        return StandardDMNInterpreter.class.getName();
     }
 
-    @Test
-    public void testCreateBasicTransformer() {
-        BasicDMN2JavaTransformer basicTransformer = dialect.createBasicTransformer(REPOSITORY, new NopLazyEvaluationDetector(), new LinkedHashMap<>());
-        assertEquals(BasicDMN2JavaTransformer.class.getName(), basicTransformer.getClass().getName());
+    @Override
+    protected String getExpectedDMNToNativeTransformerClass() {
+        return DMNToJavaTransformer.class.getName();
     }
 
-    @Test
-    public void testCreateTypeTranslator() {
-        NativeTypeFactory typeTranslator = dialect.createTypeTranslator();
-        assertEquals(StandardNativeTypeFactory.class.getName(), typeTranslator.getClass().getName());
+    @Override
+    protected String getBasicTransformerClass() {
+        return BasicDMN2JavaTransformer.class.getName();
     }
 
-    @Test
-    public void testCreateFEELLib() {
-        FEELLib feelLib = dialect.createFEELLib();
-        assertEquals(DefaultFEELLib.class.getName(), feelLib.getClass().getName());
+    @Override
+    protected String getExpectedNativeTypeFactoryClass() {
+        return StandardNativeTypeFactory.class.getName();
     }
 
-    @Test
-    public void testGetDecisionBaseClass() {
-        String decisionBaseClass = dialect.getDecisionBaseClass();
-        assertEquals(DefaultDMNBaseDecision.class.getName(), decisionBaseClass);
+    @Override
+    protected String getExpectedFEELLibClass() {
+        return DefaultFEELLib.class.getName();
+    }
+
+    @Override
+    protected String getExpectedDecisionBaseClass() {
+        return DefaultDMNBaseDecision.class.getName();
     }
 }

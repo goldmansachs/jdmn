@@ -27,10 +27,14 @@ import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
+import com.gs.dmn.signavio.testlab.TestLab;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -41,7 +45,7 @@ public abstract class AbstractSignavioDMNInterpreterTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractSignavioDMNInterpreterTest.class));
 
     private final DMNReader reader = new DMNReader(LOGGER, false);
-    private final DMNDialectDefinition dialectDefinition = new SignavioDMNDialectDefinition();
+    private final DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestLab> dialectDefinition = new SignavioDMNDialectDefinition();
 
     protected void doTest(DecisionTestConfig config) throws Exception {
         doTest(config.getDecisionName(), config.getDiagramName(), config.getRuntimeContext(), config.getExpectedResult());
@@ -54,7 +58,7 @@ public abstract class AbstractSignavioDMNInterpreterTest {
             URL url = getClass().getClassLoader().getResource(pathName).toURI().toURL();
             Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(url);
             DMNModelRepository repository = new SignavioDMNModelRepository(pair, "http://www.provider.com/schema/dmn/1.1/");
-            DMNInterpreter interpreter = dialectDefinition.createDMNInterpreter(repository, new LinkedHashMap<>());
+            DMNInterpreter<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> interpreter = dialectDefinition.createDMNInterpreter(repository, new LinkedHashMap<>());
 
             TDRGElement decision = repository.findDRGElementByName(repository.getRootDefinitions(), decisionName);
             Result actualResult = interpreter.evaluate(repository.makeDRGElementReference(decision), null, runtimeEnvironment);
@@ -76,5 +80,5 @@ public abstract class AbstractSignavioDMNInterpreterTest {
 
     protected abstract String getInputPath();
 
-    protected abstract FEELLib getLib();
+    protected abstract FEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> getLib();
 }

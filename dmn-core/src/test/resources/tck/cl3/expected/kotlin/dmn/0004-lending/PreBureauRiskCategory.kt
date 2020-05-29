@@ -60,7 +60,7 @@ class PreBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = Ap
     }
 
     private fun evaluate(applicantData: type.TApplicantData?, applicationRiskScore: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): String? {
-        return PreBureauRiskCategoryTable.PreBureauRiskCategoryTable(applicantData?.let({ it.existingCustomer as Boolean }), applicationRiskScore, annotationSet_, eventListener_, externalExecutor_) as String?
+        return PreBureauRiskCategoryTable.PreBureauRiskCategoryTable(applicantData?.let({ it.existingCustomer as Boolean? }), applicationRiskScore, annotationSet_, eventListener_, externalExecutor_) as String?
     }
 
     companion object {

@@ -49,7 +49,7 @@ public class ${testClassName} extends ${decisionBaseClass} {
         // Initialize input data
         <#items as input>
         <#assign inputInfo = tckUtil.extractInputNodeInfo(testCases, testCase, input) >
-        ${tckUtil.toJavaType(inputInfo)} ${tckUtil.inputDataVariableName(inputInfo)} = ${tckUtil.toJavaExpression(inputInfo)};
+        ${tckUtil.toNativeType(inputInfo)} ${tckUtil.inputDataVariableName(inputInfo)} = ${tckUtil.toNativeExpression(inputInfo)};
         <#if tckUtil.isCached(inputInfo)>
         ${tckUtil.cacheVariableName()}.bind("${tckUtil.inputDataVariableName(inputInfo)}", ${tckUtil.inputDataVariableName(inputInfo)});
         </#if>
@@ -63,9 +63,9 @@ public class ${testClassName} extends ${decisionBaseClass} {
         // Check ${result.name}
         <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
         <#if tckUtil.isCaching()>
-        checkValues(${tckUtil.toJavaExpression(resultInfo)}, new ${tckUtil.qualifiedName(resultInfo)}().apply(${tckUtil.drgElementArgumentsExtraCache(tckUtil.drgElementArgumentsExtra(tckUtil.drgElementArgumentList(resultInfo)))}));
+        checkValues(${tckUtil.toNativeExpression(resultInfo)}, new ${tckUtil.qualifiedName(resultInfo)}().apply(${tckUtil.drgElementArgumentsExtraCache(tckUtil.drgElementArgumentsExtra(tckUtil.drgElementArgumentList(resultInfo)))}));
         <#else>
-        checkValues(${tckUtil.toJavaExpression(resultInfo)}, new ${tckUtil.qualifiedName(resultInfo)}().apply(${tckUtil.drgElementArgumentsExtra(tckUtil.drgElementArgumentList(resultInfo))}));
+        checkValues(${tckUtil.toNativeExpression(resultInfo)}, new ${tckUtil.qualifiedName(resultInfo)}().apply(${tckUtil.drgElementArgumentsExtra(tckUtil.drgElementArgumentList(resultInfo))}));
         </#if>
         </#items>
     </#list>

@@ -19,13 +19,13 @@ import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.Result;
 
-abstract class AbstractFEELInterpreter implements FEELInterpreter {
+abstract class AbstractFEELInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements FEELInterpreter {
     private final FEELAnalyzer feelAnalyzer;
-    private final FEELInterpreterVisitor visitor;
+    private final FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> visitor;
 
-    protected AbstractFEELInterpreter(DMNInterpreter dmnInterpreter, FEELAnalyzer feelAnalyzer) {
+    protected AbstractFEELInterpreter(DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter, FEELAnalyzer feelAnalyzer) {
         this.feelAnalyzer = feelAnalyzer;
-        this.visitor = new FEELInterpreterVisitor(dmnInterpreter);
+        this.visitor = new FEELInterpreterVisitor<>(dmnInterpreter);
     }
 
     @Override

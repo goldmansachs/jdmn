@@ -15,14 +15,14 @@ package com.gs.dmn.maven;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.maven.configuration.components.DMNTransformerComponent;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
-import com.gs.dmn.signavio.testlab.TestLabToJUnitTransformer;
+import com.gs.dmn.signavio.testlab.TestLab;
+import com.gs.dmn.signavio.testlab.TestLabToJavaJUnitTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.FileTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -32,7 +32,7 @@ import java.util.Map;
 
 @SuppressWarnings("CanBeFinal")
 @Mojo(name = "testlab-to-java", defaultPhase = LifecyclePhase.GENERATE_TEST_SOURCES, configurator = "dmn-mojo-configurator")
-public class TestLabToJavaJUnitMojo extends AbstractDMNMojo {
+public class TestLabToJavaJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> {
     @Parameter(required = true, defaultValue = "com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition")
     public String dmnDialect;
 
@@ -64,7 +64,7 @@ public class TestLabToJavaJUnitMojo extends AbstractDMNMojo {
     public File outputFileDirectory;
 
     @Override
-    public void execute() throws MojoExecutionException, MojoFailureException {
+    public void execute() throws MojoExecutionException {
         checkMandatoryField(inputTestFileDirectory, "inputTestFileDirectory");
         checkMandatoryField(inputModelFileDirectory, "inputModelFileDirectory");
         checkMandatoryField(outputFileDirectory, "outputFileDirectory");
@@ -74,15 +74,22 @@ public class TestLabToJavaJUnitMojo extends AbstractDMNMojo {
             // Create transformer
             MavenBuildLogger logger = new MavenBuildLogger(this.getLog());
             Class<?> dialectClass = Class.forName(dmnDialect);
-            DMNDialectDefinition dmnDialect = (DMNDialectDefinition) dialectClass.newInstance();
+            DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> dmnDialect = makeDialect(dialectClass);
             DMNValidator dmnValidator = makeDMNValidator(this.dmnValidators, logger);
-            DMNTransformer dmnTransformer = makeDMNTransformer(this.dmnTransformers, logger);
+            DMNTransformer<TestLab> dmnTransformer = makeDMNTransformer(this.dmnTransformers, logger);
             TemplateProvider templateProvider = makeTemplateProvider(this.templateProvider, logger);
             LazyEvaluationDetector lazyEvaluationDetector = makeLazyEvaluationDetector(this.lazyEvaluationDetectors, logger, this.inputParameters);
             TypeDeserializationConfigurer typeDeserializationConfigurer = makeTypeDeserializationConfigurer(this.typeDeserializationConfigurer, logger);
-            FileTransformer transformer = new TestLabToJUnitTransformer(
-                    dmnDialect, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer,
-                    inputModelFileDirectory.toPath(), inputParameters,
+
+            FileTransformer transformer = new TestLabToJavaJUnitTransformer<>(
+                    dmnDialect,
+                    dmnValidator,
+                    dmnTransformer,
+                    templateProvider,
+                    lazyEvaluationDetector,
+                    typeDeserializationConfigurer,
+                    inputModelFileDirectory.toPath(),
+                    inputParameters,
                     logger
             );
 

@@ -24,7 +24,7 @@ import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public abstract class AbstractDMNTransformerTest extends AbstractTransformerTest {
+public abstract class AbstractDMNTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
     protected void doFolderTest() throws Exception {
         String inputPath = getInputPath();
         File folder = path(inputPath).toFile();
@@ -37,7 +37,8 @@ public abstract class AbstractDMNTransformerTest extends AbstractTransformerTest
         }
     }
 
-    protected void doSingleModelTest(String dmnFileName, Pair<String, String>... extraInputParameters) throws Exception {
+    @SafeVarargs
+    protected final void doSingleModelTest(String dmnFileName, Pair<String, String>... extraInputParameters) throws Exception {
         String path = getInputPath();
         String inputFilePath = path + "/" + dmnFileName + DMNConstants.DMN_FILE_EXTENSION;
         String expectedOutputPath = getExpectedPath() + "/" + friendlyFolderName(dmnFileName.toLowerCase());
@@ -45,7 +46,8 @@ public abstract class AbstractDMNTransformerTest extends AbstractTransformerTest
         doTest(resource.getPath(), expectedOutputPath, extraInputParameters);
     }
 
-    protected void doMultipleModelsTest(String dmnFolderName, Pair<String, String>... extraInputParameters) throws Exception {
+    @SafeVarargs
+    protected final void doMultipleModelsTest(String dmnFolderName, Pair<String, String>... extraInputParameters) throws Exception {
         String path = getInputPath();
         String inputFilePath = path + "/" + dmnFolderName;
         String expectedOutputPath = getExpectedPath() + "/" + friendlyFolderName(dmnFolderName.toLowerCase());
@@ -75,12 +77,12 @@ public abstract class AbstractDMNTransformerTest extends AbstractTransformerTest
     }
 
     @Override
-    protected DMNTransformer makeDMNTransformer(BuildLogger logger) {
-        return new NopDMNTransformer();
+    protected DMNTransformer<TEST> makeDMNTransformer(BuildLogger logger) {
+        return new NopDMNTransformer<>();
     }
 
     private FileTransformer makeTransformer(Map<String, String> inputParameters, BuildLogger logger) {
-        return makeDialectDefinition().createDMNToJavaTransformer(makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, logger), makeTypeDeserializationConfigurer(logger), inputParameters, logger);
+        return makeDialectDefinition().createDMNToNativeTransformer(makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, logger), makeTypeDeserializationConfigurer(logger), inputParameters, logger);
     }
 
     @Override

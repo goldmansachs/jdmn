@@ -58,7 +58,7 @@ interface TA : com.gs.dmn.runtime.DMNType {
                 result_.price = other.get("price") as java.math.BigDecimal?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
-                return toTA(other)
+                return toTA(other.toContext())
             } else {
                 throw com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.javaClass.getSimpleName(), TA::class.java.getSimpleName()))
             }

@@ -87,7 +87,7 @@ class PriceInRange() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
         // Apply rule
         var output_: PriceInRangeRuleOutput = PriceInRangeRuleOutput(false)
-        if (true == (booleanAnd(numericGreaterEqualThan(structA?.let({ it.price as java.math.BigDecimal }), numB), numericLessEqualThan(structA?.let({ it.price as java.math.BigDecimal }), numC)))) {
+        if (true == (booleanAnd(numericGreaterEqualThan(structA?.let({ it.price as java.math.BigDecimal? }), numB), numericLessEqualThan(structA?.let({ it.price as java.math.BigDecimal? }), numC)))) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 

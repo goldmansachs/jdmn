@@ -18,13 +18,13 @@ import com.gs.dmn.feel.analysis.syntax.antlrv4.FEELParser;
 import com.gs.dmn.feel.analysis.syntax.ast.ASTFactory;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
 public class FEELAnalyzerImpl extends AbstractFEELAnalyzer {
-    public FEELAnalyzerImpl(BasicDMN2JavaTransformer dmnTransformer) {
+    public FEELAnalyzerImpl(BasicDMNToNativeTransformer dmnTransformer) {
         super(dmnTransformer);
     }
 

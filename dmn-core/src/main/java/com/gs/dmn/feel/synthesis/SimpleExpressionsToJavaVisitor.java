@@ -16,6 +16,8 @@ import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
+import com.gs.dmn.feel.analysis.semantics.type.ListType;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;
@@ -33,13 +35,13 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Disjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
-    public SimpleExpressionsToJavaVisitor(BasicDMN2JavaTransformer dmnTransformer) {
+    public SimpleExpressionsToJavaVisitor(BasicDMNToNativeTransformer dmnTransformer) {
         super(dmnTransformer);
     }
 
@@ -263,7 +265,8 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
     public Object visit(ListLiteral element, FEELContext context) {
         List<Expression> expressionList = element.getExpressionList();
         String elements = expressionList.stream().map(e -> (String) e.accept(this, context)).collect(Collectors.joining(", "));
-        return dmnTransformer.asList(elements);
+        Type elementType = ((ListType) element.getType()).getElementType();
+        return dmnTransformer.asList(elementType, elements);
     }
 
     @Override

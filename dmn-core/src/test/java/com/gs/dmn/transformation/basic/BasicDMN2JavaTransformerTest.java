@@ -22,17 +22,21 @@ import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.junit.Before;
 import org.junit.Test;
+import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.spec.dmn._20180521.model.TDecision;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
 
+import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 public class BasicDMN2JavaTransformerTest extends AbstractTest {
-    private final DMNDialectDefinition dialectDefinition = new StandardDMNDialectDefinition();
+    private final DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestCases> dialectDefinition = new StandardDMNDialectDefinition();
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
     private BasicDMN2JavaTransformer dmnTransformer;
     private String href;
@@ -48,19 +52,19 @@ public class BasicDMN2JavaTransformerTest extends AbstractTest {
 
     @Test
     public void testJavaFriendlyName() {
-        assertEquals("ClientLevelRequirementRules", dmnTransformer.javaFriendlyName("Client-level Requirement Rules"));
-        assertEquals("ClientLevelRequirementRulesType", dmnTransformer.javaFriendlyName("Client-level Requirement RulesType"));
-        assertEquals("LinkedToList12ApprovedRegulator", dmnTransformer.javaFriendlyName("Linked to List 1,2 Approved Regulator"));
-        assertEquals("PrivateFundAssessmentPotentialSubClassifications", dmnTransformer.javaFriendlyName("Private Fund Assessment.Potential SubClassifications"));
+        assertEquals("ClientLevelRequirementRules", dmnTransformer.nativeFriendlyName("Client-level Requirement Rules"));
+        assertEquals("ClientLevelRequirementRulesType", dmnTransformer.nativeFriendlyName("Client-level Requirement RulesType"));
+        assertEquals("LinkedToList12ApprovedRegulator", dmnTransformer.nativeFriendlyName("Linked to List 1,2 Approved Regulator"));
+        assertEquals("PrivateFundAssessmentPotentialSubClassifications", dmnTransformer.nativeFriendlyName("Private Fund Assessment.Potential SubClassifications"));
     }
 
     @Test
     public void testJavaFriendlyVariableName() {
-        assertEquals("clientLevelRequirementRules", dmnTransformer.javaFriendlyVariableName("Client-level Requirement Rules"));
-        assertEquals("clientLevelRequirementRulesType", dmnTransformer.javaFriendlyVariableName("Client-level Requirement RulesType"));
-        assertEquals("linkedToList12ApprovedRegulator", dmnTransformer.javaFriendlyVariableName("Linked to List 1,2 Approved Regulator"));
-        assertEquals("privateFundAssessment.potentialSubClassifications", dmnTransformer.javaFriendlyVariableName("Private Fund Assessment.Potential SubClassifications"));
-        assertEquals("totalVacationDays", dmnTransformer.javaFriendlyVariableName("'Total Vacation Days'"));
+        assertEquals("clientLevelRequirementRules", dmnTransformer.nativeFriendlyVariableName("Client-level Requirement Rules"));
+        assertEquals("clientLevelRequirementRulesType", dmnTransformer.nativeFriendlyVariableName("Client-level Requirement RulesType"));
+        assertEquals("linkedToList12ApprovedRegulator", dmnTransformer.nativeFriendlyVariableName("Linked to List 1,2 Approved Regulator"));
+        assertEquals("privateFundAssessment.potentialSubClassifications", dmnTransformer.nativeFriendlyVariableName("Private Fund Assessment.Potential SubClassifications"));
+        assertEquals("totalVacationDays", dmnTransformer.nativeFriendlyVariableName("'Total Vacation Days'"));
     }
 
     @Test

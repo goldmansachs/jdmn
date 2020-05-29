@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 public class RuleDescriptionValidator extends SimpleDMNValidator {
-    private static Map<String, String> PATTERNS = new LinkedHashMap<>();
+    private static final Map<String, String> PATTERNS = new LinkedHashMap<>();
 
     static {
         PATTERNS.put("[ ,", "[ ,");

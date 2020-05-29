@@ -20,7 +20,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.JsonSerializer;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.omg.spec.dmn._20180521.model.TDecision;
 import org.omg.spec.dmn._20180521.model.TItemDefinition;
 
@@ -28,10 +28,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JavaExpressionFactory implements NativeExpressionFactory {
-    private final BasicDMN2JavaTransformer dmnTransformer;
+    private final BasicDMNToNativeTransformer dmnTransformer;
 
-    public JavaExpressionFactory(BasicDMN2JavaTransformer basicDMN2JavaTransformer) {
-        this.dmnTransformer = basicDMN2JavaTransformer;
+    public JavaExpressionFactory(BasicDMNToNativeTransformer basicDMNToNativeTransformer) {
+        this.dmnTransformer = basicDMNToNativeTransformer;
     }
 
     //
@@ -200,7 +200,7 @@ public class JavaExpressionFactory implements NativeExpressionFactory {
 
     @Override
     public String applyMethod(FunctionType functionType, String signature, boolean convertTypeToContext, String body) {
-        String returnType = dmnTransformer.toJavaType(dmnTransformer.convertType(functionType.getReturnType(), convertTypeToContext));
+        String returnType = dmnTransformer.toNativeType(dmnTransformer.convertType(functionType.getReturnType(), convertTypeToContext));
         String parametersAssignment = parametersAssignment(functionType.getParameters(), convertTypeToContext);
         return applyMethod(returnType, signature, parametersAssignment, body);
     }
@@ -218,8 +218,8 @@ public class JavaExpressionFactory implements NativeExpressionFactory {
         List<String> parameters = new ArrayList<>();
         for(int i = 0; i< formalParameters.size(); i++) {
             FormalParameter p = formalParameters.get(i);
-            String type = dmnTransformer.toJavaType(dmnTransformer.convertType(p.getType(), convertTypeToContext));
-            String name = dmnTransformer.javaFriendlyVariableName(p.getName());
+            String type = dmnTransformer.toNativeType(dmnTransformer.convertType(p.getType(), convertTypeToContext));
+            String name = dmnTransformer.nativeFriendlyVariableName(p.getName());
             parameters.add(makeLambdaParameterAssignment(type, name, i));
         }
         return String.join(" ", parameters);
@@ -227,6 +227,11 @@ public class JavaExpressionFactory implements NativeExpressionFactory {
 
     private String makeLambdaParameterAssignment(String type, String name, int i) {
         return String.format("%s %s = (%s)args[%s];", type, name, type, i);
+    }
+
+    @Override
+    public String makeExternalExecutorCall(String externalExecutorVariableName, String className, String methodName, String arguments, String returnNativeType) {
+        return String.format("(%s)%s.execute(\"%s\", \"%s\", new Object[] {%s})", returnNativeType, externalExecutorVariableName, className, methodName, arguments);
     }
 
     //
@@ -264,10 +269,10 @@ public class JavaExpressionFactory implements NativeExpressionFactory {
     // Conversions
     //
     public String convertListToElement(String expression, Type type) {
-        return String.format("this.<%s>%s", dmnTransformer.toJavaType(type), asElement(expression));
+        return String.format("this.<%s>%s", dmnTransformer.toNativeType(type), asElement(expression));
     }
 
-    public String asList(String exp) {
+    public String asList(Type elementType, String exp) {
         return String.format("asList(%s)", exp);
     }
 
@@ -276,7 +281,7 @@ public class JavaExpressionFactory implements NativeExpressionFactory {
     }
 
     public String convertElementToList(String expression, Type type) {
-        return String.format("%s", asList(expression));
+        return String.format("%s", asList(type, expression));
     }
 
     public String makeListConversion(String javaExpression, ItemDefinitionType expectedElementType) {
@@ -286,7 +291,7 @@ public class JavaExpressionFactory implements NativeExpressionFactory {
 
     public String convertToItemDefinitionType(String expression, ItemDefinitionType type) {
         String convertMethodName = convertMethodName(type);
-        String interfaceName = dmnTransformer.toJavaType(type);
+        String interfaceName = dmnTransformer.toNativeType(type);
         return String.format("%s.%s(%s)", interfaceName, convertMethodName, expression);
     }
 
@@ -319,13 +324,13 @@ public class JavaExpressionFactory implements NativeExpressionFactory {
             if (elementType instanceof ListType) {
                 arrayElementType = "java.util.List";
             } else if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(elementType)) {
-                arrayElementType = this.dmnTransformer.toJavaType(elementType);
+                arrayElementType = this.dmnTransformer.toNativeType(elementType);
             } else {
-                arrayElementType = this.dmnTransformer.itemDefinitionJavaClassName(this.dmnTransformer.toJavaType(elementType));
+                arrayElementType = this.dmnTransformer.itemDefinitionNativeClassName(this.dmnTransformer.toNativeType(elementType));
             }
             return String.format("(%s != null ? asList(%s.readValue(%s, %s[].class)) : null)", paramName, objectMapper(), paramName, arrayElementType);
         } else {
-            return String.format("(%s != null ? %s.readValue(%s, %s.class) : null)", paramName, objectMapper(), paramName, dmnTransformer.itemDefinitionJavaClassName(dmnTransformer.toJavaType(type)));
+            return String.format("(%s != null ? %s.readValue(%s, %s.class) : null)", paramName, objectMapper(), paramName, dmnTransformer.itemDefinitionNativeClassName(dmnTransformer.toNativeType(type)));
         }
     }
 

@@ -19,6 +19,7 @@ import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision;
 import com.gs.dmn.signavio.runtime.SignavioEnvironmentFactory;
+import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider;
 import com.gs.dmn.transformation.AbstractDMNTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
@@ -28,12 +29,15 @@ import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.NopDMNValidator;
 
+import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public abstract class AbstractSignavioDMNToJavaTest extends AbstractSignavioDMNToNativeTest {
+public abstract class AbstractSignavioDMNToJavaTest extends AbstractSignavioDMNToNativeTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     @Override
-    protected DMNDialectDefinition makeDialectDefinition() {
+    protected DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestLab> makeDialectDefinition() {
         return new SignavioDMNDialectDefinition();
     }
 

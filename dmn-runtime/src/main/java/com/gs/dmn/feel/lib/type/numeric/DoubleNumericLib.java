@@ -339,7 +339,7 @@ public class DoubleNumericLib {
 
         int max = -1;
         List modes = new ArrayList();
-        Map<Object, Integer> countMap = new HashMap<Object, Integer>();
+        Map<Object, Integer> countMap = new HashMap<>();
         for (Object n : list) {
             if (! (n instanceof Number)) {
                 return null;

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     Copyright 2016 Goldman Sachs.
@@ -78,6 +79,12 @@
         <dependency>
             <groupId>com.goldmansachs.jdmn</groupId>
             <artifactId>jdmn-signavio-integration-tests-translator</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.goldmansachs.jdmn</groupId>
+            <artifactId>jdmn-signavio-integration-tests-kotlin-translator</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>

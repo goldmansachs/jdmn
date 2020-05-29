@@ -10,7 +10,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class JsonSerializerTest {
-    private DefaultFEELLib lib = new DefaultFEELLib();
+    private final DefaultFEELLib lib = new DefaultFEELLib();
 
     @Test
     public void testDate() throws Exception {

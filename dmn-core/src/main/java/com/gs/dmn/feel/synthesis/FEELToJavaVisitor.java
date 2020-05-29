@@ -44,7 +44,7 @@ import com.gs.dmn.runtime.interpreter.Arguments;
 import com.gs.dmn.runtime.interpreter.NamedArguments;
 import com.gs.dmn.runtime.interpreter.PositionalArguments;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.TBusinessKnowledgeModel;
 import org.omg.spec.dmn._20180521.model.TNamedElement;
@@ -59,7 +59,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     private static final int INITIAL_VALUE = -1;
     private int filterCount = INITIAL_VALUE;
 
-    public FEELToJavaVisitor(BasicDMN2JavaTransformer dmnTransformer) {
+    public FEELToJavaVisitor(BasicDMNToNativeTransformer dmnTransformer) {
         super(dmnTransformer);
     }
 
@@ -114,8 +114,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     @Override
     public Object visit(ExpressionTest element, FEELContext context) {
         Expression expression = element.getExpression();
-        String condition = (String) expression.accept(this, context);
-        return condition;
+        return expression.accept(this, context);
     }
 
     @Override
@@ -172,7 +171,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     public Object visit(FunctionDefinition element, FEELContext context) {
         if (element.isStaticTyped()) {
             String body = (String)element.getBody().accept(this, context);
-            return this.dmnTransformer.functionDefinitionToJava(element, false, body);
+            return this.dmnTransformer.functionDefinitionToNative(element, false, body);
         } else {
             throw new DMNRuntimeException("Dynamic typing for FEEL functions not supported yet");
         }
@@ -235,7 +234,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         for (Iterator it : iterators) {
             IteratorDomain expressionDomain = it.getDomain();
             String domain = (String) expressionDomain.accept(this, forContext);
-            domainIterators.add(new Pair(domain, it.getName()));
+            domainIterators.add(new Pair<>(domain, it.getName()));
         }
         String body = (String) element.getBody().accept(this, forContext);
         return this.expressionFactory.makeForExpression(domainIterators, body);
@@ -252,7 +251,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         String domain;
         if (expressionDomain instanceof Name) {
             String name = ((Name) expressionDomain).getName();
-            domain = this.dmnTransformer.javaFriendlyVariableName(name);
+            domain = this.dmnTransformer.nativeFriendlyVariableName(name);
         } else if (expressionDomain instanceof RangeTest) {
             RangeTest test = (RangeTest) expressionDomain;
             String start = (String) test.getStart().accept(this, context);
@@ -319,7 +318,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
 
         // Convert source to list
         if (!(sourceType instanceof ListType)) {
-            source = this.dmnTransformer.asList(source);
+            source = this.dmnTransformer.asList(sourceType, source);
         }
 
         // Filter
@@ -333,7 +332,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
             } else {
                 elementType = sourceType;
             }
-            String javaElementType = this.dmnTransformer.toJavaType(elementType);
+            String javaElementType = this.dmnTransformer.toNativeType(elementType);
 
             return this.expressionFactory.makeCollectionNumericFilter(javaElementType, source, filter);
         } else {
@@ -354,7 +353,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     public Object visit(InstanceOfExpression element, FEELContext context) {
         String leftOperand = (String) element.getLeftOperand().accept(this, context);
         Type rightOperandType = element.getRightOperand().getType();
-        String javaType = this.feelTypeTranslator.toJavaType(rightOperandType.toString());
+        String javaType = this.feelTypeTranslator.toNativeType(rightOperandType.toString());
         return String.format("%s instanceof %s", leftOperand, javaType);
     }
 
@@ -501,7 +500,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         } else if (functionType instanceof DMNFunctionType) {
             TNamedElement invocable = ((DMNFunctionType) functionType).getInvocable();
             if (invocable instanceof TBusinessKnowledgeModel) {
-                argumentsText = this.dmnTransformer.drgElementArgumentsExtra(this.dmnTransformer.augmentArgumentList(argumentsText));
+                argumentsText = this.dmnTransformer.drgElementArgumentsExtraCache(this.dmnTransformer.drgElementArgumentsExtra(this.dmnTransformer.augmentArgumentList(argumentsText)));
                 String javaQualifiedName = this.dmnTransformer.bkmQualifiedFunctionName((TBusinessKnowledgeModel) invocable);
                 return String.format("%s(%s)", javaQualifiedName, argumentsText);
             } else {
@@ -515,7 +514,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     }
 
     protected Object convertArgument(Object param, Conversion conversion) {
-        String conversionFunction = this.expressionFactory.conversionFunction(conversion, this.dmnTransformer.toJavaType(conversion.getTargetType()));
+        String conversionFunction = this.expressionFactory.conversionFunction(conversion, this.dmnTransformer.toNativeType(conversion.getTargetType()));
         if (conversionFunction != null) {
             param = String.format("%s(%s)", conversionFunction, param);
         }
@@ -559,7 +558,8 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     public Object visit(ListLiteral element, FEELContext context) {
         List<Expression> expressionList = element.getExpressionList();
         String elements = expressionList.stream().map(e -> (String) e.accept(this, context)).collect(Collectors.joining(", "));
-        return this.dmnTransformer.asList(elements);
+        Type elementType = ((ListType) element.getType()).getElementType();
+        return this.dmnTransformer.asList(elementType, elements);
     }
 
     @Override

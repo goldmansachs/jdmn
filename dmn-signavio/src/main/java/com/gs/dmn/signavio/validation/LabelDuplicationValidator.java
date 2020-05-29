@@ -30,11 +30,7 @@ public abstract class LabelDuplicationValidator extends SimpleDMNValidator {
             if (label == null) {
                 throw new RuntimeException(String.format("%s has no label", decision.getId()));
             }
-            List<TDMNElement> elementList = map.get(label);
-            if (elementList == null) {
-                elementList = new ArrayList<>();
-                map.put(label, elementList);
-            }
+            List<TDMNElement> elementList = map.computeIfAbsent(label, k -> new ArrayList<>());
             elementList.add(decision);
         }
         for(Map.Entry<String, List<TDMNElement>> entry: map.entrySet()) {

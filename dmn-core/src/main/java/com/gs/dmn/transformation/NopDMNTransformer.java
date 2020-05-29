@@ -25,6 +25,6 @@ public class NopDMNTransformer<T> extends SimpleDMNTransformer<T> {
 
     @Override
     public Pair<DMNModelRepository, List<T>> transform(DMNModelRepository repository, List<T> testCases) {
-        return new Pair(repository, testCases);
+        return new Pair<>(repository, testCases);
     }
 }

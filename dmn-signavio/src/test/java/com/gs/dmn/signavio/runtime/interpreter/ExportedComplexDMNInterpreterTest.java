@@ -16,9 +16,11 @@ import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision;
-import org.junit.Ignore;
 import org.junit.Test;
 
+import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 public class ExportedComplexDMNInterpreterTest extends AbstractSignavioDMNInterpreterTest {
@@ -29,9 +31,9 @@ public class ExportedComplexDMNInterpreterTest extends AbstractSignavioDMNInterp
         doTest(new DecisionTestConfig(
                         "abc",
                         "ChildLinked",
-                        makeRuntimeEnvironment(Arrays.asList(new Pair[]{
-                                new Pair("num", decision.number("3"))
-                        })),
+                        makeRuntimeEnvironment(Arrays.asList(
+                                new Pair<>("num", decision.number("3"))
+                        )),
                         decision.number("6")
                 )
         );
@@ -42,10 +44,10 @@ public class ExportedComplexDMNInterpreterTest extends AbstractSignavioDMNInterp
         doTest(new DecisionTestConfig(
                         "processL1",
                         "CompareLists",
-                        makeRuntimeEnvironment(Arrays.asList(new Pair[]{
-                                new Pair("l1", Arrays.asList(decision.number("1"), decision.number("2"), decision.number("3"), decision.number("4"))),
-                                new Pair("l23", Arrays.asList(decision.number("1"), decision.number("1"), decision.number("2"), decision.number("3"), decision.number("5"), decision.number("8")))
-                        })),
+                        makeRuntimeEnvironment(Arrays.asList(
+                                new Pair<>("l1", Arrays.asList(decision.number("1"), decision.number("2"), decision.number("3"), decision.number("4"))),
+                                new Pair<>("l23", Arrays.asList(decision.number("1"), decision.number("1"), decision.number("2"), decision.number("3"), decision.number("5"), decision.number("8")))
+                        )),
                         Arrays.asList(decision.number("2"), decision.number("1"), decision.number("1"), decision.number("0"))
                 )
         );
@@ -56,14 +58,14 @@ public class ExportedComplexDMNInterpreterTest extends AbstractSignavioDMNInterp
         doTest(new DecisionTestConfig(
                         "decision",
                         "decision-with-annotations",
-                        makeRuntimeEnvironment(Arrays.asList(new Pair[]{
-                                new Pair("numberInput", decision.number("1")),
-                                new Pair("stringInput", "abc"),
-                                new Pair("booleanInput", true),
-                                new Pair("dateInput", decision.date("2017-01-01")),
-                                new Pair("enumerationInput", "e1"),
-                                new Pair("person", new Context().add("name", "Peter").add("age", decision.number("10")))
-                        })),
+                        makeRuntimeEnvironment(Arrays.asList(
+                                new Pair<>("numberInput", decision.number("1")),
+                                new Pair<>("stringInput", "abc"),
+                                new Pair<>("booleanInput", true),
+                                new Pair<>("dateInput", decision.date("2017-01-01")),
+                                new Pair<>("enumerationInput", "e1"),
+                                new Pair<>("person", new Context().add("name", "Peter").add("age", decision.number("10")))
+                        )),
                         null
                 )
         );
@@ -74,10 +76,10 @@ public class ExportedComplexDMNInterpreterTest extends AbstractSignavioDMNInterp
         doTest(new DecisionTestConfig(
                         "dotProduct",
                         "DotProduct",
-                        makeRuntimeEnvironment(Arrays.asList(new Pair[]{
-                                new Pair("a", decision.asList(decision.number("2"), decision.number("3"))),
-                                new Pair("b", decision.asList(decision.number("4"), decision.number("2")))
-                        })),
+                        makeRuntimeEnvironment(Arrays.asList(
+                                new Pair<>("a", decision.asList(decision.number("2"), decision.number("3"))),
+                                new Pair<>("b", decision.asList(decision.number("4"), decision.number("2")))
+                        )),
                         new Context().add("dotProduct2", decision.number("14")).add("outputMessage", "2D vector dot product == 14")
                 )
         );
@@ -88,14 +90,14 @@ public class ExportedComplexDMNInterpreterTest extends AbstractSignavioDMNInterp
         doTest(new DecisionTestConfig(
                         "generateOutputData",
                         "Example credit decision",
-                        makeRuntimeEnvironment(Arrays.asList(new Pair[]{
-                                new Pair("applicant", new Context()
+                        makeRuntimeEnvironment(Arrays.asList(
+                                new Pair<>("applicant", new Context()
                                         .add("name", "Amy")
                                         .add("age", decision.number("38"))
                                         .add("creditScore", decision.number("100")).add("priorIssues", Arrays.asList("Late payment"))),
-                                new Pair("currentRiskAppetite", decision.number("50")),
-                                new Pair("lendingThreshold", decision.number("25"))
-                        })),
+                                new Pair<>("currentRiskAppetite", decision.number("50")),
+                                new Pair<>("lendingThreshold", decision.number("25"))
+                        )),
                         Arrays.asList(
                                 new Context()
                                         .add("Decision", "Accept")
@@ -110,16 +112,16 @@ public class ExportedComplexDMNInterpreterTest extends AbstractSignavioDMNInterp
         doTest(new DecisionTestConfig(
                         "zip",
                         "NPEValidation2",
-                        makeRuntimeEnvironment(Arrays.asList(new Pair[]{
-                                new Pair("ages", decision.asList(decision.number("25"), decision.number("40"), decision.number("65"), decision.number("80"), decision.number("105"))),
-                                new Pair("day", decision.number("25")),
-                                new Pair("hour", decision.number("8")),
-                                new Pair("minute", decision.number("5")),
-                                new Pair("month", decision.number("12")),
-                                new Pair("names", decision.asList("Fred", "Jim", "Tom", "Sarah", "Kate")),
-                                new Pair("second", decision.number("10")),
-                                new Pair("year", decision.number("2016"))})
-                        ),
+                        makeRuntimeEnvironment(Arrays.asList(
+                                new Pair<>("ages", decision.asList(decision.number("25"), decision.number("40"), decision.number("65"), decision.number("80"), decision.number("105"))),
+                                new Pair<>("day", decision.number("25")),
+                                new Pair<>("hour", decision.number("8")),
+                                new Pair<>("minute", decision.number("5")),
+                                new Pair<>("month", decision.number("12")),
+                                new Pair<>("names", decision.asList("Fred", "Jim", "Tom", "Sarah", "Kate")),
+                                new Pair<>("second", decision.number("10")),
+                                new Pair<>("year", decision.number("2016"))
+                        )),
                         Arrays.asList(
                                 new Context()
                                         .add("names", "Fred").add("ages", decision.number("25")).add("dateDiffs", decision.number("0"))
@@ -147,19 +149,19 @@ public class ExportedComplexDMNInterpreterTest extends AbstractSignavioDMNInterp
         doTest(new DecisionTestConfig(
                         "allTogether",
                         "Null Safe Tests",
-                        makeRuntimeEnvironment(Arrays.asList(new Pair[]{
-                                new Pair("booleanA", true),
-                                new Pair("booleanB", false),
-                                new Pair("booleanList", decision.asList(true, false, true)),
-                                new Pair("date", decision.date("2015-01-01")),
-                                new Pair("dateTime", decision.dateAndTime("2015-01-01T12:00:00Z")),
-                                new Pair("numberA", decision.number("12")),
-                                new Pair("numberB", decision.number("34")),
-                                new Pair("numberList", Arrays.asList(decision.number("10"), decision.number("20"), decision.number("30"), decision.number("40"))),
-                                new Pair("string", "00.00"),
-                                new Pair("stringList", Arrays.asList("Foo", "Bar")),
-                                new Pair("time", decision.time("13:00:00Z"))
-                        })),
+                        makeRuntimeEnvironment(Arrays.asList(
+                                new Pair<>("booleanA", true),
+                                new Pair<>("booleanB", false),
+                                new Pair<>("booleanList", decision.asList(true, false, true)),
+                                new Pair<>("date", decision.date("2015-01-01")),
+                                new Pair<>("dateTime", decision.dateAndTime("2015-01-01T12:00:00Z")),
+                                new Pair<>("numberA", decision.number("12")),
+                                new Pair<>("numberB", decision.number("34")),
+                                new Pair<>("numberList", Arrays.asList(decision.number("10"), decision.number("20"), decision.number("30"), decision.number("40"))),
+                                new Pair<>("string", "00.00"),
+                                new Pair<>("stringList", Arrays.asList("Foo", "Bar")),
+                                new Pair<>("time", decision.time("13:00:00Z"))
+                        )),
                         "NotNull"
                 )
         );
@@ -170,9 +172,9 @@ public class ExportedComplexDMNInterpreterTest extends AbstractSignavioDMNInterp
         doTest(new DecisionTestConfig(
                         "somethingElse",
                         "ParentLinked",
-                        makeRuntimeEnvironment(Arrays.asList(new Pair[]{
-                                new Pair("num", decision.number("2"))
-                        })),
+                        makeRuntimeEnvironment(Arrays.asList(
+                                new Pair<>("num", decision.number("2"))
+                        )),
                         decision.number("14")
                 )
         );
@@ -184,7 +186,7 @@ public class ExportedComplexDMNInterpreterTest extends AbstractSignavioDMNInterp
     }
 
     @Override
-    protected FEELLib getLib() {
+    protected FEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> getLib() {
         return new DefaultSignavioBaseDecision();
     }
 }

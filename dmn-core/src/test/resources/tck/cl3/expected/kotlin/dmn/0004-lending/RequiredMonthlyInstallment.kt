@@ -57,7 +57,7 @@ class RequiredMonthlyInstallment() : com.gs.dmn.runtime.DefaultDMNBaseDecision()
     }
 
     private fun evaluate(requestedProduct: type.TRequestedProduct?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): java.math.BigDecimal? {
-        return InstallmentCalculation.InstallmentCalculation(requestedProduct?.let({ it.productType as String }), requestedProduct?.let({ it.rate as java.math.BigDecimal }), requestedProduct?.let({ it.term as java.math.BigDecimal }), requestedProduct?.let({ it.amount as java.math.BigDecimal }), annotationSet_, eventListener_, externalExecutor_) as java.math.BigDecimal?
+        return InstallmentCalculation.InstallmentCalculation(requestedProduct?.let({ it.productType as String? }), requestedProduct?.let({ it.rate as java.math.BigDecimal? }), requestedProduct?.let({ it.term as java.math.BigDecimal? }), requestedProduct?.let({ it.amount as java.math.BigDecimal? }), annotationSet_, eventListener_, externalExecutor_) as java.math.BigDecimal?
     }
 
     companion object {

@@ -26,7 +26,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public abstract class AbstractTransformerTest extends AbstractFileTransformerTest {
+public abstract class AbstractTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractFileTransformerTest {
     protected Path path(String path) {
         File file = new File(resource(path));
         return file.toPath();
@@ -45,11 +45,11 @@ public abstract class AbstractTransformerTest extends AbstractFileTransformerTes
         return result.toString().toLowerCase();
     }
 
-    protected abstract DMNDialectDefinition makeDialectDefinition();
+    protected abstract DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> makeDialectDefinition();
 
     protected abstract DMNValidator makeDMNValidator(BuildLogger logger);
 
-    protected abstract DMNTransformer makeDMNTransformer(BuildLogger logger);
+    protected abstract DMNTransformer<TEST> makeDMNTransformer(BuildLogger logger);
 
     protected abstract TemplateProvider makeTemplateProvider();
 

@@ -12,21 +12,18 @@
  */
 package com.gs.dmn.transformation;
 
-import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
-import com.gs.dmn.transformation.template.TemplateProvider;
-import com.gs.dmn.transformation.template.TreeTemplateProvider;
+import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import java.util.Map;
 
-public abstract class AbstractTckDMNToNativeTransformerTest extends AbstractDMNTransformerTest {
+public abstract class AbstractTckDMNToNativeTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
     @Override
-    protected DMNTransformer makeDMNTransformer(BuildLogger logger) {
+    protected DMNTransformer<TestCases> makeDMNTransformer(BuildLogger logger) {
         return new ToSimpleNameTransformer(logger);
     }
 

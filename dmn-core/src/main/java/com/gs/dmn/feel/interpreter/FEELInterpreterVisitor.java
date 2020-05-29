@@ -43,7 +43,6 @@ import com.gs.dmn.feel.synthesis.AbstractFEELToJavaVisitor;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.FEELTranslatorForInterpreter;
 import com.gs.dmn.feel.synthesis.JavaOperator;
-import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.LambdaExpression;
 import com.gs.dmn.runtime.Pair;
@@ -67,24 +66,22 @@ import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
-class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
+class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELToJavaVisitor {
     private static final RuntimeEnvironmentFactory runtimeEnvironmentFactory = RuntimeEnvironmentFactory.instance();
     private static final Logger LOGGER = LoggerFactory.getLogger(FEELInterpreterVisitor.class);
 
-    private final DMNInterpreter dmnInterpreter;
-    private final FEELLib lib;
-    private final NativeTypeFactory typeTranslator;
+    private final DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter;
+    private final FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib;
     private final FEELTranslator feelTranslator;
 
 //    private static final JavaCompiler JAVA_COMPILER = new JavaAssistCompiler();
     private static final JavaCompiler JAVA_COMPILER = new JavaxToolsCompiler(new File("."));
 
-    FEELInterpreterVisitor(DMNInterpreter dmnInterpreter) {
+    FEELInterpreterVisitor(DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter) {
         super(dmnInterpreter.getBasicDMNTransformer());
         this.dmnInterpreter = dmnInterpreter;
         this.feelTranslator = new FEELTranslatorForInterpreter(dmnInterpreter.getBasicDMNTransformer());
         this.lib = dmnInterpreter.getFeelLib();
-        this.typeTranslator = dmnInterpreter.getBasicDMNTransformer().getFEELTypeTranslator();
     }
 
     @Override
@@ -337,7 +334,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         Object key = element.getKey().accept(this, context);
         Object value = element.getExpression().accept(this, context);
         context.getRuntimeEnvironment().bind((String) key, value);
-        return new Pair(key, value);
+        return new Pair<>(key, value);
     }
 
     @Override
@@ -412,7 +409,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
             if (test.getType() instanceof RangeType && ((RangeType) test.getType()).getRangeType().conformsTo(NumberType.NUMBER)) {
                 Object start = test.getStart().accept(this, context);
                 Object end = test.getEnd().accept(this, context);
-                domain = this.lib.rangeToList(test.isOpenStart(), start, test.isOpenEnd(), end);
+                domain = this.lib.rangeToList(test.isOpenStart(), (NUMBER) start, test.isOpenEnd(), (NUMBER) end);
             } else {
                 throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
             }
@@ -432,7 +429,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     public Object visit(RangeIteratorDomain element, FEELContext context) {
         Object start = element.getStart().accept(this, context);
         Object end = element.getEnd().accept(this, context);
-        return new Pair(start, end);
+        return new Pair<>(start, end);
     }
 
     @Override
@@ -482,7 +479,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
             return result;
         } else if (filterType == NumberType.NUMBER) {
             Object filterValue = element.getFilter().accept(this, context);
-            return this.lib.elementAt((List) source, filterValue);
+            return this.lib.elementAt((List) source, (NUMBER) filterValue);
         } else {
             throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
         }
@@ -564,19 +561,19 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
             Object leftOpd = leftEndpoint.accept(this, context);
             Object rightOpd = rightEndpoint.accept(this, context);
             if (leftEndpoint.getType() == NumberType.NUMBER) {
-                return this.lib.booleanAnd(this.lib.numericLessEqualThan(leftOpd, value), this.lib.numericLessEqualThan(value, rightOpd));
+                return this.lib.booleanAnd(this.lib.numericLessEqualThan((NUMBER) leftOpd, (NUMBER) value), this.lib.numericLessEqualThan((NUMBER) value, (NUMBER) rightOpd));
             } else if (leftEndpoint.getType() == StringType.STRING) {
                 return this.lib.booleanAnd(this.lib.stringLessEqualThan((String) leftOpd, (String) value), this.lib.stringLessEqualThan((String) value, (String) rightOpd));
             } else if (leftEndpoint.getType() == DateType.DATE) {
-                return this.lib.booleanAnd(this.lib.dateLessEqualThan(leftOpd, value), this.lib.dateLessEqualThan(value, rightOpd));
+                return this.lib.booleanAnd(this.lib.dateLessEqualThan((DATE) leftOpd, (DATE) value), this.lib.dateLessEqualThan((DATE) value, (DATE) rightOpd));
             } else if (leftEndpoint.getType() == TimeType.TIME) {
-                return this.lib.booleanAnd(this.lib.timeLessEqualThan(leftOpd, value), this.lib.timeLessEqualThan(value, rightOpd));
+                return this.lib.booleanAnd(this.lib.timeLessEqualThan((TIME) leftOpd, (TIME) value), this.lib.timeLessEqualThan((TIME) value, (TIME) rightOpd));
             } else if (leftEndpoint.getType() == DateTimeType.DATE_AND_TIME) {
-                return this.lib.booleanAnd(this.lib.dateTimeLessEqualThan(leftOpd, value), this.lib.dateTimeLessEqualThan(value, rightOpd));
+                return this.lib.booleanAnd(this.lib.dateTimeLessEqualThan((DATE_TIME) leftOpd, (DATE_TIME) value), this.lib.dateTimeLessEqualThan((DATE_TIME) value, (DATE_TIME) rightOpd));
             } else if (leftEndpoint.getType() == DurationType.YEARS_AND_MONTHS_DURATION) {
-                return this.lib.booleanAnd(this.lib.durationLessEqualThan(leftOpd, value), this.lib.durationLessEqualThan(value, rightOpd));
+                return this.lib.booleanAnd(this.lib.durationLessEqualThan((DURATION) leftOpd, (DURATION) value), this.lib.durationLessEqualThan((DURATION) value, (DURATION) rightOpd));
             } else if (leftEndpoint.getType() == DurationType.DAYS_AND_TIME_DURATION) {
-                return this.lib.booleanAnd(this.lib.durationLessEqualThan(leftOpd, value), this.lib.durationLessEqualThan(value, rightOpd));
+                return this.lib.booleanAnd(this.lib.durationLessEqualThan((DURATION) leftOpd, (DURATION) value), this.lib.durationLessEqualThan((DURATION) value, (DURATION) rightOpd));
             } else{
                 throw new DMNRuntimeException(String.format("Type '%s' is not supported yet", leftEndpoint.getType()));
             }
@@ -642,7 +639,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
     @Override
     public Object visit(ArithmeticNegation element, FEELContext context) {
         Object leftOperand = element.getLeftOperand().accept(this, context);
-        return this.lib.numericUnaryMinus(leftOperand);
+        return this.lib.numericUnaryMinus((NUMBER) leftOperand);
     }
 
     @Override
@@ -856,7 +853,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
         } else if (kind == ConversionKind.ELEMENT_TO_LIST) {
             return this.lib.asList(value);
         } else if (kind == ConversionKind.LIST_TO_ELEMENT) {
-            return this.lib.asElement((List)value);
+            return this.lib.asElement((List) value);
         }
         return value;
     }
@@ -903,7 +900,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
                 }
             }
             if (declaredMethod == null) {
-                throw new DMNRuntimeException(String.format("Cannot resolve '%s.%s(%s)", className, methodName, paramTypes.stream().collect(Collectors.joining(", "))));
+                throw new DMNRuntimeException(String.format("Cannot resolve '%s.%s(%s)", className, methodName, String.join(", ", paramTypes)));
             }
             Object[] args = makeArgs(declaredMethod, convertedArgList);
 
@@ -915,7 +912,7 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
                 return declaredMethod.invoke(obj, args);
             }
         } catch (Exception e) {
-            handleError(String.format("Cannot evaluate function '%s(%s)'", methodName, paramTypes.stream().collect(Collectors.joining(", "))), e);
+            handleError(String.format("Cannot evaluate function '%s(%s)'", methodName, String.join(", ", paramTypes)), e);
             return null;
         }
     }
@@ -1054,17 +1051,17 @@ class FEELInterpreterVisitor extends AbstractFEELToJavaVisitor {
             return this.lib.timezone(this.lib.toTime(source));
 
         } else if ("years".equals(member)) {
-            return this.lib.years(source);
+            return this.lib.years((DURATION) source);
         } else if ("months".equals(member)) {
-            return this.lib.months(source);
+            return this.lib.months((DURATION) source);
         } else if ("days".equals(member)) {
-            return this.lib.days(source);
+            return this.lib.days((DURATION) source);
         } else if ("hours".equals(member)) {
-            return this.lib.hours(source);
+            return this.lib.hours((DURATION) source);
         } else if ("minutes".equals(member)) {
-            return this.lib.minutes(source);
+            return this.lib.minutes((DURATION) source);
         } else if ("seconds".equals(member)) {
-            return this.lib.seconds(source);
+            return this.lib.seconds((DURATION) source);
         } else {
             throw new DMNRuntimeException(String.format("Cannot resolve method '%s' for date time", member));
         }

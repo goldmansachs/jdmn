@@ -56,12 +56,12 @@ public class StandardNativeTypeFactory extends JavaTypeFactory {
     }
 
     @Override
-    public String toJavaType(String feelType) {
+    public String toNativeType(String feelType) {
         return STANDARD_FEEL_TO_JAVA_TYPE.get(feelType);
     }
 
     @Override
-    public String toQualifiedJavaType(String feelType) {
+    public String toQualifiedNativeType(String feelType) {
         return STANDARD_FEEL_TO_QUALIFIED_JAVA_TYPE.get(feelType);
     }
 }

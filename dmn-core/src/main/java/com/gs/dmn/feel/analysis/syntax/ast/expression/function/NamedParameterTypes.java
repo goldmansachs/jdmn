@@ -88,7 +88,7 @@ public class NamedParameterTypes extends ParameterTypes {
             // Add new candidate
             if (different) {
                 NamedParameterTypes newSignature = new NamedParameterTypes(newTypes);
-                result.add(new Pair(newSignature, conversions));
+                result.add(new Pair<>(newSignature, conversions));
             }
 
             // Next sequence

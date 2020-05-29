@@ -1,7 +1,7 @@
 <#--
     Copyright 2016 Goldman Sachs.
 
-    Licensed under the Apache License, Version 2.0 (the "License") you may not use this file except in compliance with the License.
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 
     You may obtain a copy of the License at
         http://www.apache.org/licenses/LICENSE-2.0
@@ -49,7 +49,7 @@ class ${testClassName} : ${decisionBaseClass}() {
         // Initialize input data
         <#items as input>
         <#assign inputInfo = tckUtil.extractInputNodeInfo(testCases, testCase, input) >
-        val ${tckUtil.inputDataVariableName(inputInfo)}: ${tckUtil.toJavaType(inputInfo)} = ${tckUtil.toJavaExpression(inputInfo)}
+        val ${tckUtil.inputDataVariableName(inputInfo)}: ${tckUtil.toNativeType(inputInfo)} = ${tckUtil.toNativeExpression(inputInfo)}
         <#if tckUtil.isCached(inputInfo)>
         ${tckUtil.cacheVariableName()}.bind("${tckUtil.inputDataVariableName(inputInfo)}", ${tckUtil.inputDataVariableName(inputInfo)})
         </#if>
@@ -63,9 +63,9 @@ class ${testClassName} : ${decisionBaseClass}() {
         // Check ${result.name}
         <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
         <#if tckUtil.isCaching()>
-        checkValues(${tckUtil.toJavaExpression(resultInfo)}, ${tckUtil.qualifiedName(resultInfo)}().apply(${tckUtil.drgElementArgumentsExtraCache(tckUtil.drgElementArgumentsExtra(tckUtil.drgElementArgumentList(resultInfo)))}))
+        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.qualifiedName(resultInfo)}().apply(${tckUtil.drgElementArgumentsExtraCache(tckUtil.drgElementArgumentsExtra(tckUtil.drgElementArgumentList(resultInfo)))}))
         <#else>
-        checkValues(${tckUtil.toJavaExpression(resultInfo)}, ${tckUtil.qualifiedName(resultInfo)}().apply(${tckUtil.drgElementArgumentsExtra(tckUtil.drgElementArgumentList(resultInfo))}))
+        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.qualifiedName(resultInfo)}().apply(${tckUtil.drgElementArgumentsExtra(tckUtil.drgElementArgumentList(resultInfo))}))
         </#if>
         </#items>
     </#list>

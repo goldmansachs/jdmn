@@ -13,70 +13,59 @@
 package com.gs.dmn.signavio.dialect;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.dialect.AbstractDMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.feel.synthesis.type.StandardNativeTypeFactory;
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.signavio.feel.lib.DefaultSignavioLib;
 import com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision;
-import com.gs.dmn.signavio.runtime.SignavioEnvironmentFactory;
-import com.gs.dmn.signavio.runtime.interpreter.SignavioDMNInterpreter;
-import com.gs.dmn.signavio.transformation.BasicSignavioDMN2JavaTransformer;
+import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.transformation.SignavioDMNToJavaTransformer;
-import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
+import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMN2JavaTransformer;
+import com.gs.dmn.transformation.DMNToNativeTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
-import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 
-import java.util.LinkedHashMap;
+import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
 import java.util.Map;
 
-public class SignavioDMNDialectDefinition extends AbstractDMNDialectDefinition {
+public class SignavioDMNDialectDefinition extends AbstractSignavioDMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     //
     // DMN processors
     //
     @Override
-    public DMNInterpreter createDMNInterpreter(DMNModelRepository repository, Map<String, String> inputParameters) {
-        return new SignavioDMNInterpreter(createBasicTransformer(repository, new NopLazyEvaluationDetector(), new LinkedHashMap<>()), createFEELLib());
-    }
-
-    @Override
-    public AbstractDMNToNativeTransformer createDMNToJavaTransformer(DMNValidator dmnValidator, DMNTransformer dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
-        return new SignavioDMNToJavaTransformer(this, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
+    public DMNToNativeTransformer createDMNToNativeTransformer(DMNValidator dmnValidator, DMNTransformer<TestLab> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
+        return new SignavioDMNToJavaTransformer<>(this, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
     }
 
     @Override
     public BasicDMN2JavaTransformer createBasicTransformer(DMNModelRepository repository, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         EnvironmentFactory environmentFactory = createEnvironmentFactory();
-        return new BasicSignavioDMN2JavaTransformer(repository, environmentFactory, createTypeTranslator(), lazyEvaluationDetector, inputParameters);
+        return new BasicSignavioDMN2JavaTransformer(repository, environmentFactory, createNativeTypeFactory(), lazyEvaluationDetector, inputParameters);
     }
 
     //
     // Execution engine
     //
     @Override
-    public NativeTypeFactory createTypeTranslator() {
+    public NativeTypeFactory createNativeTypeFactory() {
         return new StandardNativeTypeFactory();
     }
 
     @Override
-    public FEELLib createFEELLib() {
+    public FEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> createFEELLib() {
         return new DefaultSignavioLib();
     }
 
     @Override
     public String getDecisionBaseClass() {
         return DefaultSignavioBaseDecision.class.getName();
-    }
-
-    private EnvironmentFactory createEnvironmentFactory() {
-        return SignavioEnvironmentFactory.instance();
     }
 }

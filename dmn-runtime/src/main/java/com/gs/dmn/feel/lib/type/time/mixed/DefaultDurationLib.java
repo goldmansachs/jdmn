@@ -22,7 +22,7 @@ import java.time.ZonedDateTime;
 
 public class DefaultDurationLib {
     private final DatatypeFactory dataTypeFactory;
-    private LocalDateLib dateLib = new LocalDateLib();
+    private final LocalDateLib dateLib = new LocalDateLib();
 
     public DefaultDurationLib(DatatypeFactory dataTypeFactory) {
         this.dataTypeFactory = dataTypeFactory;

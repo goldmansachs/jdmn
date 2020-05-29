@@ -66,7 +66,7 @@ interface TDeptTable : com.gs.dmn.runtime.DMNType {
                 result_.manager = other.get("manager") as String?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
-                return toTDeptTable(other)
+                return toTDeptTable(other.toContext())
             } else {
                 throw com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.javaClass.getSimpleName(), TDeptTable::class.java.getSimpleName()))
             }

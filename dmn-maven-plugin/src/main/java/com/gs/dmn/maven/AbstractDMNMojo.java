@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AbstractDMNMojo extends AbstractMojo {
+public abstract class AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractMojo {
     @Parameter(defaultValue = "${project}", readonly = true, required = true)
     public MavenProject project;
 
@@ -45,8 +45,8 @@ public abstract class AbstractDMNMojo extends AbstractMojo {
         }
     }
 
-    protected DMNDialectDefinition makeDialect(Class<?> dialectClass) throws InstantiationException, IllegalAccessException {
-        return (DMNDialectDefinition) dialectClass.newInstance();
+    protected DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> makeDialect(Class<?> dialectClass) throws InstantiationException, IllegalAccessException {
+        return (DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST>) dialectClass.newInstance();
     }
 
     protected DMNValidator makeDMNValidator(String[] dmnValidatorClassNames, BuildLogger logger) throws Exception {
@@ -65,24 +65,24 @@ public abstract class AbstractDMNMojo extends AbstractMojo {
         return new CompositeDMNValidator(dmnValidators);
     }
 
-    protected DMNTransformer makeDMNTransformer(DMNTransformerComponent[] dmnTransformerComponents, BuildLogger logger) throws Exception {
+    protected DMNTransformer<TEST> makeDMNTransformer(DMNTransformerComponent[] dmnTransformerComponents, BuildLogger logger) throws Exception {
         if (dmnTransformerComponents == null) {
-            return new NopDMNTransformer();
+            return new NopDMNTransformer<TEST>();
         }
-        List<DMNTransformer> dmnTransformers = new ArrayList<>();
+        List<DMNTransformer<TEST>> dmnTransformers = new ArrayList<>();
         for(DMNTransformerComponent dmnTransformerComponent : dmnTransformerComponents) {
-            DMNTransformer transformer;
+            DMNTransformer<TEST> transformer;
             Class<?> dmnTransformerClass = Class.forName(dmnTransformerComponent.getName());
             try {
-                transformer = (DMNTransformer) dmnTransformerClass.getConstructor(new Class[]{BuildLogger.class}).newInstance(new Object[]{logger});
+                transformer = (DMNTransformer<TEST>) dmnTransformerClass.getConstructor(new Class[]{BuildLogger.class}).newInstance(new Object[]{logger});
             } catch (Exception e) {
-                transformer = (DMNTransformer) dmnTransformerClass.newInstance();
+                transformer = (DMNTransformer<TEST>) dmnTransformerClass.newInstance();
             }
 
             transformer.configure(dmnTransformerComponent.getConfiguration());
             dmnTransformers.add(transformer);
         }
-        return new CompositeDMNTransformer(dmnTransformers);
+        return new CompositeDMNTransformer<TEST>(dmnTransformers);
     }
 
     protected LazyEvaluationDetector makeLazyEvaluationDetector(String[] detectorClassNames, BuildLogger logger, Map<String, String> inputParameters) throws Exception {

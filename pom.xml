@@ -87,7 +87,7 @@
         <jaxb.plugin.version>2.4</jaxb.plugin.version>
         <antlr4.version>4.7.2</antlr4.version>
 
-        <jackson.version>2.10.2</jackson.version>
+        <jackson.version>2.11.0</jackson.version>
         <jackson.core.version>${jackson.version}</jackson.core.version>
         <jackson.databind.version>${jackson.version}</jackson.databind.version>
         <jackson.annotations.version>${jackson.version}</jackson.annotations.version>
@@ -102,7 +102,7 @@
         <sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
         <aggregate.report.dir>target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
         <sonar.exclusions>target/**/*</sonar.exclusions>
-        <line.coverage.minimum>0.60</line.coverage.minimum>
+        <line.coverage.minimum>0.50</line.coverage.minimum>
 
         <ban.snapshot>false</ban.snapshot>
     </properties>
