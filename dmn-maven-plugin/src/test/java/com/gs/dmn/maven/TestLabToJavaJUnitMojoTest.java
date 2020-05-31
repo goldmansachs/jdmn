@@ -23,8 +23,8 @@ import java.io.File;
 
 import static org.junit.Assert.assertTrue;
 
-public class TestLabToKotlinJUnitMojoTestJava extends AbstractMojoTest {
-    private final TestLabToKotlinJUnitMojo mojo = new TestLabToKotlinJUnitMojo();
+public class TestLabToJavaJUnitMojoTest extends AbstractMojoTest {
+    private final TestLabToJavaJUnitMojo mojo = new TestLabToJavaJUnitMojo();
     private final MavenProject project = new MavenProject();
 
     @Test(expected = IllegalArgumentException.class)
