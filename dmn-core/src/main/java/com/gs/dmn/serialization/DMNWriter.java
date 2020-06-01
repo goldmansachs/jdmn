@@ -34,8 +34,8 @@ public class DMNWriter extends DMNSerializer {
     }
 
     public void write(Object definitions, File output, DMNNamespacePrefixMapper namespacePrefixMapper) {
-        try {
-            write(definitions, new FileOutputStream(output), namespacePrefixMapper);
+        try (FileOutputStream fos = new FileOutputStream(output)) {
+            write(definitions, fos, namespacePrefixMapper);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot write DMN to '%s'", output.getPath()), e);
         }

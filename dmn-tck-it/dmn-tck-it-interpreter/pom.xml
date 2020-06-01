@@ -35,6 +35,14 @@
             <groupId>com.goldmansachs.jdmn</groupId>
             <artifactId>jdmn-core</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.goldmansachs.jdmn</groupId>
+            <artifactId>jdmn-core</artifactId>
+            <version>${project.version}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <profiles>
