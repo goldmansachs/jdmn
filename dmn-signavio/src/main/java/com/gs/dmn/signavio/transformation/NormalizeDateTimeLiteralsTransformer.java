@@ -212,7 +212,7 @@ public class NormalizeDateTimeLiteralsTransformer extends SimpleDMNTransformer<T
             String rawText = literalText.replaceAll("\"", "");
             if ("date and time".equals(feelFunctionName)) {
                 // date and time
-                temporal = this.feelLib.dateAndTime(rawText).withZoneSameInstant(ZoneId.of("Z"));
+                temporal = this.feelLib.dateAndTime(rawText).withZoneSameInstant(ZoneOffset.UTC);
             } else {
                 // time
                 temporal = this.feelLib.time(rawText).withOffsetSameInstant(ZoneOffset.UTC);
