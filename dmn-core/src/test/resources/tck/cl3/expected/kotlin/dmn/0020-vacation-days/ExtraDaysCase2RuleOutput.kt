@@ -4,8 +4,8 @@ class ExtraDaysCase2RuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput
     var extraDaysCase2: java.math.BigDecimal? = null
 
     override fun equals(o: Any?): Boolean {
-        if (this == o) return true
-        if (o == null || javaClass != o.javaClass) return false
+        if (this === o) return true
+        if (javaClass != o?.javaClass) return false
 
         val other = o as ExtraDaysCase2RuleOutput
         if (if (this.extraDaysCase2 != null) this.extraDaysCase2 != other.extraDaysCase2 else other.extraDaysCase2 != null) return false

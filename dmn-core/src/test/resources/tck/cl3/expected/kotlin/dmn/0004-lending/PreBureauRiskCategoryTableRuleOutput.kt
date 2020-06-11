@@ -4,8 +4,8 @@ class PreBureauRiskCategoryTableRuleOutput(matched: Boolean) : com.gs.dmn.runtim
     var preBureauRiskCategoryTable: String? = null
 
     override fun equals(o: Any?): Boolean {
-        if (this == o) return true
-        if (o == null || javaClass != o.javaClass) return false
+        if (this === o) return true
+        if (javaClass != o?.javaClass) return false
 
         val other = o as PreBureauRiskCategoryTableRuleOutput
         if (if (this.preBureauRiskCategoryTable != null) this.preBureauRiskCategoryTable != other.preBureauRiskCategoryTable else other.preBureauRiskCategoryTable != null) return false

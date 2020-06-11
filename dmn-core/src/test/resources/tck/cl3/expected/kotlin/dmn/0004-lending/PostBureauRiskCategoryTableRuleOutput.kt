@@ -4,8 +4,8 @@ class PostBureauRiskCategoryTableRuleOutput(matched: Boolean) : com.gs.dmn.runti
     var postBureauRiskCategoryTable: String? = null
 
     override fun equals(o: Any?): Boolean {
-        if (this == o) return true
-        if (o == null || javaClass != o.javaClass) return false
+        if (this === o) return true
+        if (javaClass != o?.javaClass) return false
 
         val other = o as PostBureauRiskCategoryTableRuleOutput
         if (if (this.postBureauRiskCategoryTable != null) this.postBureauRiskCategoryTable != other.postBureauRiskCategoryTable else other.postBureauRiskCategoryTable != null) return false

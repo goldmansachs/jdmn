@@ -4,8 +4,8 @@ class PriceGt10RuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput(matc
     var priceGt10: Boolean? = null
 
     override fun equals(o: Any?): Boolean {
-        if (this == o) return true
-        if (o == null || javaClass != o.javaClass) return false
+        if (this === o) return true
+        if (javaClass != o?.javaClass) return false
 
         val other = o as PriceGt10RuleOutput
         if (if (this.priceGt10 != null) this.priceGt10 != other.priceGt10 else other.priceGt10 != null) return false

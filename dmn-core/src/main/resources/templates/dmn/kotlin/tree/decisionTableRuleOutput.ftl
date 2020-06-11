@@ -39,8 +39,8 @@ class ${javaClassName}(matched: Boolean) : ${transformer.abstractRuleOutputClass
 
 <#macro addEqualsAndHashCode itemDefinition >
     override fun equals(o: Any?): Boolean {
-        if (this == o) return true
-        if (o == null || javaClass != o.javaClass) return false
+        if (this === o) return true
+        if (javaClass != o?.javaClass) return false
 
         val other = o as ${javaClassName}
         <#assign expression = modelRepository.expression(drgElement)>
