@@ -67,55 +67,55 @@ public class SignavioEnvironmentFactory extends EnvironmentFactory {
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("modulo", new BuiltinFunctionType(NUMBER, new Parameter("divident", NUMBER), new Parameter("divisor", NUMBER))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("percent", new BuiltinFunctionType(NUMBER, new Parameter("number", NUMBER))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("power", new BuiltinFunctionType(NUMBER, new Parameter("base", NUMBER), new Parameter("exponent", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("product", new BuiltinFunctionType(NUMBER, new Parameter("list", NUMBER_LIST))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("product", new BuiltinFunctionType(NUMBER, new Parameter("list", ANY_LIST))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("roundDown", new BuiltinFunctionType(NUMBER, new Parameter("number", NUMBER), new Parameter("digits", NUMBER))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("roundUp", new BuiltinFunctionType(NUMBER, new Parameter("number", NUMBER), new Parameter("digits", NUMBER))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("sum", new BuiltinFunctionType(NUMBER, new Parameter("list", ANY_LIST))));
 
         // Date time functions
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("day", new BuiltinFunctionType(NUMBER, new Parameter("date", DATE))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("day", new BuiltinFunctionType(NUMBER, new Parameter("datetime", DATE))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("day", new BuiltinFunctionType(NUMBER, new Parameter("datetime", DATE_AND_TIME))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("dayAdd", new BuiltinFunctionType(DATE, new Parameter("date", DATE), new Parameter("days to add", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("dayAdd", new BuiltinFunctionType(DATE, new Parameter("datetime", DATE_AND_TIME), new Parameter("days to add", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("dayDiff", new BuiltinFunctionType(NUMBER, new Parameter("date1", DATE), new Parameter("date2", DATE))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("dayAdd", new BuiltinFunctionType(DATE, new Parameter("datetime", DATE), new Parameter("days_to_add", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("dayAdd", new BuiltinFunctionType(DATE, new Parameter("datetime", DATE_AND_TIME), new Parameter("days_to_add", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("dayDiff", new BuiltinFunctionType(NUMBER, new Parameter("datetime1", DATE), new Parameter("datetime2", DATE))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("dayDiff", new BuiltinFunctionType(NUMBER, new Parameter("datetime1", DATE_AND_TIME), new Parameter("datetime2", DATE_AND_TIME))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("date", new BuiltinFunctionType(DATE, new Parameter("day", NUMBER), new Parameter("month", NUMBER), new Parameter("year", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("date", new BuiltinFunctionType(DATE, new Parameter("year", NUMBER), new Parameter("month", NUMBER), new Parameter("day", NUMBER))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("dateTime", new BuiltinFunctionType(DATE_AND_TIME, new Parameter("day", NUMBER), new Parameter("month", NUMBER), new Parameter("year", NUMBER), new Parameter("hour", NUMBER), new Parameter("minute", NUMBER), new Parameter("second", NUMBER), new Parameter("hourOffset", NUMBER, true, false))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("hour", new BuiltinFunctionType(NUMBER, new Parameter("time", TIME))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("hour", new BuiltinFunctionType(NUMBER, new Parameter("datetime", TIME))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("hour", new BuiltinFunctionType(NUMBER, new Parameter("datetime", DATE_AND_TIME))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("hourDiff", new BuiltinFunctionType(NUMBER, new Parameter("time1", TIME), new Parameter("time2", TIME))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("hourDiff", new BuiltinFunctionType(NUMBER, new Parameter("datetime1", TIME), new Parameter("datetime2", TIME))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("hourDiff", new BuiltinFunctionType(NUMBER, new Parameter("datetime1", DATE_AND_TIME), new Parameter("datetime2", DATE_AND_TIME))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("minute", new BuiltinFunctionType(NUMBER, new Parameter("time", TIME))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("minute", new BuiltinFunctionType(NUMBER, new Parameter("datetime", TIME))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("minute", new BuiltinFunctionType(NUMBER, new Parameter("datetime", DATE_AND_TIME))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("minutesDiff", new BuiltinFunctionType(NUMBER, new Parameter("time1", TIME), new Parameter("time2", TIME))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("minutesDiff", new BuiltinFunctionType(NUMBER, new Parameter("datetime1", TIME), new Parameter("datetime2", TIME))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("minutesDiff", new BuiltinFunctionType(NUMBER, new Parameter("datetime1", DATE_AND_TIME), new Parameter("datetime2", DATE_AND_TIME))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("month", new BuiltinFunctionType(NUMBER, new Parameter("date", DATE))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("month", new BuiltinFunctionType(NUMBER, new Parameter("datetime", DATE))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("month", new BuiltinFunctionType(NUMBER, new Parameter("datetime", DATE_AND_TIME))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("monthAdd", new BuiltinFunctionType(DATE, new Parameter("date", DATE), new Parameter("months_to_add", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("monthAdd", new BuiltinFunctionType(DATE, new Parameter("datetime", DATE), new Parameter("months_to_add", NUMBER))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("monthAdd", new BuiltinFunctionType(DATE, new Parameter("datetime", DATE_AND_TIME), new Parameter("months_to_add", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("monthDiff", new BuiltinFunctionType(NUMBER, new Parameter("date1", DATE), new Parameter("date2", DATE))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("monthDiff", new BuiltinFunctionType(NUMBER, new Parameter("datetime1", DATE), new Parameter("datetime2", DATE))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("monthDiff", new BuiltinFunctionType(NUMBER, new Parameter("datetime1", DATE_AND_TIME), new Parameter("datetime2", DATE_AND_TIME))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("now", new BuiltinFunctionType(DATE_AND_TIME)));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("today", new BuiltinFunctionType(DATE)));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("weekday", new BuiltinFunctionType(NUMBER, new Parameter("date", DATE))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("weekday", new BuiltinFunctionType(NUMBER, new Parameter("datetime", DATE))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("weekday", new BuiltinFunctionType(NUMBER, new Parameter("datetime", DATE_AND_TIME))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("year", new BuiltinFunctionType(NUMBER, new Parameter("date", DATE))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("year", new BuiltinFunctionType(NUMBER, new Parameter("datetime", DATE))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("year", new BuiltinFunctionType(NUMBER, new Parameter("datetime", DATE_AND_TIME))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("yearAdd", new BuiltinFunctionType(DATE_AND_TIME, new Parameter("date", DATE), new Parameter("years_to_add", NUMBER))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("yearAdd", new BuiltinFunctionType(DATE_AND_TIME, new Parameter("datetime", DATE), new Parameter("years_to_add", NUMBER))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("yearAdd", new BuiltinFunctionType(DATE_AND_TIME, new Parameter("datetime", DATE_AND_TIME), new Parameter("years_to_add", NUMBER))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("yearDiff", new BuiltinFunctionType(NUMBER, new Parameter("date1", DATE), new Parameter("date2", DATE))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("yearDiff", new BuiltinFunctionType(NUMBER, new Parameter("datetime1", DATE), new Parameter("datetime2", DATE))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("yearDiff", new BuiltinFunctionType(NUMBER, new Parameter("datetime1", DATE_AND_TIME), new Parameter("datetime2", DATE_AND_TIME))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("yearDiff", new BuiltinFunctionType(NUMBER, new Parameter("date1", DATE), new Parameter("date2", DATE_AND_TIME))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("yearDiff", new BuiltinFunctionType(NUMBER, new Parameter("datetime1", DATE), new Parameter("datetime2", DATE_AND_TIME))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("yearDiff", new BuiltinFunctionType(NUMBER, new Parameter("datetime1", DATE_AND_TIME), new Parameter("datetime2", DATE))));
 
         // List functions
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("append", new BuiltinFunctionType(ANY_LIST, new Parameter("list", ANY_LIST), new Parameter("item", ANY))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("append", new BuiltinFunctionType(ANY_LIST, new Parameter("list", ANY_LIST), new Parameter("element", ANY))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("appendAll", new BuiltinFunctionType(ANY_LIST, new Parameter("list1", ANY_LIST), new Parameter("list2", ANY_LIST))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("remove", new BuiltinFunctionType(ANY_LIST, new Parameter("list", ANY_LIST), new Parameter("element", ANY))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("removeAll", new BuiltinFunctionType(ANY_LIST, new Parameter("list1", ANY_LIST), new Parameter("list2", ANY_LIST))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("zip", new BuiltinFunctionType(ANY_LIST, new Parameter("attributes", ANY_LIST), new Parameter("values", ANY_LIST))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("notContainsAny", new BuiltinFunctionType(BOOLEAN, new Parameter("", ANY_LIST), new Parameter("", ANY_LIST))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("containsOnly", new BuiltinFunctionType(BOOLEAN, new Parameter("", ANY_LIST), new Parameter("", ANY_LIST))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("notContainsAny", new BuiltinFunctionType(BOOLEAN, new Parameter("list1", ANY_LIST), new Parameter("list2", ANY_LIST))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("containsOnly", new BuiltinFunctionType(BOOLEAN, new Parameter("list1", ANY_LIST), new Parameter("list2", ANY_LIST))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("areElementsOf", new BuiltinFunctionType(BOOLEAN, new Parameter("list1", ANY_LIST), new Parameter("list2", ANY_LIST))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("elementOf", new BuiltinFunctionType(BOOLEAN, new Parameter("list1", ANY), new Parameter("list2", ANY_LIST))));
 
@@ -143,8 +143,8 @@ public class SignavioEnvironmentFactory extends EnvironmentFactory {
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("text", new BuiltinFunctionType(STRING, new Parameter("num", NUMBER), new Parameter("format_text", STRING))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("textOccurrences", new BuiltinFunctionType(NUMBER, new Parameter("find_text", STRING), new Parameter("within_text", STRING))));
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("contains", new BuiltinFunctionType(BOOLEAN, new Parameter("text", STRING), new Parameter("substring", STRING))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("startsWith", new BuiltinFunctionType(BOOLEAN, new Parameter("string", STRING), new Parameter("match", STRING))));
-        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("endsWith", new BuiltinFunctionType(BOOLEAN, new Parameter("string", STRING), new Parameter("match", STRING))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("startsWith", new BuiltinFunctionType(BOOLEAN, new Parameter("string", STRING), new Parameter("prefix", STRING))));
+        environment.addDeclaration(INSTANCE.makeFunctionDeclaration("endsWith", new BuiltinFunctionType(BOOLEAN, new Parameter("string", STRING), new Parameter("suffix", STRING))));
 
         // Boolean functions
         environment.addDeclaration(INSTANCE.makeFunctionDeclaration("not", new BuiltinFunctionType(BOOLEAN, new Parameter("boolean", BOOLEAN))));
