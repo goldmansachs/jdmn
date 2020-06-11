@@ -5,8 +5,8 @@ class EligibilityRulesRuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutp
     var eligibilityRulesPriority: Int? = 0
 
     override fun equals(o: Any?): Boolean {
-        if (this == o) return true
-        if (o == null || javaClass != o.javaClass) return false
+        if (this === o) return true
+        if (javaClass != o?.javaClass) return false
 
         val other = o as EligibilityRulesRuleOutput
         if (if (this.eligibilityRules != null) this.eligibilityRules != other.eligibilityRules else other.eligibilityRules != null) return false

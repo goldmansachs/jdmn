@@ -4,8 +4,8 @@ class StrategyRuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput(match
     var strategy: String? = null
 
     override fun equals(o: Any?): Boolean {
-        if (this == o) return true
-        if (o == null || javaClass != o.javaClass) return false
+        if (this === o) return true
+        if (javaClass != o?.javaClass) return false
 
         val other = o as StrategyRuleOutput
         if (if (this.strategy != null) this.strategy != other.strategy else other.strategy != null) return false
