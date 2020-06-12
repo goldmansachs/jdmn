@@ -56,7 +56,7 @@ class Main() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
     }
 
-    private fun evaluate(n: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): java.math.BigDecimal? {
+    private inline fun evaluate(n: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): java.math.BigDecimal? {
         return FACT.FACT(n, annotationSet_, eventListener_, externalExecutor_) as java.math.BigDecimal?
     }
 

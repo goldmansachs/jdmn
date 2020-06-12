@@ -56,7 +56,7 @@ class PriceGt10() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
     }
 
-    private fun evaluate(structA: type.TA?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): Boolean? {
+    private inline fun evaluate(structA: type.TA?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): Boolean? {
         // Apply rules and collect results
         val ruleOutputList_ = com.gs.dmn.runtime.RuleOutputList()
         ruleOutputList_.add(rule0(structA, annotationSet_, eventListener_, externalExecutor_))

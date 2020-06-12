@@ -56,7 +56,7 @@ class Sort1() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
     }
 
-    private fun evaluate(listA: List<java.math.BigDecimal?>?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): List<java.math.BigDecimal?>? {
+    private inline fun evaluate(listA: List<java.math.BigDecimal?>?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): List<java.math.BigDecimal?>? {
         return sort(listA, com.gs.dmn.runtime.LambdaExpression<Boolean> { args -> val x: java.math.BigDecimal? = args[0] as java.math.BigDecimal?; val y: java.math.BigDecimal? = args[1] as java.math.BigDecimal?;numericGreaterThan(x, y) }) as List<java.math.BigDecimal?>?
     }
 

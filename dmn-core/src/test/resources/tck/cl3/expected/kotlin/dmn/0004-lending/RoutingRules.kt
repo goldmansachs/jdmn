@@ -39,7 +39,7 @@ class RoutingRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    private fun evaluate(postBureauRiskCategory: String?, postBureauAffordability: Boolean?, bankrupt: Boolean?, creditScore: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): String? {
+    private inline fun evaluate(postBureauRiskCategory: String?, postBureauAffordability: Boolean?, bankrupt: Boolean?, creditScore: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): String? {
         // Apply rules and collect results
         val ruleOutputList_ = com.gs.dmn.runtime.RuleOutputList()
         ruleOutputList_.add(rule0(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, annotationSet_, eventListener_, externalExecutor_))

@@ -99,7 +99,7 @@
 </#macro>
 
 <#macro addEvaluateIterationMethod drgElement>
-    private fun evaluate(${transformer.drgElementEvaluateSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+    private inline fun evaluate(${transformer.drgElementEvaluateSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
         <#assign multiInstanceDecision = transformer.multiInstanceDecisionLogic(drgElement)/>
         <#assign iterationExpression = multiInstanceDecision.iterationExpression/>
         <#assign iterator = multiInstanceDecision.iterator/>
@@ -136,7 +136,7 @@
     BKM linked to Decision
 -->
 <#macro addEvaluateBKMLinkedToDecisionMethod drgElement>
-    private fun evaluate(${transformer.drgElementEvaluateSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+    private inline fun evaluate(${transformer.drgElementEvaluateSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
         return ${transformer.bkmLinkedToDecisionToNative(drgElement)}
     }
 </#macro>
@@ -176,7 +176,7 @@ import static ${transformer.qualifiedName(subBKM)}.${transformer.bkmFunctionName
     Decision table
 -->
 <#macro addEvaluateDecisionTableMethod drgElement>
-    private fun evaluate(${transformer.drgElementEvaluateSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+    private inline fun evaluate(${transformer.drgElementEvaluateSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
     <#assign expression = modelRepository.expression(drgElement)>
         <@collectRuleResults drgElement expression />
 
@@ -334,7 +334,7 @@ import static ${transformer.qualifiedName(subBKM)}.${transformer.bkmFunctionName
 </#macro>
 
 <#macro addEvaluateExpressionMethod drgElement>
-    private fun evaluate(${transformer.drgElementEvaluateSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+    private inline fun evaluate(${transformer.drgElementEvaluateSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
     <#if modelRepository.isFreeTextLiteralExpression(drgElement)>
         return ${transformer.freeTextLiteralExpressionToNative(drgElement)}
     <#else>
