@@ -56,7 +56,7 @@ class Payment() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
     }
 
-    private fun evaluate(loan: type.TLoan?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): java.math.BigDecimal? {
+    private inline fun evaluate(loan: type.TLoan?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): java.math.BigDecimal? {
         return numericDivide(numericDivide(numericMultiply(loan?.let({ it.principal as java.math.BigDecimal? }), loan?.let({ it.rate as java.math.BigDecimal? })), number("12")), numericSubtract(number("1"), numericExponentiation(numericAdd(number("1"), numericDivide(loan?.let({ it.rate as java.math.BigDecimal? }), number("12"))), numericUnaryMinus(loan?.let({ it.termMonths as java.math.BigDecimal? }))))) as java.math.BigDecimal?
     }
 

@@ -37,7 +37,7 @@ class Bankrates() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
     }
 
-    private fun evaluate(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): List<type.TLoanProduct?>? {
+    private inline fun evaluate(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): List<type.TLoanProduct?>? {
         return asList(type.TLoanProductImpl(number("0"), "Oceans Capital", number("0"), number(".03500")),
 				type.TLoanProductImpl(number("2700"), "eClick Lending", number("1.1"), number(".03200")),
 				type.TLoanProductImpl(number("1200"), "eClickLending", number("0.1"), number(".03375")),
