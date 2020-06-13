@@ -93,8 +93,8 @@
         <jackson.annotations.version>${jackson.version}</jackson.annotations.version>
         <jackson.datatype.version>${jackson.version}</jackson.datatype.version>
 
-        <slf4j.version>1.7.22</slf4j.version>
-        <logback.version>1.2.1</logback.version>
+        <slf4j.version>1.7.30</slf4j.version>
+        <logback.version>1.2.3</logback.version>
 
         <jacoco.version>0.8.5</jacoco.version>
         <sonar.language>java</sonar.language>
