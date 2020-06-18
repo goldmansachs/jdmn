@@ -12,6 +12,9 @@
  */
 package com.gs.dmn.runtime;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.function.Supplier;
 
 /**
@@ -21,6 +24,8 @@ import java.util.function.Supplier;
  *
  */
 public final class LazyEval<T> {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(LazyEval.class);
+
     private T value;
     private boolean isValueSet = false;
     private final Supplier<T> supplier;
@@ -34,6 +39,8 @@ public final class LazyEval<T> {
     }
 
     private T compute() {
+        LOGGER.info("Trigger lazy evaluation");
+
         isValueSet = true;
         return value = supplier.get();
     }
