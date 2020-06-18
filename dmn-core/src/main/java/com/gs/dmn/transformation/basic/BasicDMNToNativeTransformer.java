@@ -304,6 +304,10 @@ public interface BasicDMNToNativeTransformer {
 
     boolean isCached(String elementName);
 
+    boolean isParallelStream();
+
+    String getStream();
+
     String drgElementSignatureExtraCache(DRGElementReference<? extends TDRGElement> reference);
 
     String drgElementSignatureExtraCache(TDRGElement element);

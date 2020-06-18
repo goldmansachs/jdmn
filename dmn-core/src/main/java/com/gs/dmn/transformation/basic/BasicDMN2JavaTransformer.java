@@ -76,6 +76,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     private final boolean caching;
     private final Integer cachingThreshold;
     private final boolean singletonInputData;
+    private final boolean parallelStream;
 
     private final LazyEvaluationOptimisation lazyEvaluationOptimisation;
     private final Set<String> cachedElements;
@@ -101,6 +102,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         String cachingThresholdParam = InputParamUtil.getOptionalParam(inputParameters, "cachingThreshold", "1");
         this.cachingThreshold = Integer.parseInt(cachingThresholdParam);
         this.singletonInputData = InputParamUtil.getOptionalBooleanParam(inputParameters, "singletonInputData", "true");
+        this.parallelStream = InputParamUtil.getOptionalBooleanParam(inputParameters, "parallelStream", "false");
 
         this.lazyEvaluationOptimisation = lazyEvaluationDetector.detect(this.dmnModelRepository);
         this.cachedElements = this.dmnModelRepository.computeCachedElements(this.caching, this.cachingThreshold);
@@ -1191,6 +1193,16 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
             return false;
         }
         return this.cachedElements.contains(elementName);
+    }
+
+    @Override
+    public boolean isParallelStream() {
+        return this.parallelStream;
+    }
+
+    @Override
+    public String getStream() {
+        return this.isParallelStream() ? "parallelStream()" : "stream()";
     }
 
     @Override
