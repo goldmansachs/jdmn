@@ -7,6 +7,8 @@ import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 
+import static com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER;
+
 public class StandardJsonSerializerTest extends AbstractJsonSerializerTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     @Override
     protected FEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> makeFEELLib() {
@@ -14,28 +16,28 @@ public class StandardJsonSerializerTest extends AbstractJsonSerializerTest<BigDe
     }
 
     @Override
-    protected Class<BigDecimal> getNumberClass() {
-        return BigDecimal.class;
+    protected BigDecimal readNumber(String literal) throws Exception {
+        return OBJECT_MAPPER.readValue(literal, BigDecimal.class);
     }
 
     @Override
-    protected Class<XMLGregorianCalendar> getDateClass() {
-        return XMLGregorianCalendar.class;
+    protected XMLGregorianCalendar readDate(String literal) throws Exception {
+        return OBJECT_MAPPER.readValue(literal, XMLGregorianCalendar.class);
     }
 
     @Override
-    protected Class<XMLGregorianCalendar> getTimeClass() {
-        return XMLGregorianCalendar.class;
+    protected XMLGregorianCalendar readTime(String literal) throws Exception {
+        return OBJECT_MAPPER.readValue(literal, XMLGregorianCalendar.class);
     }
 
     @Override
-    protected Class<XMLGregorianCalendar> getDateTimeClass() {
-        return XMLGregorianCalendar.class;
+    protected XMLGregorianCalendar readDateTime(String literal) throws Exception {
+        return OBJECT_MAPPER.readValue(literal, XMLGregorianCalendar.class);
     }
 
     @Override
-    protected Class<Duration> getDurationClass() {
-        return Duration.class;
+    protected Duration readDuration(String literal) throws Exception {
+        return OBJECT_MAPPER.readValue(literal, Duration.class);
     }
 }
 
