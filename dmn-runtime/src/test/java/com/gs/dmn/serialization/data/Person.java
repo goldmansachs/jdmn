@@ -1,17 +1,16 @@
 /*
- Copyright 2016.
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-   http://www.apache.org/licenses/LICENSE-2.0
- Unless required by applicable law or agreed to in writing,
- software distributed under the License is distributed on an
- "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- KIND, either express or implied.  See the License for the
- specific language governing permissions and limitations
- under the License.
-*/
-package com.gs.dmn.generated.example_credit_decision;
+ * Copyright 2016 Goldman Sachs.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+ *
+ * You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations under the License.
+ */
+package com.gs.dmn.serialization.data;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -88,6 +87,9 @@ public interface Person extends com.gs.dmn.runtime.DMNType {
     @com.fasterxml.jackson.annotation.JsonGetter("AT")
     String getAT();
 
+    @com.fasterxml.jackson.annotation.JsonGetter("Addresses")
+    List<Address> getAddresses();
+
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
         context.put("id", getId());
@@ -126,6 +128,7 @@ public interface Person extends com.gs.dmn.runtime.DMNType {
         if (getDaysAndTimeDuration() != null ? !getDaysAndTimeDuration().equals(person.getDaysAndTimeDuration()) : person.getDaysAndTimeDuration() != null) return false;
         if (getAt() != null ? !getAt().equals(person.getAt()) : person.getAt() != null) return false;
         if (getAT() != null ? !getAT().equals(person.getAT()) : person.getAT() != null) return false;
+        if (getAddresses() != null ? !getAddresses().equals(person.getAddresses()) : person.getAddresses() != null) return false;
         return true;
     }
 
@@ -145,6 +148,7 @@ public interface Person extends com.gs.dmn.runtime.DMNType {
         result = 31 * result + (getDaysAndTimeDuration() != null ? getDaysAndTimeDuration().hashCode() : 0);
         result = 31 * result + (getAt() != null ? getAt().hashCode() : 0);
         result = 31 * result + (getAT() != null ? getAT().hashCode() : 0);
+        result = 31 * result + (getAddresses() != null ? getAddresses().hashCode() : 0);
         return result;
     }
 
@@ -164,6 +168,7 @@ public interface Person extends com.gs.dmn.runtime.DMNType {
         result_.append(", Days and Time Duration=" + getDaysAndTimeDuration());
         result_.append(", 514 AT=" + getAt());
         result_.append(", AT=" + getAT());
+        result_.append(", Addresses=" + getAddresses());
         result_.append("}");
         return result_.toString();
     }

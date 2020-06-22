@@ -1,17 +1,16 @@
 /*
- Copyright 2016.
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-   http://www.apache.org/licenses/LICENSE-2.0
- Unless required by applicable law or agreed to in writing,
- software distributed under the License is distributed on an
- "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- KIND, either express or implied.  See the License for the
- specific language governing permissions and limitations
- under the License.
-*/
-package com.gs.dmn.generated.example_credit_decision;
+ * Copyright 2016 Goldman Sachs.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+ *
+ * You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations under the License.
+ */
+package com.gs.dmn.serialization.data;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -29,16 +28,17 @@ public class PersonImpl implements Person {
     private String gender;
     private Boolean married;
     private List<String> list;
-    private List<javax.xml.datatype.XMLGregorianCalendar> dateTimeList;
+    private List<XMLGregorianCalendar> dateTimeList;
     private Duration yearsAndMonthsDuration;
     private Duration daysAndTimeDuration;
     private String at;
     private String aT;
+    private List<Address> addresses;
 
     public PersonImpl() {
     }
 
-    public PersonImpl(BigDecimal id, String firstName, String lastName, XMLGregorianCalendar dateOfBirth, XMLGregorianCalendar timeOfBirth, XMLGregorianCalendar dateTimeOfBirth, String gender, Boolean married, List<String> list, List<XMLGregorianCalendar> dateTimeList, Duration yearsAndMonthsDuration, Duration daysAndTimeDuration) {
+    public PersonImpl(BigDecimal id, String firstName, String lastName, XMLGregorianCalendar dateOfBirth, XMLGregorianCalendar timeOfBirth, XMLGregorianCalendar dateTimeOfBirth, String gender, Boolean married, List<String> list, List<XMLGregorianCalendar> dateTimeList, Duration yearsAndMonthsDuration, Duration daysAndTimeDuration, List<Address> addresses) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -51,16 +51,17 @@ public class PersonImpl implements Person {
         this.dateTimeList = dateTimeList;
         this.yearsAndMonthsDuration = yearsAndMonthsDuration;
         this.daysAndTimeDuration = daysAndTimeDuration;
+        this.addresses = addresses;
     }
 
     @Override
     @com.fasterxml.jackson.annotation.JsonGetter("ID")
-    public java.math.BigDecimal getId() {
+    public BigDecimal getId() {
         return this.id;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("ID")
-    public void setId(java.math.BigDecimal id) {
+    public void setId(BigDecimal id) {
         this.id = id;
     }
 
@@ -201,5 +202,31 @@ public class PersonImpl implements Person {
     @com.fasterxml.jackson.annotation.JsonSetter("AT")
     public void setAT(String aT) {
         this.aT = aT;
+    }
+
+    @Override
+    @com.fasterxml.jackson.annotation.JsonGetter("Addresses")
+    public List<Address> getAddresses() {
+        return this.addresses;
+    }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("Addresses")
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return equalTo(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return hash();
+    }
+
+    @Override
+    public String toString() {
+        return asString();
     }
 }
