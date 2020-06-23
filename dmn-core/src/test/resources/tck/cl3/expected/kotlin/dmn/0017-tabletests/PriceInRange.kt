@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class PriceInRange() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     fun apply(numB: String?, numC: String?, structA: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): String? {
         return try {
-            apply(numB?.let({ number(it) }), numC?.let({ number(it) }), structA?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, type.TAImpl::class.java) }), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+            apply(numB?.let({ number(it) }), numC?.let({ number(it) }), structA?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TAImpl>() {}) }), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
         } catch (e: Exception) {
             logError("Cannot apply decision 'PriceInRange'", e)
             null
@@ -24,7 +24,7 @@ class PriceInRange() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
     fun apply(numB: String?, numC: String?, structA: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): String? {
         return try {
-            apply(numB?.let({ number(it) }), numC?.let({ number(it) }), structA?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, type.TAImpl::class.java) }), annotationSet_, eventListener_, externalExecutor_)
+            apply(numB?.let({ number(it) }), numC?.let({ number(it) }), structA?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TAImpl>() {}) }), annotationSet_, eventListener_, externalExecutor_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'PriceInRange'", e)
             null

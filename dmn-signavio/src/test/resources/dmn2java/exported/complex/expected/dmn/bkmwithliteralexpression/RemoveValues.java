@@ -34,7 +34,7 @@ public class RemoveValues extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
 
     public List<java.math.BigDecimal> apply(String listOfNumbers, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((listOfNumbers != null ? asList(com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(listOfNumbers, java.math.BigDecimal[].class)) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((listOfNumbers != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(listOfNumbers, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
         } catch (Exception e) {
             logError("Cannot apply decision 'RemoveValues'", e);
             return null;
@@ -43,7 +43,7 @@ public class RemoveValues extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
 
     public List<java.math.BigDecimal> apply(String listOfNumbers, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            return apply((listOfNumbers != null ? asList(com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(listOfNumbers, java.math.BigDecimal[].class)) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((listOfNumbers != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(listOfNumbers, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), annotationSet_, eventListener_, externalExecutor_);
         } catch (Exception e) {
             logError("Cannot apply decision 'RemoveValues'", e);
             return null;

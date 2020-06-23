@@ -28,7 +28,7 @@ public class BigMid extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
 
     public List<Boolean> apply(String testPeopleType, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((testPeopleType != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(testPeopleType, type.TestPeopleTypeImpl.class) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((testPeopleType != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(testPeopleType, new com.fasterxml.jackson.core.type.TypeReference<type.TestPeopleTypeImpl>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
         } catch (Exception e) {
             logError("Cannot apply decision 'BigMid'", e);
             return null;
@@ -37,7 +37,7 @@ public class BigMid extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
 
     public List<Boolean> apply(String testPeopleType, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            return apply((testPeopleType != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(testPeopleType, type.TestPeopleTypeImpl.class) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((testPeopleType != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(testPeopleType, new com.fasterxml.jackson.core.type.TypeReference<type.TestPeopleTypeImpl>() {}) : null), annotationSet_, eventListener_, externalExecutor_);
         } catch (Exception e) {
             logError("Cannot apply decision 'BigMid'", e);
             return null;
