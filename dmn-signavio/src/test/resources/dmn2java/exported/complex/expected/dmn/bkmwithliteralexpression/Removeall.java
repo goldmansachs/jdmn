@@ -28,7 +28,7 @@ public class Removeall extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
 
     public List<String> apply(String blacklist, String names, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((blacklist != null ? asList(com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(blacklist, String[].class)) : null), (names != null ? asList(com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(names, String[].class)) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((blacklist != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(blacklist, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (names != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(names, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
         } catch (Exception e) {
             logError("Cannot apply decision 'Removeall'", e);
             return null;
@@ -37,7 +37,7 @@ public class Removeall extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
 
     public List<String> apply(String blacklist, String names, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            return apply((blacklist != null ? asList(com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(blacklist, String[].class)) : null), (names != null ? asList(com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(names, String[].class)) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((blacklist != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(blacklist, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (names != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(names, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), annotationSet_, eventListener_, externalExecutor_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Removeall'", e);
             return null;

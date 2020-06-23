@@ -28,7 +28,7 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
 
     public List<type.Compile> apply(String name, String numbers, String trafficLight, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply(name, (numbers != null ? asList(com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(numbers, java.math.BigDecimal[].class)) : null), (trafficLight != null ? asList(com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(trafficLight, String[].class)) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply(name, (numbers != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(numbers, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), (trafficLight != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(trafficLight, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
         } catch (Exception e) {
             logError("Cannot apply decision 'Compile'", e);
             return null;
@@ -37,7 +37,7 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
 
     public List<type.Compile> apply(String name, String numbers, String trafficLight, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            return apply(name, (numbers != null ? asList(com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(numbers, java.math.BigDecimal[].class)) : null), (trafficLight != null ? asList(com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(trafficLight, String[].class)) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply(name, (numbers != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(numbers, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), (trafficLight != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(trafficLight, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), annotationSet_, eventListener_, externalExecutor_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Compile'", e);
             return null;
