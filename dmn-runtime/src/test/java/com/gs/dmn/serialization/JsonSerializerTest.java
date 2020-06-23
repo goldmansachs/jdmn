@@ -28,7 +28,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
+import static com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -37,6 +39,7 @@ public class JsonSerializerTest {
     private final String personText = "{\"514 AT\":\"at\",\"AT\":\"AT\",\"Addresses\":null,\"Date and Time List\":[\"2016-08-01T12:00:00Z\"],\"Date and Time of Birth\":\"2016-08-01T12:00:00Z\",\"Date of Birth\":\"2017-01-03\",\"Days and Time Duration\":\"P2DT20H\",\"First Name\":\"Amy\",\"Gender\":\"female\",\"ID\":38,\"Last Name\":\"Smith\",\"List\":[\"Late payment\"],\"Married\":true,\"Time of Birth\":\"11:20:30Z\",\"Years and Months Duration\":\"P1Y1M\"}";
     private final String listOfPersonText = "[{\"514 AT\":null,\"AT\":null,\"Addresses\":[{\"Line\":\"11\",\"Postcode\":\"11\"},{\"Line\":\"12\",\"Postcode\":\"12\"}],\"Date and Time List\":null,\"Date and Time of Birth\":null,\"Date of Birth\":null,\"Days and Time Duration\":null,\"First Name\":null,\"Gender\":null,\"ID\":1,\"Last Name\":null,\"List\":null,\"Married\":null,\"Time of Birth\":null,\"Years and Months Duration\":null}]";
     private final String listOfListOfPersonText = "[[{\"514 AT\":null,\"AT\":null,\"Addresses\":[{\"Line\":\"11\",\"Postcode\":\"11\"},{\"Line\":\"12\",\"Postcode\":\"12\"}],\"Date and Time List\":null,\"Date and Time of Birth\":null,\"Date of Birth\":null,\"Days and Time Duration\":null,\"First Name\":null,\"Gender\":null,\"ID\":1,\"Last Name\":null,\"List\":null,\"Married\":null,\"Time of Birth\":null,\"Years and Months Duration\":null}]]";
+    private String numberListListText = "[[1,2]]";
 
     @Test
     public void testPersonSerialization() throws Exception {
@@ -56,11 +59,7 @@ public class JsonSerializerTest {
         person.setAT("AT");
         person.setAt("at");
 
-        Writer writer = new StringWriter();
-        JsonSerializer.OBJECT_MAPPER.writeValue(writer, person);
-        writer.close();
-
-        assertEquals(personText, writer.toString());
+        assertEquals(personText, OBJECT_MAPPER.writeValueAsString(person));
     }
 
     @Test
@@ -88,11 +87,7 @@ public class JsonSerializerTest {
         List<Person> personList = new ArrayList<>();
         personList.add(makePerson("1"));
 
-        Writer writer = new StringWriter();
-        JsonSerializer.OBJECT_MAPPER.writeValue(writer, personList);
-        writer.close();
-
-        assertEquals(listOfPersonText, writer.toString());
+        assertEquals(listOfPersonText, OBJECT_MAPPER.writeValueAsString(personList));
     }
 
     @Test
@@ -113,12 +108,9 @@ public class JsonSerializerTest {
     public void testListOfListOfPersonSerialization() throws Exception {
         List<Person> personList = new ArrayList<>();
         personList.add(makePerson("1"));
+        Set<List<Person>> personListList = Collections.singleton(personList);
 
-        Writer writer = new StringWriter();
-        JsonSerializer.OBJECT_MAPPER.writeValue(writer, Collections.singleton(personList));
-        writer.close();
-
-        assertEquals(listOfListOfPersonText, writer.toString());
+        assertEquals(listOfListOfPersonText, OBJECT_MAPPER.writeValueAsString(personListList));
     }
 
     @Test
@@ -141,9 +133,14 @@ public class JsonSerializerTest {
         List<BigDecimal> numberList = new ArrayList<>();
         numberList.add(new BigDecimal("1"));
         numberList.add(new BigDecimal("2"));
+        Set<List<BigDecimal>> numberListList = Collections.singleton(numberList);
 
-        String text = JsonSerializer.OBJECT_MAPPER.writeValueAsString(Collections.singleton(numberList));
-        List<List<BigDecimal>> list = readNumberListList(text);
+        assertEquals(numberListListText, OBJECT_MAPPER.writeValueAsString(numberListList));
+    }
+
+    @Test
+    public void testListOfListOfNumberDeserialization() throws IOException {
+        List<List<BigDecimal>> list = readNumberListList(numberListListText);
 
         assertEquals(1, list.size());
         List<BigDecimal> personList = list.get(0);
@@ -166,18 +163,18 @@ public class JsonSerializerTest {
     }
 
     private List<List<BigDecimal>> readNumberListList(String text) throws com.fasterxml.jackson.core.JsonProcessingException {
-        return JsonSerializer.OBJECT_MAPPER.readValue(text, new TypeReference<List<List<BigDecimal>>>() {});
+        return OBJECT_MAPPER.readValue(text, new TypeReference<List<List<BigDecimal>>>() {});
     }
 
     private Person readPerson(String personText) throws Exception {
-        return JsonSerializer.OBJECT_MAPPER.readValue(personText, new TypeReference<Person>() {});
+        return OBJECT_MAPPER.readValue(personText, new TypeReference<Person>() {});
     }
 
     private List<Person> readPersonList(String personText) throws Exception {
-        return JsonSerializer.OBJECT_MAPPER.readValue(personText, new TypeReference<List<Person>>() {});
+        return OBJECT_MAPPER.readValue(personText, new TypeReference<List<Person>>() {});
     }
 
     private List<List<Person>> readPersonListList(String personText) throws Exception {
-        return JsonSerializer.OBJECT_MAPPER.readValue(personText, new TypeReference<List<List<Person>>>() {});
+        return OBJECT_MAPPER.readValue(personText, new TypeReference<List<List<Person>>>() {});
     }
 }
