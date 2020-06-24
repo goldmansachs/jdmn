@@ -32,6 +32,7 @@ import com.gs.dmn.runtime.metadata.ExtensionElement;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import com.gs.dmn.transformation.java.ExpressionStatement;
 import com.gs.dmn.transformation.java.Statement;
@@ -52,12 +53,13 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
     }
 
     @Override
-    protected void setDMNEnvironmentFactory() {
-        this.dmnEnvironmentFactory = new SignavioDMNEnvironmentFactory(this);
+    protected void setDMNEnvironmentFactory(BasicDMNToNativeTransformer transformer) {
+        this.dmnEnvironmentFactory = new SignavioDMNEnvironmentFactory(transformer);
     }
 
-    protected void setFEELTypeFactory() {
-        this.feelTypeFactory = new SignavioFEELTypeFactory(this);
+    @Override
+    protected void setFEELTypeFactory(BasicDMNToNativeTransformer transformer) {
+        this.feelTypeFactory = new SignavioFEELTypeFactory(transformer);
     }
 
     //

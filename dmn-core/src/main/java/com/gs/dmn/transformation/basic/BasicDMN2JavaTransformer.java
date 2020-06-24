@@ -63,13 +63,8 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     protected final DMNModelRepository dmnModelRepository;
     protected final EnvironmentFactory environmentFactory;
-    protected DMNEnvironmentFactory dmnEnvironmentFactory;
-    protected StandardFEELTypeFactory feelTypeFactory;
     protected final NativeTypeFactory nativeTypeFactory;
-    protected NativeExpressionFactory nativeExpressionFactory;
-
-    protected final FEELTranslator feelTranslator;
-    private final DMNExpressionToNativeTransformer expressionToNativeTransformer;
+    private final LazyEvaluationDetector lazyEvaluationDetector;
 
     private final String javaRootPackage;
     private final boolean onePackage;
@@ -80,21 +75,22 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     private final LazyEvaluationOptimisation lazyEvaluationOptimisation;
     private final Set<String> cachedElements;
-    protected final DRGElementFilter drgElementFilter;
 
+    protected DMNEnvironmentFactory dmnEnvironmentFactory;
+    protected StandardFEELTypeFactory feelTypeFactory;
+    protected NativeExpressionFactory nativeExpressionFactory;
+    protected FEELTranslator feelTranslator;
+    protected DMNExpressionToNativeTransformer expressionToNativeTransformer;
+    protected final DRGElementFilter drgElementFilter;
     protected final JavaTypeMemoizer nativeTypeMemoizer;
 
     public BasicDMN2JavaTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory nativeTypeFactory, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         this.dmnModelRepository = dmnModelRepository;
         this.environmentFactory = environmentFactory;
         this.nativeTypeFactory = nativeTypeFactory;
-        setExpressionFactory();
+        this.lazyEvaluationDetector = lazyEvaluationDetector;
 
-        this.feelTranslator = new FEELTranslatorImpl(this);
-        setDMNEnvironmentFactory();
-        setFEELTypeFactory();
-        this.expressionToNativeTransformer = new DMNExpressionToNativeTransformer(this);
-
+        // Configuration
         this.javaRootPackage = InputParamUtil.getOptionalParam(inputParameters, "javaRootPackage");
         boolean onePackageDefault = dmnModelRepository.getAllDefinitions().size() == 1;
         this.onePackage = InputParamUtil.getOptionalBooleanParam(inputParameters, "onePackage", "" + onePackageDefault);
@@ -104,23 +100,39 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         this.singletonInputData = InputParamUtil.getOptionalBooleanParam(inputParameters, "singletonInputData", "true");
         this.parallelStream = InputParamUtil.getOptionalBooleanParam(inputParameters, "parallelStream", "false");
 
-        this.lazyEvaluationOptimisation = lazyEvaluationDetector.detect(this.dmnModelRepository);
+        // Derived data
+        this.lazyEvaluationOptimisation = this.lazyEvaluationDetector.detect(this.dmnModelRepository);
         this.cachedElements = this.dmnModelRepository.computeCachedElements(this.caching, this.cachingThreshold);
-        this.drgElementFilter = new DRGElementFilter(this.singletonInputData);
 
+        // Helpers
+        setExpressionFactory(this);
+        setFEELTranslator(this);
+        setDMNEnvironmentFactory(this);
+        setFEELTypeFactory(this);
+        setExpressionToNativeTransformer(this);
+
+        this.drgElementFilter = new DRGElementFilter(this.singletonInputData);
         this.nativeTypeMemoizer = new JavaTypeMemoizer();
     }
 
-    protected void setFEELTypeFactory() {
-        this.feelTypeFactory = new StandardFEELTypeFactory(this);
+    protected void setFEELTypeFactory(BasicDMNToNativeTransformer transformer) {
+        this.feelTypeFactory = new StandardFEELTypeFactory(transformer);
     }
 
-    protected void setDMNEnvironmentFactory() {
-        this.dmnEnvironmentFactory = new StandardDMNEnvironmentFactory(this);
+    protected void setDMNEnvironmentFactory(BasicDMNToNativeTransformer transformer) {
+        this.dmnEnvironmentFactory = new StandardDMNEnvironmentFactory(transformer);
     }
 
-    protected void setExpressionFactory() {
-        this.nativeExpressionFactory = new JavaExpressionFactory(this);
+    protected void setExpressionFactory(BasicDMNToNativeTransformer transformer) {
+        this.nativeExpressionFactory = new JavaExpressionFactory(transformer);
+    }
+
+    private void setExpressionToNativeTransformer(BasicDMNToNativeTransformer transformer) {
+        this.expressionToNativeTransformer = new DMNExpressionToNativeTransformer(transformer);
+    }
+
+    private void setFEELTranslator(BasicDMNToNativeTransformer transformer) {
+        this.feelTranslator = new FEELTranslatorImpl(transformer);
     }
 
     @Override
