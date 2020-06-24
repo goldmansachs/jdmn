@@ -37,12 +37,15 @@ import java.util.List;
 import java.util.Map;
 
 public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
+    protected final BasicDMNToNativeTransformer dmnTransformer;
+
     protected final DMNModelRepository dmnModelRepository;
     protected final EnvironmentFactory environmentFactory;
-    private final EnvironmentMemoizer environmentMemoizer;
-    protected final BasicDMNToNativeTransformer dmnTransformer;
+
     private final FEELTranslator feelTranslator;
     private final FEELTypeFactory feelTypeFactory;
+
+    private final EnvironmentMemoizer environmentMemoizer;
 
     public StandardDMNEnvironmentFactory(BasicDMNToNativeTransformer dmnTransformer) {
         this.dmnTransformer = dmnTransformer;
