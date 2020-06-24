@@ -105,7 +105,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         this.cachedElements = this.dmnModelRepository.computeCachedElements(this.caching, this.cachingThreshold);
 
         // Helpers
-        setExpressionFactory(this);
+        setNativeExpressionFactory(this);
         setFEELTranslator(this);
         setDMNEnvironmentFactory(this);
         setFEELTypeFactory(this);
@@ -123,7 +123,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         this.dmnEnvironmentFactory = new StandardDMNEnvironmentFactory(transformer);
     }
 
-    protected void setExpressionFactory(BasicDMNToNativeTransformer transformer) {
+    protected void setNativeExpressionFactory(BasicDMNToNativeTransformer transformer) {
         this.nativeExpressionFactory = new JavaExpressionFactory(transformer);
     }
 

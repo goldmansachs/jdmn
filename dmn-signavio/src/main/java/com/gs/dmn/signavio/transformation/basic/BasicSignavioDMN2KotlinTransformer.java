@@ -30,7 +30,7 @@ public class BasicSignavioDMN2KotlinTransformer extends BasicSignavioDMN2JavaTra
     }
 
     @Override
-    protected void setExpressionFactory(BasicDMNToNativeTransformer transformer) {
+    protected void setNativeExpressionFactory(BasicDMNToNativeTransformer transformer) {
         this.nativeExpressionFactory = new KotlinExpressionFactory(this);
     }
 
