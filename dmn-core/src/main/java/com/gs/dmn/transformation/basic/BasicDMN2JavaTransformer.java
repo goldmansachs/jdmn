@@ -144,7 +144,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public StandardFEELTypeFactory getFEELTypeFactory() {
+    public FEELTypeFactory getFEELTypeFactory() {
         return this.feelTypeFactory;
     }
 

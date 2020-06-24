@@ -42,7 +42,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     private final EnvironmentMemoizer environmentMemoizer;
     protected final BasicDMNToNativeTransformer dmnTransformer;
     private final FEELTranslator feelTranslator;
-    private final StandardFEELTypeFactory feelTypeFactory;
+    private final FEELTypeFactory feelTypeFactory;
 
     public StandardDMNEnvironmentFactory(BasicDMNToNativeTransformer dmnTransformer) {
         this.dmnTransformer = dmnTransformer;
