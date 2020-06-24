@@ -44,8 +44,6 @@ public interface BasicDMNToNativeTransformer {
 
     FEELTranslator getFEELTranslator();
 
-    FEELTypeFactory getFEELTypeFactory();
-
     NativeTypeFactory getNativeTypeFactory();
 
     NativeExpressionFactory getNativeExpressionFactory();

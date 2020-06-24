@@ -57,11 +57,6 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
         this.dmnEnvironmentFactory = new SignavioDMNEnvironmentFactory(transformer);
     }
 
-    @Override
-    protected void setFEELTypeFactory(BasicDMNToNativeTransformer transformer) {
-        this.feelTypeFactory = new SignavioFEELTypeFactory(transformer);
-    }
-
     //
     // BKM
     //
@@ -332,7 +327,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
             Expression body = ((FunctionDefinition) literalExpression).getBody();
             String javaCode;
             if (((FunctionDefinition) literalExpression).isExternal()) {
-                Type type = this.feelTypeFactory.externalFunctionReturnFEELType(element, body);
+                Type type = this.dmnEnvironmentFactory.externalFunctionReturnFEELType(element, body);
                 String returnNativeType = toNativeType(type);
                 String className = externalFunctionClassName(body);
                 String methodName = externalFunctionMethodName(body);
