@@ -35,7 +35,7 @@ public abstract class AbstractAnalysisVisitor extends AbstractVisitor {
         this.dmnTransformer = dmnTransformer;
         this.environmentFactory = dmnTransformer.getEnvironmentFactory();
         this.feelTypeTranslator = dmnTransformer.getNativeTypeFactory();
-        this.expressionFactory = dmnTransformer.getExpressionFactory();
+        this.expressionFactory = dmnTransformer.getNativeExpressionFactory();
     }
 
     protected FEELContext makeFilterContext(FEELContext parentContext, Expression source, String filterVariableName) {

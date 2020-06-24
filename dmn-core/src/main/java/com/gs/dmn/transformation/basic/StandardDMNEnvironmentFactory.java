@@ -36,7 +36,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StandardDMNEnvironmentFactory {
+public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     protected final DMNModelRepository dmnModelRepository;
     protected final EnvironmentFactory environmentFactory;
     private final EnvironmentMemoizer environmentMemoizer;
@@ -55,6 +55,7 @@ public class StandardDMNEnvironmentFactory {
         this.environmentMemoizer = new EnvironmentMemoizer();
     }
 
+    @Override
     public Environment makeEnvironment(TDRGElement element) {
         Environment environment = environmentMemoizer.get(element);
         if (environment == null) {
@@ -69,6 +70,7 @@ public class StandardDMNEnvironmentFactory {
         return makeEnvironment(element, parentEnvironment);
     }
 
+    @Override
     public Environment makeEnvironment(TDRGElement element, Environment parentEnvironment) {
         Environment elementEnvironment = this.environmentFactory.makeEnvironment(parentEnvironment);
 
@@ -152,12 +154,14 @@ public class StandardDMNEnvironmentFactory {
     //
     // Decision Table
     //
+    @Override
     public Environment makeInputEntryEnvironment(TDRGElement element, Expression inputExpression) {
         Environment environment = this.environmentFactory.makeEnvironment(this.dmnTransformer.makeEnvironment(element), inputExpression);
         environment.addDeclaration(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER, this.environmentFactory.makeVariableDeclaration(AbstractDMNToNativeTransformer.INPUT_ENTRY_PLACE_HOLDER, inputExpression.getType()));
         return environment;
     }
 
+    @Override
     public Environment makeOutputEntryEnvironment(TDRGElement element, EnvironmentFactory environmentFactory) {
         return this.environmentFactory.makeEnvironment(this.dmnTransformer.makeEnvironment(element));
     }
@@ -165,6 +169,7 @@ public class StandardDMNEnvironmentFactory {
     //
     // Function Definition
     //
+    @Override
     public Environment makeFunctionDefinitionEnvironment(TNamedElement element, TFunctionDefinition functionDefinition, Environment parentEnvironment) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         Environment environment = this.environmentFactory.makeEnvironment(parentEnvironment);
@@ -173,6 +178,7 @@ public class StandardDMNEnvironmentFactory {
         return environment;
     }
 
+    @Override
     public Declaration makeVariableDeclaration(TDRGElement element, TInformationItem variable) {
         // Check variable
         String name = element.getName();
@@ -227,6 +233,7 @@ public class StandardDMNEnvironmentFactory {
     //
     // Context
     //
+    @Override
     public Pair<Environment, Map<TContextEntry, Expression>> makeContextEnvironment(TDRGElement element, TContext context, Environment parentEnvironment) {
         Environment contextEnvironment = this.dmnTransformer.makeEnvironment(element, parentEnvironment);
         Map<TContextEntry, Expression> literalExpressionMap = new LinkedHashMap<>();
@@ -253,7 +260,7 @@ public class StandardDMNEnvironmentFactory {
         return new Pair<>(contextEnvironment, literalExpressionMap);
     }
 
-    Type entryType(TNamedElement element, TContextEntry entry, TExpression expression, Expression feelExpression) {
+    public Type entryType(TDRGElement element, TContextEntry entry, TExpression expression, Expression feelExpression) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         TInformationItem variable = entry.getVariable();
         Type entryType = variableType(element, variable);
@@ -278,7 +285,8 @@ public class StandardDMNEnvironmentFactory {
         }
     }
 
-    Type entryType(TDRGElement element, TContextEntry entry, Environment contextEnvironment) {
+    @Override
+    public Type entryType(TDRGElement element, TContextEntry entry, Environment contextEnvironment) {
         TInformationItem variable = entry.getVariable();
         Type feelType = variableType(element, variable);
         if (feelType != null) {
@@ -302,6 +310,7 @@ public class StandardDMNEnvironmentFactory {
     //
     // Relation
     //
+    @Override
     public Environment makeRelationEnvironment(TNamedElement element, TRelation relation, Environment environment) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         Environment relationEnvironment = this.environmentFactory.makeEnvironment(environment);

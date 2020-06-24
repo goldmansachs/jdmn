@@ -40,7 +40,7 @@ public interface BasicDMNToNativeTransformer {
 
     EnvironmentFactory getEnvironmentFactory();
 
-    StandardDMNEnvironmentFactory getDMNEnvironmentFactory();
+    DMNEnvironmentFactory getDMNEnvironmentFactory();
 
     FEELTranslator getFEELTranslator();
 
@@ -48,7 +48,7 @@ public interface BasicDMNToNativeTransformer {
 
     NativeTypeFactory getNativeTypeFactory();
 
-    NativeExpressionFactory getExpressionFactory();
+    NativeExpressionFactory getNativeExpressionFactory();
 
     DRGElementFilter getDrgElementFilter();
 

@@ -51,7 +51,7 @@ public class JavaxToolsCompiler extends JavaCompilerImpl {
         String signature = "Object... args";
         boolean convertToContext = true;
         String body = feelTranslator.expressionToNative(element.getBody(), context);
-        NativeExpressionFactory expressionFactory = dmnTransformer.getExpressionFactory();
+        NativeExpressionFactory expressionFactory = dmnTransformer.getNativeExpressionFactory();
         String applyMethod = expressionFactory.applyMethod(functionType, signature, convertToContext, body);
 
         // Class parts

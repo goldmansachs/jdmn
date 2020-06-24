@@ -16,6 +16,7 @@ import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
+import com.gs.dmn.transformation.basic.DMNEnvironmentFactory;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import com.gs.dmn.transformation.basic.StandardDMNEnvironmentFactory;
 import org.omg.spec.dmn._20180521.model.*;

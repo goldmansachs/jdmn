@@ -17,7 +17,6 @@ import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.synthesis.expression.KotlinExpressionFactory;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
-import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TItemDefinition;
@@ -31,7 +30,7 @@ public class BasicSignavioDMN2KotlinTransformer extends BasicSignavioDMN2JavaTra
 
     @Override
     protected void setExpressionFactory() {
-        this.expressionFactory = new KotlinExpressionFactory(this);
+        this.nativeExpressionFactory = new KotlinExpressionFactory(this);
     }
 
     // Types

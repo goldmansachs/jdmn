@@ -48,7 +48,7 @@ public class DMNExpressionToNativeTransformer {
     private final DMNModelRepository dmnModelRepository;
     private final FEELTranslator feelTranslator;
     private final EnvironmentFactory environmentFactory;
-    private final StandardDMNEnvironmentFactory dmnEnvironmentFactory;
+    private final DMNEnvironmentFactory dmnEnvironmentFactory;
     private final NativeExpressionFactory expressionFactory;
 
     DMNExpressionToNativeTransformer(BasicDMNToNativeTransformer dmnTransformer) {
@@ -58,7 +58,7 @@ public class DMNExpressionToNativeTransformer {
         this.feelTranslator = dmnTransformer.getFEELTranslator();
         this.environmentFactory = dmnTransformer.getEnvironmentFactory();
         this.dmnEnvironmentFactory = dmnTransformer.getDMNEnvironmentFactory();
-        this.expressionFactory = dmnTransformer.getExpressionFactory();
+        this.expressionFactory = dmnTransformer.getNativeExpressionFactory();
     }
 
     //
