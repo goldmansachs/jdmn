@@ -36,12 +36,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class StandardFEELTypeFactory implements FEELTypeFactory {
-    protected final FEELTypeMemoizer feelTypeMemoizer;
     protected final BasicDMNToNativeTransformer dmnTransformer;
     protected final DMNModelRepository dmnModelRepository;
     protected final EnvironmentFactory environmentFactory;
+
     protected final DMNEnvironmentFactory dmnEnvironmentFactory;
     protected final FEELTranslator feelTranslator;
+
+    protected final FEELTypeMemoizer feelTypeMemoizer;
 
     public StandardFEELTypeFactory(BasicDMNToNativeTransformer dmnTransformer) {
         this.dmnTransformer = dmnTransformer;
