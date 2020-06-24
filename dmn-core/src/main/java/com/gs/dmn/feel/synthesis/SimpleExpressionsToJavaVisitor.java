@@ -248,7 +248,7 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
     @Override
     public Object visit(BooleanLiteral element, FEELContext context) {
         String value = element.getLexeme();
-        return "true".equals(value) ? this.expressionFactory.trueConstant() : this.expressionFactory.falseConstant();
+        return "true".equals(value) ? this.nativeExpressionFactory.trueConstant() : this.nativeExpressionFactory.falseConstant();
     }
 
     @Override
