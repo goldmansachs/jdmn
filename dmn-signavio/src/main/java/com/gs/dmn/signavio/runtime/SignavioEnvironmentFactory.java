@@ -26,7 +26,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
-public class SignavioEnvironmentFactory extends EnvironmentFactory {
+public class SignavioEnvironmentFactory implements EnvironmentFactory {
     private static final EnvironmentFactory INSTANCE = new SignavioEnvironmentFactory();
     private static final Environment ROOT_ENVIRONMENT;
 

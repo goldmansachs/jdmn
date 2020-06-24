@@ -26,7 +26,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
-public class StandardEnvironmentFactory extends EnvironmentFactory {
+public class StandardEnvironmentFactory implements EnvironmentFactory {
     private static final EnvironmentFactory INSTANCE = new StandardEnvironmentFactory();
     private static final Environment ROOT_ENVIRONMENT;
 
