@@ -51,7 +51,7 @@ public class TestLabUtil {
             this.dmnModelRepository = new SignavioDMNModelRepository(dmnModelRepository.getRootDefinitions(), dmnModelRepository.getPrefixNamespaceMappings());
         }
         this.dmnTransformer = dmnTransformer;
-        this.expressionFactory = dmnTransformer.getExpressionFactory();
+        this.expressionFactory = dmnTransformer.getNativeExpressionFactory();
         this.typeFactory = dmnTransformer.getNativeTypeFactory();
     }
 

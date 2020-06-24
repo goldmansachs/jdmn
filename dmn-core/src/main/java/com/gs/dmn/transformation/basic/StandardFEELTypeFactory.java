@@ -35,12 +35,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class StandardFEELTypeFactory {
+public class StandardFEELTypeFactory implements FEELTypeFactory {
     protected final FEELTypeMemoizer feelTypeMemoizer;
     protected final BasicDMNToNativeTransformer dmnTransformer;
     protected final DMNModelRepository dmnModelRepository;
     protected final EnvironmentFactory environmentFactory;
-    protected final StandardDMNEnvironmentFactory dmnEnvironmentFactory;
+    protected final DMNEnvironmentFactory dmnEnvironmentFactory;
     protected final FEELTranslator feelTranslator;
 
     public StandardFEELTypeFactory(BasicDMNToNativeTransformer dmnTransformer) {
@@ -56,10 +56,12 @@ public class StandardFEELTypeFactory {
     //
     // DRG Elements
     //
+    @Override
     public Type drgElementOutputFEELType(TDRGElement element) {
         return drgElementOutputFEELType(element, this.dmnTransformer.makeEnvironment(element));
     }
 
+    @Override
     public Type drgElementOutputFEELType(TDRGElement element, Environment environment) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         QualifiedName typeRef = this.dmnModelRepository.typeRef(model, element);
@@ -71,6 +73,7 @@ public class StandardFEELTypeFactory {
         }
     }
 
+    @Override
     public Type drgElementVariableFEELType(TDRGElement element) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         QualifiedName typeRef = this.dmnModelRepository.typeRef(model, element);
@@ -83,6 +86,7 @@ public class StandardFEELTypeFactory {
         return type;
     }
 
+    @Override
     public Type drgElementVariableFEELType(TDRGElement element, Environment environment) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         QualifiedName typeRef = this.dmnModelRepository.typeRef(model, element);
@@ -117,6 +121,7 @@ public class StandardFEELTypeFactory {
         throw new DMNRuntimeException(String.format("Cannot infer the output type of '%s'", element.getName()));
     }
 
+    @Override
     public Type toFEELType(TInputData inputData) {
         TDefinitions model = this.dmnModelRepository.getModel(inputData);
         String typeRefString = inputData.getVariable().getTypeRef();
@@ -127,10 +132,12 @@ public class StandardFEELTypeFactory {
     //
     // Expression related functions
     //
+    @Override
     public Type expressionType(TDRGElement element, JAXBElement<? extends TExpression> jElement, Environment environment) {
         return jElement == null ? null : expressionType(element, jElement.getValue(), environment);
     }
 
+    @Override
     public Type expressionType(TDRGElement element, TExpression expression, Environment environment) {
         if (expression == null) {
             return null;
@@ -188,6 +195,7 @@ public class StandardFEELTypeFactory {
         }
     }
 
+    @Override
     public Type convertType(Type type, boolean convertToContext) {
         if (convertToContext) {
             if (type instanceof ItemDefinitionType) {
@@ -200,6 +208,7 @@ public class StandardFEELTypeFactory {
     //
     // Common Type functions
     //
+    @Override
     public Type toFEELType(TDefinitions model, String typeName) {
         Type type = this.feelTypeMemoizer.get(model, typeName);
         if (type == null) {
@@ -227,6 +236,7 @@ public class StandardFEELTypeFactory {
         throw new DMNRuntimeException(String.format("Cannot map type '%s' to FEEL", qName.toString()));
     }
 
+    @Override
     public Type toFEELType(TDefinitions model, QualifiedName typeRef) {
         Type type = this.feelTypeMemoizer.get(model, typeRef);
         if (type == null) {
@@ -250,6 +260,7 @@ public class StandardFEELTypeFactory {
         throw new DMNRuntimeException(String.format("Cannot map type '%s' to FEEL", typeRef));
     }
 
+    @Override
     public Type toFEELType(TItemDefinition itemDefinition) {
         Type type = this.feelTypeMemoizer.get(itemDefinition);
         if (type == null) {
@@ -328,6 +339,7 @@ public class StandardFEELTypeFactory {
         }
     }
 
+    @Override
     public FunctionType makeDSType(TDecisionService decisionService) {
         List<FormalParameter> parameters = this.dmnTransformer.dsFEELParameters(decisionService);
         return new DMNFunctionType(parameters, makeDSOutputType(decisionService), decisionService);
@@ -369,6 +381,7 @@ public class StandardFEELTypeFactory {
         return expression.getType();
     }
 
+    @Override
     public Type externalFunctionReturnFEELType(TNamedElement element, Expression body) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         if (body instanceof Context) {
