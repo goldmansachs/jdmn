@@ -65,7 +65,5 @@ public interface FEELTypeFactory {
 
     Type toFEELType(TItemDefinition itemDefinition);
 
-    FunctionType makeDSType(TDecisionService decisionService);
-
     Type externalFunctionReturnFEELType(TNamedElement element, Expression body);
 }

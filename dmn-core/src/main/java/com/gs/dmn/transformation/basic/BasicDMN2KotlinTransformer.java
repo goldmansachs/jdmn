@@ -29,7 +29,7 @@ public class BasicDMN2KotlinTransformer extends BasicDMN2JavaTransformer {
     }
 
     @Override
-    protected void setExpressionFactory(BasicDMNToNativeTransformer transformer) {
+    protected void setNativeExpressionFactory(BasicDMNToNativeTransformer transformer) {
         this.nativeExpressionFactory = new KotlinExpressionFactory(this);
     }
 

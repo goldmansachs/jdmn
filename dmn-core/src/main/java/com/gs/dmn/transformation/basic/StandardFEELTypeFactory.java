@@ -45,10 +45,12 @@ public class StandardFEELTypeFactory implements FEELTypeFactory {
 
     public StandardFEELTypeFactory(BasicDMNToNativeTransformer dmnTransformer) {
         this.dmnTransformer = dmnTransformer;
+
         this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
         this.environmentFactory = dmnTransformer.getEnvironmentFactory();
-        this.dmnEnvironmentFactory = dmnTransformer.getDMNEnvironmentFactory();
+
         this.feelTranslator = dmnTransformer.getFEELTranslator();
+        this.dmnEnvironmentFactory = dmnTransformer.getDMNEnvironmentFactory();
 
         this.feelTypeMemoizer = new FEELTypeMemoizer();
     }
@@ -116,7 +118,7 @@ public class StandardFEELTypeFactory implements FEELTypeFactory {
         } else if (element instanceof TBusinessKnowledgeModel) {
             return expressionType(element, ((TBusinessKnowledgeModel) element).getEncapsulatedLogic(), environment);
         } else if (element instanceof TDecisionService) {
-            return makeDSType((TDecisionService) element);
+            return makeDSVariableType((TDecisionService) element);
         }
         throw new DMNRuntimeException(String.format("Cannot infer the output type of '%s'", element.getName()));
     }
@@ -339,8 +341,7 @@ public class StandardFEELTypeFactory implements FEELTypeFactory {
         }
     }
 
-    @Override
-    public FunctionType makeDSType(TDecisionService decisionService) {
+    private FunctionType makeDSVariableType(TDecisionService decisionService) {
         List<FormalParameter> parameters = this.dmnTransformer.dsFEELParameters(decisionService);
         return new DMNFunctionType(parameters, makeDSOutputType(decisionService), decisionService);
     }

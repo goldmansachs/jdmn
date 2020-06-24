@@ -49,6 +49,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
         this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
         this.environmentFactory = dmnTransformer.getEnvironmentFactory();
+
         this.feelTranslator = dmnTransformer.getFEELTranslator();
         this.feelTypeFactory = dmnTransformer.getFEELTypeFactory();
 
@@ -212,7 +213,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         if (StringUtils.isBlank(name)) {
             throw new DMNRuntimeException(String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable));
         }
-        FunctionType serviceType = this.feelTypeFactory.makeDSType(ds);
+        FunctionType serviceType = (FunctionType) this.feelTypeFactory.drgElementVariableFEELType(ds);
         return this.environmentFactory.makeDecisionServiceDeclaration(name, serviceType);
     }
 

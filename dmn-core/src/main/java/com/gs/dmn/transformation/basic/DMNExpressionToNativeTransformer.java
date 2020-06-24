@@ -49,16 +49,17 @@ public class DMNExpressionToNativeTransformer {
     private final FEELTranslator feelTranslator;
     private final EnvironmentFactory environmentFactory;
     private final DMNEnvironmentFactory dmnEnvironmentFactory;
-    private final NativeExpressionFactory expressionFactory;
+    private final NativeExpressionFactory nativeExpressionFactory;
 
     DMNExpressionToNativeTransformer(BasicDMNToNativeTransformer dmnTransformer) {
         this.dmnTransformer = dmnTransformer;
 
         this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
-        this.feelTranslator = dmnTransformer.getFEELTranslator();
         this.environmentFactory = dmnTransformer.getEnvironmentFactory();
+
+        this.feelTranslator = dmnTransformer.getFEELTranslator();
         this.dmnEnvironmentFactory = dmnTransformer.getDMNEnvironmentFactory();
-        this.expressionFactory = dmnTransformer.getNativeExpressionFactory();
+        this.nativeExpressionFactory = dmnTransformer.getNativeExpressionFactory();
     }
 
     //
@@ -77,7 +78,7 @@ public class DMNExpressionToNativeTransformer {
                     }
                     String defaultValue = this.dmnTransformer.constructor(this.dmnTransformer.itemDefinitionNativeClassName(this.dmnTransformer.drgElementOutputClassName(element)), String.join(", ", values));
                     if (this.dmnTransformer.hasListType(element)) {
-                        return this.expressionFactory.asList(((ListType) feelType).getElementType(), defaultValue);
+                        return this.nativeExpressionFactory.asList(((ListType) feelType).getElementType(), defaultValue);
                     } else {
                         return defaultValue;
                     }
@@ -210,13 +211,13 @@ public class DMNExpressionToNativeTransformer {
         String decisionRuleOutputClassName = ruleOutputClassName(element);
         String outputClauseVariableName = this.dmnTransformer.outputClauseVariableName(element, outputClause);
         if (aggregation == TBuiltinAggregator.MIN) {
-            return this.expressionFactory.makeMinAggregator(ruleOutputListVariableName, decisionRuleOutputClassName, outputClauseVariableName);
+            return this.nativeExpressionFactory.makeMinAggregator(ruleOutputListVariableName, decisionRuleOutputClassName, outputClauseVariableName);
         } else if (aggregation == TBuiltinAggregator.MAX) {
-            return this.expressionFactory.makeMaxAggregator(ruleOutputListVariableName, decisionRuleOutputClassName, outputClauseVariableName);
+            return this.nativeExpressionFactory.makeMaxAggregator(ruleOutputListVariableName, decisionRuleOutputClassName, outputClauseVariableName);
         } else if (aggregation == TBuiltinAggregator.COUNT) {
-            return this.expressionFactory.makeCountAggregator(ruleOutputListVariableName);
+            return this.nativeExpressionFactory.makeCountAggregator(ruleOutputListVariableName);
         } else if (aggregation == TBuiltinAggregator.SUM) {
-            return this.expressionFactory.makeSumAggregator(ruleOutputListVariableName, decisionRuleOutputClassName, outputClauseVariableName);
+            return this.nativeExpressionFactory.makeSumAggregator(ruleOutputListVariableName, decisionRuleOutputClassName, outputClauseVariableName);
         } else {
             throw new UnsupportedOperationException(String.format("Not supported '%s' aggregation.", aggregation));
         }
@@ -267,7 +268,7 @@ public class DMNExpressionToNativeTransformer {
             String parameterNativeType = this.dmnTransformer.lazyEvaluationType(element, this.dmnTransformer.parameterNativeType(element));
             parameters.add(new Pair<>(parameterName, parameterNativeType));
         }
-        String signature = parameters.stream().map(p -> this.expressionFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
+        String signature = parameters.stream().map(p -> this.nativeExpressionFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
         return this.dmnTransformer.augmentSignature(signature);
     }
 
@@ -292,7 +293,7 @@ public class DMNExpressionToNativeTransformer {
             String parameterNativeType = this.dmnTransformer.parameterNativeType(model, parameter);
             parameters.add(new Pair<>(parameterName, parameterNativeType));
         }
-        String signature = parameters.stream().map(p -> this.expressionFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
+        String signature = parameters.stream().map(p -> this.nativeExpressionFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
         return this.dmnTransformer.augmentSignature(signature);
     }
 
@@ -355,8 +356,8 @@ public class DMNExpressionToNativeTransformer {
                 conditionParts.add(condition);
             }
             // Optimize AND operator
-            List<String> optimizedConditionParts = this.expressionFactory.optimizeAndArguments(conditionParts);
-            String left = this.expressionFactory.trueConstant();
+            List<String> optimizedConditionParts = this.nativeExpressionFactory.optimizeAndArguments(conditionParts);
+            String left = this.nativeExpressionFactory.trueConstant();
             String right;
             if (optimizedConditionParts.size() == 1) {
                 right = optimizedConditionParts.get(0);
@@ -366,7 +367,7 @@ public class DMNExpressionToNativeTransformer {
                 String operands = optimizedConditionParts.stream().collect(Collectors.joining(",\n" + indent3tabs));
                 right = String.format("booleanAnd(\n%s%s\n%s)", indent3tabs, operands, indent2tabs);
             }
-            return this.expressionFactory.makeEquality(left, right);
+            return this.nativeExpressionFactory.makeEquality(left, right);
         }
         throw new DMNRuntimeException("Cannot build condition for " + decisionTable.getClass().getSimpleName());
     }
@@ -482,7 +483,7 @@ public class DMNExpressionToNativeTransformer {
             if (variable != null) {
                 String name = this.dmnTransformer.lowerCaseFirst(variable.getName());
                 String type = this.dmnTransformer.toNativeType(entryType);
-                String assignmentText = this.expressionFactory.makeVariableAssignment(type, name, value.getExpression());
+                String assignmentText = this.nativeExpressionFactory.makeVariableAssignment(type, name, value.getExpression());
                 statement.add(new ExpressionStatement(assignmentText, entryType));
             } else {
                 returnValue = value;
@@ -492,13 +493,13 @@ public class DMNExpressionToNativeTransformer {
         // Add return statement
         Type returnType = this.dmnTransformer.toFEELType(model, this.dmnTransformer.drgElementOutputTypeRef(element));
         if (returnValue != null) {
-            String text = this.expressionFactory.makeReturn(returnValue.getExpression());
+            String text = this.nativeExpressionFactory.makeReturn(returnValue.getExpression());
             statement.add(new ExpressionStatement(text, returnType));
         } else {
             // Make complex type value
             String complexJavaType = this.dmnTransformer.drgElementOutputType(element);
             String complexTypeVariable = this.dmnTransformer.drgElementVariableName(element);
-            String expressionText = this.expressionFactory.makeVariableAssignment(this.dmnTransformer.itemDefinitionNativeClassName(complexJavaType), complexTypeVariable, this.dmnTransformer.defaultConstructor(this.dmnTransformer.itemDefinitionNativeClassName(complexJavaType)));
+            String expressionText = this.nativeExpressionFactory.makeVariableAssignment(this.dmnTransformer.itemDefinitionNativeClassName(complexJavaType), complexTypeVariable, this.dmnTransformer.defaultConstructor(this.dmnTransformer.itemDefinitionNativeClassName(complexJavaType)));
             statement.add(new ExpressionStatement(expressionText, returnType));
             // Add entries
             for(TContextEntry entry: context.getContextEntry()) {
@@ -516,12 +517,12 @@ public class DMNExpressionToNativeTransformer {
                 TInformationItem variable = entry.getVariable();
                 if (variable != null) {
                     String javaContextEntryName = this.dmnTransformer.lowerCaseFirst(variable.getName());
-                    String entryText = this.expressionFactory.makeMemberAssignment(complexTypeVariable, javaContextEntryName, javaContextEntryName);
+                    String entryText = this.nativeExpressionFactory.makeMemberAssignment(complexTypeVariable, javaContextEntryName, javaContextEntryName);
                     statement.add(new ExpressionStatement(entryText, entryType));
                 }
             }
             // Return value
-            String returnText = this.expressionFactory.makeReturn(complexTypeVariable);
+            String returnText = this.nativeExpressionFactory.makeReturn(complexTypeVariable);
             statement.add(new ExpressionStatement(returnText, returnType));
         }
         return statement;
@@ -549,13 +550,13 @@ public class DMNExpressionToNativeTransformer {
     private String functionDefinitionToNative(FunctionType functionType, String body, boolean convertToContext) {
         String returnType = this.dmnTransformer.toNativeType(this.dmnTransformer.convertType(functionType.getReturnType(), convertToContext));
         String signature = "Object... args";
-        String applyMethod = this.expressionFactory.applyMethod(functionType, signature, convertToContext, body);
+        String applyMethod = this.nativeExpressionFactory.applyMethod(functionType, signature, convertToContext, body);
         return functionDefinitionToNative(returnType, applyMethod);
     }
 
     private String functionDefinitionToNative(String returnType, String applyMethod) {
         String functionalInterface = LambdaExpression.class.getName();
-        return this.expressionFactory.functionalInterfaceConstructor(functionalInterface, returnType, applyMethod);
+        return this.nativeExpressionFactory.functionalInterfaceConstructor(functionalInterface, returnType, applyMethod);
     }
 
     //
@@ -675,7 +676,7 @@ public class DMNExpressionToNativeTransformer {
 
         // Make a list
         Type elementType = ((ListType) resultType).getElementType();
-        String result = expressionFactory.asList(elementType, String.join(",\n" + indent, rowValues));
+        String result = nativeExpressionFactory.asList(elementType, String.join(",\n" + indent, rowValues));
         return new ExpressionStatement(result, resultType);
     }
 }
