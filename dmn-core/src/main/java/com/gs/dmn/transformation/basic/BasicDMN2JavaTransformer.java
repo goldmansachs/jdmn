@@ -77,7 +77,6 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     private final Set<String> cachedElements;
 
     protected DMNEnvironmentFactory dmnEnvironmentFactory;
-    protected StandardFEELTypeFactory feelTypeFactory;
     protected NativeExpressionFactory nativeExpressionFactory;
     protected FEELTranslator feelTranslator;
     protected DMNExpressionToNativeTransformer expressionToNativeTransformer;
@@ -108,15 +107,10 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         setNativeExpressionFactory(this);
         setFEELTranslator(this);
         setDMNEnvironmentFactory(this);
-        setFEELTypeFactory(this);
         setExpressionToNativeTransformer(this);
 
         this.drgElementFilter = new DRGElementFilter(this.singletonInputData);
         this.nativeTypeMemoizer = new JavaTypeMemoizer();
-    }
-
-    protected void setFEELTypeFactory(BasicDMNToNativeTransformer transformer) {
-        this.feelTypeFactory = new StandardFEELTypeFactory(transformer);
     }
 
     protected void setDMNEnvironmentFactory(BasicDMNToNativeTransformer transformer) {
@@ -153,11 +147,6 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     @Override
     public FEELTranslator getFEELTranslator() {
         return this.feelTranslator;
-    }
-
-    @Override
-    public FEELTypeFactory getFEELTypeFactory() {
-        return this.feelTypeFactory;
     }
 
     @Override
@@ -347,22 +336,22 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public Type drgElementOutputFEELType(TDRGElement element) {
-        return this.feelTypeFactory.drgElementOutputFEELType(element);
+        return this.dmnEnvironmentFactory.drgElementOutputFEELType(element);
     }
 
     @Override
     public Type drgElementOutputFEELType(TDRGElement element, Environment environment) {
-        return this.feelTypeFactory.drgElementOutputFEELType(element, environment);
+        return this.dmnEnvironmentFactory.drgElementOutputFEELType(element, environment);
     }
 
     @Override
     public Type drgElementVariableFEELType(TDRGElement element) {
-        return this.feelTypeFactory.drgElementVariableFEELType(element);
+        return this.dmnEnvironmentFactory.drgElementVariableFEELType(element);
     }
 
     @Override
     public Type drgElementVariableFEELType(TDRGElement element, Environment environment) {
-        return this.feelTypeFactory.drgElementVariableFEELType(element, environment);
+        return this.dmnEnvironmentFactory.drgElementVariableFEELType(element, environment);
     }
 
     @Override
@@ -734,7 +723,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public Type toFEELType(TInputData inputData) {
-        return this.feelTypeFactory.toFEELType(inputData);
+        return this.dmnEnvironmentFactory.toFEELType(inputData);
     }
 
     private String inputDataType(TInputData inputData) {
@@ -1481,17 +1470,17 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     //
     @Override
     public Type expressionType(TDRGElement element, JAXBElement<? extends TExpression> jElement, Environment environment) {
-        return this.feelTypeFactory.expressionType(element, jElement, environment);
+        return this.dmnEnvironmentFactory.expressionType(element, jElement, environment);
     }
 
     @Override
     public Type expressionType(TDRGElement element, TExpression expression, Environment environment) {
-        return this.feelTypeFactory.expressionType(element, expression, environment);
+        return this.dmnEnvironmentFactory.expressionType(element, expression, environment);
     }
 
     @Override
     public Type convertType(Type type, boolean convertToContext) {
-        return this.feelTypeFactory.convertType(type, convertToContext);
+        return this.dmnEnvironmentFactory.convertType(type, convertToContext);
     }
 
     @Override
@@ -1557,17 +1546,17 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public Type toFEELType(TDefinitions model, String typeName) {
-        return this.feelTypeFactory.toFEELType(model, typeName);
+        return this.dmnEnvironmentFactory.toFEELType(model, typeName);
     }
 
     @Override
     public Type toFEELType(TDefinitions model, QualifiedName typeRef) {
-        return this.feelTypeFactory.toFEELType(model, typeRef);
+        return this.dmnEnvironmentFactory.toFEELType(model, typeRef);
     }
 
     @Override
     public Type toFEELType(TItemDefinition itemDefinition) {
-        return this.feelTypeFactory.toFEELType(itemDefinition);
+        return this.dmnEnvironmentFactory.toFEELType(itemDefinition);
     }
 
     //

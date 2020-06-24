@@ -20,9 +20,46 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.Pair;
 import org.omg.spec.dmn._20180521.model.*;
 
+import javax.xml.bind.JAXBElement;
 import java.util.Map;
 
 public interface DMNEnvironmentFactory {
+    //
+    // DRG Elements
+    //
+    Type drgElementOutputFEELType(TDRGElement element);
+
+    Type drgElementOutputFEELType(TDRGElement element, Environment environment);
+
+    Type drgElementVariableFEELType(TDRGElement element);
+
+    Type drgElementVariableFEELType(TDRGElement element, Environment environment);
+
+    Type toFEELType(TInputData inputData);
+
+    //
+    // Expression related functions
+    //
+    Type expressionType(TDRGElement element, JAXBElement<? extends TExpression> jElement, Environment environment);
+
+    Type expressionType(TDRGElement element, TExpression expression, Environment environment);
+
+    Type convertType(Type type, boolean convertToContext);
+
+    //
+    // Common Type functions
+    //
+    Type toFEELType(TDefinitions model, String typeName);
+
+    Type toFEELType(TDefinitions model, QualifiedName typeRef);
+
+    Type toFEELType(TItemDefinition itemDefinition);
+
+    Type externalFunctionReturnFEELType(TNamedElement element, Expression body);
+
+    //
+    // Environments
+    //
     Environment makeEnvironment(TDRGElement element);
 
     Environment makeEnvironment(TDRGElement element, Environment parentEnvironment);
