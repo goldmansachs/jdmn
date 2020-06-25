@@ -75,7 +75,7 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
             if (file.isFile()) {
                 TestCases testCases = testCasesReader.read(file);
                 testCasesList.add(testCases);
-            } else if (file.isDirectory()) {
+            } else if (file.isDirectory() && file.listFiles() != null) {
                 for (File child: file.listFiles()) {
                     if (shouldTransformFile(child)) {
                         TestCases testCases = testCasesReader.read(child);
@@ -83,7 +83,7 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
                     }
                 }
             }
-            testCasesList = (List<TestCases>) dmnTransformer.transform(basicTransformer.getDMNModelRepository(), testCasesList).getRight();
+            testCasesList = dmnTransformer.transform(basicTransformer.getDMNModelRepository(), testCasesList).getRight();
 
             for (TestCases testCases: testCasesList) {
                 String javaClassName = testClassName(testCases, basicTransformer);

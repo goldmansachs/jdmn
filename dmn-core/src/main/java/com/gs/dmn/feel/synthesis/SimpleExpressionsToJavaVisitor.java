@@ -295,7 +295,7 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
         // Look up source declaration
         Declaration sourceDeclaration = environment.lookupVariableDeclaration(sourceName);
         if (sourceDeclaration instanceof VariableDeclaration) {
-            com.gs.dmn.feel.analysis.semantics.type.Type sourceType = ((VariableDeclaration) sourceDeclaration).getType();
+            com.gs.dmn.feel.analysis.semantics.type.Type sourceType = sourceDeclaration.getType();
             String sourceVariableName = javaFriendlyVariableName(sourceName);
             String memberVariableName = javaFriendlyVariableName(memberName);
             return makeNavigation(element, sourceType, sourceVariableName, memberName, memberVariableName);
