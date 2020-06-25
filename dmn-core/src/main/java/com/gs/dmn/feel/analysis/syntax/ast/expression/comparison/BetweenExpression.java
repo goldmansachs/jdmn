@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.comparison;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
@@ -42,7 +41,7 @@ public class BetweenExpression extends Comparison {
     }
 
     @Override
-    public void deriveType(Environment environment) {
+    public void deriveType(FEELContext context) {
         setType(BooleanType.BOOLEAN);
         checkType(">=", value.getType(), leftEndpoint.getType());
         checkType("<=", value.getType(), rightEndpoint.getType());
