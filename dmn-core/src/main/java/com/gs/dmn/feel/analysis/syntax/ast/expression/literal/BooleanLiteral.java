@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.literal;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
@@ -23,7 +22,7 @@ public class BooleanLiteral extends SimpleLiteral {
     }
 
     @Override
-    public void deriveType(Environment environment) {
+    public void deriveType(FEELContext context) {
         this.setType(BooleanType.BOOLEAN);
     }
 

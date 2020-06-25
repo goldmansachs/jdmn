@@ -42,13 +42,14 @@ public abstract class AbstractAnalysisVisitor extends AbstractVisitor {
         this.nativeExpressionFactory = dmnTransformer.getNativeExpressionFactory();
     }
 
-    protected FEELContext makeFilterContext(FEELContext parentContext, Expression source, String filterVariableName) {
-        Environment environment = this.environmentFactory.makeEnvironment(parentContext.getEnvironment());
+    protected FEELContext makeFilterContext(FEELContext context, Expression source, String filterVariableName) {
+        Environment environment = context.getEnvironment();
+        Environment filterEnvironment = this.environmentFactory.makeEnvironment(environment);
         Type itemType = AnyType.ANY;
         if (source.getType() instanceof ListType) {
             itemType = ((ListType) source.getType()).getElementType();
         }
-        environment.addDeclaration(this.environmentFactory.makeVariableDeclaration(filterVariableName, itemType));
-        return FEELContext.makeContext(parentContext.getElement(), environment);
+        filterEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(filterVariableName, itemType));
+        return FEELContext.makeContext(context.getElement(), filterEnvironment);
     }
 }

@@ -42,7 +42,8 @@ public class ListLiteral extends Expression {
     }
 
     @Override
-    public void deriveType(Environment environment) {
+    public void deriveType(FEELContext context) {
+        Environment environment = context.getEnvironment();
         if (expressionList.isEmpty()) {
             if (environment.getInputExpressionType() == null) {
                 setType(new ListType(AnyType.ANY));

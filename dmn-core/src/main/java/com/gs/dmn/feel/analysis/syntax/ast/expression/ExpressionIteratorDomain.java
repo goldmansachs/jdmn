@@ -29,7 +29,7 @@ public class ExpressionIteratorDomain extends IteratorDomain {
         return expression;
     }
 
-    public void deriveType(Environment environment) {
+    public void deriveType(FEELContext context) {
         this.type = expression.getType();
     }
 

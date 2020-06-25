@@ -14,9 +14,9 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
 import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
+import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 
 public abstract class Expression extends Element {
     private Type type = AnyType.ANY;
@@ -60,7 +60,7 @@ public abstract class Expression extends Element {
         return type;
     }
 
-    public abstract void deriveType(Environment environment);
+    public abstract void deriveType(FEELContext context);
 
     protected void checkType(String operator, Type leftOperandType, Type rightOperandType) {
         try {

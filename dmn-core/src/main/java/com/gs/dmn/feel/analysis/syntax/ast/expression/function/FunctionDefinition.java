@@ -50,7 +50,7 @@ public class FunctionDefinition extends Expression {
     }
 
     @Override
-    public void deriveType(Environment environment) {
+    public void deriveType(FEELContext context) {
         FEELFunctionType type = new FEELFunctionType(formalParameters, body.getType(), external, this);
         setType(type);
     }

@@ -13,7 +13,6 @@
 package com.gs.dmn.feel.analysis.syntax.ast.test;
 
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
 import com.gs.dmn.feel.analysis.semantics.type.RangeType;
 import com.gs.dmn.feel.analysis.semantics.type.TupleType;
@@ -33,7 +32,7 @@ public class NegatedPositiveUnaryTests extends UnaryTests {
     }
 
     @Override
-    public void deriveType(Environment environment) {
+    public void deriveType(FEELContext context) {
         Type type = positiveUnaryTests.getType();
         setType(type);
         if (type instanceof TupleType) {

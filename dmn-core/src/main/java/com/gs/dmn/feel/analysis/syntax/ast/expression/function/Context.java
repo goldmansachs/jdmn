@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.ContextType;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
@@ -62,7 +61,7 @@ public class Context extends Expression {
     }
 
     @Override
-    public void deriveType(Environment environment) {
+    public void deriveType(FEELContext context) {
         ContextType type = new ContextType();
         entries.forEach(e -> type.addMember(e.getKey().getKey(), Arrays.asList(), e.getExpression().getType()));
         setType(type);

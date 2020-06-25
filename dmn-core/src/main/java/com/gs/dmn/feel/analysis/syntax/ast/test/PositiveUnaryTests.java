@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.test;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.TupleType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
@@ -37,7 +36,7 @@ public class PositiveUnaryTests extends UnaryTests {
     }
 
     @Override
-    public void deriveType(Environment environment) {
+    public void deriveType(FEELContext context) {
         List<Type> types = getPositiveUnaryTests().stream().map(Expression::getType).collect(Collectors.toList());
         setType(new TupleType(types));
     }

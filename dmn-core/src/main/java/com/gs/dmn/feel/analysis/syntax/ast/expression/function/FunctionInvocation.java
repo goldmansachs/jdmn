@@ -46,9 +46,9 @@ public class FunctionInvocation extends Expression {
     }
 
     @Override
-    public void deriveType(Environment environment) {
+    public void deriveType(FEELContext context) {
         if (function instanceof Name) {
-            DeclarationMatch declarationMatch = functionResolution(environment, ((Name) function).getName());
+            DeclarationMatch declarationMatch = functionResolution(context, ((Name) function).getName());
             FunctionDeclaration functionDeclaration = (FunctionDeclaration) declarationMatch.getDeclaration();
             FunctionType functionType = functionDeclaration.getType();
             this.function.setType(functionType);
@@ -57,7 +57,7 @@ public class FunctionInvocation extends Expression {
             parameters.setParameterConversions(declarationMatch.getParameterConversions());
             parameters.setConvertedParameterTypes(declarationMatch.getParameterTypes());
         } else if (function instanceof QualifiedName && ((QualifiedName) function).getNames().size() == 1) {
-            DeclarationMatch declarationMatch = functionResolution(environment, ((QualifiedName) function).getQualifiedName());
+            DeclarationMatch declarationMatch = functionResolution(context, ((QualifiedName) function).getQualifiedName());
             FunctionDeclaration functionDeclaration = (FunctionDeclaration) declarationMatch.getDeclaration();
             FunctionType functionType = functionDeclaration.getType();
             this.function.setType(functionType);
@@ -90,9 +90,9 @@ public class FunctionInvocation extends Expression {
         return String.format("FunctionInvocation(%s -> %s)", function.toString(), parameters.toString());
     }
 
-    private DeclarationMatch functionResolution(Environment environment, String name) {
+    private DeclarationMatch functionResolution(FEELContext context, String name) {
         ParameterTypes parameterTypes = parameters.getSignature();
-        List<DeclarationMatch> functionMatches = findFunctionMatches(environment, name, parameterTypes);
+        List<DeclarationMatch> functionMatches = findFunctionMatches(context, name, parameterTypes);
         if (functionMatches.isEmpty()) {
             throw new DMNRuntimeException(String.format("Cannot resolve function '%s(%s)'", name, parameterTypes));
         } else if (functionMatches.size() == 1) {
@@ -110,7 +110,8 @@ public class FunctionInvocation extends Expression {
         }
     }
 
-    private List<DeclarationMatch> findFunctionMatches(Environment environment, String name, ParameterTypes parameterTypes) {
+    private List<DeclarationMatch> findFunctionMatches(FEELContext context, String name, ParameterTypes parameterTypes) {
+        Environment environment = context.getEnvironment();
         List<DeclarationMatch> matches = new ArrayList<>();
         List<Declaration> declarations = environment.lookupFunctionDeclaration(name);
         for (Declaration declaration : declarations) {
