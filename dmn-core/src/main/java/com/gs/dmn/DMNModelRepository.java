@@ -735,7 +735,7 @@ public class DMNModelRepository {
         return false;
     }
 
-    public TExpression expression(TNamedElement element) {
+    public TExpression expression(TDRGElement element) {
         if (element instanceof TDecision) {
             JAXBElement<? extends TExpression> expression = ((TDecision) element).getExpression();
             if (expression != null) {
@@ -751,8 +751,6 @@ public class DMNModelRepository {
             }
         } else if (element instanceof TDecisionService) {
             return null;
-        } else if (element instanceof TInformationItem) {
-            return null;
         } else {
             throw new UnsupportedOperationException(String.format("'%s' is not supported yet", element.getClass().getSimpleName()));
         }
@@ -763,7 +761,7 @@ public class DMNModelRepository {
         return expression(element) instanceof TLiteralExpression;
     }
 
-    public boolean isFreeTextLiteralExpression(TNamedElement element) {
+    public boolean isFreeTextLiteralExpression(TDRGElement element) {
         TExpression expression = expression(element);
         return expression instanceof TLiteralExpression
                 && AbstractDMNToNativeTransformer.FREE_TEXT_LANGUAGE.equals(((TLiteralExpression)expression).getExpressionLanguage());
