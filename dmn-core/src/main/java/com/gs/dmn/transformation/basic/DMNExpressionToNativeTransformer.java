@@ -21,13 +21,17 @@ import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Context;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ContextEntry;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.StringLiteral;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.expression.NativeExpressionFactory;
 import com.gs.dmn.runtime.*;
 import com.gs.dmn.runtime.annotation.HitPolicy;
 import com.gs.dmn.runtime.annotation.Rule;
+import com.gs.dmn.runtime.external.JavaFunctionInfo;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.java.CompoundStatement;
 import com.gs.dmn.transformation.java.ExpressionStatement;
@@ -552,6 +556,83 @@ public class DMNExpressionToNativeTransformer {
         String signature = "Object... args";
         String applyMethod = this.nativeExpressionFactory.applyMethod(functionType, signature, convertToContext, body);
         return functionDefinitionToNative(returnType, applyMethod);
+    }
+
+    public JavaFunctionInfo extractJavaFunctionInfo(TFunctionDefinition functionDefinition) {
+        // Extract class, method and param types names
+        String className = null;
+        String methodName = null;
+        List<String> paramTypes = new ArrayList<>();
+        TExpression body = functionDefinition.getExpression().getValue();
+        if (body instanceof TContext) {
+            for (TContextEntry entry: ((TContext) body).getContextEntry()) {
+                String name = entry.getVariable().getName();
+                if ("class".equals(name)) {
+                    TExpression value = entry.getExpression().getValue();
+                    if (value instanceof TLiteralExpression) {
+                        className = ((TLiteralExpression) value).getText().replaceAll("\"", "");
+                    }
+                } else if ("methodSignature".equals(name) || "method signature".equals(name)) {
+                    TExpression value = entry.getExpression().getValue();
+                    if (value instanceof TLiteralExpression) {
+                        String signature = ((TLiteralExpression) value).getText().replaceAll("\"", "");
+                        int lpIndex = signature.indexOf('(');
+                        int rpIndex = signature.indexOf(')');
+                        methodName = signature.substring(0, lpIndex);
+                        String[] types = signature.substring(lpIndex + 1, rpIndex).split(",");
+                        for (String t: types) {
+                            paramTypes.add(t.trim());
+                        }
+                    }
+                }
+            }
+        }
+        if (className != null && methodName != null) {
+            return new JavaFunctionInfo(className, methodName, paramTypes);
+        } else {
+            return null;
+        }
+    }
+
+    public JavaFunctionInfo extractJavaFunctionInfo(FunctionDefinition functionDefinition) {
+        // Extract class, method and param types names
+        String className = null;
+        String methodName = null;
+        List<String> paramTypes = new ArrayList<>();
+        Expression body = functionDefinition.getBody();
+        if (body instanceof Context) {
+            body = ((Context) body).getEntries().get(0).getExpression();
+        }
+        if (body instanceof Context) {
+            for (ContextEntry entry: ((Context) body).getEntries()) {
+                String name = entry.getKey().getKey();
+                if ("class".equals(name)) {
+                    Expression value = entry.getExpression();
+                    if (value instanceof StringLiteral) {
+                        String lexeme = ((StringLiteral) value).getLexeme();
+                        className = StringEscapeUtil.stripQuotes(lexeme);
+                    }
+                } else if ("method signature".equals(name) || "methodSignature".equals(name) || "'method signature'".equals(name)) {
+                    Expression value = entry.getExpression();
+                    if (value instanceof StringLiteral) {
+                        String lexeme = ((StringLiteral) value).getLexeme();
+                        String signature = StringEscapeUtil.stripQuotes(lexeme);
+                        int lpIndex = signature.indexOf('(');
+                        int rpIndex = signature.indexOf(')');
+                        methodName = signature.substring(0, lpIndex);
+                        String[] types = signature.substring(lpIndex + 1, rpIndex).split(",");
+                        for (String t: types) {
+                            paramTypes.add(t.trim());
+                        }
+                    }
+                }
+            }
+        }
+        if (className != null && methodName != null) {
+            return new JavaFunctionInfo(className, methodName, paramTypes);
+        } else {
+            return null;
+        }
     }
 
     private String functionDefinitionToNative(String returnType, String applyMethod) {
