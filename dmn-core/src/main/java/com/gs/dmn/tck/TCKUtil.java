@@ -202,10 +202,8 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     private Type toFEELType(InputNodeInfo info) {
         try {
-            QualifiedName typeRef = getTypeRef(info);
             TDRGElement element = info.getReference().getElement();
-            TDefinitions model = this.dmnModelRepository.getModel(element);
-            return this.dmnTransformer.toFEELType(model, typeRef);
+            return this.dmnTransformer.drgElementOutputFEELType(element);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot resolve FEEL type for node '%s'", info.getNodeName()));
         }
