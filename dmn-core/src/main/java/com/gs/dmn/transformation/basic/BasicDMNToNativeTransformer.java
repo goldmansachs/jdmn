@@ -48,6 +48,8 @@ public interface BasicDMNToNativeTransformer {
 
     NativeExpressionFactory getNativeExpressionFactory();
 
+    DMNExpressionToNativeTransformer getExpressionToNativeTransformer();
+
     DRGElementFilter getDrgElementFilter();
 
     //
@@ -413,7 +415,7 @@ public interface BasicDMNToNativeTransformer {
 
     String literalExpressionToNative(TDRGElement element, String expressionText);
 
-    String functionDefinitionToNative(FunctionDefinition element, boolean convertTypeToContext, String body);
+    String functionDefinitionToNative(FunctionDefinition functionDefinition, boolean convertTypeToContext, String body);
 
     boolean isCompoundStatement(Statement stm);
 

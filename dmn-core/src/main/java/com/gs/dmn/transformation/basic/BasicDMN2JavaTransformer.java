@@ -159,6 +159,10 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         return this.nativeExpressionFactory;
     }
 
+    public DMNExpressionToNativeTransformer getExpressionToNativeTransformer() {
+        return expressionToNativeTransformer;
+    }
+
     @Override
     public DRGElementFilter getDrgElementFilter() {
         return this.drgElementFilter;
@@ -1526,8 +1530,8 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public String functionDefinitionToNative(FunctionDefinition element, boolean convertTypeToContext, String body) {
-        return this.expressionToNativeTransformer.functionDefinitionToNative(element, body, convertTypeToContext);
+    public String functionDefinitionToNative(FunctionDefinition functionDefinition, boolean convertTypeToContext, String body) {
+        return this.expressionToNativeTransformer.functionDefinitionToNative(functionDefinition, body, convertTypeToContext);
     }
 
     @Override

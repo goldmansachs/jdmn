@@ -22,6 +22,8 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.synthesis.expression.NativeExpressionFactory;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
+import com.gs.dmn.transformation.basic.DMNEnvironmentFactory;
+import com.gs.dmn.transformation.basic.DMNExpressionToNativeTransformer;
 
 public abstract class AbstractAnalysisVisitor extends AbstractVisitor {
     protected final BasicDMNToNativeTransformer dmnTransformer;
@@ -32,6 +34,9 @@ public abstract class AbstractAnalysisVisitor extends AbstractVisitor {
     protected final NativeTypeFactory nativeTypeFactory;
     protected final NativeExpressionFactory nativeExpressionFactory;
 
+    protected final DMNEnvironmentFactory dmnEnvironmentFactory;
+    protected final DMNExpressionToNativeTransformer expressionToNativeTransformer;
+
     protected AbstractAnalysisVisitor(BasicDMNToNativeTransformer dmnTransformer) {
         this.dmnTransformer = dmnTransformer;
 
@@ -39,7 +44,10 @@ public abstract class AbstractAnalysisVisitor extends AbstractVisitor {
         this.environmentFactory = dmnTransformer.getEnvironmentFactory();
 
         this.nativeTypeFactory = dmnTransformer.getNativeTypeFactory();
+        this.dmnEnvironmentFactory = dmnTransformer.getDMNEnvironmentFactory();
         this.nativeExpressionFactory = dmnTransformer.getNativeExpressionFactory();
+
+        this.expressionToNativeTransformer = dmnTransformer.getExpressionToNativeTransformer();
     }
 
     protected FEELContext makeFilterContext(FEELContext context, Expression source, String filterVariableName) {
