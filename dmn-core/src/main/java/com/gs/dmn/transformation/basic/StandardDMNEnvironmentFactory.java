@@ -19,6 +19,7 @@ import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Context;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ContextEntry;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.StringLiteral;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
@@ -388,13 +389,19 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     public Type externalFunctionReturnFEELType(TNamedElement element, Expression body) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         if (body instanceof Context) {
-            Expression javaExpression = ((Context) body).entry("java").getExpression();
-            if (javaExpression instanceof Context) {
-                Expression returnTypeExp = ((Context) javaExpression).entry("returnType").getExpression();
-                if (returnTypeExp instanceof StringLiteral) {
-                    String lexeme = ((StringLiteral) returnTypeExp).getLexeme();
-                    String typeName = StringEscapeUtil.stripQuotes(lexeme);
-                    return toFEELType(model, QualifiedName.toQualifiedName(model, typeName));
+            ContextEntry javaEntry = ((Context) body).entry("java");
+            if (javaEntry != null) {
+                Expression javaExpression = javaEntry.getExpression();
+                if (javaExpression instanceof Context) {
+                    ContextEntry returnTypeEntry = ((Context) javaExpression).entry("returnType");
+                    if (returnTypeEntry != null) {
+                        Expression returnTypeExp = returnTypeEntry.getExpression();
+                        if (returnTypeExp instanceof StringLiteral) {
+                            String lexeme = ((StringLiteral) returnTypeExp).getLexeme();
+                            String typeName = StringEscapeUtil.stripQuotes(lexeme);
+                            return toFEELType(model, QualifiedName.toQualifiedName(model, typeName));
+                        }
+                    }
                 }
             }
         }
@@ -638,6 +645,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         if (feelType != null) {
             return feelType;
         }
+        // Infer type from expression
         feelType = this.dmnTransformer.expressionType(element, entry.getExpression(), contextEnvironment);
         return feelType == null ? AnyType.ANY : feelType;
     }
