@@ -16,9 +16,7 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
-import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
-import com.gs.dmn.feel.analysis.semantics.type.ListType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Context;
@@ -495,7 +493,7 @@ public class DMNExpressionToNativeTransformer {
         }
 
         // Add return statement
-        Type returnType = this.dmnTransformer.toFEELType(model, this.dmnTransformer.drgElementOutputTypeRef(element));
+        Type returnType = this.dmnTransformer.drgElementOutputFEELType(element);
         if (returnValue != null) {
             String text = this.nativeExpressionFactory.makeReturn(returnValue.getExpression());
             statement.add(new ExpressionStatement(text, returnType));
