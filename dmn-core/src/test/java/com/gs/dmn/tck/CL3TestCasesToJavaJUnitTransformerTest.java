@@ -43,6 +43,7 @@ public class CL3TestCasesToJavaJUnitTransformerTest extends AbstractTCKTestCases
         doSingleModelTest("0021-singleton-list", "0021-singleton-list-test-01");
         doSingleModelTest("0030-user-defined-functions", "0030-user-defined-functions-test-01");
         doSingleModelTest("0031-user-defined-functions", "0031-user-defined-functions-test-01");
+//        doSingleModelTest("0076-feel-external-java", "0076-feel-external-java-test-01");
 
         doSingleModelTest("9001-recursive-function", "9001-recursive-function-test-01");
     }
