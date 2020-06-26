@@ -264,12 +264,10 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     private Type toFEELType(ResultNodeInfo resultNode) {
         try {
-            QualifiedName typeRef = getTypeRef(resultNode);
             TDRGElement element = resultNode.getReference().getElement();
-            TDefinitions model = this.dmnModelRepository.getModel(element);
-            return this.dmnTransformer.toFEELType(model, typeRef);
+            return this.dmnTransformer.drgElementOutputFEELType(element);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot resolve FEEL type for node '%s'", resultNode.getNodeName()));
+            throw new DMNRuntimeException(String.format("Cannot resolve FEEL type for node '%s'", resultNode.getNodeName()), e);
         }
     }
 
@@ -349,7 +347,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     //
     // Interpreter
     //
-    public Result evaluate(DMNInterpreter interpreter, TestCases testCases, TestCase testCase, ResultNode resultNode) {
+    public Result evaluate(DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> interpreter, TestCases testCases, TestCase testCase, ResultNode resultNode) {
         ResultNodeInfo info = extractResultNodeInfo(testCases, testCase, resultNode);
         RuntimeEnvironment runtimeEnvironment = makeEnvironment(testCases, testCase);
         List<Object> args = makeArgs(info.getReference().getElement(), testCase);
