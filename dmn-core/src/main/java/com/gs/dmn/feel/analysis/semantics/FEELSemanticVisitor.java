@@ -127,6 +127,14 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
         // Analyze parameters
         element.getFormalParameters().forEach(p -> p.accept(this, context));
 
+        // Analyze return type
+        Type returnType = null;
+        TypeExpression returnTypeExpression = element.getReturnTypeExpression();
+        if (returnTypeExpression != null) {
+            returnTypeExpression.accept(this, context);
+            returnType = returnTypeExpression.getType();
+        }
+
         // Make body environment
         Environment environment = context.getEnvironment();
         Environment bodyEnvironment = this.environmentFactory.makeEnvironment(environment);
@@ -147,7 +155,16 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
         }
 
         // Derive element type
-        element.deriveType(bodyContext);
+        if (returnType == null) {
+            if (element.isExternal()) {
+                returnType = AnyType.ANY;
+            } else {
+                returnType = body.getType();
+            }
+        }
+        FEELFunctionType type = new FEELFunctionType(element.getFormalParameters(), returnType, element.isExternal(), element);
+        element.setType(type);
+
         return element;
     }
 
