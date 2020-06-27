@@ -16,7 +16,9 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
-import com.gs.dmn.feel.analysis.semantics.type.*;
+import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
+import com.gs.dmn.feel.analysis.semantics.type.ListType;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Context;
@@ -556,7 +558,7 @@ public class DMNExpressionToNativeTransformer {
         return functionDefinitionToNative(returnType, applyMethod);
     }
 
-    public JavaFunctionInfo extractJavaFunctionInfo(TFunctionDefinition functionDefinition) {
+    public JavaFunctionInfo extractJavaFunctionInfo(TDRGElement element, TFunctionDefinition functionDefinition) {
         // Extract class, method and param types names
         String className = null;
         String methodName = null;
@@ -588,11 +590,11 @@ public class DMNExpressionToNativeTransformer {
         if (className != null && methodName != null) {
             return new JavaFunctionInfo(className, methodName, paramTypes);
         } else {
-            return null;
+            throw new DMNRuntimeException(String.format("Cannot extract Java function info for element '%s'", element.getName()));
         }
     }
 
-    public JavaFunctionInfo extractJavaFunctionInfo(FunctionDefinition functionDefinition) {
+    public JavaFunctionInfo extractJavaFunctionInfo(TDRGElement element, FunctionDefinition functionDefinition) {
         // Extract class, method and param types names
         String className = null;
         String methodName = null;
@@ -629,7 +631,7 @@ public class DMNExpressionToNativeTransformer {
         if (className != null && methodName != null) {
             return new JavaFunctionInfo(className, methodName, paramTypes);
         } else {
-            return null;
+            throw new DMNRuntimeException(String.format("Cannot extract Java function info for element '%s'", element.getName()));
         }
     }
 
