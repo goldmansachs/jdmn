@@ -174,6 +174,16 @@ public class Test0076FeelExternalJava extends com.gs.dmn.runtime.DefaultDMNBaseD
         checkValues(number("1234.56"), new Literal_012().apply(annotationSet_, eventListener_, externalExecutor_));
     }
 
+    @org.junit.Test
+    public void testCaseapplicant_repository() {
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+
+        // Check applicant_repository
+        checkValues(new type.ApplicantImpl(number("32"), "john"), new Applicant_repository().apply(annotationSet_, eventListener_, externalExecutor_));
+    }
+
     private void checkValues(Object expected, Object actual) {
         com.gs.dmn.runtime.Assert.assertEquals(expected, actual);
     }
