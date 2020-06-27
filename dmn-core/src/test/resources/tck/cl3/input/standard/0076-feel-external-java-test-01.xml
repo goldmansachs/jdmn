@@ -171,4 +171,18 @@
     </testCase>
 -->
 
+    <testCase id="applicant_repository">
+        <description>external function returning complex type</description>
+        <resultNode name="applicant_repository" type="decision">
+            <expected>
+                <component name="name">
+                    <value xsi:type="xsd:string">john</value>
+                </component>
+                <component name="age">
+                    <value xsi:type="xsd:decimal">32</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
 </testCases>

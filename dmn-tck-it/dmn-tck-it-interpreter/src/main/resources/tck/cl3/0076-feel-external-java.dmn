@@ -2,6 +2,32 @@
 <definitions namespace="http://www.montera.com.au/spec/DMN/0076-feel-external-java" name="0076-feel-external-java" id="_i9fboPUUEeesLuP4RHs4vA" xmlns="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <description>FEEL external Java functions</description>
 
+    <itemDefinition isCollection="false" name="Applicant">
+        <itemComponent isCollection="false" name="name">
+            <typeRef>string</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="age">
+            <typeRef>number</typeRef>
+        </itemComponent>
+    </itemDefinition>
+
+    <decision name="applicant_repository" id="_applicant_repository">
+        <variable name="applicant_repository"/>
+        <context>
+            <contextEntry>
+                <variable name="lookup"/>
+                <literalExpression>
+                    <text>function(a) : Applicant external {java:{class:"com.gs.dmn.generated.tck.cl3_0076_feel_external_java.ApplicantRepository",method signature:"find(java.lang.String)"}}</text>
+                </literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <literalExpression>
+                    <text>lookup("john")</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+
     <decision name="boxed_001" id="_boxed_001">
         <variable name="boxed_001"/>
         <context>
