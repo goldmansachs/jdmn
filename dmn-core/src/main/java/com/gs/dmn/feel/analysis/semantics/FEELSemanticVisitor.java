@@ -448,7 +448,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
         Type functionType = function.getType();
         if (functionType instanceof FEELFunctionType) {
             FEELFunctionType feelFunctionType = (FEELFunctionType) functionType;
-            if (!feelFunctionType.isStaticTyped()) {
+            if (!feelFunctionType.isStaticTyped() && !feelFunctionType.isExternal()) {
                 // Bind names to types in function type
                 bindNameToTypes(feelFunctionType.getParameters(), arguments);
 

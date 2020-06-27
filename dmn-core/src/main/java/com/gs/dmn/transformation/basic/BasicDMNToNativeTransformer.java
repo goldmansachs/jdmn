@@ -415,7 +415,7 @@ public interface BasicDMNToNativeTransformer {
 
     String literalExpressionToNative(TDRGElement element, String expressionText);
 
-    String functionDefinitionToNative(FunctionDefinition functionDefinition, boolean convertTypeToContext, String body);
+    String functionDefinitionToNative(TDRGElement element, FunctionDefinition functionDefinition, boolean convertTypeToContext, String body);
 
     boolean isCompoundStatement(Statement stm);
 

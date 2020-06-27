@@ -542,16 +542,16 @@ public class DMNExpressionToNativeTransformer {
         ExpressionStatement statement = (ExpressionStatement) this.dmnTransformer.expressionToNative(element, bodyExpression, functionDefinitionEnvironment);
         String body = statement.getExpression();
 
-        String expressionText = functionDefinitionToNative(functionType, body, false);
+        String expressionText = functionDefinitionToNative(element, functionType, body, false);
         return new ExpressionStatement(expressionText, functionType);
     }
 
-    String functionDefinitionToNative(FunctionDefinition element, String body, boolean convertToContext) {
-        FunctionType functionType = (FunctionType) element.getType();
-        return functionDefinitionToNative(functionType, body, convertToContext);
+    String functionDefinitionToNative(TDRGElement element, FunctionDefinition functionDefinition, String body, boolean convertToContext) {
+        FunctionType functionType = (FunctionType) functionDefinition.getType();
+        return functionDefinitionToNative(element, functionType, body, convertToContext);
     }
 
-    private String functionDefinitionToNative(FunctionType functionType, String body, boolean convertToContext) {
+    private String functionDefinitionToNative(TDRGElement element, FunctionType functionType, String body, boolean convertToContext) {
         String returnType = this.dmnTransformer.toNativeType(this.dmnTransformer.convertType(functionType.getReturnType(), convertToContext));
         String signature = "Object... args";
         String applyMethod = this.nativeExpressionFactory.applyMethod(functionType, signature, convertToContext, body);
@@ -572,7 +572,7 @@ public class DMNExpressionToNativeTransformer {
                     if (value instanceof TLiteralExpression) {
                         className = ((TLiteralExpression) value).getText().replaceAll("\"", "");
                     }
-                } else if ("methodSignature".equals(name) || "method signature".equals(name)) {
+                } else if (isMethodSignature(name)) {
                     TExpression value = entry.getExpression().getValue();
                     if (value instanceof TLiteralExpression) {
                         String signature = ((TLiteralExpression) value).getText().replaceAll("\"", "");
@@ -612,7 +612,7 @@ public class DMNExpressionToNativeTransformer {
                         String lexeme = ((StringLiteral) value).getLexeme();
                         className = StringEscapeUtil.stripQuotes(lexeme);
                     }
-                } else if ("method signature".equals(name) || "methodSignature".equals(name) || "'method signature'".equals(name)) {
+                } else if (isMethodSignature(name)) {
                     Expression value = entry.getExpression();
                     if (value instanceof StringLiteral) {
                         String lexeme = ((StringLiteral) value).getLexeme();
@@ -633,6 +633,10 @@ public class DMNExpressionToNativeTransformer {
         } else {
             throw new DMNRuntimeException(String.format("Cannot extract Java function info for element '%s'", element.getName()));
         }
+    }
+
+    private boolean isMethodSignature(String name) {
+        return "method signature".equals(name) || "methodSignature".equals(name) || "'method signature'".equals(name);
     }
 
     private String functionDefinitionToNative(String returnType, String applyMethod) {

@@ -365,6 +365,8 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                     bodyType = expressionType(element, body, functionDefinitionEnvironment);
                 } else if (this.dmnTransformer.isJavaFunction(kind)) {
                     bodyType = AnyType.ANY;
+                } else {
+                    throw new DMNRuntimeException(String.format("DRGElement '%s': Kind '%s' is not supported yet", element.getName(), kind));
                 }
                 List<FormalParameter> parameters = new ArrayList<>();
                 for(TInformationItem param: functionDefinition.getFormalParameter()) {
