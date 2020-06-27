@@ -160,7 +160,6 @@
         </resultNode>
     </testCase>
 
-<!--
     <testCase id="varargs_001">
         <description>external function definition - varargs func</description>
         <resultNode name="varargs_001" type="decision">
@@ -169,7 +168,6 @@
             </expected>
         </resultNode>
     </testCase>
--->
 
     <testCase id="applicant_repository">
         <description>external function returning complex type</description>
