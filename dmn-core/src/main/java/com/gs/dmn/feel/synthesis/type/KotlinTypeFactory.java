@@ -12,9 +12,25 @@
  */
 package com.gs.dmn.feel.synthesis.type;
 
+import java.util.Arrays;
+
 public abstract class KotlinTypeFactory implements NativeTypeFactory {
     @Override
     public String nullableType(String type) {
         return type.endsWith("?") ? type : type + "?";
+    }
+
+    @Override
+    public String constructorOfGenericType(String typeName, String... typeParameters) {
+        if (typeParameters == null || typeParameters.length == 0) {
+            return typeName;
+        } else {
+            return String.format("%s<%s>", typeName, String.join(", ", Arrays.asList(typeParameters)));
+        }
+    }
+
+    @Override
+    public String javaClass(String className) {
+        return String.format("%s::class.java", className);
     }
 }
