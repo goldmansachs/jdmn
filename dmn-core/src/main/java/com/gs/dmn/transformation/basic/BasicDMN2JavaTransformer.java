@@ -1530,8 +1530,8 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public String functionDefinitionToNative(FunctionDefinition functionDefinition, boolean convertTypeToContext, String body) {
-        return this.expressionToNativeTransformer.functionDefinitionToNative(functionDefinition, body, convertTypeToContext);
+    public String functionDefinitionToNative(TDRGElement element, FunctionDefinition functionDefinition, boolean convertTypeToContext, String body) {
+        return this.expressionToNativeTransformer.functionDefinitionToNative(element, functionDefinition, body, convertTypeToContext);
     }
 
     @Override

@@ -48,6 +48,7 @@ import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.TBusinessKnowledgeModel;
+import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TNamedElement;
 
 import java.util.ArrayList;
@@ -172,7 +173,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     public Object visit(FunctionDefinition element, FEELContext context) {
         if (element.isStaticTyped()) {
             String body = (String)element.getBody().accept(this, context);
-            return this.dmnTransformer.functionDefinitionToNative(element, false, body);
+            return this.dmnTransformer.functionDefinitionToNative((TDRGElement) context.getElement(), element, false, body);
         } else {
             throw new DMNRuntimeException("Dynamic typing for FEEL functions not supported yet");
         }
