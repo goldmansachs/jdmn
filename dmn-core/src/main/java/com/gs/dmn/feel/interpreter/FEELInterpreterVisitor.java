@@ -732,13 +732,13 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     private Object evaluateExternalJavaFunction(TFunctionDefinition functionDefinition, List<Object> argList, FEELContext context) {
-        JavaFunctionInfo info = this.expressionToNativeTransformer.extractJavaFunctionInfo(functionDefinition);
+        JavaFunctionInfo info = this.expressionToNativeTransformer.extractJavaFunctionInfo((TDRGElement) context.getElement(), functionDefinition);
         // Use reflection to evaluate
         return evaluateExternalJavaFunction(info, argList);
     }
 
     private Object evaluateExternalJavaFunction(FunctionDefinition functionDefinition, List<Object> argList, FEELContext context) {
-        JavaFunctionInfo info = this.expressionToNativeTransformer.extractJavaFunctionInfo(functionDefinition);
+        JavaFunctionInfo info = this.expressionToNativeTransformer.extractJavaFunctionInfo((TDRGElement) context.getElement(), functionDefinition);
         // Use reflection to evaluate
         return evaluateExternalJavaFunction(info, argList);
     }
