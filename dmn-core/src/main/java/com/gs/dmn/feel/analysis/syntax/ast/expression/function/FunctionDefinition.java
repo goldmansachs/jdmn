@@ -39,7 +39,7 @@ public class FunctionDefinition extends Expression {
     }
 
     public boolean isStaticTyped() {
-        return this.formalParameters.stream().allMatch(p -> p.getType() != null && p.getType() != AnyType.ANY);
+        return this.formalParameters.stream().allMatch(p -> p.getType() != null);
     }
 
     public TypeExpression getReturnTypeExpression() {
