@@ -26,6 +26,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.StringLiteral;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.expression.NativeExpressionFactory;
+import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.*;
 import com.gs.dmn.runtime.annotation.HitPolicy;
 import com.gs.dmn.runtime.annotation.Rule;
@@ -52,6 +53,7 @@ public class DMNExpressionToNativeTransformer {
     private final FEELTranslator feelTranslator;
     private final EnvironmentFactory environmentFactory;
     private final DMNEnvironmentFactory dmnEnvironmentFactory;
+    private final NativeTypeFactory nativeTypeFactory;
     private final NativeExpressionFactory nativeExpressionFactory;
 
     DMNExpressionToNativeTransformer(BasicDMNToNativeTransformer dmnTransformer) {
@@ -62,6 +64,7 @@ public class DMNExpressionToNativeTransformer {
 
         this.feelTranslator = dmnTransformer.getFEELTranslator();
         this.dmnEnvironmentFactory = dmnTransformer.getDMNEnvironmentFactory();
+        this.nativeTypeFactory = this.dmnTransformer.getNativeTypeFactory();
         this.nativeExpressionFactory = dmnTransformer.getNativeExpressionFactory();
     }
 
@@ -547,14 +550,20 @@ public class DMNExpressionToNativeTransformer {
             return new ExpressionStatement(expressionText, functionType);
         } else if (this.dmnTransformer.isJavaFunction(kind)) {
             JavaFunctionInfo javaInfo = extractJavaFunctionInfo(element, expression);
-            String paramTypesArg = javaInfo.getParamTypes().stream().map(p -> String.format("\"%s\"", p)).collect(Collectors.joining(", "));
-            String javaInfoArgs = String.format("\"%s\", \"%s\", Arrays.asList(%s)", javaInfo.getClassName(), javaInfo.getMethodName(), paramTypesArg);
-            String javaInfoArg = dmnTransformer.constructor(JavaFunctionInfo.class.getName(), javaInfoArgs);
-            String returnType = dmnTransformer.toNativeType(functionType.getReturnType());
-            String text = dmnTransformer.constructor(JavaExternalFunction.class.getName() + "<>", String.format("%s, %s, %s.class", javaInfoArg, this.dmnTransformer.externalExecutorVariableName(), returnType));
+            String text = javaFunctionToNative(javaInfo, functionType);
             return new ExpressionStatement(text, functionType);
         }
         throw new DMNRuntimeException(String.format("Kind '%s' is not supported yet in element '%s'", kind, element.getName()));
+    }
+
+    private String javaFunctionToNative(JavaFunctionInfo javaInfo, FunctionType functionType) {
+        String paramTypesArg = javaInfo.getParamTypes().stream().map(p -> String.format("\"%s\"", p)).collect(Collectors.joining(", "));
+        String javaInfoArgs = String.format("\"%s\", \"%s\", Arrays.asList(%s)", javaInfo.getClassName(), javaInfo.getMethodName(), paramTypesArg);
+        String javaInfoArg = dmnTransformer.constructor(JavaFunctionInfo.class.getName(), javaInfoArgs);
+        String returnType = dmnTransformer.toNativeType(functionType.getReturnType());
+        String className = nativeTypeFactory.constructorOfGenericType(JavaExternalFunction.class.getName(), returnType);
+        String javaClassOfReturnType = nativeTypeFactory.javaClass(returnType);
+        return dmnTransformer.constructor(className, String.format("%s, %s, %s", javaInfoArg, this.dmnTransformer.externalExecutorVariableName(), javaClassOfReturnType));
     }
 
     String functionDefinitionToNative(TDRGElement element, FunctionDefinition functionDefinition, String body, boolean convertToContext) {
@@ -566,11 +575,7 @@ public class DMNExpressionToNativeTransformer {
         if (functionType instanceof FEELFunctionType) {
             if (((FEELFunctionType) functionType).isExternal()) {
                 JavaFunctionInfo javaInfo = extractJavaFunctionInfo(element, ((FEELFunctionType) functionType).getFunctionDefinition());
-                String paramTypesArg = javaInfo.getParamTypes().stream().map(p -> String.format("\"%s\"", p)).collect(Collectors.joining(", "));
-                String javaInfoArgs = String.format("\"%s\", \"%s\", Arrays.asList(%s)", javaInfo.getClassName(), javaInfo.getMethodName(), paramTypesArg);
-                String javaInfoArg = dmnTransformer.constructor(JavaFunctionInfo.class.getName(), javaInfoArgs);
-                String returnType = dmnTransformer.toNativeType(functionType.getReturnType());
-                return dmnTransformer.constructor(JavaExternalFunction.class.getName()+"<>", String.format("%s, %s, %s.class", javaInfoArg, this.dmnTransformer.externalExecutorVariableName(), returnType));
+                return javaFunctionToNative(javaInfo, functionType);
             } else {
                 String returnType = this.dmnTransformer.toNativeType(this.dmnTransformer.convertType(functionType.getReturnType(), convertToContext));
                 String signature = "Object... args";

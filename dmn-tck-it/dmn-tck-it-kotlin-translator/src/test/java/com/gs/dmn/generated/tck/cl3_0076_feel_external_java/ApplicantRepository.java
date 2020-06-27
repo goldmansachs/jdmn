@@ -10,22 +10,15 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.synthesis.type;
+package com.gs.dmn.generated.tck.cl3_0076_feel_external_java;
 
-public abstract class JavaTypeFactory implements NativeTypeFactory {
-    @Override
-    public String nullableType(String type) {
-        return type;
+import com.gs.dmn.generated.kotlin.tck.cl3_0076_feel_external_java.type.Applicant;
+import com.gs.dmn.generated.kotlin.tck.cl3_0076_feel_external_java.type.ApplicantImpl;
+
+import java.math.BigDecimal;
+
+public class ApplicantRepository {
+    public Applicant find(String name) {
+        return new ApplicantImpl(BigDecimal.valueOf(32), "john");
     }
-
-    @Override
-    public String constructorOfGenericType(String typeName, String... typeParameters) {
-        return typeName + "<>";
-    }
-
-    @Override
-    public String javaClass(String className) {
-        return String.format("%s.class", className);
-    }
-
 }
