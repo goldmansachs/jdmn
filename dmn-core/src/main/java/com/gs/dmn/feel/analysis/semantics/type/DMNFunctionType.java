@@ -14,22 +14,34 @@ package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
-import org.omg.spec.dmn._20180521.model.TNamedElement;
+import org.omg.spec.dmn._20180521.model.TDRGElement;
+import org.omg.spec.dmn._20180521.model.TFunctionDefinition;
+import org.omg.spec.dmn._20180521.model.TFunctionKind;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class DMNFunctionType extends FunctionType {
-    private final TNamedElement invocable;
+    private final TDRGElement drgElement;
+    private final TFunctionDefinition functionDefinition;
 
-    public DMNFunctionType(List<FormalParameter> parameters, Type returnType, TNamedElement invocable) {
-        super(parameters, returnType);
-        this.invocable = invocable;
+    public DMNFunctionType(List<FormalParameter> parameters, Type returnType, TDRGElement drgElement) {
+        this(parameters, returnType, drgElement, null);
     }
 
-    public TNamedElement getInvocable() {
-        return invocable;
+    public DMNFunctionType(List<FormalParameter> parameters, Type returnType, TDRGElement drgElement, TFunctionDefinition functionDefinition) {
+        super(parameters, returnType);
+        this.drgElement = drgElement;
+        this.functionDefinition = functionDefinition;
+    }
+
+    public TDRGElement getDRGElement() {
+        return drgElement;
+    }
+
+    public TFunctionKind getKind() {
+        return this.functionDefinition == null ? null : this.functionDefinition.getKind();
     }
 
     @Override

@@ -500,7 +500,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         if (functionType instanceof BuiltinFunctionType) {
             return String.format("%s(%s)", javaFunctionCode, argumentsText);
         } else if (functionType instanceof DMNFunctionType) {
-            TNamedElement invocable = ((DMNFunctionType) functionType).getInvocable();
+            TNamedElement invocable = ((DMNFunctionType) functionType).getDRGElement();
             if (invocable instanceof TBusinessKnowledgeModel) {
                 argumentsText = this.dmnTransformer.drgElementArgumentsExtraCache(this.dmnTransformer.drgElementArgumentsExtra(this.dmnTransformer.augmentArgumentList(argumentsText)));
                 String javaQualifiedName = this.dmnTransformer.bkmQualifiedFunctionName((TBusinessKnowledgeModel) invocable);
