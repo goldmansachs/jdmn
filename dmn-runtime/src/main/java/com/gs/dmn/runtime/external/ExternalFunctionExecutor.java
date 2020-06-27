@@ -12,6 +12,11 @@
  */
 package com.gs.dmn.runtime.external;
 
+import java.util.List;
+
 public interface ExternalFunctionExecutor {
+    @Deprecated
     Object execute(String className, String methodName, Object[] args);
+
+    Object execute(JavaFunctionInfo info, List<Object> argList);
 }

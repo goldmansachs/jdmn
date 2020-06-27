@@ -16,9 +16,7 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
-import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
-import com.gs.dmn.feel.analysis.semantics.type.ListType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Context;
@@ -31,6 +29,7 @@ import com.gs.dmn.feel.synthesis.expression.NativeExpressionFactory;
 import com.gs.dmn.runtime.*;
 import com.gs.dmn.runtime.annotation.HitPolicy;
 import com.gs.dmn.runtime.annotation.Rule;
+import com.gs.dmn.runtime.external.JavaExternalFunction;
 import com.gs.dmn.runtime.external.JavaFunctionInfo;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.java.CompoundStatement;
@@ -537,13 +536,25 @@ public class DMNExpressionToNativeTransformer {
     //
     ExpressionStatement functionDefinitionToNative(TDRGElement element, TFunctionDefinition expression, Environment environment) {
         FunctionType functionType = (FunctionType) this.dmnTransformer.expressionType(element, expression, environment);
-        TExpression bodyExpression = expression.getExpression().getValue();
-        Environment functionDefinitionEnvironment = this.dmnTransformer.makeFunctionDefinitionEnvironment(element, expression, environment);
-        ExpressionStatement statement = (ExpressionStatement) this.dmnTransformer.expressionToNative(element, bodyExpression, functionDefinitionEnvironment);
-        String body = statement.getExpression();
+        TFunctionKind kind = expression.getKind();
+        if (this.dmnTransformer.isFEELFunction(kind)) {
+            TExpression bodyExpression = expression.getExpression().getValue();
+            Environment functionDefinitionEnvironment = this.dmnTransformer.makeFunctionDefinitionEnvironment(element, expression, environment);
+            ExpressionStatement statement = (ExpressionStatement) this.dmnTransformer.expressionToNative(element, bodyExpression, functionDefinitionEnvironment);
+            String body = statement.getExpression();
 
-        String expressionText = functionDefinitionToNative(element, functionType, body, false);
-        return new ExpressionStatement(expressionText, functionType);
+            String expressionText = functionDefinitionToNative(element, functionType, body, false);
+            return new ExpressionStatement(expressionText, functionType);
+        } else if (this.dmnTransformer.isJavaFunction(kind)) {
+            JavaFunctionInfo javaInfo = extractJavaFunctionInfo(element, expression);
+            String paramTypesArg = javaInfo.getParamTypes().stream().map(p -> String.format("\"%s\"", p)).collect(Collectors.joining(", "));
+            String javaInfoArgs = String.format("\"%s\", \"%s\", Arrays.asList(%s)", javaInfo.getClassName(), javaInfo.getMethodName(), paramTypesArg);
+            String javaInfoArg = dmnTransformer.constructor(JavaFunctionInfo.class.getName(), javaInfoArgs);
+            String returnType = dmnTransformer.toNativeType(functionType.getReturnType());
+            String text = dmnTransformer.constructor(JavaExternalFunction.class.getName() + "<>", String.format("%s, %s, %s.class", javaInfoArg, this.dmnTransformer.externalExecutorVariableName(), returnType));
+            return new ExpressionStatement(text, functionType);
+        }
+        throw new DMNRuntimeException(String.format("Kind '%s' is not supported yet in element '%s'", kind, element.getName()));
     }
 
     String functionDefinitionToNative(TDRGElement element, FunctionDefinition functionDefinition, String body, boolean convertToContext) {
@@ -552,10 +563,27 @@ public class DMNExpressionToNativeTransformer {
     }
 
     private String functionDefinitionToNative(TDRGElement element, FunctionType functionType, String body, boolean convertToContext) {
-        String returnType = this.dmnTransformer.toNativeType(this.dmnTransformer.convertType(functionType.getReturnType(), convertToContext));
-        String signature = "Object... args";
-        String applyMethod = this.nativeExpressionFactory.applyMethod(functionType, signature, convertToContext, body);
-        return functionDefinitionToNative(returnType, applyMethod);
+        if (functionType instanceof FEELFunctionType) {
+            if (((FEELFunctionType) functionType).isExternal()) {
+                JavaFunctionInfo javaInfo = extractJavaFunctionInfo(element, ((FEELFunctionType) functionType).getFunctionDefinition());
+                String paramTypesArg = javaInfo.getParamTypes().stream().map(p -> String.format("\"%s\"", p)).collect(Collectors.joining(", "));
+                String javaInfoArgs = String.format("\"%s\", \"%s\", Arrays.asList(%s)", javaInfo.getClassName(), javaInfo.getMethodName(), paramTypesArg);
+                String javaInfoArg = dmnTransformer.constructor(JavaFunctionInfo.class.getName(), javaInfoArgs);
+                String returnType = dmnTransformer.toNativeType(functionType.getReturnType());
+                return dmnTransformer.constructor(JavaExternalFunction.class.getName()+"<>", String.format("%s, %s, %s.class", javaInfoArg, this.dmnTransformer.externalExecutorVariableName(), returnType));
+            } else {
+                String returnType = this.dmnTransformer.toNativeType(this.dmnTransformer.convertType(functionType.getReturnType(), convertToContext));
+                String signature = "Object... args";
+                String applyMethod = this.nativeExpressionFactory.applyMethod(functionType, signature, convertToContext, body);
+                return functionDefinitionToNative(returnType, applyMethod);
+            }
+        } else if (functionType instanceof DMNFunctionType) {
+            String returnType = this.dmnTransformer.toNativeType(this.dmnTransformer.convertType(functionType.getReturnType(), convertToContext));
+            String signature = "Object... args";
+            String applyMethod = this.nativeExpressionFactory.applyMethod(functionType, signature, convertToContext, body);
+            return functionDefinitionToNative(returnType, applyMethod);
+        }
+        throw new DMNRuntimeException(String.format("%s is not supported yet", functionType));
     }
 
     public JavaFunctionInfo extractJavaFunctionInfo(TDRGElement element, TFunctionDefinition functionDefinition) {
