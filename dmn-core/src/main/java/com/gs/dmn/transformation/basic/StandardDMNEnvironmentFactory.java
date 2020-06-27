@@ -374,7 +374,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                     parameters.add(new FormalParameter(param.getName(), paramType));
                 }
                 if (bodyType != null) {
-                    return new DMNFunctionType(parameters, bodyType, element);
+                    return new DMNFunctionType(parameters, bodyType, element, functionDefinition);
                 }
             }
         }
@@ -582,7 +582,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         }
         List<FormalParameter> parameters = this.dmnTransformer.bkmFEELParameters(bkm);
         Type returnType = this.dmnTransformer.drgElementOutputFEELType(bkm);
-        return this.environmentFactory.makeBusinessKnowledgeModelDeclaration(name, new DMNFunctionType(parameters, returnType, bkm));
+        return this.environmentFactory.makeBusinessKnowledgeModelDeclaration(name, new DMNFunctionType(parameters, returnType, bkm, bkm.getEncapsulatedLogic()));
     }
 
     //
