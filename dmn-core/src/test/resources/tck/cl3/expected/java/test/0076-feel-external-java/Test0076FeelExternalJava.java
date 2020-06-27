@@ -175,6 +175,16 @@ public class Test0076FeelExternalJava extends com.gs.dmn.runtime.DefaultDMNBaseD
     }
 
     @org.junit.Test
+    public void testCasevarargs_001() {
+        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
+        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
+        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+
+        // Check varargs_001
+        checkValues("foo bar", new Varargs_001().apply(annotationSet_, eventListener_, externalExecutor_));
+    }
+
+    @org.junit.Test
     public void testCaseapplicant_repository() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
         com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();

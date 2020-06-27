@@ -332,23 +332,21 @@
         </context>
     </decision>
 
-    <!--
-        <decision name="varargs_001" id="_varargs_001">
-            <variable name="varargs_001"/>
-            <context>
-                <contextEntry>
-                    <variable name="format"/>
-                    <literalExpression>
-                        <text>function(s1: string, n1: Any) external {java:{class:"java.lang.String",method signature:"format(java.lang.String, [Ljava.lang.Object;)"}}</text>
-                    </literalExpression>
-                </contextEntry>
-                <contextEntry>
-                    <literalExpression>
-                        <text>format("foo %s", "bar")</text>
-                    </literalExpression>
-                </contextEntry>
-            </context>
-        </decision>
-    -->
+    <decision name="varargs_001" id="_varargs_001">
+        <variable name="varargs_001"/>
+        <context>
+            <contextEntry>
+                <variable name="format"/>
+                <literalExpression>
+                    <text>function(s1: string, n1: Any) external {java:{class:"java.lang.String",method signature:"format(java.lang.String, [Ljava.lang.Object;)"}}</text>
+                </literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <literalExpression>
+                    <text>format("foo %s", "bar")</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
 
 </definitions>

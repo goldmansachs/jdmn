@@ -332,7 +332,6 @@
         </context>
     </decision>
 
-<!--
     <decision name="varargs_001" id="_varargs_001">
         <variable name="varargs_001"/>
         <context>
@@ -349,6 +348,5 @@
             </contextEntry>
         </context>
     </decision>
--->
 
 </definitions>

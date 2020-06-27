@@ -160,16 +160,14 @@
         </resultNode>
     </testCase>
 
-    <!--
-        <testCase id="varargs_001">
-            <description>external function definition - varargs func</description>
-            <resultNode name="varargs_001" type="decision">
-                <expected>
-                    <value xsi:type="xsd:string">foo bar</value>
-                </expected>
-            </resultNode>
-        </testCase>
-    -->
+    <testCase id="varargs_001">
+        <description>external function definition - varargs func</description>
+        <resultNode name="varargs_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">foo bar</value>
+            </expected>
+        </resultNode>
+    </testCase>
 
     <testCase id="applicant_repository">
         <description>external function returning complex type</description>
