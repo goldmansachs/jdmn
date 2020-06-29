@@ -67,7 +67,7 @@ public class TypeRefValidator extends SimpleDMNValidator {
                 QualifiedName typeRef = QualifiedName.toQualifiedName(model, varTypeRef);
                 TItemDefinition itemDefinition = dmnModelRepository.lookupItemDefinition(model, typeRef);
                 if (itemDefinition == null) {
-                    String error = String.format("Cannot find type '%s' for DRGElement '%s'", typeRef.toString(), element.getName());
+                    String error = makeError(element, String.format("Cannot find typeRef '%s'", typeRef.toString()));
                     errors.add(error);
                 }
             }
