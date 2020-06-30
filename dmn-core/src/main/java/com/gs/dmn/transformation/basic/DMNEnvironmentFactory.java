@@ -64,6 +64,8 @@ public interface DMNEnvironmentFactory {
 
     Environment makeEnvironment(TDRGElement element, Environment parentEnvironment);
 
+    Environment makeEnvironment(TDRGElement element, Environment parentEnvironment, boolean isRecursive);
+
     //
     // Decision Table
     //

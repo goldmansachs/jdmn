@@ -5,9 +5,28 @@
 <!--
      This is an incomplete DMN file, designed to test the GenerateMissingItemDefinitionsTransformer component
      The following definitions have been removed:
-        - assessIssue, lendingThreshold, currentRiskAppetite, processPriorIssues,
-        - creditIssueType, assessApplicantAge, priorIssue, makeCreditDecision, assessIssueRisk
+        - assessIssue, processPriorIssues,
+        - assessApplicantAge, priorIssue, makeCreditDecision, assessIssueRisk
 -->
+
+
+    <itemDefinition isCollection="false" name="lendingThreshold" id="id-4cb80be6fb604151f1e9edf9c3cbe2e7" label="Lending threshold">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:number</typeRef>
+    </itemDefinition>
+
+    <itemDefinition isCollection="false" name="currentRiskAppetite" id="id-f6f0d0a33cba7ca489f16f640f6bcb3b" label="Current risk appetite">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:number</typeRef>
+        <allowedValues>
+            <text>[0.0..100.0]</text>
+        </allowedValues>
+    </itemDefinition>
+
+    <itemDefinition isCollection="false" name="creditIssueType" id="id-e5d4d4757df0b46fe82633187641f999" label="Credit issue type" sigExt:glossaryId="3aa8101e7bad40dd87d293f33b5ae045">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:string</typeRef>
+        <allowedValues>
+            <text>"Card rejection","Late payment","Default on obligations","Bankruptcy"</text>
+        </allowedValues>
+    </itemDefinition>
 
     <itemDefinition isCollection="false" name="compareAgainstLendingThreshold" id="id-f73424a274f9119ac3f26385d7addff6" label="Compare against lending threshold">
         <typeRef>feel:number</typeRef>
