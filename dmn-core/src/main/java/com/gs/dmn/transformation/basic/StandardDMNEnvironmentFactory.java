@@ -215,30 +215,8 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     //
     @Override
     public Type toFEELType(TDefinitions model, String typeName) {
-        Type type = this.feelTypeMemoizer.get(model, typeName);
-        if (type == null) {
-            type = toFEELTypeNoCache(model, typeName);
-            this.feelTypeMemoizer.put(model, typeName, type);
-        }
-        return type;
-    }
-
-    private Type toFEELTypeNoCache(TDefinitions model, String typeName) {
-        if (StringUtils.isBlank(typeName)) {
-            return null;
-        }
-        // Lookup primitive types
         QualifiedName qName = QualifiedName.toQualifiedName(model, typeName);
-        Type primitiveType = lookupPrimitiveType(qName);
-        if (primitiveType != null) {
-            return primitiveType;
-        }
-        // Lookup item definitions
-        TItemDefinition itemDefinition = this.dmnModelRepository.lookupItemDefinition(model, qName);
-        if (itemDefinition != null) {
-            return toFEELType(itemDefinition);
-        }
-        throw new DMNRuntimeException(String.format("Cannot map type '%s' to FEEL", qName.toString()));
+        return toFEELType(model, qName);
     }
 
     @Override
