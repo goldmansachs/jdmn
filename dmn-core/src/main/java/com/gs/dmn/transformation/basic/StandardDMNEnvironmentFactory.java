@@ -195,6 +195,31 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             } else {
                 throw new DMNRuntimeException(String.format("Not supported '%s'", body.getClass().getSimpleName()));
             }
+        } else if (expression instanceof TDecisionTable) {
+            // Derive from output
+            List<TOutputClause> output = ((TDecisionTable) expression).getOutput();
+            if (output != null && output.size() != 0) {
+                Map<String, Type> members = new LinkedHashMap<>();
+                for (TOutputClause outputClause: output) {
+                    String outputTypeRef = outputClause.getTypeRef();
+                    if (outputTypeRef == null) {
+                        // Cannot infer it
+                        throw new DMNRuntimeException(String.format("Cannot infer type from DT for '%s'. Missing typeRef for OuputClause", element.getName()));
+                    } else {
+                        Type type = toFEELType(model, outputTypeRef);
+                        members.put(outputClause.getName(), type);
+                    }
+                }
+                if (members.isEmpty()) {
+                    throw new DMNRuntimeException(String.format("Cannot infer type for '%s'. No OutputClauses found.", element.getName()));
+                } else if (members.size() == 1) {
+                    return members.values().iterator().next();
+                } else {
+                    return new ContextType(members);
+                }
+            } else {
+                throw new DMNRuntimeException(String.format("Missing output for DT '%s'. No OutputClauses found.", element.getName()));
+            }
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported yet", expression.getClass().getSimpleName()));
         }
@@ -405,6 +430,11 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
     @Override
     public Environment makeEnvironment(TDRGElement element, Environment parentEnvironment) {
+        return makeEnvironment(element, parentEnvironment, true);
+    }
+
+    @Override
+    public Environment makeEnvironment(TDRGElement element, Environment parentEnvironment, boolean isRecursive) {
         Environment elementEnvironment = this.environmentFactory.makeEnvironment(parentEnvironment);
 
         // Add declaration for each direct child
@@ -419,8 +449,10 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         // Add it to cache to avoid infinite loops
         this.environmentMemoizer.put(element, elementEnvironment);
         // Add declaration of element to support recursion
-        Declaration declaration = makeDeclaration(element, elementEnvironment, element);
-        addDeclaration(elementEnvironment, declaration, element, element);
+        if (isRecursive) {
+            Declaration declaration = makeDeclaration(element, elementEnvironment, element);
+            addDeclaration(elementEnvironment, declaration, element, element);
+        }
 
         // Add declaration for parameters
         if (element instanceof TBusinessKnowledgeModel) {
