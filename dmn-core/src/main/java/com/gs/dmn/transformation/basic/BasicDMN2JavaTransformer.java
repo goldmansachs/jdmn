@@ -688,20 +688,11 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     @Override
     public QualifiedName drgElementOutputTypeRef(TDRGElement element) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
-        if (element instanceof TBusinessKnowledgeModel) {
-            QualifiedName typeRef = this.dmnModelRepository.outputTypeRef(model, element);
-            if (typeRef == null) {
-                throw new DMNRuntimeException(String.format("Cannot infer return type for BKM '%s'", element.getName()));
-            }
-            return typeRef;
-        } else {
-            TInformationItem variable = this.dmnModelRepository.variable(element);
-            if (variable != null) {
-                return QualifiedName.toQualifiedName(model, variable.getTypeRef());
-            } else {
-                throw new DMNRuntimeException(String.format("Missing variable in element '%s'", element.getClass().getSimpleName()));
-            }
+        QualifiedName typeRef = this.dmnModelRepository.outputTypeRef(model, element);
+        if (typeRef == null) {
+            throw new DMNRuntimeException(String.format("Cannot infer return type for BKM '%s'", element.getName()));
         }
+        return typeRef;
     }
 
     //
