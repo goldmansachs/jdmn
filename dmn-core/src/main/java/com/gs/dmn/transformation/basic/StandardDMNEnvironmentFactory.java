@@ -64,7 +64,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     @Override
     public Type drgElementOutputFEELType(TDRGElement element) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
-        QualifiedName typeRef = this.dmnModelRepository.typeRef(model, element);
+        QualifiedName typeRef = this.dmnModelRepository.outputTypeRef(model, element);
         Type type = typeRef == null ? null : toFEELType(model, typeRef);
         if (type == null) {
             // Infer type from body
@@ -78,7 +78,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     @Override
     public Type drgElementOutputFEELType(TDRGElement element, Environment environment) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
-        QualifiedName typeRef = this.dmnModelRepository.typeRef(model, element);
+        QualifiedName typeRef = this.dmnModelRepository.outputTypeRef(model, element);
         Type type = typeRef == null ? null : toFEELType(model, typeRef);
         if (type == null) {
             // Infer type from body
@@ -91,7 +91,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     @Override
     public Type drgElementVariableFEELType(TDRGElement element) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
-        QualifiedName typeRef = this.dmnModelRepository.typeRef(model, element);
+        QualifiedName typeRef = this.dmnModelRepository.outputTypeRef(model, element);
         Type type = typeRef == null ? null : toFEELType(model, typeRef);
         if (type == null || !type.isValid()) {
             // Infer type from body
@@ -105,7 +105,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     @Override
     public Type drgElementVariableFEELType(TDRGElement element, Environment environment) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
-        QualifiedName typeRef = this.dmnModelRepository.typeRef(model, element);
+        QualifiedName typeRef = this.dmnModelRepository.outputTypeRef(model, element);
         Type type = typeRef == null ? null : toFEELType(model, typeRef);
         if (type == null || !type.isValid()) {
             // Infer type from body
