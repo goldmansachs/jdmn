@@ -123,7 +123,7 @@ public class DMNExpressionToNativeTransformer {
             return this.dmnTransformer.toFEELType(model, outputClauseTypeRef);
         }
         // Derive from parent typeRef
-        QualifiedName parentTypeRef = this.dmnModelRepository.typeRef(model, element);
+        QualifiedName parentTypeRef = this.dmnModelRepository.outputTypeRef(model, element);
         if (this.dmnModelRepository.isCompoundDecisionTable(element)) {
             TItemDefinition itemDefinition = this.dmnModelRepository.lookupItemDefinition(model, parentTypeRef);
             if (itemDefinition != null) {
