@@ -338,7 +338,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
             }
             Type expressionType = body.getType();
             Statement statement = new ExpressionStatement(javaCode, expressionType);
-            Type expectedType = toFEELType(model, drgElementOutputTypeRef(element));
+            Type expectedType = drgElementOutputFEELType(element);
             Statement result = convertExpression(statement, expectedType);
             return ((ExpressionStatement) result).getExpression();
         } else {

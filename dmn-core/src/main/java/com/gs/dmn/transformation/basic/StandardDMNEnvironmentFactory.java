@@ -63,18 +63,28 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     //
     @Override
     public Type drgElementOutputFEELType(TDRGElement element) {
-        return drgElementOutputFEELType(element, this.dmnTransformer.makeEnvironment(element));
+        TDefinitions model = this.dmnModelRepository.getModel(element);
+        QualifiedName typeRef = this.dmnModelRepository.typeRef(model, element);
+        Type type = typeRef == null ? null : toFEELType(model, typeRef);
+        if (type == null) {
+            // Infer type from body
+            Environment environment = this.dmnTransformer.makeEnvironment(element);
+            return inferDRGElementOutputFEELType(element, environment);
+        } else {
+            return type;
+        }
     }
 
     @Override
     public Type drgElementOutputFEELType(TDRGElement element, Environment environment) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         QualifiedName typeRef = this.dmnModelRepository.typeRef(model, element);
-        if (typeRef != null) {
-            return toFEELType(model, typeRef);
-        } else {
+        Type type = typeRef == null ? null : toFEELType(model, typeRef);
+        if (type == null) {
             // Infer type from body
             return inferDRGElementOutputFEELType(element, environment);
+        } else {
+            return type;
         }
     }
 
@@ -87,8 +97,9 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             // Infer type from body
             Environment environment = this.dmnTransformer.makeEnvironment(element);
             return inferDRGElementVariableFEELType(element, environment);
+        } else {
+            return type;
         }
-        return type;
     }
 
     @Override
@@ -99,8 +110,9 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         if (type == null || !type.isValid()) {
             // Infer type from body
             return inferDRGElementVariableFEELType(element, environment);
+        } else {
+            return type;
         }
-        return type;
     }
 
     private Type inferDRGElementOutputFEELType(TDRGElement element, Environment environment) {
