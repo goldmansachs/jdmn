@@ -205,7 +205,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             TDRGElement element = info.getReference().getElement();
             return this.dmnTransformer.drgElementOutputFEELType(element);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot resolve FEEL type for node '%s'", info.getNodeName()));
+            throw new DMNRuntimeException(String.format("Cannot resolve FEEL type for node '%s'", info.getNodeName()), e);
         }
     }
 
