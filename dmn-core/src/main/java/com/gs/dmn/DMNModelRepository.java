@@ -800,7 +800,12 @@ public class DMNModelRepository {
         return list == null || list.isEmpty();
     }
 
-    public QualifiedName variableTypeRef(TDefinitions model, TNamedElement element) {
+    public QualifiedName variableTypeRef(TDefinitions model, TInformationItem element) {
+        TInformationItem variable = variable(element);
+        return variable == null ? null : QualifiedName.toQualifiedName(model, variable.getTypeRef());
+    }
+
+    public QualifiedName variableTypeRef(TDefinitions model, TDRGElement element) {
         TInformationItem variable = variable(element);
         return variable == null ? null : QualifiedName.toQualifiedName(model, variable.getTypeRef());
     }
@@ -928,14 +933,14 @@ public class DMNModelRepository {
     }
 
     public TInformationItem variable(TNamedElement element) {
-        if (element instanceof TInformationItem) {
-            return (TInformationItem) element;
-        } else if (element instanceof TInputData) {
+        if (element instanceof TInputData) {
             return ((TInputData) element).getVariable();
         } else if (element instanceof TDecision) {
             return ((TDecision) element).getVariable();
         } else if (element instanceof TBusinessKnowledgeModel) {
             return ((TBusinessKnowledgeModel) element).getVariable();
+        } else if (element instanceof TInformationItem) {
+            return (TInformationItem) element;
         }
         return null;
     }
