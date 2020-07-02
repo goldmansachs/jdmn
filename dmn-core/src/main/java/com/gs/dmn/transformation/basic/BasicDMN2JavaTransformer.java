@@ -1496,7 +1496,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
             return this.expressionToNativeTransformer.contextExpressionToNative(element, (TContext) expression);
         } else if (expression instanceof TLiteralExpression) {
             Statement statement = this.expressionToNativeTransformer.literalExpressionToNative(element, ((TLiteralExpression) expression).getText());
-            Type expectedType = toFEELType(model, drgElementOutputTypeRef(element));
+            Type expectedType = drgElementOutputFEELType(element);
             return convertExpression(statement, expectedType);
         } else if (expression instanceof TInvocation) {
             return this.expressionToNativeTransformer.invocationExpressionToNative(element, (TInvocation) expression);
