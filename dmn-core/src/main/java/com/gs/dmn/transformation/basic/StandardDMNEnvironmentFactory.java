@@ -368,14 +368,15 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         JAXBElement<? extends TExpression> expressionElement = functionDefinition.getExpression();
         if (expressionElement != null) {
+            // Calculate body type
+            Type bodyType;
             TExpression body = expressionElement.getValue();
             QualifiedName typeRef = QualifiedName.toQualifiedName(model, body.getTypeRef());
             if (typeRef != null) {
-                return toFEELType(model, typeRef);
+                bodyType = toFEELType(model, typeRef);
             } else {
                 Environment functionDefinitionEnvironment = this.makeFunctionDefinitionEnvironment(element, functionDefinition, environment);
                 TFunctionKind kind = functionDefinition.getKind();
-                Type bodyType = null;
                 if (this.dmnTransformer.isFEELFunction(kind)) {
                     bodyType = expressionType(element, body, functionDefinitionEnvironment);
                 } else if (this.dmnTransformer.isJavaFunction(kind)) {
@@ -383,14 +384,15 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 } else {
                     throw new DMNRuntimeException(String.format("DRGElement '%s': Kind '%s' is not supported yet", element.getName(), kind));
                 }
-                List<FormalParameter> parameters = new ArrayList<>();
-                for(TInformationItem param: functionDefinition.getFormalParameter()) {
-                    Type paramType = toFEELType(model, QualifiedName.toQualifiedName(model, param.getTypeRef()));
-                    parameters.add(new FormalParameter(param.getName(), paramType));
-                }
-                if (bodyType != null) {
-                    return new DMNFunctionType(parameters, bodyType, element, functionDefinition);
-                }
+            }
+            // Make function type
+            List<FormalParameter> parameters = new ArrayList<>();
+            for(TInformationItem param: functionDefinition.getFormalParameter()) {
+                Type paramType = toFEELType(model, QualifiedName.toQualifiedName(model, param.getTypeRef()));
+                parameters.add(new FormalParameter(param.getName(), paramType));
+            }
+            if (bodyType != null) {
+                return new DMNFunctionType(parameters, bodyType, element, functionDefinition);
             }
         }
         return null;
