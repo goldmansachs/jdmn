@@ -812,33 +812,39 @@ public class DMNModelRepository {
             typeRef = QualifiedName.toQualifiedName(model, variable.getTypeRef());
         }
         if (typeRef == null) {
-            // Derive from expression
-            TExpression expression = expression(element);
-            if (expression != null) {
-                typeRef = QualifiedName.toQualifiedName(model, expression.getTypeRef());
-                if (typeRef == null) {
-                    if (expression instanceof TContext) {
-                        // Derive from return entry
-                        List<TContextEntry> contextEntryList = ((TContext) expression).getContextEntry();
-                        for(TContextEntry ce: contextEntryList) {
-                            if (ce.getVariable() == null) {
-                                JAXBElement<? extends TExpression> returnElement = ce.getExpression();
-                                if (returnElement != null) {
-                                    typeRef = QualifiedName.toQualifiedName(model, returnElement.getValue().getTypeRef());
-                                }
+            typeRef = inferTypeRef(model, element);
+        }
+        return typeRef;
+    }
+
+    private QualifiedName inferTypeRef(TDefinitions model, TDRGElement element) {
+        QualifiedName typeRef = null;
+        // Derive from expression
+        TExpression expression = expression(element);
+        if (expression != null) {
+            typeRef = QualifiedName.toQualifiedName(model, expression.getTypeRef());
+            if (typeRef == null) {
+                if (expression instanceof TContext) {
+                    // Derive from return entry
+                    List<TContextEntry> contextEntryList = ((TContext) expression).getContextEntry();
+                    for(TContextEntry ce: contextEntryList) {
+                        if (ce.getVariable() == null) {
+                            JAXBElement<? extends TExpression> returnElement = ce.getExpression();
+                            if (returnElement != null) {
+                                typeRef = QualifiedName.toQualifiedName(model, returnElement.getValue().getTypeRef());
                             }
                         }
-                    } else if (expression instanceof TDecisionTable) {
-                        // Derive from output clause
-                        List<TOutputClause> outputList = ((TDecisionTable) expression).getOutput();
-                        if (outputList.size() == 1) {
-                            typeRef = QualifiedName.toQualifiedName(model, outputList.get(0).getTypeRef());
-                            if (typeRef == null) {
-                                // Derive from rules
-                                List<TDecisionRule> ruleList = ((TDecisionTable) expression).getRule();
-                                List<TLiteralExpression> outputEntry = ruleList.get(0).getOutputEntry();
-                                typeRef = QualifiedName.toQualifiedName(model, outputEntry.get(0).getTypeRef());
-                            }
+                    }
+                } else if (expression instanceof TDecisionTable) {
+                    // Derive from output clause
+                    List<TOutputClause> outputList = ((TDecisionTable) expression).getOutput();
+                    if (outputList.size() == 1) {
+                        typeRef = QualifiedName.toQualifiedName(model, outputList.get(0).getTypeRef());
+                        if (typeRef == null) {
+                            // Derive from rules
+                            List<TDecisionRule> ruleList = ((TDecisionTable) expression).getRule();
+                            List<TLiteralExpression> outputEntry = ruleList.get(0).getOutputEntry();
+                            typeRef = QualifiedName.toQualifiedName(model, outputEntry.get(0).getTypeRef());
                         }
                     }
                 }
