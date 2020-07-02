@@ -716,7 +716,7 @@ public class DMNExpressionToNativeTransformer {
             String bkmFunctionName = dmnTransformer.bkmQualifiedFunctionName(bkm);
             String argListString = argList.stream().map(s -> ((ExpressionStatement)s).getExpression()).collect(Collectors.joining(", "));
             String expressionText = String.format("%s(%s)", bkmFunctionName, dmnTransformer.drgElementArgumentsExtraCache(dmnTransformer.drgElementArgumentsExtra(dmnTransformer.augmentArgumentList(argListString))));
-            Type expressionType = dmnTransformer.toFEELType(model, dmnTransformer.drgElementOutputTypeRef(bkm));
+            Type expressionType = dmnTransformer.drgElementOutputFEELType(bkm);
             return new ExpressionStatement(expressionText, expressionType);
         } else {
             throw new DMNRuntimeException(String.format("Not supported '%s'", body.getClass().getSimpleName()));
@@ -754,7 +754,7 @@ public class DMNExpressionToNativeTransformer {
 
     Statement relationExpressionToNative(TDRGElement element, TRelation relation, Environment relationEnvironment) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
-        Type resultType = dmnTransformer.toFEELType(model, dmnTransformer.drgElementOutputTypeRef(element));
+        Type resultType = dmnTransformer.drgElementOutputFEELType(element);
         if (relation.getRow() == null) {
             return new ExpressionStatement("null", resultType);
         }
