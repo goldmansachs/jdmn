@@ -806,19 +806,17 @@ public class DMNModelRepository {
     }
 
     public QualifiedName outputTypeRef(TDefinitions model, TDRGElement element) {
-        QualifiedName typeRef = null;
         // Derive from variable
         TInformationItem variable = variable(element);
-        if (variable != null) {
-            typeRef = QualifiedName.toQualifiedName(model, variable.getTypeRef());
-        }
+        QualifiedName typeRef = variable == null ? null : QualifiedName.toQualifiedName(model, variable.getTypeRef());
+        // Derive from expression
         if (typeRef == null) {
-            typeRef = inferTypeRef(model, element);
+            typeRef = inferOutputTypeRef(model, element);
         }
         return typeRef;
     }
 
-    private QualifiedName inferTypeRef(TDefinitions model, TDRGElement element) {
+    private QualifiedName inferOutputTypeRef(TDefinitions model, TDRGElement element) {
         QualifiedName typeRef = null;
         // Derive from expression
         TExpression expression = expression(element);
