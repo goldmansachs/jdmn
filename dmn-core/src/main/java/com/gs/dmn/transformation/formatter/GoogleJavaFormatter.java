@@ -49,7 +49,7 @@ public class GoogleJavaFormatter implements JavaFormatter {
         try {
             return FORMATTER.formatSource(code);
         } catch (FormatterException e) {
-            throw new DMNRuntimeException("Failed to format java");
+            throw new DMNRuntimeException("Failed to format java", e);
         }
     }
 }

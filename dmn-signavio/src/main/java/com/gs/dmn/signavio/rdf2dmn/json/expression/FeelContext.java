@@ -71,7 +71,7 @@ public class FeelContext extends Context {
                 throw new UnsupportedOperationException(expression.getClass().getSimpleName() + " not supported");
             }
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot find enumerator at index '%s' in inputEntry '%s'", enumeratorIndex, expression.toString()));
+            throw new DMNRuntimeException(String.format("Cannot find enumerator at index '%s' in inputEntry '%s'", enumeratorIndex, expression.toString()), e);
         }
     }
 
@@ -84,7 +84,7 @@ public class FeelContext extends Context {
             List<EnumItem> enumItemsList = itemDefinition.getEnumItems();
             return findEnumItem(enumItemsList, enumeratorIndex);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot find enumerator at index '%s' in itemDefinition '%s'", enumeratorIndex, itemDefinitionName));
+            throw new DMNRuntimeException(String.format("Cannot find enumerator at index '%s' in itemDefinition '%s'", enumeratorIndex, itemDefinitionName), e);
         }
     }
 

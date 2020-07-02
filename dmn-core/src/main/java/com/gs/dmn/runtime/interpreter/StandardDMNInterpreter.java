@@ -919,7 +919,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                     // bind name -> value
                     parentContext.put(name, value);
                 } catch (Exception e) {
-                    throw new DMNRuntimeException(String.format("cannot bind value to '%s.%s'", importPath.asString(), name));
+                    throw new DMNRuntimeException(String.format("cannot bind value to '%s.%s'", importPath.asString(), name), e);
                 }
             }
         }
