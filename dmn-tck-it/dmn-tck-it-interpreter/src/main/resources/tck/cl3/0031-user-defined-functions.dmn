@@ -187,7 +187,7 @@
         <text>(2*3.141592) * radius</text>
       </literalExpression>
     </encapsulatedLogic>
-    <variable name="Circumference" typeRef="feel:number"/>
+    <variable name="Circumference"/>
   </businessKnowledgeModel>
   <inputData id="_48BAYH6PEeePe9Zmt-encA" name="inputA">
     <variable id="_XMnoAIDIEee-MeWXoLgrYg" name="inputA" typeRef="feel:number"/>
