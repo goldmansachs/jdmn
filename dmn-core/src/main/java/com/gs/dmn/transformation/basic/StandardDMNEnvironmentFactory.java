@@ -208,33 +208,70 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 throw new DMNRuntimeException(String.format("Not supported '%s'", body.getClass().getSimpleName()));
             }
         } else if (expression instanceof TDecisionTable) {
-            // Derive from output
-            List<TOutputClause> output = ((TDecisionTable) expression).getOutput();
-            if (output != null && output.size() != 0) {
-                Map<String, Type> members = new LinkedHashMap<>();
-                for (TOutputClause outputClause: output) {
-                    String outputTypeRef = outputClause.getTypeRef();
-                    if (outputTypeRef == null) {
-                        // Cannot infer it
-                        throw new DMNRuntimeException(String.format("Cannot infer type from DT for '%s'. Missing typeRef for OuputClause", element.getName()));
-                    } else {
-                        Type type = toFEELType(model, outputTypeRef);
-                        members.put(outputClause.getName(), type);
-                    }
+            // Derive from outputClauses clauses and rules
+            TDecisionTable dt = (TDecisionTable) expression;
+            List<TOutputClause> outputClauses = dt.getOutput();
+            List<TLiteralExpression> outputEntries = outputEntries(dt);
+            Map<String, Type> members = new LinkedHashMap<>();
+            if (outputClauses != null) {
+                for (int i=0; i<outputClauses.size(); i++) {
+                    // Derive typeRef from output clause
+                    TOutputClause outputClause = outputClauses.get(i);
+                    Type type = toFEELType(model, element, outputEntries, outputClause, i, environment);
+                    members.put(outputClause.getName(), type);
                 }
                 if (members.isEmpty()) {
-                    throw new DMNRuntimeException(String.format("Cannot infer type for '%s'. No OutputClauses found.", element.getName()));
+                    throw new DMNRuntimeException(String.format("Cannot infer type for '%s' from empty OutputClauses", element.getName()));
                 } else if (members.size() == 1) {
                     return members.values().iterator().next();
                 } else {
                     return new ContextType(members);
                 }
-            } else {
-                throw new DMNRuntimeException(String.format("Missing output for DT '%s'. No OutputClauses found.", element.getName()));
             }
+            throw new DMNRuntimeException(String.format("Cannot infer type for '%s' from empty OutputClauses", element.getName()));
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported yet", expression.getClass().getSimpleName()));
         }
+    }
+
+    private List<TLiteralExpression> outputEntries(TDecisionTable dt) {
+        List<TLiteralExpression> outputEntries = new ArrayList<>();
+        List<TDecisionRule> rules = dt.getRule();
+        if (rules != null && !rules.isEmpty()) {
+            outputEntries = rules.get(0).getOutputEntry();
+        }
+        return outputEntries;
+    }
+
+    public Type toFEELType(TDRGElement element, TOutputClause outputClause, int index) {
+        TExpression expression = this.dmnModelRepository.expression(element);
+        if (!(expression instanceof TDecisionTable)) {
+            throw new DMNRuntimeException(String.format("Expected Decision Table in element '%s', found '%s'", element.getName(), expression == null ? null : expression.getClass().getName()));
+        }
+
+        TDefinitions model = this.dmnModelRepository.getModel(element);
+        TDecisionTable dt = (TDecisionTable) expression;
+        List<TLiteralExpression> outputEntries = this.outputEntries(dt);
+        Environment environment = this.makeEnvironment(element);
+        return this.toFEELType(model, element, outputEntries, outputClause, index, environment);
+    }
+
+    private Type toFEELType(TDefinitions model, TDRGElement element, List<TLiteralExpression> outputEntries, TOutputClause outputClause, int index, Environment environment) {
+        String outputTypeRef = outputClause.getTypeRef();
+        Type type = null;
+        if (outputTypeRef == null) {
+            if (index < outputEntries.size()) {
+                type = expressionType(element, outputEntries.get(index), environment);
+                if (type == null) {
+                    throw new DMNRuntimeException(String.format("Cannot infer type for '%s' from OutputEntries", element.getName()));
+                }
+            } else {
+                throw new DMNRuntimeException(String.format("Cannot infer type for '%s' from OutputEntries", element.getName()));
+            }
+        } else {
+            type = toFEELType(model, outputTypeRef);
+        }
+        return type;
     }
 
     @Override
@@ -258,6 +295,9 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
     @Override
     public Type toFEELType(TDefinitions model, QualifiedName typeRef) {
+        if (typeRef == null) {
+            throw new DMNRuntimeException(String.format("Cannot infer type for typeRef '%s'", typeRef));
+        }
         Type type = this.feelTypeMemoizer.get(model, typeRef);
         if (type == null) {
             type = toFEELTypeNoCache(model, typeRef);

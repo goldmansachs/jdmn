@@ -44,6 +44,8 @@ public interface DMNEnvironmentFactory {
 
     Type expressionType(TDRGElement element, TExpression expression, Environment environment);
 
+    Type toFEELType(TDRGElement element, TOutputClause outputClause, int index);
+
     Type convertType(Type type, boolean convertToContext);
 
     //

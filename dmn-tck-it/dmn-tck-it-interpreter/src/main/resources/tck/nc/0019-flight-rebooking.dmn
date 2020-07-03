@@ -236,7 +236,7 @@
 		        </rule>
 		    </decisionTable>
 		</encapsulatedLogic>
-		<variable name="passenger priority" typeRef="feel:boolean"/>
+		<variable name="passenger priority"/>
 	</businessKnowledgeModel>
 	
 	<businessKnowledgeModel id="b_ReassignNextPassenger" name="reassign next passenger">
@@ -314,7 +314,7 @@
 				</contextEntry>
 			</context>
 		</encapsulatedLogic>
-	    <variable name="reassign next passenger" typeRef="kie:tPassengerTable"/>
+	    <variable name="reassign next passenger"/>
 	    <knowledgeRequirement>
 	        <requiredKnowledge href="#b_HasCapacity"/>
 	    </knowledgeRequirement>
@@ -328,7 +328,7 @@
                 <text> flight.Capacity > count( rebooked list[ Flight Number = flight.Flight Number ] ) </text>
             </literalExpression>
         </encapsulatedLogic>
-        <variable name="has capacity" typeRef="feel:boolean"/>
+        <variable name="has capacity"/>
     </businessKnowledgeModel>
     
 </definitions>

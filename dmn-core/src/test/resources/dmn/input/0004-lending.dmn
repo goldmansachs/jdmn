@@ -557,7 +557,7 @@
 				</contextEntry>
 			</context>
 		</encapsulatedLogic>
-		<variable name="AffordabilityCalculation" typeRef="feel:boolean"/>
+		<variable name="AffordabilityCalculation"/>
 		<knowledgeRequirement>
 			<requiredKnowledge href="#b_CreditContingencyFactorTable"/>
 		</knowledgeRequirement>
@@ -601,7 +601,7 @@
 				</rule>
 			</decisionTable>
 		</encapsulatedLogic>
-		<variable name="CreditContingencyFactorTable" typeRef="feel:number"/>
+		<variable name="CreditContingencyFactorTable"/>
 	</businessKnowledgeModel>
 	<businessKnowledgeModel id="b_EligibilityRules" name="EligibilityRules">
 		<encapsulatedLogic>
@@ -687,7 +687,7 @@
 				</rule>
 			</decisionTable>
 		</encapsulatedLogic>
-		<variable name="EligibilityRules" typeRef="feel:string"/>
+		<variable name="EligibilityRules"/>
 	</businessKnowledgeModel>
 	<businessKnowledgeModel id="b_BureauCallTypeTable" name="BureauCallTypeTable">
 		<encapsulatedLogic>
@@ -725,7 +725,7 @@
 				</rule>
 			</decisionTable>
 		</encapsulatedLogic>
-		<variable name="BureauCallTypeTable" typeRef="feel:string"/>
+		<variable name="BureauCallTypeTable"/>
 	</businessKnowledgeModel>
 	<businessKnowledgeModel id="b_Pre-bureauRiskCategoryTable" name="Pre-bureauRiskCategoryTable">
 		<encapsulatedLogic>
@@ -833,7 +833,7 @@
 				</rule>
 			</decisionTable>
 		</encapsulatedLogic>
-		<variable name="Pre-bureauRiskCategoryTable" typeRef="feel:string"/>
+		<variable name="Pre-bureauRiskCategoryTable"/>
 	</businessKnowledgeModel>
 	<businessKnowledgeModel id="b_Post-bureauRiskCategoryTable" name="Post-bureauRiskCategoryTable">
 		<encapsulatedLogic>
@@ -1041,7 +1041,7 @@
 				</rule>
 			</decisionTable>
 		</encapsulatedLogic>
-		<variable name="Post-bureauRiskCategoryTable" typeRef="feel:string"/>
+		<variable name="Post-bureauRiskCategoryTable"/>
 	</businessKnowledgeModel>
 	<businessKnowledgeModel id="b_ApplicationRiskScoreModel" name="ApplicationRiskScoreModel">
 		<encapsulatedLogic>
@@ -1230,7 +1230,7 @@
 				</rule>
 			</decisionTable>
 		</encapsulatedLogic>
-		<variable name="ApplicationRiskScoreModel" typeRef="feel:number"/>
+		<variable name="ApplicationRiskScoreModel"/>
 	</businessKnowledgeModel>
 	<businessKnowledgeModel id="b_InstallmentCalculation" name="InstallmentCalculation">
 		<encapsulatedLogic>
@@ -1258,7 +1258,7 @@
 				</contextEntry>
 			</context>
 		</encapsulatedLogic>
-		<variable name="InstallmentCalculation" typeRef="feel:number"/>
+		<variable name="InstallmentCalculation"/>
 	</businessKnowledgeModel>
 	<businessKnowledgeModel id="b_RoutingRules" name="RoutingRules">
 		<encapsulatedLogic>
@@ -1379,7 +1379,7 @@
 				</rule>
 			</decisionTable>
 		</encapsulatedLogic>
-		<variable name="RoutingRules" typeRef="feel:string"/>
+		<variable name="RoutingRules"/>
 	</businessKnowledgeModel>
 	<inputData id="i_ApplicantData" name="ApplicantData">
 		<variable name="ApplicantData" typeRef="tns:tApplicantData"/>

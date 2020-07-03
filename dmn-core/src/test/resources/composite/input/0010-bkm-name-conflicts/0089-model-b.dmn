@@ -13,7 +13,7 @@
     </itemDefinition>
 
     <businessKnowledgeModel id="bkm-id" name="bkm">
-        <variable name="bkm" typeRef="string"/>
+        <variable name="bkm"/>
         <encapsulatedLogic>
             <formalParameter name="x" typeRef="A"/>
             <literalExpression typeRef="A">

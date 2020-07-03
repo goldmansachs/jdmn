@@ -109,45 +109,9 @@ public class DMNExpressionToNativeTransformer {
         }
     }
 
-    String outputClauseClassName(TDRGElement element, TOutputClause outputClause) {
-        Type type = toFEELType(element, outputClause);
+    String outputClauseClassName(TDRGElement element, TOutputClause outputClause, int index) {
+        Type type = this.dmnEnvironmentFactory.toFEELType(element, outputClause, index);
         return this.dmnTransformer.toNativeType(type);
-    }
-
-    private Type toFEELType(TDRGElement element, TOutputClause outputClause) {
-        TDefinitions model = this.dmnModelRepository.getModel(element);
-
-        // Check TOutputClause.typeRef
-        QualifiedName outputClauseTypeRef = QualifiedName.toQualifiedName(model, outputClause.getTypeRef());
-        if (outputClauseTypeRef != null) {
-            return this.dmnTransformer.toFEELType(model, outputClauseTypeRef);
-        }
-        // Derive from parent typeRef
-        QualifiedName parentTypeRef = this.dmnModelRepository.outputTypeRef(model, element);
-        if (this.dmnModelRepository.isCompoundDecisionTable(element)) {
-            TItemDefinition itemDefinition = this.dmnModelRepository.lookupItemDefinition(model, parentTypeRef);
-            if (itemDefinition != null) {
-                for (TItemDefinition child : itemDefinition.getItemComponent()) {
-                    if (child.getName().equals(outputClause.getName())) {
-                        return this.dmnTransformer.toFEELType(child);
-                    }
-                }
-            }
-            throw new DMNRuntimeException(String.format("Cannot map typeRef of output clause '%s' in element '%s' to java", outputClause.getId(), element.getName()));
-        } else {
-            Type parentType = this.dmnTransformer.toFEELType(model, parentTypeRef);
-            TDecisionTable decisionTable = this.dmnModelRepository.decisionTable(element);
-            if (decisionTable.getHitPolicy() == THitPolicy.COLLECT) {
-                if (decisionTable.getAggregation() == null) {
-                    if (parentType instanceof ListType) {
-                        return ((ListType)parentType).getElementType();
-                    } else {
-                        throw new DMNRuntimeException(String.format("Cannot map typeRef of output clause '%s' in element '%s' to java", outputClause.getId(), element.getName()));
-                    }
-                }
-            }
-            return parentType;
-        }
     }
 
     String outputClauseVariableName(TDRGElement element, TOutputClause outputClause) {
