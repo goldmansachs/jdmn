@@ -37,7 +37,7 @@ public class TypeRefValidatorTest extends AbstractFileTransformerTest {
                 "Error:(label='Assess issue risk', name='assessIssueRisk', id='id-11e61e8750fa5f9973ad4928a3841475') Cannot find typeRef 'QualifiedName(null, assessIssueRisk)'",
                 "Error:(label='Make credit decision', name='makeCreditDecision', id='id-99379862982a9a0a4ba92985d1eea607') Cannot find typeRef 'QualifiedName(null, makeCreditDecision)'. The inferred type is 'string'",
                 "Error:(label='Prior issue', name='priorIssue_iterator', id='id-0effee0f01e97b6e75c76627f8ebebe6') Cannot find typeRef 'QualifiedName(null, priorIssue)'",
-                "Error:(label='Process prior issues', name='processPriorIssues', id='id-b7fa3f2fe2a2f47a77bfd440c827a301') Cannot find typeRef 'QualifiedName(null, processPriorIssues)'. The inferred type is 'number'"
+                "Error:(label='Process prior issues', name='processPriorIssues', id='id-b7fa3f2fe2a2f47a77bfd440c827a301') Cannot find typeRef 'QualifiedName(null, processPriorIssues)'. The inferred type is 'ListType(number)'"
         );
         List<String> actualErrors = executeValidation(
                 resourcePath("input/credit-decision-missing-some-definitions.dmn"));
@@ -45,14 +45,12 @@ public class TypeRefValidatorTest extends AbstractFileTransformerTest {
         assertExpectedErrors(expectedErrors, actualErrors);
     }
 
-    private List<String> executeValidation(String dmnFilePath) throws Exception {
+    private List<String> executeValidation(String dmnFilePath) {
         DMNValidator validator = new TypeRefValidator(LOGGER);
 
         File dmnFile = new File(resource(dmnFilePath));
         DMNModelRepository repository = new SignavioDMNModelRepository(dmnReader.read(dmnFile));
-        List<String> errors = validator.validate(repository);
-
-        return errors;
+        return validator.validate(repository);
     }
 
     private String resourcePath(String relativePath) {

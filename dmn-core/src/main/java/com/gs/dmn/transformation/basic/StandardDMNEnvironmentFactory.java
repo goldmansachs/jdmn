@@ -220,13 +220,15 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                     Type type = toFEELType(model, element, outputEntries, outputClause, i, environment);
                     members.put(outputClause.getName(), type);
                 }
+                Type expressionType;
                 if (members.isEmpty()) {
                     throw new DMNRuntimeException(String.format("Cannot infer type for '%s' from empty OutputClauses", element.getName()));
                 } else if (members.size() == 1) {
-                    return members.values().iterator().next();
+                    expressionType = members.values().iterator().next();
                 } else {
-                    return new ContextType(members);
+                    expressionType = new ContextType(members);
                 }
+                return applyPolicies(element, dt, expressionType);
             }
             throw new DMNRuntimeException(String.format("Cannot infer type for '%s' from empty OutputClauses", element.getName()));
         } else {
@@ -258,7 +260,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
     private Type toFEELType(TDefinitions model, TDRGElement element, List<TLiteralExpression> outputEntries, TOutputClause outputClause, int index, Environment environment) {
         String outputTypeRef = outputClause.getTypeRef();
-        Type type = null;
+        Type type;
         if (outputTypeRef == null) {
             if (index < outputEntries.size()) {
                 type = expressionType(element, outputEntries.get(index), environment);
@@ -272,6 +274,24 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             type = toFEELType(model, outputTypeRef);
         }
         return type;
+    }
+
+    private Type applyPolicies(TDRGElement element, TDecisionTable decisionTable, Type type) {
+        TBuiltinAggregator aggregation = decisionTable.getAggregation();
+        if (decisionTable.getHitPolicy() == THitPolicy.COLLECT && type != null) {
+            type = new ListType(type);
+        }
+        if (aggregation == TBuiltinAggregator.COUNT || aggregation == TBuiltinAggregator.SUM) {
+            return NumberType.NUMBER;
+        } else if (aggregation == TBuiltinAggregator.MIN || aggregation == TBuiltinAggregator.MAX) {
+            if (type instanceof ListType) {
+                return ((ListType) type).getElementType();
+            } else {
+                throw new DMNRuntimeException(String.format("Expected list type, found '%s' for element '%s", type, element.getName()));
+            }
+        } else {
+            return type;
+        }
     }
 
     @Override
