@@ -345,5 +345,4 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
             return super.literalExpressionToNative(element, expression.getText());
         }
     }
-
 }
