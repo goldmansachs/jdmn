@@ -1591,6 +1591,9 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     private String toNativeTypeNoCache(Type type) {
         if (type instanceof NamedType) {
             String typeName = ((NamedType) type).getName();
+            if (StringUtils.isBlank(typeName)) {
+                throw new DMNRuntimeException(String.format("Missing type name in '%s'", type));
+            }
             String primitiveType = this.nativeTypeFactory.toNativeType(typeName);
             if (!StringUtils.isBlank(primitiveType)) {
                 return primitiveType;
