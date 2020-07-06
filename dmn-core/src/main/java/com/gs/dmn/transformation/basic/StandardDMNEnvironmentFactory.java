@@ -200,7 +200,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             }
             // Infer return type
             if (returnType == null) {
-                ItemDefinitionType contextType = new ItemDefinitionType("");
+                ContextType contextType = new ContextType();
                 for (Pair<String, Type> member: members) {
                     contextType.addMember(member.getLeft(), new ArrayList<>(), member.getRight());
                 }
