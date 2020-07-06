@@ -90,6 +90,8 @@ public interface NativeExpressionFactory {
 
     String makeMemberAssignment(String complexTypeVariable, String memberName, String value);
 
+    String makeContextMemberAssignment(String complexTypeVariable, String memberName, String value);
+
     //
     // Equality
     //

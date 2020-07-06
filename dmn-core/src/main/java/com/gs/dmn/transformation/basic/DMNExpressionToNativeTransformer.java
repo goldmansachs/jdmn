@@ -469,7 +469,14 @@ public class DMNExpressionToNativeTransformer {
             // Make complex type value
             String complexJavaType = this.dmnTransformer.drgElementOutputType(element);
             String complexTypeVariable = this.dmnTransformer.drgElementVariableName(element);
-            String expressionText = this.nativeExpressionFactory.makeVariableAssignment(this.dmnTransformer.itemDefinitionNativeClassName(complexJavaType), complexTypeVariable, this.dmnTransformer.defaultConstructor(this.dmnTransformer.itemDefinitionNativeClassName(complexJavaType)));
+            String expressionText;
+            if (returnType instanceof ItemDefinitionType) {
+                expressionText = this.nativeExpressionFactory.makeVariableAssignment(this.dmnTransformer.itemDefinitionNativeClassName(complexJavaType), complexTypeVariable, this.dmnTransformer.defaultConstructor(this.dmnTransformer.itemDefinitionNativeClassName(complexJavaType)));
+            } else if (returnType instanceof ContextType) {
+                expressionText = this.nativeExpressionFactory.makeVariableAssignment(this.dmnTransformer.contextClassName(), complexTypeVariable, this.dmnTransformer.defaultConstructor(this.dmnTransformer.contextClassName()));
+            } else {
+                throw new DMNRuntimeException(String.format("Expected complex type in element '%s', found '%s'", element.getName(), returnType));
+            }
             statement.add(new ExpressionStatement(expressionText, returnType));
             // Add entries
             for(TContextEntry entry: context.getContextEntry()) {
@@ -487,7 +494,12 @@ public class DMNExpressionToNativeTransformer {
                 TInformationItem variable = entry.getVariable();
                 if (variable != null) {
                     String javaContextEntryName = this.dmnTransformer.lowerCaseFirst(variable.getName());
-                    String entryText = this.nativeExpressionFactory.makeMemberAssignment(complexTypeVariable, javaContextEntryName, javaContextEntryName);
+                    String entryText;
+                    if (returnType instanceof ItemDefinitionType) {
+                        entryText = this.nativeExpressionFactory.makeMemberAssignment(complexTypeVariable, javaContextEntryName, javaContextEntryName);
+                    } else {
+                        entryText = this.nativeExpressionFactory.makeContextMemberAssignment(complexTypeVariable, javaContextEntryName, javaContextEntryName);
+                    }
                     statement.add(new ExpressionStatement(entryText, entryType));
                 }
             }
