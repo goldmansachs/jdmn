@@ -92,9 +92,18 @@ public class TypeRefValidator extends SimpleDMNValidator {
     private Type inferType(TDRGElement element, BasicDMN2JavaTransformer dmnTransformer, DMNModelRepository dmnModelRepository, DMNEnvironmentFactory dmnEnvironmentFactory) {
         Type type = null;
         try {
-            TExpression expression = dmnModelRepository.expression(element);
-            Environment environment = dmnEnvironmentFactory.makeEnvironment(element, dmnTransformer.getEnvironmentFactory().getRootEnvironment(), false);
-            type = dmnEnvironmentFactory.expressionType(element, expression, environment);
+            QualifiedName typeRef = null;
+            TDefinitions model = dmnModelRepository.getModel(element);
+            if (element instanceof TDecision) {
+                typeRef = dmnModelRepository.inferExpressionTypeRef(model, element);
+            }
+            if (typeRef != null) {
+                type = dmnEnvironmentFactory.toFEELType(model, typeRef);
+            } else {
+                TExpression expression = dmnModelRepository.expression(element);
+                Environment environment = dmnEnvironmentFactory.makeEnvironment(element, dmnTransformer.getEnvironmentFactory().getRootEnvironment(), false);
+                type = dmnEnvironmentFactory.expressionType(element, expression, environment);
+            }
         } catch (Exception e) {
         }
         return type;
