@@ -18,11 +18,11 @@ import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.TypeRefValidator;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -38,7 +38,6 @@ public class TypeRefValidatorTest extends AbstractFileTransformerTest {
                 "Error:(label='Assess issue', name='assessIssue', id='id-f2562ba74063028327a13930c969145c') Cannot find typeRef 'QualifiedName(null, assessIssue)'. The inferred type is 'number'",
                 "Error:(label='Assess issue risk', name='assessIssueRisk', id='id-11e61e8750fa5f9973ad4928a3841475') Cannot find typeRef 'QualifiedName(null, assessIssueRisk)'",
                 "Error:(label='Make credit decision', name='makeCreditDecision', id='id-99379862982a9a0a4ba92985d1eea607') Cannot find typeRef 'QualifiedName(null, makeCreditDecision)'. The inferred type is 'string'",
-                "Error:(label='Prior issue', name='priorIssue_iterator', id='id-0effee0f01e97b6e75c76627f8ebebe6') Cannot find typeRef 'QualifiedName(null, priorIssue)'",
                 "Error:(label='Process prior issues', name='processPriorIssues', id='id-b7fa3f2fe2a2f47a77bfd440c827a301') Cannot find typeRef 'QualifiedName(null, processPriorIssues)'. The inferred type is 'ListType(number)'"
         );
         List<String> actualErrors = executeValidation(
