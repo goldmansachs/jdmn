@@ -5,7 +5,7 @@
 <!--
      This is an incomplete DMN file, designed to test the GenerateMissingItemDefinitionsTransformer component
      The following definitions have been removed:
-        - assessIssue, processPriorIssues,
+        - processPriorIssues,
         - assessApplicantAge, priorIssue, makeCreditDecision, assessIssueRisk
 -->
 
@@ -26,6 +26,10 @@
         <allowedValues>
             <text>"Card rejection","Late payment","Default on obligations","Bankruptcy"</text>
         </allowedValues>
+    </itemDefinition>
+
+    <itemDefinition isCollection="false" name="priorIssue" id="id-6cf70bdf6bd2e4c75faf286e36bd6caf" label="Prior issue">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:number</typeRef>
     </itemDefinition>
 
     <itemDefinition isCollection="false" name="compareAgainstLendingThreshold" id="id-f73424a274f9119ac3f26385d7addff6" label="Compare against lending threshold">
