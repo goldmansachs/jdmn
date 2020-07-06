@@ -27,6 +27,9 @@ import org.slf4j.LoggerFactory;
 import javax.xml.bind.JAXBElement;
 import java.util.*;
 
+import static org.omg.spec.dmn._20180521.model.TBuiltinAggregator.*;
+import static org.omg.spec.dmn._20180521.model.TBuiltinAggregator.SUM;
+
 public class DMNModelRepository {
     protected static final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
 
@@ -807,7 +810,12 @@ public class DMNModelRepository {
 
     public QualifiedName variableTypeRef(TDefinitions model, TDRGElement element) {
         TInformationItem variable = variable(element);
-        return variable == null ? null : QualifiedName.toQualifiedName(model, variable.getTypeRef());
+        QualifiedName typeRef = variable == null ? null : QualifiedName.toQualifiedName(model, variable.getTypeRef());
+        // Derive from expression
+        if (typeRef == null && element instanceof TDecision) {
+            typeRef = inferExpressionTypeRef(model, element);
+        }
+        return typeRef;
     }
 
     public QualifiedName outputTypeRef(TDefinitions model, TDRGElement element) {
@@ -816,12 +824,12 @@ public class DMNModelRepository {
         QualifiedName typeRef = variable == null ? null : QualifiedName.toQualifiedName(model, variable.getTypeRef());
         // Derive from expression
         if (typeRef == null) {
-            typeRef = inferOutputTypeRef(model, element);
+            typeRef = inferExpressionTypeRef(model, element);
         }
         return typeRef;
     }
 
-    private QualifiedName inferOutputTypeRef(TDefinitions model, TDRGElement element) {
+    public QualifiedName inferExpressionTypeRef(TDefinitions model, TDRGElement element) {
         QualifiedName typeRef = null;
         // Derive from expression
         TExpression expression = expression(element);
@@ -840,15 +848,25 @@ public class DMNModelRepository {
                         }
                     }
                 } else if (expression instanceof TDecisionTable) {
-                    // Derive from output clause
-                    List<TOutputClause> outputList = ((TDecisionTable) expression).getOutput();
+                    // Derive from output clauses and rules
+                    TDecisionTable dt = (TDecisionTable) expression;
+                    List<TOutputClause> outputList = dt.getOutput();
                     if (outputList.size() == 1) {
                         typeRef = QualifiedName.toQualifiedName(model, outputList.get(0).getTypeRef());
                         if (typeRef == null) {
                             // Derive from rules
-                            List<TDecisionRule> ruleList = ((TDecisionTable) expression).getRule();
+                            List<TDecisionRule> ruleList = dt.getRule();
                             List<TLiteralExpression> outputEntry = ruleList.get(0).getOutputEntry();
                             typeRef = QualifiedName.toQualifiedName(model, outputEntry.get(0).getTypeRef());
+                        }
+                        // Apply aggregation and hit policy
+                        if (dt.getHitPolicy() == THitPolicy.COLLECT) {
+                            // Type is list
+                            typeRef = null;
+                        }
+                        TBuiltinAggregator aggregation = dt.getAggregation();
+                        if (aggregation == SUM || aggregation == COUNT) {
+                            typeRef = QualifiedName.toQualifiedName(null, "number");
                         }
                     }
                 }

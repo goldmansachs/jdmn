@@ -24,16 +24,18 @@ import org.junit.Test;
 import java.io.File;
 import java.util.*;
 
+import static org.junit.Assert.assertEquals;
+
 public class TypeRefValidatorTest extends AbstractFileTransformerTest {
     private static final String BASE_PATH = "dmn2java/exported/complex";
 
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
 
     @Test
-    public void testValidation() throws Exception {
+    public void testValidation() {
         List<String> expectedErrors = Arrays.asList(
                 "Error:(label='Assess applicant age', name='assessApplicantAge', id='id-1454118466a747091e601b188b2b5c7b') Cannot find typeRef 'QualifiedName(null, assessApplicantAge)'. The inferred type is 'number'",
-                "Error:(label='Assess issue', name='assessIssue', id='id-f2562ba74063028327a13930c969145c') Cannot find typeRef 'QualifiedName(null, assessIssue)'",
+                "Error:(label='Assess issue', name='assessIssue', id='id-f2562ba74063028327a13930c969145c') Cannot find typeRef 'QualifiedName(null, assessIssue)'. The inferred type is 'number'",
                 "Error:(label='Assess issue risk', name='assessIssueRisk', id='id-11e61e8750fa5f9973ad4928a3841475') Cannot find typeRef 'QualifiedName(null, assessIssueRisk)'",
                 "Error:(label='Make credit decision', name='makeCreditDecision', id='id-99379862982a9a0a4ba92985d1eea607') Cannot find typeRef 'QualifiedName(null, makeCreditDecision)'. The inferred type is 'string'",
                 "Error:(label='Prior issue', name='priorIssue_iterator', id='id-0effee0f01e97b6e75c76627f8ebebe6') Cannot find typeRef 'QualifiedName(null, priorIssue)'",
@@ -58,6 +60,9 @@ public class TypeRefValidatorTest extends AbstractFileTransformerTest {
     }
 
     private void assertExpectedErrors(List<String> expectedErrors, List<String> actualErrors) {
-        Assert.assertEquals(expectedErrors, actualErrors);
+        assertEquals("Same size", expectedErrors.size(), actualErrors.size());
+        for (int i=0; i<expectedErrors.size(); i++) {
+            assertEquals(expectedErrors.get(i), actualErrors.get(i));
+        }
     }
 }
