@@ -63,56 +63,73 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     //
     @Override
     public Type drgElementOutputFEELType(TDRGElement element) {
-        TDefinitions model = this.dmnModelRepository.getModel(element);
-        QualifiedName typeRef = this.dmnModelRepository.outputTypeRef(model, element);
-        Type type = typeRef == null ? null : toFEELType(model, typeRef);
-        if (type == null) {
-            // Infer type from body
-            Environment environment = this.dmnTransformer.makeEnvironment(element);
-            return inferDRGElementOutputFEELType(element, environment);
-        } else {
-            return type;
-        }
+        return drgElementOutputFEELType(element, this.dmnTransformer.makeEnvironment(element));
     }
 
     @Override
     public Type drgElementOutputFEELType(TDRGElement element, Environment environment) {
-        TDefinitions model = this.dmnModelRepository.getModel(element);
-        QualifiedName typeRef = this.dmnModelRepository.outputTypeRef(model, element);
-        Type type = typeRef == null ? null : toFEELType(model, typeRef);
-        if (type == null) {
-            // Infer type from body
-            return inferDRGElementOutputFEELType(element, environment);
-        } else {
+        Type type = this.drgElementVariableFEELType(element, environment);
+        return drgElementOutputFEELType(element, type);
+    }
+
+    private Type drgElementOutputFEELType(TDRGElement element, Type type) {
+        if (element instanceof TInputData) {
             return type;
+        } else if (element instanceof TDecision) {
+            return type;
+        } else if (element instanceof TInvocable) {
+            if (type instanceof FunctionType) {
+                return ((FunctionType) type).getReturnType();
+            } else {
+                throw new DMNRuntimeException(String.format("Expected function type for element '%s'. Found '%s'", element.getName(), type));
+            }
+        } else {
+            throw new DMNRuntimeException(String.format("'%s' is not supported yet", element.getClass().getName()));
         }
     }
 
     @Override
     public Type drgElementVariableFEELType(TDRGElement element) {
-        TDefinitions model = this.dmnModelRepository.getModel(element);
-        QualifiedName typeRef = this.dmnModelRepository.variableTypeRef(model, element);
-        Type type = typeRef == null ? null : toFEELType(model, typeRef);
-        if (type == null || !type.isValid()) {
-            // Infer type from body
-            Environment environment = this.dmnTransformer.makeEnvironment(element);
-            return inferDRGElementVariableFEELType(element, environment);
-        } else {
-            return type;
-        }
+        return drgElementVariableFEELType(element, this.dmnTransformer.makeEnvironment(element));
     }
 
     @Override
     public Type drgElementVariableFEELType(TDRGElement element, Environment environment) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         QualifiedName typeRef = this.dmnModelRepository.variableTypeRef(model, element);
-        Type type = typeRef == null ? null : toFEELType(model, typeRef);
-        if (type == null || !type.isValid()) {
+        Type declaredType = typeRef == null ? null : toFEELType(model, typeRef);
+        if (declaredType == null) {
             // Infer type from body
             return inferDRGElementVariableFEELType(element, environment);
+        } else if (!declaredType.isValid()) {
+            Type inferredType = inferDRGElementVariableFEELType(element, environment);
+            return refineDeclaredType(declaredType, inferredType);
         } else {
-            return type;
+            return declaredType;
         }
+    }
+
+    private Type refineDeclaredType(Type declaredType, Type inferredType) {
+        if (declaredType == null) {
+            return inferredType;
+        }
+        if (declaredType instanceof ItemDefinitionType && inferredType instanceof CompositeDataType) {
+            ItemDefinitionType oldType = (ItemDefinitionType) declaredType;
+            ItemDefinitionType newType = new ItemDefinitionType(oldType.getName(), oldType.getModelName());
+            for (String member: oldType.getMembers()) {
+                Type oldMemberType = oldType.getMemberType(member);
+                if (oldMemberType == null || oldMemberType == AnyType.ANY) {
+                    Type newMemberType = ((CompositeDataType) inferredType).getMemberType(member);
+                    if (newMemberType != null && newMemberType != AnyType.ANY) {
+                        newType.addMember(member, oldType.getAliases(member), newMemberType);
+                    } else {
+                        newType.addMember(member, oldType.getAliases(member), oldMemberType);
+                    }
+                }
+            }
+            return newType;
+        }
+        return declaredType;
     }
 
     private Type inferDRGElementOutputFEELType(TDRGElement element, Environment environment) {
