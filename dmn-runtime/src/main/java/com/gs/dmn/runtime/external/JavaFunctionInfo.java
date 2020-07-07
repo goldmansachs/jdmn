@@ -10,15 +10,31 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.interpreter;
+package com.gs.dmn.runtime.external;
 
 import com.gs.dmn.runtime.DMNRuntimeException;
 
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public class JavaFunctionInfo {
+    public static Object[] makeArgs(Method declaredMethod, List<Object> argList) {
+        if (declaredMethod.isVarArgs()) {
+            int parameterCount = declaredMethod.getParameterCount();
+            int mandatoryParameterCount = parameterCount - 1;
+            Object[] args = new Object[parameterCount];
+            for (int i = 0; i < mandatoryParameterCount; i++) {
+                args[i] = argList.get(i);
+            }
+            args[parameterCount - 1] = argList.subList(mandatoryParameterCount, argList.size()).toArray();
+            return args;
+        } else {
+            return argList.toArray();
+        }
+    }
+
     private final String className;
     private final String methodName;
     private final List<String> paramTypes;

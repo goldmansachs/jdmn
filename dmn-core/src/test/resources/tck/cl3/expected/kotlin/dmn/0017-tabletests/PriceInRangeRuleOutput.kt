@@ -5,8 +5,8 @@ class PriceInRangeRuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput(m
     var priceInRangePriority: Int? = 0
 
     override fun equals(o: Any?): Boolean {
-        if (this == o) return true
-        if (o == null || javaClass != o.javaClass) return false
+        if (this === o) return true
+        if (javaClass != o?.javaClass) return false
 
         val other = o as PriceInRangeRuleOutput
         if (if (this.priceInRange != null) this.priceInRange != other.priceInRange else other.priceInRange != null) return false

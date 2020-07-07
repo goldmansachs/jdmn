@@ -28,7 +28,7 @@ public class Product extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
 
     public java.math.BigDecimal apply(String componentwise4_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((componentwise4_iterator != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(componentwise4_iterator, type.Componentwise3Impl.class) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((componentwise4_iterator != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(componentwise4_iterator, new com.fasterxml.jackson.core.type.TypeReference<type.Componentwise3Impl>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
         } catch (Exception e) {
             logError("Cannot apply decision 'Product'", e);
             return null;
@@ -37,7 +37,7 @@ public class Product extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
 
     public java.math.BigDecimal apply(String componentwise4_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            return apply((componentwise4_iterator != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(componentwise4_iterator, type.Componentwise3Impl.class) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((componentwise4_iterator != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(componentwise4_iterator, new com.fasterxml.jackson.core.type.TypeReference<type.Componentwise3Impl>() {}) : null), annotationSet_, eventListener_, externalExecutor_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Product'", e);
             return null;

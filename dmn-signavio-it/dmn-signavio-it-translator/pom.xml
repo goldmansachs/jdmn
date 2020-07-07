@@ -469,6 +469,38 @@
                     </execution>
 
                     <execution>
+                        <id>compare-lists-parallel</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${dmn.diagram.folder}/complex/CompareLists.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.compare_lists_parallel</javaRootPackage>
+                                <parallelStream>true</parallelStream>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-compare-lists-parallel</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>testlab-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/CompareLists.json</inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/CompareLists.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.compare_lists_parallel</javaRootPackage>
+                                <parallelStream>true</parallelStream>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
                         <id>dot-product</id>
                         <phase>generate-sources</phase>
                         <goals>

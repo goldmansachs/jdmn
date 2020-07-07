@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.provider.com/dmn/1.1/diagram/ae3c0e4e8dab4f8fb28dd36f96c934a1.xml" exporterVersion="10.15.9" name="Example credit decision" id="id-25c57a4efcbd4d2ead65fcbaa5ec9b32" sigExt:revisionId="cc4327ca5824495a8ae5b83397a5a8ff" sigExt:revisionNumber="2" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:sig="http://www.provider.com/dmn/1.1/diagram/ae3c0e4e8dab4f8fb28dd36f96c934a1.xml" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" xmlns:feel="http://www.omg.org/spec/FEEL/20140401">
+    <extensionElements/>
+
+<!--
+     This is an incomplete DMN file, designed to test the GenerateMissingItemDefinitionsTransformer component
+     The following definitions have been removed:
+        - processPriorIssues,
+        - assessApplicantAge, priorIssue, makeCreditDecision, assessIssueRisk
+-->
+
+
+    <itemDefinition isCollection="false" name="lendingThreshold" id="id-4cb80be6fb604151f1e9edf9c3cbe2e7" label="Lending threshold">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:number</typeRef>
+    </itemDefinition>
+
+    <itemDefinition isCollection="false" name="currentRiskAppetite" id="id-f6f0d0a33cba7ca489f16f640f6bcb3b" label="Current risk appetite">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:number</typeRef>
+        <allowedValues>
+            <text>[0.0..100.0]</text>
+        </allowedValues>
+    </itemDefinition>
+
+    <itemDefinition isCollection="false" name="creditIssueType" id="id-e5d4d4757df0b46fe82633187641f999" label="Credit issue type" sigExt:glossaryId="3aa8101e7bad40dd87d293f33b5ae045">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:string</typeRef>
+        <allowedValues>
+            <text>"Card rejection","Late payment","Default on obligations","Bankruptcy"</text>
+        </allowedValues>
+    </itemDefinition>
+
+    <itemDefinition isCollection="false" name="priorIssue" id="id-6cf70bdf6bd2e4c75faf286e36bd6caf" label="Prior issue">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:number</typeRef>
+    </itemDefinition>
+
+    <itemDefinition isCollection="false" name="compareAgainstLendingThreshold" id="id-f73424a274f9119ac3f26385d7addff6" label="Compare against lending threshold">
+        <typeRef>feel:number</typeRef>
+    </itemDefinition>
+
+    <itemDefinition isCollection="true" name="exampleCreditDecisionOutput" id="id-501fb01d68f4b1fb8bc8c8a3ebddc895" label="Example Credit Decision Output">
+        <itemComponent isCollection="false" name="decision" id="id-501fb01d68f4b1fb8bc8c8a3ebddc895-relation-Decision" label="Decision" sigExt:slotId="Decision">
+            <typeRef>feel:string</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="assessment" id="id-501fb01d68f4b1fb8bc8c8a3ebddc895-relation-Assessment" label="Assessment" sigExt:slotId="Assessment">
+            <typeRef>feel:number</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="issue" id="id-501fb01d68f4b1fb8bc8c8a3ebddc895-relation-Issue" label="Issue" sigExt:slotId="Issue">
+            <typeRef>feel:number</typeRef>
+        </itemComponent>
+    </itemDefinition>
+
+    <itemDefinition isCollection="false" name="applicant" id="id-3338f5be7599eb351bf9ed99c553198c" label="Applicant">
+        <itemComponent isCollection="false" name="name" id="id-3338f5be7599eb351bf9ed99c553198c-relation-0" label="Name" sigExt:slotId="0">
+            <typeRef>feel:string</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="age" id="id-3338f5be7599eb351bf9ed99c553198c-relation-1" label="Age" sigExt:slotId="1">
+            <typeRef>feel:number</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="creditScore" id="id-3338f5be7599eb351bf9ed99c553198c-relation-2" label="Credit score" sigExt:slotId="2">
+            <typeRef>feel:number</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="true" name="priorIssues" id="id-3338f5be7599eb351bf9ed99c553198c-relation-4" label="Prior issues" sigExt:slotId="4">
+            <typeRef>sig:creditIssueType</typeRef>
+        </itemComponent>
+    </itemDefinition>
+
+    <inputData name="currentRiskAppetite" id="id-0769939c94a390d02c1a7b72304c1905" label="Current risk appetite" sigExt:shapeId="sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038" sigExt:diagramId="ae3c0e4e8dab4f8fb28dd36f96c934a1">
+        <variable typeRef="sig:currentRiskAppetite" name="currentRiskAppetite" id="id-0769939c94a390d02c1a7b72304c1905_variable"/>
+    </inputData>
+    <inputData name="priorIssue_iterator" id="id-0effee0f01e97b6e75c76627f8ebebe6" label="Prior issue" sigExt:shapeId="sid-671C977F-DF5F-4FF5-99D9-75D98516D4CD" sigExt:diagramId="ae3c0e4e8dab4f8fb28dd36f96c934a1">
+        <variable typeRef="sig:priorIssue" name="priorIssue_iterator" id="id-0effee0f01e97b6e75c76627f8ebebe6_variable"/>
+    </inputData>
+    <inputData name="applicant" id="id-4215491c4d088a0d216148b25506107a" label="Applicant" sigExt:shapeId="sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D" sigExt:diagramId="ae3c0e4e8dab4f8fb28dd36f96c934a1">
+        <variable typeRef="sig:applicant" name="applicant" id="id-4215491c4d088a0d216148b25506107a_variable"/>
+    </inputData>
+    <inputData name="lendingThreshold" id="id-a36114dda71e328796617fb8947468c8" label="Lending threshold" sigExt:shapeId="sid-6CFB0C31-B181-4606-BE51-1960E8B86487" sigExt:diagramId="ae3c0e4e8dab4f8fb28dd36f96c934a1">
+        <variable typeRef="sig:lendingThreshold" name="lendingThreshold" id="id-a36114dda71e328796617fb8947468c8_variable"/>
+    </inputData>
+    <decision name="assessIssueRisk" id="id-11e61e8750fa5f9973ad4928a3841475" label="Assess issue risk" sigExt:shapeId="sid-CB938C3D-5F0A-427B-83A7-94DDDD5E8FC6" sigExt:diagramId="ae3c0e4e8dab4f8fb28dd36f96c934a1">
+        <extensionElements>
+            <sigExt:MultiInstanceDecisionLogic>
+                <sigExt:iterationExpression>processPriorIssues</sigExt:iterationExpression>
+                <sigExt:iteratorShapeId>id-0effee0f01e97b6e75c76627f8ebebe6</sigExt:iteratorShapeId>
+                <sigExt:aggregationFunction>SUM</sigExt:aggregationFunction>
+                <sigExt:topLevelDecisionId>id-f2562ba74063028327a13930c969145c</sigExt:topLevelDecisionId>
+            </sigExt:MultiInstanceDecisionLogic>
+        </extensionElements>
+        <variable typeRef="sig:assessIssueRisk" name="Assess issue risk" id="id-11e61e8750fa5f9973ad4928a3841475_variable"/>
+        <informationRequirement>
+            <requiredDecision href="#id-b7fa3f2fe2a2f47a77bfd440c827a301"/>
+        </informationRequirement>
+    </decision>
+    <decision name="makeCreditDecision" id="id-99379862982a9a0a4ba92985d1eea607" label="Make credit decision" sigExt:shapeId="sid-31214799-6743-4B69-98A5-8C4D9C1BE010" sigExt:diagramId="ae3c0e4e8dab4f8fb28dd36f96c934a1">
+        <variable typeRef="sig:makeCreditDecision" name="Make credit decision" id="id-99379862982a9a0a4ba92985d1eea607_variable"/>
+        <informationRequirement>
+            <requiredDecision href="#id-8d177a9bb52aa7c82782a45a04074801"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="UNIQUE">
+            <input id="id-9b7b3a08336cec5466c3c613cc9bc1af" label="Compare against lending threshold">
+                <inputExpression>
+                    <text>compareAgainstLendingThreshold</text>
+                </inputExpression>
+            </input>
+            <output name="makeCreditDecision" typeRef="feel:string" id="id-60b4df16433939b1b7ee07aebb980fb0" label="Make credit decision"/>
+            <rule id="id-2038b7d3cc6c5b5601847e48979d12c4">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>&lt; -0.1</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Reject"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-58896376e008b761c231ce12ce3f52ba">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>[-0.1..0.1]</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Recommend further assessment"</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-02c0760b49a8aeed6e33b8d89f399c47">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>&gt; 0.1</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>"Accept"</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="exampleCreditDecisionOutput" id="id-c1ba723a91bcf873aca4eba357ce2025" label="Example Credit Decision Output" sigExt:shapeId="sid-8DBE416B-B1CA-43EC-BFE6-7D5DFA296EB6" sigExt:diagramId="ae3c0e4e8dab4f8fb28dd36f96c934a1">
+        <variable typeRef="sig:exampleCreditDecisionOutput" name="Example Credit Decision Output" id="id-c1ba723a91bcf873aca4eba357ce2025_variable"/>
+        <informationRequirement>
+            <requiredDecision href="#id-11e61e8750fa5f9973ad4928a3841475"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#id-99379862982a9a0a4ba92985d1eea607"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#id-8d177a9bb52aa7c82782a45a04074801"/>
+        </informationRequirement>
+        <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+            <text>zip(["Decision", "Assessment", "Issue"], [[makeCreditDecision], [compareAgainstLendingThreshold], [assessIssueRisk]])</text>
+        </literalExpression>
+    </decision>
+    <decision name="processPriorIssues" id="id-b7fa3f2fe2a2f47a77bfd440c827a301" label="Process prior issues" sigExt:shapeId="sid-F7FAA264-FA92-4952-A302-2BEADD9DCC59" sigExt:diagramId="ae3c0e4e8dab4f8fb28dd36f96c934a1">
+        <variable typeRef="sig:processPriorIssues" name="Process prior issues" id="id-b7fa3f2fe2a2f47a77bfd440c827a301_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-4215491c4d088a0d216148b25506107a"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="COLLECT">
+            <input id="id-c238d5ff16308b20dc1ed361050f466d" label="Credit issue type">
+                <inputExpression>
+                    <text>applicant.priorIssues</text>
+                </inputExpression>
+            </input>
+            <output name="processPriorIssues" typeRef="feel:number" id="id-9f694f832f7994aab796c315ffdd5bed" label="Process prior issues"/>
+            <rule id="id-957b6bbe81c1129bcb776cbc305976c0">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>not(notContainsAny(?, ["Card rejection","Late payment"]))</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>-10</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-bf0baec982accbaccb1414087b9b166e">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>not(notContainsAny(?, ["Default on obligations"]))</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>-30</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-5d463fdd0901191b10997fc86189f6fd">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>not(notContainsAny(?, ["Bankruptcy"]))</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>-100</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-f238d894456dc348d71f7a5bac89738e">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>notContainsAny(?, ["Card rejection","Late payment","Default on obligations","Bankruptcy"])</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>50</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-dcf2b1c143a14eeb68dbbbe2e60c465d">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>(count(applicant.priorIssues)*(-5))</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="compareAgainstLendingThreshold" id="id-8d177a9bb52aa7c82782a45a04074801" label="Compare against lending threshold" sigExt:shapeId="sid-9E6EC21D-3D3D-4038-8D76-94613B753F13" sigExt:diagramId="ae3c0e4e8dab4f8fb28dd36f96c934a1">
+        <variable typeRef="sig:compareAgainstLendingThreshold" name="Compare against lending threshold" id="id-8d177a9bb52aa7c82782a45a04074801_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-a36114dda71e328796617fb8947468c8"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#id-11e61e8750fa5f9973ad4928a3841475"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredDecision href="#id-1454118466a747091e601b188b2b5c7b"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="ANY">
+            <input id="id-9470626808df697d63a85630bdfa5b54" label="Lending threshold">
+                <inputExpression>
+                    <text>lendingThreshold</text>
+                </inputExpression>
+            </input>
+            <output name="compareAgainstLendingThreshold" typeRef="feel:number" id="id-dea5c4514bcc1b8784c1581eb530bfc6" label="Compare against lending threshold"/>
+            <rule id="id-185830817909d9b242fd69b4c65bcb04">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>not(null)</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>((assessIssueRisk+assessApplicantAge)-lendingThreshold)</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-0c34164d9a03aca57bda12f4ee41e1ae">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>null</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>0</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="assessIssue" id="id-f2562ba74063028327a13930c969145c" label="Assess issue" sigExt:shapeId="sid-A4BAB8ED-94DC-48C4-8C4C-7C81DB1D8B9D" sigExt:diagramId="ae3c0e4e8dab4f8fb28dd36f96c934a1">
+        <variable typeRef="sig:assessIssue" name="Assess issue" id="id-f2562ba74063028327a13930c969145c_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-0769939c94a390d02c1a7b72304c1905"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-0effee0f01e97b6e75c76627f8ebebe6"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="UNIQUE">
+            <input id="id-b6ab5b4208519493b58daf0fd1a9d53d" label="Prior issue">
+                <inputExpression>
+                    <text>priorIssue_iterator</text>
+                </inputExpression>
+            </input>
+            <input id="id-25585bc40a539344ccd1ed8ac91d78ed" label="Current risk appetite">
+                <inputExpression>
+                    <text>currentRiskAppetite</text>
+                </inputExpression>
+            </input>
+            <output name="assessIssue" typeRef="feel:number" id="id-3a343fd824f9e1b26e3779ae27cc34f6" label="Assess issue"/>
+            <rule id="id-310eadbe9d54e98f3dc8069c447ce8f4">
+                <description>string("Applying issue contribution of ") + string(priorIssue_iterator) + string(" based on current RA of ") + string(currentRiskAppetite)</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>(priorIssue_iterator*(1-currentRiskAppetite))</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+    <decision name="assessApplicantAge" id="id-1454118466a747091e601b188b2b5c7b" label="Assess applicant age" sigExt:shapeId="sid-0C363FE4-468D-4273-9416-D1BCACB6248A" sigExt:diagramId="ae3c0e4e8dab4f8fb28dd36f96c934a1">
+        <variable typeRef="sig:assessApplicantAge" name="Assess applicant age" id="id-1454118466a747091e601b188b2b5c7b_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-4215491c4d088a0d216148b25506107a"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="UNIQUE">
+            <input id="id-8830ddf67e1b81818d5d6eb6d1f6237c" label="Age">
+                <inputExpression>
+                    <text>applicant.age</text>
+                </inputExpression>
+            </input>
+            <output name="assessApplicantAge" typeRef="feel:number" id="id-2a870c184af670a343a3a44eb0e5fbb3" label="Assess applicant age"/>
+            <rule id="id-80ac76ef3b01908e15609f3773e83c4c">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>&lt; 18</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>-10</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-ff98eeeee3a9517bd8722427a52bdde1">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>[18..25]</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>40</text>
+                </outputEntry>
+            </rule>
+            <rule id="id-06a4e600c0aff2db8ec2b6e91663fcac">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>&gt; 25</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>60</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+</definitions>

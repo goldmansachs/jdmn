@@ -4,8 +4,8 @@ class DateCompare1RuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput(m
     var dateCompare1: Boolean? = null
 
     override fun equals(o: Any?): Boolean {
-        if (this == o) return true
-        if (o == null || javaClass != o.javaClass) return false
+        if (this === o) return true
+        if (javaClass != o?.javaClass) return false
 
         val other = o as DateCompare1RuleOutput
         if (if (this.dateCompare1 != null) this.dateCompare1 != other.dateCompare1 else other.dateCompare1 != null) return false

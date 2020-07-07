@@ -13,7 +13,6 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression.literal;
 
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.DateTimeType;
 import com.gs.dmn.feel.analysis.semantics.type.DateType;
 import com.gs.dmn.feel.analysis.semantics.type.DurationType;
@@ -39,7 +38,7 @@ public class DateTimeLiteral extends SimpleLiteral {
     }
 
     @Override
-    public void deriveType(Environment environment) {
+    public void deriveType(FEELContext context) {
         if (DateType.DATE.hasConversionFunction(conversionFunction)) {
             this.setType(DateType.DATE);
         } else if (TimeType.TIME.hasConversionFunction(conversionFunction)) {

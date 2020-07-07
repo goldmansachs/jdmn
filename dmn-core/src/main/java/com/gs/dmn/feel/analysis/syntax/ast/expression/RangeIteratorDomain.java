@@ -36,7 +36,7 @@ public class RangeIteratorDomain extends IteratorDomain {
         return end;
     }
 
-    public void deriveType(Environment environment) {
+    public void deriveType(FEELContext context) {
         this.type = new RangeType(start.getType());
     }
 

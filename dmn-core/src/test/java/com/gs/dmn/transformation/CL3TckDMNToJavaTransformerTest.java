@@ -38,6 +38,8 @@ public class CL3TckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
         doSingleModelTest("0021-singleton-list");
         doSingleModelTest("0030-user-defined-functions");
         doSingleModelTest("0031-user-defined-functions");
+        doSingleModelTest("0031-user-defined-functions-no-type");
+        doSingleModelTest("0076-feel-external-java");
 
         doSingleModelTest("9001-recursive-function");
     }

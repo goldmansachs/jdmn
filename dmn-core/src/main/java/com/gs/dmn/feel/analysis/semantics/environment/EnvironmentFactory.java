@@ -16,28 +16,28 @@ import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
-public abstract class EnvironmentFactory {
-    public Environment emptyEnvironment() {
+public interface EnvironmentFactory {
+    default Environment emptyEnvironment() {
         return new Environment();
     }
 
-    public Environment makeEnvironment() {
+    default Environment makeEnvironment() {
         return makeEnvironment(getRootEnvironment(), null);
     }
 
-    public Environment makeEnvironment(Environment rootEnvironment) {
+    default Environment makeEnvironment(Environment rootEnvironment) {
         return makeEnvironment(rootEnvironment, null);
     }
 
-    public Environment makeEnvironment(Expression inputExpression) {
+    default Environment makeEnvironment(Expression inputExpression) {
         return new Environment(getRootEnvironment(), inputExpression);
     }
 
-    public Environment makeEnvironment(Environment environment, Expression valueExp) {
+    default Environment makeEnvironment(Environment environment, Expression valueExp) {
         return new Environment(environment, valueExp);
     }
 
-    public Declaration makeVariableDeclaration(String name, Type type) {
+    default Declaration makeVariableDeclaration(String name, Type type) {
         if (type instanceof FunctionType) {
             return new FunctionDeclaration(name, (FunctionType) type);
         } else {
@@ -45,17 +45,17 @@ public abstract class EnvironmentFactory {
         }
     }
 
-    public Declaration makeFunctionDeclaration(String name, FunctionType type) {
+    default Declaration makeFunctionDeclaration(String name, FunctionType type) {
         return new FunctionDeclaration(name, type);
     }
 
-    public BusinessKnowledgeModelDeclaration makeBusinessKnowledgeModelDeclaration(String name, FunctionType type) {
+    default BusinessKnowledgeModelDeclaration makeBusinessKnowledgeModelDeclaration(String name, FunctionType type) {
         return new BusinessKnowledgeModelDeclaration(name, type);
     }
 
-    public DecisionServiceDeclaration makeDecisionServiceDeclaration(String name, FunctionType type) {
+    default DecisionServiceDeclaration makeDecisionServiceDeclaration(String name, FunctionType type) {
         return new DecisionServiceDeclaration(name, type);
     }
 
-    public abstract Environment getRootEnvironment();
+    Environment getRootEnvironment();
 }

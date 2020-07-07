@@ -260,6 +260,7 @@ textualExpression returns [Expression ast] :
 functionDefinition returns [Expression ast] :
     {List<FormalParameter> parameters = new ArrayList<>();}
     {boolean external = false;}
+    {TypeExpression returnTypeExp = null; }
     FUNCTION PAREN_OPEN
     (
         param = formalParameter
@@ -269,9 +270,9 @@ functionDefinition returns [Expression ast] :
             {parameters.add($param.ast);}
         )*
     )?
-    PAREN_CLOSE ( EXTERNAL {external = true;})?
+    PAREN_CLOSE (COLON type {returnTypeExp = $type.ast;})? (EXTERNAL {external = true;})?
     body = expression
-    {$ast = astFactory.toFunctionDefinition(parameters, $body.ast, external);}
+    {$ast = astFactory.toFunctionDefinition(parameters, returnTypeExp, $body.ast, external);}
 ;
 
 formalParameter returns [FormalParameter ast]:

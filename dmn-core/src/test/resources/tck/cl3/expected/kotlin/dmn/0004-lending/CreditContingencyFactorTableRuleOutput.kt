@@ -4,8 +4,8 @@ class CreditContingencyFactorTableRuleOutput(matched: Boolean) : com.gs.dmn.runt
     var creditContingencyFactorTable: java.math.BigDecimal? = null
 
     override fun equals(o: Any?): Boolean {
-        if (this == o) return true
-        if (o == null || javaClass != o.javaClass) return false
+        if (this === o) return true
+        if (javaClass != o?.javaClass) return false
 
         val other = o as CreditContingencyFactorTableRuleOutput
         if (if (this.creditContingencyFactorTable != null) this.creditContingencyFactorTable != other.creditContingencyFactorTable else other.creditContingencyFactorTable != null) return false

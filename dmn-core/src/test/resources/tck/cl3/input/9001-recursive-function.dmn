@@ -8,7 +8,7 @@
         <text>if (n &lt; 0) then null else if (n = 0) then 1 else n * FACT(n - 1)</text>
       </literalExpression>
     </encapsulatedLogic>
-    <variable name="FACT" typeRef="feel:number"/>
+    <variable name="FACT"/>
   </businessKnowledgeModel>
   <inputData id="i_n" name="n">
     <variable name="n" typeRef="feel:number"/>

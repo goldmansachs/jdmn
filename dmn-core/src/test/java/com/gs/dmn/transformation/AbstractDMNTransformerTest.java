@@ -16,7 +16,7 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.validation.DMNValidator;
-import com.gs.dmn.validation.DefaultDMNValidator;
+import com.gs.dmn.validation.NopDMNValidator;
 
 import java.io.File;
 import java.net.URI;
@@ -73,7 +73,7 @@ public abstract class AbstractDMNTransformerTest<NUMBER, DATE, TIME, DATE_TIME, 
 
     @Override
     protected DMNValidator makeDMNValidator(BuildLogger logger) {
-        return new DefaultDMNValidator(logger);
+        return new NopDMNValidator();
     }
 
     @Override

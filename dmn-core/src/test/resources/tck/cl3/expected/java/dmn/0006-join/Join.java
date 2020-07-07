@@ -28,7 +28,7 @@ public class Join extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public String apply(String deptTable, String employeeTable, String lastName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((deptTable != null ? asList(com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(deptTable, type.TDeptTableImpl[].class)) : null), (employeeTable != null ? asList(com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(employeeTable, type.TEmployeeTableImpl[].class)) : null), lastName, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((deptTable != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(deptTable, new com.fasterxml.jackson.core.type.TypeReference<List<type.TDeptTable>>() {}) : null), (employeeTable != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(employeeTable, new com.fasterxml.jackson.core.type.TypeReference<List<type.TEmployeeTable>>() {}) : null), lastName, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
         } catch (Exception e) {
             logError("Cannot apply decision 'Join'", e);
             return null;
@@ -37,7 +37,7 @@ public class Join extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public String apply(String deptTable, String employeeTable, String lastName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            return apply((deptTable != null ? asList(com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(deptTable, type.TDeptTableImpl[].class)) : null), (employeeTable != null ? asList(com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(employeeTable, type.TEmployeeTableImpl[].class)) : null), lastName, annotationSet_, eventListener_, externalExecutor_);
+            return apply((deptTable != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(deptTable, new com.fasterxml.jackson.core.type.TypeReference<List<type.TDeptTable>>() {}) : null), (employeeTable != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(employeeTable, new com.fasterxml.jackson.core.type.TypeReference<List<type.TEmployeeTable>>() {}) : null), lastName, annotationSet_, eventListener_, externalExecutor_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Join'", e);
             return null;

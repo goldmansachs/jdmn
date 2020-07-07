@@ -17,4 +17,15 @@ public abstract class JavaTypeFactory implements NativeTypeFactory {
     public String nullableType(String type) {
         return type;
     }
+
+    @Override
+    public String constructorOfGenericType(String typeName, String... typeParameters) {
+        return typeName + "<>";
+    }
+
+    @Override
+    public String javaClass(String className) {
+        return String.format("%s.class", className);
+    }
+
 }

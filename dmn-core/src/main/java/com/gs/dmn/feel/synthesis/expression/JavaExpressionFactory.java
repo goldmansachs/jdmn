@@ -182,6 +182,11 @@ public class JavaExpressionFactory implements NativeExpressionFactory {
         return String.format("%s.%s(%s);", complexTypeVariable, this.dmnTransformer.setter(memberName), value);
     }
 
+    @Override
+    public String makeContextMemberAssignment(String complexTypeVariable, String memberName, String value) {
+        return String.format("%s.%s %s);", complexTypeVariable, this.dmnTransformer.contextSetter(memberName), value);
+    }
+
     //
     // Equality
     //
@@ -319,18 +324,12 @@ public class JavaExpressionFactory implements NativeExpressionFactory {
                 throw new DMNRuntimeException(String.format("Cannot convert String to type '%s'", type));
             }
         } else if (type instanceof ListType) {
-            Type elementType = ((ListType) type).getElementType();
-            String arrayElementType;
-            if (elementType instanceof ListType) {
-                arrayElementType = "java.util.List";
-            } else if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(elementType)) {
-                arrayElementType = this.dmnTransformer.toNativeType(elementType);
-            } else {
-                arrayElementType = this.dmnTransformer.itemDefinitionNativeClassName(this.dmnTransformer.toNativeType(elementType));
-            }
-            return String.format("(%s != null ? asList(%s.readValue(%s, %s[].class)) : null)", paramName, objectMapper(), paramName, arrayElementType);
+            String javaType = this.dmnTransformer.toNativeType(type);
+            return String.format("(%s != null ? %s.readValue(%s, new com.fasterxml.jackson.core.type.TypeReference<%s>() {}) : null)", paramName, objectMapper(), paramName, javaType);
         } else {
-            return String.format("(%s != null ? %s.readValue(%s, %s.class) : null)", paramName, objectMapper(), paramName, dmnTransformer.itemDefinitionNativeClassName(dmnTransformer.toNativeType(type)));
+            // Complex types
+            String javaType = dmnTransformer.itemDefinitionNativeClassName(dmnTransformer.toNativeType(type));
+            return String.format("(%s != null ? %s.readValue(%s, new com.fasterxml.jackson.core.type.TypeReference<%s>() {}) : null)", paramName, objectMapper(), paramName, javaType);
         }
     }
 

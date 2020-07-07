@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class MonthlyPayment() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     fun apply(loan: String?, fee: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): java.math.BigDecimal? {
         return try {
-            apply(loan?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, type.TLoanImpl::class.java) }), fee?.let({ number(it) }), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+            apply(loan?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TLoanImpl>() {}) }), fee?.let({ number(it) }), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
         } catch (e: Exception) {
             logError("Cannot apply decision 'MonthlyPayment'", e)
             null
@@ -24,7 +24,7 @@ class MonthlyPayment() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
     fun apply(loan: String?, fee: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): java.math.BigDecimal? {
         return try {
-            apply(loan?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, type.TLoanImpl::class.java) }), fee?.let({ number(it) }), annotationSet_, eventListener_, externalExecutor_)
+            apply(loan?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TLoanImpl>() {}) }), fee?.let({ number(it) }), annotationSet_, eventListener_, externalExecutor_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'MonthlyPayment'", e)
             null
@@ -57,7 +57,7 @@ class MonthlyPayment() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
     }
 
-    private fun evaluate(loan: type.TLoan?, fee: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): java.math.BigDecimal? {
+    private inline fun evaluate(loan: type.TLoan?, fee: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): java.math.BigDecimal? {
         return numericAdd(PMT.PMT(loan?.let({ it.amount as java.math.BigDecimal? }), loan?.let({ it.rate as java.math.BigDecimal? }), loan?.let({ it.term as java.math.BigDecimal? }), annotationSet_, eventListener_, externalExecutor_), fee) as java.math.BigDecimal?
     }
 

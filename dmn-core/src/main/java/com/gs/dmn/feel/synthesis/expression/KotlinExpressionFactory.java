@@ -187,6 +187,11 @@ public class KotlinExpressionFactory implements NativeExpressionFactory {
         return String.format("%s?.%s = %s", complexTypeVariable, memberName, value);
     }
 
+    @Override
+    public String makeContextMemberAssignment(String complexTypeVariable, String memberName, String value) {
+        return String.format("%s?.%s %s);", complexTypeVariable, this.dmnTransformer.contextSetter(memberName), value);
+    }
+
     //
     // Equality
     //
@@ -333,7 +338,7 @@ public class KotlinExpressionFactory implements NativeExpressionFactory {
             return String.format("%s?.let({ %s.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<%s>() {}) })", paramName, objectMapper(), javaType);
         } else {
             String javaType = dmnTransformer.itemDefinitionNativeClassName(dmnTransformer.toNativeType(type));
-            return String.format("%s?.let({ %s.readValue(it, %s::class.java) })", paramName, objectMapper(), javaType);
+            return String.format("%s?.let({ %s.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<%s>() {}) })", paramName, objectMapper(), javaType);
         }
     }
 

@@ -17,18 +17,20 @@ import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.FunctionDeclaration;
 import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 
 import java.util.List;
 
 public abstract class NamedExpression extends Expression {
     @Override
-    public void deriveType(Environment environment) {
+    public void deriveType(FEELContext context) {
+        Environment environment = context.getEnvironment();
         Type type;
         String name = getName();
         // Lookup for variables
         Declaration declaration = environment.lookupVariableDeclaration(name);
         if (declaration instanceof VariableDeclaration) {
-            type = ((VariableDeclaration) declaration).getType();
+            type = declaration.getType();
             setType(type);
             return;
         }

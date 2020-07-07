@@ -26,7 +26,7 @@ import com.gs.dmn.transformation.ToSimpleNameTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.validation.DMNValidator;
-import com.gs.dmn.validation.DefaultDMNValidator;
+import com.gs.dmn.validation.NopDMNValidator;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import java.net.URLDecoder;
@@ -61,7 +61,7 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest<NUMBER, DATE, T
 
     @Override
     protected DMNValidator makeDMNValidator(BuildLogger logger) {
-        return new DefaultDMNValidator(logger);
+        return new NopDMNValidator();
     }
 
     @Override

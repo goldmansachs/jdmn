@@ -654,7 +654,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
             }
             return text.toString();
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot build path for reference '%s'", resourceId));
+            throw new DMNRuntimeException(String.format("Cannot build path for reference '%s'", resourceId), e);
         }
     }
 

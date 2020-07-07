@@ -27,6 +27,9 @@ import org.slf4j.LoggerFactory;
 import javax.xml.bind.JAXBElement;
 import java.util.*;
 
+import static org.omg.spec.dmn._20180521.model.TBuiltinAggregator.*;
+import static org.omg.spec.dmn._20180521.model.TBuiltinAggregator.SUM;
+
 public class DMNModelRepository {
     protected static final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
 
@@ -735,7 +738,7 @@ public class DMNModelRepository {
         return false;
     }
 
-    public TExpression expression(TNamedElement element) {
+    public TExpression expression(TDRGElement element) {
         if (element instanceof TDecision) {
             JAXBElement<? extends TExpression> expression = ((TDecision) element).getExpression();
             if (expression != null) {
@@ -751,8 +754,6 @@ public class DMNModelRepository {
             }
         } else if (element instanceof TDecisionService) {
             return null;
-        } else if (element instanceof TInformationItem) {
-            return null;
         } else {
             throw new UnsupportedOperationException(String.format("'%s' is not supported yet", element.getClass().getSimpleName()));
         }
@@ -763,7 +764,7 @@ public class DMNModelRepository {
         return expression(element) instanceof TLiteralExpression;
     }
 
-    public boolean isFreeTextLiteralExpression(TNamedElement element) {
+    public boolean isFreeTextLiteralExpression(TDRGElement element) {
         TExpression expression = expression(element);
         return expression instanceof TLiteralExpression
                 && AbstractDMNToNativeTransformer.FREE_TEXT_LANGUAGE.equals(((TLiteralExpression)expression).getExpressionLanguage());
@@ -802,45 +803,70 @@ public class DMNModelRepository {
         return list == null || list.isEmpty();
     }
 
-    public QualifiedName typeRef(TDefinitions model, TInformationItem variable) {
-        return QualifiedName.toQualifiedName(model, variable.getTypeRef());
+    public QualifiedName variableTypeRef(TDefinitions model, TInformationItem element) {
+        TInformationItem variable = variable(element);
+        return variable == null ? null : QualifiedName.toQualifiedName(model, variable.getTypeRef());
     }
 
-    public QualifiedName typeRef(TDefinitions model, TDRGElement element) {
-        QualifiedName typeRef = null;
+    public QualifiedName variableTypeRef(TDefinitions model, TDRGElement element) {
+        TInformationItem variable = variable(element);
+        QualifiedName typeRef = variable == null ? null : QualifiedName.toQualifiedName(model, variable.getTypeRef());
+        // Derive from expression
+        if (typeRef == null && element instanceof TDecision) {
+            typeRef = inferExpressionTypeRef(model, element);
+        }
+        return typeRef;
+    }
+
+    public QualifiedName outputTypeRef(TDefinitions model, TDRGElement element) {
         // Derive from variable
         TInformationItem variable = variable(element);
-        if (variable != null) {
-            typeRef = QualifiedName.toQualifiedName(model, variable.getTypeRef());
-        }
+        QualifiedName typeRef = variable == null ? null : QualifiedName.toQualifiedName(model, variable.getTypeRef());
+        // Derive from expression
         if (typeRef == null) {
-            // Derive from expression
-            TExpression expression = expression(element);
-            if (expression != null) {
-                typeRef = QualifiedName.toQualifiedName(model, expression.getTypeRef());
-                if (typeRef == null) {
-                    if (expression instanceof TContext) {
-                        // Derive from return entry
-                        List<TContextEntry> contextEntryList = ((TContext) expression).getContextEntry();
-                        for(TContextEntry ce: contextEntryList) {
-                            if (ce.getVariable() == null) {
-                                JAXBElement<? extends TExpression> returnElement = ce.getExpression();
-                                if (returnElement != null) {
-                                    typeRef = QualifiedName.toQualifiedName(model, returnElement.getValue().getTypeRef());
-                                }
+            typeRef = inferExpressionTypeRef(model, element);
+        }
+        return typeRef;
+    }
+
+    public QualifiedName inferExpressionTypeRef(TDefinitions model, TDRGElement element) {
+        QualifiedName typeRef = null;
+        // Derive from expression
+        TExpression expression = expression(element);
+        if (expression != null) {
+            typeRef = QualifiedName.toQualifiedName(model, expression.getTypeRef());
+            if (typeRef == null) {
+                if (expression instanceof TContext) {
+                    // Derive from return entry
+                    List<TContextEntry> contextEntryList = ((TContext) expression).getContextEntry();
+                    for(TContextEntry ce: contextEntryList) {
+                        if (ce.getVariable() == null) {
+                            JAXBElement<? extends TExpression> returnElement = ce.getExpression();
+                            if (returnElement != null) {
+                                typeRef = QualifiedName.toQualifiedName(model, returnElement.getValue().getTypeRef());
                             }
                         }
-                    } else if (expression instanceof TDecisionTable) {
-                        // Derive from output clause
-                        List<TOutputClause> outputList = ((TDecisionTable) expression).getOutput();
-                        if (outputList.size() == 1) {
-                            typeRef = QualifiedName.toQualifiedName(model, outputList.get(0).getTypeRef());
-                            if (typeRef == null) {
-                                // Derive from rules
-                                List<TDecisionRule> ruleList = ((TDecisionTable) expression).getRule();
-                                List<TLiteralExpression> outputEntry = ruleList.get(0).getOutputEntry();
-                                typeRef = QualifiedName.toQualifiedName(model, outputEntry.get(0).getTypeRef());
-                            }
+                    }
+                } else if (expression instanceof TDecisionTable) {
+                    // Derive from output clauses and rules
+                    TDecisionTable dt = (TDecisionTable) expression;
+                    List<TOutputClause> outputList = dt.getOutput();
+                    if (outputList.size() == 1) {
+                        typeRef = QualifiedName.toQualifiedName(model, outputList.get(0).getTypeRef());
+                        if (typeRef == null) {
+                            // Derive from rules
+                            List<TDecisionRule> ruleList = dt.getRule();
+                            List<TLiteralExpression> outputEntry = ruleList.get(0).getOutputEntry();
+                            typeRef = QualifiedName.toQualifiedName(model, outputEntry.get(0).getTypeRef());
+                        }
+                        // Apply aggregation and hit policy
+                        if (dt.getHitPolicy() == THitPolicy.COLLECT) {
+                            // Type is list
+                            typeRef = null;
+                        }
+                        TBuiltinAggregator aggregation = dt.getAggregation();
+                        if (aggregation == SUM || aggregation == COUNT) {
+                            typeRef = QualifiedName.toQualifiedName(null, "number");
                         }
                     }
                 }
@@ -931,6 +957,8 @@ public class DMNModelRepository {
             return ((TDecision) element).getVariable();
         } else if (element instanceof TBusinessKnowledgeModel) {
             return ((TBusinessKnowledgeModel) element).getVariable();
+        } else if (element instanceof TInformationItem) {
+            return (TInformationItem) element;
         }
         return null;
     }

@@ -38,7 +38,7 @@ public class ${javaClassName} extends ${transformer.abstractRuleOutputClassName(
 <#macro addPrivateFields drgElement>
     <#assign expression = modelRepository.expression(drgElement)>
     <#list expression.output as output>
-    private ${transformer.outputClauseClassName(drgElement, output)} ${transformer.outputClauseVariableName(drgElement, output)};
+    private ${transformer.outputClauseClassName(drgElement, output, output?index)} ${transformer.outputClauseVariableName(drgElement, output)};
     <#if modelRepository.isOutputOrderHit(expression.hitPolicy)>
     private Integer ${transformer.outputClausePriorityVariableName(drgElement, output)};
     </#if>
@@ -48,10 +48,10 @@ public class ${javaClassName} extends ${transformer.abstractRuleOutputClassName(
 <#macro addAccessors drgElement>
     <#assign expression = modelRepository.expression(drgElement)>
     <#list expression.output as output>
-    public ${transformer.outputClauseClassName(drgElement, output)} ${transformer.getter(drgElement, output)} {
+    public ${transformer.outputClauseClassName(drgElement, output, output?index)} ${transformer.getter(drgElement, output)} {
         return this.${transformer.outputClauseVariableName(drgElement, output)};
     }
-    public void ${transformer.setter(drgElement, output)}(${transformer.outputClauseClassName(drgElement, output)} ${transformer.outputClauseVariableName(drgElement, output)}) {
+    public void ${transformer.setter(drgElement, output)}(${transformer.outputClauseClassName(drgElement, output, output?index)} ${transformer.outputClauseVariableName(drgElement, output)}) {
         this.${transformer.outputClauseVariableName(drgElement, output)} = ${transformer.outputClauseVariableName(drgElement, output)};
     }
     <#if modelRepository.isOutputOrderHit(expression.hitPolicy)>
@@ -110,7 +110,7 @@ public class ${javaClassName} extends ${transformer.abstractRuleOutputClassName(
     @Override
     public List<${transformer.abstractRuleOutputClassName()}> sort(List<${transformer.abstractRuleOutputClassName()}> matchedResults_) {
     <#list expression.output as output>
-        List<${transformer.pairClassName()}<${transformer.outputClauseClassName(drgElement, output)}, Integer>> ${transformer.outputClauseVariableName(drgElement, output)}Pairs = new ArrayList<>();
+        List<${transformer.pairClassName()}<${transformer.outputClauseClassName(drgElement, output, output?index)}, Integer>> ${transformer.outputClauseVariableName(drgElement, output)}Pairs = new ArrayList<>();
         matchedResults_.forEach(matchedResult_ -> {
             ${transformer.outputClauseVariableName(drgElement, output)}Pairs.add(new ${transformer.pairClassName()}(((${javaClassName})matchedResult_).${transformer.getter(drgElement, output)}, ((${javaClassName})matchedResult_).${transformer.priorityGetter(drgElement, output)}));
         });

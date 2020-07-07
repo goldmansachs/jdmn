@@ -110,21 +110,21 @@
         <#assign lambdaBody = "${transformer.drgElementVariableName(topLevelDecision)}.apply(${transformer.drgElementArgumentsExtraCacheWithConvertedArgumentList(topLevelDecision)})" />
         ${transformer.qualifiedName(javaPackageName, transformer.drgElementClassName(topLevelDecision))} ${transformer.drgElementVariableName(topLevelDecision)} = new ${transformer.qualifiedName(javaPackageName, transformer.drgElementClassName(topLevelDecision))}();
         <#if aggregator == "COLLECT">
-        return ${sourceList}.stream().map(${lambdaParamName} -> ${lambdaBody}).collect(Collectors.toList());
+        return ${sourceList}.${transformer.getStream()}.map(${lambdaParamName} -> ${lambdaBody}).collect(Collectors.toList());
         <#elseif aggregator == "SUM">
-        return sum(${sourceList}.stream().map(${lambdaParamName} -> ${lambdaBody}).collect(Collectors.toList()));
+        return sum(${sourceList}.${transformer.getStream()}.map(${lambdaParamName} -> ${lambdaBody}).collect(Collectors.toList()));
         <#elseif aggregator == "MIN">
-        return = min(${sourceList}.stream().map(${lambdaParamName} -> ${lambdaBody}).collect(Collectors.toList()));
+        return = min(${sourceList}.${transformer.getStream()}.map(${lambdaParamName} -> ${lambdaBody}).collect(Collectors.toList()));
         <#elseif aggregator == "MAX">
-        return max(${sourceList}.stream().map(${lambdaParamName} -> ${lambdaBody}).collect(Collectors.toList()));
+        return max(${sourceList}.${transformer.getStream()}.map(${lambdaParamName} -> ${lambdaBody}).collect(Collectors.toList()));
         <#elseif aggregator == "COUNT">
-        return count(${sourceList}.stream().map(${lambdaParamName} -> ${lambdaBody}).collect(Collectors.toList()));
+        return count(${sourceList}.${transformer.getStream()}.map(${lambdaParamName} -> ${lambdaBody}).collect(Collectors.toList()));
         <#elseif aggregator == "ALLTRUE">
-        return ${sourceList}.stream().allMatch(${lambdaParamName} -> ${lambdaBody});
+        return ${sourceList}.${transformer.getStream()}.allMatch(${lambdaParamName} -> ${lambdaBody});
         <#elseif aggregator == "ANYTRUE">
-        return ${sourceList}.stream().anyMatch(${lambdaParamName} -> ${lambdaBody});
+        return ${sourceList}.${transformer.getStream()}.anyMatch(${lambdaParamName} -> ${lambdaBody});
         <#elseif aggregator == "ALLFALSE">
-        return ${sourceList}.stream().allMatch(${lambdaParamName} -> !${lambdaBody});
+        return ${sourceList}.${transformer.getStream()}.allMatch(${lambdaParamName} -> !${lambdaBody});
         <#else>
         logError("${aggregator} is not implemented yet");
         return null;
