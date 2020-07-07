@@ -2,9 +2,12 @@
 <definitions namespace="http://www.provider.com/dmn/1.1/diagram/ae3c0e4e8dab4f8fb28dd36f96c934a1.xml" exporterVersion="10.15.9" name="Example credit decision" id="id-25c57a4efcbd4d2ead65fcbaa5ec9b32" sigExt:revisionId="cc4327ca5824495a8ae5b83397a5a8ff" sigExt:revisionNumber="2" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:sig="http://www.provider.com/dmn/1.1/diagram/ae3c0e4e8dab4f8fb28dd36f96c934a1.xml" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" xmlns:feel="http://www.omg.org/spec/FEEL/20140401">
     <extensionElements/>
 
-    <!-- This is an incomplete DMN file, designed to test the GenerateMissingItemDefinitionsTransformer component -->
-    <!-- The following definitions have been removed: { assessIssue, lendingThreshold, currentRiskAppetite, processPriorIssues, -->
-    <!-- creditIssueType, assessApplicantAge, priorIssue, makeCreditDecision, assessIssueRisk } -->
+<!--
+     This is an incomplete DMN file, designed to test the GenerateMissingItemDefinitionsTransformer component
+     The following definitions have been removed:
+        - assessIssue, lendingThreshold, currentRiskAppetite, processPriorIssues,
+        - creditIssueType, assessApplicantAge, priorIssue, makeCreditDecision, assessIssueRisk
+-->
 
     <itemDefinition isCollection="false" name="compareAgainstLendingThreshold" id="id-f73424a274f9119ac3f26385d7addff6" label="Compare against lending threshold">
         <typeRef>feel:number</typeRef>

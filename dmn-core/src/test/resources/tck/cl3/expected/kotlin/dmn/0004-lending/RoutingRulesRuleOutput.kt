@@ -5,8 +5,8 @@ class RoutingRulesRuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput(m
     var routingRulesPriority: Int? = 0
 
     override fun equals(o: Any?): Boolean {
-        if (this == o) return true
-        if (o == null || javaClass != o.javaClass) return false
+        if (this === o) return true
+        if (javaClass != o?.javaClass) return false
 
         val other = o as RoutingRulesRuleOutput
         if (if (this.routingRules != null) this.routingRules != other.routingRules else other.routingRules != null) return false

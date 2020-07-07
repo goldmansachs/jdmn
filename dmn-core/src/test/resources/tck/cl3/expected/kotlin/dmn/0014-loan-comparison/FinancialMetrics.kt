@@ -37,7 +37,7 @@ class FinancialMetrics : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    private fun evaluate(product: type.TLoanProduct?, requestedAmt: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): type.TMetric? {
+    private inline fun evaluate(product: type.TLoanProduct?, requestedAmt: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): type.TMetric? {
         val lenderName: String? = product?.let({ it.lenderName as String? }) as String?
         val rate: java.math.BigDecimal? = product?.let({ it.rate as java.math.BigDecimal? }) as java.math.BigDecimal?
         val points: java.math.BigDecimal? = product?.let({ it.points as java.math.BigDecimal? }) as java.math.BigDecimal?

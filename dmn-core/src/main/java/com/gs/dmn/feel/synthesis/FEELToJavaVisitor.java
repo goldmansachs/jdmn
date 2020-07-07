@@ -48,6 +48,7 @@ import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.TBusinessKnowledgeModel;
+import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TNamedElement;
 
 import java.util.ArrayList;
@@ -104,7 +105,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(Any element, FEELContext context) {
-        return this.expressionFactory.trueConstant();
+        return this.nativeExpressionFactory.trueConstant();
     }
 
     @Override
@@ -172,7 +173,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     public Object visit(FunctionDefinition element, FEELContext context) {
         if (element.isStaticTyped()) {
             String body = (String)element.getBody().accept(this, context);
-            return this.dmnTransformer.functionDefinitionToNative(element, false, body);
+            return this.dmnTransformer.functionDefinitionToNative((TDRGElement) context.getElement(), element, false, body);
         } else {
             throw new DMNRuntimeException("Dynamic typing for FEEL functions not supported yet");
         }
@@ -186,7 +187,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     @Override
     public Object visit(Context element, FEELContext context) {
         String addMethods = element.getEntries().stream().map(e -> (String) e.accept(this, context)).collect(Collectors.joining(""));
-        return this.expressionFactory.fluentConstructor(DMNToJavaTransformer.CONTEXT_CLASS_NAME, addMethods);
+        return this.nativeExpressionFactory.fluentConstructor(DMNToJavaTransformer.CONTEXT_CLASS_NAME, addMethods);
     }
 
     @Override
@@ -238,7 +239,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
             domainIterators.add(new Pair<>(domain, it.getName()));
         }
         String body = (String) element.getBody().accept(this, forContext);
-        return this.expressionFactory.makeForExpression(domainIterators, body);
+        return this.nativeExpressionFactory.makeForExpression(domainIterators, body);
     }
 
     @Override
@@ -283,7 +284,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         String condition = (String) element.getCondition().accept(this, context);
         String thenExp = (String) element.getThenExpression().accept(this, context);
         String elseExp = (String) element.getElseExpression().accept(this, context);
-        return this.expressionFactory.makeIfExpression(condition, thenExp, elseExp);
+        return this.nativeExpressionFactory.makeIfExpression(condition, thenExp, elseExp);
     }
 
     @Override
@@ -293,9 +294,9 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         // Add boolean predicate
         String predicate = element.getPredicate();
         if ("some".equals(predicate)) {
-            return this.expressionFactory.makeSomeExpression(forList);
+            return this.nativeExpressionFactory.makeSomeExpression(forList);
         } else if ("every".equals(predicate)) {
-            return this.expressionFactory.makeEveryExpression(forList);
+            return this.nativeExpressionFactory.makeEveryExpression(forList);
         } else {
             throw new UnsupportedOperationException("Predicate '" + predicate + "' is not supported yet");
         }
@@ -324,7 +325,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
 
         // Filter
         if (filterType == BooleanType.BOOLEAN) {
-            return this.expressionFactory.makeCollectionLogicFilter(source, newParameterName, filter);
+            return this.nativeExpressionFactory.makeCollectionLogicFilter(source, newParameterName, filter);
         } else if (filterType == NumberType.NUMBER) {
             // Compute element type
             Type elementType;
@@ -335,7 +336,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
             }
             String javaElementType = this.dmnTransformer.toNativeType(elementType);
 
-            return this.expressionFactory.makeCollectionNumericFilter(javaElementType, source, filter);
+            return this.nativeExpressionFactory.makeCollectionNumericFilter(javaElementType, source, filter);
         } else {
             throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
         }
@@ -354,7 +355,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     public Object visit(InstanceOfExpression element, FEELContext context) {
         String leftOperand = (String) element.getLeftOperand().accept(this, context);
         Type rightOperandType = element.getRightOperand().getType();
-        String javaType = this.feelTypeTranslator.toNativeType(rightOperandType.toString());
+        String javaType = this.nativeTypeFactory.toNativeType(rightOperandType.toString());
         return String.format("%s instanceof %s", leftOperand, javaType);
     }
 
@@ -499,23 +500,23 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         if (functionType instanceof BuiltinFunctionType) {
             return String.format("%s(%s)", javaFunctionCode, argumentsText);
         } else if (functionType instanceof DMNFunctionType) {
-            TNamedElement invocable = ((DMNFunctionType) functionType).getInvocable();
+            TNamedElement invocable = ((DMNFunctionType) functionType).getDRGElement();
             if (invocable instanceof TBusinessKnowledgeModel) {
                 argumentsText = this.dmnTransformer.drgElementArgumentsExtraCache(this.dmnTransformer.drgElementArgumentsExtra(this.dmnTransformer.augmentArgumentList(argumentsText)));
                 String javaQualifiedName = this.dmnTransformer.bkmQualifiedFunctionName((TBusinessKnowledgeModel) invocable);
                 return String.format("%s(%s)", javaQualifiedName, argumentsText);
             } else {
-                return this.expressionFactory.makeApplyInvocation(javaFunctionCode, argumentsText);
+                return this.nativeExpressionFactory.makeApplyInvocation(javaFunctionCode, argumentsText);
             }
         } else if (functionType instanceof FEELFunctionType) {
-            return this.expressionFactory.makeApplyInvocation(javaFunctionCode, argumentsText);
+            return this.nativeExpressionFactory.makeApplyInvocation(javaFunctionCode, argumentsText);
         } else {
             throw new DMNRuntimeException(String.format("Not supported function type '%s' in '%s'", functionType, element));
         }
     }
 
     protected Object convertArgument(Object param, Conversion conversion) {
-        String conversionFunction = this.expressionFactory.conversionFunction(conversion, this.dmnTransformer.toNativeType(conversion.getTargetType()));
+        String conversionFunction = this.nativeExpressionFactory.conversionFunction(conversion, this.dmnTransformer.toNativeType(conversion.getTargetType()));
         if (conversionFunction != null) {
             param = String.format("%s(%s)", conversionFunction, param);
         }
@@ -542,7 +543,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     @Override
     public Object visit(BooleanLiteral element, FEELContext context) {
         String value = element.getLexeme();
-        return "true".equals(value) ? this.expressionFactory.trueConstant() : this.expressionFactory.falseConstant();
+        return "true".equals(value) ? this.nativeExpressionFactory.trueConstant() : this.nativeExpressionFactory.falseConstant();
     }
 
     @Override

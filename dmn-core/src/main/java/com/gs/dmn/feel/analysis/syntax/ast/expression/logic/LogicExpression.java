@@ -12,8 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.logic;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
+import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
 public abstract class LogicExpression extends Expression {
@@ -40,7 +40,7 @@ public abstract class LogicExpression extends Expression {
     }
 
     @Override
-    public void deriveType(Environment environment) {
+    public void deriveType(FEELContext context) {
         // Not need to check the operand types. or, and, not are total functions
         setType(BooleanType.BOOLEAN);
     }

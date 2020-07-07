@@ -37,7 +37,7 @@ class FnLibrary() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
     }
 
-    private fun evaluate(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): type.TFnLibrary? {
+    private inline fun evaluate(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): type.TFnLibrary? {
         val sumFn: com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? = com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> { args -> val a: java.math.BigDecimal? = args[0] as java.math.BigDecimal?; val b: java.math.BigDecimal? = args[1] as java.math.BigDecimal?;numericAdd(a, b) } as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>?
         val subFn: com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? = com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> { args -> val a: java.math.BigDecimal? = args[0] as java.math.BigDecimal?; val b: java.math.BigDecimal? = args[1] as java.math.BigDecimal?;numericSubtract(a, b) } as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>?
         val multiplyFn: com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? = com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> { args -> val a: java.math.BigDecimal? = args[0] as java.math.BigDecimal?; val b: java.math.BigDecimal? = args[1] as java.math.BigDecimal?;numericMultiply(a, b) } as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>?

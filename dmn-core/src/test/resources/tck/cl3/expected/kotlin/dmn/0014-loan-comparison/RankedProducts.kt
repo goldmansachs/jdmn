@@ -59,7 +59,7 @@ class RankedProducts(val bankrates : Bankrates = Bankrates()) : com.gs.dmn.runti
         }
     }
 
-    private fun evaluate(bankrates: List<type.TLoanProduct?>?, requestedAmt: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): type.TRankedProducts? {
+    private inline fun evaluate(bankrates: List<type.TLoanProduct?>?, requestedAmt: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): type.TRankedProducts? {
         val metricsTable: List<type.TMetric?>? = bankrates?.stream()?.map({ i -> FinancialMetrics.FinancialMetrics(i, requestedAmt, annotationSet_, eventListener_, externalExecutor_) })?.collect(Collectors.toList()) as List<type.TMetric?>?
         val rankByRate: List<type.TMetric?>? = sort(metricsTable, com.gs.dmn.runtime.LambdaExpression<Boolean> { args -> val x: type.TMetric? = args[0] as type.TMetric?; val y: type.TMetric? = args[1] as type.TMetric?;numericLessThan(x?.let({ it.rate as java.math.BigDecimal? }), y?.let({ it.rate as java.math.BigDecimal? })) }) as List<type.TMetric?>?
         val rankByDownPmt: List<type.TMetric?>? = sort(metricsTable, com.gs.dmn.runtime.LambdaExpression<Boolean> { args -> val x: type.TMetric? = args[0] as type.TMetric?; val y: type.TMetric? = args[1] as type.TMetric?;numericLessThan(x?.let({ it.downPmtAmt as java.math.BigDecimal? }), y?.let({ it.downPmtAmt as java.math.BigDecimal? })) }) as List<type.TMetric?>?

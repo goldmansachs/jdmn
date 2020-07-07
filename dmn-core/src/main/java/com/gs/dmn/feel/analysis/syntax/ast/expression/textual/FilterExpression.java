@@ -13,7 +13,6 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression.textual;
 
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
@@ -47,7 +46,7 @@ public class FilterExpression extends Expression {
     }
 
     @Override
-    public void deriveType(Environment environment) {
+    public void deriveType(FEELContext context) {
         Type sourceType = source.getType();
         Type filterType = filter.getType();
         if (sourceType instanceof ListType) {

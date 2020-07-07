@@ -13,7 +13,6 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression.textual;
 
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.NullType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
@@ -46,7 +45,7 @@ public class IfExpression extends Expression {
     }
 
     @Override
-    public void deriveType(Environment environment) {
+    public void deriveType(FEELContext context) {
         Type conditionType = condition.getType();
         Type thenType = thenExpression.getType();
         Type elseType = elseExpression.getType();

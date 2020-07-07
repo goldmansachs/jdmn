@@ -18,4 +18,8 @@ public interface NativeTypeFactory {
     String toQualifiedNativeType(String feelType);
 
     String nullableType(String nativeType);
+
+    String constructorOfGenericType(String typeName, String... typeParameters);
+
+    String javaClass(String type);
 }

@@ -39,7 +39,7 @@ class NamedFunctionInvocation() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
     }
 
-    private fun evaluate(stringInputA: String?, stringInputB: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): String? {
+    private inline fun evaluate(stringInputA: String?, stringInputB: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): String? {
         val boxedFnDefinition: com.gs.dmn.runtime.LambdaExpression<String?>? = com.gs.dmn.runtime.LambdaExpression<String> { args -> val a: String? = args[0] as String?; val b: String? = args[1] as String?;stringAdd(a, b) } as com.gs.dmn.runtime.LambdaExpression<String?>?
         val literalFnDefinition: com.gs.dmn.runtime.LambdaExpression<String?>? = com.gs.dmn.runtime.LambdaExpression<String> { args -> val a: String? = args[0] as String?; val b: String? = args[1] as String?;stringAdd(a, b) } as com.gs.dmn.runtime.LambdaExpression<String?>?
         return stringAdd(boxedFnDefinition?.apply(stringInputB, stringInputA), literalFnDefinition?.apply(stringInputB, stringInputA))

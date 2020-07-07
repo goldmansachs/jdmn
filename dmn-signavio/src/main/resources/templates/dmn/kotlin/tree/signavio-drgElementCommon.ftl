@@ -99,7 +99,7 @@
 </#macro>
 
 <#macro addEvaluateIterationMethod drgElement>
-    private fun evaluate(${transformer.drgElementEvaluateSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+    private inline fun evaluate(${transformer.drgElementEvaluateSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
         <#assign multiInstanceDecision = transformer.multiInstanceDecisionLogic(drgElement)/>
         <#assign iterationExpression = multiInstanceDecision.iterationExpression/>
         <#assign iterator = multiInstanceDecision.iterator/>
@@ -110,21 +110,21 @@
         <#assign lambdaBody = "${transformer.drgElementVariableName(topLevelDecision)}.apply(${transformer.drgElementArgumentsExtraCacheWithConvertedArgumentList(topLevelDecision)})" />
         val ${transformer.drgElementVariableName(topLevelDecision)}: ${transformer.qualifiedName(javaPackageName, transformer.drgElementClassName(topLevelDecision))} = ${transformer.qualifiedName(javaPackageName, transformer.drgElementClassName(topLevelDecision))}()
         <#if aggregator == "COLLECT">
-        return ${sourceList}?.stream()?.map({${lambdaParamName} -> ${lambdaBody}})?.collect(Collectors.toList())
+        return ${sourceList}?.${transformer.getStream()}?.map({${lambdaParamName} -> ${lambdaBody}})?.collect(Collectors.toList())
         <#elseif aggregator == "SUM">
-        return sum(${sourceList}?.stream()?.map({${lambdaParamName} -> ${lambdaBody}})?.collect(Collectors.toList()))
+        return sum(${sourceList}?.${transformer.getStream()}?.map({${lambdaParamName} -> ${lambdaBody}})?.collect(Collectors.toList()))
         <#elseif aggregator == "MIN">
-        return = min(${sourceList}?.stream()?.map({${lambdaParamName} -> ${lambdaBody}})?.collect(Collectors.toList()))
+        return = min(${sourceList}?.${transformer.getStream()}?.map({${lambdaParamName} -> ${lambdaBody}})?.collect(Collectors.toList()))
         <#elseif aggregator == "MAX">
-        return max(${sourceList}?.stream()?.map({${lambdaParamName} -> ${lambdaBody}})?.collect(Collectors.toList()))
+        return max(${sourceList}?.${transformer.getStream()}?.map({${lambdaParamName} -> ${lambdaBody}})?.collect(Collectors.toList()))
         <#elseif aggregator == "COUNT">
-        return count(${sourceList}?.stream()?.map({${lambdaParamName} -> ${lambdaBody}})?.collect(Collectors.toList()))
+        return count(${sourceList}?.${transformer.getStream()}?.map({${lambdaParamName} -> ${lambdaBody}})?.collect(Collectors.toList()))
         <#elseif aggregator == "ALLTRUE">
-        return ${sourceList}?.stream()?.allMatch({${lambdaParamName} -> ${lambdaBody} as Boolean})
+        return ${sourceList}?.${transformer.getStream()}?.allMatch({${lambdaParamName} -> ${lambdaBody} as Boolean})
         <#elseif aggregator == "ANYTRUE">
-        return ${sourceList}?.stream()?.anyMatch({${lambdaParamName} -> ${lambdaBody} as Boolean})
+        return ${sourceList}?.${transformer.getStream()}?.anyMatch({${lambdaParamName} -> ${lambdaBody} as Boolean})
         <#elseif aggregator == "ALLFALSE">
-        return ${sourceList}?.stream()?.allMatch({${lambdaParamName} -> not(${lambdaBody})})
+        return ${sourceList}?.${transformer.getStream()}?.allMatch({${lambdaParamName} -> not(${lambdaBody})})
         <#else>
         logError("${aggregator} is not implemented yet")
         return null
@@ -136,7 +136,7 @@
     BKM linked to Decision
 -->
 <#macro addEvaluateBKMLinkedToDecisionMethod drgElement>
-    private fun evaluate(${transformer.drgElementEvaluateSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+    private inline fun evaluate(${transformer.drgElementEvaluateSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
         return ${transformer.bkmLinkedToDecisionToNative(drgElement)}
     }
 </#macro>
@@ -176,7 +176,7 @@ import static ${transformer.qualifiedName(subBKM)}.${transformer.bkmFunctionName
     Decision table
 -->
 <#macro addEvaluateDecisionTableMethod drgElement>
-    private fun evaluate(${transformer.drgElementEvaluateSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+    private inline fun evaluate(${transformer.drgElementEvaluateSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
     <#assign expression = modelRepository.expression(drgElement)>
         <@collectRuleResults drgElement expression />
 
@@ -334,7 +334,7 @@ import static ${transformer.qualifiedName(subBKM)}.${transformer.bkmFunctionName
 </#macro>
 
 <#macro addEvaluateExpressionMethod drgElement>
-    private fun evaluate(${transformer.drgElementEvaluateSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+    private inline fun evaluate(${transformer.drgElementEvaluateSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
     <#if modelRepository.isFreeTextLiteralExpression(drgElement)>
         return ${transformer.freeTextLiteralExpressionToNative(drgElement)}
     <#else>

@@ -28,7 +28,7 @@ public class Remove extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
 
     public List<String> apply(String rgb2, String rgb2List, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply(rgb2, (rgb2List != null ? asList(com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(rgb2List, String[].class)) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply(rgb2, (rgb2List != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(rgb2List, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
         } catch (Exception e) {
             logError("Cannot apply decision 'Remove'", e);
             return null;
@@ -37,7 +37,7 @@ public class Remove extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
 
     public List<String> apply(String rgb2, String rgb2List, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            return apply(rgb2, (rgb2List != null ? asList(com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(rgb2List, String[].class)) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply(rgb2, (rgb2List != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(rgb2List, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), annotationSet_, eventListener_, externalExecutor_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Remove'", e);
             return null;

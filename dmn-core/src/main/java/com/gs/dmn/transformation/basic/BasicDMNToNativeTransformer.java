@@ -40,15 +40,15 @@ public interface BasicDMNToNativeTransformer {
 
     EnvironmentFactory getEnvironmentFactory();
 
-    StandardDMNEnvironmentFactory getDMNEnvironmentFactory();
+    DMNEnvironmentFactory getDMNEnvironmentFactory();
 
     FEELTranslator getFEELTranslator();
 
-    StandardFEELTypeFactory getFEELTypeFactory();
-
     NativeTypeFactory getNativeTypeFactory();
 
-    NativeExpressionFactory getExpressionFactory();
+    NativeExpressionFactory getNativeExpressionFactory();
+
+    DMNExpressionToNativeTransformer getExpressionToNativeTransformer();
 
     DRGElementFilter getDrgElementFilter();
 
@@ -304,6 +304,10 @@ public interface BasicDMNToNativeTransformer {
 
     boolean isCached(String elementName);
 
+    boolean isParallelStream();
+
+    String getStream();
+
     String drgElementSignatureExtraCache(DRGElementReference<? extends TDRGElement> reference);
 
     String drgElementSignatureExtraCache(TDRGElement element);
@@ -345,7 +349,7 @@ public interface BasicDMNToNativeTransformer {
 
     String outputEntryToNative(TDRGElement element, TLiteralExpression outputEntryExpression, int outputIndex);
 
-    String outputClauseClassName(TDRGElement element, TOutputClause outputClause);
+    String outputClauseClassName(TDRGElement element, TOutputClause outputClause, int index);
 
     String outputClauseVariableName(TDRGElement element, TOutputClause outputClause);
 
@@ -411,7 +415,7 @@ public interface BasicDMNToNativeTransformer {
 
     String literalExpressionToNative(TDRGElement element, String expressionText);
 
-    String functionDefinitionToNative(FunctionDefinition element, boolean convertTypeToContext, String body);
+    String functionDefinitionToNative(TDRGElement element, FunctionDefinition functionDefinition, boolean convertTypeToContext, String body);
 
     boolean isCompoundStatement(Statement stm);
 

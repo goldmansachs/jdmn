@@ -12,47 +12,50 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.AnyType;
-import com.gs.dmn.feel.analysis.semantics.type.FEELFunctionType;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.type.TypeExpression;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class FunctionDefinition extends Expression {
-    private final boolean external;
     private final List<FormalParameter> formalParameters;
+    private final TypeExpression returnTypeExpression;
     private final Expression body;
+    private final boolean external;
 
-    public FunctionDefinition(List<FormalParameter> formalParameters, Expression body, boolean external) {
+    public FunctionDefinition(List<FormalParameter> formalParameters, TypeExpression returnTypeExpression, Expression body, boolean external) {
         this.formalParameters = formalParameters;
+        this.returnTypeExpression = returnTypeExpression;
         this.body = body;
         this.external = external;
     }
 
     public List<FormalParameter> getFormalParameters() {
-        return formalParameters;
+        return this.formalParameters;
     }
 
     public boolean isStaticTyped() {
-        return formalParameters.stream().allMatch(p -> p.getType() != null && p.getType() != AnyType.ANY);
+        return this.formalParameters.stream().allMatch(p -> p.getType() != null);
+    }
+
+    public TypeExpression getReturnTypeExpression() {
+        return this.returnTypeExpression;
     }
 
     public Expression getBody() {
-        return body;
+        return this.body;
     }
 
     public boolean isExternal() {
-        return external;
+        return this.external;
     }
 
     @Override
-    public void deriveType(Environment environment) {
-        FEELFunctionType type = new FEELFunctionType(formalParameters, body.getType(), external, this);
-        setType(type);
+    public void deriveType(FEELContext context) {
     }
 
     @Override
@@ -62,7 +65,7 @@ public class FunctionDefinition extends Expression {
 
     @Override
     public String toString() {
-        String parameters = formalParameters.stream().map(FormalParameter::toString).collect(Collectors.joining(","));
-        return String.format("FunctionDefinition(%s, %s, %s)", parameters, body.toString(), external);
+        String parameters = this.formalParameters.stream().map(FormalParameter::toString).collect(Collectors.joining(","));
+        return String.format("FunctionDefinition(%s, %s, %s)", parameters, this.body.toString(), this.external);
     }
 }

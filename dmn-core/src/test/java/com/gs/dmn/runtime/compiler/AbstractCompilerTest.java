@@ -40,7 +40,7 @@ public abstract class AbstractCompilerTest {
     protected abstract JavaCompiler getCompiler();
 
     protected ClassData makeClassData() {
-        FunctionDefinition element = new FunctionDefinition(Arrays.asList(), new NumericLiteral("123"), false);
+        FunctionDefinition element = new FunctionDefinition(Arrays.asList(), null, new NumericLiteral("123"), false);
         element.setType(new BuiltinFunctionType(Arrays.asList(), NumberType.NUMBER));
         FEELContext context = null;
         DMNModelRepository repository = new DMNModelRepository();

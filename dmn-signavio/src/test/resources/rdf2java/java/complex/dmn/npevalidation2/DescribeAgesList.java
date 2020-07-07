@@ -28,7 +28,7 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
 
     public List<String> apply(String ages, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((ages != null ? asList(com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(ages, java.math.BigDecimal[].class)) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((ages != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(ages, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
         } catch (Exception e) {
             logError("Cannot apply decision 'DescribeAgesList'", e);
             return null;
@@ -37,7 +37,7 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
 
     public List<String> apply(String ages, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            return apply((ages != null ? asList(com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(ages, java.math.BigDecimal[].class)) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((ages != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(ages, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), annotationSet_, eventListener_, externalExecutor_);
         } catch (Exception e) {
             logError("Cannot apply decision 'DescribeAgesList'", e);
             return null;

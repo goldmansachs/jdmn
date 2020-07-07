@@ -239,8 +239,8 @@ public class ASTFactory {
         return new FormalParameter(parameterName, typeExpression);
     }
 
-    public Expression toFunctionDefinition(List<FormalParameter> formalParameters, Expression body, boolean external) {
-        return new FunctionDefinition(formalParameters, body, external);
+    public Expression toFunctionDefinition(List<FormalParameter> formalParameters, TypeExpression returnTypeExpression, Expression body, boolean external) {
+        return new FunctionDefinition(formalParameters, returnTypeExpression, body, external);
     }
 
     public Iterator toIterator(String name, Expression domain) {

@@ -4,8 +4,8 @@ class ApprovalStatusRuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput
     var approvalStatus: String? = null
 
     override fun equals(o: Any?): Boolean {
-        if (this == o) return true
-        if (o == null || javaClass != o.javaClass) return false
+        if (this === o) return true
+        if (javaClass != o?.javaClass) return false
 
         val other = o as ApprovalStatusRuleOutput
         if (if (this.approvalStatus != null) this.approvalStatus != other.approvalStatus else other.approvalStatus != null) return false

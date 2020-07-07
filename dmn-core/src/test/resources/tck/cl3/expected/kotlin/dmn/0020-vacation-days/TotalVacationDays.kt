@@ -63,7 +63,7 @@ class TotalVacationDays(val baseVacationDays : BaseVacationDays = BaseVacationDa
         }
     }
 
-    private fun evaluate(baseVacationDays: java.math.BigDecimal?, extraDaysCase1: java.math.BigDecimal?, extraDaysCase2: java.math.BigDecimal?, extraDaysCase3: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): java.math.BigDecimal? {
+    private inline fun evaluate(baseVacationDays: java.math.BigDecimal?, extraDaysCase1: java.math.BigDecimal?, extraDaysCase2: java.math.BigDecimal?, extraDaysCase3: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): java.math.BigDecimal? {
         return numericAdd(numericAdd(baseVacationDays, max(extraDaysCase1, extraDaysCase3)), extraDaysCase2) as java.math.BigDecimal?
     }
 

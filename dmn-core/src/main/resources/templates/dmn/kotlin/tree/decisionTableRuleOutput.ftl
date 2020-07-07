@@ -30,7 +30,7 @@ class ${javaClassName}(matched: Boolean) : ${transformer.abstractRuleOutputClass
 <#macro addPrivateFields drgElement>
     <#assign expression = modelRepository.expression(drgElement)>
     <#list expression.output as output>
-    var ${transformer.outputClauseVariableName(drgElement, output)}: ${transformer.outputClauseClassName(drgElement, output)}? = null
+    var ${transformer.outputClauseVariableName(drgElement, output)}: ${transformer.outputClauseClassName(drgElement, output, output?index)}? = null
     <#if modelRepository.isOutputOrderHit(expression.hitPolicy)>
     var ${transformer.outputClausePriorityVariableName(drgElement, output)}: Int? = 0
     </#if>
@@ -39,8 +39,8 @@ class ${javaClassName}(matched: Boolean) : ${transformer.abstractRuleOutputClass
 
 <#macro addEqualsAndHashCode itemDefinition >
     override fun equals(o: Any?): Boolean {
-        if (this == o) return true
-        if (o == null || javaClass != o.javaClass) return false
+        if (this === o) return true
+        if (javaClass != o?.javaClass) return false
 
         val other = o as ${javaClassName}
         <#assign expression = modelRepository.expression(drgElement)>
@@ -78,7 +78,7 @@ class ${javaClassName}(matched: Boolean) : ${transformer.abstractRuleOutputClass
 
     override fun sort(matchedResults_: MutableList<${transformer.abstractRuleOutputClassName()}>): MutableList<${transformer.abstractRuleOutputClassName()}> {
     <#list expression.output as output>
-        val ${transformer.outputClauseVariableName(drgElement, output)}Pairs: MutableList<${transformer.pairClassName()}<${transformer.outputClauseClassName(drgElement, output)}?, Int?>> = ArrayList()
+        val ${transformer.outputClauseVariableName(drgElement, output)}Pairs: MutableList<${transformer.pairClassName()}<${transformer.outputClauseClassName(drgElement, output, output?index)}?, Int?>> = ArrayList()
         matchedResults_.forEach({ (it as ${javaClassName})
             ${transformer.outputClauseVariableName(drgElement, output)}Pairs.add(${transformer.pairClassName()}(it.${transformer.outputClauseVariableName(drgElement, output)}, it.${transformer.outputClausePriorityVariableName(drgElement, output)}))
         })

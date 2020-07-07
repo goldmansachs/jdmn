@@ -28,7 +28,7 @@ public class Body extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
 
     public java.math.BigDecimal apply(String it_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((it_iterator != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it_iterator, type.ItImpl.class) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((it_iterator != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it_iterator, new com.fasterxml.jackson.core.type.TypeReference<type.ItImpl>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
         } catch (Exception e) {
             logError("Cannot apply decision 'Body'", e);
             return null;
@@ -37,7 +37,7 @@ public class Body extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
 
     public java.math.BigDecimal apply(String it_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            return apply((it_iterator != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it_iterator, type.ItImpl.class) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((it_iterator != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it_iterator, new com.fasterxml.jackson.core.type.TypeReference<type.ItImpl>() {}) : null), annotationSet_, eventListener_, externalExecutor_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Body'", e);
             return null;

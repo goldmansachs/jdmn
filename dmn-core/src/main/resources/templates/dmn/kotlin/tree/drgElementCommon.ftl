@@ -65,7 +65,7 @@
     Decision table
 -->
 <#macro addEvaluateDecisionTableMethod drgElement>
-    private fun evaluate(${transformer.drgElementEvaluateSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+    private inline fun evaluate(${transformer.drgElementEvaluateSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
     <#assign expression = modelRepository.expression(drgElement)>
         <@collectRuleResults drgElement expression />
 
@@ -218,7 +218,7 @@
 </#macro>
 
 <#macro addEvaluateExpressionMethod drgElement>
-    private fun evaluate(${transformer.drgElementEvaluateSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+    private inline fun evaluate(${transformer.drgElementEvaluateSignature(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
     <#assign stm = transformer.expressionToNative(drgElement)>
     <#if transformer.isCompoundStatement(stm)>
         <#list stm.statements as child>

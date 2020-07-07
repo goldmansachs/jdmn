@@ -28,7 +28,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
     public String apply(String booleanInput, String dateInput, String enumerationInput, String numberInput, String person, String stringInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((booleanInput != null ? Boolean.valueOf(booleanInput) : null), (dateInput != null ? date(dateInput) : null), enumerationInput, (numberInput != null ? number(numberInput) : null), (person != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(person, type.PersonImpl.class) : null), stringInput, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((booleanInput != null ? Boolean.valueOf(booleanInput) : null), (dateInput != null ? date(dateInput) : null), enumerationInput, (numberInput != null ? number(numberInput) : null), (person != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(person, new com.fasterxml.jackson.core.type.TypeReference<type.PersonImpl>() {}) : null), stringInput, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
         } catch (Exception e) {
             logError("Cannot apply decision 'Decision'", e);
             return null;
@@ -37,7 +37,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
     public String apply(String booleanInput, String dateInput, String enumerationInput, String numberInput, String person, String stringInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         try {
-            return apply((booleanInput != null ? Boolean.valueOf(booleanInput) : null), (dateInput != null ? date(dateInput) : null), enumerationInput, (numberInput != null ? number(numberInput) : null), (person != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(person, type.PersonImpl.class) : null), stringInput, annotationSet_, eventListener_, externalExecutor_);
+            return apply((booleanInput != null ? Boolean.valueOf(booleanInput) : null), (dateInput != null ? date(dateInput) : null), enumerationInput, (numberInput != null ? number(numberInput) : null), (person != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(person, new com.fasterxml.jackson.core.type.TypeReference<type.PersonImpl>() {}) : null), stringInput, annotationSet_, eventListener_, externalExecutor_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Decision'", e);
             return null;

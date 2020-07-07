@@ -22,29 +22,42 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.synthesis.expression.NativeExpressionFactory;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
+import com.gs.dmn.transformation.basic.DMNEnvironmentFactory;
+import com.gs.dmn.transformation.basic.DMNExpressionToNativeTransformer;
 
 public abstract class AbstractAnalysisVisitor extends AbstractVisitor {
-    protected final DMNModelRepository dmnModelRepository;
     protected final BasicDMNToNativeTransformer dmnTransformer;
+
+    protected final DMNModelRepository dmnModelRepository;
     protected final EnvironmentFactory environmentFactory;
-    protected final NativeTypeFactory feelTypeTranslator;
-    protected final NativeExpressionFactory expressionFactory;
+
+    protected final NativeTypeFactory nativeTypeFactory;
+    protected final NativeExpressionFactory nativeExpressionFactory;
+
+    protected final DMNEnvironmentFactory dmnEnvironmentFactory;
+    protected final DMNExpressionToNativeTransformer expressionToNativeTransformer;
 
     protected AbstractAnalysisVisitor(BasicDMNToNativeTransformer dmnTransformer) {
-        this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
         this.dmnTransformer = dmnTransformer;
+
+        this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
         this.environmentFactory = dmnTransformer.getEnvironmentFactory();
-        this.feelTypeTranslator = dmnTransformer.getNativeTypeFactory();
-        this.expressionFactory = dmnTransformer.getExpressionFactory();
+
+        this.nativeTypeFactory = dmnTransformer.getNativeTypeFactory();
+        this.dmnEnvironmentFactory = dmnTransformer.getDMNEnvironmentFactory();
+        this.nativeExpressionFactory = dmnTransformer.getNativeExpressionFactory();
+
+        this.expressionToNativeTransformer = dmnTransformer.getExpressionToNativeTransformer();
     }
 
-    protected FEELContext makeFilterContext(FEELContext parentContext, Expression source, String filterVariableName) {
-        Environment environment = this.environmentFactory.makeEnvironment(parentContext.getEnvironment());
+    protected FEELContext makeFilterContext(FEELContext context, Expression source, String filterVariableName) {
+        Environment environment = context.getEnvironment();
+        Environment filterEnvironment = this.environmentFactory.makeEnvironment(environment);
         Type itemType = AnyType.ANY;
         if (source.getType() instanceof ListType) {
             itemType = ((ListType) source.getType()).getElementType();
         }
-        environment.addDeclaration(this.environmentFactory.makeVariableDeclaration(filterVariableName, itemType));
-        return FEELContext.makeContext(parentContext.getElement(), environment);
+        filterEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(filterVariableName, itemType));
+        return FEELContext.makeContext(context.getElement(), filterEnvironment);
     }
 }

@@ -38,7 +38,8 @@ public class ListTest extends SimplePositiveUnaryTest {
     }
 
     @Override
-    public void deriveType(Environment environment) {
+    public void deriveType(FEELContext context) {
+        Environment environment = context.getEnvironment();
         setType(BOOLEAN);
         List<Expression> expressionList = listLiteral.getExpressionList();
         if (!expressionList.isEmpty()) {

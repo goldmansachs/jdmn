@@ -13,7 +13,6 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic;
 
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
-import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
@@ -27,7 +26,7 @@ public class ArithmeticNegation extends ArithmeticExpression {
     }
 
     @Override
-    public void deriveType(Environment environment) {
+    public void deriveType(FEELContext context) {
         Type type = getLeftOperand().getType();
         setType(NUMBER);
         if (type != NUMBER) {

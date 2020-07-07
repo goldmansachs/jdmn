@@ -41,7 +41,8 @@ public class OperatorTest extends SimplePositiveUnaryTest {
 
     @Override
     // TODO refactor types for Tests
-    public void deriveType(Environment environment) {
+    public void deriveType(FEELContext context) {
+        Environment environment = context.getEnvironment();
         setType(BooleanType.BOOLEAN);
         Type inputExpressionType = environment.getInputExpressionType();
         if (inputExpressionType == null) {

@@ -49,6 +49,7 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.compiler.ClassData;
 import com.gs.dmn.runtime.compiler.JavaCompiler;
 import com.gs.dmn.runtime.compiler.JavaxToolsCompiler;
+import com.gs.dmn.runtime.external.JavaFunctionInfo;
 import com.gs.dmn.runtime.interpreter.*;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironment;
 import com.gs.dmn.runtime.interpreter.environment.RuntimeEnvironmentFactory;
@@ -731,92 +732,15 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     private Object evaluateExternalJavaFunction(TFunctionDefinition functionDefinition, List<Object> argList, FEELContext context) {
-        JavaFunctionInfo info = extractJavaFunctionInfo(functionDefinition);
+        JavaFunctionInfo info = this.expressionToNativeTransformer.extractJavaFunctionInfo((TDRGElement) context.getElement(), functionDefinition);
         // Use reflection to evaluate
-        return evaluateExternalJavaFunction(info, argList, context);
+        return evaluateExternalJavaFunction(info, argList);
     }
 
     private Object evaluateExternalJavaFunction(FunctionDefinition functionDefinition, List<Object> argList, FEELContext context) {
-        JavaFunctionInfo info = extractJavaFunctionInfo(functionDefinition);
+        JavaFunctionInfo info = this.expressionToNativeTransformer.extractJavaFunctionInfo((TDRGElement) context.getElement(), functionDefinition);
         // Use reflection to evaluate
-        return evaluateExternalJavaFunction(info, argList, context);
-    }
-
-    private JavaFunctionInfo extractJavaFunctionInfo(TFunctionDefinition functionDefinition) {
-        // Extract class, method and param types names
-        String className = null;
-        String methodName = null;
-        List<String> paramTypes = new ArrayList<>();
-        TExpression body = functionDefinition.getExpression().getValue();
-        if (body instanceof TContext) {
-            for (TContextEntry entry: ((TContext) body).getContextEntry()) {
-                String name = entry.getVariable().getName();
-                if ("class".equals(name)) {
-                    TExpression value = entry.getExpression().getValue();
-                    if (value instanceof TLiteralExpression) {
-                        className = ((TLiteralExpression) value).getText().replaceAll("\"", "");
-                    }
-                } else if ("methodSignature".equals(name) || "method signature".equals(name)) {
-                    TExpression value = entry.getExpression().getValue();
-                    if (value instanceof TLiteralExpression) {
-                        String signature = ((TLiteralExpression) value).getText().replaceAll("\"", "");
-                        int lpIndex = signature.indexOf('(');
-                        int rpIndex = signature.indexOf(')');
-                        methodName = signature.substring(0, lpIndex);
-                        String[] types = signature.substring(lpIndex + 1, rpIndex).split(",");
-                        for (String t: types) {
-                            paramTypes.add(t.trim());
-                        }
-                    }
-                }
-            }
-        }
-        if (className != null && methodName != null) {
-            return new JavaFunctionInfo(className, methodName, paramTypes);
-        } else {
-            return null;
-        }
-    }
-
-    private JavaFunctionInfo extractJavaFunctionInfo(FunctionDefinition functionDefinition) {
-        // Extract class, method and param types names
-        String className = null;
-        String methodName = null;
-        List<String> paramTypes = new ArrayList<>();
-        Expression body = functionDefinition.getBody();
-        if (body instanceof Context) {
-            body = ((Context) body).getEntries().get(0).getExpression();
-        }
-        if (body instanceof Context) {
-            for (ContextEntry entry: ((Context) body).getEntries()) {
-                String name = entry.getKey().getKey();
-                if ("class".equals(name)) {
-                    Expression value = entry.getExpression();
-                    if (value instanceof StringLiteral) {
-                        String lexeme = ((StringLiteral) value).getLexeme();
-                        className = StringEscapeUtil.stripQuotes(lexeme);
-                    }
-                } else if ("methodSignature".equals(name) || "method signature".equals(name)) {
-                    Expression value = entry.getExpression();
-                    if (value instanceof StringLiteral) {
-                        String lexeme = ((StringLiteral) value).getLexeme();
-                        String signature = StringEscapeUtil.stripQuotes(lexeme);
-                        int lpIndex = signature.indexOf('(');
-                        int rpIndex = signature.indexOf(')');
-                        methodName = signature.substring(0, lpIndex);
-                        String[] types = signature.substring(lpIndex + 1, rpIndex).split(",");
-                        for (String t: types) {
-                            paramTypes.add(t.trim());
-                        }
-                    }
-                }
-            }
-        }
-        if (className != null && methodName != null) {
-            return new JavaFunctionInfo(className, methodName, paramTypes);
-        } else {
-            return null;
-        }
+        return evaluateExternalJavaFunction(info, argList);
     }
 
     public Object evaluateFunctionDefinition(FunctionDefinition functionDefinition, List<Object> argList, FEELContext context) {
@@ -867,7 +791,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         return evaluateMethod(lib, lib.getClass(), functionName, argList);
     }
 
-    private Object evaluateExternalJavaFunction(JavaFunctionInfo info, List<Object> argList, FEELContext context) {
+    private Object evaluateExternalJavaFunction(JavaFunctionInfo info, List<Object> argList) {
         String className = info.getClassName();
         String methodName = info.getMethodName();
         List<String> paramTypes = info.getParamTypes();
@@ -902,7 +826,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             if (declaredMethod == null) {
                 throw new DMNRuntimeException(String.format("Cannot resolve '%s.%s(%s)", className, methodName, String.join(", ", paramTypes)));
             }
-            Object[] args = makeArgs(declaredMethod, convertedArgList);
+            Object[] args = JavaFunctionInfo.makeArgs(declaredMethod, convertedArgList);
 
             // Try both static and instant calls
             if ((declaredMethod.getModifiers() & Modifier.STATIC) != 0) {
@@ -924,7 +848,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
                 argTypes[i] = getClass(argList.get(i));
             }
             Method declaredMethod = MethodUtils.resolveMethod(functionName, cls, argTypes);
-            Object[] args = makeArgs(declaredMethod, argList);
+            Object[] args = JavaFunctionInfo.makeArgs(declaredMethod, argList);
             return declaredMethod.invoke(object, args);
         } catch (Exception e) {
             handleError(String.format("Cannot evaluate function '%s'", functionName), e);
@@ -932,20 +856,6 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         }
     }
 
-    private Object[] makeArgs(Method declaredMethod, List<Object> argList) {
-        if (declaredMethod.isVarArgs()) {
-            int parameterCount = declaredMethod.getParameterCount();
-            int mandatoryParameterCount = parameterCount - 1;
-            Object[] args = new Object[parameterCount];
-            for (int i = 0; i < mandatoryParameterCount; i++) {
-                args[i] = argList.get(i);
-            }
-            args[parameterCount - 1] = argList.subList(mandatoryParameterCount, argList.size()).toArray();
-            return args;
-        } else {
-            return argList.toArray();
-        }
-    }
 
     @Override
     public Object visit(NamedParameters element, FEELContext context) {

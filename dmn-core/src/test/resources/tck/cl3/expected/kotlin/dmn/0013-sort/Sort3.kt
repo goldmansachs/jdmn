@@ -56,7 +56,7 @@ class Sort3() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
     }
 
-    private fun evaluate(stringList: List<String?>?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): List<String?>? {
+    private inline fun evaluate(stringList: List<String?>?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): List<String?>? {
         return sort(stringList, com.gs.dmn.runtime.LambdaExpression<Boolean> { args -> val x: String? = args[0] as String?; val y: String? = args[1] as String?;stringLessThan(x, y) }) as List<String?>?
     }
 

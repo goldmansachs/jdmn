@@ -39,7 +39,7 @@ class InstallmentCalculation : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    private fun evaluate(productType: String?, rate: java.math.BigDecimal?, term: java.math.BigDecimal?, amount: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): java.math.BigDecimal? {
+    private inline fun evaluate(productType: String?, rate: java.math.BigDecimal?, term: java.math.BigDecimal?, amount: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): java.math.BigDecimal? {
         val monthlyFee: java.math.BigDecimal? = (if (booleanEqual(stringEqual(productType, "STANDARD LOAN"), true)) number("20.00") else (if (booleanEqual(stringEqual(productType, "SPECIAL LOAN"), true)) number("25.00") else null)) as java.math.BigDecimal?
         val monthlyRepayment: java.math.BigDecimal? = numericDivide(numericDivide(numericMultiply(amount, rate), number("12")), numericSubtract(number("1"), numericExponentiation(numericAdd(number("1"), numericDivide(rate, number("12"))), numericUnaryMinus(term)))) as java.math.BigDecimal?
         return numericAdd(monthlyRepayment, monthlyFee)
