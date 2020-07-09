@@ -848,6 +848,9 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
                 argTypes[i] = getClass(argList.get(i));
             }
             Method declaredMethod = MethodUtils.resolveMethod(functionName, cls, argTypes);
+            if (declaredMethod == null) {
+                throw new DMNRuntimeException(String.format("Cannot resolve '%s.%s(%s)", cls.getName(), functionName, argList));
+            }
             Object[] args = JavaFunctionInfo.makeArgs(declaredMethod, argList);
             return declaredMethod.invoke(object, args);
         } catch (Exception e) {
