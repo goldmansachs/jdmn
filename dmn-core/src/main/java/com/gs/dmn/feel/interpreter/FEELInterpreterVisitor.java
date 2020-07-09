@@ -657,39 +657,8 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         if (function instanceof Name || function instanceof QualifiedName && ((QualifiedName) function).getNames().size() == 1) {
             String feelFunctionName = functionName(function);
             Object binding = context.lookupRuntimeBinding(feelFunctionName);
-            if (binding instanceof TBusinessKnowledgeModel) {
-                Result result = this.dmnInterpreter.evaluate((TInvocable) binding, argList, context);
-                return Result.value(result);
-            } else if (binding instanceof TDecisionService) {
-                Result result = this.dmnInterpreter.evaluate((TInvocable) binding, argList, context);
-                return Result.value(result);
-            } else if (binding instanceof TFunctionDefinition) {
-                TFunctionKind kind = ((TFunctionDefinition) binding).getKind();
-                if (this.dmnTransformer.isFEELFunction(kind)) {
-                    Result result = this.dmnInterpreter.evaluate((TFunctionDefinition) binding, argList, context);
-                    return Result.value(result);
-                } else if (this.dmnTransformer.isJavaFunction(kind)) {
-                    return evaluateExternalJavaFunction((TFunctionDefinition) binding, argList, context);
-                } else {
-                    throw new DMNRuntimeException(String.format("Kind '%s' is not supported yet", kind.value()));
-                }
-            } else if (binding instanceof FunctionDefinition) {
-                FunctionDefinition functionDefinition = (FunctionDefinition) binding;
-                if (functionDefinition.isExternal()) {
-                    if (isJavaFunction(((FunctionDefinition) binding).getBody())) {
-                        return evaluateExternalJavaFunction((FunctionDefinition) binding, argList, context);
-                    } else {
-                        throw new DMNRuntimeException(String.format("Not supported external function '%s'", functionDefinition));
-                    }
-                } else {
-                    if (functionType instanceof FEELFunctionType) {
-                        // Use the one with inferred types
-                        functionDefinition = ((FEELFunctionType) functionType).getFunctionDefinition();
-                    }
-                    return evaluateFunctionDefinition(functionDefinition, argList, context);
-                }
-            } else if (binding instanceof LambdaExpression) {
-                return evaluateLambdaExpression((LambdaExpression) binding, argList, context);
+            if (isFunctionDefinition(binding)) {
+                return evaluateFunction(binding, functionType, argList, context);
             } else {
                 String javaFunctionName = javaFunctionName(feelFunctionName);
                 if ("sort".equals(javaFunctionName)) {
@@ -701,28 +670,57 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             }
         } else {
             Object binding = function.accept(this, context);
-            if (binding instanceof TBusinessKnowledgeModel) {
-                Result result = this.dmnInterpreter.evaluate((TInvocable) binding, argList, context);
-                return Result.value(result);
-            } else if (binding instanceof TDecisionService) {
-                Result result = this.dmnInterpreter.evaluate((TInvocable) binding, argList, context);
-                return Result.value(result);
-            } else if (binding instanceof TFunctionDefinition) {
+            return evaluateFunction(binding, functionType, argList, context);
+        }
+    }
+
+    private Object evaluateFunction(Object binding, FunctionType functionType, List<Object> argList, FEELContext context) {
+        if (binding == null) {
+            throw new DMNRuntimeException(String.format("Missing function binding, expecting value of type for '%s'", functionType));
+        } else if (binding instanceof TBusinessKnowledgeModel) {
+            Result result = this.dmnInterpreter.evaluate((TInvocable) binding, argList, context);
+            return Result.value(result);
+        } else if (binding instanceof TDecisionService) {
+            Result result = this.dmnInterpreter.evaluate((TInvocable) binding, argList, context);
+            return Result.value(result);
+        } else if (binding instanceof TFunctionDefinition) {
+            TFunctionKind kind = ((TFunctionDefinition) binding).getKind();
+            if (this.dmnTransformer.isFEELFunction(kind)) {
                 Result result = this.dmnInterpreter.evaluate((TFunctionDefinition) binding, argList, context);
                 return Result.value(result);
-            } else if (binding instanceof FunctionDefinition) {
-                FunctionDefinition functionDefinitionBinding = (FunctionDefinition) binding;
+            } else if (this.dmnTransformer.isJavaFunction(kind)) {
+                return evaluateExternalJavaFunction((TFunctionDefinition) binding, argList, context);
+            } else {
+                throw new DMNRuntimeException(String.format("Kind '%s' is not supported yet", kind.value()));
+            }
+        } else if (binding instanceof FunctionDefinition) {
+            FunctionDefinition functionDefinition = (FunctionDefinition) binding;
+            if (functionDefinition.isExternal()) {
+                if (isJavaFunction(((FunctionDefinition) binding).getBody())) {
+                    return evaluateExternalJavaFunction((FunctionDefinition) binding, argList, context);
+                } else {
+                    throw new DMNRuntimeException(String.format("Not supported external function '%s'", functionDefinition));
+                }
+            } else {
                 if (functionType instanceof FEELFunctionType) {
                     // Use the one with inferred types
-                    functionDefinitionBinding = ((FEELFunctionType) functionType).getFunctionDefinition();
+                    functionDefinition = ((FEELFunctionType) functionType).getFunctionDefinition();
                 }
-                return evaluateFunctionDefinition(functionDefinitionBinding, argList, context);
-            } else if (binding instanceof LambdaExpression) {
-                return evaluateLambdaExpression((LambdaExpression) binding, argList, context);
-            } else {
-                throw new DMNRuntimeException(String.format("Not supported yet %s", binding.getClass().getSimpleName()));
+                return evaluateFunctionDefinition(functionDefinition, argList, context);
             }
+        } else if (binding instanceof LambdaExpression) {
+            return evaluateLambdaExpression((LambdaExpression) binding, argList, context);
+        } else {
+            throw new DMNRuntimeException(String.format("Not supported yet %s", binding.getClass().getSimpleName()));
         }
+    }
+
+    private boolean isFunctionDefinition(Object binding) {
+        return binding instanceof TBusinessKnowledgeModel
+                || binding instanceof TDecisionService
+                || binding instanceof TFunctionDefinition
+                || binding instanceof FunctionDefinition
+                || binding instanceof LambdaExpression;
     }
 
     private boolean isJavaFunction(Expression body) {
