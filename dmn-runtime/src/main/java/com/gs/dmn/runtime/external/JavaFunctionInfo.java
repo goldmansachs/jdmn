@@ -21,7 +21,7 @@ import java.util.List;
 
 public class JavaFunctionInfo {
     public static Object[] makeArgs(Method declaredMethod, List<Object> argList) {
-        if (declaredMethod.isVarArgs()) {
+        if (declaredMethod != null && declaredMethod.isVarArgs()) {
             int parameterCount = declaredMethod.getParameterCount();
             int mandatoryParameterCount = parameterCount - 1;
             Object[] args = new Object[parameterCount];

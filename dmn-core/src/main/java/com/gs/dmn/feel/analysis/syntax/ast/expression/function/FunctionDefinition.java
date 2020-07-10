@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
-import com.gs.dmn.feel.analysis.semantics.type.AnyType;
+import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
@@ -56,6 +56,14 @@ public class FunctionDefinition extends Expression {
 
     @Override
     public void deriveType(FEELContext context) {
+    }
+
+    public Type getReturnType() {
+        if (this.external) {
+            return null;
+        } else {
+            return this.body.getType();
+        }
     }
 
     @Override
