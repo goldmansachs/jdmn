@@ -21,7 +21,7 @@ public abstract class Type {
         A type type1 conforms to a type type2 when an instance of type1 can be substituted at each place where an instance of type2 is expected
     */
     public boolean conformsTo(Type other) {
-        return equivalentTo(other) || other == AnyType.ANY;
+        return equivalentTo(other) || other == AnyType.ANY || other == null;
     }
 
     public void validate() {
