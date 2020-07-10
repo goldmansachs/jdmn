@@ -148,10 +148,6 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
         if (element.isStaticTyped()) {
             // Analyze body
             body.accept(this, bodyContext);
-        } else {
-            if (body.getType() == null) {
-                body.setType(AnyType.ANY);
-            }
         }
 
         // Derive element type
@@ -172,13 +168,10 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
     public Object visit(FormalParameter element, FEELContext context) {
         if (element.getType() == null) {
             TypeExpression typeExpression = element.getTypeExpression();
-            if (typeExpression == null) {
-                element.setType(AnyType.ANY);
-            } else {
+            if (typeExpression != null) {
                 typeExpression.accept(this, context);
                 element.setType(typeExpression.getType());
             }
-
         }
         return element;
     }
@@ -448,7 +441,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
         Type functionType = function.getType();
         if (functionType instanceof FEELFunctionType) {
             FEELFunctionType feelFunctionType = (FEELFunctionType) functionType;
-            if (!feelFunctionType.isStaticTyped() && !feelFunctionType.isExternal()) {
+            if (!feelFunctionType.isStaticTyped()) {
                 // Bind names to types in function type
                 bindNameToTypes(feelFunctionType.getParameters(), arguments);
 
@@ -460,7 +453,11 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor {
 
                     // Set return type
                     functionDefinition.accept(this, context);
-                    feelFunctionType.setReturnType(functionDefinition.getBody().getType());
+                    Type returnType = feelFunctionType.getReturnType();
+                    if (returnType == null || returnType == AnyType.ANY) {
+                        Type newReturnType = functionDefinition.getReturnType();
+                        feelFunctionType.setReturnType(newReturnType);
+                    }
                 }
             }
         }
