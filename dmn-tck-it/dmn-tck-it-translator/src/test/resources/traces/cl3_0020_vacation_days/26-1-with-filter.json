@@ -1,0 +1,80 @@
+[
+  {
+    "element": {
+      "namespace": "com.gs.dmn.generated.tck.cl3_0020_vacation_days",
+      "name": "'Extra days case 1'",
+      "label": "",
+      "elementKind": "DECISION",
+      "expressionKind": "DECISION_TABLE",
+      "hitPolicy": "COLLECT",
+      "rulesCount": 2
+    },
+    "arguments": {
+      "age": 16,
+      "yearsOfService": 1
+    },
+    "ruleTraces": [
+      {
+        "rule": {
+          "index": 0,
+          "annotation": ""
+        },
+        "matched": true,
+        "result": {
+          "matched": true,
+          "extraDaysCase1": 5
+        }
+      },
+      {
+        "rule": {
+          "index": 1,
+          "annotation": ""
+        },
+        "matched": false,
+        "result": {
+          "matched": false,
+          "extraDaysCase1": null
+        }
+      }
+    ]
+  },
+  {
+    "element": {
+      "namespace": "com.gs.dmn.generated.tck.cl3_0020_vacation_days",
+      "name": "'Extra days case 2'",
+      "label": "",
+      "elementKind": "DECISION",
+      "expressionKind": "DECISION_TABLE",
+      "hitPolicy": "COLLECT",
+      "rulesCount": 2
+    },
+    "arguments": {
+      "age": 16,
+      "yearsOfService": 1
+    },
+    "ruleTraces": [
+      {
+        "rule": {
+          "index": 0,
+          "annotation": ""
+        },
+        "matched": false,
+        "result": {
+          "matched": false,
+          "extraDaysCase2": null
+        }
+      },
+      {
+        "rule": {
+          "index": 1,
+          "annotation": ""
+        },
+        "matched": false,
+        "result": {
+          "matched": false,
+          "extraDaysCase2": null
+        }
+      }
+    ]
+  }
+]

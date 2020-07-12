@@ -17,11 +17,22 @@ import com.gs.dmn.runtime.listener.trace.RuleTrace;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TraceEventListener implements EventListener {
+    private final List<String> drgElementNames = new ArrayList<>();
     private List<DRGElementTrace> elementTraces = new ArrayList<>();
     private DRGElementTrace elementTrace;
     private RuleTrace ruleTrace;
+
+    public TraceEventListener() {
+    }
+
+    public TraceEventListener(List<String> drgElementNames) {
+        if (drgElementNames != null) {
+            this.drgElementNames.addAll(drgElementNames);
+        }
+    }
 
     @Override
     public void startDRGElement(DRGElement element, Arguments arguments) {
@@ -52,6 +63,16 @@ public class TraceEventListener implements EventListener {
     }
 
     public List<DRGElementTrace> getElementTraces() {
-        return this.elementTraces;
+        return this.elementTraces.stream().filter(et -> filter(et)).collect(Collectors.toList());
+    }
+
+    private boolean filter(DRGElementTrace et) {
+        if (et == null) {
+            return false;
+        }
+        if (this.drgElementNames == null || this.drgElementNames.isEmpty()) {
+            return true;
+        }
+        return this.drgElementNames.contains(et.getElement().getName()) || this.drgElementNames.contains(et.getElement().getLabel());
     }
 }

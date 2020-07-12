@@ -29,6 +29,7 @@ import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -50,6 +51,23 @@ public class TraceListenerTest {
         List<DRGElementTrace> elementTraces = listener.getElementTraces();
         File actualOutputFile = writeTraces(elementTraces);
         File expectedOutputFile = new File(resource(getExpectedPath() + "/26-1.json"));
+        checkTrace(expectedOutputFile, actualOutputFile);
+    }
+
+    @Test
+    public void testListenerWithFilter() throws Exception {
+        AnnotationSet annotationSet = new AnnotationSet();
+        TraceEventListener listener = new TraceEventListener(Arrays.asList("'Extra days case 1'", "'Extra days case 2'"));
+
+        String expectedResult = "27";
+        String age = "16";
+        String yearsOfService = "1";
+        BigDecimal actualResult = decision.apply(age, yearsOfService, annotationSet, listener, new DefaultExternalFunctionExecutor());
+        assertEquals(expectedResult, actualResult.toPlainString());
+
+        List<DRGElementTrace> elementTraces = listener.getElementTraces();
+        File actualOutputFile = writeTraces(elementTraces);
+        File expectedOutputFile = new File(resource(getExpectedPath() + "/26-1-with-filter.json"));
         checkTrace(expectedOutputFile, actualOutputFile);
     }
 
