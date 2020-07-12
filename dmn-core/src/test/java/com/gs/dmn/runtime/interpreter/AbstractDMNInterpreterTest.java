@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.runtime.interpreter;
 
+import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.lib.FEELLib;
@@ -44,7 +45,7 @@ import java.util.*;
 
 import static com.gs.dmn.tck.TestCasesReader.isTCKFile;
 
-public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
+public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractDMNInterpreterTest.class));
     private static final boolean IGNORE_ERROR = true;
 
@@ -201,18 +202,6 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
             pairs.add(pair);
         }
         return pairs;
-    }
-
-    protected URI resource(String path) {
-        try {
-            URL url = this.getClass().getClassLoader().getResource(path);
-            if (url == null) {
-                throw new DMNRuntimeException(String.format("Cannot find resource '%s'", path));
-            }
-            return url.toURI();
-        } catch (URISyntaxException e) {
-            throw new DMNRuntimeException(e);
-        }
     }
 
     protected Map<String, String> makeInputParameters() {
