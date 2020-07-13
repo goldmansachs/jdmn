@@ -89,7 +89,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
 
         // Apply rule
         PreBureauRiskCategoryTableRuleOutput output_ = new PreBureauRiskCategoryTableRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (booleanEqual(existingCustomer, Boolean.FALSE)),
             (numericLessThan(applicationRiskScore, number("100")))
         )) {
@@ -120,7 +120,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
 
         // Apply rule
         PreBureauRiskCategoryTableRuleOutput output_ = new PreBureauRiskCategoryTableRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (booleanEqual(existingCustomer, Boolean.FALSE)),
             (booleanAnd(numericGreaterEqualThan(applicationRiskScore, number("100")), numericLessThan(applicationRiskScore, number("120"))))
         )) {
@@ -151,7 +151,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
 
         // Apply rule
         PreBureauRiskCategoryTableRuleOutput output_ = new PreBureauRiskCategoryTableRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (booleanEqual(existingCustomer, Boolean.FALSE)),
             (booleanAnd(numericGreaterEqualThan(applicationRiskScore, number("120")), numericLessThan(applicationRiskScore, number("130"))))
         )) {
@@ -182,7 +182,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
 
         // Apply rule
         PreBureauRiskCategoryTableRuleOutput output_ = new PreBureauRiskCategoryTableRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (booleanEqual(existingCustomer, Boolean.FALSE)),
             (numericGreaterThan(applicationRiskScore, number("130")))
         )) {
@@ -213,7 +213,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
 
         // Apply rule
         PreBureauRiskCategoryTableRuleOutput output_ = new PreBureauRiskCategoryTableRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (booleanEqual(existingCustomer, Boolean.TRUE)),
             (numericLessThan(applicationRiskScore, number("80")))
         )) {
@@ -244,7 +244,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
 
         // Apply rule
         PreBureauRiskCategoryTableRuleOutput output_ = new PreBureauRiskCategoryTableRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (booleanEqual(existingCustomer, Boolean.TRUE)),
             (booleanAnd(numericGreaterEqualThan(applicationRiskScore, number("80")), numericLessThan(applicationRiskScore, number("90"))))
         )) {
@@ -275,7 +275,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
 
         // Apply rule
         PreBureauRiskCategoryTableRuleOutput output_ = new PreBureauRiskCategoryTableRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (booleanEqual(existingCustomer, Boolean.TRUE)),
             (booleanAnd(numericGreaterEqualThan(applicationRiskScore, number("90")), numericLessEqualThan(applicationRiskScore, number("110"))))
         )) {
@@ -306,7 +306,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
 
         // Apply rule
         PreBureauRiskCategoryTableRuleOutput output_ = new PreBureauRiskCategoryTableRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (booleanEqual(existingCustomer, Boolean.TRUE)),
             (numericGreaterThan(applicationRiskScore, number("110")))
         )) {

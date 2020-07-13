@@ -117,7 +117,10 @@ public class TemporalDiffs extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         TemporalDiffsRuleOutput output_ = new TemporalDiffsRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -146,7 +149,10 @@ public class TemporalDiffs extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         TemporalDiffsRuleOutput output_ = new TemporalDiffsRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -175,7 +181,10 @@ public class TemporalDiffs extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         TemporalDiffsRuleOutput output_ = new TemporalDiffsRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -204,7 +213,10 @@ public class TemporalDiffs extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         TemporalDiffsRuleOutput output_ = new TemporalDiffsRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

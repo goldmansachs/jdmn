@@ -97,7 +97,9 @@ public class Product extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
 
         // Apply rule
         ProductRuleOutput output_ = new ProductRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

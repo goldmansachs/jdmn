@@ -100,7 +100,9 @@ public class DateCompare2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         DateCompare2RuleOutput output_ = new DateCompare2RuleOutput(false);
-        if (Boolean.TRUE == (dateGreaterThan(decisioninputs_dateD, decisioninputs_dateE))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (dateGreaterThan(decisioninputs_dateD, decisioninputs_dateE))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -128,7 +130,9 @@ public class DateCompare2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         DateCompare2RuleOutput output_ = new DateCompare2RuleOutput(false);
-        if (Boolean.TRUE == (dateLessEqualThan(decisioninputs_dateD, decisioninputs_dateE))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (dateLessEqualThan(decisioninputs_dateD, decisioninputs_dateE))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

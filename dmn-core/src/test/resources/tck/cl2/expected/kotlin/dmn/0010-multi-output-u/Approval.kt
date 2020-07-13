@@ -90,7 +90,7 @@ class Approval() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
         // Apply rule
         var output_: ApprovalRuleOutput = ApprovalRuleOutput(false)
-        if (true == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (numericGreaterEqualThan(age, number("18"))),
             (stringEqual(riskCategory, "Low")),
             (booleanEqual(isAffordable, true))
@@ -123,7 +123,7 @@ class Approval() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
         // Apply rule
         var output_: ApprovalRuleOutput = ApprovalRuleOutput(false)
-        if (true == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (numericGreaterEqualThan(age, number("18"))),
             (stringEqual(riskCategory, "Medium")),
             (booleanEqual(isAffordable, true))
@@ -156,7 +156,7 @@ class Approval() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
         // Apply rule
         var output_: ApprovalRuleOutput = ApprovalRuleOutput(false)
-        if (true == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (numericLessThan(age, number("18"))),
             booleanOr((stringEqual(riskCategory, "Medium")), (stringEqual(riskCategory, "Low"))),
             (booleanEqual(isAffordable, true))
@@ -189,7 +189,8 @@ class Approval() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
         // Apply rule
         var output_: ApprovalRuleOutput = ApprovalRuleOutput(false)
-        if (true == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            true,
             (stringEqual(riskCategory, "High")),
             (booleanEqual(isAffordable, true))
         )) {
@@ -221,7 +222,11 @@ class Approval() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
         // Apply rule
         var output_: ApprovalRuleOutput = ApprovalRuleOutput(false)
-        if (true == (booleanEqual(isAffordable, false))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            true,
+            true,
+            (booleanEqual(isAffordable, false))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 

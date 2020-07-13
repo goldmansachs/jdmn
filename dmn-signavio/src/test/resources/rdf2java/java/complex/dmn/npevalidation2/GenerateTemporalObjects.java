@@ -102,7 +102,14 @@ public class GenerateTemporalObjects extends com.gs.dmn.signavio.runtime.Default
 
         // Apply rule
         GenerateTemporalObjectsRuleOutput output_ = new GenerateTemporalObjectsRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

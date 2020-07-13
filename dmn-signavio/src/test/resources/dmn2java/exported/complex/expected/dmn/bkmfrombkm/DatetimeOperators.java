@@ -109,7 +109,9 @@ public class DatetimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignav
 
         // Apply rule
         DatetimeOperatorsRuleOutput output_ = new DatetimeOperatorsRuleOutput(false);
-        if (Boolean.TRUE == (dateTimeEqual(datetime, dateAndTime("2016-12-31T19:00:00-0500")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (dateTimeEqual(datetime, dateAndTime("2016-12-31T19:00:00-0500")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -137,7 +139,9 @@ public class DatetimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignav
 
         // Apply rule
         DatetimeOperatorsRuleOutput output_ = new DatetimeOperatorsRuleOutput(false);
-        if (Boolean.TRUE == booleanNot((dateTimeEqual(datetime, dateAndTime("2016-12-31T19:00:00-0500"))))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            booleanNot((dateTimeEqual(datetime, dateAndTime("2016-12-31T19:00:00-0500"))))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -165,7 +169,9 @@ public class DatetimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignav
 
         // Apply rule
         DatetimeOperatorsRuleOutput output_ = new DatetimeOperatorsRuleOutput(false);
-        if (Boolean.TRUE == (dateTimeLessThan(datetime, dateAndTime("2017-03-25T21:00:00-0400")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (dateTimeLessThan(datetime, dateAndTime("2017-03-25T21:00:00-0400")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -193,7 +199,9 @@ public class DatetimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignav
 
         // Apply rule
         DatetimeOperatorsRuleOutput output_ = new DatetimeOperatorsRuleOutput(false);
-        if (Boolean.TRUE == (dateTimeLessEqualThan(datetime, dateAndTime("2017-03-25T21:00:00-0400")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (dateTimeLessEqualThan(datetime, dateAndTime("2017-03-25T21:00:00-0400")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -221,7 +229,9 @@ public class DatetimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignav
 
         // Apply rule
         DatetimeOperatorsRuleOutput output_ = new DatetimeOperatorsRuleOutput(false);
-        if (Boolean.TRUE == (dateTimeGreaterThan(datetime, dateAndTime("2017-03-25T21:00:00-0400")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (dateTimeGreaterThan(datetime, dateAndTime("2017-03-25T21:00:00-0400")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -249,7 +259,9 @@ public class DatetimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignav
 
         // Apply rule
         DatetimeOperatorsRuleOutput output_ = new DatetimeOperatorsRuleOutput(false);
-        if (Boolean.TRUE == (dateTimeGreaterEqualThan(datetime, dateAndTime("2017-03-25T21:00:00-0400")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (dateTimeGreaterEqualThan(datetime, dateAndTime("2017-03-25T21:00:00-0400")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -277,7 +289,9 @@ public class DatetimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignav
 
         // Apply rule
         DatetimeOperatorsRuleOutput output_ = new DatetimeOperatorsRuleOutput(false);
-        if (Boolean.TRUE == booleanOr((dateTimeEqual(datetime, dateAndTime("2016-11-05T17:00:00-0400"))), (dateTimeEqual(datetime, dateAndTime("2016-12-31T19:00:00-0500"))))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            booleanOr((dateTimeEqual(datetime, dateAndTime("2016-11-05T17:00:00-0400"))), (dateTimeEqual(datetime, dateAndTime("2016-12-31T19:00:00-0500"))))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -305,7 +319,9 @@ public class DatetimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignav
 
         // Apply rule
         DatetimeOperatorsRuleOutput output_ = new DatetimeOperatorsRuleOutput(false);
-        if (Boolean.TRUE == booleanNot(booleanOr((dateTimeEqual(datetime, dateAndTime("2016-11-05T17:00:00-0400"))), (dateTimeEqual(datetime, dateAndTime("2016-12-31T19:00:00-0500")))))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            booleanNot(booleanOr((dateTimeEqual(datetime, dateAndTime("2016-11-05T17:00:00-0400"))), (dateTimeEqual(datetime, dateAndTime("2016-12-31T19:00:00-0500")))))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -333,7 +349,9 @@ public class DatetimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignav
 
         // Apply rule
         DatetimeOperatorsRuleOutput output_ = new DatetimeOperatorsRuleOutput(false);
-        if (Boolean.TRUE == booleanNot((datetime == null))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            booleanNot((datetime == null))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -361,7 +379,9 @@ public class DatetimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignav
 
         // Apply rule
         DatetimeOperatorsRuleOutput output_ = new DatetimeOperatorsRuleOutput(false);
-        if (Boolean.TRUE == (datetime == null)) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (datetime == null)
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

@@ -101,7 +101,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (numericEqual(((java.math.BigDecimal)(person != null ? person.getId() : null)), number("4"))),
             (stringEqual(((String)(person != null ? person.getFirstName() : null)), "Peter")),
             (stringEqual(((String)(person != null ? person.getLastName() : null)), "Sellers")),

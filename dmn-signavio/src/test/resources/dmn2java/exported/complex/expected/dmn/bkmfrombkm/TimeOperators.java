@@ -109,7 +109,9 @@ public class TimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         TimeOperatorsRuleOutput output_ = new TimeOperatorsRuleOutput(false);
-        if (Boolean.TRUE == (timeEqual(time, time("19:00:00-0500")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (timeEqual(time, time("19:00:00-0500")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -137,7 +139,9 @@ public class TimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         TimeOperatorsRuleOutput output_ = new TimeOperatorsRuleOutput(false);
-        if (Boolean.TRUE == booleanNot((timeEqual(time, time("19:00:00-0500"))))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            booleanNot((timeEqual(time, time("19:00:00-0500"))))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -165,7 +169,9 @@ public class TimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         TimeOperatorsRuleOutput output_ = new TimeOperatorsRuleOutput(false);
-        if (Boolean.TRUE == (timeLessThan(time, time("07:00:00-0500")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (timeLessThan(time, time("07:00:00-0500")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -193,7 +199,9 @@ public class TimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         TimeOperatorsRuleOutput output_ = new TimeOperatorsRuleOutput(false);
-        if (Boolean.TRUE == (timeLessEqualThan(time, time("07:00:00-0500")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (timeLessEqualThan(time, time("07:00:00-0500")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -221,7 +229,9 @@ public class TimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         TimeOperatorsRuleOutput output_ = new TimeOperatorsRuleOutput(false);
-        if (Boolean.TRUE == (timeGreaterThan(time, time("07:00:00-0500")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (timeGreaterThan(time, time("07:00:00-0500")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -249,7 +259,9 @@ public class TimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         TimeOperatorsRuleOutput output_ = new TimeOperatorsRuleOutput(false);
-        if (Boolean.TRUE == (timeGreaterEqualThan(time, time("07:00:00-0500")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (timeGreaterEqualThan(time, time("07:00:00-0500")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -277,7 +289,9 @@ public class TimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         TimeOperatorsRuleOutput output_ = new TimeOperatorsRuleOutput(false);
-        if (Boolean.TRUE == booleanOr((timeEqual(time, time("01:00:00-0500"))), (timeEqual(time, time("13:00:00-0500"))))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            booleanOr((timeEqual(time, time("01:00:00-0500"))), (timeEqual(time, time("13:00:00-0500"))))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -305,7 +319,9 @@ public class TimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         TimeOperatorsRuleOutput output_ = new TimeOperatorsRuleOutput(false);
-        if (Boolean.TRUE == booleanNot(booleanOr((timeEqual(time, time("01:00:00-0500"))), (timeEqual(time, time("13:00:00-0500")))))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            booleanNot(booleanOr((timeEqual(time, time("01:00:00-0500"))), (timeEqual(time, time("13:00:00-0500")))))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -333,7 +349,9 @@ public class TimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         TimeOperatorsRuleOutput output_ = new TimeOperatorsRuleOutput(false);
-        if (Boolean.TRUE == booleanNot((time == null))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            booleanNot((time == null))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -361,7 +379,9 @@ public class TimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         TimeOperatorsRuleOutput output_ = new TimeOperatorsRuleOutput(false);
-        if (Boolean.TRUE == (time == null)) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (time == null)
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

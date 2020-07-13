@@ -91,7 +91,7 @@ public class TestNullComplexTypeAccess extends com.gs.dmn.signavio.runtime.Defau
 
         // Apply rule
         TestNullComplexTypeAccessRuleOutput output_ = new TestNullComplexTypeAccessRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             booleanNot((((String)(incompleteDecisionTable != null ? incompleteDecisionTable.getA() : null)) == null)),
             (((java.math.BigDecimal)(incompleteDecisionTable != null ? incompleteDecisionTable.getB() : null)) == null)
         )) {
@@ -122,7 +122,7 @@ public class TestNullComplexTypeAccess extends com.gs.dmn.signavio.runtime.Defau
 
         // Apply rule
         TestNullComplexTypeAccessRuleOutput output_ = new TestNullComplexTypeAccessRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             booleanNot((((String)(incompleteDecisionTable != null ? incompleteDecisionTable.getA() : null)) == null)),
             booleanNot((((java.math.BigDecimal)(incompleteDecisionTable != null ? incompleteDecisionTable.getB() : null)) == null))
         )) {
@@ -153,7 +153,7 @@ public class TestNullComplexTypeAccess extends com.gs.dmn.signavio.runtime.Defau
 
         // Apply rule
         TestNullComplexTypeAccessRuleOutput output_ = new TestNullComplexTypeAccessRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (((String)(incompleteDecisionTable != null ? incompleteDecisionTable.getA() : null)) == null),
             (((java.math.BigDecimal)(incompleteDecisionTable != null ? incompleteDecisionTable.getB() : null)) == null)
         )) {
@@ -184,7 +184,7 @@ public class TestNullComplexTypeAccess extends com.gs.dmn.signavio.runtime.Defau
 
         // Apply rule
         TestNullComplexTypeAccessRuleOutput output_ = new TestNullComplexTypeAccessRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (((String)(incompleteDecisionTable != null ? incompleteDecisionTable.getA() : null)) == null),
             booleanNot((((java.math.BigDecimal)(incompleteDecisionTable != null ? incompleteDecisionTable.getB() : null)) == null))
         )) {

@@ -319,27 +319,27 @@ public class DMNExpressionToNativeTransformer {
     String condition(TDRGElement element, TDecisionRule rule) {
         TExpression decisionTable = this.dmnModelRepository.expression(element);
         if (decisionTable instanceof TDecisionTable) {
+            // Build condition parts
             List<String> conditionParts = new ArrayList<>();
             for (int i = 0; i < rule.getInputEntry().size(); i++) {
                 TUnaryTests inputEntry = rule.getInputEntry().get(i);
                 String condition = condition(element, decisionTable, inputEntry, i);
                 conditionParts.add(condition);
             }
-            // Optimize AND operator
-            List<String> optimizedConditionParts = this.nativeExpressionFactory.optimizeAndArguments(conditionParts);
-            String left = this.nativeExpressionFactory.trueConstant();
-            String right;
-            if (optimizedConditionParts.size() == 1) {
-                right = optimizedConditionParts.get(0);
-            } else {
-                String indent3tabs = "            ";
-                String indent2tabs = "        ";
-                String operands = optimizedConditionParts.stream().collect(Collectors.joining(",\n" + indent3tabs));
-                right = String.format("booleanAnd(\n%s%s\n%s)", indent3tabs, operands, indent2tabs);
-            }
-            return this.nativeExpressionFactory.makeEquality(left, right);
+            // Build rule matches call
+            String indent3tabs = "            ";
+            String indent2tabs = "        ";
+            String operands = conditionParts.stream().collect(Collectors.joining(",\n" + indent3tabs));
+            String eventListenerVariable = this.dmnTransformer.eventListenerVariableName();
+            String ruleMetadataVariable = this.dmnTransformer.drgRuleMetadataFieldName();
+            String condition = String.format("%s(%s, %s,\n%s%s\n%s)", ruleMatchesMethodName(), eventListenerVariable, ruleMetadataVariable, indent3tabs, operands, indent2tabs);
+            return condition;
         }
         throw new DMNRuntimeException("Cannot build condition for " + decisionTable.getClass().getSimpleName());
+    }
+
+    private String ruleMatchesMethodName() {
+        return "ruleMatches";
     }
 
     private String condition(TDRGElement element, TExpression decisionTable, TUnaryTests inputEntry, int inputEntryIndex) {
