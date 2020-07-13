@@ -229,8 +229,8 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         }
         Map<QName, String> otherAttributes = element.getOtherAttributes();
         QName diagramIdQName = getDiagramIdQName();
-        String shapeId = otherAttributes.get(diagramIdQName);
-        return id.equals(shapeId);
+        String diagramId = otherAttributes.get(diagramIdQName);
+        return id.equals(diagramId);
     }
 
     private boolean sameShapeId(TDRGElement element, String id) {
