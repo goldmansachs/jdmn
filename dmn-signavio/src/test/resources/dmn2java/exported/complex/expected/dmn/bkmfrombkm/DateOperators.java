@@ -109,7 +109,9 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         DateOperatorsRuleOutput output_ = new DateOperatorsRuleOutput(false);
-        if (Boolean.TRUE == (dateEqual(date, date("2016-12-25")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (dateEqual(date, date("2016-12-25")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -137,7 +139,9 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         DateOperatorsRuleOutput output_ = new DateOperatorsRuleOutput(false);
-        if (Boolean.TRUE == booleanNot((dateEqual(date, date("2016-12-25"))))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            booleanNot((dateEqual(date, date("2016-12-25"))))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -165,7 +169,9 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         DateOperatorsRuleOutput output_ = new DateOperatorsRuleOutput(false);
-        if (Boolean.TRUE == (dateLessThan(date, date("2017-01-01")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (dateLessThan(date, date("2017-01-01")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -193,7 +199,9 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         DateOperatorsRuleOutput output_ = new DateOperatorsRuleOutput(false);
-        if (Boolean.TRUE == (dateLessEqualThan(date, date("2017-03-25")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (dateLessEqualThan(date, date("2017-03-25")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -221,7 +229,9 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         DateOperatorsRuleOutput output_ = new DateOperatorsRuleOutput(false);
-        if (Boolean.TRUE == (dateGreaterThan(date, date("2016-12-31")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (dateGreaterThan(date, date("2016-12-31")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -249,7 +259,9 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         DateOperatorsRuleOutput output_ = new DateOperatorsRuleOutput(false);
-        if (Boolean.TRUE == (dateGreaterEqualThan(date, date("2017-03-26")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (dateGreaterEqualThan(date, date("2017-03-26")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -277,7 +289,9 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         DateOperatorsRuleOutput output_ = new DateOperatorsRuleOutput(false);
-        if (Boolean.TRUE == booleanOr((dateEqual(date, date("2016-12-26"))), (dateEqual(date, date("2017-01-01"))), (dateEqual(date, date("2016-12-25"))))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            booleanOr((dateEqual(date, date("2016-12-26"))), (dateEqual(date, date("2017-01-01"))), (dateEqual(date, date("2016-12-25"))))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -305,7 +319,9 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         DateOperatorsRuleOutput output_ = new DateOperatorsRuleOutput(false);
-        if (Boolean.TRUE == booleanNot(booleanOr((dateEqual(date, date("2016-12-25"))), (dateEqual(date, date("2016-12-26"))), (dateEqual(date, date("2017-01-01")))))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            booleanNot(booleanOr((dateEqual(date, date("2016-12-25"))), (dateEqual(date, date("2016-12-26"))), (dateEqual(date, date("2017-01-01")))))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -333,7 +349,9 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         DateOperatorsRuleOutput output_ = new DateOperatorsRuleOutput(false);
-        if (Boolean.TRUE == booleanNot((date == null))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            booleanNot((date == null))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -361,7 +379,9 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         DateOperatorsRuleOutput output_ = new DateOperatorsRuleOutput(false);
-        if (Boolean.TRUE == (date == null)) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (date == null)
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

@@ -130,7 +130,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (dateEqual(dateInput, date("2016-08-01"))),
             (timeEqual(timeInput, time("12:00:00+0000"))),
             (dateTimeEqual(dateAndTimeInput, dateAndTime("2016-08-01T11:00:00+0000"))),
@@ -166,7 +166,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             booleanNot((dateEqual(dateInput, date("2016-08-01")))),
             booleanNot((timeEqual(timeInput, time("12:00:00+0000")))),
             booleanNot((dateTimeEqual(dateAndTimeInput, dateAndTime("2016-08-01T11:00:00+0000")))),
@@ -202,11 +202,14 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (dateLessThan(dateInput, date("2016-08-01"))),
             (timeLessThan(timeInput, time("12:00:00+0000"))),
             (dateTimeLessThan(dateAndTimeInput, dateAndTime("2016-08-01T11:00:00+0000"))),
-            (numericLessThan(numberInput, numericUnaryMinus(number("1"))))
+            (numericLessThan(numberInput, numericUnaryMinus(number("1")))),
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -235,11 +238,14 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (dateLessEqualThan(dateInput, date("2016-08-01"))),
             (timeLessEqualThan(timeInput, time("12:00:00+0000"))),
             (dateTimeLessEqualThan(dateAndTimeInput, dateAndTime("2016-08-01T11:00:00+0000"))),
-            (numericGreaterEqualThan(numberInput, numericUnaryMinus(number("1"))))
+            (numericGreaterEqualThan(numberInput, numericUnaryMinus(number("1")))),
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -268,11 +274,14 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (dateGreaterThan(dateInput, date("2016-08-01"))),
             (timeGreaterThan(timeInput, time("12:00:00+0000"))),
             (dateTimeGreaterThan(dateAndTimeInput, dateAndTime("2016-08-01T11:00:00+0000"))),
-            (numericGreaterThan(numberInput, numericUnaryMinus(number("1"))))
+            (numericGreaterThan(numberInput, numericUnaryMinus(number("1")))),
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -301,10 +310,14 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (dateGreaterEqualThan(dateInput, date("2016-08-01"))),
             (timeGreaterEqualThan(timeInput, time("12:00:00+0000"))),
-            (dateTimeGreaterEqualThan(dateAndTimeInput, dateAndTime("2016-08-01T11:00:00+0000")))
+            (dateTimeGreaterEqualThan(dateAndTimeInput, dateAndTime("2016-08-01T11:00:00+0000"))),
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

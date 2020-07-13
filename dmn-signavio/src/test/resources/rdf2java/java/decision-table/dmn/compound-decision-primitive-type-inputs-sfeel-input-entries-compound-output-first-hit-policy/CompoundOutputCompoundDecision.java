@@ -119,7 +119,7 @@ public class CompoundOutputCompoundDecision extends com.gs.dmn.signavio.runtime.
 
         // Apply rule
         CompoundOutputCompoundDecisionRuleOutput output_ = new CompoundOutputCompoundDecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (booleanEqual(booleanInput, Boolean.TRUE)),
             (stringEqual(enumerationInput, "e1")),
             (stringEqual(((String)(dependentDecision1 != null ? dependentDecision1.getDD1O1() : null)), "dd1o1")),
@@ -155,7 +155,7 @@ public class CompoundOutputCompoundDecision extends com.gs.dmn.signavio.runtime.
 
         // Apply rule
         CompoundOutputCompoundDecisionRuleOutput output_ = new CompoundOutputCompoundDecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             booleanNot((booleanEqual(booleanInput, Boolean.FALSE))),
             booleanNot((stringEqual(enumerationInput, "e1"))),
             (stringEqual(((String)(dependentDecision1 != null ? dependentDecision1.getDD1O1() : null)), "dd1o1")),

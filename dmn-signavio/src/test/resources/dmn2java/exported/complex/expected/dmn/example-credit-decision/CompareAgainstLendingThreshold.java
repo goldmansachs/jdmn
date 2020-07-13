@@ -112,7 +112,9 @@ public class CompareAgainstLendingThreshold extends com.gs.dmn.signavio.runtime.
 
         // Apply rule
         CompareAgainstLendingThresholdRuleOutput output_ = new CompareAgainstLendingThresholdRuleOutput(false);
-        if (Boolean.TRUE == booleanNot((lendingThreshold == null))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            booleanNot((lendingThreshold == null))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -140,7 +142,9 @@ public class CompareAgainstLendingThreshold extends com.gs.dmn.signavio.runtime.
 
         // Apply rule
         CompareAgainstLendingThresholdRuleOutput output_ = new CompareAgainstLendingThresholdRuleOutput(false);
-        if (Boolean.TRUE == (lendingThreshold == null)) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (lendingThreshold == null)
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

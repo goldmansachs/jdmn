@@ -86,7 +86,11 @@ public class EligibilityRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
 
         // Apply rule
         EligibilityRulesRuleOutput output_ = new EligibilityRulesRuleOutput(false);
-        if (Boolean.TRUE == (stringEqual(preBureauRiskCategory, "DECLINE"))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (stringEqual(preBureauRiskCategory, "DECLINE")),
+            Boolean.TRUE,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -115,7 +119,11 @@ public class EligibilityRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
 
         // Apply rule
         EligibilityRulesRuleOutput output_ = new EligibilityRulesRuleOutput(false);
-        if (Boolean.TRUE == (booleanEqual(preBureauAffordability, Boolean.FALSE))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            (booleanEqual(preBureauAffordability, Boolean.FALSE)),
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -144,7 +152,11 @@ public class EligibilityRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
 
         // Apply rule
         EligibilityRulesRuleOutput output_ = new EligibilityRulesRuleOutput(false);
-        if (Boolean.TRUE == (numericLessThan(age, number("18")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            (numericLessThan(age, number("18")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -173,7 +185,11 @@ public class EligibilityRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
 
         // Apply rule
         EligibilityRulesRuleOutput output_ = new EligibilityRulesRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

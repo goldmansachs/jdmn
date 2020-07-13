@@ -125,7 +125,7 @@ public class PartB extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
 
         // Apply rule
         PartBRuleOutput output_ = new PartBRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             booleanNot((stringHandlingComparator == null)),
             (notContainsAny(comparator, asList("bottomRule"))),
             booleanNot((statistical == null)),

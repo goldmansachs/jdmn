@@ -100,7 +100,7 @@ public class IsForexRateRequired extends com.gs.dmn.signavio.runtime.DefaultSign
 
         // Apply rule
         IsForexRateRequiredRuleOutput output_ = new IsForexRateRequiredRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (stringEqual(derivativeType, "RIGHTS_WARRANTS")),
             (stringEqual(taxChargeType, "2")),
             (stringEqual(((String)(transactionTaxMetaData != null ? transactionTaxMetaData.getTaxType() : null)), "FTT")),
@@ -134,7 +134,13 @@ public class IsForexRateRequired extends com.gs.dmn.signavio.runtime.DefaultSign
 
         // Apply rule
         IsForexRateRequiredRuleOutput output_ = new IsForexRateRequiredRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

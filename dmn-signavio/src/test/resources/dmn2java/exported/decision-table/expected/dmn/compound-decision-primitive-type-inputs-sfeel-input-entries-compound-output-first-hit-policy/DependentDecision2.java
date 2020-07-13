@@ -97,7 +97,9 @@ public class DependentDecision2 extends com.gs.dmn.signavio.runtime.DefaultSigna
 
         // Apply rule
         DependentDecision2RuleOutput output_ = new DependentDecision2RuleOutput(false);
-        if (Boolean.TRUE == (numericEqual(dd2NumberInput, number("1")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (numericEqual(dd2NumberInput, number("1")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

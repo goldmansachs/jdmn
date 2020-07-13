@@ -118,7 +118,10 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
 
         // Apply rule
         AccessCertainTemporalUnitsRuleOutput output_ = new AccessCertainTemporalUnitsRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -146,7 +149,10 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
 
         // Apply rule
         AccessCertainTemporalUnitsRuleOutput output_ = new AccessCertainTemporalUnitsRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -174,7 +180,10 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
 
         // Apply rule
         AccessCertainTemporalUnitsRuleOutput output_ = new AccessCertainTemporalUnitsRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -202,7 +211,10 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
 
         // Apply rule
         AccessCertainTemporalUnitsRuleOutput output_ = new AccessCertainTemporalUnitsRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -230,7 +242,10 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
 
         // Apply rule
         AccessCertainTemporalUnitsRuleOutput output_ = new AccessCertainTemporalUnitsRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

@@ -69,7 +69,11 @@ class EligibilityRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         var output_: EligibilityRulesRuleOutput = EligibilityRulesRuleOutput(false)
-        if (true == (stringEqual(preBureauRiskCategory, "DECLINE"))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (stringEqual(preBureauRiskCategory, "DECLINE")),
+            true,
+            true
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -98,7 +102,11 @@ class EligibilityRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         var output_: EligibilityRulesRuleOutput = EligibilityRulesRuleOutput(false)
-        if (true == (booleanEqual(preBureauAffordability, false))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            true,
+            (booleanEqual(preBureauAffordability, false)),
+            true
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -127,7 +135,11 @@ class EligibilityRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         var output_: EligibilityRulesRuleOutput = EligibilityRulesRuleOutput(false)
-        if (true == (numericLessThan(age, number("18")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            true,
+            true,
+            (numericLessThan(age, number("18")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -156,7 +168,11 @@ class EligibilityRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         var output_: EligibilityRulesRuleOutput = EligibilityRulesRuleOutput(false)
-        if (true == true) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            true,
+            true,
+            true
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
