@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.runtime.listener;
 
+import com.gs.dmn.runtime.listener.node.ColumnNode;
 import com.gs.dmn.runtime.listener.node.DRGElementNode;
 import com.gs.dmn.runtime.listener.node.RuleNode;
 
@@ -75,6 +76,12 @@ public class PostorderTraceEventListener implements EventListener {
                 top.addRuleNode(this.ruleNode);
             }
         }
+    }
+
+    @Override
+    public void matchColumn(Rule rule, int columnIndex, Object result) {
+        ColumnNode columnNode = new ColumnNode(columnIndex, result);
+        this.ruleNode.addColumnNode(columnNode);
     }
 
     public List<DRGElementNode> postorderNodes() {

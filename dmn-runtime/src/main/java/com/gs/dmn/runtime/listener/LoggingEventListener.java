@@ -43,4 +43,9 @@ public class LoggingEventListener implements SimpleEventListener {
     public void endRule(DRGElement element, Rule rule, Object output) {
         logger.debug("Rule {} fired with output '{}'", rule.getIndex(), output);
     }
+
+    @Override
+    public void matchColumn(Rule rule, int columnIndex, Object result) {
+        logger.debug("Test {} checked with output '{}'", columnIndex, result);
+    }
 }

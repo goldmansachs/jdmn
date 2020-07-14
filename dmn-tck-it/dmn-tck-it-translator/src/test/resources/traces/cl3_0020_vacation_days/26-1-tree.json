@@ -52,7 +52,17 @@
           "result": {
             "matched": true,
             "extraDaysCase1": 5
-          }
+          },
+          "columnNodes": [
+            {
+              "columnIndex": 0,
+              "result": true
+            },
+            {
+              "columnIndex": 1,
+              "result": true
+            }
+          ]
         },
         {
           "rule": {
@@ -63,7 +73,17 @@
           "result": {
             "matched": false,
             "extraDaysCase1": null
-          }
+          },
+          "columnNodes": [
+            {
+              "columnIndex": 0,
+              "result": true
+            },
+            {
+              "columnIndex": 1,
+              "result": false
+            }
+          ]
         }
       ],
       "children": []
@@ -92,7 +112,17 @@
           "result": {
             "matched": false,
             "extraDaysCase2": null
-          }
+          },
+          "columnNodes": [
+            {
+              "columnIndex": 0,
+              "result": true
+            },
+            {
+              "columnIndex": 1,
+              "result": false
+            }
+          ]
         },
         {
           "rule": {
@@ -103,7 +133,13 @@
           "result": {
             "matched": false,
             "extraDaysCase2": null
-          }
+          },
+          "columnNodes": [
+            {
+              "columnIndex": 0,
+              "result": false
+            }
+          ]
         }
       ],
       "children": []
@@ -132,7 +168,17 @@
           "result": {
             "matched": false,
             "extraDaysCase3": null
-          }
+          },
+          "columnNodes": [
+            {
+              "columnIndex": 0,
+              "result": true
+            },
+            {
+              "columnIndex": 1,
+              "result": false
+            }
+          ]
         },
         {
           "rule": {
@@ -143,7 +189,13 @@
           "result": {
             "matched": false,
             "extraDaysCase3": null
-          }
+          },
+          "columnNodes": [
+            {
+              "columnIndex": 0,
+              "result": false
+            }
+          ]
         }
       ],
       "children": []

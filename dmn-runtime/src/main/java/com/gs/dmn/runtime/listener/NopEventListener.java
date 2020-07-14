@@ -32,4 +32,8 @@ public class NopEventListener implements SimpleEventListener {
     @Override
     public void endRule(DRGElement element, Rule rule, Object result) {
     }
+
+    @Override
+    public void matchColumn(Rule rule, int columnIndex, Object result) {
+    }
 }
