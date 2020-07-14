@@ -10,7 +10,8 @@
       "rulesCount": -1
     },
     "arguments": {},
-    "ruleTraces": []
+    "ruleTraces": [],
+    "children": []
   },
   {
     "element": {
@@ -49,7 +50,8 @@
           "extraDaysCase1": null
         }
       }
-    ]
+    ],
+    "children": []
   },
   {
     "element": {
@@ -88,7 +90,8 @@
           "extraDaysCase2": null
         }
       }
-    ]
+    ],
+    "children": []
   },
   {
     "element": {
@@ -127,7 +130,8 @@
           "extraDaysCase3": null
         }
       }
-    ]
+    ],
+    "children": []
   },
   {
     "element": {
@@ -143,6 +147,7 @@
       "age": 16,
       "yearsOfService": 1
     },
-    "ruleTraces": []
+    "ruleTraces": [],
+    "children": []
   }
 ]

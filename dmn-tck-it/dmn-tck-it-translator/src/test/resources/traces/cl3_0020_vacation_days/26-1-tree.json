@@ -1,0 +1,152 @@
+{
+  "element": {
+    "namespace": "com.gs.dmn.generated.tck.cl3_0020_vacation_days",
+    "name": "'Total Vacation Days'",
+    "label": "",
+    "elementKind": "DECISION",
+    "expressionKind": "LITERAL_EXPRESSION",
+    "hitPolicy": "UNKNOWN",
+    "rulesCount": -1
+  },
+  "arguments": {
+    "age": 16,
+    "yearsOfService": 1
+  },
+  "ruleTraces": [],
+  "children": [
+    {
+      "element": {
+        "namespace": "com.gs.dmn.generated.tck.cl3_0020_vacation_days",
+        "name": "'Base Vacation Days'",
+        "label": "",
+        "elementKind": "DECISION",
+        "expressionKind": "LITERAL_EXPRESSION",
+        "hitPolicy": "UNKNOWN",
+        "rulesCount": -1
+      },
+      "arguments": {},
+      "ruleTraces": [],
+      "children": []
+    },
+    {
+      "element": {
+        "namespace": "com.gs.dmn.generated.tck.cl3_0020_vacation_days",
+        "name": "'Extra days case 1'",
+        "label": "",
+        "elementKind": "DECISION",
+        "expressionKind": "DECISION_TABLE",
+        "hitPolicy": "COLLECT",
+        "rulesCount": 2
+      },
+      "arguments": {
+        "age": 16,
+        "yearsOfService": 1
+      },
+      "ruleTraces": [
+        {
+          "rule": {
+            "index": 0,
+            "annotation": ""
+          },
+          "matched": true,
+          "result": {
+            "matched": true,
+            "extraDaysCase1": 5
+          }
+        },
+        {
+          "rule": {
+            "index": 1,
+            "annotation": ""
+          },
+          "matched": false,
+          "result": {
+            "matched": false,
+            "extraDaysCase1": null
+          }
+        }
+      ],
+      "children": []
+    },
+    {
+      "element": {
+        "namespace": "com.gs.dmn.generated.tck.cl3_0020_vacation_days",
+        "name": "'Extra days case 2'",
+        "label": "",
+        "elementKind": "DECISION",
+        "expressionKind": "DECISION_TABLE",
+        "hitPolicy": "COLLECT",
+        "rulesCount": 2
+      },
+      "arguments": {
+        "age": 16,
+        "yearsOfService": 1
+      },
+      "ruleTraces": [
+        {
+          "rule": {
+            "index": 0,
+            "annotation": ""
+          },
+          "matched": false,
+          "result": {
+            "matched": false,
+            "extraDaysCase2": null
+          }
+        },
+        {
+          "rule": {
+            "index": 1,
+            "annotation": ""
+          },
+          "matched": false,
+          "result": {
+            "matched": false,
+            "extraDaysCase2": null
+          }
+        }
+      ],
+      "children": []
+    },
+    {
+      "element": {
+        "namespace": "com.gs.dmn.generated.tck.cl3_0020_vacation_days",
+        "name": "'Extra days case 3'",
+        "label": "",
+        "elementKind": "DECISION",
+        "expressionKind": "DECISION_TABLE",
+        "hitPolicy": "COLLECT",
+        "rulesCount": 2
+      },
+      "arguments": {
+        "age": 16,
+        "yearsOfService": 1
+      },
+      "ruleTraces": [
+        {
+          "rule": {
+            "index": 0,
+            "annotation": ""
+          },
+          "matched": false,
+          "result": {
+            "matched": false,
+            "extraDaysCase3": null
+          }
+        },
+        {
+          "rule": {
+            "index": 1,
+            "annotation": ""
+          },
+          "matched": false,
+          "result": {
+            "matched": false,
+            "extraDaysCase3": null
+          }
+        }
+      ],
+      "children": []
+    }
+  ]
+}

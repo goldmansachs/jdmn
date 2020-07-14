@@ -36,7 +36,8 @@
           "extraDaysCase1": null
         }
       }
-    ]
+    ],
+    "children": []
   },
   {
     "element": {
@@ -75,6 +76,7 @@
           "extraDaysCase2": null
         }
       }
-    ]
+    ],
+    "children": []
   }
 ]

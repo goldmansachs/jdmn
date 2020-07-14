@@ -18,23 +18,22 @@ import com.gs.dmn.runtime.listener.trace.RuleTrace;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
-import java.util.stream.Collectors;
 
-public class PostorderTraceEventListener implements EventListener {
+public class TreeTraceEventListener implements EventListener {
     // Elements to trace
     private final List<String> drgElementNames = new ArrayList<>();
 
     // Output
-    private final List<DRGElementTrace> elementTraces = new ArrayList<>();
+    DRGElementTrace root = null;
 
     // Temp data
     Stack<DRGElementTrace> elementTraceStack = new Stack<>();
     private RuleTrace ruleTrace;
 
-    public PostorderTraceEventListener() {
+    public TreeTraceEventListener() {
     }
 
-    public PostorderTraceEventListener(List<String> drgElementNames) {
+    public TreeTraceEventListener(List<String> drgElementNames) {
         if (drgElementNames != null) {
             this.drgElementNames.addAll(drgElementNames);
         }
@@ -43,16 +42,25 @@ public class PostorderTraceEventListener implements EventListener {
     @Override
     public void startDRGElement(DRGElement element, Arguments arguments) {
         DRGElementTrace elementTrace = new DRGElementTrace(element, arguments);
+        if (this.root == null) {
+            // Set root
+            this.root = elementTrace;
+        } else {
+            // Add to parent
+            if (!this.elementTraceStack.empty()) {
+                DRGElementTrace parent = this.elementTraceStack.peek();
+                if (parent != null) {
+                    parent.addChild(elementTrace);
+                }
+            }
+        }
         this.elementTraceStack.push(elementTrace);
     }
 
     @Override
     public void endDRGElement(DRGElement element, Arguments arguments, Object output, long duration) {
         if (!this.elementTraceStack.empty()) {
-            DRGElementTrace top = this.elementTraceStack.pop();
-            if (top != null) {
-                this.elementTraces.add(top);
-            }
+            this.elementTraceStack.pop();
         }
     }
 
@@ -77,17 +85,7 @@ public class PostorderTraceEventListener implements EventListener {
         }
     }
 
-    public List<DRGElementTrace> postorderNodes() {
-        return this.elementTraces.stream().filter(this::filter).collect(Collectors.toList());
-    }
-
-    private boolean filter(DRGElementTrace et) {
-        if (et == null) {
-            return false;
-        }
-        if (this.drgElementNames.isEmpty()) {
-            return true;
-        }
-        return this.drgElementNames.contains(et.getElement().getName()) || this.drgElementNames.contains(et.getElement().getLabel());
+    public DRGElementTrace getRoot() {
+        return this.root;
     }
 }
