@@ -22,6 +22,7 @@ public class DRGElementTrace {
     private final DRGElement element;
     private final Arguments arguments;
     private List<RuleTrace> ruleTraces = new ArrayList<>();
+    private List<DRGElementTrace> children = new ArrayList<>();
 
     public DRGElementTrace(DRGElement element, Arguments arguments) {
         this.element = element;
@@ -42,5 +43,13 @@ public class DRGElementTrace {
 
     public List<RuleTrace> getRuleTraces() {
         return ruleTraces;
+    }
+
+    public List<DRGElementTrace> getChildren() {
+        return children;
+    }
+
+    public void addChild(DRGElementTrace elementTrace) {
+        this.children.add(elementTrace);
     }
 }

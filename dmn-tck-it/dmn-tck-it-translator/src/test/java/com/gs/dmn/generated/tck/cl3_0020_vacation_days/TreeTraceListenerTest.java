@@ -15,7 +15,7 @@ package com.gs.dmn.generated.tck.cl3_0020_vacation_days;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
 import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
-import com.gs.dmn.runtime.listener.PostorderTraceEventListener;
+import com.gs.dmn.runtime.listener.TreeTraceEventListener;
 import com.gs.dmn.runtime.listener.trace.DRGElementTrace;
 import com.gs.dmn.serialization.JsonSerializer;
 import org.apache.commons.io.FileUtils;
@@ -29,18 +29,16 @@ import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class PostorderTraceListenerTest {
+public class TreeTraceListenerTest {
     private final TotalVacationDays decision = new TotalVacationDays();
 
     @Test
     public void testListener() throws Exception {
         AnnotationSet annotationSet = new AnnotationSet();
-        PostorderTraceEventListener listener = new PostorderTraceEventListener();
+        TreeTraceEventListener listener = new TreeTraceEventListener();
 
         String expectedResult = "27";
         String age = "16";
@@ -48,26 +46,9 @@ public class PostorderTraceListenerTest {
         BigDecimal actualResult = decision.apply(age, yearsOfService, annotationSet, listener, new DefaultExternalFunctionExecutor());
         assertEquals(expectedResult, actualResult.toPlainString());
 
-        List<DRGElementTrace> elementTraces = listener.postorderNodes();
-        File actualOutputFile = writeTraces(elementTraces);
-        File expectedOutputFile = new File(resource(getExpectedPath() + "/26-1-postorder.json"));
-        checkTrace(expectedOutputFile, actualOutputFile);
-    }
-
-    @Test
-    public void testListenerWithFilter() throws Exception {
-        AnnotationSet annotationSet = new AnnotationSet();
-        PostorderTraceEventListener listener = new PostorderTraceEventListener(Arrays.asList("'Extra days case 1'", "'Extra days case 2'"));
-
-        String expectedResult = "27";
-        String age = "16";
-        String yearsOfService = "1";
-        BigDecimal actualResult = decision.apply(age, yearsOfService, annotationSet, listener, new DefaultExternalFunctionExecutor());
-        assertEquals(expectedResult, actualResult.toPlainString());
-
-        List<DRGElementTrace> elementTraces = listener.postorderNodes();
-        File actualOutputFile = writeTraces(elementTraces);
-        File expectedOutputFile = new File(resource(getExpectedPath() + "/26-1-postorder-with-filter.json"));
+        DRGElementTrace root = listener.getRoot();
+        File actualOutputFile = writeTraces(root);
+        File expectedOutputFile = new File(resource(getExpectedPath() + "/26-1-tree.json"));
         checkTrace(expectedOutputFile, actualOutputFile);
     }
 
@@ -87,9 +68,9 @@ public class PostorderTraceListenerTest {
         }
     }
 
-    private File writeTraces(List<DRGElementTrace> elementTraces) throws IOException {
+    private File writeTraces(DRGElementTrace root) throws IOException {
         File actualOutputFile = File.createTempFile("trace", "trc");
-        JsonSerializer.OBJECT_MAPPER.writeValue(actualOutputFile, elementTraces);
+        JsonSerializer.OBJECT_MAPPER.writeValue(actualOutputFile, root);
         return actualOutputFile;
     }
 
