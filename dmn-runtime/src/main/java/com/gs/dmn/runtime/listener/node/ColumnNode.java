@@ -13,7 +13,7 @@
 package com.gs.dmn.runtime.listener.node;
 
 public class ColumnNode {
-    // Index starts from 0
+    // Index starts from 1
     private final int columnIndex;
     private final Object result;
 
