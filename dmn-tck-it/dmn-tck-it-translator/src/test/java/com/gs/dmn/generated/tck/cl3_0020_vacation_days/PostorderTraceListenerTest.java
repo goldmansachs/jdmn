@@ -16,7 +16,7 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
 import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
 import com.gs.dmn.runtime.listener.trace.DRGElementTrace;
-import com.gs.dmn.runtime.listener.TraceEventListener;
+import com.gs.dmn.runtime.listener.PostorderTraceEventListener;
 import com.gs.dmn.serialization.JsonSerializer;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
@@ -34,13 +34,13 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class TraceListenerTest {
+public class PostorderTraceListenerTest {
     private final TotalVacationDays decision = new TotalVacationDays();
 
     @Test
     public void testListener() throws Exception {
         AnnotationSet annotationSet = new AnnotationSet();
-        TraceEventListener listener = new TraceEventListener();
+        PostorderTraceEventListener listener = new PostorderTraceEventListener();
 
         String expectedResult = "27";
         String age = "16";
@@ -57,7 +57,7 @@ public class TraceListenerTest {
     @Test
     public void testListenerWithFilter() throws Exception {
         AnnotationSet annotationSet = new AnnotationSet();
-        TraceEventListener listener = new TraceEventListener(Arrays.asList("'Extra days case 1'", "'Extra days case 2'"));
+        PostorderTraceEventListener listener = new PostorderTraceEventListener(Arrays.asList("'Extra days case 1'", "'Extra days case 2'"));
 
         String expectedResult = "27";
         String age = "16";
