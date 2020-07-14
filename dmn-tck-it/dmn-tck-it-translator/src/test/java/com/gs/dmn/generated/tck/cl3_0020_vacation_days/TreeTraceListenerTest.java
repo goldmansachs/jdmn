@@ -29,6 +29,7 @@ import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -36,7 +37,7 @@ public class TreeTraceListenerTest {
     private final TotalVacationDays decision = new TotalVacationDays();
 
     @Test
-    public void testListener() throws Exception {
+    public void testTree() throws Exception {
         AnnotationSet annotationSet = new AnnotationSet();
         TreeTraceEventListener listener = new TreeTraceEventListener();
 
@@ -47,8 +48,42 @@ public class TreeTraceListenerTest {
         assertEquals(expectedResult, actualResult.toPlainString());
 
         DRGElementTrace root = listener.getRoot();
-        File actualOutputFile = writeTraces(root);
+        File actualOutputFile = writeNodes(root);
         File expectedOutputFile = new File(resource(getExpectedPath() + "/26-1-tree.json"));
+        checkTrace(expectedOutputFile, actualOutputFile);
+    }
+
+    @Test
+    public void testPreorder() throws Exception {
+        AnnotationSet annotationSet = new AnnotationSet();
+        TreeTraceEventListener listener = new TreeTraceEventListener();
+
+        String expectedResult = "27";
+        String age = "16";
+        String yearsOfService = "1";
+        BigDecimal actualResult = decision.apply(age, yearsOfService, annotationSet, listener, new DefaultExternalFunctionExecutor());
+        assertEquals(expectedResult, actualResult.toPlainString());
+
+        List<DRGElementTrace> nodes = listener.preorderNodes();
+        File actualOutputFile = writeNodes(nodes);
+        File expectedOutputFile = new File(resource(getExpectedPath() + "/26-1-tree-preorder.json"));
+        checkTrace(expectedOutputFile, actualOutputFile);
+    }
+
+    @Test
+    public void testPostorder() throws Exception {
+        AnnotationSet annotationSet = new AnnotationSet();
+        TreeTraceEventListener listener = new TreeTraceEventListener();
+
+        String expectedResult = "27";
+        String age = "16";
+        String yearsOfService = "1";
+        BigDecimal actualResult = decision.apply(age, yearsOfService, annotationSet, listener, new DefaultExternalFunctionExecutor());
+        assertEquals(expectedResult, actualResult.toPlainString());
+
+        List<DRGElementTrace> nodes = listener.postorderNodes();
+        File actualOutputFile = writeNodes(nodes);
+        File expectedOutputFile = new File(resource(getExpectedPath() + "/26-1-tree-postorder.json"));
         checkTrace(expectedOutputFile, actualOutputFile);
     }
 
@@ -68,9 +103,9 @@ public class TreeTraceListenerTest {
         }
     }
 
-    private File writeTraces(DRGElementTrace root) throws IOException {
+    private File writeNodes(Object nodes) throws IOException {
         File actualOutputFile = File.createTempFile("trace", "trc");
-        JsonSerializer.OBJECT_MAPPER.writeValue(actualOutputFile, root);
+        JsonSerializer.OBJECT_MAPPER.writeValue(actualOutputFile, nodes);
         return actualOutputFile;
     }
 
