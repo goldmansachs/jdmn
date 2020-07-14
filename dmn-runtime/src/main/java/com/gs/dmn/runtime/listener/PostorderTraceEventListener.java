@@ -12,8 +12,8 @@
  */
 package com.gs.dmn.runtime.listener;
 
-import com.gs.dmn.runtime.listener.trace.DRGElementTrace;
-import com.gs.dmn.runtime.listener.trace.RuleTrace;
+import com.gs.dmn.runtime.listener.node.DRGElementNode;
+import com.gs.dmn.runtime.listener.node.RuleNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +25,11 @@ public class PostorderTraceEventListener implements EventListener {
     private final List<String> drgElementNames = new ArrayList<>();
 
     // Output
-    private final List<DRGElementTrace> elementTraces = new ArrayList<>();
+    private final List<DRGElementNode> elementNodes = new ArrayList<>();
 
     // Temp data
-    Stack<DRGElementTrace> elementTraceStack = new Stack<>();
-    private RuleTrace ruleTrace;
+    Stack<DRGElementNode> elementNodeStack = new Stack<>();
+    private RuleNode ruleNode;
 
     public PostorderTraceEventListener() {
     }
@@ -42,52 +42,52 @@ public class PostorderTraceEventListener implements EventListener {
 
     @Override
     public void startDRGElement(DRGElement element, Arguments arguments) {
-        DRGElementTrace elementTrace = new DRGElementTrace(element, arguments);
-        this.elementTraceStack.push(elementTrace);
+        DRGElementNode elementNode = new DRGElementNode(element, arguments);
+        this.elementNodeStack.push(elementNode);
     }
 
     @Override
     public void endDRGElement(DRGElement element, Arguments arguments, Object output, long duration) {
-        if (!this.elementTraceStack.empty()) {
-            DRGElementTrace top = this.elementTraceStack.pop();
+        if (!this.elementNodeStack.empty()) {
+            DRGElementNode top = this.elementNodeStack.pop();
             if (top != null) {
-                this.elementTraces.add(top);
+                this.elementNodes.add(top);
             }
         }
     }
 
     @Override
     public void startRule(DRGElement element, Rule rule) {
-        this.ruleTrace = new RuleTrace(rule);
+        this.ruleNode = new RuleNode(rule);
     }
 
     @Override
     public void matchRule(DRGElement element, Rule rule) {
-        this.ruleTrace.setMatched(true);
+        this.ruleNode.setMatched(true);
     }
 
     @Override
     public void endRule(DRGElement element, Rule rule, Object result) {
-        this.ruleTrace.setResult(result);
-        if (!this.elementTraceStack.empty()) {
-            DRGElementTrace top = this.elementTraceStack.peek();
+        this.ruleNode.setResult(result);
+        if (!this.elementNodeStack.empty()) {
+            DRGElementNode top = this.elementNodeStack.peek();
             if (top != null) {
-                top.addRuleTrace(this.ruleTrace);
+                top.addRuleNode(this.ruleNode);
             }
         }
     }
 
-    public List<DRGElementTrace> postorderNodes() {
-        return this.elementTraces.stream().filter(this::filter).collect(Collectors.toList());
+    public List<DRGElementNode> postorderNodes() {
+        return this.elementNodes.stream().filter(this::filter).collect(Collectors.toList());
     }
 
-    private boolean filter(DRGElementTrace et) {
-        if (et == null) {
+    private boolean filter(DRGElementNode elementNode) {
+        if (elementNode == null) {
             return false;
         }
         if (this.drgElementNames.isEmpty()) {
             return true;
         }
-        return this.drgElementNames.contains(et.getElement().getName()) || this.drgElementNames.contains(et.getElement().getLabel());
+        return this.drgElementNames.contains(elementNode.getElement().getName()) || this.drgElementNames.contains(elementNode.getElement().getLabel());
     }
 }

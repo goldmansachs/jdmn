@@ -16,7 +16,7 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
 import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
 import com.gs.dmn.runtime.listener.PostorderTraceEventListener;
-import com.gs.dmn.runtime.listener.trace.DRGElementTrace;
+import com.gs.dmn.runtime.listener.node.DRGElementNode;
 import com.gs.dmn.serialization.JsonSerializer;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
@@ -48,7 +48,7 @@ public class PostorderTraceListenerTest {
         BigDecimal actualResult = decision.apply(age, yearsOfService, annotationSet, listener, new DefaultExternalFunctionExecutor());
         assertEquals(expectedResult, actualResult.toPlainString());
 
-        List<DRGElementTrace> elementTraces = listener.postorderNodes();
+        List<DRGElementNode> elementTraces = listener.postorderNodes();
         File actualOutputFile = writeTraces(elementTraces);
         File expectedOutputFile = new File(resource(getExpectedPath() + "/26-1-postorder.json"));
         checkTrace(expectedOutputFile, actualOutputFile);
@@ -65,7 +65,7 @@ public class PostorderTraceListenerTest {
         BigDecimal actualResult = decision.apply(age, yearsOfService, annotationSet, listener, new DefaultExternalFunctionExecutor());
         assertEquals(expectedResult, actualResult.toPlainString());
 
-        List<DRGElementTrace> elementTraces = listener.postorderNodes();
+        List<DRGElementNode> elementTraces = listener.postorderNodes();
         File actualOutputFile = writeTraces(elementTraces);
         File expectedOutputFile = new File(resource(getExpectedPath() + "/26-1-postorder-with-filter.json"));
         checkTrace(expectedOutputFile, actualOutputFile);
@@ -87,7 +87,7 @@ public class PostorderTraceListenerTest {
         }
     }
 
-    private File writeTraces(List<DRGElementTrace> elementTraces) throws IOException {
+    private File writeTraces(List<DRGElementNode> elementTraces) throws IOException {
         File actualOutputFile = File.createTempFile("trace", "trc");
         JsonSerializer.OBJECT_MAPPER.writeValue(actualOutputFile, elementTraces);
         return actualOutputFile;

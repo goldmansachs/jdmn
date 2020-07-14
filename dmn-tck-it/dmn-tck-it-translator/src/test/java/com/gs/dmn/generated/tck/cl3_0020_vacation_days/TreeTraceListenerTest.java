@@ -16,7 +16,7 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
 import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
 import com.gs.dmn.runtime.listener.TreeTraceEventListener;
-import com.gs.dmn.runtime.listener.trace.DRGElementTrace;
+import com.gs.dmn.runtime.listener.node.DRGElementNode;
 import com.gs.dmn.serialization.JsonSerializer;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
@@ -47,7 +47,7 @@ public class TreeTraceListenerTest {
         BigDecimal actualResult = decision.apply(age, yearsOfService, annotationSet, listener, new DefaultExternalFunctionExecutor());
         assertEquals(expectedResult, actualResult.toPlainString());
 
-        DRGElementTrace root = listener.getRoot();
+        DRGElementNode root = listener.getRoot();
         File actualOutputFile = writeNodes(root);
         File expectedOutputFile = new File(resource(getExpectedPath() + "/26-1-tree.json"));
         checkTrace(expectedOutputFile, actualOutputFile);
@@ -64,7 +64,7 @@ public class TreeTraceListenerTest {
         BigDecimal actualResult = decision.apply(age, yearsOfService, annotationSet, listener, new DefaultExternalFunctionExecutor());
         assertEquals(expectedResult, actualResult.toPlainString());
 
-        List<DRGElementTrace> nodes = listener.preorderNodes();
+        List<DRGElementNode> nodes = listener.preorderNodes();
         File actualOutputFile = writeNodes(nodes);
         File expectedOutputFile = new File(resource(getExpectedPath() + "/26-1-tree-preorder.json"));
         checkTrace(expectedOutputFile, actualOutputFile);
@@ -81,7 +81,7 @@ public class TreeTraceListenerTest {
         BigDecimal actualResult = decision.apply(age, yearsOfService, annotationSet, listener, new DefaultExternalFunctionExecutor());
         assertEquals(expectedResult, actualResult.toPlainString());
 
-        List<DRGElementTrace> nodes = listener.postorderNodes();
+        List<DRGElementNode> nodes = listener.postorderNodes();
         File actualOutputFile = writeNodes(nodes);
         File expectedOutputFile = new File(resource(getExpectedPath() + "/26-1-tree-postorder.json"));
         checkTrace(expectedOutputFile, actualOutputFile);
