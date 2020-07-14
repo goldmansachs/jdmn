@@ -88,4 +88,35 @@ public class TreeTraceEventListener implements EventListener {
     public DRGElementTrace getRoot() {
         return this.root;
     }
+
+    public List<DRGElementTrace> preorderNodes() {
+        List<DRGElementTrace> accumulator = new ArrayList<>();
+        collectPreorder(root, accumulator);
+        return accumulator;
+    }
+
+    public List<DRGElementTrace> postorderNodes() {
+        List<DRGElementTrace> accumulator = new ArrayList<>();
+        collectPostorder(root, accumulator);
+        return accumulator;
+    }
+
+    private void collectPreorder(DRGElementTrace node, List<DRGElementTrace> accumulator) {
+        if (node != null) {
+            accumulator.add(node);
+            for (DRGElementTrace child: node.getChildren()) {
+                collectPreorder(child, accumulator);
+            }
+        }
+    }
+
+    private void collectPostorder(DRGElementTrace node, List<DRGElementTrace> accumulator) {
+        if (node != null) {
+            for (DRGElementTrace child: node.getChildren()) {
+                collectPostorder(child, accumulator);
+            }
+            accumulator.add(node);
+        }
+    }
+
 }
