@@ -10,9 +10,12 @@ public class ApprovalStatusRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("ApprovalStatus")
     public String getApprovalStatus() {
         return this.approvalStatus;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("ApprovalStatus")
     public void setApprovalStatus(String approvalStatus) {
         this.approvalStatus = approvalStatus;
     }

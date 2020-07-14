@@ -11,21 +11,30 @@ public class CompileRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("nextTrafficLight")
     public String getNextTrafficLight() {
         return this.nextTrafficLight;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("nextTrafficLight")
     public void setNextTrafficLight(String nextTrafficLight) {
         this.nextTrafficLight = nextTrafficLight;
     }
+    @com.fasterxml.jackson.annotation.JsonGetter("avgOfNumbers")
     public java.math.BigDecimal getAvgOfNumbers() {
         return this.avgOfNumbers;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("avgOfNumbers")
     public void setAvgOfNumbers(java.math.BigDecimal avgOfNumbers) {
         this.avgOfNumbers = avgOfNumbers;
     }
+    @com.fasterxml.jackson.annotation.JsonGetter("name")
     public String getName() {
         return this.name;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("name")
     public void setName(String name) {
         this.name = name;
     }

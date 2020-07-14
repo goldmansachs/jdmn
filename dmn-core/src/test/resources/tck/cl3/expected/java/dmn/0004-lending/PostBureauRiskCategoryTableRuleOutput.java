@@ -9,9 +9,12 @@ public class PostBureauRiskCategoryTableRuleOutput extends com.gs.dmn.runtime.Ru
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("PostBureauRiskCategoryTable")
     public String getPostBureauRiskCategoryTable() {
         return this.postBureauRiskCategoryTable;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("PostBureauRiskCategoryTable")
     public void setPostBureauRiskCategoryTable(String postBureauRiskCategoryTable) {
         this.postBureauRiskCategoryTable = postBureauRiskCategoryTable;
     }

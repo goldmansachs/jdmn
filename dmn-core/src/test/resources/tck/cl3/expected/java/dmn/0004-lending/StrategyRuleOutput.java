@@ -9,9 +9,12 @@ public class StrategyRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("Strategy")
     public String getStrategy() {
         return this.strategy;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("Strategy")
     public void setStrategy(String strategy) {
         this.strategy = strategy;
     }

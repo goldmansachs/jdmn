@@ -10,9 +10,12 @@ public class EligibilityRulesRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("EligibilityRules")
     public String getEligibilityRules() {
         return this.eligibilityRules;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("EligibilityRules")
     public void setEligibilityRules(String eligibilityRules) {
         this.eligibilityRules = eligibilityRules;
     }

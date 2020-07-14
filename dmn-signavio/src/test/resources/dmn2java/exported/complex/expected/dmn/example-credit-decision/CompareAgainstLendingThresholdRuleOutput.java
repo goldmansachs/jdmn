@@ -9,9 +9,12 @@ public class CompareAgainstLendingThresholdRuleOutput extends com.gs.dmn.runtime
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("compareAgainstLendingThreshold")
     public java.math.BigDecimal getCompareAgainstLendingThreshold() {
         return this.compareAgainstLendingThreshold;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("compareAgainstLendingThreshold")
     public void setCompareAgainstLendingThreshold(java.math.BigDecimal compareAgainstLendingThreshold) {
         this.compareAgainstLendingThreshold = compareAgainstLendingThreshold;
     }

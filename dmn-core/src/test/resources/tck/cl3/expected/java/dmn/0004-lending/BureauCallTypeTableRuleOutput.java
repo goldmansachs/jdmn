@@ -9,9 +9,12 @@ public class BureauCallTypeTableRuleOutput extends com.gs.dmn.runtime.RuleOutput
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("BureauCallTypeTable")
     public String getBureauCallTypeTable() {
         return this.bureauCallTypeTable;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("BureauCallTypeTable")
     public void setBureauCallTypeTable(String bureauCallTypeTable) {
         this.bureauCallTypeTable = bureauCallTypeTable;
     }

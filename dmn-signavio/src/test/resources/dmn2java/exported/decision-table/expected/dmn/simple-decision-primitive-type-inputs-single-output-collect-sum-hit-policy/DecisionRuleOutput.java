@@ -9,9 +9,12 @@ public class DecisionRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("decision")
     public java.math.BigDecimal getDecision() {
         return this.decision;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("decision")
     public void setDecision(java.math.BigDecimal decision) {
         this.decision = decision;
     }

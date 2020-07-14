@@ -10,15 +10,21 @@ public class GenerateTemporalObjectsRuleOutput extends com.gs.dmn.runtime.RuleOu
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("date")
     public javax.xml.datatype.XMLGregorianCalendar getDate() {
         return this.date;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("date")
     public void setDate(javax.xml.datatype.XMLGregorianCalendar date) {
         this.date = date;
     }
+    @com.fasterxml.jackson.annotation.JsonGetter("datetime")
     public javax.xml.datatype.XMLGregorianCalendar getDatetime() {
         return this.datetime;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("datetime")
     public void setDatetime(javax.xml.datatype.XMLGregorianCalendar datetime) {
         this.datetime = datetime;
     }

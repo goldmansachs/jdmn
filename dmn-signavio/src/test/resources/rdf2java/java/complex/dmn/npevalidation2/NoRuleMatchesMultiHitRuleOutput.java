@@ -9,9 +9,12 @@ public class NoRuleMatchesMultiHitRuleOutput extends com.gs.dmn.runtime.RuleOutp
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("noRuleMatchesMultiHit")
     public Boolean getNoRuleMatchesMultiHit() {
         return this.noRuleMatchesMultiHit;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("noRuleMatchesMultiHit")
     public void setNoRuleMatchesMultiHit(Boolean noRuleMatchesMultiHit) {
         this.noRuleMatchesMultiHit = noRuleMatchesMultiHit;
     }

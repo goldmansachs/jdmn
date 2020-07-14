@@ -9,9 +9,12 @@ public class AccessCertainTemporalUnitsRuleOutput extends com.gs.dmn.runtime.Rul
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("accessCertainTemporalUnits")
     public java.math.BigDecimal getAccessCertainTemporalUnits() {
         return this.accessCertainTemporalUnits;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("accessCertainTemporalUnits")
     public void setAccessCertainTemporalUnits(java.math.BigDecimal accessCertainTemporalUnits) {
         this.accessCertainTemporalUnits = accessCertainTemporalUnits;
     }

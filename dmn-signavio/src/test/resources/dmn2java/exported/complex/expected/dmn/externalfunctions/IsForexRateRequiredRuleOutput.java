@@ -9,9 +9,12 @@ public class IsForexRateRequiredRuleOutput extends com.gs.dmn.runtime.RuleOutput
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("isForexRateRequired")
     public Boolean getIsForexRateRequired() {
         return this.isForexRateRequired;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("isForexRateRequired")
     public void setIsForexRateRequired(Boolean isForexRateRequired) {
         this.isForexRateRequired = isForexRateRequired;
     }
