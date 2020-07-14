@@ -615,6 +615,9 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
                 if (operand instanceof LazyEval) {
                     operand = ((LazyEval) operand).getOrCompute();
                 }
+
+                eventListener.matchColumn(rule, i, operand);
+
                 if (operand == null || operand == Boolean.FALSE) {
                     return false;
                 }

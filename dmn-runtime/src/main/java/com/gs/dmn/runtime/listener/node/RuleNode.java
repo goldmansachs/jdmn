@@ -14,10 +14,14 @@ package com.gs.dmn.runtime.listener.node;
 
 import com.gs.dmn.runtime.listener.Rule;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RuleNode {
     private final Rule rule;
     private boolean matched;
     private Object result;
+    private List<ColumnNode> columnNodes = new ArrayList<>();
 
     public RuleNode(Rule rule) {
         this.rule = rule;
@@ -41,5 +45,15 @@ public class RuleNode {
 
     public void setResult(Object result) {
         this.result = result;
+    }
+
+    public List<ColumnNode> getColumnNodes() {
+        return columnNodes;
+    }
+
+    public void addColumnNode(ColumnNode columnNode) {
+        if (columnNode != null) {
+            this.columnNodes.add(columnNode);
+        }
     }
 }

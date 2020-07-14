@@ -14,6 +14,7 @@ package com.gs.dmn.runtime.annotation;
 
 public class Annotation {
     private final String decisionName;
+    // Index starts from 1
     private final int ruleIndex;
     private final String annotation;
 

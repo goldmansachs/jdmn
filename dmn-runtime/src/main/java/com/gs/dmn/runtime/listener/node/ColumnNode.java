@@ -10,18 +10,23 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.runtime.listener;
+package com.gs.dmn.runtime.listener.node;
 
-public interface EventListener {
-    void startDRGElement(DRGElement element, Arguments arguments);
+public class ColumnNode {
+    // Index starts from 0
+    private final int columnIndex;
+    private final Object result;
 
-    void endDRGElement(DRGElement element, Arguments arguments, Object output, long duration);
+    public ColumnNode(int columnIndex, Object result) {
+        this.columnIndex = columnIndex;
+        this.result = result;
+    }
 
-    void startRule(DRGElement element, Rule rule);
+    public int getColumnIndex() {
+        return columnIndex;
+    }
 
-    void matchRule(DRGElement element, Rule rule);
-
-    void endRule(DRGElement element, Rule rule, Object result);
-
-    void matchColumn(Rule rule, int columnIndex, Object result);
+    public Object getResult() {
+        return result;
+    }
 }
