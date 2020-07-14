@@ -17,18 +17,24 @@ import com.gs.dmn.runtime.listener.trace.RuleTrace;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 import java.util.stream.Collectors;
 
-public class TraceEventListener implements EventListener {
+public class PostorderTraceEventListener implements EventListener {
+    // Elements to trace
     private final List<String> drgElementNames = new ArrayList<>();
+
+    // Output
     private List<DRGElementTrace> elementTraces = new ArrayList<>();
-    private DRGElementTrace elementTrace;
     private RuleTrace ruleTrace;
 
-    public TraceEventListener() {
+    // Temp data
+    Stack<DRGElementTrace> elementTraceStack = new Stack<>();
+
+    public PostorderTraceEventListener() {
     }
 
-    public TraceEventListener(List<String> drgElementNames) {
+    public PostorderTraceEventListener(List<String> drgElementNames) {
         if (drgElementNames != null) {
             this.drgElementNames.addAll(drgElementNames);
         }
@@ -36,13 +42,17 @@ public class TraceEventListener implements EventListener {
 
     @Override
     public void startDRGElement(DRGElement element, Arguments arguments) {
-        this.elementTrace = new DRGElementTrace(element, arguments);
+        DRGElementTrace elementTrace = new DRGElementTrace(element, arguments);
+        this.elementTraceStack.push(elementTrace);
     }
 
     @Override
     public void endDRGElement(DRGElement element, Arguments arguments, Object output, long duration) {
-        if (this.elementTrace != null) {
-            this.elementTraces.add(this.elementTrace);
+        if (!this.elementTraceStack.empty()) {
+            DRGElementTrace top = this.elementTraceStack.pop();
+            if (top != null) {
+                this.elementTraces.add(top);
+            }
         }
     }
 
@@ -59,7 +69,10 @@ public class TraceEventListener implements EventListener {
     @Override
     public void endRule(DRGElement element, Rule rule, Object result) {
         this.ruleTrace.setResult(result);
-        this.elementTrace.addRuleTrace(this.ruleTrace);
+        if (!this.elementTraceStack.empty()) {
+            DRGElementTrace top = this.elementTraceStack.peek();
+            top.addRuleTrace(this.ruleTrace);
+        }
     }
 
     public List<DRGElementTrace> getElementTraces() {
