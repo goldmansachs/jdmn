@@ -50,7 +50,7 @@ public class PostorderTraceListenerTest {
 
         List<DRGElementTrace> elementTraces = listener.getElementTraces();
         File actualOutputFile = writeTraces(elementTraces);
-        File expectedOutputFile = new File(resource(getExpectedPath() + "/26-1.json"));
+        File expectedOutputFile = new File(resource(getExpectedPath() + "/26-1-postorder.json"));
         checkTrace(expectedOutputFile, actualOutputFile);
     }
 
@@ -67,7 +67,7 @@ public class PostorderTraceListenerTest {
 
         List<DRGElementTrace> elementTraces = listener.getElementTraces();
         File actualOutputFile = writeTraces(elementTraces);
-        File expectedOutputFile = new File(resource(getExpectedPath() + "/26-1-with-filter.json"));
+        File expectedOutputFile = new File(resource(getExpectedPath() + "/26-1-postorder-with-filter.json"));
         checkTrace(expectedOutputFile, actualOutputFile);
     }
 
