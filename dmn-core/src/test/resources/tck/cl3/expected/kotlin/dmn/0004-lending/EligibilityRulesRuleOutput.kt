@@ -1,6 +1,7 @@
 
 @javax.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "EligibilityRules"])
 class EligibilityRulesRuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput(matched) {
+    @com.fasterxml.jackson.annotation.JsonProperty("EligibilityRules")
     var eligibilityRules: String? = null
     var eligibilityRulesPriority: Int? = 0
 

@@ -1,6 +1,7 @@
 
 @javax.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "BureauCallTypeTable"])
 class BureauCallTypeTableRuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput(matched) {
+    @com.fasterxml.jackson.annotation.JsonProperty("BureauCallTypeTable")
     var bureauCallTypeTable: String? = null
 
     override fun equals(o: Any?): Boolean {

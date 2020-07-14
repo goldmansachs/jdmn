@@ -1,6 +1,7 @@
 
 @javax.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "ApprovalStatus"])
 class ApprovalStatusRuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput(matched) {
+    @com.fasterxml.jackson.annotation.JsonProperty("ApprovalStatus")
     var approvalStatus: String? = null
     var approvalStatusPriority: Int? = 0
 

@@ -1,6 +1,7 @@
 
 @javax.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "PreBureauRiskCategoryTable"])
 class PreBureauRiskCategoryTableRuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput(matched) {
+    @com.fasterxml.jackson.annotation.JsonProperty("PreBureauRiskCategoryTable")
     var preBureauRiskCategoryTable: String? = null
 
     override fun equals(o: Any?): Boolean {
