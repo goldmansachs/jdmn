@@ -1045,6 +1045,11 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
+    public String argumentsVariableName(TDRGElement element) {
+        return String.format("%sArguments_", drgElementVariableName(element));
+    }
+
+    @Override
     public String dmnTypeClassName() {
         return DMNType.class.getName();
     }
