@@ -45,7 +45,7 @@
       "ruleTraces": [
         {
           "rule": {
-            "index": 0,
+            "index": 1,
             "annotation": ""
           },
           "matched": true,
@@ -55,18 +55,18 @@
           },
           "columnNodes": [
             {
-              "columnIndex": 0,
+              "columnIndex": 1,
               "result": true
             },
             {
-              "columnIndex": 1,
+              "columnIndex": 2,
               "result": true
             }
           ]
         },
         {
           "rule": {
-            "index": 1,
+            "index": 2,
             "annotation": ""
           },
           "matched": false,
@@ -76,11 +76,11 @@
           },
           "columnNodes": [
             {
-              "columnIndex": 0,
+              "columnIndex": 1,
               "result": true
             },
             {
-              "columnIndex": 1,
+              "columnIndex": 2,
               "result": false
             }
           ]
@@ -105,27 +105,6 @@
       "ruleTraces": [
         {
           "rule": {
-            "index": 0,
-            "annotation": ""
-          },
-          "matched": false,
-          "result": {
-            "matched": false,
-            "extraDaysCase2": null
-          },
-          "columnNodes": [
-            {
-              "columnIndex": 0,
-              "result": true
-            },
-            {
-              "columnIndex": 1,
-              "result": false
-            }
-          ]
-        },
-        {
-          "rule": {
             "index": 1,
             "annotation": ""
           },
@@ -136,7 +115,28 @@
           },
           "columnNodes": [
             {
-              "columnIndex": 0,
+              "columnIndex": 1,
+              "result": true
+            },
+            {
+              "columnIndex": 2,
+              "result": false
+            }
+          ]
+        },
+        {
+          "rule": {
+            "index": 2,
+            "annotation": ""
+          },
+          "matched": false,
+          "result": {
+            "matched": false,
+            "extraDaysCase2": null
+          },
+          "columnNodes": [
+            {
+              "columnIndex": 1,
               "result": false
             }
           ]
@@ -161,27 +161,6 @@
       "ruleTraces": [
         {
           "rule": {
-            "index": 0,
-            "annotation": ""
-          },
-          "matched": false,
-          "result": {
-            "matched": false,
-            "extraDaysCase3": null
-          },
-          "columnNodes": [
-            {
-              "columnIndex": 0,
-              "result": true
-            },
-            {
-              "columnIndex": 1,
-              "result": false
-            }
-          ]
-        },
-        {
-          "rule": {
             "index": 1,
             "annotation": ""
           },
@@ -192,7 +171,28 @@
           },
           "columnNodes": [
             {
-              "columnIndex": 0,
+              "columnIndex": 1,
+              "result": true
+            },
+            {
+              "columnIndex": 2,
+              "result": false
+            }
+          ]
+        },
+        {
+          "rule": {
+            "index": 2,
+            "annotation": ""
+          },
+          "matched": false,
+          "result": {
+            "matched": false,
+            "extraDaysCase3": null
+          },
+          "columnNodes": [
+            {
+              "columnIndex": 1,
               "result": false
             }
           ]
