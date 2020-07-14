@@ -1,6 +1,7 @@
 
 @javax.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "ApplicationRiskScoreModel"])
 class ApplicationRiskScoreModelRuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput(matched) {
+    @com.fasterxml.jackson.annotation.JsonProperty("ApplicationRiskScoreModel")
     var applicationRiskScoreModel: java.math.BigDecimal? = null
 
     override fun equals(o: Any?): Boolean {

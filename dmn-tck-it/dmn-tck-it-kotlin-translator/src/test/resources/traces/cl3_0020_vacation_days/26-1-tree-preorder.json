@@ -1,0 +1,392 @@
+[
+  {
+    "element": {
+      "namespace": "com.gs.dmn.generated.kotlin.tck.cl3_0020_vacation_days",
+      "name": "'Total Vacation Days'",
+      "label": "",
+      "elementKind": "DECISION",
+      "expressionKind": "LITERAL_EXPRESSION",
+      "hitPolicy": "UNKNOWN",
+      "rulesCount": -1
+    },
+    "arguments": {
+      "age": 16,
+      "yearsOfService": 1
+    },
+    "ruleTraces": [],
+    "children": [
+      {
+        "element": {
+          "namespace": "com.gs.dmn.generated.kotlin.tck.cl3_0020_vacation_days",
+          "name": "'Base Vacation Days'",
+          "label": "",
+          "elementKind": "DECISION",
+          "expressionKind": "LITERAL_EXPRESSION",
+          "hitPolicy": "UNKNOWN",
+          "rulesCount": -1
+        },
+        "arguments": {},
+        "ruleTraces": [],
+        "children": []
+      },
+      {
+        "element": {
+          "namespace": "com.gs.dmn.generated.kotlin.tck.cl3_0020_vacation_days",
+          "name": "'Extra days case 1'",
+          "label": "",
+          "elementKind": "DECISION",
+          "expressionKind": "DECISION_TABLE",
+          "hitPolicy": "COLLECT",
+          "rulesCount": 2
+        },
+        "arguments": {
+          "age": 16,
+          "yearsOfService": 1
+        },
+        "ruleTraces": [
+          {
+            "rule": {
+              "index": 1,
+              "annotation": ""
+            },
+            "matched": true,
+            "result": {
+              "matched": true,
+              "'Extra days case 1'": 5
+            },
+            "columnNodes": [
+              {
+                "columnIndex": 1,
+                "result": true
+              },
+              {
+                "columnIndex": 2,
+                "result": true
+              }
+            ]
+          },
+          {
+            "rule": {
+              "index": 2,
+              "annotation": ""
+            },
+            "matched": false,
+            "result": {
+              "matched": false,
+              "'Extra days case 1'": null
+            },
+            "columnNodes": [
+              {
+                "columnIndex": 1,
+                "result": true
+              },
+              {
+                "columnIndex": 2,
+                "result": false
+              }
+            ]
+          }
+        ],
+        "children": []
+      },
+      {
+        "element": {
+          "namespace": "com.gs.dmn.generated.kotlin.tck.cl3_0020_vacation_days",
+          "name": "'Extra days case 2'",
+          "label": "",
+          "elementKind": "DECISION",
+          "expressionKind": "DECISION_TABLE",
+          "hitPolicy": "COLLECT",
+          "rulesCount": 2
+        },
+        "arguments": {
+          "age": 16,
+          "yearsOfService": 1
+        },
+        "ruleTraces": [
+          {
+            "rule": {
+              "index": 1,
+              "annotation": ""
+            },
+            "matched": false,
+            "result": {
+              "matched": false,
+              "'Extra days case 2'": null
+            },
+            "columnNodes": [
+              {
+                "columnIndex": 1,
+                "result": true
+              },
+              {
+                "columnIndex": 2,
+                "result": false
+              }
+            ]
+          },
+          {
+            "rule": {
+              "index": 2,
+              "annotation": ""
+            },
+            "matched": false,
+            "result": {
+              "matched": false,
+              "'Extra days case 2'": null
+            },
+            "columnNodes": [
+              {
+                "columnIndex": 1,
+                "result": false
+              }
+            ]
+          }
+        ],
+        "children": []
+      },
+      {
+        "element": {
+          "namespace": "com.gs.dmn.generated.kotlin.tck.cl3_0020_vacation_days",
+          "name": "'Extra days case 3'",
+          "label": "",
+          "elementKind": "DECISION",
+          "expressionKind": "DECISION_TABLE",
+          "hitPolicy": "COLLECT",
+          "rulesCount": 2
+        },
+        "arguments": {
+          "age": 16,
+          "yearsOfService": 1
+        },
+        "ruleTraces": [
+          {
+            "rule": {
+              "index": 1,
+              "annotation": ""
+            },
+            "matched": false,
+            "result": {
+              "matched": false,
+              "'Extra days case 3'": null
+            },
+            "columnNodes": [
+              {
+                "columnIndex": 1,
+                "result": true
+              },
+              {
+                "columnIndex": 2,
+                "result": false
+              }
+            ]
+          },
+          {
+            "rule": {
+              "index": 2,
+              "annotation": ""
+            },
+            "matched": false,
+            "result": {
+              "matched": false,
+              "'Extra days case 3'": null
+            },
+            "columnNodes": [
+              {
+                "columnIndex": 1,
+                "result": false
+              }
+            ]
+          }
+        ],
+        "children": []
+      }
+    ]
+  },
+  {
+    "element": {
+      "namespace": "com.gs.dmn.generated.kotlin.tck.cl3_0020_vacation_days",
+      "name": "'Base Vacation Days'",
+      "label": "",
+      "elementKind": "DECISION",
+      "expressionKind": "LITERAL_EXPRESSION",
+      "hitPolicy": "UNKNOWN",
+      "rulesCount": -1
+    },
+    "arguments": {},
+    "ruleTraces": [],
+    "children": []
+  },
+  {
+    "element": {
+      "namespace": "com.gs.dmn.generated.kotlin.tck.cl3_0020_vacation_days",
+      "name": "'Extra days case 1'",
+      "label": "",
+      "elementKind": "DECISION",
+      "expressionKind": "DECISION_TABLE",
+      "hitPolicy": "COLLECT",
+      "rulesCount": 2
+    },
+    "arguments": {
+      "age": 16,
+      "yearsOfService": 1
+    },
+    "ruleTraces": [
+      {
+        "rule": {
+          "index": 1,
+          "annotation": ""
+        },
+        "matched": true,
+        "result": {
+          "matched": true,
+          "'Extra days case 1'": 5
+        },
+        "columnNodes": [
+          {
+            "columnIndex": 1,
+            "result": true
+          },
+          {
+            "columnIndex": 2,
+            "result": true
+          }
+        ]
+      },
+      {
+        "rule": {
+          "index": 2,
+          "annotation": ""
+        },
+        "matched": false,
+        "result": {
+          "matched": false,
+          "'Extra days case 1'": null
+        },
+        "columnNodes": [
+          {
+            "columnIndex": 1,
+            "result": true
+          },
+          {
+            "columnIndex": 2,
+            "result": false
+          }
+        ]
+      }
+    ],
+    "children": []
+  },
+  {
+    "element": {
+      "namespace": "com.gs.dmn.generated.kotlin.tck.cl3_0020_vacation_days",
+      "name": "'Extra days case 2'",
+      "label": "",
+      "elementKind": "DECISION",
+      "expressionKind": "DECISION_TABLE",
+      "hitPolicy": "COLLECT",
+      "rulesCount": 2
+    },
+    "arguments": {
+      "age": 16,
+      "yearsOfService": 1
+    },
+    "ruleTraces": [
+      {
+        "rule": {
+          "index": 1,
+          "annotation": ""
+        },
+        "matched": false,
+        "result": {
+          "matched": false,
+          "'Extra days case 2'": null
+        },
+        "columnNodes": [
+          {
+            "columnIndex": 1,
+            "result": true
+          },
+          {
+            "columnIndex": 2,
+            "result": false
+          }
+        ]
+      },
+      {
+        "rule": {
+          "index": 2,
+          "annotation": ""
+        },
+        "matched": false,
+        "result": {
+          "matched": false,
+          "'Extra days case 2'": null
+        },
+        "columnNodes": [
+          {
+            "columnIndex": 1,
+            "result": false
+          }
+        ]
+      }
+    ],
+    "children": []
+  },
+  {
+    "element": {
+      "namespace": "com.gs.dmn.generated.kotlin.tck.cl3_0020_vacation_days",
+      "name": "'Extra days case 3'",
+      "label": "",
+      "elementKind": "DECISION",
+      "expressionKind": "DECISION_TABLE",
+      "hitPolicy": "COLLECT",
+      "rulesCount": 2
+    },
+    "arguments": {
+      "age": 16,
+      "yearsOfService": 1
+    },
+    "ruleTraces": [
+      {
+        "rule": {
+          "index": 1,
+          "annotation": ""
+        },
+        "matched": false,
+        "result": {
+          "matched": false,
+          "'Extra days case 3'": null
+        },
+        "columnNodes": [
+          {
+            "columnIndex": 1,
+            "result": true
+          },
+          {
+            "columnIndex": 2,
+            "result": false
+          }
+        ]
+      },
+      {
+        "rule": {
+          "index": 2,
+          "annotation": ""
+        },
+        "matched": false,
+        "result": {
+          "matched": false,
+          "'Extra days case 3'": null
+        },
+        "columnNodes": [
+          {
+            "columnIndex": 1,
+            "result": false
+          }
+        ]
+      }
+    ],
+    "children": []
+  }
+]
