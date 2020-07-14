@@ -10,15 +10,21 @@ public class CompoundOutputCompoundDecisionRuleOutput extends com.gs.dmn.runtime
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("firstOutput")
     public String getFirstOutput() {
         return this.firstOutput;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("firstOutput")
     public void setFirstOutput(String firstOutput) {
         this.firstOutput = firstOutput;
     }
+    @com.fasterxml.jackson.annotation.JsonGetter("secondOutput")
     public String getSecondOutput() {
         return this.secondOutput;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("secondOutput")
     public void setSecondOutput(String secondOutput) {
         this.secondOutput = secondOutput;
     }

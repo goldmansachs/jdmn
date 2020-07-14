@@ -9,9 +9,12 @@ public class DatetimeFormulaRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("datetimeFormula")
     public java.math.BigDecimal getDatetimeFormula() {
         return this.datetimeFormula;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("datetimeFormula")
     public void setDatetimeFormula(java.math.BigDecimal datetimeFormula) {
         this.datetimeFormula = datetimeFormula;
     }

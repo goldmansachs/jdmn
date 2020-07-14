@@ -1331,6 +1331,11 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
+    public String outputClauseName(TDRGElement element, TOutputClause output) {
+        return this.dmnModelRepository.outputClauseName(element, output);
+    }
+
+    @Override
     public String outputClauseClassName(TDRGElement element, TOutputClause outputClause, int index) {
         return this.expressionToNativeTransformer.outputClauseClassName(element, outputClause, index);
     }

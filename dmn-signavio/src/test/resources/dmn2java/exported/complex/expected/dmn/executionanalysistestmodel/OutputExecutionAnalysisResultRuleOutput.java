@@ -9,9 +9,12 @@ public class OutputExecutionAnalysisResultRuleOutput extends com.gs.dmn.runtime.
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("outputExecutionAnalysisResult")
     public String getOutputExecutionAnalysisResult() {
         return this.outputExecutionAnalysisResult;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("outputExecutionAnalysisResult")
     public void setOutputExecutionAnalysisResult(String outputExecutionAnalysisResult) {
         this.outputExecutionAnalysisResult = outputExecutionAnalysisResult;
     }

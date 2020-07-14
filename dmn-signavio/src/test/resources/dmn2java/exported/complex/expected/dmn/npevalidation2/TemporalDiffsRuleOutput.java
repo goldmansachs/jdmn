@@ -10,15 +10,21 @@ public class TemporalDiffsRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("dateDiff")
     public java.math.BigDecimal getDateDiff() {
         return this.dateDiff;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("dateDiff")
     public void setDateDiff(java.math.BigDecimal dateDiff) {
         this.dateDiff = dateDiff;
     }
+    @com.fasterxml.jackson.annotation.JsonGetter("dateTimeDiff")
     public java.math.BigDecimal getDateTimeDiff() {
         return this.dateTimeDiff;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("dateTimeDiff")
     public void setDateTimeDiff(java.math.BigDecimal dateTimeDiff) {
         this.dateTimeDiff = dateTimeDiff;
     }

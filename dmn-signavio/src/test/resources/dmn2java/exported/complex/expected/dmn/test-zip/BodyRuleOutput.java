@@ -9,9 +9,12 @@ public class BodyRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("body")
     public java.math.BigDecimal getBody() {
         return this.body;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("body")
     public void setBody(java.math.BigDecimal body) {
         this.body = body;
     }

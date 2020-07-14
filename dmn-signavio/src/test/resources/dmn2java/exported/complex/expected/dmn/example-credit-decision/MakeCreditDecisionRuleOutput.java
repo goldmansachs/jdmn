@@ -9,9 +9,12 @@ public class MakeCreditDecisionRuleOutput extends com.gs.dmn.runtime.RuleOutput 
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("makeCreditDecision")
     public String getMakeCreditDecision() {
         return this.makeCreditDecision;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("makeCreditDecision")
     public void setMakeCreditDecision(String makeCreditDecision) {
         this.makeCreditDecision = makeCreditDecision;
     }

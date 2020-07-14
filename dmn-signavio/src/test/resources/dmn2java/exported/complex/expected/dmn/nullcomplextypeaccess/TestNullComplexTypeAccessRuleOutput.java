@@ -9,9 +9,12 @@ public class TestNullComplexTypeAccessRuleOutput extends com.gs.dmn.runtime.Rule
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("testNullComplexTypeAccess")
     public String getTestNullComplexTypeAccess() {
         return this.testNullComplexTypeAccess;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("testNullComplexTypeAccess")
     public void setTestNullComplexTypeAccess(String testNullComplexTypeAccess) {
         this.testNullComplexTypeAccess = testNullComplexTypeAccess;
     }

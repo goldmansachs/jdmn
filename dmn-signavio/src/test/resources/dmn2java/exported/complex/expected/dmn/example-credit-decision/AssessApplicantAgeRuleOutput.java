@@ -9,9 +9,12 @@ public class AssessApplicantAgeRuleOutput extends com.gs.dmn.runtime.RuleOutput 
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("assessApplicantAge")
     public java.math.BigDecimal getAssessApplicantAge() {
         return this.assessApplicantAge;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("assessApplicantAge")
     public void setAssessApplicantAge(java.math.BigDecimal assessApplicantAge) {
         this.assessApplicantAge = assessApplicantAge;
     }

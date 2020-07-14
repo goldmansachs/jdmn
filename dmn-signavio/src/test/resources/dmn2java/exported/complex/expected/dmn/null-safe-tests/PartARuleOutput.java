@@ -9,9 +9,12 @@ public class PartARuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("partA")
     public String getPartA() {
         return this.partA;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("partA")
     public void setPartA(String partA) {
         this.partA = partA;
     }

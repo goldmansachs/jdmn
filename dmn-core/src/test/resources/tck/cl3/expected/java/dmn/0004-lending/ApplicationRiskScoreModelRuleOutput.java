@@ -9,9 +9,12 @@ public class ApplicationRiskScoreModelRuleOutput extends com.gs.dmn.runtime.Rule
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("ApplicationRiskScoreModel")
     public java.math.BigDecimal getApplicationRiskScoreModel() {
         return this.applicationRiskScoreModel;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("ApplicationRiskScoreModel")
     public void setApplicationRiskScoreModel(java.math.BigDecimal applicationRiskScoreModel) {
         this.applicationRiskScoreModel = applicationRiskScoreModel;
     }

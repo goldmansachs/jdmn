@@ -9,9 +9,12 @@ public class ProcessPriorIssuesRuleOutput extends com.gs.dmn.runtime.RuleOutput 
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("processPriorIssues")
     public java.math.BigDecimal getProcessPriorIssues() {
         return this.processPriorIssues;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("processPriorIssues")
     public void setProcessPriorIssues(java.math.BigDecimal processPriorIssues) {
         this.processPriorIssues = processPriorIssues;
     }

@@ -10,9 +10,12 @@ public class RoutingRulesRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("RoutingRules")
     public String getRoutingRules() {
         return this.routingRules;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("RoutingRules")
     public void setRoutingRules(String routingRules) {
         this.routingRules = routingRules;
     }

@@ -9,9 +9,12 @@ public class AbcRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("abc")
     public java.math.BigDecimal getAbc() {
         return this.abc;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("abc")
     public void setAbc(java.math.BigDecimal abc) {
         this.abc = abc;
     }

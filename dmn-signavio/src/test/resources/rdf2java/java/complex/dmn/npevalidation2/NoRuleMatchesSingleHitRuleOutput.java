@@ -9,9 +9,12 @@ public class NoRuleMatchesSingleHitRuleOutput extends com.gs.dmn.runtime.RuleOut
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("noRuleMatches")
     public Boolean getNoRuleMatches() {
         return this.noRuleMatches;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("noRuleMatches")
     public void setNoRuleMatches(Boolean noRuleMatches) {
         this.noRuleMatches = noRuleMatches;
     }

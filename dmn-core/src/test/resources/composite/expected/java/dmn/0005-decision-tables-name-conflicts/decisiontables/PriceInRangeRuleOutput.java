@@ -11,9 +11,12 @@ public class PriceInRangeRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("priceInRange")
     public String getPriceInRange() {
         return this.priceInRange;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("priceInRange")
     public void setPriceInRange(String priceInRange) {
         this.priceInRange = priceInRange;
     }

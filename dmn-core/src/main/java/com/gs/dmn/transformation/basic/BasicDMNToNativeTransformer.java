@@ -349,6 +349,8 @@ public interface BasicDMNToNativeTransformer {
 
     String outputEntryToNative(TDRGElement element, TLiteralExpression outputEntryExpression, int outputIndex);
 
+    public String outputClauseName(TDRGElement element, TOutputClause output);
+
     String outputClauseClassName(TDRGElement element, TOutputClause outputClause, int index);
 
     String outputClauseVariableName(TDRGElement element, TOutputClause outputClause);

@@ -52,7 +52,7 @@
             "matched": true,
             "result": {
               "matched": true,
-              "extraDaysCase1": 5
+              "'Extra days case 1'": 5
             },
             "columnNodes": [
               {
@@ -73,7 +73,7 @@
             "matched": false,
             "result": {
               "matched": false,
-              "extraDaysCase1": null
+              "'Extra days case 1'": null
             },
             "columnNodes": [
               {
@@ -112,7 +112,7 @@
             "matched": false,
             "result": {
               "matched": false,
-              "extraDaysCase2": null
+              "'Extra days case 2'": null
             },
             "columnNodes": [
               {
@@ -133,7 +133,7 @@
             "matched": false,
             "result": {
               "matched": false,
-              "extraDaysCase2": null
+              "'Extra days case 2'": null
             },
             "columnNodes": [
               {
@@ -168,7 +168,7 @@
             "matched": false,
             "result": {
               "matched": false,
-              "extraDaysCase3": null
+              "'Extra days case 3'": null
             },
             "columnNodes": [
               {
@@ -189,7 +189,7 @@
             "matched": false,
             "result": {
               "matched": false,
-              "extraDaysCase3": null
+              "'Extra days case 3'": null
             },
             "columnNodes": [
               {
@@ -240,7 +240,7 @@
         "matched": true,
         "result": {
           "matched": true,
-          "extraDaysCase1": 5
+          "'Extra days case 1'": 5
         },
         "columnNodes": [
           {
@@ -261,7 +261,7 @@
         "matched": false,
         "result": {
           "matched": false,
-          "extraDaysCase1": null
+          "'Extra days case 1'": null
         },
         "columnNodes": [
           {
@@ -300,7 +300,7 @@
         "matched": false,
         "result": {
           "matched": false,
-          "extraDaysCase2": null
+          "'Extra days case 2'": null
         },
         "columnNodes": [
           {
@@ -321,7 +321,7 @@
         "matched": false,
         "result": {
           "matched": false,
-          "extraDaysCase2": null
+          "'Extra days case 2'": null
         },
         "columnNodes": [
           {
@@ -356,7 +356,7 @@
         "matched": false,
         "result": {
           "matched": false,
-          "extraDaysCase3": null
+          "'Extra days case 3'": null
         },
         "columnNodes": [
           {
@@ -377,7 +377,7 @@
         "matched": false,
         "result": {
           "matched": false,
-          "extraDaysCase3": null
+          "'Extra days case 3'": null
         },
         "columnNodes": [
           {

@@ -9,9 +9,12 @@ public class CreditContingencyFactorTableRuleOutput extends com.gs.dmn.runtime.R
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("CreditContingencyFactorTable")
     public java.math.BigDecimal getCreditContingencyFactorTable() {
         return this.creditContingencyFactorTable;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("CreditContingencyFactorTable")
     public void setCreditContingencyFactorTable(java.math.BigDecimal creditContingencyFactorTable) {
         this.creditContingencyFactorTable = creditContingencyFactorTable;
     }

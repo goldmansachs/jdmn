@@ -9,9 +9,12 @@ public class ProductRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("product")
     public java.math.BigDecimal getProduct() {
         return this.product;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("product")
     public void setProduct(java.math.BigDecimal product) {
         this.product = product;
     }
