@@ -10,16 +10,16 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.runtime.listener.trace;
+package com.gs.dmn.runtime.listener.node;
 
 import com.gs.dmn.runtime.listener.Rule;
 
-public class RuleTrace {
+public class RuleNode {
     private final Rule rule;
     private boolean matched;
     private Object result;
 
-    public RuleTrace(Rule rule) {
+    public RuleNode(Rule rule) {
         this.rule = rule;
     }
 

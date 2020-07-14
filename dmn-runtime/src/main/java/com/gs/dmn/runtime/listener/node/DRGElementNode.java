@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.runtime.listener.trace;
+package com.gs.dmn.runtime.listener.node;
 
 import com.gs.dmn.runtime.listener.Arguments;
 import com.gs.dmn.runtime.listener.DRGElement;
@@ -18,18 +18,18 @@ import com.gs.dmn.runtime.listener.DRGElement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DRGElementTrace {
+public class DRGElementNode {
     private final DRGElement element;
     private final Arguments arguments;
-    private List<RuleTrace> ruleTraces = new ArrayList<>();
-    private List<DRGElementTrace> children = new ArrayList<>();
+    private List<RuleNode> ruleTraces = new ArrayList<>();
+    private List<DRGElementNode> children = new ArrayList<>();
 
-    public DRGElementTrace(DRGElement element, Arguments arguments) {
+    public DRGElementNode(DRGElement element, Arguments arguments) {
         this.element = element;
         this.arguments = arguments;
     }
 
-    public void addRuleTrace(RuleTrace ruleTrace) {
+    public void addRuleNode(RuleNode ruleTrace) {
         this.ruleTraces.add(ruleTrace);
     }
 
@@ -41,15 +41,15 @@ public class DRGElementTrace {
         return arguments;
     }
 
-    public List<RuleTrace> getRuleTraces() {
+    public List<RuleNode> getRuleTraces() {
         return ruleTraces;
     }
 
-    public List<DRGElementTrace> getChildren() {
+    public List<DRGElementNode> getChildren() {
         return children;
     }
 
-    public void addChild(DRGElementTrace elementTrace) {
+    public void addChild(DRGElementNode elementTrace) {
         this.children.add(elementTrace);
     }
 }

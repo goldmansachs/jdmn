@@ -12,8 +12,8 @@
  */
 package com.gs.dmn.runtime.listener;
 
-import com.gs.dmn.runtime.listener.trace.DRGElementTrace;
-import com.gs.dmn.runtime.listener.trace.RuleTrace;
+import com.gs.dmn.runtime.listener.node.DRGElementNode;
+import com.gs.dmn.runtime.listener.node.RuleNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +24,11 @@ public class TreeTraceEventListener implements EventListener {
     private final List<String> drgElementNames = new ArrayList<>();
 
     // Output
-    DRGElementTrace root = null;
+    DRGElementNode root = null;
 
     // Temp data
-    Stack<DRGElementTrace> elementTraceStack = new Stack<>();
-    private RuleTrace ruleTrace;
+    Stack<DRGElementNode> elementNodeStack = new Stack<>();
+    private RuleNode ruleNode;
 
     public TreeTraceEventListener() {
     }
@@ -41,82 +41,81 @@ public class TreeTraceEventListener implements EventListener {
 
     @Override
     public void startDRGElement(DRGElement element, Arguments arguments) {
-        DRGElementTrace elementTrace = new DRGElementTrace(element, arguments);
+        DRGElementNode elementNode = new DRGElementNode(element, arguments);
         if (this.root == null) {
             // Set root
-            this.root = elementTrace;
+            this.root = elementNode;
         } else {
             // Add to parent
-            if (!this.elementTraceStack.empty()) {
-                DRGElementTrace parent = this.elementTraceStack.peek();
+            if (!this.elementNodeStack.empty()) {
+                DRGElementNode parent = this.elementNodeStack.peek();
                 if (parent != null) {
-                    parent.addChild(elementTrace);
+                    parent.addChild(elementNode);
                 }
             }
         }
-        this.elementTraceStack.push(elementTrace);
+        this.elementNodeStack.push(elementNode);
     }
 
     @Override
     public void endDRGElement(DRGElement element, Arguments arguments, Object output, long duration) {
-        if (!this.elementTraceStack.empty()) {
-            this.elementTraceStack.pop();
+        if (!this.elementNodeStack.empty()) {
+            this.elementNodeStack.pop();
         }
     }
 
     @Override
     public void startRule(DRGElement element, Rule rule) {
-        this.ruleTrace = new RuleTrace(rule);
+        this.ruleNode = new RuleNode(rule);
     }
 
     @Override
     public void matchRule(DRGElement element, Rule rule) {
-        this.ruleTrace.setMatched(true);
+        this.ruleNode.setMatched(true);
     }
 
     @Override
     public void endRule(DRGElement element, Rule rule, Object result) {
-        this.ruleTrace.setResult(result);
-        if (!this.elementTraceStack.empty()) {
-            DRGElementTrace top = this.elementTraceStack.peek();
+        this.ruleNode.setResult(result);
+        if (!this.elementNodeStack.empty()) {
+            DRGElementNode top = this.elementNodeStack.peek();
             if (top != null) {
-                top.addRuleTrace(this.ruleTrace);
+                top.addRuleNode(this.ruleNode);
             }
         }
     }
 
-    public DRGElementTrace getRoot() {
+    public DRGElementNode getRoot() {
         return this.root;
     }
 
-    public List<DRGElementTrace> preorderNodes() {
-        List<DRGElementTrace> accumulator = new ArrayList<>();
+    public List<DRGElementNode> preorderNodes() {
+        List<DRGElementNode> accumulator = new ArrayList<>();
         collectPreorder(root, accumulator);
         return accumulator;
     }
 
-    public List<DRGElementTrace> postorderNodes() {
-        List<DRGElementTrace> accumulator = new ArrayList<>();
+    public List<DRGElementNode> postorderNodes() {
+        List<DRGElementNode> accumulator = new ArrayList<>();
         collectPostorder(root, accumulator);
         return accumulator;
     }
 
-    private void collectPreorder(DRGElementTrace node, List<DRGElementTrace> accumulator) {
+    private void collectPreorder(DRGElementNode node, List<DRGElementNode> accumulator) {
         if (node != null) {
             accumulator.add(node);
-            for (DRGElementTrace child: node.getChildren()) {
+            for (DRGElementNode child: node.getChildren()) {
                 collectPreorder(child, accumulator);
             }
         }
     }
 
-    private void collectPostorder(DRGElementTrace node, List<DRGElementTrace> accumulator) {
+    private void collectPostorder(DRGElementNode node, List<DRGElementNode> accumulator) {
         if (node != null) {
-            for (DRGElementTrace child: node.getChildren()) {
+            for (DRGElementNode child: node.getChildren()) {
                 collectPostorder(child, accumulator);
             }
             accumulator.add(node);
         }
     }
-
 }
