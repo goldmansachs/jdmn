@@ -254,6 +254,8 @@ public interface BasicDMNToNativeTransformer {
 
     String argumentsClassName();
 
+    String argumentsVariableName(TDRGElement element);
+
     String dmnTypeClassName();
 
     String dmnRuntimeExceptionClassName();
