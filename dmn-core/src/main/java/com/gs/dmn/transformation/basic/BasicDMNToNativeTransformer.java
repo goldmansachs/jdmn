@@ -182,8 +182,6 @@ public interface BasicDMNToNativeTransformer {
     //
     // InputData related functions
     //
-    String inputDataVariableName(TInputData inputData);
-
     Type toFEELType(TInputData inputData);
 
     //

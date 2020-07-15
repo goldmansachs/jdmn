@@ -47,7 +47,7 @@ public class DMNToManifestTransformer {
                 String id = inputData.getId();
                 String name = inputData.getName();
                 String label = inputData.getLabel();
-                String javaParameterName = dmnTransformer.inputDataVariableName(inputData);
+                String javaParameterName = dmnTransformer.namedElementVariableName(inputData);
                 String javaTypeName = dmnTransformer.drgElementOutputType(inputData);
                 com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(definitions, QualifiedName.toQualifiedName(definitions, inputData.getVariable().getTypeRef()));
                 manifest.addElement(new InputData(id, name, label, javaParameterName, javaTypeName, typeRef));

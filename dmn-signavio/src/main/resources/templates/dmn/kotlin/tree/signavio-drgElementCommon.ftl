@@ -106,7 +106,7 @@
         <#assign aggregator = multiInstanceDecision.aggregator/>
         <#assign topLevelDecision = multiInstanceDecision.topLevelDecision/>
         <#assign sourceList = transformer.iterationExpressionToNative(drgElement, iterationExpression) />
-        <#assign lambdaParamName = transformer.inputDataVariableName(iterator) />
+        <#assign lambdaParamName = transformer.namedElementVariableName(iterator) />
         <#assign lambdaBody = "${transformer.namedElementVariableName(topLevelDecision)}.apply(${transformer.drgElementArgumentsExtraCacheWithConvertedArgumentList(topLevelDecision)})" />
         val ${transformer.namedElementVariableName(topLevelDecision)}: ${transformer.qualifiedName(javaPackageName, transformer.drgElementClassName(topLevelDecision))} = ${transformer.qualifiedName(javaPackageName, transformer.drgElementClassName(topLevelDecision))}()
         <#if aggregator == "COLLECT">

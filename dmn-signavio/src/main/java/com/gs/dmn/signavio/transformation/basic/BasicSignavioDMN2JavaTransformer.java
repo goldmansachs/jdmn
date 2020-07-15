@@ -309,21 +309,11 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
     }
 
     private String iterationParameterName(TDRGElement element) {
-        if (element instanceof TInputData) {
-            return inputDataVariableName((TInputData) element);
-        } else if (element instanceof TDecision) {
-            return namedElementVariableName(element);
-        }
-        throw new UnsupportedOperationException(String.format("Not supported '%s'", element.getClass().getName()));
+        return namedElementVariableName(element);
     }
 
     private String iterationArgumentName(TDRGElement element) {
-        if (element instanceof TInputData) {
-            return inputDataVariableName((TInputData) element);
-        } else if (element instanceof TDecision) {
-            return namedElementVariableName(element);
-        }
-        throw new UnsupportedOperationException(String.format("Not supported '%s'", element.getClass().getName()));
+        return namedElementVariableName(element);
     }
 
     //
