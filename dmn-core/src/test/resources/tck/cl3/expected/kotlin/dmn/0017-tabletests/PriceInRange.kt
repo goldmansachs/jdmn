@@ -40,9 +40,9 @@ class PriceInRange() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             // Start decision 'priceInRange'
             val priceInRangeStartTime_ = System.currentTimeMillis()
             val priceInRangeArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            priceInRangeArguments_.put("numB", numB)
-            priceInRangeArguments_.put("numC", numC)
-            priceInRangeArguments_.put("structA", structA)
+            priceInRangeArguments_.put("numB", numB);
+            priceInRangeArguments_.put("numC", numC);
+            priceInRangeArguments_.put("structA", structA);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, priceInRangeArguments_)
 
             // Evaluate decision 'priceInRange'

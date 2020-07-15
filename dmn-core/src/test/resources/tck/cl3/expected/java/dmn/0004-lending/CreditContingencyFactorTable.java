@@ -37,7 +37,7 @@ public class CreditContingencyFactorTable extends com.gs.dmn.runtime.DefaultDMNB
             // Start BKM 'CreditContingencyFactorTable'
             long creditContingencyFactorTableStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments creditContingencyFactorTableArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            creditContingencyFactorTableArguments_.put("riskCategory", riskCategory);
+            creditContingencyFactorTableArguments_.put("RiskCategory", riskCategory);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, creditContingencyFactorTableArguments_);
 
             // Evaluate BKM 'CreditContingencyFactorTable'

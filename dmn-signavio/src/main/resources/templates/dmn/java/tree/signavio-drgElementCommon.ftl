@@ -379,9 +379,10 @@ import static ${transformer.qualifiedName(subBKM)}.${transformer.bkmFunctionName
             // ${transformer.startElementCommentText(drgElement)}
             long ${transformer.drgElementVariableName(drgElement)}StartTime_ = System.currentTimeMillis();
             ${transformer.argumentsClassName()} ${transformer.argumentsVariableName(drgElement)} = ${transformer.defaultConstructor(transformer.argumentsClassName())};
+            <#assign elementNames = transformer.drgElementArgumentDisplayNameList(drgElement)/>
             <#list transformer.drgElementArgumentNameList(drgElement)>
             <#items as arg>
-            ${transformer.argumentsVariableName(drgElement)}.put("${arg}", ${arg});
+            ${transformer.argumentsVariableName(drgElement)}.put("${transformer.escapeInString(elementNames[arg?index])}", ${arg});
             </#items>
             </#list>
             ${transformer.eventListenerVariableName()}.startDRGElement(<@drgElementAnnotation drgElement/>, ${transformer.argumentsVariableName(drgElement)});

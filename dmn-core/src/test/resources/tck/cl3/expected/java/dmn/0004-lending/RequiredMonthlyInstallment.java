@@ -53,7 +53,7 @@ public class RequiredMonthlyInstallment extends com.gs.dmn.runtime.DefaultDMNBas
             // Start decision 'RequiredMonthlyInstallment'
             long requiredMonthlyInstallmentStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments requiredMonthlyInstallmentArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            requiredMonthlyInstallmentArguments_.put("requestedProduct", requestedProduct);
+            requiredMonthlyInstallmentArguments_.put("RequestedProduct", requestedProduct);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, requiredMonthlyInstallmentArguments_);
 
             // Evaluate decision 'RequiredMonthlyInstallment'

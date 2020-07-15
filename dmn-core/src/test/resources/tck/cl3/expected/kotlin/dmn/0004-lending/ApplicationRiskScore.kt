@@ -40,7 +40,7 @@ class ApplicationRiskScore() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             // Start decision 'ApplicationRiskScore'
             val applicationRiskScoreStartTime_ = System.currentTimeMillis()
             val applicationRiskScoreArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            applicationRiskScoreArguments_.put("applicantData", applicantData)
+            applicationRiskScoreArguments_.put("ApplicantData", applicantData);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, applicationRiskScoreArguments_)
 
             // Evaluate decision 'ApplicationRiskScore'

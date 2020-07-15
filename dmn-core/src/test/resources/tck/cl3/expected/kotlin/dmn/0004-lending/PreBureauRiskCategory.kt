@@ -40,7 +40,7 @@ class PreBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = Ap
             // Start decision 'PreBureauRiskCategory'
             val preBureauRiskCategoryStartTime_ = System.currentTimeMillis()
             val preBureauRiskCategoryArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            preBureauRiskCategoryArguments_.put("applicantData", applicantData)
+            preBureauRiskCategoryArguments_.put("ApplicantData", applicantData);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, preBureauRiskCategoryArguments_)
 
             // Apply child decisions

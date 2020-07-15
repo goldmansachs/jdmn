@@ -40,7 +40,7 @@ class PriceGt10() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             // Start decision 'priceGt10'
             val priceGt10StartTime_ = System.currentTimeMillis()
             val priceGt10Arguments_ = com.gs.dmn.runtime.listener.Arguments()
-            priceGt10Arguments_.put("structA", structA)
+            priceGt10Arguments_.put("structA", structA);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, priceGt10Arguments_)
 
             // Evaluate decision 'priceGt10'

@@ -37,9 +37,9 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
             // Start BKM 'PostBureauRiskCategoryTable'
             long postBureauRiskCategoryTableStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments postBureauRiskCategoryTableArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            postBureauRiskCategoryTableArguments_.put("existingCustomer", existingCustomer);
-            postBureauRiskCategoryTableArguments_.put("applicationRiskScore", applicationRiskScore);
-            postBureauRiskCategoryTableArguments_.put("creditScore", creditScore);
+            postBureauRiskCategoryTableArguments_.put("ExistingCustomer", existingCustomer);
+            postBureauRiskCategoryTableArguments_.put("ApplicationRiskScore", applicationRiskScore);
+            postBureauRiskCategoryTableArguments_.put("CreditScore", creditScore);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, postBureauRiskCategoryTableArguments_);
 
             // Evaluate BKM 'PostBureauRiskCategoryTable'

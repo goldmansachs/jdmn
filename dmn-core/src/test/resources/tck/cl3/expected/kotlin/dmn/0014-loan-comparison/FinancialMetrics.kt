@@ -20,8 +20,8 @@ class FinancialMetrics : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start BKM 'FinancialMetrics'
             val financialMetricsStartTime_ = System.currentTimeMillis()
             val financialMetricsArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            financialMetricsArguments_.put("product", product)
-            financialMetricsArguments_.put("requestedAmt", requestedAmt)
+            financialMetricsArguments_.put("product", product);
+            financialMetricsArguments_.put("requestedAmt", requestedAmt);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, financialMetricsArguments_)
 
             // Evaluate BKM 'FinancialMetrics'

@@ -59,8 +59,8 @@ public class PostBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDec
             // Start decision 'PostBureauRiskCategory'
             long postBureauRiskCategoryStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments postBureauRiskCategoryArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            postBureauRiskCategoryArguments_.put("applicantData", applicantData);
-            postBureauRiskCategoryArguments_.put("bureauData", bureauData);
+            postBureauRiskCategoryArguments_.put("ApplicantData", applicantData);
+            postBureauRiskCategoryArguments_.put("BureauData", bureauData);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, postBureauRiskCategoryArguments_);
 
             // Apply child decisions

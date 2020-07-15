@@ -37,8 +37,8 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
             // Start BKM 'PreBureauRiskCategoryTable'
             long preBureauRiskCategoryTableStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments preBureauRiskCategoryTableArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            preBureauRiskCategoryTableArguments_.put("existingCustomer", existingCustomer);
-            preBureauRiskCategoryTableArguments_.put("applicationRiskScore", applicationRiskScore);
+            preBureauRiskCategoryTableArguments_.put("ExistingCustomer", existingCustomer);
+            preBureauRiskCategoryTableArguments_.put("ApplicationRiskScore", applicationRiskScore);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, preBureauRiskCategoryTableArguments_);
 
             // Evaluate BKM 'PreBureauRiskCategoryTable'

@@ -53,8 +53,8 @@ public class ExtraDaysCase3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start decision 'ExtraDaysCase3'
             long extraDaysCase3StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments extraDaysCase3Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            extraDaysCase3Arguments_.put("age", age);
-            extraDaysCase3Arguments_.put("yearsOfService", yearsOfService);
+            extraDaysCase3Arguments_.put("Age", age);
+            extraDaysCase3Arguments_.put("YearsOfService", yearsOfService);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, extraDaysCase3Arguments_);
 
             // Evaluate decision 'ExtraDaysCase3'

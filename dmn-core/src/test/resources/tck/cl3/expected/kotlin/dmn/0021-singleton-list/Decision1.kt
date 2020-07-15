@@ -40,7 +40,7 @@ class Decision1() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             // Start decision 'decision1'
             val decision1StartTime_ = System.currentTimeMillis()
             val decision1Arguments_ = com.gs.dmn.runtime.listener.Arguments()
-            decision1Arguments_.put("employees", employees)
+            decision1Arguments_.put("Employees", employees);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decision1Arguments_)
 
             // Evaluate decision 'decision1'
