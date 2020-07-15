@@ -192,6 +192,17 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
         }
     }
 
+    @Override
+    public List<String> drgElementArgumentDisplayNameList(DRGElementReference<? extends TDRGElement> reference) {
+        TDRGElement element = reference.getElement();
+        if (this.dmnModelRepository.isBKMLinkedToDecision(element)) {
+            TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
+            return super.drgElementArgumentDisplayNameList(outputDecision);
+        } else {
+            return super.drgElementArgumentDisplayNameList(reference);
+        }
+    }
+
     public String bkmLinkedToDecisionToNative(TBusinessKnowledgeModel bkm) {
         TDecision outputDecision = this.dmnModelRepository.getOutputDecision(bkm);
         String decisionClassName = drgElementClassName(outputDecision);
