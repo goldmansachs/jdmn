@@ -134,9 +134,11 @@ public interface BasicDMNToNativeTransformer {
 
     List<String> drgElementArgumentNameList(TDRGElement element);
 
+    List<String> drgElementArgumentDisplayNameList(TDRGElement element);
+
     List<String> drgElementArgumentNameList(DRGElementReference<? extends TDRGElement> reference);
 
-    List<String> drgElementArgumentNameList(DRGElementReference<? extends TDRGElement> reference, boolean nativeFriendlyName);
+    List<String> drgElementArgumentDisplayNameList(DRGElementReference<? extends TDRGElement> reference);
 
     boolean shouldGenerateApplyWithConversionFromString(TDRGElement element);
 
