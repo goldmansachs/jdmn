@@ -279,7 +279,7 @@ public class DMNExpressionToNativeTransformer {
     }
 
     String ruleParameterName(DRGElementReference<? extends TDRGElement> reference) {
-        return this.dmnTransformer.drgElementVariableName(reference);
+        return this.dmnTransformer.drgElementReferenceVariableName(reference);
     }
 
     String ruleParameterName(TInformationItem element) {
@@ -287,7 +287,7 @@ public class DMNExpressionToNativeTransformer {
     }
 
     String ruleArgumentName(DRGElementReference<? extends TDRGElement> reference) {
-        return this.dmnTransformer.drgElementVariableName(reference);
+        return this.dmnTransformer.drgElementReferenceVariableName(reference);
     }
 
     //

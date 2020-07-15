@@ -242,9 +242,9 @@
             ${extraIndent}// Apply child decisions
         <#items as subDecision>
             <#if transformer.isLazyEvaluated(subDecision)>
-            ${extraIndent}val ${transformer.drgElementVariableName(subDecision)}: ${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> = ${transformer.lazyEvalClassName()}({ this.${transformer.drgElementVariableName(subDecision)}.apply(${transformer.drgElementArgumentsExtraCache(subDecision)}) })
+            ${extraIndent}val ${transformer.drgElementReferenceVariableName(subDecision)}: ${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> = ${transformer.lazyEvalClassName()}({ this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentsExtraCache(subDecision)}) })
             <#else>
-            ${extraIndent}val ${transformer.drgElementVariableName(subDecision)}: ${transformer.drgElementOutputType(subDecision)} = this.${transformer.drgElementVariableName(subDecision)}.apply(${transformer.drgElementArgumentsExtraCache(subDecision)})
+            ${extraIndent}val ${transformer.drgElementReferenceVariableName(subDecision)}: ${transformer.drgElementOutputType(subDecision)} = this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentsExtraCache(subDecision)})
             </#if>
         </#items>
 

@@ -67,7 +67,7 @@
 <#macro addSubDecisionFields drgElement>
     <#list modelRepository.directSubDecisions(drgElement)>
         <#items as subDecision>
-    private final ${transformer.qualifiedName(subDecision)} ${transformer.drgElementVariableName(subDecision)};
+    private final ${transformer.qualifiedName(subDecision)} ${transformer.drgElementReferenceVariableName(subDecision)};
         </#items>
     </#list>
 </#macro>
@@ -75,7 +75,7 @@
 <#macro setSubDecisionFields drgElement>
     <#list modelRepository.directSubDecisions(drgElement)>
         <#items as subDecision>
-        this.${transformer.drgElementVariableName(subDecision)} = ${transformer.drgElementVariableName(subDecision)};
+        this.${transformer.drgElementReferenceVariableName(subDecision)} = ${transformer.drgElementReferenceVariableName(subDecision)};
         </#items>
     </#list>
 </#macro>
@@ -262,9 +262,9 @@
             ${extraIndent}// Apply child decisions
         <#items as subDecision>
             <#if transformer.isLazyEvaluated(subDecision)>
-            ${extraIndent}${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> ${transformer.drgElementVariableName(subDecision)} = new ${transformer.lazyEvalClassName()}<>(() -> this.${transformer.drgElementVariableName(subDecision)}.apply(${transformer.drgElementArgumentsExtraCache(subDecision)}));
+            ${extraIndent}${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> ${transformer.drgElementReferenceVariableName(subDecision)} = new ${transformer.lazyEvalClassName()}<>(() -> this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentsExtraCache(subDecision)}));
             <#else>
-            ${extraIndent}${transformer.drgElementOutputType(subDecision)} ${transformer.drgElementVariableName(subDecision)} = this.${transformer.drgElementVariableName(subDecision)}.apply(${transformer.drgElementArgumentsExtraCache(subDecision)});
+            ${extraIndent}${transformer.drgElementOutputType(subDecision)} ${transformer.drgElementReferenceVariableName(subDecision)} = this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentsExtraCache(subDecision)});
             </#if>
         </#items>
 

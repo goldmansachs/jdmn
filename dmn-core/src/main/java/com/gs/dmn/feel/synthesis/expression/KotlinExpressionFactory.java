@@ -258,7 +258,7 @@ public class KotlinExpressionFactory implements NativeExpressionFactory {
 
     @Override
     public String decisionConstructorParameter(DRGElementReference<TDecision> d) {
-        return String.format("val %s : %s = %s", this.dmnTransformer.drgElementVariableName(d), this.dmnTransformer.qualifiedName(d), defaultConstructor(this.dmnTransformer.qualifiedName(d)));
+        return String.format("val %s : %s = %s", this.dmnTransformer.drgElementReferenceVariableName(d), this.dmnTransformer.qualifiedName(d), defaultConstructor(this.dmnTransformer.qualifiedName(d)));
     }
 
     //
