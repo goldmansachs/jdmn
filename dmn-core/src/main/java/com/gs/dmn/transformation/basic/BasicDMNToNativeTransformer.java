@@ -223,8 +223,6 @@ public interface BasicDMNToNativeTransformer {
 
     List<Pair<String, Type>> inputDataParametersClosure(DRGElementReference<TDecision> reference);
 
-    List<Pair<String, Type>> inputDataParametersClosure(DRGElementReference<TDecision> reference, boolean nativeFriendlyName);
-
     String drgReferenceQualifiedName(DRGElementReference<? extends TDRGElement> reference);
 
     String bindingName(DRGElementReference<? extends TDRGElement> reference);
