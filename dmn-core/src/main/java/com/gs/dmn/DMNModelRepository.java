@@ -964,7 +964,14 @@ public class DMNModelRepository {
     }
 
     public String name(TNamedElement element) {
-        return element.getName();
+        String name = null;
+        if (element != null) {
+            name = element.getName();
+        }
+        if (StringUtils.isBlank(name)) {
+            throw new DMNRuntimeException(String.format("Display name cannot be null for element '%s'", element == null ? null : element.getId()));
+        }
+        return name;
     }
 
     public String label(TDMNElement element) {
@@ -977,7 +984,7 @@ public class DMNModelRepository {
         if (StringUtils.isBlank(name)) {
             name = element.getName();
         }
-        if (name == null) {
+        if (StringUtils.isBlank(name)) {
             throw new DMNRuntimeException(String.format("Display name cannot be null for element '%s'", element.getId()));
         }
         return name;
