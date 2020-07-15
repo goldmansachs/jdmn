@@ -72,8 +72,6 @@ public interface BasicDMNToNativeTransformer {
 
     String itemDefinitionNativeQualifiedInterfaceName(TItemDefinition itemDefinition);
 
-    String itemDefinitionVariableName(TItemDefinition itemDefinition);
-
     String itemDefinitionSignature(TItemDefinition itemDefinition);
 
     String getter(TItemDefinition itemDefinition);
@@ -84,8 +82,6 @@ public interface BasicDMNToNativeTransformer {
     // TInformationItem related functions
     //
     String informationItemTypeName(TBusinessKnowledgeModel bkm, TInformationItem element);
-
-    String informationItemVariableName(TInformationItem element);
 
     String defaultConstructor(String className);
 
@@ -99,8 +95,6 @@ public interface BasicDMNToNativeTransformer {
     String drgElementClassName(TDRGElement element);
 
     String drgElementVariableName(DRGElementReference<? extends TDRGElement> reference);
-
-    String drgElementVariableName(TDRGElement element);
 
     String drgElementOutputType(DRGElementReference<? extends TDRGElement> reference);
 
@@ -161,6 +155,11 @@ public interface BasicDMNToNativeTransformer {
     String decisionConstructorNewArgumentList(TDecision decision);
 
     boolean hasDirectSubDecisions(TDecision decision);
+
+    //
+    // NamedElement functions
+    //
+    String namedElementVariableName(TNamedElement element);
 
     //
     // Evaluate method related functions

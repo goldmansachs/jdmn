@@ -223,33 +223,24 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public String itemDefinitionVariableName(TItemDefinition itemDefinition) {
-        String name = itemDefinition.getName();
-        if (StringUtils.isBlank(name)) {
-            throw new DMNRuntimeException(String.format("Variable name cannot be null. ItemDefinition id '%s'", itemDefinition.getId()));
-        }
-        return lowerCaseFirst(name);
-    }
-
-    @Override
     public String itemDefinitionSignature(TItemDefinition itemDefinition) {
         List<Pair<String, String>> parameters = new ArrayList<>();
         List<TItemDefinition> itemComponents = itemDefinition.getItemComponent();
         this.dmnModelRepository.sortNamedElements(itemComponents);
         for (TItemDefinition child : itemComponents) {
-            parameters.add(new Pair<>(itemDefinitionVariableName(child), itemDefinitionNativeQualifiedInterfaceName(child)));
+            parameters.add(new Pair<>(namedElementVariableName(child), itemDefinitionNativeQualifiedInterfaceName(child)));
         }
         return parameters.stream().map(p -> this.nativeExpressionFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
     }
 
     @Override
     public String getter(TItemDefinition itemDefinition) {
-        return getter(itemDefinitionVariableName(itemDefinition));
+        return getter(namedElementVariableName(itemDefinition));
     }
 
     @Override
     public String setter(TItemDefinition itemDefinition) {
-        return setter(itemDefinitionVariableName(itemDefinition));
+        return setter(namedElementVariableName(itemDefinition));
     }
 
     //
@@ -260,15 +251,6 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         TDefinitions model = this.dmnModelRepository.getModel(bkm);
         Type type = toFEELType(model, QualifiedName.toQualifiedName(model, element.getTypeRef()));
         return toNativeType(type);
-    }
-
-    @Override
-    public String informationItemVariableName(TInformationItem element) {
-        String name = element.getName();
-        if (name == null) {
-            throw new DMNRuntimeException(String.format("Parameter name cannot be null. Parameter id '%s'", element.getId()));
-        }
-        return lowerCaseFirst(name);
     }
 
     @Override
@@ -302,15 +284,6 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
             throw new DMNRuntimeException(String.format("Variable name cannot be null. Decision id '%s'", reference.getElement().getId()));
         }
         return drgReferenceQualifiedName(reference);
-    }
-
-    @Override
-    public String drgElementVariableName(TDRGElement element) {
-        String name = element.getName();
-        if (name == null) {
-            throw new DMNRuntimeException(String.format("Variable name cannot be null. Decision id '%s'", element.getId()));
-        }
-        return lowerCaseFirst(name);
     }
 
     @Override
@@ -583,6 +556,18 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     //
+    // NamedElement related functions
+    //
+    @Override
+    public String namedElementVariableName(TNamedElement element) {
+        String name = element.getName();
+        if (StringUtils.isBlank(name)) {
+            throw new DMNRuntimeException(String.format("Variable name cannot be null. ItemDefinition id '%s'", element.getId()));
+        }
+        return lowerCaseFirst(name);
+    }
+
+    //
     // Evaluate method related functions
     //
     @Override
@@ -794,7 +779,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         TFunctionDefinition encapsulatedLogic = bkm.getEncapsulatedLogic();
         List<TInformationItem> formalParameters = encapsulatedLogic.getFormalParameter();
         for (TInformationItem parameter : formalParameters) {
-            String parameterName = javaFriendlyName ? informationItemVariableName(parameter) : parameter.getName();
+            String parameterName = javaFriendlyName ? namedElementVariableName(parameter) : parameter.getName();
             String parameterType = informationItemTypeName(bkm, parameter);
             parameters.add(new Pair<>(parameterName, parameterType));
         }
@@ -1050,7 +1035,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String argumentsVariableName(TDRGElement element) {
-        return String.format("%sArguments_", drgElementVariableName(element));
+        return String.format("%sArguments_", namedElementVariableName(element));
     }
 
     @Override
