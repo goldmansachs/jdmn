@@ -94,7 +94,7 @@ public interface BasicDMNToNativeTransformer {
 
     String drgElementClassName(TDRGElement element);
 
-    String drgElementVariableName(DRGElementReference<? extends TDRGElement> reference);
+    String drgElementReferenceVariableName(DRGElementReference<? extends TDRGElement> reference);
 
     String drgElementOutputType(DRGElementReference<? extends TDRGElement> reference);
 

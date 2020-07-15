@@ -187,7 +187,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         if (element == null) {
             throw new DMNRuntimeException(String.format("Cannot find element '%s'", info.getNodeName()));
         } else {
-            return this.dmnTransformer.drgElementVariableName(info.getReference());
+            return this.dmnTransformer.drgElementReferenceVariableName(info.getReference());
         }
     }
 

@@ -254,7 +254,7 @@ public class JavaExpressionFactory implements NativeExpressionFactory {
 
     @Override
     public String decisionConstructorParameter(DRGElementReference<TDecision> d) {
-        return String.format("%s %s", this.dmnTransformer.qualifiedName(d), this.dmnTransformer.drgElementVariableName(d));
+        return String.format("%s %s", this.dmnTransformer.qualifiedName(d), this.dmnTransformer.drgElementReferenceVariableName(d));
     }
 
     //
