@@ -186,12 +186,8 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         TDRGElement element = info.getReference().getElement();
         if (element == null) {
             throw new DMNRuntimeException(String.format("Cannot find element '%s'", info.getNodeName()));
-        } else if (element instanceof TInputData) {
-            return this.dmnTransformer.inputDataVariableName(info.getReference());
-        } else if (element instanceof TDecision) {
-            return this.dmnTransformer.drgElementVariableName(info.getReference());
         } else {
-            throw new UnsupportedOperationException(String.format("'%s' not supported", element.getClass().getSimpleName()));
+            return this.dmnTransformer.drgElementVariableName(info.getReference());
         }
     }
 

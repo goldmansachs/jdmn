@@ -613,7 +613,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
             TDRGElement input = reference.getElement();
             if (input instanceof TInputData) {
                 TInputData inputData = (TInputData) input;
-                String parameterName = inputDataVariableName(reference);
+                String parameterName = drgElementVariableName(reference);
                 String parameterNativeType = inputDataType(inputData);
                 parameters.add(new Pair<>(parameterName, parameterNativeType));
             } else if (input instanceof TDecision) {
@@ -687,15 +687,6 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     //
     // InputData related functions
     //
-    @Override
-    public String inputDataVariableName(DRGElementReference<? extends TDRGElement> reference) {
-        String name = reference.getElementName();
-        if (name == null) {
-            throw new DMNRuntimeException(String.format("Variable name cannot be null. InputData id '%s'", reference.getElement().getId()));
-        }
-        return drgReferenceQualifiedName(reference);
-    }
-
     @Override
     public String inputDataVariableName(TInputData inputData) {
         String name = inputData.getName();
@@ -917,7 +908,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
         List<Pair<String, Type>> parameters = new ArrayList<>();
         for (DRGElementReference<TInputData> inputData : allInputDataReferences) {
-            String parameterName = nativeFriendlyName ? inputDataVariableName(inputData) : inputData.getElementName();
+            String parameterName = nativeFriendlyName ? drgElementVariableName(inputData) : inputData.getElementName();
             Type parameterType = toFEELType(inputData.getElement());
             parameters.add(new Pair<>(parameterName, parameterType));
         }
