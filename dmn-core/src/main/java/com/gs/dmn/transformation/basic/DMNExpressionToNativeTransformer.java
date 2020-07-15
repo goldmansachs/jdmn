@@ -270,8 +270,8 @@ public class DMNExpressionToNativeTransformer {
     String ruleArgumentList(TBusinessKnowledgeModel bkm) {
         List<String> arguments = new ArrayList<>();
         List<TInformationItem> formalParameters = bkm.getEncapsulatedLogic().getFormalParameter();
-        for (TNamedElement element : formalParameters) {
-            String argumentName = ruleArgumentName(element);
+        for (TInformationItem element : formalParameters) {
+            String argumentName = this.dmnTransformer.informationItemVariableName(element);
             arguments.add(argumentName);
         }
         String argumentList = String.join(", ", arguments);
@@ -298,17 +298,6 @@ public class DMNExpressionToNativeTransformer {
             return this.dmnTransformer.inputDataVariableName(reference);
         } else if (element instanceof TDecision) {
             return this.dmnTransformer.drgElementVariableName(reference);
-        }
-        throw new UnsupportedOperationException(String.format("Not supported '%s'", element.getClass().getName()));
-    }
-
-    private String ruleArgumentName(TNamedElement element) {
-        if (element instanceof TInputData) {
-            return this.dmnTransformer.inputDataVariableName((TInputData) element);
-        } else if (element instanceof TDecision) {
-            return this.dmnTransformer.drgElementVariableName(((TDecision) element));
-        } else if (element instanceof TInformationItem) {
-            return this.dmnTransformer.informationItemVariableName(((TInformationItem) element));
         }
         throw new UnsupportedOperationException(String.format("Not supported '%s'", element.getClass().getName()));
     }
