@@ -265,12 +265,6 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     @Override
     public String informationItemVariableName(TInformationItem element) {
         String name = element.getName();
-        return lowerCaseFirst(name);
-    }
-
-    @Override
-    public String parameterVariableName(TInformationItem element) {
-        String name = element.getName();
         if (name == null) {
             throw new DMNRuntimeException(String.format("Parameter name cannot be null. Parameter id '%s'", element.getId()));
         }

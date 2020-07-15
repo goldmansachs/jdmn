@@ -87,8 +87,6 @@ public interface BasicDMNToNativeTransformer {
 
     String informationItemVariableName(TInformationItem element);
 
-    String parameterVariableName(TInformationItem element);
-
     String defaultConstructor(String className);
 
     String constructor(String className, String arguments);

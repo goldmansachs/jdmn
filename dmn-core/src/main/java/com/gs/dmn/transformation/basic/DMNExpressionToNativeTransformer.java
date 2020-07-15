@@ -289,7 +289,7 @@ public class DMNExpressionToNativeTransformer {
     }
 
     String ruleParameterName(TInformationItem element) {
-        return this.dmnTransformer.parameterVariableName(element);
+        return this.dmnTransformer.informationItemVariableName(element);
     }
 
     String ruleArgumentName(DRGElementReference<? extends TDRGElement> reference) {
@@ -308,7 +308,7 @@ public class DMNExpressionToNativeTransformer {
         } else if (element instanceof TDecision) {
             return this.dmnTransformer.drgElementVariableName(((TDecision) element));
         } else if (element instanceof TInformationItem) {
-            return this.dmnTransformer.parameterVariableName(((TInformationItem) element));
+            return this.dmnTransformer.informationItemVariableName(((TInformationItem) element));
         }
         throw new UnsupportedOperationException(String.format("Not supported '%s'", element.getClass().getName()));
     }
