@@ -449,7 +449,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     @Override
     public List<String> drgElementArgumentDisplayNameList(TDRGElement element) {
         DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
-        return drgElementArgumentNameList(reference, false);
+        return drgElementArgumentDisplayNameList(reference);
     }
 
     @Override
