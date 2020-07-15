@@ -447,12 +447,22 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
+    public List<String> drgElementArgumentDisplayNameList(TDRGElement element) {
+        DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
+        return drgElementArgumentNameList(reference, false);
+    }
+
+    @Override
     public List<String> drgElementArgumentNameList(DRGElementReference<? extends TDRGElement> reference) {
         return drgElementArgumentNameList(reference, true);
     }
 
     @Override
-    public List<String> drgElementArgumentNameList(DRGElementReference<? extends TDRGElement> reference, boolean nativeFriendlyName) {
+    public List<String> drgElementArgumentDisplayNameList(DRGElementReference<? extends TDRGElement> reference) {
+        return drgElementArgumentNameList(reference, false);
+    }
+
+    private List<String> drgElementArgumentNameList(DRGElementReference<? extends TDRGElement> reference, boolean nativeFriendlyName) {
         TDRGElement element = reference.getElement();
         if (element instanceof TBusinessKnowledgeModel) {
             List<Pair<String, String>> parameters = bkmParameters((DRGElementReference<TBusinessKnowledgeModel>) reference, nativeFriendlyName);
