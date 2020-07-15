@@ -61,8 +61,8 @@ public class Strategy extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start decision 'Strategy'
             long strategyStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments strategyArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            strategyArguments_.put("applicantData", applicantData);
-            strategyArguments_.put("requestedProduct", requestedProduct);
+            strategyArguments_.put("ApplicantData", applicantData);
+            strategyArguments_.put("RequestedProduct", requestedProduct);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, strategyArguments_);
 
             // Apply child decisions

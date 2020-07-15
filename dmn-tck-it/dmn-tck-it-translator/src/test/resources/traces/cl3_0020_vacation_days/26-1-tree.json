@@ -9,8 +9,8 @@
     "rulesCount": -1
   },
   "arguments": {
-    "age": 16,
-    "yearsOfService": 1
+    "Age": 16,
+    "'Years of Service'": 1
   },
   "ruleTraces": [],
   "children": [
@@ -39,8 +39,8 @@
         "rulesCount": 2
       },
       "arguments": {
-        "age": 16,
-        "yearsOfService": 1
+        "Age": 16,
+        "'Years of Service'": 1
       },
       "ruleTraces": [
         {
@@ -99,8 +99,8 @@
         "rulesCount": 2
       },
       "arguments": {
-        "age": 16,
-        "yearsOfService": 1
+        "Age": 16,
+        "'Years of Service'": 1
       },
       "ruleTraces": [
         {
@@ -155,8 +155,8 @@
         "rulesCount": 2
       },
       "arguments": {
-        "age": 16,
-        "yearsOfService": 1
+        "Age": 16,
+        "'Years of Service'": 1
       },
       "ruleTraces": [
         {

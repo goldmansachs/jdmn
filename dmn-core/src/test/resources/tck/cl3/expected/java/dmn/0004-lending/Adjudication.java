@@ -53,9 +53,9 @@ public class Adjudication extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start decision 'Adjudication'
             long adjudicationStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments adjudicationArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            adjudicationArguments_.put("applicantData", applicantData);
-            adjudicationArguments_.put("bureauData", bureauData);
-            adjudicationArguments_.put("supportingDocuments", supportingDocuments);
+            adjudicationArguments_.put("ApplicantData", applicantData);
+            adjudicationArguments_.put("BureauData", bureauData);
+            adjudicationArguments_.put("SupportingDocuments", supportingDocuments);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, adjudicationArguments_);
 
             // Evaluate decision 'Adjudication'

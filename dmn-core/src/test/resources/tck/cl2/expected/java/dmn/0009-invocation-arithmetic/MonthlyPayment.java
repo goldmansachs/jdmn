@@ -53,7 +53,7 @@ public class MonthlyPayment extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start decision 'MonthlyPayment'
             long monthlyPaymentStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments monthlyPaymentArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            monthlyPaymentArguments_.put("loan", loan);
+            monthlyPaymentArguments_.put("Loan", loan);
             monthlyPaymentArguments_.put("fee", fee);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, monthlyPaymentArguments_);
 

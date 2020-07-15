@@ -37,9 +37,9 @@ public class EligibilityRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
             // Start BKM 'EligibilityRules'
             long eligibilityRulesStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments eligibilityRulesArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            eligibilityRulesArguments_.put("preBureauRiskCategory", preBureauRiskCategory);
-            eligibilityRulesArguments_.put("preBureauAffordability", preBureauAffordability);
-            eligibilityRulesArguments_.put("age", age);
+            eligibilityRulesArguments_.put("PreBureauRiskCategory", preBureauRiskCategory);
+            eligibilityRulesArguments_.put("PreBureauAffordability", preBureauAffordability);
+            eligibilityRulesArguments_.put("Age", age);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, eligibilityRulesArguments_);
 
             // Evaluate BKM 'EligibilityRules'

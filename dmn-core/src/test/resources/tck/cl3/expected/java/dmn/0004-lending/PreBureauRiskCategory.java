@@ -59,7 +59,7 @@ public class PreBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDeci
             // Start decision 'PreBureauRiskCategory'
             long preBureauRiskCategoryStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments preBureauRiskCategoryArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            preBureauRiskCategoryArguments_.put("applicantData", applicantData);
+            preBureauRiskCategoryArguments_.put("ApplicantData", applicantData);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, preBureauRiskCategoryArguments_);
 
             // Apply child decisions

@@ -40,7 +40,7 @@ class RankedProducts(val bankrates : Bankrates = Bankrates()) : com.gs.dmn.runti
             // Start decision 'RankedProducts'
             val rankedProductsStartTime_ = System.currentTimeMillis()
             val rankedProductsArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            rankedProductsArguments_.put("requestedAmt", requestedAmt)
+            rankedProductsArguments_.put("RequestedAmt", requestedAmt);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, rankedProductsArguments_)
 
             // Apply child decisions

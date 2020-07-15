@@ -20,7 +20,7 @@ class CreditContingencyFactorTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start BKM 'CreditContingencyFactorTable'
             val creditContingencyFactorTableStartTime_ = System.currentTimeMillis()
             val creditContingencyFactorTableArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            creditContingencyFactorTableArguments_.put("riskCategory", riskCategory)
+            creditContingencyFactorTableArguments_.put("RiskCategory", riskCategory);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, creditContingencyFactorTableArguments_)
 
             // Evaluate BKM 'CreditContingencyFactorTable'

@@ -20,7 +20,7 @@ class Circumference : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start BKM 'Circumference'
             val circumferenceStartTime_ = System.currentTimeMillis()
             val circumferenceArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            circumferenceArguments_.put("radius", radius)
+            circumferenceArguments_.put("radius", radius);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, circumferenceArguments_)
 
             // Evaluate BKM 'Circumference'

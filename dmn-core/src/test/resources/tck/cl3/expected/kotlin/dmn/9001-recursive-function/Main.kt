@@ -40,7 +40,7 @@ class Main() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             // Start decision 'main'
             val mainStartTime_ = System.currentTimeMillis()
             val mainArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            mainArguments_.put("n", n)
+            mainArguments_.put("n", n);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, mainArguments_)
 
             // Evaluate decision 'main'

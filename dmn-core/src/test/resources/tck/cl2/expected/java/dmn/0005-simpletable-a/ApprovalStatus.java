@@ -53,8 +53,8 @@ public class ApprovalStatus extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start decision 'ApprovalStatus'
             long approvalStatusStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments approvalStatusArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            approvalStatusArguments_.put("age", age);
-            approvalStatusArguments_.put("riskCategory", riskCategory);
+            approvalStatusArguments_.put("Age", age);
+            approvalStatusArguments_.put("RiskCategory", riskCategory);
             approvalStatusArguments_.put("isAffordable", isAffordable);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, approvalStatusArguments_);
 

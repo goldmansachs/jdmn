@@ -37,10 +37,10 @@ public class RoutingRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start BKM 'RoutingRules'
             long routingRulesStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments routingRulesArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            routingRulesArguments_.put("postBureauRiskCategory", postBureauRiskCategory);
-            routingRulesArguments_.put("postBureauAffordability", postBureauAffordability);
-            routingRulesArguments_.put("bankrupt", bankrupt);
-            routingRulesArguments_.put("creditScore", creditScore);
+            routingRulesArguments_.put("PostBureauRiskCategory", postBureauRiskCategory);
+            routingRulesArguments_.put("PostBureauAffordability", postBureauAffordability);
+            routingRulesArguments_.put("Bankrupt", bankrupt);
+            routingRulesArguments_.put("CreditScore", creditScore);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, routingRulesArguments_);
 
             // Evaluate BKM 'RoutingRules'

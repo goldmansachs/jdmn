@@ -40,7 +40,7 @@ class Payment() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             // Start decision 'payment'
             val paymentStartTime_ = System.currentTimeMillis()
             val paymentArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            paymentArguments_.put("loan", loan)
+            paymentArguments_.put("loan", loan);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, paymentArguments_)
 
             // Evaluate decision 'payment'

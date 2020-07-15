@@ -37,10 +37,10 @@ public class InstallmentCalculation extends com.gs.dmn.runtime.DefaultDMNBaseDec
             // Start BKM 'InstallmentCalculation'
             long installmentCalculationStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments installmentCalculationArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            installmentCalculationArguments_.put("productType", productType);
-            installmentCalculationArguments_.put("rate", rate);
-            installmentCalculationArguments_.put("term", term);
-            installmentCalculationArguments_.put("amount", amount);
+            installmentCalculationArguments_.put("ProductType", productType);
+            installmentCalculationArguments_.put("Rate", rate);
+            installmentCalculationArguments_.put("Term", term);
+            installmentCalculationArguments_.put("Amount", amount);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, installmentCalculationArguments_);
 
             // Evaluate BKM 'InstallmentCalculation'

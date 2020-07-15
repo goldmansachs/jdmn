@@ -40,9 +40,9 @@ class Join() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             // Start decision 'Join'
             val joinStartTime_ = System.currentTimeMillis()
             val joinArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            joinArguments_.put("deptTable", deptTable)
-            joinArguments_.put("employeeTable", employeeTable)
-            joinArguments_.put("lastName", lastName)
+            joinArguments_.put("DeptTable", deptTable);
+            joinArguments_.put("EmployeeTable", employeeTable);
+            joinArguments_.put("LastName", lastName);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, joinArguments_)
 
             // Evaluate decision 'Join'

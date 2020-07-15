@@ -40,8 +40,8 @@ class DateCompare2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             // Start decision 'dateCompare2'
             val dateCompare2StartTime_ = System.currentTimeMillis()
             val dateCompare2Arguments_ = com.gs.dmn.runtime.listener.Arguments()
-            dateCompare2Arguments_.put("dateD", dateD)
-            dateCompare2Arguments_.put("dateE", dateE)
+            dateCompare2Arguments_.put("dateD", dateD);
+            dateCompare2Arguments_.put("dateE", dateE);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, dateCompare2Arguments_)
 
             // Evaluate decision 'dateCompare2'

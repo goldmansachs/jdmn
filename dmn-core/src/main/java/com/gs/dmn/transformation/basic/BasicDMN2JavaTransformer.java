@@ -462,7 +462,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         return drgElementArgumentNameList(reference, false);
     }
 
-    private List<String> drgElementArgumentNameList(DRGElementReference<? extends TDRGElement> reference, boolean nativeFriendlyName) {
+    protected List<String> drgElementArgumentNameList(DRGElementReference<? extends TDRGElement> reference, boolean nativeFriendlyName) {
         TDRGElement element = reference.getElement();
         if (element instanceof TBusinessKnowledgeModel) {
             List<Pair<String, String>> parameters = bkmParameters((DRGElementReference<TBusinessKnowledgeModel>) reference, nativeFriendlyName);

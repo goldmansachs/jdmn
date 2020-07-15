@@ -37,9 +37,9 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
             // Start BKM 'ApplicationRiskScoreModel'
             long applicationRiskScoreModelStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments applicationRiskScoreModelArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            applicationRiskScoreModelArguments_.put("age", age);
-            applicationRiskScoreModelArguments_.put("maritalStatus", maritalStatus);
-            applicationRiskScoreModelArguments_.put("employmentStatus", employmentStatus);
+            applicationRiskScoreModelArguments_.put("Age", age);
+            applicationRiskScoreModelArguments_.put("MaritalStatus", maritalStatus);
+            applicationRiskScoreModelArguments_.put("EmploymentStatus", employmentStatus);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, applicationRiskScoreModelArguments_);
 
             // Evaluate BKM 'ApplicationRiskScoreModel'

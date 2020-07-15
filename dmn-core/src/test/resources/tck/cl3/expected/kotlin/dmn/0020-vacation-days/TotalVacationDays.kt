@@ -40,8 +40,8 @@ class TotalVacationDays(val baseVacationDays : BaseVacationDays = BaseVacationDa
             // Start decision 'TotalVacationDays'
             val totalVacationDaysStartTime_ = System.currentTimeMillis()
             val totalVacationDaysArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            totalVacationDaysArguments_.put("age", age)
-            totalVacationDaysArguments_.put("yearsOfService", yearsOfService)
+            totalVacationDaysArguments_.put("Age", age);
+            totalVacationDaysArguments_.put("YearsOfService", yearsOfService);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, totalVacationDaysArguments_)
 
             // Apply child decisions
