@@ -57,6 +57,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBElement;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
@@ -334,7 +335,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         try {
             Environment environment = makeEnvironment(element);
             Statement statement = this.expressionToNativeTransformer.literalExpressionToNative(element, description, environment);
-            return ((ExpressionStatement)statement).getExpression();
+            return ((ExpressionStatement) statement).getExpression();
         } catch (Exception e) {
             LOGGER.warn(String.format("Cannot process description '%s' for element '%s'", description, element == null ? "" : element.getName()));
             return String.format("\"%s\"", description.replaceAll("\"", "\\\\\""));
@@ -421,28 +422,71 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public List<String> drgElementArgumentNameList(DRGElementReference<? extends TDRGElement> reference) {
-        return drgElementArgumentNameList(reference, true);
+        return drgElementArgumentNameList(reference, this::nativeName);
     }
 
     @Override
     public List<String> drgElementArgumentDisplayNameList(DRGElementReference<? extends TDRGElement> reference) {
-        return drgElementArgumentNameList(reference, false);
+        return drgElementArgumentNameList(reference, this::elementName);
     }
 
-    protected List<String> drgElementArgumentNameList(DRGElementReference<? extends TDRGElement> reference, boolean nativeFriendlyName) {
+    protected List<String> drgElementArgumentNameList(DRGElementReference<? extends TDRGElement> reference, Function<Object, String> nameProducer) {
         TDRGElement element = reference.getElement();
         if (element instanceof TBusinessKnowledgeModel) {
-            List<Pair<String, String>> parameters = bkmParameters((DRGElementReference<TBusinessKnowledgeModel>) reference, nativeFriendlyName);
+            List<Pair<String, String>> parameters = bkmParameters((DRGElementReference<TBusinessKnowledgeModel>) reference, nameProducer);
             return parameters.stream().map(Pair::getLeft).collect(Collectors.toList());
         } else if (element instanceof TDecisionService) {
-            List<Pair<String, Type>> parameters = dsParameters((DRGElementReference<TDecisionService>) reference, nativeFriendlyName);
+            List<Pair<String, Type>> parameters = dsParameters((DRGElementReference<TDecisionService>) reference, nameProducer);
             return parameters.stream().map(Pair::getLeft).collect(Collectors.toList());
         } else if (element instanceof TDecision) {
-            List<Pair<String, Type>> parameters = inputDataParametersClosure((DRGElementReference<TDecision>) reference, nativeFriendlyName);
+            List<Pair<String, Type>> parameters = inputDataParametersClosure((DRGElementReference<TDecision>) reference, nameProducer);
             return parameters.stream().map(Pair::getLeft).collect(Collectors.toList());
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
         }
+    }
+
+    private String elementName(Object obj) {
+        TNamedElement element = extractElement(obj);
+        String name = null;
+        if (element != null) {
+            name = this.dmnModelRepository.name(element);
+        }
+        if (StringUtils.isBlank(name)) {
+            throw new DMNRuntimeException(String.format("Variable name cannot be null for '%s'", obj));
+        }
+        return name;
+    }
+
+    private String displayName(Object obj) {
+        TNamedElement element = extractElement(obj);
+        String name = null;
+        if (element != null) {
+            name = this.dmnModelRepository.displayName(element);
+        }
+        if (StringUtils.isBlank(name)) {
+            throw new DMNRuntimeException(String.format("Variable name cannot be null for '%s'", obj));
+        }
+        return name;
+    }
+
+    private String nativeName(Object obj) {
+        if (obj instanceof DRGElementReference) {
+            return drgElementReferenceVariableName((DRGElementReference) obj);
+        } else if (obj instanceof TNamedElement) {
+            return namedElementVariableName((TNamedElement) obj);
+        }
+        throw new DMNRuntimeException(String.format("Variable name cannot be null for '%s'", obj));
+    }
+
+    private TNamedElement extractElement(Object obj) {
+        TNamedElement element = null;
+        if (obj instanceof TNamedElement) {
+            element = (TNamedElement) obj;
+        } else if (obj instanceof DRGElementReference) {
+            element = ((DRGElementReference) obj).getElement();
+        }
+        return element;
     }
 
     @Override
@@ -751,16 +795,16 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     protected List<Pair<String, String>> bkmParameters(DRGElementReference<TBusinessKnowledgeModel> reference) {
-        return bkmParameters(reference, true);
+        return bkmParameters(reference, this::nativeName);
     }
 
-    protected List<Pair<String, String>> bkmParameters(DRGElementReference<TBusinessKnowledgeModel> reference, boolean javaFriendlyName) {
+    protected List<Pair<String, String>> bkmParameters(DRGElementReference<TBusinessKnowledgeModel> reference, Function<Object, String> nameProducer) {
         List<Pair<String, String>> parameters = new ArrayList<>();
         TBusinessKnowledgeModel bkm = reference.getElement();
         TFunctionDefinition encapsulatedLogic = bkm.getEncapsulatedLogic();
         List<TInformationItem> formalParameters = encapsulatedLogic.getFormalParameter();
         for (TInformationItem parameter : formalParameters) {
-            String parameterName = javaFriendlyName ? namedElementVariableName(parameter) : parameter.getName();
+            String parameterName = nameProducer.apply(parameter);
             String parameterType = informationItemTypeName(bkm, parameter);
             parameters.add(new Pair<>(parameterName, parameterType));
         }
@@ -784,11 +828,11 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     @Override
     public List<FormalParameter> dsFEELParameters(TDecisionService service) {
         List<FormalParameter> parameters = new ArrayList<>();
-        for (TDMNElementReference er: service.getInputData()) {
+        for (TDMNElementReference er : service.getInputData()) {
             TInputData inputData = getDMNModelRepository().findInputDataByRef(service, er.getHref());
             parameters.add(new FormalParameter(inputData.getName(), toFEELType(inputData)));
         }
-        for (TDMNElementReference er: service.getInputDecision()) {
+        for (TDMNElementReference er : service.getInputDecision()) {
             TDecision decision = getDMNModelRepository().findDecisionByRef(service, er.getHref());
             parameters.add(new FormalParameter(decision.getName(), drgElementOutputFEELType(decision)));
         }
@@ -800,20 +844,20 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         return dsFEELParameters(service).stream().map(FormalParameter::getName).collect(Collectors.toList());
     }
 
-    private List<Pair<String, Type>> dsParameters(DRGElementReference<TDecisionService> reference, boolean javaFriendlyName) {
+    private List<Pair<String, Type>> dsParameters(DRGElementReference<TDecisionService> reference, Function<Object, String> nameProducer) {
         TDecisionService service = reference.getElement();
         List<Pair<String, Type>> parameters = new ArrayList<>();
-        for (TDMNElementReference er: service.getInputData()) {
+        for (TDMNElementReference er : service.getInputData()) {
             TInputData inputData = this.dmnModelRepository.findInputDataByRef(service, er.getHref());
             String importName = this.dmnModelRepository.findImportName(service, er);
-            String parameterName = javaFriendlyName ? drgElementReferenceVariableName(this.dmnModelRepository.makeDRGElementReference(importName, inputData)) : inputData.getName();
+            String parameterName = nameProducer.apply(this.dmnModelRepository.makeDRGElementReference(importName, inputData));
             Type parameterType = toFEELType(inputData);
             parameters.add(new Pair<>(parameterName, parameterType));
         }
-        for (TDMNElementReference er: service.getInputDecision()) {
+        for (TDMNElementReference er : service.getInputDecision()) {
             TDecision decision = this.dmnModelRepository.findDecisionByRef(service, er.getHref());
             String importName = this.dmnModelRepository.findImportName(service, er);
-            String parameterName = javaFriendlyName ? drgElementReferenceVariableName(this.dmnModelRepository.makeDRGElementReference(importName, decision)) : decision.getName();
+            String parameterName = nameProducer.apply(this.dmnModelRepository.makeDRGElementReference(importName, decision));
             Type parameterType = drgElementOutputFEELType(decision);
             parameters.add(new Pair<>(parameterName, parameterType));
         }
@@ -835,8 +879,8 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         if (!(statement instanceof ExpressionStatement)) {
             return statement;
         }
-        String javaExpression = ((ExpressionStatement)statement).getExpression();
-        Type expressionType = ((ExpressionStatement)statement).getExpressionType();
+        String javaExpression = ((ExpressionStatement) statement).getExpression();
+        Type expressionType = ((ExpressionStatement) statement).getExpressionType();
         if ("null".equals(javaExpression)) {
             return new ExpressionStatement(javaExpression, expectedType);
         }
@@ -888,17 +932,16 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public List<Pair<String, Type>> inputDataParametersClosure(DRGElementReference<TDecision> reference) {
-        return inputDataParametersClosure(reference, true);
+        return inputDataParametersClosure(reference, this::nativeName);
     }
 
-    @Override
-    public List<Pair<String, Type>> inputDataParametersClosure(DRGElementReference<TDecision> reference, boolean nativeFriendlyName) {
+    private List<Pair<String, Type>> inputDataParametersClosure(DRGElementReference<TDecision> reference, Function<Object, String> nameProducer) {
         List<DRGElementReference<TInputData>> allInputDataReferences = this.dmnModelRepository.allInputDatas(reference, this.drgElementFilter);
         this.dmnModelRepository.sortNamedElementReferences(allInputDataReferences);
 
         List<Pair<String, Type>> parameters = new ArrayList<>();
         for (DRGElementReference<TInputData> inputData : allInputDataReferences) {
-            String parameterName = nativeFriendlyName ? drgElementReferenceVariableName(inputData) : inputData.getElementName();
+            String parameterName = nameProducer.apply(inputData);
             Type parameterType = toFEELType(inputData.getElement());
             parameters.add(new Pair<>(parameterName, parameterType));
         }
@@ -1498,7 +1541,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     @Override
     public String literalExpressionToNative(TDRGElement element, String expressionText) {
         Statement statement = this.expressionToNativeTransformer.literalExpressionToNative(element, expressionText);
-        return ((ExpressionStatement)statement).getExpression();
+        return ((ExpressionStatement) statement).getExpression();
     }
 
     @Override
@@ -1762,12 +1805,12 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         StringBuilder result = new StringBuilder();
         boolean skippedPrevious = false;
         boolean first = true;
-        for (int ch: name.codePoints().toArray()) {
+        for (int ch : name.codePoints().toArray()) {
             if (Character.isJavaIdentifierPart(ch)) {
                 if (skippedPrevious && !first) {
                     result.append('_');
                 }
-                result.append((char)ch);
+                result.append((char) ch);
                 skippedPrevious = false;
                 first = false;
             } else {
