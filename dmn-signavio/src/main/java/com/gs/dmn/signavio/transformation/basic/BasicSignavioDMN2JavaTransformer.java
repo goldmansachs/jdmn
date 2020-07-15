@@ -312,7 +312,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
         if (element instanceof TInputData) {
             return inputDataVariableName((TInputData) element);
         } else if (element instanceof TDecision) {
-            return drgElementVariableName(element);
+            return namedElementVariableName(element);
         }
         throw new UnsupportedOperationException(String.format("Not supported '%s'", element.getClass().getName()));
     }
@@ -321,7 +321,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
         if (element instanceof TInputData) {
             return inputDataVariableName((TInputData) element);
         } else if (element instanceof TDecision) {
-            return drgElementVariableName(element);
+            return namedElementVariableName(element);
         }
         throw new UnsupportedOperationException(String.format("Not supported '%s'", element.getClass().getName()));
     }

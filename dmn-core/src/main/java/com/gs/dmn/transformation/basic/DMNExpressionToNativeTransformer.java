@@ -271,7 +271,7 @@ public class DMNExpressionToNativeTransformer {
         List<String> arguments = new ArrayList<>();
         List<TInformationItem> formalParameters = bkm.getEncapsulatedLogic().getFormalParameter();
         for (TInformationItem element : formalParameters) {
-            String argumentName = this.dmnTransformer.informationItemVariableName(element);
+            String argumentName = this.dmnTransformer.namedElementVariableName(element);
             arguments.add(argumentName);
         }
         String argumentList = String.join(", ", arguments);
@@ -289,7 +289,7 @@ public class DMNExpressionToNativeTransformer {
     }
 
     String ruleParameterName(TInformationItem element) {
-        return this.dmnTransformer.informationItemVariableName(element);
+        return this.dmnTransformer.namedElementVariableName(element);
     }
 
     String ruleArgumentName(DRGElementReference<? extends TDRGElement> reference) {
@@ -457,7 +457,7 @@ public class DMNExpressionToNativeTransformer {
         } else {
             // Make complex type value
             String complexJavaType = this.dmnTransformer.drgElementOutputType(element);
-            String complexTypeVariable = this.dmnTransformer.drgElementVariableName(element);
+            String complexTypeVariable = this.dmnTransformer.namedElementVariableName(element);
             String expressionText;
             if (returnType instanceof ItemDefinitionType) {
                 expressionText = this.nativeExpressionFactory.makeVariableAssignment(this.dmnTransformer.itemDefinitionNativeClassName(complexJavaType), complexTypeVariable, this.dmnTransformer.defaultConstructor(this.dmnTransformer.itemDefinitionNativeClassName(complexJavaType)));

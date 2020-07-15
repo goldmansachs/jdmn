@@ -65,7 +65,7 @@ public class TestLabUtil {
 
     public String drgElementVariableName(OutputParameterDefinition outputParameterDefinition) {
         TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
-        return dmnTransformer.drgElementVariableName(decision);
+        return dmnTransformer.namedElementVariableName(decision);
     }
 
     public String drgElementOutputType(OutputParameterDefinition outputParameterDefinition) {
@@ -75,7 +75,7 @@ public class TestLabUtil {
 
     public String drgElementOutputVariableName(OutputParameterDefinition outputParameterDefinition) {
         TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
-        return dmnTransformer.drgElementVariableName(decision);
+        return dmnTransformer.namedElementVariableName(decision);
     }
 
     public String drgElementArgumentList(OutputParameterDefinition outputParameterDefinition) {

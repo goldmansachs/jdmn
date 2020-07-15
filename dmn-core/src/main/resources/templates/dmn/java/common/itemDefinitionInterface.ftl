@@ -53,7 +53,7 @@ public interface ${javaClassName} extends ${transformer.dmnTypeClassName()} {
 
 <#macro addAccessors itemDefinition>
     <#list itemDefinition.itemComponent as child>
-        <#assign memberName = transformer.itemDefinitionVariableName(child)/>
+        <#assign memberName = transformer.namedElementVariableName(child)/>
         <#assign memberType = transformer.itemDefinitionNativeQualifiedInterfaceName(child)/>
     @com.fasterxml.jackson.annotation.JsonGetter("${transformer.escapeInString(modelRepository.displayName(child))}")
     ${memberType} ${transformer.getter(child)};
@@ -65,7 +65,7 @@ public interface ${javaClassName} extends ${transformer.dmnTypeClassName()} {
     default ${transformer.contextClassName()} toContext() {
         ${transformer.contextClassName()} context = ${transformer.defaultConstructor(transformer.contextClassName())};
         <#list itemDefinition.itemComponent as child>
-            <#assign memberName = transformer.itemDefinitionVariableName(child)/>
+            <#assign memberName = transformer.namedElementVariableName(child)/>
             <#assign member = transformer.getter(child)/>
         context.put("${memberName}", ${member});
         </#list>

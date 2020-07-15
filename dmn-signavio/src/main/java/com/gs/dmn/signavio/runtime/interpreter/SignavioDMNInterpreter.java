@@ -58,7 +58,7 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
         Aggregator aggregator = multiInstanceDecision.getAggregator();
         TDecision topLevelDecision = multiInstanceDecision.getTopLevelDecision();
         String lambdaParamName = getBasicDMNTransformer().inputDataVariableName((TInputData) iterator);
-        String topLevelVariableName = getBasicDMNTransformer().drgElementVariableName(topLevelDecision);
+        String topLevelVariableName = getBasicDMNTransformer().namedElementVariableName(topLevelDecision);
 
         // Evaluate source
         Result result = evaluateLiteralExpression(decision, iterationExpression, environment, runtimeEnvironment);
