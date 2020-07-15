@@ -25,7 +25,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class AbstractValidatorTest extends AbstractTest {
+public abstract class AbstractValidatorTest extends AbstractTest {
     private final DMNReader reader = new DMNReader(LOGGER, false);
 
     protected void validate(DMNValidator validator, String path, List<String> expectedErrors) {
