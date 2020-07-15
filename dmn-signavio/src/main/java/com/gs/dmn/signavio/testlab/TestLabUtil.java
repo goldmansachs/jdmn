@@ -90,11 +90,7 @@ public class TestLabUtil {
 
     public String inputDataVariableName(InputParameterDefinition inputParameterDefinition) {
         TDRGElement element = findDRGElement(inputParameterDefinition);
-        if (element instanceof TInputData) {
-            return dmnTransformer.inputDataVariableName((TInputData) element);
-        } else {
-            throw new UnsupportedOperationException(String.format("'%s' not supported", element.getClass().getSimpleName()));
-        }
+        return dmnTransformer.namedElementVariableName(element);
     }
 
     public String assertClassName() {

@@ -688,16 +688,6 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     // InputData related functions
     //
     @Override
-    public String inputDataVariableName(TInputData inputData) {
-        String name = inputData.getName();
-        if (name == null) {
-            throw new DMNRuntimeException(String.format("Variable name cannot be null. InputData id '%s'", inputData.getId()));
-        }
-        String modelName = this.dmnModelRepository.getModelName(inputData);
-        return drgReferenceQualifiedName(new ImportPath(), modelName, name);
-    }
-
-    @Override
     public Type toFEELType(TInputData inputData) {
         return this.dmnEnvironmentFactory.toFEELType(inputData);
     }
