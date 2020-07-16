@@ -42,7 +42,7 @@ public class EvaluatingSayHello extends com.gs.dmn.runtime.DefaultDMNBaseDecisio
             // Start decision 'EvaluatingSayHello'
             long evaluatingSayHelloStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments evaluatingSayHelloArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            evaluatingSayHelloArguments_.put("PersonName", modela_personName);
+            evaluatingSayHelloArguments_.put("modelA.PersonName", modela_personName);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, evaluatingSayHelloArguments_);
 
             // Apply child decisions

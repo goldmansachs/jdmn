@@ -53,8 +53,8 @@ public class Componentwise extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
             // Start decision 'componentwise'
             long componentwiseStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments componentwiseArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            componentwiseArguments_.put("a", a);
-            componentwiseArguments_.put("b", b);
+            componentwiseArguments_.put("A", a);
+            componentwiseArguments_.put("B", b);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, componentwiseArguments_);
 
             // Evaluate decision 'componentwise'

@@ -53,8 +53,8 @@ public class ProcessL2 extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
             // Start decision 'processL2'
             long processL2StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments processL2Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            processL2Arguments_.put("l12_iterator", l12_iterator);
-            processL2Arguments_.put("l23", l23);
+            processL2Arguments_.put("L1", l12_iterator);
+            processL2Arguments_.put("L2", l23);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, processL2Arguments_);
 
             // Iterate and aggregate

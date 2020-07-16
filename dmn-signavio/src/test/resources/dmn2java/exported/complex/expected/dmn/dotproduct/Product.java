@@ -53,7 +53,7 @@ public class Product extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             // Start decision 'product'
             long productStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments productArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            productArguments_.put("componentwise4_iterator", componentwise4_iterator);
+            productArguments_.put("Componentwise", componentwise4_iterator);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, productArguments_);
 
             // Evaluate decision 'product'

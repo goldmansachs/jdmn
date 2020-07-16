@@ -53,7 +53,7 @@ public class DoSomething extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
             // Start decision 'doSomething'
             long doSomethingStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments doSomethingArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            doSomethingArguments_.put("zip4_iterator", zip4_iterator);
+            doSomethingArguments_.put("zip", zip4_iterator);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, doSomethingArguments_);
 
             // Evaluate decision 'doSomething'

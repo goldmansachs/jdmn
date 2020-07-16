@@ -53,7 +53,7 @@ public class BigMid extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
             // Start decision 'bigMid'
             long bigMidStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments bigMidArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            bigMidArguments_.put("testPeopleType", testPeopleType);
+            bigMidArguments_.put("TestPeopleType", testPeopleType);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bigMidArguments_);
 
             // Iterate and aggregate

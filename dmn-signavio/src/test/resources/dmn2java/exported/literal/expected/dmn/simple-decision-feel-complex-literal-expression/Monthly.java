@@ -53,7 +53,7 @@ public class Monthly extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             // Start decision 'monthly'
             long monthlyStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments monthlyArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            monthlyArguments_.put("loan", loan);
+            monthlyArguments_.put("Loan", loan);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, monthlyArguments_);
 
             // Evaluate decision 'monthly'

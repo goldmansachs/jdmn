@@ -36,8 +36,8 @@ public class C extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start decision 'c'
             long cStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments cArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            cArguments_.put("a", modela_a);
-            cArguments_.put("a", modelb_a);
+            cArguments_.put("modelA.A", modela_a);
+            cArguments_.put("modelB.A", modelb_a);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, cArguments_);
 
             // Evaluate decision 'c'

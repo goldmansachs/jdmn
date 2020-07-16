@@ -61,9 +61,9 @@ public class CompareAgainstLendingThreshold extends com.gs.dmn.signavio.runtime.
             // Start decision 'compareAgainstLendingThreshold'
             long compareAgainstLendingThresholdStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments compareAgainstLendingThresholdArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            compareAgainstLendingThresholdArguments_.put("applicant", applicant);
-            compareAgainstLendingThresholdArguments_.put("currentRiskAppetite", currentRiskAppetite);
-            compareAgainstLendingThresholdArguments_.put("lendingThreshold", lendingThreshold);
+            compareAgainstLendingThresholdArguments_.put("Applicant", applicant);
+            compareAgainstLendingThresholdArguments_.put("Current risk appetite", currentRiskAppetite);
+            compareAgainstLendingThresholdArguments_.put("Lending threshold", lendingThreshold);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, compareAgainstLendingThresholdArguments_);
 
             // Apply child decisions

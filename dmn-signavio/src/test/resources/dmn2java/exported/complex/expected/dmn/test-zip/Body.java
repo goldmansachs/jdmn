@@ -53,7 +53,7 @@ public class Body extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
             // Start decision 'body'
             long bodyStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments bodyArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            bodyArguments_.put("it_iterator", it_iterator);
+            bodyArguments_.put("it", it_iterator);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bodyArguments_);
 
             // Evaluate decision 'body'

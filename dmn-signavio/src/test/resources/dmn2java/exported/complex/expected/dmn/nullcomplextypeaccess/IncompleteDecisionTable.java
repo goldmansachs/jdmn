@@ -35,7 +35,7 @@ public class IncompleteDecisionTable extends com.gs.dmn.signavio.runtime.Default
             // Start decision 'incompleteDecisionTable'
             long incompleteDecisionTableStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments incompleteDecisionTableArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            incompleteDecisionTableArguments_.put("inputString", inputString);
+            incompleteDecisionTableArguments_.put("InputString", inputString);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, incompleteDecisionTableArguments_);
 
             // Evaluate decision 'incompleteDecisionTable'

@@ -61,10 +61,10 @@ public class CompoundOutputCompoundDecision extends com.gs.dmn.signavio.runtime.
             // Start decision 'compoundOutputCompoundDecision'
             long compoundOutputCompoundDecisionStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments compoundOutputCompoundDecisionArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            compoundOutputCompoundDecisionArguments_.put("booleanInput", booleanInput);
-            compoundOutputCompoundDecisionArguments_.put("dD1TextInput", dD1TextInput);
-            compoundOutputCompoundDecisionArguments_.put("dD2NumberInput", dD2NumberInput);
-            compoundOutputCompoundDecisionArguments_.put("enumerationInput", enumerationInput);
+            compoundOutputCompoundDecisionArguments_.put("BooleanInput", booleanInput);
+            compoundOutputCompoundDecisionArguments_.put("DD1 Text Input", dD1TextInput);
+            compoundOutputCompoundDecisionArguments_.put("DD2 Number Input", dD2NumberInput);
+            compoundOutputCompoundDecisionArguments_.put("EnumerationInput", enumerationInput);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, compoundOutputCompoundDecisionArguments_);
 
             // Apply child decisions

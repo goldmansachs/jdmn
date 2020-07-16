@@ -59,8 +59,8 @@ public class DotProduct extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
             // Start decision 'dotProduct'
             long dotProductStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments dotProductArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            dotProductArguments_.put("a", a);
-            dotProductArguments_.put("b", b);
+            dotProductArguments_.put("A", a);
+            dotProductArguments_.put("B", b);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, dotProductArguments_);
 
             // Apply child decisions

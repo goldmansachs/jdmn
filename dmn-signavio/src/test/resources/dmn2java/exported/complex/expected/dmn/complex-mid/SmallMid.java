@@ -53,7 +53,7 @@ public class SmallMid extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             // Start decision 'smallMid'
             long smallMidStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments smallMidArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            smallMidArguments_.put("testPersonType6_iterator", testPersonType6_iterator);
+            smallMidArguments_.put("TestPersonType", testPersonType6_iterator);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, smallMidArguments_);
 
             // Iterate and aggregate

@@ -10,7 +10,7 @@
       "rulesCount": -1
     },
     "arguments": {
-      "applicant": {
+      "Applicant": {
         "Age": 38,
         "Credit score": 100,
         "Name": "Amy",
@@ -18,8 +18,8 @@
           "Late payment"
         ]
       },
-      "currentRiskAppetite": 50,
-      "lendingThreshold": 25
+      "Current risk appetite": 50,
+      "Lending threshold": 25
     },
     "ruleTraces": [],
     "children": [
@@ -34,7 +34,7 @@
           "rulesCount": 3
         },
         "arguments": {
-          "applicant": {
+          "Applicant": {
             "Age": 38,
             "Credit score": 100,
             "Name": "Amy",
@@ -42,8 +42,8 @@
               "Late payment"
             ]
           },
-          "currentRiskAppetite": 50,
-          "lendingThreshold": 25
+          "Current risk appetite": 50,
+          "Lending threshold": 25
         },
         "ruleTraces": [
           {
@@ -114,7 +114,7 @@
               "rulesCount": 2
             },
             "arguments": {
-              "applicant": {
+              "Applicant": {
                 "Age": 38,
                 "Credit score": 100,
                 "Name": "Amy",
@@ -122,8 +122,8 @@
                   "Late payment"
                 ]
               },
-              "currentRiskAppetite": 50,
-              "lendingThreshold": 25
+              "Current risk appetite": 50,
+              "Lending threshold": 25
             },
             "ruleTraces": [
               {
@@ -177,7 +177,7 @@
                   "rulesCount": -1
                 },
                 "arguments": {
-                  "applicant": {
+                  "Applicant": {
                     "Age": 38,
                     "Credit score": 100,
                     "Name": "Amy",
@@ -185,7 +185,7 @@
                       "Late payment"
                     ]
                   },
-                  "currentRiskAppetite": 50
+                  "Current risk appetite": 50
                 },
                 "ruleTraces": [],
                 "children": [
@@ -200,7 +200,7 @@
                       "rulesCount": 5
                     },
                     "arguments": {
-                      "applicant": {
+                      "Applicant": {
                         "Age": 38,
                         "Credit score": 100,
                         "Name": "Amy",
@@ -309,8 +309,8 @@
                       "rulesCount": -1
                     },
                     "arguments": {
-                      "currentRiskAppetite": 50,
-                      "priorIssue_iterator": -10
+                      "Current risk appetite": 50,
+                      "Prior issue": -10
                     },
                     "ruleTraces": [],
                     "children": []
@@ -326,8 +326,8 @@
                       "rulesCount": -1
                     },
                     "arguments": {
-                      "currentRiskAppetite": 50,
-                      "priorIssue_iterator": -5
+                      "Current risk appetite": 50,
+                      "Prior issue": -5
                     },
                     "ruleTraces": [],
                     "children": []
@@ -345,7 +345,7 @@
                   "rulesCount": 3
                 },
                 "arguments": {
-                  "applicant": {
+                  "Applicant": {
                     "Age": 38,
                     "Credit score": 100,
                     "Name": "Amy",
@@ -424,7 +424,7 @@
           "rulesCount": 2
         },
         "arguments": {
-          "applicant": {
+          "Applicant": {
             "Age": 38,
             "Credit score": 100,
             "Name": "Amy",
@@ -432,8 +432,8 @@
               "Late payment"
             ]
           },
-          "currentRiskAppetite": 50,
-          "lendingThreshold": 25
+          "Current risk appetite": 50,
+          "Lending threshold": 25
         },
         "ruleTraces": [
           {
@@ -483,7 +483,7 @@
               "rulesCount": -1
             },
             "arguments": {
-              "applicant": {
+              "Applicant": {
                 "Age": 38,
                 "Credit score": 100,
                 "Name": "Amy",
@@ -491,7 +491,7 @@
                   "Late payment"
                 ]
               },
-              "currentRiskAppetite": 50
+              "Current risk appetite": 50
             },
             "ruleTraces": [],
             "children": [
@@ -506,7 +506,7 @@
                   "rulesCount": 5
                 },
                 "arguments": {
-                  "applicant": {
+                  "Applicant": {
                     "Age": 38,
                     "Credit score": 100,
                     "Name": "Amy",
@@ -615,8 +615,8 @@
                   "rulesCount": -1
                 },
                 "arguments": {
-                  "currentRiskAppetite": 50,
-                  "priorIssue_iterator": -10
+                  "Current risk appetite": 50,
+                  "Prior issue": -10
                 },
                 "ruleTraces": [],
                 "children": []
@@ -632,8 +632,8 @@
                   "rulesCount": -1
                 },
                 "arguments": {
-                  "currentRiskAppetite": 50,
-                  "priorIssue_iterator": -5
+                  "Current risk appetite": 50,
+                  "Prior issue": -5
                 },
                 "ruleTraces": [],
                 "children": []
@@ -651,7 +651,7 @@
               "rulesCount": 3
             },
             "arguments": {
-              "applicant": {
+              "Applicant": {
                 "Age": 38,
                 "Credit score": 100,
                 "Name": "Amy",
@@ -728,7 +728,7 @@
           "rulesCount": -1
         },
         "arguments": {
-          "applicant": {
+          "Applicant": {
             "Age": 38,
             "Credit score": 100,
             "Name": "Amy",
@@ -736,7 +736,7 @@
               "Late payment"
             ]
           },
-          "currentRiskAppetite": 50
+          "Current risk appetite": 50
         },
         "ruleTraces": [],
         "children": [
@@ -751,7 +751,7 @@
               "rulesCount": 5
             },
             "arguments": {
-              "applicant": {
+              "Applicant": {
                 "Age": 38,
                 "Credit score": 100,
                 "Name": "Amy",
@@ -860,8 +860,8 @@
               "rulesCount": -1
             },
             "arguments": {
-              "currentRiskAppetite": 50,
-              "priorIssue_iterator": -10
+              "Current risk appetite": 50,
+              "Prior issue": -10
             },
             "ruleTraces": [],
             "children": []
@@ -877,8 +877,8 @@
               "rulesCount": -1
             },
             "arguments": {
-              "currentRiskAppetite": 50,
-              "priorIssue_iterator": -5
+              "Current risk appetite": 50,
+              "Prior issue": -5
             },
             "ruleTraces": [],
             "children": []
@@ -898,7 +898,7 @@
       "rulesCount": 3
     },
     "arguments": {
-      "applicant": {
+      "Applicant": {
         "Age": 38,
         "Credit score": 100,
         "Name": "Amy",
@@ -906,8 +906,8 @@
           "Late payment"
         ]
       },
-      "currentRiskAppetite": 50,
-      "lendingThreshold": 25
+      "Current risk appetite": 50,
+      "Lending threshold": 25
     },
     "ruleTraces": [
       {
@@ -978,7 +978,7 @@
           "rulesCount": 2
         },
         "arguments": {
-          "applicant": {
+          "Applicant": {
             "Age": 38,
             "Credit score": 100,
             "Name": "Amy",
@@ -986,8 +986,8 @@
               "Late payment"
             ]
           },
-          "currentRiskAppetite": 50,
-          "lendingThreshold": 25
+          "Current risk appetite": 50,
+          "Lending threshold": 25
         },
         "ruleTraces": [
           {
@@ -1041,7 +1041,7 @@
               "rulesCount": -1
             },
             "arguments": {
-              "applicant": {
+              "Applicant": {
                 "Age": 38,
                 "Credit score": 100,
                 "Name": "Amy",
@@ -1049,7 +1049,7 @@
                   "Late payment"
                 ]
               },
-              "currentRiskAppetite": 50
+              "Current risk appetite": 50
             },
             "ruleTraces": [],
             "children": [
@@ -1064,7 +1064,7 @@
                   "rulesCount": 5
                 },
                 "arguments": {
-                  "applicant": {
+                  "Applicant": {
                     "Age": 38,
                     "Credit score": 100,
                     "Name": "Amy",
@@ -1173,8 +1173,8 @@
                   "rulesCount": -1
                 },
                 "arguments": {
-                  "currentRiskAppetite": 50,
-                  "priorIssue_iterator": -10
+                  "Current risk appetite": 50,
+                  "Prior issue": -10
                 },
                 "ruleTraces": [],
                 "children": []
@@ -1190,8 +1190,8 @@
                   "rulesCount": -1
                 },
                 "arguments": {
-                  "currentRiskAppetite": 50,
-                  "priorIssue_iterator": -5
+                  "Current risk appetite": 50,
+                  "Prior issue": -5
                 },
                 "ruleTraces": [],
                 "children": []
@@ -1209,7 +1209,7 @@
               "rulesCount": 3
             },
             "arguments": {
-              "applicant": {
+              "Applicant": {
                 "Age": 38,
                 "Credit score": 100,
                 "Name": "Amy",
@@ -1288,7 +1288,7 @@
       "rulesCount": 2
     },
     "arguments": {
-      "applicant": {
+      "Applicant": {
         "Age": 38,
         "Credit score": 100,
         "Name": "Amy",
@@ -1296,8 +1296,8 @@
           "Late payment"
         ]
       },
-      "currentRiskAppetite": 50,
-      "lendingThreshold": 25
+      "Current risk appetite": 50,
+      "Lending threshold": 25
     },
     "ruleTraces": [
       {
@@ -1351,7 +1351,7 @@
           "rulesCount": -1
         },
         "arguments": {
-          "applicant": {
+          "Applicant": {
             "Age": 38,
             "Credit score": 100,
             "Name": "Amy",
@@ -1359,7 +1359,7 @@
               "Late payment"
             ]
           },
-          "currentRiskAppetite": 50
+          "Current risk appetite": 50
         },
         "ruleTraces": [],
         "children": [
@@ -1374,7 +1374,7 @@
               "rulesCount": 5
             },
             "arguments": {
-              "applicant": {
+              "Applicant": {
                 "Age": 38,
                 "Credit score": 100,
                 "Name": "Amy",
@@ -1483,8 +1483,8 @@
               "rulesCount": -1
             },
             "arguments": {
-              "currentRiskAppetite": 50,
-              "priorIssue_iterator": -10
+              "Current risk appetite": 50,
+              "Prior issue": -10
             },
             "ruleTraces": [],
             "children": []
@@ -1500,8 +1500,8 @@
               "rulesCount": -1
             },
             "arguments": {
-              "currentRiskAppetite": 50,
-              "priorIssue_iterator": -5
+              "Current risk appetite": 50,
+              "Prior issue": -5
             },
             "ruleTraces": [],
             "children": []
@@ -1519,7 +1519,7 @@
           "rulesCount": 3
         },
         "arguments": {
-          "applicant": {
+          "Applicant": {
             "Age": 38,
             "Credit score": 100,
             "Name": "Amy",
@@ -1596,7 +1596,7 @@
       "rulesCount": -1
     },
     "arguments": {
-      "applicant": {
+      "Applicant": {
         "Age": 38,
         "Credit score": 100,
         "Name": "Amy",
@@ -1604,7 +1604,7 @@
           "Late payment"
         ]
       },
-      "currentRiskAppetite": 50
+      "Current risk appetite": 50
     },
     "ruleTraces": [],
     "children": [
@@ -1619,7 +1619,7 @@
           "rulesCount": 5
         },
         "arguments": {
-          "applicant": {
+          "Applicant": {
             "Age": 38,
             "Credit score": 100,
             "Name": "Amy",
@@ -1728,8 +1728,8 @@
           "rulesCount": -1
         },
         "arguments": {
-          "currentRiskAppetite": 50,
-          "priorIssue_iterator": -10
+          "Current risk appetite": 50,
+          "Prior issue": -10
         },
         "ruleTraces": [],
         "children": []
@@ -1745,8 +1745,8 @@
           "rulesCount": -1
         },
         "arguments": {
-          "currentRiskAppetite": 50,
-          "priorIssue_iterator": -5
+          "Current risk appetite": 50,
+          "Prior issue": -5
         },
         "ruleTraces": [],
         "children": []
@@ -1764,7 +1764,7 @@
       "rulesCount": 5
     },
     "arguments": {
-      "applicant": {
+      "Applicant": {
         "Age": 38,
         "Credit score": 100,
         "Name": "Amy",
@@ -1873,8 +1873,8 @@
       "rulesCount": -1
     },
     "arguments": {
-      "currentRiskAppetite": 50,
-      "priorIssue_iterator": -10
+      "Current risk appetite": 50,
+      "Prior issue": -10
     },
     "ruleTraces": [],
     "children": []
@@ -1890,8 +1890,8 @@
       "rulesCount": -1
     },
     "arguments": {
-      "currentRiskAppetite": 50,
-      "priorIssue_iterator": -5
+      "Current risk appetite": 50,
+      "Prior issue": -5
     },
     "ruleTraces": [],
     "children": []
@@ -1907,7 +1907,7 @@
       "rulesCount": 3
     },
     "arguments": {
-      "applicant": {
+      "Applicant": {
         "Age": 38,
         "Credit score": 100,
         "Name": "Amy",
@@ -1982,7 +1982,7 @@
       "rulesCount": 2
     },
     "arguments": {
-      "applicant": {
+      "Applicant": {
         "Age": 38,
         "Credit score": 100,
         "Name": "Amy",
@@ -1990,8 +1990,8 @@
           "Late payment"
         ]
       },
-      "currentRiskAppetite": 50,
-      "lendingThreshold": 25
+      "Current risk appetite": 50,
+      "Lending threshold": 25
     },
     "ruleTraces": [
       {
@@ -2041,7 +2041,7 @@
           "rulesCount": -1
         },
         "arguments": {
-          "applicant": {
+          "Applicant": {
             "Age": 38,
             "Credit score": 100,
             "Name": "Amy",
@@ -2049,7 +2049,7 @@
               "Late payment"
             ]
           },
-          "currentRiskAppetite": 50
+          "Current risk appetite": 50
         },
         "ruleTraces": [],
         "children": [
@@ -2064,7 +2064,7 @@
               "rulesCount": 5
             },
             "arguments": {
-              "applicant": {
+              "Applicant": {
                 "Age": 38,
                 "Credit score": 100,
                 "Name": "Amy",
@@ -2173,8 +2173,8 @@
               "rulesCount": -1
             },
             "arguments": {
-              "currentRiskAppetite": 50,
-              "priorIssue_iterator": -10
+              "Current risk appetite": 50,
+              "Prior issue": -10
             },
             "ruleTraces": [],
             "children": []
@@ -2190,8 +2190,8 @@
               "rulesCount": -1
             },
             "arguments": {
-              "currentRiskAppetite": 50,
-              "priorIssue_iterator": -5
+              "Current risk appetite": 50,
+              "Prior issue": -5
             },
             "ruleTraces": [],
             "children": []
@@ -2209,7 +2209,7 @@
           "rulesCount": 3
         },
         "arguments": {
-          "applicant": {
+          "Applicant": {
             "Age": 38,
             "Credit score": 100,
             "Name": "Amy",
@@ -2286,7 +2286,7 @@
       "rulesCount": -1
     },
     "arguments": {
-      "applicant": {
+      "Applicant": {
         "Age": 38,
         "Credit score": 100,
         "Name": "Amy",
@@ -2294,7 +2294,7 @@
           "Late payment"
         ]
       },
-      "currentRiskAppetite": 50
+      "Current risk appetite": 50
     },
     "ruleTraces": [],
     "children": [
@@ -2309,7 +2309,7 @@
           "rulesCount": 5
         },
         "arguments": {
-          "applicant": {
+          "Applicant": {
             "Age": 38,
             "Credit score": 100,
             "Name": "Amy",
@@ -2418,8 +2418,8 @@
           "rulesCount": -1
         },
         "arguments": {
-          "currentRiskAppetite": 50,
-          "priorIssue_iterator": -10
+          "Current risk appetite": 50,
+          "Prior issue": -10
         },
         "ruleTraces": [],
         "children": []
@@ -2435,8 +2435,8 @@
           "rulesCount": -1
         },
         "arguments": {
-          "currentRiskAppetite": 50,
-          "priorIssue_iterator": -5
+          "Current risk appetite": 50,
+          "Prior issue": -5
         },
         "ruleTraces": [],
         "children": []
@@ -2454,7 +2454,7 @@
       "rulesCount": 5
     },
     "arguments": {
-      "applicant": {
+      "Applicant": {
         "Age": 38,
         "Credit score": 100,
         "Name": "Amy",
@@ -2563,8 +2563,8 @@
       "rulesCount": -1
     },
     "arguments": {
-      "currentRiskAppetite": 50,
-      "priorIssue_iterator": -10
+      "Current risk appetite": 50,
+      "Prior issue": -10
     },
     "ruleTraces": [],
     "children": []
@@ -2580,8 +2580,8 @@
       "rulesCount": -1
     },
     "arguments": {
-      "currentRiskAppetite": 50,
-      "priorIssue_iterator": -5
+      "Current risk appetite": 50,
+      "Prior issue": -5
     },
     "ruleTraces": [],
     "children": []
@@ -2597,7 +2597,7 @@
       "rulesCount": 3
     },
     "arguments": {
-      "applicant": {
+      "Applicant": {
         "Age": 38,
         "Credit score": 100,
         "Name": "Amy",
@@ -2672,7 +2672,7 @@
       "rulesCount": -1
     },
     "arguments": {
-      "applicant": {
+      "Applicant": {
         "Age": 38,
         "Credit score": 100,
         "Name": "Amy",
@@ -2680,7 +2680,7 @@
           "Late payment"
         ]
       },
-      "currentRiskAppetite": 50
+      "Current risk appetite": 50
     },
     "ruleTraces": [],
     "children": [
@@ -2695,7 +2695,7 @@
           "rulesCount": 5
         },
         "arguments": {
-          "applicant": {
+          "Applicant": {
             "Age": 38,
             "Credit score": 100,
             "Name": "Amy",
@@ -2804,8 +2804,8 @@
           "rulesCount": -1
         },
         "arguments": {
-          "currentRiskAppetite": 50,
-          "priorIssue_iterator": -10
+          "Current risk appetite": 50,
+          "Prior issue": -10
         },
         "ruleTraces": [],
         "children": []
@@ -2821,8 +2821,8 @@
           "rulesCount": -1
         },
         "arguments": {
-          "currentRiskAppetite": 50,
-          "priorIssue_iterator": -5
+          "Current risk appetite": 50,
+          "Prior issue": -5
         },
         "ruleTraces": [],
         "children": []
@@ -2840,7 +2840,7 @@
       "rulesCount": 5
     },
     "arguments": {
-      "applicant": {
+      "Applicant": {
         "Age": 38,
         "Credit score": 100,
         "Name": "Amy",
@@ -2949,8 +2949,8 @@
       "rulesCount": -1
     },
     "arguments": {
-      "currentRiskAppetite": 50,
-      "priorIssue_iterator": -10
+      "Current risk appetite": 50,
+      "Prior issue": -10
     },
     "ruleTraces": [],
     "children": []
@@ -2966,8 +2966,8 @@
       "rulesCount": -1
     },
     "arguments": {
-      "currentRiskAppetite": 50,
-      "priorIssue_iterator": -5
+      "Current risk appetite": 50,
+      "Prior issue": -5
     },
     "ruleTraces": [],
     "children": []

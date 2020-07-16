@@ -53,8 +53,8 @@ public class CompareLists extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
             // Start decision 'compareLists'
             long compareListsStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments compareListsArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            compareListsArguments_.put("l12_iterator", l12_iterator);
-            compareListsArguments_.put("l2_iterator", l2_iterator);
+            compareListsArguments_.put("L1", l12_iterator);
+            compareListsArguments_.put("L2", l2_iterator);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, compareListsArguments_);
 
             // Evaluate decision 'compareLists'

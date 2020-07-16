@@ -37,8 +37,8 @@ public class BKM extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
             // Start BKM 'bKM'
             long bKMStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments bKMArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            bKMArguments_.put("a", a);
-            bKMArguments_.put("b", b);
+            bKMArguments_.put("A", a);
+            bKMArguments_.put("B", b);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bKMArguments_);
 
             // Evaluate BKM 'bKM'

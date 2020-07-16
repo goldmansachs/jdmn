@@ -35,7 +35,7 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
             // Start decision 'decide'
             long decideStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decideArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            decideArguments_.put("properties_iterator", properties_iterator);
+            decideArguments_.put("Properties", properties_iterator);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decideArguments_);
 
             // Evaluate decision 'decide'

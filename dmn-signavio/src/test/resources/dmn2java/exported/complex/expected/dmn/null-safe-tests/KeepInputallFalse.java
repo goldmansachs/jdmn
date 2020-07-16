@@ -53,7 +53,7 @@ public class KeepInputallFalse extends com.gs.dmn.signavio.runtime.DefaultSignav
             // Start decision 'keepInputallFalse'
             long keepInputallFalseStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments keepInputallFalseArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            keepInputallFalseArguments_.put("booleanAllFalse_iterator", booleanAllFalse_iterator);
+            keepInputallFalseArguments_.put("booleanAllFalse", booleanAllFalse_iterator);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, keepInputallFalseArguments_);
 
             // Evaluate decision 'keepInputallFalse'
