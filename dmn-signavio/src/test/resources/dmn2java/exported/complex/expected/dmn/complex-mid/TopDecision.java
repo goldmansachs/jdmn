@@ -61,7 +61,7 @@ public class TopDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
             // Start decision 'topDecision'
             long topDecisionStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments topDecisionArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            topDecisionArguments_.put("testPersonType6_iterator", testPersonType6_iterator);
+            topDecisionArguments_.put("TestPersonType", testPersonType6_iterator);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, topDecisionArguments_);
 
             // Apply child decisions

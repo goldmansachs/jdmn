@@ -38,12 +38,12 @@ public class LitexpLogic extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
             long litexpLogicStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments litexpLogicArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             litexpLogicArguments_.put("blacklist", blacklist);
-            litexpLogicArguments_.put("listOfNumbers", listOfNumbers);
+            litexpLogicArguments_.put("ListOfNumbers", listOfNumbers);
             litexpLogicArguments_.put("names", names);
             litexpLogicArguments_.put("rgb1", rgb1);
-            litexpLogicArguments_.put("rgb1List", rgb1List);
+            litexpLogicArguments_.put("rgb1 list", rgb1List);
             litexpLogicArguments_.put("rgb2", rgb2);
-            litexpLogicArguments_.put("rgb2List", rgb2List);
+            litexpLogicArguments_.put("rgb2 list", rgb2List);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, litexpLogicArguments_);
 
             // Evaluate BKM 'litexpLogic'

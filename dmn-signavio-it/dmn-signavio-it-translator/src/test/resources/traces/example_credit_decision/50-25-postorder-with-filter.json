@@ -10,7 +10,7 @@
       "rulesCount": 3
     },
     "arguments": {
-      "applicant": {
+      "Applicant": {
         "Age": 38,
         "Credit score": 100,
         "Name": "Amy",
@@ -18,8 +18,8 @@
           "Late payment"
         ]
       },
-      "currentRiskAppetite": 50,
-      "lendingThreshold": 25
+      "Current risk appetite": 50,
+      "Lending threshold": 25
     },
     "ruleTraces": [
       {

@@ -427,7 +427,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public List<String> drgElementArgumentDisplayNameList(DRGElementReference<? extends TDRGElement> reference) {
-        return drgElementArgumentNameList(reference, this::elementName);
+        return drgElementArgumentNameList(reference, this::displayName);
     }
 
     protected List<String> drgElementArgumentNameList(DRGElementReference<? extends TDRGElement> reference, Function<Object, String> nameProducer) {
@@ -447,27 +447,25 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     private String elementName(Object obj) {
-        TNamedElement element = extractElement(obj);
-        String name = null;
-        if (element != null) {
-            name = this.dmnModelRepository.name(element);
+        if (obj instanceof DRGElementReference) {
+            DRGElementReference reference = (DRGElementReference) obj;
+            String elementName = this.dmnModelRepository.name(reference.getElement());
+            return drgReferenceQualifiedDisplayName(reference.getImportPath(), reference.getModelName(), elementName);
+        } else if (obj instanceof TNamedElement) {
+            return this.dmnModelRepository.name((TNamedElement) obj);
         }
-        if (StringUtils.isBlank(name)) {
-            throw new DMNRuntimeException(String.format("Variable name cannot be null for '%s'", obj));
-        }
-        return name;
+        throw new DMNRuntimeException(String.format("Variable name cannot be null for '%s'", obj));
     }
 
     private String displayName(Object obj) {
-        TNamedElement element = extractElement(obj);
-        String name = null;
-        if (element != null) {
-            name = this.dmnModelRepository.displayName(element);
+        if (obj instanceof DRGElementReference) {
+            DRGElementReference reference = (DRGElementReference) obj;
+            String elementName = this.dmnModelRepository.displayName(reference.getElement());
+            return drgReferenceQualifiedDisplayName(reference.getImportPath(), reference.getModelName(), elementName);
+        } else if (obj instanceof TNamedElement) {
+            return this.dmnModelRepository.displayName((TNamedElement) obj);
         }
-        if (StringUtils.isBlank(name)) {
-            throw new DMNRuntimeException(String.format("Variable name cannot be null for '%s'", obj));
-        }
-        return name;
+        throw new DMNRuntimeException(String.format("Variable name cannot be null for '%s'", obj));
     }
 
     private String nativeName(Object obj) {
@@ -477,16 +475,6 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
             return namedElementVariableName((TNamedElement) obj);
         }
         throw new DMNRuntimeException(String.format("Variable name cannot be null for '%s'", obj));
-    }
-
-    private TNamedElement extractElement(Object obj) {
-        TNamedElement element = null;
-        if (obj instanceof TNamedElement) {
-            element = (TNamedElement) obj;
-        } else if (obj instanceof DRGElementReference) {
-            element = ((DRGElementReference) obj).getElement();
-        }
-        return element;
     }
 
     @Override
@@ -962,6 +950,18 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
             return javaName;
         } else {
             return String.format("%s_%s", javaPrefix, javaName);
+        }
+    }
+
+    private String drgReferenceQualifiedDisplayName(ImportPath importPath, String modelName, String elementName) {
+        Pair<List<String>, String> qName = qualifiedName(importPath, modelName, elementName);
+
+        String modelPrefix = qName.getLeft().stream().collect(Collectors.joining("."));
+        String localName = qName.getRight();
+        if (StringUtils.isBlank(modelPrefix)) {
+            return localName;
+        } else {
+            return String.format("%s.%s", modelPrefix, localName);
         }
     }
 

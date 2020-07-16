@@ -53,8 +53,8 @@ public class SUM extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
             // Start decision 'sUM'
             long sUMStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments sUMArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            sUMArguments_.put("a", a);
-            sUMArguments_.put("b", b);
+            sUMArguments_.put("A", a);
+            sUMArguments_.put("B", b);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, sUMArguments_);
 
             // Evaluate decision 'sUM'

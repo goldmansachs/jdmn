@@ -53,7 +53,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
             // Start decision 'outputExecutionAnalysisResult'
             long outputExecutionAnalysisResultStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments outputExecutionAnalysisResultArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            outputExecutionAnalysisResultArguments_.put("inputValue", inputValue);
+            outputExecutionAnalysisResultArguments_.put("InputValue", inputValue);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, outputExecutionAnalysisResultArguments_);
 
             // Evaluate decision 'outputExecutionAnalysisResult'

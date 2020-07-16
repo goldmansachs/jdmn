@@ -53,7 +53,7 @@ public class DependentDecision2 extends com.gs.dmn.signavio.runtime.DefaultSigna
             // Start decision 'dependentDecision2'
             long dependentDecision2StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments dependentDecision2Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            dependentDecision2Arguments_.put("dD2NumberInput", dD2NumberInput);
+            dependentDecision2Arguments_.put("DD2 Number Input", dD2NumberInput);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, dependentDecision2Arguments_);
 
             // Evaluate decision 'dependentDecision2'

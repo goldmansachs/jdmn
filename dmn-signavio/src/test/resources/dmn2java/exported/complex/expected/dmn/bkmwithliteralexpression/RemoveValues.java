@@ -59,7 +59,7 @@ public class RemoveValues extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
             // Start decision 'removeValues'
             long removeValuesStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments removeValuesArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            removeValuesArguments_.put("listOfNumbers", listOfNumbers);
+            removeValuesArguments_.put("ListOfNumbers", listOfNumbers);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, removeValuesArguments_);
 
             // Apply child decisions

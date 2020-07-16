@@ -53,7 +53,7 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSigna
             // Start decision 'assessApplicantAge'
             long assessApplicantAgeStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments assessApplicantAgeArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            assessApplicantAgeArguments_.put("applicant", applicant);
+            assessApplicantAgeArguments_.put("Applicant", applicant);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, assessApplicantAgeArguments_);
 
             // Evaluate decision 'assessApplicantAge'

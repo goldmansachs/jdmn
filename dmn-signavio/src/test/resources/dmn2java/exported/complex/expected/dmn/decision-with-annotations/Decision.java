@@ -53,12 +53,12 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             // Start decision 'decision'
             long decisionStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decisionArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            decisionArguments_.put("booleanInput", booleanInput);
-            decisionArguments_.put("dateInput", dateInput);
-            decisionArguments_.put("enumerationInput", enumerationInput);
-            decisionArguments_.put("numberInput", numberInput);
-            decisionArguments_.put("person", person);
-            decisionArguments_.put("stringInput", stringInput);
+            decisionArguments_.put("BooleanInput", booleanInput);
+            decisionArguments_.put("DateInput", dateInput);
+            decisionArguments_.put("EnumerationInput", enumerationInput);
+            decisionArguments_.put("NumberInput", numberInput);
+            decisionArguments_.put("Person", person);
+            decisionArguments_.put("StringInput", stringInput);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decisionArguments_);
 
             // Evaluate decision 'decision'

@@ -53,7 +53,7 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
             // Start decision 'processPriorIssues'
             long processPriorIssuesStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments processPriorIssuesArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            processPriorIssuesArguments_.put("applicant", applicant);
+            processPriorIssuesArguments_.put("Applicant", applicant);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, processPriorIssuesArguments_);
 
             // Evaluate decision 'processPriorIssues'

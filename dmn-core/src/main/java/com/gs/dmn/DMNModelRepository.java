@@ -971,7 +971,7 @@ public class DMNModelRepository {
         if (StringUtils.isBlank(name)) {
             throw new DMNRuntimeException(String.format("Display name cannot be null for element '%s'", element == null ? null : element.getId()));
         }
-        return name;
+        return name.trim();
     }
 
     public String label(TDMNElement element) {
@@ -987,7 +987,7 @@ public class DMNModelRepository {
         if (StringUtils.isBlank(name)) {
             throw new DMNRuntimeException(String.format("Display name cannot be null for element '%s'", element.getId()));
         }
-        return name;
+        return name.trim();
     }
 
     public String findChildImportName(TDRGElement parent, TDRGElement child) {

@@ -59,9 +59,9 @@ public class MakeCreditDecision extends com.gs.dmn.signavio.runtime.DefaultSigna
             // Start decision 'makeCreditDecision'
             long makeCreditDecisionStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments makeCreditDecisionArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            makeCreditDecisionArguments_.put("applicant", applicant);
-            makeCreditDecisionArguments_.put("currentRiskAppetite", currentRiskAppetite);
-            makeCreditDecisionArguments_.put("lendingThreshold", lendingThreshold);
+            makeCreditDecisionArguments_.put("Applicant", applicant);
+            makeCreditDecisionArguments_.put("Current risk appetite", currentRiskAppetite);
+            makeCreditDecisionArguments_.put("Lending threshold", lendingThreshold);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, makeCreditDecisionArguments_);
 
             // Apply child decisions

@@ -64,7 +64,7 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
             decideArguments_.put("date", date);
             decideArguments_.put("datetime", datetime);
             decideArguments_.put("time", time);
-            decideArguments_.put("time2", time2);
+            decideArguments_.put("time 2", time2);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decideArguments_);
 
             // Apply child decisions

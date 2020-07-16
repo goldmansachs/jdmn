@@ -55,7 +55,7 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             com.gs.dmn.runtime.listener.Arguments compileArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             compileArguments_.put("name", name);
             compileArguments_.put("numbers", numbers);
-            compileArguments_.put("trafficLight", trafficLight);
+            compileArguments_.put("Traffic Light", trafficLight);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, compileArguments_);
 
             // Evaluate decision 'compile'

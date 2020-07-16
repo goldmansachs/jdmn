@@ -64,9 +64,9 @@ public class Appendall extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
             long appendallStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments appendallArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             appendallArguments_.put("rgb1", rgb1);
-            appendallArguments_.put("rgb1List", rgb1List);
+            appendallArguments_.put("rgb1 list", rgb1List);
             appendallArguments_.put("rgb2", rgb2);
-            appendallArguments_.put("rgb2List", rgb2List);
+            appendallArguments_.put("rgb2 list", rgb2List);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, appendallArguments_);
 
             // Apply child decisions

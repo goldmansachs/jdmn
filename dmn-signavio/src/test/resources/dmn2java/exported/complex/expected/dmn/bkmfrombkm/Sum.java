@@ -66,7 +66,7 @@ public class Sum extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
             sumArguments_.put("date", date);
             sumArguments_.put("datetime", datetime);
             sumArguments_.put("time", time);
-            sumArguments_.put("time2", time2);
+            sumArguments_.put("time 2", time2);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, sumArguments_);
 
             // Apply child decisions

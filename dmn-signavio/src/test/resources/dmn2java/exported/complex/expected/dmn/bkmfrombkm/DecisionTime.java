@@ -53,7 +53,7 @@ public class DecisionTime extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
             // Start decision 'decisionTime'
             long decisionTimeStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decisionTimeArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            decisionTimeArguments_.put("timeInput", timeInput);
+            decisionTimeArguments_.put("time input", timeInput);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decisionTimeArguments_);
 
             // Evaluate decision 'decisionTime'

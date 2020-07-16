@@ -54,7 +54,7 @@ public class DateCompare1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start decision 'dateCompare1'
             long dateCompare1StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments dateCompare1Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            dateCompare1Arguments_.put("dateD", decisioninputs_dateD);
+            dateCompare1Arguments_.put("decisionInputs.dateD", decisioninputs_dateD);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, dateCompare1Arguments_);
 
             // Evaluate decision 'dateCompare1'

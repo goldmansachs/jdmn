@@ -54,7 +54,7 @@ public class PriceGt10 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start decision 'priceGt10'
             long priceGt10StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments priceGt10Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            priceGt10Arguments_.put("structA", decisioninputs_structA);
+            priceGt10Arguments_.put("decisionInputs.structA", decisioninputs_structA);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, priceGt10Arguments_);
 
             // Evaluate decision 'priceGt10'

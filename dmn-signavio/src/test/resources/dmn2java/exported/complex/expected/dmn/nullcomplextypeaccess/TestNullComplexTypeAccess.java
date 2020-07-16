@@ -41,7 +41,7 @@ public class TestNullComplexTypeAccess extends com.gs.dmn.signavio.runtime.Defau
             // Start decision 'testNullComplexTypeAccess'
             long testNullComplexTypeAccessStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments testNullComplexTypeAccessArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            testNullComplexTypeAccessArguments_.put("inputString", inputString);
+            testNullComplexTypeAccessArguments_.put("InputString", inputString);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, testNullComplexTypeAccessArguments_);
 
             // Apply child decisions

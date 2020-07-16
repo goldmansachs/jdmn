@@ -59,8 +59,8 @@ public class Loop extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
             // Start decision 'loop'
             long loopStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments loopArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            loopArguments_.put("a4", a4);
-            loopArguments_.put("b", b);
+            loopArguments_.put("A", a4);
+            loopArguments_.put("B", b);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, loopArguments_);
 
             // Apply child decisions

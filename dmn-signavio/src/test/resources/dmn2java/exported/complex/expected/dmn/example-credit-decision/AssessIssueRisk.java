@@ -59,8 +59,8 @@ public class AssessIssueRisk extends com.gs.dmn.signavio.runtime.DefaultSignavio
             // Start decision 'assessIssueRisk'
             long assessIssueRiskStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments assessIssueRiskArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            assessIssueRiskArguments_.put("applicant", applicant);
-            assessIssueRiskArguments_.put("currentRiskAppetite", currentRiskAppetite);
+            assessIssueRiskArguments_.put("Applicant", applicant);
+            assessIssueRiskArguments_.put("Current risk appetite", currentRiskAppetite);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, assessIssueRiskArguments_);
 
             // Apply child decisions
