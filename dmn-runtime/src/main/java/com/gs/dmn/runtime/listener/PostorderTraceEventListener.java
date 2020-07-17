@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
-public class PostorderTraceEventListener implements EventListener {
+public class PostorderTraceEventListener implements SimpleEventListener {
     // Elements to trace
     private final List<String> drgElementNames = new ArrayList<>();
 
@@ -29,7 +29,7 @@ public class PostorderTraceEventListener implements EventListener {
     private final List<DRGElementNode> elementNodes = new ArrayList<>();
 
     // Temp data
-    Stack<DRGElementNode> elementNodeStack = new Stack<>();
+    private final Stack<DRGElementNode> elementNodeStack = new Stack<>();
     private RuleNode ruleNode;
 
     public PostorderTraceEventListener() {

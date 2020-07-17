@@ -20,24 +20,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-public class TreeTraceEventListener implements EventListener {
-    // Elements to trace
-    private final List<String> drgElementNames = new ArrayList<>();
-
+public class TreeTraceEventListener implements SimpleEventListener {
     // Output
     DRGElementNode root = null;
 
     // Temp data
-    Stack<DRGElementNode> elementNodeStack = new Stack<>();
+    private final Stack<DRGElementNode> elementNodeStack = new Stack<>();
     private RuleNode ruleNode;
 
     public TreeTraceEventListener() {
-    }
-
-    public TreeTraceEventListener(List<String> drgElementNames) {
-        if (drgElementNames != null) {
-            this.drgElementNames.addAll(drgElementNames);
-        }
     }
 
     @Override
