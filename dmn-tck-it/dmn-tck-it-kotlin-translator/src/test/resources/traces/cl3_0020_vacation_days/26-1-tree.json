@@ -12,7 +12,7 @@
     "Age": 16,
     "'Years of Service'": 1
   },
-  "ruleTraces": [],
+  "ruleNodes": [],
   "children": [
     {
       "element": {
@@ -25,7 +25,7 @@
         "rulesCount": -1
       },
       "arguments": {},
-      "ruleTraces": [],
+      "ruleNodes": [],
       "children": []
     },
     {
@@ -42,7 +42,7 @@
         "Age": 16,
         "'Years of Service'": 1
       },
-      "ruleTraces": [
+      "ruleNodes": [
         {
           "rule": {
             "index": 1,
@@ -102,7 +102,7 @@
         "Age": 16,
         "'Years of Service'": 1
       },
-      "ruleTraces": [
+      "ruleNodes": [
         {
           "rule": {
             "index": 1,
@@ -158,7 +158,7 @@
         "Age": 16,
         "'Years of Service'": 1
       },
-      "ruleTraces": [
+      "ruleNodes": [
         {
           "rule": {
             "index": 1,

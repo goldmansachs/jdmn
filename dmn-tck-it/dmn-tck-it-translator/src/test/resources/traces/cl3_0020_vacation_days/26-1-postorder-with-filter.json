@@ -13,7 +13,7 @@
       "Age": 16,
       "'Years of Service'": 1
     },
-    "ruleTraces": [
+    "ruleNodes": [
       {
         "rule": {
           "index": 1,
@@ -73,7 +73,7 @@
       "Age": 16,
       "'Years of Service'": 1
     },
-    "ruleTraces": [
+    "ruleNodes": [
       {
         "rule": {
           "index": 1,
