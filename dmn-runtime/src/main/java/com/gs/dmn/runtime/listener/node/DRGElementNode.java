@@ -21,7 +21,7 @@ import java.util.List;
 public class DRGElementNode {
     private final DRGElement element;
     private final Arguments arguments;
-    private List<RuleNode> ruleTraces = new ArrayList<>();
+    private List<RuleNode> ruleNodes = new ArrayList<>();
     private List<DRGElementNode> children = new ArrayList<>();
 
     public DRGElementNode(DRGElement element, Arguments arguments) {
@@ -30,7 +30,7 @@ public class DRGElementNode {
     }
 
     public void addRuleNode(RuleNode ruleTrace) {
-        this.ruleTraces.add(ruleTrace);
+        this.ruleNodes.add(ruleTrace);
     }
 
     public DRGElement getElement() {
@@ -41,8 +41,8 @@ public class DRGElementNode {
         return arguments;
     }
 
-    public List<RuleNode> getRuleTraces() {
-        return ruleTraces;
+    public List<RuleNode> getRuleNodes() {
+        return ruleNodes;
     }
 
     public List<DRGElementNode> getChildren() {

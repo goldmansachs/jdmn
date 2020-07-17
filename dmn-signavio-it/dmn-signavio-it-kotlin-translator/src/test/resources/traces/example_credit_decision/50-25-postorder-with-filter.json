@@ -21,7 +21,7 @@
       "Current risk appetite": 50,
       "Lending threshold": 25
     },
-    "ruleTraces": [
+    "ruleNodes": [
       {
         "rule": {
           "index": 2,
