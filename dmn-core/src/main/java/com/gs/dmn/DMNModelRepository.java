@@ -309,6 +309,10 @@ public class DMNModelRepository {
         }
     }
 
+    public boolean hasComponents(TItemDefinition itemDefinition) {
+        return !this.isEmpty(itemDefinition.getItemComponent());
+    }
+
     public List<TItemDefinition> sortItemComponent(TItemDefinition itemDefinition) {
         if (itemDefinition == null || itemDefinition.getItemComponent() == null) {
             return new ArrayList<>();
