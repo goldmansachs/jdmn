@@ -17,12 +17,16 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
+import com.gs.dmn.transformation.proto.MessageType;
+import com.gs.dmn.transformation.proto.Service;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.StopWatch;
 import org.omg.spec.dmn._20180521.model.TBusinessKnowledgeModel;
 import org.omg.spec.dmn._20180521.model.TDecision;
@@ -36,6 +40,8 @@ import java.util.*;
 import static com.gs.dmn.serialization.DMNReader.isDMNFile;
 
 public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractDMNTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> implements DMNToNativeTransformer {
+    private static final String DMN_PROTO_FILE_NAME = "jdmn";
+
     public static final String DATA_PACKAGE = "type";
     public static final String DECISION_RULE_OUTPUT_CLASS_SUFFIX = "RuleOutput";
     public static final String PRIORITY_SUFFIX = "Priority";
@@ -51,6 +57,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
     protected final String dmnVersion;
     protected final String modelVersion;
     protected final String platformVersion;
+    protected final String proto;
 
     public AbstractDMNToNativeTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dialectDefinition, DMNValidator dmnValidator, DMNTransformer<TEST> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
         super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
@@ -58,6 +65,8 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         this.dmnVersion = InputParamUtil.getRequiredParam(inputParameters, "dmnVersion");
         this.modelVersion = InputParamUtil.getRequiredParam(inputParameters, "modelVersion");
         this.platformVersion = InputParamUtil.getRequiredParam(inputParameters, "platformVersion");
+
+        this.proto = InputParamUtil.getOptionalParam(inputParameters, "proto");
     }
 
     @Override
@@ -105,6 +114,9 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
             // Generate decisions
             List<TDecision> decisions = dmnModelRepository.findDecisions(definitions);
             transformDecisionList(definitions, decisions, dmnTransformer, generatedClasses, outputPath, decisionBaseClass);
+
+            // Generate .proto file
+            generateProtoFile(definitions, dmnTransformer, outputPath);
         }
     }
 
@@ -144,6 +156,29 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         } else {
             processTemplate(itemDefinition, baseTemplatePath, itemDefinitionTemplate, dmnTransformer, outputPath, typePackageName, typeName);
             generatedClasses.add(qualifiedName);
+        }
+    }
+
+    private void generateProtoFile(TDefinitions definitions, BasicDMNToNativeTransformer dmnTransformer, Path outputPath) {
+        if (StringUtils.isBlank(this.proto)) {
+            return;
+        }
+
+        Pair<Pair<List<MessageType>, List<MessageType>>, List<Service>> pair = dmnTransformer.dmnToProto(definitions);
+
+        try {
+            // Make output file
+            String protoFileName = DMN_PROTO_FILE_NAME;
+            String modelPackageName = dmnTransformer.nativeModelPackageName(definitions.getName());
+            String relativeFilePath = modelPackageName.replace('.', '/');
+            String fileExtension = ".proto";
+            File outputFile = makeOutputFile(outputPath, relativeFilePath, protoFileName, fileExtension);
+
+            // Make parameters
+            Map<String, Object> params = makeProtoTemplateParams(pair.getLeft(), pair.getRight(), modelPackageName, dmnTransformer);
+            processTemplate(templateProvider.baseTemplatePath(), "common/proto.ftl", params, outputFile, false);
+        } catch (Exception e) {
+            throw new DMNRuntimeException(String.format("Error generation .proto file for model '%s'", definitions.getName()), e);
         }
     }
 
@@ -279,6 +314,16 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         params.put("drgElement", decision);
         params.put("decisionBaseClass", decisionBaseClass);
         addCommonParams(params, javaPackageName, javaClassName, dmnTransformer);
+        return params;
+    }
+
+    private Map<String, Object> makeProtoTemplateParams(Pair<List<MessageType>, List<MessageType>> messageTypes, List<Service> services, String javaPackageName, BasicDMNToNativeTransformer dmnTransformer) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("javaPackageName", javaPackageName);
+        params.put("dataTypes", messageTypes.getLeft());
+        params.put("responseRequestTypes", messageTypes.getRight());
+        params.put("services", services);
+        params.put("transformer", dmnTransformer);
         return params;
     }
 
