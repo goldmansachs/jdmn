@@ -27,6 +27,7 @@ import com.gs.dmn.feel.synthesis.FEELTranslatorImpl;
 import com.gs.dmn.feel.synthesis.expression.JavaExpressionFactory;
 import com.gs.dmn.feel.synthesis.expression.NativeExpressionFactory;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
+import com.gs.dmn.feel.synthesis.type.ProtoBufferFactory;
 import com.gs.dmn.runtime.*;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
 import com.gs.dmn.runtime.annotation.DRGElementKind;
@@ -50,6 +51,8 @@ import com.gs.dmn.transformation.java.ExpressionStatement;
 import com.gs.dmn.transformation.java.Statement;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.LazyEvaluationOptimisation;
+import com.gs.dmn.transformation.proto.MessageType;
+import com.gs.dmn.transformation.proto.Service;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.*;
 import org.slf4j.Logger;
@@ -66,6 +69,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     protected final DMNModelRepository dmnModelRepository;
     protected final EnvironmentFactory environmentFactory;
     protected final NativeTypeFactory nativeTypeFactory;
+    protected final ProtoBufferFactory protoFactory;
     private final LazyEvaluationDetector lazyEvaluationDetector;
 
     private final String javaRootPackage;
@@ -77,6 +81,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     private final LazyEvaluationOptimisation lazyEvaluationOptimisation;
     private final Set<String> cachedElements;
+    private final String proto;
 
     protected DMNEnvironmentFactory dmnEnvironmentFactory;
     protected NativeExpressionFactory nativeExpressionFactory;
@@ -100,6 +105,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         this.cachingThreshold = Integer.parseInt(cachingThresholdParam);
         this.singletonInputData = InputParamUtil.getOptionalBooleanParam(inputParameters, "singletonInputData", "true");
         this.parallelStream = InputParamUtil.getOptionalBooleanParam(inputParameters, "parallelStream", "false");
+        this.proto = InputParamUtil.getOptionalParam(inputParameters, "proto");
 
         // Derived data
         this.lazyEvaluationOptimisation = this.lazyEvaluationDetector.detect(this.dmnModelRepository);
@@ -110,6 +116,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         setFEELTranslator(this);
         setDMNEnvironmentFactory(this);
         setExpressionToNativeTransformer(this);
+        this.protoFactory = new ProtoBufferFactory(this);
 
         this.drgElementFilter = new DRGElementFilter(this.singletonInputData);
         this.nativeTypeMemoizer = new JavaTypeMemoizer();
@@ -1905,5 +1912,21 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     @Override
     public boolean isJavaFunction(TFunctionKind kind) {
         return kind == TFunctionKind.JAVA;
+    }
+
+    @Override
+    public String protoVersion() {
+        if ("proto3".equals(this.proto)) {
+            return this.proto;
+        } else if ("proto".equals(this.proto)) {
+            return "proto3";
+        } else if ("proto2".equals(this.proto)) {
+            return this.proto;
+        }
+        throw new DMNRuntimeException(String.format("Illegal proto version '%s'", this.proto));
+    }
+
+    public Pair<Pair<List<MessageType>, List<MessageType>>, List<Service>> dmnToProto(TDefinitions definitions) {
+        return this.protoFactory.dmnToProto(definitions);
     }
 }

@@ -29,6 +29,8 @@ import com.gs.dmn.runtime.annotation.DRGElementKind;
 import com.gs.dmn.runtime.annotation.ExpressionKind;
 import com.gs.dmn.runtime.annotation.HitPolicy;
 import com.gs.dmn.transformation.java.Statement;
+import com.gs.dmn.transformation.proto.MessageType;
+import com.gs.dmn.transformation.proto.Service;
 import org.omg.spec.dmn._20180521.model.*;
 
 import javax.xml.bind.JAXBElement;
@@ -503,4 +505,9 @@ public interface BasicDMNToNativeTransformer {
     boolean isFEELFunction(TFunctionKind kind);
 
     boolean isJavaFunction(TFunctionKind kind);
+
+    // Proto
+    String protoVersion();
+
+    Pair<Pair<List<MessageType>, List<MessageType>>, List<Service>> dmnToProto(TDefinitions definitions);
 }
