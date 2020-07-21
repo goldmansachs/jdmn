@@ -1084,4 +1084,21 @@ public class DMNModelRepository {
     protected static boolean hasNamespace(String href) {
         return href != null && href.indexOf('#') > 0;
     }
+
+    public List<TItemDefinition> compositeItemDefinitions(TDefinitions definitions) {
+        List<TItemDefinition> accumulator = new ArrayList<>();
+        collectCompositeItemDefinitions(definitions.getItemDefinition(), accumulator);
+        return accumulator;
+    }
+
+    private void collectCompositeItemDefinitions(List<TItemDefinition> itemDefinitions, List<TItemDefinition> accumulator) {
+        if (itemDefinitions != null) {
+            for (TItemDefinition itemDefinition: itemDefinitions) {
+                if (hasComponents(itemDefinition)) {
+                    accumulator.add(itemDefinition);
+                    collectCompositeItemDefinitions(itemDefinition.getItemComponent(), accumulator);
+                }
+            }
+        }
+    }
 }

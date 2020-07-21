@@ -247,11 +247,10 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     //
     // TInformationItem related functions
     //
-    @Override
-    public String informationItemTypeName(TBusinessKnowledgeModel bkm, TInformationItem element) {
+    private Type informationItemType(TBusinessKnowledgeModel bkm, TInformationItem element) {
         TDefinitions model = this.dmnModelRepository.getModel(bkm);
         Type type = toFEELType(model, QualifiedName.toQualifiedName(model, element.getTypeRef()));
-        return toNativeType(type);
+        return type;
     }
 
     @Override
@@ -350,18 +349,29 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String drgElementSignature(DRGElementReference<? extends TDRGElement> reference) {
+        List<Pair<String, Type>> parameters = drgElementTypeSignature(reference, this::nativeName);
+        String decisionSignature = parameters.stream().map(p -> this.nativeExpressionFactory.nullableParameter(toNativeType(p.getRight()), p.getLeft())).collect(Collectors.joining(", "));
+        return augmentSignature(decisionSignature);
+    }
+
+    @Override
+    public List<Pair<String, Type>> drgElementTypeSignature(DRGElementReference<? extends TDRGElement> reference, Function<Object, String> nameProducer) {
         TDRGElement element = reference.getElement();
         if (element instanceof TBusinessKnowledgeModel) {
-            List<Pair<String, String>> parameters = bkmParameters((DRGElementReference<TBusinessKnowledgeModel>) reference);
-            String signature = parameters.stream().map(p -> this.nativeExpressionFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
-            return augmentSignature(signature);
+            List<Pair<String, Type>> parameters = bkmParameters((DRGElementReference<TBusinessKnowledgeModel>) reference, nameProducer);
+            return parameters;
         } else if (element instanceof TDecision) {
-            List<Pair<String, Type>> parameters = inputDataParametersClosure((DRGElementReference<TDecision>) reference);
-            String decisionSignature = parameters.stream().map(p -> this.nativeExpressionFactory.nullableParameter(toNativeType(p.getRight()), p.getLeft())).collect(Collectors.joining(", "));
-            return augmentSignature(decisionSignature);
+            List<Pair<String, Type>> parameters = inputDataParametersClosure((DRGElementReference<TDecision>) reference, nameProducer);
+            return parameters;
         } else {
-            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
+            throw new DMNRuntimeException(String.format("Not supported yet '%s'", element.getClass().getSimpleName()));
         }
+    }
+
+    @Override
+    public List<Pair<String, Type>> drgElementTypeSignature(TDRGElement element, Function<Object, String> nameProducer) {
+        DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
+        return drgElementTypeSignature(reference, nameProducer);
     }
 
     @Override
@@ -372,18 +382,9 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String drgElementArgumentList(DRGElementReference<? extends TDRGElement> reference) {
-        TDRGElement element = reference.getElement();
-        if (element instanceof TBusinessKnowledgeModel) {
-            List<Pair<String, String>> parameters = bkmParameters((DRGElementReference<TBusinessKnowledgeModel>) reference);
-            String arguments = parameters.stream().map(p -> String.format("%s", p.getLeft())).collect(Collectors.joining(", "));
-            return augmentArgumentList(arguments);
-        } else if (element instanceof TDecision) {
-            List<Pair<String, Type>> parameters = inputDataParametersClosure((DRGElementReference<TDecision>) reference);
-            String arguments = parameters.stream().map(p -> String.format("%s", p.getLeft())).collect(Collectors.joining(", "));
-            return augmentArgumentList(arguments);
-        } else {
-            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
-        }
+        List<Pair<String, Type>> parameters = drgElementTypeSignature(reference, this::nativeName);
+        String arguments = parameters.stream().map(p -> String.format("%s", p.getLeft())).collect(Collectors.joining(", "));
+        return augmentArgumentList(arguments);
     }
 
     @Override
@@ -394,18 +395,9 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String drgElementConvertedArgumentList(DRGElementReference<? extends TDRGElement> reference) {
-        TDRGElement element = reference.getElement();
-        if (element instanceof TBusinessKnowledgeModel) {
-            List<Pair<String, String>> parameters = bkmParameters((DRGElementReference<TBusinessKnowledgeModel>) reference);
-            String arguments = parameters.stream().map(p -> String.format("%s", p.getLeft())).collect(Collectors.joining(", "));
-            return augmentArgumentList(arguments);
-        } else if (element instanceof TDecision) {
-            List<Pair<String, Type>> parameters = inputDataParametersClosure((DRGElementReference<TDecision>) reference);
-            String arguments = parameters.stream().map(p -> String.format("%s", convertDecisionArgument(p.getLeft(), p.getRight()))).collect(Collectors.joining(", "));
-            return augmentArgumentList(arguments);
-        } else {
-            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
-        }
+        List<Pair<String, Type>> parameters = drgElementTypeSignature(reference, this::nativeName);
+        String arguments = parameters.stream().map(p -> String.format("%s", convertDecisionArgument(p.getLeft(), p.getRight()))).collect(Collectors.joining(", "));
+        return augmentArgumentList(arguments);
     }
 
     @Override
@@ -431,22 +423,12 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     protected List<String> drgElementArgumentNameList(DRGElementReference<? extends TDRGElement> reference, Function<Object, String> nameProducer) {
-        TDRGElement element = reference.getElement();
-        if (element instanceof TBusinessKnowledgeModel) {
-            List<Pair<String, String>> parameters = bkmParameters((DRGElementReference<TBusinessKnowledgeModel>) reference, nameProducer);
-            return parameters.stream().map(Pair::getLeft).collect(Collectors.toList());
-        } else if (element instanceof TDecisionService) {
-            List<Pair<String, Type>> parameters = dsParameters((DRGElementReference<TDecisionService>) reference, nameProducer);
-            return parameters.stream().map(Pair::getLeft).collect(Collectors.toList());
-        } else if (element instanceof TDecision) {
-            List<Pair<String, Type>> parameters = inputDataParametersClosure((DRGElementReference<TDecision>) reference, nameProducer);
-            return parameters.stream().map(Pair::getLeft).collect(Collectors.toList());
-        } else {
-            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
-        }
+        List<Pair<String, Type>> parameters = drgElementTypeSignature(reference, nameProducer);
+        return parameters.stream().map(Pair::getLeft).collect(Collectors.toList());
     }
 
-    private String elementName(Object obj) {
+    @Override
+    public String elementName(Object obj) {
         if (obj instanceof DRGElementReference) {
             DRGElementReference reference = (DRGElementReference) obj;
             String elementName = this.dmnModelRepository.name(reference.getElement());
@@ -457,7 +439,8 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         throw new DMNRuntimeException(String.format("Variable name cannot be null for '%s'", obj));
     }
 
-    private String displayName(Object obj) {
+    @Override
+    public String displayName(Object obj) {
         if (obj instanceof DRGElementReference) {
             DRGElementReference reference = (DRGElementReference) obj;
             String elementName = this.dmnModelRepository.displayName(reference.getElement());
@@ -468,7 +451,8 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         throw new DMNRuntimeException(String.format("Variable name cannot be null for '%s'", obj));
     }
 
-    private String nativeName(Object obj) {
+    @Override
+    public String nativeName(Object obj) {
         if (obj instanceof DRGElementReference) {
             return drgElementReferenceVariableName((DRGElementReference) obj);
         } else if (obj instanceof TNamedElement) {
@@ -782,18 +766,18 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         return bkmFEELParameters(bkm).stream().map(FormalParameter::getName).collect(Collectors.toList());
     }
 
-    protected List<Pair<String, String>> bkmParameters(DRGElementReference<TBusinessKnowledgeModel> reference) {
+    protected List<Pair<String, Type>> bkmParameters(DRGElementReference<TBusinessKnowledgeModel> reference) {
         return bkmParameters(reference, this::nativeName);
     }
 
-    protected List<Pair<String, String>> bkmParameters(DRGElementReference<TBusinessKnowledgeModel> reference, Function<Object, String> nameProducer) {
-        List<Pair<String, String>> parameters = new ArrayList<>();
+    protected List<Pair<String, Type>> bkmParameters(DRGElementReference<TBusinessKnowledgeModel> reference, Function<Object, String> nameProducer) {
+        List<Pair<String, Type>> parameters = new ArrayList<>();
         TBusinessKnowledgeModel bkm = reference.getElement();
         TFunctionDefinition encapsulatedLogic = bkm.getEncapsulatedLogic();
         List<TInformationItem> formalParameters = encapsulatedLogic.getFormalParameter();
         for (TInformationItem parameter : formalParameters) {
             String parameterName = nameProducer.apply(parameter);
-            String parameterType = informationItemTypeName(bkm, parameter);
+            Type parameterType = informationItemType(bkm, parameter);
             parameters.add(new Pair<>(parameterName, parameterType));
         }
         return parameters;
