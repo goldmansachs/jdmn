@@ -122,7 +122,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         }
 
         // Complex type
-        if (!dmnTransformer.getDMNModelRepository().isEmpty(itemDefinition.getItemComponent())) {
+        if (dmnTransformer.getDMNModelRepository().hasComponents(itemDefinition)) {
             logger.debug(String.format("Generating code for ItemDefinition '%s'", itemDefinition.getName()));
 
             String typePackageName = dmnTransformer.nativeTypePackageName(definitions.getName());
