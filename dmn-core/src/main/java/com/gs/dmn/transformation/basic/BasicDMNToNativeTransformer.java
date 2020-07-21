@@ -34,6 +34,7 @@ import org.omg.spec.dmn._20180521.model.*;
 import javax.xml.bind.JAXBElement;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 public interface BasicDMNToNativeTransformer {
     DMNModelRepository getDMNModelRepository();
@@ -81,8 +82,6 @@ public interface BasicDMNToNativeTransformer {
     //
     // TInformationItem related functions
     //
-    String informationItemTypeName(TBusinessKnowledgeModel bkm, TInformationItem element);
-
     String defaultConstructor(String className);
 
     String constructor(String className, String arguments);
@@ -111,6 +110,10 @@ public interface BasicDMNToNativeTransformer {
     Type drgElementVariableFEELType(TDRGElement element, Environment environment);
 
     String annotation(TDRGElement element, String description);
+
+    List<Pair<String, Type>> drgElementTypeSignature(TDRGElement element, Function<Object, String> nameProducer);
+
+    List<Pair<String, Type>> drgElementTypeSignature(DRGElementReference<? extends TDRGElement> reference, Function<Object, String> nameProducer);
 
     String drgElementSignature(TDRGElement element);
 
@@ -160,6 +163,12 @@ public interface BasicDMNToNativeTransformer {
     // NamedElement functions
     //
     String namedElementVariableName(TNamedElement element);
+
+    String elementName(Object obj);
+
+    String displayName(Object obj);
+
+    String nativeName(Object obj);
 
     //
     // Evaluate method related functions
