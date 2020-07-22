@@ -57,7 +57,6 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
     protected final String dmnVersion;
     protected final String modelVersion;
     protected final String platformVersion;
-    protected final String proto;
 
     public AbstractDMNToNativeTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dialectDefinition, DMNValidator dmnValidator, DMNTransformer<TEST> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger) {
         super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
@@ -65,8 +64,6 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         this.dmnVersion = InputParamUtil.getRequiredParam(inputParameters, "dmnVersion");
         this.modelVersion = InputParamUtil.getRequiredParam(inputParameters, "modelVersion");
         this.platformVersion = InputParamUtil.getRequiredParam(inputParameters, "platformVersion");
-
-        this.proto = InputParamUtil.getOptionalParam(inputParameters, "proto");
     }
 
     @Override
@@ -160,11 +157,10 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
     }
 
     private void generateProtoFile(TDefinitions definitions, BasicDMNToNativeTransformer dmnTransformer, Path outputPath) {
-        if (StringUtils.isBlank(this.proto)) {
+        Pair<Pair<List<MessageType>, List<MessageType>>, List<Service>> pair = dmnTransformer.dmnToProto(definitions);
+        if (pair == null) {
             return;
         }
-
-        Pair<Pair<List<MessageType>, List<MessageType>>, List<Service>> pair = dmnTransformer.dmnToProto(definitions);
 
         try {
             // Make output file

@@ -34,7 +34,6 @@ message TRequestedProduct {
     double term = 4;
 }
 
-
 //
 // Request / response types
 //
@@ -225,7 +224,6 @@ message StrategyResponse {
     string strategy = 1;
 }
 
-
 //
 // Services
 //
@@ -308,5 +306,4 @@ service RoutingRulesService {
 service StrategyService {
     rpc apply(StrategyRequest) returns (StrategyResponse);
 }
-
 
