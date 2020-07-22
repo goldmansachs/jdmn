@@ -417,13 +417,7 @@ specific language governing permissions and limitations under the License.]]></i
             <dependency>
                 <groupId>org.reflections</groupId>
                 <artifactId>reflections</artifactId>
-                <version>0.9.11</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.javassist</groupId>
-                        <artifactId>javassist</artifactId>
-                    </exclusion>
-                </exclusions>
+                <version>0.9.12</version>
             </dependency>
 
             <dependency>
