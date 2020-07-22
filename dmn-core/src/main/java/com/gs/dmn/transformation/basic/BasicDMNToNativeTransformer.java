@@ -506,12 +506,16 @@ public interface BasicDMNToNativeTransformer {
 
     boolean isJavaFunction(TFunctionKind kind);
 
-    // Proto
+    //
+    // .proto related functions
+    //
     boolean isGenerateProtoMessages();
 
     boolean isGenerateProtoServices();
 
     String getProtoVersion();
+
+    String protoPackage(String javaPackageName);
 
     Pair<Pair<List<MessageType>, List<MessageType>>, List<Service>> dmnToProto(TDefinitions definitions);
 }

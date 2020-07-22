@@ -1918,10 +1918,15 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         return kind == TFunctionKind.JAVA;
     }
 
+    //
+    // .proto related functions
+    //
+    @Override
     public boolean isGenerateProtoMessages() {
         return generateProtoMessages;
     }
 
+    @Override
     public boolean isGenerateProtoServices() {
         return generateProtoServices;
     }
@@ -1934,6 +1939,16 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         throw new DMNRuntimeException(String.format("Illegal proto version '%s'", this.protoVersion));
     }
 
+    @Override
+    public String protoPackage(String javaPackageName) {
+        if (StringUtils.isBlank(javaPackageName)) {
+            return "proto";
+        } else {
+            return javaPackageName + ".proto";
+        }
+    }
+
+    @Override
     public Pair<Pair<List<MessageType>, List<MessageType>>, List<Service>> dmnToProto(TDefinitions definitions) {
         return this.protoFactory.dmnToProto(definitions);
     }
