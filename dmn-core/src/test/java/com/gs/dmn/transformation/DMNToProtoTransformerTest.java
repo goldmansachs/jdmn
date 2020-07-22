@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.transformation;
 
+import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 
 import java.util.Map;
@@ -19,7 +20,7 @@ import java.util.Map;
 public class DMNToProtoTransformerTest extends AbstractTckDMNToJavaTransformerTest {
     @Test
     public void testProto() throws Exception {
-        doSingleModelTest("0004-lending");
+        doSingleModelTest("0004-lending", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"));
     }
 
     @Override
@@ -31,12 +32,4 @@ public class DMNToProtoTransformerTest extends AbstractTckDMNToJavaTransformerTe
     protected String getExpectedPath() {
         return "tck/proto/expected/proto3";
     }
-
-    @Override
-    protected Map<String, String> makeInputParameters() {
-        Map<String, String> inputParams = super.makeInputParameters();
-        inputParams.put("proto", "proto");
-        return inputParams;
-    }
-
 }

@@ -67,6 +67,10 @@ public class ProtoBufferFactory {
     }
 
     public Pair<Pair<List<MessageType>, List<MessageType>>, List<Service>> dmnToProto(TDefinitions definitions) {
+        if (!(this.transformer.isGenerateProtoMessages() || this.transformer.isGenerateProtoServices())) {
+            return null;
+        }
+
         // Make messages for complex types
         List<MessageType> dataTypes = itemDefinitionsToMessageTypes(definitions);
 
@@ -74,7 +78,10 @@ public class ProtoBufferFactory {
         List<MessageType> requestResponseTypes = drgElementsToMessageTypes(definitions);
 
         // Make services
-        List<Service> services = drgElementsToServices(definitions);
+        List<Service> services = new ArrayList<>();
+        if (this.transformer.isGenerateProtoServices()) {
+            services = drgElementsToServices(definitions);
+        }
 
         return new Pair<>(new Pair<>(dataTypes, requestResponseTypes), services);
     }

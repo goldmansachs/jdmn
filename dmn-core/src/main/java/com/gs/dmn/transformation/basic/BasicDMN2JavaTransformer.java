@@ -81,7 +81,9 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     private final LazyEvaluationOptimisation lazyEvaluationOptimisation;
     private final Set<String> cachedElements;
-    private final String proto;
+    private final boolean generateProtoMessages;
+    private final boolean generateProtoServices;
+    private final String protoVersion;
 
     protected DMNEnvironmentFactory dmnEnvironmentFactory;
     protected NativeExpressionFactory nativeExpressionFactory;
@@ -105,7 +107,9 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         this.cachingThreshold = Integer.parseInt(cachingThresholdParam);
         this.singletonInputData = InputParamUtil.getOptionalBooleanParam(inputParameters, "singletonInputData", "true");
         this.parallelStream = InputParamUtil.getOptionalBooleanParam(inputParameters, "parallelStream", "false");
-        this.proto = InputParamUtil.getOptionalParam(inputParameters, "proto");
+        this.generateProtoMessages = InputParamUtil.getOptionalBooleanParam(inputParameters, "generateProtoMessages", "false");
+        this.generateProtoServices = InputParamUtil.getOptionalBooleanParam(inputParameters, "generateProtoServices", "false");
+        this.protoVersion = InputParamUtil.getOptionalParam(inputParameters, "protoVersion", "proto3");
 
         // Derived data
         this.lazyEvaluationOptimisation = this.lazyEvaluationDetector.detect(this.dmnModelRepository);
@@ -1914,16 +1918,20 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         return kind == TFunctionKind.JAVA;
     }
 
+    public boolean isGenerateProtoMessages() {
+        return generateProtoMessages;
+    }
+
+    public boolean isGenerateProtoServices() {
+        return generateProtoServices;
+    }
+
     @Override
-    public String protoVersion() {
-        if ("proto3".equals(this.proto)) {
-            return this.proto;
-        } else if ("proto".equals(this.proto)) {
-            return "proto3";
-        } else if ("proto2".equals(this.proto)) {
-            return this.proto;
+    public String getProtoVersion() {
+        if ("proto3".equals(this.protoVersion)) {
+            return this.protoVersion;
         }
-        throw new DMNRuntimeException(String.format("Illegal proto version '%s'", this.proto));
+        throw new DMNRuntimeException(String.format("Illegal proto version '%s'", this.protoVersion));
     }
 
     public Pair<Pair<List<MessageType>, List<MessageType>>, List<Service>> dmnToProto(TDefinitions definitions) {

@@ -21,7 +21,6 @@ message GenerateOutputData {
     double issue = 3;
 }
 
-
 //
 // Request / response types
 //
@@ -89,7 +88,6 @@ message ProcessPriorIssuesResponse {
     repeated double processPriorIssues = 1;
 }
 
-
 //
 // Services
 //
@@ -120,5 +118,4 @@ service MakeCreditDecisionService {
 service ProcessPriorIssuesService {
     rpc apply(ProcessPriorIssuesRequest) returns (ProcessPriorIssuesResponse);
 }
-
 

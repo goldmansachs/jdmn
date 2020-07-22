@@ -15,12 +15,10 @@ package com.gs.dmn.signavio.transformation;
 import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 
-import java.util.Map;
-
 public class SignavioToProtoTransformerTest extends AbstractSignavioDMNToJavaTest {
     @Test
     public void testProto() throws Exception {
-        doSingleModelTest("Example credit decision", new Pair<>("proto", "proto"));
+        doSingleModelTest("Example credit decision", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"));
     }
 
     @Override
