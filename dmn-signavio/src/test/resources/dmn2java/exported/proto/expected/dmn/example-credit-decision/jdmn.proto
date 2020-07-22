@@ -1,9 +1,9 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "";
+option java_package = "proto";
 
-package ;
+package proto;
 
 //
 // Complex data types
@@ -25,7 +25,7 @@ message GenerateOutputData {
 // Request / response types
 //
 message AssessApplicantAgeRequest {
-    Applicant applicant = 1;
+    proto.Applicant applicant = 1;
 }
 
 message AssessApplicantAgeResponse {
@@ -42,7 +42,7 @@ message AssessIssueResponse {
 }
 
 message AssessIssueRiskRequest {
-    Applicant applicant = 1;
+    proto.Applicant applicant = 1;
     double currentRiskAppetite = 2;
 }
 
@@ -51,7 +51,7 @@ message AssessIssueRiskResponse {
 }
 
 message CompareAgainstLendingThresholdRequest {
-    Applicant applicant = 1;
+    proto.Applicant applicant = 1;
     double currentRiskAppetite = 2;
     double lendingThreshold = 3;
 }
@@ -61,17 +61,17 @@ message CompareAgainstLendingThresholdResponse {
 }
 
 message GenerateOutputDataRequest {
-    Applicant applicant = 1;
+    proto.Applicant applicant = 1;
     double currentRiskAppetite = 2;
     double lendingThreshold = 3;
 }
 
 message GenerateOutputDataResponse {
-    repeated GenerateOutputData generateOutputData = 1;
+    repeated proto.GenerateOutputData generateOutputData = 1;
 }
 
 message MakeCreditDecisionRequest {
-    Applicant applicant = 1;
+    proto.Applicant applicant = 1;
     double currentRiskAppetite = 2;
     double lendingThreshold = 3;
 }
@@ -81,7 +81,7 @@ message MakeCreditDecisionResponse {
 }
 
 message ProcessPriorIssuesRequest {
-    Applicant applicant = 1;
+    proto.Applicant applicant = 1;
 }
 
 message ProcessPriorIssuesResponse {

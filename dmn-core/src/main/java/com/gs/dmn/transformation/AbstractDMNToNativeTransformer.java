@@ -26,7 +26,6 @@ import com.gs.dmn.transformation.proto.MessageType;
 import com.gs.dmn.transformation.proto.Service;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.StopWatch;
 import org.omg.spec.dmn._20180521.model.TBusinessKnowledgeModel;
 import org.omg.spec.dmn._20180521.model.TDecision;
@@ -315,7 +314,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
 
     private Map<String, Object> makeProtoTemplateParams(Pair<List<MessageType>, List<MessageType>> messageTypes, List<Service> services, String javaPackageName, BasicDMNToNativeTransformer dmnTransformer) {
         Map<String, Object> params = new HashMap<>();
-        params.put("javaPackageName", javaPackageName);
+        params.put("protoPackageName", dmnTransformer.protoPackage(javaPackageName));
         params.put("dataTypes", messageTypes.getLeft());
         params.put("responseRequestTypes", messageTypes.getRight());
         params.put("services", services);

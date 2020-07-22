@@ -188,7 +188,9 @@ public class ProtoBufferFactory {
             } else {
                 if (type instanceof ItemDefinitionType) {
                     String modelName = ((ItemDefinitionType) type).getModelName();
-                    String qType = this.transformer.qualifiedName(this.transformer.nativeModelPackageName(modelName), this.transformer.upperCaseFirst(typeName));
+                    String javaPackage = this.transformer.nativeModelPackageName(modelName);
+                    String protoPackage = this.transformer.protoPackage(javaPackage);
+                    String qType = this.transformer.qualifiedName(protoPackage, this.transformer.upperCaseFirst(typeName));
                     return new FieldType(modifier, qType);
                 } else {
                     throw new DMNRuntimeException(String.format("Cannot infer platform type for '%s'", type));

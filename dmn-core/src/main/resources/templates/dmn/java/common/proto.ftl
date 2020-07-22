@@ -32,9 +32,9 @@ service ${service.name} {
 syntax = "${transformer.getProtoVersion()}";
 
 option java_multiple_files = true;
-option java_package = "${javaPackageName}";
+option java_package = "${protoPackageName}";
 
-package ${javaPackageName};
+package ${protoPackageName};
 
 <#if dataTypes?has_content>
 //

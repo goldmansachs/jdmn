@@ -1,9 +1,9 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "";
+option java_package = "proto";
 
-package ;
+package proto;
 
 //
 // Complex data types
@@ -13,7 +13,7 @@ message TApplicantData {
     string employmentStatus = 2;
     bool existingCustomer = 3;
     string maritalStatus = 4;
-    Monthly monthly = 5;
+    proto.Monthly monthly = 5;
 }
 
 message Monthly {
@@ -38,8 +38,8 @@ message TRequestedProduct {
 // Request / response types
 //
 message AdjudicationRequest {
-    TApplicantData applicantData = 1;
-    TBureauData bureauData = 2;
+    proto.TApplicantData applicantData = 1;
+    proto.TBureauData bureauData = 2;
     string supportingDocuments = 3;
 }
 
@@ -60,7 +60,7 @@ message AffordabilityCalculationResponse {
 }
 
 message ApplicationRiskScoreRequest {
-    TApplicantData applicantData = 1;
+    proto.TApplicantData applicantData = 1;
 }
 
 message ApplicationRiskScoreResponse {
@@ -78,7 +78,7 @@ message ApplicationRiskScoreModelResponse {
 }
 
 message BureauCallTypeRequest {
-    TApplicantData applicantData = 1;
+    proto.TApplicantData applicantData = 1;
 }
 
 message BureauCallTypeResponse {
@@ -102,8 +102,8 @@ message CreditContingencyFactorTableResponse {
 }
 
 message EligibilityRequest {
-    TApplicantData applicantData = 1;
-    TRequestedProduct requestedProduct = 2;
+    proto.TApplicantData applicantData = 1;
+    proto.TRequestedProduct requestedProduct = 2;
 }
 
 message EligibilityResponse {
@@ -132,9 +132,9 @@ message InstallmentCalculationResponse {
 }
 
 message PostBureauAffordabilityRequest {
-    TApplicantData applicantData = 1;
-    TBureauData bureauData = 2;
-    TRequestedProduct requestedProduct = 3;
+    proto.TApplicantData applicantData = 1;
+    proto.TBureauData bureauData = 2;
+    proto.TRequestedProduct requestedProduct = 3;
 }
 
 message PostBureauAffordabilityResponse {
@@ -142,8 +142,8 @@ message PostBureauAffordabilityResponse {
 }
 
 message PostBureauRiskCategoryRequest {
-    TApplicantData applicantData = 1;
-    TBureauData bureauData = 2;
+    proto.TApplicantData applicantData = 1;
+    proto.TBureauData bureauData = 2;
 }
 
 message PostBureauRiskCategoryResponse {
@@ -161,8 +161,8 @@ message PostBureauRiskCategoryTableResponse {
 }
 
 message PreBureauAffordabilityRequest {
-    TApplicantData applicantData = 1;
-    TRequestedProduct requestedProduct = 2;
+    proto.TApplicantData applicantData = 1;
+    proto.TRequestedProduct requestedProduct = 2;
 }
 
 message PreBureauAffordabilityResponse {
@@ -170,7 +170,7 @@ message PreBureauAffordabilityResponse {
 }
 
 message PreBureauRiskCategoryRequest {
-    TApplicantData applicantData = 1;
+    proto.TApplicantData applicantData = 1;
 }
 
 message PreBureauRiskCategoryResponse {
@@ -187,7 +187,7 @@ message PreBureauRiskCategoryTableResponse {
 }
 
 message RequiredMonthlyInstallmentRequest {
-    TRequestedProduct requestedProduct = 1;
+    proto.TRequestedProduct requestedProduct = 1;
 }
 
 message RequiredMonthlyInstallmentResponse {
@@ -195,9 +195,9 @@ message RequiredMonthlyInstallmentResponse {
 }
 
 message RoutingRequest {
-    TApplicantData applicantData = 1;
-    TBureauData bureauData = 2;
-    TRequestedProduct requestedProduct = 3;
+    proto.TApplicantData applicantData = 1;
+    proto.TBureauData bureauData = 2;
+    proto.TRequestedProduct requestedProduct = 3;
 }
 
 message RoutingResponse {
@@ -216,8 +216,8 @@ message RoutingRulesResponse {
 }
 
 message StrategyRequest {
-    TApplicantData applicantData = 1;
-    TRequestedProduct requestedProduct = 2;
+    proto.TApplicantData applicantData = 1;
+    proto.TRequestedProduct requestedProduct = 2;
 }
 
 message StrategyResponse {
