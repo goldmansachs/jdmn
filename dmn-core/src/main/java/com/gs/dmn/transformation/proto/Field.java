@@ -13,10 +13,8 @@
 package com.gs.dmn.transformation.proto;
 
 import com.gs.dmn.runtime.DMNRuntimeException;
-import org.apache.commons.lang3.StringUtils;
 
-public class Field {
-    private final String name;
+public class Field extends NameElement {
     private final FieldType type;
     private final String defaultValue;
 
@@ -25,19 +23,12 @@ public class Field {
     }
 
     public Field(String name, FieldType type, String defaultValue) {
-        if (StringUtils.isBlank(name)) {
-            throw new DMNRuntimeException(String.format("Mandatory proto field name. Found '%s'", name));
-        }
+        super(name);
         if (type == null) {
             throw new DMNRuntimeException(String.format("Mandatory proto field type. Found '%s'", type));
         }
         this.type = type;
-        this.name = name;
         this.defaultValue = defaultValue;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public String getTypeModifier(String version) {
@@ -64,11 +55,11 @@ public class Field {
 
         Field field = (Field) o;
 
-        return name.equals(field.name);
+        return this.name.equals(field.name);
     }
 
     @Override
     public int hashCode() {
-        return name.hashCode();
+        return this.name.hashCode();
     }
 }

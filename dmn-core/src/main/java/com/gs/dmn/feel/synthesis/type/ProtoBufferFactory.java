@@ -43,6 +43,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
 public class ProtoBufferFactory {
     private static final Map<String, String> TIME_FEEL_TO_PROTO_TYPE = new LinkedHashMap<>();
+    public static final String OPTIONAL = "optional";
     public static final String REPEATED = "repeated";
 
     static {
@@ -174,7 +175,7 @@ public class ProtoBufferFactory {
     }
 
     private FieldType toProtoType(Type type) {
-        String modifier = "optional";
+        String modifier = OPTIONAL;
         if (type instanceof AnyType) {
             return new FieldType(modifier, "Any");
         } else if (type instanceof NamedType) {
