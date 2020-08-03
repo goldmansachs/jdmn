@@ -12,27 +12,14 @@
  */
 package com.gs.dmn.transformation.proto;
 
-import com.gs.dmn.runtime.DMNRuntimeException;
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.List;
-
-public class Service {
-    private final String name;
+public class Service extends NameElement {
     private final String requestMessageType;
     private final String responseMessageType;
 
     public Service(String name, String requestMessageType, String responseMessageType) {
-        if (StringUtils.isBlank(name)) {
-            throw new DMNRuntimeException(String.format("Mandatory proto service name. Found '%s'", name));
-        }
-        this.name = name;
+        super(name);
         this.requestMessageType = requestMessageType;
         this.responseMessageType = responseMessageType;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public String getRequestMessageType() {

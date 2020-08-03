@@ -13,22 +13,20 @@
 package com.gs.dmn.transformation.proto;
 
 import com.gs.dmn.runtime.DMNRuntimeException;
+import org.apache.commons.lang3.StringUtils;
 
-import java.util.List;
+public abstract class NameElement {
+    protected final String name;
 
-public class MessageType extends NameElement {
-    private final List<Field> fields;
-
-    public MessageType(String name, List<Field> fields) {
-        super(name);
-        if (fields == null || fields.isEmpty()) {
-            throw new DMNRuntimeException(String.format("Mandatory proto message fields. Found '%s'", fields));
+    public NameElement(String name) {
+        if (StringUtils.isBlank(name)) {
+            throw new DMNRuntimeException(String.format("Mandatory proto field name. Found '%s'", name));
         }
-        this.fields = fields;
+        this.name = name;
     }
 
-    public List<Field> getFields() {
-        return this.fields;
+    public String getName() {
+        return name;
     }
 
     @Override
@@ -36,16 +34,13 @@ public class MessageType extends NameElement {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        MessageType that = (MessageType) o;
+        NameElement that = (NameElement) o;
 
-        if (!this.name.equals(that.name)) return false;
-        return this.fields.equals(that.fields);
+        return this.name.equals(that.name);
     }
 
     @Override
     public int hashCode() {
-        int result = this.name.hashCode();
-        result = 31 * result + this.fields.hashCode();
-        return result;
+        return this.name.hashCode();
     }
 }
