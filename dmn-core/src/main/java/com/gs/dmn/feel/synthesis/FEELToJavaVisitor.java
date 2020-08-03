@@ -311,7 +311,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
 
         // Replace 'item' with 'item_xx' to be able to handle multiple filters
         String olderParameterName = FilterExpression.FILTER_PARAMETER_NAME;
-        String newParameterName = newParameterName(olderParameterName);
+        String newParameterName = this.dmnTransformer.nativeFriendlyName(newParameterName(olderParameterName));
         element.accept(new ReplaceItemFilterVisitor(olderParameterName, newParameterName), context);
 
         // Generate filter

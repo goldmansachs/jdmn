@@ -91,10 +91,10 @@ public class ProtoBufferFactory {
         List<MessageType> messageTypes = new ArrayList<>();
         List<TItemDefinition> itemDefinitions = this.repository.compositeItemDefinitions(definitions);
         for (TItemDefinition itemDefinition: itemDefinitions) {
-            String messageName = drgElementName(itemDefinition);
+            String messageName = protoElementName(itemDefinition);
             List<Field> fields = new ArrayList<>();
             for (TItemDefinition child: itemDefinition.getItemComponent()) {
-                String fieldName = this.transformer.namedElementVariableName(child);
+                String fieldName = protoFieldName(child);
                 FieldType fieldType = protoType(child);
                 fields.add(new Field(fieldName, fieldType));
             }
@@ -112,12 +112,11 @@ public class ProtoBufferFactory {
             }
 
             // Request
-            String messageName = drgElementName(element);
             String requestMessageName = requestMessageName(element);
             List<Field> requestFields = new ArrayList<>();
             List<Pair<String, Type>> parameters = this.transformer.drgElementTypeSignature(element, this.transformer::nativeName);
             for (Pair<String, Type> parameter: parameters) {
-                String fieldName = parameter.getLeft();
+                String fieldName = protoFieldName(parameter.getLeft());
                 FieldType fieldType = toProtoType(parameter.getRight());
                 requestFields.add(new Field(fieldName, fieldType));
             }
@@ -127,7 +126,7 @@ public class ProtoBufferFactory {
             String responseMessageName = responseMessageName(element);
             List<Field> responseFields = new ArrayList<>();
             Type type = this.transformer.drgElementOutputFEELType(element);
-            responseFields.add(new Field(responseFieldName(element), toProtoType(type)));
+            responseFields.add(new Field(protoFieldName(element), toProtoType(type)));
             messageTypes.add(new MessageType(responseMessageName, responseFields));
         }
         return messageTypes;
@@ -142,32 +141,15 @@ public class ProtoBufferFactory {
             }
 
             // Add Service
-            String serviceName = drgElementName(element) + "Service";
+            String serviceName = protoServiceName(element);
             services.add(new Service(serviceName, requestMessageName(element), responseMessageName(element)));
         }
         return services;
     }
 
-    private String drgElementName(TNamedElement element) {
-        return this.transformer.upperCaseFirst(element.getName());
-    }
-
-    private String responseFieldName(TDRGElement element) {
-        return this.transformer.lowerCaseFirst(element.getName());
-    }
-
-    private String protoServiceName(TNamedElement element) {
-        return drgElementName(element);
-    }
-
-    private String requestMessageName(TDRGElement element) {
-        return protoServiceName(element) + "Request";
-    }
-
-    private String responseMessageName(TDRGElement element) {
-        return drgElementName(element) + "Response";
-    }
-
+    //
+    // Types
+    //
     private FieldType protoType(TItemDefinition itemDefinition) {
         Type type = this.transformer.toFEELType(itemDefinition);
         FieldType protoType = toProtoType(type);
@@ -188,10 +170,7 @@ public class ProtoBufferFactory {
                 return new FieldType(modifier, primitiveType);
             } else {
                 if (type instanceof ItemDefinitionType) {
-                    String modelName = ((ItemDefinitionType) type).getModelName();
-                    String javaPackage = this.transformer.nativeModelPackageName(modelName);
-                    String protoPackage = this.transformer.protoPackage(javaPackage);
-                    String qType = this.transformer.qualifiedName(protoPackage, this.transformer.upperCaseFirst(typeName));
+                    String qType = qualifiedItemDefinitionProtoName((ItemDefinitionType) type);
                     return new FieldType(modifier, qType);
                 } else {
                     throw new DMNRuntimeException(String.format("Cannot infer platform type for '%s'", type));
@@ -211,5 +190,78 @@ public class ProtoBufferFactory {
 
     private String toNativeType(String feelType) {
         return TIME_FEEL_TO_PROTO_TYPE.get(feelType);
+    }
+
+    //
+    // Simple Names
+    //
+    private String protoServiceName(TDRGElement element) {
+        return protoElementName(element) +  "Service";
+    }
+
+    private String requestMessageName(TDRGElement element) {
+        return protoElementName(element) + "Request";
+    }
+
+    private String responseMessageName(TDRGElement element) {
+        return protoElementName(element) + "Response";
+    }
+
+    private String protoElementName(TNamedElement element) {
+        return this.transformer.upperCaseFirst(protoName(element.getName()));
+    }
+
+    private String protoFieldName(TNamedElement namedElement) {
+        return this.protoFieldName(namedElement.getName());
+    }
+
+    private String protoFieldName(String name) {
+        return this.transformer.lowerCaseFirst(protoName(name));
+    }
+
+    private String protoName(String name) {
+        return name.replace('_', ' ');
+    }
+
+    //
+    // Qualified Names
+    //
+    private String qualifiedProtoServiceName(TDRGElement element) {
+        return qualifiedProtoName(protoServiceName(element), element);
+    }
+
+    private String qualifiedRequestMessageName(TDRGElement element) {
+        return qualifiedProtoName(requestMessageName(element), element);
+    }
+
+    private String qualifiedResponseMessageName(TDRGElement element) {
+        return qualifiedProtoName(responseMessageName(element), element);
+    }
+
+    private String qualifiedProtoName(String protoName, TNamedElement element) {
+        TDefinitions model = this.repository.getModel(element);
+        return qualifiedProtoName(protoName, model);
+    }
+
+    private String qualifiedItemDefinitionProtoName(TItemDefinition itemDefinition) {
+        String protoName = this.transformer.upperCaseFirst(itemDefinition.getName());
+        TDefinitions model = this.repository.getModel(itemDefinition);
+        return qualifiedProtoName(protoName, model);
+    }
+
+    private String qualifiedItemDefinitionProtoName(ItemDefinitionType type) {
+        String protoName = this.transformer.upperCaseFirst(type.getName());
+        String modelName = type.getModelName();
+        return qualifiedProtoName(protoName, modelName);
+    }
+
+    private String qualifiedProtoName(String protoName, TDefinitions model) {
+        return qualifiedProtoName(protoName, model == null ? null : model.getName());
+    }
+
+    private String qualifiedProtoName(String protoName, String modelName) {
+        String nativePackage = this.transformer.nativeModelPackageName(modelName);
+        String protoPackage = this.transformer.protoPackage(nativePackage);
+        return this.transformer.qualifiedName(protoPackage, protoName);
     }
 }

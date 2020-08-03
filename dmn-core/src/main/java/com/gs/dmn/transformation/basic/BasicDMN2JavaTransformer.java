@@ -1696,7 +1696,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String getterName(String name) {
-        return String.format("get%s", StringUtils.capitalize(name));
+        return String.format("get%s", this.upperCaseFirst(name));
     }
 
     @Override
@@ -1706,7 +1706,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String setter(String name) {
-        return String.format("set%s", StringUtils.capitalize(name));
+        return String.format("set%s", this.upperCaseFirst(name));
     }
 
     @Override
