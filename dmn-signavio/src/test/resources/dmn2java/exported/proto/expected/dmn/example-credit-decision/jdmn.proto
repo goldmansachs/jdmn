@@ -34,7 +34,7 @@ message AssessApplicantAgeResponse {
 
 message AssessIssueRequest {
     double currentRiskAppetite = 1;
-    double priorIssue_iterator = 2;
+    double priorIssueIterator = 2;
 }
 
 message AssessIssueResponse {
