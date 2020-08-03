@@ -139,15 +139,9 @@ public interface NativeExpressionFactory {
 
     String convertMethodName(TItemDefinition itemDefinition);
 
+    String convertMethodName(ItemDefinitionType type);
+
     String convertDecisionArgumentFromString(String paramName, Type type);
 
     String conversionFunction(Conversion conversion, String javaType);
-
-    default List<String> optimizeAndArguments(List<String> conditionParts) {
-        List<String> result = conditionParts.stream().filter(c -> !trueConstant().equals(c)).collect(Collectors.toList());
-        if (result.size() == 0) {
-            result.add(trueConstant());
-        }
-        return result;
-    }
 }
