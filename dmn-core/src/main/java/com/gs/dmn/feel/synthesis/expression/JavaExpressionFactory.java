@@ -300,12 +300,14 @@ public class JavaExpressionFactory implements NativeExpressionFactory {
         return String.format("%s.%s(%s)", interfaceName, convertMethodName, expression);
     }
 
+    @Override
     public String convertMethodName(TItemDefinition itemDefinition) {
         String javaInterfaceName = dmnTransformer.upperCaseFirst(itemDefinition.getName());
         return String.format("to%s", javaInterfaceName);
     }
 
-    private String convertMethodName(ItemDefinitionType type) {
+    @Override
+    public String convertMethodName(ItemDefinitionType type) {
         String javaInterfaceName = dmnTransformer.upperCaseFirst(type.getName());
         return String.format("to%s", javaInterfaceName);
     }
