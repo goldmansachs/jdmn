@@ -27,7 +27,7 @@ import com.gs.dmn.feel.synthesis.FEELTranslatorImpl;
 import com.gs.dmn.feel.synthesis.expression.JavaExpressionFactory;
 import com.gs.dmn.feel.synthesis.expression.NativeExpressionFactory;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
-import com.gs.dmn.feel.synthesis.type.ProtoBufferFactory;
+import com.gs.dmn.transformation.proto.ProtoBufferFactory;
 import com.gs.dmn.runtime.*;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
 import com.gs.dmn.runtime.annotation.DRGElementKind;
