@@ -34,9 +34,9 @@ import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
-import com.gs.dmn.transformation.java.ExpressionStatement;
-import com.gs.dmn.transformation.java.Statement;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
+import com.gs.dmn.transformation.native_.statement.ExpressionStatement;
+import com.gs.dmn.transformation.native_.statement.Statement;
 import org.omg.spec.dmn._20180521.model.*;
 
 import java.util.*;
@@ -338,7 +338,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
                 javaCode = this.feelTranslator.expressionToNative(body, FEELContext.makeContext(element, environment));
             }
             Type expressionType = body.getType();
-            Statement statement = new ExpressionStatement(javaCode, expressionType);
+            Statement statement = this.nativeStatementFactory.makeExpressionStatement(javaCode, expressionType);
             Type expectedType = drgElementOutputFEELType(element);
             Statement result = convertExpression(statement, expectedType);
             return ((ExpressionStatement) result).getExpression();

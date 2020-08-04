@@ -28,7 +28,8 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.annotation.DRGElementKind;
 import com.gs.dmn.runtime.annotation.ExpressionKind;
 import com.gs.dmn.runtime.annotation.HitPolicy;
-import com.gs.dmn.transformation.java.Statement;
+import com.gs.dmn.transformation.native_.statement.NativeStatementFactory;
+import com.gs.dmn.transformation.native_.statement.Statement;
 import com.gs.dmn.transformation.proto.MessageType;
 import com.gs.dmn.transformation.proto.Service;
 import org.omg.spec.dmn._20180521.model.*;
@@ -50,6 +51,8 @@ public interface BasicDMNToNativeTransformer {
     NativeTypeFactory getNativeTypeFactory();
 
     NativeExpressionFactory getNativeExpressionFactory();
+
+    NativeStatementFactory getNativeStatementFactory();
 
     DMNExpressionToNativeTransformer getExpressionToNativeTransformer();
 

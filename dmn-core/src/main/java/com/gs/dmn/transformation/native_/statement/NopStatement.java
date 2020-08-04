@@ -10,24 +10,10 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.transformation.java;
+package com.gs.dmn.transformation.native_.statement;
 
-import com.gs.dmn.feel.analysis.semantics.type.Type;
-
-public class ExpressionStatement extends Statement {
-    private final String expression;
-    private final Type expressionType;
-
-    public ExpressionStatement(String expression, Type expressionType) {
-        this.expression = expression;
-        this.expressionType = expressionType;
-    }
-
-    public String getExpression() {
-        return expression;
-    }
-
-    public Type getExpressionType() {
-        return expressionType;
+public class NopStatement extends ExpressionStatement {
+    NopStatement() {
+        super("", null);
     }
 }

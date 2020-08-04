@@ -10,7 +10,12 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.transformation.java;
+package com.gs.dmn.transformation.native_.statement;
 
-public abstract class Statement {
+import com.gs.dmn.feel.analysis.semantics.type.Type;
+
+public class AssignmentStatement extends ExpressionStatement {
+    AssignmentStatement(String nativeType, String variableName, String expression, Type expressionType) {
+        super(String.format("%s %s = %s;", nativeType, variableName, expression), expressionType);
+    }
 }
