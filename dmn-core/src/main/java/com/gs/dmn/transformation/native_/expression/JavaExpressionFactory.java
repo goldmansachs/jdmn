@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.synthesis.expression;
+package com.gs.dmn.transformation.native_.expression;
 
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.semantics.type.*;

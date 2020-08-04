@@ -15,10 +15,10 @@ package com.gs.dmn.signavio.transformation.basic;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
-import com.gs.dmn.feel.synthesis.expression.KotlinExpressionFactory;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
+import com.gs.dmn.transformation.native_.expression.KotlinExpressionFactory;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TItemDefinition;
 

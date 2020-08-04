@@ -24,10 +24,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinitio
 import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.FEELTranslatorImpl;
-import com.gs.dmn.feel.synthesis.expression.JavaExpressionFactory;
-import com.gs.dmn.feel.synthesis.expression.NativeExpressionFactory;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
-import com.gs.dmn.transformation.proto.ProtoBufferFactory;
 import com.gs.dmn.runtime.*;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
 import com.gs.dmn.runtime.annotation.DRGElementKind;
@@ -48,8 +45,11 @@ import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.InputParamUtil;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.LazyEvaluationOptimisation;
+import com.gs.dmn.transformation.native_.expression.JavaExpressionFactory;
+import com.gs.dmn.transformation.native_.expression.NativeExpressionFactory;
 import com.gs.dmn.transformation.native_.statement.*;
 import com.gs.dmn.transformation.proto.MessageType;
+import com.gs.dmn.transformation.proto.ProtoBufferFactory;
 import com.gs.dmn.transformation.proto.Service;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.*;
@@ -1933,12 +1933,12 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     //
     @Override
     public boolean isGenerateProtoMessages() {
-        return generateProtoMessages;
+        return this.generateProtoMessages;
     }
 
     @Override
     public boolean isGenerateProtoServices() {
-        return generateProtoServices;
+        return this.generateProtoServices;
     }
 
     @Override

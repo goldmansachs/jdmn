@@ -11,7 +11,7 @@
  specific language governing permissions and limitations
  under the License.
 */
-package com.gs.dmn.feel.synthesis.expression;
+package com.gs.dmn.transformation.native_.expression;
 
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
@@ -23,7 +23,6 @@ import org.omg.spec.dmn._20180521.model.TDecision;
 import org.omg.spec.dmn._20180521.model.TItemDefinition;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public interface NativeExpressionFactory {
     //
