@@ -19,11 +19,11 @@ import com.gs.dmn.feel.analysis.semantics.type.AnyType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.feel.synthesis.expression.NativeExpressionFactory;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.DMNEnvironmentFactory;
 import com.gs.dmn.transformation.basic.DMNExpressionToNativeTransformer;
+import com.gs.dmn.transformation.native_.expression.NativeExpressionFactory;
 
 public abstract class AbstractAnalysisVisitor extends AbstractVisitor {
     protected final BasicDMNToNativeTransformer dmnTransformer;
