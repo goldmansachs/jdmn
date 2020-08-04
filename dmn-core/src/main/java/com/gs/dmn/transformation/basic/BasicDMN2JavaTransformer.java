@@ -46,11 +46,12 @@ import com.gs.dmn.runtime.listener.NopEventListener;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.InputParamUtil;
-import com.gs.dmn.transformation.java.CompoundStatement;
-import com.gs.dmn.transformation.java.ExpressionStatement;
-import com.gs.dmn.transformation.java.Statement;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.LazyEvaluationOptimisation;
+import com.gs.dmn.transformation.native_.statement.CompoundStatement;
+import com.gs.dmn.transformation.native_.statement.ExpressionStatement;
+import com.gs.dmn.transformation.native_.statement.NativeStatementFactory;
+import com.gs.dmn.transformation.native_.statement.Statement;
 import com.gs.dmn.transformation.proto.MessageType;
 import com.gs.dmn.transformation.proto.Service;
 import org.apache.commons.lang3.StringUtils;
@@ -69,6 +70,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     protected final DMNModelRepository dmnModelRepository;
     protected final EnvironmentFactory environmentFactory;
     protected final NativeTypeFactory nativeTypeFactory;
+    protected final NativeStatementFactory nativeStatementFactory;
     protected final ProtoBufferFactory protoFactory;
     private final LazyEvaluationDetector lazyEvaluationDetector;
 
@@ -116,6 +118,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         this.cachedElements = this.dmnModelRepository.computeCachedElements(this.caching, this.cachingThreshold);
 
         // Helpers
+        this.nativeStatementFactory = new NativeStatementFactory();
         setNativeExpressionFactory(this);
         setFEELTranslator(this);
         setDMNEnvironmentFactory(this);
@@ -172,8 +175,14 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         return this.nativeExpressionFactory;
     }
 
+    @Override
+    public NativeStatementFactory getNativeStatementFactory() {
+        return this.nativeStatementFactory;
+    }
+
+    @Override
     public DMNExpressionToNativeTransformer getExpressionToNativeTransformer() {
-        return expressionToNativeTransformer;
+        return this.expressionToNativeTransformer;
     }
 
     @Override
@@ -865,7 +874,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         String javaExpression = ((ExpressionStatement) statement).getExpression();
         Type expressionType = ((ExpressionStatement) statement).getExpressionType();
         if ("null".equals(javaExpression)) {
-            return new ExpressionStatement(javaExpression, expectedType);
+            return this.nativeStatementFactory.makeExpressionStatement(javaExpression, expectedType);
         }
         if (expectedType instanceof ListType && expressionType instanceof ListType) {
             Type expectedElementType = ((ListType) expectedType).getElementType();
@@ -873,16 +882,16 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
             if (expectedElementType instanceof ItemDefinitionType) {
                 if (expressionElementType.conformsTo(expectedElementType) || expressionElementType == AnyType.ANY || expressionElementType instanceof ContextType) {
                     String conversionText = this.nativeExpressionFactory.makeListConversion(javaExpression, (ItemDefinitionType) expectedElementType);
-                    return new ExpressionStatement(conversionText, expectedType);
+                    return this.nativeStatementFactory.makeExpressionStatement(conversionText, expectedType);
                 }
             }
         } else if (expectedType instanceof ListType) {
-            return new ExpressionStatement(this.nativeExpressionFactory.convertElementToList(javaExpression, expectedType), expectedType);
+            return this.nativeStatementFactory.makeExpressionStatement(this.nativeExpressionFactory.convertElementToList(javaExpression, expectedType), expectedType);
         } else if (expressionType instanceof ListType) {
-            return new ExpressionStatement(this.nativeExpressionFactory.convertListToElement(javaExpression, expectedType), expectedType);
+            return this.nativeStatementFactory.makeExpressionStatement(this.nativeExpressionFactory.convertListToElement(javaExpression, expectedType), expectedType);
         } else if (expectedType instanceof ItemDefinitionType) {
             if (expressionType.conformsTo(expectedType) || expressionType == AnyType.ANY || expressionType instanceof ContextType) {
-                return new ExpressionStatement(this.nativeExpressionFactory.convertToItemDefinitionType(javaExpression, (ItemDefinitionType) expectedType), expectedType);
+                return this.nativeStatementFactory.makeExpressionStatement(this.nativeExpressionFactory.convertToItemDefinitionType(javaExpression, (ItemDefinitionType) expectedType), expectedType);
             }
         }
         return statement;

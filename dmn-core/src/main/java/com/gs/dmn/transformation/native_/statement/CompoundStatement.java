@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.transformation.java;
+package com.gs.dmn.transformation.native_.statement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 public class CompoundStatement extends Statement {
     private final List<Statement> statements = new ArrayList<>();
 
-    public CompoundStatement() {
+    CompoundStatement() {
     }
 
     public List<Statement> getStatements() {
