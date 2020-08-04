@@ -48,10 +48,7 @@ import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.InputParamUtil;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.LazyEvaluationOptimisation;
-import com.gs.dmn.transformation.native_.statement.CompoundStatement;
-import com.gs.dmn.transformation.native_.statement.ExpressionStatement;
-import com.gs.dmn.transformation.native_.statement.NativeStatementFactory;
-import com.gs.dmn.transformation.native_.statement.Statement;
+import com.gs.dmn.transformation.native_.statement.*;
 import com.gs.dmn.transformation.proto.MessageType;
 import com.gs.dmn.transformation.proto.Service;
 import org.apache.commons.lang3.StringUtils;
@@ -70,7 +67,6 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     protected final DMNModelRepository dmnModelRepository;
     protected final EnvironmentFactory environmentFactory;
     protected final NativeTypeFactory nativeTypeFactory;
-    protected final NativeStatementFactory nativeStatementFactory;
     protected final ProtoBufferFactory protoFactory;
     private final LazyEvaluationDetector lazyEvaluationDetector;
 
@@ -89,6 +85,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     protected DMNEnvironmentFactory dmnEnvironmentFactory;
     protected NativeExpressionFactory nativeExpressionFactory;
+    protected NativeStatementFactory nativeStatementFactory;
     protected FEELTranslator feelTranslator;
     protected DMNExpressionToNativeTransformer expressionToNativeTransformer;
     protected final DRGElementFilter drgElementFilter;
@@ -118,8 +115,8 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         this.cachedElements = this.dmnModelRepository.computeCachedElements(this.caching, this.cachingThreshold);
 
         // Helpers
-        this.nativeStatementFactory = new NativeStatementFactory();
         setNativeExpressionFactory(this);
+        setNativeStatementFactory();
         setFEELTranslator(this);
         setDMNEnvironmentFactory(this);
         setExpressionToNativeTransformer(this);
@@ -135,6 +132,10 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     protected void setNativeExpressionFactory(BasicDMNToNativeTransformer transformer) {
         this.nativeExpressionFactory = new JavaExpressionFactory(transformer);
+    }
+
+    public void setNativeStatementFactory() {
+        this.nativeStatementFactory = new JavaStatementFactory();
     }
 
     private void setExpressionToNativeTransformer(BasicDMNToNativeTransformer transformer) {

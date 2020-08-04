@@ -14,31 +14,22 @@ package com.gs.dmn.transformation.native_.statement;
 
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 
-public class NativeStatementFactory {
-    public NativeStatementFactory() {
-    }
+public interface NativeStatementFactory {
+    //
+    // Simple statements
+    //
+    NopStatement makeNopStatement();
 
-    public CompoundStatement makeCompoundStatement() {
-        return new CompoundStatement();
-    }
+    ExpressionStatement makeExpressionStatement(String text, Type type);
 
-    public Statement makeNopStatement() {
-        return new ExpressionStatement("", null);
-    }
+    CommentStatement makeCommentStatement(String message);
 
-    public ExpressionStatement makeExpressionStatement(String text, Type type) {
-        return new ExpressionStatement(text, type);
-    }
+    ExpressionStatement makeAssignmentStatement(String nativeType, String variableName, String expression, Type type);
 
-    public CommentStatement makeCommentStatement(String message) {
-        return new CommentStatement(message);
-    }
+    Statement makeReturnStatement(String expression, Type type);
 
-    public ExpressionStatement makeAssignmentStatement(String nativeType, String variableName, String expression, Type type) {
-        return new AssignmentStatement(nativeType, variableName, expression, type);
-    }
-
-    public Statement makeReturnStatement(String expression, Type type) {
-        return new ExpressionStatement(String.format("return %s;", expression), type);
-    }
+    //
+    // Compound statement
+    //
+    CompoundStatement makeCompoundStatement();
 }

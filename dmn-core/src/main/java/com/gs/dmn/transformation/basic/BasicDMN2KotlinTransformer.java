@@ -18,6 +18,8 @@ import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.synthesis.expression.KotlinExpressionFactory;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
+import com.gs.dmn.transformation.native_.statement.JavaStatementFactory;
+import com.gs.dmn.transformation.native_.statement.KotlinStatementFactory;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TItemDefinition;
 
@@ -31,6 +33,11 @@ public class BasicDMN2KotlinTransformer extends BasicDMN2JavaTransformer {
     @Override
     protected void setNativeExpressionFactory(BasicDMNToNativeTransformer transformer) {
         this.nativeExpressionFactory = new KotlinExpressionFactory(this);
+    }
+
+    @Override
+    public void setNativeStatementFactory() {
+        this.nativeStatementFactory = new KotlinStatementFactory();
     }
 
     // Types
