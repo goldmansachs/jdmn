@@ -24,7 +24,7 @@ import com.gs.dmn.signavio.testlab.expression.*;
 import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMN2JavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
-import com.gs.dmn.transformation.native_.expression.NativeExpressionFactory;
+import com.gs.dmn.transformation.native_.NativeFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -40,7 +40,7 @@ public class TestLabUtil {
 
     private final BasicDMNToNativeTransformer dmnTransformer;
     private final SignavioDMNModelRepository dmnModelRepository;
-    private final NativeExpressionFactory expressionFactory;
+    private final NativeFactory nativeFactory;
     private final NativeTypeFactory typeFactory;
 
     public TestLabUtil(BasicDMNToNativeTransformer dmnTransformer) {
@@ -51,7 +51,7 @@ public class TestLabUtil {
             this.dmnModelRepository = new SignavioDMNModelRepository(dmnModelRepository.getRootDefinitions(), dmnModelRepository.getPrefixNamespaceMappings());
         }
         this.dmnTransformer = dmnTransformer;
-        this.expressionFactory = dmnTransformer.getNativeExpressionFactory();
+        this.nativeFactory = dmnTransformer.getNativeFactory();
         this.typeFactory = dmnTransformer.getNativeTypeFactory();
     }
 
@@ -189,7 +189,7 @@ public class TestLabUtil {
                 List<String> elements = expressionList
                         .stream().map(e -> toNativeExpression(elementType, e, decision)).collect(Collectors.toList());
                 String exp = String.join(", ", elements);
-                return this.expressionFactory.asList(elementType, exp);
+                return this.nativeFactory.asList(elementType, exp);
             } else {
                 return "null";
             }

@@ -128,7 +128,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
             DRGElementReference<TDecision> outputReference = this.dmnModelRepository.makeDRGElementReference(outputDecision);
             List<Pair<String, Type>> parameters = inputDataParametersClosure(outputReference);
-            String decisionSignature = parameters.stream().map(p -> this.nativeExpressionFactory.nullableParameter(toNativeType(p.getRight()), p.getLeft())).collect(Collectors.joining(", "));
+            String decisionSignature = parameters.stream().map(p -> this.nativeFactory.nullableParameter(toNativeType(p.getRight()), p.getLeft())).collect(Collectors.joining(", "));
             return augmentSignature(decisionSignature);
         } else {
             return super.drgElementSignature(reference);
@@ -281,7 +281,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
             String parameterNativeType = lazyEvaluationType(element, parameterNativeType(element));
             parameters.add(new Pair<>(parameterName, parameterNativeType));
         }
-        String signature = parameters.stream().map(p -> this.nativeExpressionFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
+        String signature = parameters.stream().map(p -> this.nativeFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
         return augmentSignature(signature);
     }
 
@@ -333,12 +333,12 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
                 String className = externalFunctionClassName(body);
                 String methodName = externalFunctionMethodName(body);
                 String arguments = drgElementEvaluateArgumentList(element);
-                javaCode = this.nativeExpressionFactory.makeExternalExecutorCall(externalExecutorVariableName(), className, methodName, arguments, returnNativeType);
+                javaCode = this.nativeFactory.makeExternalExecutorCall(externalExecutorVariableName(), className, methodName, arguments, returnNativeType);
             } else {
                 javaCode = this.feelTranslator.expressionToNative(body, FEELContext.makeContext(element, environment));
             }
             Type expressionType = body.getType();
-            Statement statement = this.nativeStatementFactory.makeExpressionStatement(javaCode, expressionType);
+            Statement statement = this.nativeFactory.makeExpressionStatement(javaCode, expressionType);
             Type expectedType = drgElementOutputFEELType(element);
             Statement result = convertExpression(statement, expectedType);
             return ((ExpressionStatement) result).getExpression();
