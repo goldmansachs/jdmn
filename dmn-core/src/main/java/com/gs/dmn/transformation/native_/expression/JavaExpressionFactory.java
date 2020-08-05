@@ -273,27 +273,33 @@ public class JavaExpressionFactory implements NativeExpressionFactory {
     //
     // Conversions
     //
+    @Override
     public String convertListToElement(String expression, Type type) {
         return String.format("this.<%s>%s", dmnTransformer.toNativeType(type), asElement(expression));
     }
 
+    @Override
     public String asList(Type elementType, String exp) {
         return String.format("asList(%s)", exp);
     }
 
+    @Override
     public String asElement(String exp) {
         return String.format("asElement(%s)", exp);
     }
 
+    @Override
     public String convertElementToList(String expression, Type type) {
         return String.format("%s", asList(type, expression));
     }
 
+    @Override
     public String makeListConversion(String javaExpression, ItemDefinitionType expectedElementType) {
         String elementConversion = convertToItemDefinitionType("x", expectedElementType);
         return String.format("%s.stream().map(x -> %s).collect(Collectors.toList())", javaExpression, elementConversion);
     }
 
+    @Override
     public String convertToItemDefinitionType(String expression, ItemDefinitionType type) {
         String convertMethodName = convertMethodName(type);
         String interfaceName = dmnTransformer.toNativeType(type);

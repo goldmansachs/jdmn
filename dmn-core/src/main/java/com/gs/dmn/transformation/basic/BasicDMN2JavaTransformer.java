@@ -45,9 +45,11 @@ import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.InputParamUtil;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.LazyEvaluationOptimisation;
-import com.gs.dmn.transformation.native_.expression.JavaExpressionFactory;
-import com.gs.dmn.transformation.native_.expression.NativeExpressionFactory;
-import com.gs.dmn.transformation.native_.statement.*;
+import com.gs.dmn.transformation.native_.JavaFactory;
+import com.gs.dmn.transformation.native_.NativeFactory;
+import com.gs.dmn.transformation.native_.statement.CompoundStatement;
+import com.gs.dmn.transformation.native_.statement.ExpressionStatement;
+import com.gs.dmn.transformation.native_.statement.Statement;
 import com.gs.dmn.transformation.proto.MessageType;
 import com.gs.dmn.transformation.proto.ProtoBufferFactory;
 import com.gs.dmn.transformation.proto.Service;
@@ -84,8 +86,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     private final String protoVersion;
 
     protected DMNEnvironmentFactory dmnEnvironmentFactory;
-    protected NativeExpressionFactory nativeExpressionFactory;
-    protected NativeStatementFactory nativeStatementFactory;
+    protected NativeFactory nativeFactory;
     protected FEELTranslator feelTranslator;
     protected DMNExpressionToNativeTransformer expressionToNativeTransformer;
     protected final DRGElementFilter drgElementFilter;
@@ -115,8 +116,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         this.cachedElements = this.dmnModelRepository.computeCachedElements(this.caching, this.cachingThreshold);
 
         // Helpers
-        setNativeExpressionFactory(this);
-        setNativeStatementFactory();
+        setNativeFactory(this);
         setFEELTranslator(this);
         setDMNEnvironmentFactory(this);
         setExpressionToNativeTransformer(this);
@@ -130,12 +130,8 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         this.dmnEnvironmentFactory = new StandardDMNEnvironmentFactory(transformer);
     }
 
-    protected void setNativeExpressionFactory(BasicDMNToNativeTransformer transformer) {
-        this.nativeExpressionFactory = new JavaExpressionFactory(transformer);
-    }
-
-    public void setNativeStatementFactory() {
-        this.nativeStatementFactory = new JavaStatementFactory();
+    protected void setNativeFactory(BasicDMNToNativeTransformer transformer) {
+        this.nativeFactory = new JavaFactory(transformer);
     }
 
     private void setExpressionToNativeTransformer(BasicDMNToNativeTransformer transformer) {
@@ -172,13 +168,8 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public NativeExpressionFactory getNativeExpressionFactory() {
-        return this.nativeExpressionFactory;
-    }
-
-    @Override
-    public NativeStatementFactory getNativeStatementFactory() {
-        return this.nativeStatementFactory;
+    public NativeFactory getNativeFactory() {
+        return this.nativeFactory;
     }
 
     @Override
@@ -252,7 +243,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         for (TItemDefinition child : itemComponents) {
             parameters.add(new Pair<>(namedElementVariableName(child), itemDefinitionNativeQualifiedInterfaceName(child)));
         }
-        return parameters.stream().map(p -> this.nativeExpressionFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
+        return parameters.stream().map(p -> this.nativeFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
     }
 
     @Override
@@ -276,12 +267,12 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String defaultConstructor(String className) {
-        return this.nativeExpressionFactory.constructor(className, "");
+        return this.nativeFactory.constructor(className, "");
     }
 
     @Override
     public String constructor(String className, String arguments) {
-        return this.nativeExpressionFactory.constructor(className, arguments);
+        return this.nativeFactory.constructor(className, arguments);
     }
 
     //
@@ -371,7 +362,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     @Override
     public String drgElementSignature(DRGElementReference<? extends TDRGElement> reference) {
         List<Pair<String, Type>> parameters = drgElementTypeSignature(reference, this::nativeName);
-        String decisionSignature = parameters.stream().map(p -> this.nativeExpressionFactory.nullableParameter(toNativeType(p.getRight()), p.getLeft())).collect(Collectors.joining(", "));
+        String decisionSignature = parameters.stream().map(p -> this.nativeFactory.nullableParameter(toNativeType(p.getRight()), p.getLeft())).collect(Collectors.joining(", "));
         return augmentSignature(decisionSignature);
     }
 
@@ -508,7 +499,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     public String drgElementSignatureWithConversionFromString(TDRGElement element) {
         if (element instanceof TDecision) {
             List<Pair<String, Type>> parameters = inputDataParametersClosure(this.dmnModelRepository.makeDRGElementReference((TDecision) element));
-            String decisionSignature = parameters.stream().map(p -> this.nativeExpressionFactory.nullableParameter(toStringNativeType(p.getRight()), p.getLeft())).collect(Collectors.joining(", "));
+            String decisionSignature = parameters.stream().map(p -> this.nativeFactory.nullableParameter(toStringNativeType(p.getRight()), p.getLeft())).collect(Collectors.joining(", "));
             return augmentSignature(decisionSignature);
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
@@ -563,7 +554,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     public String drgElementArgumentListWithConversionFromString(TDRGElement element) {
         if (element instanceof TDecision) {
             List<Pair<String, Type>> parameters = inputDataParametersClosure(this.dmnModelRepository.makeDRGElementReference((TDecision) element));
-            String arguments = parameters.stream().map(p -> String.format("%s", this.nativeExpressionFactory.convertDecisionArgumentFromString(p.getLeft(), p.getRight()))).collect(Collectors.joining(", "));
+            String arguments = parameters.stream().map(p -> String.format("%s", this.nativeFactory.convertDecisionArgumentFromString(p.getLeft(), p.getRight()))).collect(Collectors.joining(", "));
             return augmentArgumentList(arguments);
         } else {
             throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
@@ -574,7 +565,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     public String decisionConstructorSignature(TDecision decision) {
         List<DRGElementReference<TDecision>> subDecisionReferences = this.dmnModelRepository.directSubDecisions(decision);
         this.dmnModelRepository.sortNamedElementReferences(subDecisionReferences);
-        return subDecisionReferences.stream().map(d -> this.nativeExpressionFactory.decisionConstructorParameter(d)).collect(Collectors.joining(", "));
+        return subDecisionReferences.stream().map(d -> this.nativeFactory.decisionConstructorParameter(d)).collect(Collectors.joining(", "));
     }
 
     @Override
@@ -620,7 +611,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     protected String drgElementDirectSignature(TDRGElement element) {
         if (element instanceof TDecision) {
             List<Pair<String, String>> parameters = directInformationRequirementParameters(element);
-            String javaParameters = parameters.stream().map(p -> this.nativeExpressionFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
+            String javaParameters = parameters.stream().map(p -> this.nativeFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
             return augmentSignature(javaParameters);
         } else if (element instanceof TBusinessKnowledgeModel) {
             return drgElementSignature(this.dmnModelRepository.makeDRGElementReference(element));
@@ -862,7 +853,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     //
     protected String convertDecisionArgument(String paramName, Type type) {
         if (type instanceof ItemDefinitionType) {
-            return this.nativeExpressionFactory.convertToItemDefinitionType(paramName, (ItemDefinitionType) type);
+            return this.nativeFactory.convertToItemDefinitionType(paramName, (ItemDefinitionType) type);
         } else {
             return paramName;
         }
@@ -875,24 +866,24 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         String javaExpression = ((ExpressionStatement) statement).getExpression();
         Type expressionType = ((ExpressionStatement) statement).getExpressionType();
         if ("null".equals(javaExpression)) {
-            return this.nativeStatementFactory.makeExpressionStatement(javaExpression, expectedType);
+            return this.nativeFactory.makeExpressionStatement(javaExpression, expectedType);
         }
         if (expectedType instanceof ListType && expressionType instanceof ListType) {
             Type expectedElementType = ((ListType) expectedType).getElementType();
             Type expressionElementType = ((ListType) expressionType).getElementType();
             if (expectedElementType instanceof ItemDefinitionType) {
                 if (expressionElementType.conformsTo(expectedElementType) || expressionElementType == AnyType.ANY || expressionElementType instanceof ContextType) {
-                    String conversionText = this.nativeExpressionFactory.makeListConversion(javaExpression, (ItemDefinitionType) expectedElementType);
-                    return this.nativeStatementFactory.makeExpressionStatement(conversionText, expectedType);
+                    String conversionText = this.nativeFactory.makeListConversion(javaExpression, (ItemDefinitionType) expectedElementType);
+                    return this.nativeFactory.makeExpressionStatement(conversionText, expectedType);
                 }
             }
         } else if (expectedType instanceof ListType) {
-            return this.nativeStatementFactory.makeExpressionStatement(this.nativeExpressionFactory.convertElementToList(javaExpression, expectedType), expectedType);
+            return this.nativeFactory.makeExpressionStatement(this.nativeFactory.convertElementToList(javaExpression, expectedType), expectedType);
         } else if (expressionType instanceof ListType) {
-            return this.nativeStatementFactory.makeExpressionStatement(this.nativeExpressionFactory.convertListToElement(javaExpression, expectedType), expectedType);
+            return this.nativeFactory.makeExpressionStatement(this.nativeFactory.convertListToElement(javaExpression, expectedType), expectedType);
         } else if (expectedType instanceof ItemDefinitionType) {
             if (expressionType.conformsTo(expectedType) || expressionType == AnyType.ANY || expressionType instanceof ContextType) {
-                return this.nativeStatementFactory.makeExpressionStatement(this.nativeExpressionFactory.convertToItemDefinitionType(javaExpression, (ItemDefinitionType) expectedType), expectedType);
+                return this.nativeFactory.makeExpressionStatement(this.nativeFactory.convertToItemDefinitionType(javaExpression, (ItemDefinitionType) expectedType), expectedType);
             }
         }
         return statement;
@@ -900,12 +891,12 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String convertMethodName(TItemDefinition itemDefinition) {
-        return this.nativeExpressionFactory.convertMethodName(itemDefinition);
+        return this.nativeFactory.convertMethodName(itemDefinition);
     }
 
     @Override
     public String augmentSignature(String signature) {
-        String annotationParameter = this.nativeExpressionFactory.parameter(annotationSetClassName(), annotationSetVariableName());
+        String annotationParameter = this.nativeFactory.parameter(annotationSetClassName(), annotationSetVariableName());
         if (StringUtils.isBlank(signature)) {
             return annotationParameter;
         } else {
@@ -1161,8 +1152,8 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String drgElementSignatureExtra(String signature) {
-        String listenerParameter = this.nativeExpressionFactory.parameter(eventListenerClassName(), eventListenerVariableName());
-        String executorParameter = this.nativeExpressionFactory.parameter(externalExecutorClassName(), externalExecutorVariableName());
+        String listenerParameter = this.nativeFactory.parameter(eventListenerClassName(), eventListenerVariableName());
+        String executorParameter = this.nativeFactory.parameter(externalExecutorClassName(), externalExecutorVariableName());
         if (StringUtils.isBlank(signature)) {
             return String.format("%s, %s", listenerParameter, executorParameter);
         } else {
@@ -1243,7 +1234,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
             return signature;
         }
 
-        String cacheParameter = this.nativeExpressionFactory.parameter(cacheInterfaceName(), cacheVariableName());
+        String cacheParameter = this.nativeFactory.parameter(cacheInterfaceName(), cacheVariableName());
         if (StringUtils.isBlank(signature)) {
             return cacheParameter;
         } else {
@@ -1871,14 +1862,14 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     public String asEmptyList(TDRGElement element) {
         Type type = drgElementOutputFEELType(element);
         if (type instanceof ListType) {
-            return this.nativeExpressionFactory.asList(((ListType) type).getElementType(), "");
+            return this.nativeFactory.asList(((ListType) type).getElementType(), "");
         }
         throw new DMNRuntimeException(String.format("Expected List Type found '%s' instead", type));
     }
 
     @Override
     public String asList(Type elementType, String exp) {
-        return this.nativeExpressionFactory.asList(elementType, exp);
+        return this.nativeFactory.asList(elementType, exp);
     }
 
     //
