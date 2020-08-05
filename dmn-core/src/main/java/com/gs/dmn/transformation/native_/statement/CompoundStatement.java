@@ -18,7 +18,7 @@ import java.util.List;
 public class CompoundStatement extends Statement {
     private final List<Statement> statements = new ArrayList<>();
 
-    CompoundStatement() {
+    public CompoundStatement() {
     }
 
     public List<Statement> getStatements() {

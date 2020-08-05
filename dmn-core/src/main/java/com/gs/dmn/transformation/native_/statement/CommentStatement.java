@@ -13,7 +13,7 @@
 package com.gs.dmn.transformation.native_.statement;
 
 public class CommentStatement extends ExpressionStatement {
-    CommentStatement(String text) {
+    public CommentStatement(String text) {
         super(text, null);
     }
 }

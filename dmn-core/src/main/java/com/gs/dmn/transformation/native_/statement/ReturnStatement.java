@@ -15,7 +15,7 @@ package com.gs.dmn.transformation.native_.statement;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 
 public class ReturnStatement extends ExpressionStatement {
-    ReturnStatement(String expression, Type expressionType) {
+    public ReturnStatement(String expression, Type expressionType) {
         super(expression, expressionType);
     }
 }

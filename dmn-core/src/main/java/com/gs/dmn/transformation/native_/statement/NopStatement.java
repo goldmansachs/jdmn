@@ -13,7 +13,7 @@
 package com.gs.dmn.transformation.native_.statement;
 
 public class NopStatement extends ExpressionStatement {
-    NopStatement() {
+    public NopStatement() {
         super("", null);
     }
 }
