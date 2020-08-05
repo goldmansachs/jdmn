@@ -15,7 +15,7 @@ package com.gs.dmn.transformation.native_.statement;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 
 public class AssignmentStatement extends ExpressionStatement {
-    AssignmentStatement(String text, Type expressionType) {
+    public AssignmentStatement(String text, Type expressionType) {
         super(text, expressionType);
     }
 }

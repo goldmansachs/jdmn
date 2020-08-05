@@ -18,7 +18,7 @@ public class ExpressionStatement extends Statement {
     private final String expression;
     private final Type expressionType;
 
-    ExpressionStatement(String expression, Type expressionType) {
+    public ExpressionStatement(String expression, Type expressionType) {
         this.expression = expression;
         this.expressionType = expressionType;
     }

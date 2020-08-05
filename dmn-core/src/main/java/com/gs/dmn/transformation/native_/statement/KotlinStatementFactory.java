@@ -43,7 +43,7 @@ public class KotlinStatementFactory implements NativeStatementFactory {
 
     @Override
     public Statement makeReturnStatement(String expression, Type type) {
-        return new ExpressionStatement(String.format("return %s", expression), type);
+        return new ReturnStatement(String.format("return %s", expression), type);
     }
 
     //
