@@ -19,8 +19,30 @@ public interface GenerateOutputData extends com.gs.dmn.runtime.DMNType {
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toGenerateOutputData(((com.gs.dmn.runtime.DMNType)other).toContext());
+        } else if (other instanceof proto.GenerateOutputData) {
+            GenerateOutputDataImpl result_ = new GenerateOutputDataImpl();
+            result_.setDecision(((proto.GenerateOutputData) other).getDecision());
+            result_.setAssessment(java.math.BigDecimal.valueOf(((proto.GenerateOutputData) other).getAssessment()));
+            result_.setIssue(java.math.BigDecimal.valueOf(((proto.GenerateOutputData) other).getIssue()));
+            return result_;
         } else {
             throw new com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.getClass().getSimpleName(), GenerateOutputData.class.getSimpleName()));
+        }
+    }
+
+    static proto.GenerateOutputData toProto(GenerateOutputData other) {
+        proto.GenerateOutputData.Builder result_ = proto.GenerateOutputData.newBuilder();
+        result_.setDecision(((GenerateOutputData) other).getDecision());
+        result_.setAssessment((((GenerateOutputData) other).getAssessment() == null ? 0 : ((GenerateOutputData) other).getAssessment().doubleValue()));
+        result_.setIssue((((GenerateOutputData) other).getIssue() == null ? 0 : ((GenerateOutputData) other).getIssue().doubleValue()));
+        return result_.build();
+    }
+
+    static List<proto.GenerateOutputData> toProto(List<GenerateOutputData> other) {
+        if (other == null) {
+            return null;
+        } else {
+            return other.stream().map(o -> toProto(o)).collect(java.util.stream.Collectors.toList());
         }
     }
 

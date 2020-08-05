@@ -23,6 +23,7 @@ import com.gs.dmn.serialization.JsonSerializer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.native_.statement.*;
 import org.apache.commons.lang3.StringUtils;
+import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TDecision;
 import org.omg.spec.dmn._20180521.model.TItemDefinition;
 
@@ -356,6 +357,21 @@ public class KotlinFactory implements NativeFactory {
         } else {
             throw new DMNRuntimeException(String.format("Conversion '%s' is not supported yet", conversion));
         }
+    }
+
+    @Override
+    public String convertProtoMember(String source, TItemDefinition parent, TItemDefinition member) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public String convertMemberToProto(String source, String sourceType, TItemDefinition member) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Statement drgElementSignatureProtoBody(TDRGElement element) {
+        throw new DMNRuntimeException("Not supported yet");
     }
 
     private String nullableType(String type) {

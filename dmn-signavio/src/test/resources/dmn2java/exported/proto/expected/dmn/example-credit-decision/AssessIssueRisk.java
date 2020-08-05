@@ -79,6 +79,20 @@ public class AssessIssueRisk extends com.gs.dmn.signavio.runtime.DefaultSignavio
         }
     }
 
+    public proto.AssessIssueRiskResponse apply(proto.AssessIssueRiskRequest request, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+        // Create arguments from Request Message
+        type.Applicant applicant = type.Applicant.toApplicant(request.getApplicant());
+        java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(request.getCurrentRiskAppetite());
+        
+        // Invoke apply method
+        java.math.BigDecimal output_ = apply(applicant, currentRiskAppetite, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        
+        // Convert output to Response Message
+        proto.AssessIssueRiskResponse.Builder builder_ = proto.AssessIssueRiskResponse.newBuilder();
+        builder_.setAssessIssueRisk((output_ == null ? 0 : output_.doubleValue()));
+        return builder_.build();
+    }
+
     protected java.math.BigDecimal evaluate(type.Applicant applicant, java.math.BigDecimal currentRiskAppetite, List<java.math.BigDecimal> processPriorIssues, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         AssessIssue assessIssue = new AssessIssue();
         return sum(processPriorIssues.stream().map(priorIssue_iterator -> assessIssue.apply(currentRiskAppetite, priorIssue_iterator, annotationSet_, eventListener_, externalExecutor_)).collect(Collectors.toList()));

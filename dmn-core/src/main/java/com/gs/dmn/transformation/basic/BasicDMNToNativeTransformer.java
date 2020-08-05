@@ -30,6 +30,7 @@ import com.gs.dmn.runtime.annotation.HitPolicy;
 import com.gs.dmn.transformation.native_.NativeFactory;
 import com.gs.dmn.transformation.native_.statement.Statement;
 import com.gs.dmn.transformation.proto.MessageType;
+import com.gs.dmn.transformation.proto.ProtoBufferFactory;
 import com.gs.dmn.transformation.proto.Service;
 import org.omg.spec.dmn._20180521.model.*;
 
@@ -54,6 +55,8 @@ public interface BasicDMNToNativeTransformer {
     DMNExpressionToNativeTransformer getExpressionToNativeTransformer();
 
     DRGElementFilter getDrgElementFilter();
+
+    ProtoBufferFactory getProtoFactory();
 
     //
     // Configuration
@@ -80,6 +83,10 @@ public interface BasicDMNToNativeTransformer {
     String getter(TItemDefinition itemDefinition);
 
     String setter(TItemDefinition itemDefinition);
+
+    String protoGetter(TItemDefinition itemDefinition);
+
+    String protoSetter(TItemDefinition itemDefinition);
 
     //
     // TInformationItem related functions
@@ -509,6 +516,8 @@ public interface BasicDMNToNativeTransformer {
     //
     // .proto related functions
     //
+    boolean isGenerateProto();
+
     boolean isGenerateProtoMessages();
 
     boolean isGenerateProtoServices();
@@ -518,4 +527,16 @@ public interface BasicDMNToNativeTransformer {
     String protoPackage(String javaPackageName);
 
     Pair<Pair<List<MessageType>, List<MessageType>>, List<Service>> dmnToProto(TDefinitions definitions);
+
+    String drgElementOutputTypeProto(TDRGElement element);
+
+    String drgElementSignatureProto(TDRGElement element);
+
+    Statement drgElementSignatureProtoBody(TDRGElement element);
+
+    String convertProtoMember(String source, TItemDefinition parent, TItemDefinition child);
+
+    String convertMemberToProto(String source, String sourceType, TItemDefinition child);
+
+    String qualifiedItemDefinitionProtoName(TItemDefinition itemDefinition);
 }

@@ -12,17 +12,19 @@
  */
 package com.gs.dmn.generated.example_credit_decision_mixed_proto;
 
-import com.gs.dmn.generated.example_credit_decision_mixed_proto.proto.GenerateOutputDataRequest;
-import com.gs.dmn.generated.example_credit_decision_mixed_proto.type.Applicant;
-import com.gs.dmn.generated.example_credit_decision_mixed_proto.type.ApplicantImpl;
+import com.gs.dmn.generated.example_credit_decision_mixed_proto.proto.GenerateOutputDataResponse;
 import com.gs.dmn.runtime.Assert;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 public class HandwrittenGenerateOutputDataTest {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(HandwrittenGenerateOutputDataTest.class);
+
     private final com.gs.dmn.generated.example_credit_decision_mixed_proto.GenerateOutputData decision = new GenerateOutputData();
 
     @Test
@@ -33,11 +35,11 @@ public class HandwrittenGenerateOutputDataTest {
         com.gs.dmn.generated.example_credit_decision_mixed_proto.proto.GenerateOutputDataRequest request = makeRequest();
 
         // Invoke decision
-        List<?> generateOutputDataOutput = apply(decision, request, annotationSet_);
+        GenerateOutputDataResponse response = decision.apply(request, annotationSet_);
 
         // Check result
         List<com.gs.dmn.generated.example_credit_decision_mixed_proto.type.GenerateOutputData> expected = decision.asList(new com.gs.dmn.generated.example_credit_decision_mixed_proto.type.GenerateOutputDataImpl(decision.number("27.5"), "Accept", decision.numericUnaryMinus(decision.number("7.5"))));
-        checkValues(expected, generateOutputDataOutput);
+        checkValues(expected, response.getGenerateOutputDataList());
     }
 
     private com.gs.dmn.generated.example_credit_decision_mixed_proto.proto.Applicant makeApplicant() {
@@ -64,24 +66,8 @@ public class HandwrittenGenerateOutputDataTest {
         builder.setLendingThreshold(lendingThreshold);
         builder.setApplicant(applicant);
 
-        GenerateOutputDataRequest request = builder.build();
+        com.gs.dmn.generated.example_credit_decision_mixed_proto.proto.GenerateOutputDataRequest request = builder.build();
         return request;
-    }
-
-    private List<com.gs.dmn.generated.example_credit_decision_mixed_proto.type.GenerateOutputData> apply(GenerateOutputData decision, com.gs.dmn.generated.example_credit_decision_mixed_proto.proto.GenerateOutputDataRequest request, AnnotationSet annotationSet_) {
-        Applicant applicant = convertApplicant(request.getApplicant());
-        BigDecimal currentRiskAppetite = BigDecimal.valueOf(request.getCurrentRiskAppetite());
-        BigDecimal lendingThreshold = BigDecimal.valueOf(request.getLendingThreshold());
-        return decision.apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_);
-    }
-
-    private Applicant convertApplicant(com.gs.dmn.generated.example_credit_decision_mixed_proto.proto.Applicant other) {
-        ApplicantImpl result_ = new ApplicantImpl();
-        result_.setName(other.getName());
-        result_.setAge(java.math.BigDecimal.valueOf(other.getAge()));
-        result_.setCreditScore(java.math.BigDecimal.valueOf(other.getCreditScore()));
-        result_.setPriorIssues(other.getPriorIssuesList());
-        return result_;
     }
 
     private void checkValues(Object expected, Object actual) {

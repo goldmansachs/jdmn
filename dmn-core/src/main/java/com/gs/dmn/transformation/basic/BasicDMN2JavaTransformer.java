@@ -116,11 +116,11 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
         this.cachedElements = this.dmnModelRepository.computeCachedElements(this.caching, this.cachingThreshold);
 
         // Helpers
+        this.protoFactory = new ProtoBufferFactory(this);
         setNativeFactory(this);
         setFEELTranslator(this);
         setDMNEnvironmentFactory(this);
         setExpressionToNativeTransformer(this);
-        this.protoFactory = new ProtoBufferFactory(this);
 
         this.drgElementFilter = new DRGElementFilter(this.singletonInputData);
         this.nativeTypeMemoizer = new JavaTypeMemoizer();
@@ -180,6 +180,11 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     @Override
     public DRGElementFilter getDrgElementFilter() {
         return this.drgElementFilter;
+    }
+
+    @Override
+    public ProtoBufferFactory getProtoFactory() {
+        return this.protoFactory;
     }
 
     //
@@ -254,6 +259,16 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     @Override
     public String setter(TItemDefinition itemDefinition) {
         return setter(namedElementVariableName(itemDefinition));
+    }
+
+    @Override
+    public String protoGetter(TItemDefinition itemDefinition) {
+        return this.protoFactory.protoGetter(namedElementVariableName(itemDefinition), toFEELType(itemDefinition));
+    }
+
+    @Override
+    public String protoSetter(TItemDefinition itemDefinition) {
+        return this.protoFactory.protoSetter(namedElementVariableName(itemDefinition), toFEELType(itemDefinition));
     }
 
     //
@@ -1923,6 +1938,11 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     // .proto related functions
     //
     @Override
+    public boolean isGenerateProto() {
+        return this.isGenerateProtoMessages() || this.isGenerateProtoServices();
+    }
+
+    @Override
     public boolean isGenerateProtoMessages() {
         return this.generateProtoMessages;
     }
@@ -1953,4 +1973,36 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     public Pair<Pair<List<MessageType>, List<MessageType>>, List<Service>> dmnToProto(TDefinitions definitions) {
         return this.protoFactory.dmnToProto(definitions);
     }
+
+    @Override
+    public String drgElementOutputTypeProto(TDRGElement element) {
+        return this.protoFactory.qualifiedResponseMessageName(element);
+    }
+
+    @Override
+    public String drgElementSignatureProto(TDRGElement element) {
+        String decisionSignature = String.format("%s %s", this.protoFactory.qualifiedRequestMessageName(element),  "request");
+        return augmentSignature(decisionSignature);
+    }
+
+    @Override
+    public Statement drgElementSignatureProtoBody(TDRGElement element) {
+        return this.nativeFactory.drgElementSignatureProtoBody(element);
+    }
+
+    @Override
+    public String convertProtoMember(String source, TItemDefinition parent, TItemDefinition child) {
+        return this.nativeFactory.convertProtoMember(source, parent, child);
+    }
+
+    @Override
+    public String convertMemberToProto(String source, String sourceType, TItemDefinition child) {
+        return this.nativeFactory.convertMemberToProto(source, sourceType, child);
+    }
+
+    @Override
+    public String qualifiedItemDefinitionProtoName(TItemDefinition itemDefinition) {
+        return this.protoFactory.qualifiedItemDefinitionProtoName(itemDefinition);
+    }
+
 }

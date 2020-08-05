@@ -83,6 +83,21 @@ public class CompareAgainstLendingThreshold extends com.gs.dmn.signavio.runtime.
         }
     }
 
+    public proto.CompareAgainstLendingThresholdResponse apply(proto.CompareAgainstLendingThresholdRequest request, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+        // Create arguments from Request Message
+        type.Applicant applicant = type.Applicant.toApplicant(request.getApplicant());
+        java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(request.getCurrentRiskAppetite());
+        java.math.BigDecimal lendingThreshold = java.math.BigDecimal.valueOf(request.getLendingThreshold());
+        
+        // Invoke apply method
+        java.math.BigDecimal output_ = apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        
+        // Convert output to Response Message
+        proto.CompareAgainstLendingThresholdResponse.Builder builder_ = proto.CompareAgainstLendingThresholdResponse.newBuilder();
+        builder_.setCompareAgainstLendingThreshold((output_ == null ? 0 : output_.doubleValue()));
+        return builder_.build();
+    }
+
     protected java.math.BigDecimal evaluate(java.math.BigDecimal assessApplicantAge, java.math.BigDecimal assessIssueRisk, java.math.BigDecimal lendingThreshold, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();

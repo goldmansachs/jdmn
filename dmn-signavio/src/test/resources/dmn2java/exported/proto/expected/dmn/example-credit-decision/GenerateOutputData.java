@@ -86,6 +86,21 @@ public class GenerateOutputData extends com.gs.dmn.signavio.runtime.DefaultSigna
         }
     }
 
+    public proto.GenerateOutputDataResponse apply(proto.GenerateOutputDataRequest request, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+        // Create arguments from Request Message
+        type.Applicant applicant = type.Applicant.toApplicant(request.getApplicant());
+        java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(request.getCurrentRiskAppetite());
+        java.math.BigDecimal lendingThreshold = java.math.BigDecimal.valueOf(request.getLendingThreshold());
+        
+        // Invoke apply method
+        List<type.GenerateOutputData> output_ = apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        
+        // Convert output to Response Message
+        proto.GenerateOutputDataResponse.Builder builder_ = proto.GenerateOutputDataResponse.newBuilder();
+        builder_.addAllGenerateOutputData(((List) output_.stream().map(type.GenerateOutputData::toProto).collect(java.util.stream.Collectors.toList())));
+        return builder_.build();
+    }
+
     protected List<type.GenerateOutputData> evaluate(java.math.BigDecimal assessIssueRisk, java.math.BigDecimal compareAgainstLendingThreshold, String makeCreditDecision, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         return zip(asList("Decision", "Assessment", "Issue"), asList(asList(makeCreditDecision), asList(compareAgainstLendingThreshold), asList(assessIssueRisk))).stream().map(x -> type.GenerateOutputData.toGenerateOutputData(x)).collect(Collectors.toList());
     }

@@ -70,6 +70,20 @@ public class AssessIssue extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
         }
     }
 
+    public proto.AssessIssueResponse apply(proto.AssessIssueRequest request, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+        // Create arguments from Request Message
+        java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(request.getCurrentRiskAppetite());
+        java.math.BigDecimal priorIssue_iterator = java.math.BigDecimal.valueOf(request.getPriorIssueIterator());
+        
+        // Invoke apply method
+        java.math.BigDecimal output_ = apply(currentRiskAppetite, priorIssue_iterator, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        
+        // Convert output to Response Message
+        proto.AssessIssueResponse.Builder builder_ = proto.AssessIssueResponse.newBuilder();
+        builder_.setAssessIssue((output_ == null ? 0 : output_.doubleValue()));
+        return builder_.build();
+    }
+
     protected java.math.BigDecimal evaluate(java.math.BigDecimal currentRiskAppetite, java.math.BigDecimal priorIssue_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         return numericMultiply(priorIssue_iterator, numericMultiply(max(asList(number("0"), numericSubtract(number("100"), currentRiskAppetite))), number("0.01")));
     }
