@@ -19,6 +19,8 @@ import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Conversion;
 import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.transformation.native_.statement.Statement;
+import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TDecision;
 import org.omg.spec.dmn._20180521.model.TItemDefinition;
 
@@ -143,4 +145,13 @@ public interface NativeExpressionFactory {
     String convertDecisionArgumentFromString(String paramName, Type type);
 
     String conversionFunction(Conversion conversion, String javaType);
+
+    //
+    // Proto conversions
+    //
+    String convertProtoMember(String source, TItemDefinition parent, TItemDefinition member);
+
+    String convertMemberToProto(String source, String sourceType, TItemDefinition member);
+
+    Statement drgElementSignatureProtoBody(TDRGElement element);
 }

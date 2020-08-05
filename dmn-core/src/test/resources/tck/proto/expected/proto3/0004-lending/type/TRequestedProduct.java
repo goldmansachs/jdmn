@@ -20,8 +20,32 @@ public interface TRequestedProduct extends com.gs.dmn.runtime.DMNType {
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTRequestedProduct(((com.gs.dmn.runtime.DMNType)other).toContext());
+        } else if (other instanceof proto.TRequestedProduct) {
+            TRequestedProductImpl result_ = new TRequestedProductImpl();
+            result_.setProductType(((proto.TRequestedProduct) other).getProductType());
+            result_.setAmount(java.math.BigDecimal.valueOf(((proto.TRequestedProduct) other).getAmount()));
+            result_.setRate(java.math.BigDecimal.valueOf(((proto.TRequestedProduct) other).getRate()));
+            result_.setTerm(java.math.BigDecimal.valueOf(((proto.TRequestedProduct) other).getTerm()));
+            return result_;
         } else {
             throw new com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.getClass().getSimpleName(), TRequestedProduct.class.getSimpleName()));
+        }
+    }
+
+    static proto.TRequestedProduct toProto(TRequestedProduct other) {
+        proto.TRequestedProduct.Builder result_ = proto.TRequestedProduct.newBuilder();
+        result_.setProductType(((TRequestedProduct) other).getProductType());
+        result_.setAmount((((TRequestedProduct) other).getAmount() == null ? 0 : ((TRequestedProduct) other).getAmount().doubleValue()));
+        result_.setRate((((TRequestedProduct) other).getRate() == null ? 0 : ((TRequestedProduct) other).getRate().doubleValue()));
+        result_.setTerm((((TRequestedProduct) other).getTerm() == null ? 0 : ((TRequestedProduct) other).getTerm().doubleValue()));
+        return result_.build();
+    }
+
+    static List<proto.TRequestedProduct> toProto(List<TRequestedProduct> other) {
+        if (other == null) {
+            return null;
+        } else {
+            return other.stream().map(o -> toProto(o)).collect(java.util.stream.Collectors.toList());
         }
     }
 

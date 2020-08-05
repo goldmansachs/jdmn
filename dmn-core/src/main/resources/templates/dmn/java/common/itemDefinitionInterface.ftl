@@ -45,10 +45,36 @@ public interface ${javaClassName} extends ${transformer.dmnTypeClassName()} {
             return result_;
         } else if (other instanceof ${transformer.dmnTypeClassName()}) {
             return ${transformer.convertMethodName(itemDefinition)}(((${transformer.dmnTypeClassName()})other).toContext());
+    <#if transformer.isGenerateProto()>
+        } else if (other instanceof ${transformer.qualifiedItemDefinitionProtoName(itemDefinition)}) {
+            ${transformer.itemDefinitionNativeClassName(javaClassName)} result_ = ${transformer.defaultConstructor(transformer.itemDefinitionNativeClassName(javaClassName))};
+        <#list itemDefinition.itemComponent as child>
+            result_.${transformer.setter(child)}(${transformer.convertProtoMember("other", itemDefinition, child)});
+        </#list>
+            return result_;
+    </#if>
         } else {
             throw new ${transformer.dmnRuntimeExceptionClassName()}(String.format("Cannot convert '%s' to '%s'", other.getClass().getSimpleName(), ${javaClassName}.class.getSimpleName()));
         }
     }
+    <#if transformer.isGenerateProto()>
+
+    static ${transformer.qualifiedItemDefinitionProtoName(itemDefinition)} toProto(${javaClassName} other) {
+        ${transformer.qualifiedItemDefinitionProtoName(itemDefinition)}.Builder result_ = ${transformer.qualifiedItemDefinitionProtoName(itemDefinition)}.newBuilder();
+    <#list itemDefinition.itemComponent as child>
+        result_.${transformer.protoSetter(child)}(${transformer.convertMemberToProto("other", javaClassName, child)});
+    </#list>
+        return result_.build();
+    }
+
+    static List<${transformer.qualifiedItemDefinitionProtoName(itemDefinition)}> toProto(List<${javaClassName}> other) {
+        if (other == null) {
+            return null;
+        } else {
+            return other.stream().map(o -> toProto(o)).collect(java.util.stream.Collectors.toList());
+        }
+    }
+    </#if>
 </#macro>
 
 <#macro addAccessors itemDefinition>

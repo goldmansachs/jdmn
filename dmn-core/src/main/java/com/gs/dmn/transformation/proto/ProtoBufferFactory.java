@@ -18,10 +18,6 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
-import com.gs.dmn.transformation.proto.Field;
-import com.gs.dmn.transformation.proto.FieldType;
-import com.gs.dmn.transformation.proto.MessageType;
-import com.gs.dmn.transformation.proto.Service;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.*;
 
@@ -193,6 +189,27 @@ public class ProtoBufferFactory {
     }
 
     //
+    // Proto accessors
+    //
+    public String protoGetter(String name, Type type) {
+        String protoName = protoName(name);
+        if (type instanceof ListType) {
+            return String.format("%sList()", this.transformer.getterName(protoName));
+        } else {
+            return this.transformer.getter(protoName);
+        }
+    }
+
+    public String protoSetter(String name, Type type) {
+        String protoName = protoName(name);
+        if (type instanceof ListType) {
+            return String.format("addAll%s", StringUtils.capitalize(protoName));
+        } else {
+            return this.transformer.setter(protoName);
+        }
+    }
+
+    //
     // Simple Names
     //
     private String protoServiceName(TDRGElement element) {
@@ -219,7 +236,7 @@ public class ProtoBufferFactory {
         return this.transformer.lowerCaseFirst(protoName(name));
     }
 
-    private String protoName(String name) {
+    public String protoName(String name) {
         return name.replace('_', ' ');
     }
 
@@ -230,11 +247,11 @@ public class ProtoBufferFactory {
         return qualifiedProtoName(protoServiceName(element), element);
     }
 
-    private String qualifiedRequestMessageName(TDRGElement element) {
+    public String qualifiedRequestMessageName(TDRGElement element) {
         return qualifiedProtoName(requestMessageName(element), element);
     }
 
-    private String qualifiedResponseMessageName(TDRGElement element) {
+    public String qualifiedResponseMessageName(TDRGElement element) {
         return qualifiedProtoName(responseMessageName(element), element);
     }
 
@@ -243,7 +260,7 @@ public class ProtoBufferFactory {
         return qualifiedProtoName(protoName, model);
     }
 
-    private String qualifiedItemDefinitionProtoName(TItemDefinition itemDefinition) {
+    public String qualifiedItemDefinitionProtoName(TItemDefinition itemDefinition) {
         String protoName = this.transformer.upperCaseFirst(itemDefinition.getName());
         TDefinitions model = this.repository.getModel(itemDefinition);
         return qualifiedProtoName(protoName, model);

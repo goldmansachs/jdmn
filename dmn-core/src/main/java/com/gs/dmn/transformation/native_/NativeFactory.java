@@ -17,4 +17,5 @@ import com.gs.dmn.transformation.native_.statement.*;
 
 
 public interface NativeFactory extends NativeExpressionFactory, NativeStatementFactory {
+    String TO_PROTO_CONVERSION_METHOD = "toProto";
 }

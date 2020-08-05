@@ -21,8 +21,34 @@ public interface TApplicantData extends com.gs.dmn.runtime.DMNType {
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTApplicantData(((com.gs.dmn.runtime.DMNType)other).toContext());
+        } else if (other instanceof proto.TApplicantData) {
+            TApplicantDataImpl result_ = new TApplicantDataImpl();
+            result_.setMonthly(type.Monthly.toMonthly(((proto.TApplicantData) other).getMonthly()));
+            result_.setAge(java.math.BigDecimal.valueOf(((proto.TApplicantData) other).getAge()));
+            result_.setExistingCustomer(((proto.TApplicantData) other).getExistingCustomer());
+            result_.setMaritalStatus(((proto.TApplicantData) other).getMaritalStatus());
+            result_.setEmploymentStatus(((proto.TApplicantData) other).getEmploymentStatus());
+            return result_;
         } else {
             throw new com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.getClass().getSimpleName(), TApplicantData.class.getSimpleName()));
+        }
+    }
+
+    static proto.TApplicantData toProto(TApplicantData other) {
+        proto.TApplicantData.Builder result_ = proto.TApplicantData.newBuilder();
+        result_.setMonthly(type.Monthly.toProto(((TApplicantData) other).getMonthly()));
+        result_.setAge((((TApplicantData) other).getAge() == null ? 0 : ((TApplicantData) other).getAge().doubleValue()));
+        result_.setExistingCustomer(((TApplicantData) other).getExistingCustomer());
+        result_.setMaritalStatus(((TApplicantData) other).getMaritalStatus());
+        result_.setEmploymentStatus(((TApplicantData) other).getEmploymentStatus());
+        return result_.build();
+    }
+
+    static List<proto.TApplicantData> toProto(List<TApplicantData> other) {
+        if (other == null) {
+            return null;
+        } else {
+            return other.stream().map(o -> toProto(o)).collect(java.util.stream.Collectors.toList());
         }
     }
 

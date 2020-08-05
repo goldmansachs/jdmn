@@ -19,8 +19,30 @@ public interface Monthly extends com.gs.dmn.runtime.DMNType {
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toMonthly(((com.gs.dmn.runtime.DMNType)other).toContext());
+        } else if (other instanceof proto.Monthly) {
+            MonthlyImpl result_ = new MonthlyImpl();
+            result_.setIncome(java.math.BigDecimal.valueOf(((proto.Monthly) other).getIncome()));
+            result_.setExpenses(java.math.BigDecimal.valueOf(((proto.Monthly) other).getExpenses()));
+            result_.setRepayments(java.math.BigDecimal.valueOf(((proto.Monthly) other).getRepayments()));
+            return result_;
         } else {
             throw new com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.getClass().getSimpleName(), Monthly.class.getSimpleName()));
+        }
+    }
+
+    static proto.Monthly toProto(Monthly other) {
+        proto.Monthly.Builder result_ = proto.Monthly.newBuilder();
+        result_.setIncome((((Monthly) other).getIncome() == null ? 0 : ((Monthly) other).getIncome().doubleValue()));
+        result_.setExpenses((((Monthly) other).getExpenses() == null ? 0 : ((Monthly) other).getExpenses().doubleValue()));
+        result_.setRepayments((((Monthly) other).getRepayments() == null ? 0 : ((Monthly) other).getRepayments().doubleValue()));
+        return result_.build();
+    }
+
+    static List<proto.Monthly> toProto(List<Monthly> other) {
+        if (other == null) {
+            return null;
+        } else {
+            return other.stream().map(o -> toProto(o)).collect(java.util.stream.Collectors.toList());
         }
     }
 

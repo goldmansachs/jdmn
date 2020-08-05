@@ -20,8 +20,32 @@ public interface Applicant extends com.gs.dmn.runtime.DMNType {
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toApplicant(((com.gs.dmn.runtime.DMNType)other).toContext());
+        } else if (other instanceof proto.Applicant) {
+            ApplicantImpl result_ = new ApplicantImpl();
+            result_.setName(((proto.Applicant) other).getName());
+            result_.setAge(java.math.BigDecimal.valueOf(((proto.Applicant) other).getAge()));
+            result_.setCreditScore(java.math.BigDecimal.valueOf(((proto.Applicant) other).getCreditScore()));
+            result_.setPriorIssues(((List<String>) ((proto.Applicant) other).getPriorIssuesList().stream().map(e -> e).collect(java.util.stream.Collectors.toList())));
+            return result_;
         } else {
             throw new com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.getClass().getSimpleName(), Applicant.class.getSimpleName()));
+        }
+    }
+
+    static proto.Applicant toProto(Applicant other) {
+        proto.Applicant.Builder result_ = proto.Applicant.newBuilder();
+        result_.setName(((Applicant) other).getName());
+        result_.setAge((((Applicant) other).getAge() == null ? 0 : ((Applicant) other).getAge().doubleValue()));
+        result_.setCreditScore((((Applicant) other).getCreditScore() == null ? 0 : ((Applicant) other).getCreditScore().doubleValue()));
+        result_.addAllPriorIssues(((List) ((Applicant) other).getPriorIssues().stream().map(e -> e).collect(java.util.stream.Collectors.toList())));
+        return result_.build();
+    }
+
+    static List<proto.Applicant> toProto(List<Applicant> other) {
+        if (other == null) {
+            return null;
+        } else {
+            return other.stream().map(o -> toProto(o)).collect(java.util.stream.Collectors.toList());
         }
     }
 

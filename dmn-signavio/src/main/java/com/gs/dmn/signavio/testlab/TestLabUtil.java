@@ -17,6 +17,7 @@ import com.gs.dmn.feel.analysis.semantics.type.ContextType;
 import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.transformation.native_.expression.NativeExpressionFactory;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
@@ -24,7 +25,6 @@ import com.gs.dmn.signavio.testlab.expression.*;
 import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMN2JavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
-import com.gs.dmn.transformation.native_.NativeFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -40,7 +40,7 @@ public class TestLabUtil {
 
     private final BasicDMNToNativeTransformer dmnTransformer;
     private final SignavioDMNModelRepository dmnModelRepository;
-    private final NativeFactory nativeFactory;
+    private final NativeExpressionFactory nativeFactory;
     private final NativeTypeFactory typeFactory;
 
     public TestLabUtil(BasicDMNToNativeTransformer dmnTransformer) {

@@ -69,6 +69,19 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
         }
     }
 
+    public proto.ProcessPriorIssuesResponse apply(proto.ProcessPriorIssuesRequest request, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+        // Create arguments from Request Message
+        type.Applicant applicant = type.Applicant.toApplicant(request.getApplicant());
+        
+        // Invoke apply method
+        List<java.math.BigDecimal> output_ = apply(applicant, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        
+        // Convert output to Response Message
+        proto.ProcessPriorIssuesResponse.Builder builder_ = proto.ProcessPriorIssuesResponse.newBuilder();
+        builder_.addAllProcessPriorIssues(((List) output_.stream().map(e -> e == null ? 0 : e.doubleValue()).collect(java.util.stream.Collectors.toList())));
+        return builder_.build();
+    }
+
     protected List<java.math.BigDecimal> evaluate(type.Applicant applicant, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();

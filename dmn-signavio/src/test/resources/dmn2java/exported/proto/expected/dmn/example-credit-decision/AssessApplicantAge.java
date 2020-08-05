@@ -69,6 +69,19 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSigna
         }
     }
 
+    public proto.AssessApplicantAgeResponse apply(proto.AssessApplicantAgeRequest request, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+        // Create arguments from Request Message
+        type.Applicant applicant = type.Applicant.toApplicant(request.getApplicant());
+        
+        // Invoke apply method
+        java.math.BigDecimal output_ = apply(applicant, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        
+        // Convert output to Response Message
+        proto.AssessApplicantAgeResponse.Builder builder_ = proto.AssessApplicantAgeResponse.newBuilder();
+        builder_.setAssessApplicantAge((output_ == null ? 0 : output_.doubleValue()));
+        return builder_.build();
+    }
+
     protected java.math.BigDecimal evaluate(type.Applicant applicant, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();

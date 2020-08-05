@@ -17,11 +17,14 @@ import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Conversion;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
+import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.JsonSerializer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.native_.statement.*;
+import com.gs.dmn.transformation.proto.ProtoBufferFactory;
+import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TDecision;
 import org.omg.spec.dmn._20180521.model.TItemDefinition;
 
@@ -29,10 +32,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JavaFactory implements NativeFactory {
-    private final BasicDMNToNativeTransformer dmnTransformer;
+    private final BasicDMNToNativeTransformer transformer;
+    private final ProtoBufferFactory protoFactory;
+    private final NativeTypeFactory typeFactory;
 
-    public JavaFactory(BasicDMNToNativeTransformer basicDMNToNativeTransformer) {
-        this.dmnTransformer = basicDMNToNativeTransformer;
+    public JavaFactory(BasicDMNToNativeTransformer transformer) {
+        this.transformer = transformer;
+        this.protoFactory = transformer.getProtoFactory();
+        typeFactory = transformer.getNativeTypeFactory();
     }
 
     //
@@ -58,18 +65,18 @@ public class JavaFactory implements NativeFactory {
     //
     @Override
     public String makeItemDefinitionAccessor(String javaType, String source, String memberName) {
-        String accessorMethod = this.dmnTransformer.getter(memberName);
+        String accessorMethod = this.transformer.getter(memberName);
         return String.format("((%s)(%s != null ? %s.%s : null))", javaType, source, source, accessorMethod);
     }
 
     @Override
     public String makeItemDefinitionSelectExpression(String source, String memberName, String memberType) {
-        return String.format("((%s)%s.%s)", memberType, source, this.dmnTransformer.contextGetter(memberName));
+        return String.format("((%s)%s.%s)", memberType, source, this.transformer.contextGetter(memberName));
     }
 
     @Override
     public String makeContextAccessor(String javaType, String source, String memberName) {
-        return String.format("((%s)((%s)%s).%s)", javaType, this.dmnTransformer.contextClassName(), source, this.dmnTransformer.contextGetter(memberName));
+        return String.format("((%s)((%s)%s).%s)", javaType, this.transformer.contextClassName(), source, this.transformer.contextGetter(memberName));
     }
 
     @Override
@@ -139,14 +146,14 @@ public class JavaFactory implements NativeFactory {
     @Override
     public String makeMinAggregator(String ruleOutputListVariableName, String decisionRuleOutputClassName, String outputClauseVariableName) {
         return String.format("min(%s.stream().map(o -> ((%s)o).%s).collect(Collectors.toList()))",
-                ruleOutputListVariableName, decisionRuleOutputClassName, this.dmnTransformer.getter(outputClauseVariableName)
+                ruleOutputListVariableName, decisionRuleOutputClassName, this.transformer.getter(outputClauseVariableName)
         );
     }
 
     @Override
     public String makeMaxAggregator(String ruleOutputListVariableName, String decisionRuleOutputClassName, String outputClauseVariableName) {
         return String.format("max(%s.stream().map(o -> ((%s)o).%s).collect(Collectors.toList()))",
-                ruleOutputListVariableName, decisionRuleOutputClassName, this.dmnTransformer.getter(outputClauseVariableName)
+                ruleOutputListVariableName, decisionRuleOutputClassName, this.transformer.getter(outputClauseVariableName)
         );
     }
 
@@ -158,7 +165,7 @@ public class JavaFactory implements NativeFactory {
     @Override
     public String makeSumAggregator(String ruleOutputListVariableName, String decisionRuleOutputClassName, String outputClauseVariableName) {
         return String.format("sum(%s.stream().map(o -> ((%s)o).%s).collect(Collectors.toList()))",
-                ruleOutputListVariableName, decisionRuleOutputClassName, this.dmnTransformer.getter(outputClauseVariableName)
+                ruleOutputListVariableName, decisionRuleOutputClassName, this.transformer.getter(outputClauseVariableName)
         );
     }
 
@@ -180,12 +187,12 @@ public class JavaFactory implements NativeFactory {
 
     @Override
     public String makeMemberAssignment(String complexTypeVariable, String memberName, String value) {
-        return String.format("%s.%s(%s);", complexTypeVariable, this.dmnTransformer.setter(memberName), value);
+        return String.format("%s.%s(%s);", complexTypeVariable, this.transformer.setter(memberName), value);
     }
 
     @Override
     public String makeContextMemberAssignment(String complexTypeVariable, String memberName, String value) {
-        return String.format("%s.%s %s);", complexTypeVariable, this.dmnTransformer.contextSetter(memberName), value);
+        return String.format("%s.%s %s);", complexTypeVariable, this.transformer.contextSetter(memberName), value);
     }
 
     //
@@ -206,7 +213,7 @@ public class JavaFactory implements NativeFactory {
 
     @Override
     public String applyMethod(FunctionType functionType, String signature, boolean convertTypeToContext, String body) {
-        String returnType = dmnTransformer.toNativeType(dmnTransformer.convertType(functionType.getReturnType(), convertTypeToContext));
+        String returnType = transformer.toNativeType(transformer.convertType(functionType.getReturnType(), convertTypeToContext));
         String parametersAssignment = parametersAssignment(functionType.getParameters(), convertTypeToContext);
         return applyMethod(returnType, signature, parametersAssignment, body);
     }
@@ -224,8 +231,8 @@ public class JavaFactory implements NativeFactory {
         List<String> parameters = new ArrayList<>();
         for(int i = 0; i< formalParameters.size(); i++) {
             FormalParameter p = formalParameters.get(i);
-            String type = dmnTransformer.toNativeType(dmnTransformer.convertType(p.getType(), convertTypeToContext));
-            String name = dmnTransformer.nativeFriendlyVariableName(p.getName());
+            String type = transformer.toNativeType(transformer.convertType(p.getType(), convertTypeToContext));
+            String name = transformer.nativeFriendlyVariableName(p.getName());
             parameters.add(makeLambdaParameterAssignment(type, name, i));
         }
         return String.join(" ", parameters);
@@ -255,7 +262,7 @@ public class JavaFactory implements NativeFactory {
 
     @Override
     public String decisionConstructorParameter(DRGElementReference<TDecision> d) {
-        return String.format("%s %s", this.dmnTransformer.qualifiedName(d), this.dmnTransformer.drgElementReferenceVariableName(d));
+        return String.format("%s %s", this.transformer.qualifiedName(d), this.transformer.drgElementReferenceVariableName(d));
     }
 
     //
@@ -276,7 +283,7 @@ public class JavaFactory implements NativeFactory {
     //
     @Override
     public String convertListToElement(String expression, Type type) {
-        return String.format("this.<%s>%s", dmnTransformer.toNativeType(type), asElement(expression));
+        return String.format("this.<%s>%s", transformer.toNativeType(type), asElement(expression));
     }
 
     @Override
@@ -303,19 +310,19 @@ public class JavaFactory implements NativeFactory {
     @Override
     public String convertToItemDefinitionType(String expression, ItemDefinitionType type) {
         String convertMethodName = convertMethodName(type);
-        String interfaceName = dmnTransformer.toNativeType(type);
+        String interfaceName = transformer.toNativeType(type);
         return String.format("%s.%s(%s)", interfaceName, convertMethodName, expression);
     }
 
     @Override
     public String convertMethodName(TItemDefinition itemDefinition) {
-        String javaInterfaceName = dmnTransformer.upperCaseFirst(itemDefinition.getName());
+        String javaInterfaceName = transformer.upperCaseFirst(itemDefinition.getName());
         return String.format("to%s", javaInterfaceName);
     }
 
     @Override
     public String convertMethodName(ItemDefinitionType type) {
-        String javaInterfaceName = dmnTransformer.upperCaseFirst(type.getName());
+        String javaInterfaceName = transformer.upperCaseFirst(type.getName());
         return String.format("to%s", javaInterfaceName);
     }
 
@@ -333,11 +340,11 @@ public class JavaFactory implements NativeFactory {
                 throw new DMNRuntimeException(String.format("Cannot convert String to type '%s'", type));
             }
         } else if (type instanceof ListType) {
-            String javaType = this.dmnTransformer.toNativeType(type);
+            String javaType = this.transformer.toNativeType(type);
             return String.format("(%s != null ? %s.readValue(%s, new com.fasterxml.jackson.core.type.TypeReference<%s>() {}) : null)", paramName, objectMapper(), paramName, javaType);
         } else {
             // Complex types
-            String javaType = dmnTransformer.itemDefinitionNativeClassName(dmnTransformer.toNativeType(type));
+            String javaType = transformer.itemDefinitionNativeClassName(transformer.toNativeType(type));
             return String.format("(%s != null ? %s.readValue(%s, new com.fasterxml.jackson.core.type.TypeReference<%s>() {}) : null)", paramName, objectMapper(), paramName, javaType);
         }
     }
@@ -353,6 +360,170 @@ public class JavaFactory implements NativeFactory {
         } else {
             throw new DMNRuntimeException(String.format("Conversion '%s' is not supported yet", conversion));
         }
+    }
+
+    @Override
+    public String convertProtoMember(String source, TItemDefinition parent, TItemDefinition member) {
+        Type memberType = this.transformer.toFEELType(member);
+        ProtoBufferFactory protoFactory = this.transformer.getProtoFactory();
+        String protoType = protoFactory.qualifiedItemDefinitionProtoName(parent);
+        String value = String.format("((%s) %s).%s", protoType, source, protoFactory.protoGetter(member.getName(), memberType));
+        return extractMemberFromProtoValue(value, memberType);
+    }
+
+    @Override
+    public String convertMemberToProto(String source, String sourceType, TItemDefinition member) {
+        Type memberType = this.transformer.toFEELType(member);
+        String value = String.format("((%s) %s).%s", sourceType, source, this.transformer.getter(member.getName()));
+        return convertOutputToProtoType(value, memberType);
+    }
+
+    @Override
+    public Statement drgElementSignatureProtoBody(TDRGElement element) {
+        CompoundStatement statement = makeCompoundStatement();
+        List<Pair<String, Type>> parameters = this.transformer.drgElementTypeSignature(element, transformer::nativeName);
+
+        // Create arguments from Request Message
+        statement.add(makeCommentStatement("Create arguments from Request Message"));
+        for (Pair<String, Type> p: parameters) {
+            String variableName = p.getLeft();
+            String nativeType = this.typeFactory.nullableType(this.transformer.toNativeType(p.getRight()));
+            statement.add(makeAssignmentStatement(nativeType, variableName, extractParameterFromRequestMessage(p), p.getRight()));
+        }
+        statement.add(makeNopStatement());
+
+        // Invoke apply method
+        statement.add(makeCommentStatement("Invoke apply method"));
+        Type outputType = this.transformer.drgElementOutputFEELType(element);
+        String outputNativeType = this.transformer.drgElementOutputType(element);
+        String outputVariable = "output_";
+        String outputExpression = String.format("apply(%s)", this.transformer.drgElementDefaultArgumentsExtraCache(element));
+        statement.add(makeAssignmentStatement(outputNativeType, outputVariable, outputExpression, outputType));
+        statement.add(makeNopStatement());
+
+        // Convert output to Response Message
+        statement.add(makeCommentStatement("Convert output to Response Message"));
+        // Create Message Builder
+        String responseMessageName = this.protoFactory.qualifiedResponseMessageName(element);
+        String responseMessageBuilderName = responseMessageName + ".Builder";
+        String builderVariable = "builder_";
+        String builderValue = String.format("%s.newBuilder()", responseMessageName);
+        statement.add(makeAssignmentStatement(responseMessageBuilderName, builderVariable, builderValue, null));
+        // Set value
+        String value = outputVariable;
+        if (outputType instanceof ListType) {
+            String setter = "addAll" + this.transformer.upperCaseFirst(this.transformer.namedElementVariableName(element));
+            statement.add(makeExpressionStatement(String.format("%s.%s(%s);", builderVariable, setter, convertOutputToProtoType(value, outputType)), null));
+        } else {
+            String setter = this.transformer.setter(this.transformer.namedElementVariableName(element));
+            statement.add(makeExpressionStatement(String.format("%s.%s(%s);", builderVariable, setter, convertOutputToProtoType(value, outputType)), null));
+        }
+        // Return response
+        statement.add(makeReturnStatement(String.format("%s.build()", builderVariable), null));
+        return statement;
+    }
+
+    private String extractParameterFromRequestMessage(Pair<String, Type> parameter) {
+        String requestVariableName = "request";
+        String name = parameter.getLeft();
+        Type type = parameter.getRight();
+        String protoValue = String.format("%s.%s", requestVariableName, this.protoFactory.protoGetter(name, type));
+        return extractMemberFromProtoValue(protoValue, type);
+    }
+
+    private String extractMemberFromProtoValue(String protoValue, Type type) {
+        if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
+            if (type == NumberType.NUMBER) {
+                String qNativeType = this.transformer.getNativeTypeFactory().toQualifiedNativeType(((DataType) type).getName());
+                return String.format("%s.valueOf(%s)", qNativeType, protoValue);
+            } else if (type == BooleanType.BOOLEAN) {
+                return protoValue;
+            } else if (type == StringType.STRING) {
+                return protoValue;
+            } else {
+                // Date time types
+                String conversionMethod = FEELTypes.FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.get(type);
+                String stringValue = String.format("(%s == null ? null : %s.toString())", protoValue, protoValue);
+                if (conversionMethod != null) {
+                    return String.format("%s(%s)", conversionMethod, stringValue);
+                }
+                throw new DMNRuntimeException(String.format("Cannot convert type '%s' to proto type", type));
+            }
+        } else if (type instanceof ListType) {
+            Type elementType = ((ListType) type).getElementType();
+            String mapFunction;
+            if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(elementType)) {
+                if (elementType == NumberType.NUMBER) {
+                    String qNativeType = this.transformer.getNativeTypeFactory().toQualifiedNativeType(((DataType) type).getName());
+                    mapFunction = String.format("e -> %s.valueOf(e)", qNativeType);
+                } else if (elementType == BooleanType.BOOLEAN) {
+                    mapFunction =  "e -> e";
+                } else if (elementType == StringType.STRING) {
+                    mapFunction =  "e -> e";
+                } else {
+                    // Date time types
+                    String conversionMethod = FEELTypes.FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.get(elementType);
+                    if (conversionMethod != null) {
+                        mapFunction = "this::" + conversionMethod;
+                    } else {
+                        throw new DMNRuntimeException(String.format("Cannot convert type '%s' to proto type", type));
+                    }
+                }
+            } else if (elementType instanceof ItemDefinitionType) {
+                String qNativeType = this.transformer.toNativeType(type);
+                String convertFunction = convertMethodName((ItemDefinitionType) elementType);
+                mapFunction = String.format("%s::%s", qNativeType, convertFunction);
+            } else {
+                throw new DMNRuntimeException(String.format("Cannot convert type '%s' to proto type", type));
+            }
+            String qNativeType = this.transformer.toNativeType(type);
+            return String.format("((%s) %s.stream().map(%s).collect(java.util.stream.Collectors.toList()))", qNativeType, protoValue, mapFunction);
+        } else if (type instanceof ItemDefinitionType) {
+            String qNativeType = this.transformer.toNativeType(type);
+            String convertFunction = convertMethodName((ItemDefinitionType) type);
+            return String.format("%s.%s(%s)", qNativeType, convertFunction, protoValue);
+        }
+        throw new DMNRuntimeException(String.format("Cannot convert type '%s' to proto type", type));
+    }
+
+    private String convertOutputToProtoType(String value, Type type) {
+        if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
+            if (type == NumberType.NUMBER) {
+                return String.format("(%s == null ? 0 : %s.doubleValue())", value, value);
+            } else if (type == BooleanType.BOOLEAN) {
+                return value;
+            } else if (type == StringType.STRING) {
+                return value;
+            } else {
+                // Return string
+                return String.format("string(%s)", value);
+            }
+        } else if (type instanceof ListType) {
+            Type elementType = ((ListType) type).getElementType();
+            String mapFunction;
+            if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(elementType)) {
+                if (elementType == NumberType.NUMBER) {
+                    mapFunction = String.format("e -> e == null ? 0 : e.doubleValue()");
+                } else if (elementType == BooleanType.BOOLEAN) {
+                    mapFunction = "e -> e";
+                } else if (elementType == StringType.STRING) {
+                    mapFunction = "e -> e";
+                } else {
+                    // Return string
+                    mapFunction = "this::string";
+                }
+            } else if (elementType instanceof ItemDefinitionType) {
+                String nativeType = this.transformer.toNativeType(elementType);
+                mapFunction = String.format("%s::%s", nativeType, TO_PROTO_CONVERSION_METHOD);
+            } else {
+                throw new DMNRuntimeException(String.format("Cannot convert type '%s' to proto type", type));
+            }
+            return String.format("((List) %s.stream().map(%s).collect(java.util.stream.Collectors.toList()))", value, mapFunction);
+        } else if (type instanceof ItemDefinitionType) {
+            String nativeType = this.transformer.toNativeType(type);
+            return String.format("%s.%s(%s)", nativeType, TO_PROTO_CONVERSION_METHOD, value);
+        }
+        throw new DMNRuntimeException(String.format("Conversion from '%s' to proto types is not supported yet", type));
     }
 
     private String objectMapper() {

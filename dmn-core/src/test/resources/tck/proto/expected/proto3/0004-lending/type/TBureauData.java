@@ -18,8 +18,28 @@ public interface TBureauData extends com.gs.dmn.runtime.DMNType {
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTBureauData(((com.gs.dmn.runtime.DMNType)other).toContext());
+        } else if (other instanceof proto.TBureauData) {
+            TBureauDataImpl result_ = new TBureauDataImpl();
+            result_.setCreditScore(java.math.BigDecimal.valueOf(((proto.TBureauData) other).getCreditScore()));
+            result_.setBankrupt(((proto.TBureauData) other).getBankrupt());
+            return result_;
         } else {
             throw new com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.getClass().getSimpleName(), TBureauData.class.getSimpleName()));
+        }
+    }
+
+    static proto.TBureauData toProto(TBureauData other) {
+        proto.TBureauData.Builder result_ = proto.TBureauData.newBuilder();
+        result_.setCreditScore((((TBureauData) other).getCreditScore() == null ? 0 : ((TBureauData) other).getCreditScore().doubleValue()));
+        result_.setBankrupt(((TBureauData) other).getBankrupt());
+        return result_.build();
+    }
+
+    static List<proto.TBureauData> toProto(List<TBureauData> other) {
+        if (other == null) {
+            return null;
+        } else {
+            return other.stream().map(o -> toProto(o)).collect(java.util.stream.Collectors.toList());
         }
     }
 
