@@ -470,7 +470,7 @@ public class JavaFactory implements NativeFactory {
                     }
                 }
             } else if (elementType instanceof ItemDefinitionType) {
-                String qNativeType = this.transformer.toNativeType(type);
+                String qNativeType = this.transformer.toNativeType(elementType);
                 String convertFunction = convertMethodName((ItemDefinitionType) elementType);
                 mapFunction = String.format("%s::%s", qNativeType, convertFunction);
             } else {
