@@ -1981,8 +1981,30 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String drgElementSignatureProto(TDRGElement element) {
-        String decisionSignature = String.format("%s %s", this.protoFactory.qualifiedRequestMessageName(element),  "request");
+        String decisionSignature = String.format("%s %s", this.protoFactory.qualifiedRequestMessageName(element), ProtoBufferFactory.REQUEST_VARIABLE_NAME);
         return augmentSignature(decisionSignature);
+    }
+
+    @Override
+    public String drgElementSignatureExtraCacheProto(TDRGElement element) {
+        String decisionSignature = drgElementSignatureExtraProto(element);
+        return drgElementSignatureExtraCache(decisionSignature);
+    }
+
+    private String drgElementSignatureExtraProto(TDRGElement element) {
+        String signature = drgElementSignatureProto(element);
+        return drgElementSignatureExtra(signature);
+    }
+
+    @Override
+    public String drgElementDefaultArgumentsExtraCacheProto(TDRGElement element) {
+        String arguments = drgElementDefaultArgumentsExtraProto(element);
+        return drgElementDefaultArgumentsExtraCache(arguments);
+    }
+
+    private String drgElementDefaultArgumentsExtraProto(TDRGElement element) {
+        String arguments = augmentArgumentList(ProtoBufferFactory.REQUEST_VARIABLE_NAME);
+        return drgElementDefaultArgumentsExtra(arguments);
     }
 
     @Override

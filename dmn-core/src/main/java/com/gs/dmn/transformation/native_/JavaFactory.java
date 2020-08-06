@@ -397,7 +397,7 @@ public class JavaFactory implements NativeFactory {
         Type outputType = this.transformer.drgElementOutputFEELType(element);
         String outputNativeType = this.transformer.drgElementOutputType(element);
         String outputVariable = "output_";
-        String outputExpression = String.format("apply(%s)", this.transformer.drgElementDefaultArgumentsExtraCache(element));
+        String outputExpression = String.format("apply(%s)", this.transformer.drgElementArgumentsExtraCache(element));
         statement.add(makeAssignmentStatement(outputNativeType, outputVariable, outputExpression, outputType));
         statement.add(makeNopStatement());
 
@@ -424,10 +424,9 @@ public class JavaFactory implements NativeFactory {
     }
 
     private String extractParameterFromRequestMessage(Pair<String, Type> parameter) {
-        String requestVariableName = "request";
         String name = parameter.getLeft();
         Type type = parameter.getRight();
-        String protoValue = String.format("%s.%s", requestVariableName, this.protoFactory.protoGetter(name, type));
+        String protoValue = String.format("%s.%s", ProtoBufferFactory.REQUEST_VARIABLE_NAME, this.protoFactory.protoGetter(name, type));
         return extractMemberFromProtoValue(protoValue, type);
     }
 
