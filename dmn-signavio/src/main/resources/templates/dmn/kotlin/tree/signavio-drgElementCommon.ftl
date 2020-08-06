@@ -107,7 +107,7 @@
         <#assign topLevelDecision = multiInstanceDecision.topLevelDecision/>
         <#assign sourceList = transformer.iterationExpressionToNative(drgElement, iterationExpression) />
         <#assign lambdaParamName = transformer.namedElementVariableName(iterator) />
-        <#assign lambdaBody = "${transformer.namedElementVariableName(topLevelDecision)}.apply(${transformer.drgElementArgumentsExtraCacheWithConvertedArgumentList(topLevelDecision)})" />
+        <#assign lambdaBody = "${transformer.namedElementVariableName(topLevelDecision)}.apply(${transformer.drgElementArgumentListExtraCacheWithConvertedArgumentList(topLevelDecision)})" />
         val ${transformer.namedElementVariableName(topLevelDecision)}: ${transformer.qualifiedName(javaPackageName, transformer.drgElementClassName(topLevelDecision))} = ${transformer.qualifiedName(javaPackageName, transformer.drgElementClassName(topLevelDecision))}()
         <#if aggregator == "COLLECT">
         return ${sourceList}?.${transformer.getStream()}?.map({${lambdaParamName} -> ${lambdaBody}})?.collect(Collectors.toList())
@@ -276,18 +276,18 @@ import static ${transformer.qualifiedName(subBKM)}.${transformer.bkmFunctionName
         <#items as rule>
         <#if modelRepository.isFirstSingleHit(expression.hitPolicy) && modelRepository.atLeastTwoRules(expression)>
         <#if rule?is_first>
-        var tempRuleOutput_: ${transformer.abstractRuleOutputClassName()} = rule${rule_index}(${transformer.drgElementArgumentsExtra(transformer.ruleArgumentList(drgElement))})
+        var tempRuleOutput_: ${transformer.abstractRuleOutputClassName()} = rule${rule_index}(${transformer.drgElementArgumentListExtra(transformer.ruleArgumentList(drgElement))})
         ruleOutputList_.add(tempRuleOutput_)
         var matched_: Boolean = tempRuleOutput_.isMatched()
         <#else >
         if (!matched_) {
-            tempRuleOutput_ = rule${rule_index}(${transformer.drgElementArgumentsExtra(transformer.ruleArgumentList(drgElement))})
+            tempRuleOutput_ = rule${rule_index}(${transformer.drgElementArgumentListExtra(transformer.ruleArgumentList(drgElement))})
             ruleOutputList_.add(tempRuleOutput_)
             matched_ = tempRuleOutput_.isMatched()
         }
         </#if>
         <#else >
-        ruleOutputList_.add(rule${rule_index}(${transformer.drgElementArgumentsExtra(transformer.ruleArgumentList(drgElement))}))
+        ruleOutputList_.add(rule${rule_index}(${transformer.drgElementArgumentListExtra(transformer.ruleArgumentList(drgElement))}))
         </#if>
         </#items>
     </#list>
@@ -362,9 +362,9 @@ import static ${transformer.qualifiedName(subBKM)}.${transformer.bkmFunctionName
             ${extraIndent}// Apply child decisions
         <#items as subDecision>
             <#if transformer.isLazyEvaluated(subDecision)>
-            ${extraIndent}val ${transformer.drgElementReferenceVariableName(subDecision)}: ${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> = ${transformer.lazyEvalClassName()}({ this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentsExtraCache(subDecision)}) })
+            ${extraIndent}val ${transformer.drgElementReferenceVariableName(subDecision)}: ${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> = ${transformer.lazyEvalClassName()}({ this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentListExtraCache(subDecision)}) })
             <#else>
-            ${extraIndent}val ${transformer.drgElementReferenceVariableName(subDecision)}: ${transformer.drgElementOutputType(subDecision)} = this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentsExtraCache(subDecision)})
+            ${extraIndent}val ${transformer.drgElementReferenceVariableName(subDecision)}: ${transformer.drgElementOutputType(subDecision)} = this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentListExtraCache(subDecision)})
             </#if>
         </#items>
 

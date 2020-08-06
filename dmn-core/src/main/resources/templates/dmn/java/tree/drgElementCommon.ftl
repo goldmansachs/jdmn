@@ -179,18 +179,18 @@
         <#items as rule>
         <#if modelRepository.isFirstSingleHit(expression.hitPolicy) && modelRepository.atLeastTwoRules(expression)>
         <#if rule?is_first>
-        ${transformer.abstractRuleOutputClassName()} tempRuleOutput_ = rule${rule_index}(${transformer.drgElementArgumentsExtra(transformer.ruleArgumentList(drgElement))});
+        ${transformer.abstractRuleOutputClassName()} tempRuleOutput_ = rule${rule_index}(${transformer.drgElementArgumentListExtra(transformer.ruleArgumentList(drgElement))});
         ruleOutputList_.add(tempRuleOutput_);
         boolean matched_ = tempRuleOutput_.isMatched();
         <#else >
         if (!matched_) {
-            tempRuleOutput_ = rule${rule_index}(${transformer.drgElementArgumentsExtra(transformer.ruleArgumentList(drgElement))});
+            tempRuleOutput_ = rule${rule_index}(${transformer.drgElementArgumentListExtra(transformer.ruleArgumentList(drgElement))});
             ruleOutputList_.add(tempRuleOutput_);
             matched_ = tempRuleOutput_.isMatched();
         }
         </#if>
         <#else >
-        ruleOutputList_.add(rule${rule_index}(${transformer.drgElementArgumentsExtra(transformer.ruleArgumentList(drgElement))}));
+        ruleOutputList_.add(rule${rule_index}(${transformer.drgElementArgumentListExtra(transformer.ruleArgumentList(drgElement))}));
         </#if>
         </#items>
     </#list>
@@ -262,9 +262,9 @@
             ${extraIndent}// Apply child decisions
         <#items as subDecision>
             <#if transformer.isLazyEvaluated(subDecision)>
-            ${extraIndent}${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> ${transformer.drgElementReferenceVariableName(subDecision)} = new ${transformer.lazyEvalClassName()}<>(() -> this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentsExtraCache(subDecision)}));
+            ${extraIndent}${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> ${transformer.drgElementReferenceVariableName(subDecision)} = new ${transformer.lazyEvalClassName()}<>(() -> this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentListExtraCache(subDecision)}));
             <#else>
-            ${extraIndent}${transformer.drgElementOutputType(subDecision)} ${transformer.drgElementReferenceVariableName(subDecision)} = this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentsExtraCache(subDecision)});
+            ${extraIndent}${transformer.drgElementOutputType(subDecision)} ${transformer.drgElementReferenceVariableName(subDecision)} = this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentListExtraCache(subDecision)});
             </#if>
         </#items>
 

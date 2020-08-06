@@ -243,12 +243,12 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return this.dmnTransformer.qualifiedName(pkg, cls);
     }
 
-    public String drgElementArgumentsExtraCache(String arguments) {
-        return this.dmnTransformer.drgElementArgumentsExtraCache(arguments);
+    public String drgElementArgumentListExtraCache(String arguments) {
+        return this.dmnTransformer.drgElementArgumentListExtraCache(arguments);
     }
 
-    public String drgElementArgumentsExtra(String arguments) {
-        return this.dmnTransformer.drgElementArgumentsExtra(arguments);
+    public String drgElementArgumentListExtra(String arguments) {
+        return this.dmnTransformer.drgElementArgumentListExtra(arguments);
     }
 
     public String drgElementArgumentList(ResultNodeInfo info) {

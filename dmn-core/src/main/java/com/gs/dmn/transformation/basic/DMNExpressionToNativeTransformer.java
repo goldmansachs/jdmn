@@ -668,7 +668,7 @@ public class DMNExpressionToNativeTransformer {
             }
             String bkmFunctionName = dmnTransformer.bkmQualifiedFunctionName(bkm);
             String argListString = argList.stream().map(s -> ((ExpressionStatement)s).getExpression()).collect(Collectors.joining(", "));
-            String expressionText = String.format("%s(%s)", bkmFunctionName, dmnTransformer.drgElementArgumentsExtraCache(dmnTransformer.drgElementArgumentsExtra(dmnTransformer.augmentArgumentList(argListString))));
+            String expressionText = String.format("%s(%s)", bkmFunctionName, dmnTransformer.drgElementArgumentListExtraCache(dmnTransformer.drgElementArgumentListExtra(dmnTransformer.augmentArgumentList(argListString))));
             Type expressionType = dmnTransformer.drgElementOutputFEELType(bkm);
             return this.nativeFactory.makeExpressionStatement(expressionText, expressionType);
         } else {

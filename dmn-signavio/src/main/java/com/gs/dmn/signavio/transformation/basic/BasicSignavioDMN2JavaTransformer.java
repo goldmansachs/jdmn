@@ -208,7 +208,7 @@ public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
         String decisionClassName = drgElementClassName(outputDecision);
         List<String> argNameList = drgElementArgumentNameList(outputDecision);
         String decisionArgList = String.join(", ", argNameList);
-        decisionArgList = drgElementArgumentsExtraCache(drgElementArgumentsExtra(augmentArgumentList(decisionArgList)));
+        decisionArgList = drgElementArgumentListExtraCache(drgElementArgumentListExtra(augmentArgumentList(decisionArgList)));
         return String.format("%s.apply(%s)", defaultConstructor(decisionClassName), decisionArgList);
     }
 

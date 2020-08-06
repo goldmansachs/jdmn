@@ -397,7 +397,7 @@ public class JavaFactory implements NativeFactory {
         Type outputType = this.transformer.drgElementOutputFEELType(element);
         String outputNativeType = this.transformer.drgElementOutputType(element);
         String outputVariable = "output_";
-        String outputExpression = String.format("apply(%s)", this.transformer.drgElementArgumentsExtraCache(element));
+        String outputExpression = String.format("apply(%s)", this.transformer.drgElementArgumentListExtraCache(element));
         statement.add(makeAssignmentStatement(outputNativeType, outputVariable, outputExpression, outputType));
         statement.add(makeNopStatement());
 
