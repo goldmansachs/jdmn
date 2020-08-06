@@ -28,11 +28,11 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
     private PreBureauRiskCategoryTable() {
     }
 
-    public static String PreBureauRiskCategoryTable(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
-        return INSTANCE.apply(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_);
+    public static String PreBureauRiskCategoryTable(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        return INSTANCE.apply(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_, cache_);
     }
 
-    private String apply(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    private String apply(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'PreBureauRiskCategoryTable'
             long preBureauRiskCategoryTableStartTime_ = System.currentTimeMillis();
@@ -42,7 +42,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, preBureauRiskCategoryTableArguments_);
 
             // Evaluate BKM 'PreBureauRiskCategoryTable'
-            String output_ = evaluate(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_);
+            String output_ = evaluate(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End BKM 'PreBureauRiskCategoryTable'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, preBureauRiskCategoryTableArguments_, output_, (System.currentTimeMillis() - preBureauRiskCategoryTableStartTime_));
@@ -54,7 +54,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
         }
     }
 
-    protected String evaluate(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected String evaluate(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(existingCustomer, applicationRiskScore, annotationSet_, eventListener_, externalExecutor_));
