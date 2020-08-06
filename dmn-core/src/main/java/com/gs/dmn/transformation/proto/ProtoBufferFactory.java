@@ -16,7 +16,7 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.*;
@@ -60,7 +60,7 @@ public class ProtoBufferFactory {
     private final BasicDMNToNativeTransformer transformer;
     private final DMNModelRepository repository;
 
-    public ProtoBufferFactory(BasicDMN2JavaTransformer transformer) {
+    public ProtoBufferFactory(BasicDMNToJavaTransformer transformer) {
         this.transformer = transformer;
         this.repository = transformer.getDMNModelRepository();
     }

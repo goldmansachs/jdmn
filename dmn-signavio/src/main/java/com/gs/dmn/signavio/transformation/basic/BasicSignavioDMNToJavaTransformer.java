@@ -31,7 +31,7 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.metadata.ExtensionElement;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
@@ -42,12 +42,12 @@ import org.omg.spec.dmn._20180521.model.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class BasicSignavioDMN2JavaTransformer extends BasicDMN2JavaTransformer {
+public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer {
     private static final String DECISION_OUTPUT_FIELD_NAME = "value";
 
     private final SignavioDMNModelRepository dmnModelRepository;
 
-    public BasicSignavioDMN2JavaTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory feelTypeTranslator, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
+    public BasicSignavioDMNToJavaTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory feelTypeTranslator, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         super(dmnModelRepository, environmentFactory, feelTypeTranslator, lazyEvaluationDetector, inputParameters);
         this.dmnModelRepository = (SignavioDMNModelRepository) super.getDMNModelRepository();
     }

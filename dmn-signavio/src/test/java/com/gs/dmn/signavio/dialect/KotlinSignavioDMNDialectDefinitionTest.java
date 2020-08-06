@@ -19,7 +19,7 @@ import com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision;
 import com.gs.dmn.signavio.runtime.interpreter.SignavioDMNInterpreter;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.transformation.SignavioDMNToKotlinTransformer;
-import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMN2KotlinTransformer;
+import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMNToKotlinTransformer;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -43,7 +43,7 @@ public class KotlinSignavioDMNDialectDefinitionTest extends AbstractSignavioDMND
 
     @Override
     protected String getBasicTransformerClass() {
-        return BasicSignavioDMN2KotlinTransformer.class.getName();
+        return BasicSignavioDMNToKotlinTransformer.class.getName();
     }
 
     @Override

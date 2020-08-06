@@ -23,7 +23,7 @@ import com.gs.dmn.runtime.listener.DRGElement;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.extension.Aggregator;
 import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
-import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMN2JavaTransformer;
+import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TDecision;
@@ -52,7 +52,7 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
 
     private Result evaluateMultipleInstanceDecision(TDecision decision, Environment environment, RuntimeEnvironment runtimeEnvironment, DRGElement elementAnnotation) {
         // Multi instance attributes
-        MultiInstanceDecisionLogic multiInstanceDecision = ((BasicSignavioDMN2JavaTransformer) getBasicDMNTransformer()).multiInstanceDecisionLogic(decision);
+        MultiInstanceDecisionLogic multiInstanceDecision = ((BasicSignavioDMNToJavaTransformer) getBasicDMNTransformer()).multiInstanceDecisionLogic(decision);
         String iterationExpression = multiInstanceDecision.getIterationExpression();
         TDRGElement iterator = multiInstanceDecision.getIterator();
         Aggregator aggregator = multiInstanceDecision.getAggregator();

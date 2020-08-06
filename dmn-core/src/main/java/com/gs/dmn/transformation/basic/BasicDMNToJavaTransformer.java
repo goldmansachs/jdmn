@@ -63,8 +63,8 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(BasicDMN2JavaTransformer.class);
+public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(BasicDMNToJavaTransformer.class);
 
     protected final DMNModelRepository dmnModelRepository;
     protected final EnvironmentFactory environmentFactory;
@@ -92,7 +92,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     protected final DRGElementFilter drgElementFilter;
     protected final JavaTypeMemoizer nativeTypeMemoizer;
 
-    public BasicDMN2JavaTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory nativeTypeFactory, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
+    public BasicDMNToJavaTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory nativeTypeFactory, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         this.dmnModelRepository = dmnModelRepository;
         this.environmentFactory = environmentFactory;
         this.nativeTypeFactory = nativeTypeFactory;

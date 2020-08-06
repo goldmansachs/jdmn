@@ -24,8 +24,8 @@ import org.omg.spec.dmn._20180521.model.TItemDefinition;
 
 import java.util.Map;
 
-public class BasicSignavioDMN2KotlinTransformer extends BasicSignavioDMN2JavaTransformer {
-    public BasicSignavioDMN2KotlinTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory nativeTypeFactory, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
+public class BasicSignavioDMNToKotlinTransformer extends BasicSignavioDMNToJavaTransformer {
+    public BasicSignavioDMNToKotlinTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory nativeTypeFactory, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         super(dmnModelRepository, environmentFactory, nativeTypeFactory, lazyEvaluationDetector, inputParameters);
     }
 

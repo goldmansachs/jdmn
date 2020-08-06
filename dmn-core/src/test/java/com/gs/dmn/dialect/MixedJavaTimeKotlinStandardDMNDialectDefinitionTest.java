@@ -17,7 +17,7 @@ import com.gs.dmn.feel.synthesis.type.MixedJavaTimeKotlinNativeTypeFactory;
 import com.gs.dmn.runtime.MixedJavaTimeDMNBaseDecision;
 import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
 import com.gs.dmn.transformation.DMNToKotlinTransformer;
-import com.gs.dmn.transformation.basic.BasicDMN2KotlinTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToKotlinTransformer;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import javax.xml.datatype.Duration;
@@ -44,7 +44,7 @@ public class MixedJavaTimeKotlinStandardDMNDialectDefinitionTest extends Abstrac
 
     @Override
     protected String getBasicTransformerClass() {
-        return BasicDMN2KotlinTransformer.class.getName();
+        return BasicDMNToKotlinTransformer.class.getName();
     }
 
     @Override

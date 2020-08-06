@@ -22,7 +22,7 @@ import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.DMNToNativeTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
@@ -44,7 +44,7 @@ public interface DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, T
 
     DMNToNativeTransformer createDMNToNativeTransformer(DMNValidator dmnValidator, DMNTransformer<TEST> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Map<String, String> inputParameters, BuildLogger logger);
 
-    BasicDMN2JavaTransformer createBasicTransformer(DMNModelRepository repository, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters);
+    BasicDMNToJavaTransformer createBasicTransformer(DMNModelRepository repository, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters);
 
     //
     // Execution engine

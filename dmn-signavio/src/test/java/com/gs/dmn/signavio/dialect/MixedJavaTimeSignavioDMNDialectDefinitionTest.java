@@ -19,7 +19,7 @@ import com.gs.dmn.signavio.runtime.MixedJavaTimeSignavioBaseDecision;
 import com.gs.dmn.signavio.runtime.interpreter.SignavioDMNInterpreter;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.transformation.SignavioDMNToJavaTransformer;
-import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMN2JavaTransformer;
+import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMNToJavaTransformer;
 
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
@@ -45,7 +45,7 @@ public class MixedJavaTimeSignavioDMNDialectDefinitionTest extends AbstractSigna
 
     @Override
     protected String getBasicTransformerClass() {
-        return BasicSignavioDMN2JavaTransformer.class.getName();
+        return BasicSignavioDMNToJavaTransformer.class.getName();
     }
 
     @Override
