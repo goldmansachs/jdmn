@@ -532,6 +532,10 @@ public interface BasicDMNToNativeTransformer {
 
     String drgElementSignatureProto(TDRGElement element);
 
+    String drgElementSignatureExtraCacheProto(TDRGElement element);
+
+    String drgElementDefaultArgumentsExtraCacheProto(TDRGElement element);
+
     Statement drgElementSignatureProtoBody(TDRGElement element);
 
     String convertProtoMember(String source, TItemDefinition parent, TItemDefinition child);

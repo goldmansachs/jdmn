@@ -70,13 +70,17 @@ public class AssessIssue extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
         }
     }
 
-    public proto.AssessIssueResponse apply(proto.AssessIssueRequest request, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+    public proto.AssessIssueResponse apply(proto.AssessIssueRequest request_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+        return apply(request_, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+    }
+
+    public proto.AssessIssueResponse apply(proto.AssessIssueRequest request_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         // Create arguments from Request Message
-        java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(request.getCurrentRiskAppetite());
-        java.math.BigDecimal priorIssue_iterator = java.math.BigDecimal.valueOf(request.getPriorIssueIterator());
+        java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(request_.getCurrentRiskAppetite());
+        java.math.BigDecimal priorIssue_iterator = java.math.BigDecimal.valueOf(request_.getPriorIssueIterator());
         
         // Invoke apply method
-        java.math.BigDecimal output_ = apply(currentRiskAppetite, priorIssue_iterator, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        java.math.BigDecimal output_ = apply(currentRiskAppetite, priorIssue_iterator, annotationSet_, eventListener_, externalExecutor_);
         
         // Convert output to Response Message
         proto.AssessIssueResponse.Builder builder_ = proto.AssessIssueResponse.newBuilder();

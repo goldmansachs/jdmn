@@ -69,12 +69,16 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSigna
         }
     }
 
-    public proto.AssessApplicantAgeResponse apply(proto.AssessApplicantAgeRequest request, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+    public proto.AssessApplicantAgeResponse apply(proto.AssessApplicantAgeRequest request_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+        return apply(request_, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+    }
+
+    public proto.AssessApplicantAgeResponse apply(proto.AssessApplicantAgeRequest request_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         // Create arguments from Request Message
-        type.Applicant applicant = type.Applicant.toApplicant(request.getApplicant());
+        type.Applicant applicant = type.Applicant.toApplicant(request_.getApplicant());
         
         // Invoke apply method
-        java.math.BigDecimal output_ = apply(applicant, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        java.math.BigDecimal output_ = apply(applicant, annotationSet_, eventListener_, externalExecutor_);
         
         // Convert output to Response Message
         proto.AssessApplicantAgeResponse.Builder builder_ = proto.AssessApplicantAgeResponse.newBuilder();

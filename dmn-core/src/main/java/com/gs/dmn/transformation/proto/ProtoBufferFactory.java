@@ -42,6 +42,8 @@ public class ProtoBufferFactory {
     public static final String OPTIONAL = "optional";
     public static final String REPEATED = "repeated";
 
+    public static final String REQUEST_VARIABLE_NAME = "request_";
+
     static {
         TIME_FEEL_TO_PROTO_TYPE.put(ENUMERATION.getName(), "string");
         TIME_FEEL_TO_PROTO_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), null);

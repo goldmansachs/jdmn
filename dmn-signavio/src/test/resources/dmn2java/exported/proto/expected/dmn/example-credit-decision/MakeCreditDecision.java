@@ -80,14 +80,18 @@ public class MakeCreditDecision extends com.gs.dmn.signavio.runtime.DefaultSigna
         }
     }
 
-    public proto.MakeCreditDecisionResponse apply(proto.MakeCreditDecisionRequest request, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+    public proto.MakeCreditDecisionResponse apply(proto.MakeCreditDecisionRequest request_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+        return apply(request_, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+    }
+
+    public proto.MakeCreditDecisionResponse apply(proto.MakeCreditDecisionRequest request_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         // Create arguments from Request Message
-        type.Applicant applicant = type.Applicant.toApplicant(request.getApplicant());
-        java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(request.getCurrentRiskAppetite());
-        java.math.BigDecimal lendingThreshold = java.math.BigDecimal.valueOf(request.getLendingThreshold());
+        type.Applicant applicant = type.Applicant.toApplicant(request_.getApplicant());
+        java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(request_.getCurrentRiskAppetite());
+        java.math.BigDecimal lendingThreshold = java.math.BigDecimal.valueOf(request_.getLendingThreshold());
         
         // Invoke apply method
-        String output_ = apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        String output_ = apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_);
         
         // Convert output to Response Message
         proto.MakeCreditDecisionResponse.Builder builder_ = proto.MakeCreditDecisionResponse.newBuilder();
