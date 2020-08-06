@@ -20,7 +20,7 @@ import java.util.Map;
 public class DMNToProtoTransformerTest extends AbstractTckDMNToJavaTransformerTest {
     @Test
     public void testProto() throws Exception {
-        doSingleModelTest("0004-lending", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"));
+        doSingleModelTest("0004-lending", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"), new Pair<>("caching", "true"));
     }
 
     @Override

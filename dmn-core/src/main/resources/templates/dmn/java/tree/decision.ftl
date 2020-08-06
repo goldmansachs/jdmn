@@ -91,5 +91,18 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraCache(drgElement)}) {
         <@applyMethodBody drgElement />
     }
+    <#if transformer.isGenerateProto()>
+
+    public ${transformer.drgElementOutputTypeProto(drgElement)} apply(${transformer.drgElementSignatureProto(drgElement)}) {
+        return apply(${transformer.drgElementDefaultArgumentsExtraCacheProto(drgElement)});
+    }
+
+    public ${transformer.drgElementOutputTypeProto(drgElement)} apply(${transformer.drgElementSignatureExtraCacheProto(drgElement)}) {
+        <#assign stm = transformer.drgElementSignatureProtoBody(drgElement)>
+        <#list stm.statements as child>
+        ${child.expression}
+        </#list>
+    }
+    </#if>
     <@evaluateExpressionMethod drgElement />
 }
