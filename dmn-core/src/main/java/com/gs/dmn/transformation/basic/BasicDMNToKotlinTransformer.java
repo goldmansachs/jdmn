@@ -23,8 +23,8 @@ import org.omg.spec.dmn._20180521.model.TItemDefinition;
 
 import java.util.Map;
 
-public class BasicDMN2KotlinTransformer extends BasicDMN2JavaTransformer {
-    public BasicDMN2KotlinTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory feelTypeTranslator, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
+public class BasicDMNToKotlinTransformer extends BasicDMNToJavaTransformer {
+    public BasicDMNToKotlinTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory feelTypeTranslator, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         super(dmnModelRepository, environmentFactory, feelTypeTranslator, lazyEvaluationDetector, inputParameters);
     }
 

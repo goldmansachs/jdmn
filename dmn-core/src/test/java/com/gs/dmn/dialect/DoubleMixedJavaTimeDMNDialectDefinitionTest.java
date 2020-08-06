@@ -17,7 +17,7 @@ import com.gs.dmn.feel.synthesis.type.DoubleMixedJavaTimeNativeTypeFactory;
 import com.gs.dmn.runtime.DoubleMixedJavaTimeDMNBaseDecision;
 import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import javax.xml.datatype.Duration;
@@ -43,7 +43,7 @@ public class DoubleMixedJavaTimeDMNDialectDefinitionTest extends AbstractStandar
 
     @Override
     protected String getBasicTransformerClass() {
-        return BasicDMN2JavaTransformer.class.getName();
+        return BasicDMNToJavaTransformer.class.getName();
     }
 
     @Override

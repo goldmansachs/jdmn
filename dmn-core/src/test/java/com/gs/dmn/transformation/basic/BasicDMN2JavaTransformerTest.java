@@ -38,7 +38,7 @@ import static org.junit.Assert.assertNull;
 public class BasicDMN2JavaTransformerTest extends AbstractTest {
     private final DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestCases> dialectDefinition = new StandardDMNDialectDefinition();
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
-    private BasicDMN2JavaTransformer dmnTransformer;
+    private BasicDMNToJavaTransformer dmnTransformer;
     private String href;
 
     @Before
