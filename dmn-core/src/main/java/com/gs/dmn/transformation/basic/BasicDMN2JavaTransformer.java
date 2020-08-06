@@ -522,47 +522,47 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public String drgElementArgumentsExtraCacheWithConversionFromString(TDRGElement element) {
-        String arguments = drgElementArgumentsExtraWithConversionFromString(element);
-        return drgElementArgumentsExtraCache(arguments);
+    public String drgElementArgumentListExtraCacheWithConversionFromString(TDRGElement element) {
+        String arguments = drgElementArgumentListExtraWithConversionFromString(element);
+        return drgElementArgumentListExtraCache(arguments);
     }
 
-    private String drgElementArgumentsExtraWithConversionFromString(TDRGElement element) {
+    private String drgElementArgumentListExtraWithConversionFromString(TDRGElement element) {
         String arguments = drgElementArgumentListWithConversionFromString(element);
-        return drgElementArgumentsExtra(arguments);
+        return drgElementArgumentListExtra(arguments);
     }
 
     @Override
-    public String drgElementArgumentsExtraCacheWithConvertedArgumentList(TDRGElement element) {
-        String arguments = drgElementArgumentsExtraWithConvertedArgumentList(element);
-        return drgElementArgumentsExtraCache(arguments);
+    public String drgElementArgumentListExtraCacheWithConvertedArgumentList(TDRGElement element) {
+        String arguments = drgElementArgumentListExtraWithConvertedArgumentList(element);
+        return drgElementArgumentListExtraCache(arguments);
     }
 
-    private String drgElementArgumentsExtraWithConvertedArgumentList(TDRGElement element) {
+    private String drgElementArgumentListExtraWithConvertedArgumentList(TDRGElement element) {
         String arguments = drgElementConvertedArgumentList(element);
-        return drgElementArgumentsExtra(arguments);
+        return drgElementArgumentListExtra(arguments);
     }
 
     @Override
-    public String drgElementDefaultArgumentsExtraCacheWithConversionFromString(TDRGElement element) {
-        String arguments = drgElementDefaultArgumentsExtraWithConversionFromString(element);
-        return drgElementDefaultArgumentsExtraCache(arguments);
+    public String drgElementDefaultArgumentListExtraCacheWithConversionFromString(TDRGElement element) {
+        String arguments = drgElementDefaultArgumentListExtraWithConversionFromString(element);
+        return drgElementDefaultArgumentListExtraCache(arguments);
     }
 
-    private String drgElementDefaultArgumentsExtraWithConversionFromString(TDRGElement element) {
+    private String drgElementDefaultArgumentListExtraWithConversionFromString(TDRGElement element) {
         String arguments = drgElementArgumentListWithConversionFromString(element);
-        return drgElementDefaultArgumentsExtra(arguments);
+        return drgElementDefaultArgumentListExtra(arguments);
     }
 
     @Override
-    public String drgElementDefaultArgumentsExtraCache(TDRGElement element) {
-        String arguments = drgElementDefaultArgumentsExtra(element);
-        return drgElementDefaultArgumentsExtraCache(arguments);
+    public String drgElementDefaultArgumentListExtraCache(TDRGElement element) {
+        String arguments = drgElementDefaultArgumentListExtra(element);
+        return drgElementDefaultArgumentListExtraCache(arguments);
     }
 
-    private String drgElementDefaultArgumentsExtra(TDRGElement element) {
+    private String drgElementDefaultArgumentListExtra(TDRGElement element) {
         String arguments = drgElementArgumentList(element);
-        return drgElementDefaultArgumentsExtra(arguments);
+        return drgElementDefaultArgumentListExtra(arguments);
     }
 
     @Override
@@ -620,7 +620,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String drgElementEvaluateArgumentList(TDRGElement element) {
-        return drgElementArgumentsExtraCache(drgElementArgumentsExtra(drgElementDirectArgumentList(element)));
+        return drgElementArgumentListExtraCache(drgElementArgumentListExtra(drgElementDirectArgumentList(element)));
     }
 
     protected String drgElementDirectSignature(TDRGElement element) {
@@ -1177,19 +1177,19 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public String drgElementArgumentsExtra(DRGElementReference<? extends TDRGElement> reference) {
+    public String drgElementArgumentListExtra(DRGElementReference<? extends TDRGElement> reference) {
         String arguments = drgElementArgumentList(reference);
-        return drgElementArgumentsExtra(arguments);
+        return drgElementArgumentListExtra(arguments);
     }
 
     @Override
-    public String drgElementArgumentsExtra(TDRGElement element) {
+    public String drgElementArgumentListExtra(TDRGElement element) {
         String arguments = drgElementArgumentList(element);
-        return drgElementArgumentsExtra(arguments);
+        return drgElementArgumentListExtra(arguments);
     }
 
     @Override
-    public String drgElementArgumentsExtra(String arguments) {
+    public String drgElementArgumentListExtra(String arguments) {
         if (StringUtils.isBlank(arguments)) {
             return String.format("%s, %s", eventListenerVariableName(), externalExecutorVariableName());
         } else {
@@ -1198,7 +1198,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public String drgElementDefaultArgumentsExtra(String arguments) {
+    public String drgElementDefaultArgumentListExtra(String arguments) {
         String loggerArgument = constructor(loggingEventListenerClassName(), "LOGGER");
         String executorArgument = defaultConstructor(defaultExternalExecutorClassName());
         if (StringUtils.isBlank(arguments)) {
@@ -1258,19 +1258,19 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public String drgElementArgumentsExtraCache(DRGElementReference<? extends TDRGElement> reference) {
-        String arguments = drgElementArgumentsExtra(reference);
-        return drgElementArgumentsExtraCache(arguments);
+    public String drgElementArgumentListExtraCache(DRGElementReference<? extends TDRGElement> reference) {
+        String arguments = drgElementArgumentListExtra(reference);
+        return drgElementArgumentListExtraCache(arguments);
     }
 
     @Override
-    public String drgElementArgumentsExtraCache(TDRGElement element) {
-        String arguments = drgElementArgumentsExtra(element);
-        return drgElementArgumentsExtraCache(arguments);
+    public String drgElementArgumentListExtraCache(TDRGElement element) {
+        String arguments = drgElementArgumentListExtra(element);
+        return drgElementArgumentListExtraCache(arguments);
     }
 
     @Override
-    public String drgElementArgumentsExtraCache(String arguments) {
+    public String drgElementArgumentListExtraCache(String arguments) {
         if (!this.caching) {
             return arguments;
         }
@@ -1283,7 +1283,7 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public String drgElementDefaultArgumentsExtraCache(String arguments) {
+    public String drgElementDefaultArgumentListExtraCache(String arguments) {
         if (!this.caching) {
             return arguments;
         }
@@ -1997,14 +1997,14 @@ public class BasicDMN2JavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public String drgElementDefaultArgumentsExtraCacheProto(TDRGElement element) {
-        String arguments = drgElementDefaultArgumentsExtraProto(element);
-        return drgElementDefaultArgumentsExtraCache(arguments);
+    public String drgElementDefaultArgumentListExtraCacheProto(TDRGElement element) {
+        String arguments = drgElementDefaultArgumentListExtraProto(element);
+        return drgElementDefaultArgumentListExtraCache(arguments);
     }
 
-    private String drgElementDefaultArgumentsExtraProto(TDRGElement element) {
+    private String drgElementDefaultArgumentListExtraProto(TDRGElement element) {
         String arguments = augmentArgumentList(ProtoBufferFactory.REQUEST_VARIABLE_NAME);
-        return drgElementDefaultArgumentsExtra(arguments);
+        return drgElementDefaultArgumentListExtra(arguments);
     }
 
     @Override

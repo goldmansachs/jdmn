@@ -152,13 +152,13 @@ public interface BasicDMNToNativeTransformer {
 
     String drgElementSignatureWithConversionFromString(TDRGElement element);
 
-    String drgElementArgumentsExtraCacheWithConversionFromString(TDRGElement element);
+    String drgElementArgumentListExtraCacheWithConversionFromString(TDRGElement element);
 
-    String drgElementArgumentsExtraCacheWithConvertedArgumentList(TDRGElement element);
+    String drgElementArgumentListExtraCacheWithConvertedArgumentList(TDRGElement element);
 
-    String drgElementDefaultArgumentsExtraCacheWithConversionFromString(TDRGElement element);
+    String drgElementDefaultArgumentListExtraCacheWithConversionFromString(TDRGElement element);
 
-    String drgElementDefaultArgumentsExtraCache(TDRGElement element);
+    String drgElementDefaultArgumentListExtraCache(TDRGElement element);
 
     String drgElementArgumentListWithConversionFromString(TDRGElement element);
 
@@ -305,13 +305,13 @@ public interface BasicDMNToNativeTransformer {
 
     String drgElementSignatureExtra(String signature);
 
-    String drgElementArgumentsExtra(DRGElementReference<? extends TDRGElement> reference);
+    String drgElementArgumentListExtra(DRGElementReference<? extends TDRGElement> reference);
 
-    String drgElementArgumentsExtra(TDRGElement element);
+    String drgElementArgumentListExtra(TDRGElement element);
 
-    String drgElementArgumentsExtra(String arguments);
+    String drgElementArgumentListExtra(String arguments);
 
-    String drgElementDefaultArgumentsExtra(String arguments);
+    String drgElementDefaultArgumentListExtra(String arguments);
 
     boolean isCaching();
 
@@ -327,13 +327,13 @@ public interface BasicDMNToNativeTransformer {
 
     String drgElementSignatureExtraCache(String signature);
 
-    String drgElementArgumentsExtraCache(DRGElementReference<? extends TDRGElement> reference);
+    String drgElementArgumentListExtraCache(DRGElementReference<? extends TDRGElement> reference);
 
-    String drgElementArgumentsExtraCache(TDRGElement element);
+    String drgElementArgumentListExtraCache(TDRGElement element);
 
-    String drgElementArgumentsExtraCache(String arguments);
+    String drgElementArgumentListExtraCache(String arguments);
 
-    String drgElementDefaultArgumentsExtraCache(String arguments);
+    String drgElementDefaultArgumentListExtraCache(String arguments);
 
     String drgElementAnnotationClassName();
 
@@ -534,7 +534,7 @@ public interface BasicDMNToNativeTransformer {
 
     String drgElementSignatureExtraCacheProto(TDRGElement element);
 
-    String drgElementDefaultArgumentsExtraCacheProto(TDRGElement element);
+    String drgElementDefaultArgumentListExtraCacheProto(TDRGElement element);
 
     Statement drgElementSignatureProtoBody(TDRGElement element);
 

@@ -55,7 +55,7 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     <#if transformer.shouldGenerateApplyWithConversionFromString(drgElement)>
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureWithConversionFromString(drgElement)}) {
         try {
-            return apply(${transformer.drgElementDefaultArgumentsExtraCacheWithConversionFromString(drgElement)});
+            return apply(${transformer.drgElementDefaultArgumentListExtraCacheWithConversionFromString(drgElement)});
         } catch (Exception e) {
             logError("Cannot apply decision '${javaClassName}'", e);
             return null;
@@ -66,7 +66,7 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraWithConversionFromString(drgElement)}) {
         try {
             ${transformer.cacheInterfaceName()} ${transformer.cacheVariableName()} = new ${transformer.defaultCacheClassName()}();
-            return apply(${transformer.drgElementArgumentsExtraCacheWithConversionFromString(drgElement)});
+            return apply(${transformer.drgElementArgumentListExtraCacheWithConversionFromString(drgElement)});
         } catch (Exception e) {
             logError("Cannot apply decision '${javaClassName}'", e);
             return null;
@@ -76,7 +76,7 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     </#if>
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraCacheWithConversionFromString(drgElement)}) {
         try {
-            return apply(${transformer.drgElementArgumentsExtraCacheWithConversionFromString(drgElement)});
+            return apply(${transformer.drgElementArgumentListExtraCacheWithConversionFromString(drgElement)});
         } catch (Exception e) {
             logError("Cannot apply decision '${javaClassName}'", e);
             return null;
@@ -85,7 +85,7 @@ public class ${javaClassName} extends ${decisionBaseClass} {
 
     </#if>
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignature(drgElement)}) {
-        return apply(${transformer.drgElementDefaultArgumentsExtraCache(drgElement)});
+        return apply(${transformer.drgElementDefaultArgumentListExtraCache(drgElement)});
     }
 
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraCache(drgElement)}) {
@@ -94,7 +94,7 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     <#if transformer.isGenerateProto()>
 
     public ${transformer.drgElementOutputTypeProto(drgElement)} apply(${transformer.drgElementSignatureProto(drgElement)}) {
-        return apply(${transformer.drgElementDefaultArgumentsExtraCacheProto(drgElement)});
+        return apply(${transformer.drgElementDefaultArgumentListExtraCacheProto(drgElement)});
     }
 
     public ${transformer.drgElementOutputTypeProto(drgElement)} apply(${transformer.drgElementSignatureExtraCacheProto(drgElement)}) {

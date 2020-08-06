@@ -63,9 +63,9 @@ public class ${testClassName} extends ${decisionBaseClass} {
         // Check ${result.name}
         <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
         <#if tckUtil.isCaching()>
-        checkValues(${tckUtil.toNativeExpression(resultInfo)}, new ${tckUtil.qualifiedName(resultInfo)}().apply(${tckUtil.drgElementArgumentsExtraCache(tckUtil.drgElementArgumentsExtra(tckUtil.drgElementArgumentList(resultInfo)))}));
+        checkValues(${tckUtil.toNativeExpression(resultInfo)}, new ${tckUtil.qualifiedName(resultInfo)}().apply(${tckUtil.drgElementArgumentListExtraCache(tckUtil.drgElementArgumentListExtra(tckUtil.drgElementArgumentList(resultInfo)))}));
         <#else>
-        checkValues(${tckUtil.toNativeExpression(resultInfo)}, new ${tckUtil.qualifiedName(resultInfo)}().apply(${tckUtil.drgElementArgumentsExtra(tckUtil.drgElementArgumentList(resultInfo))}));
+        checkValues(${tckUtil.toNativeExpression(resultInfo)}, new ${tckUtil.qualifiedName(resultInfo)}().apply(${tckUtil.drgElementArgumentListExtra(tckUtil.drgElementArgumentList(resultInfo))}));
         </#if>
         </#items>
     </#list>
