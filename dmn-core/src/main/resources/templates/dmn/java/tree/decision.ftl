@@ -93,11 +93,11 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     }
     <#if transformer.isGenerateProto()>
 
-    public ${transformer.drgElementOutputTypeProto(drgElement)} apply(${transformer.drgElementSignatureProto(drgElement)}) {
+    public ${transformer.qualifiedResponseMessageName(drgElement)} apply(${transformer.drgElementSignatureProto(drgElement)}) {
         return apply(${transformer.drgElementDefaultArgumentListExtraCacheProto(drgElement)});
     }
 
-    public ${transformer.drgElementOutputTypeProto(drgElement)} apply(${transformer.drgElementSignatureExtraCacheProto(drgElement)}) {
+    public ${transformer.qualifiedResponseMessageName(drgElement)} apply(${transformer.drgElementSignatureExtraCacheProto(drgElement)}) {
         <#assign stm = transformer.drgElementSignatureProtoBody(drgElement)>
         <#list stm.statements as child>
         ${child.expression}

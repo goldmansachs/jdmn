@@ -366,7 +366,7 @@ public class JavaFactory implements NativeFactory {
     public String convertProtoMember(String source, TItemDefinition parent, TItemDefinition member) {
         Type memberType = this.transformer.toFEELType(member);
         ProtoBufferFactory protoFactory = this.transformer.getProtoFactory();
-        String protoType = protoFactory.qualifiedItemDefinitionProtoName(parent);
+        String protoType = protoFactory.qualifiedProtoMessageName(parent);
         String value = String.format("((%s) %s).%s", protoType, source, protoFactory.protoGetter(member.getName(), memberType));
         return extractMemberFromProtoValue(value, memberType);
     }
@@ -375,7 +375,7 @@ public class JavaFactory implements NativeFactory {
     public String convertMemberToProto(String source, String sourceType, TItemDefinition member) {
         Type memberType = this.transformer.toFEELType(member);
         String value = String.format("((%s) %s).%s", sourceType, source, this.transformer.getter(member.getName()));
-        return convertOutputToProtoType(value, memberType);
+        return convertValueToProtoNativeType(value, memberType);
     }
 
     @Override
@@ -410,14 +410,9 @@ public class JavaFactory implements NativeFactory {
         String builderValue = String.format("%s.newBuilder()", responseMessageName);
         statement.add(makeAssignmentStatement(responseMessageBuilderName, builderVariable, builderValue, null));
         // Set value
-        String value = outputVariable;
-        if (outputType instanceof ListType) {
-            String setter = "addAll" + this.transformer.upperCaseFirst(this.transformer.namedElementVariableName(element));
-            statement.add(makeExpressionStatement(String.format("%s.%s(%s);", builderVariable, setter, convertOutputToProtoType(value, outputType)), null));
-        } else {
-            String setter = this.transformer.setter(this.transformer.namedElementVariableName(element));
-            statement.add(makeExpressionStatement(String.format("%s.%s(%s);", builderVariable, setter, convertOutputToProtoType(value, outputType)), null));
-        }
+        String setter = this.protoFactory.protoSetter(this.transformer.namedElementVariableName(element), outputType);
+        statement.add(makeExpressionStatement(String.format("%s.%s(%s);", builderVariable, setter, convertValueToProtoNativeType(outputVariable, outputType)), null));
+
         // Return response
         statement.add(makeReturnStatement(String.format("%s.build()", builderVariable), null));
         return statement;
@@ -485,7 +480,7 @@ public class JavaFactory implements NativeFactory {
         throw new DMNRuntimeException(String.format("Cannot convert type '%s' to proto type", type));
     }
 
-    private String convertOutputToProtoType(String value, Type type) {
+    private String convertValueToProtoNativeType(String value, Type type) {
         if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
             if (type == NumberType.NUMBER) {
                 return String.format("(%s == null ? 0 : %s.doubleValue())", value, value);

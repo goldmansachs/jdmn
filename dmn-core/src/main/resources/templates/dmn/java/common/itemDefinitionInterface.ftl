@@ -46,7 +46,7 @@ public interface ${javaClassName} extends ${transformer.dmnTypeClassName()} {
         } else if (other instanceof ${transformer.dmnTypeClassName()}) {
             return ${transformer.convertMethodName(itemDefinition)}(((${transformer.dmnTypeClassName()})other).toContext());
     <#if transformer.isGenerateProto()>
-        } else if (other instanceof ${transformer.qualifiedItemDefinitionProtoName(itemDefinition)}) {
+        } else if (other instanceof ${transformer.qualifiedProtoMessageName(itemDefinition)}) {
             ${transformer.itemDefinitionNativeClassName(javaClassName)} result_ = ${transformer.defaultConstructor(transformer.itemDefinitionNativeClassName(javaClassName))};
         <#list itemDefinition.itemComponent as child>
             result_.${transformer.setter(child)}(${transformer.convertProtoMember("other", itemDefinition, child)});
@@ -59,15 +59,15 @@ public interface ${javaClassName} extends ${transformer.dmnTypeClassName()} {
     }
     <#if transformer.isGenerateProto()>
 
-    static ${transformer.qualifiedItemDefinitionProtoName(itemDefinition)} toProto(${javaClassName} other) {
-        ${transformer.qualifiedItemDefinitionProtoName(itemDefinition)}.Builder result_ = ${transformer.qualifiedItemDefinitionProtoName(itemDefinition)}.newBuilder();
+    static ${transformer.qualifiedProtoMessageName(itemDefinition)} toProto(${javaClassName} other) {
+        ${transformer.qualifiedProtoMessageName(itemDefinition)}.Builder result_ = ${transformer.qualifiedProtoMessageName(itemDefinition)}.newBuilder();
     <#list itemDefinition.itemComponent as child>
         result_.${transformer.protoSetter(child)}(${transformer.convertMemberToProto("other", javaClassName, child)});
     </#list>
         return result_.build();
     }
 
-    static List<${transformer.qualifiedItemDefinitionProtoName(itemDefinition)}> toProto(List<${javaClassName}> other) {
+    static List<${transformer.qualifiedProtoMessageName(itemDefinition)}> toProto(List<${javaClassName}> other) {
         if (other == null) {
             return null;
         } else {
