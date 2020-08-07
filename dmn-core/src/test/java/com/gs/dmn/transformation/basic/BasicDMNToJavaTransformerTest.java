@@ -35,7 +35,7 @@ import java.util.LinkedHashMap;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-public class BasicDMN2JavaTransformerTest extends AbstractTest {
+public class BasicDMNToJavaTransformerTest extends AbstractTest {
     private final DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestCases> dialectDefinition = new StandardDMNDialectDefinition();
     private final DMNReader dmnReader = new DMNReader(LOGGER, false);
     private BasicDMNToJavaTransformer dmnTransformer;
