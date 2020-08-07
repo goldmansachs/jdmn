@@ -25,7 +25,7 @@ import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.util.Map;
 
-public abstract class AbstractTestLabToJavaJUnitTransformerTestJava extends AbstractTestLabToJUnitTransformerTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
+public abstract class AbstractTestLabToJavaJUnitTransformerTest extends AbstractTestLabToJUnitTransformerTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     @Override
     protected DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestLab> makeDialectDefinition() {
         return new SignavioDMNDialectDefinition();
