@@ -528,8 +528,6 @@ public interface BasicDMNToNativeTransformer {
 
     Pair<Pair<List<MessageType>, List<MessageType>>, List<Service>> dmnToProto(TDefinitions definitions);
 
-    String drgElementOutputTypeProto(TDRGElement element);
-
     String drgElementSignatureProto(TDRGElement element);
 
     String drgElementSignatureExtraCacheProto(TDRGElement element);
@@ -542,5 +540,7 @@ public interface BasicDMNToNativeTransformer {
 
     String convertMemberToProto(String source, String sourceType, TItemDefinition child);
 
-    String qualifiedItemDefinitionProtoName(TItemDefinition itemDefinition);
+    String qualifiedProtoMessageName(TItemDefinition itemDefinition);
+
+    String qualifiedResponseMessageName(TDRGElement element);
 }

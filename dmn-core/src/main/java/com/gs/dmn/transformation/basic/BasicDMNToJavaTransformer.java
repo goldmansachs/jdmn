@@ -1975,11 +1975,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public String drgElementOutputTypeProto(TDRGElement element) {
-        return this.protoFactory.qualifiedResponseMessageName(element);
-    }
-
-    @Override
     public String drgElementSignatureProto(TDRGElement element) {
         String decisionSignature = String.format("%s %s", this.protoFactory.qualifiedRequestMessageName(element), ProtoBufferFactory.REQUEST_VARIABLE_NAME);
         return augmentSignature(decisionSignature);
@@ -1996,6 +1991,10 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         return drgElementSignatureExtra(signature);
     }
 
+    private String drgElementArgumentListProto(TDRGElement element) {
+        return augmentArgumentList(ProtoBufferFactory.REQUEST_VARIABLE_NAME);
+    }
+
     @Override
     public String drgElementDefaultArgumentListExtraCacheProto(TDRGElement element) {
         String arguments = drgElementDefaultArgumentListExtraProto(element);
@@ -2003,7 +2002,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     private String drgElementDefaultArgumentListExtraProto(TDRGElement element) {
-        String arguments = augmentArgumentList(ProtoBufferFactory.REQUEST_VARIABLE_NAME);
+        String arguments = drgElementArgumentListProto(element);
         return drgElementDefaultArgumentListExtra(arguments);
     }
 
@@ -2023,8 +2022,12 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public String qualifiedItemDefinitionProtoName(TItemDefinition itemDefinition) {
-        return this.protoFactory.qualifiedItemDefinitionProtoName(itemDefinition);
+    public String qualifiedProtoMessageName(TItemDefinition itemDefinition) {
+        return this.protoFactory.qualifiedProtoMessageName(itemDefinition);
     }
 
+    @Override
+    public String qualifiedResponseMessageName(TDRGElement element) {
+        return this.protoFactory.qualifiedResponseMessageName(element);
+    }
 }

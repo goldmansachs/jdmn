@@ -115,7 +115,7 @@ public class ProtoBufferFactory {
             List<Pair<String, Type>> parameters = this.transformer.drgElementTypeSignature(element, this.transformer::nativeName);
             for (Pair<String, Type> parameter: parameters) {
                 String fieldName = protoFieldName(parameter.getLeft());
-                FieldType fieldType = toProtoType(parameter.getRight());
+                FieldType fieldType = toProtoFieldType(parameter.getRight());
                 requestFields.add(new Field(fieldName, fieldType));
             }
             messageTypes.add(new MessageType(requestMessageName, requestFields));
@@ -124,7 +124,7 @@ public class ProtoBufferFactory {
             String responseMessageName = responseMessageName(element);
             List<Field> responseFields = new ArrayList<>();
             Type type = this.transformer.drgElementOutputFEELType(element);
-            responseFields.add(new Field(protoFieldName(element), toProtoType(type)));
+            responseFields.add(new Field(protoFieldName(element), toProtoFieldType(type)));
             messageTypes.add(new MessageType(responseMessageName, responseFields));
         }
         return messageTypes;
@@ -150,11 +150,11 @@ public class ProtoBufferFactory {
     //
     private FieldType protoType(TItemDefinition itemDefinition) {
         Type type = this.transformer.toFEELType(itemDefinition);
-        FieldType protoType = toProtoType(type);
+        FieldType protoType = toProtoFieldType(type);
         return protoType;
     }
 
-    private FieldType toProtoType(Type type) {
+    private FieldType toProtoFieldType(Type type) {
         String modifier = OPTIONAL;
         if (type instanceof AnyType) {
             return new FieldType(modifier, "Any");
@@ -168,7 +168,7 @@ public class ProtoBufferFactory {
                 return new FieldType(modifier, primitiveType);
             } else {
                 if (type instanceof ItemDefinitionType) {
-                    String qType = qualifiedItemDefinitionProtoName((ItemDefinitionType) type);
+                    String qType = qualifiedProtoMessageName((ItemDefinitionType) type);
                     return new FieldType(modifier, qType);
                 } else {
                     throw new DMNRuntimeException(String.format("Cannot infer platform type for '%s'", type));
@@ -179,7 +179,7 @@ public class ProtoBufferFactory {
             if (elementType instanceof AnyType) {
                 return new FieldType(REPEATED, "Any");
             } else {
-                FieldType fieldType = toProtoType(elementType);
+                FieldType fieldType = toProtoFieldType(elementType);
                 return new FieldType(REPEATED, fieldType.getType());
             }
         }
@@ -262,13 +262,13 @@ public class ProtoBufferFactory {
         return qualifiedProtoName(protoName, model);
     }
 
-    public String qualifiedItemDefinitionProtoName(TItemDefinition itemDefinition) {
+    public String qualifiedProtoMessageName(TItemDefinition itemDefinition) {
         String protoName = this.transformer.upperCaseFirst(itemDefinition.getName());
         TDefinitions model = this.repository.getModel(itemDefinition);
         return qualifiedProtoName(protoName, model);
     }
 
-    private String qualifiedItemDefinitionProtoName(ItemDefinitionType type) {
+    private String qualifiedProtoMessageName(ItemDefinitionType type) {
         String protoName = this.transformer.upperCaseFirst(type.getName());
         String modelName = type.getModelName();
         return qualifiedProtoName(protoName, modelName);
