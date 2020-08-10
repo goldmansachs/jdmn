@@ -551,6 +551,42 @@
                     </execution>
 
                     <execution>
+                        <id>dot-product-proto</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${dmn.diagram.folder}/complex/DotProduct.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.dot_product_proto</javaRootPackage>
+                                <generateProtoMessages>true</generateProtoMessages>
+                                <generateProtoServices>true</generateProtoServices>
+                                <protoVersion>proto3</protoVersion>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-dot-product-proto</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>testlab-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/DotProduct.json</inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/DotProduct.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.dot_product_proto</javaRootPackage>
+                                <generateProtoMessages>true</generateProtoMessages>
+                                <generateProtoServices>true</generateProtoServices>
+                                <protoVersion>proto3</protoVersion>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
                         <id>example-credit-decision</id>
                         <phase>generate-sources</phase>
                         <goals>

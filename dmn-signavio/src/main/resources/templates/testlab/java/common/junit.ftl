@@ -104,9 +104,9 @@ public class ${testClassName} extends ${decisionBaseClass} {
                 <#list expectedValue.slots>
                     <#items as slot>
                     <#if testLabUtil.hasListType(rootOutputParameter)>
-        checkValues(${testLabUtil.toNativeExpression(testLab, slot.value)}, ${testLabUtil.drgElementVariableNameProto(rootOutputParameter)} == null ? null : ${testLabUtil.drgElementVariableNameProto(rootOutputParameter)}.get(${expectedValue?index}).${testLabUtil.protoGetter(testLabUtil.drgElementOutputFieldName(testLab, slot?index))});
+        checkValues(${testLabUtil.toNativeExpression(testLab, slot.value)}, ${testLabUtil.drgElementVariableNameProto(rootOutputParameter)} == null ? null : ${testLabUtil.drgElementVariableNameProto(rootOutputParameter)}.get(${expectedValue?index}).${testLabUtil.protoGetter(rootOutputParameter, testLabUtil.drgElementOutputFieldName(testLab, slot?index))});
                     <#else>
-        checkValues(${testLabUtil.toNativeExpression(testLab, slot.value)}, ${testLabUtil.drgElementVariableNameProto(rootOutputParameter)} == null ? null : ${testLabUtil.drgElementVariableNameProto(rootOutputParameter)}.${testLabUtil.protoGetter(testLabUtil.drgElementOutputFieldName(testLab, slot?index))});
+        checkValues(${testLabUtil.toNativeExpression(testLab, slot.value)}, ${testLabUtil.drgElementVariableNameProto(rootOutputParameter)} == null ? null : ${testLabUtil.drgElementVariableNameProto(rootOutputParameter)}.${testLabUtil.protoGetter(rootOutputParameter, testLabUtil.drgElementOutputFieldName(testLab, slot?index))});
                     </#if>
                     </#items>
                 </#list>

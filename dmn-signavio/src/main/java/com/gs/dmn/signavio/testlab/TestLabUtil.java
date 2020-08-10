@@ -13,10 +13,7 @@
 package com.gs.dmn.signavio.testlab;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.feel.analysis.semantics.type.ContextType;
-import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
-import com.gs.dmn.feel.analysis.semantics.type.ListType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
@@ -428,6 +425,21 @@ public class TestLabUtil {
         Type type = this.dmnTransformer.drgElementOutputFEELType(decision);
         String name = drgElementVariableName(outputParameterDefinition);
         return this.dmnTransformer.getProtoFactory().protoGetter(name, type);
+    }
+
+    public String protoGetter(OutputParameterDefinition outputParameterDefinition, String memberName) {
+        TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
+        Type type = this.dmnTransformer.drgElementOutputFEELType(decision);
+        if (type instanceof ListType) {
+            type = ((ListType) type).getElementType();
+        }
+        if (type instanceof CompositeDataType) {
+            Type memberType = ((CompositeDataType) type).getMemberType(memberName);
+            return this.dmnTransformer.getProtoFactory().protoGetter(memberName, memberType);
+        } else {
+            String protoName = this.dmnTransformer.getProtoFactory().protoName(memberName);
+            return this.dmnTransformer.getter(protoName);
+        }
     }
 
     public String protoSetter(InputParameterDefinition inputParameterDefinition) {

@@ -448,7 +448,7 @@ public class JavaFactory implements NativeFactory {
             String mapFunction;
             if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(elementType)) {
                 if (elementType == NumberType.NUMBER) {
-                    String qNativeType = this.transformer.getNativeTypeFactory().toQualifiedNativeType(((DataType) type).getName());
+                    String qNativeType = this.transformer.getNativeTypeFactory().toQualifiedNativeType(((DataType) elementType).getName());
                     mapFunction = String.format("e -> %s.valueOf(e)", qNativeType);
                 } else if (elementType == BooleanType.BOOLEAN) {
                     mapFunction =  "e -> e";
