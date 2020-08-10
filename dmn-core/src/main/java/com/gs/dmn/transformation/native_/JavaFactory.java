@@ -480,7 +480,8 @@ public class JavaFactory implements NativeFactory {
         throw new DMNRuntimeException(String.format("Cannot convert type '%s' to proto type", type));
     }
 
-    private String convertValueToProtoNativeType(String value, Type type) {
+    @Override
+    public String convertValueToProtoNativeType(String value, Type type) {
         if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
             if (type == NumberType.NUMBER) {
                 return String.format("(%s == null ? 0 : %s.doubleValue())", value, value);

@@ -673,6 +673,26 @@
                             </inputParameters>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>test-example-credit-decision-mixed-proto</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>testlab-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition</dmnDialect>
+                            <templateProvider>com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider</templateProvider>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.json</inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.example_credit_decision_mixed_proto</javaRootPackage>
+                                <generateProtoMessages>true</generateProtoMessages>
+                                <generateProtoServices>true</generateProtoServices>
+                                <protoVersion>proto3</protoVersion>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
 
                     <execution>
                         <id>npe-validation2</id>

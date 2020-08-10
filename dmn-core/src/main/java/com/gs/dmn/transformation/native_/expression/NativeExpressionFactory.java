@@ -154,4 +154,6 @@ public interface NativeExpressionFactory {
     String convertMemberToProto(String source, String sourceType, TItemDefinition member);
 
     Statement drgElementSignatureProtoBody(TDRGElement element);
+
+    String convertValueToProtoNativeType(String value, Type type);
 }

@@ -1672,11 +1672,13 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         throw new IllegalArgumentException(String.format("Type '%s' is not supported yet", type));
     }
 
-    protected String makeListType(String listType, String elementType) {
+    @Override
+    public String makeListType(String listType, String elementType) {
         return String.format("%s<%s>", listType, elementType);
     }
 
-    protected String makeListType(String listType) {
+    @Override
+    public String makeListType(String listType) {
         return String.format("%s<? extends Object>", listType);
     }
 
@@ -1991,7 +1993,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         return drgElementSignatureExtra(signature);
     }
 
-    private String drgElementArgumentListProto(TDRGElement element) {
+    @Override
+    public String drgElementArgumentListProto(TDRGElement element) {
         return augmentArgumentList(ProtoBufferFactory.REQUEST_VARIABLE_NAME);
     }
 
@@ -2029,5 +2032,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     @Override
     public String qualifiedResponseMessageName(TDRGElement element) {
         return this.protoFactory.qualifiedResponseMessageName(element);
+    }
+
+    @Override
+    public String drgElementOutputTypeProto(TDRGElement element) {
+        Type type = drgElementOutputFEELType(element);
+        return this.protoFactory.toNativeProtoType(type);
     }
 }
