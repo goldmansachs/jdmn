@@ -49,12 +49,12 @@ public class BasicDMNToKotlinTransformer extends BasicDMNToJavaTransformer {
     }
 
     @Override
-    protected String makeListType(String listType, String elementType) {
+    public String makeListType(String listType, String elementType) {
         return this.nativeTypeFactory.nullableType(String.format("%s<%s>", listType, this.nativeTypeFactory.nullableType(elementType)));
     }
 
     @Override
-    protected String makeListType(String listType) {
+    public String makeListType(String listType) {
         return this.nativeTypeFactory.nullableType(String.format("%s<Any?>", listType));
     }
 

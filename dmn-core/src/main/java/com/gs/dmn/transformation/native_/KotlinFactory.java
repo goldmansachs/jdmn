@@ -374,6 +374,11 @@ public class KotlinFactory implements NativeFactory {
         throw new DMNRuntimeException("Not supported yet");
     }
 
+    @Override
+    public String convertValueToProtoNativeType(String value, Type type) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
     private String nullableType(String type) {
         return type.endsWith("?") ? type : type + "?";
     }

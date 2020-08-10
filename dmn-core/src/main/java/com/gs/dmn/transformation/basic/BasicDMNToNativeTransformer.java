@@ -454,6 +454,10 @@ public interface BasicDMNToNativeTransformer {
 
     String toNativeType(Type type);
 
+    String makeListType(String listType, String elementType);
+
+    String makeListType(String listType);
+
     String qualifiedName(String pkg, String name);
 
     String qualifiedName(DRGElementReference<? extends TDRGElement> reference);
@@ -532,6 +536,8 @@ public interface BasicDMNToNativeTransformer {
 
     String drgElementSignatureExtraCacheProto(TDRGElement element);
 
+    String drgElementArgumentListProto(TDRGElement element);
+
     String drgElementDefaultArgumentListExtraCacheProto(TDRGElement element);
 
     Statement drgElementSignatureProtoBody(TDRGElement element);
@@ -543,4 +549,6 @@ public interface BasicDMNToNativeTransformer {
     String qualifiedProtoMessageName(TItemDefinition itemDefinition);
 
     String qualifiedResponseMessageName(TDRGElement element);
+
+    String drgElementOutputTypeProto(TDRGElement element);
 }

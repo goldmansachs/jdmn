@@ -25,6 +25,7 @@ import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMNToJavaTransforme
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import com.gs.dmn.transformation.native_.expression.NativeExpressionFactory;
+import com.gs.dmn.transformation.proto.ProtoBufferFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -373,5 +374,65 @@ public class TestLabUtil {
             throw new UnsupportedOperationException(String.format("Cannot resolve FEEL type for requirementId requirement '%s'. '%s' not supported", parameterDefinition.getId(), element.getClass().getSimpleName()));
         }
         return typeRef;
+    }
+
+    //
+    // Proto section
+    //
+    public boolean isGenerateProto() {
+        return this.dmnTransformer.isGenerateProto();
+    }
+
+    // For input parameters
+    public String toNativeExpressionProto(InputParameterDefinition inputParameterDefinition) {
+        String inputName = inputDataVariableName(inputParameterDefinition);
+        Type type = toFEELType(inputParameterDefinition);
+        return this.dmnTransformer.getNativeFactory().convertValueToProtoNativeType(inputName, type);
+    }
+
+    public String drgElementVariableNameProto(OutputParameterDefinition outputParameterDefinition) {
+        String name = drgElementVariableName(outputParameterDefinition);
+        return name + ProtoBufferFactory.PROTO_VARIABLE_SUFFIX;
+    }
+
+    public String drgElementArgumentListProto(OutputParameterDefinition outputParameterDefinition) {
+        TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
+        return dmnTransformer.drgElementArgumentListProto(decision);
+    }
+
+    public String qualifiedRequestMessageName(OutputParameterDefinition outputParameterDefinition) {
+        TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
+        return dmnTransformer.getProtoFactory().qualifiedRequestMessageName(decision);
+    }
+
+    public String qualifiedResponseMessageName(OutputParameterDefinition outputParameterDefinition) {
+        TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
+        return dmnTransformer.getProtoFactory().qualifiedResponseMessageName(decision);
+    }
+
+    public String drgElementOutputTypeProto(OutputParameterDefinition outputParameterDefinition) {
+        TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
+        return dmnTransformer.drgElementOutputTypeProto(decision);
+    }
+
+    public String requestVariableName(OutputParameterDefinition outputParameterDefinition) {
+        return ProtoBufferFactory.REQUEST_VARIABLE_NAME;
+    }
+
+    public String responseVariableName(OutputParameterDefinition outputParameterDefinition) {
+        return ProtoBufferFactory.RESPONSE_VARIABLE_NAME;
+    }
+
+    public String protoGetter(OutputParameterDefinition outputParameterDefinition) {
+        TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
+        Type type = this.dmnTransformer.drgElementOutputFEELType(decision);
+        String name = drgElementVariableName(outputParameterDefinition);
+        return this.dmnTransformer.getProtoFactory().protoGetter(name, type);
+    }
+
+    public String protoSetter(InputParameterDefinition inputParameterDefinition) {
+        String inputName = inputDataVariableName(inputParameterDefinition);
+        Type type = toFEELType(inputParameterDefinition);
+        return this.dmnTransformer.getProtoFactory().protoSetter(inputName, type);
     }
 }

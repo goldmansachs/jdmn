@@ -16,6 +16,7 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
@@ -38,23 +39,39 @@ import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
 public class ProtoBufferFactory {
-    private static final Map<String, String> TIME_FEEL_TO_PROTO_TYPE = new LinkedHashMap<>();
+    private static final Map<String, String> FEEL_TYPE_TO_PROTO_TYPE = new LinkedHashMap<>();
+    private static final Map<String, String> FEEL_TYPE_TO_NATIVE_PROTO_TYPE = new LinkedHashMap<>();
     public static final String OPTIONAL = "optional";
     public static final String REPEATED = "repeated";
 
     public static final String REQUEST_VARIABLE_NAME = "request_";
+    public static final String RESPONSE_VARIABLE_NAME = "response_";
+    public static final String PROTO_VARIABLE_SUFFIX = "Proto";
 
     static {
-        TIME_FEEL_TO_PROTO_TYPE.put(ENUMERATION.getName(), "string");
-        TIME_FEEL_TO_PROTO_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), null);
-        TIME_FEEL_TO_PROTO_TYPE.put(DAYS_AND_TIME_DURATION.getName(), null);
-        TIME_FEEL_TO_PROTO_TYPE.put(DATE_AND_TIME.getName(), null);
-        TIME_FEEL_TO_PROTO_TYPE.put(TIME.getName(), null);
-        TIME_FEEL_TO_PROTO_TYPE.put(DATE.getName(), null);
-        TIME_FEEL_TO_PROTO_TYPE.put(STRING.getName(), "string");
-        TIME_FEEL_TO_PROTO_TYPE.put(BOOLEAN.getName(), "bool");
-        TIME_FEEL_TO_PROTO_TYPE.put(NUMBER.getName(), "double");
-        TIME_FEEL_TO_PROTO_TYPE.put(ANY.getName(), null);
+        FEEL_TYPE_TO_PROTO_TYPE.put(ENUMERATION.getName(), "string");
+        FEEL_TYPE_TO_PROTO_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), null);
+        FEEL_TYPE_TO_PROTO_TYPE.put(DAYS_AND_TIME_DURATION.getName(), null);
+        FEEL_TYPE_TO_PROTO_TYPE.put(DATE_AND_TIME.getName(), null);
+        FEEL_TYPE_TO_PROTO_TYPE.put(TIME.getName(), null);
+        FEEL_TYPE_TO_PROTO_TYPE.put(DATE.getName(), null);
+        FEEL_TYPE_TO_PROTO_TYPE.put(STRING.getName(), "string");
+        FEEL_TYPE_TO_PROTO_TYPE.put(BOOLEAN.getName(), "bool");
+        FEEL_TYPE_TO_PROTO_TYPE.put(NUMBER.getName(), "double");
+        FEEL_TYPE_TO_PROTO_TYPE.put(ANY.getName(), null);
+    }
+
+    static {
+        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(ENUMERATION.getName(), "string");
+        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), null);
+        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(DAYS_AND_TIME_DURATION.getName(), null);
+        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(DATE_AND_TIME.getName(), null);
+        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(TIME.getName(), null);
+        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(DATE.getName(), null);
+        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(STRING.getName(), "String");
+        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(BOOLEAN.getName(), "boolean");
+        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(NUMBER.getName(), "double");
+        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(ANY.getName(), null);
     }
 
     private final BasicDMNToNativeTransformer transformer;
@@ -148,6 +165,37 @@ public class ProtoBufferFactory {
     //
     // Types
     //
+    public String toNativeProtoType(Type type) {
+        if (type instanceof AnyType) {
+            return "Object";
+        } else if (type instanceof NamedType) {
+            String typeName = ((NamedType) type).getName();
+            if (StringUtils.isBlank(typeName)) {
+                throw new DMNRuntimeException(String.format("Missing type name in '%s'", type));
+            }
+            String primitiveType = this.toNativeProtoType(typeName);
+            if (!StringUtils.isBlank(primitiveType)) {
+                return primitiveType;
+            } else {
+                if (type instanceof ItemDefinitionType) {
+                    String qType = qualifiedProtoMessageName((ItemDefinitionType) type);
+                    return qType;
+                } else {
+                    throw new DMNRuntimeException(String.format("Cannot infer platform type for '%s'", type));
+                }
+            }
+        }  else if (type instanceof ListType) {
+            Type elementType = ((ListType) type).getElementType();
+            if (elementType instanceof AnyType) {
+                return this.transformer.makeListType(DMNToJavaTransformer.LIST_TYPE);
+            } else {
+                String fieldType = toNativeProtoType(elementType);
+                return this.transformer.makeListType(DMNToJavaTransformer.LIST_TYPE, fieldType);
+            }
+        }
+        throw new IllegalArgumentException(String.format("Type '%s' is not supported yet", type));
+    }
+
     private FieldType protoType(TItemDefinition itemDefinition) {
         Type type = this.transformer.toFEELType(itemDefinition);
         FieldType protoType = toProtoFieldType(type);
@@ -163,7 +211,7 @@ public class ProtoBufferFactory {
             if (StringUtils.isBlank(typeName)) {
                 throw new DMNRuntimeException(String.format("Missing type name in '%s'", type));
             }
-            String primitiveType = toNativeType(typeName);
+            String primitiveType = toProtoType(typeName);
             if (!StringUtils.isBlank(primitiveType)) {
                 return new FieldType(modifier, primitiveType);
             } else {
@@ -186,8 +234,12 @@ public class ProtoBufferFactory {
         throw new IllegalArgumentException(String.format("Type '%s' is not supported yet", type));
     }
 
-    private String toNativeType(String feelType) {
-        return TIME_FEEL_TO_PROTO_TYPE.get(feelType);
+    private String toProtoType(String feelType) {
+        return FEEL_TYPE_TO_PROTO_TYPE.get(feelType);
+    }
+
+    private String toNativeProtoType(String feelType) {
+        return FEEL_TYPE_TO_NATIVE_PROTO_TYPE.get(feelType);
     }
 
     //
