@@ -30,6 +30,6 @@ public class DMNToProtoTransformerTest extends AbstractTckDMNToJavaTransformerTe
 
     @Override
     protected String getExpectedPath() {
-        return "tck/proto/expected/proto3";
+        return "tck/proto/expected/proto3/java";
     }
 }
