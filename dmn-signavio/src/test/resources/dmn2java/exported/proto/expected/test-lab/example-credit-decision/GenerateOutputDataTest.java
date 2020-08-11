@@ -21,10 +21,10 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
         builder_.setCurrentRiskAppetite((currentRiskAppetite == null ? 0 : currentRiskAppetite.doubleValue()));
         builder_.setLendingThreshold((lendingThreshold == null ? 0 : lendingThreshold.doubleValue()));
         builder_.setApplicant(type.Applicant.toProto(applicant));
-        proto.GenerateOutputDataRequest request_ = builder_.build();
+        proto.GenerateOutputDataRequest generateOutputDataRequest_ = builder_.build();
 
         // Invoke apply method
-        proto.GenerateOutputDataResponse response_ = this.generateOutputData.apply(request_, annotationSet_);
+        proto.GenerateOutputDataResponse response_ = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_);
         List<proto.GenerateOutputData> generateOutputDataProto = response_.getGenerateOutputDataList();
 
         // Check results
@@ -46,10 +46,10 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
         builder_.setCurrentRiskAppetite((currentRiskAppetite == null ? 0 : currentRiskAppetite.doubleValue()));
         builder_.setLendingThreshold((lendingThreshold == null ? 0 : lendingThreshold.doubleValue()));
         builder_.setApplicant(type.Applicant.toProto(applicant));
-        proto.GenerateOutputDataRequest request_ = builder_.build();
+        proto.GenerateOutputDataRequest generateOutputDataRequest_ = builder_.build();
 
         // Invoke apply method
-        proto.GenerateOutputDataResponse response_ = this.generateOutputData.apply(request_, annotationSet_);
+        proto.GenerateOutputDataResponse response_ = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_);
         List<proto.GenerateOutputData> generateOutputDataProto = response_.getGenerateOutputDataList();
 
         // Check results
@@ -71,10 +71,10 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
         builder_.setCurrentRiskAppetite((currentRiskAppetite == null ? 0 : currentRiskAppetite.doubleValue()));
         builder_.setLendingThreshold((lendingThreshold == null ? 0 : lendingThreshold.doubleValue()));
         builder_.setApplicant(type.Applicant.toProto(applicant));
-        proto.GenerateOutputDataRequest request_ = builder_.build();
+        proto.GenerateOutputDataRequest generateOutputDataRequest_ = builder_.build();
 
         // Invoke apply method
-        proto.GenerateOutputDataResponse response_ = this.generateOutputData.apply(request_, annotationSet_);
+        proto.GenerateOutputDataResponse response_ = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_);
         List<proto.GenerateOutputData> generateOutputDataProto = response_.getGenerateOutputDataList();
 
         // Check results

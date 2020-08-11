@@ -69,13 +69,13 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
         }
     }
 
-    public proto.ProcessPriorIssuesResponse apply(proto.ProcessPriorIssuesRequest request_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(request_, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+    public proto.ProcessPriorIssuesResponse apply(proto.ProcessPriorIssuesRequest processPriorIssuesRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+        return apply(processPriorIssuesRequest_, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
     }
 
-    public proto.ProcessPriorIssuesResponse apply(proto.ProcessPriorIssuesRequest request_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public proto.ProcessPriorIssuesResponse apply(proto.ProcessPriorIssuesRequest processPriorIssuesRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         // Create arguments from Request Message
-        type.Applicant applicant = type.Applicant.toApplicant(request_.getApplicant());
+        type.Applicant applicant = type.Applicant.toApplicant(processPriorIssuesRequest_.getApplicant());
         
         // Invoke apply method
         List<java.math.BigDecimal> output_ = apply(applicant, annotationSet_, eventListener_, externalExecutor_);

@@ -83,15 +83,15 @@ public class CompareAgainstLendingThreshold extends com.gs.dmn.signavio.runtime.
         }
     }
 
-    public proto.CompareAgainstLendingThresholdResponse apply(proto.CompareAgainstLendingThresholdRequest request_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(request_, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+    public proto.CompareAgainstLendingThresholdResponse apply(proto.CompareAgainstLendingThresholdRequest compareAgainstLendingThresholdRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+        return apply(compareAgainstLendingThresholdRequest_, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
     }
 
-    public proto.CompareAgainstLendingThresholdResponse apply(proto.CompareAgainstLendingThresholdRequest request_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public proto.CompareAgainstLendingThresholdResponse apply(proto.CompareAgainstLendingThresholdRequest compareAgainstLendingThresholdRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         // Create arguments from Request Message
-        type.Applicant applicant = type.Applicant.toApplicant(request_.getApplicant());
-        java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(request_.getCurrentRiskAppetite());
-        java.math.BigDecimal lendingThreshold = java.math.BigDecimal.valueOf(request_.getLendingThreshold());
+        type.Applicant applicant = type.Applicant.toApplicant(compareAgainstLendingThresholdRequest_.getApplicant());
+        java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(compareAgainstLendingThresholdRequest_.getCurrentRiskAppetite());
+        java.math.BigDecimal lendingThreshold = java.math.BigDecimal.valueOf(compareAgainstLendingThresholdRequest_.getLendingThreshold());
         
         // Invoke apply method
         java.math.BigDecimal output_ = apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_);

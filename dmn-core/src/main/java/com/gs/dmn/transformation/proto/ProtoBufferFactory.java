@@ -44,7 +44,7 @@ public class ProtoBufferFactory {
     public static final String OPTIONAL = "optional";
     public static final String REPEATED = "repeated";
 
-    public static final String REQUEST_VARIABLE_NAME = "request_";
+    private static final String REQUEST_VARIABLE_SUFFIX = "Request_";
     public static final String RESPONSE_VARIABLE_NAME = "response_";
     public static final String PROTO_VARIABLE_SUFFIX = "Proto";
 
@@ -274,6 +274,10 @@ public class ProtoBufferFactory {
         return protoElementName(element) + "Request";
     }
 
+    public String requestVariableName(TDRGElement element) {
+        return this.transformer.namedElementVariableName(element) + ProtoBufferFactory.REQUEST_VARIABLE_SUFFIX;
+    }
+
     private String responseMessageName(TDRGElement element) {
         return protoElementName(element) + "Response";
     }
@@ -334,5 +338,9 @@ public class ProtoBufferFactory {
         String nativePackage = this.transformer.nativeModelPackageName(modelName);
         String protoPackage = this.transformer.protoPackage(nativePackage);
         return this.transformer.qualifiedName(protoPackage, protoName);
+    }
+
+    public String drgElementSignatureProto(TDRGElement element) {
+        return String.format("%s %s", qualifiedRequestMessageName(element), requestVariableName(element));
     }
 }

@@ -79,14 +79,14 @@ public class AssessIssueRisk extends com.gs.dmn.signavio.runtime.DefaultSignavio
         }
     }
 
-    public proto.AssessIssueRiskResponse apply(proto.AssessIssueRiskRequest request_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(request_, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+    public proto.AssessIssueRiskResponse apply(proto.AssessIssueRiskRequest assessIssueRiskRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+        return apply(assessIssueRiskRequest_, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
     }
 
-    public proto.AssessIssueRiskResponse apply(proto.AssessIssueRiskRequest request_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public proto.AssessIssueRiskResponse apply(proto.AssessIssueRiskRequest assessIssueRiskRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
         // Create arguments from Request Message
-        type.Applicant applicant = type.Applicant.toApplicant(request_.getApplicant());
-        java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(request_.getCurrentRiskAppetite());
+        type.Applicant applicant = type.Applicant.toApplicant(assessIssueRiskRequest_.getApplicant());
+        java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(assessIssueRiskRequest_.getCurrentRiskAppetite());
         
         // Invoke apply method
         java.math.BigDecimal output_ = apply(applicant, currentRiskAppetite, annotationSet_, eventListener_, externalExecutor_);
