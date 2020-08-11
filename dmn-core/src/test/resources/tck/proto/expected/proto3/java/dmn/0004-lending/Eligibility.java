@@ -92,14 +92,14 @@ public class Eligibility extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    public proto.EligibilityResponse apply(proto.EligibilityRequest request_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(request_, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
+    public proto.EligibilityResponse apply(proto.EligibilityRequest eligibilityRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+        return apply(eligibilityRequest_, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public proto.EligibilityResponse apply(proto.EligibilityRequest request_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public proto.EligibilityResponse apply(proto.EligibilityRequest eligibilityRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Create arguments from Request Message
-        type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(request_.getApplicantData());
-        type.TRequestedProduct requestedProduct = type.TRequestedProduct.toTRequestedProduct(request_.getRequestedProduct());
+        type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(eligibilityRequest_.getApplicantData());
+        type.TRequestedProduct requestedProduct = type.TRequestedProduct.toTRequestedProduct(eligibilityRequest_.getRequestedProduct());
         
         // Invoke apply method
         String output_ = apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);

@@ -81,15 +81,15 @@ public class Adjudication extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    public proto.AdjudicationResponse apply(proto.AdjudicationRequest request_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(request_, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
+    public proto.AdjudicationResponse apply(proto.AdjudicationRequest adjudicationRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+        return apply(adjudicationRequest_, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public proto.AdjudicationResponse apply(proto.AdjudicationRequest request_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public proto.AdjudicationResponse apply(proto.AdjudicationRequest adjudicationRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Create arguments from Request Message
-        type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(request_.getApplicantData());
-        type.TBureauData bureauData = type.TBureauData.toTBureauData(request_.getBureauData());
-        String supportingDocuments = request_.getSupportingDocuments();
+        type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(adjudicationRequest_.getApplicantData());
+        type.TBureauData bureauData = type.TBureauData.toTBureauData(adjudicationRequest_.getBureauData());
+        String supportingDocuments = adjudicationRequest_.getSupportingDocuments();
         
         // Invoke apply method
         String output_ = apply(applicantData, bureauData, supportingDocuments, annotationSet_, eventListener_, externalExecutor_, cache_);

@@ -92,14 +92,14 @@ public class Strategy extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    public proto.StrategyResponse apply(proto.StrategyRequest request_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(request_, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
+    public proto.StrategyResponse apply(proto.StrategyRequest strategyRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+        return apply(strategyRequest_, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public proto.StrategyResponse apply(proto.StrategyRequest request_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public proto.StrategyResponse apply(proto.StrategyRequest strategyRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Create arguments from Request Message
-        type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(request_.getApplicantData());
-        type.TRequestedProduct requestedProduct = type.TRequestedProduct.toTRequestedProduct(request_.getRequestedProduct());
+        type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(strategyRequest_.getApplicantData());
+        type.TRequestedProduct requestedProduct = type.TRequestedProduct.toTRequestedProduct(strategyRequest_.getRequestedProduct());
         
         // Invoke apply method
         String output_ = apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);

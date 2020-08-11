@@ -99,13 +99,13 @@ public class PreBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         }
     }
 
-    public proto.PreBureauRiskCategoryResponse apply(proto.PreBureauRiskCategoryRequest request_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(request_, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
+    public proto.PreBureauRiskCategoryResponse apply(proto.PreBureauRiskCategoryRequest preBureauRiskCategoryRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+        return apply(preBureauRiskCategoryRequest_, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public proto.PreBureauRiskCategoryResponse apply(proto.PreBureauRiskCategoryRequest request_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public proto.PreBureauRiskCategoryResponse apply(proto.PreBureauRiskCategoryRequest preBureauRiskCategoryRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Create arguments from Request Message
-        type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(request_.getApplicantData());
+        type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(preBureauRiskCategoryRequest_.getApplicantData());
         
         // Invoke apply method
         String output_ = apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);

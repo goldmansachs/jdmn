@@ -90,13 +90,13 @@ public class RequiredMonthlyInstallment extends com.gs.dmn.runtime.DefaultDMNBas
         }
     }
 
-    public proto.RequiredMonthlyInstallmentResponse apply(proto.RequiredMonthlyInstallmentRequest request_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(request_, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
+    public proto.RequiredMonthlyInstallmentResponse apply(proto.RequiredMonthlyInstallmentRequest requiredMonthlyInstallmentRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+        return apply(requiredMonthlyInstallmentRequest_, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public proto.RequiredMonthlyInstallmentResponse apply(proto.RequiredMonthlyInstallmentRequest request_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public proto.RequiredMonthlyInstallmentResponse apply(proto.RequiredMonthlyInstallmentRequest requiredMonthlyInstallmentRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Create arguments from Request Message
-        type.TRequestedProduct requestedProduct = type.TRequestedProduct.toTRequestedProduct(request_.getRequestedProduct());
+        type.TRequestedProduct requestedProduct = type.TRequestedProduct.toTRequestedProduct(requiredMonthlyInstallmentRequest_.getRequestedProduct());
         
         // Invoke apply method
         java.math.BigDecimal output_ = apply(requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);

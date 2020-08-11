@@ -1978,7 +1978,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String drgElementSignatureProto(TDRGElement element) {
-        String decisionSignature = String.format("%s %s", this.protoFactory.qualifiedRequestMessageName(element), ProtoBufferFactory.REQUEST_VARIABLE_NAME);
+        String decisionSignature = this.protoFactory.drgElementSignatureProto(element);
         return augmentSignature(decisionSignature);
     }
 
@@ -1995,7 +1995,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String drgElementArgumentListProto(TDRGElement element) {
-        return augmentArgumentList(ProtoBufferFactory.REQUEST_VARIABLE_NAME);
+        return augmentArgumentList(this.protoFactory.requestVariableName(element));
     }
 
     @Override

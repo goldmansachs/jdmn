@@ -93,15 +93,15 @@ public class Routing extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    public proto.RoutingResponse apply(proto.RoutingRequest request_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(request_, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
+    public proto.RoutingResponse apply(proto.RoutingRequest routingRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+        return apply(routingRequest_, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public proto.RoutingResponse apply(proto.RoutingRequest request_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public proto.RoutingResponse apply(proto.RoutingRequest routingRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Create arguments from Request Message
-        type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(request_.getApplicantData());
-        type.TBureauData bureauData = type.TBureauData.toTBureauData(request_.getBureauData());
-        type.TRequestedProduct requestedProduct = type.TRequestedProduct.toTRequestedProduct(request_.getRequestedProduct());
+        type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(routingRequest_.getApplicantData());
+        type.TBureauData bureauData = type.TBureauData.toTBureauData(routingRequest_.getBureauData());
+        type.TRequestedProduct requestedProduct = type.TRequestedProduct.toTRequestedProduct(routingRequest_.getRequestedProduct());
         
         // Invoke apply method
         String output_ = apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);

@@ -388,7 +388,7 @@ public class JavaFactory implements NativeFactory {
         for (Pair<String, Type> p: parameters) {
             String variableName = p.getLeft();
             String nativeType = this.typeFactory.nullableType(this.transformer.toNativeType(p.getRight()));
-            statement.add(makeAssignmentStatement(nativeType, variableName, extractParameterFromRequestMessage(p), p.getRight()));
+            statement.add(makeAssignmentStatement(nativeType, variableName, extractParameterFromRequestMessage(element, p), p.getRight()));
         }
         statement.add(makeNopStatement());
 
@@ -418,10 +418,10 @@ public class JavaFactory implements NativeFactory {
         return statement;
     }
 
-    private String extractParameterFromRequestMessage(Pair<String, Type> parameter) {
+    private String extractParameterFromRequestMessage(TDRGElement element, Pair<String, Type> parameter) {
         String name = parameter.getLeft();
         Type type = parameter.getRight();
-        String protoValue = String.format("%s.%s", ProtoBufferFactory.REQUEST_VARIABLE_NAME, this.protoFactory.protoGetter(name, type));
+        String protoValue = String.format("%s.%s", this.protoFactory.requestVariableName(element), this.protoFactory.protoGetter(name, type));
         return extractMemberFromProtoValue(protoValue, type);
     }
 
