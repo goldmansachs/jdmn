@@ -967,7 +967,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     private String drgReferenceQualifiedDisplayName(ImportPath importPath, String modelName, String elementName) {
         Pair<List<String>, String> qName = qualifiedName(importPath, modelName, elementName);
 
-        String modelPrefix = qName.getLeft().stream().collect(Collectors.joining("."));
+        String modelPrefix = String.join(".", qName.getLeft());
         String localName = qName.getRight();
         if (StringUtils.isBlank(modelPrefix)) {
             return localName;
@@ -1434,14 +1434,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         return StringEscapeUtil.escapeInString(text);
     }
 
-    private int nextChar(String text, int i) {
-        if (i == text.length()) {
-            return -1;
-        } else {
-            return text.charAt(i + 1);
-        }
-    }
-
     //
     // Rule related functions
     //
@@ -1665,7 +1657,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
                     String returnType = toNativeType(((FunctionType) type).getReturnType());
                     return makeFunctionType(JavaExternalFunction.class.getName(), returnType);
                 }
-                throw new DMNRuntimeException(String.format("Kind is t supported yet", type));
+                throw new DMNRuntimeException(String.format("Type %s is not supported yet", type));
             }
             throw new DMNRuntimeException(String.format("Type %s is not supported yet", type));
         }
@@ -1995,7 +1987,18 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String drgElementArgumentListProto(TDRGElement element) {
-        return augmentArgumentList(this.protoFactory.requestVariableName(element));
+        return augmentArgumentList(this.protoFactory.drgElementArgumentListProto(element));
+    }
+
+    @Override
+    public String drgElementArgumentListExtraCacheProto(TDRGElement element) {
+        String arguments = drgElementArgumentListExtraProto(element);
+        return drgElementArgumentListExtraCache(arguments);
+    }
+
+    private String drgElementArgumentListExtraProto(TDRGElement element) {
+        String arguments = drgElementArgumentListProto(element);
+        return drgElementArgumentListExtra(arguments);
     }
 
     @Override

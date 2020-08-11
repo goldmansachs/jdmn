@@ -39,65 +39,65 @@ public class Test0004Lending extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Check Routing
         checkValues("ACCEPT", new Routing().apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_));
 
-        // Check Adjudication
+        // Check Adjudication with proto request
         proto.AdjudicationRequest.Builder adjudicationBuilder_ = proto.AdjudicationRequest.newBuilder();
         adjudicationBuilder_.setApplicantData(type.TApplicantData.toProto(applicantData));
         adjudicationBuilder_.setBureauData(type.TBureauData.toProto(bureauData));
         adjudicationBuilder_.setSupportingDocuments(supportingDocuments);
         proto.AdjudicationRequest adjudicationRequest_ = adjudicationBuilder_.build();
         checkValues("ACCEPT", new Adjudication().apply(adjudicationRequest_, annotationSet_, eventListener_, externalExecutor_, cache_).getAdjudication());
-        // Check ApplicationRiskScore
+        // Check ApplicationRiskScore with proto request
         proto.ApplicationRiskScoreRequest.Builder applicationRiskScoreBuilder_ = proto.ApplicationRiskScoreRequest.newBuilder();
         applicationRiskScoreBuilder_.setApplicantData(type.TApplicantData.toProto(applicantData));
         proto.ApplicationRiskScoreRequest applicationRiskScoreRequest_ = applicationRiskScoreBuilder_.build();
         checkValues(number("130"), new ApplicationRiskScore().apply(applicationRiskScoreRequest_, annotationSet_, eventListener_, externalExecutor_, cache_).getApplicationRiskScore());
-        // Check PreBureauRiskCategory
+        // Check PreBureauRiskCategory with proto request
         proto.PreBureauRiskCategoryRequest.Builder preBureauRiskCategoryBuilder_ = proto.PreBureauRiskCategoryRequest.newBuilder();
         preBureauRiskCategoryBuilder_.setApplicantData(type.TApplicantData.toProto(applicantData));
         proto.PreBureauRiskCategoryRequest preBureauRiskCategoryRequest_ = preBureauRiskCategoryBuilder_.build();
         checkValues("LOW", new PreBureauRiskCategory().apply(preBureauRiskCategoryRequest_, annotationSet_, eventListener_, externalExecutor_, cache_).getPreBureauRiskCategory());
-        // Check BureauCallType
+        // Check BureauCallType with proto request
         proto.BureauCallTypeRequest.Builder bureauCallTypeBuilder_ = proto.BureauCallTypeRequest.newBuilder();
         bureauCallTypeBuilder_.setApplicantData(type.TApplicantData.toProto(applicantData));
         proto.BureauCallTypeRequest bureauCallTypeRequest_ = bureauCallTypeBuilder_.build();
         checkValues("MINI", new BureauCallType().apply(bureauCallTypeRequest_, annotationSet_, eventListener_, externalExecutor_, cache_).getBureauCallType());
-        // Check PostBureauRiskCategory
+        // Check PostBureauRiskCategory with proto request
         proto.PostBureauRiskCategoryRequest.Builder postBureauRiskCategoryBuilder_ = proto.PostBureauRiskCategoryRequest.newBuilder();
         postBureauRiskCategoryBuilder_.setApplicantData(type.TApplicantData.toProto(applicantData));
         postBureauRiskCategoryBuilder_.setBureauData(type.TBureauData.toProto(bureauData));
         proto.PostBureauRiskCategoryRequest postBureauRiskCategoryRequest_ = postBureauRiskCategoryBuilder_.build();
         checkValues("LOW", new PostBureauRiskCategory().apply(postBureauRiskCategoryRequest_, annotationSet_, eventListener_, externalExecutor_, cache_).getPostBureauRiskCategory());
-        // Check RequiredMonthlyInstallment
+        // Check RequiredMonthlyInstallment with proto request
         proto.RequiredMonthlyInstallmentRequest.Builder requiredMonthlyInstallmentBuilder_ = proto.RequiredMonthlyInstallmentRequest.newBuilder();
         requiredMonthlyInstallmentBuilder_.setRequestedProduct(type.TRequestedProduct.toProto(requestedProduct));
         proto.RequiredMonthlyInstallmentRequest requiredMonthlyInstallmentRequest_ = requiredMonthlyInstallmentBuilder_.build();
         checkValues(number("1680.880325608555"), new RequiredMonthlyInstallment().apply(requiredMonthlyInstallmentRequest_, annotationSet_, eventListener_, externalExecutor_, cache_).getRequiredMonthlyInstallment());
-        // Check PreBureauAffordability
+        // Check PreBureauAffordability with proto request
         proto.PreBureauAffordabilityRequest.Builder preBureauAffordabilityBuilder_ = proto.PreBureauAffordabilityRequest.newBuilder();
         preBureauAffordabilityBuilder_.setApplicantData(type.TApplicantData.toProto(applicantData));
         preBureauAffordabilityBuilder_.setRequestedProduct(type.TRequestedProduct.toProto(requestedProduct));
         proto.PreBureauAffordabilityRequest preBureauAffordabilityRequest_ = preBureauAffordabilityBuilder_.build();
         checkValues(true, new PreBureauAffordability().apply(preBureauAffordabilityRequest_, annotationSet_, eventListener_, externalExecutor_, cache_).getPreBureauAffordability());
-        // Check Eligibility
+        // Check Eligibility with proto request
         proto.EligibilityRequest.Builder eligibilityBuilder_ = proto.EligibilityRequest.newBuilder();
         eligibilityBuilder_.setApplicantData(type.TApplicantData.toProto(applicantData));
         eligibilityBuilder_.setRequestedProduct(type.TRequestedProduct.toProto(requestedProduct));
         proto.EligibilityRequest eligibilityRequest_ = eligibilityBuilder_.build();
         checkValues("ELIGIBLE", new Eligibility().apply(eligibilityRequest_, annotationSet_, eventListener_, externalExecutor_, cache_).getEligibility());
-        // Check Strategy
+        // Check Strategy with proto request
         proto.StrategyRequest.Builder strategyBuilder_ = proto.StrategyRequest.newBuilder();
         strategyBuilder_.setApplicantData(type.TApplicantData.toProto(applicantData));
         strategyBuilder_.setRequestedProduct(type.TRequestedProduct.toProto(requestedProduct));
         proto.StrategyRequest strategyRequest_ = strategyBuilder_.build();
         checkValues("BUREAU", new Strategy().apply(strategyRequest_, annotationSet_, eventListener_, externalExecutor_, cache_).getStrategy());
-        // Check PostBureauAffordability
+        // Check PostBureauAffordability with proto request
         proto.PostBureauAffordabilityRequest.Builder postBureauAffordabilityBuilder_ = proto.PostBureauAffordabilityRequest.newBuilder();
         postBureauAffordabilityBuilder_.setApplicantData(type.TApplicantData.toProto(applicantData));
         postBureauAffordabilityBuilder_.setBureauData(type.TBureauData.toProto(bureauData));
         postBureauAffordabilityBuilder_.setRequestedProduct(type.TRequestedProduct.toProto(requestedProduct));
         proto.PostBureauAffordabilityRequest postBureauAffordabilityRequest_ = postBureauAffordabilityBuilder_.build();
         checkValues(true, new PostBureauAffordability().apply(postBureauAffordabilityRequest_, annotationSet_, eventListener_, externalExecutor_, cache_).getPostBureauAffordability());
-        // Check Routing
+        // Check Routing with proto request
         proto.RoutingRequest.Builder routingBuilder_ = proto.RoutingRequest.newBuilder();
         routingBuilder_.setApplicantData(type.TApplicantData.toProto(applicantData));
         routingBuilder_.setBureauData(type.TBureauData.toProto(bureauData));

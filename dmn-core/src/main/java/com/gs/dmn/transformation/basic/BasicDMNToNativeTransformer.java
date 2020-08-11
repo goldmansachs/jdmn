@@ -536,6 +536,8 @@ public interface BasicDMNToNativeTransformer {
 
     String drgElementSignatureExtraCacheProto(TDRGElement element);
 
+    String drgElementArgumentListExtraCacheProto(TDRGElement element);
+
     String drgElementArgumentListProto(TDRGElement element);
 
     String drgElementDefaultArgumentListExtraCacheProto(TDRGElement element);
