@@ -343,4 +343,8 @@ public class ProtoBufferFactory {
     public String drgElementSignatureProto(TDRGElement element) {
         return String.format("%s %s", qualifiedRequestMessageName(element), requestVariableName(element));
     }
+
+    public String drgElementArgumentListProto(TDRGElement element) {
+        return requestVariableName(element);
+    }
 }
