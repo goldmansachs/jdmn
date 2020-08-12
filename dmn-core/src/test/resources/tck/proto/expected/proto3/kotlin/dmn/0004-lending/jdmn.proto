@@ -1,0 +1,309 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "proto";
+
+package proto;
+
+//
+// Complex data types
+//
+message TApplicantData {
+    double age = 1;
+    string employmentStatus = 2;
+    bool existingCustomer = 3;
+    string maritalStatus = 4;
+    proto.Monthly monthly = 5;
+}
+
+message Monthly {
+    double expenses = 1;
+    double income = 2;
+    double repayments = 3;
+}
+
+message TBureauData {
+    bool bankrupt = 1;
+    double creditScore = 2;
+}
+
+message TRequestedProduct {
+    double amount = 1;
+    string productType = 2;
+    double rate = 3;
+    double term = 4;
+}
+
+//
+// Request / response types
+//
+message AdjudicationRequest {
+    proto.TApplicantData applicantData = 1;
+    proto.TBureauData bureauData = 2;
+    string supportingDocuments = 3;
+}
+
+message AdjudicationResponse {
+    string adjudication = 1;
+}
+
+message AffordabilityCalculationRequest {
+    double monthlyIncome = 1;
+    double monthlyRepayments = 2;
+    double monthlyExpenses = 3;
+    string riskCategory = 4;
+    double requiredMonthlyInstallment = 5;
+}
+
+message AffordabilityCalculationResponse {
+    bool affordabilityCalculation = 1;
+}
+
+message ApplicationRiskScoreRequest {
+    proto.TApplicantData applicantData = 1;
+}
+
+message ApplicationRiskScoreResponse {
+    double applicationRiskScore = 1;
+}
+
+message ApplicationRiskScoreModelRequest {
+    double age = 1;
+    string maritalStatus = 2;
+    string employmentStatus = 3;
+}
+
+message ApplicationRiskScoreModelResponse {
+    double applicationRiskScoreModel = 1;
+}
+
+message BureauCallTypeRequest {
+    proto.TApplicantData applicantData = 1;
+}
+
+message BureauCallTypeResponse {
+    string bureauCallType = 1;
+}
+
+message BureauCallTypeTableRequest {
+    string preBureauRiskCategory = 1;
+}
+
+message BureauCallTypeTableResponse {
+    string bureauCallTypeTable = 1;
+}
+
+message CreditContingencyFactorTableRequest {
+    string riskCategory = 1;
+}
+
+message CreditContingencyFactorTableResponse {
+    double creditContingencyFactorTable = 1;
+}
+
+message EligibilityRequest {
+    proto.TApplicantData applicantData = 1;
+    proto.TRequestedProduct requestedProduct = 2;
+}
+
+message EligibilityResponse {
+    string eligibility = 1;
+}
+
+message EligibilityRulesRequest {
+    string preBureauRiskCategory = 1;
+    bool preBureauAffordability = 2;
+    double age = 3;
+}
+
+message EligibilityRulesResponse {
+    string eligibilityRules = 1;
+}
+
+message InstallmentCalculationRequest {
+    string productType = 1;
+    double rate = 2;
+    double term = 3;
+    double amount = 4;
+}
+
+message InstallmentCalculationResponse {
+    double installmentCalculation = 1;
+}
+
+message PostBureauAffordabilityRequest {
+    proto.TApplicantData applicantData = 1;
+    proto.TBureauData bureauData = 2;
+    proto.TRequestedProduct requestedProduct = 3;
+}
+
+message PostBureauAffordabilityResponse {
+    bool postBureauAffordability = 1;
+}
+
+message PostBureauRiskCategoryRequest {
+    proto.TApplicantData applicantData = 1;
+    proto.TBureauData bureauData = 2;
+}
+
+message PostBureauRiskCategoryResponse {
+    string postBureauRiskCategory = 1;
+}
+
+message PostBureauRiskCategoryTableRequest {
+    bool existingCustomer = 1;
+    double applicationRiskScore = 2;
+    double creditScore = 3;
+}
+
+message PostBureauRiskCategoryTableResponse {
+    string postBureauRiskCategoryTable = 1;
+}
+
+message PreBureauAffordabilityRequest {
+    proto.TApplicantData applicantData = 1;
+    proto.TRequestedProduct requestedProduct = 2;
+}
+
+message PreBureauAffordabilityResponse {
+    bool preBureauAffordability = 1;
+}
+
+message PreBureauRiskCategoryRequest {
+    proto.TApplicantData applicantData = 1;
+}
+
+message PreBureauRiskCategoryResponse {
+    string preBureauRiskCategory = 1;
+}
+
+message PreBureauRiskCategoryTableRequest {
+    bool existingCustomer = 1;
+    double applicationRiskScore = 2;
+}
+
+message PreBureauRiskCategoryTableResponse {
+    string preBureauRiskCategoryTable = 1;
+}
+
+message RequiredMonthlyInstallmentRequest {
+    proto.TRequestedProduct requestedProduct = 1;
+}
+
+message RequiredMonthlyInstallmentResponse {
+    double requiredMonthlyInstallment = 1;
+}
+
+message RoutingRequest {
+    proto.TApplicantData applicantData = 1;
+    proto.TBureauData bureauData = 2;
+    proto.TRequestedProduct requestedProduct = 3;
+}
+
+message RoutingResponse {
+    string routing = 1;
+}
+
+message RoutingRulesRequest {
+    string postBureauRiskCategory = 1;
+    bool postBureauAffordability = 2;
+    bool bankrupt = 3;
+    double creditScore = 4;
+}
+
+message RoutingRulesResponse {
+    string routingRules = 1;
+}
+
+message StrategyRequest {
+    proto.TApplicantData applicantData = 1;
+    proto.TRequestedProduct requestedProduct = 2;
+}
+
+message StrategyResponse {
+    string strategy = 1;
+}
+
+//
+// Services
+//
+service AdjudicationService {
+    rpc apply(AdjudicationRequest) returns (AdjudicationResponse);
+}
+
+service AffordabilityCalculationService {
+    rpc apply(AffordabilityCalculationRequest) returns (AffordabilityCalculationResponse);
+}
+
+service ApplicationRiskScoreService {
+    rpc apply(ApplicationRiskScoreRequest) returns (ApplicationRiskScoreResponse);
+}
+
+service ApplicationRiskScoreModelService {
+    rpc apply(ApplicationRiskScoreModelRequest) returns (ApplicationRiskScoreModelResponse);
+}
+
+service BureauCallTypeService {
+    rpc apply(BureauCallTypeRequest) returns (BureauCallTypeResponse);
+}
+
+service BureauCallTypeTableService {
+    rpc apply(BureauCallTypeTableRequest) returns (BureauCallTypeTableResponse);
+}
+
+service CreditContingencyFactorTableService {
+    rpc apply(CreditContingencyFactorTableRequest) returns (CreditContingencyFactorTableResponse);
+}
+
+service EligibilityService {
+    rpc apply(EligibilityRequest) returns (EligibilityResponse);
+}
+
+service EligibilityRulesService {
+    rpc apply(EligibilityRulesRequest) returns (EligibilityRulesResponse);
+}
+
+service InstallmentCalculationService {
+    rpc apply(InstallmentCalculationRequest) returns (InstallmentCalculationResponse);
+}
+
+service PostBureauAffordabilityService {
+    rpc apply(PostBureauAffordabilityRequest) returns (PostBureauAffordabilityResponse);
+}
+
+service PostBureauRiskCategoryService {
+    rpc apply(PostBureauRiskCategoryRequest) returns (PostBureauRiskCategoryResponse);
+}
+
+service PostBureauRiskCategoryTableService {
+    rpc apply(PostBureauRiskCategoryTableRequest) returns (PostBureauRiskCategoryTableResponse);
+}
+
+service PreBureauAffordabilityService {
+    rpc apply(PreBureauAffordabilityRequest) returns (PreBureauAffordabilityResponse);
+}
+
+service PreBureauRiskCategoryService {
+    rpc apply(PreBureauRiskCategoryRequest) returns (PreBureauRiskCategoryResponse);
+}
+
+service PreBureauRiskCategoryTableService {
+    rpc apply(PreBureauRiskCategoryTableRequest) returns (PreBureauRiskCategoryTableResponse);
+}
+
+service RequiredMonthlyInstallmentService {
+    rpc apply(RequiredMonthlyInstallmentRequest) returns (RequiredMonthlyInstallmentResponse);
+}
+
+service RoutingService {
+    rpc apply(RoutingRequest) returns (RoutingResponse);
+}
+
+service RoutingRulesService {
+    rpc apply(RoutingRulesRequest) returns (RoutingRulesResponse);
+}
+
+service StrategyService {
+    rpc apply(StrategyRequest) returns (StrategyResponse);
+}
+
