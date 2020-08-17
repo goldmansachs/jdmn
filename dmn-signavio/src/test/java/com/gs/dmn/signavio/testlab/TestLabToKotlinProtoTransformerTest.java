@@ -16,7 +16,7 @@ import org.junit.Test;
 
 import java.util.Map;
 
-public class TestLabToKotlinProtoTransformerTest extends AbstractTestLabToJavaJUnitTransformerTest {
+public class TestLabToKotlinProtoTransformerTest extends AbstractTestLabToKotlinJUnitTransformerTest {
     @Test
     public void testExampleCreditDecision() throws Exception {
         doTest("Example credit decision");

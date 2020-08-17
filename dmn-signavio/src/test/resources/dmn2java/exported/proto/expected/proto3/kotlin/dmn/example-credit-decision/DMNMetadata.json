@@ -208,7 +208,7 @@
     "@kind" : "inputData",
     "id" : "id-d2376567fde3c9400ee327ecec21e36d",
     "javaParameterName" : "applicant",
-    "javaTypeName" : "type.Applicant",
+    "javaTypeName" : "type.Applicant?",
     "label" : "Applicant",
     "name" : "applicant",
     "typeRef" : {
@@ -219,7 +219,7 @@
     "@kind" : "inputData",
     "id" : "id-5dc69eb6de3b736e08d2029ca5ae436c",
     "javaParameterName" : "currentRiskAppetite",
-    "javaTypeName" : "java.math.BigDecimal",
+    "javaTypeName" : "java.math.BigDecimal?",
     "label" : "Current risk appetite",
     "name" : "currentRiskAppetite",
     "typeRef" : {
@@ -230,7 +230,7 @@
     "@kind" : "inputData",
     "id" : "id-5a7daa825c6a7542e30184a94034b435",
     "javaParameterName" : "lendingThreshold",
-    "javaTypeName" : "java.math.BigDecimal",
+    "javaTypeName" : "java.math.BigDecimal?",
     "label" : "Lending threshold",
     "name" : "lendingThreshold",
     "typeRef" : {
@@ -241,7 +241,7 @@
     "@kind" : "inputData",
     "id" : "id-78d6a4b25e15dc5d22fe0cce65554804",
     "javaParameterName" : "priorIssue_iterator",
-    "javaTypeName" : "java.math.BigDecimal",
+    "javaTypeName" : "java.math.BigDecimal?",
     "label" : "Prior issue",
     "name" : "priorIssue_iterator",
     "typeRef" : {
@@ -255,7 +255,7 @@
     "informationReferences" : [ {
       "reference" : "id-d2376567fde3c9400ee327ecec21e36d"
     } ],
-    "javaOutputTypeName" : "java.math.BigDecimal",
+    "javaOutputTypeName" : "java.math.BigDecimal?",
     "javaParameterName" : "assessApplicantAge",
     "javaTypeName" : "AssessApplicantAge",
     "knowledgeReferences" : [ ],
@@ -274,7 +274,7 @@
     }, {
       "reference" : "id-78d6a4b25e15dc5d22fe0cce65554804"
     } ],
-    "javaOutputTypeName" : "java.math.BigDecimal",
+    "javaOutputTypeName" : "java.math.BigDecimal?",
     "javaParameterName" : "assessIssue",
     "javaTypeName" : "AssessIssue",
     "knowledgeReferences" : [ ],
@@ -297,7 +297,7 @@
     "informationReferences" : [ {
       "reference" : "id-bdfc5bfa4ce80fd221463ee66b277220"
     } ],
-    "javaOutputTypeName" : "java.math.BigDecimal",
+    "javaOutputTypeName" : "java.math.BigDecimal?",
     "javaParameterName" : "assessIssueRisk",
     "javaTypeName" : "AssessIssueRisk",
     "knowledgeReferences" : [ ],
@@ -318,7 +318,7 @@
     }, {
       "reference" : "id-90d13f677a4e3f0f8230a12f15301f00"
     } ],
-    "javaOutputTypeName" : "java.math.BigDecimal",
+    "javaOutputTypeName" : "java.math.BigDecimal?",
     "javaParameterName" : "compareAgainstLendingThreshold",
     "javaTypeName" : "CompareAgainstLendingThreshold",
     "knowledgeReferences" : [ ],
@@ -339,7 +339,7 @@
     }, {
       "reference" : "id-90d13f677a4e3f0f8230a12f15301f00"
     } ],
-    "javaOutputTypeName" : "List<type.GenerateOutputData>",
+    "javaOutputTypeName" : "List<type.GenerateOutputData?>?",
     "javaParameterName" : "generateOutputData",
     "javaTypeName" : "GenerateOutputData",
     "knowledgeReferences" : [ ],
@@ -356,7 +356,7 @@
     "informationReferences" : [ {
       "reference" : "id-8369770df890b566296308a9deebec47"
     } ],
-    "javaOutputTypeName" : "String",
+    "javaOutputTypeName" : "String?",
     "javaParameterName" : "makeCreditDecision",
     "javaTypeName" : "MakeCreditDecision",
     "knowledgeReferences" : [ ],
@@ -373,7 +373,7 @@
     "informationReferences" : [ {
       "reference" : "id-d2376567fde3c9400ee327ecec21e36d"
     } ],
-    "javaOutputTypeName" : "List<java.math.BigDecimal>",
+    "javaOutputTypeName" : "List<java.math.BigDecimal?>?",
     "javaParameterName" : "processPriorIssues",
     "javaTypeName" : "ProcessPriorIssues",
     "knowledgeReferences" : [ ],
