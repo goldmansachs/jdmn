@@ -37,6 +37,7 @@ import com.gs.dmn.transformation.basic.QualifiedName;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.native_.statement.ExpressionStatement;
 import com.gs.dmn.transformation.native_.statement.Statement;
+import com.gs.dmn.transformation.proto.ProtoBufferJavaFactory;
 import org.omg.spec.dmn._20180521.model.*;
 
 import java.util.*;
@@ -50,6 +51,11 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
     public BasicSignavioDMNToJavaTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory feelTypeTranslator, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         super(dmnModelRepository, environmentFactory, feelTypeTranslator, lazyEvaluationDetector, inputParameters);
         this.dmnModelRepository = (SignavioDMNModelRepository) super.getDMNModelRepository();
+    }
+
+    @Override
+    protected void setProtoBufferFactory(BasicDMNToJavaTransformer transformer) {
+        this.protoFactory = new ProtoBufferJavaFactory(this);
     }
 
     @Override

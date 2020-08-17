@@ -52,6 +52,7 @@ import com.gs.dmn.transformation.native_.statement.ExpressionStatement;
 import com.gs.dmn.transformation.native_.statement.Statement;
 import com.gs.dmn.transformation.proto.MessageType;
 import com.gs.dmn.transformation.proto.ProtoBufferFactory;
+import com.gs.dmn.transformation.proto.ProtoBufferJavaFactory;
 import com.gs.dmn.transformation.proto.Service;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.*;
@@ -69,7 +70,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     protected final DMNModelRepository dmnModelRepository;
     protected final EnvironmentFactory environmentFactory;
     protected final NativeTypeFactory nativeTypeFactory;
-    protected final ProtoBufferFactory protoFactory;
+    protected ProtoBufferFactory protoFactory;
     private final LazyEvaluationDetector lazyEvaluationDetector;
 
     private final String javaRootPackage;
@@ -116,7 +117,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         this.cachedElements = this.dmnModelRepository.computeCachedElements(this.caching, this.cachingThreshold);
 
         // Helpers
-        this.protoFactory = new ProtoBufferFactory(this);
+        setProtoBufferFactory(this);
         setNativeFactory(this);
         setFEELTranslator(this);
         setDMNEnvironmentFactory(this);
@@ -124,6 +125,10 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
 
         this.drgElementFilter = new DRGElementFilter(this.singletonInputData);
         this.nativeTypeMemoizer = new JavaTypeMemoizer();
+    }
+
+    protected void setProtoBufferFactory(BasicDMNToJavaTransformer transformer) {
+        this.protoFactory = new ProtoBufferJavaFactory(this);
     }
 
     protected void setDMNEnvironmentFactory(BasicDMNToNativeTransformer transformer) {
