@@ -10,34 +10,24 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.signavio.testlab;
+package com.gs.dmn.signavio.transformation;
 
+import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 
-import java.util.Map;
-
-public class TestLabToProtoTransformerTest extends AbstractTestLabToJavaJUnitTransformerTest {
+public class SignavioToJavaProtoTransformerTest extends AbstractSignavioDMNToJavaTest {
     @Test
-    public void testExampleCreditDecision() throws Exception {
-        doTest("Example credit decision");
+    public void testProto() throws Exception {
+        doSingleModelTest("Example credit decision", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"));
     }
 
     @Override
     protected String getInputPath() {
-        return "dmn2java/exported/complex/input";
+        return "dmn2java/exported/proto/input";
     }
 
     @Override
     protected String getExpectedPath() {
-        return "dmn2java/exported/proto/expected/test-lab";
-    }
-
-    @Override
-    protected Map<String, String> makeInputParameters() {
-        Map<String, String> inputParams = super.makeInputParameters();
-        inputParams.put("generateProtoMessages", "true");
-        inputParams.put("generateProtoServices", "true");
-        inputParams.put("protoVersion", "proto3");
-        return inputParams;
+        return "dmn2java/exported/proto/expected/proto3/java/dmn";
     }
 }
