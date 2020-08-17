@@ -39,11 +39,11 @@ class ${testClassName} : ${decisionBaseClass}() {
 </#macro>
 
 <#macro initializeInputs testCase>
-        val ${tckUtil.annotationSetVariableName()} = ${tckUtil.annotationSetClassName()}()
-        val ${tckUtil.eventListenerVariableName()} = ${tckUtil.defaultEventListenerClassName()}()
-        val ${tckUtil.externalExecutorVariableName()} = ${tckUtil.defaultExternalExecutorClassName()}()
+        val ${tckUtil.annotationSetVariableName()} = ${tckUtil.defaultConstructor(tckUtil.annotationSetClassName())}
+        val ${tckUtil.eventListenerVariableName()} = ${tckUtil.defaultConstructor(tckUtil.defaultEventListenerClassName())}
+        val ${tckUtil.externalExecutorVariableName()} = ${tckUtil.defaultConstructor(tckUtil.defaultExternalExecutorClassName())}
         <#if tckUtil.isCaching()>
-        val ${tckUtil.cacheVariableName()} = ${tckUtil.defaultCacheClassName()}()
+        val ${tckUtil.cacheVariableName()} = ${tckUtil.defaultConstructor(tckUtil.defaultCacheClassName())}
         </#if>
     <#list testCase.inputNode>
         // Initialize input data
@@ -63,9 +63,9 @@ class ${testClassName} : ${decisionBaseClass}() {
         // Check ${result.name}
         <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
         <#if tckUtil.isCaching()>
-        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.qualifiedName(resultInfo)}().apply(${tckUtil.drgElementArgumentListExtraCache(tckUtil.drgElementArgumentListExtra(tckUtil.drgElementArgumentList(resultInfo)))}))
+        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.defaultConstructor(tckUtil.qualifiedName(resultInfo))}.apply(${tckUtil.drgElementArgumentListExtraCache(tckUtil.drgElementArgumentListExtra(tckUtil.drgElementArgumentList(resultInfo)))}))
         <#else>
-        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.qualifiedName(resultInfo)}().apply(${tckUtil.drgElementArgumentListExtra(tckUtil.drgElementArgumentList(resultInfo))}))
+        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.defaultConstructor(tckUtil.qualifiedName(resultInfo))}.apply(${tckUtil.drgElementArgumentListExtra(tckUtil.drgElementArgumentList(resultInfo))}))
         </#if>
         </#items>
     </#list>
