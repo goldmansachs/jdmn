@@ -331,6 +331,10 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return this.dmnTransformer.defaultCacheClassName();
     }
 
+    public String defaultConstructor(String className) {
+        return this.dmnTransformer.defaultConstructor(className);
+    }
+
     public boolean isCaching() {
         return this.dmnTransformer.isCaching();
     }
