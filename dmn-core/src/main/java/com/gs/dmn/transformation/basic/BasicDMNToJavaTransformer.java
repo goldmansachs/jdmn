@@ -2047,4 +2047,10 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         Type type = drgElementOutputFEELType(element);
         return this.protoFactory.toNativeProtoType(type);
     }
+
+    @Override
+    public String protoFieldName(TNamedElement element) {
+        return this.protoFactory.protoFieldName(element);
+    }
+
 }

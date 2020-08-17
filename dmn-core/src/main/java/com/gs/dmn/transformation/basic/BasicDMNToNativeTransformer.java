@@ -553,4 +553,6 @@ public interface BasicDMNToNativeTransformer {
     String qualifiedResponseMessageName(TDRGElement element);
 
     String drgElementOutputTypeProto(TDRGElement element);
+
+    String protoFieldName(TNamedElement element);
 }

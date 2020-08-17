@@ -286,7 +286,7 @@ public abstract class ProtoBufferFactory {
         return this.transformer.upperCaseFirst(protoName(element.getName()));
     }
 
-    private String protoFieldName(TNamedElement namedElement) {
+    public String protoFieldName(TNamedElement namedElement) {
         return this.protoFieldName(namedElement.getName());
     }
 
