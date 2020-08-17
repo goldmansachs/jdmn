@@ -1,0 +1,121 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "proto";
+
+package proto;
+
+//
+// Complex data types
+//
+message Applicant {
+    double age = 1;
+    double creditScore = 2;
+    string name = 3;
+    repeated string priorIssues = 4;
+}
+
+message GenerateOutputData {
+    double assessment = 1;
+    string decision = 2;
+    double issue = 3;
+}
+
+//
+// Request / response types
+//
+message AssessApplicantAgeRequest {
+    proto.Applicant applicant = 1;
+}
+
+message AssessApplicantAgeResponse {
+    double assessApplicantAge = 1;
+}
+
+message AssessIssueRequest {
+    double currentRiskAppetite = 1;
+    double priorIssueIterator = 2;
+}
+
+message AssessIssueResponse {
+    double assessIssue = 1;
+}
+
+message AssessIssueRiskRequest {
+    proto.Applicant applicant = 1;
+    double currentRiskAppetite = 2;
+}
+
+message AssessIssueRiskResponse {
+    double assessIssueRisk = 1;
+}
+
+message CompareAgainstLendingThresholdRequest {
+    proto.Applicant applicant = 1;
+    double currentRiskAppetite = 2;
+    double lendingThreshold = 3;
+}
+
+message CompareAgainstLendingThresholdResponse {
+    double compareAgainstLendingThreshold = 1;
+}
+
+message GenerateOutputDataRequest {
+    proto.Applicant applicant = 1;
+    double currentRiskAppetite = 2;
+    double lendingThreshold = 3;
+}
+
+message GenerateOutputDataResponse {
+    repeated proto.GenerateOutputData generateOutputData = 1;
+}
+
+message MakeCreditDecisionRequest {
+    proto.Applicant applicant = 1;
+    double currentRiskAppetite = 2;
+    double lendingThreshold = 3;
+}
+
+message MakeCreditDecisionResponse {
+    string makeCreditDecision = 1;
+}
+
+message ProcessPriorIssuesRequest {
+    proto.Applicant applicant = 1;
+}
+
+message ProcessPriorIssuesResponse {
+    repeated double processPriorIssues = 1;
+}
+
+//
+// Services
+//
+service AssessApplicantAgeService {
+    rpc apply(AssessApplicantAgeRequest) returns (AssessApplicantAgeResponse);
+}
+
+service AssessIssueService {
+    rpc apply(AssessIssueRequest) returns (AssessIssueResponse);
+}
+
+service AssessIssueRiskService {
+    rpc apply(AssessIssueRiskRequest) returns (AssessIssueRiskResponse);
+}
+
+service CompareAgainstLendingThresholdService {
+    rpc apply(CompareAgainstLendingThresholdRequest) returns (CompareAgainstLendingThresholdResponse);
+}
+
+service GenerateOutputDataService {
+    rpc apply(GenerateOutputDataRequest) returns (GenerateOutputDataResponse);
+}
+
+service MakeCreditDecisionService {
+    rpc apply(MakeCreditDecisionRequest) returns (MakeCreditDecisionResponse);
+}
+
+service ProcessPriorIssuesService {
+    rpc apply(ProcessPriorIssuesRequest) returns (ProcessPriorIssuesResponse);
+}
+
