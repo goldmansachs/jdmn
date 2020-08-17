@@ -29,6 +29,10 @@ class ${testClassName} : ${decisionBaseClass}() {
         <@initializeInputs tc/>
 
         <@checkResults tc/>
+        <#if tckUtil.isGenerateProto()>
+
+        <@checkProtoResults tc/>
+        </#if>
     }
 
         </#items>
@@ -67,6 +71,23 @@ class ${testClassName} : ${decisionBaseClass}() {
         <#else>
         checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.defaultConstructor(tckUtil.qualifiedName(resultInfo))}.apply(${tckUtil.drgElementArgumentListExtra(tckUtil.drgElementArgumentList(resultInfo))}))
         </#if>
+        </#items>
+    </#list>
+</#macro>
+
+<#macro checkProtoResults testCase>
+    <#list testCase.resultNode>
+        <#items as result>
+        // Check ${result.name} with proto request
+        <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
+        val ${tckUtil.builderVariableName(resultInfo)}: ${tckUtil.qualifiedRequestMessageName(resultInfo)}.Builder = ${tckUtil.qualifiedRequestMessageName(resultInfo)}.newBuilder()
+        <#list tckUtil.drgElementTypeSignature(resultInfo)>
+        <#items as pair>
+        ${tckUtil.builderVariableName(resultInfo)}.${tckUtil.protoSetter(pair)}(${tckUtil.toNativeExpressionProto(pair)})
+        </#items>
+        </#list>
+        val ${tckUtil.requestVariableName(resultInfo)}: ${tckUtil.qualifiedRequestMessageName(resultInfo)} = ${tckUtil.builderVariableName(resultInfo)}.build()
+        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.defaultConstructor(tckUtil.qualifiedName(resultInfo))}.apply(${tckUtil.drgElementArgumentListExtraCacheProto(resultInfo)}).${tckUtil.protoGetter(resultInfo)})
         </#items>
     </#list>
 </#macro>
