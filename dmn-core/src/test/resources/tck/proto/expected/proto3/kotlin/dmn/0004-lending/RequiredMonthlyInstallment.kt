@@ -77,6 +77,23 @@ class RequiredMonthlyInstallment() : com.gs.dmn.runtime.DefaultDMNBaseDecision()
         }
     }
 
+    fun apply(requiredMonthlyInstallmentRequest_: proto.RequiredMonthlyInstallmentRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): proto.RequiredMonthlyInstallmentResponse {
+        return apply(requiredMonthlyInstallmentRequest_, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
+    }
+
+    fun apply(requiredMonthlyInstallmentRequest_: proto.RequiredMonthlyInstallmentRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.RequiredMonthlyInstallmentResponse {
+        // Create arguments from Request Message
+        var requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(requiredMonthlyInstallmentRequest_.getRequestedProduct())
+        
+        // Invoke apply method
+        var output_: java.math.BigDecimal? = apply(requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
+        
+        // Convert output to Response Message
+        var builder_: proto.RequiredMonthlyInstallmentResponse.Builder = proto.RequiredMonthlyInstallmentResponse.newBuilder()
+        builder_.setRequiredMonthlyInstallment((if (output_ == null) 0.0 else output_!!.toDouble()))
+        return builder_.build()
+    }
+
     private inline fun evaluate(requestedProduct: type.TRequestedProduct?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
         return InstallmentCalculation.InstallmentCalculation(requestedProduct?.let({ it.productType as String? }), requestedProduct?.let({ it.rate as java.math.BigDecimal? }), requestedProduct?.let({ it.term as java.math.BigDecimal? }), requestedProduct?.let({ it.amount as java.math.BigDecimal? }), annotationSet_, eventListener_, externalExecutor_, cache_) as java.math.BigDecimal?
     }

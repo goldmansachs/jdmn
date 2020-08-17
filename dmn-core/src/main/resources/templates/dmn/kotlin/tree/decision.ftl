@@ -68,6 +68,19 @@ class ${javaClassName}(${transformer.decisionConstructorSignature(drgElement)}) 
     fun apply(${transformer.drgElementSignatureExtraCache(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
         <@applyMethodBody drgElement />
     }
+    <#if transformer.isGenerateProto()>
+
+    fun apply(${transformer.drgElementSignatureProto(drgElement)}): ${transformer.qualifiedResponseMessageName(drgElement)} {
+        return apply(${transformer.drgElementDefaultArgumentListExtraCacheProto(drgElement)})
+    }
+
+    fun apply(${transformer.drgElementSignatureExtraCacheProto(drgElement)}): ${transformer.qualifiedResponseMessageName(drgElement)} {
+        <#assign stm = transformer.drgElementSignatureProtoBody(drgElement)>
+        <#list stm.statements as child>
+        ${child.expression}
+        </#list>
+    }
+    </#if>
     <@evaluateExpressionMethod drgElement />
 
     companion object {

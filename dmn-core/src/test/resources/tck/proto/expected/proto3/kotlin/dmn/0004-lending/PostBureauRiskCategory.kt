@@ -81,6 +81,24 @@ class PostBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = A
         }
     }
 
+    fun apply(postBureauRiskCategoryRequest_: proto.PostBureauRiskCategoryRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): proto.PostBureauRiskCategoryResponse {
+        return apply(postBureauRiskCategoryRequest_, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
+    }
+
+    fun apply(postBureauRiskCategoryRequest_: proto.PostBureauRiskCategoryRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.PostBureauRiskCategoryResponse {
+        // Create arguments from Request Message
+        var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(postBureauRiskCategoryRequest_.getApplicantData())
+        var bureauData: type.TBureauData? = type.TBureauData.toTBureauData(postBureauRiskCategoryRequest_.getBureauData())
+        
+        // Invoke apply method
+        var output_: String? = apply(applicantData, bureauData, annotationSet_, eventListener_, externalExecutor_, cache_)
+        
+        // Convert output to Response Message
+        var builder_: proto.PostBureauRiskCategoryResponse.Builder = proto.PostBureauRiskCategoryResponse.newBuilder()
+        builder_.setPostBureauRiskCategory((if (output_ == null) null else output_!!))
+        return builder_.build()
+    }
+
     private inline fun evaluate(applicantData: type.TApplicantData?, applicationRiskScore: java.math.BigDecimal?, bureauData: type.TBureauData?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
         return PostBureauRiskCategoryTable.PostBureauRiskCategoryTable(applicantData?.let({ it.existingCustomer as Boolean? }), applicationRiskScore, bureauData?.let({ it.creditScore as java.math.BigDecimal? }), annotationSet_, eventListener_, externalExecutor_, cache_) as String?
     }

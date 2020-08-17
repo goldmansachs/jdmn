@@ -77,6 +77,23 @@ class ApplicationRiskScore() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
     }
 
+    fun apply(applicationRiskScoreRequest_: proto.ApplicationRiskScoreRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): proto.ApplicationRiskScoreResponse {
+        return apply(applicationRiskScoreRequest_, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
+    }
+
+    fun apply(applicationRiskScoreRequest_: proto.ApplicationRiskScoreRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.ApplicationRiskScoreResponse {
+        // Create arguments from Request Message
+        var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(applicationRiskScoreRequest_.getApplicantData())
+        
+        // Invoke apply method
+        var output_: java.math.BigDecimal? = apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
+        
+        // Convert output to Response Message
+        var builder_: proto.ApplicationRiskScoreResponse.Builder = proto.ApplicationRiskScoreResponse.newBuilder()
+        builder_.setApplicationRiskScore((if (output_ == null) 0.0 else output_!!.toDouble()))
+        return builder_.build()
+    }
+
     private inline fun evaluate(applicantData: type.TApplicantData?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
         return ApplicationRiskScoreModel.ApplicationRiskScoreModel(applicantData?.let({ it.age as java.math.BigDecimal? }), applicantData?.let({ it.maritalStatus as String? }), applicantData?.let({ it.employmentStatus as String? }), annotationSet_, eventListener_, externalExecutor_, cache_) as java.math.BigDecimal?
     }

@@ -71,6 +71,24 @@ class Strategy(val bureauCallType : BureauCallType = BureauCallType(), val eligi
         }
     }
 
+    fun apply(strategyRequest_: proto.StrategyRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): proto.StrategyResponse {
+        return apply(strategyRequest_, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
+    }
+
+    fun apply(strategyRequest_: proto.StrategyRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.StrategyResponse {
+        // Create arguments from Request Message
+        var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(strategyRequest_.getApplicantData())
+        var requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(strategyRequest_.getRequestedProduct())
+        
+        // Invoke apply method
+        var output_: String? = apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
+        
+        // Convert output to Response Message
+        var builder_: proto.StrategyResponse.Builder = proto.StrategyResponse.newBuilder()
+        builder_.setStrategy((if (output_ == null) null else output_!!))
+        return builder_.build()
+    }
+
     private inline fun evaluate(bureauCallType: String?, eligibility: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
         // Apply rules and collect results
         val ruleOutputList_ = com.gs.dmn.runtime.RuleOutputList()

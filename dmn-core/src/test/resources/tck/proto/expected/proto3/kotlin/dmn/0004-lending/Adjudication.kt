@@ -68,6 +68,25 @@ class Adjudication() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
     }
 
+    fun apply(adjudicationRequest_: proto.AdjudicationRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): proto.AdjudicationResponse {
+        return apply(adjudicationRequest_, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
+    }
+
+    fun apply(adjudicationRequest_: proto.AdjudicationRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.AdjudicationResponse {
+        // Create arguments from Request Message
+        var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(adjudicationRequest_.getApplicantData())
+        var bureauData: type.TBureauData? = type.TBureauData.toTBureauData(adjudicationRequest_.getBureauData())
+        var supportingDocuments: String? = adjudicationRequest_.getSupportingDocuments()
+        
+        // Invoke apply method
+        var output_: String? = apply(applicantData, bureauData, supportingDocuments, annotationSet_, eventListener_, externalExecutor_, cache_)
+        
+        // Convert output to Response Message
+        var builder_: proto.AdjudicationResponse.Builder = proto.AdjudicationResponse.newBuilder()
+        builder_.setAdjudication((if (output_ == null) null else output_!!))
+        return builder_.build()
+    }
+
     private inline fun evaluate(applicantData: type.TApplicantData?, bureauData: type.TBureauData?, supportingDocuments: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
         return "ACCEPT" as String?
     }

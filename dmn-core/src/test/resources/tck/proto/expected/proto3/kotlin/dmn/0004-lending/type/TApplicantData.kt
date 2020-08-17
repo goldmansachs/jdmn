@@ -83,8 +83,34 @@ interface TApplicantData : com.gs.dmn.runtime.DMNType {
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTApplicantData(other.toContext())
+            } else if (other is proto.TApplicantData) {
+                var result_: TApplicantDataImpl = TApplicantDataImpl()
+                result_.monthly = type.Monthly.toMonthly((other as proto.TApplicantData).monthly)
+                result_.age = java.math.BigDecimal.valueOf((other as proto.TApplicantData).age)
+                result_.existingCustomer = (other as proto.TApplicantData).existingCustomer
+                result_.maritalStatus = (other as proto.TApplicantData).maritalStatus
+                result_.employmentStatus = (other as proto.TApplicantData).employmentStatus
+                return result_
             } else {
                 throw com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.javaClass.getSimpleName(), TApplicantData::class.java.getSimpleName()))
+            }
+        }
+
+        fun toProto(other: TApplicantData?): proto.TApplicantData {
+            var result_: proto.TApplicantData.Builder = proto.TApplicantData.newBuilder();
+            result_.monthly = type.Monthly.toProto((other as TApplicantData).monthly)
+            result_.age = (if ((other as TApplicantData).age == null) 0.0 else (other as TApplicantData).age!!.toDouble())
+            result_.existingCustomer = (if ((other as TApplicantData).existingCustomer == null) false else (other as TApplicantData).existingCustomer!!)
+            result_.maritalStatus = (if ((other as TApplicantData).maritalStatus == null) null else (other as TApplicantData).maritalStatus!!)
+            result_.employmentStatus = (if ((other as TApplicantData).employmentStatus == null) null else (other as TApplicantData).employmentStatus!!)
+            return result_.build()
+        }
+
+        fun toProto(other: List<TApplicantData?>?): List<proto.TApplicantData>? {
+            if (other == null) {
+                return null
+            } else {
+                return other.stream().map({o -> toProto(o)}).collect(java.util.stream.Collectors.toList())
             }
         }
     }
