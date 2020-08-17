@@ -18,7 +18,7 @@ import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.native_.KotlinFactory;
-import com.gs.dmn.transformation.proto.ProtoBufferJavaFactory;
+import com.gs.dmn.transformation.proto.ProtoBufferKotlinFactory;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TItemDefinition;
 
@@ -31,7 +31,7 @@ public class BasicDMNToKotlinTransformer extends BasicDMNToJavaTransformer {
 
     @Override
     protected void setProtoBufferFactory(BasicDMNToJavaTransformer transformer) {
-        this.protoFactory = new ProtoBufferJavaFactory(this);
+        this.protoFactory = new ProtoBufferKotlinFactory(this);
     }
 
     @Override

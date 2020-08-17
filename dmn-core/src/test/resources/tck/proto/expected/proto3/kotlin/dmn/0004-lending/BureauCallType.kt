@@ -69,6 +69,23 @@ class BureauCallType(val preBureauRiskCategory : PreBureauRiskCategory = PreBure
         }
     }
 
+    fun apply(bureauCallTypeRequest_: proto.BureauCallTypeRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): proto.BureauCallTypeResponse {
+        return apply(bureauCallTypeRequest_, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
+    }
+
+    fun apply(bureauCallTypeRequest_: proto.BureauCallTypeRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.BureauCallTypeResponse {
+        // Create arguments from Request Message
+        var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(bureauCallTypeRequest_.getApplicantData())
+        
+        // Invoke apply method
+        var output_: String? = apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
+        
+        // Convert output to Response Message
+        var builder_: proto.BureauCallTypeResponse.Builder = proto.BureauCallTypeResponse.newBuilder()
+        builder_.setBureauCallType((if (output_ == null) null else output_!!))
+        return builder_.build()
+    }
+
     private inline fun evaluate(preBureauRiskCategory: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
         return BureauCallTypeTable.BureauCallTypeTable(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_, cache_) as String?
     }

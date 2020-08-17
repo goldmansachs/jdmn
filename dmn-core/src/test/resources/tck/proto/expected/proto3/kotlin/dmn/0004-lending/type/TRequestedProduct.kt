@@ -75,8 +75,32 @@ interface TRequestedProduct : com.gs.dmn.runtime.DMNType {
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTRequestedProduct(other.toContext())
+            } else if (other is proto.TRequestedProduct) {
+                var result_: TRequestedProductImpl = TRequestedProductImpl()
+                result_.productType = (other as proto.TRequestedProduct).productType
+                result_.amount = java.math.BigDecimal.valueOf((other as proto.TRequestedProduct).amount)
+                result_.rate = java.math.BigDecimal.valueOf((other as proto.TRequestedProduct).rate)
+                result_.term = java.math.BigDecimal.valueOf((other as proto.TRequestedProduct).term)
+                return result_
             } else {
                 throw com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.javaClass.getSimpleName(), TRequestedProduct::class.java.getSimpleName()))
+            }
+        }
+
+        fun toProto(other: TRequestedProduct?): proto.TRequestedProduct {
+            var result_: proto.TRequestedProduct.Builder = proto.TRequestedProduct.newBuilder();
+            result_.productType = (if ((other as TRequestedProduct).productType == null) null else (other as TRequestedProduct).productType!!)
+            result_.amount = (if ((other as TRequestedProduct).amount == null) 0.0 else (other as TRequestedProduct).amount!!.toDouble())
+            result_.rate = (if ((other as TRequestedProduct).rate == null) 0.0 else (other as TRequestedProduct).rate!!.toDouble())
+            result_.term = (if ((other as TRequestedProduct).term == null) 0.0 else (other as TRequestedProduct).term!!.toDouble())
+            return result_.build()
+        }
+
+        fun toProto(other: List<TRequestedProduct?>?): List<proto.TRequestedProduct>? {
+            if (other == null) {
+                return null
+            } else {
+                return other.stream().map({o -> toProto(o)}).collect(java.util.stream.Collectors.toList())
             }
         }
     }
