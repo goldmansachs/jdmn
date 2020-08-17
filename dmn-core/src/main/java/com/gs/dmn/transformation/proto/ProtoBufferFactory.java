@@ -38,7 +38,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
-public class ProtoBufferFactory {
+public abstract class ProtoBufferFactory {
     private static final Map<String, String> FEEL_TYPE_TO_PROTO_TYPE = new LinkedHashMap<>();
     private static final Map<String, String> FEEL_TYPE_TO_NATIVE_PROTO_TYPE = new LinkedHashMap<>();
     public static final String OPTIONAL = "optional";
@@ -340,9 +340,7 @@ public class ProtoBufferFactory {
         return this.transformer.qualifiedName(protoPackage, protoName);
     }
 
-    public String drgElementSignatureProto(TDRGElement element) {
-        return String.format("%s %s", qualifiedRequestMessageName(element), requestVariableName(element));
-    }
+    public abstract String drgElementSignatureProto(TDRGElement element);
 
     public String drgElementArgumentListProto(TDRGElement element) {
         return requestVariableName(element);
