@@ -1,0 +1,246 @@
+
+import java.util.*
+import java.util.stream.Collectors
+
+@javax.annotation.Generated(value = ["signavio-decision.ftl", "processPriorIssues"])
+@com.gs.dmn.runtime.annotation.DRGElement(
+    namespace = "",
+    name = "processPriorIssues",
+    label = "Process prior issues",
+    elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
+    expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.DECISION_TABLE,
+    hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.COLLECT,
+    rulesCount = 5
+)
+class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() {
+    fun apply(applicant: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): List<java.math.BigDecimal?>? {
+        return try {
+            apply(applicant?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.ApplicantImpl>() {}) }), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+        } catch (e: Exception) {
+            logError("Cannot apply decision 'ProcessPriorIssues'", e)
+            null
+        }
+    }
+
+    fun apply(applicant: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): List<java.math.BigDecimal?>? {
+        return try {
+            apply(applicant?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.ApplicantImpl>() {}) }), annotationSet_, eventListener_, externalExecutor_)
+        } catch (e: Exception) {
+            logError("Cannot apply decision 'ProcessPriorIssues'", e)
+            null
+        }
+    }
+
+    fun apply(applicant: type.Applicant?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): List<java.math.BigDecimal?>? {
+        return apply(applicant, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+    }
+
+    fun apply(applicant: type.Applicant?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): List<java.math.BigDecimal?>? {
+        try {
+            // Start decision 'processPriorIssues'
+            val processPriorIssuesStartTime_ = System.currentTimeMillis()
+            val processPriorIssuesArguments_ = com.gs.dmn.runtime.listener.Arguments()
+            processPriorIssuesArguments_.put("Applicant", applicant);
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, processPriorIssuesArguments_)
+
+            // Evaluate decision 'processPriorIssues'
+            val output_: List<java.math.BigDecimal?>? = evaluate(applicant, annotationSet_, eventListener_, externalExecutor_)
+
+            // End decision 'processPriorIssues'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, processPriorIssuesArguments_, output_, (System.currentTimeMillis() - processPriorIssuesStartTime_))
+
+            return output_
+        } catch (e: Exception) {
+            logError("Exception caught in 'processPriorIssues' evaluation", e)
+            return null
+        }
+    }
+
+    private inline fun evaluate(applicant: type.Applicant?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): List<java.math.BigDecimal?>? {
+        // Apply rules and collect results
+        val ruleOutputList_ = com.gs.dmn.runtime.RuleOutputList()
+        ruleOutputList_.add(rule0(applicant, annotationSet_, eventListener_, externalExecutor_))
+        ruleOutputList_.add(rule1(applicant, annotationSet_, eventListener_, externalExecutor_))
+        ruleOutputList_.add(rule2(applicant, annotationSet_, eventListener_, externalExecutor_))
+        ruleOutputList_.add(rule3(applicant, annotationSet_, eventListener_, externalExecutor_))
+        ruleOutputList_.add(rule4(applicant, annotationSet_, eventListener_, externalExecutor_))
+
+        // Return results based on hit policy
+        var output_: List<java.math.BigDecimal?>?
+        if (ruleOutputList_.noMatchedRules()) {
+            // Default value
+            output_ = null
+            if (output_ == null) {
+                output_ = this.asList();
+            }
+        } else {
+            val ruleOutputs_: List<com.gs.dmn.runtime.RuleOutput> = ruleOutputList_.applyMultiple(com.gs.dmn.runtime.annotation.HitPolicy.COLLECT)
+            output_ = ruleOutputs_.stream().map({ o -> (o as ProcessPriorIssuesRuleOutput).processPriorIssues }).collect(Collectors.toList())
+        }
+
+        return output_
+    }
+
+    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
+    private fun rule0(applicant: type.Applicant?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): com.gs.dmn.runtime.RuleOutput {
+        // Rule metadata
+        val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(0, "\"\"")
+
+        // Rule start
+        eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
+
+        // Apply rule
+        var output_: ProcessPriorIssuesRuleOutput = ProcessPriorIssuesRuleOutput(false)
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            booleanNot((notContainsAny(applicant?.let({ it.priorIssues as List<String?>? }), asList("Card rejection", "Late payment"))))
+        )) {
+            // Rule match
+            eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
+
+            // Compute output
+            output_.setMatched(true)
+            output_.processPriorIssues = numericUnaryMinus(number("10"))
+
+            // Add annotation
+            annotationSet_.addAnnotation("processPriorIssues", 0, "")
+        }
+
+        // Rule end
+        eventListener_.endRule(DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
+
+        return output_
+    }
+
+    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "\"\"")
+    private fun rule1(applicant: type.Applicant?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): com.gs.dmn.runtime.RuleOutput {
+        // Rule metadata
+        val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(1, "\"\"")
+
+        // Rule start
+        eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
+
+        // Apply rule
+        var output_: ProcessPriorIssuesRuleOutput = ProcessPriorIssuesRuleOutput(false)
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            booleanNot((notContainsAny(applicant?.let({ it.priorIssues as List<String?>? }), asList("Default on obligations"))))
+        )) {
+            // Rule match
+            eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
+
+            // Compute output
+            output_.setMatched(true)
+            output_.processPriorIssues = numericUnaryMinus(number("30"))
+
+            // Add annotation
+            annotationSet_.addAnnotation("processPriorIssues", 1, "")
+        }
+
+        // Rule end
+        eventListener_.endRule(DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
+
+        return output_
+    }
+
+    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "\"\"")
+    private fun rule2(applicant: type.Applicant?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): com.gs.dmn.runtime.RuleOutput {
+        // Rule metadata
+        val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(2, "\"\"")
+
+        // Rule start
+        eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
+
+        // Apply rule
+        var output_: ProcessPriorIssuesRuleOutput = ProcessPriorIssuesRuleOutput(false)
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            booleanNot((notContainsAny(applicant?.let({ it.priorIssues as List<String?>? }), asList("Bankruptcy"))))
+        )) {
+            // Rule match
+            eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
+
+            // Compute output
+            output_.setMatched(true)
+            output_.processPriorIssues = numericUnaryMinus(number("100"))
+
+            // Add annotation
+            annotationSet_.addAnnotation("processPriorIssues", 2, "")
+        }
+
+        // Rule end
+        eventListener_.endRule(DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
+
+        return output_
+    }
+
+    @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "\"\"")
+    private fun rule3(applicant: type.Applicant?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): com.gs.dmn.runtime.RuleOutput {
+        // Rule metadata
+        val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(3, "\"\"")
+
+        // Rule start
+        eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
+
+        // Apply rule
+        var output_: ProcessPriorIssuesRuleOutput = ProcessPriorIssuesRuleOutput(false)
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (notContainsAny(applicant?.let({ it.priorIssues as List<String?>? }), asList("Card rejection", "Late payment", "Default on obligations", "Bankruptcy")))
+        )) {
+            // Rule match
+            eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
+
+            // Compute output
+            output_.setMatched(true)
+            output_.processPriorIssues = number("50")
+
+            // Add annotation
+            annotationSet_.addAnnotation("processPriorIssues", 3, "")
+        }
+
+        // Rule end
+        eventListener_.endRule(DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
+
+        return output_
+    }
+
+    @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "\"\"")
+    private fun rule4(applicant: type.Applicant?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): com.gs.dmn.runtime.RuleOutput {
+        // Rule metadata
+        val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(4, "\"\"")
+
+        // Rule start
+        eventListener_.startRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
+
+        // Apply rule
+        var output_: ProcessPriorIssuesRuleOutput = ProcessPriorIssuesRuleOutput(false)
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            true
+        )) {
+            // Rule match
+            eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
+
+            // Compute output
+            output_.setMatched(true)
+            output_.processPriorIssues = numericMultiply(count(applicant?.let({ it.priorIssues as List<String?>? })), numericUnaryMinus(number("5")))
+
+            // Add annotation
+            annotationSet_.addAnnotation("processPriorIssues", 4, "")
+        }
+
+        // Rule end
+        eventListener_.endRule(DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
+
+        return output_
+    }
+
+
+    companion object {
+        val DRG_ELEMENT_METADATA : com.gs.dmn.runtime.listener.DRGElement = com.gs.dmn.runtime.listener.DRGElement(
+            "",
+            "processPriorIssues",
+            "Process prior issues",
+            com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
+            com.gs.dmn.runtime.annotation.ExpressionKind.DECISION_TABLE,
+            com.gs.dmn.runtime.annotation.HitPolicy.COLLECT,
+            5
+        )
+    }
+}

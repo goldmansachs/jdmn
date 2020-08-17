@@ -15,7 +15,7 @@ package com.gs.dmn.signavio.transformation;
 import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 
-public class SignavioToKotlinProtoTransformerTest extends AbstractSignavioDMNToJavaTest {
+public class SignavioToKotlinProtoTransformerTest extends AbstractSignavioDMNToKotlinTest {
     @Test
     public void testProto() throws Exception {
         doSingleModelTest("Example credit decision", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"));
