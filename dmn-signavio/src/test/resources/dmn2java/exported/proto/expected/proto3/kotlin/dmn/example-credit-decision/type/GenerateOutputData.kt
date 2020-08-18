@@ -69,9 +69,9 @@ interface GenerateOutputData : com.gs.dmn.runtime.DMNType {
                 return toGenerateOutputData(other.toContext())
             } else if (other is proto.GenerateOutputData) {
                 var result_: GenerateOutputDataImpl = GenerateOutputDataImpl()
-                result_.decision = (other as proto.GenerateOutputData).decision
-                result_.assessment = java.math.BigDecimal.valueOf((other as proto.GenerateOutputData).assessment)
-                result_.issue = java.math.BigDecimal.valueOf((other as proto.GenerateOutputData).issue)
+                result_.decision = (other as proto.GenerateOutputData).getDecision()
+                result_.assessment = java.math.BigDecimal.valueOf((other as proto.GenerateOutputData).getAssessment())
+                result_.issue = java.math.BigDecimal.valueOf((other as proto.GenerateOutputData).getIssue())
                 return result_
             } else {
                 throw com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.javaClass.getSimpleName(), GenerateOutputData::class.java.getSimpleName()))
@@ -80,9 +80,9 @@ interface GenerateOutputData : com.gs.dmn.runtime.DMNType {
 
         fun toProto(other: GenerateOutputData?): proto.GenerateOutputData {
             var result_: proto.GenerateOutputData.Builder = proto.GenerateOutputData.newBuilder();
-            result_.decision = (if ((other as GenerateOutputData).decision == null) null else (other as GenerateOutputData).decision!!)
-            result_.assessment = (if ((other as GenerateOutputData).assessment == null) 0.0 else (other as GenerateOutputData).assessment!!.toDouble())
-            result_.issue = (if ((other as GenerateOutputData).issue == null) 0.0 else (other as GenerateOutputData).issue!!.toDouble())
+            result_.setDecision((if ((other as GenerateOutputData).decision == null) null else (other as GenerateOutputData).decision!!))
+            result_.setAssessment((if ((other as GenerateOutputData).assessment == null) 0.0 else (other as GenerateOutputData).assessment!!.toDouble()))
+            result_.setIssue((if ((other as GenerateOutputData).issue == null) 0.0 else (other as GenerateOutputData).issue!!.toDouble()))
             return result_.build()
         }
 

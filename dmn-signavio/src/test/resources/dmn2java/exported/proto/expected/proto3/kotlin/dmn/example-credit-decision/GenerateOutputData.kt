@@ -63,6 +63,25 @@ class GenerateOutputData(val assessIssueRisk : AssessIssueRisk = AssessIssueRisk
         }
     }
 
+    fun apply(generateOutputDataRequest_: proto.GenerateOutputDataRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): proto.GenerateOutputDataResponse {
+        return apply(generateOutputDataRequest_, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+    }
+
+    fun apply(generateOutputDataRequest_: proto.GenerateOutputDataRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): proto.GenerateOutputDataResponse {
+        // Create arguments from Request Message
+        var applicant: type.Applicant? = type.Applicant.toApplicant(generateOutputDataRequest_.getApplicant())
+        var currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(generateOutputDataRequest_.getCurrentRiskAppetite())
+        var lendingThreshold: java.math.BigDecimal? = java.math.BigDecimal.valueOf(generateOutputDataRequest_.getLendingThreshold())
+        
+        // Invoke apply method
+        var output_: List<type.GenerateOutputData?>? = apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_)
+        
+        // Convert output to Response Message
+        var builder_: proto.GenerateOutputDataResponse.Builder = proto.GenerateOutputDataResponse.newBuilder()
+        builder_.addAllGenerateOutputData(output_?.stream()?.map({e -> type.GenerateOutputData.toProto(e)})?.collect(java.util.stream.Collectors.toList()))
+        return builder_.build()
+    }
+
     private inline fun evaluate(assessIssueRisk: java.math.BigDecimal?, compareAgainstLendingThreshold: java.math.BigDecimal?, makeCreditDecision: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): List<type.GenerateOutputData?>? {
         return zip(asList("Decision", "Assessment", "Issue"), asList(asList(makeCreditDecision), asList(compareAgainstLendingThreshold), asList(assessIssueRisk)))?.map({ x -> type.GenerateOutputData.toGenerateOutputData(x) }) as List<type.GenerateOutputData?>?
     }

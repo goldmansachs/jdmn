@@ -56,6 +56,23 @@ class AssessApplicantAge() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         }
     }
 
+    fun apply(assessApplicantAgeRequest_: proto.AssessApplicantAgeRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): proto.AssessApplicantAgeResponse {
+        return apply(assessApplicantAgeRequest_, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+    }
+
+    fun apply(assessApplicantAgeRequest_: proto.AssessApplicantAgeRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): proto.AssessApplicantAgeResponse {
+        // Create arguments from Request Message
+        var applicant: type.Applicant? = type.Applicant.toApplicant(assessApplicantAgeRequest_.getApplicant())
+        
+        // Invoke apply method
+        var output_: java.math.BigDecimal? = apply(applicant, annotationSet_, eventListener_, externalExecutor_)
+        
+        // Convert output to Response Message
+        var builder_: proto.AssessApplicantAgeResponse.Builder = proto.AssessApplicantAgeResponse.newBuilder()
+        builder_.setAssessApplicantAge((if (output_ == null) 0.0 else output_!!.toDouble()))
+        return builder_.build()
+    }
+
     private inline fun evaluate(applicant: type.Applicant?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): java.math.BigDecimal? {
         // Apply rules and collect results
         val ruleOutputList_ = com.gs.dmn.runtime.RuleOutputList()

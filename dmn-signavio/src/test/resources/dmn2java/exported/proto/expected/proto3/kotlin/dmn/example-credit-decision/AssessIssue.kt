@@ -57,6 +57,24 @@ class AssessIssue() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() 
         }
     }
 
+    fun apply(assessIssueRequest_: proto.AssessIssueRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): proto.AssessIssueResponse {
+        return apply(assessIssueRequest_, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+    }
+
+    fun apply(assessIssueRequest_: proto.AssessIssueRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): proto.AssessIssueResponse {
+        // Create arguments from Request Message
+        var currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(assessIssueRequest_.getCurrentRiskAppetite())
+        var priorIssue_iterator: java.math.BigDecimal? = java.math.BigDecimal.valueOf(assessIssueRequest_.getPriorIssueIterator())
+        
+        // Invoke apply method
+        var output_: java.math.BigDecimal? = apply(currentRiskAppetite, priorIssue_iterator, annotationSet_, eventListener_, externalExecutor_)
+        
+        // Convert output to Response Message
+        var builder_: proto.AssessIssueResponse.Builder = proto.AssessIssueResponse.newBuilder()
+        builder_.setAssessIssue((if (output_ == null) 0.0 else output_!!.toDouble()))
+        return builder_.build()
+    }
+
     private inline fun evaluate(currentRiskAppetite: java.math.BigDecimal?, priorIssue_iterator: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): java.math.BigDecimal? {
         return numericMultiply(priorIssue_iterator, numericMultiply(max(asList(number("0"), numericSubtract(number("100"), currentRiskAppetite))), number("0.01"))) as java.math.BigDecimal?
     }

@@ -16,9 +16,11 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
+import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.native_.KotlinFactory;
+import com.gs.dmn.transformation.proto.ProtoBufferKotlinFactory;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TItemDefinition;
 
@@ -27,6 +29,11 @@ import java.util.Map;
 public class BasicSignavioDMNToKotlinTransformer extends BasicSignavioDMNToJavaTransformer {
     public BasicSignavioDMNToKotlinTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory nativeTypeFactory, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         super(dmnModelRepository, environmentFactory, nativeTypeFactory, lazyEvaluationDetector, inputParameters);
+    }
+
+    @Override
+    protected void setProtoBufferFactory(BasicDMNToJavaTransformer transformer) {
+        this.protoFactory = new ProtoBufferKotlinFactory(this);
     }
 
     @Override

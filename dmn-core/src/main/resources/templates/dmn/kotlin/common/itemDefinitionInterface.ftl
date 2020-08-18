@@ -132,8 +132,7 @@ interface ${javaClassName} : ${transformer.dmnTypeClassName()} {
         fun toProto(other: ${javaClassName}?): ${transformer.qualifiedProtoMessageName(itemDefinition)} {
             var result_: ${transformer.qualifiedProtoMessageName(itemDefinition)}.Builder = ${transformer.qualifiedProtoMessageName(itemDefinition)}.newBuilder();
         <#list itemDefinition.itemComponent as child>
-            <#assign member = transformer.protoFieldName(child)/>
-            result_.${member} = ${transformer.convertMemberToProto("other", javaClassName, child)}
+            result_.${transformer.protoSetter(child)}(${transformer.convertMemberToProto("other", javaClassName, child)})
         </#list>
             return result_.build()
         }

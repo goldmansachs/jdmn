@@ -60,6 +60,24 @@ class AssessIssueRisk(val processPriorIssues : ProcessPriorIssues = ProcessPrior
         }
     }
 
+    fun apply(assessIssueRiskRequest_: proto.AssessIssueRiskRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): proto.AssessIssueRiskResponse {
+        return apply(assessIssueRiskRequest_, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+    }
+
+    fun apply(assessIssueRiskRequest_: proto.AssessIssueRiskRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): proto.AssessIssueRiskResponse {
+        // Create arguments from Request Message
+        var applicant: type.Applicant? = type.Applicant.toApplicant(assessIssueRiskRequest_.getApplicant())
+        var currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(assessIssueRiskRequest_.getCurrentRiskAppetite())
+        
+        // Invoke apply method
+        var output_: java.math.BigDecimal? = apply(applicant, currentRiskAppetite, annotationSet_, eventListener_, externalExecutor_)
+        
+        // Convert output to Response Message
+        var builder_: proto.AssessIssueRiskResponse.Builder = proto.AssessIssueRiskResponse.newBuilder()
+        builder_.setAssessIssueRisk((if (output_ == null) 0.0 else output_!!.toDouble()))
+        return builder_.build()
+    }
+
     private inline fun evaluate(applicant: type.Applicant?, currentRiskAppetite: java.math.BigDecimal?, processPriorIssues: List<java.math.BigDecimal?>?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): java.math.BigDecimal? {
         val assessIssue: AssessIssue = AssessIssue()
         return sum(processPriorIssues?.stream()?.map({priorIssue_iterator -> assessIssue.apply(currentRiskAppetite, priorIssue_iterator, annotationSet_, eventListener_, externalExecutor_)})?.collect(Collectors.toList()))

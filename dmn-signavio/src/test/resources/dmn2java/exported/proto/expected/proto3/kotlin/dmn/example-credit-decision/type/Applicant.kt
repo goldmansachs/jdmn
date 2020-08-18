@@ -77,10 +77,10 @@ interface Applicant : com.gs.dmn.runtime.DMNType {
                 return toApplicant(other.toContext())
             } else if (other is proto.Applicant) {
                 var result_: ApplicantImpl = ApplicantImpl()
-                result_.name = (other as proto.Applicant).name
-                result_.age = java.math.BigDecimal.valueOf((other as proto.Applicant).age)
-                result_.creditScore = java.math.BigDecimal.valueOf((other as proto.Applicant).creditScore)
-                result_.priorIssues = ((other as proto.Applicant).priorIssues.stream().map(e -> e).collect(java.util.stream.Collectors.toList()) as List<String?>?)
+                result_.name = (other as proto.Applicant).getName()
+                result_.age = java.math.BigDecimal.valueOf((other as proto.Applicant).getAge())
+                result_.creditScore = java.math.BigDecimal.valueOf((other as proto.Applicant).getCreditScore())
+                result_.priorIssues = ((other as proto.Applicant).getPriorIssuesList()?.stream()?.map({e -> e})?.collect(java.util.stream.Collectors.toList()) as List<String?>?)
                 return result_
             } else {
                 throw com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.javaClass.getSimpleName(), Applicant::class.java.getSimpleName()))
@@ -89,10 +89,10 @@ interface Applicant : com.gs.dmn.runtime.DMNType {
 
         fun toProto(other: Applicant?): proto.Applicant {
             var result_: proto.Applicant.Builder = proto.Applicant.newBuilder();
-            result_.name = (if ((other as Applicant).name == null) null else (other as Applicant).name!!)
-            result_.age = (if ((other as Applicant).age == null) 0.0 else (other as Applicant).age!!.toDouble())
-            result_.creditScore = (if ((other as Applicant).creditScore == null) 0.0 else (other as Applicant).creditScore!!.toDouble())
-            result_.priorIssues = ((other as Applicant).priorIssues.stream().map({e -> (if (e == null) null else e!!)}).collect(java.util.stream.Collectors.toList()) as List)
+            result_.setName((if ((other as Applicant).name == null) null else (other as Applicant).name!!))
+            result_.setAge((if ((other as Applicant).age == null) 0.0 else (other as Applicant).age!!.toDouble()))
+            result_.setCreditScore((if ((other as Applicant).creditScore == null) 0.0 else (other as Applicant).creditScore!!.toDouble()))
+            result_.addAllPriorIssues((other as Applicant).priorIssues?.stream()?.map({e -> (if (e == null) null else e!!)})?.collect(java.util.stream.Collectors.toList()))
             return result_.build()
         }
 
