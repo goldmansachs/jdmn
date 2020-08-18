@@ -69,9 +69,9 @@ interface Monthly : com.gs.dmn.runtime.DMNType {
                 return toMonthly(other.toContext())
             } else if (other is proto.Monthly) {
                 var result_: MonthlyImpl = MonthlyImpl()
-                result_.income = java.math.BigDecimal.valueOf((other as proto.Monthly).income)
-                result_.expenses = java.math.BigDecimal.valueOf((other as proto.Monthly).expenses)
-                result_.repayments = java.math.BigDecimal.valueOf((other as proto.Monthly).repayments)
+                result_.income = java.math.BigDecimal.valueOf((other as proto.Monthly).getIncome())
+                result_.expenses = java.math.BigDecimal.valueOf((other as proto.Monthly).getExpenses())
+                result_.repayments = java.math.BigDecimal.valueOf((other as proto.Monthly).getRepayments())
                 return result_
             } else {
                 throw com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.javaClass.getSimpleName(), Monthly::class.java.getSimpleName()))
@@ -80,9 +80,9 @@ interface Monthly : com.gs.dmn.runtime.DMNType {
 
         fun toProto(other: Monthly?): proto.Monthly {
             var result_: proto.Monthly.Builder = proto.Monthly.newBuilder();
-            result_.income = (if ((other as Monthly).income == null) 0.0 else (other as Monthly).income!!.toDouble())
-            result_.expenses = (if ((other as Monthly).expenses == null) 0.0 else (other as Monthly).expenses!!.toDouble())
-            result_.repayments = (if ((other as Monthly).repayments == null) 0.0 else (other as Monthly).repayments!!.toDouble())
+            result_.setIncome((if ((other as Monthly).income == null) 0.0 else (other as Monthly).income!!.toDouble()))
+            result_.setExpenses((if ((other as Monthly).expenses == null) 0.0 else (other as Monthly).expenses!!.toDouble()))
+            result_.setRepayments((if ((other as Monthly).repayments == null) 0.0 else (other as Monthly).repayments!!.toDouble()))
             return result_.build()
         }
 

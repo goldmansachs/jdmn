@@ -56,6 +56,23 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         }
     }
 
+    fun apply(processPriorIssuesRequest_: proto.ProcessPriorIssuesRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): proto.ProcessPriorIssuesResponse {
+        return apply(processPriorIssuesRequest_, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+    }
+
+    fun apply(processPriorIssuesRequest_: proto.ProcessPriorIssuesRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): proto.ProcessPriorIssuesResponse {
+        // Create arguments from Request Message
+        var applicant: type.Applicant? = type.Applicant.toApplicant(processPriorIssuesRequest_.getApplicant())
+        
+        // Invoke apply method
+        var output_: List<java.math.BigDecimal?>? = apply(applicant, annotationSet_, eventListener_, externalExecutor_)
+        
+        // Convert output to Response Message
+        var builder_: proto.ProcessPriorIssuesResponse.Builder = proto.ProcessPriorIssuesResponse.newBuilder()
+        builder_.addAllProcessPriorIssues(output_?.stream()?.map({e -> (if (e == null) 0.0 else e!!.toDouble())})?.collect(java.util.stream.Collectors.toList()))
+        return builder_.build()
+    }
+
     private inline fun evaluate(applicant: type.Applicant?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): List<java.math.BigDecimal?>? {
         // Apply rules and collect results
         val ruleOutputList_ = com.gs.dmn.runtime.RuleOutputList()

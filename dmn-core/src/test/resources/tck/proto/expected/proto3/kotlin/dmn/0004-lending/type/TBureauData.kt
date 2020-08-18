@@ -61,8 +61,8 @@ interface TBureauData : com.gs.dmn.runtime.DMNType {
                 return toTBureauData(other.toContext())
             } else if (other is proto.TBureauData) {
                 var result_: TBureauDataImpl = TBureauDataImpl()
-                result_.creditScore = java.math.BigDecimal.valueOf((other as proto.TBureauData).creditScore)
-                result_.bankrupt = (other as proto.TBureauData).bankrupt
+                result_.creditScore = java.math.BigDecimal.valueOf((other as proto.TBureauData).getCreditScore())
+                result_.bankrupt = (other as proto.TBureauData).getBankrupt()
                 return result_
             } else {
                 throw com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.javaClass.getSimpleName(), TBureauData::class.java.getSimpleName()))
@@ -71,8 +71,8 @@ interface TBureauData : com.gs.dmn.runtime.DMNType {
 
         fun toProto(other: TBureauData?): proto.TBureauData {
             var result_: proto.TBureauData.Builder = proto.TBureauData.newBuilder();
-            result_.creditScore = (if ((other as TBureauData).creditScore == null) 0.0 else (other as TBureauData).creditScore!!.toDouble())
-            result_.bankrupt = (if ((other as TBureauData).bankrupt == null) false else (other as TBureauData).bankrupt!!)
+            result_.setCreditScore((if ((other as TBureauData).creditScore == null) 0.0 else (other as TBureauData).creditScore!!.toDouble()))
+            result_.setBankrupt((if ((other as TBureauData).bankrupt == null) false else (other as TBureauData).bankrupt!!))
             return result_.build()
         }
 

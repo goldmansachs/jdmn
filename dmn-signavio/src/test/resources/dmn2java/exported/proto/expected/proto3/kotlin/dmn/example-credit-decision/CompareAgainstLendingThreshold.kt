@@ -62,6 +62,25 @@ class CompareAgainstLendingThreshold(val assessApplicantAge : AssessApplicantAge
         }
     }
 
+    fun apply(compareAgainstLendingThresholdRequest_: proto.CompareAgainstLendingThresholdRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): proto.CompareAgainstLendingThresholdResponse {
+        return apply(compareAgainstLendingThresholdRequest_, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+    }
+
+    fun apply(compareAgainstLendingThresholdRequest_: proto.CompareAgainstLendingThresholdRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): proto.CompareAgainstLendingThresholdResponse {
+        // Create arguments from Request Message
+        var applicant: type.Applicant? = type.Applicant.toApplicant(compareAgainstLendingThresholdRequest_.getApplicant())
+        var currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(compareAgainstLendingThresholdRequest_.getCurrentRiskAppetite())
+        var lendingThreshold: java.math.BigDecimal? = java.math.BigDecimal.valueOf(compareAgainstLendingThresholdRequest_.getLendingThreshold())
+        
+        // Invoke apply method
+        var output_: java.math.BigDecimal? = apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_)
+        
+        // Convert output to Response Message
+        var builder_: proto.CompareAgainstLendingThresholdResponse.Builder = proto.CompareAgainstLendingThresholdResponse.newBuilder()
+        builder_.setCompareAgainstLendingThreshold((if (output_ == null) 0.0 else output_!!.toDouble()))
+        return builder_.build()
+    }
+
     private inline fun evaluate(assessApplicantAge: java.math.BigDecimal?, assessIssueRisk: java.math.BigDecimal?, lendingThreshold: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): java.math.BigDecimal? {
         // Apply rules and collect results
         val ruleOutputList_ = com.gs.dmn.runtime.RuleOutputList()
