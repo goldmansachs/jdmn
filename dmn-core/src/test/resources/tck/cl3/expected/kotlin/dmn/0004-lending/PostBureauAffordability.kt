@@ -40,9 +40,9 @@ class PostBureauAffordability(val postBureauRiskCategory : PostBureauRiskCategor
             // Start decision 'PostBureauAffordability'
             val postBureauAffordabilityStartTime_ = System.currentTimeMillis()
             val postBureauAffordabilityArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            postBureauAffordabilityArguments_.put("applicantData", applicantData)
-            postBureauAffordabilityArguments_.put("bureauData", bureauData)
-            postBureauAffordabilityArguments_.put("requestedProduct", requestedProduct)
+            postBureauAffordabilityArguments_.put("ApplicantData", applicantData);
+            postBureauAffordabilityArguments_.put("BureauData", bureauData);
+            postBureauAffordabilityArguments_.put("RequestedProduct", requestedProduct);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, postBureauAffordabilityArguments_)
 
             // Apply child decisions

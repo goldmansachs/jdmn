@@ -1,6 +1,7 @@
 
 @javax.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "priceGt10"])
 class PriceGt10RuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput(matched) {
+    @com.fasterxml.jackson.annotation.JsonProperty("priceGt10")
     var priceGt10: Boolean? = null
 
     override fun equals(o: Any?): Boolean {

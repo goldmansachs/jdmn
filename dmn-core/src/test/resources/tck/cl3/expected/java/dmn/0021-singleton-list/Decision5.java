@@ -53,7 +53,7 @@ public class Decision5 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start decision 'decision5'
             long decision5StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decision5Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            decision5Arguments_.put("employees", employees);
+            decision5Arguments_.put("Employees", employees);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decision5Arguments_);
 
             // Evaluate decision 'decision5'

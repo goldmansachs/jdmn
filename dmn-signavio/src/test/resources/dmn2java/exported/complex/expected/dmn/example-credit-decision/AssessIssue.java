@@ -53,8 +53,8 @@ public class AssessIssue extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
             // Start decision 'assessIssue'
             long assessIssueStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments assessIssueArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            assessIssueArguments_.put("currentRiskAppetite", currentRiskAppetite);
-            assessIssueArguments_.put("priorIssue_iterator", priorIssue_iterator);
+            assessIssueArguments_.put("Current risk appetite", currentRiskAppetite);
+            assessIssueArguments_.put("Prior issue", priorIssue_iterator);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, assessIssueArguments_);
 
             // Evaluate decision 'assessIssue'

@@ -20,10 +20,10 @@ class InstallmentCalculation : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start BKM 'InstallmentCalculation'
             val installmentCalculationStartTime_ = System.currentTimeMillis()
             val installmentCalculationArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            installmentCalculationArguments_.put("productType", productType)
-            installmentCalculationArguments_.put("rate", rate)
-            installmentCalculationArguments_.put("term", term)
-            installmentCalculationArguments_.put("amount", amount)
+            installmentCalculationArguments_.put("ProductType", productType);
+            installmentCalculationArguments_.put("Rate", rate);
+            installmentCalculationArguments_.put("Term", term);
+            installmentCalculationArguments_.put("Amount", amount);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, installmentCalculationArguments_)
 
             // Evaluate BKM 'InstallmentCalculation'

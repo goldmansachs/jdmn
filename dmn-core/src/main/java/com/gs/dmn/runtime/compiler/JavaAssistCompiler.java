@@ -17,9 +17,9 @@ import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.lib.DefaultFEELLib;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
-import com.gs.dmn.feel.synthesis.expression.NativeExpressionFactory;
 import com.gs.dmn.runtime.LambdaExpression;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
+import com.gs.dmn.transformation.native_.NativeFactory;
 import javassist.*;
 
 public class JavaAssistCompiler extends JavaCompilerImpl {
@@ -31,8 +31,8 @@ public class JavaAssistCompiler extends JavaCompilerImpl {
         String signature = "Object[] args";
         boolean convertToContext = true;
         String body = feelTranslator.expressionToNative(element.getBody(), context);
-        NativeExpressionFactory expressionFactory = dmnTransformer.getNativeExpressionFactory();
-        String applyMethod = expressionFactory.applyMethod(functionType, signature, convertToContext, body);
+        NativeFactory nativeFactory = dmnTransformer.getNativeFactory();
+        String applyMethod = nativeFactory.applyMethod(functionType, signature, convertToContext, body);
 
         String bridgeMethodText = bridgeMethodText();
 

@@ -9,9 +9,12 @@ public class ComparatorRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("comparator")
     public String getComparator() {
         return this.comparator;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("comparator")
     public void setComparator(String comparator) {
         this.comparator = comparator;
     }

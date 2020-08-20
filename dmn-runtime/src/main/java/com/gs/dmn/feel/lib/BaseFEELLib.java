@@ -15,6 +15,9 @@ package com.gs.dmn.feel.lib;
 import com.gs.dmn.feel.lib.type.*;
 import com.gs.dmn.feel.lib.type.context.DefaultContextType;
 import com.gs.dmn.runtime.Context;
+import com.gs.dmn.runtime.LazyEval;
+import com.gs.dmn.runtime.listener.EventListener;
+import com.gs.dmn.runtime.listener.Rule;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -600,6 +603,27 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
             return list.get(listSize + index);
         } else {
             return null;
+        }
+    }
+
+    public boolean ruleMatches(EventListener eventListener, Rule rule, Object... operands) {
+        if (operands == null || operands.length == 0) {
+            return false;
+        } else {
+            for (int i=0; i<operands.length; i++) {
+                Object operand = operands[i];
+                if (operand instanceof LazyEval) {
+                    operand = ((LazyEval) operand).getOrCompute();
+                }
+
+                // Column index starts from 1
+                eventListener.matchColumn(rule, i + 1, operand);
+
+                if (operand == null || operand == Boolean.FALSE) {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

@@ -37,9 +37,9 @@ public class EligibilityRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
             // Start BKM 'EligibilityRules'
             long eligibilityRulesStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments eligibilityRulesArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            eligibilityRulesArguments_.put("preBureauRiskCategory", preBureauRiskCategory);
-            eligibilityRulesArguments_.put("preBureauAffordability", preBureauAffordability);
-            eligibilityRulesArguments_.put("age", age);
+            eligibilityRulesArguments_.put("PreBureauRiskCategory", preBureauRiskCategory);
+            eligibilityRulesArguments_.put("PreBureauAffordability", preBureauAffordability);
+            eligibilityRulesArguments_.put("Age", age);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, eligibilityRulesArguments_);
 
             // Evaluate BKM 'EligibilityRules'
@@ -86,7 +86,11 @@ public class EligibilityRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
 
         // Apply rule
         EligibilityRulesRuleOutput output_ = new EligibilityRulesRuleOutput(false);
-        if (Boolean.TRUE == (stringEqual(preBureauRiskCategory, "DECLINE"))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (stringEqual(preBureauRiskCategory, "DECLINE")),
+            Boolean.TRUE,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -115,7 +119,11 @@ public class EligibilityRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
 
         // Apply rule
         EligibilityRulesRuleOutput output_ = new EligibilityRulesRuleOutput(false);
-        if (Boolean.TRUE == (booleanEqual(preBureauAffordability, Boolean.FALSE))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            (booleanEqual(preBureauAffordability, Boolean.FALSE)),
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -144,7 +152,11 @@ public class EligibilityRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
 
         // Apply rule
         EligibilityRulesRuleOutput output_ = new EligibilityRulesRuleOutput(false);
-        if (Boolean.TRUE == (numericLessThan(age, number("18")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            (numericLessThan(age, number("18")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -173,7 +185,11 @@ public class EligibilityRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
 
         // Apply rule
         EligibilityRulesRuleOutput output_ = new EligibilityRulesRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

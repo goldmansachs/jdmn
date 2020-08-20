@@ -66,7 +66,7 @@ public class Sum extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
             sumArguments_.put("date", date);
             sumArguments_.put("datetime", datetime);
             sumArguments_.put("time", time);
-            sumArguments_.put("time2", time2);
+            sumArguments_.put("time 2", time2);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, sumArguments_);
 
             // Apply child decisions
@@ -119,9 +119,13 @@ public class Sum extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
 
         // Apply rule
         SumRuleOutput output_ = new SumRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
             (booleanEqual(numericLessEqualThan(sum(dateFormula), sum(datetimeFormula)), Boolean.FALSE)),
-            (booleanEqual(numericGreaterEqualThan(sum(datetimeFormula), sum(timeFormula)), Boolean.TRUE))
+            (booleanEqual(numericGreaterEqualThan(sum(datetimeFormula), sum(timeFormula)), Boolean.TRUE)),
+            Boolean.TRUE
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -150,9 +154,13 @@ public class Sum extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
 
         // Apply rule
         SumRuleOutput output_ = new SumRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
             (booleanEqual(numericLessEqualThan(sum(dateFormula), sum(datetimeFormula)), Boolean.TRUE)),
-            (booleanEqual(numericGreaterEqualThan(sum(datetimeFormula), sum(timeFormula)), Boolean.FALSE))
+            (booleanEqual(numericGreaterEqualThan(sum(datetimeFormula), sum(timeFormula)), Boolean.FALSE)),
+            Boolean.TRUE
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -181,9 +189,13 @@ public class Sum extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
 
         // Apply rule
         SumRuleOutput output_ = new SumRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
             (booleanEqual(numericLessEqualThan(sum(dateFormula), sum(datetimeFormula)), Boolean.TRUE)),
-            (booleanEqual(numericGreaterEqualThan(sum(datetimeFormula), sum(timeFormula)), Boolean.TRUE))
+            (booleanEqual(numericGreaterEqualThan(sum(datetimeFormula), sum(timeFormula)), Boolean.TRUE)),
+            Boolean.TRUE
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -212,7 +224,10 @@ public class Sum extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
 
         // Apply rule
         SumRuleOutput output_ = new SumRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
             (booleanEqual(numericLessEqualThan(sum(dateFormula), sum(datetimeFormula)), Boolean.FALSE)),
             (booleanEqual(numericGreaterEqualThan(sum(datetimeFormula), sum(timeFormula)), Boolean.FALSE)),
             (booleanEqual(numericGreaterEqualThan(sum(dateFormula), sum(timeFormula)), Boolean.TRUE))
@@ -244,7 +259,10 @@ public class Sum extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
 
         // Apply rule
         SumRuleOutput output_ = new SumRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
             (booleanEqual(numericLessEqualThan(sum(dateFormula), sum(datetimeFormula)), Boolean.FALSE)),
             (booleanEqual(numericGreaterEqualThan(sum(datetimeFormula), sum(timeFormula)), Boolean.FALSE)),
             (booleanEqual(numericGreaterEqualThan(sum(dateFormula), sum(timeFormula)), Boolean.FALSE))

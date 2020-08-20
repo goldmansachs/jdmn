@@ -9,9 +9,12 @@ public class DecisionRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("result")
     public String getResult() {
         return this.result;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("result")
     public void setResult(String result) {
         this.result = result;
     }

@@ -9,9 +9,12 @@ public class PickRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("pick")
     public String getPick() {
         return this.pick;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("pick")
     public void setPick(String pick) {
         this.pick = pick;
     }

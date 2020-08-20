@@ -40,9 +40,9 @@ class Routing(val postBureauAffordability : PostBureauAffordability = PostBureau
             // Start decision 'Routing'
             val routingStartTime_ = System.currentTimeMillis()
             val routingArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            routingArguments_.put("applicantData", applicantData)
-            routingArguments_.put("bureauData", bureauData)
-            routingArguments_.put("requestedProduct", requestedProduct)
+            routingArguments_.put("ApplicantData", applicantData);
+            routingArguments_.put("BureauData", bureauData);
+            routingArguments_.put("RequestedProduct", requestedProduct);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, routingArguments_)
 
             // Apply child decisions

@@ -12,9 +12,12 @@ public class DecisionRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("output1")
     public String getOutput1() {
         return this.output1;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("output1")
     public void setOutput1(String output1) {
         this.output1 = output1;
     }
@@ -25,9 +28,12 @@ public class DecisionRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     public void setOutput1Priority(Integer output1Priority) {
         this.output1Priority = output1Priority;
     }
+    @com.fasterxml.jackson.annotation.JsonGetter("output2")
     public String getOutput2() {
         return this.output2;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("output2")
     public void setOutput2(String output2) {
         this.output2 = output2;
     }

@@ -9,9 +9,12 @@ public class PriceGt10RuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("priceGt10")
     public Boolean getPriceGt10() {
         return this.priceGt10;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("priceGt10")
     public void setPriceGt10(Boolean priceGt10) {
         this.priceGt10 = priceGt10;
     }

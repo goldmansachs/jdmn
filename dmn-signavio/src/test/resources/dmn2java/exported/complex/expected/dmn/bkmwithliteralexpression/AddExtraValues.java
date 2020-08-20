@@ -53,7 +53,7 @@ public class AddExtraValues extends com.gs.dmn.signavio.runtime.DefaultSignavioB
             // Start decision 'addExtraValues'
             long addExtraValuesStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments addExtraValuesArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            addExtraValuesArguments_.put("listOfNumbers", listOfNumbers);
+            addExtraValuesArguments_.put("ListOfNumbers", listOfNumbers);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, addExtraValuesArguments_);
 
             // Evaluate decision 'addExtraValues'

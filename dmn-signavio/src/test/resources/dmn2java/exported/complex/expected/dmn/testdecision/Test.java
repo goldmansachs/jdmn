@@ -35,7 +35,7 @@ public class Test extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
             // Start decision 'test'
             long testStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments testArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            testArguments_.put("stringInput", stringInput);
+            testArguments_.put("StringInput", stringInput);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, testArguments_);
 
             // Evaluate decision 'test'
@@ -83,7 +83,9 @@ public class Test extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
 
         // Apply rule
         TestRuleOutput output_ = new TestRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -111,7 +113,9 @@ public class Test extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
 
         // Apply rule
         TestRuleOutput output_ = new TestRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

@@ -36,7 +36,7 @@ public class GreetThePerson extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start decision 'GreetThePerson'
             long greetThePersonStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments greetThePersonArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            greetThePersonArguments_.put("personName", personName);
+            greetThePersonArguments_.put("PersonName", personName);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, greetThePersonArguments_);
 
             // Evaluate decision 'GreetThePerson'

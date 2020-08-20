@@ -106,7 +106,9 @@ public class SomethingElse extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         SomethingElseRuleOutput output_ = new SomethingElseRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

@@ -53,8 +53,8 @@ public class ExtraDaysCase1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start decision 'ExtraDaysCase1'
             long extraDaysCase1StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments extraDaysCase1Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            extraDaysCase1Arguments_.put("age", age);
-            extraDaysCase1Arguments_.put("yearsOfService", yearsOfService);
+            extraDaysCase1Arguments_.put("Age", age);
+            extraDaysCase1Arguments_.put("YearsOfService", yearsOfService);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, extraDaysCase1Arguments_);
 
             // Evaluate decision 'ExtraDaysCase1'
@@ -99,7 +99,10 @@ public class ExtraDaysCase1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         ExtraDaysCase1RuleOutput output_ = new ExtraDaysCase1RuleOutput(false);
-        if (Boolean.TRUE == booleanOr((numericLessThan(age, number("18"))), (numericGreaterEqualThan(age, number("60"))))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            booleanOr((numericLessThan(age, number("18"))), (numericGreaterEqualThan(age, number("60")))),
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -127,7 +130,10 @@ public class ExtraDaysCase1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         ExtraDaysCase1RuleOutput output_ = new ExtraDaysCase1RuleOutput(false);
-        if (Boolean.TRUE == (numericGreaterEqualThan(yearsOfService, number("30")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            (numericGreaterEqualThan(yearsOfService, number("30")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

@@ -40,9 +40,9 @@ class PriceInRange() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             // Start decision 'priceInRange'
             val priceInRangeStartTime_ = System.currentTimeMillis()
             val priceInRangeArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            priceInRangeArguments_.put("numB", numB)
-            priceInRangeArguments_.put("numC", numC)
-            priceInRangeArguments_.put("structA", structA)
+            priceInRangeArguments_.put("numB", numB);
+            priceInRangeArguments_.put("numC", numC);
+            priceInRangeArguments_.put("structA", structA);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, priceInRangeArguments_)
 
             // Evaluate decision 'priceInRange'
@@ -87,7 +87,9 @@ class PriceInRange() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
         // Apply rule
         var output_: PriceInRangeRuleOutput = PriceInRangeRuleOutput(false)
-        if (true == (booleanAnd(numericGreaterEqualThan(structA?.let({ it.price as java.math.BigDecimal? }), numB), numericLessEqualThan(structA?.let({ it.price as java.math.BigDecimal? }), numC)))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (booleanAnd(numericGreaterEqualThan(structA?.let({ it.price as java.math.BigDecimal? }), numB), numericLessEqualThan(structA?.let({ it.price as java.math.BigDecimal? }), numC)))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -116,7 +118,9 @@ class PriceInRange() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
         // Apply rule
         var output_: PriceInRangeRuleOutput = PriceInRangeRuleOutput(false)
-        if (true == true) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            true
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 

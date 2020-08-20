@@ -9,9 +9,12 @@ public class TopDecisionRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("topDecision")
     public Boolean getTopDecision() {
         return this.topDecision;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("topDecision")
     public void setTopDecision(Boolean topDecision) {
         this.topDecision = topDecision;
     }

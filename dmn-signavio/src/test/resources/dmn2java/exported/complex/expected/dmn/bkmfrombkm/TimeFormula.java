@@ -54,7 +54,7 @@ public class TimeFormula extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
             long timeFormulaStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments timeFormulaArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             timeFormulaArguments_.put("time", time);
-            timeFormulaArguments_.put("time2", time2);
+            timeFormulaArguments_.put("time 2", time2);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, timeFormulaArguments_);
 
             // Evaluate decision 'timeFormula'
@@ -104,7 +104,9 @@ public class TimeFormula extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
 
         // Apply rule
         TimeFormulaRuleOutput output_ = new TimeFormulaRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -132,7 +134,9 @@ public class TimeFormula extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
 
         // Apply rule
         TimeFormulaRuleOutput output_ = new TimeFormulaRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -160,7 +164,9 @@ public class TimeFormula extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
 
         // Apply rule
         TimeFormulaRuleOutput output_ = new TimeFormulaRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -188,7 +194,9 @@ public class TimeFormula extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
 
         // Apply rule
         TimeFormulaRuleOutput output_ = new TimeFormulaRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

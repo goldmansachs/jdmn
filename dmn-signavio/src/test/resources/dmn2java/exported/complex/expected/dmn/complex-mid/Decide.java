@@ -35,7 +35,7 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
             // Start decision 'decide'
             long decideStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decideArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            decideArguments_.put("properties_iterator", properties_iterator);
+            decideArguments_.put("Properties", properties_iterator);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decideArguments_);
 
             // Evaluate decision 'decide'
@@ -82,7 +82,9 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
 
         // Apply rule
         DecideRuleOutput output_ = new DecideRuleOutput(false);
-        if (Boolean.TRUE == booleanOr((stringEqual(properties_iterator, "Happy")), (stringEqual(properties_iterator, "Tall")), (stringEqual(properties_iterator, "Quiet")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            booleanOr((stringEqual(properties_iterator, "Happy")), (stringEqual(properties_iterator, "Tall")), (stringEqual(properties_iterator, "Quiet")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -110,7 +112,9 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
 
         // Apply rule
         DecideRuleOutput output_ = new DecideRuleOutput(false);
-        if (Boolean.TRUE == booleanOr((stringEqual(properties_iterator, "Sad")), (stringEqual(properties_iterator, "Short")), (stringEqual(properties_iterator, "Loud")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            booleanOr((stringEqual(properties_iterator, "Sad")), (stringEqual(properties_iterator, "Short")), (stringEqual(properties_iterator, "Loud")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -138,7 +142,9 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
 
         // Apply rule
         DecideRuleOutput output_ = new DecideRuleOutput(false);
-        if (Boolean.TRUE == booleanNot(booleanOr((stringEqual(properties_iterator, "Happy")), (stringEqual(properties_iterator, "Sad")), (stringEqual(properties_iterator, "Tall")), (stringEqual(properties_iterator, "Short")), (stringEqual(properties_iterator, "Loud")), (stringEqual(properties_iterator, "Quiet"))))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            booleanNot(booleanOr((stringEqual(properties_iterator, "Happy")), (stringEqual(properties_iterator, "Sad")), (stringEqual(properties_iterator, "Tall")), (stringEqual(properties_iterator, "Short")), (stringEqual(properties_iterator, "Loud")), (stringEqual(properties_iterator, "Quiet"))))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -166,7 +172,9 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
 
         // Apply rule
         DecideRuleOutput output_ = new DecideRuleOutput(false);
-        if (Boolean.TRUE == (properties_iterator == null)) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (properties_iterator == null)
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

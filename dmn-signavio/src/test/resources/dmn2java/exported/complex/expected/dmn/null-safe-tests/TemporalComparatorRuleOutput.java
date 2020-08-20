@@ -9,9 +9,12 @@ public class TemporalComparatorRuleOutput extends com.gs.dmn.runtime.RuleOutput 
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("temporalComparator")
     public String getTemporalComparator() {
         return this.temporalComparator;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("temporalComparator")
     public void setTemporalComparator(String temporalComparator) {
         this.temporalComparator = temporalComparator;
     }

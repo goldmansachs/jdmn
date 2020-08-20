@@ -53,7 +53,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
             // Start decision 'outputExecutionAnalysisResult'
             long outputExecutionAnalysisResultStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments outputExecutionAnalysisResultArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            outputExecutionAnalysisResultArguments_.put("inputValue", inputValue);
+            outputExecutionAnalysisResultArguments_.put("InputValue", inputValue);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, outputExecutionAnalysisResultArguments_);
 
             // Evaluate decision 'outputExecutionAnalysisResult'
@@ -109,7 +109,9 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
 
         // Apply rule
         OutputExecutionAnalysisResultRuleOutput output_ = new OutputExecutionAnalysisResultRuleOutput(false);
-        if (Boolean.TRUE == (numericGreaterEqualThan(inputValue, number("1")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (numericGreaterEqualThan(inputValue, number("1")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -137,7 +139,9 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
 
         // Apply rule
         OutputExecutionAnalysisResultRuleOutput output_ = new OutputExecutionAnalysisResultRuleOutput(false);
-        if (Boolean.TRUE == (numericGreaterEqualThan(inputValue, number("2")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (numericGreaterEqualThan(inputValue, number("2")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -165,7 +169,9 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
 
         // Apply rule
         OutputExecutionAnalysisResultRuleOutput output_ = new OutputExecutionAnalysisResultRuleOutput(false);
-        if (Boolean.TRUE == (numericGreaterEqualThan(inputValue, number("3")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (numericGreaterEqualThan(inputValue, number("3")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -193,7 +199,9 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
 
         // Apply rule
         OutputExecutionAnalysisResultRuleOutput output_ = new OutputExecutionAnalysisResultRuleOutput(false);
-        if (Boolean.TRUE == (numericGreaterEqualThan(inputValue, number("4")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (numericGreaterEqualThan(inputValue, number("4")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -221,7 +229,9 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
 
         // Apply rule
         OutputExecutionAnalysisResultRuleOutput output_ = new OutputExecutionAnalysisResultRuleOutput(false);
-        if (Boolean.TRUE == (numericGreaterEqualThan(inputValue, number("5")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (numericGreaterEqualThan(inputValue, number("5")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -249,7 +259,9 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
 
         // Apply rule
         OutputExecutionAnalysisResultRuleOutput output_ = new OutputExecutionAnalysisResultRuleOutput(false);
-        if (Boolean.TRUE == (numericGreaterEqualThan(inputValue, number("6")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (numericGreaterEqualThan(inputValue, number("6")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -277,7 +289,9 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
 
         // Apply rule
         OutputExecutionAnalysisResultRuleOutput output_ = new OutputExecutionAnalysisResultRuleOutput(false);
-        if (Boolean.TRUE == (numericGreaterEqualThan(inputValue, number("7")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (numericGreaterEqualThan(inputValue, number("7")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -305,7 +319,9 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
 
         // Apply rule
         OutputExecutionAnalysisResultRuleOutput output_ = new OutputExecutionAnalysisResultRuleOutput(false);
-        if (Boolean.TRUE == (numericGreaterEqualThan(inputValue, number("8")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (numericGreaterEqualThan(inputValue, number("8")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -333,7 +349,9 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
 
         // Apply rule
         OutputExecutionAnalysisResultRuleOutput output_ = new OutputExecutionAnalysisResultRuleOutput(false);
-        if (Boolean.TRUE == (numericGreaterEqualThan(inputValue, number("9")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (numericGreaterEqualThan(inputValue, number("9")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -361,7 +379,9 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
 
         // Apply rule
         OutputExecutionAnalysisResultRuleOutput output_ = new OutputExecutionAnalysisResultRuleOutput(false);
-        if (Boolean.TRUE == (numericGreaterEqualThan(inputValue, number("10")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (numericGreaterEqualThan(inputValue, number("10")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

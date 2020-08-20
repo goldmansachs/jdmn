@@ -61,9 +61,9 @@ public class Routing extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start decision 'Routing'
             long routingStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments routingArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            routingArguments_.put("applicantData", applicantData);
-            routingArguments_.put("bureauData", bureauData);
-            routingArguments_.put("requestedProduct", requestedProduct);
+            routingArguments_.put("ApplicantData", applicantData);
+            routingArguments_.put("BureauData", bureauData);
+            routingArguments_.put("RequestedProduct", requestedProduct);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, routingArguments_);
 
             // Apply child decisions

@@ -10,15 +10,21 @@ public class ApprovalRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("Status")
     public String getStatus() {
         return this.status;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("Status")
     public void setStatus(String status) {
         this.status = status;
     }
+    @com.fasterxml.jackson.annotation.JsonGetter("Rate")
     public String getRate() {
         return this.rate;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("Rate")
     public void setRate(String rate) {
         this.rate = rate;
     }

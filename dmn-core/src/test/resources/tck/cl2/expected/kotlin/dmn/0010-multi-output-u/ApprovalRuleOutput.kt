@@ -1,7 +1,9 @@
 
 @javax.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "Approval"])
 class ApprovalRuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput(matched) {
+    @com.fasterxml.jackson.annotation.JsonProperty("Status")
     var status: String? = null
+    @com.fasterxml.jackson.annotation.JsonProperty("Rate")
     var rate: String? = null
 
     override fun equals(o: Any?): Boolean {

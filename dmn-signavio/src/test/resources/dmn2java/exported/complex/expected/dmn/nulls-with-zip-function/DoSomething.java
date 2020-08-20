@@ -53,7 +53,7 @@ public class DoSomething extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
             // Start decision 'doSomething'
             long doSomethingStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments doSomethingArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            doSomethingArguments_.put("zip4_iterator", zip4_iterator);
+            doSomethingArguments_.put("zip", zip4_iterator);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, doSomethingArguments_);
 
             // Evaluate decision 'doSomething'
@@ -100,7 +100,7 @@ public class DoSomething extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
 
         // Apply rule
         DoSomethingRuleOutput output_ = new DoSomethingRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             booleanNot((((String)(zip4_iterator != null ? zip4_iterator.getInputA() : null)) == null)),
             booleanNot((((java.math.BigDecimal)(zip4_iterator != null ? zip4_iterator.getInputB() : null)) == null))
         )) {
@@ -131,7 +131,7 @@ public class DoSomething extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
 
         // Apply rule
         DoSomethingRuleOutput output_ = new DoSomethingRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             booleanNot((((String)(zip4_iterator != null ? zip4_iterator.getInputA() : null)) == null)),
             (((java.math.BigDecimal)(zip4_iterator != null ? zip4_iterator.getInputB() : null)) == null)
         )) {
@@ -162,7 +162,7 @@ public class DoSomething extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
 
         // Apply rule
         DoSomethingRuleOutput output_ = new DoSomethingRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (((String)(zip4_iterator != null ? zip4_iterator.getInputA() : null)) == null),
             booleanNot((((java.math.BigDecimal)(zip4_iterator != null ? zip4_iterator.getInputB() : null)) == null))
         )) {
@@ -193,7 +193,7 @@ public class DoSomething extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
 
         // Apply rule
         DoSomethingRuleOutput output_ = new DoSomethingRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (((String)(zip4_iterator != null ? zip4_iterator.getInputA() : null)) == null),
             (((java.math.BigDecimal)(zip4_iterator != null ? zip4_iterator.getInputB() : null)) == null)
         )) {

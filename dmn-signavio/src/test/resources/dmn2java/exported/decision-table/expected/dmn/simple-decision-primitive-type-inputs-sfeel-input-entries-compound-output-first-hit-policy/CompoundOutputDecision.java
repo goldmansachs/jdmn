@@ -53,13 +53,13 @@ public class CompoundOutputDecision extends com.gs.dmn.signavio.runtime.DefaultS
             // Start decision 'compoundOutputDecision'
             long compoundOutputDecisionStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments compoundOutputDecisionArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            compoundOutputDecisionArguments_.put("booleanInput", booleanInput);
-            compoundOutputDecisionArguments_.put("dateAndTimeInput", dateAndTimeInput);
-            compoundOutputDecisionArguments_.put("dateInput", dateInput);
-            compoundOutputDecisionArguments_.put("enumerationInput", enumerationInput);
-            compoundOutputDecisionArguments_.put("numberInput", numberInput);
-            compoundOutputDecisionArguments_.put("textInput", textInput);
-            compoundOutputDecisionArguments_.put("timeInput", timeInput);
+            compoundOutputDecisionArguments_.put("BooleanInput", booleanInput);
+            compoundOutputDecisionArguments_.put("DateAndTimeInput", dateAndTimeInput);
+            compoundOutputDecisionArguments_.put("DateInput", dateInput);
+            compoundOutputDecisionArguments_.put("EnumerationInput", enumerationInput);
+            compoundOutputDecisionArguments_.put("NumberInput", numberInput);
+            compoundOutputDecisionArguments_.put("TextInput", textInput);
+            compoundOutputDecisionArguments_.put("TimeInput", timeInput);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, compoundOutputDecisionArguments_);
 
             // Evaluate decision 'compoundOutputDecision'
@@ -130,7 +130,7 @@ public class CompoundOutputDecision extends com.gs.dmn.signavio.runtime.DefaultS
 
         // Apply rule
         CompoundOutputDecisionRuleOutput output_ = new CompoundOutputDecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (dateEqual(dateInput, date("2016-08-01"))),
             (timeEqual(timeInput, time("12:00:00+0000"))),
             (dateTimeEqual(dateAndTimeInput, dateAndTime("2016-08-01T11:00:00+0000"))),
@@ -167,7 +167,7 @@ public class CompoundOutputDecision extends com.gs.dmn.signavio.runtime.DefaultS
 
         // Apply rule
         CompoundOutputDecisionRuleOutput output_ = new CompoundOutputDecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             booleanNot((dateEqual(dateInput, date("2016-08-01")))),
             booleanNot((timeEqual(timeInput, time("12:00:00+0000")))),
             booleanNot((dateTimeEqual(dateAndTimeInput, dateAndTime("2016-08-01T11:00:00+0000")))),
@@ -204,11 +204,14 @@ public class CompoundOutputDecision extends com.gs.dmn.signavio.runtime.DefaultS
 
         // Apply rule
         CompoundOutputDecisionRuleOutput output_ = new CompoundOutputDecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (dateLessThan(dateInput, date("2016-08-01"))),
             (timeLessThan(timeInput, time("12:00:00+0000"))),
             (dateTimeLessThan(dateAndTimeInput, dateAndTime("2016-08-01T11:00:00+0000"))),
-            (numericLessThan(numberInput, numericUnaryMinus(number("1"))))
+            (numericLessThan(numberInput, numericUnaryMinus(number("1")))),
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -238,11 +241,14 @@ public class CompoundOutputDecision extends com.gs.dmn.signavio.runtime.DefaultS
 
         // Apply rule
         CompoundOutputDecisionRuleOutput output_ = new CompoundOutputDecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (dateLessEqualThan(dateInput, date("2016-08-01"))),
             (timeLessEqualThan(timeInput, time("12:00:00+0000"))),
             (dateTimeLessEqualThan(dateAndTimeInput, dateAndTime("2016-08-01T11:00:00+0000"))),
-            (numericGreaterEqualThan(numberInput, numericUnaryMinus(number("1"))))
+            (numericGreaterEqualThan(numberInput, numericUnaryMinus(number("1")))),
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -272,11 +278,14 @@ public class CompoundOutputDecision extends com.gs.dmn.signavio.runtime.DefaultS
 
         // Apply rule
         CompoundOutputDecisionRuleOutput output_ = new CompoundOutputDecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (dateGreaterThan(dateInput, date("2016-08-01"))),
             (timeGreaterThan(timeInput, time("12:00:00+0000"))),
             (dateTimeGreaterThan(dateAndTimeInput, dateAndTime("2016-08-01T11:00:00+0000"))),
-            (numericGreaterThan(numberInput, numericUnaryMinus(number("1"))))
+            (numericGreaterThan(numberInput, numericUnaryMinus(number("1")))),
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -306,10 +315,14 @@ public class CompoundOutputDecision extends com.gs.dmn.signavio.runtime.DefaultS
 
         // Apply rule
         CompoundOutputDecisionRuleOutput output_ = new CompoundOutputDecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (dateGreaterEqualThan(dateInput, date("2016-08-01"))),
             (timeGreaterEqualThan(timeInput, time("12:00:00+0000"))),
-            (dateTimeGreaterEqualThan(dateAndTimeInput, dateAndTime("2016-08-01T11:00:00+0000")))
+            (dateTimeGreaterEqualThan(dateAndTimeInput, dateAndTime("2016-08-01T11:00:00+0000"))),
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

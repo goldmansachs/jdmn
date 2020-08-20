@@ -94,7 +94,7 @@ public class SignavioDMNEnvironmentFactory extends StandardDMNEnvironmentFactory
     public Type expressionType(TDRGElement element, TExpression expression, Environment environment) {
         if (this.dmnModelRepository.isMultiInstanceDecision(element)) {
             TDecision decision = (TDecision) element;
-            MultiInstanceDecisionLogic multiInstanceDecision = ((BasicSignavioDMN2JavaTransformer) this.dmnTransformer).multiInstanceDecisionLogic(decision);
+            MultiInstanceDecisionLogic multiInstanceDecision = ((BasicSignavioDMNToJavaTransformer) this.dmnTransformer).multiInstanceDecisionLogic(decision);
             TDecision topLevelDecision = multiInstanceDecision.getTopLevelDecision();
             return super.drgElementVariableFEELType(topLevelDecision);
         } else if (this.dmnModelRepository.isBKMLinkedToDecision(element)) {

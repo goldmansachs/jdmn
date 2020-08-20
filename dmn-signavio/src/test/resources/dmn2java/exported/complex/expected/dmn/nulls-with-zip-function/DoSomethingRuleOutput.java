@@ -9,9 +9,12 @@ public class DoSomethingRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("doSomething")
     public String getDoSomething() {
         return this.doSomething;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("doSomething")
     public void setDoSomething(String doSomething) {
         this.doSomething = doSomething;
     }

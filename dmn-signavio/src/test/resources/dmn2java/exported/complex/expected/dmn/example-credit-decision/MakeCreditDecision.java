@@ -59,9 +59,9 @@ public class MakeCreditDecision extends com.gs.dmn.signavio.runtime.DefaultSigna
             // Start decision 'makeCreditDecision'
             long makeCreditDecisionStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments makeCreditDecisionArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            makeCreditDecisionArguments_.put("applicant", applicant);
-            makeCreditDecisionArguments_.put("currentRiskAppetite", currentRiskAppetite);
-            makeCreditDecisionArguments_.put("lendingThreshold", lendingThreshold);
+            makeCreditDecisionArguments_.put("Applicant", applicant);
+            makeCreditDecisionArguments_.put("Current risk appetite", currentRiskAppetite);
+            makeCreditDecisionArguments_.put("Lending threshold", lendingThreshold);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, makeCreditDecisionArguments_);
 
             // Apply child decisions
@@ -110,7 +110,9 @@ public class MakeCreditDecision extends com.gs.dmn.signavio.runtime.DefaultSigna
 
         // Apply rule
         MakeCreditDecisionRuleOutput output_ = new MakeCreditDecisionRuleOutput(false);
-        if (Boolean.TRUE == (numericLessThan(compareAgainstLendingThreshold, numericUnaryMinus(number("0.1"))))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (numericLessThan(compareAgainstLendingThreshold, numericUnaryMinus(number("0.1"))))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -138,7 +140,9 @@ public class MakeCreditDecision extends com.gs.dmn.signavio.runtime.DefaultSigna
 
         // Apply rule
         MakeCreditDecisionRuleOutput output_ = new MakeCreditDecisionRuleOutput(false);
-        if (Boolean.TRUE == (booleanAnd(numericGreaterEqualThan(compareAgainstLendingThreshold, numericUnaryMinus(number("0.1"))), numericLessEqualThan(compareAgainstLendingThreshold, number("0.1"))))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (booleanAnd(numericGreaterEqualThan(compareAgainstLendingThreshold, numericUnaryMinus(number("0.1"))), numericLessEqualThan(compareAgainstLendingThreshold, number("0.1"))))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -166,7 +170,9 @@ public class MakeCreditDecision extends com.gs.dmn.signavio.runtime.DefaultSigna
 
         // Apply rule
         MakeCreditDecisionRuleOutput output_ = new MakeCreditDecisionRuleOutput(false);
-        if (Boolean.TRUE == (numericGreaterThan(compareAgainstLendingThreshold, number("0.1")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (numericGreaterThan(compareAgainstLendingThreshold, number("0.1")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

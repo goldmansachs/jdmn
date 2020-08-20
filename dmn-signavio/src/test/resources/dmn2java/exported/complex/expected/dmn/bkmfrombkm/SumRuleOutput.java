@@ -9,9 +9,12 @@ public class SumRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("sum")
     public java.math.BigDecimal getSum() {
         return this.sum;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("sum")
     public void setSum(java.math.BigDecimal sum) {
         this.sum = sum;
     }

@@ -60,7 +60,7 @@
 ```
 
 ## How to configure the Maven plugin?
-Both DMN2Java and TCK2Junit mojos require configuration. Some parameters are specific to a goal, others are common.
+Both DMNToJava and TCKToJavaJUnit mojos require configuration. Some parameters are specific to a goal, others are common.
 
 The specific parameters are inside the ```<configuration>``` Maven tag.
 

@@ -23,10 +23,10 @@ import com.gs.dmn.signavio.feel.lib.DoubleMixedJavaTimeSignavioLib;
 import com.gs.dmn.signavio.runtime.DoubleMixedJavaTimeSignavioBaseDecision;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.transformation.SignavioDMNToKotlinTransformer;
-import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMN2KotlinTransformer;
+import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMNToKotlinTransformer;
 import com.gs.dmn.transformation.DMNToNativeTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
@@ -47,9 +47,9 @@ public class DoubleMixedJavaTimeKotlinSignavioDMNDialectDefinition extends Abstr
     }
 
     @Override
-    public BasicDMN2JavaTransformer createBasicTransformer(DMNModelRepository repository, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
+    public BasicDMNToJavaTransformer createBasicTransformer(DMNModelRepository repository, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         EnvironmentFactory environmentFactory = createEnvironmentFactory();
-        return new BasicSignavioDMN2KotlinTransformer(repository, environmentFactory, createNativeTypeFactory(), lazyEvaluationDetector, inputParameters);
+        return new BasicSignavioDMNToKotlinTransformer(repository, environmentFactory, createNativeTypeFactory(), lazyEvaluationDetector, inputParameters);
     }
 
     //

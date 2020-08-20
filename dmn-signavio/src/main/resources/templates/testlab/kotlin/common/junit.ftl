@@ -37,6 +37,12 @@ class ${testClassName} : ${decisionBaseClass}() {
         <@addApplyPart testCase/>
 
         <@addAssertPart testCase/>
+    <#if testLabUtil.isGenerateProto()>
+
+        <@addApplyProtoPart testCase/>
+
+        <@addAssertProtoPart testCase/>
+    </#if>
     }
 
         </#items>
@@ -70,6 +76,42 @@ class ${testClassName} : ${decisionBaseClass}() {
                 </#list>
             <#else>
         checkValues(${testLabUtil.toNativeExpression(testLab, expectedValue)}, ${testLabUtil.drgElementVariableName(rootOutputParameter)});
+            </#if>
+        </#items>
+    </#list>
+</#macro>
+
+<#macro addApplyProtoPart testCase>
+        // Make proto request
+        var builder_: ${testLabUtil.qualifiedRequestMessageName(rootOutputParameter)}.Builder = ${testLabUtil.qualifiedRequestMessageName(rootOutputParameter)}.newBuilder()
+    <#list testCase.inputValues>
+        <#items as input>
+        builder_.${testLabUtil.protoSetter(testLab.inputParameterDefinitions[input?index])}(${testLabUtil.toNativeExpressionProto(testLab.inputParameterDefinitions[input?index])})
+        </#items>
+    </#list>
+        val ${testLabUtil.requestVariableName(rootOutputParameter)}: ${testLabUtil.qualifiedRequestMessageName(rootOutputParameter)} = builder_.build()
+
+        // Invoke apply method
+        val ${testLabUtil.responseVariableName(rootOutputParameter)}: ${testLabUtil.qualifiedResponseMessageName(rootOutputParameter)} = this.${testLabUtil.drgElementVariableName(rootOutputParameter)}.apply(${testLabUtil.drgElementArgumentListProto(rootOutputParameter)})
+        val ${testLabUtil.drgElementVariableNameProto(rootOutputParameter)}: ${testLabUtil.drgElementOutputTypeProto(rootOutputParameter)} = ${testLabUtil.responseVariableName(rootOutputParameter)}.${testLabUtil.protoGetter(rootOutputParameter)}
+</#macro>
+
+<#macro addAssertProtoPart testCase>
+        // Check results
+    <#list testCase.expectedValues>
+        <#items as expectedValue>
+            <#if testLabUtil.isComplex(expectedValue)>
+                <#list expectedValue.slots>
+                    <#items as slot>
+                    <#if testLabUtil.hasListType(rootOutputParameter)>
+        checkValues(${testLabUtil.toNativeExpression(testLab, slot.value)}, ${testLabUtil.drgElementVariableNameProto(rootOutputParameter)}?.get(${expectedValue?index}).${testLabUtil.protoGetter(rootOutputParameter, testLabUtil.drgElementOutputFieldName(testLab, slot?index))})
+                    <#else>
+        checkValues(${testLabUtil.toNativeExpression(testLab, slot.value)}, ${testLabUtil.drgElementVariableNameProto(rootOutputParameter)}?.${testLabUtil.protoGetter(rootOutputParameter, testLabUtil.drgElementOutputFieldName(testLab, slot?index))})
+                    </#if>
+                    </#items>
+                </#list>
+            <#else>
+        checkValues(${testLabUtil.toNativeExpression(testLab, expectedValue)}, ${testLabUtil.drgElementVariableNameProto(rootOutputParameter)})
             </#if>
         </#items>
     </#list>

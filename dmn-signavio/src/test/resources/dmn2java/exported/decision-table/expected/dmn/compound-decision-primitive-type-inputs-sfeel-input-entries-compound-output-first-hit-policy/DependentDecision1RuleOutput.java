@@ -10,15 +10,21 @@ public class DependentDecision1RuleOutput extends com.gs.dmn.runtime.RuleOutput 
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("dD1O1")
     public String getDD1O1() {
         return this.dD1O1;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("dD1O1")
     public void setDD1O1(String dD1O1) {
         this.dD1O1 = dD1O1;
     }
+    @com.fasterxml.jackson.annotation.JsonGetter("dD1O2")
     public String getDD1O2() {
         return this.dD1O2;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("dD1O2")
     public void setDD1O2(String dD1O2) {
         this.dD1O2 = dD1O2;
     }

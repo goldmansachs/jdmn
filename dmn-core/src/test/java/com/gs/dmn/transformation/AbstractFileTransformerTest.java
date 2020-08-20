@@ -30,7 +30,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class AbstractFileTransformerTest extends AbstractTest {
+public abstract class AbstractFileTransformerTest extends AbstractTest {
     protected static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractFileTransformerTest.class));
 
     protected void compareFile(File expectedOutputFile, File actualOutputFile) throws Exception {

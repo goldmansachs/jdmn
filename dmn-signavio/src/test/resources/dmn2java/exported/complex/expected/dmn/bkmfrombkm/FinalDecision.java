@@ -61,8 +61,8 @@ public class FinalDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
             // Start decision 'finalDecision'
             long finalDecisionStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments finalDecisionArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            finalDecisionArguments_.put("dateInput", dateInput);
-            finalDecisionArguments_.put("timeInput", timeInput);
+            finalDecisionArguments_.put("date input", dateInput);
+            finalDecisionArguments_.put("time input", timeInput);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, finalDecisionArguments_);
 
             // Apply child decisions
@@ -113,7 +113,9 @@ public class FinalDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         FinalDecisionRuleOutput output_ = new FinalDecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE,
             (booleanEqual(numericGreaterEqualThan(count(decisionDate), number("3")), Boolean.TRUE)),
             (booleanEqual(numericGreaterEqualThan(count(decisionTime), number("3")), Boolean.TRUE))
         )) {
@@ -144,7 +146,9 @@ public class FinalDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         FinalDecisionRuleOutput output_ = new FinalDecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE,
             (booleanEqual(numericGreaterEqualThan(count(decisionDate), number("3")), Boolean.FALSE)),
             (booleanEqual(numericGreaterEqualThan(count(decisionTime), number("3")), Boolean.TRUE))
         )) {
@@ -175,7 +179,9 @@ public class FinalDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         FinalDecisionRuleOutput output_ = new FinalDecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE,
             (booleanEqual(numericGreaterEqualThan(count(decisionDate), number("3")), Boolean.TRUE)),
             (booleanEqual(numericGreaterEqualThan(count(decisionTime), number("3")), Boolean.FALSE))
         )) {
@@ -206,7 +212,9 @@ public class FinalDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
         // Apply rule
         FinalDecisionRuleOutput output_ = new FinalDecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE,
             (booleanEqual(numericGreaterEqualThan(count(decisionDate), number("3")), Boolean.FALSE)),
             (booleanEqual(numericGreaterEqualThan(count(decisionTime), number("3")), Boolean.FALSE))
         )) {

@@ -35,7 +35,7 @@ public class IncompleteDecisionTable extends com.gs.dmn.signavio.runtime.Default
             // Start decision 'incompleteDecisionTable'
             long incompleteDecisionTableStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments incompleteDecisionTableArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            incompleteDecisionTableArguments_.put("inputString", inputString);
+            incompleteDecisionTableArguments_.put("InputString", inputString);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, incompleteDecisionTableArguments_);
 
             // Evaluate decision 'incompleteDecisionTable'
@@ -79,7 +79,9 @@ public class IncompleteDecisionTable extends com.gs.dmn.signavio.runtime.Default
 
         // Apply rule
         IncompleteDecisionTableRuleOutput output_ = new IncompleteDecisionTableRuleOutput(false);
-        if (Boolean.TRUE == (stringEqual(inputString, "abc"))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (stringEqual(inputString, "abc"))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

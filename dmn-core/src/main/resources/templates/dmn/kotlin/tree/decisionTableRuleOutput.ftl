@@ -30,6 +30,7 @@ class ${javaClassName}(matched: Boolean) : ${transformer.abstractRuleOutputClass
 <#macro addPrivateFields drgElement>
     <#assign expression = modelRepository.expression(drgElement)>
     <#list expression.output as output>
+    @com.fasterxml.jackson.annotation.JsonProperty("${transformer.escapeInString(transformer.outputClauseName(drgElement, output))}")
     var ${transformer.outputClauseVariableName(drgElement, output)}: ${transformer.outputClauseClassName(drgElement, output, output?index)}? = null
     <#if modelRepository.isOutputOrderHit(expression.hitPolicy)>
     var ${transformer.outputClausePriorityVariableName(drgElement, output)}: Int? = 0

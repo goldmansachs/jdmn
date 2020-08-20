@@ -63,9 +63,9 @@ public class GenerateOutputData extends com.gs.dmn.signavio.runtime.DefaultSigna
             // Start decision 'generateOutputData'
             long generateOutputDataStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments generateOutputDataArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            generateOutputDataArguments_.put("applicant", applicant);
-            generateOutputDataArguments_.put("currentRiskAppetite", currentRiskAppetite);
-            generateOutputDataArguments_.put("lendingThreshold", lendingThreshold);
+            generateOutputDataArguments_.put("Applicant", applicant);
+            generateOutputDataArguments_.put("Current risk appetite", currentRiskAppetite);
+            generateOutputDataArguments_.put("Lending threshold", lendingThreshold);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, generateOutputDataArguments_);
 
             // Apply child decisions

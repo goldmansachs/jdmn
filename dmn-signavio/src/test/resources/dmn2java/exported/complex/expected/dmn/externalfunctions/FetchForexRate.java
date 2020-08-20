@@ -59,10 +59,10 @@ public class FetchForexRate extends com.gs.dmn.signavio.runtime.DefaultSignavioB
             // Start decision 'fetchForexRate'
             long fetchForexRateStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments fetchForexRateArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            fetchForexRateArguments_.put("derivativeType", derivativeType);
-            fetchForexRateArguments_.put("taxChargeType", taxChargeType);
-            fetchForexRateArguments_.put("transaction", transaction);
-            fetchForexRateArguments_.put("transactionTaxMetaData", transactionTaxMetaData);
+            fetchForexRateArguments_.put("DerivativeType", derivativeType);
+            fetchForexRateArguments_.put("TaxChargeType", taxChargeType);
+            fetchForexRateArguments_.put("Transaction", transaction);
+            fetchForexRateArguments_.put("TransactionTaxMetaData", transactionTaxMetaData);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fetchForexRateArguments_);
 
             // Apply child decisions

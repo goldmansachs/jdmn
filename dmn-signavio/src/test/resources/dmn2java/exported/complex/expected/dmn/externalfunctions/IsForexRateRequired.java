@@ -53,9 +53,9 @@ public class IsForexRateRequired extends com.gs.dmn.signavio.runtime.DefaultSign
             // Start decision 'isForexRateRequired'
             long isForexRateRequiredStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments isForexRateRequiredArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            isForexRateRequiredArguments_.put("derivativeType", derivativeType);
-            isForexRateRequiredArguments_.put("taxChargeType", taxChargeType);
-            isForexRateRequiredArguments_.put("transactionTaxMetaData", transactionTaxMetaData);
+            isForexRateRequiredArguments_.put("DerivativeType", derivativeType);
+            isForexRateRequiredArguments_.put("TaxChargeType", taxChargeType);
+            isForexRateRequiredArguments_.put("TransactionTaxMetaData", transactionTaxMetaData);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, isForexRateRequiredArguments_);
 
             // Evaluate decision 'isForexRateRequired'
@@ -100,7 +100,7 @@ public class IsForexRateRequired extends com.gs.dmn.signavio.runtime.DefaultSign
 
         // Apply rule
         IsForexRateRequiredRuleOutput output_ = new IsForexRateRequiredRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (stringEqual(derivativeType, "RIGHTS_WARRANTS")),
             (stringEqual(taxChargeType, "2")),
             (stringEqual(((String)(transactionTaxMetaData != null ? transactionTaxMetaData.getTaxType() : null)), "FTT")),
@@ -134,7 +134,13 @@ public class IsForexRateRequired extends com.gs.dmn.signavio.runtime.DefaultSign
 
         // Apply rule
         IsForexRateRequiredRuleOutput output_ = new IsForexRateRequiredRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

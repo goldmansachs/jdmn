@@ -9,9 +9,12 @@ public class AllTogetherRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("allTogether")
     public String getAllTogether() {
         return this.allTogether;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("allTogether")
     public void setAllTogether(String allTogether) {
         this.allTogether = allTogether;
     }

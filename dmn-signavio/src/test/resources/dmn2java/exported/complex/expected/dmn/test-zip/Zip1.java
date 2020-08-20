@@ -53,8 +53,8 @@ public class Zip1 extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
             // Start decision 'zip1'
             long zip1StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments zip1Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            zip1Arguments_.put("a4", a4);
-            zip1Arguments_.put("b", b);
+            zip1Arguments_.put("A", a4);
+            zip1Arguments_.put("B", b);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, zip1Arguments_);
 
             // Evaluate decision 'zip1'

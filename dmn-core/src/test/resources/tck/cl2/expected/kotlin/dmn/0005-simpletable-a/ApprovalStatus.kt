@@ -40,9 +40,9 @@ class ApprovalStatus() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             // Start decision 'ApprovalStatus'
             val approvalStatusStartTime_ = System.currentTimeMillis()
             val approvalStatusArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            approvalStatusArguments_.put("age", age)
-            approvalStatusArguments_.put("riskCategory", riskCategory)
-            approvalStatusArguments_.put("isAffordable", isAffordable)
+            approvalStatusArguments_.put("Age", age);
+            approvalStatusArguments_.put("RiskCategory", riskCategory);
+            approvalStatusArguments_.put("isAffordable", isAffordable);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, approvalStatusArguments_)
 
             // Evaluate decision 'ApprovalStatus'
@@ -89,7 +89,7 @@ class ApprovalStatus() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
         // Apply rule
         var output_: ApprovalStatusRuleOutput = ApprovalStatusRuleOutput(false)
-        if (true == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (numericGreaterEqualThan(age, number("18"))),
             booleanOr((stringEqual(riskCategory, "Medium")), (stringEqual(riskCategory, "Low"))),
             (booleanEqual(isAffordable, true))
@@ -121,7 +121,11 @@ class ApprovalStatus() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
         // Apply rule
         var output_: ApprovalStatusRuleOutput = ApprovalStatusRuleOutput(false)
-        if (true == (numericLessThan(age, number("18")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (numericLessThan(age, number("18"))),
+            true,
+            true
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -149,7 +153,11 @@ class ApprovalStatus() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
         // Apply rule
         var output_: ApprovalStatusRuleOutput = ApprovalStatusRuleOutput(false)
-        if (true == (stringEqual(riskCategory, "High"))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            true,
+            (stringEqual(riskCategory, "High")),
+            true
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -177,7 +185,11 @@ class ApprovalStatus() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
         // Apply rule
         var output_: ApprovalStatusRuleOutput = ApprovalStatusRuleOutput(false)
-        if (true == (booleanEqual(isAffordable, false))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            true,
+            true,
+            (booleanEqual(isAffordable, false))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 

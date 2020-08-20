@@ -37,8 +37,8 @@ public class Logic extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
             // Start BKM 'logic'
             long logicStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments logicArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            logicArguments_.put("dateInput", dateInput);
-            logicArguments_.put("timeInput", timeInput);
+            logicArguments_.put("date input", dateInput);
+            logicArguments_.put("time input", timeInput);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, logicArguments_);
 
             // Evaluate BKM 'logic'

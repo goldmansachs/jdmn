@@ -18,7 +18,7 @@ package ${javaPackageName};
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"signavio-decision.ftl", "${modelRepository.name(drgElement)}"})
+@javax.annotation.Generated(value = {"signavio-decision.ftl", "${transformer.escapeInString(modelRepository.name(drgElement))}"})
 @${transformer.drgElementAnnotationClassName()}(
     namespace = "${javaPackageName}",
     name = "${modelRepository.name(drgElement)}",
@@ -55,7 +55,7 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     <#if transformer.shouldGenerateApplyWithConversionFromString(drgElement)>
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureWithConversionFromString(drgElement)}) {
         try {
-            return apply(${transformer.drgElementDefaultArgumentsExtraCacheWithConversionFromString(drgElement)});
+            return apply(${transformer.drgElementDefaultArgumentListExtraCacheWithConversionFromString(drgElement)});
         } catch (Exception e) {
             logError("Cannot apply decision '${javaClassName}'", e);
             return null;
@@ -66,7 +66,7 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraWithConversionFromString(drgElement)}) {
         try {
             ${transformer.cacheInterfaceName()} ${transformer.cacheVariableName()} = new ${transformer.defaultCacheClassName()}();
-            return apply(${transformer.drgElementArgumentsExtraCacheWithConversionFromString(drgElement)});
+            return apply(${transformer.drgElementArgumentListExtraCacheWithConversionFromString(drgElement)});
         } catch (Exception e) {
             logError("Cannot apply decision '${javaClassName}'", e);
             return null;
@@ -76,7 +76,7 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     </#if>
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraCacheWithConversionFromString(drgElement)}) {
         try {
-            return apply(${transformer.drgElementArgumentsExtraCacheWithConversionFromString(drgElement)});
+            return apply(${transformer.drgElementArgumentListExtraCacheWithConversionFromString(drgElement)});
         } catch (Exception e) {
             logError("Cannot apply decision '${javaClassName}'", e);
             return null;
@@ -85,11 +85,24 @@ public class ${javaClassName} extends ${decisionBaseClass} {
 
     </#if>
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignature(drgElement)}) {
-        return apply(${transformer.drgElementDefaultArgumentsExtraCache(drgElement)});
+        return apply(${transformer.drgElementDefaultArgumentListExtraCache(drgElement)});
     }
 
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraCache(drgElement)}) {
         <@applyMethodBody drgElement />
     }
+    <#if transformer.isGenerateProto()>
+
+    public ${transformer.qualifiedResponseMessageName(drgElement)} apply(${transformer.drgElementSignatureProto(drgElement)}) {
+        return apply(${transformer.drgElementDefaultArgumentListExtraCacheProto(drgElement)});
+    }
+
+    public ${transformer.qualifiedResponseMessageName(drgElement)} apply(${transformer.drgElementSignatureExtraCacheProto(drgElement)}) {
+        <#assign stm = transformer.drgElementSignatureProtoBody(drgElement)>
+        <#list stm.statements as child>
+        ${child.expression}
+        </#list>
+    }
+    </#if>
     <@evaluateExpressionMethod drgElement />
 }

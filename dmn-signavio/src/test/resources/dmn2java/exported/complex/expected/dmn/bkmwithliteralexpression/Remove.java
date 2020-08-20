@@ -54,7 +54,7 @@ public class Remove extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
             long removeStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments removeArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             removeArguments_.put("rgb2", rgb2);
-            removeArguments_.put("rgb2List", rgb2List);
+            removeArguments_.put("rgb2 list", rgb2List);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, removeArguments_);
 
             // Evaluate decision 'remove'

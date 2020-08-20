@@ -10,9 +10,12 @@ public class DateCompare1RuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("dateCompare1")
     public Boolean getDateCompare1() {
         return this.dateCompare1;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("dateCompare1")
     public void setDateCompare1(Boolean dateCompare1) {
         this.dateCompare1 = dateCompare1;
     }

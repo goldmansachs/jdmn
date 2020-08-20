@@ -10,15 +10,21 @@ public class IncompleteDecisionTableRuleOutput extends com.gs.dmn.runtime.RuleOu
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("a")
     public String getA() {
         return this.a;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("a")
     public void setA(String a) {
         this.a = a;
     }
+    @com.fasterxml.jackson.annotation.JsonGetter("b")
     public java.math.BigDecimal getB() {
         return this.b;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("b")
     public void setB(java.math.BigDecimal b) {
         this.b = b;
     }

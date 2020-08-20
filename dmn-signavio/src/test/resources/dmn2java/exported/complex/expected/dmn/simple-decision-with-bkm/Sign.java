@@ -53,8 +53,8 @@ public class Sign extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
             // Start decision 'sign'
             long signStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments signArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            signArguments_.put("a2", a2);
-            signArguments_.put("b3", b3);
+            signArguments_.put("A", a2);
+            signArguments_.put("B", b3);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, signArguments_);
 
             // Evaluate decision 'sign'

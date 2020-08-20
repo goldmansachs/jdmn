@@ -53,7 +53,7 @@ public class DecisionDate extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
             // Start decision 'decisionDate'
             long decisionDateStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decisionDateArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            decisionDateArguments_.put("dateInput", dateInput);
+            decisionDateArguments_.put("date input", dateInput);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decisionDateArguments_);
 
             // Evaluate decision 'decisionDate'

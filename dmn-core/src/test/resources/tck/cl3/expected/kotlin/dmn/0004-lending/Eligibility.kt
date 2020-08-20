@@ -40,8 +40,8 @@ class Eligibility(val preBureauAffordability : PreBureauAffordability = PreBurea
             // Start decision 'Eligibility'
             val eligibilityStartTime_ = System.currentTimeMillis()
             val eligibilityArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            eligibilityArguments_.put("applicantData", applicantData)
-            eligibilityArguments_.put("requestedProduct", requestedProduct)
+            eligibilityArguments_.put("ApplicantData", applicantData);
+            eligibilityArguments_.put("RequestedProduct", requestedProduct);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, eligibilityArguments_)
 
             // Apply child decisions

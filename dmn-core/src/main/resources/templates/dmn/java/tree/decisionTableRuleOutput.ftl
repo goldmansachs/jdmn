@@ -16,7 +16,7 @@ package ${javaPackageName};
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "${modelRepository.name(drgElement)}"})
+@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "${transformer.escapeInString(modelRepository.name(drgElement))}"})
 public class ${javaClassName} extends ${transformer.abstractRuleOutputClassName()} {
     <#if modelRepository.isDecisionTableExpression(drgElement)>
     <@addPrivateFields drgElement />
@@ -48,9 +48,12 @@ public class ${javaClassName} extends ${transformer.abstractRuleOutputClassName(
 <#macro addAccessors drgElement>
     <#assign expression = modelRepository.expression(drgElement)>
     <#list expression.output as output>
+    @com.fasterxml.jackson.annotation.JsonGetter("${transformer.escapeInString(transformer.outputClauseName(drgElement, output))}")
     public ${transformer.outputClauseClassName(drgElement, output, output?index)} ${transformer.getter(drgElement, output)} {
         return this.${transformer.outputClauseVariableName(drgElement, output)};
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("${transformer.escapeInString(transformer.outputClauseName(drgElement, output))}")
     public void ${transformer.setter(drgElement, output)}(${transformer.outputClauseClassName(drgElement, output, output?index)} ${transformer.outputClauseVariableName(drgElement, output)}) {
         this.${transformer.outputClauseVariableName(drgElement, output)} = ${transformer.outputClauseVariableName(drgElement, output)};
     }

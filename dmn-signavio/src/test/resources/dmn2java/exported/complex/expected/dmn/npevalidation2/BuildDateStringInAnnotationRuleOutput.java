@@ -9,9 +9,12 @@ public class BuildDateStringInAnnotationRuleOutput extends com.gs.dmn.runtime.Ru
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("buildDateStringInAnnotation")
     public Boolean getBuildDateStringInAnnotation() {
         return this.buildDateStringInAnnotation;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("buildDateStringInAnnotation")
     public void setBuildDateStringInAnnotation(Boolean buildDateStringInAnnotation) {
         this.buildDateStringInAnnotation = buildDateStringInAnnotation;
     }

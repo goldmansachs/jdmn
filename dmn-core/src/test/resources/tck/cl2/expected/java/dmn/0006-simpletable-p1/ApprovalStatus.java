@@ -53,8 +53,8 @@ public class ApprovalStatus extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start decision 'ApprovalStatus'
             long approvalStatusStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments approvalStatusArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            approvalStatusArguments_.put("age", age);
-            approvalStatusArguments_.put("riskCategory", riskCategory);
+            approvalStatusArguments_.put("Age", age);
+            approvalStatusArguments_.put("RiskCategory", riskCategory);
             approvalStatusArguments_.put("isAffordable", isAffordable);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, approvalStatusArguments_);
 
@@ -102,7 +102,7 @@ public class ApprovalStatus extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         ApprovalStatusRuleOutput output_ = new ApprovalStatusRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (numericGreaterEqualThan(age, number("18"))),
             booleanOr((stringEqual(riskCategory, "Medium")), (stringEqual(riskCategory, "Low"))),
             (booleanEqual(isAffordable, Boolean.TRUE))
@@ -135,7 +135,11 @@ public class ApprovalStatus extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         ApprovalStatusRuleOutput output_ = new ApprovalStatusRuleOutput(false);
-        if (Boolean.TRUE == (numericLessThan(age, number("18")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (numericLessThan(age, number("18"))),
+            Boolean.TRUE,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -164,7 +168,11 @@ public class ApprovalStatus extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         ApprovalStatusRuleOutput output_ = new ApprovalStatusRuleOutput(false);
-        if (Boolean.TRUE == (stringEqual(riskCategory, "High"))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            (stringEqual(riskCategory, "High")),
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -193,7 +201,11 @@ public class ApprovalStatus extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         ApprovalStatusRuleOutput output_ = new ApprovalStatusRuleOutput(false);
-        if (Boolean.TRUE == (booleanEqual(isAffordable, Boolean.FALSE))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            (booleanEqual(isAffordable, Boolean.FALSE))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

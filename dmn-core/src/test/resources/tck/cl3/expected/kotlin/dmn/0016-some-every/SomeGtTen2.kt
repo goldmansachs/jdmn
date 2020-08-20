@@ -40,7 +40,7 @@ class SomeGtTen2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             // Start decision 'someGtTen2'
             val someGtTen2StartTime_ = System.currentTimeMillis()
             val someGtTen2Arguments_ = com.gs.dmn.runtime.listener.Arguments()
-            someGtTen2Arguments_.put("priceTable2", priceTable2)
+            someGtTen2Arguments_.put("priceTable2", priceTable2);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, someGtTen2Arguments_)
 
             // Evaluate decision 'someGtTen2'

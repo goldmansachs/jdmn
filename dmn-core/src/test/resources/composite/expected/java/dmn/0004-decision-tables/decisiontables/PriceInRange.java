@@ -54,9 +54,9 @@ public class PriceInRange extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start decision 'priceInRange'
             long priceInRangeStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments priceInRangeArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            priceInRangeArguments_.put("decisioninputs_numB", decisioninputs_numB);
-            priceInRangeArguments_.put("decisioninputs_numC", decisioninputs_numC);
-            priceInRangeArguments_.put("decisioninputs_structA", decisioninputs_structA);
+            priceInRangeArguments_.put("decisionInputs.numB", decisioninputs_numB);
+            priceInRangeArguments_.put("decisionInputs.numC", decisioninputs_numC);
+            priceInRangeArguments_.put("decisionInputs.structA", decisioninputs_structA);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, priceInRangeArguments_);
 
             // Evaluate decision 'priceInRange'
@@ -101,7 +101,9 @@ public class PriceInRange extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         PriceInRangeRuleOutput output_ = new PriceInRangeRuleOutput(false);
-        if (Boolean.TRUE == (booleanAnd(numericGreaterEqualThan(((java.math.BigDecimal)(decisioninputs_structA != null ? decisioninputs_structA.getPrice() : null)), decisioninputs_numB), numericLessEqualThan(((java.math.BigDecimal)(decisioninputs_structA != null ? decisioninputs_structA.getPrice() : null)), decisioninputs_numC)))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (booleanAnd(numericGreaterEqualThan(((java.math.BigDecimal)(decisioninputs_structA != null ? decisioninputs_structA.getPrice() : null)), decisioninputs_numB), numericLessEqualThan(((java.math.BigDecimal)(decisioninputs_structA != null ? decisioninputs_structA.getPrice() : null)), decisioninputs_numC)))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -130,7 +132,9 @@ public class PriceInRange extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         PriceInRangeRuleOutput output_ = new PriceInRangeRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
