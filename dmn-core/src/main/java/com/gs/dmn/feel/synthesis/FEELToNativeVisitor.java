@@ -17,6 +17,7 @@ import com.gs.dmn.feel.analysis.semantics.ReplaceItemFilterVisitor;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.*;
+import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;
@@ -57,11 +58,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
+public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
     private static final int INITIAL_VALUE = -1;
     private int filterCount = INITIAL_VALUE;
 
-    public FEELToJavaVisitor(BasicDMNToNativeTransformer dmnTransformer) {
+    public FEELToNativeVisitor(BasicDMNToNativeTransformer dmnTransformer) {
         super(dmnTransformer);
     }
 
@@ -412,7 +413,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         String leftOpd = (String) leftEndpoint.accept(this, context);
         String rightOpd = (String) rightEndpoint.accept(this, context);
         String feelOperator = "<=";
-        JavaOperator javaOperator = OperatorDecisionTable.javaOperator(feelOperator, leftEndpoint.getType(), rightEndpoint.getType());
+        NativeOperator javaOperator = OperatorDecisionTable.javaOperator(feelOperator, leftEndpoint.getType(), rightEndpoint.getType());
         String c1 = makeCondition(feelOperator, leftOpd, value, javaOperator);
         String c2 = makeCondition(feelOperator, value, rightOpd, javaOperator);
         return String.format("booleanAnd(%s, %s)", c1, c2);
@@ -569,7 +570,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         if (element.getNames().size() == 1) {
             return nameToJava(element.getNames().get(0), context);
         } else {
-            throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+            return handleNotSupportedElement(element);
         }
     }
 
@@ -584,22 +585,22 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     //
     @Override
     public Object visit(NamedTypeExpression element, FEELContext params) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(ListTypeExpression element, FEELContext params) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(ContextTypeExpression element, FEELContext params) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(FunctionTypeExpression element, FEELContext params) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     protected Object nameToJava(String name, FEELContext context) {
@@ -618,7 +619,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         if (inputExpression == null) {
             throw new DMNRuntimeException("Missing inputExpression");
         } else {
-            SimpleExpressionsToJavaVisitor visitor = new SimpleExpressionsToJavaVisitor(this.dmnTransformer);
+            SimpleExpressionsToNativeVisitor visitor = new SimpleExpressionsToNativeVisitor(this.dmnTransformer);
             visitor.init();
             return (String) inputExpression.accept(visitor, context);
         }
@@ -642,5 +643,9 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
             condition = functionalExpression(javaOperator, inputExpression, rightOpd);
         }
         return condition;
+    }
+
+    protected Object handleNotSupportedElement(Element element) {
+        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
 }

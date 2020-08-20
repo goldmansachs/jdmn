@@ -16,20 +16,13 @@ import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
-import com.gs.dmn.feel.analysis.semantics.type.ListType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.ArithmeticNegation;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Exponentiation;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Multiplication;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.comparison.BetweenExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.comparison.InExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.comparison.Relational;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Conjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Disjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
@@ -40,8 +33,8 @@ import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import java.util.List;
 import java.util.stream.Collectors;
 
-class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
-    public SimpleExpressionsToJavaVisitor(BasicDMNToNativeTransformer dmnTransformer) {
+class SimpleExpressionsToNativeVisitor extends FEELToNativeVisitor {
+    public SimpleExpressionsToNativeVisitor(BasicDMNToNativeTransformer dmnTransformer) {
         super(dmnTransformer);
     }
 
@@ -56,17 +49,17 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
 
     @Override
     public Object visit(NegatedPositiveUnaryTests element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(SimplePositiveUnaryTests element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(NegatedSimplePositiveUnaryTests element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
@@ -76,7 +69,7 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
 
     @Override
     public Object visit(NullTest element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
@@ -91,12 +84,12 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
 
     @Override
     public Object visit(RangeTest element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(ListTest element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     //
@@ -104,52 +97,52 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
     //
     @Override
     public Object visit(FunctionDefinition element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(FormalParameter element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(ForExpression element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(Iterator element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(ExpressionIteratorDomain element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(RangeIteratorDomain element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(IfExpression element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(QuantifiedExpression element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(FilterExpression element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(InstanceOfExpression element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     //
@@ -157,7 +150,7 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
     //
     @Override
     public Object visit(ExpressionList element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     //
@@ -165,17 +158,17 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
     //
     @Override
     public Object visit(Conjunction element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(Disjunction element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(LogicNegation element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     //
@@ -183,92 +176,22 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
     //
     @Override
     public Object visit(Relational element, FEELContext context) {
-        Expression leftOperand = element.getLeftOperand();
-        Expression rightOperand = element.getRightOperand();
-        String feelOperator = element.getOperator();
-        return makeCondition(feelOperator, leftOperand, rightOperand, context);
+        return super.visit(element, context);
     }
 
     @Override
     public Object visit(BetweenExpression element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(InExpression element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
-    }
-
-    //
-    // Arithmetic expressions
-    //
-    @Override
-    public Object visit(Addition element, FEELContext context) {
-        Expression leftOperand = element.getLeftOperand();
-        Expression rightOperand = element.getRightOperand();
-        String feelOperator = element.getOperator();
-        return makeCondition(feelOperator, leftOperand, rightOperand, context);
-    }
-
-    @Override
-    public Object visit(Multiplication element, FEELContext context) {
-        Expression leftOperand = element.getLeftOperand();
-        Expression rightOperand = element.getRightOperand();
-        String feelOperator = element.getOperator();
-        return makeCondition(feelOperator, leftOperand, rightOperand, context);
-    }
-
-    @Override
-    public Object visit(Exponentiation element, FEELContext context) {
-        String leftOpd = (String) element.getLeftOperand().accept(this, context);
-        String rightOpd = (String) element.getRightOperand().accept(this, context);
-        return String.format("numericExponentiation(%s, %s)", leftOpd, rightOpd);
-    }
-
-    @Override
-    public Object visit(ArithmeticNegation element, FEELContext context) {
-        Expression leftOperand = element.getLeftOperand();
-        String leftOpd = (String) leftOperand.accept(this, context);
-        return String.format("numericUnaryMinus(%s)", leftOpd);
+        return handleNotSupportedElement(element);
     }
 
     //
     // Primary expressions
     //
-    @Override
-    public Object visit(NumericLiteral element, FEELContext context) {
-        return String.format("number(\"%s\")", element.getLexeme());
-    }
-
-    @Override
-    public Object visit(StringLiteral element, FEELContext context) {
-        return String.format("%s", element.getLexeme());
-    }
-
-    @Override
-    public Object visit(BooleanLiteral element, FEELContext context) {
-        String value = element.getLexeme();
-        return "true".equals(value) ? this.nativeFactory.trueConstant() : this.nativeFactory.falseConstant();
-    }
-
-    @Override
-    public Object visit(DateTimeLiteral element, FEELContext context) {
-        return dateTimeLiteralToJava(element);
-    }
-
-    @Override
-    public Object visit(NullLiteral element, FEELContext context) {
-        return "null";
-    }
-
-    @Override
-    public Object visit(ListLiteral element, FEELContext context) {
-        List<Expression> expressionList = element.getExpressionList();
-        String elements = expressionList.stream().map(e -> (String) e.accept(this, context)).collect(Collectors.joining(", "));
-        Type elementType = ((ListType) element.getType()).getElementType();
-        return dmnTransformer.asList(elementType, elements);
-    }
-
     @Override
     public Object visit(QualifiedName element, FEELContext context) {
         List<String> names = element.getNames();
@@ -286,7 +209,7 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
     public Object visit(Name element, FEELContext context) {
         String name = element.getName();
         String javaName = javaFriendlyVariableName(name);
-        return dmnTransformer.lazyEvaluation(name, javaName);
+        return this.dmnTransformer.lazyEvaluation(name, javaName);
     }
 
     private String makeNavigationPath(Expression element, String sourceName, String memberName, FEELContext params) {
