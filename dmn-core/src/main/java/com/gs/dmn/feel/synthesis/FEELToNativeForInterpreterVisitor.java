@@ -17,8 +17,8 @@ import com.gs.dmn.feel.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
-public class FEELToJavaForInterpreterVisitor extends FEELToJavaVisitor {
-    public FEELToJavaForInterpreterVisitor(BasicDMNToNativeTransformer dmnTransformer) {
+public class FEELToNativeForInterpreterVisitor extends FEELToNativeVisitor {
+    public FEELToNativeForInterpreterVisitor(BasicDMNToNativeTransformer dmnTransformer) {
         super(dmnTransformer);
     }
 

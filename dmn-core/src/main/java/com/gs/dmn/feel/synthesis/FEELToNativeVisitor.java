@@ -58,11 +58,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
+public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
     private static final int INITIAL_VALUE = -1;
     private int filterCount = INITIAL_VALUE;
 
-    public FEELToJavaVisitor(BasicDMNToNativeTransformer dmnTransformer) {
+    public FEELToNativeVisitor(BasicDMNToNativeTransformer dmnTransformer) {
         super(dmnTransformer);
     }
 
@@ -413,7 +413,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         String leftOpd = (String) leftEndpoint.accept(this, context);
         String rightOpd = (String) rightEndpoint.accept(this, context);
         String feelOperator = "<=";
-        JavaOperator javaOperator = OperatorDecisionTable.javaOperator(feelOperator, leftEndpoint.getType(), rightEndpoint.getType());
+        NativeOperator javaOperator = OperatorDecisionTable.javaOperator(feelOperator, leftEndpoint.getType(), rightEndpoint.getType());
         String c1 = makeCondition(feelOperator, leftOpd, value, javaOperator);
         String c2 = makeCondition(feelOperator, value, rightOpd, javaOperator);
         return String.format("booleanAnd(%s, %s)", c1, c2);
@@ -619,7 +619,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         if (inputExpression == null) {
             throw new DMNRuntimeException("Missing inputExpression");
         } else {
-            SimpleExpressionsToJavaVisitor visitor = new SimpleExpressionsToJavaVisitor(this.dmnTransformer);
+            SimpleExpressionsToNativeVisitor visitor = new SimpleExpressionsToNativeVisitor(this.dmnTransformer);
             visitor.init();
             return (String) inputExpression.accept(visitor, context);
         }
