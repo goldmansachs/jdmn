@@ -89,7 +89,6 @@ public class JavaFactory implements NativeFactory {
         return String.format("((%s)(%s)).get(\"%s\", asList())", contextClassName, source, memberName);
     }
 
-
     //
     // Expressions
     //
@@ -365,9 +364,10 @@ public class JavaFactory implements NativeFactory {
     @Override
     public String convertProtoMember(String source, TItemDefinition parent, TItemDefinition member) {
         Type memberType = this.transformer.toFEELType(member);
+        String memberName = this.transformer.protoFieldName(member);
         ProtoBufferFactory protoFactory = this.transformer.getProtoFactory();
         String protoType = protoFactory.qualifiedProtoMessageName(parent);
-        String value = String.format("%s.%s", cast(protoType, source), protoFactory.protoGetter(member.getName(), memberType));
+        String value = String.format("%s.%s", cast(protoType, source), protoFactory.protoGetter(memberName, memberType));
         return extractMemberFromProtoValue(value, memberType);
     }
 
