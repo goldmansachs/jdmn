@@ -32,14 +32,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JavaFactory implements NativeFactory {
-    private final BasicDMNToNativeTransformer transformer;
-    private final ProtoBufferFactory protoFactory;
-    private final NativeTypeFactory typeFactory;
+    protected final BasicDMNToNativeTransformer transformer;
+    protected final ProtoBufferFactory protoFactory;
+    protected final NativeTypeFactory typeFactory;
 
     public JavaFactory(BasicDMNToNativeTransformer transformer) {
         this.transformer = transformer;
         this.protoFactory = transformer.getProtoFactory();
-        typeFactory = transformer.getNativeTypeFactory();
+        this.typeFactory = transformer.getNativeTypeFactory();
     }
 
     //
@@ -226,7 +226,7 @@ public class JavaFactory implements NativeFactory {
                 returnType, signature, parametersAssignment, body);
     }
 
-    private String parametersAssignment(List<FormalParameter> formalParameters, boolean convertTypeToContext) {
+    protected String parametersAssignment(List<FormalParameter> formalParameters, boolean convertTypeToContext) {
         List<String> parameters = new ArrayList<>();
         for(int i = 0; i< formalParameters.size(); i++) {
             FormalParameter p = formalParameters.get(i);
@@ -237,7 +237,7 @@ public class JavaFactory implements NativeFactory {
         return String.join(" ", parameters);
     }
 
-    private String makeLambdaParameterAssignment(String type, String name, int i) {
+    protected String makeLambdaParameterAssignment(String type, String name, int i) {
         return String.format("%s %s = (%s)args[%s];", type, name, type, i);
     }
 
@@ -425,7 +425,7 @@ public class JavaFactory implements NativeFactory {
         return extractMemberFromProtoValue(protoValue, type);
     }
 
-    private String extractMemberFromProtoValue(String protoValue, Type type) {
+    protected String extractMemberFromProtoValue(String protoValue, Type type) {
         if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
             if (type == NumberType.NUMBER) {
                 String qNativeType = this.transformer.getNativeTypeFactory().toQualifiedNativeType(((DataType) type).getName());
@@ -521,19 +521,19 @@ public class JavaFactory implements NativeFactory {
         throw new DMNRuntimeException(String.format("Conversion from '%s' to proto types is not supported yet", type));
     }
 
-    private String toProtoNumber(String value) {
+    protected String toProtoNumber(String value) {
         return String.format("(%s == null ? 0 : %s.doubleValue())", value, value);
     }
 
-    private String toProtoBoolean(String value) {
+    protected String toProtoBoolean(String value) {
         return value;
     }
 
-    private String toProtoString(String value) {
+    protected String toProtoString(String value) {
         return value;
     }
 
-    private String cast(String type, String value) {
+    protected String cast(String type, String value) {
         return String.format("((%s) %s)", type, value);
     }
 
