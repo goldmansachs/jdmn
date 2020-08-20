@@ -486,21 +486,6 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     // Simple statements
     //
     @Override
-    public NopStatement makeNopStatement() {
-        return new NopStatement();
-    }
-
-    @Override
-    public ExpressionStatement makeExpressionStatement(String text, Type type) {
-        return new ExpressionStatement(text, type);
-    }
-
-    @Override
-    public CommentStatement makeCommentStatement(String message) {
-        return new CommentStatement("// " + message);
-    }
-
-    @Override
     public ExpressionStatement makeAssignmentStatement(String nativeType, String variableName, String expression, Type type) {
         return new AssignmentStatement(String.format("var %s: %s = %s", variableName, nativeType, expression), type);
     }
@@ -508,13 +493,5 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     @Override
     public Statement makeReturnStatement(String expression, Type type) {
         return new ReturnStatement(String.format("return %s", expression), type);
-    }
-
-    //
-    // Compound statement
-    //
-    @Override
-    public CompoundStatement makeCompoundStatement() {
-        return new CompoundStatement();
     }
 }
