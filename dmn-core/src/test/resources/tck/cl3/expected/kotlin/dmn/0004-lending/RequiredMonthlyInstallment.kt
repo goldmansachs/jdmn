@@ -40,7 +40,7 @@ class RequiredMonthlyInstallment() : com.gs.dmn.runtime.DefaultDMNBaseDecision()
             // Start decision 'RequiredMonthlyInstallment'
             val requiredMonthlyInstallmentStartTime_ = System.currentTimeMillis()
             val requiredMonthlyInstallmentArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            requiredMonthlyInstallmentArguments_.put("requestedProduct", requestedProduct)
+            requiredMonthlyInstallmentArguments_.put("RequestedProduct", requestedProduct);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, requiredMonthlyInstallmentArguments_)
 
             // Evaluate decision 'RequiredMonthlyInstallment'

@@ -9,9 +9,12 @@ public class DescribeAgesListRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("listDescription")
     public String getListDescription() {
         return this.listDescription;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("listDescription")
     public void setListDescription(String listDescription) {
         this.listDescription = listDescription;
     }

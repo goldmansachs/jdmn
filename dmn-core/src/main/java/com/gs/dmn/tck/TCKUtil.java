@@ -45,6 +45,7 @@ import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
@@ -186,12 +187,8 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         TDRGElement element = info.getReference().getElement();
         if (element == null) {
             throw new DMNRuntimeException(String.format("Cannot find element '%s'", info.getNodeName()));
-        } else if (element instanceof TInputData) {
-            return this.dmnTransformer.inputDataVariableName(info.getReference());
-        } else if (element instanceof TDecision) {
-            return this.dmnTransformer.drgElementVariableName(info.getReference());
         } else {
-            throw new UnsupportedOperationException(String.format("'%s' not supported", element.getClass().getSimpleName()));
+            return this.dmnTransformer.drgElementReferenceVariableName(info.getReference());
         }
     }
 
@@ -247,12 +244,12 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return this.dmnTransformer.qualifiedName(pkg, cls);
     }
 
-    public String drgElementArgumentsExtraCache(String arguments) {
-        return this.dmnTransformer.drgElementArgumentsExtraCache(arguments);
+    public String drgElementArgumentListExtraCache(String arguments) {
+        return this.dmnTransformer.drgElementArgumentListExtraCache(arguments);
     }
 
-    public String drgElementArgumentsExtra(String arguments) {
-        return this.dmnTransformer.drgElementArgumentsExtra(arguments);
+    public String drgElementArgumentListExtra(String arguments) {
+        return this.dmnTransformer.drgElementArgumentListExtra(arguments);
     }
 
     public String drgElementArgumentList(ResultNodeInfo info) {
@@ -332,6 +329,10 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     public String defaultCacheClassName() {
         return this.dmnTransformer.defaultCacheClassName();
+    }
+
+    public String defaultConstructor(String className) {
+        return this.dmnTransformer.defaultConstructor(className);
     }
 
     public boolean isCaching() {
@@ -831,5 +832,55 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             }
         }
         return value;
+    }
+
+    //
+    // Proto section
+    //
+    public boolean isGenerateProto() {
+        return this.dmnTransformer.isGenerateProto();
+    }
+
+    public String qualifiedRequestMessageName(ResultNodeInfo info) {
+        TDecision decision = (TDecision) info.getReference().getElement();
+        return dmnTransformer.getProtoFactory().qualifiedRequestMessageName(decision);
+    }
+
+    public String requestVariableName(ResultNodeInfo info) {
+        TDRGElement element = info.getReference().getElement();
+        return dmnTransformer.namedElementVariableName(element) + "Request_";
+    }
+
+    public String builderVariableName(ResultNodeInfo info) {
+        TDRGElement element = info.getReference().getElement();
+        return dmnTransformer.namedElementVariableName(element) + "Builder_";
+    }
+
+    public List<Pair<String, Type>> drgElementTypeSignature(ResultNodeInfo info) {
+        TDRGElement element = info.getReference().getElement();
+        List<Pair<String, Type>> pairs = this.dmnTransformer.drgElementTypeSignature(element, this.dmnTransformer::nativeName);
+        return pairs;
+    }
+
+    public String protoSetter(Pair<String, Type> pair) {
+        return this.dmnTransformer.getProtoFactory().protoSetter(pair.getLeft(), pair.getRight());
+    }
+
+    public String drgElementArgumentListExtraCacheProto(ResultNodeInfo info) {
+        TDRGElement element = info.getReference().getElement();
+        return this.dmnTransformer.drgElementArgumentListExtraCacheProto(element);
+    }
+
+    public String toNativeExpressionProto(Pair<String, Type> pair) {
+        String inputName = pair.getLeft();
+        Type type = pair.getRight();
+        return this.dmnTransformer.getNativeFactory().convertValueToProtoNativeType(inputName, type);
+    }
+
+    public String protoGetter(ResultNodeInfo info) {
+        TDRGElement element = info.getReference().getElement();
+        Type type = this.dmnTransformer.drgElementOutputFEELType(element);
+        String name = this.dmnTransformer.namedElementVariableName(element);
+        return this.dmnTransformer.getProtoFactory().protoGetter(name, type);
     }
 }

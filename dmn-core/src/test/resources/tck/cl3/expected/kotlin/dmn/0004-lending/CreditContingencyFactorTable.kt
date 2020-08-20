@@ -20,7 +20,7 @@ class CreditContingencyFactorTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start BKM 'CreditContingencyFactorTable'
             val creditContingencyFactorTableStartTime_ = System.currentTimeMillis()
             val creditContingencyFactorTableArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            creditContingencyFactorTableArguments_.put("riskCategory", riskCategory)
+            creditContingencyFactorTableArguments_.put("RiskCategory", riskCategory);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, creditContingencyFactorTableArguments_)
 
             // Evaluate BKM 'CreditContingencyFactorTable'
@@ -66,7 +66,9 @@ class CreditContingencyFactorTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         var output_: CreditContingencyFactorTableRuleOutput = CreditContingencyFactorTableRuleOutput(false)
-        if (true == booleanOr((stringEqual(riskCategory, "HIGH")), (stringEqual(riskCategory, "DECLINE")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            booleanOr((stringEqual(riskCategory, "HIGH")), (stringEqual(riskCategory, "DECLINE")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -94,7 +96,9 @@ class CreditContingencyFactorTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         var output_: CreditContingencyFactorTableRuleOutput = CreditContingencyFactorTableRuleOutput(false)
-        if (true == (stringEqual(riskCategory, "MEDIUM"))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (stringEqual(riskCategory, "MEDIUM"))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -122,7 +126,9 @@ class CreditContingencyFactorTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         var output_: CreditContingencyFactorTableRuleOutput = CreditContingencyFactorTableRuleOutput(false)
-        if (true == booleanOr((stringEqual(riskCategory, "LOW")), (stringEqual(riskCategory, "VERY LOW")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            booleanOr((stringEqual(riskCategory, "LOW")), (stringEqual(riskCategory, "VERY LOW")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 

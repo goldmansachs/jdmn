@@ -61,8 +61,8 @@ public class Eligibility extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start decision 'Eligibility'
             long eligibilityStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments eligibilityArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            eligibilityArguments_.put("applicantData", applicantData);
-            eligibilityArguments_.put("requestedProduct", requestedProduct);
+            eligibilityArguments_.put("ApplicantData", applicantData);
+            eligibilityArguments_.put("RequestedProduct", requestedProduct);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, eligibilityArguments_);
 
             // Apply child decisions

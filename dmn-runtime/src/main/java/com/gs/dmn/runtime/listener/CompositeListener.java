@@ -51,4 +51,9 @@ public class CompositeListener implements EventListener {
     public void endRule(DRGElement element, Rule rule, Object output) {
         eventListeners.forEach(el -> el.endRule(element, rule, output));
     }
+
+    @Override
+    public void matchColumn(Rule rule, int columnIndex, Object result) {
+        eventListeners.forEach(el -> el.matchColumn(rule,columnIndex, result));
+    }
 }

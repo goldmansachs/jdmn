@@ -10,15 +10,21 @@ public class DotProductRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("dotProduct2")
     public java.math.BigDecimal getDotProduct2() {
         return this.dotProduct2;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("dotProduct2")
     public void setDotProduct2(java.math.BigDecimal dotProduct2) {
         this.dotProduct2 = dotProduct2;
     }
+    @com.fasterxml.jackson.annotation.JsonGetter("outputMessage")
     public String getOutputMessage() {
         return this.outputMessage;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("outputMessage")
     public void setOutputMessage(String outputMessage) {
         this.outputMessage = outputMessage;
     }

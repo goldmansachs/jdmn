@@ -23,7 +23,7 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNVersion;
-import com.gs.dmn.transformation.basic.BasicDMN2JavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.DMNEnvironmentFactory;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
@@ -78,7 +78,7 @@ public class TypeRefValidator extends SimpleDMNValidator {
 
     public List<Pair<TDRGElement, Type>> makeErrorReport(DMNModelRepository dmnModelRepository) {
         List<Pair<TDRGElement, Type>> errorReport = new ArrayList<>();
-        BasicDMN2JavaTransformer dmnTransformer = this.dmnDialectDefinition.createBasicTransformer(dmnModelRepository, new NopLazyEvaluationDetector(), new LinkedHashMap<>());
+        BasicDMNToJavaTransformer dmnTransformer = this.dmnDialectDefinition.createBasicTransformer(dmnModelRepository, new NopLazyEvaluationDetector(), new LinkedHashMap<>());
         for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
             List<TDRGElement> drgElements = dmnModelRepository.findDRGElements(definitions);
             for (TDRGElement element: drgElements) {
@@ -94,7 +94,7 @@ public class TypeRefValidator extends SimpleDMNValidator {
         return errorReport;
     }
 
-    private void validate(TDRGElement element, TInformationItem variable, BasicDMN2JavaTransformer dmnTransformer, DMNModelRepository dmnModelRepository, List<Pair<TDRGElement, Type>> errorReport) {
+    private void validate(TDRGElement element, TInformationItem variable, BasicDMNToJavaTransformer dmnTransformer, DMNModelRepository dmnModelRepository, List<Pair<TDRGElement, Type>> errorReport) {
         logger.debug(String.format("Validate element '%s'", element.getName()));
 
         TDefinitions model = dmnModelRepository.getModel(element);
@@ -114,7 +114,7 @@ public class TypeRefValidator extends SimpleDMNValidator {
         }
     }
 
-    private Type inferType(TDRGElement element, BasicDMN2JavaTransformer dmnTransformer, DMNModelRepository dmnModelRepository, DMNEnvironmentFactory dmnEnvironmentFactory) {
+    private Type inferType(TDRGElement element, BasicDMNToJavaTransformer dmnTransformer, DMNModelRepository dmnModelRepository, DMNEnvironmentFactory dmnEnvironmentFactory) {
         Type type = null;
         try {
             QualifiedName typeRef = null;

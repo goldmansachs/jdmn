@@ -61,9 +61,9 @@ public class PostBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDe
             // Start decision 'PostBureauAffordability'
             long postBureauAffordabilityStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments postBureauAffordabilityArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            postBureauAffordabilityArguments_.put("applicantData", applicantData);
-            postBureauAffordabilityArguments_.put("bureauData", bureauData);
-            postBureauAffordabilityArguments_.put("requestedProduct", requestedProduct);
+            postBureauAffordabilityArguments_.put("ApplicantData", applicantData);
+            postBureauAffordabilityArguments_.put("BureauData", bureauData);
+            postBureauAffordabilityArguments_.put("RequestedProduct", requestedProduct);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, postBureauAffordabilityArguments_);
 
             // Apply child decisions

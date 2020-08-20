@@ -13,11 +13,12 @@
 package com.gs.dmn.runtime.listener;
 
 public class Rule {
+    // Rule index starts from 1
     private final int index;
     private final String annotation;
 
     public Rule(int index, String annotation) {
-        this.index = index;
+        this.index = index + 1;
         this.annotation = annotation;
     }
 

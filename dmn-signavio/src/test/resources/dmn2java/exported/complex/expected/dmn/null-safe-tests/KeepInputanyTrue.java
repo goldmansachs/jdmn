@@ -53,7 +53,7 @@ public class KeepInputanyTrue extends com.gs.dmn.signavio.runtime.DefaultSignavi
             // Start decision 'keepInputanyTrue'
             long keepInputanyTrueStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments keepInputanyTrueArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            keepInputanyTrueArguments_.put("booleanAnyTrue_iterator", booleanAnyTrue_iterator);
+            keepInputanyTrueArguments_.put("booleanAnyTrue", booleanAnyTrue_iterator);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, keepInputanyTrueArguments_);
 
             // Evaluate decision 'keepInputanyTrue'

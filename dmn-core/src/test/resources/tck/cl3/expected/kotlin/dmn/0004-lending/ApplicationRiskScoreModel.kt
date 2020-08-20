@@ -20,9 +20,9 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start BKM 'ApplicationRiskScoreModel'
             val applicationRiskScoreModelStartTime_ = System.currentTimeMillis()
             val applicationRiskScoreModelArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            applicationRiskScoreModelArguments_.put("age", age)
-            applicationRiskScoreModelArguments_.put("maritalStatus", maritalStatus)
-            applicationRiskScoreModelArguments_.put("employmentStatus", employmentStatus)
+            applicationRiskScoreModelArguments_.put("Age", age);
+            applicationRiskScoreModelArguments_.put("MaritalStatus", maritalStatus);
+            applicationRiskScoreModelArguments_.put("EmploymentStatus", employmentStatus);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, applicationRiskScoreModelArguments_)
 
             // Evaluate BKM 'ApplicationRiskScoreModel'
@@ -76,7 +76,11 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         var output_: ApplicationRiskScoreModelRuleOutput = ApplicationRiskScoreModelRuleOutput(false)
-        if (true == (booleanAnd(numericGreaterEqualThan(age, number("18")), numericLessEqualThan(age, number("21"))))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (booleanAnd(numericGreaterEqualThan(age, number("18")), numericLessEqualThan(age, number("21")))),
+            true,
+            true
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -104,7 +108,11 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         var output_: ApplicationRiskScoreModelRuleOutput = ApplicationRiskScoreModelRuleOutput(false)
-        if (true == (booleanAnd(numericGreaterEqualThan(age, number("22")), numericLessEqualThan(age, number("25"))))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (booleanAnd(numericGreaterEqualThan(age, number("22")), numericLessEqualThan(age, number("25")))),
+            true,
+            true
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -132,7 +140,11 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         var output_: ApplicationRiskScoreModelRuleOutput = ApplicationRiskScoreModelRuleOutput(false)
-        if (true == (booleanAnd(numericGreaterEqualThan(age, number("26")), numericLessEqualThan(age, number("35"))))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (booleanAnd(numericGreaterEqualThan(age, number("26")), numericLessEqualThan(age, number("35")))),
+            true,
+            true
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -160,7 +172,11 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         var output_: ApplicationRiskScoreModelRuleOutput = ApplicationRiskScoreModelRuleOutput(false)
-        if (true == (booleanAnd(numericGreaterEqualThan(age, number("36")), numericLessEqualThan(age, number("49"))))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (booleanAnd(numericGreaterEqualThan(age, number("36")), numericLessEqualThan(age, number("49")))),
+            true,
+            true
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -188,7 +204,11 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         var output_: ApplicationRiskScoreModelRuleOutput = ApplicationRiskScoreModelRuleOutput(false)
-        if (true == (numericGreaterEqualThan(age, number("50")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (numericGreaterEqualThan(age, number("50"))),
+            true,
+            true
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -216,7 +236,11 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         var output_: ApplicationRiskScoreModelRuleOutput = ApplicationRiskScoreModelRuleOutput(false)
-        if (true == (stringEqual(maritalStatus, "S"))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            true,
+            (stringEqual(maritalStatus, "S")),
+            true
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -244,7 +268,11 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         var output_: ApplicationRiskScoreModelRuleOutput = ApplicationRiskScoreModelRuleOutput(false)
-        if (true == (stringEqual(maritalStatus, "M"))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            true,
+            (stringEqual(maritalStatus, "M")),
+            true
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -272,7 +300,11 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         var output_: ApplicationRiskScoreModelRuleOutput = ApplicationRiskScoreModelRuleOutput(false)
-        if (true == (stringEqual(employmentStatus, "UNEMPLOYED"))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            true,
+            true,
+            (stringEqual(employmentStatus, "UNEMPLOYED"))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -300,7 +332,11 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         var output_: ApplicationRiskScoreModelRuleOutput = ApplicationRiskScoreModelRuleOutput(false)
-        if (true == (stringEqual(employmentStatus, "EMPLOYED"))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            true,
+            true,
+            (stringEqual(employmentStatus, "EMPLOYED"))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -328,7 +364,11 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         var output_: ApplicationRiskScoreModelRuleOutput = ApplicationRiskScoreModelRuleOutput(false)
-        if (true == (stringEqual(employmentStatus, "SELF-EMPLOYED"))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            true,
+            true,
+            (stringEqual(employmentStatus, "SELF-EMPLOYED"))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -356,7 +396,11 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         var output_: ApplicationRiskScoreModelRuleOutput = ApplicationRiskScoreModelRuleOutput(false)
-        if (true == (stringEqual(employmentStatus, "STUDENT"))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            true,
+            true,
+            (stringEqual(employmentStatus, "STUDENT"))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 

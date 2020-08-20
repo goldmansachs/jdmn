@@ -40,8 +40,8 @@ class DateCompare2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             // Start decision 'dateCompare2'
             val dateCompare2StartTime_ = System.currentTimeMillis()
             val dateCompare2Arguments_ = com.gs.dmn.runtime.listener.Arguments()
-            dateCompare2Arguments_.put("dateD", dateD)
-            dateCompare2Arguments_.put("dateE", dateE)
+            dateCompare2Arguments_.put("dateD", dateD);
+            dateCompare2Arguments_.put("dateE", dateE);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, dateCompare2Arguments_)
 
             // Evaluate decision 'dateCompare2'
@@ -86,7 +86,9 @@ class DateCompare2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
         // Apply rule
         var output_: DateCompare2RuleOutput = DateCompare2RuleOutput(false)
-        if (true == (dateGreaterThan(dateD, dateE))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (dateGreaterThan(dateD, dateE))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -114,7 +116,9 @@ class DateCompare2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
         // Apply rule
         var output_: DateCompare2RuleOutput = DateCompare2RuleOutput(false)
-        if (true == (dateLessEqualThan(dateD, dateE))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (dateLessEqualThan(dateD, dateE))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 

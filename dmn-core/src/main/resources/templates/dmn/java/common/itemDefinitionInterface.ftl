@@ -45,15 +45,41 @@ public interface ${javaClassName} extends ${transformer.dmnTypeClassName()} {
             return result_;
         } else if (other instanceof ${transformer.dmnTypeClassName()}) {
             return ${transformer.convertMethodName(itemDefinition)}(((${transformer.dmnTypeClassName()})other).toContext());
+    <#if transformer.isGenerateProto()>
+        } else if (other instanceof ${transformer.qualifiedProtoMessageName(itemDefinition)}) {
+            ${transformer.itemDefinitionNativeClassName(javaClassName)} result_ = ${transformer.defaultConstructor(transformer.itemDefinitionNativeClassName(javaClassName))};
+        <#list itemDefinition.itemComponent as child>
+            result_.${transformer.setter(child)}(${transformer.convertProtoMember("other", itemDefinition, child)});
+        </#list>
+            return result_;
+    </#if>
         } else {
             throw new ${transformer.dmnRuntimeExceptionClassName()}(String.format("Cannot convert '%s' to '%s'", other.getClass().getSimpleName(), ${javaClassName}.class.getSimpleName()));
         }
     }
+    <#if transformer.isGenerateProto()>
+
+    static ${transformer.qualifiedProtoMessageName(itemDefinition)} toProto(${javaClassName} other) {
+        ${transformer.qualifiedProtoMessageName(itemDefinition)}.Builder result_ = ${transformer.qualifiedProtoMessageName(itemDefinition)}.newBuilder();
+    <#list itemDefinition.itemComponent as child>
+        result_.${transformer.protoSetter(child)}(${transformer.convertMemberToProto("other", javaClassName, child)});
+    </#list>
+        return result_.build();
+    }
+
+    static List<${transformer.qualifiedProtoMessageName(itemDefinition)}> toProto(List<${javaClassName}> other) {
+        if (other == null) {
+            return null;
+        } else {
+            return other.stream().map(o -> toProto(o)).collect(java.util.stream.Collectors.toList());
+        }
+    }
+    </#if>
 </#macro>
 
 <#macro addAccessors itemDefinition>
     <#list itemDefinition.itemComponent as child>
-        <#assign memberName = transformer.itemDefinitionVariableName(child)/>
+        <#assign memberName = transformer.namedElementVariableName(child)/>
         <#assign memberType = transformer.itemDefinitionNativeQualifiedInterfaceName(child)/>
     @com.fasterxml.jackson.annotation.JsonGetter("${transformer.escapeInString(modelRepository.displayName(child))}")
     ${memberType} ${transformer.getter(child)};
@@ -65,7 +91,7 @@ public interface ${javaClassName} extends ${transformer.dmnTypeClassName()} {
     default ${transformer.contextClassName()} toContext() {
         ${transformer.contextClassName()} context = ${transformer.defaultConstructor(transformer.contextClassName())};
         <#list itemDefinition.itemComponent as child>
-            <#assign memberName = transformer.itemDefinitionVariableName(child)/>
+            <#assign memberName = transformer.namedElementVariableName(child)/>
             <#assign member = transformer.getter(child)/>
         context.put("${memberName}", ${member});
         </#list>

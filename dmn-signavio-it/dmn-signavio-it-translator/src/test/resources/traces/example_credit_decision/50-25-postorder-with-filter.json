@@ -1,0 +1,83 @@
+[
+  {
+    "element": {
+      "namespace": "com.gs.dmn.generated.example_credit_decision",
+      "name": "makeCreditDecision",
+      "label": "Make credit decision",
+      "elementKind": "DECISION",
+      "expressionKind": "DECISION_TABLE",
+      "hitPolicy": "UNIQUE",
+      "rulesCount": 3
+    },
+    "arguments": {
+      "Applicant": {
+        "Age": 38,
+        "Credit score": 100,
+        "Name": "Amy",
+        "Prior issues": [
+          "Late payment"
+        ]
+      },
+      "Current risk appetite": 50,
+      "Lending threshold": 25
+    },
+    "ruleNodes": [
+      {
+        "rule": {
+          "index": 2,
+          "annotation": "string(\"Error: threshold undefined\")"
+        },
+        "matched": false,
+        "result": {
+          "matched": false,
+          "makeCreditDecision": null
+        },
+        "columnNodes": [
+          {
+            "columnIndex": 1,
+            "result": false
+          },
+          {
+            "columnIndex": 1,
+            "result": false
+          }
+        ]
+      },
+      {
+        "rule": {
+          "index": 2,
+          "annotation": "\"\""
+        },
+        "matched": false,
+        "result": {
+          "matched": false,
+          "makeCreditDecision": null
+        },
+        "columnNodes": [
+          {
+            "columnIndex": 1,
+            "result": false
+          }
+        ]
+      },
+      {
+        "rule": {
+          "index": 3,
+          "annotation": "\"\""
+        },
+        "matched": true,
+        "result": {
+          "matched": true,
+          "makeCreditDecision": "Accept"
+        },
+        "columnNodes": [
+          {
+            "columnIndex": 1,
+            "result": true
+          }
+        ]
+      }
+    ],
+    "children": []
+  }
+]

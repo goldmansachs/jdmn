@@ -22,18 +22,22 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
-import com.gs.dmn.feel.synthesis.expression.NativeExpressionFactory;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.annotation.DRGElementKind;
 import com.gs.dmn.runtime.annotation.ExpressionKind;
 import com.gs.dmn.runtime.annotation.HitPolicy;
-import com.gs.dmn.transformation.java.Statement;
+import com.gs.dmn.transformation.native_.NativeFactory;
+import com.gs.dmn.transformation.native_.statement.Statement;
+import com.gs.dmn.transformation.proto.MessageType;
+import com.gs.dmn.transformation.proto.ProtoBufferFactory;
+import com.gs.dmn.transformation.proto.Service;
 import org.omg.spec.dmn._20180521.model.*;
 
 import javax.xml.bind.JAXBElement;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 public interface BasicDMNToNativeTransformer {
     DMNModelRepository getDMNModelRepository();
@@ -46,11 +50,13 @@ public interface BasicDMNToNativeTransformer {
 
     NativeTypeFactory getNativeTypeFactory();
 
-    NativeExpressionFactory getNativeExpressionFactory();
+    NativeFactory getNativeFactory();
 
     DMNExpressionToNativeTransformer getExpressionToNativeTransformer();
 
     DRGElementFilter getDrgElementFilter();
+
+    ProtoBufferFactory getProtoFactory();
 
     //
     // Configuration
@@ -72,23 +78,19 @@ public interface BasicDMNToNativeTransformer {
 
     String itemDefinitionNativeQualifiedInterfaceName(TItemDefinition itemDefinition);
 
-    String itemDefinitionVariableName(TItemDefinition itemDefinition);
-
     String itemDefinitionSignature(TItemDefinition itemDefinition);
 
     String getter(TItemDefinition itemDefinition);
 
     String setter(TItemDefinition itemDefinition);
 
+    String protoGetter(TItemDefinition itemDefinition);
+
+    String protoSetter(TItemDefinition itemDefinition);
+
     //
     // TInformationItem related functions
     //
-    String informationItemTypeName(TBusinessKnowledgeModel bkm, TInformationItem element);
-
-    String informationItemVariableName(TInformationItem element);
-
-    String parameterVariableName(TInformationItem element);
-
     String defaultConstructor(String className);
 
     String constructor(String className, String arguments);
@@ -100,9 +102,7 @@ public interface BasicDMNToNativeTransformer {
 
     String drgElementClassName(TDRGElement element);
 
-    String drgElementVariableName(DRGElementReference<? extends TDRGElement> reference);
-
-    String drgElementVariableName(TDRGElement element);
+    String drgElementReferenceVariableName(DRGElementReference<? extends TDRGElement> reference);
 
     String drgElementOutputType(DRGElementReference<? extends TDRGElement> reference);
 
@@ -120,6 +120,10 @@ public interface BasicDMNToNativeTransformer {
 
     String annotation(TDRGElement element, String description);
 
+    List<Pair<String, Type>> drgElementTypeSignature(TDRGElement element, Function<Object, String> nameProducer);
+
+    List<Pair<String, Type>> drgElementTypeSignature(DRGElementReference<? extends TDRGElement> reference, Function<Object, String> nameProducer);
+
     String drgElementSignature(TDRGElement element);
 
     String drgElementSignature(DRGElementReference<? extends TDRGElement> reference);
@@ -134,9 +138,11 @@ public interface BasicDMNToNativeTransformer {
 
     List<String> drgElementArgumentNameList(TDRGElement element);
 
+    List<String> drgElementArgumentDisplayNameList(TDRGElement element);
+
     List<String> drgElementArgumentNameList(DRGElementReference<? extends TDRGElement> reference);
 
-    List<String> drgElementArgumentNameList(DRGElementReference<? extends TDRGElement> reference, boolean nativeFriendlyName);
+    List<String> drgElementArgumentDisplayNameList(DRGElementReference<? extends TDRGElement> reference);
 
     boolean shouldGenerateApplyWithConversionFromString(TDRGElement element);
 
@@ -146,13 +152,13 @@ public interface BasicDMNToNativeTransformer {
 
     String drgElementSignatureWithConversionFromString(TDRGElement element);
 
-    String drgElementArgumentsExtraCacheWithConversionFromString(TDRGElement element);
+    String drgElementArgumentListExtraCacheWithConversionFromString(TDRGElement element);
 
-    String drgElementArgumentsExtraCacheWithConvertedArgumentList(TDRGElement element);
+    String drgElementArgumentListExtraCacheWithConvertedArgumentList(TDRGElement element);
 
-    String drgElementDefaultArgumentsExtraCacheWithConversionFromString(TDRGElement element);
+    String drgElementDefaultArgumentListExtraCacheWithConversionFromString(TDRGElement element);
 
-    String drgElementDefaultArgumentsExtraCache(TDRGElement element);
+    String drgElementDefaultArgumentListExtraCache(TDRGElement element);
 
     String drgElementArgumentListWithConversionFromString(TDRGElement element);
 
@@ -161,6 +167,17 @@ public interface BasicDMNToNativeTransformer {
     String decisionConstructorNewArgumentList(TDecision decision);
 
     boolean hasDirectSubDecisions(TDecision decision);
+
+    //
+    // NamedElement functions
+    //
+    String namedElementVariableName(TNamedElement element);
+
+    String elementName(Object obj);
+
+    String displayName(Object obj);
+
+    String nativeName(Object obj);
 
     //
     // Evaluate method related functions
@@ -183,10 +200,6 @@ public interface BasicDMNToNativeTransformer {
     //
     // InputData related functions
     //
-    String inputDataVariableName(DRGElementReference<? extends TDRGElement> reference);
-
-    String inputDataVariableName(TInputData inputData);
-
     Type toFEELType(TInputData inputData);
 
     //
@@ -228,8 +241,6 @@ public interface BasicDMNToNativeTransformer {
 
     List<Pair<String, Type>> inputDataParametersClosure(DRGElementReference<TDecision> reference);
 
-    List<Pair<String, Type>> inputDataParametersClosure(DRGElementReference<TDecision> reference, boolean nativeFriendlyName);
-
     String drgReferenceQualifiedName(DRGElementReference<? extends TDRGElement> reference);
 
     String bindingName(DRGElementReference<? extends TDRGElement> reference);
@@ -253,6 +264,8 @@ public interface BasicDMNToNativeTransformer {
     String pairComparatorClassName();
 
     String argumentsClassName();
+
+    String argumentsVariableName(TDRGElement element);
 
     String dmnTypeClassName();
 
@@ -292,13 +305,13 @@ public interface BasicDMNToNativeTransformer {
 
     String drgElementSignatureExtra(String signature);
 
-    String drgElementArgumentsExtra(DRGElementReference<? extends TDRGElement> reference);
+    String drgElementArgumentListExtra(DRGElementReference<? extends TDRGElement> reference);
 
-    String drgElementArgumentsExtra(TDRGElement element);
+    String drgElementArgumentListExtra(TDRGElement element);
 
-    String drgElementArgumentsExtra(String arguments);
+    String drgElementArgumentListExtra(String arguments);
 
-    String drgElementDefaultArgumentsExtra(String arguments);
+    String drgElementDefaultArgumentListExtra(String arguments);
 
     boolean isCaching();
 
@@ -314,13 +327,13 @@ public interface BasicDMNToNativeTransformer {
 
     String drgElementSignatureExtraCache(String signature);
 
-    String drgElementArgumentsExtraCache(DRGElementReference<? extends TDRGElement> reference);
+    String drgElementArgumentListExtraCache(DRGElementReference<? extends TDRGElement> reference);
 
-    String drgElementArgumentsExtraCache(TDRGElement element);
+    String drgElementArgumentListExtraCache(TDRGElement element);
 
-    String drgElementArgumentsExtraCache(String arguments);
+    String drgElementArgumentListExtraCache(String arguments);
 
-    String drgElementDefaultArgumentsExtraCache(String arguments);
+    String drgElementDefaultArgumentListExtraCache(String arguments);
 
     String drgElementAnnotationClassName();
 
@@ -348,6 +361,8 @@ public interface BasicDMNToNativeTransformer {
     String condition(TDRGElement element, TDecisionRule rule);
 
     String outputEntryToNative(TDRGElement element, TLiteralExpression outputEntryExpression, int outputIndex);
+
+    public String outputClauseName(TDRGElement element, TOutputClause output);
 
     String outputClauseClassName(TDRGElement element, TOutputClause outputClause, int index);
 
@@ -439,6 +454,10 @@ public interface BasicDMNToNativeTransformer {
 
     String toNativeType(Type type);
 
+    String makeListType(String listType, String elementType);
+
+    String makeListType(String listType);
+
     String qualifiedName(String pkg, String name);
 
     String qualifiedName(DRGElementReference<? extends TDRGElement> reference);
@@ -497,4 +516,43 @@ public interface BasicDMNToNativeTransformer {
     boolean isFEELFunction(TFunctionKind kind);
 
     boolean isJavaFunction(TFunctionKind kind);
+
+    //
+    // .proto related functions
+    //
+    boolean isGenerateProto();
+
+    boolean isGenerateProtoMessages();
+
+    boolean isGenerateProtoServices();
+
+    String getProtoVersion();
+
+    String protoPackage(String javaPackageName);
+
+    Pair<Pair<List<MessageType>, List<MessageType>>, List<Service>> dmnToProto(TDefinitions definitions);
+
+    String drgElementSignatureProto(TDRGElement element);
+
+    String drgElementSignatureExtraCacheProto(TDRGElement element);
+
+    String drgElementArgumentListExtraCacheProto(TDRGElement element);
+
+    String drgElementArgumentListProto(TDRGElement element);
+
+    String drgElementDefaultArgumentListExtraCacheProto(TDRGElement element);
+
+    Statement drgElementSignatureProtoBody(TDRGElement element);
+
+    String convertProtoMember(String source, TItemDefinition parent, TItemDefinition child);
+
+    String convertMemberToProto(String source, String sourceType, TItemDefinition child);
+
+    String qualifiedProtoMessageName(TItemDefinition itemDefinition);
+
+    String qualifiedResponseMessageName(TDRGElement element);
+
+    String drgElementOutputTypeProto(TDRGElement element);
+
+    String protoFieldName(TNamedElement element);
 }

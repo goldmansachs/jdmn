@@ -15,7 +15,7 @@ package com.gs.dmn.signavio.transformation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.metadata.*;
-import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMN2JavaTransformer;
+import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.QualifiedName;
 import org.omg.spec.dmn._20180521.model.*;
@@ -47,7 +47,7 @@ public class DMNToManifestTransformer {
                 String id = inputData.getId();
                 String name = inputData.getName();
                 String label = inputData.getLabel();
-                String javaParameterName = dmnTransformer.inputDataVariableName(inputData);
+                String javaParameterName = dmnTransformer.namedElementVariableName(inputData);
                 String javaTypeName = dmnTransformer.drgElementOutputType(inputData);
                 com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(definitions, QualifiedName.toQualifiedName(definitions, inputData.getVariable().getTypeRef()));
                 manifest.addElement(new InputData(id, name, label, javaParameterName, javaTypeName, typeRef));
@@ -68,14 +68,14 @@ public class DMNToManifestTransformer {
                 String id = decision.getId();
                 String name = decision.getName();
                 String label = decision.getLabel();
-                String javaParameterName = dmnTransformer.drgElementVariableName(decision);
-                String javaTypeName = dmnTransformer.qualifiedName(dmnTransformer.nativeModelPackageName(definitions.getName()), dmnTransformer.drgElementClassName(decision));
-                String javaOutputTypeName = dmnTransformer.drgElementOutputType(decision);
+                String nativeParameterName = dmnTransformer.namedElementVariableName(decision);
+                String nativeTypeName = dmnTransformer.qualifiedName(dmnTransformer.nativeModelPackageName(definitions.getName()), dmnTransformer.drgElementClassName(decision));
+                String nativeOutputTypeName = dmnTransformer.drgElementOutputType(decision);
                 com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(definitions, QualifiedName.toQualifiedName(definitions, decision.getVariable().getTypeRef()));
                 List<DRGElementReference> references = makeMetadataInformationReferences(decision);
                 List<DRGElementReference> knowledgeReferences = makeMetadataKnowledgeReferences(decision.getKnowledgeRequirement());
-                List<ExtensionElement> extensions = ((BasicSignavioDMN2JavaTransformer)dmnTransformer).makeMetadataExtensions(decision);
-                com.gs.dmn.runtime.metadata.Decision element = new com.gs.dmn.runtime.metadata.Decision(id, name, label, javaParameterName, javaTypeName, javaOutputTypeName, typeRef, references, knowledgeReferences, extensions);
+                List<ExtensionElement> extensions = ((BasicSignavioDMNToJavaTransformer)dmnTransformer).makeMetadataExtensions(decision);
+                com.gs.dmn.runtime.metadata.Decision element = new com.gs.dmn.runtime.metadata.Decision(id, name, label, nativeParameterName, nativeTypeName, nativeOutputTypeName, typeRef, references, knowledgeReferences, extensions);
                 manifest.addElement(element);
             }
         }

@@ -18,7 +18,7 @@ package ${javaPackageName}
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["bkm.ftl", "${modelRepository.name(drgElement)}"])
+@javax.annotation.Generated(value = ["bkm.ftl", "${transformer.escapeInString(modelRepository.name(drgElement))}"])
 @${transformer.drgElementAnnotationClassName()}(
     namespace = "${javaPackageName}",
     name = "${modelRepository.name(drgElement)}",
@@ -50,7 +50,7 @@ class ${javaClassName} : ${decisionBaseClass} {
         val INSTANCE = ${javaClassName}()
 
         fun ${transformer.bkmFunctionName(drgElement)}(${transformer.drgElementSignatureExtraCache(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
-            return INSTANCE.apply(${transformer.drgElementArgumentsExtraCache(drgElement)})
+            return INSTANCE.apply(${transformer.drgElementArgumentListExtraCache(drgElement)})
         }
     }
 }

@@ -53,13 +53,13 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             // Start decision 'decision'
             long decisionStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decisionArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            decisionArguments_.put("booleanInput", booleanInput);
-            decisionArguments_.put("dateAndTimeInput", dateAndTimeInput);
-            decisionArguments_.put("dateInput", dateInput);
-            decisionArguments_.put("enumerationInput", enumerationInput);
-            decisionArguments_.put("numberInput", numberInput);
-            decisionArguments_.put("textInput", textInput);
-            decisionArguments_.put("timeInput", timeInput);
+            decisionArguments_.put("BooleanInput", booleanInput);
+            decisionArguments_.put("DateAndTimeInput", dateAndTimeInput);
+            decisionArguments_.put("DateInput", dateInput);
+            decisionArguments_.put("EnumerationInput", enumerationInput);
+            decisionArguments_.put("NumberInput", numberInput);
+            decisionArguments_.put("TextInput", textInput);
+            decisionArguments_.put("TimeInput", timeInput);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decisionArguments_);
 
             // Evaluate decision 'decision'
@@ -113,7 +113,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (listEqual(dateInput, asList(date("2016-08-01")))),
             (listEqual(timeInput, asList(time("12:00:00Z")))),
             (listEqual(dateAndTimeInput, asList(dateAndTime("2016-08-01T11:00:00Z")))),
@@ -149,7 +149,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             booleanNot((listEqual(dateInput, asList(date("2016-08-01"))))),
             booleanNot((listEqual(timeInput, asList(time("12:00:00Z"))))),
             booleanNot((listEqual(dateAndTimeInput, asList(dateAndTime("2016-08-01T11:00:00Z"))))),
@@ -185,7 +185,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (elementOf(dateInput, asList(date("2016-08-01"), date("2016-08-02")))),
             (elementOf(timeInput, asList(time("12:00:00Z"), time("13:00:00Z")))),
             (elementOf(dateAndTimeInput, asList(dateAndTime("2016-08-01T11:00:00Z")))),
@@ -221,7 +221,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             booleanNot((notContainsAny(dateInput, asList(date("2016-08-01"), date("2016-08-02"))))),
             booleanNot((notContainsAny(timeInput, asList(time("12:00:00Z"), time("13:00:00Z"))))),
             booleanNot((notContainsAny(dateAndTimeInput, asList(dateAndTime("2016-08-01T11:00:00Z"))))),
@@ -257,7 +257,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (containsOnly(dateInput, asList(date("2016-08-01"), date("2016-08-02")))),
             (containsOnly(timeInput, asList(time("12:00:00Z"), time("13:00:00Z")))),
             (containsOnly(dateAndTimeInput, asList(dateAndTime("2016-08-01T11:00:00Z")))),
@@ -293,10 +293,11 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (notContainsAny(dateInput, asList(date("2016-08-01"), date("2016-08-02")))),
             (notContainsAny(timeInput, asList(time("12:00:00Z"), time("13:00:00Z")))),
             (notContainsAny(dateAndTimeInput, asList(dateAndTime("2016-08-01T11:00:00Z")))),
+            Boolean.TRUE,
             (notContainsAny(textInput, asList("bc"))),
             (notContainsAny(booleanInput, asList(Boolean.FALSE))),
             (notContainsAny(enumerationInput, asList("e2")))
@@ -328,7 +329,15 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -356,7 +365,15 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -384,7 +401,15 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -412,7 +437,15 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -440,7 +473,15 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

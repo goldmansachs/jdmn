@@ -44,8 +44,8 @@ public class ModelCDecisionBasedOnBs extends com.gs.dmn.runtime.DefaultDMNBaseDe
             // Start decision 'ModelCDecisionBasedOnBs'
             long modelCDecisionBasedOnBsStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments modelCDecisionBasedOnBsArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            modelCDecisionBasedOnBsArguments_.put("modelb2_modela_personName", modelb2_modela_personName);
-            modelCDecisionBasedOnBsArguments_.put("modelb_modela_personName", modelb_modela_personName);
+            modelCDecisionBasedOnBsArguments_.put("ModelB2.modelA.PersonName", modelb2_modela_personName);
+            modelCDecisionBasedOnBsArguments_.put("ModelB.modelA.PersonName", modelb_modela_personName);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, modelCDecisionBasedOnBsArguments_);
 
             // Apply child decisions

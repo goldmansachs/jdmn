@@ -972,7 +972,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     private Arguments makeArguments(TDRGElement element, RuntimeEnvironment runtimeEnvironment) {
         Arguments arguments = new Arguments();
         DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
-        List<String> parameters = this.basicDMNTransformer.drgElementArgumentNameList(reference, false);
+        List<String> parameters = this.basicDMNTransformer.drgElementArgumentDisplayNameList(reference);
         parameters.forEach(p -> arguments.put(p, runtimeEnvironment.lookupBinding(p)));
         return arguments;
     }

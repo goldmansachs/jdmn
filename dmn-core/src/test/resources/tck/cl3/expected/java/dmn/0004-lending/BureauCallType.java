@@ -59,7 +59,7 @@ public class BureauCallType extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start decision 'BureauCallType'
             long bureauCallTypeStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments bureauCallTypeArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            bureauCallTypeArguments_.put("applicantData", applicantData);
+            bureauCallTypeArguments_.put("ApplicantData", applicantData);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bureauCallTypeArguments_);
 
             // Apply child decisions

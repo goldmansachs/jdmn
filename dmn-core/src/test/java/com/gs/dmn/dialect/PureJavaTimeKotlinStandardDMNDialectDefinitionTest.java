@@ -17,7 +17,7 @@ import com.gs.dmn.feel.synthesis.type.PureJavaTimeKotlinNativeTypeFactory;
 import com.gs.dmn.runtime.PureJavaTimeDMNBaseDecision;
 import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
 import com.gs.dmn.transformation.DMNToKotlinTransformer;
-import com.gs.dmn.transformation.basic.BasicDMN2KotlinTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToKotlinTransformer;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 
 import java.math.BigDecimal;
@@ -43,7 +43,7 @@ public class PureJavaTimeKotlinStandardDMNDialectDefinitionTest extends Abstract
 
     @Override
     protected String getBasicTransformerClass() {
-        return BasicDMN2KotlinTransformer.class.getName();
+        return BasicDMNToKotlinTransformer.class.getName();
     }
 
     @Override

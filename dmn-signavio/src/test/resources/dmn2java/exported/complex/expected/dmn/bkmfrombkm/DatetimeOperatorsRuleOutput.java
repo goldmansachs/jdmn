@@ -9,9 +9,12 @@ public class DatetimeOperatorsRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("datetimeOperators")
     public String getDatetimeOperators() {
         return this.datetimeOperators;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("datetimeOperators")
     public void setDatetimeOperators(String datetimeOperators) {
         this.datetimeOperators = datetimeOperators;
     }

@@ -309,6 +309,10 @@ public class DMNModelRepository {
         }
     }
 
+    public boolean hasComponents(TItemDefinition itemDefinition) {
+        return !this.isEmpty(itemDefinition.getItemComponent());
+    }
+
     public List<TItemDefinition> sortItemComponent(TItemDefinition itemDefinition) {
         if (itemDefinition == null || itemDefinition.getItemComponent() == null) {
             return new ArrayList<>();
@@ -964,7 +968,14 @@ public class DMNModelRepository {
     }
 
     public String name(TNamedElement element) {
-        return element.getName();
+        String name = null;
+        if (element != null) {
+            name = element.getName();
+        }
+        if (StringUtils.isBlank(name)) {
+            throw new DMNRuntimeException(String.format("Display name cannot be null for element '%s'", element == null ? null : element.getId()));
+        }
+        return name.trim();
     }
 
     public String label(TDMNElement element) {
@@ -977,10 +988,10 @@ public class DMNModelRepository {
         if (StringUtils.isBlank(name)) {
             name = element.getName();
         }
-        if (name == null) {
+        if (StringUtils.isBlank(name)) {
             throw new DMNRuntimeException(String.format("Display name cannot be null for element '%s'", element.getId()));
         }
-        return name;
+        return name.trim();
     }
 
     public String findChildImportName(TDRGElement parent, TDRGElement child) {
@@ -1072,5 +1083,22 @@ public class DMNModelRepository {
 
     protected static boolean hasNamespace(String href) {
         return href != null && href.indexOf('#') > 0;
+    }
+
+    public List<TItemDefinition> compositeItemDefinitions(TDefinitions definitions) {
+        List<TItemDefinition> accumulator = new ArrayList<>();
+        collectCompositeItemDefinitions(definitions.getItemDefinition(), accumulator);
+        return accumulator;
+    }
+
+    private void collectCompositeItemDefinitions(List<TItemDefinition> itemDefinitions, List<TItemDefinition> accumulator) {
+        if (itemDefinitions != null) {
+            for (TItemDefinition itemDefinition: itemDefinitions) {
+                if (hasComponents(itemDefinition)) {
+                    accumulator.add(itemDefinition);
+                    collectCompositeItemDefinitions(itemDefinition.getItemComponent(), accumulator);
+                }
+            }
+        }
     }
 }

@@ -53,7 +53,7 @@ public class ApplicationRiskScore extends com.gs.dmn.runtime.DefaultDMNBaseDecis
             // Start decision 'ApplicationRiskScore'
             long applicationRiskScoreStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments applicationRiskScoreArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            applicationRiskScoreArguments_.put("applicantData", applicantData);
+            applicationRiskScoreArguments_.put("ApplicantData", applicantData);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, applicationRiskScoreArguments_);
 
             // Evaluate decision 'ApplicationRiskScore'

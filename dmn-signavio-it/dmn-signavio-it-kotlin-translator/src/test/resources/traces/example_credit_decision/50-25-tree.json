@@ -1,0 +1,888 @@
+{
+  "element": {
+    "namespace": "com.gs.dmn.generated.example_credit_decision",
+    "name": "generateOutputData",
+    "label": "Generate output data",
+    "elementKind": "DECISION",
+    "expressionKind": "LITERAL_EXPRESSION",
+    "hitPolicy": "UNKNOWN",
+    "rulesCount": -1
+  },
+  "arguments": {
+    "Applicant": {
+      "Age": 38,
+      "Credit score": 100,
+      "Name": "Amy",
+      "Prior issues": [
+        "Late payment"
+      ]
+    },
+    "Current risk appetite": 50,
+    "Lending threshold": 25
+  },
+  "ruleNodes": [],
+  "children": [
+    {
+      "element": {
+        "namespace": "com.gs.dmn.generated.example_credit_decision",
+        "name": "makeCreditDecision",
+        "label": "Make credit decision",
+        "elementKind": "DECISION",
+        "expressionKind": "DECISION_TABLE",
+        "hitPolicy": "UNIQUE",
+        "rulesCount": 3
+      },
+      "arguments": {
+        "Applicant": {
+          "Age": 38,
+          "Credit score": 100,
+          "Name": "Amy",
+          "Prior issues": [
+            "Late payment"
+          ]
+        },
+        "Current risk appetite": 50,
+        "Lending threshold": 25
+      },
+      "ruleNodes": [
+        {
+          "rule": {
+            "index": 2,
+            "annotation": "string(\"Error: threshold undefined\")"
+          },
+          "matched": false,
+          "result": {
+            "matched": false,
+            "makeCreditDecision": null
+          },
+          "columnNodes": [
+            {
+              "columnIndex": 1,
+              "result": false
+            },
+            {
+              "columnIndex": 1,
+              "result": false
+            }
+          ]
+        },
+        {
+          "rule": {
+            "index": 2,
+            "annotation": "\"\""
+          },
+          "matched": false,
+          "result": {
+            "matched": false,
+            "makeCreditDecision": null
+          },
+          "columnNodes": [
+            {
+              "columnIndex": 1,
+              "result": false
+            }
+          ]
+        },
+        {
+          "rule": {
+            "index": 3,
+            "annotation": "\"\""
+          },
+          "matched": true,
+          "result": {
+            "matched": true,
+            "makeCreditDecision": "Accept"
+          },
+          "columnNodes": [
+            {
+              "columnIndex": 1,
+              "result": true
+            }
+          ]
+        }
+      ],
+      "children": [
+        {
+          "element": {
+            "namespace": "com.gs.dmn.generated.example_credit_decision",
+            "name": "compareAgainstLendingThreshold",
+            "label": "Compare against lending threshold",
+            "elementKind": "DECISION",
+            "expressionKind": "DECISION_TABLE",
+            "hitPolicy": "ANY",
+            "rulesCount": 2
+          },
+          "arguments": {
+            "Applicant": {
+              "Age": 38,
+              "Credit score": 100,
+              "Name": "Amy",
+              "Prior issues": [
+                "Late payment"
+              ]
+            },
+            "Current risk appetite": 50,
+            "Lending threshold": 25
+          },
+          "ruleNodes": [
+            {
+              "rule": {
+                "index": 3,
+                "annotation": "\"\""
+              },
+              "matched": true,
+              "result": {
+                "matched": true,
+                "compareAgainstLendingThreshold": 27.50
+              },
+              "columnNodes": [
+                {
+                  "columnIndex": 1,
+                  "result": true
+                }
+              ]
+            },
+            {
+              "rule": {
+                "index": 2,
+                "annotation": "string(\"Error: threshold undefined\")"
+              },
+              "matched": false,
+              "result": {
+                "matched": false,
+                "makeCreditDecision": null
+              },
+              "columnNodes": [
+                {
+                  "columnIndex": 1,
+                  "result": false
+                },
+                {
+                  "columnIndex": 1,
+                  "result": false
+                }
+              ]
+            }
+          ],
+          "children": [
+            {
+              "element": {
+                "namespace": "com.gs.dmn.generated.example_credit_decision",
+                "name": "assessIssueRisk",
+                "label": "Assess issue risk",
+                "elementKind": "DECISION",
+                "expressionKind": "OTHER",
+                "hitPolicy": "UNKNOWN",
+                "rulesCount": -1
+              },
+              "arguments": {
+                "Applicant": {
+                  "Age": 38,
+                  "Credit score": 100,
+                  "Name": "Amy",
+                  "Prior issues": [
+                    "Late payment"
+                  ]
+                },
+                "Current risk appetite": 50
+              },
+              "ruleNodes": [],
+              "children": [
+                {
+                  "element": {
+                    "namespace": "com.gs.dmn.generated.example_credit_decision",
+                    "name": "processPriorIssues",
+                    "label": "Process prior issues",
+                    "elementKind": "DECISION",
+                    "expressionKind": "DECISION_TABLE",
+                    "hitPolicy": "COLLECT",
+                    "rulesCount": 5
+                  },
+                  "arguments": {
+                    "Applicant": {
+                      "Age": 38,
+                      "Credit score": 100,
+                      "Name": "Amy",
+                      "Prior issues": [
+                        "Late payment"
+                      ]
+                    }
+                  },
+                  "ruleNodes": [
+                    {
+                      "rule": {
+                        "index": 1,
+                        "annotation": "\"\""
+                      },
+                      "matched": true,
+                      "result": {
+                        "matched": true,
+                        "processPriorIssues": -10
+                      },
+                      "columnNodes": [
+                        {
+                          "columnIndex": 1,
+                          "result": true
+                        }
+                      ]
+                    },
+                    {
+                      "rule": {
+                        "index": 2,
+                        "annotation": "\"\""
+                      },
+                      "matched": false,
+                      "result": {
+                        "matched": false,
+                        "processPriorIssues": null
+                      },
+                      "columnNodes": [
+                        {
+                          "columnIndex": 1,
+                          "result": false
+                        }
+                      ]
+                    },
+                    {
+                      "rule": {
+                        "index": 3,
+                        "annotation": "\"\""
+                      },
+                      "matched": false,
+                      "result": {
+                        "matched": false,
+                        "processPriorIssues": null
+                      },
+                      "columnNodes": [
+                        {
+                          "columnIndex": 1,
+                          "result": false
+                        }
+                      ]
+                    },
+                    {
+                      "rule": {
+                        "index": 4,
+                        "annotation": "\"\""
+                      },
+                      "matched": false,
+                      "result": {
+                        "matched": false,
+                        "processPriorIssues": null
+                      },
+                      "columnNodes": [
+                        {
+                          "columnIndex": 1,
+                          "result": false
+                        }
+                      ]
+                    },
+                    {
+                      "rule": {
+                        "index": 5,
+                        "annotation": "\"\""
+                      },
+                      "matched": true,
+                      "result": {
+                        "matched": true,
+                        "processPriorIssues": -5
+                      },
+                      "columnNodes": [
+                        {
+                          "columnIndex": 1,
+                          "result": true
+                        }
+                      ]
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "element": {
+                    "namespace": "com.gs.dmn.generated.example_credit_decision",
+                    "name": "assessIssue",
+                    "label": "Assess issue",
+                    "elementKind": "DECISION",
+                    "expressionKind": "LITERAL_EXPRESSION",
+                    "hitPolicy": "UNKNOWN",
+                    "rulesCount": -1
+                  },
+                  "arguments": {
+                    "Current risk appetite": 50,
+                    "Prior issue": -10
+                  },
+                  "ruleNodes": [],
+                  "children": []
+                },
+                {
+                  "element": {
+                    "namespace": "com.gs.dmn.generated.example_credit_decision",
+                    "name": "assessIssue",
+                    "label": "Assess issue",
+                    "elementKind": "DECISION",
+                    "expressionKind": "LITERAL_EXPRESSION",
+                    "hitPolicy": "UNKNOWN",
+                    "rulesCount": -1
+                  },
+                  "arguments": {
+                    "Current risk appetite": 50,
+                    "Prior issue": -5
+                  },
+                  "ruleNodes": [],
+                  "children": []
+                }
+              ]
+            },
+            {
+              "element": {
+                "namespace": "com.gs.dmn.generated.example_credit_decision",
+                "name": "assessApplicantAge",
+                "label": "Assess applicant age",
+                "elementKind": "DECISION",
+                "expressionKind": "DECISION_TABLE",
+                "hitPolicy": "UNIQUE",
+                "rulesCount": 3
+              },
+              "arguments": {
+                "Applicant": {
+                  "Age": 38,
+                  "Credit score": 100,
+                  "Name": "Amy",
+                  "Prior issues": [
+                    "Late payment"
+                  ]
+                }
+              },
+              "ruleNodes": [
+                {
+                  "rule": {
+                    "index": 1,
+                    "annotation": "\"\""
+                  },
+                  "matched": false,
+                  "result": {
+                    "matched": false,
+                    "assessApplicantAge": null
+                  },
+                  "columnNodes": [
+                    {
+                      "columnIndex": 1,
+                      "result": false
+                    }
+                  ]
+                },
+                {
+                  "rule": {
+                    "index": 2,
+                    "annotation": "\"\""
+                  },
+                  "matched": false,
+                  "result": {
+                    "matched": false,
+                    "assessApplicantAge": null
+                  },
+                  "columnNodes": [
+                    {
+                      "columnIndex": 1,
+                      "result": false
+                    }
+                  ]
+                },
+                {
+                  "rule": {
+                    "index": 3,
+                    "annotation": "\"\""
+                  },
+                  "matched": true,
+                  "result": {
+                    "matched": true,
+                    "compareAgainstLendingThreshold": 27.50
+                  },
+                  "columnNodes": [
+                    {
+                      "columnIndex": 1,
+                      "result": true
+                    }
+                  ]
+                }
+              ],
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "element": {
+        "namespace": "com.gs.dmn.generated.example_credit_decision",
+        "name": "compareAgainstLendingThreshold",
+        "label": "Compare against lending threshold",
+        "elementKind": "DECISION",
+        "expressionKind": "DECISION_TABLE",
+        "hitPolicy": "ANY",
+        "rulesCount": 2
+      },
+      "arguments": {
+        "Applicant": {
+          "Age": 38,
+          "Credit score": 100,
+          "Name": "Amy",
+          "Prior issues": [
+            "Late payment"
+          ]
+        },
+        "Current risk appetite": 50,
+        "Lending threshold": 25
+      },
+      "ruleNodes": [
+        {
+          "rule": {
+            "index": 3,
+            "annotation": "\"\""
+          },
+          "matched": true,
+          "result": {
+            "matched": true,
+            "compareAgainstLendingThreshold": 27.50
+          },
+          "columnNodes": [
+            {
+              "columnIndex": 1,
+              "result": true
+            }
+          ]
+        },
+        {
+          "rule": {
+            "index": 2,
+            "annotation": "string(\"Error: threshold undefined\")"
+          },
+          "matched": false,
+          "result": {
+            "matched": false,
+            "compareAgainstLendingThreshold": null
+          },
+          "columnNodes": [
+            {
+              "columnIndex": 1,
+              "result": false
+            }
+          ]
+        }
+      ],
+      "children": [
+        {
+          "element": {
+            "namespace": "com.gs.dmn.generated.example_credit_decision",
+            "name": "assessIssueRisk",
+            "label": "Assess issue risk",
+            "elementKind": "DECISION",
+            "expressionKind": "OTHER",
+            "hitPolicy": "UNKNOWN",
+            "rulesCount": -1
+          },
+          "arguments": {
+            "Applicant": {
+              "Age": 38,
+              "Credit score": 100,
+              "Name": "Amy",
+              "Prior issues": [
+                "Late payment"
+              ]
+            },
+            "Current risk appetite": 50
+          },
+          "ruleNodes": [],
+          "children": [
+            {
+              "element": {
+                "namespace": "com.gs.dmn.generated.example_credit_decision",
+                "name": "processPriorIssues",
+                "label": "Process prior issues",
+                "elementKind": "DECISION",
+                "expressionKind": "DECISION_TABLE",
+                "hitPolicy": "COLLECT",
+                "rulesCount": 5
+              },
+              "arguments": {
+                "Applicant": {
+                  "Age": 38,
+                  "Credit score": 100,
+                  "Name": "Amy",
+                  "Prior issues": [
+                    "Late payment"
+                  ]
+                }
+              },
+              "ruleNodes": [
+                {
+                  "rule": {
+                    "index": 1,
+                    "annotation": "\"\""
+                  },
+                  "matched": true,
+                  "result": {
+                    "matched": true,
+                    "processPriorIssues": -10
+                  },
+                  "columnNodes": [
+                    {
+                      "columnIndex": 1,
+                      "result": true
+                    }
+                  ]
+                },
+                {
+                  "rule": {
+                    "index": 2,
+                    "annotation": "\"\""
+                  },
+                  "matched": false,
+                  "result": {
+                    "matched": false,
+                    "processPriorIssues": null
+                  },
+                  "columnNodes": [
+                    {
+                      "columnIndex": 1,
+                      "result": false
+                    }
+                  ]
+                },
+                {
+                  "rule": {
+                    "index": 3,
+                    "annotation": "\"\""
+                  },
+                  "matched": false,
+                  "result": {
+                    "matched": false,
+                    "processPriorIssues": null
+                  },
+                  "columnNodes": [
+                    {
+                      "columnIndex": 1,
+                      "result": false
+                    }
+                  ]
+                },
+                {
+                  "rule": {
+                    "index": 4,
+                    "annotation": "\"\""
+                  },
+                  "matched": false,
+                  "result": {
+                    "matched": false,
+                    "processPriorIssues": null
+                  },
+                  "columnNodes": [
+                    {
+                      "columnIndex": 1,
+                      "result": false
+                    }
+                  ]
+                },
+                {
+                  "rule": {
+                    "index": 5,
+                    "annotation": "\"\""
+                  },
+                  "matched": true,
+                  "result": {
+                    "matched": true,
+                    "processPriorIssues": -5
+                  },
+                  "columnNodes": [
+                    {
+                      "columnIndex": 1,
+                      "result": true
+                    }
+                  ]
+                }
+              ],
+              "children": []
+            },
+            {
+              "element": {
+                "namespace": "com.gs.dmn.generated.example_credit_decision",
+                "name": "assessIssue",
+                "label": "Assess issue",
+                "elementKind": "DECISION",
+                "expressionKind": "LITERAL_EXPRESSION",
+                "hitPolicy": "UNKNOWN",
+                "rulesCount": -1
+              },
+              "arguments": {
+                "Current risk appetite": 50,
+                "Prior issue": -10
+              },
+              "ruleNodes": [],
+              "children": []
+            },
+            {
+              "element": {
+                "namespace": "com.gs.dmn.generated.example_credit_decision",
+                "name": "assessIssue",
+                "label": "Assess issue",
+                "elementKind": "DECISION",
+                "expressionKind": "LITERAL_EXPRESSION",
+                "hitPolicy": "UNKNOWN",
+                "rulesCount": -1
+              },
+              "arguments": {
+                "Current risk appetite": 50,
+                "Prior issue": -5
+              },
+              "ruleNodes": [],
+              "children": []
+            }
+          ]
+        },
+        {
+          "element": {
+            "namespace": "com.gs.dmn.generated.example_credit_decision",
+            "name": "assessApplicantAge",
+            "label": "Assess applicant age",
+            "elementKind": "DECISION",
+            "expressionKind": "DECISION_TABLE",
+            "hitPolicy": "UNIQUE",
+            "rulesCount": 3
+          },
+          "arguments": {
+            "Applicant": {
+              "Age": 38,
+              "Credit score": 100,
+              "Name": "Amy",
+              "Prior issues": [
+                "Late payment"
+              ]
+            }
+          },
+          "ruleNodes": [
+            {
+              "rule": {
+                "index": 1,
+                "annotation": "\"\""
+              },
+              "matched": false,
+              "result": {
+                "matched": false,
+                "assessApplicantAge": null
+              },
+              "columnNodes": [
+                {
+                  "columnIndex": 1,
+                  "result": false
+                }
+              ]
+            },
+            {
+              "rule": {
+                "index": 2,
+                "annotation": "\"\""
+              },
+              "matched": false,
+              "result": {
+                "matched": false,
+                "assessApplicantAge": null
+              },
+              "columnNodes": [
+                {
+                  "columnIndex": 1,
+                  "result": false
+                }
+              ]
+            },
+            {
+              "rule": {
+                "index": 3,
+                "annotation": "\"\""
+              },
+              "matched": true,
+              "result": {
+                "matched": true,
+                "compareAgainstLendingThreshold": 27.50
+              },
+              "columnNodes": [
+                {
+                  "columnIndex": 1,
+                  "result": true
+                }
+              ]
+            }
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "element": {
+        "namespace": "com.gs.dmn.generated.example_credit_decision",
+        "name": "assessIssueRisk",
+        "label": "Assess issue risk",
+        "elementKind": "DECISION",
+        "expressionKind": "OTHER",
+        "hitPolicy": "UNKNOWN",
+        "rulesCount": -1
+      },
+      "arguments": {
+        "Applicant": {
+          "Age": 38,
+          "Credit score": 100,
+          "Name": "Amy",
+          "Prior issues": [
+            "Late payment"
+          ]
+        },
+        "Current risk appetite": 50
+      },
+      "ruleNodes": [],
+      "children": [
+        {
+          "element": {
+            "namespace": "com.gs.dmn.generated.example_credit_decision",
+            "name": "processPriorIssues",
+            "label": "Process prior issues",
+            "elementKind": "DECISION",
+            "expressionKind": "DECISION_TABLE",
+            "hitPolicy": "COLLECT",
+            "rulesCount": 5
+          },
+          "arguments": {
+            "Applicant": {
+              "Age": 38,
+              "Credit score": 100,
+              "Name": "Amy",
+              "Prior issues": [
+                "Late payment"
+              ]
+            }
+          },
+          "ruleNodes": [
+            {
+              "rule": {
+                "index": 1,
+                "annotation": "\"\""
+              },
+              "matched": true,
+              "result": {
+                "matched": true,
+                "processPriorIssues": -10
+              },
+              "columnNodes": [
+                {
+                  "columnIndex": 1,
+                  "result": true
+                }
+              ]
+            },
+            {
+              "rule": {
+                "index": 2,
+                "annotation": "\"\""
+              },
+              "matched": false,
+              "result": {
+                "matched": false,
+                "processPriorIssues": null
+              },
+              "columnNodes": [
+                {
+                  "columnIndex": 1,
+                  "result": false
+                }
+              ]
+            },
+            {
+              "rule": {
+                "index": 3,
+                "annotation": "\"\""
+              },
+              "matched": false,
+              "result": {
+                "matched": false,
+                "processPriorIssues": null
+              },
+              "columnNodes": [
+                {
+                  "columnIndex": 1,
+                  "result": false
+                }
+              ]
+            },
+            {
+              "rule": {
+                "index": 4,
+                "annotation": "\"\""
+              },
+              "matched": false,
+              "result": {
+                "matched": false,
+                "processPriorIssues": null
+              },
+              "columnNodes": [
+                {
+                  "columnIndex": 1,
+                  "result": false
+                }
+              ]
+            },
+            {
+              "rule": {
+                "index": 5,
+                "annotation": "\"\""
+              },
+              "matched": true,
+              "result": {
+                "matched": true,
+                "processPriorIssues": -5
+              },
+              "columnNodes": [
+                {
+                  "columnIndex": 1,
+                  "result": true
+                }
+              ]
+            }
+          ],
+          "children": []
+        },
+        {
+          "element": {
+            "namespace": "com.gs.dmn.generated.example_credit_decision",
+            "name": "assessIssue",
+            "label": "Assess issue",
+            "elementKind": "DECISION",
+            "expressionKind": "LITERAL_EXPRESSION",
+            "hitPolicy": "UNKNOWN",
+            "rulesCount": -1
+          },
+          "arguments": {
+            "Current risk appetite": 50,
+            "Prior issue": -10
+          },
+          "ruleNodes": [],
+          "children": []
+        },
+        {
+          "element": {
+            "namespace": "com.gs.dmn.generated.example_credit_decision",
+            "name": "assessIssue",
+            "label": "Assess issue",
+            "elementKind": "DECISION",
+            "expressionKind": "LITERAL_EXPRESSION",
+            "hitPolicy": "UNKNOWN",
+            "rulesCount": -1
+          },
+          "arguments": {
+            "Current risk appetite": 50,
+            "Prior issue": -5
+          },
+          "ruleNodes": [],
+          "children": []
+        }
+      ]
+    }
+  ]
+}

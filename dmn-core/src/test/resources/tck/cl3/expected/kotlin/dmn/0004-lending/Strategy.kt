@@ -40,8 +40,8 @@ class Strategy(val bureauCallType : BureauCallType = BureauCallType(), val eligi
             // Start decision 'Strategy'
             val strategyStartTime_ = System.currentTimeMillis()
             val strategyArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            strategyArguments_.put("applicantData", applicantData)
-            strategyArguments_.put("requestedProduct", requestedProduct)
+            strategyArguments_.put("ApplicantData", applicantData);
+            strategyArguments_.put("RequestedProduct", requestedProduct);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, strategyArguments_)
 
             // Apply child decisions
@@ -91,7 +91,10 @@ class Strategy(val bureauCallType : BureauCallType = BureauCallType(), val eligi
 
         // Apply rule
         var output_: StrategyRuleOutput = StrategyRuleOutput(false)
-        if (true == (stringEqual(eligibility, "INELIGIBLE"))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (stringEqual(eligibility, "INELIGIBLE")),
+            true
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -119,7 +122,7 @@ class Strategy(val bureauCallType : BureauCallType = BureauCallType(), val eligi
 
         // Apply rule
         var output_: StrategyRuleOutput = StrategyRuleOutput(false)
-        if (true == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (stringEqual(eligibility, "ELIGIBLE")),
             booleanOr((stringEqual(bureauCallType, "FULL")), (stringEqual(bureauCallType, "MINI")))
         )) {
@@ -150,7 +153,7 @@ class Strategy(val bureauCallType : BureauCallType = BureauCallType(), val eligi
 
         // Apply rule
         var output_: StrategyRuleOutput = StrategyRuleOutput(false)
-        if (true == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (stringEqual(eligibility, "ELIGIBLE")),
             (stringEqual(bureauCallType, "NONE"))
         )) {

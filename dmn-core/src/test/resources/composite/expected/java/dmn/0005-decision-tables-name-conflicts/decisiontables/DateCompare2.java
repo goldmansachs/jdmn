@@ -54,8 +54,8 @@ public class DateCompare2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start decision 'dateCompare2'
             long dateCompare2StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments dateCompare2Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            dateCompare2Arguments_.put("decisioninputs1_dateD", decisioninputs1_dateD);
-            dateCompare2Arguments_.put("decisioninputs2_dateD", decisioninputs2_dateD);
+            dateCompare2Arguments_.put("decisionInputs1.dateD", decisioninputs1_dateD);
+            dateCompare2Arguments_.put("decisionInputs2.dateD", decisioninputs2_dateD);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, dateCompare2Arguments_);
 
             // Evaluate decision 'dateCompare2'
@@ -100,7 +100,9 @@ public class DateCompare2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         DateCompare2RuleOutput output_ = new DateCompare2RuleOutput(false);
-        if (Boolean.TRUE == (dateGreaterThan(decisioninputs1_dateD, decisioninputs2_dateD))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (dateGreaterThan(decisioninputs1_dateD, decisioninputs2_dateD))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -128,7 +130,9 @@ public class DateCompare2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Apply rule
         DateCompare2RuleOutput output_ = new DateCompare2RuleOutput(false);
-        if (Boolean.TRUE == (dateLessEqualThan(decisioninputs1_dateD, decisioninputs2_dateD))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (dateLessEqualThan(decisioninputs1_dateD, decisioninputs2_dateD))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

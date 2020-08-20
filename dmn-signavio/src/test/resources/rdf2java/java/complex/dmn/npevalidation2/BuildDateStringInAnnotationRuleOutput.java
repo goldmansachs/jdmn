@@ -9,9 +9,12 @@ public class BuildDateStringInAnnotationRuleOutput extends com.gs.dmn.runtime.Ru
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("allDefined")
     public Boolean getAllDefined() {
         return this.allDefined;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("allDefined")
     public void setAllDefined(Boolean allDefined) {
         this.allDefined = allDefined;
     }

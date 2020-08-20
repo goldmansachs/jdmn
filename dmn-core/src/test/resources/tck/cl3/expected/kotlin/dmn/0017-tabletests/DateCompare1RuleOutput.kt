@@ -1,6 +1,7 @@
 
 @javax.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "dateCompare1"])
 class DateCompare1RuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput(matched) {
+    @com.fasterxml.jackson.annotation.JsonProperty("dateCompare1")
     var dateCompare1: Boolean? = null
 
     override fun equals(o: Any?): Boolean {

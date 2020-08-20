@@ -9,9 +9,12 @@ public class CompareListsRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("compareLists")
     public java.math.BigDecimal getCompareLists() {
         return this.compareLists;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("compareLists")
     public void setCompareLists(java.math.BigDecimal compareLists) {
         this.compareLists = compareLists;
     }

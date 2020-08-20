@@ -20,7 +20,7 @@ class FACT : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start BKM 'FACT'
             val fACTStartTime_ = System.currentTimeMillis()
             val fACTArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            fACTArguments_.put("n", n)
+            fACTArguments_.put("n", n);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fACTArguments_)
 
             // Evaluate BKM 'FACT'

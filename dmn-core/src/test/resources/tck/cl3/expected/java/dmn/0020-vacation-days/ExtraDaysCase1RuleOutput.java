@@ -9,9 +9,12 @@ public class ExtraDaysCase1RuleOutput extends com.gs.dmn.runtime.RuleOutput {
         super(matched);
     }
 
+    @com.fasterxml.jackson.annotation.JsonGetter("ExtraDaysCase1")
     public java.math.BigDecimal getExtraDaysCase1() {
         return this.extraDaysCase1;
     }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("ExtraDaysCase1")
     public void setExtraDaysCase1(java.math.BigDecimal extraDaysCase1) {
         this.extraDaysCase1 = extraDaysCase1;
     }

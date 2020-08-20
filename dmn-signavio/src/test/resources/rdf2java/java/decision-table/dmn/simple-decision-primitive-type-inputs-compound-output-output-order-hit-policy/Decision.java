@@ -53,8 +53,8 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             // Start decision 'decision'
             long decisionStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decisionArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            decisionArguments_.put("numberInput", numberInput);
-            decisionArguments_.put("textInput", textInput);
+            decisionArguments_.put("NumberInput", numberInput);
+            decisionArguments_.put("TextInput", textInput);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decisionArguments_);
 
             // Evaluate decision 'decision'
@@ -104,7 +104,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (numericEqual(numberInput, number("1"))),
             (stringEqual(textInput, "1"))
         )) {
@@ -138,7 +138,10 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == (numericEqual(numberInput, number("1")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (numericEqual(numberInput, number("1"))),
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -169,7 +172,10 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == (stringEqual(textInput, "1"))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            (stringEqual(textInput, "1"))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -200,7 +206,10 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

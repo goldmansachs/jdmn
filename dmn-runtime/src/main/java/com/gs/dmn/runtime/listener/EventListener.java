@@ -22,4 +22,6 @@ public interface EventListener {
     void matchRule(DRGElement element, Rule rule);
 
     void endRule(DRGElement element, Rule rule, Object result);
+
+    void matchColumn(Rule rule, int columnIndex, Object result);
 }

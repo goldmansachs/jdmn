@@ -37,11 +37,11 @@ public class AffordabilityCalculation extends com.gs.dmn.runtime.DefaultDMNBaseD
             // Start BKM 'AffordabilityCalculation'
             long affordabilityCalculationStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments affordabilityCalculationArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            affordabilityCalculationArguments_.put("monthlyIncome", monthlyIncome);
-            affordabilityCalculationArguments_.put("monthlyRepayments", monthlyRepayments);
-            affordabilityCalculationArguments_.put("monthlyExpenses", monthlyExpenses);
-            affordabilityCalculationArguments_.put("riskCategory", riskCategory);
-            affordabilityCalculationArguments_.put("requiredMonthlyInstallment", requiredMonthlyInstallment);
+            affordabilityCalculationArguments_.put("MonthlyIncome", monthlyIncome);
+            affordabilityCalculationArguments_.put("MonthlyRepayments", monthlyRepayments);
+            affordabilityCalculationArguments_.put("MonthlyExpenses", monthlyExpenses);
+            affordabilityCalculationArguments_.put("RiskCategory", riskCategory);
+            affordabilityCalculationArguments_.put("RequiredMonthlyInstallment", requiredMonthlyInstallment);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, affordabilityCalculationArguments_);
 
             // Evaluate BKM 'AffordabilityCalculation'

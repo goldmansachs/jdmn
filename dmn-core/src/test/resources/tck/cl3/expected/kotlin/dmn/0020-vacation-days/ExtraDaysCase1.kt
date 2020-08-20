@@ -40,8 +40,8 @@ class ExtraDaysCase1() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             // Start decision 'ExtraDaysCase1'
             val extraDaysCase1StartTime_ = System.currentTimeMillis()
             val extraDaysCase1Arguments_ = com.gs.dmn.runtime.listener.Arguments()
-            extraDaysCase1Arguments_.put("age", age)
-            extraDaysCase1Arguments_.put("yearsOfService", yearsOfService)
+            extraDaysCase1Arguments_.put("Age", age);
+            extraDaysCase1Arguments_.put("YearsOfService", yearsOfService);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, extraDaysCase1Arguments_)
 
             // Evaluate decision 'ExtraDaysCase1'
@@ -86,7 +86,10 @@ class ExtraDaysCase1() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
         // Apply rule
         var output_: ExtraDaysCase1RuleOutput = ExtraDaysCase1RuleOutput(false)
-        if (true == booleanOr((numericLessThan(age, number("18"))), (numericGreaterEqualThan(age, number("60"))))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            booleanOr((numericLessThan(age, number("18"))), (numericGreaterEqualThan(age, number("60")))),
+            true
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 
@@ -114,7 +117,10 @@ class ExtraDaysCase1() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
         // Apply rule
         var output_: ExtraDaysCase1RuleOutput = ExtraDaysCase1RuleOutput(false)
-        if (true == (numericGreaterEqualThan(yearsOfService, number("30")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            true,
+            (numericGreaterEqualThan(yearsOfService, number("30")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
 

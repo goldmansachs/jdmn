@@ -89,14 +89,14 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
         } else if (sourceType instanceof ItemDefinitionType) {
             Type memberType = ((ItemDefinitionType) sourceType).getMemberType(memberName);
             String javaType = dmnTransformer.toNativeType(memberType);
-            return this.nativeExpressionFactory.makeItemDefinitionAccessor(javaType, source, memberName);
+            return this.nativeFactory.makeItemDefinitionAccessor(javaType, source, memberName);
         } else if (sourceType instanceof ContextType) {
             Type memberType = ((ContextType) sourceType).getMemberType(memberName);
             String javaType = dmnTransformer.toNativeType(memberType);
-            return this.nativeExpressionFactory.makeContextAccessor(javaType, source, memberName);
+            return this.nativeFactory.makeContextAccessor(javaType, source, memberName);
         } else if (sourceType instanceof ListType) {
             String filter = makeNavigation(element, ((ListType) sourceType).getElementType(), "x", memberName, memberVariableName);
-            return this.nativeExpressionFactory.makeCollectionMap(source, filter);
+            return this.nativeFactory.makeCollectionMap(source, filter);
         } else if (sourceType instanceof DateType) {
             return String.format("%s(%s)", javaMemberFunctionName(memberName), source);
         } else if (sourceType instanceof TimeType) {
@@ -107,7 +107,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
             return String.format("%s(%s)", javaMemberFunctionName(memberName), source);
         } else if (sourceType instanceof AnyType) {
             // source is Context
-            return this.nativeExpressionFactory.makeContextSelectExpression(dmnTransformer.contextClassName(), source, memberName);
+            return this.nativeFactory.makeContextSelectExpression(dmnTransformer.contextClassName(), source, memberName);
         } else {
             throw new SemanticError(element, String.format("Cannot generate navigation path '%s'", element.toString()));
         }

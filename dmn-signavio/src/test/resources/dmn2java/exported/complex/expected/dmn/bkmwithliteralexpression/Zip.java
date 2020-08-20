@@ -64,12 +64,12 @@ public class Zip extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
             long zipStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments zipArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             zipArguments_.put("blacklist", blacklist);
-            zipArguments_.put("listOfNumbers", listOfNumbers);
+            zipArguments_.put("ListOfNumbers", listOfNumbers);
             zipArguments_.put("names", names);
             zipArguments_.put("rgb1", rgb1);
-            zipArguments_.put("rgb1List", rgb1List);
+            zipArguments_.put("rgb1 list", rgb1List);
             zipArguments_.put("rgb2", rgb2);
-            zipArguments_.put("rgb2List", rgb2List);
+            zipArguments_.put("rgb2 list", rgb2List);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, zipArguments_);
 
             // Apply child decisions

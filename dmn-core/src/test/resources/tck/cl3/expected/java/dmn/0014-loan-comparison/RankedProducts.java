@@ -59,7 +59,7 @@ public class RankedProducts extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start decision 'RankedProducts'
             long rankedProductsStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments rankedProductsArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            rankedProductsArguments_.put("requestedAmt", requestedAmt);
+            rankedProductsArguments_.put("RequestedAmt", requestedAmt);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, rankedProductsArguments_);
 
             // Apply child decisions

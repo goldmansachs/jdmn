@@ -53,8 +53,8 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             // Start decision 'decision'
             long decisionStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decisionArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            decisionArguments_.put("employed", employed);
-            decisionArguments_.put("person", person);
+            decisionArguments_.put("Employed", employed);
+            decisionArguments_.put("Person", person);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decisionArguments_);
 
             // Evaluate decision 'decision'
@@ -101,7 +101,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
-        if (Boolean.TRUE == booleanAnd(
+        if (ruleMatches(eventListener_, drgRuleMetadata,
             (numericEqual(((java.math.BigDecimal)(person != null ? person.getId() : null)), number("4"))),
             (stringEqual(((String)(person != null ? person.getFirstName() : null)), "Peter")),
             (stringEqual(((String)(person != null ? person.getLastName() : null)), "Sellers")),

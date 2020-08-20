@@ -105,7 +105,9 @@ public class Comparator extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
 
         // Apply rule
         ComparatorRuleOutput output_ = new ComparatorRuleOutput(false);
-        if (Boolean.TRUE == (numericGreaterThan(numberA, number("0")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (numericGreaterThan(numberA, number("0")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -133,7 +135,9 @@ public class Comparator extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
 
         // Apply rule
         ComparatorRuleOutput output_ = new ComparatorRuleOutput(false);
-        if (Boolean.TRUE == (numericLessThan(numberA, number("0")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (numericLessThan(numberA, number("0")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -161,7 +165,9 @@ public class Comparator extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
 
         // Apply rule
         ComparatorRuleOutput output_ = new ComparatorRuleOutput(false);
-        if (Boolean.TRUE == (numericGreaterEqualThan(numberA, number("2")))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (numericGreaterEqualThan(numberA, number("2")))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -189,7 +195,9 @@ public class Comparator extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
 
         // Apply rule
         ComparatorRuleOutput output_ = new ComparatorRuleOutput(false);
-        if (Boolean.TRUE == (numericLessEqualThan(numberA, numericUnaryMinus(number("2"))))) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (numericLessEqualThan(numberA, numericUnaryMinus(number("2"))))
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -217,7 +225,9 @@ public class Comparator extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
 
         // Apply rule
         ComparatorRuleOutput output_ = new ComparatorRuleOutput(false);
-        if (Boolean.TRUE == Boolean.TRUE) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            Boolean.TRUE
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 
@@ -245,7 +255,9 @@ public class Comparator extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
 
         // Apply rule
         ComparatorRuleOutput output_ = new ComparatorRuleOutput(false);
-        if (Boolean.TRUE == (numberA == null)) {
+        if (ruleMatches(eventListener_, drgRuleMetadata,
+            (numberA == null)
+        )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
 

@@ -40,8 +40,8 @@ class MonthlyPayment() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             // Start decision 'MonthlyPayment'
             val monthlyPaymentStartTime_ = System.currentTimeMillis()
             val monthlyPaymentArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            monthlyPaymentArguments_.put("loan", loan)
-            monthlyPaymentArguments_.put("fee", fee)
+            monthlyPaymentArguments_.put("Loan", loan);
+            monthlyPaymentArguments_.put("fee", fee);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, monthlyPaymentArguments_)
 
             // Evaluate decision 'MonthlyPayment'

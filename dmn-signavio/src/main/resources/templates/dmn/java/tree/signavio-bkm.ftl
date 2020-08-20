@@ -18,7 +18,7 @@ package ${javaPackageName};
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"signavio-bkm.ftl", "${modelRepository.name(drgElement)}"})
+@javax.annotation.Generated(value = {"signavio-bkm.ftl", "${transformer.escapeInString(modelRepository.name(drgElement))}"})
 @${transformer.drgElementAnnotationClassName()}(
     namespace = "${javaPackageName}",
     name = "${modelRepository.name(drgElement)}",
@@ -45,7 +45,7 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     }
 
     public static ${transformer.drgElementOutputType(drgElement)} ${transformer.bkmFunctionName(drgElement)}(${transformer.drgElementSignatureExtraCache(drgElement)}) {
-        return INSTANCE.apply(${transformer.drgElementArgumentsExtraCache(drgElement)});
+        return INSTANCE.apply(${transformer.drgElementArgumentListExtraCache(drgElement)});
     }
 
     private ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraCache(drgElement)}) {

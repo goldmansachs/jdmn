@@ -46,32 +46,6 @@
         <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>  <!-- not deploying this module to Maven central -->
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.goldmansachs.jdmn</groupId>
-            <artifactId>jdmn-runtime</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib</artifactId>
-            <version>${kotlin.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-test-junit</artifactId>
-            <version>${kotlin.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.goldmansachs.jdmn</groupId>
-            <artifactId>jdmn-tck-integration-tests-translator</artifactId>
-            <version>3.10.1-SNAPSHOT</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
     <profiles>
         <profile>
             <id>jmh</id>
@@ -129,7 +103,48 @@
         </profile>
     </profiles>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-test-junit</artifactId>
+            <version>${kotlin.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>3.12.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-stub</artifactId>
+            <version>1.30.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-protobuf</artifactId>
+            <version>1.30.0</version>
+        </dependency>
+    </dependencies>
+
     <build>
+        <extensions>
+            <extension>
+                <groupId>kr.motd.maven</groupId>
+                <artifactId>os-maven-plugin</artifactId>
+                <version>1.4.1.Final</version>
+            </extension>
+        </extensions>
+
         <plugins>
             <plugin>
                 <groupId>com.goldmansachs.jdmn</groupId>
@@ -749,6 +764,47 @@
                             <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>cl3-0004-lending-proto-cache</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-kotlin</goal>
+                        </goals>
+                        <configuration>
+                            <lazyEvaluationDetectors>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
+                            </lazyEvaluationDetectors>
+                            <inputFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending_proto_cache</javaRootPackage>
+                                <generateProtoMessages>true</generateProtoMessages>
+                                <generateProtoServices>true</generateProtoServices>
+                                <protoVersion>proto3</protoVersion>
+                                <caching>true</caching>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-cl3-0004-lending-proto-cache</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-kotlin</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${tck.diagram.folder}/cl3/0004-lending-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending_proto_cache</javaRootPackage>
+                                <generateProtoMessages>true</generateProtoMessages>
+                                <generateProtoServices>true</generateProtoServices>
+                                <protoVersion>proto3</protoVersion>
+                                <caching>true</caching>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -2216,6 +2272,46 @@
                                 <javaRootPackage>${generated.root.package}.composite_0010_bkm_name_conflicts</javaRootPackage>
                             </inputParameters>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.xolstice.maven.plugins</groupId>
+                <artifactId>protobuf-maven-plugin</artifactId>
+                <version>0.6.1</version>
+                <configuration>
+                    <protocArtifact>com.google.protobuf:protoc:3.12.3:exe:${os.detected.classifier}</protocArtifact>
+                    <pluginId>grpc-java</pluginId>
+                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.30.2:exe:${os.detected.classifier}</pluginArtifact>
+                    <protoSourceRoot>${generated.kotlin.folder}/com/gs/dmn/generated/</protoSourceRoot>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>compile-custom</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.xolstice.maven.plugins</groupId>
+                <artifactId>protobuf-maven-plugin</artifactId>
+                <version>0.6.1</version>
+                <configuration>
+                    <protocArtifact>com.google.protobuf:protoc:3.12.3:exe:${os.detected.classifier}</protocArtifact>
+                    <pluginId>grpc-java</pluginId>
+                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.30.2:exe:${os.detected.classifier}</pluginArtifact>
+                    <protoSourceRoot>${generated.kotlin.folder}/com/gs/dmn/generated/</protoSourceRoot>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>compile-custom</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>

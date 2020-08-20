@@ -40,8 +40,8 @@ class PreBureauAffordability(val preBureauRiskCategory : PreBureauRiskCategory =
             // Start decision 'PreBureauAffordability'
             val preBureauAffordabilityStartTime_ = System.currentTimeMillis()
             val preBureauAffordabilityArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            preBureauAffordabilityArguments_.put("applicantData", applicantData)
-            preBureauAffordabilityArguments_.put("requestedProduct", requestedProduct)
+            preBureauAffordabilityArguments_.put("ApplicantData", applicantData);
+            preBureauAffordabilityArguments_.put("RequestedProduct", requestedProduct);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, preBureauAffordabilityArguments_)
 
             // Apply child decisions
