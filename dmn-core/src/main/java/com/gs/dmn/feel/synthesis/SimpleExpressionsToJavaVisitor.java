@@ -184,10 +184,7 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
     //
     @Override
     public Object visit(Relational element, FEELContext context) {
-        Expression leftOperand = element.getLeftOperand();
-        Expression rightOperand = element.getRightOperand();
-        String feelOperator = element.getOperator();
-        return makeCondition(feelOperator, leftOperand, rightOperand, context);
+        return super.visit(element, context);
     }
 
     @Override
@@ -201,75 +198,8 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
     }
 
     //
-    // Arithmetic expressions
-    //
-    @Override
-    public Object visit(Addition element, FEELContext context) {
-        Expression leftOperand = element.getLeftOperand();
-        Expression rightOperand = element.getRightOperand();
-        String feelOperator = element.getOperator();
-        return makeCondition(feelOperator, leftOperand, rightOperand, context);
-    }
-
-    @Override
-    public Object visit(Multiplication element, FEELContext context) {
-        Expression leftOperand = element.getLeftOperand();
-        Expression rightOperand = element.getRightOperand();
-        String feelOperator = element.getOperator();
-        return makeCondition(feelOperator, leftOperand, rightOperand, context);
-    }
-
-    @Override
-    public Object visit(Exponentiation element, FEELContext context) {
-        String leftOpd = (String) element.getLeftOperand().accept(this, context);
-        String rightOpd = (String) element.getRightOperand().accept(this, context);
-        return String.format("numericExponentiation(%s, %s)", leftOpd, rightOpd);
-    }
-
-    @Override
-    public Object visit(ArithmeticNegation element, FEELContext context) {
-        Expression leftOperand = element.getLeftOperand();
-        String leftOpd = (String) leftOperand.accept(this, context);
-        return String.format("numericUnaryMinus(%s)", leftOpd);
-    }
-
-    //
     // Primary expressions
     //
-    @Override
-    public Object visit(NumericLiteral element, FEELContext context) {
-        return String.format("number(\"%s\")", element.getLexeme());
-    }
-
-    @Override
-    public Object visit(StringLiteral element, FEELContext context) {
-        return String.format("%s", element.getLexeme());
-    }
-
-    @Override
-    public Object visit(BooleanLiteral element, FEELContext context) {
-        String value = element.getLexeme();
-        return "true".equals(value) ? this.nativeFactory.trueConstant() : this.nativeFactory.falseConstant();
-    }
-
-    @Override
-    public Object visit(DateTimeLiteral element, FEELContext context) {
-        return dateTimeLiteralToJava(element);
-    }
-
-    @Override
-    public Object visit(NullLiteral element, FEELContext context) {
-        return "null";
-    }
-
-    @Override
-    public Object visit(ListLiteral element, FEELContext context) {
-        List<Expression> expressionList = element.getExpressionList();
-        String elements = expressionList.stream().map(e -> (String) e.accept(this, context)).collect(Collectors.joining(", "));
-        Type elementType = ((ListType) element.getType()).getElementType();
-        return dmnTransformer.asList(elementType, elements);
-    }
-
     @Override
     public Object visit(QualifiedName element, FEELContext context) {
         List<String> names = element.getNames();
@@ -287,7 +217,7 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
     public Object visit(Name element, FEELContext context) {
         String name = element.getName();
         String javaName = javaFriendlyVariableName(name);
-        return dmnTransformer.lazyEvaluation(name, javaName);
+        return this.dmnTransformer.lazyEvaluation(name, javaName);
     }
 
     private String makeNavigationPath(Expression element, String sourceName, String memberName, FEELContext params) {
@@ -302,9 +232,5 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
             return makeNavigation(element, sourceType, sourceVariableName, memberName, memberVariableName);
         }
         throw new SemanticError(element, String.format("Cannot generate navigation path '%s'", element.toString()));
-    }
-
-    private Object handleNotSupportedElement(Element element) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
 }

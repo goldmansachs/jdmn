@@ -17,6 +17,7 @@ import com.gs.dmn.feel.analysis.semantics.ReplaceItemFilterVisitor;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.type.*;
+import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;
@@ -569,7 +570,7 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
         if (element.getNames().size() == 1) {
             return nameToJava(element.getNames().get(0), context);
         } else {
-            throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+            return handleNotSupportedElement(element);
         }
     }
 
@@ -584,22 +585,22 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
     //
     @Override
     public Object visit(NamedTypeExpression element, FEELContext params) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(ListTypeExpression element, FEELContext params) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(ContextTypeExpression element, FEELContext params) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(FunctionTypeExpression element, FEELContext params) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     protected Object nameToJava(String name, FEELContext context) {
@@ -642,5 +643,9 @@ public class FEELToJavaVisitor extends AbstractFEELToJavaVisitor {
             condition = functionalExpression(javaOperator, inputExpression, rightOpd);
         }
         return condition;
+    }
+
+    protected Object handleNotSupportedElement(Element element) {
+        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
 }
