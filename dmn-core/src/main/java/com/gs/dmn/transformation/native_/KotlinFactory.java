@@ -16,31 +16,21 @@ import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Conversion;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
-import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.JsonSerializer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.native_.statement.*;
-import com.gs.dmn.transformation.proto.ProtoBufferFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TDecision;
 import org.omg.spec.dmn._20180521.model.TItemDefinition;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class KotlinFactory implements NativeFactory {
-    private final BasicDMNToNativeTransformer transformer;
-    private final ProtoBufferFactory protoFactory;
-    private final NativeTypeFactory typeFactory;
-
+public class KotlinFactory extends JavaFactory implements NativeFactory {
     public KotlinFactory(BasicDMNToNativeTransformer transformer) {
-        this.transformer = transformer;
-        this.protoFactory = transformer.getProtoFactory();
-        typeFactory = transformer.getNativeTypeFactory();
+        super(transformer);
     }
 
     //
@@ -67,20 +57,20 @@ public class KotlinFactory implements NativeFactory {
     @Override
     public String makeItemDefinitionAccessor(String javaType, String source, String memberName) {
         memberName = this.transformer.lowerCaseFirst(memberName);
-        String nullableType = nullableType(javaType);
+        String nullableType = this.typeFactory.nullableType(javaType);
         return String.format("%s?.let({ it.%s as %s })", source, memberName, nullableType);
     }
 
     @Override
     public String makeItemDefinitionSelectExpression(String source, String memberName, String memberType) {
-        String nullableType = nullableType(memberType);
+        String nullableType = this.typeFactory.nullableType(memberType);
         return String.format("(%s.%s) as %s", source, memberName, nullableType);
     }
 
     @Override
     public String makeContextAccessor(String javaType, String source, String memberName) {
         String contextClassName = this.transformer.contextClassName();
-        String nullableType = nullableType(javaType);
+        String nullableType = this.typeFactory.nullableType(javaType);
         return String.format("((%s as %s).%s as %s)", source, contextClassName, this.transformer.contextGetter(memberName), nullableType);
     }
 
@@ -103,7 +93,7 @@ public class KotlinFactory implements NativeFactory {
     }
 
     public String makeCollectionNumericFilter(String javaElementType, String source, String filter) {
-        String nullableType = nullableType(javaElementType);
+        String nullableType = this.typeFactory.nullableType(javaElementType);
         return String.format("(elementAt(%s, %s) as %s)", source, filter, nullableType);
     }
 
@@ -186,7 +176,7 @@ public class KotlinFactory implements NativeFactory {
     //
     @Override
     public String makeVariableAssignment(String type, String name, String expression) {
-        String nullableType = nullableType(type);
+        String nullableType = this.typeFactory.nullableType(type);
         return String.format("val %s: %s = %s as %s", name, nullableType, expression, nullableType);
     }
 
@@ -198,14 +188,6 @@ public class KotlinFactory implements NativeFactory {
     @Override
     public String makeContextMemberAssignment(String complexTypeVariable, String memberName, String value) {
         return String.format("%s?.%s %s);", complexTypeVariable, this.transformer.contextSetter(memberName), value);
-    }
-
-    //
-    // Equality
-    //
-    @Override
-    public String makeEquality(String left, String right) {
-        return String.format("%s == %s", left, right);
     }
 
     //
@@ -230,19 +212,9 @@ public class KotlinFactory implements NativeFactory {
                 parametersAssignment, body);
     }
 
-    private String parametersAssignment(List<FormalParameter> formalParameters, boolean convertTypeToContext) {
-        List<String> parameters = new ArrayList<>();
-        for(int i = 0; i< formalParameters.size(); i++) {
-            FormalParameter p = formalParameters.get(i);
-            String type = transformer.toNativeType(transformer.convertType(p.getType(), convertTypeToContext));
-            String name = transformer.nativeFriendlyVariableName(p.getName());
-            parameters.add(makeLambdaParameterAssignment(type, name, i));
-        }
-        return String.join(" ", parameters);
-    }
-
-    private String makeLambdaParameterAssignment(String type, String name, int i) {
-        String nullableType = nullableType(type);
+    @Override
+    protected String makeLambdaParameterAssignment(String type, String name, int i) {
+        String nullableType = this.typeFactory.nullableType(type);
         return String.format("val %s: %s = args[%s] as %s;", name, nullableType, i, nullableType);
     }
 
@@ -256,7 +228,7 @@ public class KotlinFactory implements NativeFactory {
     //
     @Override
     public String nullableParameter(String parameterType, String parameterName) {
-        return String.format("%s: %s", parameterName, nullableType(parameterType));
+        return String.format("%s: %s", parameterName, this.typeFactory.nullableType(parameterType));
     }
 
     @Override
@@ -283,51 +255,27 @@ public class KotlinFactory implements NativeFactory {
     }
 
     //
-    // Conversion
+    // Conversions
     //
     @Override
     public String convertListToElement(String expression, Type type) {
         return String.format("%s", asElement(expression));
     }
 
+    @Override
     public String asList(Type elementType, String exp) {
         if (StringUtils.isBlank(exp)) {
-            String elementJavaType = nullableType(this.transformer.toNativeType(elementType));
+            String elementJavaType = this.typeFactory.nullableType(this.transformer.toNativeType(elementType));
             return String.format("asList<%s>()", elementJavaType);
         } else {
             return String.format("asList(%s)", exp);
         }
     }
 
-    public String asElement(String exp) {
-        return String.format("asElement(%s)", exp);
-    }
-
-    public String convertElementToList(String expression, Type type) {
-        return String.format("%s", asList(type, expression));
-    }
-
+    @Override
     public String makeListConversion(String javaExpression, ItemDefinitionType expectedElementType) {
         String elementConversion = convertToItemDefinitionType("x", expectedElementType);
         return String.format("%s?.map({ x -> %s })", javaExpression, elementConversion);
-    }
-
-    public String convertToItemDefinitionType(String expression, ItemDefinitionType type) {
-        String convertMethodName = convertMethodName(type);
-        String interfaceName = transformer.toNativeType(type);
-        return String.format("%s.%s(%s)", interfaceName, convertMethodName, expression);
-    }
-
-    @Override
-    public String convertMethodName(TItemDefinition itemDefinition) {
-        String javaInterfaceName = transformer.upperCaseFirst(itemDefinition.getName());
-        return String.format("to%s", javaInterfaceName);
-    }
-
-    @Override
-    public String convertMethodName(ItemDefinitionType type) {
-        String javaInterfaceName = transformer.upperCaseFirst(type.getName());
-        return String.format("to%s", javaInterfaceName);
     }
 
     @Override
@@ -344,9 +292,10 @@ public class KotlinFactory implements NativeFactory {
                 throw new DMNRuntimeException(String.format("Cannot convert String to type '%s'", type));
             }
         } else if (type instanceof ListType) {
-            String javaType = nullableType(this.transformer.toNativeType(type));
+            String javaType = this.typeFactory.nullableType(this.transformer.toNativeType(type));
             return String.format("%s?.let({ %s.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<%s>() {}) })", paramName, objectMapper(), javaType);
         } else {
+            // Complex types
             String javaType = transformer.itemDefinitionNativeClassName(transformer.toNativeType(type));
             return String.format("%s?.let({ %s.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<%s>() {}) })", paramName, objectMapper(), javaType);
         }
@@ -359,20 +308,10 @@ public class KotlinFactory implements NativeFactory {
         } else if (conversion.getKind() == ConversionKind.ELEMENT_TO_LIST) {
             return "asList";
         } else if (conversion.getKind() == ConversionKind.LIST_TO_ELEMENT) {
-            return String.format("asElement");
+            return "asElement";
         } else {
             throw new DMNRuntimeException(String.format("Conversion '%s' is not supported yet", conversion));
         }
-    }
-
-    @Override
-    public String convertProtoMember(String source, TItemDefinition parent, TItemDefinition member) {
-        Type memberType = this.transformer.toFEELType(member);
-        String memberName = this.transformer.protoFieldName(member);
-        ProtoBufferFactory protoFactory = this.transformer.getProtoFactory();
-        String protoType = protoFactory.qualifiedProtoMessageName(parent);
-        String value = String.format("%s.%s", cast(protoType, source), protoFactory.protoGetter(memberName, memberType));
-        return extractMemberFromProtoValue(value, memberType);
     }
 
     @Override
@@ -429,7 +368,7 @@ public class KotlinFactory implements NativeFactory {
         return extractMemberFromProtoValue(protoValue, type);
     }
 
-    private String extractMemberFromProtoValue(String protoValue, Type type) {
+    protected String extractMemberFromProtoValue(String protoValue, Type type) {
         if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
             if (type == NumberType.NUMBER) {
                 String qNativeType = this.transformer.getNativeTypeFactory().toQualifiedNativeType(((DataType) type).getName());
@@ -441,7 +380,7 @@ public class KotlinFactory implements NativeFactory {
             } else {
                 // Date time types
                 String conversionMethod = FEELTypes.FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.get(type);
-                String stringValue = String.format("%s?.toString())", protoValue, protoValue);
+                String stringValue = String.format("%s?.toString())", protoValue);
                 if (conversionMethod != null) {
                     return String.format("%s(%s)", conversionMethod, stringValue);
                 }
@@ -525,24 +464,24 @@ public class KotlinFactory implements NativeFactory {
         throw new DMNRuntimeException(String.format("Conversion from '%s' to proto types is not supported yet", type));
     }
 
-    private String toProtoNumber(String value) {
+    @Override
+    protected String toProtoNumber(String value) {
         return String.format("(if (%s == null) 0.0 else %s!!.toDouble())", value, value);
     }
 
-    private String toProtoBoolean(String value) {
+    @Override
+    protected String toProtoBoolean(String value) {
         return String.format("(if (%s == null) false else %s!!)", value, value);
     }
 
-    private String toProtoString(String value) {
+    @Override
+    protected String toProtoString(String value) {
         return String.format("(if (%s == null) null else %s!!)", value, value);
     }
 
-    private String cast(String type, String value) {
+    @Override
+    protected String cast(String type, String value) {
         return String.format("(%s as %s)", value, type);
-    }
-
-    private String nullableType(String type) {
-        return type.endsWith("?") ? type : type + "?";
     }
 
     private String objectMapper() {
