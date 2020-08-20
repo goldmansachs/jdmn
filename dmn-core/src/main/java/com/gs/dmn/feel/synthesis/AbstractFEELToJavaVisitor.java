@@ -131,23 +131,23 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
     protected Object makeCondition(String feelOperator, Expression leftOperand, Expression rightOperand, FEELContext context) {
         String leftOpd = (String) leftOperand.accept(this, context);
         String rightOpd = (String) rightOperand.accept(this, context);
-        JavaOperator javaOperator = OperatorDecisionTable.javaOperator(feelOperator, leftOperand.getType(), rightOperand.getType());
+        NativeOperator javaOperator = OperatorDecisionTable.javaOperator(feelOperator, leftOperand.getType(), rightOperand.getType());
         return makeCondition(feelOperator, leftOpd, rightOpd, javaOperator);
     }
 
-    protected String makeCondition(String feelOperator, String leftOpd, String rightOpd, JavaOperator javaOperator) {
+    protected String makeCondition(String feelOperator, String leftOpd, String rightOpd, NativeOperator javaOperator) {
         if (javaOperator == null) {
             throw new DMNRuntimeException(String.format("Operator '%s' cannot be applied to '%s' and '%s'", feelOperator, leftOpd, rightOpd));
         } else {
             if (javaOperator.getCardinality() == 2) {
-                if (javaOperator.getNotation() == JavaOperator.Notation.FUNCTIONAL) {
-                    if (javaOperator.getAssociativity() == JavaOperator.Associativity.LEFT_RIGHT) {
+                if (javaOperator.getNotation() == NativeOperator.Notation.FUNCTIONAL) {
+                    if (javaOperator.getAssociativity() == NativeOperator.Associativity.LEFT_RIGHT) {
                         return functionalExpression(javaOperator.getName(), leftOpd, rightOpd);
                     } else {
                         return functionalExpression(javaOperator.getName(), rightOpd, leftOpd);
                     }
                 } else {
-                    if (javaOperator.getAssociativity() == JavaOperator.Associativity.LEFT_RIGHT) {
+                    if (javaOperator.getAssociativity() == NativeOperator.Associativity.LEFT_RIGHT) {
                         return infixExpression(javaOperator.getName(), leftOpd, rightOpd);
                     } else {
                         return infixExpression(javaOperator.getName(), rightOpd, leftOpd);
@@ -160,7 +160,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor 
     }
 
     protected String listTestOperator(String feelOperatorName, Expression leftOperand, Expression rightOperand) {
-        JavaOperator javaOperator = OperatorDecisionTable.javaOperator(feelOperatorName, rightOperand.getType(), rightOperand.getType());
+        NativeOperator javaOperator = OperatorDecisionTable.javaOperator(feelOperatorName, rightOperand.getType(), rightOperand.getType());
         if (javaOperator != null) {
             return javaOperator.getName();
         } else {

@@ -16,21 +16,13 @@ import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.environment.Declaration;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
-import com.gs.dmn.feel.analysis.semantics.type.ListType;
-import com.gs.dmn.feel.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.ArithmeticNegation;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Exponentiation;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Multiplication;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.comparison.BetweenExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.comparison.InExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.comparison.Relational;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Conjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Disjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
@@ -41,8 +33,8 @@ import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import java.util.List;
 import java.util.stream.Collectors;
 
-class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
-    public SimpleExpressionsToJavaVisitor(BasicDMNToNativeTransformer dmnTransformer) {
+class SimpleExpressionsToNativeVisitor extends FEELToNativeVisitor {
+    public SimpleExpressionsToNativeVisitor(BasicDMNToNativeTransformer dmnTransformer) {
         super(dmnTransformer);
     }
 
