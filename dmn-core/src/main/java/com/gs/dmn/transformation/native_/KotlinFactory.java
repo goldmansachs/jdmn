@@ -361,13 +361,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
         return statement;
     }
 
-    private String extractParameterFromRequestMessage(TDRGElement element, Pair<String, Type> parameter) {
-        String name = parameter.getLeft();
-        Type type = parameter.getRight();
-        String protoValue = String.format("%s.%s", this.protoFactory.requestVariableName(element), this.protoFactory.protoGetter(name, type));
-        return extractMemberFromProtoValue(protoValue, type);
-    }
-
+    @Override
     protected String extractMemberFromProtoValue(String protoValue, Type type) {
         if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
             if (type == NumberType.NUMBER) {
