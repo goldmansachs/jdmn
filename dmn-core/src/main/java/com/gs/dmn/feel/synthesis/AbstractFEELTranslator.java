@@ -19,10 +19,10 @@ import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 
 class AbstractFEELTranslator implements FEELTranslator {
     private final FEELAnalyzer feelAnalyzer;
-    private final FEELToJavaVisitor expressionVisitor;
-    private final SimpleExpressionsToJavaVisitor simpleExpressionsVisitor;
+    private final FEELToNativeVisitor expressionVisitor;
+    private final SimpleExpressionsToNativeVisitor simpleExpressionsVisitor;
 
-    public AbstractFEELTranslator(FEELAnalyzer feelAnalyzer, FEELToJavaVisitor expressionVisitor, SimpleExpressionsToJavaVisitor simpleExpressionsVisitor) {
+    public AbstractFEELTranslator(FEELAnalyzer feelAnalyzer, FEELToNativeVisitor expressionVisitor, SimpleExpressionsToNativeVisitor simpleExpressionsVisitor) {
         this.feelAnalyzer = feelAnalyzer;
         this.expressionVisitor = expressionVisitor;
         this.simpleExpressionsVisitor = simpleExpressionsVisitor;

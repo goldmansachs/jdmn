@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.synthesis;
 
-public class JavaOperator {
+public class NativeOperator {
     public enum Associativity {
         LEFT_RIGHT, RIGHT_LEFT
     }
@@ -27,7 +27,7 @@ public class JavaOperator {
     private final Associativity associativity;
     private final Notation notation;
 
-    public JavaOperator(String name, int cardinality, boolean commutative, Associativity associativity, Notation notation) {
+    public NativeOperator(String name, int cardinality, boolean commutative, Associativity associativity, Notation notation) {
         this.name = name;
         this.cardinality = cardinality;
         this.commutative = commutative;

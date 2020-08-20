@@ -42,7 +42,7 @@ import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.feel.synthesis.AbstractFEELToJavaVisitor;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.FEELTranslatorForInterpreter;
-import com.gs.dmn.feel.synthesis.JavaOperator;
+import com.gs.dmn.feel.synthesis.NativeOperator;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.LambdaExpression;
 import com.gs.dmn.runtime.Pair;
@@ -173,13 +173,13 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     private Object evaluateOperatorTest(Expression element, String operator, Object self, Type inputExpressionType, Type endpointType, Object endpointValue) throws IllegalAccessException, InvocationTargetException {
-        JavaOperator javaOperator = javaOperator(operator, inputExpressionType, endpointType);
+        NativeOperator javaOperator = javaOperator(operator, inputExpressionType, endpointType);
         if (javaOperator == null) {
             handleError(String.format("Cannot find method for '%s' '%s'", operator, element));
             return null;
         } else {
             String methodName = javaOperator.getName();
-            if (javaOperator.getAssociativity() == JavaOperator.Associativity.LEFT_RIGHT) {
+            if (javaOperator.getAssociativity() == NativeOperator.Associativity.LEFT_RIGHT) {
                 Class[] argumentTypes = {getClass(self), getClass(endpointValue)};
                 Method method = MethodUtils.resolveMethod(methodName, this.lib.getClass(), argumentTypes);
                 if (method == null) {
@@ -198,7 +198,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     }
 
     private Object evaluateBinaryOperator(Expression element, String operator, Expression leftOperand, Expression rightOperand, FEELContext context) throws Exception {
-        JavaOperator javaOperator = javaOperator(operator, leftOperand, rightOperand);
+        NativeOperator javaOperator = javaOperator(operator, leftOperand, rightOperand);
         if (javaOperator == null) {
             handleError(String.format("Cannot find method for '%s' '%s'", operator, element));
             return null;
@@ -206,8 +206,8 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             if (javaOperator.getCardinality() == 2) {
                 Object leftValue = leftOperand.accept(this, context);
                 Object rightValue = rightOperand.accept(this, context);
-                if (javaOperator.getNotation() == JavaOperator.Notation.FUNCTIONAL) {
-                    if (javaOperator.getAssociativity() == JavaOperator.Associativity.LEFT_RIGHT) {
+                if (javaOperator.getNotation() == NativeOperator.Notation.FUNCTIONAL) {
+                    if (javaOperator.getAssociativity() == NativeOperator.Associativity.LEFT_RIGHT) {
                         Method method = MethodUtils.resolveMethod(javaOperator.getName(), this.lib.getClass(), new Class[]{getClass(leftValue), getClass(rightValue)});
                         return method.invoke(this.lib, leftValue, rightValue);
                     } else {
@@ -232,13 +232,13 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         }
     }
 
-    protected JavaOperator javaOperator(String feelOperator, Expression leftOperand, Expression rightOperand) {
+    protected NativeOperator javaOperator(String feelOperator, Expression leftOperand, Expression rightOperand) {
         Type leftOperandType = leftOperand.getType();
         Type rightOperandType = rightOperand.getType();
         return javaOperator(feelOperator, leftOperandType, rightOperandType);
     }
 
-    private JavaOperator javaOperator(String feelOperator, Type leftOperandType, Type rightOperandType) {
+    private NativeOperator javaOperator(String feelOperator, Type leftOperandType, Type rightOperandType) {
         return OperatorDecisionTable.javaOperator(feelOperator, leftOperandType, rightOperandType);
     }
 
