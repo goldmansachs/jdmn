@@ -18,6 +18,7 @@ import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.VariableDeclaration;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;
@@ -56,17 +57,17 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
 
     @Override
     public Object visit(NegatedPositiveUnaryTests element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(SimplePositiveUnaryTests element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(NegatedSimplePositiveUnaryTests element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
@@ -76,7 +77,7 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
 
     @Override
     public Object visit(NullTest element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
@@ -91,12 +92,12 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
 
     @Override
     public Object visit(RangeTest element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(ListTest element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     //
@@ -104,52 +105,52 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
     //
     @Override
     public Object visit(FunctionDefinition element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(FormalParameter element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(ForExpression element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(Iterator element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(ExpressionIteratorDomain element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(RangeIteratorDomain element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(IfExpression element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(QuantifiedExpression element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(FilterExpression element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(InstanceOfExpression element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     //
@@ -157,7 +158,7 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
     //
     @Override
     public Object visit(ExpressionList element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     //
@@ -165,17 +166,17 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
     //
     @Override
     public Object visit(Conjunction element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(Disjunction element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(LogicNegation element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     //
@@ -191,12 +192,12 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
 
     @Override
     public Object visit(BetweenExpression element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     @Override
     public Object visit(InExpression element, FEELContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        return handleNotSupportedElement(element);
     }
 
     //
@@ -301,5 +302,9 @@ class SimpleExpressionsToJavaVisitor extends FEELToJavaVisitor {
             return makeNavigation(element, sourceType, sourceVariableName, memberName, memberVariableName);
         }
         throw new SemanticError(element, String.format("Cannot generate navigation path '%s'", element.toString()));
+    }
+
+    private Object handleNotSupportedElement(Element element) {
+        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
 }
