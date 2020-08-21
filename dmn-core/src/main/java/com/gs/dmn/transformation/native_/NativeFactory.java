@@ -13,7 +13,7 @@
 package com.gs.dmn.transformation.native_;
 
 import com.gs.dmn.transformation.native_.expression.NativeExpressionFactory;
-import com.gs.dmn.transformation.native_.statement.*;
+import com.gs.dmn.transformation.native_.statement.NativeStatementFactory;
 
 
 public interface NativeFactory extends NativeExpressionFactory, NativeStatementFactory {

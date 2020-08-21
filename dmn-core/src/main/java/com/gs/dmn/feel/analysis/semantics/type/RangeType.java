@@ -13,13 +13,13 @@
 package com.gs.dmn.feel.analysis.semantics.type;
 
 import static com.gs.dmn.feel.analysis.semantics.type.AnyType.ANY;
+import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
+import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
+import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DAYS_AND_TIME_DURATION;
+import static com.gs.dmn.feel.analysis.semantics.type.DurationType.YEARS_AND_MONTHS_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
-import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
-import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
-import static com.gs.dmn.feel.analysis.semantics.type.DurationType.YEARS_AND_MONTHS_DURATION;
-import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DAYS_AND_TIME_DURATION;
 
 public class RangeType extends Type {
     public static final Type NUMBER_RANGE_TYPE = new RangeType(NUMBER);

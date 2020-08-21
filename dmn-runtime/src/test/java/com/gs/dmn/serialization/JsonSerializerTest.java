@@ -13,7 +13,6 @@
 package com.gs.dmn.serialization;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.gs.dmn.serialization.JsonSerializer;
 import com.gs.dmn.serialization.data.Address;
 import com.gs.dmn.serialization.data.AddressImpl;
 import com.gs.dmn.serialization.data.Person;
@@ -22,8 +21,6 @@ import com.gs.dmn.signavio.feel.lib.DefaultSignavioLib;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
