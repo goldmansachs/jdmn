@@ -46,7 +46,7 @@ public class GenerateMissingItemDefinitionsTransformer extends AbstractMissingIt
 
     @Override
     public DMNModelRepository transform(DMNModelRepository repository) {
-        if (definitions == null || definitions.isEmpty()) {
+        if (this.definitions == null || this.definitions.isEmpty()) {
             logger.warn("No definitions provided; transformer will not run");
             return repository;
         }
@@ -58,52 +58,52 @@ public class GenerateMissingItemDefinitionsTransformer extends AbstractMissingIt
     }
 
     private List<TItemDefinition> parseConfigurationForDefinitions(Map<String, Object> configuration) {
-        List<TItemDefinition> definitions = new ArrayList<>();
+        List<TItemDefinition> result = new ArrayList<>();
 
-        List<Object> definitionList = extractDefinitions(configuration);
+        List<Object> definitionList = extractDefinitionConfigurations(configuration);
         for (Object definitionObj : definitionList) {
             if (!(definitionObj instanceof Map)) {
                 reportInvalidConfig("Definition entry does not have expected structure");
+            } else {
+                Map<String, Object> def = (Map<String, Object>) definitionObj;
+                Object name = def.get(FIELD_NAME);
+                Object type = def.get(FIELD_TYPE);
+                Object isCollection = def.get(FIELD_COLLECTION);
+
+                if (!(name instanceof String && type instanceof String)) {
+                    reportInvalidConfig("Definition entry does not contain mandatory fields");
+                } else {
+                    // Support both DMN 1.1 and 1.2 syntax; transform all to 1.2
+                    String typeRef = ((String) type).replace(':', '.');
+
+                    // Create ItemDefinition and add it to result
+                    TItemDefinition itemDefinition = makeItemDefinition(result.size(), (String) name, Boolean.parseBoolean((String) isCollection), typeRef);
+                    result.add(itemDefinition);
+                }
             }
-
-            Map<String, Object> def = (Map<String, Object>) definitionObj;
-            Object name = def.get(FIELD_NAME);
-            Object type = def.get(FIELD_TYPE);
-            Object isCollection = def.get(FIELD_COLLECTION);
-
-            if (!(name instanceof String && type instanceof String)) {
-                reportInvalidConfig("Definition entry does not contain mandatory fields");
-            }
-
-            // Support both DMN 1.1 and 1.2 syntax; transform all to 1.2
-            String typeRef = ((String) type).replace(':', '.');
-
-            TItemDefinition itemDefinition = makeItemDefinition(definitions.size(), (String) name, Boolean.parseBoolean((String) isCollection), typeRef);
-
-            definitions.add(itemDefinition);
         }
 
-        return definitions;
+        return result;
     }
 
-    private List<Object> extractDefinitions(Map<String, Object> configuration) {
+    private List<Object> extractDefinitionConfigurations(Map<String, Object> configuration) {
+        List<Object> definitionList = null;
         if (configuration == null) {
             reportInvalidConfig("No configuration provided");
-        }
-
-        Object definitionsNode = configuration.get(ELEMENT_DEFINITIONS);
-        if (!(definitionsNode instanceof Map)) {
-            reportInvalidConfig(String.format("Configuration does not have expected structure (expecting \"%s\" node)", ELEMENT_DEFINITIONS));
-        }
-
-        List<Object> definitionList = null;
-        Object definitionConfig = ((Map<String, Object>) definitionsNode).get(ELEMENT_DEFINITION);
-        if (definitionConfig instanceof List) {
-            definitionList = (List<Object>) definitionConfig;
-        } else if (definitionConfig instanceof Map) {
-            definitionList = Collections.singletonList(definitionConfig);
         } else {
-            reportInvalidConfig(String.format("Configuration does not have expected structure (expecting list of \"%s\" nodes)", ELEMENT_DEFINITION));
+            Object definitionsNode = configuration.get(ELEMENT_DEFINITIONS);
+            if (!(definitionsNode instanceof Map)) {
+                reportInvalidConfig(String.format("Configuration does not have expected structure (expecting \"%s\" node)", ELEMENT_DEFINITIONS));
+            } else {
+                Object definitionConfig = ((Map<String, Object>) definitionsNode).get(ELEMENT_DEFINITION);
+                if (definitionConfig instanceof List) {
+                    definitionList = (List<Object>) definitionConfig;
+                } else if (definitionConfig instanceof Map) {
+                    definitionList = Collections.singletonList(definitionConfig);
+                } else {
+                    reportInvalidConfig(String.format("Configuration does not have expected structure (expecting list of \"%s\" nodes)", ELEMENT_DEFINITION));
+                }
+            }
         }
         return definitionList;
     }

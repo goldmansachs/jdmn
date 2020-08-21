@@ -18,7 +18,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Conversion;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.serialization.JsonSerializer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.native_.statement.*;
 import org.apache.commons.lang3.StringUtils;

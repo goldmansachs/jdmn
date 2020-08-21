@@ -15,8 +15,6 @@ package com.gs.dmn.transformation;
 import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 
-import java.util.Map;
-
 public class DMNToJavaProtoTransformerTest extends AbstractTckDMNToJavaTransformerTest {
     @Test
     public void testProto() throws Exception {

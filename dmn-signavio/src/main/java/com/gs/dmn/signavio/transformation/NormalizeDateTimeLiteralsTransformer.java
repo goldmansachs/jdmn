@@ -29,11 +29,9 @@ import org.omg.spec.dmn._20180521.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class NormalizeDateTimeLiteralsTransformer extends SimpleDMNTransformer<TestLab> {

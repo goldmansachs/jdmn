@@ -19,7 +19,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 public class HandwrittenGenerateOutputDataTest {

@@ -13,6 +13,7 @@
 package com.gs.dmn.maven.configuration;
 
 import org.apache.maven.plugins.annotations.Parameter;
+
 import java.util.HashMap;
 import java.util.Map;
 
