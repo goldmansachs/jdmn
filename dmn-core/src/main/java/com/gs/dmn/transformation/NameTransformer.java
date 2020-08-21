@@ -237,11 +237,10 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         for (TDefinitions definitions: repository.getAllDefinitions()) {
             for (TImport imp: definitions.getImport()) {
                 if (imp != null && imp.getName() != null) {
-                    String fieldName = "name";
                     String oldName = imp.getName();
                     String newName = transformName(oldName);
                     if (!oldName.equals(newName)) {
-                        setField(imp, fieldName, newName);
+                        imp.setName(newName);
                         PrefixNamespaceMappings prefixNamespaceMappings = repository.getPrefixNamespaceMappings();
                         prefixNamespaceMappings.renameKey(oldName, newName);
                     }
@@ -385,7 +384,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
 
         String text = literalExpression.getText();
         String newText = replaceNamesInText(text, lexicalContext);
-        setField(literalExpression, "text", newText);
+        setText(literalExpression, newText);
     }
 
     protected void replaceNamesInText(TUnaryTests unaryTests, LexicalContext lexicalContext) {
@@ -395,7 +394,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
 
         String text = unaryTests.getText();
         String newText = replaceNamesInText(text, lexicalContext);
-        setField(unaryTests, "text", newText);
+        setText(unaryTests, newText);
     }
 
     protected String replaceNamesInText(String text, LexicalContext lexicalContext) {
@@ -586,9 +585,8 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         }
         renamedElements.add(element);
         if (element.getName() != null) {
-            String fieldName = "name";
             String newValue = transformName(element.getName());
-            setField(element, fieldName, newValue);
+            setName(element, newValue);
         }
     }
 
@@ -601,19 +599,25 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         }
         renamedElements.add(element);
         if (element.getName() != null) {
-            String fieldName = "name";
             String newValue = transformName(element.getName());
-            setField(element, fieldName, newValue);
+            setName(element, newValue);
         }
     }
 
-    protected void setField(TDMNElement element, String fieldName, String newName) {
-        try {
-            Field nameField = FieldUtils.getField(element.getClass(), fieldName, true);
-            nameField.set(element, newName);
-        } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot set field 'name' of element '%s'", element.getClass().getSimpleName()), e);
-        }
+    protected void setName(TNamedElement element, String newName) {
+        element.setName(newName);
+    }
+
+    protected void setName(TOutputClause element, String newName) {
+        element.setName(newName);
+    }
+
+    protected void setText(TLiteralExpression element, String text) {
+        element.setText(text);
+    }
+
+    protected void setText(TUnaryTests element, String text) {
+        element.setText(text);
     }
 
     public abstract String transformName(String name);
