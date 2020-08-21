@@ -16,7 +16,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
-import static com.gs.dmn.feel.analysis.semantics.type.StringType.*;
+import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 
 public class DateTimeType extends DataType {
     // Main type

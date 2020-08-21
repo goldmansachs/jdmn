@@ -36,9 +36,7 @@ import java.io.Reader;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 public class DMNReader extends DMNSerializer {
     public static boolean isDMNFile(File file) {

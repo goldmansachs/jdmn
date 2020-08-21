@@ -13,7 +13,6 @@
 package com.gs.dmn.signavio.testlab;
 
 import com.gs.dmn.runtime.DMNRuntimeException;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;

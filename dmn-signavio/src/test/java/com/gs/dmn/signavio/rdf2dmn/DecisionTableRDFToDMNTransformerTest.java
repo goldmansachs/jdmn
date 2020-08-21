@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.signavio.rdf2dmn;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
