@@ -12,13 +12,11 @@
  */
 package com.gs.dmn.generated.example_credit_decision_mixed;
 
-import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import com.gs.dmn.generated.example_credit_decision_mixed.type.Applicant;
 import com.gs.dmn.generated.example_credit_decision_mixed.type.ApplicantImpl;
 import com.gs.dmn.serialization.JsonSerializer;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Arrays;

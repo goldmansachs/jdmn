@@ -13,7 +13,7 @@
 package com.gs.dmn.generated.sd_feel_complex_literal_expression;
 
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
-import com.gs.dmn.generated.sd_feel_complex_literal_expression.type.*;
+import com.gs.dmn.generated.sd_feel_complex_literal_expression.type.LoanImpl;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
 import org.junit.Test;
 

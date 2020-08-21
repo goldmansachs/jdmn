@@ -12,7 +12,10 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class FEELTypes {
     public static final Map<String, Type> FEEL_NAME_TO_FEEL_TYPE = new LinkedHashMap<>();

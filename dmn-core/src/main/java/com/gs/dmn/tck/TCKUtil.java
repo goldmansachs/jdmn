@@ -45,7 +45,6 @@ import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {

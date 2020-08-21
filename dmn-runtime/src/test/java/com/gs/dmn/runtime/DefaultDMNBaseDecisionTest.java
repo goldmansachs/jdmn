@@ -16,7 +16,7 @@ import com.gs.dmn.runtime.annotation.DRGElement;
 import com.gs.dmn.runtime.annotation.Rule;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNull;
 
 public class DefaultDMNBaseDecisionTest {
     private final DefaultDMNBaseDecision baseDecision = new DefaultDMNBaseDecision();

@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 import javax.xml.bind.JAXBElement;
 import java.util.*;
 
-import static org.omg.spec.dmn._20180521.model.TBuiltinAggregator.*;
+import static org.omg.spec.dmn._20180521.model.TBuiltinAggregator.COUNT;
 import static org.omg.spec.dmn._20180521.model.TBuiltinAggregator.SUM;
 
 public class DMNModelRepository {
