@@ -12,25 +12,18 @@
  */
 package com.gs.dmn.runtime.listener;
 
-import com.gs.dmn.runtime.listener.node.ColumnNode;
 import com.gs.dmn.runtime.listener.node.DRGElementNode;
-import com.gs.dmn.runtime.listener.node.RuleNode;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 import java.util.stream.Collectors;
 
-public class PostorderTraceEventListener implements SimpleEventListener {
+public class PostorderTraceEventListener extends AbstractTraceEventListener implements SimpleEventListener {
     // Elements to trace
     private final List<String> drgElementNames = new ArrayList<>();
 
     // Output
     private final List<DRGElementNode> elementNodes = new ArrayList<>();
-
-    // Temp data
-    private final Stack<DRGElementNode> elementNodeStack = new Stack<>();
-    private RuleNode ruleNode;
 
     public PostorderTraceEventListener() {
     }
@@ -55,33 +48,6 @@ public class PostorderTraceEventListener implements SimpleEventListener {
                 this.elementNodes.add(top);
             }
         }
-    }
-
-    @Override
-    public void startRule(DRGElement element, Rule rule) {
-        this.ruleNode = new RuleNode(rule);
-    }
-
-    @Override
-    public void matchRule(DRGElement element, Rule rule) {
-        this.ruleNode.setMatched(true);
-    }
-
-    @Override
-    public void endRule(DRGElement element, Rule rule, Object result) {
-        this.ruleNode.setResult(result);
-        if (!this.elementNodeStack.empty()) {
-            DRGElementNode top = this.elementNodeStack.peek();
-            if (top != null) {
-                top.addRuleNode(this.ruleNode);
-            }
-        }
-    }
-
-    @Override
-    public void matchColumn(Rule rule, int columnIndex, Object result) {
-        ColumnNode columnNode = new ColumnNode(columnIndex, result);
-        this.ruleNode.addColumnNode(columnNode);
     }
 
     public List<DRGElementNode> postorderNodes() {
