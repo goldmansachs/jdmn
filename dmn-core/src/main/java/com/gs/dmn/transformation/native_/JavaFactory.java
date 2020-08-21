@@ -418,7 +418,7 @@ public class JavaFactory implements NativeFactory {
         return statement;
     }
 
-    private String extractParameterFromRequestMessage(TDRGElement element, Pair<String, Type> parameter) {
+    protected String extractParameterFromRequestMessage(TDRGElement element, Pair<String, Type> parameter) {
         String name = parameter.getLeft();
         Type type = parameter.getRight();
         String protoValue = String.format("%s.%s", this.protoFactory.requestVariableName(element), this.protoFactory.protoGetter(name, type));
@@ -537,7 +537,7 @@ public class JavaFactory implements NativeFactory {
         return String.format("((%s) %s)", type, value);
     }
 
-    private String objectMapper() {
+    protected String objectMapper() {
         return JsonSerializer.class.getName() + ".OBJECT_MAPPER";
     }
 

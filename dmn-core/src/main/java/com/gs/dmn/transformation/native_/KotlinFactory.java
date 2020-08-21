@@ -361,13 +361,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
         return statement;
     }
 
-    private String extractParameterFromRequestMessage(TDRGElement element, Pair<String, Type> parameter) {
-        String name = parameter.getLeft();
-        Type type = parameter.getRight();
-        String protoValue = String.format("%s.%s", this.protoFactory.requestVariableName(element), this.protoFactory.protoGetter(name, type));
-        return extractMemberFromProtoValue(protoValue, type);
-    }
-
+    @Override
     protected String extractMemberFromProtoValue(String protoValue, Type type) {
         if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
             if (type == NumberType.NUMBER) {
@@ -484,28 +478,9 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
         return String.format("(%s as %s)", value, type);
     }
 
-    private String objectMapper() {
-        return JsonSerializer.class.getName() + ".OBJECT_MAPPER";
-    }
-
     //
     // Simple statements
     //
-    @Override
-    public NopStatement makeNopStatement() {
-        return new NopStatement();
-    }
-
-    @Override
-    public ExpressionStatement makeExpressionStatement(String text, Type type) {
-        return new ExpressionStatement(text, type);
-    }
-
-    @Override
-    public CommentStatement makeCommentStatement(String message) {
-        return new CommentStatement("// " + message);
-    }
-
     @Override
     public ExpressionStatement makeAssignmentStatement(String nativeType, String variableName, String expression, Type type) {
         return new AssignmentStatement(String.format("var %s: %s = %s", variableName, nativeType, expression), type);
@@ -514,13 +489,5 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     @Override
     public Statement makeReturnStatement(String expression, Type type) {
         return new ReturnStatement(String.format("return %s", expression), type);
-    }
-
-    //
-    // Compound statement
-    //
-    @Override
-    public CompoundStatement makeCompoundStatement() {
-        return new CompoundStatement();
     }
 }
