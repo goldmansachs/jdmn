@@ -34,7 +34,7 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
     public void testApplyWhenNull() throws Exception {
         AnnotationSet annotationSet = new AnnotationSet();
         BigDecimal output = decision.apply(null, (String)null, null, null, null, annotationSet);
-        assertEquals("29", output.intValue());
+        assertEquals(29, output.intValue());
     }
 
     @Override
