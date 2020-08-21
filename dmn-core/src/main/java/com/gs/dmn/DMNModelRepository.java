@@ -94,8 +94,7 @@ public class DMNModelRepository {
         }
     }
 
-    @Override
-    public DMNModelRepository clone() {
+    public DMNModelRepository copy() {
         return new DMNModelRepository(this.pairList);
     }
 

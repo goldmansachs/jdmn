@@ -75,8 +75,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         }
     }
 
-    @Override
-    public SignavioDMNModelRepository clone() {
+    public SignavioDMNModelRepository copy() {
         return new SignavioDMNModelRepository(this.pairList);
     }
 

@@ -76,7 +76,7 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
             transform(testLab, (SignavioDMNModelRepository) repository);
         }
 
-        return new Pair<>(repository.clone(), testLabList);
+        return new Pair<>(repository.copy(), testLabList);
     }
 
     private void transform(TestLab testLab, SignavioDMNModelRepository repository) {
@@ -221,7 +221,7 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
             }
         }
 
-        return repository.clone();
+        return repository.copy();
     }
 
     private Map<String, Pair<TInputData, List<TInputData>>> inputDataEquivalenceClasses(DMNModelRepository dmnModelRepository) {
