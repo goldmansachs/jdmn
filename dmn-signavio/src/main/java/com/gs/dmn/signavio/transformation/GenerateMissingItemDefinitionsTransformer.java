@@ -60,27 +60,7 @@ public class GenerateMissingItemDefinitionsTransformer extends AbstractMissingIt
     private List<TItemDefinition> parseConfigurationForDefinitions(Map<String, Object> configuration) {
         List<TItemDefinition> definitions = new ArrayList<>();
 
-        if (configuration == null) {
-            reportInvalidConfig("No configuration provided");
-        }
-
-        Object definitionsNode = configuration.get(ELEMENT_DEFINITIONS);
-        if (!(definitionsNode instanceof Map)) {
-            reportInvalidConfig(String.format("Configuration does not have expected structure (expecting \"%s\" node)", ELEMENT_DEFINITIONS));
-        }
-
-        List<Object> definitionList = null;
-        Object definitionConfig = ((Map<String, Object>) definitionsNode).get(ELEMENT_DEFINITION);
-        if (definitionConfig instanceof List) {
-            definitionList = (List<Object>) definitionConfig;
-        }
-        else if (definitionConfig instanceof Map) {
-            definitionList = Collections.singletonList(definitionConfig);
-        }
-        else {
-            reportInvalidConfig(String.format("Configuration does not have expected structure (expecting list of \"%s\" nodes)", ELEMENT_DEFINITION));
-        }
-
+        List<Object> definitionList = extractDefinitions(configuration);
         for (Object definitionObj : definitionList) {
             if (!(definitionObj instanceof Map)) {
                 reportInvalidConfig("Definition entry does not have expected structure");
@@ -96,7 +76,7 @@ public class GenerateMissingItemDefinitionsTransformer extends AbstractMissingIt
             }
 
             // Support both DMN 1.1 and 1.2 syntax; transform all to 1.2
-            String typeRef = ((String)type).replace(':', '.');
+            String typeRef = ((String) type).replace(':', '.');
 
             TItemDefinition itemDefinition = makeItemDefinition(definitions.size(), (String) name, Boolean.parseBoolean((String) isCollection), typeRef);
 
@@ -104,5 +84,27 @@ public class GenerateMissingItemDefinitionsTransformer extends AbstractMissingIt
         }
 
         return definitions;
+    }
+
+    private List<Object> extractDefinitions(Map<String, Object> configuration) {
+        if (configuration == null) {
+            reportInvalidConfig("No configuration provided");
+        }
+
+        Object definitionsNode = configuration.get(ELEMENT_DEFINITIONS);
+        if (!(definitionsNode instanceof Map)) {
+            reportInvalidConfig(String.format("Configuration does not have expected structure (expecting \"%s\" node)", ELEMENT_DEFINITIONS));
+        }
+
+        List<Object> definitionList = null;
+        Object definitionConfig = ((Map<String, Object>) definitionsNode).get(ELEMENT_DEFINITION);
+        if (definitionConfig instanceof List) {
+            definitionList = (List<Object>) definitionConfig;
+        } else if (definitionConfig instanceof Map) {
+            definitionList = Collections.singletonList(definitionConfig);
+        } else {
+            reportInvalidConfig(String.format("Configuration does not have expected structure (expecting list of \"%s\" nodes)", ELEMENT_DEFINITION));
+        }
+        return definitionList;
     }
 }

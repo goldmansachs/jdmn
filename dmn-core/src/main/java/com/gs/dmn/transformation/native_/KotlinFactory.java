@@ -478,10 +478,6 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
         return String.format("(%s as %s)", value, type);
     }
 
-    private String objectMapper() {
-        return JsonSerializer.class.getName() + ".OBJECT_MAPPER";
-    }
-
     //
     // Simple statements
     //

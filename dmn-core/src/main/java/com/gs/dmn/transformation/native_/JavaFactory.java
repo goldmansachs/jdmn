@@ -537,7 +537,7 @@ public class JavaFactory implements NativeFactory {
         return String.format("((%s) %s)", type, value);
     }
 
-    private String objectMapper() {
+    protected String objectMapper() {
         return JsonSerializer.class.getName() + ".OBJECT_MAPPER";
     }
 
