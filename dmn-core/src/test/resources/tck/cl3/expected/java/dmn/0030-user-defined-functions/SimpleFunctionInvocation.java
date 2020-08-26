@@ -27,10 +27,10 @@ public class SimpleFunctionInvocation extends com.gs.dmn.runtime.DefaultDMNBaseD
     }
 
     public String apply(String stringInputA, String stringInputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(stringInputA, stringInputB, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(stringInputA, stringInputB, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public String apply(String stringInputA, String stringInputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public String apply(String stringInputA, String stringInputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'simpleFunctionInvocation'
             long simpleFunctionInvocationStartTime_ = System.currentTimeMillis();
@@ -40,7 +40,7 @@ public class SimpleFunctionInvocation extends com.gs.dmn.runtime.DefaultDMNBaseD
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, simpleFunctionInvocationArguments_);
 
             // Evaluate decision 'simpleFunctionInvocation'
-            String output_ = evaluate(stringInputA, stringInputB, annotationSet_, eventListener_, externalExecutor_);
+            String output_ = evaluate(stringInputA, stringInputB, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'simpleFunctionInvocation'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, simpleFunctionInvocationArguments_, output_, (System.currentTimeMillis() - simpleFunctionInvocationStartTime_));
@@ -52,7 +52,7 @@ public class SimpleFunctionInvocation extends com.gs.dmn.runtime.DefaultDMNBaseD
         }
     }
 
-    protected String evaluate(String stringInputA, String stringInputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected String evaluate(String stringInputA, String stringInputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         com.gs.dmn.runtime.LambdaExpression<String> boxedFnDefinition = new com.gs.dmn.runtime.LambdaExpression<String>() {public String apply(Object... args) {String a = (String)args[0]; String b = (String)args[1];return stringAdd(a, b);}};
         com.gs.dmn.runtime.LambdaExpression<String> literalFnDefinition = new com.gs.dmn.runtime.LambdaExpression<String>() {public String apply(Object... args) {String a = (String)args[0]; String b = (String)args[1];return stringAdd(a, b);}};
         return stringAdd(boxedFnDefinition.apply(stringInputA, stringInputB), literalFnDefinition.apply(stringInputA, stringInputB));

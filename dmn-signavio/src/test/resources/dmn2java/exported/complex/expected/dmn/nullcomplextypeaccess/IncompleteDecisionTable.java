@@ -27,10 +27,10 @@ public class IncompleteDecisionTable extends com.gs.dmn.signavio.runtime.Default
     }
 
     public type.IncompleteDecisionTable apply(String inputString, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(inputString, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(inputString, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public type.IncompleteDecisionTable apply(String inputString, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public type.IncompleteDecisionTable apply(String inputString, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'incompleteDecisionTable'
             long incompleteDecisionTableStartTime_ = System.currentTimeMillis();
@@ -39,7 +39,7 @@ public class IncompleteDecisionTable extends com.gs.dmn.signavio.runtime.Default
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, incompleteDecisionTableArguments_);
 
             // Evaluate decision 'incompleteDecisionTable'
-            type.IncompleteDecisionTable output_ = evaluate(inputString, annotationSet_, eventListener_, externalExecutor_);
+            type.IncompleteDecisionTable output_ = evaluate(inputString, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'incompleteDecisionTable'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, incompleteDecisionTableArguments_, output_, (System.currentTimeMillis() - incompleteDecisionTableStartTime_));
@@ -51,7 +51,7 @@ public class IncompleteDecisionTable extends com.gs.dmn.signavio.runtime.Default
         }
     }
 
-    protected type.IncompleteDecisionTable evaluate(String inputString, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected type.IncompleteDecisionTable evaluate(String inputString, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(inputString, annotationSet_, eventListener_, externalExecutor_));

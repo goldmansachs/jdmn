@@ -15,16 +15,16 @@ import java.util.stream.Collectors
 class Decision3() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     fun apply(employees: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): List<String?>? {
         return try {
-            apply(employees?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<String?>?>() {}) }), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+            apply(employees?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<String?>?>() {}) }), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
         } catch (e: Exception) {
             logError("Cannot apply decision 'Decision3'", e)
             null
         }
     }
 
-    fun apply(employees: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): List<String?>? {
+    fun apply(employees: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): List<String?>? {
         return try {
-            apply(employees?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<String?>?>() {}) }), annotationSet_, eventListener_, externalExecutor_)
+            apply(employees?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<String?>?>() {}) }), annotationSet_, eventListener_, externalExecutor_, cache_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'Decision3'", e)
             null
@@ -32,10 +32,10 @@ class Decision3() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     }
 
     fun apply(employees: List<String?>?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): List<String?>? {
-        return apply(employees, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+        return apply(employees, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
     }
 
-    fun apply(employees: List<String?>?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): List<String?>? {
+    fun apply(employees: List<String?>?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): List<String?>? {
         try {
             // Start decision 'decision3'
             val decision3StartTime_ = System.currentTimeMillis()
@@ -44,7 +44,7 @@ class Decision3() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decision3Arguments_)
 
             // Evaluate decision 'decision3'
-            val output_: List<String?>? = evaluate(employees, annotationSet_, eventListener_, externalExecutor_)
+            val output_: List<String?>? = evaluate(employees, annotationSet_, eventListener_, externalExecutor_, cache_)
 
             // End decision 'decision3'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, decision3Arguments_, output_, (System.currentTimeMillis() - decision3StartTime_))
@@ -56,7 +56,7 @@ class Decision3() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
     }
 
-    private inline fun evaluate(employees: List<String?>?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): List<String?>? {
+    private inline fun evaluate(employees: List<String?>?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): List<String?>? {
         return employees?.filter({ item -> stringEqual(item, "Bob") }) as List<String?>?
     }
 

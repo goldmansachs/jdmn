@@ -38,16 +38,16 @@ public class PartA extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
 
     public String apply(String booleanList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((booleanList != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(booleanList, new com.fasterxml.jackson.core.type.TypeReference<List<Boolean>>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((booleanList != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(booleanList, new com.fasterxml.jackson.core.type.TypeReference<List<Boolean>>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'PartA'", e);
             return null;
         }
     }
 
-    public String apply(String booleanList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public String apply(String booleanList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((booleanList != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(booleanList, new com.fasterxml.jackson.core.type.TypeReference<List<Boolean>>() {}) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((booleanList != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(booleanList, new com.fasterxml.jackson.core.type.TypeReference<List<Boolean>>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'PartA'", e);
             return null;
@@ -55,10 +55,10 @@ public class PartA extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
     }
 
     public String apply(List<Boolean> booleanList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(booleanList, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(booleanList, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public String apply(List<Boolean> booleanList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public String apply(List<Boolean> booleanList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'partA'
             long partAStartTime_ = System.currentTimeMillis();
@@ -67,12 +67,12 @@ public class PartA extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, partAArguments_);
 
             // Apply child decisions
-            Boolean allFalseAggregation = this.allFalseAggregation.apply(booleanList, annotationSet_, eventListener_, externalExecutor_);
-            Boolean allTrueAggregation = this.allTrueAggregation.apply(booleanList, annotationSet_, eventListener_, externalExecutor_);
-            Boolean anyTrueAggregation = this.anyTrueAggregation.apply(booleanList, annotationSet_, eventListener_, externalExecutor_);
+            Boolean allFalseAggregation = this.allFalseAggregation.apply(booleanList, annotationSet_, eventListener_, externalExecutor_, cache_);
+            Boolean allTrueAggregation = this.allTrueAggregation.apply(booleanList, annotationSet_, eventListener_, externalExecutor_, cache_);
+            Boolean anyTrueAggregation = this.anyTrueAggregation.apply(booleanList, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // Evaluate decision 'partA'
-            String output_ = evaluate(allFalseAggregation, allTrueAggregation, anyTrueAggregation, annotationSet_, eventListener_, externalExecutor_);
+            String output_ = evaluate(allFalseAggregation, allTrueAggregation, anyTrueAggregation, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'partA'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, partAArguments_, output_, (System.currentTimeMillis() - partAStartTime_));
@@ -84,7 +84,7 @@ public class PartA extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
         }
     }
 
-    protected String evaluate(Boolean allFalseAggregation, Boolean allTrueAggregation, Boolean anyTrueAggregation, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected String evaluate(Boolean allFalseAggregation, Boolean allTrueAggregation, Boolean anyTrueAggregation, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(allFalseAggregation, allTrueAggregation, anyTrueAggregation, annotationSet_, eventListener_, externalExecutor_));

@@ -14,10 +14,10 @@ import java.util.stream.Collectors
 )
 class EveryGtTen1(val priceTable1 : PriceTable1 = PriceTable1()) : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     fun apply(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): Boolean? {
-        return apply(annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+        return apply(annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
     }
 
-    fun apply(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): Boolean? {
+    fun apply(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): Boolean? {
         try {
             // Start decision 'everyGtTen1'
             val everyGtTen1StartTime_ = System.currentTimeMillis()
@@ -25,10 +25,10 @@ class EveryGtTen1(val priceTable1 : PriceTable1 = PriceTable1()) : com.gs.dmn.ru
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, everyGtTen1Arguments_)
 
             // Apply child decisions
-            val priceTable1: List<type.TItemPrice?>? = this.priceTable1.apply(annotationSet_, eventListener_, externalExecutor_)
+            val priceTable1: List<type.TItemPrice?>? = this.priceTable1.apply(annotationSet_, eventListener_, externalExecutor_, cache_)
 
             // Evaluate decision 'everyGtTen1'
-            val output_: Boolean? = evaluate(priceTable1, annotationSet_, eventListener_, externalExecutor_)
+            val output_: Boolean? = evaluate(priceTable1, annotationSet_, eventListener_, externalExecutor_, cache_)
 
             // End decision 'everyGtTen1'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, everyGtTen1Arguments_, output_, (System.currentTimeMillis() - everyGtTen1StartTime_))
@@ -40,7 +40,7 @@ class EveryGtTen1(val priceTable1 : PriceTable1 = PriceTable1()) : com.gs.dmn.ru
         }
     }
 
-    private inline fun evaluate(priceTable1: List<type.TItemPrice?>?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): Boolean? {
+    private inline fun evaluate(priceTable1: List<type.TItemPrice?>?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): Boolean? {
         return booleanAnd(priceTable1?.stream()?.map({ i -> numericGreaterThan(i?.let({ it.price as java.math.BigDecimal? }), number("10")) })?.collect(Collectors.toList())?.toList()) as Boolean?
     }
 

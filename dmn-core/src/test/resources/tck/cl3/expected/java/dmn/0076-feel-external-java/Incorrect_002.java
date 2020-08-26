@@ -27,10 +27,10 @@ public class Incorrect_002 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     public java.math.BigDecimal apply(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public java.math.BigDecimal apply(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public java.math.BigDecimal apply(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'incorrect_002'
             long incorrect_002StartTime_ = System.currentTimeMillis();
@@ -38,7 +38,7 @@ public class Incorrect_002 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, incorrect_002Arguments_);
 
             // Evaluate decision 'incorrect_002'
-            java.math.BigDecimal output_ = evaluate(annotationSet_, eventListener_, externalExecutor_);
+            java.math.BigDecimal output_ = evaluate(annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'incorrect_002'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, incorrect_002Arguments_, output_, (System.currentTimeMillis() - incorrect_002StartTime_));
@@ -50,7 +50,7 @@ public class Incorrect_002 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected java.math.BigDecimal evaluate(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected java.math.BigDecimal evaluate(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         com.gs.dmn.runtime.external.JavaExternalFunction<java.math.BigDecimal> fooValueOf = new com.gs.dmn.runtime.external.JavaExternalFunction<>(new com.gs.dmn.runtime.external.JavaFunctionInfo("java.lang.Foo", "valueOf", Arrays.asList("double")), externalExecutor_, java.math.BigDecimal.class);
         return fooValueOf.apply(number("123"));
     }

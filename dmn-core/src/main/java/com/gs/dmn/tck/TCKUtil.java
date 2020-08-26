@@ -334,10 +334,6 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return this.dmnTransformer.defaultConstructor(className);
     }
 
-    public boolean isCaching() {
-        return this.dmnTransformer.isCaching();
-    }
-
     public boolean isCached(InputNodeInfo info) {
         return this.dmnTransformer.isCached(info.getReference().getElementName());
     }

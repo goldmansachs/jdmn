@@ -27,10 +27,10 @@ public class GreetThePerson extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     public String apply(String personName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(personName, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(personName, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public String apply(String personName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public String apply(String personName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'greetThePerson'
             long greetThePersonStartTime_ = System.currentTimeMillis();
@@ -39,7 +39,7 @@ public class GreetThePerson extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, greetThePersonArguments_);
 
             // Evaluate decision 'greetThePerson'
-            String output_ = evaluate(personName, annotationSet_, eventListener_, externalExecutor_);
+            String output_ = evaluate(personName, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'greetThePerson'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, greetThePersonArguments_, output_, (System.currentTimeMillis() - greetThePersonStartTime_));
@@ -51,7 +51,7 @@ public class GreetThePerson extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected String evaluate(String personName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected String evaluate(String personName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         return stringAdd("Hello, ", personName);
     }
 }

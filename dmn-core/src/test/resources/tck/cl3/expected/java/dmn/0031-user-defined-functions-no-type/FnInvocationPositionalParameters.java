@@ -34,16 +34,16 @@ public class FnInvocationPositionalParameters extends com.gs.dmn.runtime.Default
 
     public type.TFnInvocationPositionalResult apply(String inputA, String inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((inputA != null ? number(inputA) : null), (inputB != null ? number(inputB) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((inputA != null ? number(inputA) : null), (inputB != null ? number(inputB) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'FnInvocationPositionalParameters'", e);
             return null;
         }
     }
 
-    public type.TFnInvocationPositionalResult apply(String inputA, String inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public type.TFnInvocationPositionalResult apply(String inputA, String inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((inputA != null ? number(inputA) : null), (inputB != null ? number(inputB) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((inputA != null ? number(inputA) : null), (inputB != null ? number(inputB) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'FnInvocationPositionalParameters'", e);
             return null;
@@ -51,10 +51,10 @@ public class FnInvocationPositionalParameters extends com.gs.dmn.runtime.Default
     }
 
     public type.TFnInvocationPositionalResult apply(java.math.BigDecimal inputA, java.math.BigDecimal inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(inputA, inputB, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(inputA, inputB, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public type.TFnInvocationPositionalResult apply(java.math.BigDecimal inputA, java.math.BigDecimal inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public type.TFnInvocationPositionalResult apply(java.math.BigDecimal inputA, java.math.BigDecimal inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'fnInvocationPositionalParameters'
             long fnInvocationPositionalParametersStartTime_ = System.currentTimeMillis();
@@ -64,10 +64,10 @@ public class FnInvocationPositionalParameters extends com.gs.dmn.runtime.Default
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnInvocationPositionalParametersArguments_);
 
             // Apply child decisions
-            com.gs.dmn.runtime.Context fnLibrary = this.fnLibrary.apply(annotationSet_, eventListener_, externalExecutor_);
+            com.gs.dmn.runtime.Context fnLibrary = this.fnLibrary.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // Evaluate decision 'fnInvocationPositionalParameters'
-            type.TFnInvocationPositionalResult output_ = evaluate(fnLibrary, inputA, inputB, annotationSet_, eventListener_, externalExecutor_);
+            type.TFnInvocationPositionalResult output_ = evaluate(fnLibrary, inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'fnInvocationPositionalParameters'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fnInvocationPositionalParametersArguments_, output_, (System.currentTimeMillis() - fnInvocationPositionalParametersStartTime_));
@@ -79,7 +79,7 @@ public class FnInvocationPositionalParameters extends com.gs.dmn.runtime.Default
         }
     }
 
-    protected type.TFnInvocationPositionalResult evaluate(com.gs.dmn.runtime.Context fnLibrary, java.math.BigDecimal inputA, java.math.BigDecimal inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected type.TFnInvocationPositionalResult evaluate(com.gs.dmn.runtime.Context fnLibrary, java.math.BigDecimal inputA, java.math.BigDecimal inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         java.math.BigDecimal sumResult = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)((com.gs.dmn.runtime.Context)fnLibrary).get("sumFn")).apply(inputA, inputB);
         java.math.BigDecimal multiplicationResultPositional = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)((com.gs.dmn.runtime.Context)fnLibrary).get("multiplyFn")).apply(inputA, inputB);
         java.math.BigDecimal divisionResultPositional = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)((com.gs.dmn.runtime.Context)fnLibrary).get("divideFn")).apply(inputA, inputB);

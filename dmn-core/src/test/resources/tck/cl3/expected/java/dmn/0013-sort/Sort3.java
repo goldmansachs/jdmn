@@ -28,16 +28,16 @@ public class Sort3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public List<String> apply(String stringList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((stringList != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(stringList, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((stringList != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(stringList, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'Sort3'", e);
             return null;
         }
     }
 
-    public List<String> apply(String stringList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public List<String> apply(String stringList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((stringList != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(stringList, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((stringList != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(stringList, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Sort3'", e);
             return null;
@@ -45,10 +45,10 @@ public class Sort3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     public List<String> apply(List<String> stringList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(stringList, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(stringList, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public List<String> apply(List<String> stringList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public List<String> apply(List<String> stringList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'sort3'
             long sort3StartTime_ = System.currentTimeMillis();
@@ -57,7 +57,7 @@ public class Sort3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, sort3Arguments_);
 
             // Evaluate decision 'sort3'
-            List<String> output_ = evaluate(stringList, annotationSet_, eventListener_, externalExecutor_);
+            List<String> output_ = evaluate(stringList, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'sort3'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, sort3Arguments_, output_, (System.currentTimeMillis() - sort3StartTime_));
@@ -69,7 +69,7 @@ public class Sort3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected List<String> evaluate(List<String> stringList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected List<String> evaluate(List<String> stringList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         return sort(stringList, new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {String x = (String)args[0]; String y = (String)args[1];return stringLessThan(x, y);}});
     }
 }

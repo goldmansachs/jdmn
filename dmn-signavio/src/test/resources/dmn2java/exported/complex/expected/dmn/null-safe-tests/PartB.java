@@ -44,16 +44,16 @@ public class PartB extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
 
     public String apply(String numberA, String numberB, String numberList, String string, String stringList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((numberA != null ? number(numberA) : null), (numberB != null ? number(numberB) : null), (numberList != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(numberList, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), string, (stringList != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(stringList, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((numberA != null ? number(numberA) : null), (numberB != null ? number(numberB) : null), (numberList != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(numberList, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), string, (stringList != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(stringList, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'PartB'", e);
             return null;
         }
     }
 
-    public String apply(String numberA, String numberB, String numberList, String string, String stringList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public String apply(String numberA, String numberB, String numberList, String string, String stringList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((numberA != null ? number(numberA) : null), (numberB != null ? number(numberB) : null), (numberList != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(numberList, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), string, (stringList != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(stringList, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((numberA != null ? number(numberA) : null), (numberB != null ? number(numberB) : null), (numberList != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(numberList, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), string, (stringList != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(stringList, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'PartB'", e);
             return null;
@@ -61,10 +61,10 @@ public class PartB extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
     }
 
     public String apply(java.math.BigDecimal numberA, java.math.BigDecimal numberB, List<java.math.BigDecimal> numberList, String string, List<String> stringList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(numberA, numberB, numberList, string, stringList, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(numberA, numberB, numberList, string, stringList, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public String apply(java.math.BigDecimal numberA, java.math.BigDecimal numberB, List<java.math.BigDecimal> numberList, String string, List<String> stringList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public String apply(java.math.BigDecimal numberA, java.math.BigDecimal numberB, List<java.math.BigDecimal> numberList, String string, List<String> stringList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'partB'
             long partBStartTime_ = System.currentTimeMillis();
@@ -77,15 +77,15 @@ public class PartB extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, partBArguments_);
 
             // Apply child decisions
-            java.math.BigDecimal arithmetic = this.arithmetic.apply(numberA, numberB, numberList, annotationSet_, eventListener_, externalExecutor_);
-            List<String> comparator = this.comparator.apply(numberA, annotationSet_, eventListener_, externalExecutor_);
-            java.math.BigDecimal formattingAndCoercing = this.formattingAndCoercing.apply(numberB, string, annotationSet_, eventListener_, externalExecutor_);
-            Boolean listHandling = this.listHandling.apply(numberB, numberList, annotationSet_, eventListener_, externalExecutor_);
-            java.math.BigDecimal statistical = this.statistical.apply(numberList, annotationSet_, eventListener_, externalExecutor_);
-            Boolean stringHandlingComparator = this.stringHandlingComparator.apply(numberA, numberB, stringList, annotationSet_, eventListener_, externalExecutor_);
+            java.math.BigDecimal arithmetic = this.arithmetic.apply(numberA, numberB, numberList, annotationSet_, eventListener_, externalExecutor_, cache_);
+            List<String> comparator = this.comparator.apply(numberA, annotationSet_, eventListener_, externalExecutor_, cache_);
+            java.math.BigDecimal formattingAndCoercing = this.formattingAndCoercing.apply(numberB, string, annotationSet_, eventListener_, externalExecutor_, cache_);
+            Boolean listHandling = this.listHandling.apply(numberB, numberList, annotationSet_, eventListener_, externalExecutor_, cache_);
+            java.math.BigDecimal statistical = this.statistical.apply(numberList, annotationSet_, eventListener_, externalExecutor_, cache_);
+            Boolean stringHandlingComparator = this.stringHandlingComparator.apply(numberA, numberB, stringList, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // Evaluate decision 'partB'
-            String output_ = evaluate(arithmetic, comparator, formattingAndCoercing, listHandling, statistical, stringHandlingComparator, annotationSet_, eventListener_, externalExecutor_);
+            String output_ = evaluate(arithmetic, comparator, formattingAndCoercing, listHandling, statistical, stringHandlingComparator, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'partB'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, partBArguments_, output_, (System.currentTimeMillis() - partBStartTime_));
@@ -97,7 +97,7 @@ public class PartB extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
         }
     }
 
-    protected String evaluate(java.math.BigDecimal arithmetic, List<String> comparator, java.math.BigDecimal formattingAndCoercing, Boolean listHandling, java.math.BigDecimal statistical, Boolean stringHandlingComparator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected String evaluate(java.math.BigDecimal arithmetic, List<String> comparator, java.math.BigDecimal formattingAndCoercing, Boolean listHandling, java.math.BigDecimal statistical, Boolean stringHandlingComparator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(arithmetic, comparator, formattingAndCoercing, listHandling, statistical, stringHandlingComparator, annotationSet_, eventListener_, externalExecutor_));

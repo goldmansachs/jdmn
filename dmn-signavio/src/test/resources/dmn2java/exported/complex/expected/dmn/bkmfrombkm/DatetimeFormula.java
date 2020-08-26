@@ -28,16 +28,16 @@ public class DatetimeFormula extends com.gs.dmn.signavio.runtime.DefaultSignavio
 
     public List<java.math.BigDecimal> apply(String datetime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((datetime != null ? dateAndTime(datetime) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((datetime != null ? dateAndTime(datetime) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'DatetimeFormula'", e);
             return null;
         }
     }
 
-    public List<java.math.BigDecimal> apply(String datetime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public List<java.math.BigDecimal> apply(String datetime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((datetime != null ? dateAndTime(datetime) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((datetime != null ? dateAndTime(datetime) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'DatetimeFormula'", e);
             return null;
@@ -45,10 +45,10 @@ public class DatetimeFormula extends com.gs.dmn.signavio.runtime.DefaultSignavio
     }
 
     public List<java.math.BigDecimal> apply(javax.xml.datatype.XMLGregorianCalendar datetime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(datetime, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(datetime, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public List<java.math.BigDecimal> apply(javax.xml.datatype.XMLGregorianCalendar datetime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public List<java.math.BigDecimal> apply(javax.xml.datatype.XMLGregorianCalendar datetime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'datetimeFormula'
             long datetimeFormulaStartTime_ = System.currentTimeMillis();
@@ -57,7 +57,7 @@ public class DatetimeFormula extends com.gs.dmn.signavio.runtime.DefaultSignavio
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, datetimeFormulaArguments_);
 
             // Evaluate decision 'datetimeFormula'
-            List<java.math.BigDecimal> output_ = evaluate(datetime, annotationSet_, eventListener_, externalExecutor_);
+            List<java.math.BigDecimal> output_ = evaluate(datetime, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'datetimeFormula'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, datetimeFormulaArguments_, output_, (System.currentTimeMillis() - datetimeFormulaStartTime_));
@@ -69,7 +69,7 @@ public class DatetimeFormula extends com.gs.dmn.signavio.runtime.DefaultSignavio
         }
     }
 
-    protected List<java.math.BigDecimal> evaluate(javax.xml.datatype.XMLGregorianCalendar datetime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected List<java.math.BigDecimal> evaluate(javax.xml.datatype.XMLGregorianCalendar datetime, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(datetime, annotationSet_, eventListener_, externalExecutor_));

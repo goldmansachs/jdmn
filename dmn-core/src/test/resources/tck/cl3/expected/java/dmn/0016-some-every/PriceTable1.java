@@ -27,10 +27,10 @@ public class PriceTable1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     public List<type.TItemPrice> apply(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public List<type.TItemPrice> apply(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public List<type.TItemPrice> apply(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'priceTable1'
             long priceTable1StartTime_ = System.currentTimeMillis();
@@ -38,7 +38,7 @@ public class PriceTable1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, priceTable1Arguments_);
 
             // Evaluate decision 'priceTable1'
-            List<type.TItemPrice> output_ = evaluate(annotationSet_, eventListener_, externalExecutor_);
+            List<type.TItemPrice> output_ = evaluate(annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'priceTable1'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, priceTable1Arguments_, output_, (System.currentTimeMillis() - priceTable1StartTime_));
@@ -50,7 +50,7 @@ public class PriceTable1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected List<type.TItemPrice> evaluate(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected List<type.TItemPrice> evaluate(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         return asList(new type.TItemPriceImpl("widget", number("25")),
 				new type.TItemPriceImpl("sprocket", number("15")),
 				new type.TItemPriceImpl("trinket", number("1.5")));

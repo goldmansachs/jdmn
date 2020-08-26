@@ -9,21 +9,22 @@ public class Test0016SomeEvery extends com.gs.dmn.runtime.DefaultDMNBaseDecision
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
         com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         // Initialize input data
         List<type.TItemPrice> priceTable2 = asList(new type.TItemPriceImpl("widget", number("25")), new type.TItemPriceImpl("sprocket", number("15")), new type.TItemPriceImpl("trinket", number("1.5")));
 
         // Check priceTable1
-        checkValues(asList(new type.TItemPriceImpl("widget", number("25")), new type.TItemPriceImpl("sprocket", number("15")), new type.TItemPriceImpl("trinket", number("1.5"))), new PriceTable1().apply(annotationSet_, eventListener_, externalExecutor_));
+        checkValues(asList(new type.TItemPriceImpl("widget", number("25")), new type.TItemPriceImpl("sprocket", number("15")), new type.TItemPriceImpl("trinket", number("1.5"))), new PriceTable1().apply(annotationSet_, eventListener_, externalExecutor_, cache_));
         // Check everyGtTen1
-        checkValues(false, new EveryGtTen1().apply(annotationSet_, eventListener_, externalExecutor_));
+        checkValues(false, new EveryGtTen1().apply(annotationSet_, eventListener_, externalExecutor_, cache_));
         // Check everyGtTen2
-        checkValues(false, new EveryGtTen2().apply(priceTable2, annotationSet_, eventListener_, externalExecutor_));
+        checkValues(false, new EveryGtTen2().apply(priceTable2, annotationSet_, eventListener_, externalExecutor_, cache_));
         // Check someGtTen1
-        checkValues(true, new SomeGtTen1().apply(annotationSet_, eventListener_, externalExecutor_));
+        checkValues(true, new SomeGtTen1().apply(annotationSet_, eventListener_, externalExecutor_, cache_));
         // Check someGtTen2
-        checkValues(true, new SomeGtTen2().apply(priceTable2, annotationSet_, eventListener_, externalExecutor_));
+        checkValues(true, new SomeGtTen2().apply(priceTable2, annotationSet_, eventListener_, externalExecutor_, cache_));
         // Check everyGtTen3
-        checkValues(false, new EveryGtTen3().apply(annotationSet_, eventListener_, externalExecutor_));
+        checkValues(false, new EveryGtTen3().apply(annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 
     private void checkValues(Object expected, Object actual) {

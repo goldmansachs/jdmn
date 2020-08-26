@@ -28,16 +28,16 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
     public List<String> apply(String date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((date != null ? date(date) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((date != null ? date(date) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'DateOperators'", e);
             return null;
         }
     }
 
-    public List<String> apply(String date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public List<String> apply(String date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((date != null ? date(date) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((date != null ? date(date) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'DateOperators'", e);
             return null;
@@ -45,10 +45,10 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
     }
 
     public List<String> apply(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(date, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(date, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public List<String> apply(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public List<String> apply(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'dateOperators'
             long dateOperatorsStartTime_ = System.currentTimeMillis();
@@ -57,7 +57,7 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, dateOperatorsArguments_);
 
             // Evaluate decision 'dateOperators'
-            List<String> output_ = evaluate(date, annotationSet_, eventListener_, externalExecutor_);
+            List<String> output_ = evaluate(date, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'dateOperators'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, dateOperatorsArguments_, output_, (System.currentTimeMillis() - dateOperatorsStartTime_));
@@ -69,7 +69,7 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
         }
     }
 
-    protected List<String> evaluate(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected List<String> evaluate(javax.xml.datatype.XMLGregorianCalendar date, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(date, annotationSet_, eventListener_, externalExecutor_));

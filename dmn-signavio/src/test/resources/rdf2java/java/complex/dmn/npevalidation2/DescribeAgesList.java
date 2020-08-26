@@ -28,16 +28,16 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
 
     public List<String> apply(String ages, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((ages != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(ages, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((ages != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(ages, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'DescribeAgesList'", e);
             return null;
         }
     }
 
-    public List<String> apply(String ages, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public List<String> apply(String ages, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((ages != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(ages, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((ages != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(ages, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'DescribeAgesList'", e);
             return null;
@@ -45,10 +45,10 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
     }
 
     public List<String> apply(List<java.math.BigDecimal> ages, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(ages, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(ages, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public List<String> apply(List<java.math.BigDecimal> ages, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public List<String> apply(List<java.math.BigDecimal> ages, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'describeAgesList'
             long describeAgesListStartTime_ = System.currentTimeMillis();
@@ -57,7 +57,7 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, describeAgesListArguments_);
 
             // Evaluate decision 'describeAgesList'
-            List<String> output_ = evaluate(ages, annotationSet_, eventListener_, externalExecutor_);
+            List<String> output_ = evaluate(ages, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'describeAgesList'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, describeAgesListArguments_, output_, (System.currentTimeMillis() - describeAgesListStartTime_));
@@ -69,7 +69,7 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
         }
     }
 
-    protected List<String> evaluate(List<java.math.BigDecimal> ages, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected List<String> evaluate(List<java.math.BigDecimal> ages, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(ages, annotationSet_, eventListener_, externalExecutor_));

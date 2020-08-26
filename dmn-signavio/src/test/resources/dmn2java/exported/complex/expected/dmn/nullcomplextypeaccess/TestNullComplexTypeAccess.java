@@ -33,10 +33,10 @@ public class TestNullComplexTypeAccess extends com.gs.dmn.signavio.runtime.Defau
     }
 
     public String apply(String inputString, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(inputString, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(inputString, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public String apply(String inputString, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public String apply(String inputString, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'testNullComplexTypeAccess'
             long testNullComplexTypeAccessStartTime_ = System.currentTimeMillis();
@@ -45,10 +45,10 @@ public class TestNullComplexTypeAccess extends com.gs.dmn.signavio.runtime.Defau
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, testNullComplexTypeAccessArguments_);
 
             // Apply child decisions
-            type.IncompleteDecisionTable incompleteDecisionTable = this.incompleteDecisionTable.apply(inputString, annotationSet_, eventListener_, externalExecutor_);
+            type.IncompleteDecisionTable incompleteDecisionTable = this.incompleteDecisionTable.apply(inputString, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // Evaluate decision 'testNullComplexTypeAccess'
-            String output_ = evaluate(incompleteDecisionTable, annotationSet_, eventListener_, externalExecutor_);
+            String output_ = evaluate(incompleteDecisionTable, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'testNullComplexTypeAccess'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, testNullComplexTypeAccessArguments_, output_, (System.currentTimeMillis() - testNullComplexTypeAccessStartTime_));
@@ -60,7 +60,7 @@ public class TestNullComplexTypeAccess extends com.gs.dmn.signavio.runtime.Defau
         }
     }
 
-    protected String evaluate(type.IncompleteDecisionTable incompleteDecisionTable, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected String evaluate(type.IncompleteDecisionTable incompleteDecisionTable, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(incompleteDecisionTable, annotationSet_, eventListener_, externalExecutor_));

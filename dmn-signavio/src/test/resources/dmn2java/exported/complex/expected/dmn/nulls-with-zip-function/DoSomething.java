@@ -28,16 +28,16 @@ public class DoSomething extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
 
     public String apply(String zip4_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((zip4_iterator != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(zip4_iterator, new com.fasterxml.jackson.core.type.TypeReference<type.Zip3Impl>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((zip4_iterator != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(zip4_iterator, new com.fasterxml.jackson.core.type.TypeReference<type.Zip3Impl>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'DoSomething'", e);
             return null;
         }
     }
 
-    public String apply(String zip4_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public String apply(String zip4_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((zip4_iterator != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(zip4_iterator, new com.fasterxml.jackson.core.type.TypeReference<type.Zip3Impl>() {}) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((zip4_iterator != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(zip4_iterator, new com.fasterxml.jackson.core.type.TypeReference<type.Zip3Impl>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'DoSomething'", e);
             return null;
@@ -45,10 +45,10 @@ public class DoSomething extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
     }
 
     public String apply(type.Zip3 zip4_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(zip4_iterator, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(zip4_iterator, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public String apply(type.Zip3 zip4_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public String apply(type.Zip3 zip4_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'doSomething'
             long doSomethingStartTime_ = System.currentTimeMillis();
@@ -57,7 +57,7 @@ public class DoSomething extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, doSomethingArguments_);
 
             // Evaluate decision 'doSomething'
-            String output_ = evaluate(zip4_iterator, annotationSet_, eventListener_, externalExecutor_);
+            String output_ = evaluate(zip4_iterator, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'doSomething'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, doSomethingArguments_, output_, (System.currentTimeMillis() - doSomethingStartTime_));
@@ -69,7 +69,7 @@ public class DoSomething extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
         }
     }
 
-    protected String evaluate(type.Zip3 zip4_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected String evaluate(type.Zip3 zip4_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(zip4_iterator, annotationSet_, eventListener_, externalExecutor_));

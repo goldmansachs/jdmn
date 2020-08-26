@@ -27,10 +27,10 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
     }
 
     public String apply(String properties_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(properties_iterator, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(properties_iterator, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public String apply(String properties_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public String apply(String properties_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'decide'
             long decideStartTime_ = System.currentTimeMillis();
@@ -39,7 +39,7 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decideArguments_);
 
             // Evaluate decision 'decide'
-            String output_ = evaluate(properties_iterator, annotationSet_, eventListener_, externalExecutor_);
+            String output_ = evaluate(properties_iterator, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'decide'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, decideArguments_, output_, (System.currentTimeMillis() - decideStartTime_));
@@ -51,7 +51,7 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
         }
     }
 
-    protected String evaluate(String properties_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected String evaluate(String properties_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(properties_iterator, annotationSet_, eventListener_, externalExecutor_));

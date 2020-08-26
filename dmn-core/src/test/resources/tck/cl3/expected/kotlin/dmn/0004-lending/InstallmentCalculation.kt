@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class InstallmentCalculation : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private constructor() {}
 
-    private fun apply(productType: String?, rate: java.math.BigDecimal?, term: java.math.BigDecimal?, amount: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): java.math.BigDecimal? {
+    private fun apply(productType: String?, rate: java.math.BigDecimal?, term: java.math.BigDecimal?, amount: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
         try {
             // Start BKM 'InstallmentCalculation'
             val installmentCalculationStartTime_ = System.currentTimeMillis()
@@ -27,7 +27,7 @@ class InstallmentCalculation : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, installmentCalculationArguments_)
 
             // Evaluate BKM 'InstallmentCalculation'
-            val output_: java.math.BigDecimal? = evaluate(productType, rate, term, amount, annotationSet_, eventListener_, externalExecutor_)
+            val output_: java.math.BigDecimal? = evaluate(productType, rate, term, amount, annotationSet_, eventListener_, externalExecutor_, cache_)
 
             // End BKM 'InstallmentCalculation'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, installmentCalculationArguments_, output_, (System.currentTimeMillis() - installmentCalculationStartTime_))
@@ -39,7 +39,7 @@ class InstallmentCalculation : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    private inline fun evaluate(productType: String?, rate: java.math.BigDecimal?, term: java.math.BigDecimal?, amount: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): java.math.BigDecimal? {
+    private inline fun evaluate(productType: String?, rate: java.math.BigDecimal?, term: java.math.BigDecimal?, amount: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
         val monthlyFee: java.math.BigDecimal? = (if (booleanEqual(stringEqual(productType, "STANDARD LOAN"), true)) number("20.00") else (if (booleanEqual(stringEqual(productType, "SPECIAL LOAN"), true)) number("25.00") else null)) as java.math.BigDecimal?
         val monthlyRepayment: java.math.BigDecimal? = numericDivide(numericDivide(numericMultiply(amount, rate), number("12")), numericSubtract(number("1"), numericExponentiation(numericAdd(number("1"), numericDivide(rate, number("12"))), numericUnaryMinus(term)))) as java.math.BigDecimal?
         return numericAdd(monthlyRepayment, monthlyFee)
@@ -58,8 +58,8 @@ class InstallmentCalculation : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         val INSTANCE = InstallmentCalculation()
 
-        fun InstallmentCalculation(productType: String?, rate: java.math.BigDecimal?, term: java.math.BigDecimal?, amount: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): java.math.BigDecimal? {
-            return INSTANCE.apply(productType, rate, term, amount, annotationSet_, eventListener_, externalExecutor_)
+        fun InstallmentCalculation(productType: String?, rate: java.math.BigDecimal?, term: java.math.BigDecimal?, amount: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
+            return INSTANCE.apply(productType, rate, term, amount, annotationSet_, eventListener_, externalExecutor_, cache_)
         }
     }
 }

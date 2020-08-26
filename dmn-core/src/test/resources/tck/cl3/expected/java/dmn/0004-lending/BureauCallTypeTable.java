@@ -28,11 +28,11 @@ public class BureauCallTypeTable extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
     private BureauCallTypeTable() {
     }
 
-    public static String BureauCallTypeTable(String preBureauRiskCategory, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
-        return INSTANCE.apply(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_);
+    public static String BureauCallTypeTable(String preBureauRiskCategory, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        return INSTANCE.apply(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_, cache_);
     }
 
-    private String apply(String preBureauRiskCategory, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    private String apply(String preBureauRiskCategory, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'BureauCallTypeTable'
             long bureauCallTypeTableStartTime_ = System.currentTimeMillis();
@@ -41,7 +41,7 @@ public class BureauCallTypeTable extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bureauCallTypeTableArguments_);
 
             // Evaluate BKM 'BureauCallTypeTable'
-            String output_ = evaluate(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_);
+            String output_ = evaluate(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End BKM 'BureauCallTypeTable'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, bureauCallTypeTableArguments_, output_, (System.currentTimeMillis() - bureauCallTypeTableStartTime_));
@@ -53,7 +53,7 @@ public class BureauCallTypeTable extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         }
     }
 
-    protected String evaluate(String preBureauRiskCategory, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected String evaluate(String preBureauRiskCategory, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_));

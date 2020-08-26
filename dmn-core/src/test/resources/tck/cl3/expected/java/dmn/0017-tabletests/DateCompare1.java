@@ -28,16 +28,16 @@ public class DateCompare1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public Boolean apply(String dateD, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((dateD != null ? date(dateD) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((dateD != null ? date(dateD) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'DateCompare1'", e);
             return null;
         }
     }
 
-    public Boolean apply(String dateD, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public Boolean apply(String dateD, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((dateD != null ? date(dateD) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((dateD != null ? date(dateD) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'DateCompare1'", e);
             return null;
@@ -45,10 +45,10 @@ public class DateCompare1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     public Boolean apply(javax.xml.datatype.XMLGregorianCalendar dateD, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(dateD, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(dateD, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public Boolean apply(javax.xml.datatype.XMLGregorianCalendar dateD, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public Boolean apply(javax.xml.datatype.XMLGregorianCalendar dateD, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'dateCompare1'
             long dateCompare1StartTime_ = System.currentTimeMillis();
@@ -57,7 +57,7 @@ public class DateCompare1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, dateCompare1Arguments_);
 
             // Evaluate decision 'dateCompare1'
-            Boolean output_ = evaluate(dateD, annotationSet_, eventListener_, externalExecutor_);
+            Boolean output_ = evaluate(dateD, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'dateCompare1'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, dateCompare1Arguments_, output_, (System.currentTimeMillis() - dateCompare1StartTime_));
@@ -69,7 +69,7 @@ public class DateCompare1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected Boolean evaluate(javax.xml.datatype.XMLGregorianCalendar dateD, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected Boolean evaluate(javax.xml.datatype.XMLGregorianCalendar dateD, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(dateD, annotationSet_, eventListener_, externalExecutor_));

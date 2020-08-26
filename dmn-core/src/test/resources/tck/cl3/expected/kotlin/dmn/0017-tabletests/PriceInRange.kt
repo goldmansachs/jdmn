@@ -15,16 +15,16 @@ import java.util.stream.Collectors
 class PriceInRange() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     fun apply(numB: String?, numC: String?, structA: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): String? {
         return try {
-            apply(numB?.let({ number(it) }), numC?.let({ number(it) }), structA?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TAImpl>() {}) }), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+            apply(numB?.let({ number(it) }), numC?.let({ number(it) }), structA?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TAImpl>() {}) }), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
         } catch (e: Exception) {
             logError("Cannot apply decision 'PriceInRange'", e)
             null
         }
     }
 
-    fun apply(numB: String?, numC: String?, structA: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): String? {
+    fun apply(numB: String?, numC: String?, structA: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
         return try {
-            apply(numB?.let({ number(it) }), numC?.let({ number(it) }), structA?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TAImpl>() {}) }), annotationSet_, eventListener_, externalExecutor_)
+            apply(numB?.let({ number(it) }), numC?.let({ number(it) }), structA?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TAImpl>() {}) }), annotationSet_, eventListener_, externalExecutor_, cache_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'PriceInRange'", e)
             null
@@ -32,10 +32,10 @@ class PriceInRange() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     }
 
     fun apply(numB: java.math.BigDecimal?, numC: java.math.BigDecimal?, structA: type.TA?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): String? {
-        return apply(numB, numC, structA, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+        return apply(numB, numC, structA, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
     }
 
-    fun apply(numB: java.math.BigDecimal?, numC: java.math.BigDecimal?, structA: type.TA?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): String? {
+    fun apply(numB: java.math.BigDecimal?, numC: java.math.BigDecimal?, structA: type.TA?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
         try {
             // Start decision 'priceInRange'
             val priceInRangeStartTime_ = System.currentTimeMillis()
@@ -46,7 +46,7 @@ class PriceInRange() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, priceInRangeArguments_)
 
             // Evaluate decision 'priceInRange'
-            val output_: String? = evaluate(numB, numC, structA, annotationSet_, eventListener_, externalExecutor_)
+            val output_: String? = evaluate(numB, numC, structA, annotationSet_, eventListener_, externalExecutor_, cache_)
 
             // End decision 'priceInRange'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, priceInRangeArguments_, output_, (System.currentTimeMillis() - priceInRangeStartTime_))
@@ -58,7 +58,7 @@ class PriceInRange() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
     }
 
-    private inline fun evaluate(numB: java.math.BigDecimal?, numC: java.math.BigDecimal?, structA: type.TA?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): String? {
+    private inline fun evaluate(numB: java.math.BigDecimal?, numC: java.math.BigDecimal?, structA: type.TA?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
         // Apply rules and collect results
         val ruleOutputList_ = com.gs.dmn.runtime.RuleOutputList()
         ruleOutputList_.add(rule0(numB, numC, structA, annotationSet_, eventListener_, externalExecutor_))

@@ -28,16 +28,16 @@ public class Sort1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public List<java.math.BigDecimal> apply(String listA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((listA != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(listA, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((listA != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(listA, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'Sort1'", e);
             return null;
         }
     }
 
-    public List<java.math.BigDecimal> apply(String listA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public List<java.math.BigDecimal> apply(String listA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((listA != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(listA, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((listA != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(listA, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Sort1'", e);
             return null;
@@ -45,10 +45,10 @@ public class Sort1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     public List<java.math.BigDecimal> apply(List<java.math.BigDecimal> listA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(listA, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(listA, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public List<java.math.BigDecimal> apply(List<java.math.BigDecimal> listA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public List<java.math.BigDecimal> apply(List<java.math.BigDecimal> listA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'sort1'
             long sort1StartTime_ = System.currentTimeMillis();
@@ -57,7 +57,7 @@ public class Sort1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, sort1Arguments_);
 
             // Evaluate decision 'sort1'
-            List<java.math.BigDecimal> output_ = evaluate(listA, annotationSet_, eventListener_, externalExecutor_);
+            List<java.math.BigDecimal> output_ = evaluate(listA, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'sort1'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, sort1Arguments_, output_, (System.currentTimeMillis() - sort1StartTime_));
@@ -69,7 +69,7 @@ public class Sort1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected List<java.math.BigDecimal> evaluate(List<java.math.BigDecimal> listA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected List<java.math.BigDecimal> evaluate(List<java.math.BigDecimal> listA, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         return sort(listA, new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {java.math.BigDecimal x = (java.math.BigDecimal)args[0]; java.math.BigDecimal y = (java.math.BigDecimal)args[1];return numericGreaterThan(x, y);}});
     }
 }

@@ -34,16 +34,16 @@ public class ChildObject extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
 
     public java.math.BigDecimal apply(String num, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((num != null ? number(num) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((num != null ? number(num) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'ChildObject'", e);
             return null;
         }
     }
 
-    public java.math.BigDecimal apply(String num, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public java.math.BigDecimal apply(String num, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((num != null ? number(num) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((num != null ? number(num) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'ChildObject'", e);
             return null;
@@ -51,10 +51,10 @@ public class ChildObject extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
     }
 
     public java.math.BigDecimal apply(java.math.BigDecimal num, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(num, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(num, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public java.math.BigDecimal apply(java.math.BigDecimal num, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public java.math.BigDecimal apply(java.math.BigDecimal num, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'childObject'
             long childObjectStartTime_ = System.currentTimeMillis();
@@ -63,10 +63,10 @@ public class ChildObject extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, childObjectArguments_);
 
             // Apply child decisions
-            java.math.BigDecimal abc = this.abc.apply(num, annotationSet_, eventListener_, externalExecutor_);
+            java.math.BigDecimal abc = this.abc.apply(num, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // Evaluate decision 'childObject'
-            java.math.BigDecimal output_ = evaluate(abc, annotationSet_, eventListener_, externalExecutor_);
+            java.math.BigDecimal output_ = evaluate(abc, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'childObject'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, childObjectArguments_, output_, (System.currentTimeMillis() - childObjectStartTime_));
@@ -78,7 +78,7 @@ public class ChildObject extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
         }
     }
 
-    protected java.math.BigDecimal evaluate(java.math.BigDecimal abc, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected java.math.BigDecimal evaluate(java.math.BigDecimal abc, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         return abc;
     }
 }

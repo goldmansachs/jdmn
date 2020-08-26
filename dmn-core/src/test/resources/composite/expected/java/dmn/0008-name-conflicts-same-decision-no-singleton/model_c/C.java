@@ -28,10 +28,10 @@ public class C extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     public Object apply(String modela_a, String modelb_a, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(modela_a, modelb_a, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(modela_a, modelb_a, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public Object apply(String modela_a, String modelb_a, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public Object apply(String modela_a, String modelb_a, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'c'
             long cStartTime_ = System.currentTimeMillis();
@@ -41,7 +41,7 @@ public class C extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, cArguments_);
 
             // Evaluate decision 'c'
-            Object output_ = evaluate(modela_a, modelb_a, annotationSet_, eventListener_, externalExecutor_);
+            Object output_ = evaluate(modela_a, modelb_a, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'c'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, cArguments_, output_, (System.currentTimeMillis() - cStartTime_));
@@ -53,7 +53,7 @@ public class C extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected Object evaluate(String modela_a, String modelb_a, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected Object evaluate(String modela_a, String modelb_a, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         return stringAdd(stringAdd(stringAdd("A: ", modela_a), "; B: "), modelb_a);
     }
 }

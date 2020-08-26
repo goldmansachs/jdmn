@@ -15,16 +15,16 @@ import java.util.stream.Collectors
 class Strategy(val bureauCallType : BureauCallType = BureauCallType(), val eligibility : Eligibility = Eligibility()) : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     fun apply(applicantData: String?, requestedProduct: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): String? {
         return try {
-            apply(applicantData?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TApplicantDataImpl>() {}) }), requestedProduct?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TRequestedProductImpl>() {}) }), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+            apply(applicantData?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TApplicantDataImpl>() {}) }), requestedProduct?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TRequestedProductImpl>() {}) }), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
         } catch (e: Exception) {
             logError("Cannot apply decision 'Strategy'", e)
             null
         }
     }
 
-    fun apply(applicantData: String?, requestedProduct: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): String? {
+    fun apply(applicantData: String?, requestedProduct: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
         return try {
-            apply(applicantData?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TApplicantDataImpl>() {}) }), requestedProduct?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TRequestedProductImpl>() {}) }), annotationSet_, eventListener_, externalExecutor_)
+            apply(applicantData?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TApplicantDataImpl>() {}) }), requestedProduct?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TRequestedProductImpl>() {}) }), annotationSet_, eventListener_, externalExecutor_, cache_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'Strategy'", e)
             null
@@ -32,10 +32,10 @@ class Strategy(val bureauCallType : BureauCallType = BureauCallType(), val eligi
     }
 
     fun apply(applicantData: type.TApplicantData?, requestedProduct: type.TRequestedProduct?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): String? {
-        return apply(applicantData, requestedProduct, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+        return apply(applicantData, requestedProduct, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
     }
 
-    fun apply(applicantData: type.TApplicantData?, requestedProduct: type.TRequestedProduct?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): String? {
+    fun apply(applicantData: type.TApplicantData?, requestedProduct: type.TRequestedProduct?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
         try {
             // Start decision 'Strategy'
             val strategyStartTime_ = System.currentTimeMillis()
@@ -45,11 +45,11 @@ class Strategy(val bureauCallType : BureauCallType = BureauCallType(), val eligi
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, strategyArguments_)
 
             // Apply child decisions
-            val bureauCallType: String? = this.bureauCallType.apply(applicantData, annotationSet_, eventListener_, externalExecutor_)
-            val eligibility: String? = this.eligibility.apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_)
+            val bureauCallType: String? = this.bureauCallType.apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
+            val eligibility: String? = this.eligibility.apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
 
             // Evaluate decision 'Strategy'
-            val output_: String? = evaluate(bureauCallType, eligibility, annotationSet_, eventListener_, externalExecutor_)
+            val output_: String? = evaluate(bureauCallType, eligibility, annotationSet_, eventListener_, externalExecutor_, cache_)
 
             // End decision 'Strategy'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, strategyArguments_, output_, (System.currentTimeMillis() - strategyStartTime_))
@@ -61,7 +61,7 @@ class Strategy(val bureauCallType : BureauCallType = BureauCallType(), val eligi
         }
     }
 
-    private inline fun evaluate(bureauCallType: String?, eligibility: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): String? {
+    private inline fun evaluate(bureauCallType: String?, eligibility: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
         // Apply rules and collect results
         val ruleOutputList_ = com.gs.dmn.runtime.RuleOutputList()
         ruleOutputList_.add(rule0(bureauCallType, eligibility, annotationSet_, eventListener_, externalExecutor_))

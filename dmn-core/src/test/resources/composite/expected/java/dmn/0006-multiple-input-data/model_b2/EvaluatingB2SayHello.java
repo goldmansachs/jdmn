@@ -34,10 +34,10 @@ public class EvaluatingB2SayHello extends com.gs.dmn.runtime.DefaultDMNBaseDecis
     }
 
     public String apply(String modela_personName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(modela_personName, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(modela_personName, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public String apply(String modela_personName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public String apply(String modela_personName, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'EvaluatingB2SayHello'
             long evaluatingB2SayHelloStartTime_ = System.currentTimeMillis();
@@ -46,10 +46,10 @@ public class EvaluatingB2SayHello extends com.gs.dmn.runtime.DefaultDMNBaseDecis
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, evaluatingB2SayHelloArguments_);
 
             // Apply child decisions
-            String modela_greetThePerson = this.modela_greetThePerson.apply(modela_personName, annotationSet_, eventListener_, externalExecutor_);
+            String modela_greetThePerson = this.modela_greetThePerson.apply(modela_personName, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // Evaluate decision 'EvaluatingB2SayHello'
-            String output_ = evaluate(modela_greetThePerson, annotationSet_, eventListener_, externalExecutor_);
+            String output_ = evaluate(modela_greetThePerson, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'EvaluatingB2SayHello'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, evaluatingB2SayHelloArguments_, output_, (System.currentTimeMillis() - evaluatingB2SayHelloStartTime_));
@@ -61,7 +61,7 @@ public class EvaluatingB2SayHello extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         }
     }
 
-    protected String evaluate(String modela_greetThePerson, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected String evaluate(String modela_greetThePerson, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         return stringAdd("Evaluating Say Hello to: ", modela_greetThePerson);
     }
 }
