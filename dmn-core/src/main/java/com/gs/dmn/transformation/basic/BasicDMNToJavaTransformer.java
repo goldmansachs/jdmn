@@ -1250,10 +1250,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String drgElementSignatureExtraCache(String signature) {
-        if (!this.caching) {
-            return signature;
-        }
-
         String cacheParameter = this.nativeFactory.parameter(cacheInterfaceName(), cacheVariableName());
         if (StringUtils.isBlank(signature)) {
             return cacheParameter;
@@ -1276,10 +1272,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String drgElementArgumentListExtraCache(String arguments) {
-        if (!this.caching) {
-            return arguments;
-        }
-
         if (StringUtils.isBlank(arguments)) {
             return String.format("%s", cacheVariableName());
         } else {
@@ -1289,10 +1281,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String drgElementDefaultArgumentListExtraCache(String arguments) {
-        if (!this.caching) {
-            return arguments;
-        }
-
         String defaultCacheArgument = defaultConstructor(defaultCacheClassName());
         if (StringUtils.isBlank(arguments)) {
             return defaultCacheArgument;

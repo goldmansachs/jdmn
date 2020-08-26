@@ -16,6 +16,7 @@ import com.gs.dmn.generated.example_credit_decision.type.Applicant;
 import com.gs.dmn.generated.example_credit_decision.type.ApplicantImpl;
 import com.gs.dmn.runtime.Assert;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
+import com.gs.dmn.runtime.cache.DefaultCache;
 import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
 import com.gs.dmn.runtime.listener.PostorderTraceEventListener;
 import com.gs.dmn.runtime.listener.node.DRGElementNode;
@@ -37,7 +38,7 @@ public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
         java.math.BigDecimal currentRiskAppetite = decision.number("50");
         java.math.BigDecimal lendingThreshold = decision.number("25");
         Applicant applicant = new ApplicantImpl(decision.number("38"), decision.number("100"), "Amy", decision.asList("Late payment"));
-        List<?> actualResult = decision.apply(Applicant.toApplicant(applicant), currentRiskAppetite, lendingThreshold, annotationSet, listener, new DefaultExternalFunctionExecutor());
+        List<?> actualResult = decision.apply(Applicant.toApplicant(applicant), currentRiskAppetite, lendingThreshold, annotationSet, listener, new DefaultExternalFunctionExecutor(), new DefaultCache());
 
         Assert.assertEquals(expectedResult, actualResult);
 
@@ -56,7 +57,7 @@ public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
         java.math.BigDecimal currentRiskAppetite = decision.number("50");
         java.math.BigDecimal lendingThreshold = decision.number("25");
         Applicant applicant = new ApplicantImpl(decision.number("38"), decision.number("100"), "Amy", decision.asList("Late payment"));
-        List<?> actualResult = decision.apply(Applicant.toApplicant(applicant), currentRiskAppetite, lendingThreshold, annotationSet, listener, new DefaultExternalFunctionExecutor());
+        List<?> actualResult = decision.apply(Applicant.toApplicant(applicant), currentRiskAppetite, lendingThreshold, annotationSet, listener, new DefaultExternalFunctionExecutor(), new DefaultCache());
 
         Assert.assertEquals(expectedResult, actualResult);
 

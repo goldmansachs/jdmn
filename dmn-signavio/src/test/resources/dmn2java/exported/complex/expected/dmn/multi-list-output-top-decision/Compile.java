@@ -28,16 +28,16 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
 
     public List<type.Compile> apply(String name, String numbers, String trafficLight, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply(name, (numbers != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(numbers, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), (trafficLight != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(trafficLight, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply(name, (numbers != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(numbers, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), (trafficLight != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(trafficLight, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'Compile'", e);
             return null;
         }
     }
 
-    public List<type.Compile> apply(String name, String numbers, String trafficLight, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public List<type.Compile> apply(String name, String numbers, String trafficLight, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply(name, (numbers != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(numbers, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), (trafficLight != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(trafficLight, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply(name, (numbers != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(numbers, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), (trafficLight != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(trafficLight, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Compile'", e);
             return null;
@@ -45,10 +45,10 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     }
 
     public List<type.Compile> apply(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(name, numbers, trafficLight, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(name, numbers, trafficLight, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public List<type.Compile> apply(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public List<type.Compile> apply(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'compile'
             long compileStartTime_ = System.currentTimeMillis();
@@ -59,7 +59,7 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, compileArguments_);
 
             // Evaluate decision 'compile'
-            List<type.Compile> output_ = evaluate(name, numbers, trafficLight, annotationSet_, eventListener_, externalExecutor_);
+            List<type.Compile> output_ = evaluate(name, numbers, trafficLight, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'compile'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, compileArguments_, output_, (System.currentTimeMillis() - compileStartTime_));
@@ -71,7 +71,7 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         }
     }
 
-    protected List<type.Compile> evaluate(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected List<type.Compile> evaluate(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(name, numbers, trafficLight, annotationSet_, eventListener_, externalExecutor_));

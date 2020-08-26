@@ -27,10 +27,10 @@ public class Literal_009 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     public Object apply(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public Object apply(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public Object apply(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'literal_009'
             long literal_009StartTime_ = System.currentTimeMillis();
@@ -38,7 +38,7 @@ public class Literal_009 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, literal_009Arguments_);
 
             // Evaluate decision 'literal_009'
-            Object output_ = evaluate(annotationSet_, eventListener_, externalExecutor_);
+            Object output_ = evaluate(annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'literal_009'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, literal_009Arguments_, output_, (System.currentTimeMillis() - literal_009StartTime_));
@@ -50,7 +50,7 @@ public class Literal_009 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected Object evaluate(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected Object evaluate(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         com.gs.dmn.runtime.external.JavaExternalFunction<Object> max = new com.gs.dmn.runtime.external.JavaExternalFunction<>(new com.gs.dmn.runtime.external.JavaFunctionInfo("java.lang.Math", "max", Arrays.asList("float", "float")), externalExecutor_, Object.class);
         return max.apply(number("123.46"), number("456.78"));
     }

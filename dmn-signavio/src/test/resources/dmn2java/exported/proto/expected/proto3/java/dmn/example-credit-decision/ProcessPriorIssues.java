@@ -28,16 +28,16 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
 
     public List<java.math.BigDecimal> apply(String applicant, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((applicant != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(applicant, new com.fasterxml.jackson.core.type.TypeReference<type.ApplicantImpl>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((applicant != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(applicant, new com.fasterxml.jackson.core.type.TypeReference<type.ApplicantImpl>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'ProcessPriorIssues'", e);
             return null;
         }
     }
 
-    public List<java.math.BigDecimal> apply(String applicant, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public List<java.math.BigDecimal> apply(String applicant, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((applicant != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(applicant, new com.fasterxml.jackson.core.type.TypeReference<type.ApplicantImpl>() {}) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((applicant != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(applicant, new com.fasterxml.jackson.core.type.TypeReference<type.ApplicantImpl>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'ProcessPriorIssues'", e);
             return null;
@@ -45,10 +45,10 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
     }
 
     public List<java.math.BigDecimal> apply(type.Applicant applicant, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(applicant, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(applicant, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public List<java.math.BigDecimal> apply(type.Applicant applicant, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public List<java.math.BigDecimal> apply(type.Applicant applicant, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'processPriorIssues'
             long processPriorIssuesStartTime_ = System.currentTimeMillis();
@@ -57,7 +57,7 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, processPriorIssuesArguments_);
 
             // Evaluate decision 'processPriorIssues'
-            List<java.math.BigDecimal> output_ = evaluate(applicant, annotationSet_, eventListener_, externalExecutor_);
+            List<java.math.BigDecimal> output_ = evaluate(applicant, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'processPriorIssues'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, processPriorIssuesArguments_, output_, (System.currentTimeMillis() - processPriorIssuesStartTime_));
@@ -70,15 +70,15 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
     }
 
     public proto.ProcessPriorIssuesResponse apply(proto.ProcessPriorIssuesRequest processPriorIssuesRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(processPriorIssuesRequest_, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(processPriorIssuesRequest_, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public proto.ProcessPriorIssuesResponse apply(proto.ProcessPriorIssuesRequest processPriorIssuesRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public proto.ProcessPriorIssuesResponse apply(proto.ProcessPriorIssuesRequest processPriorIssuesRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Create arguments from Request Message
         type.Applicant applicant = type.Applicant.toApplicant(processPriorIssuesRequest_.getApplicant());
         
         // Invoke apply method
-        List<java.math.BigDecimal> output_ = apply(applicant, annotationSet_, eventListener_, externalExecutor_);
+        List<java.math.BigDecimal> output_ = apply(applicant, annotationSet_, eventListener_, externalExecutor_, cache_);
         
         // Convert output to Response Message
         proto.ProcessPriorIssuesResponse.Builder builder_ = proto.ProcessPriorIssuesResponse.newBuilder();
@@ -86,7 +86,7 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
         return builder_.build();
     }
 
-    protected List<java.math.BigDecimal> evaluate(type.Applicant applicant, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected List<java.math.BigDecimal> evaluate(type.Applicant applicant, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(applicant, annotationSet_, eventListener_, externalExecutor_));

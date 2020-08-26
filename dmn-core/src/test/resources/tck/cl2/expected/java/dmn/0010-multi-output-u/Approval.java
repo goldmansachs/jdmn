@@ -28,16 +28,16 @@ public class Approval extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public type.TApproval apply(String age, String riskCategory, String isAffordable, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((age != null ? number(age) : null), riskCategory, (isAffordable != null ? Boolean.valueOf(isAffordable) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((age != null ? number(age) : null), riskCategory, (isAffordable != null ? Boolean.valueOf(isAffordable) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'Approval'", e);
             return null;
         }
     }
 
-    public type.TApproval apply(String age, String riskCategory, String isAffordable, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public type.TApproval apply(String age, String riskCategory, String isAffordable, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((age != null ? number(age) : null), riskCategory, (isAffordable != null ? Boolean.valueOf(isAffordable) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((age != null ? number(age) : null), riskCategory, (isAffordable != null ? Boolean.valueOf(isAffordable) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Approval'", e);
             return null;
@@ -45,10 +45,10 @@ public class Approval extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     public type.TApproval apply(java.math.BigDecimal age, String riskCategory, Boolean isAffordable, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(age, riskCategory, isAffordable, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(age, riskCategory, isAffordable, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public type.TApproval apply(java.math.BigDecimal age, String riskCategory, Boolean isAffordable, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public type.TApproval apply(java.math.BigDecimal age, String riskCategory, Boolean isAffordable, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'Approval'
             long approvalStartTime_ = System.currentTimeMillis();
@@ -59,7 +59,7 @@ public class Approval extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, approvalArguments_);
 
             // Evaluate decision 'Approval'
-            type.TApproval output_ = evaluate(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_);
+            type.TApproval output_ = evaluate(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'Approval'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, approvalArguments_, output_, (System.currentTimeMillis() - approvalStartTime_));
@@ -71,7 +71,7 @@ public class Approval extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected type.TApproval evaluate(java.math.BigDecimal age, String riskCategory, Boolean isAffordable, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected type.TApproval evaluate(java.math.BigDecimal age, String riskCategory, Boolean isAffordable, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_));

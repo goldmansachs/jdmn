@@ -28,16 +28,16 @@ public class NegateSecond extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
 
     public java.math.BigDecimal apply(String second, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((second != null ? number(second) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((second != null ? number(second) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'NegateSecond'", e);
             return null;
         }
     }
 
-    public java.math.BigDecimal apply(String second, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public java.math.BigDecimal apply(String second, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((second != null ? number(second) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((second != null ? number(second) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'NegateSecond'", e);
             return null;
@@ -45,10 +45,10 @@ public class NegateSecond extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
     }
 
     public java.math.BigDecimal apply(java.math.BigDecimal second, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(second, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(second, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public java.math.BigDecimal apply(java.math.BigDecimal second, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public java.math.BigDecimal apply(java.math.BigDecimal second, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'negateSecond'
             long negateSecondStartTime_ = System.currentTimeMillis();
@@ -57,7 +57,7 @@ public class NegateSecond extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, negateSecondArguments_);
 
             // Evaluate decision 'negateSecond'
-            java.math.BigDecimal output_ = evaluate(second, annotationSet_, eventListener_, externalExecutor_);
+            java.math.BigDecimal output_ = evaluate(second, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'negateSecond'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, negateSecondArguments_, output_, (System.currentTimeMillis() - negateSecondStartTime_));
@@ -69,7 +69,7 @@ public class NegateSecond extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
         }
     }
 
-    protected java.math.BigDecimal evaluate(java.math.BigDecimal second, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected java.math.BigDecimal evaluate(java.math.BigDecimal second, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         return numericUnaryMinus(second);
     }
 }

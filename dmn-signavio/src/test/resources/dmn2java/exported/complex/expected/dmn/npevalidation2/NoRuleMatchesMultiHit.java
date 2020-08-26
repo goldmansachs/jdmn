@@ -28,16 +28,16 @@ public class NoRuleMatchesMultiHit extends com.gs.dmn.signavio.runtime.DefaultSi
 
     public List<Boolean> apply(String second, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((second != null ? number(second) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((second != null ? number(second) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'NoRuleMatchesMultiHit'", e);
             return null;
         }
     }
 
-    public List<Boolean> apply(String second, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public List<Boolean> apply(String second, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((second != null ? number(second) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((second != null ? number(second) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'NoRuleMatchesMultiHit'", e);
             return null;
@@ -45,10 +45,10 @@ public class NoRuleMatchesMultiHit extends com.gs.dmn.signavio.runtime.DefaultSi
     }
 
     public List<Boolean> apply(java.math.BigDecimal second, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(second, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(second, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public List<Boolean> apply(java.math.BigDecimal second, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public List<Boolean> apply(java.math.BigDecimal second, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'noRuleMatchesMultiHit'
             long noRuleMatchesMultiHitStartTime_ = System.currentTimeMillis();
@@ -57,7 +57,7 @@ public class NoRuleMatchesMultiHit extends com.gs.dmn.signavio.runtime.DefaultSi
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, noRuleMatchesMultiHitArguments_);
 
             // Evaluate decision 'noRuleMatchesMultiHit'
-            List<Boolean> output_ = evaluate(second, annotationSet_, eventListener_, externalExecutor_);
+            List<Boolean> output_ = evaluate(second, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'noRuleMatchesMultiHit'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, noRuleMatchesMultiHitArguments_, output_, (System.currentTimeMillis() - noRuleMatchesMultiHitStartTime_));
@@ -69,7 +69,7 @@ public class NoRuleMatchesMultiHit extends com.gs.dmn.signavio.runtime.DefaultSi
         }
     }
 
-    protected List<Boolean> evaluate(java.math.BigDecimal second, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected List<Boolean> evaluate(java.math.BigDecimal second, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(second, annotationSet_, eventListener_, externalExecutor_));

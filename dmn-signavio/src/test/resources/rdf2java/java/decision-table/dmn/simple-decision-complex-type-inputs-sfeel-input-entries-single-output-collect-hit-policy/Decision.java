@@ -28,16 +28,16 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
     public List<String> apply(String employed, String person, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((employed != null ? Boolean.valueOf(employed) : null), (person != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(person, new com.fasterxml.jackson.core.type.TypeReference<type.PersonImpl>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((employed != null ? Boolean.valueOf(employed) : null), (person != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(person, new com.fasterxml.jackson.core.type.TypeReference<type.PersonImpl>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'Decision'", e);
             return null;
         }
     }
 
-    public List<String> apply(String employed, String person, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public List<String> apply(String employed, String person, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((employed != null ? Boolean.valueOf(employed) : null), (person != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(person, new com.fasterxml.jackson.core.type.TypeReference<type.PersonImpl>() {}) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((employed != null ? Boolean.valueOf(employed) : null), (person != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(person, new com.fasterxml.jackson.core.type.TypeReference<type.PersonImpl>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Decision'", e);
             return null;
@@ -45,10 +45,10 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     }
 
     public List<String> apply(Boolean employed, type.Person person, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(employed, person, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(employed, person, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public List<String> apply(Boolean employed, type.Person person, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public List<String> apply(Boolean employed, type.Person person, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'decision'
             long decisionStartTime_ = System.currentTimeMillis();
@@ -58,7 +58,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decisionArguments_);
 
             // Evaluate decision 'decision'
-            List<String> output_ = evaluate(employed, person, annotationSet_, eventListener_, externalExecutor_);
+            List<String> output_ = evaluate(employed, person, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'decision'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, decisionArguments_, output_, (System.currentTimeMillis() - decisionStartTime_));
@@ -70,7 +70,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         }
     }
 
-    protected List<String> evaluate(Boolean employed, type.Person person, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected List<String> evaluate(Boolean employed, type.Person person, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(employed, person, annotationSet_, eventListener_, externalExecutor_));

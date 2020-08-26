@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class RoutingRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private constructor() {}
 
-    private fun apply(postBureauRiskCategory: String?, postBureauAffordability: Boolean?, bankrupt: Boolean?, creditScore: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): String? {
+    private fun apply(postBureauRiskCategory: String?, postBureauAffordability: Boolean?, bankrupt: Boolean?, creditScore: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
         try {
             // Start BKM 'RoutingRules'
             val routingRulesStartTime_ = System.currentTimeMillis()
@@ -27,7 +27,7 @@ class RoutingRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, routingRulesArguments_)
 
             // Evaluate BKM 'RoutingRules'
-            val output_: String? = evaluate(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, annotationSet_, eventListener_, externalExecutor_)
+            val output_: String? = evaluate(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, annotationSet_, eventListener_, externalExecutor_, cache_)
 
             // End BKM 'RoutingRules'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, routingRulesArguments_, output_, (System.currentTimeMillis() - routingRulesStartTime_))
@@ -39,7 +39,7 @@ class RoutingRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    private inline fun evaluate(postBureauRiskCategory: String?, postBureauAffordability: Boolean?, bankrupt: Boolean?, creditScore: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): String? {
+    private inline fun evaluate(postBureauRiskCategory: String?, postBureauAffordability: Boolean?, bankrupt: Boolean?, creditScore: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
         // Apply rules and collect results
         val ruleOutputList_ = com.gs.dmn.runtime.RuleOutputList()
         ruleOutputList_.add(rule0(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, annotationSet_, eventListener_, externalExecutor_))
@@ -245,8 +245,8 @@ class RoutingRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         val INSTANCE = RoutingRules()
 
-        fun RoutingRules(postBureauRiskCategory: String?, postBureauAffordability: Boolean?, bankrupt: Boolean?, creditScore: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): String? {
-            return INSTANCE.apply(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, annotationSet_, eventListener_, externalExecutor_)
+        fun RoutingRules(postBureauRiskCategory: String?, postBureauAffordability: Boolean?, bankrupt: Boolean?, creditScore: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
+            return INSTANCE.apply(postBureauRiskCategory, postBureauAffordability, bankrupt, creditScore, annotationSet_, eventListener_, externalExecutor_, cache_)
         }
     }
 }

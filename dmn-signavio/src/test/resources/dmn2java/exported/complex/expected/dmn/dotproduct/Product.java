@@ -28,16 +28,16 @@ public class Product extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
 
     public java.math.BigDecimal apply(String componentwise4_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((componentwise4_iterator != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(componentwise4_iterator, new com.fasterxml.jackson.core.type.TypeReference<type.Componentwise3Impl>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((componentwise4_iterator != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(componentwise4_iterator, new com.fasterxml.jackson.core.type.TypeReference<type.Componentwise3Impl>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'Product'", e);
             return null;
         }
     }
 
-    public java.math.BigDecimal apply(String componentwise4_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public java.math.BigDecimal apply(String componentwise4_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((componentwise4_iterator != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(componentwise4_iterator, new com.fasterxml.jackson.core.type.TypeReference<type.Componentwise3Impl>() {}) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((componentwise4_iterator != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(componentwise4_iterator, new com.fasterxml.jackson.core.type.TypeReference<type.Componentwise3Impl>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Product'", e);
             return null;
@@ -45,10 +45,10 @@ public class Product extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     }
 
     public java.math.BigDecimal apply(type.Componentwise3 componentwise4_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(componentwise4_iterator, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(componentwise4_iterator, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public java.math.BigDecimal apply(type.Componentwise3 componentwise4_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public java.math.BigDecimal apply(type.Componentwise3 componentwise4_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'product'
             long productStartTime_ = System.currentTimeMillis();
@@ -57,7 +57,7 @@ public class Product extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, productArguments_);
 
             // Evaluate decision 'product'
-            java.math.BigDecimal output_ = evaluate(componentwise4_iterator, annotationSet_, eventListener_, externalExecutor_);
+            java.math.BigDecimal output_ = evaluate(componentwise4_iterator, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'product'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, productArguments_, output_, (System.currentTimeMillis() - productStartTime_));
@@ -69,7 +69,7 @@ public class Product extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         }
     }
 
-    protected java.math.BigDecimal evaluate(type.Componentwise3 componentwise4_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected java.math.BigDecimal evaluate(type.Componentwise3 componentwise4_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(componentwise4_iterator, annotationSet_, eventListener_, externalExecutor_));

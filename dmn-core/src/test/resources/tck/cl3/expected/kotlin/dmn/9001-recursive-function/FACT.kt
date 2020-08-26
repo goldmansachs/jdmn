@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class FACT : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private constructor() {}
 
-    private fun apply(n: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): java.math.BigDecimal? {
+    private fun apply(n: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
         try {
             // Start BKM 'FACT'
             val fACTStartTime_ = System.currentTimeMillis()
@@ -24,7 +24,7 @@ class FACT : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fACTArguments_)
 
             // Evaluate BKM 'FACT'
-            val output_: java.math.BigDecimal? = evaluate(n, annotationSet_, eventListener_, externalExecutor_)
+            val output_: java.math.BigDecimal? = evaluate(n, annotationSet_, eventListener_, externalExecutor_, cache_)
 
             // End BKM 'FACT'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fACTArguments_, output_, (System.currentTimeMillis() - fACTStartTime_))
@@ -36,8 +36,8 @@ class FACT : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    private inline fun evaluate(n: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): java.math.BigDecimal? {
-        return (if (booleanEqual(numericLessThan(n, number("0")), true)) null else (if (booleanEqual(numericEqual(n, number("0")), true)) number("1") else numericMultiply(n, FACT.FACT(numericSubtract(n, number("1")), annotationSet_, eventListener_, externalExecutor_)))) as java.math.BigDecimal?
+    private inline fun evaluate(n: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
+        return (if (booleanEqual(numericLessThan(n, number("0")), true)) null else (if (booleanEqual(numericEqual(n, number("0")), true)) number("1") else numericMultiply(n, FACT.FACT(numericSubtract(n, number("1")), annotationSet_, eventListener_, externalExecutor_, cache_)))) as java.math.BigDecimal?
     }
 
     companion object {
@@ -53,8 +53,8 @@ class FACT : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         val INSTANCE = FACT()
 
-        fun FACT(n: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): java.math.BigDecimal? {
-            return INSTANCE.apply(n, annotationSet_, eventListener_, externalExecutor_)
+        fun FACT(n: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
+            return INSTANCE.apply(n, annotationSet_, eventListener_, externalExecutor_, cache_)
         }
     }
 }

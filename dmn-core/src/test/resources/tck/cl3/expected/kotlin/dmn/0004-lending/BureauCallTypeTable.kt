@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class BureauCallTypeTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private constructor() {}
 
-    private fun apply(preBureauRiskCategory: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): String? {
+    private fun apply(preBureauRiskCategory: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
         try {
             // Start BKM 'BureauCallTypeTable'
             val bureauCallTypeTableStartTime_ = System.currentTimeMillis()
@@ -24,7 +24,7 @@ class BureauCallTypeTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bureauCallTypeTableArguments_)
 
             // Evaluate BKM 'BureauCallTypeTable'
-            val output_: String? = evaluate(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_)
+            val output_: String? = evaluate(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_, cache_)
 
             // End BKM 'BureauCallTypeTable'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, bureauCallTypeTableArguments_, output_, (System.currentTimeMillis() - bureauCallTypeTableStartTime_))
@@ -36,7 +36,7 @@ class BureauCallTypeTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    private inline fun evaluate(preBureauRiskCategory: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): String? {
+    private inline fun evaluate(preBureauRiskCategory: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
         // Apply rules and collect results
         val ruleOutputList_ = com.gs.dmn.runtime.RuleOutputList()
         ruleOutputList_.add(rule0(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_))
@@ -160,8 +160,8 @@ class BureauCallTypeTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         val INSTANCE = BureauCallTypeTable()
 
-        fun BureauCallTypeTable(preBureauRiskCategory: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): String? {
-            return INSTANCE.apply(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_)
+        fun BureauCallTypeTable(preBureauRiskCategory: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): String? {
+            return INSTANCE.apply(preBureauRiskCategory, annotationSet_, eventListener_, externalExecutor_, cache_)
         }
     }
 }

@@ -28,11 +28,11 @@ public class GtTen extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private GtTen() {
     }
 
-    public static Boolean gtTen(java.math.BigDecimal theNumber, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
-        return INSTANCE.apply(theNumber, annotationSet_, eventListener_, externalExecutor_);
+    public static Boolean gtTen(java.math.BigDecimal theNumber, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        return INSTANCE.apply(theNumber, annotationSet_, eventListener_, externalExecutor_, cache_);
     }
 
-    private Boolean apply(java.math.BigDecimal theNumber, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    private Boolean apply(java.math.BigDecimal theNumber, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'gtTen'
             long gtTenStartTime_ = System.currentTimeMillis();
@@ -41,7 +41,7 @@ public class GtTen extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, gtTenArguments_);
 
             // Evaluate BKM 'gtTen'
-            Boolean output_ = evaluate(theNumber, annotationSet_, eventListener_, externalExecutor_);
+            Boolean output_ = evaluate(theNumber, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End BKM 'gtTen'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, gtTenArguments_, output_, (System.currentTimeMillis() - gtTenStartTime_));
@@ -53,7 +53,7 @@ public class GtTen extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected Boolean evaluate(java.math.BigDecimal theNumber, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected Boolean evaluate(java.math.BigDecimal theNumber, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         return numericGreaterThan(theNumber, number("10"));
     }
 }

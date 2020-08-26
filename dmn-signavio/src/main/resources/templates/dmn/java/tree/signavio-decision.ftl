@@ -62,18 +62,6 @@ public class ${javaClassName} extends ${decisionBaseClass} {
         }
     }
 
-    <#if transformer.isCaching()>
-    public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraWithConversionFromString(drgElement)}) {
-        try {
-            ${transformer.cacheInterfaceName()} ${transformer.cacheVariableName()} = new ${transformer.defaultCacheClassName()}();
-            return apply(${transformer.drgElementArgumentListExtraCacheWithConversionFromString(drgElement)});
-        } catch (Exception e) {
-            logError("Cannot apply decision '${javaClassName}'", e);
-            return null;
-        }
-    }
-
-    </#if>
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignatureExtraCacheWithConversionFromString(drgElement)}) {
         try {
             return apply(${transformer.drgElementArgumentListExtraCacheWithConversionFromString(drgElement)});

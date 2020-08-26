@@ -27,10 +27,10 @@ public class Varargs_001 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     public Object apply(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public Object apply(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public Object apply(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'varargs_001'
             long varargs_001StartTime_ = System.currentTimeMillis();
@@ -38,7 +38,7 @@ public class Varargs_001 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, varargs_001Arguments_);
 
             // Evaluate decision 'varargs_001'
-            Object output_ = evaluate(annotationSet_, eventListener_, externalExecutor_);
+            Object output_ = evaluate(annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'varargs_001'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, varargs_001Arguments_, output_, (System.currentTimeMillis() - varargs_001StartTime_));
@@ -50,7 +50,7 @@ public class Varargs_001 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected Object evaluate(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected Object evaluate(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         com.gs.dmn.runtime.external.JavaExternalFunction<Object> format = new com.gs.dmn.runtime.external.JavaExternalFunction<>(new com.gs.dmn.runtime.external.JavaFunctionInfo("java.lang.String", "format", Arrays.asList("java.lang.String", "[Ljava.lang.Object;")), externalExecutor_, Object.class);
         return format.apply("foo %s", "bar");
     }

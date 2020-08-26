@@ -34,16 +34,16 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
 
     public List<java.math.BigDecimal> apply(String day, String hour, String minute, String month, String second, String year, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((day != null ? number(day) : null), (hour != null ? number(hour) : null), (minute != null ? number(minute) : null), (month != null ? number(month) : null), (second != null ? number(second) : null), (year != null ? number(year) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((day != null ? number(day) : null), (hour != null ? number(hour) : null), (minute != null ? number(minute) : null), (month != null ? number(month) : null), (second != null ? number(second) : null), (year != null ? number(year) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'AccessCertainTemporalUnits'", e);
             return null;
         }
     }
 
-    public List<java.math.BigDecimal> apply(String day, String hour, String minute, String month, String second, String year, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public List<java.math.BigDecimal> apply(String day, String hour, String minute, String month, String second, String year, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((day != null ? number(day) : null), (hour != null ? number(hour) : null), (minute != null ? number(minute) : null), (month != null ? number(month) : null), (second != null ? number(second) : null), (year != null ? number(year) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((day != null ? number(day) : null), (hour != null ? number(hour) : null), (minute != null ? number(minute) : null), (month != null ? number(month) : null), (second != null ? number(second) : null), (year != null ? number(year) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'AccessCertainTemporalUnits'", e);
             return null;
@@ -51,10 +51,10 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
     }
 
     public List<java.math.BigDecimal> apply(java.math.BigDecimal day, java.math.BigDecimal hour, java.math.BigDecimal minute, java.math.BigDecimal month, java.math.BigDecimal second, java.math.BigDecimal year, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(day, hour, minute, month, second, year, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(day, hour, minute, month, second, year, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public List<java.math.BigDecimal> apply(java.math.BigDecimal day, java.math.BigDecimal hour, java.math.BigDecimal minute, java.math.BigDecimal month, java.math.BigDecimal second, java.math.BigDecimal year, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public List<java.math.BigDecimal> apply(java.math.BigDecimal day, java.math.BigDecimal hour, java.math.BigDecimal minute, java.math.BigDecimal month, java.math.BigDecimal second, java.math.BigDecimal year, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'accessCertainTemporalUnits'
             long accessCertainTemporalUnitsStartTime_ = System.currentTimeMillis();
@@ -68,10 +68,10 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, accessCertainTemporalUnitsArguments_);
 
             // Apply child decisions
-            type.GenerateTemporalObjects generateTemporalObjects = this.generateTemporalObjects.apply(day, hour, minute, month, second, year, annotationSet_, eventListener_, externalExecutor_);
+            type.GenerateTemporalObjects generateTemporalObjects = this.generateTemporalObjects.apply(day, hour, minute, month, second, year, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // Evaluate decision 'accessCertainTemporalUnits'
-            List<java.math.BigDecimal> output_ = evaluate(generateTemporalObjects, annotationSet_, eventListener_, externalExecutor_);
+            List<java.math.BigDecimal> output_ = evaluate(generateTemporalObjects, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'accessCertainTemporalUnits'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, accessCertainTemporalUnitsArguments_, output_, (System.currentTimeMillis() - accessCertainTemporalUnitsStartTime_));
@@ -83,7 +83,7 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
         }
     }
 
-    protected List<java.math.BigDecimal> evaluate(type.GenerateTemporalObjects generateTemporalObjects, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected List<java.math.BigDecimal> evaluate(type.GenerateTemporalObjects generateTemporalObjects, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(generateTemporalObjects, annotationSet_, eventListener_, externalExecutor_));

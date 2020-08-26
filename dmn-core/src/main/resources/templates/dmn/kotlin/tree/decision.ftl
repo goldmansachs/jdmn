@@ -39,18 +39,6 @@ class ${javaClassName}(${transformer.decisionConstructorSignature(drgElement)}) 
         }
     }
 
-    <#if transformer.isCaching()>
-    fun apply(${transformer.drgElementSignatureExtraWithConversionFromString(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
-        return try {
-            val ${transformer.cacheVariableName()} = ${transformer.defaultCacheClassName()}()
-            apply(${transformer.drgElementArgumentListExtraCacheWithConversionFromString(drgElement)})
-        } catch (e: Exception) {
-            logError("Cannot apply decision '${javaClassName}'", e)
-            null
-        }
-    }
-
-    </#if>
     fun apply(${transformer.drgElementSignatureExtraCacheWithConversionFromString(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
         return try {
             apply(${transformer.drgElementArgumentListExtraCacheWithConversionFromString(drgElement)})

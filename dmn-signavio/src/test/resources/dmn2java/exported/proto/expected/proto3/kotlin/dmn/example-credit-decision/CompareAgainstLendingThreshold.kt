@@ -15,16 +15,16 @@ import java.util.stream.Collectors
 class CompareAgainstLendingThreshold(val assessApplicantAge : AssessApplicantAge = AssessApplicantAge(), val assessIssueRisk : AssessIssueRisk = AssessIssueRisk()) : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() {
     fun apply(applicant: String?, currentRiskAppetite: String?, lendingThreshold: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): java.math.BigDecimal? {
         return try {
-            apply(applicant?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.ApplicantImpl>() {}) }), currentRiskAppetite?.let({ number(it) }), lendingThreshold?.let({ number(it) }), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+            apply(applicant?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.ApplicantImpl>() {}) }), currentRiskAppetite?.let({ number(it) }), lendingThreshold?.let({ number(it) }), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
         } catch (e: Exception) {
             logError("Cannot apply decision 'CompareAgainstLendingThreshold'", e)
             null
         }
     }
 
-    fun apply(applicant: String?, currentRiskAppetite: String?, lendingThreshold: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): java.math.BigDecimal? {
+    fun apply(applicant: String?, currentRiskAppetite: String?, lendingThreshold: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
         return try {
-            apply(applicant?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.ApplicantImpl>() {}) }), currentRiskAppetite?.let({ number(it) }), lendingThreshold?.let({ number(it) }), annotationSet_, eventListener_, externalExecutor_)
+            apply(applicant?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.ApplicantImpl>() {}) }), currentRiskAppetite?.let({ number(it) }), lendingThreshold?.let({ number(it) }), annotationSet_, eventListener_, externalExecutor_, cache_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'CompareAgainstLendingThreshold'", e)
             null
@@ -32,10 +32,10 @@ class CompareAgainstLendingThreshold(val assessApplicantAge : AssessApplicantAge
     }
 
     fun apply(applicant: type.Applicant?, currentRiskAppetite: java.math.BigDecimal?, lendingThreshold: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): java.math.BigDecimal? {
-        return apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+        return apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
     }
 
-    fun apply(applicant: type.Applicant?, currentRiskAppetite: java.math.BigDecimal?, lendingThreshold: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): java.math.BigDecimal? {
+    fun apply(applicant: type.Applicant?, currentRiskAppetite: java.math.BigDecimal?, lendingThreshold: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
         try {
             // Start decision 'compareAgainstLendingThreshold'
             val compareAgainstLendingThresholdStartTime_ = System.currentTimeMillis()
@@ -46,11 +46,11 @@ class CompareAgainstLendingThreshold(val assessApplicantAge : AssessApplicantAge
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, compareAgainstLendingThresholdArguments_)
 
             // Apply child decisions
-            val assessApplicantAge: java.math.BigDecimal? = this.assessApplicantAge.apply(applicant, annotationSet_, eventListener_, externalExecutor_)
-            val assessIssueRisk: java.math.BigDecimal? = this.assessIssueRisk.apply(applicant, currentRiskAppetite, annotationSet_, eventListener_, externalExecutor_)
+            val assessApplicantAge: java.math.BigDecimal? = this.assessApplicantAge.apply(applicant, annotationSet_, eventListener_, externalExecutor_, cache_)
+            val assessIssueRisk: java.math.BigDecimal? = this.assessIssueRisk.apply(applicant, currentRiskAppetite, annotationSet_, eventListener_, externalExecutor_, cache_)
 
             // Evaluate decision 'compareAgainstLendingThreshold'
-            val output_: java.math.BigDecimal? = evaluate(assessApplicantAge, assessIssueRisk, lendingThreshold, annotationSet_, eventListener_, externalExecutor_)
+            val output_: java.math.BigDecimal? = evaluate(assessApplicantAge, assessIssueRisk, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_)
 
             // End decision 'compareAgainstLendingThreshold'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, compareAgainstLendingThresholdArguments_, output_, (System.currentTimeMillis() - compareAgainstLendingThresholdStartTime_))
@@ -63,17 +63,17 @@ class CompareAgainstLendingThreshold(val assessApplicantAge : AssessApplicantAge
     }
 
     fun apply(compareAgainstLendingThresholdRequest_: proto.CompareAgainstLendingThresholdRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): proto.CompareAgainstLendingThresholdResponse {
-        return apply(compareAgainstLendingThresholdRequest_, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+        return apply(compareAgainstLendingThresholdRequest_, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
     }
 
-    fun apply(compareAgainstLendingThresholdRequest_: proto.CompareAgainstLendingThresholdRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): proto.CompareAgainstLendingThresholdResponse {
+    fun apply(compareAgainstLendingThresholdRequest_: proto.CompareAgainstLendingThresholdRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.CompareAgainstLendingThresholdResponse {
         // Create arguments from Request Message
         var applicant: type.Applicant? = type.Applicant.toApplicant(compareAgainstLendingThresholdRequest_.getApplicant())
         var currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(compareAgainstLendingThresholdRequest_.getCurrentRiskAppetite())
         var lendingThreshold: java.math.BigDecimal? = java.math.BigDecimal.valueOf(compareAgainstLendingThresholdRequest_.getLendingThreshold())
         
         // Invoke apply method
-        var output_: java.math.BigDecimal? = apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_)
+        var output_: java.math.BigDecimal? = apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_)
         
         // Convert output to Response Message
         var builder_: proto.CompareAgainstLendingThresholdResponse.Builder = proto.CompareAgainstLendingThresholdResponse.newBuilder()
@@ -81,7 +81,7 @@ class CompareAgainstLendingThreshold(val assessApplicantAge : AssessApplicantAge
         return builder_.build()
     }
 
-    private inline fun evaluate(assessApplicantAge: java.math.BigDecimal?, assessIssueRisk: java.math.BigDecimal?, lendingThreshold: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): java.math.BigDecimal? {
+    private inline fun evaluate(assessApplicantAge: java.math.BigDecimal?, assessIssueRisk: java.math.BigDecimal?, lendingThreshold: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): java.math.BigDecimal? {
         // Apply rules and collect results
         val ruleOutputList_ = com.gs.dmn.runtime.RuleOutputList()
         ruleOutputList_.add(rule0(assessApplicantAge, assessIssueRisk, lendingThreshold, annotationSet_, eventListener_, externalExecutor_))
