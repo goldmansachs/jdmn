@@ -28,16 +28,16 @@ public class Sort2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public List<type.TRow> apply(String tableB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((tableB != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(tableB, new com.fasterxml.jackson.core.type.TypeReference<List<type.TRow>>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((tableB != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(tableB, new com.fasterxml.jackson.core.type.TypeReference<List<type.TRow>>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'Sort2'", e);
             return null;
         }
     }
 
-    public List<type.TRow> apply(String tableB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public List<type.TRow> apply(String tableB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((tableB != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(tableB, new com.fasterxml.jackson.core.type.TypeReference<List<type.TRow>>() {}) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((tableB != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(tableB, new com.fasterxml.jackson.core.type.TypeReference<List<type.TRow>>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Sort2'", e);
             return null;
@@ -45,10 +45,10 @@ public class Sort2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     public List<type.TRow> apply(List<type.TRow> tableB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(tableB, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(tableB, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public List<type.TRow> apply(List<type.TRow> tableB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public List<type.TRow> apply(List<type.TRow> tableB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'sort2'
             long sort2StartTime_ = System.currentTimeMillis();
@@ -57,7 +57,7 @@ public class Sort2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, sort2Arguments_);
 
             // Evaluate decision 'sort2'
-            List<type.TRow> output_ = evaluate(tableB, annotationSet_, eventListener_, externalExecutor_);
+            List<type.TRow> output_ = evaluate(tableB, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'sort2'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, sort2Arguments_, output_, (System.currentTimeMillis() - sort2StartTime_));
@@ -69,7 +69,7 @@ public class Sort2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected List<type.TRow> evaluate(List<type.TRow> tableB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected List<type.TRow> evaluate(List<type.TRow> tableB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         return sort(tableB, new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args) {type.TRow x = (type.TRow)args[0]; type.TRow y = (type.TRow)args[1];return numericLessThan(((java.math.BigDecimal)(x != null ? x.getCol2() : null)), ((java.math.BigDecimal)(y != null ? y.getCol2() : null)));}}).stream().map(x -> type.TRow.toTRow(x)).collect(Collectors.toList());
     }
 }

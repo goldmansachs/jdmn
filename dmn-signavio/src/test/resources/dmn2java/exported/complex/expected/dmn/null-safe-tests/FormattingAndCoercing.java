@@ -28,16 +28,16 @@ public class FormattingAndCoercing extends com.gs.dmn.signavio.runtime.DefaultSi
 
     public java.math.BigDecimal apply(String numberB, String string, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((numberB != null ? number(numberB) : null), string, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((numberB != null ? number(numberB) : null), string, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'FormattingAndCoercing'", e);
             return null;
         }
     }
 
-    public java.math.BigDecimal apply(String numberB, String string, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public java.math.BigDecimal apply(String numberB, String string, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((numberB != null ? number(numberB) : null), string, annotationSet_, eventListener_, externalExecutor_);
+            return apply((numberB != null ? number(numberB) : null), string, annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'FormattingAndCoercing'", e);
             return null;
@@ -45,10 +45,10 @@ public class FormattingAndCoercing extends com.gs.dmn.signavio.runtime.DefaultSi
     }
 
     public java.math.BigDecimal apply(java.math.BigDecimal numberB, String string, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(numberB, string, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(numberB, string, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public java.math.BigDecimal apply(java.math.BigDecimal numberB, String string, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public java.math.BigDecimal apply(java.math.BigDecimal numberB, String string, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'formattingAndCoercing'
             long formattingAndCoercingStartTime_ = System.currentTimeMillis();
@@ -58,7 +58,7 @@ public class FormattingAndCoercing extends com.gs.dmn.signavio.runtime.DefaultSi
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, formattingAndCoercingArguments_);
 
             // Evaluate decision 'formattingAndCoercing'
-            java.math.BigDecimal output_ = evaluate(numberB, string, annotationSet_, eventListener_, externalExecutor_);
+            java.math.BigDecimal output_ = evaluate(numberB, string, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'formattingAndCoercing'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, formattingAndCoercingArguments_, output_, (System.currentTimeMillis() - formattingAndCoercingStartTime_));
@@ -70,7 +70,7 @@ public class FormattingAndCoercing extends com.gs.dmn.signavio.runtime.DefaultSi
         }
     }
 
-    protected java.math.BigDecimal evaluate(java.math.BigDecimal numberB, String string, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected java.math.BigDecimal evaluate(java.math.BigDecimal numberB, String string, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         return number(text(numberB, string));
     }
 }

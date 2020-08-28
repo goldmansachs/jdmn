@@ -13,6 +13,7 @@
 package com.gs.dmn.generated.kotlin.tck.cl3_0020_vacation_days;
 
 import com.gs.dmn.runtime.annotation.AnnotationSet;
+import com.gs.dmn.runtime.cache.DefaultCache;
 import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
 import com.gs.dmn.runtime.listener.PostorderTraceEventListener;
 import com.gs.dmn.runtime.listener.node.DRGElementNode;
@@ -36,7 +37,7 @@ public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
         String expectedResult = "27";
         String age = "16";
         String yearsOfService = "1";
-        BigDecimal actualResult = decision.apply(age, yearsOfService, annotationSet, listener, new DefaultExternalFunctionExecutor());
+        BigDecimal actualResult = decision.apply(age, yearsOfService, annotationSet, listener, new DefaultExternalFunctionExecutor(), new DefaultCache());
         assertEquals(expectedResult, actualResult.toPlainString());
 
         List<DRGElementNode> elementTraces = listener.postorderNodes();
@@ -53,7 +54,7 @@ public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
         String expectedResult = "27";
         String age = "16";
         String yearsOfService = "1";
-        BigDecimal actualResult = decision.apply(age, yearsOfService, annotationSet, listener, new DefaultExternalFunctionExecutor());
+        BigDecimal actualResult = decision.apply(age, yearsOfService, annotationSet, listener, new DefaultExternalFunctionExecutor(), new DefaultCache());
         assertEquals(expectedResult, actualResult.toPlainString());
 
         List<DRGElementNode> elementTraces = listener.postorderNodes();

@@ -28,16 +28,16 @@ public class Body extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
 
     public java.math.BigDecimal apply(String it_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((it_iterator != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it_iterator, new com.fasterxml.jackson.core.type.TypeReference<type.ItImpl>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((it_iterator != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it_iterator, new com.fasterxml.jackson.core.type.TypeReference<type.ItImpl>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'Body'", e);
             return null;
         }
     }
 
-    public java.math.BigDecimal apply(String it_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public java.math.BigDecimal apply(String it_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((it_iterator != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it_iterator, new com.fasterxml.jackson.core.type.TypeReference<type.ItImpl>() {}) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((it_iterator != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it_iterator, new com.fasterxml.jackson.core.type.TypeReference<type.ItImpl>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Body'", e);
             return null;
@@ -45,10 +45,10 @@ public class Body extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
     }
 
     public java.math.BigDecimal apply(type.It it_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(it_iterator, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(it_iterator, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public java.math.BigDecimal apply(type.It it_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public java.math.BigDecimal apply(type.It it_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'body'
             long bodyStartTime_ = System.currentTimeMillis();
@@ -57,7 +57,7 @@ public class Body extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bodyArguments_);
 
             // Evaluate decision 'body'
-            java.math.BigDecimal output_ = evaluate(it_iterator, annotationSet_, eventListener_, externalExecutor_);
+            java.math.BigDecimal output_ = evaluate(it_iterator, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'body'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, bodyArguments_, output_, (System.currentTimeMillis() - bodyStartTime_));
@@ -69,7 +69,7 @@ public class Body extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
         }
     }
 
-    protected java.math.BigDecimal evaluate(type.It it_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected java.math.BigDecimal evaluate(type.It it_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(it_iterator, annotationSet_, eventListener_, externalExecutor_));

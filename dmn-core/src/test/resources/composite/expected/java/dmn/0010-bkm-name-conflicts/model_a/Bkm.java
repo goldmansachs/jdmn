@@ -29,11 +29,11 @@ public class Bkm extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private Bkm() {
     }
 
-    public static String bkm(java.math.BigDecimal x, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
-        return INSTANCE.apply(x, annotationSet_, eventListener_, externalExecutor_);
+    public static String bkm(java.math.BigDecimal x, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        return INSTANCE.apply(x, annotationSet_, eventListener_, externalExecutor_, cache_);
     }
 
-    private String apply(java.math.BigDecimal x, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    private String apply(java.math.BigDecimal x, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'bkm'
             long bkmStartTime_ = System.currentTimeMillis();
@@ -42,7 +42,7 @@ public class Bkm extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bkmArguments_);
 
             // Evaluate BKM 'bkm'
-            String output_ = evaluate(x, annotationSet_, eventListener_, externalExecutor_);
+            String output_ = evaluate(x, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End BKM 'bkm'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, bkmArguments_, output_, (System.currentTimeMillis() - bkmStartTime_));
@@ -54,7 +54,7 @@ public class Bkm extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected String evaluate(java.math.BigDecimal x, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected String evaluate(java.math.BigDecimal x, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         return string(x);
     }
 }

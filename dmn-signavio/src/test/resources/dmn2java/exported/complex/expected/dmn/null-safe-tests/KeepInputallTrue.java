@@ -28,16 +28,16 @@ public class KeepInputallTrue extends com.gs.dmn.signavio.runtime.DefaultSignavi
 
     public Boolean apply(String booleanAllTrue_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((booleanAllTrue_iterator != null ? Boolean.valueOf(booleanAllTrue_iterator) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((booleanAllTrue_iterator != null ? Boolean.valueOf(booleanAllTrue_iterator) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'KeepInputallTrue'", e);
             return null;
         }
     }
 
-    public Boolean apply(String booleanAllTrue_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public Boolean apply(String booleanAllTrue_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((booleanAllTrue_iterator != null ? Boolean.valueOf(booleanAllTrue_iterator) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((booleanAllTrue_iterator != null ? Boolean.valueOf(booleanAllTrue_iterator) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'KeepInputallTrue'", e);
             return null;
@@ -45,10 +45,10 @@ public class KeepInputallTrue extends com.gs.dmn.signavio.runtime.DefaultSignavi
     }
 
     public Boolean apply(Boolean booleanAllTrue_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(booleanAllTrue_iterator, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(booleanAllTrue_iterator, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public Boolean apply(Boolean booleanAllTrue_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public Boolean apply(Boolean booleanAllTrue_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'keepInputallTrue'
             long keepInputallTrueStartTime_ = System.currentTimeMillis();
@@ -57,7 +57,7 @@ public class KeepInputallTrue extends com.gs.dmn.signavio.runtime.DefaultSignavi
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, keepInputallTrueArguments_);
 
             // Evaluate decision 'keepInputallTrue'
-            Boolean output_ = evaluate(booleanAllTrue_iterator, annotationSet_, eventListener_, externalExecutor_);
+            Boolean output_ = evaluate(booleanAllTrue_iterator, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'keepInputallTrue'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, keepInputallTrueArguments_, output_, (System.currentTimeMillis() - keepInputallTrueStartTime_));
@@ -69,7 +69,7 @@ public class KeepInputallTrue extends com.gs.dmn.signavio.runtime.DefaultSignavi
         }
     }
 
-    protected Boolean evaluate(Boolean booleanAllTrue_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected Boolean evaluate(Boolean booleanAllTrue_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         return booleanAllTrue_iterator;
     }
 }

@@ -14,10 +14,10 @@ import java.util.stream.Collectors
 )
 class FnLibrary() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     fun apply(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): type.TFnLibrary? {
-        return apply(annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+        return apply(annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
     }
 
-    fun apply(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): type.TFnLibrary? {
+    fun apply(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): type.TFnLibrary? {
         try {
             // Start decision 'fnLibrary'
             val fnLibraryStartTime_ = System.currentTimeMillis()
@@ -25,7 +25,7 @@ class FnLibrary() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnLibraryArguments_)
 
             // Evaluate decision 'fnLibrary'
-            val output_: type.TFnLibrary? = evaluate(annotationSet_, eventListener_, externalExecutor_)
+            val output_: type.TFnLibrary? = evaluate(annotationSet_, eventListener_, externalExecutor_, cache_)
 
             // End decision 'fnLibrary'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fnLibraryArguments_, output_, (System.currentTimeMillis() - fnLibraryStartTime_))
@@ -37,7 +37,7 @@ class FnLibrary() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
     }
 
-    private inline fun evaluate(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): type.TFnLibrary? {
+    private inline fun evaluate(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): type.TFnLibrary? {
         val sumFn: com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? = com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> { args -> val a: java.math.BigDecimal? = args[0] as java.math.BigDecimal?; val b: java.math.BigDecimal? = args[1] as java.math.BigDecimal?;numericAdd(a, b) } as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>?
         val subFn: com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? = com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> { args -> val a: java.math.BigDecimal? = args[0] as java.math.BigDecimal?; val b: java.math.BigDecimal? = args[1] as java.math.BigDecimal?;numericSubtract(a, b) } as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>?
         val multiplyFn: com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? = com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> { args -> val a: java.math.BigDecimal? = args[0] as java.math.BigDecimal?; val b: java.math.BigDecimal? = args[1] as java.math.BigDecimal?;numericMultiply(a, b) } as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>?
