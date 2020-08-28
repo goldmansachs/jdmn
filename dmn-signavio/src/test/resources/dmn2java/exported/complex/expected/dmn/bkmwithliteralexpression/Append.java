@@ -27,10 +27,10 @@ public class Append extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
     }
 
     public List<String> apply(String rgb1, String rgb2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(rgb1, rgb2, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(rgb1, rgb2, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public List<String> apply(String rgb1, String rgb2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public List<String> apply(String rgb1, String rgb2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'append'
             long appendStartTime_ = System.currentTimeMillis();
@@ -40,7 +40,7 @@ public class Append extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, appendArguments_);
 
             // Evaluate decision 'append'
-            List<String> output_ = evaluate(rgb1, rgb2, annotationSet_, eventListener_, externalExecutor_);
+            List<String> output_ = evaluate(rgb1, rgb2, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'append'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, appendArguments_, output_, (System.currentTimeMillis() - appendStartTime_));
@@ -52,7 +52,7 @@ public class Append extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
         }
     }
 
-    protected List<String> evaluate(String rgb1, String rgb2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected List<String> evaluate(String rgb1, String rgb2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         return append(asList(rgb1), rgb2);
     }
 }

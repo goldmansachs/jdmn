@@ -38,16 +38,16 @@ public class Pick extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
 
     public String apply(String date, String datetime, String time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((date != null ? date(date) : null), (datetime != null ? dateAndTime(datetime) : null), (time != null ? time(time) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((date != null ? date(date) : null), (datetime != null ? dateAndTime(datetime) : null), (time != null ? time(time) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'Pick'", e);
             return null;
         }
     }
 
-    public String apply(String date, String datetime, String time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public String apply(String date, String datetime, String time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((date != null ? date(date) : null), (datetime != null ? dateAndTime(datetime) : null), (time != null ? time(time) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((date != null ? date(date) : null), (datetime != null ? dateAndTime(datetime) : null), (time != null ? time(time) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Pick'", e);
             return null;
@@ -55,10 +55,10 @@ public class Pick extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
     }
 
     public String apply(javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar datetime, javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(date, datetime, time, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(date, datetime, time, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public String apply(javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar datetime, javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public String apply(javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar datetime, javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'pick'
             long pickStartTime_ = System.currentTimeMillis();
@@ -69,12 +69,12 @@ public class Pick extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, pickArguments_);
 
             // Apply child decisions
-            List<String> dateOperators = this.dateOperators.apply(date, annotationSet_, eventListener_, externalExecutor_);
-            List<String> datetimeOperators = this.datetimeOperators.apply(datetime, annotationSet_, eventListener_, externalExecutor_);
-            List<String> timeOperators = this.timeOperators.apply(time, annotationSet_, eventListener_, externalExecutor_);
+            List<String> dateOperators = this.dateOperators.apply(date, annotationSet_, eventListener_, externalExecutor_, cache_);
+            List<String> datetimeOperators = this.datetimeOperators.apply(datetime, annotationSet_, eventListener_, externalExecutor_, cache_);
+            List<String> timeOperators = this.timeOperators.apply(time, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // Evaluate decision 'pick'
-            String output_ = evaluate(dateOperators, datetimeOperators, timeOperators, annotationSet_, eventListener_, externalExecutor_);
+            String output_ = evaluate(dateOperators, datetimeOperators, timeOperators, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'pick'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, pickArguments_, output_, (System.currentTimeMillis() - pickStartTime_));
@@ -86,7 +86,7 @@ public class Pick extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
         }
     }
 
-    protected String evaluate(List<String> dateOperators, List<String> datetimeOperators, List<String> timeOperators, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected String evaluate(List<String> dateOperators, List<String> datetimeOperators, List<String> timeOperators, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(dateOperators, datetimeOperators, timeOperators, annotationSet_, eventListener_, externalExecutor_));

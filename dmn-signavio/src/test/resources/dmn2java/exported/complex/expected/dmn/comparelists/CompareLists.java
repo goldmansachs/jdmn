@@ -28,16 +28,16 @@ public class CompareLists extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
 
     public java.math.BigDecimal apply(String l12_iterator, String l2_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((l12_iterator != null ? number(l12_iterator) : null), (l2_iterator != null ? number(l2_iterator) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((l12_iterator != null ? number(l12_iterator) : null), (l2_iterator != null ? number(l2_iterator) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'CompareLists'", e);
             return null;
         }
     }
 
-    public java.math.BigDecimal apply(String l12_iterator, String l2_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public java.math.BigDecimal apply(String l12_iterator, String l2_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((l12_iterator != null ? number(l12_iterator) : null), (l2_iterator != null ? number(l2_iterator) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((l12_iterator != null ? number(l12_iterator) : null), (l2_iterator != null ? number(l2_iterator) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'CompareLists'", e);
             return null;
@@ -45,10 +45,10 @@ public class CompareLists extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
     }
 
     public java.math.BigDecimal apply(java.math.BigDecimal l12_iterator, java.math.BigDecimal l2_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(l12_iterator, l2_iterator, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(l12_iterator, l2_iterator, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public java.math.BigDecimal apply(java.math.BigDecimal l12_iterator, java.math.BigDecimal l2_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public java.math.BigDecimal apply(java.math.BigDecimal l12_iterator, java.math.BigDecimal l2_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'compareLists'
             long compareListsStartTime_ = System.currentTimeMillis();
@@ -58,7 +58,7 @@ public class CompareLists extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, compareListsArguments_);
 
             // Evaluate decision 'compareLists'
-            java.math.BigDecimal output_ = evaluate(l12_iterator, l2_iterator, annotationSet_, eventListener_, externalExecutor_);
+            java.math.BigDecimal output_ = evaluate(l12_iterator, l2_iterator, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'compareLists'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, compareListsArguments_, output_, (System.currentTimeMillis() - compareListsStartTime_));
@@ -70,7 +70,7 @@ public class CompareLists extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
         }
     }
 
-    protected java.math.BigDecimal evaluate(java.math.BigDecimal l12_iterator, java.math.BigDecimal l2_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected java.math.BigDecimal evaluate(java.math.BigDecimal l12_iterator, java.math.BigDecimal l2_iterator, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(l12_iterator, l2_iterator, annotationSet_, eventListener_, externalExecutor_));

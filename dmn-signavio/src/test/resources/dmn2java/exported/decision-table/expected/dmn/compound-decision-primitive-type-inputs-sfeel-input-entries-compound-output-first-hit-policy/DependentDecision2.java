@@ -28,16 +28,16 @@ public class DependentDecision2 extends com.gs.dmn.signavio.runtime.DefaultSigna
 
     public type.DependentDecision2 apply(String dd2NumberInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((dd2NumberInput != null ? number(dd2NumberInput) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((dd2NumberInput != null ? number(dd2NumberInput) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'DependentDecision2'", e);
             return null;
         }
     }
 
-    public type.DependentDecision2 apply(String dd2NumberInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public type.DependentDecision2 apply(String dd2NumberInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((dd2NumberInput != null ? number(dd2NumberInput) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((dd2NumberInput != null ? number(dd2NumberInput) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'DependentDecision2'", e);
             return null;
@@ -45,10 +45,10 @@ public class DependentDecision2 extends com.gs.dmn.signavio.runtime.DefaultSigna
     }
 
     public type.DependentDecision2 apply(java.math.BigDecimal dd2NumberInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(dd2NumberInput, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(dd2NumberInput, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public type.DependentDecision2 apply(java.math.BigDecimal dd2NumberInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public type.DependentDecision2 apply(java.math.BigDecimal dd2NumberInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'dependentDecision2'
             long dependentDecision2StartTime_ = System.currentTimeMillis();
@@ -57,7 +57,7 @@ public class DependentDecision2 extends com.gs.dmn.signavio.runtime.DefaultSigna
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, dependentDecision2Arguments_);
 
             // Evaluate decision 'dependentDecision2'
-            type.DependentDecision2 output_ = evaluate(dd2NumberInput, annotationSet_, eventListener_, externalExecutor_);
+            type.DependentDecision2 output_ = evaluate(dd2NumberInput, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'dependentDecision2'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, dependentDecision2Arguments_, output_, (System.currentTimeMillis() - dependentDecision2StartTime_));
@@ -69,7 +69,7 @@ public class DependentDecision2 extends com.gs.dmn.signavio.runtime.DefaultSigna
         }
     }
 
-    protected type.DependentDecision2 evaluate(java.math.BigDecimal dd2NumberInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected type.DependentDecision2 evaluate(java.math.BigDecimal dd2NumberInput, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(dd2NumberInput, annotationSet_, eventListener_, externalExecutor_));

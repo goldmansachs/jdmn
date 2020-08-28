@@ -28,16 +28,16 @@ public class AllTrueAggregation extends com.gs.dmn.signavio.runtime.DefaultSigna
 
     public Boolean apply(String booleanList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((booleanList != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(booleanList, new com.fasterxml.jackson.core.type.TypeReference<List<Boolean>>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((booleanList != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(booleanList, new com.fasterxml.jackson.core.type.TypeReference<List<Boolean>>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'AllTrueAggregation'", e);
             return null;
         }
     }
 
-    public Boolean apply(String booleanList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public Boolean apply(String booleanList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((booleanList != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(booleanList, new com.fasterxml.jackson.core.type.TypeReference<List<Boolean>>() {}) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((booleanList != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(booleanList, new com.fasterxml.jackson.core.type.TypeReference<List<Boolean>>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'AllTrueAggregation'", e);
             return null;
@@ -45,10 +45,10 @@ public class AllTrueAggregation extends com.gs.dmn.signavio.runtime.DefaultSigna
     }
 
     public Boolean apply(List<Boolean> booleanList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(booleanList, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(booleanList, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public Boolean apply(List<Boolean> booleanList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public Boolean apply(List<Boolean> booleanList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'allTrueAggregation'
             long allTrueAggregationStartTime_ = System.currentTimeMillis();
@@ -57,7 +57,7 @@ public class AllTrueAggregation extends com.gs.dmn.signavio.runtime.DefaultSigna
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, allTrueAggregationArguments_);
 
             // Iterate and aggregate
-            Boolean output_ = evaluate(booleanList, annotationSet_, eventListener_, externalExecutor_);
+            Boolean output_ = evaluate(booleanList, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'allTrueAggregation'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, allTrueAggregationArguments_, output_, (System.currentTimeMillis() - allTrueAggregationStartTime_));
@@ -69,8 +69,8 @@ public class AllTrueAggregation extends com.gs.dmn.signavio.runtime.DefaultSigna
         }
     }
 
-    protected Boolean evaluate(List<Boolean> booleanList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected Boolean evaluate(List<Boolean> booleanList, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         KeepInputallTrue keepInputallTrue = new KeepInputallTrue();
-        return booleanList.stream().allMatch(booleanAllTrue_iterator -> keepInputallTrue.apply(booleanAllTrue_iterator, annotationSet_, eventListener_, externalExecutor_));
+        return booleanList.stream().allMatch(booleanAllTrue_iterator -> keepInputallTrue.apply(booleanAllTrue_iterator, annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 }

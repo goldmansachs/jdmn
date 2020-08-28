@@ -28,16 +28,16 @@ public class BuildDateStringInAnnotation extends com.gs.dmn.signavio.runtime.Def
 
     public Boolean apply(String day, String month, String year, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((day != null ? number(day) : null), (month != null ? number(month) : null), (year != null ? number(year) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((day != null ? number(day) : null), (month != null ? number(month) : null), (year != null ? number(year) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'BuildDateStringInAnnotation'", e);
             return null;
         }
     }
 
-    public Boolean apply(String day, String month, String year, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public Boolean apply(String day, String month, String year, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((day != null ? number(day) : null), (month != null ? number(month) : null), (year != null ? number(year) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((day != null ? number(day) : null), (month != null ? number(month) : null), (year != null ? number(year) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'BuildDateStringInAnnotation'", e);
             return null;
@@ -45,10 +45,10 @@ public class BuildDateStringInAnnotation extends com.gs.dmn.signavio.runtime.Def
     }
 
     public Boolean apply(java.math.BigDecimal day, java.math.BigDecimal month, java.math.BigDecimal year, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(day, month, year, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(day, month, year, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public Boolean apply(java.math.BigDecimal day, java.math.BigDecimal month, java.math.BigDecimal year, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public Boolean apply(java.math.BigDecimal day, java.math.BigDecimal month, java.math.BigDecimal year, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'buildDateStringInAnnotation'
             long buildDateStringInAnnotationStartTime_ = System.currentTimeMillis();
@@ -59,7 +59,7 @@ public class BuildDateStringInAnnotation extends com.gs.dmn.signavio.runtime.Def
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, buildDateStringInAnnotationArguments_);
 
             // Evaluate decision 'buildDateStringInAnnotation'
-            Boolean output_ = evaluate(day, month, year, annotationSet_, eventListener_, externalExecutor_);
+            Boolean output_ = evaluate(day, month, year, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'buildDateStringInAnnotation'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, buildDateStringInAnnotationArguments_, output_, (System.currentTimeMillis() - buildDateStringInAnnotationStartTime_));
@@ -71,7 +71,7 @@ public class BuildDateStringInAnnotation extends com.gs.dmn.signavio.runtime.Def
         }
     }
 
-    protected Boolean evaluate(java.math.BigDecimal day, java.math.BigDecimal month, java.math.BigDecimal year, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected Boolean evaluate(java.math.BigDecimal day, java.math.BigDecimal month, java.math.BigDecimal year, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(day, month, year, annotationSet_, eventListener_, externalExecutor_));

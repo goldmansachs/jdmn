@@ -15,16 +15,16 @@ import java.util.stream.Collectors
 class Approval() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     fun apply(age: String?, riskCategory: String?, isAffordable: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): type.TApproval? {
         return try {
-            apply(age?.let({ number(it) }), riskCategory, isAffordable?.let({ it.toBoolean() }), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+            apply(age?.let({ number(it) }), riskCategory, isAffordable?.let({ it.toBoolean() }), annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
         } catch (e: Exception) {
             logError("Cannot apply decision 'Approval'", e)
             null
         }
     }
 
-    fun apply(age: String?, riskCategory: String?, isAffordable: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): type.TApproval? {
+    fun apply(age: String?, riskCategory: String?, isAffordable: String?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): type.TApproval? {
         return try {
-            apply(age?.let({ number(it) }), riskCategory, isAffordable?.let({ it.toBoolean() }), annotationSet_, eventListener_, externalExecutor_)
+            apply(age?.let({ number(it) }), riskCategory, isAffordable?.let({ it.toBoolean() }), annotationSet_, eventListener_, externalExecutor_, cache_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'Approval'", e)
             null
@@ -32,10 +32,10 @@ class Approval() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     }
 
     fun apply(age: java.math.BigDecimal?, riskCategory: String?, isAffordable: Boolean?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): type.TApproval? {
-        return apply(age, riskCategory, isAffordable, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+        return apply(age, riskCategory, isAffordable, annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
     }
 
-    fun apply(age: java.math.BigDecimal?, riskCategory: String?, isAffordable: Boolean?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): type.TApproval? {
+    fun apply(age: java.math.BigDecimal?, riskCategory: String?, isAffordable: Boolean?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): type.TApproval? {
         try {
             // Start decision 'Approval'
             val approvalStartTime_ = System.currentTimeMillis()
@@ -46,7 +46,7 @@ class Approval() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, approvalArguments_)
 
             // Evaluate decision 'Approval'
-            val output_: type.TApproval? = evaluate(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_)
+            val output_: type.TApproval? = evaluate(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_, cache_)
 
             // End decision 'Approval'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, approvalArguments_, output_, (System.currentTimeMillis() - approvalStartTime_))
@@ -58,7 +58,7 @@ class Approval() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
     }
 
-    private inline fun evaluate(age: java.math.BigDecimal?, riskCategory: String?, isAffordable: Boolean?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): type.TApproval? {
+    private inline fun evaluate(age: java.math.BigDecimal?, riskCategory: String?, isAffordable: Boolean?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): type.TApproval? {
         // Apply rules and collect results
         val ruleOutputList_ = com.gs.dmn.runtime.RuleOutputList()
         ruleOutputList_.add(rule0(age, riskCategory, isAffordable, annotationSet_, eventListener_, externalExecutor_))

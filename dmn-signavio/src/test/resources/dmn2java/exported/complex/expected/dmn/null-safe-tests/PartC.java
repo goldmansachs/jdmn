@@ -40,16 +40,16 @@ public class PartC extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
 
     public String apply(String booleanA, String booleanB, String date, String dateTime, String time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((booleanA != null ? Boolean.valueOf(booleanA) : null), (booleanB != null ? Boolean.valueOf(booleanB) : null), (date != null ? date(date) : null), (dateTime != null ? dateAndTime(dateTime) : null), (time != null ? time(time) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((booleanA != null ? Boolean.valueOf(booleanA) : null), (booleanB != null ? Boolean.valueOf(booleanB) : null), (date != null ? date(date) : null), (dateTime != null ? dateAndTime(dateTime) : null), (time != null ? time(time) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'PartC'", e);
             return null;
         }
     }
 
-    public String apply(String booleanA, String booleanB, String date, String dateTime, String time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public String apply(String booleanA, String booleanB, String date, String dateTime, String time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((booleanA != null ? Boolean.valueOf(booleanA) : null), (booleanB != null ? Boolean.valueOf(booleanB) : null), (date != null ? date(date) : null), (dateTime != null ? dateAndTime(dateTime) : null), (time != null ? time(time) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((booleanA != null ? Boolean.valueOf(booleanA) : null), (booleanB != null ? Boolean.valueOf(booleanB) : null), (date != null ? date(date) : null), (dateTime != null ? dateAndTime(dateTime) : null), (time != null ? time(time) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'PartC'", e);
             return null;
@@ -57,10 +57,10 @@ public class PartC extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
     }
 
     public String apply(Boolean booleanA, Boolean booleanB, javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar dateTime, javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(booleanA, booleanB, date, dateTime, time, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(booleanA, booleanB, date, dateTime, time, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public String apply(Boolean booleanA, Boolean booleanB, javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar dateTime, javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public String apply(Boolean booleanA, Boolean booleanB, javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar dateTime, javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'partC'
             long partCStartTime_ = System.currentTimeMillis();
@@ -73,13 +73,13 @@ public class PartC extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, partCArguments_);
 
             // Apply child decisions
-            Boolean logical = this.logical.apply(booleanA, booleanB, annotationSet_, eventListener_, externalExecutor_);
-            Boolean temporal = this.temporal.apply(dateTime, annotationSet_, eventListener_, externalExecutor_);
-            List<String> temporalComparator = this.temporalComparator.apply(dateTime, annotationSet_, eventListener_, externalExecutor_);
-            Boolean temporalDiff = this.temporalDiff.apply(date, dateTime, time, annotationSet_, eventListener_, externalExecutor_);
+            Boolean logical = this.logical.apply(booleanA, booleanB, annotationSet_, eventListener_, externalExecutor_, cache_);
+            Boolean temporal = this.temporal.apply(dateTime, annotationSet_, eventListener_, externalExecutor_, cache_);
+            List<String> temporalComparator = this.temporalComparator.apply(dateTime, annotationSet_, eventListener_, externalExecutor_, cache_);
+            Boolean temporalDiff = this.temporalDiff.apply(date, dateTime, time, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // Evaluate decision 'partC'
-            String output_ = evaluate(logical, temporal, temporalComparator, temporalDiff, annotationSet_, eventListener_, externalExecutor_);
+            String output_ = evaluate(logical, temporal, temporalComparator, temporalDiff, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'partC'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, partCArguments_, output_, (System.currentTimeMillis() - partCStartTime_));
@@ -91,7 +91,7 @@ public class PartC extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
         }
     }
 
-    protected String evaluate(Boolean logical, Boolean temporal, List<String> temporalComparator, Boolean temporalDiff, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected String evaluate(Boolean logical, Boolean temporal, List<String> temporalComparator, Boolean temporalDiff, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(logical, temporal, temporalComparator, temporalDiff, annotationSet_, eventListener_, externalExecutor_));

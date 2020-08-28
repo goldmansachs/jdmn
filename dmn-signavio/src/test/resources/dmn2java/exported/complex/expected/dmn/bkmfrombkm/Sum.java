@@ -38,16 +38,16 @@ public class Sum extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
 
     public java.math.BigDecimal apply(String date, String datetime, String time, String time2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((date != null ? date(date) : null), (datetime != null ? dateAndTime(datetime) : null), (time != null ? time(time) : null), (time2 != null ? time(time2) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((date != null ? date(date) : null), (datetime != null ? dateAndTime(datetime) : null), (time != null ? time(time) : null), (time2 != null ? time(time2) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'Sum'", e);
             return null;
         }
     }
 
-    public java.math.BigDecimal apply(String date, String datetime, String time, String time2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public java.math.BigDecimal apply(String date, String datetime, String time, String time2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((date != null ? date(date) : null), (datetime != null ? dateAndTime(datetime) : null), (time != null ? time(time) : null), (time2 != null ? time(time2) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((date != null ? date(date) : null), (datetime != null ? dateAndTime(datetime) : null), (time != null ? time(time) : null), (time2 != null ? time(time2) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Sum'", e);
             return null;
@@ -55,10 +55,10 @@ public class Sum extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
     }
 
     public java.math.BigDecimal apply(javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar datetime, javax.xml.datatype.XMLGregorianCalendar time, javax.xml.datatype.XMLGregorianCalendar time2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(date, datetime, time, time2, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(date, datetime, time, time2, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public java.math.BigDecimal apply(javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar datetime, javax.xml.datatype.XMLGregorianCalendar time, javax.xml.datatype.XMLGregorianCalendar time2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public java.math.BigDecimal apply(javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar datetime, javax.xml.datatype.XMLGregorianCalendar time, javax.xml.datatype.XMLGregorianCalendar time2, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'sum'
             long sumStartTime_ = System.currentTimeMillis();
@@ -70,12 +70,12 @@ public class Sum extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, sumArguments_);
 
             // Apply child decisions
-            List<java.math.BigDecimal> dateFormula = this.dateFormula.apply(date, annotationSet_, eventListener_, externalExecutor_);
-            List<java.math.BigDecimal> datetimeFormula = this.datetimeFormula.apply(datetime, annotationSet_, eventListener_, externalExecutor_);
-            List<java.math.BigDecimal> timeFormula = this.timeFormula.apply(time, time2, annotationSet_, eventListener_, externalExecutor_);
+            List<java.math.BigDecimal> dateFormula = this.dateFormula.apply(date, annotationSet_, eventListener_, externalExecutor_, cache_);
+            List<java.math.BigDecimal> datetimeFormula = this.datetimeFormula.apply(datetime, annotationSet_, eventListener_, externalExecutor_, cache_);
+            List<java.math.BigDecimal> timeFormula = this.timeFormula.apply(time, time2, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // Evaluate decision 'sum'
-            java.math.BigDecimal output_ = evaluate(dateFormula, datetimeFormula, timeFormula, annotationSet_, eventListener_, externalExecutor_);
+            java.math.BigDecimal output_ = evaluate(dateFormula, datetimeFormula, timeFormula, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'sum'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, sumArguments_, output_, (System.currentTimeMillis() - sumStartTime_));
@@ -87,7 +87,7 @@ public class Sum extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
         }
     }
 
-    protected java.math.BigDecimal evaluate(List<java.math.BigDecimal> dateFormula, List<java.math.BigDecimal> datetimeFormula, List<java.math.BigDecimal> timeFormula, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected java.math.BigDecimal evaluate(List<java.math.BigDecimal> dateFormula, List<java.math.BigDecimal> datetimeFormula, List<java.math.BigDecimal> timeFormula, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
         ruleOutputList_.add(rule0(dateFormula, datetimeFormula, timeFormula, annotationSet_, eventListener_, externalExecutor_));

@@ -28,16 +28,16 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
 
     public String apply(String d, String t, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((d != null ? date(d) : null), (t != null ? time(t) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((d != null ? date(d) : null), (t != null ? time(t) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'Decision'", e);
             return null;
         }
     }
 
-    public String apply(String d, String t, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public String apply(String d, String t, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((d != null ? date(d) : null), (t != null ? time(t) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((d != null ? date(d) : null), (t != null ? time(t) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Decision'", e);
             return null;
@@ -45,10 +45,10 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     }
 
     public String apply(javax.xml.datatype.XMLGregorianCalendar d, javax.xml.datatype.XMLGregorianCalendar t, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(d, t, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(d, t, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public String apply(javax.xml.datatype.XMLGregorianCalendar d, javax.xml.datatype.XMLGregorianCalendar t, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public String apply(javax.xml.datatype.XMLGregorianCalendar d, javax.xml.datatype.XMLGregorianCalendar t, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'decision'
             long decisionStartTime_ = System.currentTimeMillis();
@@ -58,7 +58,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decisionArguments_);
 
             // Evaluate decision 'decision'
-            String output_ = evaluate(d, t, annotationSet_, eventListener_, externalExecutor_);
+            String output_ = evaluate(d, t, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'decision'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, decisionArguments_, output_, (System.currentTimeMillis() - decisionStartTime_));
@@ -70,7 +70,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         }
     }
 
-    protected String evaluate(javax.xml.datatype.XMLGregorianCalendar d, javax.xml.datatype.XMLGregorianCalendar t, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
-        return Logic.logic(d, t, annotationSet_, eventListener_, externalExecutor_);
+    protected String evaluate(javax.xml.datatype.XMLGregorianCalendar d, javax.xml.datatype.XMLGregorianCalendar t, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        return Logic.logic(d, t, annotationSet_, eventListener_, externalExecutor_, cache_);
     }
 }

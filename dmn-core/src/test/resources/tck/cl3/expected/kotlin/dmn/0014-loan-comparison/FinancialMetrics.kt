@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class FinancialMetrics : com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private constructor() {}
 
-    private fun apply(product: type.TLoanProduct?, requestedAmt: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): type.TMetric? {
+    private fun apply(product: type.TLoanProduct?, requestedAmt: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): type.TMetric? {
         try {
             // Start BKM 'FinancialMetrics'
             val financialMetricsStartTime_ = System.currentTimeMillis()
@@ -25,7 +25,7 @@ class FinancialMetrics : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, financialMetricsArguments_)
 
             // Evaluate BKM 'FinancialMetrics'
-            val output_: type.TMetric? = evaluate(product, requestedAmt, annotationSet_, eventListener_, externalExecutor_)
+            val output_: type.TMetric? = evaluate(product, requestedAmt, annotationSet_, eventListener_, externalExecutor_, cache_)
 
             // End BKM 'FinancialMetrics'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, financialMetricsArguments_, output_, (System.currentTimeMillis() - financialMetricsStartTime_))
@@ -37,15 +37,15 @@ class FinancialMetrics : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    private inline fun evaluate(product: type.TLoanProduct?, requestedAmt: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): type.TMetric? {
+    private inline fun evaluate(product: type.TLoanProduct?, requestedAmt: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): type.TMetric? {
         val lenderName: String? = product?.let({ it.lenderName as String? }) as String?
         val rate: java.math.BigDecimal? = product?.let({ it.rate as java.math.BigDecimal? }) as java.math.BigDecimal?
         val points: java.math.BigDecimal? = product?.let({ it.points as java.math.BigDecimal? }) as java.math.BigDecimal?
         val fee: java.math.BigDecimal? = product?.let({ it.fee as java.math.BigDecimal? }) as java.math.BigDecimal?
         val loanAmt: java.math.BigDecimal? = numericAdd(numericMultiply(requestedAmt, numericAdd(number("1"), numericDivide(points, number("100")))), fee) as java.math.BigDecimal?
         val downPmtAmt: java.math.BigDecimal? = numericMultiply(number("0.2"), loanAmt) as java.math.BigDecimal?
-        val paymentAmt: java.math.BigDecimal? = MonthlyPayment.monthlyPayment(loanAmt, rate, number("360"), annotationSet_, eventListener_, externalExecutor_) as java.math.BigDecimal?
-        val equity36moPct: java.math.BigDecimal? = numericSubtract(number("1"), numericMultiply(numericDivide(Equity36Mo.equity36Mo(loanAmt, rate, number("36"), paymentAmt, annotationSet_, eventListener_, externalExecutor_), requestedAmt), number("0.8"))) as java.math.BigDecimal?
+        val paymentAmt: java.math.BigDecimal? = MonthlyPayment.monthlyPayment(loanAmt, rate, number("360"), annotationSet_, eventListener_, externalExecutor_, cache_) as java.math.BigDecimal?
+        val equity36moPct: java.math.BigDecimal? = numericSubtract(number("1"), numericMultiply(numericDivide(Equity36Mo.equity36Mo(loanAmt, rate, number("36"), paymentAmt, annotationSet_, eventListener_, externalExecutor_, cache_), requestedAmt), number("0.8"))) as java.math.BigDecimal?
         val financialMetrics: type.TMetricImpl? = type.TMetricImpl() as type.TMetricImpl?
         financialMetrics?.lenderName = lenderName
         financialMetrics?.rate = rate
@@ -71,8 +71,8 @@ class FinancialMetrics : com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         val INSTANCE = FinancialMetrics()
 
-        fun FinancialMetrics(product: type.TLoanProduct?, requestedAmt: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): type.TMetric? {
-            return INSTANCE.apply(product, requestedAmt, annotationSet_, eventListener_, externalExecutor_)
+        fun FinancialMetrics(product: type.TLoanProduct?, requestedAmt: java.math.BigDecimal?, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): type.TMetric? {
+            return INSTANCE.apply(product, requestedAmt, annotationSet_, eventListener_, externalExecutor_, cache_)
         }
     }
 }

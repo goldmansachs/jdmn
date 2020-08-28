@@ -44,13 +44,14 @@ public class JPAExampleCreditDecision extends com.gs.dmn.runtime.MixedJavaTimeDM
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
         com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         // Initialize input data
         com.gs.dmn.generated.example_credit_decision.type.Applicant applicant = findApplicant("Amy");
         java.math.BigDecimal currentRiskAppetite = number("50");
         java.math.BigDecimal lendingThreshold = number("25");
 
         // Check generateOutputData
-        com.gs.dmn.generated.example_credit_decision.type.GenerateOutputData generateOutputDataOutput = new GenerateOutputData().apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_);
+        com.gs.dmn.generated.example_credit_decision.type.GenerateOutputData generateOutputDataOutput = new GenerateOutputData().apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_);
         checkValues(new com.gs.dmn.generated.example_credit_decision.type.GenerateOutputDataImpl(number("27.5"), "Accept", number("-7.5")), generateOutputDataOutput);
     }
 
@@ -59,13 +60,14 @@ public class JPAExampleCreditDecision extends com.gs.dmn.runtime.MixedJavaTimeDM
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
         com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         // Initialize input data
         com.gs.dmn.generated.example_credit_decision.type.Applicant applicant = findApplicant("Bill");
         java.math.BigDecimal currentRiskAppetite = number("50");
         java.math.BigDecimal lendingThreshold = number("25");
 
         // Check generateOutputData
-        com.gs.dmn.generated.example_credit_decision.type.GenerateOutputData generateOutputDataOutput = new GenerateOutputData().apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_);
+        com.gs.dmn.generated.example_credit_decision.type.GenerateOutputData generateOutputDataOutput = new GenerateOutputData().apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_);
         checkValues(new com.gs.dmn.generated.example_credit_decision.type.GenerateOutputDataImpl(number("-10"), "Reject", number("-25")), generateOutputDataOutput);
     }
 
@@ -74,13 +76,14 @@ public class JPAExampleCreditDecision extends com.gs.dmn.runtime.MixedJavaTimeDM
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
         com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
+        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         // Initialize input data
         com.gs.dmn.generated.example_credit_decision.type.Applicant applicant = findApplicant("Charlie");
         java.math.BigDecimal currentRiskAppetite = number("50");
         java.math.BigDecimal lendingThreshold = number("25");
 
         // Check generateOutputData
-        com.gs.dmn.generated.example_credit_decision.type.GenerateOutputData generateOutputDataOutput = new GenerateOutputData().apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_);
+        com.gs.dmn.generated.example_credit_decision.type.GenerateOutputData generateOutputDataOutput = new GenerateOutputData().apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_);
         checkValues(new com.gs.dmn.generated.example_credit_decision.type.GenerateOutputDataImpl(number("-42.5"), "Reject", number("-77.5")), generateOutputDataOutput);
     }
 

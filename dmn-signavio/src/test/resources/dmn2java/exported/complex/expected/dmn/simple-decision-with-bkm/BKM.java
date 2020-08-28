@@ -28,11 +28,11 @@ public class BKM extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
     private BKM() {
     }
 
-    public static java.math.BigDecimal bKM(java.math.BigDecimal a, java.math.BigDecimal b, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
-        return INSTANCE.apply(a, b, annotationSet_, eventListener_, externalExecutor_);
+    public static java.math.BigDecimal bKM(java.math.BigDecimal a, java.math.BigDecimal b, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        return INSTANCE.apply(a, b, annotationSet_, eventListener_, externalExecutor_, cache_);
     }
 
-    private java.math.BigDecimal apply(java.math.BigDecimal a, java.math.BigDecimal b, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    private java.math.BigDecimal apply(java.math.BigDecimal a, java.math.BigDecimal b, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'bKM'
             long bKMStartTime_ = System.currentTimeMillis();
@@ -42,7 +42,7 @@ public class BKM extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bKMArguments_);
 
             // Evaluate BKM 'bKM'
-            java.math.BigDecimal output_ = evaluate(a, b, annotationSet_, eventListener_, externalExecutor_);
+            java.math.BigDecimal output_ = evaluate(a, b, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End BKM 'bKM'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, bKMArguments_, output_, (System.currentTimeMillis() - bKMStartTime_));
@@ -54,7 +54,7 @@ public class BKM extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
         }
     }
 
-    protected java.math.BigDecimal evaluate(java.math.BigDecimal a, java.math.BigDecimal b, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
-        return new SUM().apply(a, b, annotationSet_, eventListener_, externalExecutor_);
+    protected java.math.BigDecimal evaluate(java.math.BigDecimal a, java.math.BigDecimal b, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        return new SUM().apply(a, b, annotationSet_, eventListener_, externalExecutor_, cache_);
     }
 }

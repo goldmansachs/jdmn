@@ -34,16 +34,16 @@ public class Mid extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
 
     public List<String> apply(String inputA, String inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((inputA != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(inputA, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (inputB != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(inputB, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((inputA != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(inputA, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (inputB != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(inputB, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'Mid'", e);
             return null;
         }
     }
 
-    public List<String> apply(String inputA, String inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public List<String> apply(String inputA, String inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((inputA != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(inputA, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (inputB != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(inputB, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), annotationSet_, eventListener_, externalExecutor_);
+            return apply((inputA != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(inputA, new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (inputB != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(inputB, new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Mid'", e);
             return null;
@@ -51,10 +51,10 @@ public class Mid extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
     }
 
     public List<String> apply(List<String> inputA, List<java.math.BigDecimal> inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(inputA, inputB, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(inputA, inputB, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public List<String> apply(List<String> inputA, List<java.math.BigDecimal> inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public List<String> apply(List<String> inputA, List<java.math.BigDecimal> inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'mid'
             long midStartTime_ = System.currentTimeMillis();
@@ -64,10 +64,10 @@ public class Mid extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, midArguments_);
 
             // Apply child decisions
-            List<type.Zip> zip = this.zip.apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_);
+            List<type.Zip> zip = this.zip.apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // Iterate and aggregate
-            List<String> output_ = evaluate(inputA, inputB, zip, annotationSet_, eventListener_, externalExecutor_);
+            List<String> output_ = evaluate(inputA, inputB, zip, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'mid'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, midArguments_, output_, (System.currentTimeMillis() - midStartTime_));
@@ -79,8 +79,8 @@ public class Mid extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
         }
     }
 
-    protected List<String> evaluate(List<String> inputA, List<java.math.BigDecimal> inputB, List<type.Zip> zip, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    protected List<String> evaluate(List<String> inputA, List<java.math.BigDecimal> inputB, List<type.Zip> zip, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         DoSomething doSomething = new DoSomething();
-        return zip.stream().map(zip4_iterator -> doSomething.apply(type.Zip3.toZip3(zip4_iterator), annotationSet_, eventListener_, externalExecutor_)).collect(Collectors.toList());
+        return zip.stream().map(zip4_iterator -> doSomething.apply(type.Zip3.toZip3(zip4_iterator), annotationSet_, eventListener_, externalExecutor_, cache_)).collect(Collectors.toList());
     }
 }

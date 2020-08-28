@@ -14,10 +14,10 @@ import java.util.stream.Collectors
 )
 class Bankrates() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
     fun apply(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet): List<type.TLoanProduct?>? {
-        return apply(annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor())
+        return apply(annotationSet_, com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), com.gs.dmn.runtime.cache.DefaultCache())
     }
 
-    fun apply(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): List<type.TLoanProduct?>? {
+    fun apply(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): List<type.TLoanProduct?>? {
         try {
             // Start decision 'Bankrates'
             val bankratesStartTime_ = System.currentTimeMillis()
@@ -25,7 +25,7 @@ class Bankrates() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bankratesArguments_)
 
             // Evaluate decision 'Bankrates'
-            val output_: List<type.TLoanProduct?>? = evaluate(annotationSet_, eventListener_, externalExecutor_)
+            val output_: List<type.TLoanProduct?>? = evaluate(annotationSet_, eventListener_, externalExecutor_, cache_)
 
             // End decision 'Bankrates'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, bankratesArguments_, output_, (System.currentTimeMillis() - bankratesStartTime_))
@@ -37,7 +37,7 @@ class Bankrates() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
     }
 
-    private inline fun evaluate(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor): List<type.TLoanProduct?>? {
+    private inline fun evaluate(annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): List<type.TLoanProduct?>? {
         return asList(type.TLoanProductImpl(number("0"), "Oceans Capital", number("0"), number(".03500")),
 				type.TLoanProductImpl(number("2700"), "eClick Lending", number("1.1"), number(".03200")),
 				type.TLoanProductImpl(number("1200"), "eClickLending", number("0.1"), number(".03375")),

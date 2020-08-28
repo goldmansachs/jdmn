@@ -29,16 +29,16 @@ public class C extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public String apply(String aa, String ba, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
         try {
-            return apply((aa != null ? number(aa) : null), ba, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+            return apply((aa != null ? number(aa) : null), ba, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
         } catch (Exception e) {
             logError("Cannot apply decision 'C'", e);
             return null;
         }
     }
 
-    public String apply(String aa, String ba, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public String apply(String aa, String ba, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
-            return apply((aa != null ? number(aa) : null), ba, annotationSet_, eventListener_, externalExecutor_);
+            return apply((aa != null ? number(aa) : null), ba, annotationSet_, eventListener_, externalExecutor_, cache_);
         } catch (Exception e) {
             logError("Cannot apply decision 'C'", e);
             return null;
@@ -46,10 +46,10 @@ public class C extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     public String apply(java.math.BigDecimal aa, String ba, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(aa, ba, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor());
+        return apply(aa, ba, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
     }
 
-    public String apply(java.math.BigDecimal aa, String ba, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    public String apply(java.math.BigDecimal aa, String ba, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start decision 'c'
             long cStartTime_ = System.currentTimeMillis();
@@ -59,7 +59,7 @@ public class C extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, cArguments_);
 
             // Evaluate decision 'c'
-            String output_ = evaluate(aa, ba, annotationSet_, eventListener_, externalExecutor_);
+            String output_ = evaluate(aa, ba, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End decision 'c'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, cArguments_, output_, (System.currentTimeMillis() - cStartTime_));
@@ -71,7 +71,7 @@ public class C extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    protected String evaluate(java.math.BigDecimal aa, String ba, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
-        return stringAdd(stringAdd(stringAdd("AA: ", model_a.Bkm.bkm(aa, annotationSet_, eventListener_, externalExecutor_)), "; BA: "), model_b.Bkm.bkm(ba, annotationSet_, eventListener_, externalExecutor_));
+    protected String evaluate(java.math.BigDecimal aa, String ba, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        return stringAdd(stringAdd(stringAdd("AA: ", model_a.Bkm.bkm(aa, annotationSet_, eventListener_, externalExecutor_, cache_)), "; BA: "), model_b.Bkm.bkm(ba, annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 }

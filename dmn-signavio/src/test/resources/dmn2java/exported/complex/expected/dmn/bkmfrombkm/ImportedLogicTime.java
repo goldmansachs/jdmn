@@ -28,11 +28,11 @@ public class ImportedLogicTime extends com.gs.dmn.signavio.runtime.DefaultSignav
     private ImportedLogicTime() {
     }
 
-    public static List<String> importedLogicTime(javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
-        return INSTANCE.apply(time, annotationSet_, eventListener_, externalExecutor_);
+    public static List<String> importedLogicTime(javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        return INSTANCE.apply(time, annotationSet_, eventListener_, externalExecutor_, cache_);
     }
 
-    private List<String> apply(javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
+    private List<String> apply(javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         try {
             // Start BKM 'importedLogicTime'
             long importedLogicTimeStartTime_ = System.currentTimeMillis();
@@ -41,7 +41,7 @@ public class ImportedLogicTime extends com.gs.dmn.signavio.runtime.DefaultSignav
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, importedLogicTimeArguments_);
 
             // Evaluate BKM 'importedLogicTime'
-            List<String> output_ = evaluate(time, annotationSet_, eventListener_, externalExecutor_);
+            List<String> output_ = evaluate(time, annotationSet_, eventListener_, externalExecutor_, cache_);
 
             // End BKM 'importedLogicTime'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, importedLogicTimeArguments_, output_, (System.currentTimeMillis() - importedLogicTimeStartTime_));
@@ -53,7 +53,7 @@ public class ImportedLogicTime extends com.gs.dmn.signavio.runtime.DefaultSignav
         }
     }
 
-    protected List<String> evaluate(javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_) {
-        return new TimeOperators().apply(time, annotationSet_, eventListener_, externalExecutor_);
+    protected List<String> evaluate(javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+        return new TimeOperators().apply(time, annotationSet_, eventListener_, externalExecutor_, cache_);
     }
 }
