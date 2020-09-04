@@ -105,6 +105,7 @@
         <sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
         <aggregate.report.dir>target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
         <sonar.exclusions>
+            **/dmn-aggregate/**/*,
             **/dmn-jpa-it/**/*,
             **/dmn-signavio-it/**/*,
             **/dmn-tck-it/**/*,
