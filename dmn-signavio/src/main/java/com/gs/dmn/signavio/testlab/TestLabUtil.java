@@ -71,11 +71,6 @@ public class TestLabUtil {
         return dmnTransformer.drgElementOutputType(decision);
     }
 
-    public String drgElementOutputVariableName(OutputParameterDefinition outputParameterDefinition) {
-        TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
-        return dmnTransformer.namedElementVariableName(decision);
-    }
-
     public String drgElementArgumentList(OutputParameterDefinition outputParameterDefinition) {
         TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
         return dmnTransformer.drgElementArgumentList(decision);
@@ -122,14 +117,6 @@ public class TestLabUtil {
 
     public String getter(String outputName) {
         return dmnTransformer.getter(outputName);
-    }
-
-    public String upperCaseFirst(String name) {
-        return dmnTransformer.upperCaseFirst(name);
-    }
-
-    public String lowerCaseFirst(String name) {
-        return dmnTransformer.lowerCaseFirst(name);
     }
 
     public String qualifiedName(TestLab testLab, OutputParameterDefinition rootOutputParameter) {

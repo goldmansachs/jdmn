@@ -11,33 +11,22 @@
  specific language governing permissions and limitations
  under the License.
 */
-package com.gs.dmn.validation;
+package com.gs.dmn.signavio.validation;
 
-import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
+import com.gs.dmn.signavio.SignavioDMNModelRepository;
+import com.gs.dmn.validation.AbstractValidatorTest;
 import org.omg.spec.dmn._20180521.model.TDefinitions;
 
 import java.io.File;
-import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-
-public abstract class AbstractValidatorTest extends AbstractTest {
-    protected final DMNReader reader = new DMNReader(LOGGER, false);
-
-    protected void validate(DMNValidator validator, String path, List<String> expectedErrors) {
-        DMNModelRepository repository = makeRepository(path);
-        List<String> actualErrors = validator.validate(repository);
-
-        assertEquals(expectedErrors, actualErrors);
-    }
-
+public abstract class AbstractSignavioValidatorTest extends AbstractValidatorTest {
+    @Override
     protected DMNModelRepository makeRepository(String path) {
         File input = new File(resource(path));
         Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(input);
-        return new DMNModelRepository(pair);
+        return new SignavioDMNModelRepository(pair);
     }
 }

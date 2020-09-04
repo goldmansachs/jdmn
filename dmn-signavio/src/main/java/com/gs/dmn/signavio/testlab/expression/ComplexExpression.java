@@ -26,10 +26,21 @@ public class ComplexExpression extends Expression {
         return slots;
     }
 
+    public ComplexExpression() {
+    }
+
+    public ComplexExpression(List<Slot> slots) {
+        this.slots = slots;
+    }
+
     @Override
     public String toFEELExpression() {
-        String context = slots.stream().map(Slot::toContextEntry).collect(Collectors.joining(", "));
-        return String.format("{%s}", context);
+        if (slots == null) {
+            return "null";
+        } else {
+            String context = slots.stream().map(Slot::toContextEntry).collect(Collectors.joining(", "));
+            return String.format("{%s}", context);
+        }
     }
 
     @Override

@@ -19,6 +19,13 @@ import com.gs.dmn.signavio.testlab.TestLabVisitor;
 public class BooleanLiteral extends SimpleExpression {
     private Boolean value;
 
+    public BooleanLiteral() {
+    }
+
+    public BooleanLiteral(Boolean value) {
+        this.value = value;
+    }
+
     public Boolean getValue() {
         return value;
     }
