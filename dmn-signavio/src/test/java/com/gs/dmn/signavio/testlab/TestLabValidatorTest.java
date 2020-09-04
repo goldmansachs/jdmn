@@ -13,17 +13,18 @@
 package com.gs.dmn.signavio.testlab;
 
 import com.gs.dmn.runtime.DMNRuntimeException;
+import org.junit.Test;
 
-import java.util.List;
+public class TestLabValidatorTest {
+    private final TestLabValidator validator = new TestLabValidator();
 
-public class TestLabValidator {
-    public void validate(TestLab testLab) {
-        if (testLab == null) {
-            throw new DMNRuntimeException("Missing or empty TestLab");
-        }
-        List<OutputParameterDefinition> outputParameterDefinitions = testLab.getOutputParameterDefinitions();
-        if (outputParameterDefinitions == null || outputParameterDefinitions.isEmpty()) {
-            throw new DMNRuntimeException(String.format("Missing or empty OutputParameterDefinitions for TestLab '%s'", testLab.getSource()));
-        }
+    @Test(expected = DMNRuntimeException.class)
+    public void testValidateWhenNull() {
+        validator.validate(null);
+    }
+
+    @Test(expected = DMNRuntimeException.class)
+    public void testValidateWhenEmpty() {
+        validator.validate(new TestLab());
     }
 }
