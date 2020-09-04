@@ -321,6 +321,7 @@
     "javaTypeName" : "String",
     "label" : "DerivativeType",
     "name" : "derivativeType",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "derivativeType",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
@@ -332,6 +333,7 @@
     "javaTypeName" : "String",
     "label" : "TaxChargeType",
     "name" : "taxChargeType",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "taxChargeType",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
@@ -343,6 +345,7 @@
     "javaTypeName" : "type.Transaction",
     "label" : "Transaction",
     "name" : "transaction",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "transaction",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
@@ -354,6 +357,7 @@
     "javaTypeName" : "type.TransactionTaxMetaData",
     "label" : "TransactionTaxMetaData",
     "name" : "transactionTaxMetaData",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "transactionTaxMetaData",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
@@ -373,6 +377,55 @@
     "knowledgeReferences" : [ ],
     "label" : "FetchForexRate",
     "name" : "fetchForexRate",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-cd18a7511e0016ba97f30d8448473110",
+      "javaParameterName" : "derivativeType",
+      "javaTypeName" : "String",
+      "label" : "DerivativeType",
+      "name" : "derivativeType",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "derivativeType",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-7acb1164f0150d3768556594816682ea",
+      "javaParameterName" : "taxChargeType",
+      "javaTypeName" : "String",
+      "label" : "TaxChargeType",
+      "name" : "taxChargeType",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "taxChargeType",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-2f33ede6cf73874d2adc0c7b93b1f310",
+      "javaParameterName" : "transaction",
+      "javaTypeName" : "type.Transaction",
+      "label" : "Transaction",
+      "name" : "transaction",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "transaction",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-891be9d7cc75911daea588a9a342b6af",
+      "javaParameterName" : "transactionTaxMetaData",
+      "javaTypeName" : "type.TransactionTaxMetaData",
+      "label" : "TransactionTaxMetaData",
+      "name" : "transactionTaxMetaData",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "transactionTaxMetaData",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "fetchForexRate",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
@@ -394,6 +447,43 @@
     "knowledgeReferences" : [ ],
     "label" : "IsForexRateRequired",
     "name" : "isForexRateRequired",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-cd18a7511e0016ba97f30d8448473110",
+      "javaParameterName" : "derivativeType",
+      "javaTypeName" : "String",
+      "label" : "DerivativeType",
+      "name" : "derivativeType",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "derivativeType",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-7acb1164f0150d3768556594816682ea",
+      "javaParameterName" : "taxChargeType",
+      "javaTypeName" : "String",
+      "label" : "TaxChargeType",
+      "name" : "taxChargeType",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "taxChargeType",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-891be9d7cc75911daea588a9a342b6af",
+      "javaParameterName" : "transactionTaxMetaData",
+      "javaTypeName" : "type.TransactionTaxMetaData",
+      "label" : "TransactionTaxMetaData",
+      "name" : "transactionTaxMetaData",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "transactionTaxMetaData",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "isForexRateRequired",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"

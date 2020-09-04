@@ -32,6 +32,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "Age",
     "name" : "age",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "age",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/de7a0645edac43999154e9b141c9d66a.xml"
@@ -49,6 +50,19 @@
     "knowledgeReferences" : [ ],
     "label" : "Decision",
     "name" : "decision",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-8b2dfaff5fd0522dcd630c363d26c907",
+      "javaParameterName" : "age",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "Age",
+      "name" : "age",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "age",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/de7a0645edac43999154e9b141c9d66a.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "decision",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/de7a0645edac43999154e9b141c9d66a.xml"

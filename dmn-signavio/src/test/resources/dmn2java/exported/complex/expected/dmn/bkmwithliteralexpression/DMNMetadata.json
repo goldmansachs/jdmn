@@ -248,6 +248,7 @@
     "javaTypeName" : "List<String>",
     "label" : "blacklist",
     "name" : "blacklist",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "blacklist",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -259,6 +260,7 @@
     "javaTypeName" : "List<String>",
     "label" : "censored",
     "name" : "censored",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "censored",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -270,6 +272,7 @@
     "javaTypeName" : "List<String>",
     "label" : "labels",
     "name" : "labels",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "labels",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -281,6 +284,7 @@
     "javaTypeName" : "List<java.math.BigDecimal>",
     "label" : "ListOfNumbers ",
     "name" : "listOfNumbers",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "listOfNumbers",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -292,6 +296,7 @@
     "javaTypeName" : "List<String>",
     "label" : "names",
     "name" : "names",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "names",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -303,6 +308,7 @@
     "javaTypeName" : "List<java.math.BigDecimal>",
     "label" : "numz",
     "name" : "numz",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "numz",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -314,6 +320,7 @@
     "javaTypeName" : "String",
     "label" : "redgreenblue1",
     "name" : "redgreenblue1",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "rGB",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -325,6 +332,7 @@
     "javaTypeName" : "String",
     "label" : "redgreenblue2",
     "name" : "redgreenblue2",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "rGB",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -336,6 +344,7 @@
     "javaTypeName" : "List<String>",
     "label" : "redgreenbluelist1",
     "name" : "redgreenbluelist1",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "rGB5",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -347,6 +356,7 @@
     "javaTypeName" : "List<String>",
     "label" : "redgreenbluelist2",
     "name" : "redgreenbluelist2",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "rGB4",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -358,6 +368,7 @@
     "javaTypeName" : "String",
     "label" : "rgb1",
     "name" : "rgb1",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "rGB",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -369,6 +380,7 @@
     "javaTypeName" : "List<String>",
     "label" : "rgb1 list",
     "name" : "rgb1List",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "rGB2",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -380,6 +392,7 @@
     "javaTypeName" : "String",
     "label" : "rgb2",
     "name" : "rgb2",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "rGB",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -391,6 +404,7 @@
     "javaTypeName" : "List<String>",
     "label" : "rgb2 list",
     "name" : "rgb2List",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "rGB3",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -404,6 +418,7 @@
     "knowledgeReferences" : [ ],
     "label" : null,
     "name" : "litexpLogic",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "zip",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -421,6 +436,19 @@
     "knowledgeReferences" : [ ],
     "label" : "AddExtraValues",
     "name" : "addExtraValues",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-49a0b1514526cc5c351725952b97cf88",
+      "javaParameterName" : "listOfNumbers",
+      "javaTypeName" : "List<java.math.BigDecimal>",
+      "label" : "ListOfNumbers ",
+      "name" : "listOfNumbers",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "listOfNumbers",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "addExtraValues",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -440,6 +468,31 @@
     "knowledgeReferences" : [ ],
     "label" : "append",
     "name" : "append",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-4235e531a37ca0c26448f1ca856b2bcb",
+      "javaParameterName" : "rgb1",
+      "javaTypeName" : "String",
+      "label" : "rgb1",
+      "name" : "rgb1",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "rGB",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-5625da51edf477244d62662a1ded6503",
+      "javaParameterName" : "rgb2",
+      "javaTypeName" : "String",
+      "label" : "rgb2",
+      "name" : "rgb2",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "rGB",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "append",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -461,6 +514,55 @@
     "knowledgeReferences" : [ ],
     "label" : "appendall",
     "name" : "appendall",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-4235e531a37ca0c26448f1ca856b2bcb",
+      "javaParameterName" : "rgb1",
+      "javaTypeName" : "String",
+      "label" : "rgb1",
+      "name" : "rgb1",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "rGB",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-4b4f366aa8841be4c01b4d148feb88bb",
+      "javaParameterName" : "rgb1List",
+      "javaTypeName" : "List<String>",
+      "label" : "rgb1 list",
+      "name" : "rgb1List",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "rGB2",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-5625da51edf477244d62662a1ded6503",
+      "javaParameterName" : "rgb2",
+      "javaTypeName" : "String",
+      "label" : "rgb2",
+      "name" : "rgb2",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "rGB",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-5aee1aa56098e702d77defcfaf0a657b",
+      "javaParameterName" : "rgb2List",
+      "javaTypeName" : "List<String>",
+      "label" : "rgb2 list",
+      "name" : "rgb2List",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "rGB3",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "appendall",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -494,6 +596,91 @@
     } ],
     "label" : "decision litexp",
     "name" : "decisionLitexp",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-3c7a037ef88b841b839912e30e0b88db",
+      "javaParameterName" : "censored",
+      "javaTypeName" : "List<String>",
+      "label" : "censored",
+      "name" : "censored",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "censored",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-56b1a6a297cc92034538927584917a9d",
+      "javaParameterName" : "labels",
+      "javaTypeName" : "List<String>",
+      "label" : "labels",
+      "name" : "labels",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "labels",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-9d0294a387dcdb1422df828374bb99a4",
+      "javaParameterName" : "numz",
+      "javaTypeName" : "List<java.math.BigDecimal>",
+      "label" : "numz",
+      "name" : "numz",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "numz",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-1abc24c257ae1c27045107f7f1e9abaa",
+      "javaParameterName" : "redgreenblue1",
+      "javaTypeName" : "String",
+      "label" : "redgreenblue1",
+      "name" : "redgreenblue1",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "rGB",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-7fb8cb4f45c3afc5215b67ea566a1195",
+      "javaParameterName" : "redgreenblue2",
+      "javaTypeName" : "String",
+      "label" : "redgreenblue2",
+      "name" : "redgreenblue2",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "rGB",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-523c68b3cfbc5e136ee5ea4759aeece5",
+      "javaParameterName" : "redgreenbluelist1",
+      "javaTypeName" : "List<String>",
+      "label" : "redgreenbluelist1",
+      "name" : "redgreenbluelist1",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "rGB5",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-060541c312a88a854f952f95a9ad391f",
+      "javaParameterName" : "redgreenbluelist2",
+      "javaTypeName" : "List<String>",
+      "label" : "redgreenbluelist2",
+      "name" : "redgreenbluelist2",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "rGB4",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "zip",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -513,6 +700,31 @@
     "knowledgeReferences" : [ ],
     "label" : "remove",
     "name" : "remove",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-5625da51edf477244d62662a1ded6503",
+      "javaParameterName" : "rgb2",
+      "javaTypeName" : "String",
+      "label" : "rgb2",
+      "name" : "rgb2",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "rGB",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-5aee1aa56098e702d77defcfaf0a657b",
+      "javaParameterName" : "rgb2List",
+      "javaTypeName" : "List<String>",
+      "label" : "rgb2 list",
+      "name" : "rgb2List",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "rGB3",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "remove",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -530,6 +742,19 @@
     "knowledgeReferences" : [ ],
     "label" : "RemoveValues",
     "name" : "removeValues",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-49a0b1514526cc5c351725952b97cf88",
+      "javaParameterName" : "listOfNumbers",
+      "javaTypeName" : "List<java.math.BigDecimal>",
+      "label" : "ListOfNumbers ",
+      "name" : "listOfNumbers",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "listOfNumbers",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "removeValues",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -549,6 +774,31 @@
     "knowledgeReferences" : [ ],
     "label" : "removeall",
     "name" : "removeall",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-f3e6c25ca841af737ce5aae0c99e4a18",
+      "javaParameterName" : "blacklist",
+      "javaTypeName" : "List<String>",
+      "label" : "blacklist",
+      "name" : "blacklist",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "blacklist",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-407d01264274ff56720d727ceaa37a58",
+      "javaParameterName" : "names",
+      "javaTypeName" : "List<String>",
+      "label" : "names",
+      "name" : "names",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "names",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "removeall",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -568,6 +818,31 @@
     "knowledgeReferences" : [ ],
     "label" : "removeall",
     "name" : "removeall2",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-4235e531a37ca0c26448f1ca856b2bcb",
+      "javaParameterName" : "rgb1",
+      "javaTypeName" : "String",
+      "label" : "rgb1",
+      "name" : "rgb1",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "rGB",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-4b4f366aa8841be4c01b4d148feb88bb",
+      "javaParameterName" : "rgb1List",
+      "javaTypeName" : "List<String>",
+      "label" : "rgb1 list",
+      "name" : "rgb1List",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "rGB2",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "removeall2",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -589,6 +864,91 @@
     "knowledgeReferences" : [ ],
     "label" : "zip",
     "name" : "zip",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-f3e6c25ca841af737ce5aae0c99e4a18",
+      "javaParameterName" : "blacklist",
+      "javaTypeName" : "List<String>",
+      "label" : "blacklist",
+      "name" : "blacklist",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "blacklist",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-49a0b1514526cc5c351725952b97cf88",
+      "javaParameterName" : "listOfNumbers",
+      "javaTypeName" : "List<java.math.BigDecimal>",
+      "label" : "ListOfNumbers ",
+      "name" : "listOfNumbers",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "listOfNumbers",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-407d01264274ff56720d727ceaa37a58",
+      "javaParameterName" : "names",
+      "javaTypeName" : "List<String>",
+      "label" : "names",
+      "name" : "names",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "names",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-4235e531a37ca0c26448f1ca856b2bcb",
+      "javaParameterName" : "rgb1",
+      "javaTypeName" : "String",
+      "label" : "rgb1",
+      "name" : "rgb1",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "rGB",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-4b4f366aa8841be4c01b4d148feb88bb",
+      "javaParameterName" : "rgb1List",
+      "javaTypeName" : "List<String>",
+      "label" : "rgb1 list",
+      "name" : "rgb1List",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "rGB2",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-5625da51edf477244d62662a1ded6503",
+      "javaParameterName" : "rgb2",
+      "javaTypeName" : "String",
+      "label" : "rgb2",
+      "name" : "rgb2",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "rGB",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-5aee1aa56098e702d77defcfaf0a657b",
+      "javaParameterName" : "rgb2List",
+      "javaTypeName" : "List<String>",
+      "label" : "rgb2 list",
+      "name" : "rgb2List",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "rGB3",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "zip",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"

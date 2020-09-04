@@ -32,6 +32,7 @@
     "javaTypeName" : "String",
     "label" : "StringInput",
     "name" : "stringInput",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "stringInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/85f2dd29e4774c2f84b883545afdd8cc.xml"
@@ -49,6 +50,19 @@
     "knowledgeReferences" : [ ],
     "label" : "Test",
     "name" : "test",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-81ff62961e9f9c53450c4619c967de23",
+      "javaParameterName" : "stringInput",
+      "javaTypeName" : "String",
+      "label" : "StringInput",
+      "name" : "stringInput",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "stringInput",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/85f2dd29e4774c2f84b883545afdd8cc.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "test",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/85f2dd29e4774c2f84b883545afdd8cc.xml"

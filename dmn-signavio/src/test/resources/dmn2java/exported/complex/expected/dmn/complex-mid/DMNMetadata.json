@@ -134,6 +134,7 @@
     "javaTypeName" : "String",
     "label" : "Properties",
     "name" : "properties_iterator",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "testPersonProperties",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
@@ -145,6 +146,7 @@
     "javaTypeName" : "type.TestPeopleType",
     "label" : "TestPeopleType",
     "name" : "testPeopleType",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "testPeopleType",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
@@ -156,6 +158,7 @@
     "javaTypeName" : "type.TestPersonType",
     "label" : "TestPersonType",
     "name" : "testPersonType6_iterator",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "testPersonType",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
@@ -179,6 +182,19 @@
     "knowledgeReferences" : [ ],
     "label" : "Big mid",
     "name" : "bigMid",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-76acfc10261ddc2fe0ac3081483133ad",
+      "javaParameterName" : "testPeopleType",
+      "javaTypeName" : "type.TestPeopleType",
+      "label" : "TestPeopleType",
+      "name" : "testPeopleType",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "testPeopleType",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "bigMid",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
@@ -196,6 +212,19 @@
     "knowledgeReferences" : [ ],
     "label" : "decide",
     "name" : "decide",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-66be7cc5d14947682f8a060a30da5fa0",
+      "javaParameterName" : "properties_iterator",
+      "javaTypeName" : "String",
+      "label" : "Properties",
+      "name" : "properties_iterator",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "testPersonProperties",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "decide",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
@@ -213,6 +242,19 @@
     "knowledgeReferences" : [ ],
     "label" : "decision",
     "name" : "decision",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-e801f20a6a898682c3b5e22db82de47b",
+      "javaParameterName" : "testPersonType6_iterator",
+      "javaTypeName" : "type.TestPersonType",
+      "label" : "TestPersonType",
+      "name" : "testPersonType6_iterator",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "testPersonType",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "decision",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
@@ -236,6 +278,19 @@
     "knowledgeReferences" : [ ],
     "label" : "small mid",
     "name" : "smallMid",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-e801f20a6a898682c3b5e22db82de47b",
+      "javaParameterName" : "testPersonType6_iterator",
+      "javaTypeName" : "type.TestPersonType",
+      "label" : "TestPersonType",
+      "name" : "testPersonType6_iterator",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "testPersonType",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "smallMid",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
@@ -255,6 +310,19 @@
     "knowledgeReferences" : [ ],
     "label" : "top decision",
     "name" : "topDecision",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-e801f20a6a898682c3b5e22db82de47b",
+      "javaParameterName" : "testPersonType6_iterator",
+      "javaTypeName" : "type.TestPersonType",
+      "label" : "TestPersonType",
+      "name" : "testPersonType6_iterator",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "testPersonType",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "topDecision",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"

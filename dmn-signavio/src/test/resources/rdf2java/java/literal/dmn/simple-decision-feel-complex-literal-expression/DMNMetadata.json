@@ -61,6 +61,7 @@
     "javaTypeName" : "type.Loan",
     "label" : "Loan",
     "name" : "loan",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "loan",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -78,6 +79,19 @@
     "knowledgeReferences" : [ ],
     "label" : "Monthly",
     "name" : "monthly",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "sid-AD811598-1741-4206-A9FC-280EF77B0B23",
+      "javaParameterName" : "loan",
+      "javaTypeName" : "type.Loan",
+      "label" : "Loan",
+      "name" : "loan",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "loan",
+        "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    } ],
     "typeRef" : {
       "localName" : "monthly",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"

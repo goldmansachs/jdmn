@@ -76,6 +76,7 @@
     "javaTypeName" : "Boolean",
     "label" : "BooleanInput",
     "name" : "booleanInput",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "booleanInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/d190b8bf6feb4d408844dd06182a5f34.xml"
@@ -87,6 +88,7 @@
     "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
     "label" : "DateInput",
     "name" : "dateInput",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "dateInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/d190b8bf6feb4d408844dd06182a5f34.xml"
@@ -98,6 +100,7 @@
     "javaTypeName" : "String",
     "label" : "EnumerationInput",
     "name" : "enumerationInput",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "enumerationInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/d190b8bf6feb4d408844dd06182a5f34.xml"
@@ -109,6 +112,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "NumberInput",
     "name" : "numberInput",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "numberInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/d190b8bf6feb4d408844dd06182a5f34.xml"
@@ -120,6 +124,7 @@
     "javaTypeName" : "String",
     "label" : "StringInput",
     "name" : "stringInput",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "stringInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/d190b8bf6feb4d408844dd06182a5f34.xml"
@@ -145,6 +150,67 @@
     "knowledgeReferences" : [ ],
     "label" : "Decision",
     "name" : "decision",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "diagram-d190b8bf6feb4d408844dd06182a5f34-inputdata-sid-F533656C-76C6-4D10-9786-7FE2A4E9141A",
+      "javaParameterName" : "booleanInput",
+      "javaTypeName" : "Boolean",
+      "label" : "BooleanInput",
+      "name" : "booleanInput",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "booleanInput",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/d190b8bf6feb4d408844dd06182a5f34.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "diagram-d190b8bf6feb4d408844dd06182a5f34-inputdata-sid-A1FC6D04-6C80-46D7-902E-FD9F9B80DEDC",
+      "javaParameterName" : "dateInput",
+      "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+      "label" : "DateInput",
+      "name" : "dateInput",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "dateInput",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/d190b8bf6feb4d408844dd06182a5f34.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "diagram-d190b8bf6feb4d408844dd06182a5f34-inputdata-sid-8A33F7F8-5A9F-49D1-B511-FCDC838AADA3",
+      "javaParameterName" : "enumerationInput",
+      "javaTypeName" : "String",
+      "label" : "EnumerationInput",
+      "name" : "enumerationInput",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "enumerationInput",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/d190b8bf6feb4d408844dd06182a5f34.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "diagram-d190b8bf6feb4d408844dd06182a5f34-inputdata-sid-4657A97A-419B-4840-B8CA-9EA10827657F",
+      "javaParameterName" : "numberInput",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "NumberInput",
+      "name" : "numberInput",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "numberInput",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/d190b8bf6feb4d408844dd06182a5f34.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "diagram-d190b8bf6feb4d408844dd06182a5f34-inputdata-sid-8D942955-A64E-461F-A4A7-41487C9F6D7A",
+      "javaParameterName" : "stringInput",
+      "javaTypeName" : "String",
+      "label" : "StringInput",
+      "name" : "stringInput",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "stringInput",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/d190b8bf6feb4d408844dd06182a5f34.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "decision",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/d190b8bf6feb4d408844dd06182a5f34.xml"

@@ -114,7 +114,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
     }
 
     @Override
-    protected List<DRGElementReference<TInputData>> collectAllInputDatas(DRGElementReference<? extends TDRGElement> parentReference) {
+    protected List<DRGElementReference<TInputData>> collectTransitiveInputDatas(DRGElementReference<? extends TDRGElement> parentReference) {
         TDRGElement parent = parentReference.getElement();
         ImportPath parentImportPath = parentReference.getImportPath();
         List<DRGElementReference<TInputData>> result = new ArrayList<>();
@@ -125,7 +125,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
             TDecision topLevelDecision = multiInstanceDecisionLogic.getTopLevelDecision();
             DRGElementReference<? extends TDRGElement> topLevelReference = makeDRGElementReference(topLevelDecision);
 
-            List<DRGElementReference<TInputData>> inputDataList = collectAllInputDatas(topLevelReference);
+            List<DRGElementReference<TInputData>> inputDataList = collectTransitiveInputDatas(topLevelReference);
             inputDataList.removeIf(tInputDataDMNReference -> tInputDataDMNReference.getElement() == multiInstanceDecisionLogic.getIterator());
             result.addAll(inputDataList);
         }
@@ -137,7 +137,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
             if (child != null) {
                 String importName = findImportName(parent, reference);
                 DRGElementReference<TDecision> childReference = makeDRGElementReference(new ImportPath(parentImportPath, importName), child);
-                List<DRGElementReference<TInputData>> inputReferences = collectAllInputDatas(childReference);
+                List<DRGElementReference<TInputData>> inputReferences = collectTransitiveInputDatas(childReference);
                 result.addAll(inputReferences);
             } else {
                 throw new DMNRuntimeException(String.format("Cannot find Decision for '%s' in parent '%s'", reference.getHref(), parent.getName()));

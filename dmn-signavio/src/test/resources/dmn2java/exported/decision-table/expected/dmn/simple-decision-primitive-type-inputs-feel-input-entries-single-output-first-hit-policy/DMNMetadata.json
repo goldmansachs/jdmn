@@ -98,6 +98,7 @@
     "javaTypeName" : "Boolean",
     "label" : "BooleanInput",
     "name" : "booleanInput",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "booleanInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/79e6b972a2484843b6651c6bf2e5b35c.xml"
@@ -109,6 +110,7 @@
     "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
     "label" : "DateAndTimeInput",
     "name" : "dateAndTimeInput",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "dateAndTimeInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/79e6b972a2484843b6651c6bf2e5b35c.xml"
@@ -120,6 +122,7 @@
     "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
     "label" : "DateInput",
     "name" : "dateInput",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "dateInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/79e6b972a2484843b6651c6bf2e5b35c.xml"
@@ -131,6 +134,7 @@
     "javaTypeName" : "String",
     "label" : "EnumerationInput",
     "name" : "enumerationInput",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "enumerationInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/79e6b972a2484843b6651c6bf2e5b35c.xml"
@@ -142,6 +146,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "NumberInput",
     "name" : "numberInput",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "numberInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/79e6b972a2484843b6651c6bf2e5b35c.xml"
@@ -153,6 +158,7 @@
     "javaTypeName" : "String",
     "label" : "TextInput",
     "name" : "textInput",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "textInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/79e6b972a2484843b6651c6bf2e5b35c.xml"
@@ -164,6 +170,7 @@
     "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
     "label" : "TimeInput",
     "name" : "timeInput",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "timeInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/79e6b972a2484843b6651c6bf2e5b35c.xml"
@@ -193,6 +200,91 @@
     "knowledgeReferences" : [ ],
     "label" : "Decision",
     "name" : "decision",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "diagram-79e6b972a2484843b6651c6bf2e5b35c-inputdata-sid-DD33B3B6-0C84-4568-A0ED-424855D08836",
+      "javaParameterName" : "booleanInput",
+      "javaTypeName" : "Boolean",
+      "label" : "BooleanInput",
+      "name" : "booleanInput",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "booleanInput",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/79e6b972a2484843b6651c6bf2e5b35c.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "diagram-79e6b972a2484843b6651c6bf2e5b35c-inputdata-sid-D16E1277-6037-4066-A21B-42F761A4B427",
+      "javaParameterName" : "dateAndTimeInput",
+      "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+      "label" : "DateAndTimeInput",
+      "name" : "dateAndTimeInput",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "dateAndTimeInput",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/79e6b972a2484843b6651c6bf2e5b35c.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "diagram-79e6b972a2484843b6651c6bf2e5b35c-inputdata-sid-6E98EF23-49A8-44BE-82BB-06CF5AC860A0",
+      "javaParameterName" : "dateInput",
+      "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+      "label" : "DateInput",
+      "name" : "dateInput",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "dateInput",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/79e6b972a2484843b6651c6bf2e5b35c.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "diagram-79e6b972a2484843b6651c6bf2e5b35c-inputdata-sid-3247220B-9F67-48DB-8CB5-33C5FCDCEC20",
+      "javaParameterName" : "enumerationInput",
+      "javaTypeName" : "String",
+      "label" : "EnumerationInput",
+      "name" : "enumerationInput",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "enumerationInput",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/79e6b972a2484843b6651c6bf2e5b35c.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "diagram-79e6b972a2484843b6651c6bf2e5b35c-inputdata-sid-3F148E87-DF6E-42AF-B209-4D532421A2F9",
+      "javaParameterName" : "numberInput",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "NumberInput",
+      "name" : "numberInput",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "numberInput",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/79e6b972a2484843b6651c6bf2e5b35c.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "diagram-79e6b972a2484843b6651c6bf2e5b35c-inputdata-sid-404A0FC2-6787-4210-BB30-2E7964835E99",
+      "javaParameterName" : "textInput",
+      "javaTypeName" : "String",
+      "label" : "TextInput",
+      "name" : "textInput",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "textInput",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/79e6b972a2484843b6651c6bf2e5b35c.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "diagram-79e6b972a2484843b6651c6bf2e5b35c-inputdata-sid-F687D89A-8FBD-4414-BCF4-BBBF353ABBC2",
+      "javaParameterName" : "timeInput",
+      "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+      "label" : "TimeInput",
+      "name" : "timeInput",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "timeInput",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/79e6b972a2484843b6651c6bf2e5b35c.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "decision",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/79e6b972a2484843b6651c6bf2e5b35c.xml"

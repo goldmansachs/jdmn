@@ -225,7 +225,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
             List<FormalParameter> parameters = new ArrayList<>();
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision(bkm);
             DRGElementReference<TDecision> outputReference = this.dmnModelRepository.makeDRGElementReference(outputDecision);
-            List<DRGElementReference<TInputData>> allInputDataReferences = this.dmnModelRepository.allInputDatas(outputReference, this.drgElementFilter);
+            List<DRGElementReference<TInputData>> allInputDataReferences = this.dmnModelRepository.inputDataClosure(outputReference, this.drgElementFilter);
             this.dmnModelRepository.sortNamedElementReferences(allInputDataReferences);
             for (DRGElementReference<TInputData> reference: allInputDataReferences) {
                 TInputData id = reference.getElement();
@@ -307,7 +307,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
     private List<DRGElementReference<? extends TDRGElement>> collectIterationInputs(TDecision decision) {
         Set<DRGElementReference<? extends TDRGElement>> elementSet = new LinkedHashSet<>();
         DRGElementReference<TDecision> decisionReference = this.dmnModelRepository.makeDRGElementReference(decision);
-        elementSet.addAll(this.dmnModelRepository.allInputDatas(decisionReference, this.drgElementFilter));
+        elementSet.addAll(this.dmnModelRepository.inputDataClosure(decisionReference, this.drgElementFilter));
         elementSet.addAll(this.dmnModelRepository.directSubDecisions(decision));
         List<DRGElementReference<? extends TDRGElement>> elements = new ArrayList<>(elementSet);
         this.dmnModelRepository.sortNamedElementReferences(elements);

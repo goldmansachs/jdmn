@@ -534,11 +534,11 @@ public class DMNModelRepository {
         return result;
     }
 
-    public List<DRGElementReference<TInputData>> allInputDatas(DRGElementReference<? extends TDRGElement> parentReference, DRGElementFilter drgElementFilter) {
-        return drgElementFilter.filterInputs(collectAllInputDatas(parentReference));
+    public List<DRGElementReference<TInputData>> inputDataClosure(DRGElementReference<? extends TDRGElement> parentReference, DRGElementFilter drgElementFilter) {
+        return drgElementFilter.filterInputs(collectTransitiveInputDatas(parentReference));
     }
 
-    protected List<DRGElementReference<TInputData>> collectAllInputDatas(DRGElementReference<? extends TDRGElement> parentReference) {
+    protected List<DRGElementReference<TInputData>> collectTransitiveInputDatas(DRGElementReference<? extends TDRGElement> parentReference) {
         TDRGElement parent = parentReference.getElement();
         ImportPath parentImportPath = parentReference.getImportPath();
         List<DRGElementReference<TInputData>> result = new ArrayList<>();
@@ -561,7 +561,7 @@ public class DMNModelRepository {
             if (child != null) {
                 // Update reference for descendants
                 String importName = findImportName(parent, reference);
-                List<DRGElementReference<TInputData>> inputReferences = collectAllInputDatas(makeDRGElementReference(new ImportPath(parentImportPath, importName), child));
+                List<DRGElementReference<TInputData>> inputReferences = collectTransitiveInputDatas(makeDRGElementReference(new ImportPath(parentImportPath, importName), child));
                 result.addAll(inputReferences);
             } else {
                 throw new DMNRuntimeException(String.format("Cannot find Decision for '%s' in parent '%s'", reference.getHref(), parent.getName()));
