@@ -19,6 +19,13 @@ import com.gs.dmn.signavio.testlab.TestLabVisitor;
 public class NumberLiteral extends SimpleExpression {
     private String value;
 
+    public NumberLiteral() {
+    }
+
+    public NumberLiteral(String value) {
+        this.value = value;
+    }
+
     public String getValue() {
         return value;
     }
