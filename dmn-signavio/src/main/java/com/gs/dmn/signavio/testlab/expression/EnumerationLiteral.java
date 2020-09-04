@@ -22,6 +22,14 @@ public class EnumerationLiteral extends SimpleExpression {
     // Enumerator index in enumeration
     private String value;
 
+    public EnumerationLiteral() {
+    }
+
+    public EnumerationLiteral(String name, String value) {
+        this.name = name;
+        this.value = value;
+    }
+
     public String getName() {
         return name;
     }
