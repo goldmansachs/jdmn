@@ -138,6 +138,7 @@
     "javaTypeName" : "Boolean",
     "label" : "Employed",
     "name" : "employed",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "employed",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -149,6 +150,7 @@
     "javaTypeName" : "type.Person",
     "label" : "Person",
     "name" : "person",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "person",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -168,6 +170,31 @@
     "knowledgeReferences" : [ ],
     "label" : "Decision",
     "name" : "decision",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "sid-B180B170-4226-4CB8-B6EE-51D4307DCA61",
+      "javaParameterName" : "employed",
+      "javaTypeName" : "Boolean",
+      "label" : "Employed",
+      "name" : "employed",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "employed",
+        "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264",
+      "javaParameterName" : "person",
+      "javaTypeName" : "type.Person",
+      "label" : "Person",
+      "name" : "person",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "person",
+        "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      }
+    } ],
     "typeRef" : {
       "localName" : "decision",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"

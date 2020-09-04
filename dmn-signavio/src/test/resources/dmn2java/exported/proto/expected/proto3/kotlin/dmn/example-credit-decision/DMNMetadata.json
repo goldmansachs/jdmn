@@ -211,6 +211,7 @@
     "javaTypeName" : "type.Applicant?",
     "label" : "Applicant",
     "name" : "applicant",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "applicant",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
@@ -222,6 +223,7 @@
     "javaTypeName" : "java.math.BigDecimal?",
     "label" : "Current risk appetite",
     "name" : "currentRiskAppetite",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "currentRiskAppetite",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
@@ -233,6 +235,7 @@
     "javaTypeName" : "java.math.BigDecimal?",
     "label" : "Lending threshold",
     "name" : "lendingThreshold",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "lendingThreshold",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
@@ -244,6 +247,7 @@
     "javaTypeName" : "java.math.BigDecimal?",
     "label" : "Prior issue",
     "name" : "priorIssue_iterator",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "priorIssue",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
@@ -261,6 +265,19 @@
     "knowledgeReferences" : [ ],
     "label" : "Assess applicant age",
     "name" : "assessApplicantAge",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-d2376567fde3c9400ee327ecec21e36d",
+      "javaParameterName" : "applicant",
+      "javaTypeName" : "type.Applicant?",
+      "label" : "Applicant",
+      "name" : "applicant",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "applicant",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "assessApplicantAge",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
@@ -280,6 +297,31 @@
     "knowledgeReferences" : [ ],
     "label" : "Assess issue",
     "name" : "assessIssue",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-5dc69eb6de3b736e08d2029ca5ae436c",
+      "javaParameterName" : "currentRiskAppetite",
+      "javaTypeName" : "java.math.BigDecimal?",
+      "label" : "Current risk appetite",
+      "name" : "currentRiskAppetite",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "currentRiskAppetite",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-78d6a4b25e15dc5d22fe0cce65554804",
+      "javaParameterName" : "priorIssue_iterator",
+      "javaTypeName" : "java.math.BigDecimal?",
+      "label" : "Prior issue",
+      "name" : "priorIssue_iterator",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "priorIssue",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "assessIssue",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
@@ -303,6 +345,31 @@
     "knowledgeReferences" : [ ],
     "label" : "Assess issue risk",
     "name" : "assessIssueRisk",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-d2376567fde3c9400ee327ecec21e36d",
+      "javaParameterName" : "applicant",
+      "javaTypeName" : "type.Applicant?",
+      "label" : "Applicant",
+      "name" : "applicant",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "applicant",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-5dc69eb6de3b736e08d2029ca5ae436c",
+      "javaParameterName" : "currentRiskAppetite",
+      "javaTypeName" : "java.math.BigDecimal?",
+      "label" : "Current risk appetite",
+      "name" : "currentRiskAppetite",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "currentRiskAppetite",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "assessIssueRisk",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
@@ -324,6 +391,43 @@
     "knowledgeReferences" : [ ],
     "label" : "Compare against lending threshold",
     "name" : "compareAgainstLendingThreshold",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-d2376567fde3c9400ee327ecec21e36d",
+      "javaParameterName" : "applicant",
+      "javaTypeName" : "type.Applicant?",
+      "label" : "Applicant",
+      "name" : "applicant",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "applicant",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-5dc69eb6de3b736e08d2029ca5ae436c",
+      "javaParameterName" : "currentRiskAppetite",
+      "javaTypeName" : "java.math.BigDecimal?",
+      "label" : "Current risk appetite",
+      "name" : "currentRiskAppetite",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "currentRiskAppetite",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-5a7daa825c6a7542e30184a94034b435",
+      "javaParameterName" : "lendingThreshold",
+      "javaTypeName" : "java.math.BigDecimal?",
+      "label" : "Lending threshold",
+      "name" : "lendingThreshold",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "lendingThreshold",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "compareAgainstLendingThreshold",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
@@ -345,6 +449,43 @@
     "knowledgeReferences" : [ ],
     "label" : "Generate output data",
     "name" : "generateOutputData",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-d2376567fde3c9400ee327ecec21e36d",
+      "javaParameterName" : "applicant",
+      "javaTypeName" : "type.Applicant?",
+      "label" : "Applicant",
+      "name" : "applicant",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "applicant",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-5dc69eb6de3b736e08d2029ca5ae436c",
+      "javaParameterName" : "currentRiskAppetite",
+      "javaTypeName" : "java.math.BigDecimal?",
+      "label" : "Current risk appetite",
+      "name" : "currentRiskAppetite",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "currentRiskAppetite",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-5a7daa825c6a7542e30184a94034b435",
+      "javaParameterName" : "lendingThreshold",
+      "javaTypeName" : "java.math.BigDecimal?",
+      "label" : "Lending threshold",
+      "name" : "lendingThreshold",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "lendingThreshold",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "generateOutputData",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
@@ -362,6 +503,43 @@
     "knowledgeReferences" : [ ],
     "label" : "Make credit decision",
     "name" : "makeCreditDecision",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-d2376567fde3c9400ee327ecec21e36d",
+      "javaParameterName" : "applicant",
+      "javaTypeName" : "type.Applicant?",
+      "label" : "Applicant",
+      "name" : "applicant",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "applicant",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-5dc69eb6de3b736e08d2029ca5ae436c",
+      "javaParameterName" : "currentRiskAppetite",
+      "javaTypeName" : "java.math.BigDecimal?",
+      "label" : "Current risk appetite",
+      "name" : "currentRiskAppetite",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "currentRiskAppetite",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-5a7daa825c6a7542e30184a94034b435",
+      "javaParameterName" : "lendingThreshold",
+      "javaTypeName" : "java.math.BigDecimal?",
+      "label" : "Lending threshold",
+      "name" : "lendingThreshold",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "lendingThreshold",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "makeCreditDecision",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
@@ -379,6 +557,19 @@
     "knowledgeReferences" : [ ],
     "label" : "Process prior issues",
     "name" : "processPriorIssues",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-d2376567fde3c9400ee327ecec21e36d",
+      "javaParameterName" : "applicant",
+      "javaTypeName" : "type.Applicant?",
+      "label" : "Applicant",
+      "name" : "applicant",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "applicant",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "processPriorIssues",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"

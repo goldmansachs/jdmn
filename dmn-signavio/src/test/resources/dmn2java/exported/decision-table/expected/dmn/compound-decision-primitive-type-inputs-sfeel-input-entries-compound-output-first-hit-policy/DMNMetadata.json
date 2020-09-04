@@ -141,6 +141,7 @@
     "javaTypeName" : "Boolean",
     "label" : "BooleanInput",
     "name" : "booleanInput",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "booleanInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/b1489a504a724a1caf493a6cb5187c2c.xml"
@@ -152,6 +153,7 @@
     "javaTypeName" : "String",
     "label" : "DD1 Text Input",
     "name" : "dd1TextInput",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "dd1TextInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/b1489a504a724a1caf493a6cb5187c2c.xml"
@@ -163,6 +165,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "DD2 Number Input",
     "name" : "dd2NumberInput",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "dd2NumberInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/b1489a504a724a1caf493a6cb5187c2c.xml"
@@ -174,6 +177,7 @@
     "javaTypeName" : "String",
     "label" : "EnumerationInput",
     "name" : "enumerationInput",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "enumerationInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/b1489a504a724a1caf493a6cb5187c2c.xml"
@@ -197,6 +201,55 @@
     "knowledgeReferences" : [ ],
     "label" : "Compound Output Compound Decision",
     "name" : "compoundOutputCompoundDecision",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "diagram-b1489a504a724a1caf493a6cb5187c2c-inputdata-sid-DD33B3B6-0C84-4568-A0ED-424855D08836",
+      "javaParameterName" : "booleanInput",
+      "javaTypeName" : "Boolean",
+      "label" : "BooleanInput",
+      "name" : "booleanInput",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "booleanInput",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/b1489a504a724a1caf493a6cb5187c2c.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "diagram-b1489a504a724a1caf493a6cb5187c2c-inputdata-sid-6DEE5C38-4409-4A43-8E10-A759DF55056E",
+      "javaParameterName" : "dd1TextInput",
+      "javaTypeName" : "String",
+      "label" : "DD1 Text Input",
+      "name" : "dd1TextInput",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "dd1TextInput",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/b1489a504a724a1caf493a6cb5187c2c.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "diagram-b1489a504a724a1caf493a6cb5187c2c-inputdata-sid-3C445DAC-1B0D-4D22-9FD3-EB4E617D00CF",
+      "javaParameterName" : "dd2NumberInput",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "DD2 Number Input",
+      "name" : "dd2NumberInput",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "dd2NumberInput",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/b1489a504a724a1caf493a6cb5187c2c.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "diagram-b1489a504a724a1caf493a6cb5187c2c-inputdata-sid-3247220B-9F67-48DB-8CB5-33C5FCDCEC20",
+      "javaParameterName" : "enumerationInput",
+      "javaTypeName" : "String",
+      "label" : "EnumerationInput",
+      "name" : "enumerationInput",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "enumerationInput",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/b1489a504a724a1caf493a6cb5187c2c.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "compoundOutputCompoundDecision",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/b1489a504a724a1caf493a6cb5187c2c.xml"
@@ -214,6 +267,19 @@
     "knowledgeReferences" : [ ],
     "label" : "Dependent Decision 1",
     "name" : "dependentDecision1",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "diagram-b1489a504a724a1caf493a6cb5187c2c-inputdata-sid-6DEE5C38-4409-4A43-8E10-A759DF55056E",
+      "javaParameterName" : "dd1TextInput",
+      "javaTypeName" : "String",
+      "label" : "DD1 Text Input",
+      "name" : "dd1TextInput",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "dd1TextInput",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/b1489a504a724a1caf493a6cb5187c2c.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "dependentDecision1",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/b1489a504a724a1caf493a6cb5187c2c.xml"
@@ -231,6 +297,19 @@
     "knowledgeReferences" : [ ],
     "label" : "Dependent Decision 2",
     "name" : "dependentDecision2",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "diagram-b1489a504a724a1caf493a6cb5187c2c-inputdata-sid-3C445DAC-1B0D-4D22-9FD3-EB4E617D00CF",
+      "javaParameterName" : "dd2NumberInput",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "DD2 Number Input",
+      "name" : "dd2NumberInput",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "dd2NumberInput",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/b1489a504a724a1caf493a6cb5187c2c.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "dependentDecision2",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/b1489a504a724a1caf493a6cb5187c2c.xml"

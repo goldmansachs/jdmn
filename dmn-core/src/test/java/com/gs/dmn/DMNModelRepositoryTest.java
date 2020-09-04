@@ -81,7 +81,7 @@ public class DMNModelRepositoryTest extends AbstractTest {
     public void testAllInputDatas() {
         TDefinitions definitions = this.dmnModelRepository.getRootDefinitions();
         TDRGElement root = this.dmnModelRepository.findDRGElementByName(definitions, "Pre-bureauAffordability");
-        List<DRGElementReference<TInputData>> references = this.dmnModelRepository.allInputDatas(makeRootReference(root), new DRGElementFilter(true));
+        List<DRGElementReference<TInputData>> references = this.dmnModelRepository.inputDataClosure(makeRootReference(root), new DRGElementFilter(true));
         this.dmnModelRepository.sortNamedElementReferences(references);
 
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
@@ -124,7 +124,7 @@ public class DMNModelRepositoryTest extends AbstractTest {
         this.dmnModelRepository = readDMN("composite/input/0003-name-conflicts");
 
         TDRGElement root = this.dmnModelRepository.findDRGElementByName("http://www.provider.com/definitions/model-c", "modelCDecisionBasedOnBs");
-        List<DRGElementReference<TInputData>> references = this.dmnModelRepository.collectAllInputDatas(makeRootReference(root));
+        List<DRGElementReference<TInputData>> references = this.dmnModelRepository.collectTransitiveInputDatas(makeRootReference(root));
         this.dmnModelRepository.sortNamedElementReferences(references);
 
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
@@ -140,7 +140,7 @@ public class DMNModelRepositoryTest extends AbstractTest {
         this.dmnModelRepository = readDMN("composite/input/0003-name-conflicts");
 
         TDRGElement root = this.dmnModelRepository.findDRGElementByName("http://www.provider.com/definitions/model-c", "modelCDecisionBasedOnBs");
-        List<DRGElementReference<TInputData>> references = this.dmnModelRepository.collectAllInputDatas(makeRootReference(root));
+        List<DRGElementReference<TInputData>> references = this.dmnModelRepository.collectTransitiveInputDatas(makeRootReference(root));
         this.dmnModelRepository.sortNamedElementReferences(references);
 
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
