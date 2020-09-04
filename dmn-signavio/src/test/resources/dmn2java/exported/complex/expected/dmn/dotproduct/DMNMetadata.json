@@ -141,6 +141,7 @@
     "javaTypeName" : "List<java.math.BigDecimal>",
     "label" : "A",
     "name" : "a",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "a",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
@@ -152,6 +153,7 @@
     "javaTypeName" : "List<java.math.BigDecimal>",
     "label" : "B",
     "name" : "b",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "b",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
@@ -163,6 +165,7 @@
     "javaTypeName" : "type.Componentwise3",
     "label" : "Componentwise",
     "name" : "componentwise4_iterator",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "componentwise3",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
@@ -186,6 +189,31 @@
     "knowledgeReferences" : [ ],
     "label" : "CalculateDotProduct",
     "name" : "calculateDotProduct",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-1a6f60b2f3c2867788cc350ac900ebef",
+      "javaParameterName" : "a",
+      "javaTypeName" : "List<java.math.BigDecimal>",
+      "label" : "A",
+      "name" : "a",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "a",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-bc00e56f88a2f91ed150a0b28b321f86",
+      "javaParameterName" : "b",
+      "javaTypeName" : "List<java.math.BigDecimal>",
+      "label" : "B",
+      "name" : "b",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "b",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "calculateDotProduct",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
@@ -205,6 +233,31 @@
     "knowledgeReferences" : [ ],
     "label" : "Componentwise",
     "name" : "componentwise",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-1a6f60b2f3c2867788cc350ac900ebef",
+      "javaParameterName" : "a",
+      "javaTypeName" : "List<java.math.BigDecimal>",
+      "label" : "A",
+      "name" : "a",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "a",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-bc00e56f88a2f91ed150a0b28b321f86",
+      "javaParameterName" : "b",
+      "javaTypeName" : "List<java.math.BigDecimal>",
+      "label" : "B",
+      "name" : "b",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "b",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "componentwise",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
@@ -226,6 +279,31 @@
     "knowledgeReferences" : [ ],
     "label" : "DotProduct",
     "name" : "dotProduct",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-1a6f60b2f3c2867788cc350ac900ebef",
+      "javaParameterName" : "a",
+      "javaTypeName" : "List<java.math.BigDecimal>",
+      "label" : "A",
+      "name" : "a",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "a",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-bc00e56f88a2f91ed150a0b28b321f86",
+      "javaParameterName" : "b",
+      "javaTypeName" : "List<java.math.BigDecimal>",
+      "label" : "B",
+      "name" : "b",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "b",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "dotProduct",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
@@ -243,6 +321,19 @@
     "knowledgeReferences" : [ ],
     "label" : "Product",
     "name" : "product",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-54f8e155f1f2006935392fe9388aecd8",
+      "javaParameterName" : "componentwise4_iterator",
+      "javaTypeName" : "type.Componentwise3",
+      "label" : "Componentwise",
+      "name" : "componentwise4_iterator",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "componentwise3",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "product",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"

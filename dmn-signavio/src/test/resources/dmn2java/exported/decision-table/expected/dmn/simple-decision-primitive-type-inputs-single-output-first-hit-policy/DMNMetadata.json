@@ -43,6 +43,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "NumberInput",
     "name" : "numberInput",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "numberInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/fcaf60c07a9d42d6a179ce045ae2ea48.xml"
@@ -54,6 +55,7 @@
     "javaTypeName" : "String",
     "label" : "TextInput",
     "name" : "textInput",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "textInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/fcaf60c07a9d42d6a179ce045ae2ea48.xml"
@@ -73,6 +75,31 @@
     "knowledgeReferences" : [ ],
     "label" : "Decision",
     "name" : "decision",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "diagram-fcaf60c07a9d42d6a179ce045ae2ea48-inputdata-sid-3F148E87-DF6E-42AF-B209-4D532421A2F9",
+      "javaParameterName" : "numberInput",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "NumberInput",
+      "name" : "numberInput",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "numberInput",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/fcaf60c07a9d42d6a179ce045ae2ea48.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "diagram-fcaf60c07a9d42d6a179ce045ae2ea48-inputdata-sid-404A0FC2-6787-4210-BB30-2E7964835E99",
+      "javaParameterName" : "textInput",
+      "javaTypeName" : "String",
+      "label" : "TextInput",
+      "name" : "textInput",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "textInput",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/fcaf60c07a9d42d6a179ce045ae2ea48.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "decision",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/fcaf60c07a9d42d6a179ce045ae2ea48.xml"

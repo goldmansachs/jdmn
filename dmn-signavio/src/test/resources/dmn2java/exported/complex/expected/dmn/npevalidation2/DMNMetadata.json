@@ -295,6 +295,7 @@
     "javaTypeName" : "List<java.math.BigDecimal>",
     "label" : "ages",
     "name" : "ages",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "ages",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
@@ -306,6 +307,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "day",
     "name" : "day",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "day",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
@@ -317,6 +319,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "hour",
     "name" : "hour",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "hour",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
@@ -328,6 +331,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "minute",
     "name" : "minute",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "minute",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
@@ -339,6 +343,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "month",
     "name" : "month",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "month",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
@@ -350,6 +355,7 @@
     "javaTypeName" : "List<String>",
     "label" : "names",
     "name" : "names",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "names",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
@@ -361,6 +367,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "second",
     "name" : "second",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "second",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
@@ -372,6 +379,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "year",
     "name" : "year",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "year",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
@@ -389,6 +397,79 @@
     "knowledgeReferences" : [ ],
     "label" : "accessCertainTemporalUnits",
     "name" : "accessCertainTemporalUnits",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-9de6cc37e6380e7743b7d769992639c3",
+      "javaParameterName" : "day",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "day",
+      "name" : "day",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "day",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-667112c8090bedf91b822d488b301493",
+      "javaParameterName" : "hour",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "hour",
+      "name" : "hour",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "hour",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-bf9d1bad55646f55a50b5507e83ba998",
+      "javaParameterName" : "minute",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "minute",
+      "name" : "minute",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "minute",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-3c359baf642219c42113142c6b442d79",
+      "javaParameterName" : "month",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "month",
+      "name" : "month",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "month",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-5ca7d94b08d7732cd963c2a10e2488b5",
+      "javaParameterName" : "second",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "second",
+      "name" : "second",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "second",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-9ca60c7d715a2606bbd2efb76548af3b",
+      "javaParameterName" : "year",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "year",
+      "name" : "year",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "year",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "accessCertainTemporalUnits",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
@@ -410,6 +491,43 @@
     "knowledgeReferences" : [ ],
     "label" : "buildDateStringInAnnotation",
     "name" : "buildDateStringInAnnotation",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-9de6cc37e6380e7743b7d769992639c3",
+      "javaParameterName" : "day",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "day",
+      "name" : "day",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "day",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-3c359baf642219c42113142c6b442d79",
+      "javaParameterName" : "month",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "month",
+      "name" : "month",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "month",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-9ca60c7d715a2606bbd2efb76548af3b",
+      "javaParameterName" : "year",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "year",
+      "name" : "year",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "year",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "buildDateStringInAnnotation",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
@@ -427,6 +545,19 @@
     "knowledgeReferences" : [ ],
     "label" : "describeAgesList",
     "name" : "describeAgesList",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-6d8d1e429666b8ff1897bf3f6ac82986",
+      "javaParameterName" : "ages",
+      "javaTypeName" : "List<java.math.BigDecimal>",
+      "label" : "ages",
+      "name" : "ages",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "ages",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "describeAgesList",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
@@ -454,6 +585,79 @@
     "knowledgeReferences" : [ ],
     "label" : "generateTemporalObjects",
     "name" : "generateTemporalObjects",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-9de6cc37e6380e7743b7d769992639c3",
+      "javaParameterName" : "day",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "day",
+      "name" : "day",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "day",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-667112c8090bedf91b822d488b301493",
+      "javaParameterName" : "hour",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "hour",
+      "name" : "hour",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "hour",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-bf9d1bad55646f55a50b5507e83ba998",
+      "javaParameterName" : "minute",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "minute",
+      "name" : "minute",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "minute",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-3c359baf642219c42113142c6b442d79",
+      "javaParameterName" : "month",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "month",
+      "name" : "month",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "month",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-5ca7d94b08d7732cd963c2a10e2488b5",
+      "javaParameterName" : "second",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "second",
+      "name" : "second",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "second",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-9ca60c7d715a2606bbd2efb76548af3b",
+      "javaParameterName" : "year",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "year",
+      "name" : "year",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "year",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "generateTemporalObjects",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
@@ -471,6 +675,19 @@
     "knowledgeReferences" : [ ],
     "label" : "negateSecond",
     "name" : "negateSecond",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-5ca7d94b08d7732cd963c2a10e2488b5",
+      "javaParameterName" : "second",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "second",
+      "name" : "second",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "second",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "negateSecond",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
@@ -488,6 +705,19 @@
     "knowledgeReferences" : [ ],
     "label" : "noRuleMatchesMultiHit",
     "name" : "noRuleMatchesMultiHit",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-5ca7d94b08d7732cd963c2a10e2488b5",
+      "javaParameterName" : "second",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "second",
+      "name" : "second",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "second",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "noRuleMatchesMultiHit",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
@@ -505,6 +735,19 @@
     "knowledgeReferences" : [ ],
     "label" : "noRuleMatchesSingleHit",
     "name" : "noRuleMatchesSingleHit",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-5ca7d94b08d7732cd963c2a10e2488b5",
+      "javaParameterName" : "second",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "second",
+      "name" : "second",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "second",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "noRuleMatchesSingleHit",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
@@ -522,6 +765,79 @@
     "knowledgeReferences" : [ ],
     "label" : "temporalDiffs",
     "name" : "temporalDiffs",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-9de6cc37e6380e7743b7d769992639c3",
+      "javaParameterName" : "day",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "day",
+      "name" : "day",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "day",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-667112c8090bedf91b822d488b301493",
+      "javaParameterName" : "hour",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "hour",
+      "name" : "hour",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "hour",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-bf9d1bad55646f55a50b5507e83ba998",
+      "javaParameterName" : "minute",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "minute",
+      "name" : "minute",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "minute",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-3c359baf642219c42113142c6b442d79",
+      "javaParameterName" : "month",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "month",
+      "name" : "month",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "month",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-5ca7d94b08d7732cd963c2a10e2488b5",
+      "javaParameterName" : "second",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "second",
+      "name" : "second",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "second",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-9ca60c7d715a2606bbd2efb76548af3b",
+      "javaParameterName" : "year",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "year",
+      "name" : "year",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "year",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "temporalDiffs",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
@@ -555,6 +871,103 @@
     "knowledgeReferences" : [ ],
     "label" : "zip",
     "name" : "zip",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-6d8d1e429666b8ff1897bf3f6ac82986",
+      "javaParameterName" : "ages",
+      "javaTypeName" : "List<java.math.BigDecimal>",
+      "label" : "ages",
+      "name" : "ages",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "ages",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-9de6cc37e6380e7743b7d769992639c3",
+      "javaParameterName" : "day",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "day",
+      "name" : "day",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "day",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-667112c8090bedf91b822d488b301493",
+      "javaParameterName" : "hour",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "hour",
+      "name" : "hour",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "hour",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-bf9d1bad55646f55a50b5507e83ba998",
+      "javaParameterName" : "minute",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "minute",
+      "name" : "minute",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "minute",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-3c359baf642219c42113142c6b442d79",
+      "javaParameterName" : "month",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "month",
+      "name" : "month",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "month",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-3407ab927ec873fbdc3c8ac0d7bfdfca",
+      "javaParameterName" : "names",
+      "javaTypeName" : "List<String>",
+      "label" : "names",
+      "name" : "names",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "names",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-5ca7d94b08d7732cd963c2a10e2488b5",
+      "javaParameterName" : "second",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "second",
+      "name" : "second",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "second",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-9ca60c7d715a2606bbd2efb76548af3b",
+      "javaParameterName" : "year",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "year",
+      "name" : "year",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "year",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "zip",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml"

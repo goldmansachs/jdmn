@@ -28,8 +28,8 @@ public class BKM extends DRGElement {
         super();
     }
 
-    public BKM(String id, String name, String label, String javaParameterName, String javaTypeName, String javaOutputTypeName, QName typeRef, List<DRGElementReference> knowledgeReferences) {
-        super(id, name, label, javaParameterName, javaTypeName, typeRef);
+    public BKM(String id, String name, String label, String javaParameterName, String javaTypeName, String javaOutputTypeName, QName typeRef, List<DRGElementReference> knowledgeReferences, List<InputData> transitiveRequiredInputs) {
+        super(id, name, label, javaParameterName, javaTypeName, typeRef, transitiveRequiredInputs);
         this.javaOutputTypeName = javaOutputTypeName;
         this.knowledgeReferences = knowledgeReferences;
     }

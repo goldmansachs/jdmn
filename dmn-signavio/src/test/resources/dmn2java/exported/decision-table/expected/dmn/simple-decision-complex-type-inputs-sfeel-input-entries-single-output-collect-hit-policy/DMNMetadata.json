@@ -138,6 +138,7 @@
     "javaTypeName" : "Boolean",
     "label" : "Employed",
     "name" : "employed",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "employed",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml"
@@ -149,6 +150,7 @@
     "javaTypeName" : "type.Person",
     "label" : "Person",
     "name" : "person",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "person",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml"
@@ -168,6 +170,31 @@
     "knowledgeReferences" : [ ],
     "label" : "Decision",
     "name" : "decision",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "diagram-2798baf8f6de4bd3b984e599fa9ff016-inputdata-sid-B180B170-4226-4CB8-B6EE-51D4307DCA61",
+      "javaParameterName" : "employed",
+      "javaTypeName" : "Boolean",
+      "label" : "Employed",
+      "name" : "employed",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "employed",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "diagram-2798baf8f6de4bd3b984e599fa9ff016-inputdata-sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264",
+      "javaParameterName" : "person",
+      "javaTypeName" : "type.Person",
+      "label" : "Person",
+      "name" : "person",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "person",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "decision",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml"
