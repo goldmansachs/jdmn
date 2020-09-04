@@ -104,7 +104,12 @@
                 <version>${jacoco.version}</version>
                 <configuration>
                     <excludes>
+                        <!-- OMG DMN -->
                         <exclude>org/omg/**/*</exclude>
+                        <!-- JPA integration -->
+                        <exclude>com/gs/jpa/**/*</exclude>
+                        <!-- Signavio integration -->
+                        <exclude>com/gs/**/jmh/**/*</exclude>
                     </excludes>
                 </configuration>
                 <executions>

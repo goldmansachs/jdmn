@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.signavio.validation;
 
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.validation.AbstractValidatorTest;
 import org.junit.Test;
 import org.omg.spec.dmn._20180521.model.TDecision;
@@ -22,8 +23,33 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class RuleDescriptionValidatorTest extends AbstractValidatorTest {
+public class RuleDescriptionValidatorTest extends AbstractSignavioValidatorTest {
     private final RuleDescriptionValidator validator = new RuleDescriptionValidator();
+
+    @Test
+    public void testValidate() {
+        String path = "dmn2java/exported/complex/input/";
+        String diagramName = "Linked Decision Test.dmn";
+
+        List<String> expectedErrors = Arrays.asList(
+                "Description of rule 0 in decision 'assessApplicantAge' contains illegal sequence 'string(-)'",
+                "Description of rule 1 in decision 'assessApplicantAge' contains illegal sequence 'string(-)'",
+                "Description of rule 2 in decision 'assessApplicantAge' contains illegal sequence 'string(-)'",
+                "Description of rule 0 in decision 'makeCreditDecision' contains illegal sequence 'string(-)'",
+                "Description of rule 1 in decision 'makeCreditDecision' contains illegal sequence 'string(-)'",
+                "Description of rule 2 in decision 'makeCreditDecision' contains illegal sequence 'string(-)'",
+                "Description of rule 0 in decision 'processPriorIssues' contains illegal sequence 'string(-)'",
+                "Description of rule 1 in decision 'processPriorIssues' contains illegal sequence 'string(-)'",
+                "Description of rule 2 in decision 'processPriorIssues' contains illegal sequence 'string(-)'",
+                "Description of rule 3 in decision 'processPriorIssues' contains illegal sequence 'string(-)'",
+                "Description of rule 4 in decision 'processPriorIssues' contains illegal sequence 'string(-)'",
+                "Description of rule 0 in decision 'root' contains illegal sequence 'string(-)'",
+                "Description of rule 1 in decision 'root' contains illegal sequence 'string(-)'",
+                "Description of rule 2 in decision 'root' contains illegal sequence 'string(-)'",
+                "Description of rule 3 in decision 'root' contains illegal sequence 'string(-)'"
+        );
+        validate(validator, path + diagramName, expectedErrors);
+    }
 
     @Test
     public void testValidateIncorrectList() {

@@ -19,6 +19,13 @@ import com.gs.dmn.signavio.testlab.TestLabVisitor;
 public class DateLiteral extends SimpleExpression {
     private String value;
 
+    public DateLiteral() {
+    }
+
+    public DateLiteral(String value) {
+        this.value = value;
+    }
+
     public String getValue() {
         return value;
     }

@@ -25,6 +25,16 @@ public class Slot extends TestLabElement {
     private Expression value;
     private String itemComponentName;
 
+    public Slot() {
+    }
+
+    public Slot(String id, String name, Expression value, String itemComponentName) {
+        this.id = id;
+        this.name = name;
+        this.value = value;
+        this.itemComponentName = itemComponentName;
+    }
+
     public String getName() {
         return name;
     }
@@ -46,7 +56,11 @@ public class Slot extends TestLabElement {
     }
 
     public String toContextEntry() {
-        return String.format("%s : %s", itemComponentName, value.toFEELExpression());
+        if (value == null) {
+            return String.format("%s : null", itemComponentName);
+        } else {
+            return String.format("%s : %s", itemComponentName, value.toFEELExpression());
+        }
     }
 
     @Override
