@@ -22,7 +22,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-public class JPAExampleCreditDecision extends com.gs.dmn.runtime.MixedJavaTimeDMNBaseDecision {
+public class JPAExampleCreditDecisionTest extends com.gs.dmn.runtime.MixedJavaTimeDMNBaseDecision {
     protected static EntityManagerFactory emf;
     protected static EntityManager em;
 
