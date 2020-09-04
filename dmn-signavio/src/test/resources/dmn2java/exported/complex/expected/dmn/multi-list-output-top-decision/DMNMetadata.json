@@ -83,6 +83,7 @@
     "javaTypeName" : "String",
     "label" : "name",
     "name" : "name",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "name",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml"
@@ -94,6 +95,7 @@
     "javaTypeName" : "List<java.math.BigDecimal>",
     "label" : "numbers",
     "name" : "numbers",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "numbers",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml"
@@ -105,6 +107,7 @@
     "javaTypeName" : "List<String>",
     "label" : "Traffic Light",
     "name" : "trafficLight",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "trafficLight",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml"
@@ -126,6 +129,43 @@
     "knowledgeReferences" : [ ],
     "label" : "compile",
     "name" : "compile",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-9ccd4200c3b95ffce6699c8de1fe952a",
+      "javaParameterName" : "name",
+      "javaTypeName" : "String",
+      "label" : "name",
+      "name" : "name",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "name",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-eda9a62921689bf55854716017ad1d80",
+      "javaParameterName" : "numbers",
+      "javaTypeName" : "List<java.math.BigDecimal>",
+      "label" : "numbers",
+      "name" : "numbers",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "numbers",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "id-c0237273c0ebfd8069dc25efc55db05a",
+      "javaParameterName" : "trafficLight",
+      "javaTypeName" : "List<String>",
+      "label" : "Traffic Light",
+      "name" : "trafficLight",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "trafficLight",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "compile",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml"

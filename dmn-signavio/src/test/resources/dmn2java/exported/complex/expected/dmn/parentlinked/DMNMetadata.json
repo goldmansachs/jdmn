@@ -43,6 +43,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "num",
     "name" : "num",
+    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "num",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml"
@@ -60,6 +61,19 @@
     "knowledgeReferences" : [ ],
     "label" : "abc",
     "name" : "abc",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-633e1930a1ad44cae56744496cd663d3",
+      "javaParameterName" : "num",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "num",
+      "name" : "num",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "num",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "abc",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml"
@@ -77,6 +91,19 @@
     "knowledgeReferences" : [ ],
     "label" : "ChildObject",
     "name" : "childObject",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-633e1930a1ad44cae56744496cd663d3",
+      "javaParameterName" : "num",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "num",
+      "name" : "num",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "num",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "abc",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml"
@@ -94,6 +121,19 @@
     "knowledgeReferences" : [ ],
     "label" : "SomethingElse",
     "name" : "somethingElse",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-633e1930a1ad44cae56744496cd663d3",
+      "javaParameterName" : "num",
+      "javaTypeName" : "java.math.BigDecimal",
+      "label" : "num",
+      "name" : "num",
+      "transitiveRequiredInput" : [ ],
+      "typeRef" : {
+        "localName" : "num",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml"
+      }
+    } ],
     "typeRef" : {
       "localName" : "somethingElse",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml"

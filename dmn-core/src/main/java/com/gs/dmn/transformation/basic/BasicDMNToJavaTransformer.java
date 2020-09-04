@@ -281,8 +281,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     //
     private Type informationItemType(TBusinessKnowledgeModel bkm, TInformationItem element) {
         TDefinitions model = this.dmnModelRepository.getModel(bkm);
-        Type type = toFEELType(model, QualifiedName.toQualifiedName(model, element.getTypeRef()));
-        return type;
+        return toFEELType(model, QualifiedName.toQualifiedName(model, element.getTypeRef()));
     }
 
     @Override
@@ -390,11 +389,9 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     public List<Pair<String, Type>> drgElementTypeSignature(DRGElementReference<? extends TDRGElement> reference, Function<Object, String> nameProducer) {
         TDRGElement element = reference.getElement();
         if (element instanceof TBusinessKnowledgeModel) {
-            List<Pair<String, Type>> parameters = bkmParameters((DRGElementReference<TBusinessKnowledgeModel>) reference, nameProducer);
-            return parameters;
+            return bkmParameters((DRGElementReference<TBusinessKnowledgeModel>) reference, nameProducer);
         } else if (element instanceof TDecision) {
-            List<Pair<String, Type>> parameters = inputDataParametersClosure((DRGElementReference<TDecision>) reference, nameProducer);
-            return parameters;
+            return inputDataParametersClosure((DRGElementReference<TDecision>) reference, nameProducer);
         } else {
             throw new DMNRuntimeException(String.format("Not supported yet '%s'", element.getClass().getSimpleName()));
         }
@@ -940,8 +937,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     private List<Pair<String, Type>> inputDataParametersClosure(DRGElementReference<TDecision> reference, Function<Object, String> nameProducer) {
-        List<DRGElementReference<TInputData>> allInputDataReferences = this.dmnModelRepository.allInputDatas(reference, this.drgElementFilter);
-        this.dmnModelRepository.sortNamedElementReferences(allInputDataReferences);
+        List<DRGElementReference<TInputData>> allInputDataReferences = inputDataClosure(reference);
 
         List<Pair<String, Type>> parameters = new ArrayList<>();
         for (DRGElementReference<TInputData> inputData : allInputDataReferences) {
@@ -950,6 +946,13 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
             parameters.add(new Pair<>(parameterName, parameterType));
         }
         return parameters;
+    }
+
+    @Override
+    public List<DRGElementReference<TInputData>> inputDataClosure(DRGElementReference<TDecision> reference) {
+        List<DRGElementReference<TInputData>> allInputDataReferences = this.dmnModelRepository.inputDataClosure(reference, this.drgElementFilter);
+        this.dmnModelRepository.sortNamedElementReferences(allInputDataReferences);
+        return allInputDataReferences;
     }
 
     @Override

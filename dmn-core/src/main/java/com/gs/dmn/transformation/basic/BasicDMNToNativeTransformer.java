@@ -239,6 +239,8 @@ public interface BasicDMNToNativeTransformer {
 
     String augmentArgumentList(String arguments);
 
+    List<DRGElementReference<TInputData>> inputDataClosure(DRGElementReference<TDecision> reference);
+
     List<Pair<String, Type>> inputDataParametersClosure(DRGElementReference<TDecision> reference);
 
     String drgReferenceQualifiedName(DRGElementReference<? extends TDRGElement> reference);
@@ -362,7 +364,7 @@ public interface BasicDMNToNativeTransformer {
 
     String outputEntryToNative(TDRGElement element, TLiteralExpression outputEntryExpression, int outputIndex);
 
-    public String outputClauseName(TDRGElement element, TOutputClause output);
+    String outputClauseName(TDRGElement element, TOutputClause output);
 
     String outputClauseClassName(TDRGElement element, TOutputClause outputClause, int index);
 
