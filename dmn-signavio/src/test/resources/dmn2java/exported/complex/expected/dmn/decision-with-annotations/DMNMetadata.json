@@ -105,7 +105,6 @@
     "javaTypeName" : "Boolean",
     "label" : "BooleanInput",
     "name" : "booleanInput",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "booleanInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml"
@@ -117,7 +116,6 @@
     "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
     "label" : "DateInput",
     "name" : "dateInput",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "dateInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml"
@@ -129,7 +127,6 @@
     "javaTypeName" : "String",
     "label" : "EnumerationInput",
     "name" : "enumerationInput",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "enumerationInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml"
@@ -141,7 +138,6 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "NumberInput",
     "name" : "numberInput",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "numberInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml"
@@ -153,7 +149,6 @@
     "javaTypeName" : "type.Person",
     "label" : "Person",
     "name" : "person",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "person",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml"
@@ -165,7 +160,6 @@
     "javaTypeName" : "String",
     "label" : "StringInput",
     "name" : "stringInput",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "stringInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml"
@@ -200,7 +194,6 @@
       "javaTypeName" : "Boolean",
       "label" : "BooleanInput",
       "name" : "booleanInput",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "booleanInput",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml"
@@ -212,7 +205,6 @@
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "label" : "DateInput",
       "name" : "dateInput",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "dateInput",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml"
@@ -224,7 +216,6 @@
       "javaTypeName" : "String",
       "label" : "EnumerationInput",
       "name" : "enumerationInput",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "enumerationInput",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml"
@@ -236,7 +227,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "NumberInput",
       "name" : "numberInput",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "numberInput",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml"
@@ -248,7 +238,6 @@
       "javaTypeName" : "type.Person",
       "label" : "Person",
       "name" : "person",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "person",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml"
@@ -260,7 +249,6 @@
       "javaTypeName" : "String",
       "label" : "StringInput",
       "name" : "stringInput",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "stringInput",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml"

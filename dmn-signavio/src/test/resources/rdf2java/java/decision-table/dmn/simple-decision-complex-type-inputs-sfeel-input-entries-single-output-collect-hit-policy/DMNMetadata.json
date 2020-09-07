@@ -138,7 +138,6 @@
     "javaTypeName" : "Boolean",
     "label" : "Employed",
     "name" : "employed",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "employed",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -150,7 +149,6 @@
     "javaTypeName" : "type.Person",
     "label" : "Person",
     "name" : "person",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "person",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -177,7 +175,6 @@
       "javaTypeName" : "Boolean",
       "label" : "Employed",
       "name" : "employed",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "employed",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -189,7 +186,6 @@
       "javaTypeName" : "type.Person",
       "label" : "Person",
       "name" : "person",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "person",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
