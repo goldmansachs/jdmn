@@ -141,8 +141,7 @@ public class DMNToManifestTransformer {
         String javaOutputTypeName = dmnTransformer.drgElementOutputType(bkm);
         com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(definitions, dmnTransformer.drgElementOutputTypeRef(bkm));
         List<DRGElementReference> knowledgeReferences = makeMetadataKnowledgeReferences(bkm.getKnowledgeRequirement());
-        List<InputData> transitiveRequiredInputs = makeTransitiveRequiredInputs(bkm);
-        return new BKM(id, name, label, javaFunctionName, javaTypeName, javaOutputTypeName, typeRef, knowledgeReferences, transitiveRequiredInputs);
+        return new BKM(id, name, label, javaFunctionName, javaTypeName, javaOutputTypeName, typeRef, knowledgeReferences);
     }
 
     private Decision makeMetadataDecision(TDefinitions definitions, TDecision decision) {
@@ -182,13 +181,10 @@ public class DMNToManifestTransformer {
         return references;
     }
 
-    private List<InputData> makeTransitiveRequiredInputs(TDRGElement element) {
-        if (element instanceof TDecision) {
-            com.gs.dmn.DRGElementReference<TDecision> reference = this.dmnModelRepository.makeDRGElementReference((TDecision) element);
-            List<com.gs.dmn.DRGElementReference<TInputData>> drgElementReferences = this.dmnTransformer.inputDataClosure(reference);
-            return drgElementReferences.stream().map(this::makeMetadataInputData).collect(Collectors.toList());
-        }
-        return new ArrayList<>();
+    private List<InputData> makeTransitiveRequiredInputs(TDecision element) {
+        com.gs.dmn.DRGElementReference<TDecision> reference = this.dmnModelRepository.makeDRGElementReference(element);
+        List<com.gs.dmn.DRGElementReference<TInputData>> drgElementReferences = this.dmnTransformer.inputDataClosure(reference);
+        return drgElementReferences.stream().map(this::makeMetadataInputData).collect(Collectors.toList());
     }
 
     private void addMetadataReference(List<DRGElementReference> references, TDMNElementReference elementReference) {

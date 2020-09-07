@@ -141,7 +141,6 @@
     "javaTypeName" : "List<java.math.BigDecimal>",
     "label" : "A",
     "name" : "a",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "a",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
@@ -153,7 +152,6 @@
     "javaTypeName" : "List<java.math.BigDecimal>",
     "label" : "B",
     "name" : "b",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "b",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
@@ -165,7 +163,6 @@
     "javaTypeName" : "type.Componentwise3",
     "label" : "Componentwise",
     "name" : "componentwise4_iterator",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "componentwise3",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
@@ -196,7 +193,6 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "A",
       "name" : "a",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "a",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
@@ -208,7 +204,6 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "B",
       "name" : "b",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "b",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
@@ -240,7 +235,6 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "A",
       "name" : "a",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "a",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
@@ -252,7 +246,6 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "B",
       "name" : "b",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "b",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
@@ -286,7 +279,6 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "A",
       "name" : "a",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "a",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
@@ -298,7 +290,6 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "B",
       "name" : "b",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "b",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"
@@ -328,7 +319,6 @@
       "javaTypeName" : "type.Componentwise3",
       "label" : "Componentwise",
       "name" : "componentwise4_iterator",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "componentwise3",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml"

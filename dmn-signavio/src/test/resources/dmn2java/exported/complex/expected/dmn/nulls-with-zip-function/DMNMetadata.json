@@ -112,7 +112,6 @@
     "javaTypeName" : "List<String>",
     "label" : "inputA",
     "name" : "inputA",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "inputA",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml"
@@ -124,7 +123,6 @@
     "javaTypeName" : "List<java.math.BigDecimal>",
     "label" : "inputB",
     "name" : "inputB",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "inputB",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml"
@@ -136,7 +134,6 @@
     "javaTypeName" : "type.Zip3",
     "label" : "zip",
     "name" : "zip4_iterator",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "zip3",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml"
@@ -161,7 +158,6 @@
       "javaTypeName" : "type.Zip3",
       "label" : "zip",
       "name" : "zip4_iterator",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "zip3",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml"
@@ -197,7 +193,6 @@
       "javaTypeName" : "List<String>",
       "label" : "inputA",
       "name" : "inputA",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "inputA",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml"
@@ -209,7 +204,6 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "inputB",
       "name" : "inputB",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "inputB",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml"
@@ -241,7 +235,6 @@
       "javaTypeName" : "List<String>",
       "label" : "inputA",
       "name" : "inputA",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "inputA",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml"
@@ -253,7 +246,6 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "inputB",
       "name" : "inputB",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "inputB",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml"

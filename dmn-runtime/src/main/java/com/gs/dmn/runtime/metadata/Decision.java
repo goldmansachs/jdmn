@@ -29,17 +29,21 @@ public class Decision extends DRGElement {
     @JsonProperty("extensions")
     private List<ExtensionElement> extensionElements;
 
+    @JsonProperty("transitiveRequiredInput")
+    private List<InputData> transitiveRequiredInputs;
+
     // Required by ObjectMapper
     Decision() {
         super();
     }
 
     public Decision(String id, String name, String label, String javaParameterName, String javaTypeName, String javaOutputTypeName, QName typeRef, List<DRGElementReference> informationReferences, List<DRGElementReference> knowledgeReferences, List<ExtensionElement> extensionElements, List<InputData> transitiveRequiredInputs) {
-        super(id, name, label, javaParameterName, javaTypeName, typeRef, transitiveRequiredInputs);
+        super(id, name, label, javaParameterName, javaTypeName, typeRef);
         this.javaOutputTypeName = javaOutputTypeName;
         this.informationReferences = informationReferences;
         this.knowledgeReferences = knowledgeReferences;
         this.extensionElements = extensionElements;
+        this.transitiveRequiredInputs = transitiveRequiredInputs;
     }
 
     public List<DRGElementReference> getInformationReferences() {

@@ -32,7 +32,6 @@
     "javaTypeName" : "String",
     "label" : "StringInput",
     "name" : "stringInput",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "stringInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/85f2dd29e4774c2f84b883545afdd8cc.xml"
@@ -57,7 +56,6 @@
       "javaTypeName" : "String",
       "label" : "StringInput",
       "name" : "stringInput",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "stringInput",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/85f2dd29e4774c2f84b883545afdd8cc.xml"
