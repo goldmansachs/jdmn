@@ -186,6 +186,8 @@
     "knowledgeReferences" : [ ],
     "label" : "CalculateDotProduct",
     "name" : "calculateDotProduct",
+    "protoRequestName" : "proto.CalculateDotProductRequest",
+    "protoResponseName" : "proto.CalculateDotProductResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-1a6f60b2f3c2867788cc350ac900ebef",
@@ -228,6 +230,8 @@
     "knowledgeReferences" : [ ],
     "label" : "Componentwise",
     "name" : "componentwise",
+    "protoRequestName" : "proto.ComponentwiseRequest",
+    "protoResponseName" : "proto.ComponentwiseResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-1a6f60b2f3c2867788cc350ac900ebef",
@@ -272,6 +276,8 @@
     "knowledgeReferences" : [ ],
     "label" : "DotProduct",
     "name" : "dotProduct",
+    "protoRequestName" : "proto.DotProductRequest",
+    "protoResponseName" : "proto.DotProductResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-1a6f60b2f3c2867788cc350ac900ebef",
@@ -312,6 +318,8 @@
     "knowledgeReferences" : [ ],
     "label" : "Product",
     "name" : "product",
+    "protoRequestName" : "proto.ProductRequest",
+    "protoResponseName" : "proto.ProductResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-54f8e155f1f2006935392fe9388aecd8",

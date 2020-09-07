@@ -111,6 +111,8 @@
     "knowledgeReferences" : [ ],
     "label" : "IncompleteDecisionTable",
     "name" : "incompleteDecisionTable",
+    "protoRequestName" : "proto.IncompleteDecisionTableRequest",
+    "protoResponseName" : "proto.IncompleteDecisionTableResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-0ff9eb79f707e780099161b4b4c56746",
@@ -140,6 +142,8 @@
     "knowledgeReferences" : [ ],
     "label" : "TestNullComplexTypeAccess",
     "name" : "testNullComplexTypeAccess",
+    "protoRequestName" : "proto.TestNullComplexTypeAccessRequest",
+    "protoResponseName" : "proto.TestNullComplexTypeAccessResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-0ff9eb79f707e780099161b4b4c56746",

@@ -49,6 +49,8 @@
     "knowledgeReferences" : [ ],
     "label" : "OutputExecutionAnalysisResult",
     "name" : "outputExecutionAnalysisResult",
+    "protoRequestName" : "proto.OutputExecutionAnalysisResultRequest",
+    "protoResponseName" : "proto.OutputExecutionAnalysisResultResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-6930c8ee3021fb2c24a1d2caefc53607",

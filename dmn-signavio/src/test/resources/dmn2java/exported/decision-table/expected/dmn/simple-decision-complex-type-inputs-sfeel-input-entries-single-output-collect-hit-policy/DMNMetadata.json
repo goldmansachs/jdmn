@@ -168,6 +168,8 @@
     "knowledgeReferences" : [ ],
     "label" : "Decision",
     "name" : "decision",
+    "protoRequestName" : "proto.DecisionRequest",
+    "protoResponseName" : "proto.DecisionResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "diagram-2798baf8f6de4bd3b984e599fa9ff016-inputdata-sid-B180B170-4226-4CB8-B6EE-51D4307DCA61",

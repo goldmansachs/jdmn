@@ -179,6 +179,8 @@
     "knowledgeReferences" : [ ],
     "label" : "Big mid",
     "name" : "bigMid",
+    "protoRequestName" : "proto.BigMidRequest",
+    "protoResponseName" : "proto.BigMidResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-76acfc10261ddc2fe0ac3081483133ad",
@@ -208,6 +210,8 @@
     "knowledgeReferences" : [ ],
     "label" : "decide",
     "name" : "decide",
+    "protoRequestName" : "proto.DecideRequest",
+    "protoResponseName" : "proto.DecideResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-66be7cc5d14947682f8a060a30da5fa0",
@@ -237,6 +241,8 @@
     "knowledgeReferences" : [ ],
     "label" : "decision",
     "name" : "decision",
+    "protoRequestName" : "proto.DecisionRequest",
+    "protoResponseName" : "proto.DecisionResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-e801f20a6a898682c3b5e22db82de47b",
@@ -272,6 +278,8 @@
     "knowledgeReferences" : [ ],
     "label" : "small mid",
     "name" : "smallMid",
+    "protoRequestName" : "proto.SmallMidRequest",
+    "protoResponseName" : "proto.SmallMidResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-e801f20a6a898682c3b5e22db82de47b",
@@ -303,6 +311,8 @@
     "knowledgeReferences" : [ ],
     "label" : "top decision",
     "name" : "topDecision",
+    "protoRequestName" : "proto.TopDecisionRequest",
+    "protoResponseName" : "proto.TopDecisionResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-e801f20a6a898682c3b5e22db82de47b",

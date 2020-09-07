@@ -151,6 +151,8 @@
     "knowledgeReferences" : [ ],
     "label" : "do something",
     "name" : "doSomething",
+    "protoRequestName" : "proto.DoSomethingRequest",
+    "protoResponseName" : "proto.DoSomethingResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-d4987419a2b1fc654221251bbec3102e",
@@ -186,6 +188,8 @@
     "knowledgeReferences" : [ ],
     "label" : "mid",
     "name" : "mid",
+    "protoRequestName" : "proto.MidRequest",
+    "protoResponseName" : "proto.MidResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-58adb0c8c137e2f5cdd9c6b8672cde12",
@@ -228,6 +232,8 @@
     "knowledgeReferences" : [ ],
     "label" : "zip",
     "name" : "zip",
+    "protoRequestName" : "proto.ZipRequest",
+    "protoResponseName" : "proto.ZipResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-58adb0c8c137e2f5cdd9c6b8672cde12",

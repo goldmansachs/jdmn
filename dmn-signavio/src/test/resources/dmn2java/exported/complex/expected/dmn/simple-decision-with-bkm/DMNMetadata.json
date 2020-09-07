@@ -130,6 +130,8 @@
     "knowledgeReferences" : [ ],
     "label" : "SUM",
     "name" : "sUM",
+    "protoRequestName" : "proto.SUMRequest",
+    "protoResponseName" : "proto.SUMResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-6941daac7dedcf760459bef259f2b83c",
@@ -176,6 +178,8 @@
     } ],
     "label" : "Sign",
     "name" : "sign",
+    "protoRequestName" : "proto.SignRequest",
+    "protoResponseName" : "proto.SignResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-f1336e666ce4588d576ac630e3a0935c",

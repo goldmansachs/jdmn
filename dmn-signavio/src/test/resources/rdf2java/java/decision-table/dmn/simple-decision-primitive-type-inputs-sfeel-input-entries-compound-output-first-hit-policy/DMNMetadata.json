@@ -211,6 +211,8 @@
     "knowledgeReferences" : [ ],
     "label" : "Compound Output Decision",
     "name" : "compoundOutputDecision",
+    "protoRequestName" : "proto.CompoundOutputDecisionRequest",
+    "protoResponseName" : "proto.CompoundOutputDecisionResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "sid-DD33B3B6-0C84-4568-A0ED-424855D08836",

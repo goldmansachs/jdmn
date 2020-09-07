@@ -389,6 +389,8 @@
     "knowledgeReferences" : [ ],
     "label" : "accessCertainTemporalUnits",
     "name" : "accessCertainTemporalUnits",
+    "protoRequestName" : "proto.AccessCertainTemporalUnitsRequest",
+    "protoResponseName" : "proto.AccessCertainTemporalUnitsResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "sid-76B31FC4-A5D7-48A6-BD27-BD85D9739FFA",
@@ -477,6 +479,8 @@
     "knowledgeReferences" : [ ],
     "label" : "buildDateStringInAnnotation",
     "name" : "buildDateStringInAnnotation",
+    "protoRequestName" : "proto.BuildDateStringInAnnotationRequest",
+    "protoResponseName" : "proto.BuildDateStringInAnnotationResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "sid-76B31FC4-A5D7-48A6-BD27-BD85D9739FFA",
@@ -528,6 +532,8 @@
     "knowledgeReferences" : [ ],
     "label" : "describeAgesList",
     "name" : "describeAgesList",
+    "protoRequestName" : "proto.DescribeAgesListRequest",
+    "protoResponseName" : "proto.DescribeAgesListResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "sid-3C16E501-7619-4B2F-9770-7E1A7F66A33D",
@@ -567,6 +573,8 @@
     "knowledgeReferences" : [ ],
     "label" : "generateTemporalObjects",
     "name" : "generateTemporalObjects",
+    "protoRequestName" : "proto.GenerateTemporalObjectsRequest",
+    "protoResponseName" : "proto.GenerateTemporalObjectsResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "sid-76B31FC4-A5D7-48A6-BD27-BD85D9739FFA",
@@ -651,6 +659,8 @@
     "knowledgeReferences" : [ ],
     "label" : "negateSecond",
     "name" : "negateSecond",
+    "protoRequestName" : "proto.NegateSecondRequest",
+    "protoResponseName" : "proto.NegateSecondResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9",
@@ -680,6 +690,8 @@
     "knowledgeReferences" : [ ],
     "label" : "noRuleMatchesMultiHit",
     "name" : "noRuleMatchesMultiHit",
+    "protoRequestName" : "proto.NoRuleMatchesMultiHitRequest",
+    "protoResponseName" : "proto.NoRuleMatchesMultiHitResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9",
@@ -709,6 +721,8 @@
     "knowledgeReferences" : [ ],
     "label" : "noRuleMatchesSingleHit",
     "name" : "noRuleMatchesSingleHit",
+    "protoRequestName" : "proto.NoRuleMatchesSingleHitRequest",
+    "protoResponseName" : "proto.NoRuleMatchesSingleHitResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9",
@@ -738,6 +752,8 @@
     "knowledgeReferences" : [ ],
     "label" : "temporalDiffs",
     "name" : "temporalDiffs",
+    "protoRequestName" : "proto.TemporalDiffsRequest",
+    "protoResponseName" : "proto.TemporalDiffsResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "sid-76B31FC4-A5D7-48A6-BD27-BD85D9739FFA",
@@ -838,6 +854,8 @@
     "knowledgeReferences" : [ ],
     "label" : "zip",
     "name" : "zip",
+    "protoRequestName" : "proto.ZipRequest",
+    "protoResponseName" : "proto.ZipResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "sid-3C16E501-7619-4B2F-9770-7E1A7F66A33D",

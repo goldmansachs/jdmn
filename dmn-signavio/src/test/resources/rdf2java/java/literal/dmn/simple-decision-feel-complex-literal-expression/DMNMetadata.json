@@ -78,6 +78,8 @@
     "knowledgeReferences" : [ ],
     "label" : "Monthly",
     "name" : "monthly",
+    "protoRequestName" : "proto.MonthlyRequest",
+    "protoResponseName" : "proto.MonthlyResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "sid-AD811598-1741-4206-A9FC-280EF77B0B23",

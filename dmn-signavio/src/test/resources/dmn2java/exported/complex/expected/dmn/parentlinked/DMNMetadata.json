@@ -60,6 +60,8 @@
     "knowledgeReferences" : [ ],
     "label" : "abc",
     "name" : "abc",
+    "protoRequestName" : "proto.AbcRequest",
+    "protoResponseName" : "proto.AbcResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-633e1930a1ad44cae56744496cd663d3",
@@ -89,6 +91,8 @@
     "knowledgeReferences" : [ ],
     "label" : "ChildObject",
     "name" : "childObject",
+    "protoRequestName" : "proto.ChildObjectRequest",
+    "protoResponseName" : "proto.ChildObjectResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-633e1930a1ad44cae56744496cd663d3",
@@ -118,6 +122,8 @@
     "knowledgeReferences" : [ ],
     "label" : "SomethingElse",
     "name" : "somethingElse",
+    "protoRequestName" : "proto.SomethingElseRequest",
+    "protoResponseName" : "proto.SomethingElseResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-633e1930a1ad44cae56744496cd663d3",
