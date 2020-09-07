@@ -49,6 +49,8 @@
     "knowledgeReferences" : [ ],
     "label" : "Test",
     "name" : "test",
+    "protoRequestName" : "proto.TestRequest",
+    "protoResponseName" : "proto.TestResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-81ff62961e9f9c53450c4619c967de23",

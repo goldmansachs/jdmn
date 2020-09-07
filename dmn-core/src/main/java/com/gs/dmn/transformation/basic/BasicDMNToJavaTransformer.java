@@ -2029,6 +2029,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
+    public String qualifiedRequestMessageName(TDRGElement element) {
+        return this.protoFactory.qualifiedRequestMessageName(element);
+    }
+
+    @Override
     public String qualifiedResponseMessageName(TDRGElement element) {
         return this.protoFactory.qualifiedResponseMessageName(element);
     }

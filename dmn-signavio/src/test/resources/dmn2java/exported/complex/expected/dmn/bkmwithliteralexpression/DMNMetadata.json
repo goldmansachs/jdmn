@@ -421,6 +421,8 @@
     "knowledgeReferences" : [ ],
     "label" : "AddExtraValues",
     "name" : "addExtraValues",
+    "protoRequestName" : "proto.AddExtraValuesRequest",
+    "protoResponseName" : "proto.AddExtraValuesResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-49a0b1514526cc5c351725952b97cf88",
@@ -452,6 +454,8 @@
     "knowledgeReferences" : [ ],
     "label" : "append",
     "name" : "append",
+    "protoRequestName" : "proto.AppendRequest",
+    "protoResponseName" : "proto.AppendResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-4235e531a37ca0c26448f1ca856b2bcb",
@@ -496,6 +500,8 @@
     "knowledgeReferences" : [ ],
     "label" : "appendall",
     "name" : "appendall",
+    "protoRequestName" : "proto.AppendallRequest",
+    "protoResponseName" : "proto.AppendallResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-4235e531a37ca0c26448f1ca856b2bcb",
@@ -574,6 +580,8 @@
     } ],
     "label" : "decision litexp",
     "name" : "decisionLitexp",
+    "protoRequestName" : "proto.DecisionLitexpRequest",
+    "protoResponseName" : "proto.DecisionLitexpResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-3c7a037ef88b841b839912e30e0b88db",
@@ -671,6 +679,8 @@
     "knowledgeReferences" : [ ],
     "label" : "remove",
     "name" : "remove",
+    "protoRequestName" : "proto.RemoveRequest",
+    "protoResponseName" : "proto.RemoveResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-5625da51edf477244d62662a1ded6503",
@@ -711,6 +721,8 @@
     "knowledgeReferences" : [ ],
     "label" : "RemoveValues",
     "name" : "removeValues",
+    "protoRequestName" : "proto.RemoveValuesRequest",
+    "protoResponseName" : "proto.RemoveValuesResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-49a0b1514526cc5c351725952b97cf88",
@@ -742,6 +754,8 @@
     "knowledgeReferences" : [ ],
     "label" : "removeall",
     "name" : "removeall",
+    "protoRequestName" : "proto.RemoveallRequest",
+    "protoResponseName" : "proto.RemoveallResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-f3e6c25ca841af737ce5aae0c99e4a18",
@@ -784,6 +798,8 @@
     "knowledgeReferences" : [ ],
     "label" : "removeall",
     "name" : "removeall2",
+    "protoRequestName" : "proto.Removeall2Request",
+    "protoResponseName" : "proto.Removeall2Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-4235e531a37ca0c26448f1ca856b2bcb",
@@ -828,6 +844,8 @@
     "knowledgeReferences" : [ ],
     "label" : "zip",
     "name" : "zip",
+    "protoRequestName" : "proto.ZipRequest",
+    "protoResponseName" : "proto.ZipResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-f3e6c25ca841af737ce5aae0c99e4a18",

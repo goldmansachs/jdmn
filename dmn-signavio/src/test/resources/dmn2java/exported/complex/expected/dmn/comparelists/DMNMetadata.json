@@ -139,6 +139,8 @@
     "knowledgeReferences" : [ ],
     "label" : "CompareLists",
     "name" : "compareLists",
+    "protoRequestName" : "proto.CompareListsRequest",
+    "protoResponseName" : "proto.CompareListsResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-25e971f05b702ab8597bbb1f3b75cf07",
@@ -185,6 +187,8 @@
     "knowledgeReferences" : [ ],
     "label" : "ProcessL1",
     "name" : "processL1",
+    "protoRequestName" : "proto.ProcessL1Request",
+    "protoResponseName" : "proto.ProcessL1Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-443c5fd59a4562199fb2274772bed1e0",
@@ -231,6 +235,8 @@
     "knowledgeReferences" : [ ],
     "label" : "ProcessL2",
     "name" : "processL2",
+    "protoRequestName" : "proto.ProcessL2Request",
+    "protoResponseName" : "proto.ProcessL2Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-25e971f05b702ab8597bbb1f3b75cf07",

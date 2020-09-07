@@ -32,18 +32,26 @@ public class Decision extends DRGElement {
     @JsonProperty("transitiveRequiredInput")
     private List<InputData> transitiveRequiredInputs;
 
+    @JsonProperty("protoRequestName")
+    private String protoRequestName;
+
+    @JsonProperty("protoResponseName")
+    private String protoResponseName;
+
     // Required by ObjectMapper
     Decision() {
         super();
     }
 
-    public Decision(String id, String name, String label, String javaParameterName, String javaTypeName, String javaOutputTypeName, QName typeRef, List<DRGElementReference> informationReferences, List<DRGElementReference> knowledgeReferences, List<ExtensionElement> extensionElements, List<InputData> transitiveRequiredInputs) {
+    public Decision(String id, String name, String label, String javaParameterName, String javaTypeName, String javaOutputTypeName, QName typeRef, List<DRGElementReference> informationReferences, List<DRGElementReference> knowledgeReferences, List<ExtensionElement> extensionElements, List<InputData> transitiveRequiredInputs, String protoRequestName, String protoResponseName) {
         super(id, name, label, javaParameterName, javaTypeName, typeRef);
         this.javaOutputTypeName = javaOutputTypeName;
         this.informationReferences = informationReferences;
         this.knowledgeReferences = knowledgeReferences;
         this.extensionElements = extensionElements;
         this.transitiveRequiredInputs = transitiveRequiredInputs;
+        this.protoRequestName = protoRequestName;
+        this.protoResponseName = protoResponseName;
     }
 
     public List<DRGElementReference> getInformationReferences() {

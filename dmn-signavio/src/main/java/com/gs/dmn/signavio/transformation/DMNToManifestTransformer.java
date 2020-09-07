@@ -126,8 +126,8 @@ public class DMNToManifestTransformer {
         String id = inputData.getId();
         String name = inputData.getName();
         String label = inputData.getLabel();
-        String javaParameterName = dmnTransformer.namedElementVariableName(inputData);
-        String javaTypeName = dmnTransformer.drgElementOutputType(inputData);
+        String javaParameterName = this.dmnTransformer.namedElementVariableName(inputData);
+        String javaTypeName = this.dmnTransformer.drgElementOutputType(inputData);
         com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(definitions, QualifiedName.toQualifiedName(definitions, inputData.getVariable().getTypeRef()));
         return new InputData(id, name, label, javaParameterName, javaTypeName, typeRef);
     }
@@ -136,10 +136,10 @@ public class DMNToManifestTransformer {
         String id = bkm.getId();
         String name = bkm.getName();
         String label = bkm.getLabel();
-        String javaFunctionName = dmnTransformer.bkmFunctionName(bkm);
-        String javaTypeName = dmnTransformer.qualifiedName(dmnTransformer.nativeModelPackageName(definitions.getName()), dmnTransformer.drgElementClassName(bkm));
-        String javaOutputTypeName = dmnTransformer.drgElementOutputType(bkm);
-        com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(definitions, dmnTransformer.drgElementOutputTypeRef(bkm));
+        String javaFunctionName = this.dmnTransformer.bkmFunctionName(bkm);
+        String javaTypeName = this.dmnTransformer.qualifiedName(this.dmnTransformer.nativeModelPackageName(definitions.getName()), this.dmnTransformer.drgElementClassName(bkm));
+        String javaOutputTypeName = this.dmnTransformer.drgElementOutputType(bkm);
+        com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(definitions, this.dmnTransformer.drgElementOutputTypeRef(bkm));
         List<DRGElementReference> knowledgeReferences = makeMetadataKnowledgeReferences(bkm.getKnowledgeRequirement());
         return new BKM(id, name, label, javaFunctionName, javaTypeName, javaOutputTypeName, typeRef, knowledgeReferences);
     }
@@ -148,15 +148,17 @@ public class DMNToManifestTransformer {
         String id = decision.getId();
         String name = decision.getName();
         String label = decision.getLabel();
-        String nativeParameterName = dmnTransformer.namedElementVariableName(decision);
-        String nativeTypeName = dmnTransformer.qualifiedName(dmnTransformer.nativeModelPackageName(definitions.getName()), dmnTransformer.drgElementClassName(decision));
-        String nativeOutputTypeName = dmnTransformer.drgElementOutputType(decision);
+        String nativeParameterName = this.dmnTransformer.namedElementVariableName(decision);
+        String nativeTypeName = this.dmnTransformer.qualifiedName(this.dmnTransformer.nativeModelPackageName(definitions.getName()), this.dmnTransformer.drgElementClassName(decision));
+        String nativeOutputTypeName = this.dmnTransformer.drgElementOutputType(decision);
         com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(definitions, QualifiedName.toQualifiedName(definitions, decision.getVariable().getTypeRef()));
         List<DRGElementReference> references = makeMetadataInformationReferences(decision);
         List<DRGElementReference> knowledgeReferences = makeMetadataKnowledgeReferences(decision.getKnowledgeRequirement());
-        List<ExtensionElement> extensions = ((BasicSignavioDMNToJavaTransformer)dmnTransformer).makeMetadataExtensions(decision);
+        List<ExtensionElement> extensions = ((BasicSignavioDMNToJavaTransformer) this.dmnTransformer).makeMetadataExtensions(decision);
         List<InputData> transitiveRequiredInputs = makeTransitiveRequiredInputs(decision);
-        return new Decision(id, name, label, nativeParameterName, nativeTypeName, nativeOutputTypeName, typeRef, references, knowledgeReferences, extensions, transitiveRequiredInputs);
+        String protoRequestName = this.dmnTransformer.qualifiedRequestMessageName(decision);
+        String protoResponseName = this.dmnTransformer.qualifiedResponseMessageName(decision);
+        return new Decision(id, name, label, nativeParameterName, nativeTypeName, nativeOutputTypeName, typeRef, references, knowledgeReferences, extensions, transitiveRequiredInputs, protoRequestName, protoResponseName);
     }
 
     //

@@ -151,6 +151,8 @@
     "knowledgeReferences" : [ ],
     "label" : "Body ",
     "name" : "body",
+    "protoRequestName" : "proto.BodyRequest",
+    "protoResponseName" : "proto.BodyResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-ea0f03d48ef57b8e0b3fb41cf8d3212e",
@@ -186,6 +188,8 @@
     "knowledgeReferences" : [ ],
     "label" : "Loop",
     "name" : "loop",
+    "protoRequestName" : "proto.LoopRequest",
+    "protoResponseName" : "proto.LoopResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-5e7bce77b4fa0aecb00fa9c3be3f225a",
@@ -228,6 +232,8 @@
     "knowledgeReferences" : [ ],
     "label" : "Zip1",
     "name" : "zip1",
+    "protoRequestName" : "proto.Zip1Request",
+    "protoResponseName" : "proto.Zip1Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-5e7bce77b4fa0aecb00fa9c3be3f225a",

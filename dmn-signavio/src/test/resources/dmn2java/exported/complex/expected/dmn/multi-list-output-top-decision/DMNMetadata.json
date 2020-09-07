@@ -126,6 +126,8 @@
     "knowledgeReferences" : [ ],
     "label" : "compile",
     "name" : "compile",
+    "protoRequestName" : "proto.CompileRequest",
+    "protoResponseName" : "proto.CompileResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-9ccd4200c3b95ffce6699c8de1fe952a",

@@ -561,6 +561,8 @@
     "knowledgeReferences" : [ ],
     "label" : "allFalseAggregation",
     "name" : "allFalseAggregation",
+    "protoRequestName" : "proto.AllFalseAggregationRequest",
+    "protoResponseName" : "proto.AllFalseAggregationResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-963dd1faff03c460abb0bb16855be442",
@@ -594,6 +596,8 @@
     "knowledgeReferences" : [ ],
     "label" : "allTogether",
     "name" : "allTogether",
+    "protoRequestName" : "proto.AllTogetherRequest",
+    "protoResponseName" : "proto.AllTogetherResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-1058e602798d798780d99866788586c8",
@@ -739,6 +743,8 @@
     "knowledgeReferences" : [ ],
     "label" : "allTrueAggregation",
     "name" : "allTrueAggregation",
+    "protoRequestName" : "proto.AllTrueAggregationRequest",
+    "protoResponseName" : "proto.AllTrueAggregationResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-963dd1faff03c460abb0bb16855be442",
@@ -774,6 +780,8 @@
     "knowledgeReferences" : [ ],
     "label" : "anyTrueAggregation",
     "name" : "anyTrueAggregation",
+    "protoRequestName" : "proto.AnyTrueAggregationRequest",
+    "protoResponseName" : "proto.AnyTrueAggregationResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-963dd1faff03c460abb0bb16855be442",
@@ -807,6 +815,8 @@
     "knowledgeReferences" : [ ],
     "label" : "arithmetic",
     "name" : "arithmetic",
+    "protoRequestName" : "proto.ArithmeticRequest",
+    "protoResponseName" : "proto.ArithmeticResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-c736af77b66969d175933720059dec48",
@@ -858,6 +868,8 @@
     "knowledgeReferences" : [ ],
     "label" : "comparator ",
     "name" : "comparator",
+    "protoRequestName" : "proto.ComparatorRequest",
+    "protoResponseName" : "proto.ComparatorResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-c736af77b66969d175933720059dec48",
@@ -889,6 +901,8 @@
     "knowledgeReferences" : [ ],
     "label" : "formattingAndCoercing",
     "name" : "formattingAndCoercing",
+    "protoRequestName" : "proto.FormattingAndCoercingRequest",
+    "protoResponseName" : "proto.FormattingAndCoercingResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-0bcd1fe0bdaa3c42ee1600d6de30e350",
@@ -929,6 +943,8 @@
     "knowledgeReferences" : [ ],
     "label" : "keepInput_allFalse",
     "name" : "keepInputallFalse",
+    "protoRequestName" : "proto.KeepInputallFalseRequest",
+    "protoResponseName" : "proto.KeepInputallFalseResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-79ac9fb1afa596bbb0db5c6a5257a8b6",
@@ -958,6 +974,8 @@
     "knowledgeReferences" : [ ],
     "label" : "keepInput_allTrue",
     "name" : "keepInputallTrue",
+    "protoRequestName" : "proto.KeepInputallTrueRequest",
+    "protoResponseName" : "proto.KeepInputallTrueResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-0999a54b4e2887b6404fe10e4639a1d6",
@@ -987,6 +1005,8 @@
     "knowledgeReferences" : [ ],
     "label" : "keepInput_anyTrue",
     "name" : "keepInputanyTrue",
+    "protoRequestName" : "proto.KeepInputanyTrueRequest",
+    "protoResponseName" : "proto.KeepInputanyTrueResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-4b393744e05965a1928ecb455ab42308",
@@ -1018,6 +1038,8 @@
     "knowledgeReferences" : [ ],
     "label" : "listHandling",
     "name" : "listHandling",
+    "protoRequestName" : "proto.ListHandlingRequest",
+    "protoResponseName" : "proto.ListHandlingResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-0bcd1fe0bdaa3c42ee1600d6de30e350",
@@ -1060,6 +1082,8 @@
     "knowledgeReferences" : [ ],
     "label" : "logical ",
     "name" : "logical",
+    "protoRequestName" : "proto.LogicalRequest",
+    "protoResponseName" : "proto.LogicalResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-1058e602798d798780d99866788586c8",
@@ -1104,6 +1128,8 @@
     "knowledgeReferences" : [ ],
     "label" : "partA",
     "name" : "partA",
+    "protoRequestName" : "proto.PartARequest",
+    "protoResponseName" : "proto.PartAResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-963dd1faff03c460abb0bb16855be442",
@@ -1143,6 +1169,8 @@
     "knowledgeReferences" : [ ],
     "label" : "partB",
     "name" : "partB",
+    "protoRequestName" : "proto.PartBRequest",
+    "protoResponseName" : "proto.PartBResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-c736af77b66969d175933720059dec48",
@@ -1222,6 +1250,8 @@
     "knowledgeReferences" : [ ],
     "label" : "partC",
     "name" : "partC",
+    "protoRequestName" : "proto.PartCRequest",
+    "protoResponseName" : "proto.PartCResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-1058e602798d798780d99866788586c8",
@@ -1295,6 +1325,8 @@
     "knowledgeReferences" : [ ],
     "label" : "statistical",
     "name" : "statistical",
+    "protoRequestName" : "proto.StatisticalRequest",
+    "protoResponseName" : "proto.StatisticalResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-f444fe9b45d132962058826c7ce0e254",
@@ -1328,6 +1360,8 @@
     "knowledgeReferences" : [ ],
     "label" : "stringHandling",
     "name" : "stringHandling",
+    "protoRequestName" : "proto.StringHandlingRequest",
+    "protoResponseName" : "proto.StringHandlingResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-c736af77b66969d175933720059dec48",
@@ -1379,6 +1413,8 @@
     "knowledgeReferences" : [ ],
     "label" : "stringHandlingComparator",
     "name" : "stringHandlingComparator",
+    "protoRequestName" : "proto.StringHandlingComparatorRequest",
+    "protoResponseName" : "proto.StringHandlingComparatorResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-c736af77b66969d175933720059dec48",
@@ -1430,6 +1466,8 @@
     "knowledgeReferences" : [ ],
     "label" : "temporal",
     "name" : "temporal",
+    "protoRequestName" : "proto.TemporalRequest",
+    "protoResponseName" : "proto.TemporalResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-de95e2868799a862ed04920c276bffa1",
@@ -1459,6 +1497,8 @@
     "knowledgeReferences" : [ ],
     "label" : "temporalComparator ",
     "name" : "temporalComparator",
+    "protoRequestName" : "proto.TemporalComparatorRequest",
+    "protoResponseName" : "proto.TemporalComparatorResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-de95e2868799a862ed04920c276bffa1",
@@ -1492,6 +1532,8 @@
     "knowledgeReferences" : [ ],
     "label" : "temporalDiff",
     "name" : "temporalDiff",
+    "protoRequestName" : "proto.TemporalDiffRequest",
+    "protoResponseName" : "proto.TemporalDiffResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-5d1954e864444e9ebb079558da384758",

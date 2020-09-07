@@ -261,6 +261,8 @@
     "knowledgeReferences" : [ ],
     "label" : "Assess applicant age",
     "name" : "assessApplicantAge",
+    "protoRequestName" : "proto.AssessApplicantAgeRequest",
+    "protoResponseName" : "proto.AssessApplicantAgeResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-d2376567fde3c9400ee327ecec21e36d",
@@ -292,6 +294,8 @@
     "knowledgeReferences" : [ ],
     "label" : "Assess issue",
     "name" : "assessIssue",
+    "protoRequestName" : "proto.AssessIssueRequest",
+    "protoResponseName" : "proto.AssessIssueResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-5dc69eb6de3b736e08d2029ca5ae436c",
@@ -338,6 +342,8 @@
     "knowledgeReferences" : [ ],
     "label" : "Assess issue risk",
     "name" : "assessIssueRisk",
+    "protoRequestName" : "proto.AssessIssueRiskRequest",
+    "protoResponseName" : "proto.AssessIssueRiskResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-d2376567fde3c9400ee327ecec21e36d",
@@ -382,6 +388,8 @@
     "knowledgeReferences" : [ ],
     "label" : "Compare against lending threshold",
     "name" : "compareAgainstLendingThreshold",
+    "protoRequestName" : "proto.CompareAgainstLendingThresholdRequest",
+    "protoResponseName" : "proto.CompareAgainstLendingThresholdResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-d2376567fde3c9400ee327ecec21e36d",
@@ -437,6 +445,8 @@
     "knowledgeReferences" : [ ],
     "label" : "Generate output data",
     "name" : "generateOutputData",
+    "protoRequestName" : "proto.GenerateOutputDataRequest",
+    "protoResponseName" : "proto.GenerateOutputDataResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-d2376567fde3c9400ee327ecec21e36d",
@@ -488,6 +498,8 @@
     "knowledgeReferences" : [ ],
     "label" : "Make credit decision",
     "name" : "makeCreditDecision",
+    "protoRequestName" : "proto.MakeCreditDecisionRequest",
+    "protoResponseName" : "proto.MakeCreditDecisionResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-d2376567fde3c9400ee327ecec21e36d",
@@ -539,6 +551,8 @@
     "knowledgeReferences" : [ ],
     "label" : "Process prior issues",
     "name" : "processPriorIssues",
+    "protoRequestName" : "proto.ProcessPriorIssuesRequest",
+    "protoResponseName" : "proto.ProcessPriorIssuesResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-d2376567fde3c9400ee327ecec21e36d",

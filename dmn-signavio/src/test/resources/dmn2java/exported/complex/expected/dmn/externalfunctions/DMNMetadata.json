@@ -373,6 +373,8 @@
     "knowledgeReferences" : [ ],
     "label" : "FetchForexRate",
     "name" : "fetchForexRate",
+    "protoRequestName" : "proto.FetchForexRateRequest",
+    "protoResponseName" : "proto.FetchForexRateResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-cd18a7511e0016ba97f30d8448473110",
@@ -439,6 +441,8 @@
     "knowledgeReferences" : [ ],
     "label" : "IsForexRateRequired",
     "name" : "isForexRateRequired",
+    "protoRequestName" : "proto.IsForexRateRequiredRequest",
+    "protoResponseName" : "proto.IsForexRateRequiredResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-cd18a7511e0016ba97f30d8448473110",
