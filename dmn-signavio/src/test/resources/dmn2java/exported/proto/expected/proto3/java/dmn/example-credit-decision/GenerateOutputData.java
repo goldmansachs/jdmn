@@ -22,6 +22,25 @@ public class GenerateOutputData extends com.gs.dmn.signavio.runtime.DefaultSigna
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
+    public static java.util.Map<String, Object> requestToMap(proto.GenerateOutputDataRequest generateOutputDataRequest_) {
+        // Create arguments from Request Message
+        type.Applicant applicant = type.Applicant.toApplicant(generateOutputDataRequest_.getApplicant());
+        java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(generateOutputDataRequest_.getCurrentRiskAppetite());
+        java.math.BigDecimal lendingThreshold = java.math.BigDecimal.valueOf(generateOutputDataRequest_.getLendingThreshold());
+        
+        // Create map
+        java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
+        map_.put("Applicant", applicant);
+        map_.put("Current risk appetite", currentRiskAppetite);
+        map_.put("Lending threshold", lendingThreshold);
+        return map_;
+    }
+
+    public static List<type.GenerateOutputData> responseToOutput(proto.GenerateOutputDataResponse response_) {
+        // Extract and convert output
+        return ((List<type.GenerateOutputData>) response_.getGenerateOutputDataList().stream().map(type.GenerateOutputData::toGenerateOutputData).collect(java.util.stream.Collectors.toList()));
+    }
     private final AssessIssueRisk assessIssueRisk;
     private final CompareAgainstLendingThreshold compareAgainstLendingThreshold;
     private final MakeCreditDecision makeCreditDecision;

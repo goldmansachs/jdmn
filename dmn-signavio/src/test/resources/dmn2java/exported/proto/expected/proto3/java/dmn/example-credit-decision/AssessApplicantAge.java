@@ -23,6 +23,21 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSigna
         3
     );
 
+    public static java.util.Map<String, Object> requestToMap(proto.AssessApplicantAgeRequest assessApplicantAgeRequest_) {
+        // Create arguments from Request Message
+        type.Applicant applicant = type.Applicant.toApplicant(assessApplicantAgeRequest_.getApplicant());
+        
+        // Create map
+        java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
+        map_.put("Applicant", applicant);
+        return map_;
+    }
+
+    public static java.math.BigDecimal responseToOutput(proto.AssessApplicantAgeResponse response_) {
+        // Extract and convert output
+        return java.math.BigDecimal.valueOf(response_.getAssessApplicantAge());
+    }
+
     public AssessApplicantAge() {
     }
 
