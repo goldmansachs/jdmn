@@ -22,6 +22,7 @@ public class FnInvocationNamedParameters extends com.gs.dmn.runtime.DefaultDMNBa
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
     private final FnLibrary fnLibrary;
 
     public FnInvocationNamedParameters() {

@@ -22,6 +22,7 @@ public class Strategy extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
         3
     );
+
     private final BureauCallType bureauCallType;
     private final Eligibility eligibility;
 

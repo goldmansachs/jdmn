@@ -22,6 +22,7 @@ public class TotalVacationDays extends com.gs.dmn.runtime.DefaultDMNBaseDecision
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
     private final BaseVacationDays baseVacationDays;
     private final ExtraDaysCase1 extraDaysCase1;
     private final ExtraDaysCase2 extraDaysCase2;

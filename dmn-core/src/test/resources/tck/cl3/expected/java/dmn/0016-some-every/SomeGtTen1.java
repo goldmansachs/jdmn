@@ -22,6 +22,7 @@ public class SomeGtTen1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
     private final PriceTable1 priceTable1;
 
     public SomeGtTen1() {

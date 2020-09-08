@@ -39,6 +39,7 @@ public class Strategy extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Extract and convert output
         return response_.getStrategy();
     }
+
     private final BureauCallType bureauCallType;
     private final Eligibility eligibility;
 

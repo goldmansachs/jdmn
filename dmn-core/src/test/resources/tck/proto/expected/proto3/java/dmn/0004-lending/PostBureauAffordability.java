@@ -41,6 +41,7 @@ public class PostBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDe
         // Extract and convert output
         return response_.getPostBureauAffordability();
     }
+
     private final PostBureauRiskCategory postBureauRiskCategory;
     private final RequiredMonthlyInstallment requiredMonthlyInstallment;
 

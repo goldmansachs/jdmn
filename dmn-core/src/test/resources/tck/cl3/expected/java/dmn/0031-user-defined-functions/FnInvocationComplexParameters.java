@@ -22,6 +22,7 @@ public class FnInvocationComplexParameters extends com.gs.dmn.runtime.DefaultDMN
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
     private final FnLibrary fnLibrary;
 
     public FnInvocationComplexParameters() {
