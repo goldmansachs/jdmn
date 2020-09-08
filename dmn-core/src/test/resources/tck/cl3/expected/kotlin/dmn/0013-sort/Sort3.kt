@@ -40,7 +40,7 @@ class Sort3() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             // Start decision 'sort3'
             val sort3StartTime_ = System.currentTimeMillis()
             val sort3Arguments_ = com.gs.dmn.runtime.listener.Arguments()
-            sort3Arguments_.put("stringList", stringList);
+            sort3Arguments_.put("stringList", stringList)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, sort3Arguments_)
 
             // Evaluate decision 'sort3'

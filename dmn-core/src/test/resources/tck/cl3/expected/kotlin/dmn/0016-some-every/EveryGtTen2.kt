@@ -40,7 +40,7 @@ class EveryGtTen2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             // Start decision 'everyGtTen2'
             val everyGtTen2StartTime_ = System.currentTimeMillis()
             val everyGtTen2Arguments_ = com.gs.dmn.runtime.listener.Arguments()
-            everyGtTen2Arguments_.put("priceTable2", priceTable2);
+            everyGtTen2Arguments_.put("priceTable2", priceTable2)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, everyGtTen2Arguments_)
 
             // Evaluate decision 'everyGtTen2'

@@ -40,8 +40,8 @@ class AssessIssueRisk(val processPriorIssues : ProcessPriorIssues = ProcessPrior
             // Start decision 'assessIssueRisk'
             val assessIssueRiskStartTime_ = System.currentTimeMillis()
             val assessIssueRiskArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            assessIssueRiskArguments_.put("Applicant", applicant);
-            assessIssueRiskArguments_.put("Current risk appetite", currentRiskAppetite);
+            assessIssueRiskArguments_.put("Applicant", applicant)
+            assessIssueRiskArguments_.put("Current risk appetite", currentRiskAppetite)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, assessIssueRiskArguments_)
 
             // Apply child decisions

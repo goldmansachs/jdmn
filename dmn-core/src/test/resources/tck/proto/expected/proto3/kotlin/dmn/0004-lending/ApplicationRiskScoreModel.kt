@@ -20,9 +20,9 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start BKM 'ApplicationRiskScoreModel'
             val applicationRiskScoreModelStartTime_ = System.currentTimeMillis()
             val applicationRiskScoreModelArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            applicationRiskScoreModelArguments_.put("Age", age);
-            applicationRiskScoreModelArguments_.put("MaritalStatus", maritalStatus);
-            applicationRiskScoreModelArguments_.put("EmploymentStatus", employmentStatus);
+            applicationRiskScoreModelArguments_.put("Age", age)
+            applicationRiskScoreModelArguments_.put("MaritalStatus", maritalStatus)
+            applicationRiskScoreModelArguments_.put("EmploymentStatus", employmentStatus)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, applicationRiskScoreModelArguments_)
 
             // Evaluate BKM 'ApplicationRiskScoreModel'

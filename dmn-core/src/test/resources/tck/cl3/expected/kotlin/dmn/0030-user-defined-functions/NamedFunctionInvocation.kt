@@ -22,8 +22,8 @@ class NamedFunctionInvocation() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             // Start decision 'namedFunctionInvocation'
             val namedFunctionInvocationStartTime_ = System.currentTimeMillis()
             val namedFunctionInvocationArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            namedFunctionInvocationArguments_.put("stringInputA", stringInputA);
-            namedFunctionInvocationArguments_.put("stringInputB", stringInputB);
+            namedFunctionInvocationArguments_.put("stringInputA", stringInputA)
+            namedFunctionInvocationArguments_.put("stringInputB", stringInputB)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, namedFunctionInvocationArguments_)
 
             // Evaluate decision 'namedFunctionInvocation'

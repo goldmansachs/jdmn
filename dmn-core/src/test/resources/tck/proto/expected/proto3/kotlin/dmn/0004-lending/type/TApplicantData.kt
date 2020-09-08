@@ -97,7 +97,7 @@ interface TApplicantData : com.gs.dmn.runtime.DMNType {
         }
 
         fun toProto(other: TApplicantData?): proto.TApplicantData {
-            var result_: proto.TApplicantData.Builder = proto.TApplicantData.newBuilder();
+            var result_: proto.TApplicantData.Builder = proto.TApplicantData.newBuilder()
             result_.setMonthly(type.Monthly.toProto((other as TApplicantData).monthly))
             result_.setAge((if ((other as TApplicantData).age == null) 0.0 else (other as TApplicantData).age!!.toDouble()))
             result_.setExistingCustomer((if ((other as TApplicantData).existingCustomer == null) false else (other as TApplicantData).existingCustomer!!))

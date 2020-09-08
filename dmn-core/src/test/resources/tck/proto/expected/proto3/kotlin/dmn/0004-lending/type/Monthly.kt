@@ -79,7 +79,7 @@ interface Monthly : com.gs.dmn.runtime.DMNType {
         }
 
         fun toProto(other: Monthly?): proto.Monthly {
-            var result_: proto.Monthly.Builder = proto.Monthly.newBuilder();
+            var result_: proto.Monthly.Builder = proto.Monthly.newBuilder()
             result_.setIncome((if ((other as Monthly).income == null) 0.0 else (other as Monthly).income!!.toDouble()))
             result_.setExpenses((if ((other as Monthly).expenses == null) 0.0 else (other as Monthly).expenses!!.toDouble()))
             result_.setRepayments((if ((other as Monthly).repayments == null) 0.0 else (other as Monthly).repayments!!.toDouble()))

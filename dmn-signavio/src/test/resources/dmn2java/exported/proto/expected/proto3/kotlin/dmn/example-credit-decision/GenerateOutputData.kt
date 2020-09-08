@@ -40,9 +40,9 @@ class GenerateOutputData(val assessIssueRisk : AssessIssueRisk = AssessIssueRisk
             // Start decision 'generateOutputData'
             val generateOutputDataStartTime_ = System.currentTimeMillis()
             val generateOutputDataArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            generateOutputDataArguments_.put("Applicant", applicant);
-            generateOutputDataArguments_.put("Current risk appetite", currentRiskAppetite);
-            generateOutputDataArguments_.put("Lending threshold", lendingThreshold);
+            generateOutputDataArguments_.put("Applicant", applicant)
+            generateOutputDataArguments_.put("Current risk appetite", currentRiskAppetite)
+            generateOutputDataArguments_.put("Lending threshold", lendingThreshold)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, generateOutputDataArguments_)
 
             // Apply child decisions

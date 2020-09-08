@@ -40,7 +40,7 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             // Start decision 'processPriorIssues'
             val processPriorIssuesStartTime_ = System.currentTimeMillis()
             val processPriorIssuesArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            processPriorIssuesArguments_.put("Applicant", applicant);
+            processPriorIssuesArguments_.put("Applicant", applicant)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, processPriorIssuesArguments_)
 
             // Evaluate decision 'processPriorIssues'
@@ -88,7 +88,7 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             // Default value
             output_ = null
             if (output_ == null) {
-                output_ = this.asList();
+                output_ = this.asList()
             }
         } else {
             val ruleOutputs_: List<com.gs.dmn.runtime.RuleOutput> = ruleOutputList_.applyMultiple(com.gs.dmn.runtime.annotation.HitPolicy.COLLECT)

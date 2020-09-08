@@ -40,8 +40,8 @@ class PostBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = A
             // Start decision 'PostBureauRiskCategory'
             val postBureauRiskCategoryStartTime_ = System.currentTimeMillis()
             val postBureauRiskCategoryArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            postBureauRiskCategoryArguments_.put("ApplicantData", applicantData);
-            postBureauRiskCategoryArguments_.put("BureauData", bureauData);
+            postBureauRiskCategoryArguments_.put("ApplicantData", applicantData)
+            postBureauRiskCategoryArguments_.put("BureauData", bureauData)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, postBureauRiskCategoryArguments_)
 
             if (cache_.contains("PostBureauRiskCategory")) {
