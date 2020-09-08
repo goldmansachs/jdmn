@@ -40,8 +40,8 @@ class AssessIssue() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() 
             // Start decision 'assessIssue'
             val assessIssueStartTime_ = System.currentTimeMillis()
             val assessIssueArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            assessIssueArguments_.put("Current risk appetite", currentRiskAppetite);
-            assessIssueArguments_.put("Prior issue", priorIssue_iterator);
+            assessIssueArguments_.put("Current risk appetite", currentRiskAppetite)
+            assessIssueArguments_.put("Prior issue", priorIssue_iterator)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, assessIssueArguments_)
 
             // Evaluate decision 'assessIssue'

@@ -40,9 +40,9 @@ class MakeCreditDecision(val compareAgainstLendingThreshold : CompareAgainstLend
             // Start decision 'makeCreditDecision'
             val makeCreditDecisionStartTime_ = System.currentTimeMillis()
             val makeCreditDecisionArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            makeCreditDecisionArguments_.put("Applicant", applicant);
-            makeCreditDecisionArguments_.put("Current risk appetite", currentRiskAppetite);
-            makeCreditDecisionArguments_.put("Lending threshold", lendingThreshold);
+            makeCreditDecisionArguments_.put("Applicant", applicant)
+            makeCreditDecisionArguments_.put("Current risk appetite", currentRiskAppetite)
+            makeCreditDecisionArguments_.put("Lending threshold", lendingThreshold)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, makeCreditDecisionArguments_)
 
             // Apply child decisions

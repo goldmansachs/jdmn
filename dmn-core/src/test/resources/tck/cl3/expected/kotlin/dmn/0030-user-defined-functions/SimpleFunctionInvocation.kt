@@ -22,8 +22,8 @@ class SimpleFunctionInvocation() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             // Start decision 'simpleFunctionInvocation'
             val simpleFunctionInvocationStartTime_ = System.currentTimeMillis()
             val simpleFunctionInvocationArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            simpleFunctionInvocationArguments_.put("stringInputA", stringInputA);
-            simpleFunctionInvocationArguments_.put("stringInputB", stringInputB);
+            simpleFunctionInvocationArguments_.put("stringInputA", stringInputA)
+            simpleFunctionInvocationArguments_.put("stringInputB", stringInputB)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, simpleFunctionInvocationArguments_)
 
             // Evaluate decision 'simpleFunctionInvocation'

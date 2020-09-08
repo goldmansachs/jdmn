@@ -40,8 +40,8 @@ class FnInvocationNamedParameters(val fnLibrary : FnLibrary = FnLibrary()) : com
             // Start decision 'fnInvocationNamedParameters'
             val fnInvocationNamedParametersStartTime_ = System.currentTimeMillis()
             val fnInvocationNamedParametersArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            fnInvocationNamedParametersArguments_.put("inputA", inputA);
-            fnInvocationNamedParametersArguments_.put("inputB", inputB);
+            fnInvocationNamedParametersArguments_.put("inputA", inputA)
+            fnInvocationNamedParametersArguments_.put("inputB", inputB)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnInvocationNamedParametersArguments_)
 
             // Apply child decisions

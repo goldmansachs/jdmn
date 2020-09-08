@@ -40,8 +40,8 @@ class FnInvocationComplexParameters(val fnLibrary : FnLibrary = FnLibrary()) : c
             // Start decision 'fnInvocationComplexParameters'
             val fnInvocationComplexParametersStartTime_ = System.currentTimeMillis()
             val fnInvocationComplexParametersArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            fnInvocationComplexParametersArguments_.put("inputA", inputA);
-            fnInvocationComplexParametersArguments_.put("inputB", inputB);
+            fnInvocationComplexParametersArguments_.put("inputA", inputA)
+            fnInvocationComplexParametersArguments_.put("inputB", inputB)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnInvocationComplexParametersArguments_)
 
             // Apply child decisions

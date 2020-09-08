@@ -40,7 +40,7 @@ class AssessApplicantAge() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             // Start decision 'assessApplicantAge'
             val assessApplicantAgeStartTime_ = System.currentTimeMillis()
             val assessApplicantAgeArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            assessApplicantAgeArguments_.put("Applicant", applicant);
+            assessApplicantAgeArguments_.put("Applicant", applicant)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, assessApplicantAgeArguments_)
 
             // Evaluate decision 'assessApplicantAge'

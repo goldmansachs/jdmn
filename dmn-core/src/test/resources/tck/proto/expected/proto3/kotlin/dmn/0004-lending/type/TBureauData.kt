@@ -70,7 +70,7 @@ interface TBureauData : com.gs.dmn.runtime.DMNType {
         }
 
         fun toProto(other: TBureauData?): proto.TBureauData {
-            var result_: proto.TBureauData.Builder = proto.TBureauData.newBuilder();
+            var result_: proto.TBureauData.Builder = proto.TBureauData.newBuilder()
             result_.setCreditScore((if ((other as TBureauData).creditScore == null) 0.0 else (other as TBureauData).creditScore!!.toDouble()))
             result_.setBankrupt((if ((other as TBureauData).bankrupt == null) false else (other as TBureauData).bankrupt!!))
             return result_.build()

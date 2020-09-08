@@ -88,7 +88,7 @@ interface Applicant : com.gs.dmn.runtime.DMNType {
         }
 
         fun toProto(other: Applicant?): proto.Applicant {
-            var result_: proto.Applicant.Builder = proto.Applicant.newBuilder();
+            var result_: proto.Applicant.Builder = proto.Applicant.newBuilder()
             result_.setName((if ((other as Applicant).name == null) null else (other as Applicant).name!!))
             result_.setAge((if ((other as Applicant).age == null) 0.0 else (other as Applicant).age!!.toDouble()))
             result_.setCreditScore((if ((other as Applicant).creditScore == null) 0.0 else (other as Applicant).creditScore!!.toDouble()))

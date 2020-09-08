@@ -40,7 +40,7 @@ class BureauCallType(val preBureauRiskCategory : PreBureauRiskCategory = PreBure
             // Start decision 'BureauCallType'
             val bureauCallTypeStartTime_ = System.currentTimeMillis()
             val bureauCallTypeArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            bureauCallTypeArguments_.put("ApplicantData", applicantData);
+            bureauCallTypeArguments_.put("ApplicantData", applicantData)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bureauCallTypeArguments_)
 
             // Apply child decisions

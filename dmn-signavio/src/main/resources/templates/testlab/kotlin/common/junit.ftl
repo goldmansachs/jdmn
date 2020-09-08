@@ -75,7 +75,7 @@ class ${testClassName} : ${decisionBaseClass}() {
                     </#items>
                 </#list>
             <#else>
-        checkValues(${testLabUtil.toNativeExpression(testLab, expectedValue)}, ${testLabUtil.drgElementVariableName(rootOutputParameter)});
+        checkValues(${testLabUtil.toNativeExpression(testLab, expectedValue)}, ${testLabUtil.drgElementVariableName(rootOutputParameter)})
             </#if>
         </#items>
     </#list>

@@ -14,7 +14,7 @@ class GenerateOutputDataTest : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
         val applicant: type.Applicant? = type.ApplicantImpl(number("38"), number("100"), "Amy", asList("Late payment"))
         val generateOutputData: List<type.GenerateOutputData?>? = this.generateOutputData.apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_)
 
-        checkValues(asList(type.GenerateOutputDataImpl(number("27.5"), "Accept", numericUnaryMinus(number("7.5")))), generateOutputData);
+        checkValues(asList(type.GenerateOutputDataImpl(number("27.5"), "Accept", numericUnaryMinus(number("7.5")))), generateOutputData)
 
         // Make proto request
         var builder_: proto.GenerateOutputDataRequest.Builder = proto.GenerateOutputDataRequest.newBuilder()
@@ -39,7 +39,7 @@ class GenerateOutputDataTest : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
         val applicant: type.Applicant? = type.ApplicantImpl(number("18"), number("65"), "Bill", asList("Card rejection", "Default on obligations"))
         val generateOutputData: List<type.GenerateOutputData?>? = this.generateOutputData.apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_)
 
-        checkValues(asList(type.GenerateOutputDataImpl(numericUnaryMinus(number("10")), "Reject", numericUnaryMinus(number("25")))), generateOutputData);
+        checkValues(asList(type.GenerateOutputDataImpl(numericUnaryMinus(number("10")), "Reject", numericUnaryMinus(number("25")))), generateOutputData)
 
         // Make proto request
         var builder_: proto.GenerateOutputDataRequest.Builder = proto.GenerateOutputDataRequest.newBuilder()
@@ -64,7 +64,7 @@ class GenerateOutputDataTest : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
         val applicant: type.Applicant? = type.ApplicantImpl(number("65"), number("80"), "Charlie", asList("Late payment", "Default on obligations", "Bankruptcy"))
         val generateOutputData: List<type.GenerateOutputData?>? = this.generateOutputData.apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_)
 
-        checkValues(asList(type.GenerateOutputDataImpl(numericUnaryMinus(number("42.5")), "Reject", numericUnaryMinus(number("77.5")))), generateOutputData);
+        checkValues(asList(type.GenerateOutputDataImpl(numericUnaryMinus(number("42.5")), "Reject", numericUnaryMinus(number("77.5")))), generateOutputData)
 
         // Make proto request
         var builder_: proto.GenerateOutputDataRequest.Builder = proto.GenerateOutputDataRequest.newBuilder()

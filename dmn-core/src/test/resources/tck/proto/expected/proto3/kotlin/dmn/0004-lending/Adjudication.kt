@@ -40,9 +40,9 @@ class Adjudication() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             // Start decision 'Adjudication'
             val adjudicationStartTime_ = System.currentTimeMillis()
             val adjudicationArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            adjudicationArguments_.put("ApplicantData", applicantData);
-            adjudicationArguments_.put("BureauData", bureauData);
-            adjudicationArguments_.put("SupportingDocuments", supportingDocuments);
+            adjudicationArguments_.put("ApplicantData", applicantData)
+            adjudicationArguments_.put("BureauData", bureauData)
+            adjudicationArguments_.put("SupportingDocuments", supportingDocuments)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, adjudicationArguments_)
 
             // Evaluate decision 'Adjudication'

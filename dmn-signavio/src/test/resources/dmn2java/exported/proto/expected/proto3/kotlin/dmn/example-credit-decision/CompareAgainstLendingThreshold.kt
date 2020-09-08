@@ -40,9 +40,9 @@ class CompareAgainstLendingThreshold(val assessApplicantAge : AssessApplicantAge
             // Start decision 'compareAgainstLendingThreshold'
             val compareAgainstLendingThresholdStartTime_ = System.currentTimeMillis()
             val compareAgainstLendingThresholdArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            compareAgainstLendingThresholdArguments_.put("Applicant", applicant);
-            compareAgainstLendingThresholdArguments_.put("Current risk appetite", currentRiskAppetite);
-            compareAgainstLendingThresholdArguments_.put("Lending threshold", lendingThreshold);
+            compareAgainstLendingThresholdArguments_.put("Applicant", applicant)
+            compareAgainstLendingThresholdArguments_.put("Current risk appetite", currentRiskAppetite)
+            compareAgainstLendingThresholdArguments_.put("Lending threshold", lendingThreshold)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, compareAgainstLendingThresholdArguments_)
 
             // Apply child decisions

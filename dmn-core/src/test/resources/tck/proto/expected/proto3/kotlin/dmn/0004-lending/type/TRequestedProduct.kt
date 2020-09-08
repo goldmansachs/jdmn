@@ -88,7 +88,7 @@ interface TRequestedProduct : com.gs.dmn.runtime.DMNType {
         }
 
         fun toProto(other: TRequestedProduct?): proto.TRequestedProduct {
-            var result_: proto.TRequestedProduct.Builder = proto.TRequestedProduct.newBuilder();
+            var result_: proto.TRequestedProduct.Builder = proto.TRequestedProduct.newBuilder()
             result_.setProductType((if ((other as TRequestedProduct).productType == null) null else (other as TRequestedProduct).productType!!))
             result_.setAmount((if ((other as TRequestedProduct).amount == null) 0.0 else (other as TRequestedProduct).amount!!.toDouble()))
             result_.setRate((if ((other as TRequestedProduct).rate == null) 0.0 else (other as TRequestedProduct).rate!!.toDouble()))
