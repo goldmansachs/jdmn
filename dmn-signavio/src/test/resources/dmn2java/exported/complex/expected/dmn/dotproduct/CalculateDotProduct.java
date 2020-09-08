@@ -22,6 +22,7 @@ public class CalculateDotProduct extends com.gs.dmn.signavio.runtime.DefaultSign
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
     private final Componentwise componentwise;
 
     public CalculateDotProduct() {

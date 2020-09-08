@@ -22,6 +22,7 @@ public class GenerateOutputData extends com.gs.dmn.signavio.runtime.DefaultSigna
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
     private final AssessIssueRisk assessIssueRisk;
     private final CompareAgainstLendingThreshold compareAgainstLendingThreshold;
     private final MakeCreditDecision makeCreditDecision;

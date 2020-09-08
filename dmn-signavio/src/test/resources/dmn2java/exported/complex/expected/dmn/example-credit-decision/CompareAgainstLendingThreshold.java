@@ -22,6 +22,7 @@ public class CompareAgainstLendingThreshold extends com.gs.dmn.signavio.runtime.
         com.gs.dmn.runtime.annotation.HitPolicy.ANY,
         2
     );
+
     private final AssessApplicantAge assessApplicantAge;
     private final AssessIssueRisk assessIssueRisk;
 

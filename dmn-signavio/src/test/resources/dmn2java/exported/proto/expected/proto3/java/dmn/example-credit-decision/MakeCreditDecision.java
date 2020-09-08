@@ -41,6 +41,7 @@ public class MakeCreditDecision extends com.gs.dmn.signavio.runtime.DefaultSigna
         // Extract and convert output
         return makeCreditDecisionResponse_.getMakeCreditDecision();
     }
+
     private final CompareAgainstLendingThreshold compareAgainstLendingThreshold;
 
     public MakeCreditDecision() {

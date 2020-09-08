@@ -22,6 +22,7 @@ public class MakeCreditDecision extends com.gs.dmn.signavio.runtime.DefaultSigna
         com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
         3
     );
+
     private final CompareAgainstLendingThreshold compareAgainstLendingThreshold;
 
     public MakeCreditDecision() {

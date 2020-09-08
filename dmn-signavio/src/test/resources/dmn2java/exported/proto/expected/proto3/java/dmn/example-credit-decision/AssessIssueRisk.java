@@ -39,6 +39,7 @@ public class AssessIssueRisk extends com.gs.dmn.signavio.runtime.DefaultSignavio
         // Extract and convert output
         return java.math.BigDecimal.valueOf(assessIssueRiskResponse_.getAssessIssueRisk());
     }
+
     private final ProcessPriorIssues processPriorIssues;
 
     public AssessIssueRisk() {

@@ -22,6 +22,7 @@ public class Zip extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
     private final Appendall appendall;
     private final RemoveValues removeValues;
     private final Removeall removeall;

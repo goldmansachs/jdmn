@@ -22,6 +22,7 @@ public class AssessIssueRisk extends com.gs.dmn.signavio.runtime.DefaultSignavio
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
     private final ProcessPriorIssues processPriorIssues;
 
     public AssessIssueRisk() {
