@@ -23,6 +23,21 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
         5
     );
 
+    public static java.util.Map<String, Object> requestToMap(proto.ProcessPriorIssuesRequest processPriorIssuesRequest_) {
+        // Create arguments from Request Message
+        type.Applicant applicant = type.Applicant.toApplicant(processPriorIssuesRequest_.getApplicant());
+        
+        // Create map
+        java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
+        map_.put("Applicant", applicant);
+        return map_;
+    }
+
+    public static List<java.math.BigDecimal> responseToOutput(proto.ProcessPriorIssuesResponse response_) {
+        // Extract and convert output
+        return ((List<java.math.BigDecimal>) response_.getProcessPriorIssuesList().stream().map(e -> java.math.BigDecimal.valueOf(e)).collect(java.util.stream.Collectors.toList()));
+    }
+
     public ProcessPriorIssues() {
     }
 

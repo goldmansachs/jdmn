@@ -22,6 +22,23 @@ public class AssessIssueRisk extends com.gs.dmn.signavio.runtime.DefaultSignavio
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
+    public static java.util.Map<String, Object> requestToMap(proto.AssessIssueRiskRequest assessIssueRiskRequest_) {
+        // Create arguments from Request Message
+        type.Applicant applicant = type.Applicant.toApplicant(assessIssueRiskRequest_.getApplicant());
+        java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(assessIssueRiskRequest_.getCurrentRiskAppetite());
+        
+        // Create map
+        java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
+        map_.put("Applicant", applicant);
+        map_.put("Current risk appetite", currentRiskAppetite);
+        return map_;
+    }
+
+    public static java.math.BigDecimal responseToOutput(proto.AssessIssueRiskResponse response_) {
+        // Extract and convert output
+        return java.math.BigDecimal.valueOf(response_.getAssessIssueRisk());
+    }
     private final ProcessPriorIssues processPriorIssues;
 
     public AssessIssueRisk() {
