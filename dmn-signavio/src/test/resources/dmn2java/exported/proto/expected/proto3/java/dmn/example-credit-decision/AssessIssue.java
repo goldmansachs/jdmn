@@ -35,9 +35,9 @@ public class AssessIssue extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
         return map_;
     }
 
-    public static java.math.BigDecimal responseToOutput(proto.AssessIssueResponse response_) {
+    public static java.math.BigDecimal responseToOutput(proto.AssessIssueResponse assessIssueResponse_) {
         // Extract and convert output
-        return java.math.BigDecimal.valueOf(response_.getAssessIssue());
+        return java.math.BigDecimal.valueOf(assessIssueResponse_.getAssessIssue());
     }
 
     public AssessIssue() {

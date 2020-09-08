@@ -33,9 +33,9 @@ public class RequiredMonthlyInstallment extends com.gs.dmn.runtime.DefaultDMNBas
         return map_;
     }
 
-    public static java.math.BigDecimal responseToOutput(proto.RequiredMonthlyInstallmentResponse response_) {
+    public static java.math.BigDecimal responseToOutput(proto.RequiredMonthlyInstallmentResponse requiredMonthlyInstallmentResponse_) {
         // Extract and convert output
-        return java.math.BigDecimal.valueOf(response_.getRequiredMonthlyInstallment());
+        return java.math.BigDecimal.valueOf(requiredMonthlyInstallmentResponse_.getRequiredMonthlyInstallment());
     }
 
     public RequiredMonthlyInstallment() {

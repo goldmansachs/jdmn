@@ -37,9 +37,9 @@ public class Routing extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         return map_;
     }
 
-    public static String responseToOutput(proto.RoutingResponse response_) {
+    public static String responseToOutput(proto.RoutingResponse routingResponse_) {
         // Extract and convert output
-        return response_.getRouting();
+        return routingResponse_.getRouting();
     }
 
     private final PostBureauAffordability postBureauAffordability;

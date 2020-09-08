@@ -33,9 +33,9 @@ public class ApplicationRiskScore extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         return map_;
     }
 
-    public static java.math.BigDecimal responseToOutput(proto.ApplicationRiskScoreResponse response_) {
+    public static java.math.BigDecimal responseToOutput(proto.ApplicationRiskScoreResponse applicationRiskScoreResponse_) {
         // Extract and convert output
-        return java.math.BigDecimal.valueOf(response_.getApplicationRiskScore());
+        return java.math.BigDecimal.valueOf(applicationRiskScoreResponse_.getApplicationRiskScore());
     }
 
     public ApplicationRiskScore() {

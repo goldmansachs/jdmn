@@ -37,9 +37,9 @@ public class CompareAgainstLendingThreshold extends com.gs.dmn.signavio.runtime.
         return map_;
     }
 
-    public static java.math.BigDecimal responseToOutput(proto.CompareAgainstLendingThresholdResponse response_) {
+    public static java.math.BigDecimal responseToOutput(proto.CompareAgainstLendingThresholdResponse compareAgainstLendingThresholdResponse_) {
         // Extract and convert output
-        return java.math.BigDecimal.valueOf(response_.getCompareAgainstLendingThreshold());
+        return java.math.BigDecimal.valueOf(compareAgainstLendingThresholdResponse_.getCompareAgainstLendingThreshold());
     }
     private final AssessApplicantAge assessApplicantAge;
     private final AssessIssueRisk assessIssueRisk;

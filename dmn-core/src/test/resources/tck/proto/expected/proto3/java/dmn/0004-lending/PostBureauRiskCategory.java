@@ -35,9 +35,9 @@ public class PostBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDec
         return map_;
     }
 
-    public static String responseToOutput(proto.PostBureauRiskCategoryResponse response_) {
+    public static String responseToOutput(proto.PostBureauRiskCategoryResponse postBureauRiskCategoryResponse_) {
         // Extract and convert output
-        return response_.getPostBureauRiskCategory();
+        return postBureauRiskCategoryResponse_.getPostBureauRiskCategory();
     }
 
     private final ApplicationRiskScore applicationRiskScore;

@@ -35,9 +35,9 @@ public class PreBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDec
         return map_;
     }
 
-    public static Boolean responseToOutput(proto.PreBureauAffordabilityResponse response_) {
+    public static Boolean responseToOutput(proto.PreBureauAffordabilityResponse preBureauAffordabilityResponse_) {
         // Extract and convert output
-        return response_.getPreBureauAffordability();
+        return preBureauAffordabilityResponse_.getPreBureauAffordability();
     }
 
     private final PreBureauRiskCategory preBureauRiskCategory;

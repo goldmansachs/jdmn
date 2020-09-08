@@ -33,9 +33,9 @@ public class PreBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         return map_;
     }
 
-    public static String responseToOutput(proto.PreBureauRiskCategoryResponse response_) {
+    public static String responseToOutput(proto.PreBureauRiskCategoryResponse preBureauRiskCategoryResponse_) {
         // Extract and convert output
-        return response_.getPreBureauRiskCategory();
+        return preBureauRiskCategoryResponse_.getPreBureauRiskCategory();
     }
 
     private final ApplicationRiskScore applicationRiskScore;
