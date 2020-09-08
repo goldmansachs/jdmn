@@ -39,6 +39,7 @@ public class Eligibility extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Extract and convert output
         return response_.getEligibility();
     }
+
     private final PreBureauAffordability preBureauAffordability;
     private final PreBureauRiskCategory preBureauRiskCategory;
 

@@ -22,6 +22,7 @@ public class PostBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDec
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
     private final ApplicationRiskScore applicationRiskScore;
 
     public PostBureauRiskCategory() {

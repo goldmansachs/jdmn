@@ -37,6 +37,7 @@ public class PreBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         // Extract and convert output
         return response_.getPreBureauRiskCategory();
     }
+
     private final ApplicationRiskScore applicationRiskScore;
 
     public PreBureauRiskCategory() {

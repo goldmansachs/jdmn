@@ -39,6 +39,7 @@ public class PreBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDec
         // Extract and convert output
         return response_.getPreBureauAffordability();
     }
+
     private final PreBureauRiskCategory preBureauRiskCategory;
     private final RequiredMonthlyInstallment requiredMonthlyInstallment;
 

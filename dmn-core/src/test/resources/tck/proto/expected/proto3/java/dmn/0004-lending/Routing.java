@@ -41,6 +41,7 @@ public class Routing extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Extract and convert output
         return response_.getRouting();
     }
+
     private final PostBureauAffordability postBureauAffordability;
     private final PostBureauRiskCategory postBureauRiskCategory;
 

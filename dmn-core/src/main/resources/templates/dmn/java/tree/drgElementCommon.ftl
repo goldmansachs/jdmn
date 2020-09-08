@@ -66,6 +66,7 @@
 -->
 <#macro addSubDecisionFields drgElement>
     <#list modelRepository.directSubDecisions(drgElement)>
+
         <#items as subDecision>
     private final ${transformer.qualifiedName(subDecision)} ${transformer.drgElementReferenceVariableName(subDecision)};
         </#items>
