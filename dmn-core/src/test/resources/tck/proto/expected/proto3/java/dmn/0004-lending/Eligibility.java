@@ -35,9 +35,9 @@ public class Eligibility extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         return map_;
     }
 
-    public static String responseToOutput(proto.EligibilityResponse response_) {
+    public static String responseToOutput(proto.EligibilityResponse eligibilityResponse_) {
         // Extract and convert output
-        return response_.getEligibility();
+        return eligibilityResponse_.getEligibility();
     }
 
     private final PreBureauAffordability preBureauAffordability;

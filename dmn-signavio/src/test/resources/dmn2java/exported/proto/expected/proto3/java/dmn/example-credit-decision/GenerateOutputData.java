@@ -37,9 +37,9 @@ public class GenerateOutputData extends com.gs.dmn.signavio.runtime.DefaultSigna
         return map_;
     }
 
-    public static List<type.GenerateOutputData> responseToOutput(proto.GenerateOutputDataResponse response_) {
+    public static List<type.GenerateOutputData> responseToOutput(proto.GenerateOutputDataResponse generateOutputDataResponse_) {
         // Extract and convert output
-        return ((List<type.GenerateOutputData>) response_.getGenerateOutputDataList().stream().map(type.GenerateOutputData::toGenerateOutputData).collect(java.util.stream.Collectors.toList()));
+        return ((List<type.GenerateOutputData>) generateOutputDataResponse_.getGenerateOutputDataList().stream().map(type.GenerateOutputData::toGenerateOutputData).collect(java.util.stream.Collectors.toList()));
     }
     private final AssessIssueRisk assessIssueRisk;
     private final CompareAgainstLendingThreshold compareAgainstLendingThreshold;

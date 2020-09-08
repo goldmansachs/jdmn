@@ -24,11 +24,11 @@ class GenerateOutputDataTest : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
         val generateOutputDataRequest_: proto.GenerateOutputDataRequest = builder_.build()
 
         // Invoke apply method
-        val response_: proto.GenerateOutputDataResponse = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_)
-        val generateOutputDataProto: List<proto.GenerateOutputData?>? = response_.getGenerateOutputDataList()
+        val generateOutputDataResponse_: proto.GenerateOutputDataResponse = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_)
+        val generateOutputDataProto_: List<proto.GenerateOutputData?>? = generateOutputDataResponse_.getGenerateOutputDataList()
 
         // Check results
-        checkValues(asList(type.GenerateOutputDataImpl(number("27.5"), "Accept", numericUnaryMinus(number("7.5")))), generateOutputDataProto)
+        checkValues(asList(type.GenerateOutputDataImpl(number("27.5"), "Accept", numericUnaryMinus(number("7.5")))), generateOutputDataProto_)
     }
 
     @org.junit.Test
@@ -49,11 +49,11 @@ class GenerateOutputDataTest : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
         val generateOutputDataRequest_: proto.GenerateOutputDataRequest = builder_.build()
 
         // Invoke apply method
-        val response_: proto.GenerateOutputDataResponse = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_)
-        val generateOutputDataProto: List<proto.GenerateOutputData?>? = response_.getGenerateOutputDataList()
+        val generateOutputDataResponse_: proto.GenerateOutputDataResponse = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_)
+        val generateOutputDataProto_: List<proto.GenerateOutputData?>? = generateOutputDataResponse_.getGenerateOutputDataList()
 
         // Check results
-        checkValues(asList(type.GenerateOutputDataImpl(numericUnaryMinus(number("10")), "Reject", numericUnaryMinus(number("25")))), generateOutputDataProto)
+        checkValues(asList(type.GenerateOutputDataImpl(numericUnaryMinus(number("10")), "Reject", numericUnaryMinus(number("25")))), generateOutputDataProto_)
     }
 
     @org.junit.Test
@@ -74,11 +74,11 @@ class GenerateOutputDataTest : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
         val generateOutputDataRequest_: proto.GenerateOutputDataRequest = builder_.build()
 
         // Invoke apply method
-        val response_: proto.GenerateOutputDataResponse = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_)
-        val generateOutputDataProto: List<proto.GenerateOutputData?>? = response_.getGenerateOutputDataList()
+        val generateOutputDataResponse_: proto.GenerateOutputDataResponse = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_)
+        val generateOutputDataProto_: List<proto.GenerateOutputData?>? = generateOutputDataResponse_.getGenerateOutputDataList()
 
         // Check results
-        checkValues(asList(type.GenerateOutputDataImpl(numericUnaryMinus(number("42.5")), "Reject", numericUnaryMinus(number("77.5")))), generateOutputDataProto)
+        checkValues(asList(type.GenerateOutputDataImpl(numericUnaryMinus(number("42.5")), "Reject", numericUnaryMinus(number("77.5")))), generateOutputDataProto_)
     }
 
     private fun checkValues(expected: Any?, actual: Any?) {

@@ -45,8 +45,8 @@ public abstract class ProtoBufferFactory {
     public static final String REPEATED = "repeated";
 
     private static final String REQUEST_VARIABLE_SUFFIX = "Request_";
-    private static final String RESPONSE_VARIABLE_NAME = "response_";
-    public static final String PROTO_VARIABLE_SUFFIX = "Proto";
+    private static final String RESPONSE_VARIABLE_SUFFIX = "Response_";
+    private static final String PROTO_VARIABLE_SUFFIX = "Proto_";
 
     static {
         FEEL_TYPE_TO_PROTO_TYPE.put(ENUMERATION.getName(), "string");
@@ -279,11 +279,15 @@ public abstract class ProtoBufferFactory {
     }
 
     public String responseVariableName(TDRGElement element) {
-        return ProtoBufferFactory.RESPONSE_VARIABLE_NAME;
+        return this.transformer.namedElementVariableName(element) + ProtoBufferFactory.RESPONSE_VARIABLE_SUFFIX;
     }
 
     private String responseMessageName(TDRGElement element) {
         return protoElementName(element) + "Response";
+    }
+
+    public String drgElementVariableNameProto(TDRGElement element) {
+        return this.transformer.namedElementVariableName(element) + ProtoBufferFactory.PROTO_VARIABLE_SUFFIX;
     }
 
     private String protoElementName(TNamedElement element) {

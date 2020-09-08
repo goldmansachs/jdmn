@@ -37,9 +37,9 @@ public class Adjudication extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         return map_;
     }
 
-    public static String responseToOutput(proto.AdjudicationResponse response_) {
+    public static String responseToOutput(proto.AdjudicationResponse adjudicationResponse_) {
         // Extract and convert output
-        return response_.getAdjudication();
+        return adjudicationResponse_.getAdjudication();
     }
 
     public Adjudication() {

@@ -24,11 +24,11 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
         proto.GenerateOutputDataRequest generateOutputDataRequest_ = builder_.build();
 
         // Invoke apply method
-        proto.GenerateOutputDataResponse response_ = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_);
-        List<proto.GenerateOutputData> generateOutputDataProto = response_.getGenerateOutputDataList();
+        proto.GenerateOutputDataResponse generateOutputDataResponse_ = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_);
+        List<proto.GenerateOutputData> generateOutputDataProto_ = generateOutputDataResponse_.getGenerateOutputDataList();
 
         // Check results
-        checkValues(asList(new type.GenerateOutputDataImpl(number("27.5"), "Accept", numericUnaryMinus(number("7.5")))), generateOutputDataProto);
+        checkValues(asList(new type.GenerateOutputDataImpl(number("27.5"), "Accept", numericUnaryMinus(number("7.5")))), generateOutputDataProto_);
     }
 
     @org.junit.Test
@@ -49,11 +49,11 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
         proto.GenerateOutputDataRequest generateOutputDataRequest_ = builder_.build();
 
         // Invoke apply method
-        proto.GenerateOutputDataResponse response_ = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_);
-        List<proto.GenerateOutputData> generateOutputDataProto = response_.getGenerateOutputDataList();
+        proto.GenerateOutputDataResponse generateOutputDataResponse_ = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_);
+        List<proto.GenerateOutputData> generateOutputDataProto_ = generateOutputDataResponse_.getGenerateOutputDataList();
 
         // Check results
-        checkValues(asList(new type.GenerateOutputDataImpl(numericUnaryMinus(number("10")), "Reject", numericUnaryMinus(number("25")))), generateOutputDataProto);
+        checkValues(asList(new type.GenerateOutputDataImpl(numericUnaryMinus(number("10")), "Reject", numericUnaryMinus(number("25")))), generateOutputDataProto_);
     }
 
     @org.junit.Test
@@ -74,11 +74,11 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
         proto.GenerateOutputDataRequest generateOutputDataRequest_ = builder_.build();
 
         // Invoke apply method
-        proto.GenerateOutputDataResponse response_ = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_);
-        List<proto.GenerateOutputData> generateOutputDataProto = response_.getGenerateOutputDataList();
+        proto.GenerateOutputDataResponse generateOutputDataResponse_ = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_);
+        List<proto.GenerateOutputData> generateOutputDataProto_ = generateOutputDataResponse_.getGenerateOutputDataList();
 
         // Check results
-        checkValues(asList(new type.GenerateOutputDataImpl(numericUnaryMinus(number("42.5")), "Reject", numericUnaryMinus(number("77.5")))), generateOutputDataProto);
+        checkValues(asList(new type.GenerateOutputDataImpl(numericUnaryMinus(number("42.5")), "Reject", numericUnaryMinus(number("77.5")))), generateOutputDataProto_);
     }
 
     private void checkValues(Object expected, Object actual) {

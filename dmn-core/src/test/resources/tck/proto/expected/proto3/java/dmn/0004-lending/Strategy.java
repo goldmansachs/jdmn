@@ -35,9 +35,9 @@ public class Strategy extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         return map_;
     }
 
-    public static String responseToOutput(proto.StrategyResponse response_) {
+    public static String responseToOutput(proto.StrategyResponse strategyResponse_) {
         // Extract and convert output
-        return response_.getStrategy();
+        return strategyResponse_.getStrategy();
     }
 
     private final BureauCallType bureauCallType;

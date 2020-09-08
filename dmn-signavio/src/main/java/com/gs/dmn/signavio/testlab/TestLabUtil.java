@@ -375,8 +375,8 @@ public class TestLabUtil {
     }
 
     public String drgElementVariableNameProto(OutputParameterDefinition outputParameterDefinition) {
-        String name = drgElementVariableName(outputParameterDefinition);
-        return name + ProtoBufferFactory.PROTO_VARIABLE_SUFFIX;
+        TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
+        return dmnTransformer.getProtoFactory().drgElementVariableNameProto(decision);
     }
 
     public String drgElementArgumentListProto(OutputParameterDefinition outputParameterDefinition) {

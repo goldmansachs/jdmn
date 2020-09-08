@@ -37,9 +37,9 @@ public class PostBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDe
         return map_;
     }
 
-    public static Boolean responseToOutput(proto.PostBureauAffordabilityResponse response_) {
+    public static Boolean responseToOutput(proto.PostBureauAffordabilityResponse postBureauAffordabilityResponse_) {
         // Extract and convert output
-        return response_.getPostBureauAffordability();
+        return postBureauAffordabilityResponse_.getPostBureauAffordability();
     }
 
     private final PostBureauRiskCategory postBureauRiskCategory;

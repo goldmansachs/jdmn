@@ -843,7 +843,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     public String requestVariableName(ResultNodeInfo info) {
         TDRGElement element = info.getReference().getElement();
-        return dmnTransformer.namedElementVariableName(element) + "Request_";
+        return dmnTransformer.getProtoFactory().requestVariableName(element);
     }
 
     public String builderVariableName(ResultNodeInfo info) {

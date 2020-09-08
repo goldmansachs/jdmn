@@ -35,9 +35,9 @@ public class AssessIssueRisk extends com.gs.dmn.signavio.runtime.DefaultSignavio
         return map_;
     }
 
-    public static java.math.BigDecimal responseToOutput(proto.AssessIssueRiskResponse response_) {
+    public static java.math.BigDecimal responseToOutput(proto.AssessIssueRiskResponse assessIssueRiskResponse_) {
         // Extract and convert output
-        return java.math.BigDecimal.valueOf(response_.getAssessIssueRisk());
+        return java.math.BigDecimal.valueOf(assessIssueRiskResponse_.getAssessIssueRisk());
     }
     private final ProcessPriorIssues processPriorIssues;
 

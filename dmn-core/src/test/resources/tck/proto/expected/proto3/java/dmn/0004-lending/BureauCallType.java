@@ -33,9 +33,9 @@ public class BureauCallType extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         return map_;
     }
 
-    public static String responseToOutput(proto.BureauCallTypeResponse response_) {
+    public static String responseToOutput(proto.BureauCallTypeResponse bureauCallTypeResponse_) {
         // Extract and convert output
-        return response_.getBureauCallType();
+        return bureauCallTypeResponse_.getBureauCallType();
     }
 
     private final PreBureauRiskCategory preBureauRiskCategory;
