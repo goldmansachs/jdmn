@@ -22,6 +22,7 @@ public class Zip extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
     private final AccessCertainTemporalUnits accessCertainTemporalUnits;
     private final BuildDateStringInAnnotation buildDateStringInAnnotation;
     private final DescribeAgesList describeAgesList;

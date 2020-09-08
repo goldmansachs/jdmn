@@ -22,6 +22,7 @@ public class Sum extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
         com.gs.dmn.runtime.annotation.HitPolicy.ANY,
         5
     );
+
     private final DateFormula dateFormula;
     private final DatetimeFormula datetimeFormula;
     private final TimeFormula timeFormula;

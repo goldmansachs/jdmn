@@ -22,6 +22,7 @@ public class StringHandlingComparator extends com.gs.dmn.signavio.runtime.Defaul
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
     private final StringHandling stringHandling;
 
     public StringHandlingComparator() {

@@ -22,6 +22,7 @@ public class DotProduct extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
         com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
         2
     );
+
     private final CalculateDotProduct calculateDotProduct;
 
     public DotProduct() {

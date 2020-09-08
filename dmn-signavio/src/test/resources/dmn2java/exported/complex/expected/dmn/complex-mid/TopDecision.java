@@ -22,6 +22,7 @@ public class TopDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
         com.gs.dmn.runtime.annotation.HitPolicy.ANY,
         3
     );
+
     private final Decision decision;
     private final SmallMid smallMid;
 
