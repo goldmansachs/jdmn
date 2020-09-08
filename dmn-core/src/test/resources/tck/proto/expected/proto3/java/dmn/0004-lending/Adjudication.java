@@ -23,6 +23,25 @@ public class Adjudication extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         -1
     );
 
+    public static java.util.Map<String, Object> requestToMap(proto.AdjudicationRequest adjudicationRequest_) {
+        // Create arguments from Request Message
+        type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(adjudicationRequest_.getApplicantData());
+        type.TBureauData bureauData = type.TBureauData.toTBureauData(adjudicationRequest_.getBureauData());
+        String supportingDocuments = adjudicationRequest_.getSupportingDocuments();
+        
+        // Create map
+        java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
+        map_.put("ApplicantData", applicantData);
+        map_.put("BureauData", bureauData);
+        map_.put("SupportingDocuments", supportingDocuments);
+        return map_;
+    }
+
+    public static String responseToOutput(proto.AdjudicationResponse response_) {
+        // Extract and convert output
+        return response_.getAdjudication();
+    }
+
     public Adjudication() {
     }
 

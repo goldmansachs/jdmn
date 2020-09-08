@@ -22,6 +22,21 @@ public class BureauCallType extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
+    public static java.util.Map<String, Object> requestToMap(proto.BureauCallTypeRequest bureauCallTypeRequest_) {
+        // Create arguments from Request Message
+        type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(bureauCallTypeRequest_.getApplicantData());
+        
+        // Create map
+        java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
+        map_.put("ApplicantData", applicantData);
+        return map_;
+    }
+
+    public static String responseToOutput(proto.BureauCallTypeResponse response_) {
+        // Extract and convert output
+        return response_.getBureauCallType();
+    }
     private final PreBureauRiskCategory preBureauRiskCategory;
 
     public BureauCallType() {

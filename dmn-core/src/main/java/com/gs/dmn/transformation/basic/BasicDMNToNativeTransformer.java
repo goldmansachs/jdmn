@@ -546,6 +546,10 @@ public interface BasicDMNToNativeTransformer {
 
     Statement drgElementSignatureProtoBody(TDRGElement element);
 
+    Statement convertProtoRequestToMapBody(TDRGElement element);
+
+    Statement convertProtoResponseToOutputBody(TDRGElement element);
+
     String convertProtoMember(String source, TItemDefinition parent, TItemDefinition child);
 
     String convertMemberToProto(String source, String sourceType, TItemDefinition child);
@@ -555,6 +559,10 @@ public interface BasicDMNToNativeTransformer {
     String qualifiedRequestMessageName(TDRGElement element);
 
     String qualifiedResponseMessageName(TDRGElement element);
+
+    String requestVariableName(TDRGElement element);
+
+    String responseVariableName(TDRGElement element);
 
     String drgElementOutputTypeProto(TDRGElement element);
 

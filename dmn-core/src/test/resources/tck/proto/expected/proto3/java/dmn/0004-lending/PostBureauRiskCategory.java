@@ -22,6 +22,23 @@ public class PostBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDec
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
+    public static java.util.Map<String, Object> requestToMap(proto.PostBureauRiskCategoryRequest postBureauRiskCategoryRequest_) {
+        // Create arguments from Request Message
+        type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(postBureauRiskCategoryRequest_.getApplicantData());
+        type.TBureauData bureauData = type.TBureauData.toTBureauData(postBureauRiskCategoryRequest_.getBureauData());
+        
+        // Create map
+        java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
+        map_.put("ApplicantData", applicantData);
+        map_.put("BureauData", bureauData);
+        return map_;
+    }
+
+    public static String responseToOutput(proto.PostBureauRiskCategoryResponse response_) {
+        // Extract and convert output
+        return response_.getPostBureauRiskCategory();
+    }
     private final ApplicationRiskScore applicationRiskScore;
 
     public PostBureauRiskCategory() {

@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.transformation.native_;
 
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Conversion;
@@ -26,6 +27,7 @@ import com.gs.dmn.transformation.native_.statement.*;
 import com.gs.dmn.transformation.proto.ProtoBufferFactory;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TDecision;
+import org.omg.spec.dmn._20180521.model.TInputData;
 import org.omg.spec.dmn._20180521.model.TItemDefinition;
 
 import java.util.ArrayList;
@@ -35,9 +37,11 @@ public class JavaFactory implements NativeFactory {
     protected final BasicDMNToNativeTransformer transformer;
     protected final ProtoBufferFactory protoFactory;
     protected final NativeTypeFactory typeFactory;
+    private final DMNModelRepository repository;
 
     public JavaFactory(BasicDMNToNativeTransformer transformer) {
         this.transformer = transformer;
+        this.repository = transformer.getDMNModelRepository();
         this.protoFactory = transformer.getProtoFactory();
         this.typeFactory = transformer.getNativeTypeFactory();
     }
@@ -380,17 +384,7 @@ public class JavaFactory implements NativeFactory {
 
     @Override
     public Statement drgElementSignatureProtoBody(TDRGElement element) {
-        CompoundStatement statement = makeCompoundStatement();
-        List<Pair<String, Type>> parameters = this.transformer.drgElementTypeSignature(element, transformer::nativeName);
-
-        // Create arguments from Request Message
-        statement.add(makeCommentStatement("Create arguments from Request Message"));
-        for (Pair<String, Type> p: parameters) {
-            String variableName = p.getLeft();
-            String nativeType = this.typeFactory.nullableType(this.transformer.toNativeType(p.getRight()));
-            statement.add(makeAssignmentStatement(nativeType, variableName, extractParameterFromRequestMessage(element, p), p.getRight()));
-        }
-        statement.add(makeNopStatement());
+        CompoundStatement statement = makeArgumentsFromRequestMessage(element);
 
         // Invoke apply method
         statement.add(makeCommentStatement("Invoke apply method"));
@@ -415,6 +409,55 @@ public class JavaFactory implements NativeFactory {
 
         // Return response
         statement.add(makeReturnStatement(String.format("%s.build()", builderVariable), null));
+        return statement;
+    }
+
+    @Override
+    public Statement convertProtoRequestToMapBody(TDRGElement element) {
+        CompoundStatement statement = makeArgumentsFromRequestMessage(element);
+
+        // Create map
+        statement.add(makeCommentStatement("Create map"));
+        String mapVariable = "map_";
+        statement.add(makeAssignmentStatement("java.util.Map<String, Object>", mapVariable, "new java.util.LinkedHashMap<>()", null));
+        com.gs.dmn.DRGElementReference<TDecision> reference = this.repository.makeDRGElementReference((TDecision) element);
+        List<com.gs.dmn.DRGElementReference<TInputData>> inputDataClosure = this.transformer.inputDataClosure(reference);
+        for (com.gs.dmn.DRGElementReference<TInputData> r: inputDataClosure) {
+            TInputData inputData = r.getElement();
+            String displayName = this.repository.displayName(inputData);
+            String variableName = this.transformer.nativeName(inputData);
+            statement.add(makeExpressionStatement(String.format("%s.put(\"%s\", %s);", mapVariable, displayName, variableName), null));
+        }
+        statement.add(makeReturnStatement(mapVariable, null));
+        return statement;
+
+    }
+
+    @Override
+    public Statement convertProtoResponseToOutputBody(TDRGElement element) {
+        CompoundStatement statement = makeCompoundStatement();
+        statement.add(makeCommentStatement("Extract and convert output"));
+        String source = this.protoFactory.responseVariableName(element);
+        String memberName = this.transformer.nativeName(element);
+        Type memberType = this.transformer.drgElementOutputFEELType(element);
+        String value = String.format("%s.%s", source, protoFactory.protoGetter(memberName, memberType));
+        String exp = extractMemberFromProtoValue(value, memberType);
+        statement.add(makeReturnStatement(exp, memberType));
+        return statement;
+    }
+
+    private CompoundStatement makeArgumentsFromRequestMessage(TDRGElement element) {
+        List<Pair<String, Type>> parameters = this.transformer.drgElementTypeSignature(element, transformer::nativeName);
+
+        CompoundStatement statement = new CompoundStatement();
+        // Create arguments from Request Message
+        statement.add(makeCommentStatement("Create arguments from Request Message"));
+        for (Pair<String, Type> p: parameters) {
+            String variableName = p.getLeft();
+            String nativeType = this.typeFactory.nullableType(this.transformer.toNativeType(p.getRight()));
+            statement.add(makeAssignmentStatement(nativeType, variableName, extractParameterFromRequestMessage(element, p), p.getRight()));
+        }
+        statement.add(makeNopStatement());
         return statement;
     }
 

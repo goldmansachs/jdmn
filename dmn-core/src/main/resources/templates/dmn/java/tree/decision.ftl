@@ -38,6 +38,22 @@ public class ${javaClassName} extends ${decisionBaseClass} {
         ${transformer.hitPolicyAnnotationClassName()}.${transformer.hitPolicy(drgElement)},
         ${modelRepository.rulesCount(drgElement)}
     );
+    <#if transformer.isGenerateProto()>
+
+    public static java.util.Map<String, Object> requestToMap(${transformer.qualifiedRequestMessageName(drgElement)} ${transformer.requestVariableName(drgElement)}) {
+        <#assign stm = transformer.convertProtoRequestToMapBody(drgElement)>
+        <#list stm.statements as child>
+        ${child.expression}
+        </#list>
+    }
+
+    public static ${transformer.drgElementOutputType(drgElement)} responseToOutput(${transformer.qualifiedResponseMessageName(drgElement)} ${transformer.responseVariableName(drgElement)}) {
+        <#assign stm = transformer.convertProtoResponseToOutputBody(drgElement)>
+        <#list stm.statements as child>
+        ${child.expression}
+        </#list>
+    }
+    </#if>
     <@addSubDecisionFields drgElement/>
 
     public ${javaClassName}() {

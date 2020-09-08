@@ -405,7 +405,8 @@ public class TestLabUtil {
     }
 
     public String responseVariableName(OutputParameterDefinition outputParameterDefinition) {
-        return ProtoBufferFactory.RESPONSE_VARIABLE_NAME;
+        TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
+        return this.dmnTransformer.getProtoFactory().responseVariableName(decision);
     }
 
     public String protoGetter(OutputParameterDefinition outputParameterDefinition) {

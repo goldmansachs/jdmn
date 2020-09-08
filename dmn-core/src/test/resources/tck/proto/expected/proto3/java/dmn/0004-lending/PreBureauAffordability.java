@@ -22,6 +22,23 @@ public class PreBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDec
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
+    public static java.util.Map<String, Object> requestToMap(proto.PreBureauAffordabilityRequest preBureauAffordabilityRequest_) {
+        // Create arguments from Request Message
+        type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(preBureauAffordabilityRequest_.getApplicantData());
+        type.TRequestedProduct requestedProduct = type.TRequestedProduct.toTRequestedProduct(preBureauAffordabilityRequest_.getRequestedProduct());
+        
+        // Create map
+        java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
+        map_.put("ApplicantData", applicantData);
+        map_.put("RequestedProduct", requestedProduct);
+        return map_;
+    }
+
+    public static Boolean responseToOutput(proto.PreBureauAffordabilityResponse response_) {
+        // Extract and convert output
+        return response_.getPreBureauAffordability();
+    }
     private final PreBureauRiskCategory preBureauRiskCategory;
     private final RequiredMonthlyInstallment requiredMonthlyInstallment;
 

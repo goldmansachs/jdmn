@@ -22,6 +22,25 @@ public class Routing extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
+    public static java.util.Map<String, Object> requestToMap(proto.RoutingRequest routingRequest_) {
+        // Create arguments from Request Message
+        type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(routingRequest_.getApplicantData());
+        type.TBureauData bureauData = type.TBureauData.toTBureauData(routingRequest_.getBureauData());
+        type.TRequestedProduct requestedProduct = type.TRequestedProduct.toTRequestedProduct(routingRequest_.getRequestedProduct());
+        
+        // Create map
+        java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
+        map_.put("ApplicantData", applicantData);
+        map_.put("BureauData", bureauData);
+        map_.put("RequestedProduct", requestedProduct);
+        return map_;
+    }
+
+    public static String responseToOutput(proto.RoutingResponse response_) {
+        // Extract and convert output
+        return response_.getRouting();
+    }
     private final PostBureauAffordability postBureauAffordability;
     private final PostBureauRiskCategory postBureauRiskCategory;
 
