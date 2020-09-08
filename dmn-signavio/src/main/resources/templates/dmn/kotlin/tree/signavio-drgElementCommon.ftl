@@ -158,6 +158,7 @@ import static ${transformer.qualifiedName(subBKM)}.${transformer.bkmFunctionName
 -->
 <#macro addSubDecisionFields drgElement>
     <#list modelRepository.directSubDecisions(drgElement)>
+
         <#items as subDecision>
     private val ${transformer.qualifiedName(subDecision)} ${transformer.drgElementReferenceVariableName(subDecision)}
         </#items>
