@@ -155,5 +155,9 @@ public interface NativeExpressionFactory {
 
     Statement drgElementSignatureProtoBody(TDRGElement element);
 
+    Statement convertProtoRequestToMapBody(TDRGElement element);
+
+    Statement convertProtoResponseToOutputBody(TDRGElement element);
+
     String convertValueToProtoNativeType(String value, Type type);
 }

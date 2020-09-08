@@ -2014,6 +2014,16 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
+    public Statement convertProtoRequestToMapBody(TDRGElement element) {
+        return this.nativeFactory.convertProtoRequestToMapBody(element);
+    }
+
+    @Override
+    public Statement convertProtoResponseToOutputBody(TDRGElement element) {
+        return this.nativeFactory.convertProtoResponseToOutputBody(element);
+    }
+
+    @Override
     public String convertProtoMember(String source, TItemDefinition parent, TItemDefinition child) {
         return this.nativeFactory.convertProtoMember(source, parent, child);
     }
@@ -2036,6 +2046,16 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     @Override
     public String qualifiedResponseMessageName(TDRGElement element) {
         return this.protoFactory.qualifiedResponseMessageName(element);
+    }
+
+    @Override
+    public String requestVariableName(TDRGElement element) {
+        return this.protoFactory.requestVariableName(element);
+    }
+
+    @Override
+    public String responseVariableName(TDRGElement element) {
+        return this.protoFactory.responseVariableName(element);
     }
 
     @Override
