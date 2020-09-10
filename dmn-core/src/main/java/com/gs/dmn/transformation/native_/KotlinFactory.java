@@ -323,17 +323,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
 
     @Override
     public Statement drgElementSignatureProtoBody(TDRGElement element) {
-        CompoundStatement statement = makeCompoundStatement();
-        List<Pair<String, Type>> parameters = this.transformer.drgElementTypeSignature(element, transformer::nativeName);
-
-        // Create arguments from Request Message
-        statement.add(makeCommentStatement("Create arguments from Request Message"));
-        for (Pair<String, Type> p: parameters) {
-            String variableName = p.getLeft();
-            String nativeType = this.typeFactory.nullableType(this.transformer.toNativeType(p.getRight()));
-            statement.add(makeDeclarationStatement(nativeType, variableName, extractParameterFromRequestMessage(element, p), p.getRight()));
-        }
-        statement.add(makeNopStatement());
+        CompoundStatement statement = makeArgumentsFromRequestMessage(element);
 
         // Invoke apply method
         statement.add(makeCommentStatement("Invoke apply method"));
@@ -480,17 +470,17 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
 
     @Override
     protected String toProtoNumber(String value) {
-        return String.format("(if (%s == null) 0.0 else %s!!.toDouble())", value, value);
+        return String.format("(if (%s == null) %s else %s!!.toDouble())", value, DEFAULT_PROTO_NUMBER, value);
     }
 
     @Override
     protected String toProtoBoolean(String value) {
-        return String.format("(if (%s == null) false else %s!!)", value, value);
+        return String.format("(if (%s == null) %s else %s!!)", value, DEFAULT_PROTO_BOOLEAN, value);
     }
 
     @Override
     protected String toProtoString(String value) {
-        return String.format("(if (%s == null) null else %s!!)", value, value);
+        return String.format("(if (%s == null) %s else %s!!)", value, DEFAULT_PROTO_STRING, value);
     }
 
     @Override

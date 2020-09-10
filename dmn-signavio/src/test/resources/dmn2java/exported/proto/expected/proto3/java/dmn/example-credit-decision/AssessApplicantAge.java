@@ -97,7 +97,7 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSigna
         
         // Convert output to Response Message
         proto.AssessApplicantAgeResponse.Builder builder_ = proto.AssessApplicantAgeResponse.newBuilder();
-        builder_.setAssessApplicantAge((output_ == null ? 0 : output_.doubleValue()));
+        builder_.setAssessApplicantAge((output_ == null ? 0.0 : output_.doubleValue()));
         return builder_.build();
     }
 

@@ -43,7 +43,7 @@ class Test0004Lending : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         val adjudicationBuilder_: proto.AdjudicationRequest.Builder = proto.AdjudicationRequest.newBuilder()
         adjudicationBuilder_.setApplicantData(type.TApplicantData.toProto(applicantData))
         adjudicationBuilder_.setBureauData(type.TBureauData.toProto(bureauData))
-        adjudicationBuilder_.setSupportingDocuments((if (supportingDocuments == null) null else supportingDocuments!!))
+        adjudicationBuilder_.setSupportingDocuments((if (supportingDocuments == null) "" else supportingDocuments!!))
         val adjudicationRequest_: proto.AdjudicationRequest = adjudicationBuilder_.build()
         checkValues("ACCEPT", Adjudication().apply(adjudicationRequest_, annotationSet_, eventListener_, externalExecutor_, cache_).getAdjudication())
         // Check ApplicationRiskScore with proto request

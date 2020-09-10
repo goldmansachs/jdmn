@@ -75,7 +75,7 @@ class Eligibility(val preBureauAffordability : PreBureauAffordability = PreBurea
         
         // Convert output to Response Message
         var builder_: proto.EligibilityResponse.Builder = proto.EligibilityResponse.newBuilder()
-        builder_.setEligibility((if (output_ == null) null else output_!!))
+        builder_.setEligibility((if (output_ == null) "" else output_!!))
         return builder_.build()
     }
 

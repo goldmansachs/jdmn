@@ -32,9 +32,9 @@ public interface Monthly extends com.gs.dmn.runtime.DMNType {
 
     static proto.Monthly toProto(Monthly other) {
         proto.Monthly.Builder result_ = proto.Monthly.newBuilder();
-        result_.setIncome((((Monthly) other).getIncome() == null ? 0 : ((Monthly) other).getIncome().doubleValue()));
-        result_.setExpenses((((Monthly) other).getExpenses() == null ? 0 : ((Monthly) other).getExpenses().doubleValue()));
-        result_.setRepayments((((Monthly) other).getRepayments() == null ? 0 : ((Monthly) other).getRepayments().doubleValue()));
+        result_.setIncome((((Monthly) other).getIncome() == null ? 0.0 : ((Monthly) other).getIncome().doubleValue()));
+        result_.setExpenses((((Monthly) other).getExpenses() == null ? 0.0 : ((Monthly) other).getExpenses().doubleValue()));
+        result_.setRepayments((((Monthly) other).getRepayments() == null ? 0.0 : ((Monthly) other).getRepayments().doubleValue()));
         return result_.build();
     }
 

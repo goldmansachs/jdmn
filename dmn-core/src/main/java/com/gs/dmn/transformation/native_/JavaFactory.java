@@ -34,6 +34,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JavaFactory implements NativeFactory {
+    protected static final Object DEFAULT_PROTO_NUMBER = "0.0";
+    protected static final Object DEFAULT_PROTO_BOOLEAN = "false";
+    protected static final Object DEFAULT_PROTO_STRING = "\"\"";
+
     protected final BasicDMNToNativeTransformer transformer;
     protected final ProtoBufferFactory protoFactory;
     protected final NativeTypeFactory typeFactory;
@@ -564,15 +568,15 @@ public class JavaFactory implements NativeFactory {
     }
 
     protected String toProtoNumber(String value) {
-        return String.format("(%s == null ? 0 : %s.doubleValue())", value, value);
+        return String.format("(%s == null ? %s : %s.doubleValue())", value, DEFAULT_PROTO_NUMBER, value);
     }
 
     protected String toProtoBoolean(String value) {
-        return value;
+        return String.format("(%s == null ? %s : %s)", value, DEFAULT_PROTO_BOOLEAN, value);
     }
 
     protected String toProtoString(String value) {
-        return value;
+        return String.format("(%s == null ? %s : %s)", value, DEFAULT_PROTO_STRING, value);
     }
 
     protected String cast(String type, String value) {

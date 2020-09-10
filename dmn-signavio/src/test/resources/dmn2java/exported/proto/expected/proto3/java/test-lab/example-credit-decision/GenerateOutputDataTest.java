@@ -18,8 +18,8 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
 
         // Make proto request
         proto.GenerateOutputDataRequest.Builder builder_ = proto.GenerateOutputDataRequest.newBuilder();
-        builder_.setCurrentRiskAppetite((currentRiskAppetite == null ? 0 : currentRiskAppetite.doubleValue()));
-        builder_.setLendingThreshold((lendingThreshold == null ? 0 : lendingThreshold.doubleValue()));
+        builder_.setCurrentRiskAppetite((currentRiskAppetite == null ? 0.0 : currentRiskAppetite.doubleValue()));
+        builder_.setLendingThreshold((lendingThreshold == null ? 0.0 : lendingThreshold.doubleValue()));
         builder_.setApplicant(type.Applicant.toProto(applicant));
         proto.GenerateOutputDataRequest generateOutputDataRequest_ = builder_.build();
 
@@ -43,8 +43,8 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
 
         // Make proto request
         proto.GenerateOutputDataRequest.Builder builder_ = proto.GenerateOutputDataRequest.newBuilder();
-        builder_.setCurrentRiskAppetite((currentRiskAppetite == null ? 0 : currentRiskAppetite.doubleValue()));
-        builder_.setLendingThreshold((lendingThreshold == null ? 0 : lendingThreshold.doubleValue()));
+        builder_.setCurrentRiskAppetite((currentRiskAppetite == null ? 0.0 : currentRiskAppetite.doubleValue()));
+        builder_.setLendingThreshold((lendingThreshold == null ? 0.0 : lendingThreshold.doubleValue()));
         builder_.setApplicant(type.Applicant.toProto(applicant));
         proto.GenerateOutputDataRequest generateOutputDataRequest_ = builder_.build();
 
@@ -68,8 +68,8 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
 
         // Make proto request
         proto.GenerateOutputDataRequest.Builder builder_ = proto.GenerateOutputDataRequest.newBuilder();
-        builder_.setCurrentRiskAppetite((currentRiskAppetite == null ? 0 : currentRiskAppetite.doubleValue()));
-        builder_.setLendingThreshold((lendingThreshold == null ? 0 : lendingThreshold.doubleValue()));
+        builder_.setCurrentRiskAppetite((currentRiskAppetite == null ? 0.0 : currentRiskAppetite.doubleValue()));
+        builder_.setLendingThreshold((lendingThreshold == null ? 0.0 : lendingThreshold.doubleValue()));
         builder_.setApplicant(type.Applicant.toProto(applicant));
         proto.GenerateOutputDataRequest generateOutputDataRequest_ = builder_.build();
 

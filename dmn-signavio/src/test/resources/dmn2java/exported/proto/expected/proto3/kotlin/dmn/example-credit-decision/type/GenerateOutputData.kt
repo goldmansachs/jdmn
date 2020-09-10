@@ -80,7 +80,7 @@ interface GenerateOutputData : com.gs.dmn.runtime.DMNType {
 
         fun toProto(other: GenerateOutputData?): proto.GenerateOutputData {
             var result_: proto.GenerateOutputData.Builder = proto.GenerateOutputData.newBuilder()
-            result_.setDecision((if ((other as GenerateOutputData).decision == null) null else (other as GenerateOutputData).decision!!))
+            result_.setDecision((if ((other as GenerateOutputData).decision == null) "" else (other as GenerateOutputData).decision!!))
             result_.setAssessment((if ((other as GenerateOutputData).assessment == null) 0.0 else (other as GenerateOutputData).assessment!!.toDouble()))
             result_.setIssue((if ((other as GenerateOutputData).issue == null) 0.0 else (other as GenerateOutputData).issue!!.toDouble()))
             return result_.build()

@@ -118,7 +118,7 @@ public class PostBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDe
         
         // Convert output to Response Message
         proto.PostBureauAffordabilityResponse.Builder builder_ = proto.PostBureauAffordabilityResponse.newBuilder();
-        builder_.setPostBureauAffordability(output_);
+        builder_.setPostBureauAffordability((output_ == null ? false : output_));
         return builder_.build();
     }
 

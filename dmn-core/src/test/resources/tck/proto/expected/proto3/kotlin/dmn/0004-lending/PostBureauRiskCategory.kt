@@ -85,7 +85,7 @@ class PostBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = A
         
         // Convert output to Response Message
         var builder_: proto.PostBureauRiskCategoryResponse.Builder = proto.PostBureauRiskCategoryResponse.newBuilder()
-        builder_.setPostBureauRiskCategory((if (output_ == null) null else output_!!))
+        builder_.setPostBureauRiskCategory((if (output_ == null) "" else output_!!))
         return builder_.build()
     }
 

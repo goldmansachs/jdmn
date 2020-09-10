@@ -37,10 +37,10 @@ public interface TApplicantData extends com.gs.dmn.runtime.DMNType {
     static proto.TApplicantData toProto(TApplicantData other) {
         proto.TApplicantData.Builder result_ = proto.TApplicantData.newBuilder();
         result_.setMonthly(type.Monthly.toProto(((TApplicantData) other).getMonthly()));
-        result_.setAge((((TApplicantData) other).getAge() == null ? 0 : ((TApplicantData) other).getAge().doubleValue()));
-        result_.setExistingCustomer(((TApplicantData) other).getExistingCustomer());
-        result_.setMaritalStatus(((TApplicantData) other).getMaritalStatus());
-        result_.setEmploymentStatus(((TApplicantData) other).getEmploymentStatus());
+        result_.setAge((((TApplicantData) other).getAge() == null ? 0.0 : ((TApplicantData) other).getAge().doubleValue()));
+        result_.setExistingCustomer((((TApplicantData) other).getExistingCustomer() == null ? false : ((TApplicantData) other).getExistingCustomer()));
+        result_.setMaritalStatus((((TApplicantData) other).getMaritalStatus() == null ? "" : ((TApplicantData) other).getMaritalStatus()));
+        result_.setEmploymentStatus((((TApplicantData) other).getEmploymentStatus() == null ? "" : ((TApplicantData) other).getEmploymentStatus()));
         return result_.build();
     }
 

@@ -118,7 +118,7 @@ public class PreBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         
         // Convert output to Response Message
         proto.PreBureauRiskCategoryResponse.Builder builder_ = proto.PreBureauRiskCategoryResponse.newBuilder();
-        builder_.setPreBureauRiskCategory(output_);
+        builder_.setPreBureauRiskCategory((output_ == null ? "" : output_));
         return builder_.build();
     }
 

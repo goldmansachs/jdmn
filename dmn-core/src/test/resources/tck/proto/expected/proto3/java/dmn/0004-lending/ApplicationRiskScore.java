@@ -108,7 +108,7 @@ public class ApplicationRiskScore extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         
         // Convert output to Response Message
         proto.ApplicationRiskScoreResponse.Builder builder_ = proto.ApplicationRiskScoreResponse.newBuilder();
-        builder_.setApplicationRiskScore((output_ == null ? 0 : output_.doubleValue()));
+        builder_.setApplicationRiskScore((output_ == null ? 0.0 : output_.doubleValue()));
         return builder_.build();
     }
 

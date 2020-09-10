@@ -72,7 +72,7 @@ class BureauCallType(val preBureauRiskCategory : PreBureauRiskCategory = PreBure
         
         // Convert output to Response Message
         var builder_: proto.BureauCallTypeResponse.Builder = proto.BureauCallTypeResponse.newBuilder()
-        builder_.setBureauCallType((if (output_ == null) null else output_!!))
+        builder_.setBureauCallType((if (output_ == null) "" else output_!!))
         return builder_.build()
     }
 
