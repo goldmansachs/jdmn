@@ -98,5 +98,22 @@ class ApplicationRiskScore() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
             -1
         )
+
+        @JvmStatic
+        fun requestToMap(applicationRiskScoreRequest_: proto.ApplicationRiskScoreRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(applicationRiskScoreRequest_.getApplicantData())
+            
+            // Create map
+            var map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("ApplicantData", applicantData)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(applicationRiskScoreResponse_: proto.ApplicationRiskScoreResponse): java.math.BigDecimal? {
+            // Extract and convert output
+            return java.math.BigDecimal.valueOf(applicationRiskScoreResponse_.getApplicationRiskScore())
+        }
     }
 }

@@ -203,5 +203,24 @@ class Strategy(val bureauCallType : BureauCallType = BureauCallType(), val eligi
             com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
             3
         )
+
+        @JvmStatic
+        fun requestToMap(strategyRequest_: proto.StrategyRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(strategyRequest_.getApplicantData())
+            var requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(strategyRequest_.getRequestedProduct())
+            
+            // Create map
+            var map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("ApplicantData", applicantData)
+            map_.put("RequestedProduct", requestedProduct)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(strategyResponse_: proto.StrategyResponse): String? {
+            // Extract and convert output
+            return strategyResponse_.getStrategy()
+        }
     }
 }

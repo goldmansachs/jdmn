@@ -93,5 +93,24 @@ class Eligibility(val preBureauAffordability : PreBureauAffordability = PreBurea
             com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
             -1
         )
+
+        @JvmStatic
+        fun requestToMap(eligibilityRequest_: proto.EligibilityRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(eligibilityRequest_.getApplicantData())
+            var requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(eligibilityRequest_.getRequestedProduct())
+            
+            // Create map
+            var map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("ApplicantData", applicantData)
+            map_.put("RequestedProduct", requestedProduct)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(eligibilityResponse_: proto.EligibilityResponse): String? {
+            // Extract and convert output
+            return eligibilityResponse_.getEligibility()
+        }
     }
 }

@@ -23,6 +23,7 @@ import com.gs.dmn.transformation.native_.statement.*;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TDecision;
+import org.omg.spec.dmn._20180521.model.TInputData;
 import org.omg.spec.dmn._20180521.model.TItemDefinition;
 
 import java.util.List;
@@ -330,7 +331,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
         for (Pair<String, Type> p: parameters) {
             String variableName = p.getLeft();
             String nativeType = this.typeFactory.nullableType(this.transformer.toNativeType(p.getRight()));
-            statement.add(makeAssignmentStatement(nativeType, variableName, extractParameterFromRequestMessage(element, p), p.getRight()));
+            statement.add(makeDeclarationStatement(nativeType, variableName, extractParameterFromRequestMessage(element, p), p.getRight()));
         }
         statement.add(makeNopStatement());
 
@@ -340,7 +341,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
         String outputNativeType = this.transformer.drgElementOutputType(element);
         String outputVariable = "output_";
         String outputExpression = String.format("apply(%s)", this.transformer.drgElementArgumentListExtraCache(element));
-        statement.add(makeAssignmentStatement(outputNativeType, outputVariable, outputExpression, outputType));
+        statement.add(makeDeclarationStatement(outputNativeType, outputVariable, outputExpression, outputType));
         statement.add(makeNopStatement());
 
         // Convert output to Response Message
@@ -350,13 +351,33 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
         String responseMessageBuilderName = responseMessageName + ".Builder";
         String builderVariable = "builder_";
         String builderValue = String.format("%s.newBuilder()", responseMessageName);
-        statement.add(makeAssignmentStatement(responseMessageBuilderName, builderVariable, builderValue, null));
+        statement.add(makeDeclarationStatement(responseMessageBuilderName, builderVariable, builderValue, null));
         // Set value
         String setter = this.protoFactory.protoSetter(this.transformer.namedElementVariableName(element), outputType);
         statement.add(makeExpressionStatement(String.format("%s.%s(%s)", builderVariable, setter, convertValueToProtoNativeType(outputVariable, outputType)), null));
 
         // Return response
         statement.add(makeReturnStatement(String.format("%s.build()", builderVariable), null));
+        return statement;
+    }
+
+    @Override
+    public Statement convertProtoRequestToMapBody(TDRGElement element) {
+        CompoundStatement statement = makeArgumentsFromRequestMessage(element);
+
+        // Create map
+        statement.add(makeCommentStatement("Create map"));
+        String mapVariable = "map_";
+        statement.add(makeDeclarationStatement("kotlin.collections.MutableMap<String, Any?>", mapVariable, "mutableMapOf()", null));
+        com.gs.dmn.DRGElementReference<TDecision> reference = this.repository.makeDRGElementReference((TDecision) element);
+        List<com.gs.dmn.DRGElementReference<TInputData>> inputDataClosure = this.transformer.inputDataClosure(reference);
+        for (com.gs.dmn.DRGElementReference<TInputData> r: inputDataClosure) {
+            TInputData inputData = r.getElement();
+            String displayName = this.repository.displayName(inputData);
+            String variableName = this.transformer.nativeName(inputData);
+            statement.add(makeExpressionStatement(String.format("%s.put(\"%s\", %s)", mapVariable, displayName, variableName), null));
+        }
+        statement.add(makeReturnStatement(mapVariable, null));
         return statement;
     }
 
@@ -481,8 +502,8 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     // Simple statements
     //
     @Override
-    public ExpressionStatement makeAssignmentStatement(String nativeType, String variableName, String expression, Type type) {
-        return new AssignmentStatement(String.format("var %s: %s = %s", variableName, nativeType, expression), type);
+    public ExpressionStatement makeDeclarationStatement(String nativeType, String variableName, String expression, Type type) {
+        return new DeclarationStatement(String.format("var %s: %s = %s", variableName, nativeType, expression), type);
     }
 
     @Override

@@ -24,7 +24,7 @@ public interface NativeStatementFactory {
 
     CommentStatement makeCommentStatement(String message);
 
-    ExpressionStatement makeAssignmentStatement(String nativeType, String variableName, String expression, Type type);
+    ExpressionStatement makeDeclarationStatement(String nativeType, String variableName, String expression, Type type);
 
     Statement makeReturnStatement(String expression, Type type);
 
