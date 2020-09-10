@@ -201,5 +201,26 @@ class MakeCreditDecision(val compareAgainstLendingThreshold : CompareAgainstLend
             com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
             3
         )
+
+        @JvmStatic
+        fun requestToMap(makeCreditDecisionRequest_: proto.MakeCreditDecisionRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            var applicant: type.Applicant? = type.Applicant.toApplicant(makeCreditDecisionRequest_.getApplicant())
+            var currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getCurrentRiskAppetite())
+            var lendingThreshold: java.math.BigDecimal? = java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getLendingThreshold())
+            
+            // Create map
+            var map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("Applicant", applicant)
+            map_.put("Current risk appetite", currentRiskAppetite)
+            map_.put("Lending threshold", lendingThreshold)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(makeCreditDecisionResponse_: proto.MakeCreditDecisionResponse): String? {
+            // Extract and convert output
+            return makeCreditDecisionResponse_.getMakeCreditDecision()
+        }
     }
 }

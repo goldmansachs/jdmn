@@ -96,5 +96,26 @@ class GenerateOutputData(val assessIssueRisk : AssessIssueRisk = AssessIssueRisk
             com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
             -1
         )
+
+        @JvmStatic
+        fun requestToMap(generateOutputDataRequest_: proto.GenerateOutputDataRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            var applicant: type.Applicant? = type.Applicant.toApplicant(generateOutputDataRequest_.getApplicant())
+            var currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(generateOutputDataRequest_.getCurrentRiskAppetite())
+            var lendingThreshold: java.math.BigDecimal? = java.math.BigDecimal.valueOf(generateOutputDataRequest_.getLendingThreshold())
+            
+            // Create map
+            var map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("Applicant", applicant)
+            map_.put("Current risk appetite", currentRiskAppetite)
+            map_.put("Lending threshold", lendingThreshold)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(generateOutputDataResponse_: proto.GenerateOutputDataResponse): List<type.GenerateOutputData?>? {
+            // Extract and convert output
+            return (generateOutputDataResponse_.getGenerateOutputDataList()?.stream()?.map({e -> type.GenerateOutputData.toGenerateOutputData(e)})?.collect(java.util.stream.Collectors.toList()) as List<type.GenerateOutputData?>?)
+        }
     }
 }

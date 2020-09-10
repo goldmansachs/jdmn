@@ -194,5 +194,22 @@ class AssessApplicantAge() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
             3
         )
+
+        @JvmStatic
+        fun requestToMap(assessApplicantAgeRequest_: proto.AssessApplicantAgeRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            var applicant: type.Applicant? = type.Applicant.toApplicant(assessApplicantAgeRequest_.getApplicant())
+            
+            // Create map
+            var map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("Applicant", applicant)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(assessApplicantAgeResponse_: proto.AssessApplicantAgeResponse): java.math.BigDecimal? {
+            // Extract and convert output
+            return java.math.BigDecimal.valueOf(assessApplicantAgeResponse_.getAssessApplicantAge())
+        }
     }
 }

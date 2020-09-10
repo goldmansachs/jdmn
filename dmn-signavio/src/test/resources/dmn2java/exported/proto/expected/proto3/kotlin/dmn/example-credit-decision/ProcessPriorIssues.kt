@@ -259,5 +259,22 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             com.gs.dmn.runtime.annotation.HitPolicy.COLLECT,
             5
         )
+
+        @JvmStatic
+        fun requestToMap(processPriorIssuesRequest_: proto.ProcessPriorIssuesRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            var applicant: type.Applicant? = type.Applicant.toApplicant(processPriorIssuesRequest_.getApplicant())
+            
+            // Create map
+            var map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("Applicant", applicant)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(processPriorIssuesResponse_: proto.ProcessPriorIssuesResponse): List<java.math.BigDecimal?>? {
+            // Extract and convert output
+            return (processPriorIssuesResponse_.getProcessPriorIssuesList()?.stream()?.map({e -> java.math.BigDecimal.valueOf(e)})?.collect(java.util.stream.Collectors.toList()) as List<java.math.BigDecimal?>?)
+        }
     }
 }
