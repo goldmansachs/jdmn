@@ -95,5 +95,26 @@ class Routing(val postBureauAffordability : PostBureauAffordability = PostBureau
             com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
             -1
         )
+
+        @JvmStatic
+        fun requestToMap(routingRequest_: proto.RoutingRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(routingRequest_.getApplicantData())
+            var bureauData: type.TBureauData? = type.TBureauData.toTBureauData(routingRequest_.getBureauData())
+            var requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(routingRequest_.getRequestedProduct())
+            
+            // Create map
+            var map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("ApplicantData", applicantData)
+            map_.put("BureauData", bureauData)
+            map_.put("RequestedProduct", requestedProduct)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(routingResponse_: proto.RoutingResponse): String? {
+            // Extract and convert output
+            return routingResponse_.getRouting()
+        }
     }
 }

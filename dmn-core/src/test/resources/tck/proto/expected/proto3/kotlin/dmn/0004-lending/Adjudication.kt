@@ -91,5 +91,26 @@ class Adjudication() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
             -1
         )
+
+        @JvmStatic
+        fun requestToMap(adjudicationRequest_: proto.AdjudicationRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(adjudicationRequest_.getApplicantData())
+            var bureauData: type.TBureauData? = type.TBureauData.toTBureauData(adjudicationRequest_.getBureauData())
+            var supportingDocuments: String? = adjudicationRequest_.getSupportingDocuments()
+            
+            // Create map
+            var map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("ApplicantData", applicantData)
+            map_.put("BureauData", bureauData)
+            map_.put("SupportingDocuments", supportingDocuments)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(adjudicationResponse_: proto.AdjudicationResponse): String? {
+            // Extract and convert output
+            return adjudicationResponse_.getAdjudication()
+        }
     }
 }

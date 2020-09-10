@@ -98,5 +98,22 @@ class RequiredMonthlyInstallment() : com.gs.dmn.runtime.DefaultDMNBaseDecision()
             com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
             -1
         )
+
+        @JvmStatic
+        fun requestToMap(requiredMonthlyInstallmentRequest_: proto.RequiredMonthlyInstallmentRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            var requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(requiredMonthlyInstallmentRequest_.getRequestedProduct())
+            
+            // Create map
+            var map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("RequestedProduct", requestedProduct)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(requiredMonthlyInstallmentResponse_: proto.RequiredMonthlyInstallmentResponse): java.math.BigDecimal? {
+            // Extract and convert output
+            return java.math.BigDecimal.valueOf(requiredMonthlyInstallmentResponse_.getRequiredMonthlyInstallment())
+        }
     }
 }

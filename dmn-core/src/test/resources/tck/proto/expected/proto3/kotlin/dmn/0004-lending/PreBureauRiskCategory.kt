@@ -101,5 +101,22 @@ class PreBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = Ap
             com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
             -1
         )
+
+        @JvmStatic
+        fun requestToMap(preBureauRiskCategoryRequest_: proto.PreBureauRiskCategoryRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(preBureauRiskCategoryRequest_.getApplicantData())
+            
+            // Create map
+            var map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("ApplicantData", applicantData)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(preBureauRiskCategoryResponse_: proto.PreBureauRiskCategoryResponse): String? {
+            // Extract and convert output
+            return preBureauRiskCategoryResponse_.getPreBureauRiskCategory()
+        }
     }
 }

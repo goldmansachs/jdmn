@@ -93,5 +93,24 @@ class PreBureauAffordability(val preBureauRiskCategory : PreBureauRiskCategory =
             com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
             -1
         )
+
+        @JvmStatic
+        fun requestToMap(preBureauAffordabilityRequest_: proto.PreBureauAffordabilityRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(preBureauAffordabilityRequest_.getApplicantData())
+            var requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(preBureauAffordabilityRequest_.getRequestedProduct())
+            
+            // Create map
+            var map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("ApplicantData", applicantData)
+            map_.put("RequestedProduct", requestedProduct)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(preBureauAffordabilityResponse_: proto.PreBureauAffordabilityResponse): Boolean? {
+            // Extract and convert output
+            return preBureauAffordabilityResponse_.getPreBureauAffordability()
+        }
     }
 }

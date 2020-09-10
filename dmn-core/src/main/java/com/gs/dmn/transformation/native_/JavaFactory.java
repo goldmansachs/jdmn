@@ -37,7 +37,7 @@ public class JavaFactory implements NativeFactory {
     protected final BasicDMNToNativeTransformer transformer;
     protected final ProtoBufferFactory protoFactory;
     protected final NativeTypeFactory typeFactory;
-    private final DMNModelRepository repository;
+    protected final DMNModelRepository repository;
 
     public JavaFactory(BasicDMNToNativeTransformer transformer) {
         this.transformer = transformer;
@@ -392,7 +392,7 @@ public class JavaFactory implements NativeFactory {
         String outputNativeType = this.transformer.drgElementOutputType(element);
         String outputVariable = "output_";
         String outputExpression = String.format("apply(%s)", this.transformer.drgElementArgumentListExtraCache(element));
-        statement.add(makeAssignmentStatement(outputNativeType, outputVariable, outputExpression, outputType));
+        statement.add(makeDeclarationStatement(outputNativeType, outputVariable, outputExpression, outputType));
         statement.add(makeNopStatement());
 
         // Convert output to Response Message
@@ -402,7 +402,7 @@ public class JavaFactory implements NativeFactory {
         String responseMessageBuilderName = responseMessageName + ".Builder";
         String builderVariable = "builder_";
         String builderValue = String.format("%s.newBuilder()", responseMessageName);
-        statement.add(makeAssignmentStatement(responseMessageBuilderName, builderVariable, builderValue, null));
+        statement.add(makeDeclarationStatement(responseMessageBuilderName, builderVariable, builderValue, null));
         // Set value
         String setter = this.protoFactory.protoSetter(this.transformer.namedElementVariableName(element), outputType);
         statement.add(makeExpressionStatement(String.format("%s.%s(%s);", builderVariable, setter, convertValueToProtoNativeType(outputVariable, outputType)), null));
@@ -419,7 +419,7 @@ public class JavaFactory implements NativeFactory {
         // Create map
         statement.add(makeCommentStatement("Create map"));
         String mapVariable = "map_";
-        statement.add(makeAssignmentStatement("java.util.Map<String, Object>", mapVariable, "new java.util.LinkedHashMap<>()", null));
+        statement.add(makeDeclarationStatement("java.util.Map<String, Object>", mapVariable, "new java.util.LinkedHashMap<>()", null));
         com.gs.dmn.DRGElementReference<TDecision> reference = this.repository.makeDRGElementReference((TDecision) element);
         List<com.gs.dmn.DRGElementReference<TInputData>> inputDataClosure = this.transformer.inputDataClosure(reference);
         for (com.gs.dmn.DRGElementReference<TInputData> r: inputDataClosure) {
@@ -430,7 +430,6 @@ public class JavaFactory implements NativeFactory {
         }
         statement.add(makeReturnStatement(mapVariable, null));
         return statement;
-
     }
 
     @Override
@@ -446,7 +445,7 @@ public class JavaFactory implements NativeFactory {
         return statement;
     }
 
-    private CompoundStatement makeArgumentsFromRequestMessage(TDRGElement element) {
+    protected CompoundStatement makeArgumentsFromRequestMessage(TDRGElement element) {
         List<Pair<String, Type>> parameters = this.transformer.drgElementTypeSignature(element, transformer::nativeName);
 
         CompoundStatement statement = new CompoundStatement();
@@ -455,7 +454,7 @@ public class JavaFactory implements NativeFactory {
         for (Pair<String, Type> p: parameters) {
             String variableName = p.getLeft();
             String nativeType = this.typeFactory.nullableType(this.transformer.toNativeType(p.getRight()));
-            statement.add(makeAssignmentStatement(nativeType, variableName, extractParameterFromRequestMessage(element, p), p.getRight()));
+            statement.add(makeDeclarationStatement(nativeType, variableName, extractParameterFromRequestMessage(element, p), p.getRight()));
         }
         statement.add(makeNopStatement());
         return statement;
@@ -603,8 +602,8 @@ public class JavaFactory implements NativeFactory {
     }
 
     @Override
-    public ExpressionStatement makeAssignmentStatement(String nativeType, String variableName, String expression, Type type) {
-        return new AssignmentStatement(String.format("%s %s = %s;", nativeType, variableName, expression), type);
+    public ExpressionStatement makeDeclarationStatement(String nativeType, String variableName, String expression, Type type) {
+        return new DeclarationStatement(String.format("%s %s = %s;", nativeType, variableName, expression), type);
     }
 
     @Override
