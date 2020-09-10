@@ -101,8 +101,8 @@ interface TApplicantData : com.gs.dmn.runtime.DMNType {
             result_.setMonthly(type.Monthly.toProto((other as TApplicantData).monthly))
             result_.setAge((if ((other as TApplicantData).age == null) 0.0 else (other as TApplicantData).age!!.toDouble()))
             result_.setExistingCustomer((if ((other as TApplicantData).existingCustomer == null) false else (other as TApplicantData).existingCustomer!!))
-            result_.setMaritalStatus((if ((other as TApplicantData).maritalStatus == null) null else (other as TApplicantData).maritalStatus!!))
-            result_.setEmploymentStatus((if ((other as TApplicantData).employmentStatus == null) null else (other as TApplicantData).employmentStatus!!))
+            result_.setMaritalStatus((if ((other as TApplicantData).maritalStatus == null) "" else (other as TApplicantData).maritalStatus!!))
+            result_.setEmploymentStatus((if ((other as TApplicantData).employmentStatus == null) "" else (other as TApplicantData).employmentStatus!!))
             return result_.build()
         }
 

@@ -34,10 +34,10 @@ public interface TRequestedProduct extends com.gs.dmn.runtime.DMNType {
 
     static proto.TRequestedProduct toProto(TRequestedProduct other) {
         proto.TRequestedProduct.Builder result_ = proto.TRequestedProduct.newBuilder();
-        result_.setProductType(((TRequestedProduct) other).getProductType());
-        result_.setAmount((((TRequestedProduct) other).getAmount() == null ? 0 : ((TRequestedProduct) other).getAmount().doubleValue()));
-        result_.setRate((((TRequestedProduct) other).getRate() == null ? 0 : ((TRequestedProduct) other).getRate().doubleValue()));
-        result_.setTerm((((TRequestedProduct) other).getTerm() == null ? 0 : ((TRequestedProduct) other).getTerm().doubleValue()));
+        result_.setProductType((((TRequestedProduct) other).getProductType() == null ? "" : ((TRequestedProduct) other).getProductType()));
+        result_.setAmount((((TRequestedProduct) other).getAmount() == null ? 0.0 : ((TRequestedProduct) other).getAmount().doubleValue()));
+        result_.setRate((((TRequestedProduct) other).getRate() == null ? 0.0 : ((TRequestedProduct) other).getRate().doubleValue()));
+        result_.setTerm((((TRequestedProduct) other).getTerm() == null ? 0.0 : ((TRequestedProduct) other).getTerm().doubleValue()));
         return result_.build();
     }
 

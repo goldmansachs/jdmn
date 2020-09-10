@@ -43,7 +43,7 @@ public class Test0004Lending extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         proto.AdjudicationRequest.Builder adjudicationBuilder_ = proto.AdjudicationRequest.newBuilder();
         adjudicationBuilder_.setApplicantData(type.TApplicantData.toProto(applicantData));
         adjudicationBuilder_.setBureauData(type.TBureauData.toProto(bureauData));
-        adjudicationBuilder_.setSupportingDocuments(supportingDocuments);
+        adjudicationBuilder_.setSupportingDocuments((supportingDocuments == null ? "" : supportingDocuments));
         proto.AdjudicationRequest adjudicationRequest_ = adjudicationBuilder_.build();
         checkValues("ACCEPT", new Adjudication().apply(adjudicationRequest_, annotationSet_, eventListener_, externalExecutor_, cache_).getAdjudication());
         // Check ApplicationRiskScore with proto request

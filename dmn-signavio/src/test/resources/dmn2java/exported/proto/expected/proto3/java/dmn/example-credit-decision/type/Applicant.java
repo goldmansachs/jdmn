@@ -34,10 +34,10 @@ public interface Applicant extends com.gs.dmn.runtime.DMNType {
 
     static proto.Applicant toProto(Applicant other) {
         proto.Applicant.Builder result_ = proto.Applicant.newBuilder();
-        result_.setName(((Applicant) other).getName());
-        result_.setAge((((Applicant) other).getAge() == null ? 0 : ((Applicant) other).getAge().doubleValue()));
-        result_.setCreditScore((((Applicant) other).getCreditScore() == null ? 0 : ((Applicant) other).getCreditScore().doubleValue()));
-        result_.addAllPriorIssues(((List) ((Applicant) other).getPriorIssues().stream().map(e -> e).collect(java.util.stream.Collectors.toList())));
+        result_.setName((((Applicant) other).getName() == null ? "" : ((Applicant) other).getName()));
+        result_.setAge((((Applicant) other).getAge() == null ? 0.0 : ((Applicant) other).getAge().doubleValue()));
+        result_.setCreditScore((((Applicant) other).getCreditScore() == null ? 0.0 : ((Applicant) other).getCreditScore().doubleValue()));
+        result_.addAllPriorIssues(((List) ((Applicant) other).getPriorIssues().stream().map(e -> (e == null ? "" : e)).collect(java.util.stream.Collectors.toList())));
         return result_.build();
     }
 

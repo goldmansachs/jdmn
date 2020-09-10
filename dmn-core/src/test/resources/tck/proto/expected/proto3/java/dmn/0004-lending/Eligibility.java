@@ -114,7 +114,7 @@ public class Eligibility extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         
         // Convert output to Response Message
         proto.EligibilityResponse.Builder builder_ = proto.EligibilityResponse.newBuilder();
-        builder_.setEligibility(output_);
+        builder_.setEligibility((output_ == null ? "" : output_));
         return builder_.build();
     }
 

@@ -75,7 +75,7 @@ class Strategy(val bureauCallType : BureauCallType = BureauCallType(), val eligi
         
         // Convert output to Response Message
         var builder_: proto.StrategyResponse.Builder = proto.StrategyResponse.newBuilder()
-        builder_.setStrategy((if (output_ == null) null else output_!!))
+        builder_.setStrategy((if (output_ == null) "" else output_!!))
         return builder_.build()
     }
 

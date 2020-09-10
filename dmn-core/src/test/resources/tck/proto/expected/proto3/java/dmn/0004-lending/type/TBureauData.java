@@ -30,8 +30,8 @@ public interface TBureauData extends com.gs.dmn.runtime.DMNType {
 
     static proto.TBureauData toProto(TBureauData other) {
         proto.TBureauData.Builder result_ = proto.TBureauData.newBuilder();
-        result_.setCreditScore((((TBureauData) other).getCreditScore() == null ? 0 : ((TBureauData) other).getCreditScore().doubleValue()));
-        result_.setBankrupt(((TBureauData) other).getBankrupt());
+        result_.setCreditScore((((TBureauData) other).getCreditScore() == null ? 0.0 : ((TBureauData) other).getCreditScore().doubleValue()));
+        result_.setBankrupt((((TBureauData) other).getBankrupt() == null ? false : ((TBureauData) other).getBankrupt()));
         return result_.build();
     }
 

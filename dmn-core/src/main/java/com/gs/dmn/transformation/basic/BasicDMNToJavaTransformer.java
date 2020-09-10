@@ -211,8 +211,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     @Override
     public boolean isComplexType(TItemDefinition itemDefinition) {
         Type type = toFEELType(itemDefinition);
-        return type instanceof ItemDefinitionType
-                || type instanceof ListType && ((ListType) type).getElementType() instanceof ItemDefinitionType;
+        return isComplexType(type);
     }
 
     @Override
@@ -2068,5 +2067,4 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     public String protoFieldName(TNamedElement element) {
         return this.protoFactory.protoFieldName(element);
     }
-
 }

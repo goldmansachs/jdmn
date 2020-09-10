@@ -101,7 +101,7 @@ public class AssessIssue extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
         
         // Convert output to Response Message
         proto.AssessIssueResponse.Builder builder_ = proto.AssessIssueResponse.newBuilder();
-        builder_.setAssessIssue((output_ == null ? 0 : output_.doubleValue()));
+        builder_.setAssessIssue((output_ == null ? 0.0 : output_.doubleValue()));
         return builder_.build();
     }
 
