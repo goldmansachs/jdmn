@@ -81,5 +81,23 @@ class ${javaClassName}(${transformer.decisionConstructorSignature(drgElement)}) 
             ${transformer.hitPolicyAnnotationClassName()}.${transformer.hitPolicy(drgElement)},
             ${modelRepository.rulesCount(drgElement)}
         )
+    <#if transformer.isGenerateProto()>
+
+        @JvmStatic
+        fun requestToMap(${transformer.requestVariableName(drgElement)}: ${transformer.qualifiedRequestMessageName(drgElement)}): kotlin.collections.Map<String, Any?> {
+            <#assign stm = transformer.convertProtoRequestToMapBody(drgElement)>
+            <#list stm.statements as child>
+            ${child.expression}
+            </#list>
+        }
+
+        @JvmStatic
+        fun responseToOutput(${transformer.responseVariableName(drgElement)}: ${transformer.qualifiedResponseMessageName(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+            <#assign stm = transformer.convertProtoResponseToOutputBody(drgElement)>
+            <#list stm.statements as child>
+            ${child.expression}
+            </#list>
+        }
+    </#if>
     }
 }

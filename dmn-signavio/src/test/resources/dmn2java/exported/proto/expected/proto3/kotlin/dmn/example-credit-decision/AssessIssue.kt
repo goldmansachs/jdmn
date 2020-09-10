@@ -89,5 +89,24 @@ class AssessIssue() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() 
             com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
             -1
         )
+
+        @JvmStatic
+        fun requestToMap(assessIssueRequest_: proto.AssessIssueRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            var currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(assessIssueRequest_.getCurrentRiskAppetite())
+            var priorIssue_iterator: java.math.BigDecimal? = java.math.BigDecimal.valueOf(assessIssueRequest_.getPriorIssueIterator())
+            
+            // Create map
+            var map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("Current risk appetite", currentRiskAppetite)
+            map_.put("Prior issue", priorIssue_iterator)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(assessIssueResponse_: proto.AssessIssueResponse): java.math.BigDecimal? {
+            // Extract and convert output
+            return java.math.BigDecimal.valueOf(assessIssueResponse_.getAssessIssue())
+        }
     }
 }

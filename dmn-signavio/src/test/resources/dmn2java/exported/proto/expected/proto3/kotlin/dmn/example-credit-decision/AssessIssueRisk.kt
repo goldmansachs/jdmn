@@ -93,5 +93,24 @@ class AssessIssueRisk(val processPriorIssues : ProcessPriorIssues = ProcessPrior
             com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
             -1
         )
+
+        @JvmStatic
+        fun requestToMap(assessIssueRiskRequest_: proto.AssessIssueRiskRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            var applicant: type.Applicant? = type.Applicant.toApplicant(assessIssueRiskRequest_.getApplicant())
+            var currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(assessIssueRiskRequest_.getCurrentRiskAppetite())
+            
+            // Create map
+            var map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("Applicant", applicant)
+            map_.put("Current risk appetite", currentRiskAppetite)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(assessIssueRiskResponse_: proto.AssessIssueRiskResponse): java.math.BigDecimal? {
+            // Extract and convert output
+            return java.math.BigDecimal.valueOf(assessIssueRiskResponse_.getAssessIssueRisk())
+        }
     }
 }
