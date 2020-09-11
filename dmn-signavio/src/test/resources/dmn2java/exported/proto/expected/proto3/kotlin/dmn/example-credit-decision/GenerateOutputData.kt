@@ -78,7 +78,8 @@ class GenerateOutputData(val assessIssueRisk : AssessIssueRisk = AssessIssueRisk
 
         // Convert output to Response Message
         val builder_: proto.GenerateOutputDataResponse.Builder = proto.GenerateOutputDataResponse.newBuilder()
-        builder_.addAllGenerateOutputData(output_?.stream()?.map({e -> type.GenerateOutputData.toProto(e)})?.collect(java.util.stream.Collectors.toList()))
+        val outputProto_ = output_?.stream()?.map({e -> type.GenerateOutputData.toProto(e)})?.collect(java.util.stream.Collectors.toList())
+        builder_.addAllGenerateOutputData(outputProto_)
         return builder_.build()
     }
 

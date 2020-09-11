@@ -114,7 +114,8 @@ public class PreBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDec
 
         // Convert output to Response Message
         proto.PreBureauAffordabilityResponse.Builder builder_ = proto.PreBureauAffordabilityResponse.newBuilder();
-        builder_.setPreBureauAffordability((output_ == null ? false : output_));
+        Boolean outputProto_ = (output_ == null ? false : output_);
+        builder_.setPreBureauAffordability(outputProto_);
         return builder_.build();
     }
 

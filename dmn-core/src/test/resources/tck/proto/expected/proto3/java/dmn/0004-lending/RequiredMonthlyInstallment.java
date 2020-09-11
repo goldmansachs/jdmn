@@ -108,7 +108,8 @@ public class RequiredMonthlyInstallment extends com.gs.dmn.runtime.DefaultDMNBas
 
         // Convert output to Response Message
         proto.RequiredMonthlyInstallmentResponse.Builder builder_ = proto.RequiredMonthlyInstallmentResponse.newBuilder();
-        builder_.setRequiredMonthlyInstallment((output_ == null ? 0.0 : output_.doubleValue()));
+        Double outputProto_ = (output_ == null ? 0.0 : output_.doubleValue());
+        builder_.setRequiredMonthlyInstallment(outputProto_);
         return builder_.build();
     }
 

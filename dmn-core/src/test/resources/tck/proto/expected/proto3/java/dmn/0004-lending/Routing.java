@@ -118,7 +118,8 @@ public class Routing extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Convert output to Response Message
         proto.RoutingResponse.Builder builder_ = proto.RoutingResponse.newBuilder();
-        builder_.setRouting((output_ == null ? "" : output_));
+        String outputProto_ = (output_ == null ? "" : output_);
+        builder_.setRouting(outputProto_);
         return builder_.build();
     }
 

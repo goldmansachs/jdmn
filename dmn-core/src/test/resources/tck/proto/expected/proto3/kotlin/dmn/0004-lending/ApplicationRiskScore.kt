@@ -80,7 +80,8 @@ class ApplicationRiskScore() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
         // Convert output to Response Message
         val builder_: proto.ApplicationRiskScoreResponse.Builder = proto.ApplicationRiskScoreResponse.newBuilder()
-        builder_.setApplicationRiskScore((if (output_ == null) 0.0 else output_!!.toDouble()))
+        val outputProto_ = (if (output_ == null) 0.0 else output_!!.toDouble())
+        builder_.setApplicationRiskScore(outputProto_)
         return builder_.build()
     }
 

@@ -111,7 +111,8 @@ public class AssessIssueRisk extends com.gs.dmn.signavio.runtime.DefaultSignavio
 
         // Convert output to Response Message
         proto.AssessIssueRiskResponse.Builder builder_ = proto.AssessIssueRiskResponse.newBuilder();
-        builder_.setAssessIssueRisk((output_ == null ? 0.0 : output_.doubleValue()));
+        Double outputProto_ = (output_ == null ? 0.0 : output_.doubleValue());
+        builder_.setAssessIssueRisk(outputProto_);
         return builder_.build();
     }
 

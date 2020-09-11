@@ -63,8 +63,12 @@ class ${javaClassName}(${transformer.decisionConstructorSignature(drgElement)}) 
     }
 
     fun apply(${transformer.drgElementSignatureExtraCacheProto(drgElement)}): ${transformer.qualifiedResponseMessageName(drgElement)} {
+    <#assign parameters = transformer.drgElementTypeSignature(drgElement) />
+    <#assign outputVariable = "output_" />
+    <#assign outputVariableProto = "outputProto_" />
+    <#assign responseMessageName = transformer.qualifiedResponseMessageName(drgElement) />
+    <#assign outputType = transformer.drgElementOutputFEELType(drgElement) />
         // Create arguments from Request Message
-        <#assign parameters = transformer.drgElementTypeSignature(drgElement) />
         <#list parameters as parameter>
         val ${parameter.left}: ${transformer.toNativeType(parameter.right)}? = ${transformer.extractParameterFromRequestMessage(drgElement, parameter)}
         </#list>
@@ -77,7 +81,8 @@ class ${javaClassName}(${transformer.decisionConstructorSignature(drgElement)}) 
         <#assign responseMessageName = transformer.qualifiedResponseMessageName(drgElement) />
         val builder_: ${responseMessageName}.Builder = ${responseMessageName}.newBuilder()
         <#assign outputType = transformer.drgElementOutputFEELType(drgElement) />
-        builder_.${transformer.protoSetter(drgElement)}(${transformer.convertValueToProtoNativeType(outputVariable, outputType)})
+        val ${outputVariableProto} = ${transformer.convertValueToProtoNativeType(outputVariable, outputType)}
+        builder_.${transformer.protoSetter(drgElement)}(${outputVariableProto})
         return builder_.build()
     }
     </#if>

@@ -74,7 +74,8 @@ class AssessIssueRisk(val processPriorIssues : ProcessPriorIssues = ProcessPrior
 
         // Convert output to Response Message
         val builder_: proto.AssessIssueRiskResponse.Builder = proto.AssessIssueRiskResponse.newBuilder()
-        builder_.setAssessIssueRisk((if (output_ == null) 0.0 else output_!!.toDouble()))
+        val outputProto_ = (if (output_ == null) 0.0 else output_!!.toDouble())
+        builder_.setAssessIssueRisk(outputProto_)
         return builder_.build()
     }
 

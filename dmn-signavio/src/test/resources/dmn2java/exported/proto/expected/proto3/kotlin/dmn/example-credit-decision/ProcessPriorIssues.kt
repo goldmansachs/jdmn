@@ -69,7 +69,8 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
 
         // Convert output to Response Message
         val builder_: proto.ProcessPriorIssuesResponse.Builder = proto.ProcessPriorIssuesResponse.newBuilder()
-        builder_.addAllProcessPriorIssues(output_?.stream()?.map({e -> (if (e == null) 0.0 else e!!.toDouble())})?.collect(java.util.stream.Collectors.toList()))
+        val outputProto_ = output_?.stream()?.map({e -> (if (e == null) 0.0 else e!!.toDouble())})?.collect(java.util.stream.Collectors.toList())
+        builder_.addAllProcessPriorIssues(outputProto_)
         return builder_.build()
     }
 

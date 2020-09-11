@@ -105,7 +105,8 @@ public class Adjudication extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Convert output to Response Message
         proto.AdjudicationResponse.Builder builder_ = proto.AdjudicationResponse.newBuilder();
-        builder_.setAdjudication((output_ == null ? "" : output_));
+        String outputProto_ = (output_ == null ? "" : output_);
+        builder_.setAdjudication(outputProto_);
         return builder_.build();
     }
 

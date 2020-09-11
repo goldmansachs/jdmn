@@ -69,7 +69,8 @@ class AssessApplicantAge() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
 
         // Convert output to Response Message
         val builder_: proto.AssessApplicantAgeResponse.Builder = proto.AssessApplicantAgeResponse.newBuilder()
-        builder_.setAssessApplicantAge((if (output_ == null) 0.0 else output_!!.toDouble()))
+        val outputProto_ = (if (output_ == null) 0.0 else output_!!.toDouble())
+        builder_.setAssessApplicantAge(outputProto_)
         return builder_.build()
     }
 

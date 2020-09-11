@@ -71,7 +71,8 @@ class AssessIssue() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() 
 
         // Convert output to Response Message
         val builder_: proto.AssessIssueResponse.Builder = proto.AssessIssueResponse.newBuilder()
-        builder_.setAssessIssue((if (output_ == null) 0.0 else output_!!.toDouble()))
+        val outputProto_ = (if (output_ == null) 0.0 else output_!!.toDouble())
+        builder_.setAssessIssue(outputProto_)
         return builder_.build()
     }
 

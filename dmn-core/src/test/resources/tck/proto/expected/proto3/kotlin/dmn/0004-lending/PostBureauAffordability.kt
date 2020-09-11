@@ -77,7 +77,8 @@ class PostBureauAffordability(val postBureauRiskCategory : PostBureauRiskCategor
 
         // Convert output to Response Message
         val builder_: proto.PostBureauAffordabilityResponse.Builder = proto.PostBureauAffordabilityResponse.newBuilder()
-        builder_.setPostBureauAffordability((if (output_ == null) false else output_!!))
+        val outputProto_ = (if (output_ == null) false else output_!!)
+        builder_.setPostBureauAffordability(outputProto_)
         return builder_.build()
     }
 
