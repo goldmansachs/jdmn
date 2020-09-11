@@ -40,7 +40,6 @@ import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
 public abstract class ProtoBufferFactory {
     private static final Map<String, String> FEEL_TYPE_TO_PROTO_TYPE = new LinkedHashMap<>();
-    private static final Map<String, String> FEEL_TYPE_TO_NATIVE_PROTO_TYPE = new LinkedHashMap<>();
     public static final String OPTIONAL = "optional";
     public static final String REPEATED = "repeated";
 
@@ -59,19 +58,6 @@ public abstract class ProtoBufferFactory {
         FEEL_TYPE_TO_PROTO_TYPE.put(BOOLEAN.getName(), "bool");
         FEEL_TYPE_TO_PROTO_TYPE.put(NUMBER.getName(), "double");
         FEEL_TYPE_TO_PROTO_TYPE.put(ANY.getName(), null);
-    }
-
-    static {
-        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(ENUMERATION.getName(), "string");
-        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), null);
-        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(DAYS_AND_TIME_DURATION.getName(), null);
-        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(DATE_AND_TIME.getName(), null);
-        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(TIME.getName(), null);
-        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(DATE.getName(), null);
-        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(STRING.getName(), "String");
-        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(BOOLEAN.getName(), "boolean");
-        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(NUMBER.getName(), "double");
-        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(ANY.getName(), null);
     }
 
     private final BasicDMNToNativeTransformer transformer;
@@ -238,9 +224,7 @@ public abstract class ProtoBufferFactory {
         return FEEL_TYPE_TO_PROTO_TYPE.get(feelType);
     }
 
-    private String toNativeProtoType(String feelType) {
-        return FEEL_TYPE_TO_NATIVE_PROTO_TYPE.get(feelType);
-    }
+    protected abstract String toNativeProtoType(String feelType);
 
     //
     // Proto accessors
@@ -286,7 +270,7 @@ public abstract class ProtoBufferFactory {
         return protoElementName(element) + "Response";
     }
 
-    public String drgElementVariableNameProto(TDRGElement element) {
+    public String namedElementVariableNameProto(TNamedElement element) {
         return this.transformer.namedElementVariableName(element) + ProtoBufferFactory.PROTO_VARIABLE_SUFFIX;
     }
 

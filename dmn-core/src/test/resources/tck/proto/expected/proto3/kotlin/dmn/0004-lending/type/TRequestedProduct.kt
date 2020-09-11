@@ -87,15 +87,23 @@ interface TRequestedProduct : com.gs.dmn.runtime.DMNType {
             }
         }
 
+        @JvmStatic
         fun toProto(other: TRequestedProduct?): proto.TRequestedProduct {
             var result_: proto.TRequestedProduct.Builder = proto.TRequestedProduct.newBuilder()
-            result_.setProductType((if ((other as TRequestedProduct).productType == null) "" else (other as TRequestedProduct).productType!!))
-            result_.setAmount((if ((other as TRequestedProduct).amount == null) 0.0 else (other as TRequestedProduct).amount!!.toDouble()))
-            result_.setRate((if ((other as TRequestedProduct).rate == null) 0.0 else (other as TRequestedProduct).rate!!.toDouble()))
-            result_.setTerm((if ((other as TRequestedProduct).term == null) 0.0 else (other as TRequestedProduct).term!!.toDouble()))
+            if (other != null) {
+                var productTypeProto_: String = (if ((other as TRequestedProduct).productType == null) "" else (other as TRequestedProduct).productType!!)
+                result_.setProductType(productTypeProto_)
+                var amountProto_: Double = (if ((other as TRequestedProduct).amount == null) 0.0 else (other as TRequestedProduct).amount!!.toDouble())
+                result_.setAmount(amountProto_)
+                var rateProto_: Double = (if ((other as TRequestedProduct).rate == null) 0.0 else (other as TRequestedProduct).rate!!.toDouble())
+                result_.setRate(rateProto_)
+                var termProto_: Double = (if ((other as TRequestedProduct).term == null) 0.0 else (other as TRequestedProduct).term!!.toDouble())
+                result_.setTerm(termProto_)
+            }
             return result_.build()
         }
 
+        @JvmStatic
         fun toProto(other: List<TRequestedProduct?>?): List<proto.TRequestedProduct>? {
             if (other == null) {
                 return null
