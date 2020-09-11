@@ -437,17 +437,4 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     protected String cast(String type, String value) {
         return String.format("(%s as %s)", value, type);
     }
-
-    //
-    // Simple statements
-    //
-    @Override
-    public ExpressionStatement makeDeclarationStatement(String nativeType, String variableName, String expression, Type type) {
-        return new DeclarationStatement(String.format("var %s: %s = %s", variableName, nativeType, expression), type);
-    }
-
-    @Override
-    public Statement makeReturnStatement(String expression, Type type) {
-        return new ReturnStatement(String.format("return %s", expression), type);
-    }
 }

@@ -386,21 +386,6 @@ public class JavaFactory implements NativeFactory {
         return convertValueToProtoNativeType(value, memberType);
     }
 
-    protected CompoundStatement makeArgumentsFromRequestMessage(TDRGElement element) {
-        List<Pair<String, Type>> parameters = this.transformer.drgElementTypeSignature(element, transformer::nativeName);
-
-        CompoundStatement statement = new CompoundStatement();
-        // Create arguments from Request Message
-        statement.add(makeCommentStatement("Create arguments from Request Message"));
-        for (Pair<String, Type> p: parameters) {
-            String variableName = p.getLeft();
-            String nativeType = this.typeFactory.nullableType(this.transformer.toNativeType(p.getRight()));
-            statement.add(makeDeclarationStatement(nativeType, variableName, extractParameterFromRequestMessage(element, p), p.getRight()));
-        }
-        statement.add(makeNopStatement());
-        return statement;
-    }
-
     @Override
     public String extractParameterFromRequestMessage(TDRGElement element, Pair<String, Type> parameter) {
         String name = parameter.getLeft();
@@ -530,28 +515,8 @@ public class JavaFactory implements NativeFactory {
     // Simple statements
     //
     @Override
-    public NopStatement makeNopStatement() {
-        return new NopStatement();
-    }
-
-    @Override
     public ExpressionStatement makeExpressionStatement(String text, Type type) {
         return new ExpressionStatement(text, type);
-    }
-
-    @Override
-    public CommentStatement makeCommentStatement(String message) {
-        return new CommentStatement("// " + message);
-    }
-
-    @Override
-    public ExpressionStatement makeDeclarationStatement(String nativeType, String variableName, String expression, Type type) {
-        return new DeclarationStatement(String.format("%s %s = %s;", nativeType, variableName, expression), type);
-    }
-
-    @Override
-    public Statement makeReturnStatement(String expression, Type type) {
-        return new ReturnStatement(String.format("return %s;", expression), type);
     }
 
     //
