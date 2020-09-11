@@ -25,7 +25,7 @@ public interface Applicant extends com.gs.dmn.runtime.DMNType {
             result_.setName(((proto.Applicant) other).getName());
             result_.setAge(java.math.BigDecimal.valueOf(((proto.Applicant) other).getAge()));
             result_.setCreditScore(java.math.BigDecimal.valueOf(((proto.Applicant) other).getCreditScore()));
-            result_.setPriorIssues(((List<String>) ((proto.Applicant) other).getPriorIssuesList().stream().map(e -> e).collect(java.util.stream.Collectors.toList())));
+            result_.setPriorIssues(((List<String>) (((proto.Applicant) other).getPriorIssuesList() == null ? null : ((proto.Applicant) other).getPriorIssuesList().stream().map(e -> e).collect(java.util.stream.Collectors.toList()))));
             return result_;
         } else {
             throw new com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.getClass().getSimpleName(), Applicant.class.getSimpleName()));
@@ -41,7 +41,7 @@ public interface Applicant extends com.gs.dmn.runtime.DMNType {
             result_.setAge(ageProto_);
             Double creditScoreProto_ = (((Applicant) other).getCreditScore() == null ? 0.0 : ((Applicant) other).getCreditScore().doubleValue());
             result_.setCreditScore(creditScoreProto_);
-            List<String> priorIssuesProto_ = ((List) ((Applicant) other).getPriorIssues().stream().map(e -> (e == null ? "" : e)).collect(java.util.stream.Collectors.toList()));
+            List<String> priorIssuesProto_ = ((List) (((Applicant) other).getPriorIssues() == null ? null : ((Applicant) other).getPriorIssues().stream().map(e -> (e == null ? "" : e)).collect(java.util.stream.Collectors.toList())));
             if (priorIssuesProto_ != null) {
                 result_.addAllPriorIssues(priorIssuesProto_);
             }
