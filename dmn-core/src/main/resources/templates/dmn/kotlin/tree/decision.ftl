@@ -63,23 +63,7 @@ class ${javaClassName}(${transformer.decisionConstructorSignature(drgElement)}) 
     }
 
     fun apply(${transformer.drgElementSignatureExtraCacheProto(drgElement)}): ${transformer.qualifiedResponseMessageName(drgElement)} {
-    <@makeArgumentsFromRequestMessage drgElement />
-
-    <#assign outputVariable = "output_" />
-    <#assign outputVariableProto = "outputProto_" />
-    <#assign responseMessageName = transformer.qualifiedResponseMessageName(drgElement) />
-    <#assign outputType = transformer.drgElementOutputFEELType(drgElement) />
-        // Invoke apply method
-        <#assign outputVariable = "output_" />
-        val ${outputVariable}: ${transformer.drgElementOutputType(drgElement)} = apply(${transformer.drgElementArgumentListExtraCache(drgElement)})
-
-        // Convert output to Response Message
-        <#assign responseMessageName = transformer.qualifiedResponseMessageName(drgElement) />
-        val builder_: ${responseMessageName}.Builder = ${responseMessageName}.newBuilder()
-        <#assign outputType = transformer.drgElementOutputFEELType(drgElement) />
-        val ${outputVariableProto} = ${transformer.convertValueToProtoNativeType(outputVariable, outputType)}
-        builder_.${transformer.protoSetter(drgElement)}(${outputVariableProto})
-        return builder_.build()
+    <@applyRequest drgElement />
     }
     </#if>
     <@evaluateExpressionMethod drgElement />
@@ -120,4 +104,24 @@ class ${javaClassName}(${transformer.decisionConstructorSignature(drgElement)}) 
     <#list parameters as parameter>
         val ${parameter.left}: ${transformer.toNativeType(parameter.right)}? = ${transformer.extractParameterFromRequestMessage(drgElement, parameter)}
     </#list>
+</#macro>
+
+<#macro applyRequest drgElement>
+    <@makeArgumentsFromRequestMessage drgElement />
+
+    <#assign outputVariable = "output_" />
+    <#assign outputVariableProto = "outputProto_" />
+    <#assign responseMessageName = transformer.qualifiedResponseMessageName(drgElement) />
+    <#assign outputType = transformer.drgElementOutputFEELType(drgElement) />
+        // Invoke apply method
+        <#assign outputVariable = "output_" />
+        val ${outputVariable}: ${transformer.drgElementOutputType(drgElement)} = apply(${transformer.drgElementArgumentListExtraCache(drgElement)})
+
+        // Convert output to Response Message
+        <#assign responseMessageName = transformer.qualifiedResponseMessageName(drgElement) />
+        val builder_: ${responseMessageName}.Builder = ${responseMessageName}.newBuilder()
+        <#assign outputType = transformer.drgElementOutputFEELType(drgElement) />
+        val ${outputVariableProto} = ${transformer.convertValueToProtoNativeType(outputVariable, outputType)}
+        builder_.${transformer.protoSetter(drgElement)}(${outputVariableProto})
+        return builder_.build()
 </#macro>
