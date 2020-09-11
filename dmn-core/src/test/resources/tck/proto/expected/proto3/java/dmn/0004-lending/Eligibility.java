@@ -27,7 +27,7 @@ public class Eligibility extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Create arguments from Request Message
         type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(eligibilityRequest_.getApplicantData());
         type.TRequestedProduct requestedProduct = type.TRequestedProduct.toTRequestedProduct(eligibilityRequest_.getRequestedProduct());
-        
+
         // Create map
         java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
         map_.put("ApplicantData", applicantData);

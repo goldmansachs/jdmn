@@ -26,7 +26,7 @@ public class BureauCallType extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public static java.util.Map<String, Object> requestToMap(proto.BureauCallTypeRequest bureauCallTypeRequest_) {
         // Create arguments from Request Message
         type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(bureauCallTypeRequest_.getApplicantData());
-        
+
         // Create map
         java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
         map_.put("ApplicantData", applicantData);

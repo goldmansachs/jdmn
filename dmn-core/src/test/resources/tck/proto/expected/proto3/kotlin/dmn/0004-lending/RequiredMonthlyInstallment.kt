@@ -103,10 +103,10 @@ class RequiredMonthlyInstallment() : com.gs.dmn.runtime.DefaultDMNBaseDecision()
         @JvmStatic
         fun requestToMap(requiredMonthlyInstallmentRequest_: proto.RequiredMonthlyInstallmentRequest): kotlin.collections.Map<String, Any?> {
             // Create arguments from Request Message
-            var requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(requiredMonthlyInstallmentRequest_.getRequestedProduct())
-            
+            val requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(requiredMonthlyInstallmentRequest_.getRequestedProduct())
+
             // Create map
-            var map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
             map_.put("RequestedProduct", requestedProduct)
             return map_
         }

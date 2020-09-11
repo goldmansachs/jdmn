@@ -176,12 +176,12 @@ class CompareAgainstLendingThreshold(val assessApplicantAge : AssessApplicantAge
         @JvmStatic
         fun requestToMap(compareAgainstLendingThresholdRequest_: proto.CompareAgainstLendingThresholdRequest): kotlin.collections.Map<String, Any?> {
             // Create arguments from Request Message
-            var applicant: type.Applicant? = type.Applicant.toApplicant(compareAgainstLendingThresholdRequest_.getApplicant())
-            var currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(compareAgainstLendingThresholdRequest_.getCurrentRiskAppetite())
-            var lendingThreshold: java.math.BigDecimal? = java.math.BigDecimal.valueOf(compareAgainstLendingThresholdRequest_.getLendingThreshold())
-            
+            val applicant: type.Applicant? = type.Applicant.toApplicant(compareAgainstLendingThresholdRequest_.getApplicant())
+            val currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(compareAgainstLendingThresholdRequest_.getCurrentRiskAppetite())
+            val lendingThreshold: java.math.BigDecimal? = java.math.BigDecimal.valueOf(compareAgainstLendingThresholdRequest_.getLendingThreshold())
+
             // Create map
-            var map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
             map_.put("Applicant", applicant)
             map_.put("Current risk appetite", currentRiskAppetite)
             map_.put("Lending threshold", lendingThreshold)

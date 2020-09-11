@@ -26,7 +26,7 @@ public class RequiredMonthlyInstallment extends com.gs.dmn.runtime.DefaultDMNBas
     public static java.util.Map<String, Object> requestToMap(proto.RequiredMonthlyInstallmentRequest requiredMonthlyInstallmentRequest_) {
         // Create arguments from Request Message
         type.TRequestedProduct requestedProduct = type.TRequestedProduct.toTRequestedProduct(requiredMonthlyInstallmentRequest_.getRequestedProduct());
-        
+
         // Create map
         java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
         map_.put("RequestedProduct", requestedProduct);

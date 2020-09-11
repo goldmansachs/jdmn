@@ -28,7 +28,7 @@ public class Routing extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(routingRequest_.getApplicantData());
         type.TBureauData bureauData = type.TBureauData.toTBureauData(routingRequest_.getBureauData());
         type.TRequestedProduct requestedProduct = type.TRequestedProduct.toTRequestedProduct(routingRequest_.getRequestedProduct());
-        
+
         // Create map
         java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
         map_.put("ApplicantData", applicantData);

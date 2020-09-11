@@ -27,7 +27,7 @@ public class AssessIssueRisk extends com.gs.dmn.signavio.runtime.DefaultSignavio
         // Create arguments from Request Message
         type.Applicant applicant = type.Applicant.toApplicant(assessIssueRiskRequest_.getApplicant());
         java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(assessIssueRiskRequest_.getCurrentRiskAppetite());
-        
+
         // Create map
         java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
         map_.put("Applicant", applicant);

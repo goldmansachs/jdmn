@@ -26,7 +26,7 @@ public class PreBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDeci
     public static java.util.Map<String, Object> requestToMap(proto.PreBureauRiskCategoryRequest preBureauRiskCategoryRequest_) {
         // Create arguments from Request Message
         type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(preBureauRiskCategoryRequest_.getApplicantData());
-        
+
         // Create map
         java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
         map_.put("ApplicantData", applicantData);

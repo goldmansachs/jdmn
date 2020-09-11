@@ -271,6 +271,15 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
+    public String protoGetter(TDRGElement drgElement) {
+        return this.protoGetter(drgElement, drgElementOutputFEELType(drgElement));
+    }
+
+    private String protoGetter(TNamedElement element, Type type) {
+        return this.protoFactory.protoGetter(namedElementVariableName(element), type);
+    }
+
+    @Override
     public String protoSetter(TItemDefinition itemDefinition) {
         return this.protoSetter(itemDefinition, toFEELType(itemDefinition));
     }
@@ -2022,16 +2031,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public Statement convertProtoRequestToMapBody(TDRGElement element) {
-        return this.nativeFactory.convertProtoRequestToMapBody(element);
-    }
-
-    @Override
-    public Statement convertProtoResponseToOutputBody(TDRGElement element) {
-        return this.nativeFactory.convertProtoResponseToOutputBody(element);
-    }
-
-    @Override
     public String convertProtoMember(String source, TItemDefinition parent, TItemDefinition child) {
         return this.nativeFactory.convertProtoMember(source, parent, child);
     }
@@ -2107,5 +2106,10 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     @Override
     public String convertValueToProtoNativeType(String value, Type type) {
         return this.nativeFactory.convertValueToProtoNativeType(value, type);
+    }
+
+    @Override
+    public String extractMemberFromProtoValue(String protoValue, Type type) {
+        return this.nativeFactory.extractMemberFromProtoValue(protoValue, type);
     }
 }

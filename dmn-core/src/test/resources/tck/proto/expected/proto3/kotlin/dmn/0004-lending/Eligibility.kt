@@ -98,11 +98,11 @@ class Eligibility(val preBureauAffordability : PreBureauAffordability = PreBurea
         @JvmStatic
         fun requestToMap(eligibilityRequest_: proto.EligibilityRequest): kotlin.collections.Map<String, Any?> {
             // Create arguments from Request Message
-            var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(eligibilityRequest_.getApplicantData())
-            var requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(eligibilityRequest_.getRequestedProduct())
-            
+            val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(eligibilityRequest_.getApplicantData())
+            val requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(eligibilityRequest_.getRequestedProduct())
+
             // Create map
-            var map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
             map_.put("ApplicantData", applicantData)
             map_.put("RequestedProduct", requestedProduct)
             return map_

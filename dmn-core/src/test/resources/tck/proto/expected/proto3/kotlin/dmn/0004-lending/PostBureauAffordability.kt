@@ -100,12 +100,12 @@ class PostBureauAffordability(val postBureauRiskCategory : PostBureauRiskCategor
         @JvmStatic
         fun requestToMap(postBureauAffordabilityRequest_: proto.PostBureauAffordabilityRequest): kotlin.collections.Map<String, Any?> {
             // Create arguments from Request Message
-            var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(postBureauAffordabilityRequest_.getApplicantData())
-            var bureauData: type.TBureauData? = type.TBureauData.toTBureauData(postBureauAffordabilityRequest_.getBureauData())
-            var requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(postBureauAffordabilityRequest_.getRequestedProduct())
-            
+            val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(postBureauAffordabilityRequest_.getApplicantData())
+            val bureauData: type.TBureauData? = type.TBureauData.toTBureauData(postBureauAffordabilityRequest_.getBureauData())
+            val requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(postBureauAffordabilityRequest_.getRequestedProduct())
+
             // Create map
-            var map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
             map_.put("ApplicantData", applicantData)
             map_.put("BureauData", bureauData)
             map_.put("RequestedProduct", requestedProduct)

@@ -101,12 +101,12 @@ class GenerateOutputData(val assessIssueRisk : AssessIssueRisk = AssessIssueRisk
         @JvmStatic
         fun requestToMap(generateOutputDataRequest_: proto.GenerateOutputDataRequest): kotlin.collections.Map<String, Any?> {
             // Create arguments from Request Message
-            var applicant: type.Applicant? = type.Applicant.toApplicant(generateOutputDataRequest_.getApplicant())
-            var currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(generateOutputDataRequest_.getCurrentRiskAppetite())
-            var lendingThreshold: java.math.BigDecimal? = java.math.BigDecimal.valueOf(generateOutputDataRequest_.getLendingThreshold())
-            
+            val applicant: type.Applicant? = type.Applicant.toApplicant(generateOutputDataRequest_.getApplicant())
+            val currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(generateOutputDataRequest_.getCurrentRiskAppetite())
+            val lendingThreshold: java.math.BigDecimal? = java.math.BigDecimal.valueOf(generateOutputDataRequest_.getLendingThreshold())
+
             // Create map
-            var map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
             map_.put("Applicant", applicant)
             map_.put("Current risk appetite", currentRiskAppetite)
             map_.put("Lending threshold", lendingThreshold)

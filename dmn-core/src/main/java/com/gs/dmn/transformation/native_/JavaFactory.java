@@ -386,39 +386,6 @@ public class JavaFactory implements NativeFactory {
         return convertValueToProtoNativeType(value, memberType);
     }
 
-    @Override
-    public Statement convertProtoRequestToMapBody(TDRGElement element) {
-        CompoundStatement statement = makeArgumentsFromRequestMessage(element);
-
-        // Create map
-        statement.add(makeCommentStatement("Create map"));
-        String mapVariable = "map_";
-        statement.add(makeDeclarationStatement("java.util.Map<String, Object>", mapVariable, "new java.util.LinkedHashMap<>()", null));
-        com.gs.dmn.DRGElementReference<TDecision> reference = this.repository.makeDRGElementReference((TDecision) element);
-        List<com.gs.dmn.DRGElementReference<TInputData>> inputDataClosure = this.transformer.inputDataClosure(reference);
-        for (com.gs.dmn.DRGElementReference<TInputData> r: inputDataClosure) {
-            TInputData inputData = r.getElement();
-            String displayName = this.repository.displayName(inputData);
-            String variableName = this.transformer.nativeName(inputData);
-            statement.add(makeExpressionStatement(String.format("%s.put(\"%s\", %s);", mapVariable, displayName, variableName), null));
-        }
-        statement.add(makeReturnStatement(mapVariable, null));
-        return statement;
-    }
-
-    @Override
-    public Statement convertProtoResponseToOutputBody(TDRGElement element) {
-        CompoundStatement statement = makeCompoundStatement();
-        statement.add(makeCommentStatement("Extract and convert output"));
-        String source = this.protoFactory.responseVariableName(element);
-        String memberName = this.transformer.nativeName(element);
-        Type memberType = this.transformer.drgElementOutputFEELType(element);
-        String value = String.format("%s.%s", source, protoFactory.protoGetter(memberName, memberType));
-        String exp = extractMemberFromProtoValue(value, memberType);
-        statement.add(makeReturnStatement(exp, memberType));
-        return statement;
-    }
-
     protected CompoundStatement makeArgumentsFromRequestMessage(TDRGElement element) {
         List<Pair<String, Type>> parameters = this.transformer.drgElementTypeSignature(element, transformer::nativeName);
 
@@ -434,6 +401,7 @@ public class JavaFactory implements NativeFactory {
         return statement;
     }
 
+    @Override
     public String extractParameterFromRequestMessage(TDRGElement element, Pair<String, Type> parameter) {
         String name = parameter.getLeft();
         Type type = parameter.getRight();
@@ -441,7 +409,8 @@ public class JavaFactory implements NativeFactory {
         return extractMemberFromProtoValue(protoValue, type);
     }
 
-    protected String extractMemberFromProtoValue(String protoValue, Type type) {
+    @Override
+    public String extractMemberFromProtoValue(String protoValue, Type type) {
         if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
             if (type == NumberType.NUMBER) {
                 String qNativeType = this.transformer.getNativeTypeFactory().toQualifiedNativeType(((DataType) type).getName());

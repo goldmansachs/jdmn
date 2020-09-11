@@ -23,4 +23,6 @@ public interface NativeFactory extends NativeExpressionFactory, NativeStatementF
     String TO_PROTO_CONVERSION_METHOD = "toProto";
 
     String extractParameterFromRequestMessage(TDRGElement element, Pair<String, Type> parameter);
+
+    String extractMemberFromProtoValue(String protoValue, Type type);
 }
