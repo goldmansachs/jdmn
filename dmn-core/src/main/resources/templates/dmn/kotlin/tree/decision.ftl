@@ -117,7 +117,13 @@ class ${javaClassName}(${transformer.decisionConstructorSignature(drgElement)}) 
         val builder_: ${responseMessageName}.Builder = ${responseMessageName}.newBuilder()
         <#assign outputType = transformer.drgElementOutputFEELType(drgElement) />
         val ${outputVariableProto} = ${transformer.convertValueToProtoNativeType(outputVariable, outputType)}
+    <#if transformer.isProtoReference(outputType)>
+        if (${outputVariableProto} != null) {
+            builder_.${transformer.protoSetter(drgElement)}(${outputVariableProto})
+        }
+    <#else>
         builder_.${transformer.protoSetter(drgElement)}(${outputVariableProto})
+    </#if>
         return builder_.build()
 </#macro>
 
