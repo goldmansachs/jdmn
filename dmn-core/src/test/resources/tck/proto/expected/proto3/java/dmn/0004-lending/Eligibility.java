@@ -108,10 +108,10 @@ public class Eligibility extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Create arguments from Request Message
         type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(eligibilityRequest_.getApplicantData());
         type.TRequestedProduct requestedProduct = type.TRequestedProduct.toTRequestedProduct(eligibilityRequest_.getRequestedProduct());
-        
+
         // Invoke apply method
         String output_ = apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
-        
+
         // Convert output to Response Message
         proto.EligibilityResponse.Builder builder_ = proto.EligibilityResponse.newBuilder();
         builder_.setEligibility((output_ == null ? "" : output_));

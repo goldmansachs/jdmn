@@ -66,14 +66,14 @@ class AssessIssueRisk(val processPriorIssues : ProcessPriorIssues = ProcessPrior
 
     fun apply(assessIssueRiskRequest_: proto.AssessIssueRiskRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.AssessIssueRiskResponse {
         // Create arguments from Request Message
-        var applicant: type.Applicant? = type.Applicant.toApplicant(assessIssueRiskRequest_.getApplicant())
-        var currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(assessIssueRiskRequest_.getCurrentRiskAppetite())
-        
+        val applicant: type.Applicant? = type.Applicant.toApplicant(assessIssueRiskRequest_.getApplicant())
+        val currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(assessIssueRiskRequest_.getCurrentRiskAppetite())
+
         // Invoke apply method
-        var output_: java.math.BigDecimal? = apply(applicant, currentRiskAppetite, annotationSet_, eventListener_, externalExecutor_, cache_)
-        
+        val output_: java.math.BigDecimal? = apply(applicant, currentRiskAppetite, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         // Convert output to Response Message
-        var builder_: proto.AssessIssueRiskResponse.Builder = proto.AssessIssueRiskResponse.newBuilder()
+        val builder_: proto.AssessIssueRiskResponse.Builder = proto.AssessIssueRiskResponse.newBuilder()
         builder_.setAssessIssueRisk((if (output_ == null) 0.0 else output_!!.toDouble()))
         return builder_.build()
     }

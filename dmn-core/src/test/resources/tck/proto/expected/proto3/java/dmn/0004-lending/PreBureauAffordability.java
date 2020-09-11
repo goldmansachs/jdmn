@@ -108,10 +108,10 @@ public class PreBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDec
         // Create arguments from Request Message
         type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(preBureauAffordabilityRequest_.getApplicantData());
         type.TRequestedProduct requestedProduct = type.TRequestedProduct.toTRequestedProduct(preBureauAffordabilityRequest_.getRequestedProduct());
-        
+
         // Invoke apply method
         Boolean output_ = apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
-        
+
         // Convert output to Response Message
         proto.PreBureauAffordabilityResponse.Builder builder_ = proto.PreBureauAffordabilityResponse.newBuilder();
         builder_.setPreBureauAffordability((output_ == null ? false : output_));

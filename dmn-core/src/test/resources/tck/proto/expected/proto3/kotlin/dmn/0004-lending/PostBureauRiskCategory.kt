@@ -77,14 +77,14 @@ class PostBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = A
 
     fun apply(postBureauRiskCategoryRequest_: proto.PostBureauRiskCategoryRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.PostBureauRiskCategoryResponse {
         // Create arguments from Request Message
-        var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(postBureauRiskCategoryRequest_.getApplicantData())
-        var bureauData: type.TBureauData? = type.TBureauData.toTBureauData(postBureauRiskCategoryRequest_.getBureauData())
-        
+        val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(postBureauRiskCategoryRequest_.getApplicantData())
+        val bureauData: type.TBureauData? = type.TBureauData.toTBureauData(postBureauRiskCategoryRequest_.getBureauData())
+
         // Invoke apply method
-        var output_: String? = apply(applicantData, bureauData, annotationSet_, eventListener_, externalExecutor_, cache_)
-        
+        val output_: String? = apply(applicantData, bureauData, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         // Convert output to Response Message
-        var builder_: proto.PostBureauRiskCategoryResponse.Builder = proto.PostBureauRiskCategoryResponse.newBuilder()
+        val builder_: proto.PostBureauRiskCategoryResponse.Builder = proto.PostBureauRiskCategoryResponse.newBuilder()
         builder_.setPostBureauRiskCategory((if (output_ == null) "" else output_!!))
         return builder_.build()
     }

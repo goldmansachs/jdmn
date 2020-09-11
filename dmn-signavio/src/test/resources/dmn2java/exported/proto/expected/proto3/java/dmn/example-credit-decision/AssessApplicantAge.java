@@ -91,10 +91,10 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSigna
     public proto.AssessApplicantAgeResponse apply(proto.AssessApplicantAgeRequest assessApplicantAgeRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Create arguments from Request Message
         type.Applicant applicant = type.Applicant.toApplicant(assessApplicantAgeRequest_.getApplicant());
-        
+
         // Invoke apply method
         java.math.BigDecimal output_ = apply(applicant, annotationSet_, eventListener_, externalExecutor_, cache_);
-        
+
         // Convert output to Response Message
         proto.AssessApplicantAgeResponse.Builder builder_ = proto.AssessApplicantAgeResponse.newBuilder();
         builder_.setAssessApplicantAge((output_ == null ? 0.0 : output_.doubleValue()));

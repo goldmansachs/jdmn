@@ -108,10 +108,10 @@ public class Strategy extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Create arguments from Request Message
         type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(strategyRequest_.getApplicantData());
         type.TRequestedProduct requestedProduct = type.TRequestedProduct.toTRequestedProduct(strategyRequest_.getRequestedProduct());
-        
+
         // Invoke apply method
         String output_ = apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
-        
+
         // Convert output to Response Message
         proto.StrategyResponse.Builder builder_ = proto.StrategyResponse.newBuilder();
         builder_.setStrategy((output_ == null ? "" : output_));

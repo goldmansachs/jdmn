@@ -101,10 +101,10 @@ public class BureauCallType extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public proto.BureauCallTypeResponse apply(proto.BureauCallTypeRequest bureauCallTypeRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Create arguments from Request Message
         type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(bureauCallTypeRequest_.getApplicantData());
-        
+
         // Invoke apply method
         String output_ = apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
-        
+
         // Convert output to Response Message
         proto.BureauCallTypeResponse.Builder builder_ = proto.BureauCallTypeResponse.newBuilder();
         builder_.setBureauCallType((output_ == null ? "" : output_));

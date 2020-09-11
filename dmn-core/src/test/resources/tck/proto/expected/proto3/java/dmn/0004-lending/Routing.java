@@ -112,10 +112,10 @@ public class Routing extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(routingRequest_.getApplicantData());
         type.TBureauData bureauData = type.TBureauData.toTBureauData(routingRequest_.getBureauData());
         type.TRequestedProduct requestedProduct = type.TRequestedProduct.toTRequestedProduct(routingRequest_.getRequestedProduct());
-        
+
         // Invoke apply method
         String output_ = apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
-        
+
         // Convert output to Response Message
         proto.RoutingResponse.Builder builder_ = proto.RoutingResponse.newBuilder();
         builder_.setRouting((output_ == null ? "" : output_));

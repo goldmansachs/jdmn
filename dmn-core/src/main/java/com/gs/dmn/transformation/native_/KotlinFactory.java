@@ -322,36 +322,6 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     }
 
     @Override
-    public Statement drgElementSignatureProtoBody(TDRGElement element) {
-        CompoundStatement statement = makeArgumentsFromRequestMessage(element);
-
-        // Invoke apply method
-        statement.add(makeCommentStatement("Invoke apply method"));
-        Type outputType = this.transformer.drgElementOutputFEELType(element);
-        String outputNativeType = this.transformer.drgElementOutputType(element);
-        String outputVariable = "output_";
-        String outputExpression = String.format("apply(%s)", this.transformer.drgElementArgumentListExtraCache(element));
-        statement.add(makeDeclarationStatement(outputNativeType, outputVariable, outputExpression, outputType));
-        statement.add(makeNopStatement());
-
-        // Convert output to Response Message
-        statement.add(makeCommentStatement("Convert output to Response Message"));
-        // Create Message Builder
-        String responseMessageName = this.protoFactory.qualifiedResponseMessageName(element);
-        String responseMessageBuilderName = responseMessageName + ".Builder";
-        String builderVariable = "builder_";
-        String builderValue = String.format("%s.newBuilder()", responseMessageName);
-        statement.add(makeDeclarationStatement(responseMessageBuilderName, builderVariable, builderValue, null));
-        // Set value
-        String setter = this.protoFactory.protoSetter(this.transformer.namedElementVariableName(element), outputType);
-        statement.add(makeExpressionStatement(String.format("%s.%s(%s)", builderVariable, setter, convertValueToProtoNativeType(outputVariable, outputType)), null));
-
-        // Return response
-        statement.add(makeReturnStatement(String.format("%s.build()", builderVariable), null));
-        return statement;
-    }
-
-    @Override
     public Statement convertProtoRequestToMapBody(TDRGElement element) {
         CompoundStatement statement = makeArgumentsFromRequestMessage(element);
 

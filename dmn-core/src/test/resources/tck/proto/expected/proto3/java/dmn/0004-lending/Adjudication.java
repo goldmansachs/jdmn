@@ -99,10 +99,10 @@ public class Adjudication extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(adjudicationRequest_.getApplicantData());
         type.TBureauData bureauData = type.TBureauData.toTBureauData(adjudicationRequest_.getBureauData());
         String supportingDocuments = adjudicationRequest_.getSupportingDocuments();
-        
+
         // Invoke apply method
         String output_ = apply(applicantData, bureauData, supportingDocuments, annotationSet_, eventListener_, externalExecutor_, cache_);
-        
+
         // Convert output to Response Message
         proto.AdjudicationResponse.Builder builder_ = proto.AdjudicationResponse.newBuilder();
         builder_.setAdjudication((output_ == null ? "" : output_));

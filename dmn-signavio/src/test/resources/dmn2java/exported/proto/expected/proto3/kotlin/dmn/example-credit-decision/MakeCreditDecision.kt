@@ -67,15 +67,15 @@ class MakeCreditDecision(val compareAgainstLendingThreshold : CompareAgainstLend
 
     fun apply(makeCreditDecisionRequest_: proto.MakeCreditDecisionRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.MakeCreditDecisionResponse {
         // Create arguments from Request Message
-        var applicant: type.Applicant? = type.Applicant.toApplicant(makeCreditDecisionRequest_.getApplicant())
-        var currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getCurrentRiskAppetite())
-        var lendingThreshold: java.math.BigDecimal? = java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getLendingThreshold())
-        
+        val applicant: type.Applicant? = type.Applicant.toApplicant(makeCreditDecisionRequest_.getApplicant())
+        val currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getCurrentRiskAppetite())
+        val lendingThreshold: java.math.BigDecimal? = java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getLendingThreshold())
+
         // Invoke apply method
-        var output_: String? = apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_)
-        
+        val output_: String? = apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         // Convert output to Response Message
-        var builder_: proto.MakeCreditDecisionResponse.Builder = proto.MakeCreditDecisionResponse.newBuilder()
+        val builder_: proto.MakeCreditDecisionResponse.Builder = proto.MakeCreditDecisionResponse.newBuilder()
         builder_.setMakeCreditDecision((if (output_ == null) "" else output_!!))
         return builder_.build()
     }

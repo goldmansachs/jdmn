@@ -68,15 +68,15 @@ class PostBureauAffordability(val postBureauRiskCategory : PostBureauRiskCategor
 
     fun apply(postBureauAffordabilityRequest_: proto.PostBureauAffordabilityRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.PostBureauAffordabilityResponse {
         // Create arguments from Request Message
-        var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(postBureauAffordabilityRequest_.getApplicantData())
-        var bureauData: type.TBureauData? = type.TBureauData.toTBureauData(postBureauAffordabilityRequest_.getBureauData())
-        var requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(postBureauAffordabilityRequest_.getRequestedProduct())
-        
+        val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(postBureauAffordabilityRequest_.getApplicantData())
+        val bureauData: type.TBureauData? = type.TBureauData.toTBureauData(postBureauAffordabilityRequest_.getBureauData())
+        val requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(postBureauAffordabilityRequest_.getRequestedProduct())
+
         // Invoke apply method
-        var output_: Boolean? = apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
-        
+        val output_: Boolean? = apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         // Convert output to Response Message
-        var builder_: proto.PostBureauAffordabilityResponse.Builder = proto.PostBureauAffordabilityResponse.newBuilder()
+        val builder_: proto.PostBureauAffordabilityResponse.Builder = proto.PostBureauAffordabilityResponse.newBuilder()
         builder_.setPostBureauAffordability((if (output_ == null) false else output_!!))
         return builder_.build()
     }

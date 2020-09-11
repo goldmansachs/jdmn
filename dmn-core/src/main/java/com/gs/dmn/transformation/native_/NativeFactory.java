@@ -12,10 +12,15 @@
  */
 package com.gs.dmn.transformation.native_;
 
+import com.gs.dmn.feel.analysis.semantics.type.Type;
+import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.native_.expression.NativeExpressionFactory;
 import com.gs.dmn.transformation.native_.statement.NativeStatementFactory;
+import org.omg.spec.dmn._20180521.model.TDRGElement;
 
 
 public interface NativeFactory extends NativeExpressionFactory, NativeStatementFactory {
     String TO_PROTO_CONVERSION_METHOD = "toProto";
+
+    String extractParameterFromRequestMessage(TDRGElement element, Pair<String, Type> parameter);
 }

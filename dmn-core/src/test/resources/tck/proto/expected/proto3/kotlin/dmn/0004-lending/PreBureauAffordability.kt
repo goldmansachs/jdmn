@@ -67,14 +67,14 @@ class PreBureauAffordability(val preBureauRiskCategory : PreBureauRiskCategory =
 
     fun apply(preBureauAffordabilityRequest_: proto.PreBureauAffordabilityRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.PreBureauAffordabilityResponse {
         // Create arguments from Request Message
-        var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(preBureauAffordabilityRequest_.getApplicantData())
-        var requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(preBureauAffordabilityRequest_.getRequestedProduct())
-        
+        val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(preBureauAffordabilityRequest_.getApplicantData())
+        val requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(preBureauAffordabilityRequest_.getRequestedProduct())
+
         // Invoke apply method
-        var output_: Boolean? = apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
-        
+        val output_: Boolean? = apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         // Convert output to Response Message
-        var builder_: proto.PreBureauAffordabilityResponse.Builder = proto.PreBureauAffordabilityResponse.newBuilder()
+        val builder_: proto.PreBureauAffordabilityResponse.Builder = proto.PreBureauAffordabilityResponse.newBuilder()
         builder_.setPreBureauAffordability((if (output_ == null) false else output_!!))
         return builder_.build()
     }

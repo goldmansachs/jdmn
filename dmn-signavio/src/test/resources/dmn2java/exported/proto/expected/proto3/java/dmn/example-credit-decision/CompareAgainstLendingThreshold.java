@@ -112,10 +112,10 @@ public class CompareAgainstLendingThreshold extends com.gs.dmn.signavio.runtime.
         type.Applicant applicant = type.Applicant.toApplicant(compareAgainstLendingThresholdRequest_.getApplicant());
         java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(compareAgainstLendingThresholdRequest_.getCurrentRiskAppetite());
         java.math.BigDecimal lendingThreshold = java.math.BigDecimal.valueOf(compareAgainstLendingThresholdRequest_.getLendingThreshold());
-        
+
         // Invoke apply method
         java.math.BigDecimal output_ = apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_);
-        
+
         // Convert output to Response Message
         proto.CompareAgainstLendingThresholdResponse.Builder builder_ = proto.CompareAgainstLendingThresholdResponse.newBuilder();
         builder_.setCompareAgainstLendingThreshold((output_ == null ? 0.0 : output_.doubleValue()));

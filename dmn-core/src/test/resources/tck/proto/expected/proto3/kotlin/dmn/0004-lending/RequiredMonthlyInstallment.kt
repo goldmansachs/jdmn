@@ -73,13 +73,13 @@ class RequiredMonthlyInstallment() : com.gs.dmn.runtime.DefaultDMNBaseDecision()
 
     fun apply(requiredMonthlyInstallmentRequest_: proto.RequiredMonthlyInstallmentRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.RequiredMonthlyInstallmentResponse {
         // Create arguments from Request Message
-        var requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(requiredMonthlyInstallmentRequest_.getRequestedProduct())
-        
+        val requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(requiredMonthlyInstallmentRequest_.getRequestedProduct())
+
         // Invoke apply method
-        var output_: java.math.BigDecimal? = apply(requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
-        
+        val output_: java.math.BigDecimal? = apply(requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         // Convert output to Response Message
-        var builder_: proto.RequiredMonthlyInstallmentResponse.Builder = proto.RequiredMonthlyInstallmentResponse.newBuilder()
+        val builder_: proto.RequiredMonthlyInstallmentResponse.Builder = proto.RequiredMonthlyInstallmentResponse.newBuilder()
         builder_.setRequiredMonthlyInstallment((if (output_ == null) 0.0 else output_!!.toDouble()))
         return builder_.build()
     }
