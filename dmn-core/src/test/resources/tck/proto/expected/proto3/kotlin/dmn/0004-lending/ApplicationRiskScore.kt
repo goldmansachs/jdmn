@@ -103,10 +103,10 @@ class ApplicationRiskScore() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         @JvmStatic
         fun requestToMap(applicationRiskScoreRequest_: proto.ApplicationRiskScoreRequest): kotlin.collections.Map<String, Any?> {
             // Create arguments from Request Message
-            var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(applicationRiskScoreRequest_.getApplicantData())
-            
+            val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(applicationRiskScoreRequest_.getApplicantData())
+
             // Create map
-            var map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
             map_.put("ApplicantData", applicantData)
             return map_
         }

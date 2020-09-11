@@ -27,7 +27,7 @@ public class AssessIssue extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
         // Create arguments from Request Message
         java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(assessIssueRequest_.getCurrentRiskAppetite());
         java.math.BigDecimal priorIssue_iterator = java.math.BigDecimal.valueOf(assessIssueRequest_.getPriorIssueIterator());
-        
+
         // Create map
         java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
         map_.put("Current risk appetite", currentRiskAppetite);

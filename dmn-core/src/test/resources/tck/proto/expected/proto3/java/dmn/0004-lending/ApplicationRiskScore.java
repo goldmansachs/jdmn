@@ -26,7 +26,7 @@ public class ApplicationRiskScore extends com.gs.dmn.runtime.DefaultDMNBaseDecis
     public static java.util.Map<String, Object> requestToMap(proto.ApplicationRiskScoreRequest applicationRiskScoreRequest_) {
         // Create arguments from Request Message
         type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(applicationRiskScoreRequest_.getApplicantData());
-        
+
         // Create map
         java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
         map_.put("ApplicantData", applicantData);

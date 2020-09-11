@@ -106,10 +106,10 @@ class PreBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = Ap
         @JvmStatic
         fun requestToMap(preBureauRiskCategoryRequest_: proto.PreBureauRiskCategoryRequest): kotlin.collections.Map<String, Any?> {
             // Create arguments from Request Message
-            var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(preBureauRiskCategoryRequest_.getApplicantData())
-            
+            val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(preBureauRiskCategoryRequest_.getApplicantData())
+
             // Create map
-            var map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
             map_.put("ApplicantData", applicantData)
             return map_
         }

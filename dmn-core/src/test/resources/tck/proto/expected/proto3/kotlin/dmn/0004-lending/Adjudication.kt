@@ -96,12 +96,12 @@ class Adjudication() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         @JvmStatic
         fun requestToMap(adjudicationRequest_: proto.AdjudicationRequest): kotlin.collections.Map<String, Any?> {
             // Create arguments from Request Message
-            var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(adjudicationRequest_.getApplicantData())
-            var bureauData: type.TBureauData? = type.TBureauData.toTBureauData(adjudicationRequest_.getBureauData())
-            var supportingDocuments: String? = adjudicationRequest_.getSupportingDocuments()
-            
+            val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(adjudicationRequest_.getApplicantData())
+            val bureauData: type.TBureauData? = type.TBureauData.toTBureauData(adjudicationRequest_.getBureauData())
+            val supportingDocuments: String? = adjudicationRequest_.getSupportingDocuments()
+
             // Create map
-            var map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
             map_.put("ApplicantData", applicantData)
             map_.put("BureauData", bureauData)
             map_.put("SupportingDocuments", supportingDocuments)

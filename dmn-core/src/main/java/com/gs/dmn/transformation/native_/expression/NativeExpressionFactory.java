@@ -153,9 +153,5 @@ public interface NativeExpressionFactory {
 
     String convertMemberToProto(String source, String sourceType, TItemDefinition member);
 
-    Statement convertProtoRequestToMapBody(TDRGElement element);
-
-    Statement convertProtoResponseToOutputBody(TDRGElement element);
-
     String convertValueToProtoNativeType(String value, Type type);
 }

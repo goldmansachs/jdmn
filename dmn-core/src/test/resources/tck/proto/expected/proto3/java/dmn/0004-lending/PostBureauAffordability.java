@@ -28,7 +28,7 @@ public class PostBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDe
         type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(postBureauAffordabilityRequest_.getApplicantData());
         type.TBureauData bureauData = type.TBureauData.toTBureauData(postBureauAffordabilityRequest_.getBureauData());
         type.TRequestedProduct requestedProduct = type.TRequestedProduct.toTRequestedProduct(postBureauAffordabilityRequest_.getRequestedProduct());
-        
+
         // Create map
         java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
         map_.put("ApplicantData", applicantData);

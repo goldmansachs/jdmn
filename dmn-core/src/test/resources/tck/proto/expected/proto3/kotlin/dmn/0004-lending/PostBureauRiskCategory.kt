@@ -108,11 +108,11 @@ class PostBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = A
         @JvmStatic
         fun requestToMap(postBureauRiskCategoryRequest_: proto.PostBureauRiskCategoryRequest): kotlin.collections.Map<String, Any?> {
             // Create arguments from Request Message
-            var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(postBureauRiskCategoryRequest_.getApplicantData())
-            var bureauData: type.TBureauData? = type.TBureauData.toTBureauData(postBureauRiskCategoryRequest_.getBureauData())
-            
+            val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(postBureauRiskCategoryRequest_.getApplicantData())
+            val bureauData: type.TBureauData? = type.TBureauData.toTBureauData(postBureauRiskCategoryRequest_.getBureauData())
+
             // Create map
-            var map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
             map_.put("ApplicantData", applicantData)
             map_.put("BureauData", bureauData)
             return map_

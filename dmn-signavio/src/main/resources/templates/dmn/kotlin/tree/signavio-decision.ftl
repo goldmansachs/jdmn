@@ -14,6 +14,7 @@
 <#if javaPackageName?has_content>
 package ${javaPackageName}
 </#if>
+<#assign repository = transformer.getDMNModelRepository() />
 
 import java.util.*
 import java.util.stream.Collectors
@@ -82,32 +83,26 @@ class ${javaClassName}(${transformer.decisionConstructorSignature(drgElement)}) 
 
         @JvmStatic
         fun requestToMap(${transformer.requestVariableName(drgElement)}: ${transformer.qualifiedRequestMessageName(drgElement)}): kotlin.collections.Map<String, Any?> {
-            <#assign stm = transformer.convertProtoRequestToMapBody(drgElement)>
-            <#list stm.statements as child>
-            ${child.expression}
-            </#list>
+            <@convertProtoRequestToMap drgElement />
         }
 
         @JvmStatic
         fun responseToOutput(${transformer.responseVariableName(drgElement)}: ${transformer.qualifiedResponseMessageName(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
-            <#assign stm = transformer.convertProtoResponseToOutputBody(drgElement)>
-            <#list stm.statements as child>
-            ${child.expression}
-            </#list>
+            <@convertProtoResponseToOutput drgElement />
         }
     </#if>
     }
 }
-<#macro makeArgumentsFromRequestMessage drgElement>
+<#macro makeArgumentsFromRequestMessage drgElement ident>
     <#assign parameters = transformer.drgElementTypeSignature(drgElement) />
-        // Create arguments from Request Message
+        ${ident}// Create arguments from Request Message
     <#list parameters as parameter>
-        val ${parameter.left}: ${transformer.toNativeType(parameter.right)}? = ${transformer.extractParameterFromRequestMessage(drgElement, parameter)}
+        ${ident}val ${parameter.left}: ${transformer.toNativeType(parameter.right)}? = ${transformer.extractParameterFromRequestMessage(drgElement, parameter)}
     </#list>
 </#macro>
 
 <#macro applyRequest drgElement>
-    <@makeArgumentsFromRequestMessage drgElement />
+    <@makeArgumentsFromRequestMessage drgElement ""/>
 
     <#assign outputVariable = "output_" />
     <#assign outputVariableProto = "outputProto_" />
@@ -124,4 +119,30 @@ class ${javaClassName}(${transformer.decisionConstructorSignature(drgElement)}) 
         val ${outputVariableProto} = ${transformer.convertValueToProtoNativeType(outputVariable, outputType)}
         builder_.${transformer.protoSetter(drgElement)}(${outputVariableProto})
         return builder_.build()
+</#macro>
+
+<#macro convertProtoRequestToMap drgElement>
+     <@makeArgumentsFromRequestMessage drgElement "    "/>
+
+    <#assign mapVariable = "map_" />
+    <#assign reference = repository.makeDRGElementReference(drgElement) />
+    <#assign inputDataClosure = transformer.inputDataClosure(reference) />
+            // Create map
+            val ${mapVariable}: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            <#list inputDataClosure as r >
+                <#assign inputData = r.element />
+                <#assign displayName = repository.displayName(inputData) />
+                <#assign variableName = transformer.nativeName(inputData) />
+            ${mapVariable}.put("${displayName}", ${variableName})
+            </#list>
+            return ${mapVariable}
+</#macro>
+
+<#macro convertProtoResponseToOutput drgElement>
+            // Extract and convert output
+            <#assign source = transformer.responseVariableName(drgElement) />
+            <#assign memberType = transformer.drgElementOutputFEELType(drgElement) />
+            <#assign value>${source}.${transformer.protoGetter(drgElement)}</#assign>
+            <#assign exp = transformer.extractMemberFromProtoValue(value, memberType) />
+            return ${exp}
 </#macro>

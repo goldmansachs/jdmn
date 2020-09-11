@@ -28,7 +28,7 @@ public class Adjudication extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(adjudicationRequest_.getApplicantData());
         type.TBureauData bureauData = type.TBureauData.toTBureauData(adjudicationRequest_.getBureauData());
         String supportingDocuments = adjudicationRequest_.getSupportingDocuments();
-        
+
         // Create map
         java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
         map_.put("ApplicantData", applicantData);

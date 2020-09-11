@@ -26,7 +26,7 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSigna
     public static java.util.Map<String, Object> requestToMap(proto.AssessApplicantAgeRequest assessApplicantAgeRequest_) {
         // Create arguments from Request Message
         type.Applicant applicant = type.Applicant.toApplicant(assessApplicantAgeRequest_.getApplicant());
-        
+
         // Create map
         java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
         map_.put("Applicant", applicant);

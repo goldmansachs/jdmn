@@ -322,27 +322,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     }
 
     @Override
-    public Statement convertProtoRequestToMapBody(TDRGElement element) {
-        CompoundStatement statement = makeArgumentsFromRequestMessage(element);
-
-        // Create map
-        statement.add(makeCommentStatement("Create map"));
-        String mapVariable = "map_";
-        statement.add(makeDeclarationStatement("kotlin.collections.MutableMap<String, Any?>", mapVariable, "mutableMapOf()", null));
-        com.gs.dmn.DRGElementReference<TDecision> reference = this.repository.makeDRGElementReference((TDecision) element);
-        List<com.gs.dmn.DRGElementReference<TInputData>> inputDataClosure = this.transformer.inputDataClosure(reference);
-        for (com.gs.dmn.DRGElementReference<TInputData> r: inputDataClosure) {
-            TInputData inputData = r.getElement();
-            String displayName = this.repository.displayName(inputData);
-            String variableName = this.transformer.nativeName(inputData);
-            statement.add(makeExpressionStatement(String.format("%s.put(\"%s\", %s)", mapVariable, displayName, variableName), null));
-        }
-        statement.add(makeReturnStatement(mapVariable, null));
-        return statement;
-    }
-
-    @Override
-    protected String extractMemberFromProtoValue(String protoValue, Type type) {
+    public String extractMemberFromProtoValue(String protoValue, Type type) {
         if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
             if (type == NumberType.NUMBER) {
                 String qNativeType = this.transformer.getNativeTypeFactory().toQualifiedNativeType(((DataType) type).getName());

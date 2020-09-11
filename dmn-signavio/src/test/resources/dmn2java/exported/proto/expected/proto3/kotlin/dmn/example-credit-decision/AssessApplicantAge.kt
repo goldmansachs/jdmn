@@ -199,10 +199,10 @@ class AssessApplicantAge() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         @JvmStatic
         fun requestToMap(assessApplicantAgeRequest_: proto.AssessApplicantAgeRequest): kotlin.collections.Map<String, Any?> {
             // Create arguments from Request Message
-            var applicant: type.Applicant? = type.Applicant.toApplicant(assessApplicantAgeRequest_.getApplicant())
-            
+            val applicant: type.Applicant? = type.Applicant.toApplicant(assessApplicantAgeRequest_.getApplicant())
+
             // Create map
-            var map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
             map_.put("Applicant", applicant)
             return map_
         }

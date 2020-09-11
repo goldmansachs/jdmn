@@ -86,9 +86,11 @@ public interface BasicDMNToNativeTransformer {
 
     String protoGetter(TItemDefinition itemDefinition);
 
+    String protoGetter(TDRGElement drgElement);
+
     String protoSetter(TItemDefinition itemDefinition);
 
-    String protoSetter(TDRGElement tdrgElement);
+    String protoSetter(TDRGElement drgElement);
 
     //
     // TInformationItem related functions
@@ -548,10 +550,6 @@ public interface BasicDMNToNativeTransformer {
 
     String drgElementDefaultArgumentListExtraCacheProto(TDRGElement element);
 
-    Statement convertProtoRequestToMapBody(TDRGElement element);
-
-    Statement convertProtoResponseToOutputBody(TDRGElement element);
-
     String convertProtoMember(String source, TItemDefinition parent, TItemDefinition child);
 
     String convertMemberToProto(String source, String sourceType, TItemDefinition child);
@@ -581,4 +579,6 @@ public interface BasicDMNToNativeTransformer {
     String extractParameterFromRequestMessage(TDRGElement element, Pair<String, Type> parameter);
 
     String convertValueToProtoNativeType(String value, Type type);
+
+    String extractMemberFromProtoValue(String protoValue, Type type);
 }

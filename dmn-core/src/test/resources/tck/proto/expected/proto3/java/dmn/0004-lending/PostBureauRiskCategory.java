@@ -27,7 +27,7 @@ public class PostBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDec
         // Create arguments from Request Message
         type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(postBureauRiskCategoryRequest_.getApplicantData());
         type.TBureauData bureauData = type.TBureauData.toTBureauData(postBureauRiskCategoryRequest_.getBureauData());
-        
+
         // Create map
         java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
         map_.put("ApplicantData", applicantData);

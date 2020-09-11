@@ -28,7 +28,7 @@ public class MakeCreditDecision extends com.gs.dmn.signavio.runtime.DefaultSigna
         type.Applicant applicant = type.Applicant.toApplicant(makeCreditDecisionRequest_.getApplicant());
         java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getCurrentRiskAppetite());
         java.math.BigDecimal lendingThreshold = java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getLendingThreshold());
-        
+
         // Create map
         java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
         map_.put("Applicant", applicant);

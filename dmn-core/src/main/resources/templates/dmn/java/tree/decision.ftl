@@ -14,6 +14,7 @@
 <#if javaPackageName?has_content>
 package ${javaPackageName};
 </#if>
+<#assign repository = transformer.getDMNModelRepository() />
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -41,17 +42,11 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     <#if transformer.isGenerateProto()>
 
     public static java.util.Map<String, Object> requestToMap(${transformer.qualifiedRequestMessageName(drgElement)} ${transformer.requestVariableName(drgElement)}) {
-        <#assign stm = transformer.convertProtoRequestToMapBody(drgElement)>
-        <#list stm.statements as child>
-        ${child.expression}
-        </#list>
+        <@convertProtoRequestToMap drgElement />
     }
 
     public static ${transformer.drgElementOutputType(drgElement)} responseToOutput(${transformer.qualifiedResponseMessageName(drgElement)} ${transformer.responseVariableName(drgElement)}) {
-        <#assign stm = transformer.convertProtoResponseToOutputBody(drgElement)>
-        <#list stm.statements as child>
-        ${child.expression}
-        </#list>
+        <@convertProtoResponseToOutput drgElement />
     }
     </#if>
     <@addSubDecisionFields drgElement/>
@@ -130,4 +125,30 @@ public class ${javaClassName} extends ${decisionBaseClass} {
         ${transformer.drgElementOutputTypeProto(drgElement)} ${outputVariableProto} = ${transformer.convertValueToProtoNativeType(outputVariable, outputType)};
         builder_.${transformer.protoSetter(drgElement)}(${outputVariableProto});
         return builder_.build();
+</#macro>
+
+<#macro convertProtoRequestToMap drgElement>
+    <@makeArgumentsFromRequestMessage drgElement />
+
+    <#assign mapVariable = "map_" />
+    <#assign reference = repository.makeDRGElementReference(drgElement) />
+    <#assign inputDataClosure = transformer.inputDataClosure(reference) />
+        // Create map
+        java.util.Map<String, Object> ${mapVariable} = new java.util.LinkedHashMap<>();
+        <#list inputDataClosure as r >
+            <#assign inputData = r.element />
+            <#assign displayName = repository.displayName(inputData) />
+            <#assign variableName = transformer.nativeName(inputData) />
+        ${mapVariable}.put("${displayName}", ${variableName});
+        </#list>
+        return ${mapVariable};
+</#macro>
+
+<#macro convertProtoResponseToOutput drgElement>
+        // Extract and convert output
+        <#assign source = transformer.responseVariableName(drgElement) />
+        <#assign memberType = transformer.drgElementOutputFEELType(drgElement) />
+        <#assign value>${source}.${transformer.protoGetter(drgElement)}</#assign>
+        <#assign exp = transformer.extractMemberFromProtoValue(value, memberType) />
+        return ${exp};
 </#macro>

@@ -98,11 +98,11 @@ class AssessIssueRisk(val processPriorIssues : ProcessPriorIssues = ProcessPrior
         @JvmStatic
         fun requestToMap(assessIssueRiskRequest_: proto.AssessIssueRiskRequest): kotlin.collections.Map<String, Any?> {
             // Create arguments from Request Message
-            var applicant: type.Applicant? = type.Applicant.toApplicant(assessIssueRiskRequest_.getApplicant())
-            var currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(assessIssueRiskRequest_.getCurrentRiskAppetite())
-            
+            val applicant: type.Applicant? = type.Applicant.toApplicant(assessIssueRiskRequest_.getApplicant())
+            val currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(assessIssueRiskRequest_.getCurrentRiskAppetite())
+
             // Create map
-            var map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
             map_.put("Applicant", applicant)
             map_.put("Current risk appetite", currentRiskAppetite)
             return map_

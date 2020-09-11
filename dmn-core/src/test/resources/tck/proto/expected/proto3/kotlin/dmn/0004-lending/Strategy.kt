@@ -208,11 +208,11 @@ class Strategy(val bureauCallType : BureauCallType = BureauCallType(), val eligi
         @JvmStatic
         fun requestToMap(strategyRequest_: proto.StrategyRequest): kotlin.collections.Map<String, Any?> {
             // Create arguments from Request Message
-            var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(strategyRequest_.getApplicantData())
-            var requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(strategyRequest_.getRequestedProduct())
-            
+            val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(strategyRequest_.getApplicantData())
+            val requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(strategyRequest_.getRequestedProduct())
+
             // Create map
-            var map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
             map_.put("ApplicantData", applicantData)
             map_.put("RequestedProduct", requestedProduct)
             return map_
