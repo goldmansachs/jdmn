@@ -367,11 +367,20 @@ public class TestLabUtil {
         return this.dmnTransformer.isGenerateProto();
     }
 
-    // For input parameters
     public String toNativeExpressionProto(InputParameterDefinition inputParameterDefinition) {
         String inputName = inputDataVariableName(inputParameterDefinition);
         Type type = toFEELType(inputParameterDefinition);
         return this.dmnTransformer.getNativeFactory().convertValueToProtoNativeType(inputName, type);
+    }
+
+    public String toNativeTypeProto(InputParameterDefinition inputParameterDefinition) {
+        Type type = toFEELType(inputParameterDefinition);
+        return this.dmnTransformer.getProtoFactory().toNativeProtoType(type);
+    }
+
+    public boolean isProtoReference(InputParameterDefinition inputParameterDefinition) {
+        Type type = toFEELType(inputParameterDefinition);
+        return this.dmnTransformer.isProtoReference(type);
     }
 
     public String drgElementVariableNameProto(OutputParameterDefinition outputParameterDefinition) {
