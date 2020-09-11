@@ -18,9 +18,14 @@ class GenerateOutputDataTest : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
 
         // Make proto request
         var builder_: proto.GenerateOutputDataRequest.Builder = proto.GenerateOutputDataRequest.newBuilder()
-        builder_.setCurrentRiskAppetite((if (currentRiskAppetite == null) 0.0 else currentRiskAppetite!!.toDouble()))
-        builder_.setLendingThreshold((if (lendingThreshold == null) 0.0 else lendingThreshold!!.toDouble()))
-        builder_.setApplicant(type.Applicant.toProto(applicant))
+        val currentRiskAppetiteProto: Double = (if (currentRiskAppetite == null) 0.0 else currentRiskAppetite!!.toDouble());
+        builder_.setCurrentRiskAppetite(currentRiskAppetiteProto);
+        val lendingThresholdProto: Double = (if (lendingThreshold == null) 0.0 else lendingThreshold!!.toDouble());
+        builder_.setLendingThreshold(lendingThresholdProto);
+        val applicantProto: proto.Applicant = type.Applicant.toProto(applicant);
+        if (applicantProto != null) {
+            builder_.setApplicant(applicantProto);
+        }
         val generateOutputDataRequest_: proto.GenerateOutputDataRequest = builder_.build()
 
         // Invoke apply method
@@ -43,9 +48,14 @@ class GenerateOutputDataTest : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
 
         // Make proto request
         var builder_: proto.GenerateOutputDataRequest.Builder = proto.GenerateOutputDataRequest.newBuilder()
-        builder_.setCurrentRiskAppetite((if (currentRiskAppetite == null) 0.0 else currentRiskAppetite!!.toDouble()))
-        builder_.setLendingThreshold((if (lendingThreshold == null) 0.0 else lendingThreshold!!.toDouble()))
-        builder_.setApplicant(type.Applicant.toProto(applicant))
+        val currentRiskAppetiteProto: Double = (if (currentRiskAppetite == null) 0.0 else currentRiskAppetite!!.toDouble());
+        builder_.setCurrentRiskAppetite(currentRiskAppetiteProto);
+        val lendingThresholdProto: Double = (if (lendingThreshold == null) 0.0 else lendingThreshold!!.toDouble());
+        builder_.setLendingThreshold(lendingThresholdProto);
+        val applicantProto: proto.Applicant = type.Applicant.toProto(applicant);
+        if (applicantProto != null) {
+            builder_.setApplicant(applicantProto);
+        }
         val generateOutputDataRequest_: proto.GenerateOutputDataRequest = builder_.build()
 
         // Invoke apply method
@@ -68,9 +78,14 @@ class GenerateOutputDataTest : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
 
         // Make proto request
         var builder_: proto.GenerateOutputDataRequest.Builder = proto.GenerateOutputDataRequest.newBuilder()
-        builder_.setCurrentRiskAppetite((if (currentRiskAppetite == null) 0.0 else currentRiskAppetite!!.toDouble()))
-        builder_.setLendingThreshold((if (lendingThreshold == null) 0.0 else lendingThreshold!!.toDouble()))
-        builder_.setApplicant(type.Applicant.toProto(applicant))
+        val currentRiskAppetiteProto: Double = (if (currentRiskAppetite == null) 0.0 else currentRiskAppetite!!.toDouble());
+        builder_.setCurrentRiskAppetite(currentRiskAppetiteProto);
+        val lendingThresholdProto: Double = (if (lendingThreshold == null) 0.0 else lendingThreshold!!.toDouble());
+        builder_.setLendingThreshold(lendingThresholdProto);
+        val applicantProto: proto.Applicant = type.Applicant.toProto(applicant);
+        if (applicantProto != null) {
+            builder_.setApplicant(applicantProto);
+        }
         val generateOutputDataRequest_: proto.GenerateOutputDataRequest = builder_.build()
 
         // Invoke apply method

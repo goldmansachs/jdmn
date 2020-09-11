@@ -18,9 +18,14 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
 
         // Make proto request
         proto.GenerateOutputDataRequest.Builder builder_ = proto.GenerateOutputDataRequest.newBuilder();
-        builder_.setCurrentRiskAppetite((currentRiskAppetite == null ? 0.0 : currentRiskAppetite.doubleValue()));
-        builder_.setLendingThreshold((lendingThreshold == null ? 0.0 : lendingThreshold.doubleValue()));
-        builder_.setApplicant(type.Applicant.toProto(applicant));
+        Double currentRiskAppetiteProto = (currentRiskAppetite == null ? 0.0 : currentRiskAppetite.doubleValue());
+        builder_.setCurrentRiskAppetite(currentRiskAppetiteProto);
+        Double lendingThresholdProto = (lendingThreshold == null ? 0.0 : lendingThreshold.doubleValue());
+        builder_.setLendingThreshold(lendingThresholdProto);
+        proto.Applicant applicantProto = type.Applicant.toProto(applicant);
+        if (applicantProto != null) {
+            builder_.setApplicant(applicantProto);
+        }
         proto.GenerateOutputDataRequest generateOutputDataRequest_ = builder_.build();
 
         // Invoke apply method
@@ -43,9 +48,14 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
 
         // Make proto request
         proto.GenerateOutputDataRequest.Builder builder_ = proto.GenerateOutputDataRequest.newBuilder();
-        builder_.setCurrentRiskAppetite((currentRiskAppetite == null ? 0.0 : currentRiskAppetite.doubleValue()));
-        builder_.setLendingThreshold((lendingThreshold == null ? 0.0 : lendingThreshold.doubleValue()));
-        builder_.setApplicant(type.Applicant.toProto(applicant));
+        Double currentRiskAppetiteProto = (currentRiskAppetite == null ? 0.0 : currentRiskAppetite.doubleValue());
+        builder_.setCurrentRiskAppetite(currentRiskAppetiteProto);
+        Double lendingThresholdProto = (lendingThreshold == null ? 0.0 : lendingThreshold.doubleValue());
+        builder_.setLendingThreshold(lendingThresholdProto);
+        proto.Applicant applicantProto = type.Applicant.toProto(applicant);
+        if (applicantProto != null) {
+            builder_.setApplicant(applicantProto);
+        }
         proto.GenerateOutputDataRequest generateOutputDataRequest_ = builder_.build();
 
         // Invoke apply method
@@ -68,9 +78,14 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
 
         // Make proto request
         proto.GenerateOutputDataRequest.Builder builder_ = proto.GenerateOutputDataRequest.newBuilder();
-        builder_.setCurrentRiskAppetite((currentRiskAppetite == null ? 0.0 : currentRiskAppetite.doubleValue()));
-        builder_.setLendingThreshold((lendingThreshold == null ? 0.0 : lendingThreshold.doubleValue()));
-        builder_.setApplicant(type.Applicant.toProto(applicant));
+        Double currentRiskAppetiteProto = (currentRiskAppetite == null ? 0.0 : currentRiskAppetite.doubleValue());
+        builder_.setCurrentRiskAppetite(currentRiskAppetiteProto);
+        Double lendingThresholdProto = (lendingThreshold == null ? 0.0 : lendingThreshold.doubleValue());
+        builder_.setLendingThreshold(lendingThresholdProto);
+        proto.Applicant applicantProto = type.Applicant.toProto(applicant);
+        if (applicantProto != null) {
+            builder_.setApplicant(applicantProto);
+        }
         proto.GenerateOutputDataRequest generateOutputDataRequest_ = builder_.build();
 
         // Invoke apply method
