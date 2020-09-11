@@ -18,15 +18,7 @@ public interface NativeStatementFactory {
     //
     // Simple statements
     //
-    NopStatement makeNopStatement();
-
     ExpressionStatement makeExpressionStatement(String text, Type type);
-
-    CommentStatement makeCommentStatement(String message);
-
-    ExpressionStatement makeDeclarationStatement(String nativeType, String variableName, String expression, Type type);
-
-    Statement makeReturnStatement(String expression, Type type);
 
     //
     // Compound statement
