@@ -63,16 +63,12 @@ class ${javaClassName}(${transformer.decisionConstructorSignature(drgElement)}) 
     }
 
     fun apply(${transformer.drgElementSignatureExtraCacheProto(drgElement)}): ${transformer.qualifiedResponseMessageName(drgElement)} {
-    <#assign parameters = transformer.drgElementTypeSignature(drgElement) />
+    <@makeArgumentsFromRequestMessage drgElement />
+
     <#assign outputVariable = "output_" />
     <#assign outputVariableProto = "outputProto_" />
     <#assign responseMessageName = transformer.qualifiedResponseMessageName(drgElement) />
     <#assign outputType = transformer.drgElementOutputFEELType(drgElement) />
-        // Create arguments from Request Message
-        <#list parameters as parameter>
-        val ${parameter.left}: ${transformer.toNativeType(parameter.right)}? = ${transformer.extractParameterFromRequestMessage(drgElement, parameter)}
-        </#list>
-
         // Invoke apply method
         <#assign outputVariable = "output_" />
         val ${outputVariable}: ${transformer.drgElementOutputType(drgElement)} = apply(${transformer.drgElementArgumentListExtraCache(drgElement)})
@@ -118,3 +114,10 @@ class ${javaClassName}(${transformer.decisionConstructorSignature(drgElement)}) 
     </#if>
     }
 }
+<#macro makeArgumentsFromRequestMessage drgElement>
+    <#assign parameters = transformer.drgElementTypeSignature(drgElement) />
+        // Create arguments from Request Message
+    <#list parameters as parameter>
+        val ${parameter.left}: ${transformer.toNativeType(parameter.right)}? = ${transformer.extractParameterFromRequestMessage(drgElement, parameter)}
+    </#list>
+</#macro>
