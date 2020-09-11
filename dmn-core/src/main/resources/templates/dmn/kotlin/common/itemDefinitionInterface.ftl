@@ -129,14 +129,26 @@ interface ${javaClassName} : ${transformer.dmnTypeClassName()} {
         }
     <#if transformer.isGenerateProto()>
 
+        @JvmStatic
         fun toProto(other: ${javaClassName}?): ${transformer.qualifiedProtoMessageName(itemDefinition)} {
             var result_: ${transformer.qualifiedProtoMessageName(itemDefinition)}.Builder = ${transformer.qualifiedProtoMessageName(itemDefinition)}.newBuilder()
+            if (other != null) {
         <#list itemDefinition.itemComponent as child>
-            result_.${transformer.protoSetter(child)}(${transformer.convertMemberToProto("other", javaClassName, child)})
+            <#assign memberVariable = transformer.namedElementVariableNameProto(child) />
+                var ${memberVariable}: ${transformer.qualifiedNativeProtoType(child)} = ${transformer.convertMemberToProto("other", javaClassName, child)}
+            <#if transformer.isProtoReference(child)>
+                if (${memberVariable} != null) {
+                    result_.${transformer.protoSetter(child)}(${memberVariable})
+                }
+            <#else>
+                result_.${transformer.protoSetter(child)}(${memberVariable})
+            </#if>
         </#list>
+            }
             return result_.build()
         }
 
+        @JvmStatic
         fun toProto(other: List<${javaClassName}?>?): List<${transformer.qualifiedProtoMessageName(itemDefinition)}>? {
             if (other == null) {
                 return null

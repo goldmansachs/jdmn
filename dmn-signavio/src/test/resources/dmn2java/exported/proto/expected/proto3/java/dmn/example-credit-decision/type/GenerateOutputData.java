@@ -32,9 +32,14 @@ public interface GenerateOutputData extends com.gs.dmn.runtime.DMNType {
 
     static proto.GenerateOutputData toProto(GenerateOutputData other) {
         proto.GenerateOutputData.Builder result_ = proto.GenerateOutputData.newBuilder();
-        result_.setDecision((((GenerateOutputData) other).getDecision() == null ? "" : ((GenerateOutputData) other).getDecision()));
-        result_.setAssessment((((GenerateOutputData) other).getAssessment() == null ? 0.0 : ((GenerateOutputData) other).getAssessment().doubleValue()));
-        result_.setIssue((((GenerateOutputData) other).getIssue() == null ? 0.0 : ((GenerateOutputData) other).getIssue().doubleValue()));
+        if (other != null) {
+            String decisionProto_ = (((GenerateOutputData) other).getDecision() == null ? "" : ((GenerateOutputData) other).getDecision());
+            result_.setDecision(decisionProto_);
+            Double assessmentProto_ = (((GenerateOutputData) other).getAssessment() == null ? 0.0 : ((GenerateOutputData) other).getAssessment().doubleValue());
+            result_.setAssessment(assessmentProto_);
+            Double issueProto_ = (((GenerateOutputData) other).getIssue() == null ? 0.0 : ((GenerateOutputData) other).getIssue().doubleValue());
+            result_.setIssue(issueProto_);
+        }
         return result_.build();
     }
 

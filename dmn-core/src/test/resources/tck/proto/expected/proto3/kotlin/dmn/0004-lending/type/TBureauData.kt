@@ -69,13 +69,19 @@ interface TBureauData : com.gs.dmn.runtime.DMNType {
             }
         }
 
+        @JvmStatic
         fun toProto(other: TBureauData?): proto.TBureauData {
             var result_: proto.TBureauData.Builder = proto.TBureauData.newBuilder()
-            result_.setCreditScore((if ((other as TBureauData).creditScore == null) 0.0 else (other as TBureauData).creditScore!!.toDouble()))
-            result_.setBankrupt((if ((other as TBureauData).bankrupt == null) false else (other as TBureauData).bankrupt!!))
+            if (other != null) {
+                var creditScoreProto_: Double = (if ((other as TBureauData).creditScore == null) 0.0 else (other as TBureauData).creditScore!!.toDouble())
+                result_.setCreditScore(creditScoreProto_)
+                var bankruptProto_: Boolean = (if ((other as TBureauData).bankrupt == null) false else (other as TBureauData).bankrupt!!)
+                result_.setBankrupt(bankruptProto_)
+            }
             return result_.build()
         }
 
+        @JvmStatic
         fun toProto(other: List<TBureauData?>?): List<proto.TBureauData>? {
             if (other == null) {
                 return null

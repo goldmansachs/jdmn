@@ -34,10 +34,18 @@ public interface Applicant extends com.gs.dmn.runtime.DMNType {
 
     static proto.Applicant toProto(Applicant other) {
         proto.Applicant.Builder result_ = proto.Applicant.newBuilder();
-        result_.setName((((Applicant) other).getName() == null ? "" : ((Applicant) other).getName()));
-        result_.setAge((((Applicant) other).getAge() == null ? 0.0 : ((Applicant) other).getAge().doubleValue()));
-        result_.setCreditScore((((Applicant) other).getCreditScore() == null ? 0.0 : ((Applicant) other).getCreditScore().doubleValue()));
-        result_.addAllPriorIssues(((List) ((Applicant) other).getPriorIssues().stream().map(e -> (e == null ? "" : e)).collect(java.util.stream.Collectors.toList())));
+        if (other != null) {
+            String nameProto_ = (((Applicant) other).getName() == null ? "" : ((Applicant) other).getName());
+            result_.setName(nameProto_);
+            Double ageProto_ = (((Applicant) other).getAge() == null ? 0.0 : ((Applicant) other).getAge().doubleValue());
+            result_.setAge(ageProto_);
+            Double creditScoreProto_ = (((Applicant) other).getCreditScore() == null ? 0.0 : ((Applicant) other).getCreditScore().doubleValue());
+            result_.setCreditScore(creditScoreProto_);
+            List<String> priorIssuesProto_ = ((List) ((Applicant) other).getPriorIssues().stream().map(e -> (e == null ? "" : e)).collect(java.util.stream.Collectors.toList()));
+            if (priorIssuesProto_ != null) {
+                result_.addAllPriorIssues(priorIssuesProto_);
+            }
+        }
         return result_.build();
     }
 

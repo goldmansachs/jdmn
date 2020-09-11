@@ -564,7 +564,15 @@ public interface BasicDMNToNativeTransformer {
 
     String responseVariableName(TDRGElement element);
 
+    String namedElementVariableNameProto(TNamedElement element);
+
     String drgElementOutputTypeProto(TDRGElement element);
+
+    String qualifiedNativeProtoType(TItemDefinition itemDefinition);
+
+    boolean isProtoReference(TItemDefinition itemDefinition);
+
+    boolean isProtoReference(Type type);
 
     String protoFieldName(TNamedElement element);
 }

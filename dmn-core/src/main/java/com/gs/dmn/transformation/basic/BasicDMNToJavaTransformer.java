@@ -2058,9 +2058,31 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
+    public String namedElementVariableNameProto(TNamedElement element) {
+        return this.protoFactory.namedElementVariableNameProto(element);
+    }
+
+    @Override
     public String drgElementOutputTypeProto(TDRGElement element) {
         Type type = drgElementOutputFEELType(element);
         return this.protoFactory.toNativeProtoType(type);
+    }
+
+    @Override
+    public String qualifiedNativeProtoType(TItemDefinition itemDefinition) {
+        Type type = toFEELType(itemDefinition);
+        return this.protoFactory.toNativeProtoType(type);
+    }
+
+    @Override
+    public boolean isProtoReference(TItemDefinition itemDefinition) {
+        Type type = toFEELType(itemDefinition);
+        return isProtoReference(type);
+    }
+
+    @Override
+    public boolean isProtoReference(Type type) {
+        return isComplexType(type) || type instanceof ListType;
     }
 
     @Override
