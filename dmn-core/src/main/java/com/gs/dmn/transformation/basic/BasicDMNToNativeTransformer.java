@@ -88,6 +88,8 @@ public interface BasicDMNToNativeTransformer {
 
     String protoSetter(TItemDefinition itemDefinition);
 
+    String protoSetter(TDRGElement tdrgElement);
+
     //
     // TInformationItem related functions
     //
@@ -123,6 +125,8 @@ public interface BasicDMNToNativeTransformer {
     List<Pair<String, Type>> drgElementTypeSignature(TDRGElement element, Function<Object, String> nameProducer);
 
     List<Pair<String, Type>> drgElementTypeSignature(DRGElementReference<? extends TDRGElement> reference, Function<Object, String> nameProducer);
+
+    List<Pair<String, Type>> drgElementTypeSignature(TDRGElement element);
 
     String drgElementSignature(TDRGElement element);
 
@@ -544,8 +548,6 @@ public interface BasicDMNToNativeTransformer {
 
     String drgElementDefaultArgumentListExtraCacheProto(TDRGElement element);
 
-    Statement drgElementSignatureProtoBody(TDRGElement element);
-
     Statement convertProtoRequestToMapBody(TDRGElement element);
 
     Statement convertProtoResponseToOutputBody(TDRGElement element);
@@ -575,4 +577,8 @@ public interface BasicDMNToNativeTransformer {
     boolean isProtoReference(Type type);
 
     String protoFieldName(TNamedElement element);
+
+    String extractParameterFromRequestMessage(TDRGElement element, Pair<String, Type> parameter);
+
+    String convertValueToProtoNativeType(String value, Type type);
 }

@@ -91,10 +91,10 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
     public proto.ProcessPriorIssuesResponse apply(proto.ProcessPriorIssuesRequest processPriorIssuesRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Create arguments from Request Message
         type.Applicant applicant = type.Applicant.toApplicant(processPriorIssuesRequest_.getApplicant());
-        
+
         // Invoke apply method
         List<java.math.BigDecimal> output_ = apply(applicant, annotationSet_, eventListener_, externalExecutor_, cache_);
-        
+
         // Convert output to Response Message
         proto.ProcessPriorIssuesResponse.Builder builder_ = proto.ProcessPriorIssuesResponse.newBuilder();
         builder_.addAllProcessPriorIssues(((List) output_.stream().map(e -> (e == null ? 0.0 : e.doubleValue())).collect(java.util.stream.Collectors.toList())));

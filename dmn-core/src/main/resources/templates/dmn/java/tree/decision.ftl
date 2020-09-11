@@ -102,10 +102,22 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     }
 
     public ${transformer.qualifiedResponseMessageName(drgElement)} apply(${transformer.drgElementSignatureExtraCacheProto(drgElement)}) {
-        <#assign stm = transformer.drgElementSignatureProtoBody(drgElement)>
-        <#list stm.statements as child>
-        ${child.expression}
+        // Create arguments from Request Message
+        <#assign parameters = transformer.drgElementTypeSignature(drgElement) />
+        <#list parameters as parameter>
+        ${transformer.toNativeType(parameter.right)} ${parameter.left} = ${transformer.extractParameterFromRequestMessage(drgElement, parameter)};
         </#list>
+
+        // Invoke apply method
+        <#assign outputVariable = "output_" />
+        ${transformer.drgElementOutputType(drgElement)} ${outputVariable} = apply(${transformer.drgElementArgumentListExtraCache(drgElement)});
+
+        // Convert output to Response Message
+        <#assign responseMessageName = transformer.qualifiedResponseMessageName(drgElement) />
+        ${responseMessageName}.Builder builder_ = ${responseMessageName}.newBuilder();
+        <#assign outputType = transformer.drgElementOutputFEELType(drgElement) />
+        builder_.${transformer.protoSetter(drgElement)}(${transformer.convertValueToProtoNativeType(outputVariable, outputType)});
+        return builder_.build();
     }
     </#if>
     <@evaluateExpressionMethod drgElement />

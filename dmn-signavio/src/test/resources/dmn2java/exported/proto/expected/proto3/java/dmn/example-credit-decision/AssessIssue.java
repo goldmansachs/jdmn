@@ -95,10 +95,10 @@ public class AssessIssue extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
         // Create arguments from Request Message
         java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(assessIssueRequest_.getCurrentRiskAppetite());
         java.math.BigDecimal priorIssue_iterator = java.math.BigDecimal.valueOf(assessIssueRequest_.getPriorIssueIterator());
-        
+
         // Invoke apply method
         java.math.BigDecimal output_ = apply(currentRiskAppetite, priorIssue_iterator, annotationSet_, eventListener_, externalExecutor_, cache_);
-        
+
         // Convert output to Response Message
         proto.AssessIssueResponse.Builder builder_ = proto.AssessIssueResponse.newBuilder();
         builder_.setAssessIssue((output_ == null ? 0.0 : output_.doubleValue()));

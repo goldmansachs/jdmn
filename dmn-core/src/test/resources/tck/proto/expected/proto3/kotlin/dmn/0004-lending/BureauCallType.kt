@@ -65,13 +65,13 @@ class BureauCallType(val preBureauRiskCategory : PreBureauRiskCategory = PreBure
 
     fun apply(bureauCallTypeRequest_: proto.BureauCallTypeRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.BureauCallTypeResponse {
         // Create arguments from Request Message
-        var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(bureauCallTypeRequest_.getApplicantData())
-        
+        val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(bureauCallTypeRequest_.getApplicantData())
+
         // Invoke apply method
-        var output_: String? = apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
-        
+        val output_: String? = apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         // Convert output to Response Message
-        var builder_: proto.BureauCallTypeResponse.Builder = proto.BureauCallTypeResponse.newBuilder()
+        val builder_: proto.BureauCallTypeResponse.Builder = proto.BureauCallTypeResponse.newBuilder()
         builder_.setBureauCallType((if (output_ == null) "" else output_!!))
         return builder_.build()
     }

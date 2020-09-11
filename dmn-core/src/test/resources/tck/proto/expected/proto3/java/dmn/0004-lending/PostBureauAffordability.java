@@ -112,10 +112,10 @@ public class PostBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDe
         type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(postBureauAffordabilityRequest_.getApplicantData());
         type.TBureauData bureauData = type.TBureauData.toTBureauData(postBureauAffordabilityRequest_.getBureauData());
         type.TRequestedProduct requestedProduct = type.TRequestedProduct.toTRequestedProduct(postBureauAffordabilityRequest_.getRequestedProduct());
-        
+
         // Invoke apply method
         Boolean output_ = apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
-        
+
         // Convert output to Response Message
         proto.PostBureauAffordabilityResponse.Builder builder_ = proto.PostBureauAffordabilityResponse.newBuilder();
         builder_.setPostBureauAffordability((output_ == null ? false : output_));

@@ -64,15 +64,15 @@ class Adjudication() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
     fun apply(adjudicationRequest_: proto.AdjudicationRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.AdjudicationResponse {
         // Create arguments from Request Message
-        var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(adjudicationRequest_.getApplicantData())
-        var bureauData: type.TBureauData? = type.TBureauData.toTBureauData(adjudicationRequest_.getBureauData())
-        var supportingDocuments: String? = adjudicationRequest_.getSupportingDocuments()
-        
+        val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(adjudicationRequest_.getApplicantData())
+        val bureauData: type.TBureauData? = type.TBureauData.toTBureauData(adjudicationRequest_.getBureauData())
+        val supportingDocuments: String? = adjudicationRequest_.getSupportingDocuments()
+
         // Invoke apply method
-        var output_: String? = apply(applicantData, bureauData, supportingDocuments, annotationSet_, eventListener_, externalExecutor_, cache_)
-        
+        val output_: String? = apply(applicantData, bureauData, supportingDocuments, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         // Convert output to Response Message
-        var builder_: proto.AdjudicationResponse.Builder = proto.AdjudicationResponse.newBuilder()
+        val builder_: proto.AdjudicationResponse.Builder = proto.AdjudicationResponse.newBuilder()
         builder_.setAdjudication((if (output_ == null) "" else output_!!))
         return builder_.build()
     }

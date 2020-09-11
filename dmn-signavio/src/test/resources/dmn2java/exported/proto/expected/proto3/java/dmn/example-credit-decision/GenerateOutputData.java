@@ -115,10 +115,10 @@ public class GenerateOutputData extends com.gs.dmn.signavio.runtime.DefaultSigna
         type.Applicant applicant = type.Applicant.toApplicant(generateOutputDataRequest_.getApplicant());
         java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(generateOutputDataRequest_.getCurrentRiskAppetite());
         java.math.BigDecimal lendingThreshold = java.math.BigDecimal.valueOf(generateOutputDataRequest_.getLendingThreshold());
-        
+
         // Invoke apply method
         List<type.GenerateOutputData> output_ = apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_);
-        
+
         // Convert output to Response Message
         proto.GenerateOutputDataResponse.Builder builder_ = proto.GenerateOutputDataResponse.newBuilder();
         builder_.addAllGenerateOutputData(((List) output_.stream().map(type.GenerateOutputData::toProto).collect(java.util.stream.Collectors.toList())));

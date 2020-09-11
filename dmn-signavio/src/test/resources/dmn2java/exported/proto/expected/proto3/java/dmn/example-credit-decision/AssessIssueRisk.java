@@ -105,10 +105,10 @@ public class AssessIssueRisk extends com.gs.dmn.signavio.runtime.DefaultSignavio
         // Create arguments from Request Message
         type.Applicant applicant = type.Applicant.toApplicant(assessIssueRiskRequest_.getApplicant());
         java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(assessIssueRiskRequest_.getCurrentRiskAppetite());
-        
+
         // Invoke apply method
         java.math.BigDecimal output_ = apply(applicant, currentRiskAppetite, annotationSet_, eventListener_, externalExecutor_, cache_);
-        
+
         // Convert output to Response Message
         proto.AssessIssueRiskResponse.Builder builder_ = proto.AssessIssueRiskResponse.newBuilder();
         builder_.setAssessIssueRisk((output_ == null ? 0.0 : output_.doubleValue()));

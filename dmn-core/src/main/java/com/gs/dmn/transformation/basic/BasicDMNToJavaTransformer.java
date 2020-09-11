@@ -272,7 +272,16 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
 
     @Override
     public String protoSetter(TItemDefinition itemDefinition) {
-        return this.protoFactory.protoSetter(namedElementVariableName(itemDefinition), toFEELType(itemDefinition));
+        return this.protoSetter(itemDefinition, toFEELType(itemDefinition));
+    }
+
+    @Override
+    public String protoSetter(TDRGElement drgElement) {
+        return this.protoSetter(drgElement, drgElementOutputFEELType(drgElement));
+    }
+
+    private String protoSetter(TNamedElement namedElement, Type type) {
+        return this.protoFactory.protoSetter(namedElementVariableName(namedElement), type);
     }
 
     //
@@ -400,6 +409,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     public List<Pair<String, Type>> drgElementTypeSignature(TDRGElement element, Function<Object, String> nameProducer) {
         DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
         return drgElementTypeSignature(reference, nameProducer);
+    }
+
+    @Override
+    public List<Pair<String, Type>> drgElementTypeSignature(TDRGElement element) {
+        return drgElementTypeSignature(element, this::nativeName);
     }
 
     @Override
@@ -2008,11 +2022,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public Statement drgElementSignatureProtoBody(TDRGElement element) {
-        return this.nativeFactory.drgElementSignatureProtoBody(element);
-    }
-
-    @Override
     public Statement convertProtoRequestToMapBody(TDRGElement element) {
         return this.nativeFactory.convertProtoRequestToMapBody(element);
     }
@@ -2088,5 +2097,15 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     @Override
     public String protoFieldName(TNamedElement element) {
         return this.protoFactory.protoFieldName(element);
+    }
+
+    @Override
+    public String extractParameterFromRequestMessage(TDRGElement element, Pair<String, Type> parameter) {
+        return this.nativeFactory.extractParameterFromRequestMessage(element, parameter);
+    }
+
+    @Override
+    public String convertValueToProtoNativeType(String value, Type type) {
+        return this.nativeFactory.convertValueToProtoNativeType(value, type);
     }
 }

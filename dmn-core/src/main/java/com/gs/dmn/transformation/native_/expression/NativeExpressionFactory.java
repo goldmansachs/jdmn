@@ -153,8 +153,6 @@ public interface NativeExpressionFactory {
 
     String convertMemberToProto(String source, String sourceType, TItemDefinition member);
 
-    Statement drgElementSignatureProtoBody(TDRGElement element);
-
     Statement convertProtoRequestToMapBody(TDRGElement element);
 
     Statement convertProtoResponseToOutputBody(TDRGElement element);

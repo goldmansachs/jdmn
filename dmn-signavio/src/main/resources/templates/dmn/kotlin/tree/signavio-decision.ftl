@@ -63,10 +63,22 @@ class ${javaClassName}(${transformer.decisionConstructorSignature(drgElement)}) 
     }
 
     fun apply(${transformer.drgElementSignatureExtraCacheProto(drgElement)}): ${transformer.qualifiedResponseMessageName(drgElement)} {
-        <#assign stm = transformer.drgElementSignatureProtoBody(drgElement)>
-        <#list stm.statements as child>
-        ${child.expression}
+        // Create arguments from Request Message
+        <#assign parameters = transformer.drgElementTypeSignature(drgElement) />
+        <#list parameters as parameter>
+        val ${parameter.left}: ${transformer.toNativeType(parameter.right)}? = ${transformer.extractParameterFromRequestMessage(drgElement, parameter)}
         </#list>
+
+        // Invoke apply method
+        <#assign outputVariable = "output_" />
+        val ${outputVariable}: ${transformer.drgElementOutputType(drgElement)} = apply(${transformer.drgElementArgumentListExtraCache(drgElement)})
+
+        // Convert output to Response Message
+        <#assign responseMessageName = transformer.qualifiedResponseMessageName(drgElement) />
+        val builder_: ${responseMessageName}.Builder = ${responseMessageName}.newBuilder()
+        <#assign outputType = transformer.drgElementOutputFEELType(drgElement) />
+        builder_.${transformer.protoSetter(drgElement)}(${transformer.convertValueToProtoNativeType(outputVariable, outputType)})
+        return builder_.build()
     }
     </#if>
     <@evaluateExpressionMethod drgElement />
