@@ -122,7 +122,8 @@ public class PostBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDec
 
         // Convert output to Response Message
         proto.PostBureauRiskCategoryResponse.Builder builder_ = proto.PostBureauRiskCategoryResponse.newBuilder();
-        builder_.setPostBureauRiskCategory((output_ == null ? "" : output_));
+        String outputProto_ = (output_ == null ? "" : output_);
+        builder_.setPostBureauRiskCategory(outputProto_);
         return builder_.build();
     }
 

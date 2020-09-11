@@ -77,7 +77,8 @@ class Routing(val postBureauAffordability : PostBureauAffordability = PostBureau
 
         // Convert output to Response Message
         val builder_: proto.RoutingResponse.Builder = proto.RoutingResponse.newBuilder()
-        builder_.setRouting((if (output_ == null) "" else output_!!))
+        val outputProto_ = (if (output_ == null) "" else output_!!)
+        builder_.setRouting(outputProto_)
         return builder_.build()
     }
 

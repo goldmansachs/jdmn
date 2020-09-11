@@ -80,7 +80,8 @@ class RequiredMonthlyInstallment() : com.gs.dmn.runtime.DefaultDMNBaseDecision()
 
         // Convert output to Response Message
         val builder_: proto.RequiredMonthlyInstallmentResponse.Builder = proto.RequiredMonthlyInstallmentResponse.newBuilder()
-        builder_.setRequiredMonthlyInstallment((if (output_ == null) 0.0 else output_!!.toDouble()))
+        val outputProto_ = (if (output_ == null) 0.0 else output_!!.toDouble())
+        builder_.setRequiredMonthlyInstallment(outputProto_)
         return builder_.build()
     }
 

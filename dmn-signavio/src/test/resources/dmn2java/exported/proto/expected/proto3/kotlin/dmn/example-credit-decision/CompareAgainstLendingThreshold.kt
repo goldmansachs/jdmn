@@ -77,7 +77,8 @@ class CompareAgainstLendingThreshold(val assessApplicantAge : AssessApplicantAge
 
         // Convert output to Response Message
         val builder_: proto.CompareAgainstLendingThresholdResponse.Builder = proto.CompareAgainstLendingThresholdResponse.newBuilder()
-        builder_.setCompareAgainstLendingThreshold((if (output_ == null) 0.0 else output_!!.toDouble()))
+        val outputProto_ = (if (output_ == null) 0.0 else output_!!.toDouble())
+        builder_.setCompareAgainstLendingThreshold(outputProto_)
         return builder_.build()
     }
 

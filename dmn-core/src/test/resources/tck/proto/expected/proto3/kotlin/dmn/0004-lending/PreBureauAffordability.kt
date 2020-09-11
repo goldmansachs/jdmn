@@ -75,7 +75,8 @@ class PreBureauAffordability(val preBureauRiskCategory : PreBureauRiskCategory =
 
         // Convert output to Response Message
         val builder_: proto.PreBureauAffordabilityResponse.Builder = proto.PreBureauAffordabilityResponse.newBuilder()
-        builder_.setPreBureauAffordability((if (output_ == null) false else output_!!))
+        val outputProto_ = (if (output_ == null) false else output_!!)
+        builder_.setPreBureauAffordability(outputProto_)
         return builder_.build()
     }
 

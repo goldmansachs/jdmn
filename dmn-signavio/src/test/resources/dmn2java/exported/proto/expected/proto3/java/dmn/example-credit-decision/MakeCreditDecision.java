@@ -115,7 +115,8 @@ public class MakeCreditDecision extends com.gs.dmn.signavio.runtime.DefaultSigna
 
         // Convert output to Response Message
         proto.MakeCreditDecisionResponse.Builder builder_ = proto.MakeCreditDecisionResponse.newBuilder();
-        builder_.setMakeCreditDecision((output_ == null ? "" : output_));
+        String outputProto_ = (output_ == null ? "" : output_);
+        builder_.setMakeCreditDecision(outputProto_);
         return builder_.build();
     }
 

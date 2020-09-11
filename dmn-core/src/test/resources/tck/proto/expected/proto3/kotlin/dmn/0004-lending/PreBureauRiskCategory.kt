@@ -83,7 +83,8 @@ class PreBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = Ap
 
         // Convert output to Response Message
         val builder_: proto.PreBureauRiskCategoryResponse.Builder = proto.PreBureauRiskCategoryResponse.newBuilder()
-        builder_.setPreBureauRiskCategory((if (output_ == null) "" else output_!!))
+        val outputProto_ = (if (output_ == null) "" else output_!!)
+        builder_.setPreBureauRiskCategory(outputProto_)
         return builder_.build()
     }
 

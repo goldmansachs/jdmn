@@ -73,7 +73,8 @@ class Adjudication() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
         // Convert output to Response Message
         val builder_: proto.AdjudicationResponse.Builder = proto.AdjudicationResponse.newBuilder()
-        builder_.setAdjudication((if (output_ == null) "" else output_!!))
+        val outputProto_ = (if (output_ == null) "" else output_!!)
+        builder_.setAdjudication(outputProto_)
         return builder_.build()
     }
 

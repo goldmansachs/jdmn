@@ -114,7 +114,8 @@ public class Strategy extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Convert output to Response Message
         proto.StrategyResponse.Builder builder_ = proto.StrategyResponse.newBuilder();
-        builder_.setStrategy((output_ == null ? "" : output_));
+        String outputProto_ = (output_ == null ? "" : output_);
+        builder_.setStrategy(outputProto_);
         return builder_.build();
     }
 

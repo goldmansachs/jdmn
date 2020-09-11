@@ -76,7 +76,8 @@ class MakeCreditDecision(val compareAgainstLendingThreshold : CompareAgainstLend
 
         // Convert output to Response Message
         val builder_: proto.MakeCreditDecisionResponse.Builder = proto.MakeCreditDecisionResponse.newBuilder()
-        builder_.setMakeCreditDecision((if (output_ == null) "" else output_!!))
+        val outputProto_ = (if (output_ == null) "" else output_!!)
+        builder_.setMakeCreditDecision(outputProto_)
         return builder_.build()
     }
 

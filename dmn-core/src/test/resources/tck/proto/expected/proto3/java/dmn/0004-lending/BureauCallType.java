@@ -107,7 +107,8 @@ public class BureauCallType extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
         // Convert output to Response Message
         proto.BureauCallTypeResponse.Builder builder_ = proto.BureauCallTypeResponse.newBuilder();
-        builder_.setBureauCallType((output_ == null ? "" : output_));
+        String outputProto_ = (output_ == null ? "" : output_);
+        builder_.setBureauCallType(outputProto_);
         return builder_.build();
     }
 

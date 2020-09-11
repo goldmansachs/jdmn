@@ -102,21 +102,23 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     }
 
     public ${transformer.qualifiedResponseMessageName(drgElement)} apply(${transformer.drgElementSignatureExtraCacheProto(drgElement)}) {
+    <#assign parameters = transformer.drgElementTypeSignature(drgElement) />
+    <#assign outputVariable = "output_" />
+    <#assign outputVariableProto = "outputProto_" />
+    <#assign responseMessageName = transformer.qualifiedResponseMessageName(drgElement) />
+    <#assign outputType = transformer.drgElementOutputFEELType(drgElement) />
         // Create arguments from Request Message
-        <#assign parameters = transformer.drgElementTypeSignature(drgElement) />
-        <#list parameters as parameter>
+    <#list parameters as parameter>
         ${transformer.toNativeType(parameter.right)} ${parameter.left} = ${transformer.extractParameterFromRequestMessage(drgElement, parameter)};
-        </#list>
+    </#list>
 
         // Invoke apply method
-        <#assign outputVariable = "output_" />
         ${transformer.drgElementOutputType(drgElement)} ${outputVariable} = apply(${transformer.drgElementArgumentListExtraCache(drgElement)});
 
         // Convert output to Response Message
-        <#assign responseMessageName = transformer.qualifiedResponseMessageName(drgElement) />
         ${responseMessageName}.Builder builder_ = ${responseMessageName}.newBuilder();
-        <#assign outputType = transformer.drgElementOutputFEELType(drgElement) />
-        builder_.${transformer.protoSetter(drgElement)}(${transformer.convertValueToProtoNativeType(outputVariable, outputType)});
+        ${transformer.drgElementOutputTypeProto(drgElement)} ${outputVariableProto} = ${transformer.convertValueToProtoNativeType(outputVariable, outputType)};
+        builder_.${transformer.protoSetter(drgElement)}(${outputVariableProto});
         return builder_.build();
     }
     </#if>
