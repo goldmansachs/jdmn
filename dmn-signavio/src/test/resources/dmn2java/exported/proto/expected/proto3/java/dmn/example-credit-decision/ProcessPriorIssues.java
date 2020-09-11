@@ -35,7 +35,7 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
 
     public static List<java.math.BigDecimal> responseToOutput(proto.ProcessPriorIssuesResponse processPriorIssuesResponse_) {
         // Extract and convert output
-        return ((List<java.math.BigDecimal>) processPriorIssuesResponse_.getProcessPriorIssuesList().stream().map(e -> java.math.BigDecimal.valueOf(e)).collect(java.util.stream.Collectors.toList()));
+        return ((List<java.math.BigDecimal>) (processPriorIssuesResponse_.getProcessPriorIssuesList() == null ? null : processPriorIssuesResponse_.getProcessPriorIssuesList().stream().map(e -> java.math.BigDecimal.valueOf(e)).collect(java.util.stream.Collectors.toList())));
     }
 
     public ProcessPriorIssues() {
@@ -97,7 +97,7 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
 
         // Convert output to Response Message
         proto.ProcessPriorIssuesResponse.Builder builder_ = proto.ProcessPriorIssuesResponse.newBuilder();
-        List<Double> outputProto_ = ((List) output_.stream().map(e -> (e == null ? 0.0 : e.doubleValue())).collect(java.util.stream.Collectors.toList()));
+        List<Double> outputProto_ = ((List) (output_ == null ? null : output_.stream().map(e -> (e == null ? 0.0 : e.doubleValue())).collect(java.util.stream.Collectors.toList())));
         builder_.addAllProcessPriorIssues(outputProto_);
         return builder_.build();
     }

@@ -39,7 +39,7 @@ public class GenerateOutputData extends com.gs.dmn.signavio.runtime.DefaultSigna
 
     public static List<type.GenerateOutputData> responseToOutput(proto.GenerateOutputDataResponse generateOutputDataResponse_) {
         // Extract and convert output
-        return ((List<type.GenerateOutputData>) generateOutputDataResponse_.getGenerateOutputDataList().stream().map(type.GenerateOutputData::toGenerateOutputData).collect(java.util.stream.Collectors.toList()));
+        return ((List<type.GenerateOutputData>) (generateOutputDataResponse_.getGenerateOutputDataList() == null ? null : generateOutputDataResponse_.getGenerateOutputDataList().stream().map(type.GenerateOutputData::toGenerateOutputData).collect(java.util.stream.Collectors.toList())));
     }
 
     private final AssessIssueRisk assessIssueRisk;
@@ -121,7 +121,7 @@ public class GenerateOutputData extends com.gs.dmn.signavio.runtime.DefaultSigna
 
         // Convert output to Response Message
         proto.GenerateOutputDataResponse.Builder builder_ = proto.GenerateOutputDataResponse.newBuilder();
-        List<proto.GenerateOutputData> outputProto_ = ((List) output_.stream().map(type.GenerateOutputData::toProto).collect(java.util.stream.Collectors.toList()));
+        List<proto.GenerateOutputData> outputProto_ = ((List) (output_ == null ? null : output_.stream().map(type.GenerateOutputData::toProto).collect(java.util.stream.Collectors.toList())));
         builder_.addAllGenerateOutputData(outputProto_);
         return builder_.build();
     }
