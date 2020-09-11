@@ -102,6 +102,20 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     }
 
     public ${transformer.qualifiedResponseMessageName(drgElement)} apply(${transformer.drgElementSignatureExtraCacheProto(drgElement)}) {
+    <@applyRequest drgElement />
+    }
+    </#if>
+    <@evaluateExpressionMethod drgElement />
+}
+<#macro makeArgumentsFromRequestMessage drgElement>
+    <#assign parameters = transformer.drgElementTypeSignature(drgElement) />
+        // Create arguments from Request Message
+    <#list parameters as parameter>
+        ${transformer.toNativeType(parameter.right)} ${parameter.left} = ${transformer.extractParameterFromRequestMessage(drgElement, parameter)};
+    </#list>
+</#macro>
+
+<#macro applyRequest drgElement>
     <@makeArgumentsFromRequestMessage drgElement />
 
     <#assign outputVariable = "output_" />
@@ -116,14 +130,4 @@ public class ${javaClassName} extends ${decisionBaseClass} {
         ${transformer.drgElementOutputTypeProto(drgElement)} ${outputVariableProto} = ${transformer.convertValueToProtoNativeType(outputVariable, outputType)};
         builder_.${transformer.protoSetter(drgElement)}(${outputVariableProto});
         return builder_.build();
-    }
-    </#if>
-    <@evaluateExpressionMethod drgElement />
-}
-<#macro makeArgumentsFromRequestMessage drgElement>
-    <#assign parameters = transformer.drgElementTypeSignature(drgElement) />
-        // Create arguments from Request Message
-    <#list parameters as parameter>
-        ${transformer.toNativeType(parameter.right)} ${parameter.left} = ${transformer.extractParameterFromRequestMessage(drgElement, parameter)};
-    </#list>
 </#macro>
