@@ -123,7 +123,13 @@ public class ${javaClassName} extends ${decisionBaseClass} {
         // Convert output to Response Message
         ${responseMessageName}.Builder builder_ = ${responseMessageName}.newBuilder();
         ${transformer.drgElementOutputTypeProto(drgElement)} ${outputVariableProto} = ${transformer.convertValueToProtoNativeType(outputVariable, outputType)};
+    <#if transformer.isProtoReference(outputType)>
+        if (${outputVariableProto} != null) {
+            builder_.${transformer.protoSetter(drgElement)}(${outputVariableProto});
+        }
+    <#else>
         builder_.${transformer.protoSetter(drgElement)}(${outputVariableProto});
+    </#if>
         return builder_.build();
 </#macro>
 

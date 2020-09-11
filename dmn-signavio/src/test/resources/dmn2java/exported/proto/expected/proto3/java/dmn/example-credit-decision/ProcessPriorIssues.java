@@ -98,7 +98,9 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
         // Convert output to Response Message
         proto.ProcessPriorIssuesResponse.Builder builder_ = proto.ProcessPriorIssuesResponse.newBuilder();
         List<Double> outputProto_ = ((List) (output_ == null ? null : output_.stream().map(e -> (e == null ? 0.0 : e.doubleValue())).collect(java.util.stream.Collectors.toList())));
-        builder_.addAllProcessPriorIssues(outputProto_);
+        if (outputProto_ != null) {
+            builder_.addAllProcessPriorIssues(outputProto_);
+        }
         return builder_.build();
     }
 

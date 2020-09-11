@@ -122,7 +122,9 @@ public class GenerateOutputData extends com.gs.dmn.signavio.runtime.DefaultSigna
         // Convert output to Response Message
         proto.GenerateOutputDataResponse.Builder builder_ = proto.GenerateOutputDataResponse.newBuilder();
         List<proto.GenerateOutputData> outputProto_ = ((List) (output_ == null ? null : output_.stream().map(type.GenerateOutputData::toProto).collect(java.util.stream.Collectors.toList())));
-        builder_.addAllGenerateOutputData(outputProto_);
+        if (outputProto_ != null) {
+            builder_.addAllGenerateOutputData(outputProto_);
+        }
         return builder_.build();
     }
 
