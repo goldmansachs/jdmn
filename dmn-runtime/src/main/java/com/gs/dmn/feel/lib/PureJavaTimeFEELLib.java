@@ -33,6 +33,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PureJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> implements StandardFEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> {
+    public static PureJavaTimeFEELLib INSTANCE = new PureJavaTimeFEELLib();
+
     private final DefaultNumericLib numberLib = new DefaultNumericLib();
     private final DefaultStringLib stringLib = new DefaultStringLib();
     private final DefaultBooleanLib booleanLib = new DefaultBooleanLib();

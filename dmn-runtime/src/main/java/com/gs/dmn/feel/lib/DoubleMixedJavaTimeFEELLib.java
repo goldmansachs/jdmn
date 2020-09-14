@@ -34,6 +34,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DoubleMixedJavaTimeFEELLib extends BaseFEELLib<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> implements StandardFEELLib<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> {
+    public static DoubleMixedJavaTimeFEELLib INSTANCE = new DoubleMixedJavaTimeFEELLib();
+
     private static final DatatypeFactory DATA_TYPE_FACTORY = XMLDatataypeFactory.newInstance();
 
     private final DoubleNumericLib numberLib = new DoubleNumericLib();
