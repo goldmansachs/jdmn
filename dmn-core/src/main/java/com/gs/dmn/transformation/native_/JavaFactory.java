@@ -405,8 +405,8 @@ public class JavaFactory implements NativeFactory {
                 return protoValue;
             } else {
                 // Date time types
-                String conversionMethod = FEELTypes.FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.get(type);
-                String stringValue = String.format("(%s == null ? null : %s.toString())", protoValue, protoValue);
+                String stringValue = String.format("%s", protoValue);
+                String conversionMethod = getConversionMethod(type);
                 if (conversionMethod != null) {
                     return String.format("%s(%s)", conversionMethod, stringValue);
                 }
@@ -425,9 +425,9 @@ public class JavaFactory implements NativeFactory {
                     mapFunction =  "e -> e";
                 } else {
                     // Date time types
-                    String conversionMethod = FEELTypes.FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.get(elementType);
+                    String conversionMethod = getConversionMethod(type);
                     if (conversionMethod != null) {
-                        mapFunction = "this::" + conversionMethod;
+                        mapFunction = conversionMethod;
                     } else {
                         throw new DMNRuntimeException(String.format("Cannot convert type '%s' to proto type", type));
                     }
@@ -447,6 +447,16 @@ public class JavaFactory implements NativeFactory {
             return String.format("%s.%s(%s)", qNativeType, convertFunction, protoValue);
         }
         throw new DMNRuntimeException(String.format("Cannot convert type '%s' to proto type", type));
+    }
+
+    private String getConversionMethod(Type type) {
+        String conversionMethod = FEELTypes.FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.get(type);
+        if (conversionMethod == null) {
+            return null;
+        }
+        String feelLibSingleton = this.transformer.getDialect().createFEELLib().getClass().getName();
+        conversionMethod = String.format("%s.INSTANCE.%s", feelLibSingleton, conversionMethod);
+        return conversionMethod;
     }
 
     @Override
