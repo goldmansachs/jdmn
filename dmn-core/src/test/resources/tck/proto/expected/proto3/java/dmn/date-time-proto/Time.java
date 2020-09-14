@@ -90,7 +90,7 @@ public class Time extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public proto.TimeResponse apply(proto.TimeRequest timeRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Create arguments from Request Message
-        javax.xml.datatype.XMLGregorianCalendar inputTime = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.time(timeRequest_.getInputTime());
+        javax.xml.datatype.XMLGregorianCalendar inputTime = time(timeRequest_.getInputTime());
 
         // Invoke apply method
         javax.xml.datatype.XMLGregorianCalendar output_ = apply(inputTime, annotationSet_, eventListener_, externalExecutor_, cache_);

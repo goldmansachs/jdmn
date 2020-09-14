@@ -1,4 +1,4 @@
-package com.gs.dmn.generated.proto.date_time_proto;
+package com.gs.dmn.generated.kotlin.proto.date_time_proto;
 
 public class DateTimeProtoHandwrittenTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
@@ -19,10 +19,10 @@ public class DateTimeProtoHandwrittenTest extends com.gs.dmn.runtime.DefaultDMNB
         checkValues(date("2020-09-10"), dateDecision.apply(inputDate, annotationSet_, eventListener_, externalExecutor_, cache_));
 
         // Check Date with proto request
-        com.gs.dmn.generated.proto.date_time_proto.proto.DateRequest.Builder dateBuilder_ = com.gs.dmn.generated.proto.date_time_proto.proto.DateRequest.newBuilder();
+        com.gs.dmn.generated.kotlin.proto.date_time_proto.proto.DateRequest.Builder dateBuilder_ = com.gs.dmn.generated.kotlin.proto.date_time_proto.proto.DateRequest.newBuilder();
         String inputDateProto0 = string(inputDate);
         dateBuilder_.setInputDate(inputDateProto0);
-        com.gs.dmn.generated.proto.date_time_proto.proto.DateRequest dateRequest_ = dateBuilder_.build();
+        com.gs.dmn.generated.kotlin.proto.date_time_proto.proto.DateRequest dateRequest_ = dateBuilder_.build();
         checkValues("2020-09-10", dateDecision.apply(dateRequest_, annotationSet_, eventListener_, externalExecutor_, cache_).getDate());
     }
 
@@ -39,10 +39,10 @@ public class DateTimeProtoHandwrittenTest extends com.gs.dmn.runtime.DefaultDMNB
         checkValues(time("12:10:10"), timeDecision.apply(inputTime, annotationSet_, eventListener_, externalExecutor_, cache_));
 
         // Check Time with proto request
-        com.gs.dmn.generated.proto.date_time_proto.proto.TimeRequest.Builder timeBuilder_ = com.gs.dmn.generated.proto.date_time_proto.proto.TimeRequest.newBuilder();
+        com.gs.dmn.generated.kotlin.proto.date_time_proto.proto.TimeRequest.Builder timeBuilder_ = com.gs.dmn.generated.kotlin.proto.date_time_proto.proto.TimeRequest.newBuilder();
         String inputTimeProto0 = string(inputTime);
         timeBuilder_.setInputTime(inputTimeProto0);
-        com.gs.dmn.generated.proto.date_time_proto.proto.TimeRequest timeRequest_ = timeBuilder_.build();
+        com.gs.dmn.generated.kotlin.proto.date_time_proto.proto.TimeRequest timeRequest_ = timeBuilder_.build();
         checkValues("12:10:10", timeDecision.apply(timeRequest_, annotationSet_, eventListener_, externalExecutor_, cache_).getTime());
     }
 
@@ -59,10 +59,10 @@ public class DateTimeProtoHandwrittenTest extends com.gs.dmn.runtime.DefaultDMNB
         checkValues(dateAndTime("2020-09-19T12:10:10"), dateTimeDecision.apply(inputDateTime, annotationSet_, eventListener_, externalExecutor_, cache_));
 
         // Check DateTime with proto request
-        com.gs.dmn.generated.proto.date_time_proto.proto.DateTimeRequest.Builder dateTimeBuilder_ = com.gs.dmn.generated.proto.date_time_proto.proto.DateTimeRequest.newBuilder();
+        com.gs.dmn.generated.kotlin.proto.date_time_proto.proto.DateTimeRequest.Builder dateTimeBuilder_ = com.gs.dmn.generated.kotlin.proto.date_time_proto.proto.DateTimeRequest.newBuilder();
         String inputDateTimeProto0 = string(inputDateTime);
         dateTimeBuilder_.setInputDateTime(inputDateTimeProto0);
-        com.gs.dmn.generated.proto.date_time_proto.proto.DateTimeRequest dateTimeRequest_ = dateTimeBuilder_.build();
+        com.gs.dmn.generated.kotlin.proto.date_time_proto.proto.DateTimeRequest dateTimeRequest_ = dateTimeBuilder_.build();
         checkValues("2020-09-19T12:10:10", dateTimeDecision.apply(dateTimeRequest_, annotationSet_, eventListener_, externalExecutor_, cache_).getDateTime());
     }
 
