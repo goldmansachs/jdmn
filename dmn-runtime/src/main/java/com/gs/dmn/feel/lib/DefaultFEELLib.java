@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DefaultFEELLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> implements StandardFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
+    public static DefaultFEELLib INSTANCE = new DefaultFEELLib();
     public static final DatatypeFactory DATA_TYPE_FACTORY = XMLDatataypeFactory.newInstance();
 
     private final DefaultNumericLib numberLib = new DefaultNumericLib();

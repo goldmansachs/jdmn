@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MixedJavaTimeFEELLib extends BaseFEELLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> implements StandardFEELLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
+    public static MixedJavaTimeFEELLib INSTANCE = new MixedJavaTimeFEELLib();
     private static final DatatypeFactory DATA_TYPE_FACTORY = XMLDatataypeFactory.newInstance();
 
     private final DefaultNumericLib numberLib = new DefaultNumericLib();
