@@ -36,6 +36,8 @@
         <generated.java.folder>${project.build.directory}/generated-sources/dmn</generated.java.folder>
         <generated.root.package>com.gs.dmn.generated</generated.root.package>
         <tck.java.folder>${project.build.directory}/generated-test-sources/tck</tck.java.folder>
+        <generated.java.grpc>${project.build.directory}/generated-sources/protobuf/grpc-java</generated.java.grpc>
+        <generated.java.protobuf>${project.build.directory}/generated-sources/protobuf/java</generated.java.protobuf>
 
         <line.coverage.minimum>0.00</line.coverage.minimum>
         <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>  <!-- not deploying this module to Maven central -->
@@ -2206,7 +2208,6 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <templateProvider>com.gs.dmn.transformation.template.TreeTemplateProvider</templateProvider>
                             <lazyEvaluationDetectors>
                                 <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
                             </lazyEvaluationDetectors>
@@ -2228,7 +2229,6 @@
                             <goal>tck-to-java</goal>
                         </goals>
                         <configuration>
-                            <templateProvider>com.gs.dmn.transformation.template.TreeTemplateProvider</templateProvider>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/0004-lending-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
@@ -2379,6 +2379,8 @@
                         <configuration>
                             <sources>
                                 <source>${generated.java.folder}</source>
+                                <source>${generated.java.protobuf}</source>
+                                <source>${generated.java.grpc}</source>
                             </sources>
                         </configuration>
                     </execution>

@@ -90,7 +90,7 @@ public class Date extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public proto.DateResponse apply(proto.DateRequest dateRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Create arguments from Request Message
-        javax.xml.datatype.XMLGregorianCalendar inputDate = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.date(dateRequest_.getInputDate());
+        javax.xml.datatype.XMLGregorianCalendar inputDate = date(dateRequest_.getInputDate());
 
         // Invoke apply method
         javax.xml.datatype.XMLGregorianCalendar output_ = apply(inputDate, annotationSet_, eventListener_, externalExecutor_, cache_);

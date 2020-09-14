@@ -406,7 +406,7 @@ public class JavaFactory implements NativeFactory {
             } else {
                 // Date time types
                 String stringValue = String.format("%s", protoValue);
-                String conversionMethod = getConversionMethod(type);
+                String conversionMethod = getConversionMethod(type, staticContext);
                 if (conversionMethod != null) {
                     return String.format("%s(%s)", conversionMethod, stringValue);
                 }
@@ -425,7 +425,7 @@ public class JavaFactory implements NativeFactory {
                     mapFunction =  "e -> e";
                 } else {
                     // Date time types
-                    String conversionMethod = getConversionMethod(type);
+                    String conversionMethod = getConversionMethod(type, staticContext);
                     if (conversionMethod != null) {
                         mapFunction = conversionMethod;
                     } else {
@@ -449,13 +449,15 @@ public class JavaFactory implements NativeFactory {
         throw new DMNRuntimeException(String.format("Cannot convert type '%s' to proto type", type));
     }
 
-    private String getConversionMethod(Type type) {
+    protected String getConversionMethod(Type type, boolean staticContext) {
         String conversionMethod = FEELTypes.FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.get(type);
         if (conversionMethod == null) {
             return null;
         }
-        String feelLibSingleton = this.transformer.getDialect().createFEELLib().getClass().getName();
-        conversionMethod = String.format("%s.INSTANCE.%s", feelLibSingleton, conversionMethod);
+        if (staticContext) {
+            String feelLibSingleton = this.transformer.getDialect().createFEELLib().getClass().getName();
+            conversionMethod = String.format("%s.INSTANCE.%s", feelLibSingleton, conversionMethod);
+        }
         return conversionMethod;
     }
 

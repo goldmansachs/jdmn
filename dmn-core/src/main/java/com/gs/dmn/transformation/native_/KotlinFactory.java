@@ -19,11 +19,8 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
-import com.gs.dmn.transformation.native_.statement.*;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TDecision;
-import org.omg.spec.dmn._20180521.model.TInputData;
 import org.omg.spec.dmn._20180521.model.TItemDefinition;
 
 import java.util.List;
@@ -333,8 +330,8 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
                 return protoValue;
             } else {
                 // Date time types
-                String conversionMethod = FEELTypes.FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.get(type);
-                String stringValue = String.format("%s?.toString())", protoValue);
+                String stringValue = String.format("%s)", protoValue);
+                String conversionMethod = getConversionMethod(type, staticContext);
                 if (conversionMethod != null) {
                     return String.format("%s(%s)", conversionMethod, stringValue);
                 }
