@@ -237,6 +237,17 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return toNativeExpression(info.getExpectedValue(), outputType);
     }
 
+    public String toNativeExpressionProto(ResultNodeInfo info) {
+        Type resultType = toFEELType(info);
+        ValueType expectedValue = info.getExpectedValue();
+        String value = toNativeExpression(expectedValue, resultType);
+        if (isDateTimeType(expectedValue, resultType)) {
+            return transformer.getNativeFactory().convertValueToProtoNativeType(value, resultType, false);
+        } else {
+            return value;
+        }
+    }
+
     public String qualifiedName(ResultNodeInfo info) {
         String pkg = this.transformer.nativeModelPackageName(info.getRootModelName());
         String cls = this.transformer.drgElementClassName(info.getReference().getElement());
@@ -798,6 +809,10 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return type instanceof DurationType
                 || type.equivalentTo(ListType.DAYS_AND_TIME_DURATION_LIST)
                 || type.equivalentTo(ListType.YEARS_AND_MONTHS_DURATION_LIST);
+    }
+
+    private boolean isDateTimeType(ValueType value, Type type) {
+        return isDate(value, type) || isTime(value, type) || isDateTime(value, type) || isDurationTime(value, type);
     }
 
     private String getTextContent(Object value) {

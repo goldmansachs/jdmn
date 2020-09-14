@@ -31,6 +31,7 @@
 
         <tck.diagram.folder>${project.basedir}/../dmn-tck-it-interpreter/src/main/resources/tck</tck.diagram.folder>
         <composite.diagram.folder>${project.basedir}/../dmn-tck-it-interpreter/src/main/resources/composite</composite.diagram.folder>
+        <proto.diagram.folder>${project.basedir}/../dmn-tck-it-interpreter/src/main/resources/proto</proto.diagram.folder>
 
         <generated.java.folder>${project.build.directory}/generated-sources/dmn</generated.java.folder>
         <generated.root.package>com.gs.dmn.generated</generated.root.package>
@@ -728,49 +729,6 @@
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending_tree</javaRootPackage>
-                            </inputParameters>
-                        </configuration>
-                    </execution>
-
-                    <execution>
-                        <id>cl3-0004-lending-proto-cache</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>dmn-to-java</goal>
-                        </goals>
-                        <configuration>
-                            <templateProvider>com.gs.dmn.transformation.template.TreeTemplateProvider</templateProvider>
-                            <lazyEvaluationDetectors>
-                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
-                            </lazyEvaluationDetectors>
-                            <inputFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending_proto_cache</javaRootPackage>
-                                <generateProtoMessages>true</generateProtoMessages>
-                                <generateProtoServices>true</generateProtoServices>
-                                <protoVersion>proto3</protoVersion>
-                                <caching>true</caching>
-                            </inputParameters>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>test-cl3-0004-lending-proto-cache</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>tck-to-java</goal>
-                        </goals>
-                        <configuration>
-                            <templateProvider>com.gs.dmn.transformation.template.TreeTemplateProvider</templateProvider>
-                            <inputTestFileDirectory>${tck.diagram.folder}/cl3/0004-lending-test-01.xml</inputTestFileDirectory>
-                            <inputModelFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending_proto_cache</javaRootPackage>
-                                <generateProtoMessages>true</generateProtoMessages>
-                                <generateProtoServices>true</generateProtoServices>
-                                <protoVersion>proto3</protoVersion>
-                                <caching>true</caching>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -2236,6 +2194,88 @@
                             <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0010_bkm_name_conflicts</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <!-- gRPC models -->
+                    <execution>
+                        <id>cl3-0004-lending-proto-cache</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <templateProvider>com.gs.dmn.transformation.template.TreeTemplateProvider</templateProvider>
+                            <lazyEvaluationDetectors>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
+                            </lazyEvaluationDetectors>
+                            <inputFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending_proto_cache</javaRootPackage>
+                                <generateProtoMessages>true</generateProtoMessages>
+                                <generateProtoServices>true</generateProtoServices>
+                                <protoVersion>proto3</protoVersion>
+                                <caching>true</caching>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-cl3-0004-lending-proto-cache</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <templateProvider>com.gs.dmn.transformation.template.TreeTemplateProvider</templateProvider>
+                            <inputTestFileDirectory>${tck.diagram.folder}/cl3/0004-lending-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending_proto_cache</javaRootPackage>
+                                <generateProtoMessages>true</generateProtoMessages>
+                                <generateProtoServices>true</generateProtoServices>
+                                <protoVersion>proto3</protoVersion>
+                                <caching>true</caching>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>date-time-proto</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${proto.diagram.folder}/date-time-proto/date-time-proto.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.proto.date_time_proto</javaRootPackage>
+                                <generateProtoMessages>true</generateProtoMessages>
+                                <generateProtoServices>true</generateProtoServices>
+                                <protoVersion>proto3</protoVersion>
+                                <caching>true</caching>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-date-time-proto</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${proto.diagram.folder}/date-time-proto/date-time-proto-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${proto.diagram.folder}/date-time-proto/date-time-proto.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.proto.date_time_proto</javaRootPackage>
+                                <generateProtoMessages>true</generateProtoMessages>
+                                <generateProtoServices>true</generateProtoServices>
+                                <protoVersion>proto3</protoVersion>
+                                <caching>true</caching>
                             </inputParameters>
                         </configuration>
                     </execution>

@@ -21,6 +21,11 @@ public class DMNToJavaProtoTransformerTest extends AbstractTckDMNToJavaTransform
         doSingleModelTest("0004-lending", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"), new Pair<>("caching", "true"));
     }
 
+    @Test
+    public void testProtoDateTime() throws Exception {
+        doSingleModelTest("date-time-proto", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"), new Pair<>("caching", "true"));
+    }
+
     @Override
     protected String getInputPath() {
         return "tck/proto/input";

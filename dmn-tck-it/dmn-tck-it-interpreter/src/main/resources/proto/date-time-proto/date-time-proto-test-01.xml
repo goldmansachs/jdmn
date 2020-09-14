@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="">
+    <modelName>date-time-proto.dmn</modelName>
+    <testCase id="1">
+        <inputNode name="InputDate">
+            <value xsi:type="xsd:date">2020-09-10</value>
+        </inputNode>
+        <resultNode name="Date" type="decision">
+            <expected>
+                <value xsi:type="xsd:date">2020-09-10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="2">
+        <inputNode name="InputTime">
+            <value xsi:type="xsd:time">12:10:10</value>
+        </inputNode>
+        <resultNode name="Time" type="decision">
+            <expected>
+                <value xsi:type="xsd:time">12:10:10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    <testCase id="3">
+        <inputNode name="InputDateTime">
+            <value xsi:type="xsd:dateTime">2020-09-19T12:10:10</value>
+        </inputNode>
+        <resultNode name="DateTime" type="decision">
+            <expected>
+                <value xsi:type="xsd:dateTime">2020-09-19T12:10:10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+</testCases>

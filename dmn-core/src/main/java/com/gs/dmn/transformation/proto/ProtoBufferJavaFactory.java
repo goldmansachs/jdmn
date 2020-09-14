@@ -36,9 +36,9 @@ public class ProtoBufferJavaFactory extends ProtoBufferFactory {
         FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(ENUMERATION.getName(), "String");
         FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), null);
         FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(DAYS_AND_TIME_DURATION.getName(), null);
-        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(DATE_AND_TIME.getName(), null);
-        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(TIME.getName(), null);
-        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(DATE.getName(), null);
+        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(DATE_AND_TIME.getName(), "String");
+        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(TIME.getName(), "String");
+        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(DATE.getName(), "String");
         FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(STRING.getName(), "String");
         FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(BOOLEAN.getName(), "Boolean");
         FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(NUMBER.getName(), "Double");

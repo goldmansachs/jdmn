@@ -35,4 +35,9 @@ public class ProtoToJavaJUnitTransformerTest extends AbstractTCKTestCasesToJavaJ
     public void testProto() throws Exception {
         doSingleModelTest("0004-lending", "0004-lending-test-01", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"), new Pair<>("caching", "true"));
     }
+
+    @Test
+    public void testProtoDateTime() throws Exception {
+        doSingleModelTest("date-time-proto", "date-time-proto-test-01", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"), new Pair<>("caching", "true"));
+    }
 }

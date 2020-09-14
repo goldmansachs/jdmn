@@ -87,7 +87,7 @@ public class ${testClassName} extends ${decisionBaseClass} {
         </#if>
         </#list>
         ${tckUtil.qualifiedRequestMessageName(resultInfo)} ${tckUtil.requestVariableName(resultInfo)} = ${tckUtil.builderVariableName(resultInfo)}.build();
-        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.defaultConstructor(tckUtil.qualifiedName(resultInfo))}.apply(${tckUtil.drgElementArgumentListExtraCacheProto(resultInfo)}).${tckUtil.protoGetter(resultInfo)});
+        checkValues(${tckUtil.toNativeExpressionProto(resultInfo)}, ${tckUtil.defaultConstructor(tckUtil.qualifiedName(resultInfo))}.apply(${tckUtil.drgElementArgumentListExtraCacheProto(resultInfo)}).${tckUtil.protoGetter(resultInfo)});
         </#items>
     </#list>
 </#macro>
