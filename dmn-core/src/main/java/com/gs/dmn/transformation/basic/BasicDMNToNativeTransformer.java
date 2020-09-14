@@ -15,6 +15,7 @@ package com.gs.dmn.transformation.basic;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementFilter;
 import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
@@ -40,6 +41,8 @@ import java.util.Map;
 import java.util.function.Function;
 
 public interface BasicDMNToNativeTransformer {
+    DMNDialectDefinition<?, ?, ?, ?, ?, ?> getDialect();
+
     DMNModelRepository getDMNModelRepository();
 
     EnvironmentFactory getEnvironmentFactory();

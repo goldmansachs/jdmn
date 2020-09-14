@@ -15,6 +15,7 @@ package com.gs.dmn.transformation.basic;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementFilter;
 import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.*;
@@ -67,6 +68,7 @@ import java.util.stream.Collectors;
 public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     protected static final Logger LOGGER = LoggerFactory.getLogger(BasicDMNToJavaTransformer.class);
 
+    private DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect;
     protected final DMNModelRepository dmnModelRepository;
     protected final EnvironmentFactory environmentFactory;
     protected final NativeTypeFactory nativeTypeFactory;
@@ -93,7 +95,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     protected final DRGElementFilter drgElementFilter;
     protected final JavaTypeMemoizer nativeTypeMemoizer;
 
-    public BasicDMNToJavaTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory nativeTypeFactory, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
+    public BasicDMNToJavaTransformer(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect, DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory nativeTypeFactory, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
+        this.dialect = dialect;
         this.dmnModelRepository = dmnModelRepository;
         this.environmentFactory = environmentFactory;
         this.nativeTypeFactory = nativeTypeFactory;
@@ -145,6 +148,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
 
     private void setFEELTranslator(BasicDMNToNativeTransformer transformer) {
         this.feelTranslator = new FEELTranslatorImpl(transformer);
+    }
+
+    @Override
+    public DMNDialectDefinition<?, ?, ?, ?, ?, ?> getDialect() {
+        return this.dialect;
     }
 
     @Override
