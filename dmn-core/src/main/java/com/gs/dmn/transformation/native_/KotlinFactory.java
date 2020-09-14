@@ -315,14 +315,14 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String convertMemberToProto(String source, String sourceType, TItemDefinition member) {
+    public String convertMemberToProto(String source, String sourceType, TItemDefinition member, boolean staticContext) {
         Type memberType = this.transformer.toFEELType(member);
         String value = String.format("%s.%s", cast(sourceType, source), this.transformer.protoFieldName(member));
-        return convertValueToProtoNativeType(value, memberType);
+        return convertValueToProtoNativeType(value, memberType, staticContext);
     }
 
     @Override
-    public String extractMemberFromProtoValue(String protoValue, Type type) {
+    public String extractMemberFromProtoValue(String protoValue, Type type, boolean staticContext) {
         if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
             if (type == NumberType.NUMBER) {
                 String qNativeType = this.transformer.getNativeTypeFactory().toQualifiedNativeType(((DataType) type).getName());
@@ -378,7 +378,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String convertValueToProtoNativeType(String value, Type type) {
+    public String convertValueToProtoNativeType(String value, Type type, boolean staticContext) {
         if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
             if (type == NumberType.NUMBER) {
                 return toProtoNumber(value);

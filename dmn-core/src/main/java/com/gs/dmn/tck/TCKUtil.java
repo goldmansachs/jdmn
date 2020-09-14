@@ -869,7 +869,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     public String toNativeExpressionProto(Pair<String, Type> pair) {
         String inputName = pair.getLeft();
         Type type = pair.getRight();
-        return this.transformer.getNativeFactory().convertValueToProtoNativeType(inputName, type);
+        return this.transformer.getNativeFactory().convertValueToProtoNativeType(inputName, type, false);
     }
 
     public String toNativeTypeProto(Type type) {

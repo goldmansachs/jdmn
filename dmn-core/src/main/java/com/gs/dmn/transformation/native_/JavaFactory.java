@@ -27,7 +27,6 @@ import com.gs.dmn.transformation.native_.statement.*;
 import com.gs.dmn.transformation.proto.ProtoBufferFactory;
 import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TDecision;
-import org.omg.spec.dmn._20180521.model.TInputData;
 import org.omg.spec.dmn._20180521.model.TItemDefinition;
 
 import java.util.ArrayList;
@@ -370,32 +369,32 @@ public class JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String convertProtoMember(String source, TItemDefinition parent, TItemDefinition member) {
+    public String convertProtoMember(String source, TItemDefinition parent, TItemDefinition member, boolean staticContext) {
         Type memberType = this.transformer.toFEELType(member);
         String memberName = this.transformer.protoFieldName(member);
         ProtoBufferFactory protoFactory = this.transformer.getProtoFactory();
         String protoType = protoFactory.qualifiedProtoMessageName(parent);
         String value = String.format("%s.%s", cast(protoType, source), protoFactory.protoGetter(memberName, memberType));
-        return extractMemberFromProtoValue(value, memberType);
+        return extractMemberFromProtoValue(value, memberType, staticContext);
     }
 
     @Override
-    public String convertMemberToProto(String source, String sourceType, TItemDefinition member) {
+    public String convertMemberToProto(String source, String sourceType, TItemDefinition member, boolean staticContext) {
         Type memberType = this.transformer.toFEELType(member);
         String value = String.format("%s.%s", cast(sourceType, source), this.transformer.getter(member.getName()));
-        return convertValueToProtoNativeType(value, memberType);
+        return convertValueToProtoNativeType(value, memberType, staticContext);
     }
 
     @Override
-    public String extractParameterFromRequestMessage(TDRGElement element, Pair<String, Type> parameter) {
+    public String extractParameterFromRequestMessage(TDRGElement element, Pair<String, Type> parameter, boolean staticContext) {
         String name = parameter.getLeft();
         Type type = parameter.getRight();
         String protoValue = String.format("%s.%s", this.protoFactory.requestVariableName(element), this.protoFactory.protoGetter(name, type));
-        return extractMemberFromProtoValue(protoValue, type);
+        return extractMemberFromProtoValue(protoValue, type, staticContext);
     }
 
     @Override
-    public String extractMemberFromProtoValue(String protoValue, Type type) {
+    public String extractMemberFromProtoValue(String protoValue, Type type, boolean staticContext) {
         if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
             if (type == NumberType.NUMBER) {
                 String qNativeType = this.transformer.getNativeTypeFactory().toQualifiedNativeType(((DataType) type).getName());
@@ -451,7 +450,7 @@ public class JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String convertValueToProtoNativeType(String value, Type type) {
+    public String convertValueToProtoNativeType(String value, Type type, boolean staticContext) {
         if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
             if (type == NumberType.NUMBER) {
                 return toProtoNumber(value);

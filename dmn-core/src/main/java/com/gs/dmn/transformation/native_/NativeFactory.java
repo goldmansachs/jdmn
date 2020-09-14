@@ -22,7 +22,7 @@ import org.omg.spec.dmn._20180521.model.TDRGElement;
 public interface NativeFactory extends NativeExpressionFactory, NativeStatementFactory {
     String TO_PROTO_CONVERSION_METHOD = "toProto";
 
-    String extractParameterFromRequestMessage(TDRGElement element, Pair<String, Type> parameter);
+    String extractParameterFromRequestMessage(TDRGElement element, Pair<String, Type> parameter, boolean staticContext);
 
-    String extractMemberFromProtoValue(String protoValue, Type type);
+    String extractMemberFromProtoValue(String protoValue, Type type, boolean staticContext);
 }
