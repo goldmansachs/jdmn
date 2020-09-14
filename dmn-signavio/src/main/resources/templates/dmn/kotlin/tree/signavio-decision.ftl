@@ -93,16 +93,16 @@ class ${javaClassName}(${transformer.decisionConstructorSignature(drgElement)}) 
     </#if>
     }
 }
-<#macro makeArgumentsFromRequestMessage drgElement ident>
+<#macro makeArgumentsFromRequestMessage drgElement staticContext ident>
     <#assign parameters = transformer.drgElementTypeSignature(drgElement) />
         ${ident}// Create arguments from Request Message
     <#list parameters as parameter>
-        ${ident}val ${parameter.left}: ${transformer.toNativeType(parameter.right)}? = ${transformer.extractParameterFromRequestMessage(drgElement, parameter)}
+        ${ident}val ${parameter.left}: ${transformer.toNativeType(parameter.right)}? = ${transformer.extractParameterFromRequestMessage(drgElement, parameter, staticContext)}
     </#list>
 </#macro>
 
 <#macro applyRequest drgElement>
-    <@makeArgumentsFromRequestMessage drgElement ""/>
+    <@makeArgumentsFromRequestMessage drgElement false ""/>
 
     <#assign outputVariable = "output_" />
     <#assign outputVariableProto = "outputProto_" />
@@ -116,7 +116,7 @@ class ${javaClassName}(${transformer.decisionConstructorSignature(drgElement)}) 
         <#assign responseMessageName = transformer.qualifiedResponseMessageName(drgElement) />
         val builder_: ${responseMessageName}.Builder = ${responseMessageName}.newBuilder()
         <#assign outputType = transformer.drgElementOutputFEELType(drgElement) />
-        val ${outputVariableProto} = ${transformer.convertValueToProtoNativeType(outputVariable, outputType)}
+        val ${outputVariableProto} = ${transformer.convertValueToProtoNativeType(outputVariable, outputType, false)}
     <#if transformer.isProtoReference(outputType)>
         if (${outputVariableProto} != null) {
             builder_.${transformer.protoSetter(drgElement)}(${outputVariableProto})
@@ -128,7 +128,7 @@ class ${javaClassName}(${transformer.decisionConstructorSignature(drgElement)}) 
 </#macro>
 
 <#macro convertProtoRequestToMap drgElement>
-     <@makeArgumentsFromRequestMessage drgElement "    "/>
+     <@makeArgumentsFromRequestMessage drgElement true "    "/>
 
     <#assign mapVariable = "map_" />
     <#assign reference = repository.makeDRGElementReference(drgElement) />
@@ -149,6 +149,6 @@ class ${javaClassName}(${transformer.decisionConstructorSignature(drgElement)}) 
             <#assign source = transformer.responseVariableName(drgElement) />
             <#assign memberType = transformer.drgElementOutputFEELType(drgElement) />
             <#assign value>${source}.${transformer.protoGetter(drgElement)}</#assign>
-            <#assign exp = transformer.extractMemberFromProtoValue(value, memberType) />
+            <#assign exp = transformer.extractMemberFromProtoValue(value, memberType, true) />
             return ${exp}
 </#macro>

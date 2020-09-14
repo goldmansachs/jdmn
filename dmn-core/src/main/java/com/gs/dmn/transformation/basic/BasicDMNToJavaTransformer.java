@@ -2039,13 +2039,13 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public String convertProtoMember(String source, TItemDefinition parent, TItemDefinition child) {
-        return this.nativeFactory.convertProtoMember(source, parent, child);
+    public String convertProtoMember(String source, TItemDefinition parent, TItemDefinition child, boolean staticContext) {
+        return this.nativeFactory.convertProtoMember(source, parent, child, staticContext);
     }
 
     @Override
-    public String convertMemberToProto(String source, String sourceType, TItemDefinition child) {
-        return this.nativeFactory.convertMemberToProto(source, sourceType, child);
+    public String convertMemberToProto(String source, String sourceType, TItemDefinition child, boolean staticContext) {
+        return this.nativeFactory.convertMemberToProto(source, sourceType, child, staticContext);
     }
 
     @Override
@@ -2107,17 +2107,17 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public String extractParameterFromRequestMessage(TDRGElement element, Pair<String, Type> parameter) {
-        return this.nativeFactory.extractParameterFromRequestMessage(element, parameter);
+    public String extractParameterFromRequestMessage(TDRGElement element, Pair<String, Type> parameter, boolean staticContext) {
+        return this.nativeFactory.extractParameterFromRequestMessage(element, parameter, staticContext);
     }
 
     @Override
-    public String convertValueToProtoNativeType(String value, Type type) {
-        return this.nativeFactory.convertValueToProtoNativeType(value, type);
+    public String convertValueToProtoNativeType(String value, Type type, boolean staticContext) {
+        return this.nativeFactory.convertValueToProtoNativeType(value, type, staticContext);
     }
 
     @Override
-    public String extractMemberFromProtoValue(String protoValue, Type type) {
-        return this.nativeFactory.extractMemberFromProtoValue(protoValue, type);
+    public String extractMemberFromProtoValue(String protoValue, Type type, boolean staticContext) {
+        return this.nativeFactory.extractMemberFromProtoValue(protoValue, type, staticContext);
     }
 }

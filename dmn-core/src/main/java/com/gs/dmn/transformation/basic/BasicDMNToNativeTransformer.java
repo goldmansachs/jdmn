@@ -553,9 +553,9 @@ public interface BasicDMNToNativeTransformer {
 
     String drgElementDefaultArgumentListExtraCacheProto(TDRGElement element);
 
-    String convertProtoMember(String source, TItemDefinition parent, TItemDefinition child);
+    String convertProtoMember(String source, TItemDefinition parent, TItemDefinition child, boolean staticContext);
 
-    String convertMemberToProto(String source, String sourceType, TItemDefinition child);
+    String convertMemberToProto(String source, String sourceType, TItemDefinition child, boolean staticContext);
 
     String qualifiedProtoMessageName(TItemDefinition itemDefinition);
 
@@ -579,9 +579,9 @@ public interface BasicDMNToNativeTransformer {
 
     String protoFieldName(TNamedElement element);
 
-    String extractParameterFromRequestMessage(TDRGElement element, Pair<String, Type> parameter);
+    String extractParameterFromRequestMessage(TDRGElement element, Pair<String, Type> parameter, boolean staticContext);
 
-    String convertValueToProtoNativeType(String value, Type type);
+    String convertValueToProtoNativeType(String value, Type type, boolean staticContext);
 
-    String extractMemberFromProtoValue(String protoValue, Type type);
+    String extractMemberFromProtoValue(String protoValue, Type type, boolean staticContext);
 }

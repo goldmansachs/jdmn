@@ -370,7 +370,7 @@ public class TestLabUtil {
     public String toNativeExpressionProto(InputParameterDefinition inputParameterDefinition) {
         String inputName = inputDataVariableName(inputParameterDefinition);
         Type type = toFEELType(inputParameterDefinition);
-        return this.dmnTransformer.getNativeFactory().convertValueToProtoNativeType(inputName, type);
+        return this.dmnTransformer.getNativeFactory().convertValueToProtoNativeType(inputName, type, false);
     }
 
     public String toNativeTypeProto(InputParameterDefinition inputParameterDefinition) {

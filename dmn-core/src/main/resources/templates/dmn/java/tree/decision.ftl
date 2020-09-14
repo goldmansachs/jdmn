@@ -102,16 +102,16 @@ public class ${javaClassName} extends ${decisionBaseClass} {
     </#if>
     <@evaluateExpressionMethod drgElement />
 }
-<#macro makeArgumentsFromRequestMessage drgElement>
+<#macro makeArgumentsFromRequestMessage drgElement staticContext>
     <#assign parameters = transformer.drgElementTypeSignature(drgElement) />
         // Create arguments from Request Message
     <#list parameters as parameter>
-        ${transformer.toNativeType(parameter.right)} ${parameter.left} = ${transformer.extractParameterFromRequestMessage(drgElement, parameter)};
+        ${transformer.toNativeType(parameter.right)} ${parameter.left} = ${transformer.extractParameterFromRequestMessage(drgElement, parameter, staticContext)};
     </#list>
 </#macro>
 
 <#macro applyRequest drgElement>
-    <@makeArgumentsFromRequestMessage drgElement />
+    <@makeArgumentsFromRequestMessage drgElement false/>
 
     <#assign outputVariable = "output_" />
     <#assign outputVariableProto = "outputProto_" />
@@ -122,7 +122,7 @@ public class ${javaClassName} extends ${decisionBaseClass} {
 
         // Convert output to Response Message
         ${responseMessageName}.Builder builder_ = ${responseMessageName}.newBuilder();
-        ${transformer.drgElementOutputTypeProto(drgElement)} ${outputVariableProto} = ${transformer.convertValueToProtoNativeType(outputVariable, outputType)};
+        ${transformer.drgElementOutputTypeProto(drgElement)} ${outputVariableProto} = ${transformer.convertValueToProtoNativeType(outputVariable, outputType, false)};
     <#if transformer.isProtoReference(outputType)>
         if (${outputVariableProto} != null) {
             builder_.${transformer.protoSetter(drgElement)}(${outputVariableProto});
@@ -134,7 +134,7 @@ public class ${javaClassName} extends ${decisionBaseClass} {
 </#macro>
 
 <#macro convertProtoRequestToMap drgElement>
-    <@makeArgumentsFromRequestMessage drgElement />
+    <@makeArgumentsFromRequestMessage drgElement true/>
 
     <#assign mapVariable = "map_" />
     <#assign reference = repository.makeDRGElementReference(drgElement) />
@@ -155,6 +155,6 @@ public class ${javaClassName} extends ${decisionBaseClass} {
         <#assign source = transformer.responseVariableName(drgElement) />
         <#assign memberType = transformer.drgElementOutputFEELType(drgElement) />
         <#assign value>${source}.${transformer.protoGetter(drgElement)}</#assign>
-        <#assign exp = transformer.extractMemberFromProtoValue(value, memberType) />
+        <#assign exp = transformer.extractMemberFromProtoValue(value, memberType, true) />
         return ${exp};
 </#macro>
