@@ -49,7 +49,7 @@ public class DoubleMixedJavaTimeKotlinStandardDMNDialectDefinition extends Abstr
     @Override
     public BasicDMNToJavaTransformer createBasicTransformer(DMNModelRepository repository, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         EnvironmentFactory environmentFactory = createEnvironmentFactory();
-        return new BasicDMNToKotlinTransformer(repository, environmentFactory, createNativeTypeFactory(), lazyEvaluationDetector, inputParameters);
+        return new BasicDMNToKotlinTransformer(this, repository, environmentFactory, createNativeTypeFactory(), lazyEvaluationDetector, inputParameters);
     }
 
     //

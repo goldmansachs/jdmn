@@ -50,7 +50,7 @@ public class MixedJavaTimeKotlinSignavioDMNDialectDefinition extends AbstractSig
     @Override
     public BasicDMNToJavaTransformer createBasicTransformer(DMNModelRepository repository, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         EnvironmentFactory environmentFactory = createEnvironmentFactory();
-        return new BasicSignavioDMNToKotlinTransformer(repository, environmentFactory, createNativeTypeFactory(), lazyEvaluationDetector, inputParameters);
+        return new BasicSignavioDMNToKotlinTransformer(this, repository, environmentFactory, createNativeTypeFactory(), lazyEvaluationDetector, inputParameters);
     }
 
     //
