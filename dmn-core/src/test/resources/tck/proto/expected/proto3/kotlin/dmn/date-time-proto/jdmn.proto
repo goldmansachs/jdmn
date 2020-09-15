@@ -11,7 +11,9 @@ package proto;
 message CompositeDateTime {
     string date = 1;
     string dateTime = 2;
-    string time = 3;
+    string dayTimeDuration = 3;
+    string time = 4;
+    string yearMonthDuration = 5;
 }
 
 //

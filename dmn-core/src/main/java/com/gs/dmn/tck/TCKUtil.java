@@ -241,7 +241,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         Type resultType = toFEELType(info);
         ValueType expectedValue = info.getExpectedValue();
         String value = toNativeExpression(expectedValue, resultType);
-        if (isDateTimeType(resultType)) {
+        if (isDateTimeType(resultType) || this.transformer.isComplexType(resultType)) {
             return transformer.getNativeFactory().convertValueToProtoNativeType(value, resultType, false);
         } else {
             return value;
@@ -888,8 +888,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     public List<Pair<String, Type>> drgElementTypeSignature(ResultNodeInfo info) {
         TDRGElement element = info.getReference().getElement();
-        List<Pair<String, Type>> pairs = this.transformer.drgElementTypeSignature(element, this.transformer::nativeName);
-        return pairs;
+        return this.transformer.drgElementTypeSignature(element, this.transformer::nativeName);
     }
 
     public String protoSetter(Pair<String, Type> parameter) {

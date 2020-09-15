@@ -71,10 +71,10 @@ public class TestdateTimeProto extends com.gs.dmn.runtime.DefaultDMNBaseDecision
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
         com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
         // Initialize input data
-        type.CompositeDateTime compositeInputDateTime = new type.CompositeDateTimeImpl(date("2020-09-19"), dateAndTime("2020-09-19T12:10:10"), time("12:10:10"));
+        type.CompositeDateTime compositeInputDateTime = new type.CompositeDateTimeImpl(date("2020-09-19"), dateAndTime("2020-09-19T12:10:10"), duration("P1D"), time("12:10:10"), duration("P1Y"));
 
         // Check CompositeDateTime
-        checkValues(new type.CompositeDateTimeImpl(date("2020-09-19"), dateAndTime("2020-09-19T12:10:10"), time("12:10:10")), new CompositeDateTime().apply(compositeInputDateTime, annotationSet_, eventListener_, externalExecutor_, cache_));
+        checkValues(new type.CompositeDateTimeImpl(date("2020-09-19"), dateAndTime("2020-09-19T12:10:10"), duration("P1D"), time("12:10:10"), duration("P1Y")), new CompositeDateTime().apply(compositeInputDateTime, annotationSet_, eventListener_, externalExecutor_, cache_));
 
         // Check CompositeDateTime with proto request
         proto.CompositeDateTimeRequest.Builder compositeDateTimeBuilder_ = proto.CompositeDateTimeRequest.newBuilder();
@@ -83,7 +83,7 @@ public class TestdateTimeProto extends com.gs.dmn.runtime.DefaultDMNBaseDecision
             compositeDateTimeBuilder_.setCompositeInputDateTime(compositeInputDateTimeProto0);
         }
         proto.CompositeDateTimeRequest compositeDateTimeRequest_ = compositeDateTimeBuilder_.build();
-        checkValues(new type.CompositeDateTimeImpl(date("2020-09-19"), dateAndTime("2020-09-19T12:10:10"), time("12:10:10")), new CompositeDateTime().apply(compositeDateTimeRequest_, annotationSet_, eventListener_, externalExecutor_, cache_).getCompositeDateTime());
+        checkValues(type.CompositeDateTime.toProto(new type.CompositeDateTimeImpl(date("2020-09-19"), dateAndTime("2020-09-19T12:10:10"), duration("P1D"), time("12:10:10"), duration("P1Y"))), new CompositeDateTime().apply(compositeDateTimeRequest_, annotationSet_, eventListener_, externalExecutor_, cache_).getCompositeDateTime());
     }
 
     private void checkValues(Object expected, Object actual) {

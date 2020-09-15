@@ -37,6 +37,7 @@ import static com.gs.dmn.feel.lib.DefaultFEELLib.DATA_TYPE_FACTORY;
 
 public class MixedJavaTimeSignavioLib extends BaseFEELLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> implements SignavioLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     public static MixedJavaTimeSignavioLib INSTANCE = new MixedJavaTimeSignavioLib();
+
     private final MixedJavaTimeFEELLib feelLib = new MixedJavaTimeFEELLib();
 
     private final DefaultSignavioNumberLib numberLib = new DefaultSignavioNumberLib();

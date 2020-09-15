@@ -17,13 +17,23 @@ class CompositeDateTimeImpl : CompositeDateTime {
     @set:com.fasterxml.jackson.annotation.JsonGetter("DateTime")
     override var dateTime: javax.xml.datatype.XMLGregorianCalendar? = null
 
+    @get:com.fasterxml.jackson.annotation.JsonGetter("YearMonthDuration")
+    @set:com.fasterxml.jackson.annotation.JsonGetter("YearMonthDuration")
+    override var yearMonthDuration: javax.xml.datatype.Duration? = null
+
+    @get:com.fasterxml.jackson.annotation.JsonGetter("DayTimeDuration")
+    @set:com.fasterxml.jackson.annotation.JsonGetter("DayTimeDuration")
+    override var dayTimeDuration: javax.xml.datatype.Duration? = null
+
     constructor() {
     }
 
-    constructor (date: javax.xml.datatype.XMLGregorianCalendar?, dateTime: javax.xml.datatype.XMLGregorianCalendar?, time: javax.xml.datatype.XMLGregorianCalendar?) {
+    constructor (date: javax.xml.datatype.XMLGregorianCalendar?, dateTime: javax.xml.datatype.XMLGregorianCalendar?, dayTimeDuration: javax.xml.datatype.Duration?, time: javax.xml.datatype.XMLGregorianCalendar?, yearMonthDuration: javax.xml.datatype.Duration?) {
         this.date = date
         this.dateTime = dateTime
+        this.dayTimeDuration = dayTimeDuration
         this.time = time
+        this.yearMonthDuration = yearMonthDuration
     }
 
     override fun equals(other: Any?): Boolean {

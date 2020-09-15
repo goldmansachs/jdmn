@@ -34,8 +34,8 @@ public class ProtoBufferKotlinFactory extends ProtoBufferFactory {
 
     static {
         FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(ENUMERATION.getName(), "String");
-        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), null);
-        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(DAYS_AND_TIME_DURATION.getName(), null);
+        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), "String");
+        FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(DAYS_AND_TIME_DURATION.getName(), "String");
         FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(DATE_AND_TIME.getName(), "String");
         FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(TIME.getName(), "String");
         FEEL_TYPE_TO_NATIVE_PROTO_TYPE.put(DATE.getName(), "String");
