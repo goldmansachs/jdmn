@@ -71,10 +71,10 @@ class TestdateTimeProto : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         val externalExecutor_ = com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor()
         val cache_ = com.gs.dmn.runtime.cache.DefaultCache()
         // Initialize input data
-        val compositeInputDateTime: type.CompositeDateTime? = type.CompositeDateTimeImpl(date("2020-09-19"), dateAndTime("2020-09-19T12:10:10"), time("12:10:10"))
+        val compositeInputDateTime: type.CompositeDateTime? = type.CompositeDateTimeImpl(date("2020-09-19"), dateAndTime("2020-09-19T12:10:10"), duration("P1D"), time("12:10:10"), duration("P1Y"))
 
         // Check CompositeDateTime
-        checkValues(type.CompositeDateTimeImpl(date("2020-09-19"), dateAndTime("2020-09-19T12:10:10"), time("12:10:10")), CompositeDateTime().apply(compositeInputDateTime, annotationSet_, eventListener_, externalExecutor_, cache_))
+        checkValues(type.CompositeDateTimeImpl(date("2020-09-19"), dateAndTime("2020-09-19T12:10:10"), duration("P1D"), time("12:10:10"), duration("P1Y")), CompositeDateTime().apply(compositeInputDateTime, annotationSet_, eventListener_, externalExecutor_, cache_))
 
         // Check CompositeDateTime with proto request
         val compositeDateTimeBuilder_: proto.CompositeDateTimeRequest.Builder = proto.CompositeDateTimeRequest.newBuilder()
@@ -83,7 +83,7 @@ class TestdateTimeProto : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             compositeDateTimeBuilder_.setCompositeInputDateTime(compositeInputDateTimeProto0)
         }
         val compositeDateTimeRequest_: proto.CompositeDateTimeRequest = compositeDateTimeBuilder_.build()
-        checkValues(type.CompositeDateTimeImpl(date("2020-09-19"), dateAndTime("2020-09-19T12:10:10"), time("12:10:10")), CompositeDateTime().apply(compositeDateTimeRequest_, annotationSet_, eventListener_, externalExecutor_, cache_).getCompositeDateTime())
+        checkValues(type.CompositeDateTime.toProto(type.CompositeDateTimeImpl(date("2020-09-19"), dateAndTime("2020-09-19T12:10:10"), duration("P1D"), time("12:10:10"), duration("P1Y"))), CompositeDateTime().apply(compositeDateTimeRequest_, annotationSet_, eventListener_, externalExecutor_, cache_).getCompositeDateTime())
     }
 
     private fun checkValues(expected: Any?, actual: Any?) {

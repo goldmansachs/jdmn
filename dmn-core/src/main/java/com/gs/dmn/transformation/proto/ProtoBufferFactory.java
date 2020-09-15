@@ -49,8 +49,8 @@ public abstract class ProtoBufferFactory {
 
     static {
         FEEL_TYPE_TO_PROTO_TYPE.put(ENUMERATION.getName(), "string");
-        FEEL_TYPE_TO_PROTO_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), null);
-        FEEL_TYPE_TO_PROTO_TYPE.put(DAYS_AND_TIME_DURATION.getName(), null);
+        FEEL_TYPE_TO_PROTO_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), "string");
+        FEEL_TYPE_TO_PROTO_TYPE.put(DAYS_AND_TIME_DURATION.getName(), "string");
         FEEL_TYPE_TO_PROTO_TYPE.put(DATE_AND_TIME.getName(), "string");
         FEEL_TYPE_TO_PROTO_TYPE.put(TIME.getName(), "string");
         FEEL_TYPE_TO_PROTO_TYPE.put(DATE.getName(), "string");
@@ -164,8 +164,7 @@ public abstract class ProtoBufferFactory {
                 return primitiveType;
             } else {
                 if (type instanceof ItemDefinitionType) {
-                    String qType = qualifiedProtoMessageName((ItemDefinitionType) type);
-                    return qType;
+                    return qualifiedProtoMessageName((ItemDefinitionType) type);
                 } else {
                     throw new DMNRuntimeException(String.format("Cannot infer platform type for '%s'", type));
                 }
@@ -184,8 +183,7 @@ public abstract class ProtoBufferFactory {
 
     private FieldType protoType(TItemDefinition itemDefinition) {
         Type type = this.transformer.toFEELType(itemDefinition);
-        FieldType protoType = toProtoFieldType(type);
-        return protoType;
+        return toProtoFieldType(type);
     }
 
     private FieldType toProtoFieldType(Type type) {

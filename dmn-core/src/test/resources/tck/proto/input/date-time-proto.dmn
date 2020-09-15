@@ -10,6 +10,12 @@
 		<itemComponent name="DateTime" isCollection="false">
 			<typeRef>feel:date and time</typeRef>
 		</itemComponent>
+		<itemComponent name="YearMonthDuration" isCollection="false">
+			<typeRef>feel:yearMonthDuration</typeRef>
+		</itemComponent>
+		<itemComponent name="DayTimeDuration" isCollection="false">
+			<typeRef>feel:dayTimeDuration</typeRef>
+		</itemComponent>
 	</itemDefinition>
 
   	<inputData id="i-date" name="InputDate">
