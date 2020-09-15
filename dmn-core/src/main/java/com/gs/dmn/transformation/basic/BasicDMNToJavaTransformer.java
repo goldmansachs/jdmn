@@ -1593,6 +1593,31 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
+    public boolean isDateTimeType(Type type) {
+        return isSimpleDateTimeType(type) || (type instanceof ListType && isSimpleDateTimeType(((ListType) type).getElementType()));
+    }
+
+    private boolean isSimpleDateTimeType(Type type) {
+        return isDate(type) || isTime(type) || isDateTime(type) || isDurationTime(type);
+    }
+
+    private boolean isDate(Type type) {
+        return type instanceof DateType;
+    }
+
+    private boolean isTime(Type type) {
+        return type instanceof TimeType;
+    }
+
+    private boolean isDateTime(Type type) {
+        return type instanceof DateTimeType;
+    }
+
+    private boolean isDurationTime(Type type) {
+        return type instanceof DurationType;
+    }
+
+    @Override
     public Type toFEELType(TDefinitions model, String typeName) {
         return this.dmnEnvironmentFactory.toFEELType(model, typeName);
     }

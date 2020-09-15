@@ -376,19 +376,11 @@ public class TestLabUtil {
         Type outputType = toFEELType(testLab.getRootOutputParameter());
         TDecision decision = (TDecision) findDRGElement(testLab.getRootOutputParameter());
         String value = toNativeExpression(outputType, expression, decision);
-        if (isDateTime(outputType)) {
+        if (this.dmnTransformer.isDateTimeType(outputType) || this.dmnTransformer.isComplexType(outputType)) {
             return this.dmnTransformer.getNativeFactory().convertValueToProtoNativeType(value, outputType, false);
         } else {
             return value;
         }
-    }
-
-    private boolean isDateTime(Type type) {
-        return isSimpleDateTimeType(type) || (type instanceof ListType && isSimpleDateTimeType(((ListType) type).getElementType()));
-    }
-
-    private boolean isSimpleDateTimeType(Type type) {
-        return type instanceof DateType || type instanceof TimeType || type instanceof DateTimeType || type instanceof DurationType;
     }
 
     public String toNativeTypeProto(InputParameterDefinition inputParameterDefinition) {

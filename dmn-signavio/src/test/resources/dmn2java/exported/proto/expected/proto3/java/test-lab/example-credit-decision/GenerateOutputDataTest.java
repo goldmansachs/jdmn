@@ -33,7 +33,7 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
         List<proto.GenerateOutputData> generateOutputDataProto_ = generateOutputDataResponse_.getGenerateOutputDataList();
 
         // Check results
-        checkValues(asList(new type.GenerateOutputDataImpl(number("27.5"), "Accept", numericUnaryMinus(number("7.5")))), generateOutputDataProto_);
+        checkValues(((List) (asList(new type.GenerateOutputDataImpl(number("27.5"), "Accept", numericUnaryMinus(number("7.5")))) == null ? null : asList(new type.GenerateOutputDataImpl(number("27.5"), "Accept", numericUnaryMinus(number("7.5")))).stream().map(type.GenerateOutputData::toProto).collect(java.util.stream.Collectors.toList()))), generateOutputDataProto_);
     }
 
     @org.junit.Test
@@ -63,7 +63,7 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
         List<proto.GenerateOutputData> generateOutputDataProto_ = generateOutputDataResponse_.getGenerateOutputDataList();
 
         // Check results
-        checkValues(asList(new type.GenerateOutputDataImpl(numericUnaryMinus(number("10")), "Reject", numericUnaryMinus(number("25")))), generateOutputDataProto_);
+        checkValues(((List) (asList(new type.GenerateOutputDataImpl(numericUnaryMinus(number("10")), "Reject", numericUnaryMinus(number("25")))) == null ? null : asList(new type.GenerateOutputDataImpl(numericUnaryMinus(number("10")), "Reject", numericUnaryMinus(number("25")))).stream().map(type.GenerateOutputData::toProto).collect(java.util.stream.Collectors.toList()))), generateOutputDataProto_);
     }
 
     @org.junit.Test
@@ -93,7 +93,7 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
         List<proto.GenerateOutputData> generateOutputDataProto_ = generateOutputDataResponse_.getGenerateOutputDataList();
 
         // Check results
-        checkValues(asList(new type.GenerateOutputDataImpl(numericUnaryMinus(number("42.5")), "Reject", numericUnaryMinus(number("77.5")))), generateOutputDataProto_);
+        checkValues(((List) (asList(new type.GenerateOutputDataImpl(numericUnaryMinus(number("42.5")), "Reject", numericUnaryMinus(number("77.5")))) == null ? null : asList(new type.GenerateOutputDataImpl(numericUnaryMinus(number("42.5")), "Reject", numericUnaryMinus(number("77.5")))).stream().map(type.GenerateOutputData::toProto).collect(java.util.stream.Collectors.toList()))), generateOutputDataProto_);
     }
 
     private void checkValues(Object expected, Object actual) {
