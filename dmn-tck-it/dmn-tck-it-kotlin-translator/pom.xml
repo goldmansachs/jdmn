@@ -2232,7 +2232,7 @@
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending_proto_cache</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.proto.cl3_0004_lending_proto_cache</javaRootPackage>
                                 <generateProtoMessages>true</generateProtoMessages>
                                 <generateProtoServices>true</generateProtoServices>
                                 <protoVersion>proto3</protoVersion>
@@ -2251,7 +2251,7 @@
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending_proto_cache</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.proto.cl3_0004_lending_proto_cache</javaRootPackage>
                                 <generateProtoMessages>true</generateProtoMessages>
                                 <generateProtoServices>true</generateProtoServices>
                                 <protoVersion>proto3</protoVersion>

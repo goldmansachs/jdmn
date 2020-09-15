@@ -2,48 +2,48 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "CompositeDateTime"})
+@javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "tCompositeDateTime"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
-@com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = type.CompositeDateTimeImpl.class)
-public interface CompositeDateTime extends com.gs.dmn.runtime.DMNType {
-    static CompositeDateTime toCompositeDateTime(Object other) {
+@com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = type.TCompositeDateTimeImpl.class)
+public interface TCompositeDateTime extends com.gs.dmn.runtime.DMNType {
+    static TCompositeDateTime toTCompositeDateTime(Object other) {
         if (other == null) {
             return null;
-        } else if (CompositeDateTime.class.isAssignableFrom(other.getClass())) {
-            return (CompositeDateTime)other;
+        } else if (TCompositeDateTime.class.isAssignableFrom(other.getClass())) {
+            return (TCompositeDateTime)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
-            CompositeDateTimeImpl result_ = new CompositeDateTimeImpl();
-            result_.setDate((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("Date"));
-            result_.setTime((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("Time"));
-            result_.setDateTime((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("DateTime"));
+            TCompositeDateTimeImpl result_ = new TCompositeDateTimeImpl();
+            result_.setDate((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("Date", "Date"));
+            result_.setTime((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("Time", "Time"));
+            result_.setDateTime((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("DateTime", "DateTime"));
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
-            return toCompositeDateTime(((com.gs.dmn.runtime.DMNType)other).toContext());
-        } else if (other instanceof proto.CompositeDateTime) {
-            CompositeDateTimeImpl result_ = new CompositeDateTimeImpl();
-            result_.setDate(com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.date(((proto.CompositeDateTime) other).getDate()));
-            result_.setTime(com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.time(((proto.CompositeDateTime) other).getTime()));
-            result_.setDateTime(com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.dateAndTime(((proto.CompositeDateTime) other).getDateTime()));
+            return toTCompositeDateTime(((com.gs.dmn.runtime.DMNType)other).toContext());
+        } else if (other instanceof proto.TCompositeDateTime) {
+            TCompositeDateTimeImpl result_ = new TCompositeDateTimeImpl();
+            result_.setDate(com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.date(((proto.TCompositeDateTime) other).getDate()));
+            result_.setTime(com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.time(((proto.TCompositeDateTime) other).getTime()));
+            result_.setDateTime(com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.dateAndTime(((proto.TCompositeDateTime) other).getDateTime()));
             return result_;
         } else {
-            throw new com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.getClass().getSimpleName(), CompositeDateTime.class.getSimpleName()));
+            throw new com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.getClass().getSimpleName(), TCompositeDateTime.class.getSimpleName()));
         }
     }
 
-    static proto.CompositeDateTime toProto(CompositeDateTime other) {
-        proto.CompositeDateTime.Builder result_ = proto.CompositeDateTime.newBuilder();
+    static proto.TCompositeDateTime toProto(TCompositeDateTime other) {
+        proto.TCompositeDateTime.Builder result_ = proto.TCompositeDateTime.newBuilder();
         if (other != null) {
-            String dateProto_ = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.string(((CompositeDateTime) other).getDate());
+            String dateProto_ = com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.string(((TCompositeDateTime) other).getDate());
             result_.setDate(dateProto_);
-            String timeProto_ = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.string(((CompositeDateTime) other).getTime());
+            String timeProto_ = com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.string(((TCompositeDateTime) other).getTime());
             result_.setTime(timeProto_);
-            String dateTimeProto_ = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.string(((CompositeDateTime) other).getDateTime());
+            String dateTimeProto_ = com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.string(((TCompositeDateTime) other).getDateTime());
             result_.setDateTime(dateTimeProto_);
         }
         return result_.build();
     }
 
-    static List<proto.CompositeDateTime> toProto(List<CompositeDateTime> other) {
+    static List<proto.TCompositeDateTime> toProto(List<TCompositeDateTime> other) {
         if (other == null) {
             return null;
         } else {
@@ -72,7 +72,7 @@ public interface CompositeDateTime extends com.gs.dmn.runtime.DMNType {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CompositeDateTime other = (CompositeDateTime) o;
+        TCompositeDateTime other = (TCompositeDateTime) o;
         if (this.getDate() != null ? !this.getDate().equals(other.getDate()) : other.getDate() != null) return false;
         if (this.getDateTime() != null ? !this.getDateTime().equals(other.getDateTime()) : other.getDateTime() != null) return false;
         if (this.getTime() != null ? !this.getTime().equals(other.getTime()) : other.getTime() != null) return false;

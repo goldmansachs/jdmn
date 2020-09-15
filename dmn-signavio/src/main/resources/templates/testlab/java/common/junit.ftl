@@ -115,7 +115,7 @@ public class ${testClassName} extends ${decisionBaseClass} {
                     </#items>
                 </#list>
             <#else>
-        checkValues(${testLabUtil.toNativeExpression(testLab, expectedValue)}, ${testLabUtil.drgElementVariableNameProto(rootOutputParameter)});
+        checkValues(${testLabUtil.toNativeExpressionProto(testLab, expectedValue)}, ${testLabUtil.drgElementVariableNameProto(rootOutputParameter)});
             </#if>
         </#items>
     </#list>
