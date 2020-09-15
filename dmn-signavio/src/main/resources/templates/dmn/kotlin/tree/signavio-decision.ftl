@@ -93,11 +93,11 @@ class ${javaClassName}(${transformer.decisionConstructorSignature(drgElement)}) 
     </#if>
     }
 }
-<#macro makeArgumentsFromRequestMessage drgElement staticContext ident>
+<#macro makeArgumentsFromRequestMessage drgElement staticContext indent>
     <#assign parameters = transformer.drgElementTypeSignature(drgElement) />
-        ${ident}// Create arguments from Request Message
+        ${indent}// Create arguments from Request Message
     <#list parameters as parameter>
-        ${ident}val ${parameter.left}: ${transformer.toNativeType(parameter.right)}? = ${transformer.extractParameterFromRequestMessage(drgElement, parameter, staticContext)}
+        ${indent}val ${parameter.left}: ${transformer.toNativeType(parameter.right)}? = ${transformer.extractParameterFromRequestMessage(drgElement, parameter, staticContext)}
     </#list>
 </#macro>
 
