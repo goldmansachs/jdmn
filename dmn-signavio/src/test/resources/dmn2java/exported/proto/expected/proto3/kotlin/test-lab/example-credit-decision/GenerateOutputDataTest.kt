@@ -33,7 +33,7 @@ class GenerateOutputDataTest : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
         val generateOutputDataProto_: List<proto.GenerateOutputData?>? = generateOutputDataResponse_.getGenerateOutputDataList()
 
         // Check results
-        checkValues(asList(type.GenerateOutputDataImpl(number("27.5"), "Accept", numericUnaryMinus(number("7.5")))), generateOutputDataProto_)
+        checkValues(asList(type.GenerateOutputDataImpl(number("27.5"), "Accept", numericUnaryMinus(number("7.5"))))?.stream()?.map({e -> type.GenerateOutputData.toProto(e)})?.collect(java.util.stream.Collectors.toList()), generateOutputDataProto_)
     }
 
     @org.junit.Test
@@ -63,7 +63,7 @@ class GenerateOutputDataTest : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
         val generateOutputDataProto_: List<proto.GenerateOutputData?>? = generateOutputDataResponse_.getGenerateOutputDataList()
 
         // Check results
-        checkValues(asList(type.GenerateOutputDataImpl(numericUnaryMinus(number("10")), "Reject", numericUnaryMinus(number("25")))), generateOutputDataProto_)
+        checkValues(asList(type.GenerateOutputDataImpl(numericUnaryMinus(number("10")), "Reject", numericUnaryMinus(number("25"))))?.stream()?.map({e -> type.GenerateOutputData.toProto(e)})?.collect(java.util.stream.Collectors.toList()), generateOutputDataProto_)
     }
 
     @org.junit.Test
@@ -93,7 +93,7 @@ class GenerateOutputDataTest : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
         val generateOutputDataProto_: List<proto.GenerateOutputData?>? = generateOutputDataResponse_.getGenerateOutputDataList()
 
         // Check results
-        checkValues(asList(type.GenerateOutputDataImpl(numericUnaryMinus(number("42.5")), "Reject", numericUnaryMinus(number("77.5")))), generateOutputDataProto_)
+        checkValues(asList(type.GenerateOutputDataImpl(numericUnaryMinus(number("42.5")), "Reject", numericUnaryMinus(number("77.5"))))?.stream()?.map({e -> type.GenerateOutputData.toProto(e)})?.collect(java.util.stream.Collectors.toList()), generateOutputDataProto_)
     }
 
     private fun checkValues(expected: Any?, actual: Any?) {
