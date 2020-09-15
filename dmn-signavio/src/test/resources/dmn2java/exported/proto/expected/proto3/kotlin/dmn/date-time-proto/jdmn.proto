@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "proto";
+
+package proto;
+
+//
+// Complex data types
+//
+message TCompositeDateTime {
+    string date = 1;
+    string dateTime = 2;
+    string time = 3;
+}
+
+//
+// Request / response types
+//
+message CompositeDateTimeRequest {
+    proto.TCompositeDateTime compositeInputDateTime = 1;
+    string inputDate = 2;
+    string inputDateTime = 3;
+    string inputTime = 4;
+}
+
+message CompositeDateTimeResponse {
+    proto.TCompositeDateTime compositeDateTime = 1;
+}
+
+message DateRequest {
+    proto.TCompositeDateTime compositeInputDateTime = 1;
+    string inputDate = 2;
+    string inputDateTime = 3;
+    string inputTime = 4;
+}
+
+message DateResponse {
+    string date = 1;
+}
+
+message DateTimeRequest {
+    proto.TCompositeDateTime compositeInputDateTime = 1;
+    string inputDate = 2;
+    string inputDateTime = 3;
+    string inputTime = 4;
+}
+
+message DateTimeResponse {
+    string dateTime = 1;
+}
+
+message TimeRequest {
+    proto.TCompositeDateTime compositeInputDateTime = 1;
+    string inputDate = 2;
+    string inputDateTime = 3;
+    string inputTime = 4;
+}
+
+message TimeResponse {
+    string time = 1;
+}
+
+//
+// Services
+//
+service CompositeDateTimeService {
+    rpc apply(CompositeDateTimeRequest) returns (CompositeDateTimeResponse);
+}
+
+service DateService {
+    rpc apply(DateRequest) returns (DateResponse);
+}
+
+service DateTimeService {
+    rpc apply(DateTimeRequest) returns (DateTimeResponse);
+}
+
+service TimeService {
+    rpc apply(TimeRequest) returns (TimeResponse);
+}
+

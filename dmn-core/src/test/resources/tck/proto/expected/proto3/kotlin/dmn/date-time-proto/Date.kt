@@ -62,7 +62,7 @@ class Date() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
     fun apply(dateRequest_: proto.DateRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.DateResponse {
         // Create arguments from Request Message
-        val inputDate: javax.xml.datatype.XMLGregorianCalendar? = date(dateRequest_.getInputDate()))
+        val inputDate: javax.xml.datatype.XMLGregorianCalendar? = date(dateRequest_.getInputDate())
 
         // Invoke apply method
         val output_: javax.xml.datatype.XMLGregorianCalendar? = apply(inputDate, annotationSet_, eventListener_, externalExecutor_, cache_)
@@ -92,7 +92,7 @@ class Date() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         @JvmStatic
         fun requestToMap(dateRequest_: proto.DateRequest): kotlin.collections.Map<String, Any?> {
             // Create arguments from Request Message
-            val inputDate: javax.xml.datatype.XMLGregorianCalendar? = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.date(dateRequest_.getInputDate()))
+            val inputDate: javax.xml.datatype.XMLGregorianCalendar? = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.date(dateRequest_.getInputDate())
 
             // Create map
             val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
@@ -103,7 +103,7 @@ class Date() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         @JvmStatic
         fun responseToOutput(dateResponse_: proto.DateResponse): javax.xml.datatype.XMLGregorianCalendar? {
             // Extract and convert output
-            return com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.date(dateResponse_.getDate()))
+            return com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.date(dateResponse_.getDate())
         }
     }
 }

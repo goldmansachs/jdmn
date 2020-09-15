@@ -330,7 +330,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
                 return protoValue;
             } else {
                 // Date time types
-                String stringValue = String.format("%s)", protoValue);
+                String stringValue = String.format("%s", protoValue);
                 String conversionMethod = getConversionMethod(type, staticContext);
                 if (conversionMethod != null) {
                     return String.format("%s(%s)", conversionMethod, stringValue);
@@ -350,7 +350,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
                     mapFunction =  "e -> e";
                 } else {
                     // Date time types
-                    String conversionMethod = FEELTypes.FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.get(elementType);
+                    String conversionMethod = getConversionMethod(type, staticContext);
                     if (conversionMethod != null) {
                         mapFunction = String.format("e -> %s(e)", conversionMethod);
                     } else {
@@ -384,8 +384,9 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
             } else if (type == StringType.STRING) {
                 return toProtoString(value);
             } else {
-                // Return string
-                return String.format("string(%s)", value);
+                // DATE TIME: Return string
+                String conversionMethod = getConversionMethod("string", staticContext);
+                return String.format("%s(%s)", conversionMethod, value);
             }
         } else if (type instanceof ListType) {
             Type elementType = ((ListType) type).getElementType();
@@ -398,8 +399,9 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
                 } else if (elementType == StringType.STRING) {
                     mapFunction = String.format("e -> %s", toProtoString("e"));
                 } else {
-                    // Return string
-                    mapFunction = "e -> string(e)";
+                    // DATE TIME: Return string
+                    String conversionMethod = getConversionMethod("string", staticContext);
+                    mapFunction = String.format("e -> %s(e)", conversionMethod);
                 }
             } else if (elementType instanceof ItemDefinitionType) {
                 String nativeType = this.transformer.toNativeType(elementType);

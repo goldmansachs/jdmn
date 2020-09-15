@@ -62,7 +62,7 @@ class DateTime() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
     fun apply(dateTimeRequest_: proto.DateTimeRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.DateTimeResponse {
         // Create arguments from Request Message
-        val inputDateTime: javax.xml.datatype.XMLGregorianCalendar? = dateAndTime(dateTimeRequest_.getInputDateTime()))
+        val inputDateTime: javax.xml.datatype.XMLGregorianCalendar? = dateAndTime(dateTimeRequest_.getInputDateTime())
 
         // Invoke apply method
         val output_: javax.xml.datatype.XMLGregorianCalendar? = apply(inputDateTime, annotationSet_, eventListener_, externalExecutor_, cache_)
@@ -92,7 +92,7 @@ class DateTime() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         @JvmStatic
         fun requestToMap(dateTimeRequest_: proto.DateTimeRequest): kotlin.collections.Map<String, Any?> {
             // Create arguments from Request Message
-            val inputDateTime: javax.xml.datatype.XMLGregorianCalendar? = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.dateAndTime(dateTimeRequest_.getInputDateTime()))
+            val inputDateTime: javax.xml.datatype.XMLGregorianCalendar? = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.dateAndTime(dateTimeRequest_.getInputDateTime())
 
             // Create map
             val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
@@ -103,7 +103,7 @@ class DateTime() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         @JvmStatic
         fun responseToOutput(dateTimeResponse_: proto.DateTimeResponse): javax.xml.datatype.XMLGregorianCalendar? {
             // Extract and convert output
-            return com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.dateAndTime(dateTimeResponse_.getDateTime()))
+            return com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.dateAndTime(dateTimeResponse_.getDateTime())
         }
     }
 }

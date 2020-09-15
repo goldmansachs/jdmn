@@ -157,7 +157,6 @@ public class TestLabUtil {
     public String toNativeExpression(TestLab testLab, Expression expression) {
         Type outputType = toFEELType(testLab.getRootOutputParameter());
         TDecision decision = (TDecision) findDRGElement(testLab.getRootOutputParameter());
-
         return toNativeExpression(outputType, expression, decision);
     }
 
@@ -278,7 +277,7 @@ public class TestLabUtil {
                 return memberType;
             }
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot find member '(name='%s' label='%s' id='%s') in ItemDefinition '%s'", name, label, id, itemDefinition.getName()), e);
+            throw new DMNRuntimeException(String.format("Cannot find member '(name='%s' label='%s' id='%s') in ItemDefinition '%s'", name, label, id, itemDefinition == null ? null : itemDefinition.getName()), e);
         }
         throw new DMNRuntimeException(String.format("Cannot find member '(name='%s' label='%s' id='%s') in ItemDefinition '%s'", name, label, id, itemDefinition.getName()));
     }
@@ -371,6 +370,25 @@ public class TestLabUtil {
         String inputName = inputDataVariableName(inputParameterDefinition);
         Type type = toFEELType(inputParameterDefinition);
         return this.dmnTransformer.getNativeFactory().convertValueToProtoNativeType(inputName, type, false);
+    }
+
+    public String toNativeExpressionProto(TestLab testLab, Expression expression) {
+        Type outputType = toFEELType(testLab.getRootOutputParameter());
+        TDecision decision = (TDecision) findDRGElement(testLab.getRootOutputParameter());
+        String value = toNativeExpression(outputType, expression, decision);
+        if (isDateTime(outputType)) {
+            return this.dmnTransformer.getNativeFactory().convertValueToProtoNativeType(value, outputType, false);
+        } else {
+            return value;
+        }
+    }
+
+    private boolean isDateTime(Type type) {
+        return isSimpleDateTimeType(type) || (type instanceof ListType && isSimpleDateTimeType(((ListType) type).getElementType()));
+    }
+
+    private boolean isSimpleDateTimeType(Type type) {
+        return type instanceof DateType || type instanceof TimeType || type instanceof DateTimeType || type instanceof DurationType;
     }
 
     public String toNativeTypeProto(InputParameterDefinition inputParameterDefinition) {

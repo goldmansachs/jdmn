@@ -35,6 +35,8 @@
         <generated.java.folder>${project.build.directory}/generated-sources/dmn</generated.java.folder>
         <generated.root.package>com.gs.dmn.generated</generated.root.package>
         <testlab.java.folder>${project.build.directory}/generated-test-sources/testlab</testlab.java.folder>
+        <generated.java.grpc>${project.build.directory}/generated-sources/protobuf/grpc-java</generated.java.grpc>
+        <generated.java.protobuf>${project.build.directory}/generated-sources/protobuf/java</generated.java.protobuf>
 
         <kotlin.version>1.3.71</kotlin.version>
         <kotlin.code.style>official</kotlin.code.style>
@@ -120,6 +122,13 @@
     </profiles>
 
     <build>
+        <extensions>
+            <extension>
+                <groupId>kr.motd.maven</groupId>
+                <artifactId>os-maven-plugin</artifactId>
+                <version>1.4.1.Final</version>
+            </extension>
+        </extensions>
         <plugins>
             <plugin>
                 <groupId>com.goldmansachs.jdmn</groupId>
@@ -645,44 +654,6 @@
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.example_credit_decision_mixed_tree</javaRootPackage>
                                 <caching>true</caching>
-                            </inputParameters>
-                        </configuration>
-                    </execution>
-
-                    <execution>
-                        <id>example-credit-decision-mixed-proto</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>dmn-to-kotlin</goal>
-                        </goals>
-                        <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
-                            <inputFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.example_credit_decision_mixed_proto</javaRootPackage>
-                                <generateProtoMessages>true</generateProtoMessages>
-                                <generateProtoServices>true</generateProtoServices>
-                                <protoVersion>proto3</protoVersion>
-                            </inputParameters>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>test-example-credit-decision-mixed-proto</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>testlab-to-kotlin</goal>
-                        </goals>
-                        <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${testlab.kotlin.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.example_credit_decision_mixed_proto</javaRootPackage>
-                                <generateProtoMessages>true</generateProtoMessages>
-                                <generateProtoServices>true</generateProtoServices>
-                                <protoVersion>proto3</protoVersion>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1775,6 +1746,88 @@
                             </inputParameters>
                         </configuration>
                     </execution>
+
+                    <!-- gRPC -->
+                    <execution>
+                        <id>example-credit-decision-mixed-proto</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-kotlin</goal>
+                        </goals>
+                        <configuration>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <inputFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.example_credit_decision_mixed_proto</javaRootPackage>
+                                <generateProtoMessages>true</generateProtoMessages>
+                                <generateProtoServices>true</generateProtoServices>
+                                <protoVersion>proto3</protoVersion>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-example-credit-decision-mixed-proto</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>testlab-to-kotlin</goal>
+                        </goals>
+                        <configuration>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.json</inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${testlab.kotlin.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.example_credit_decision_mixed_proto</javaRootPackage>
+                                <generateProtoMessages>true</generateProtoMessages>
+                                <generateProtoServices>true</generateProtoServices>
+                                <protoVersion>proto3</protoVersion>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>date-time-proto</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-kotlin</goal>
+                        </goals>
+                        <configuration>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <templateProvider>com.gs.dmn.signavio.transformation.template.KotlinSignavioTreeTemplateProvider</templateProvider>
+                            <inputFileDirectory>${dmn.diagram.folder}/complex/date-time-proto.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.date_time_proto</javaRootPackage>
+                                <generateProtoMessages>true</generateProtoMessages>
+                                <generateProtoServices>true</generateProtoServices>
+                                <protoVersion>proto3</protoVersion>
+                                <caching>true</caching>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-date-time-proto</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>testlab-to-kotlin</goal>
+                        </goals>
+                        <configuration>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <templateProvider>com.gs.dmn.signavio.transformation.template.KotlinSignavioTreeTemplateProvider</templateProvider>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/date-time-proto.json/</inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/date-time-proto.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${testlab.java.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.date_time_proto</javaRootPackage>
+                                <generateProtoMessages>true</generateProtoMessages>
+                                <generateProtoServices>true</generateProtoServices>
+                                <protoVersion>proto3</protoVersion>
+                                <caching>true</caching>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
                 </executions>
             </plugin>
 

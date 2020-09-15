@@ -241,7 +241,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         Type resultType = toFEELType(info);
         ValueType expectedValue = info.getExpectedValue();
         String value = toNativeExpression(expectedValue, resultType);
-        if (isDateTimeType(expectedValue, resultType)) {
+        if (isDateTimeType(resultType)) {
             return transformer.getNativeFactory().convertValueToProtoNativeType(value, resultType, false);
         } else {
             return value;
@@ -667,6 +667,22 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return value instanceof Duration;
     }
 
+    private boolean isDate(Type type) {
+        return type instanceof DateType;
+    }
+
+    private boolean isTime(Type type) {
+        return type instanceof TimeType;
+    }
+
+    private boolean isDateTime(Type type) {
+        return type instanceof DateTimeType;
+    }
+
+    private boolean isDurationTime(Type type) {
+        return type instanceof DurationType;
+    }
+
     private List<Pair<String, String>> sortParameters(List<Pair<String, String>> parameters) {
         parameters.sort(Comparator.comparing(Pair::getLeft));
         return parameters;
@@ -811,8 +827,12 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
                 || type.equivalentTo(ListType.YEARS_AND_MONTHS_DURATION_LIST);
     }
 
-    private boolean isDateTimeType(ValueType value, Type type) {
-        return isDate(value, type) || isTime(value, type) || isDateTime(value, type) || isDurationTime(value, type);
+    private boolean isDateTimeType(Type type) {
+        return isSimpleDateTimeType(type) || (type instanceof ListType && isSimpleDateTimeType(((ListType) type).getElementType()));
+    }
+
+    private boolean isSimpleDateTimeType(Type type) {
+        return isDate(type) || isTime(type) || isDateTime(type) || isDurationTime(type);
     }
 
     private String getTextContent(Object value) {

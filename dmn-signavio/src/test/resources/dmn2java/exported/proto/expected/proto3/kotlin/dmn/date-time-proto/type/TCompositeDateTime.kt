@@ -2,10 +2,10 @@ package type
 
 import java.util.*
 
-@javax.annotation.Generated(value = ["itemDefinitionInterface.ftl", "CompositeDateTime"])
+@javax.annotation.Generated(value = ["itemDefinitionInterface.ftl", "tCompositeDateTime"])
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
-@com.fasterxml.jackson.databind.annotation.JsonDeserialize(`as` = type.CompositeDateTimeImpl::class)
-interface CompositeDateTime : com.gs.dmn.runtime.DMNType {
+@com.fasterxml.jackson.databind.annotation.JsonDeserialize(`as` = type.TCompositeDateTimeImpl::class)
+interface TCompositeDateTime : com.gs.dmn.runtime.DMNType {
     @get:com.fasterxml.jackson.annotation.JsonGetter("Date")
     val date: javax.xml.datatype.XMLGregorianCalendar?
 
@@ -27,7 +27,7 @@ interface CompositeDateTime : com.gs.dmn.runtime.DMNType {
         if (this === o) return true
         if (javaClass != o?.javaClass) return false
 
-        val other = o as CompositeDateTime
+        val other = o as TCompositeDateTime
         if (if (this.date != null) this.date != other.date else other.date != null) return false
         if (if (this.dateTime != null) this.dateTime != other.dateTime else other.dateTime != null) return false
         if (if (this.time != null) this.time != other.time else other.time != null) return false
@@ -54,46 +54,46 @@ interface CompositeDateTime : com.gs.dmn.runtime.DMNType {
 
     companion object {
         @JvmStatic
-        fun toCompositeDateTime(other: Any?): CompositeDateTime? {
+        fun toTCompositeDateTime(other: Any?): TCompositeDateTime? {
             if (other == null) {
                 return null
-            } else if (other is CompositeDateTime?) {
+            } else if (other is TCompositeDateTime?) {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
-                var result_ = CompositeDateTimeImpl()
-                result_.date = other.get("Date") as javax.xml.datatype.XMLGregorianCalendar?
-                result_.time = other.get("Time") as javax.xml.datatype.XMLGregorianCalendar?
-                result_.dateTime = other.get("DateTime") as javax.xml.datatype.XMLGregorianCalendar?
+                var result_ = TCompositeDateTimeImpl()
+                result_.date = other.get("Date", "Date") as javax.xml.datatype.XMLGregorianCalendar?
+                result_.time = other.get("Time", "Time") as javax.xml.datatype.XMLGregorianCalendar?
+                result_.dateTime = other.get("DateTime", "DateTime") as javax.xml.datatype.XMLGregorianCalendar?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
-                return toCompositeDateTime(other.toContext())
-            } else if (other is proto.CompositeDateTime) {
-                var result_: CompositeDateTimeImpl = CompositeDateTimeImpl()
-                result_.date = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.date((other as proto.CompositeDateTime).getDate())
-                result_.time = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.time((other as proto.CompositeDateTime).getTime())
-                result_.dateTime = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.dateAndTime((other as proto.CompositeDateTime).getDateTime())
+                return toTCompositeDateTime(other.toContext())
+            } else if (other is proto.TCompositeDateTime) {
+                var result_: TCompositeDateTimeImpl = TCompositeDateTimeImpl()
+                result_.date = com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.date((other as proto.TCompositeDateTime).getDate())
+                result_.time = com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.time((other as proto.TCompositeDateTime).getTime())
+                result_.dateTime = com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.dateAndTime((other as proto.TCompositeDateTime).getDateTime())
                 return result_
             } else {
-                throw com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.javaClass.getSimpleName(), CompositeDateTime::class.java.getSimpleName()))
+                throw com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.javaClass.getSimpleName(), TCompositeDateTime::class.java.getSimpleName()))
             }
         }
 
         @JvmStatic
-        fun toProto(other: CompositeDateTime?): proto.CompositeDateTime {
-            var result_: proto.CompositeDateTime.Builder = proto.CompositeDateTime.newBuilder()
+        fun toProto(other: TCompositeDateTime?): proto.TCompositeDateTime {
+            var result_: proto.TCompositeDateTime.Builder = proto.TCompositeDateTime.newBuilder()
             if (other != null) {
-                var dateProto_: String = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.string((other as CompositeDateTime).date)
+                var dateProto_: String = com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.string((other as TCompositeDateTime).date)
                 result_.setDate(dateProto_)
-                var timeProto_: String = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.string((other as CompositeDateTime).time)
+                var timeProto_: String = com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.string((other as TCompositeDateTime).time)
                 result_.setTime(timeProto_)
-                var dateTimeProto_: String = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.string((other as CompositeDateTime).dateTime)
+                var dateTimeProto_: String = com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.string((other as TCompositeDateTime).dateTime)
                 result_.setDateTime(dateTimeProto_)
             }
             return result_.build()
         }
 
         @JvmStatic
-        fun toProto(other: List<CompositeDateTime?>?): List<proto.CompositeDateTime>? {
+        fun toProto(other: List<TCompositeDateTime?>?): List<proto.TCompositeDateTime>? {
             if (other == null) {
                 return null
             } else {
