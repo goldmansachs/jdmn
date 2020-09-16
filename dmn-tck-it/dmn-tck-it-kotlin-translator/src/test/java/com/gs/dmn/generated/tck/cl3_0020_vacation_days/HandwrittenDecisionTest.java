@@ -10,9 +10,9 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.generated.kotlin.tck.cl3_0020_vacation_days;
+package com.gs.dmn.generated.tck.cl3_0020_vacation_days;
 
-import com.gs.dmn.generated.kotlin.AbstractHandwrittenDecisionTest;
+import com.gs.dmn.generated.tck.AbstractHandwrittenDecisionTest;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
 import org.junit.Test;
 

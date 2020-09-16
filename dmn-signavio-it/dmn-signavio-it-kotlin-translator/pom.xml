@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Copyright 2016 Goldman Sachs.
 
@@ -640,7 +641,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>test-example-credit-decision-with-mixed-tree</id>
+                        <id>test-example-credit-decision-mixed-tree</id>
                         <phase>generate-test-sources</phase>
                         <goals>
                             <goal>testlab-to-kotlin</goal>

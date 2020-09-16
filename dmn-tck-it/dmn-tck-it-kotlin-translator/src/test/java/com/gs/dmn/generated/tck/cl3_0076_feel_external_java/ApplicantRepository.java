@@ -12,8 +12,8 @@
  */
 package com.gs.dmn.generated.tck.cl3_0076_feel_external_java;
 
-import com.gs.dmn.generated.kotlin.tck.cl3_0076_feel_external_java.type.Applicant;
-import com.gs.dmn.generated.kotlin.tck.cl3_0076_feel_external_java.type.ApplicantImpl;
+import com.gs.dmn.generated.tck.cl3_0076_feel_external_java.type.Applicant;
+import com.gs.dmn.generated.tck.cl3_0076_feel_external_java.type.ApplicantImpl;
 
 import java.math.BigDecimal;
 
