@@ -22,6 +22,7 @@ public class PartB extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
         com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
         1
     );
+
     private final Arithmetic arithmetic;
     private final Comparator comparator;
     private final FormattingAndCoercing formattingAndCoercing;

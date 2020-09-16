@@ -43,7 +43,6 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "A",
     "name" : "a",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "a",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/c5718c9e0d74413e9371e1c26c4ebef9.xml"
@@ -55,7 +54,6 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "B",
     "name" : "b",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "b",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/c5718c9e0d74413e9371e1c26c4ebef9.xml"
@@ -88,6 +86,8 @@
     "knowledgeReferences" : [ ],
     "label" : "Decision",
     "name" : "decision",
+    "protoRequestName" : "proto.DecisionRequest",
+    "protoResponseName" : "proto.DecisionResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-10403bb637fc37587a8a51587a70d76a",
@@ -95,7 +95,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "A",
       "name" : "a",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "a",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/c5718c9e0d74413e9371e1c26c4ebef9.xml"
@@ -107,7 +106,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "B",
       "name" : "b",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "b",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/c5718c9e0d74413e9371e1c26c4ebef9.xml"

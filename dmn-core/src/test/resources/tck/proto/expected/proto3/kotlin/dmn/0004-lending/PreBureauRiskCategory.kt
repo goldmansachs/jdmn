@@ -40,7 +40,7 @@ class PreBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = Ap
             // Start decision 'PreBureauRiskCategory'
             val preBureauRiskCategoryStartTime_ = System.currentTimeMillis()
             val preBureauRiskCategoryArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            preBureauRiskCategoryArguments_.put("ApplicantData", applicantData);
+            preBureauRiskCategoryArguments_.put("ApplicantData", applicantData)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, preBureauRiskCategoryArguments_)
 
             if (cache_.contains("PreBureauRiskCategory")) {
@@ -76,14 +76,15 @@ class PreBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = Ap
 
     fun apply(preBureauRiskCategoryRequest_: proto.PreBureauRiskCategoryRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.PreBureauRiskCategoryResponse {
         // Create arguments from Request Message
-        var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(preBureauRiskCategoryRequest_.getApplicantData())
-        
+        val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(preBureauRiskCategoryRequest_.getApplicantData())
+
         // Invoke apply method
-        var output_: String? = apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
-        
+        val output_: String? = apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         // Convert output to Response Message
-        var builder_: proto.PreBureauRiskCategoryResponse.Builder = proto.PreBureauRiskCategoryResponse.newBuilder()
-        builder_.setPreBureauRiskCategory((if (output_ == null) null else output_!!))
+        val builder_: proto.PreBureauRiskCategoryResponse.Builder = proto.PreBureauRiskCategoryResponse.newBuilder()
+        val outputProto_ = (if (output_ == null) "" else output_!!)
+        builder_.setPreBureauRiskCategory(outputProto_)
         return builder_.build()
     }
 
@@ -101,5 +102,22 @@ class PreBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = Ap
             com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
             -1
         )
+
+        @JvmStatic
+        fun requestToMap(preBureauRiskCategoryRequest_: proto.PreBureauRiskCategoryRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(preBureauRiskCategoryRequest_.getApplicantData())
+
+            // Create map
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("ApplicantData", applicantData)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(preBureauRiskCategoryResponse_: proto.PreBureauRiskCategoryResponse): String? {
+            // Extract and convert output
+            return preBureauRiskCategoryResponse_.getPreBureauRiskCategory()
+        }
     }
 }

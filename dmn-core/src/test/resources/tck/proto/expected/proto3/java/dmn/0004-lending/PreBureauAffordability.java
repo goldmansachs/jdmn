@@ -22,6 +22,24 @@ public class PreBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDec
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
+    public static java.util.Map<String, Object> requestToMap(proto.PreBureauAffordabilityRequest preBureauAffordabilityRequest_) {
+        // Create arguments from Request Message
+        type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(preBureauAffordabilityRequest_.getApplicantData());
+        type.TRequestedProduct requestedProduct = type.TRequestedProduct.toTRequestedProduct(preBureauAffordabilityRequest_.getRequestedProduct());
+
+        // Create map
+        java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
+        map_.put("ApplicantData", applicantData);
+        map_.put("RequestedProduct", requestedProduct);
+        return map_;
+    }
+
+    public static Boolean responseToOutput(proto.PreBureauAffordabilityResponse preBureauAffordabilityResponse_) {
+        // Extract and convert output
+        return preBureauAffordabilityResponse_.getPreBureauAffordability();
+    }
+
     private final PreBureauRiskCategory preBureauRiskCategory;
     private final RequiredMonthlyInstallment requiredMonthlyInstallment;
 
@@ -90,13 +108,14 @@ public class PreBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDec
         // Create arguments from Request Message
         type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(preBureauAffordabilityRequest_.getApplicantData());
         type.TRequestedProduct requestedProduct = type.TRequestedProduct.toTRequestedProduct(preBureauAffordabilityRequest_.getRequestedProduct());
-        
+
         // Invoke apply method
         Boolean output_ = apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
-        
+
         // Convert output to Response Message
         proto.PreBureauAffordabilityResponse.Builder builder_ = proto.PreBureauAffordabilityResponse.newBuilder();
-        builder_.setPreBureauAffordability(output_);
+        Boolean outputProto_ = (output_ == null ? false : output_);
+        builder_.setPreBureauAffordability(outputProto_);
         return builder_.build();
     }
 

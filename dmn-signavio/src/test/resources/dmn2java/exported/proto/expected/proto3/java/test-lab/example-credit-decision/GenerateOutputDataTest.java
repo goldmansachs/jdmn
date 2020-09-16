@@ -18,17 +18,22 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
 
         // Make proto request
         proto.GenerateOutputDataRequest.Builder builder_ = proto.GenerateOutputDataRequest.newBuilder();
-        builder_.setCurrentRiskAppetite((currentRiskAppetite == null ? 0 : currentRiskAppetite.doubleValue()));
-        builder_.setLendingThreshold((lendingThreshold == null ? 0 : lendingThreshold.doubleValue()));
-        builder_.setApplicant(type.Applicant.toProto(applicant));
+        Double currentRiskAppetiteProto = (currentRiskAppetite == null ? 0.0 : currentRiskAppetite.doubleValue());
+        builder_.setCurrentRiskAppetite(currentRiskAppetiteProto);
+        Double lendingThresholdProto = (lendingThreshold == null ? 0.0 : lendingThreshold.doubleValue());
+        builder_.setLendingThreshold(lendingThresholdProto);
+        proto.Applicant applicantProto = type.Applicant.toProto(applicant);
+        if (applicantProto != null) {
+            builder_.setApplicant(applicantProto);
+        }
         proto.GenerateOutputDataRequest generateOutputDataRequest_ = builder_.build();
 
         // Invoke apply method
-        proto.GenerateOutputDataResponse response_ = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_);
-        List<proto.GenerateOutputData> generateOutputDataProto = response_.getGenerateOutputDataList();
+        proto.GenerateOutputDataResponse generateOutputDataResponse_ = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_);
+        List<proto.GenerateOutputData> generateOutputDataProto_ = generateOutputDataResponse_.getGenerateOutputDataList();
 
         // Check results
-        checkValues(asList(new type.GenerateOutputDataImpl(number("27.5"), "Accept", numericUnaryMinus(number("7.5")))), generateOutputDataProto);
+        checkValues(((List) (asList(new type.GenerateOutputDataImpl(number("27.5"), "Accept", numericUnaryMinus(number("7.5")))) == null ? null : asList(new type.GenerateOutputDataImpl(number("27.5"), "Accept", numericUnaryMinus(number("7.5")))).stream().map(type.GenerateOutputData::toProto).collect(java.util.stream.Collectors.toList()))), generateOutputDataProto_);
     }
 
     @org.junit.Test
@@ -43,17 +48,22 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
 
         // Make proto request
         proto.GenerateOutputDataRequest.Builder builder_ = proto.GenerateOutputDataRequest.newBuilder();
-        builder_.setCurrentRiskAppetite((currentRiskAppetite == null ? 0 : currentRiskAppetite.doubleValue()));
-        builder_.setLendingThreshold((lendingThreshold == null ? 0 : lendingThreshold.doubleValue()));
-        builder_.setApplicant(type.Applicant.toProto(applicant));
+        Double currentRiskAppetiteProto = (currentRiskAppetite == null ? 0.0 : currentRiskAppetite.doubleValue());
+        builder_.setCurrentRiskAppetite(currentRiskAppetiteProto);
+        Double lendingThresholdProto = (lendingThreshold == null ? 0.0 : lendingThreshold.doubleValue());
+        builder_.setLendingThreshold(lendingThresholdProto);
+        proto.Applicant applicantProto = type.Applicant.toProto(applicant);
+        if (applicantProto != null) {
+            builder_.setApplicant(applicantProto);
+        }
         proto.GenerateOutputDataRequest generateOutputDataRequest_ = builder_.build();
 
         // Invoke apply method
-        proto.GenerateOutputDataResponse response_ = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_);
-        List<proto.GenerateOutputData> generateOutputDataProto = response_.getGenerateOutputDataList();
+        proto.GenerateOutputDataResponse generateOutputDataResponse_ = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_);
+        List<proto.GenerateOutputData> generateOutputDataProto_ = generateOutputDataResponse_.getGenerateOutputDataList();
 
         // Check results
-        checkValues(asList(new type.GenerateOutputDataImpl(numericUnaryMinus(number("10")), "Reject", numericUnaryMinus(number("25")))), generateOutputDataProto);
+        checkValues(((List) (asList(new type.GenerateOutputDataImpl(numericUnaryMinus(number("10")), "Reject", numericUnaryMinus(number("25")))) == null ? null : asList(new type.GenerateOutputDataImpl(numericUnaryMinus(number("10")), "Reject", numericUnaryMinus(number("25")))).stream().map(type.GenerateOutputData::toProto).collect(java.util.stream.Collectors.toList()))), generateOutputDataProto_);
     }
 
     @org.junit.Test
@@ -68,17 +78,22 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
 
         // Make proto request
         proto.GenerateOutputDataRequest.Builder builder_ = proto.GenerateOutputDataRequest.newBuilder();
-        builder_.setCurrentRiskAppetite((currentRiskAppetite == null ? 0 : currentRiskAppetite.doubleValue()));
-        builder_.setLendingThreshold((lendingThreshold == null ? 0 : lendingThreshold.doubleValue()));
-        builder_.setApplicant(type.Applicant.toProto(applicant));
+        Double currentRiskAppetiteProto = (currentRiskAppetite == null ? 0.0 : currentRiskAppetite.doubleValue());
+        builder_.setCurrentRiskAppetite(currentRiskAppetiteProto);
+        Double lendingThresholdProto = (lendingThreshold == null ? 0.0 : lendingThreshold.doubleValue());
+        builder_.setLendingThreshold(lendingThresholdProto);
+        proto.Applicant applicantProto = type.Applicant.toProto(applicant);
+        if (applicantProto != null) {
+            builder_.setApplicant(applicantProto);
+        }
         proto.GenerateOutputDataRequest generateOutputDataRequest_ = builder_.build();
 
         // Invoke apply method
-        proto.GenerateOutputDataResponse response_ = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_);
-        List<proto.GenerateOutputData> generateOutputDataProto = response_.getGenerateOutputDataList();
+        proto.GenerateOutputDataResponse generateOutputDataResponse_ = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_);
+        List<proto.GenerateOutputData> generateOutputDataProto_ = generateOutputDataResponse_.getGenerateOutputDataList();
 
         // Check results
-        checkValues(asList(new type.GenerateOutputDataImpl(numericUnaryMinus(number("42.5")), "Reject", numericUnaryMinus(number("77.5")))), generateOutputDataProto);
+        checkValues(((List) (asList(new type.GenerateOutputDataImpl(numericUnaryMinus(number("42.5")), "Reject", numericUnaryMinus(number("77.5")))) == null ? null : asList(new type.GenerateOutputDataImpl(numericUnaryMinus(number("42.5")), "Reject", numericUnaryMinus(number("77.5")))).stream().map(type.GenerateOutputData::toProto).collect(java.util.stream.Collectors.toList()))), generateOutputDataProto_);
     }
 
     private void checkValues(Object expected, Object actual) {

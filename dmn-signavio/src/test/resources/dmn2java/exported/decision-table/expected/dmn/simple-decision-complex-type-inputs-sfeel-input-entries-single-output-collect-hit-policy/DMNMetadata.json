@@ -138,7 +138,6 @@
     "javaTypeName" : "Boolean",
     "label" : "Employed",
     "name" : "employed",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "employed",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml"
@@ -150,7 +149,6 @@
     "javaTypeName" : "type.Person",
     "label" : "Person",
     "name" : "person",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "person",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml"
@@ -170,6 +168,8 @@
     "knowledgeReferences" : [ ],
     "label" : "Decision",
     "name" : "decision",
+    "protoRequestName" : "proto.DecisionRequest",
+    "protoResponseName" : "proto.DecisionResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "diagram-2798baf8f6de4bd3b984e599fa9ff016-inputdata-sid-B180B170-4226-4CB8-B6EE-51D4307DCA61",
@@ -177,7 +177,6 @@
       "javaTypeName" : "Boolean",
       "label" : "Employed",
       "name" : "employed",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "employed",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml"
@@ -189,7 +188,6 @@
       "javaTypeName" : "type.Person",
       "label" : "Person",
       "name" : "person",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "person",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml"

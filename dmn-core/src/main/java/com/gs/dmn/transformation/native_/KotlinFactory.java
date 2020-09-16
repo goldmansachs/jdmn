@@ -19,9 +19,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
-import com.gs.dmn.transformation.native_.statement.*;
 import org.apache.commons.lang3.StringUtils;
-import org.omg.spec.dmn._20180521.model.TDRGElement;
 import org.omg.spec.dmn._20180521.model.TDecision;
 import org.omg.spec.dmn._20180521.model.TItemDefinition;
 
@@ -314,54 +312,14 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String convertMemberToProto(String source, String sourceType, TItemDefinition member) {
+    public String convertMemberToProto(String source, String sourceType, TItemDefinition member, boolean staticContext) {
         Type memberType = this.transformer.toFEELType(member);
         String value = String.format("%s.%s", cast(sourceType, source), this.transformer.protoFieldName(member));
-        return convertValueToProtoNativeType(value, memberType);
+        return convertValueToProtoNativeType(value, memberType, staticContext);
     }
 
     @Override
-    public Statement drgElementSignatureProtoBody(TDRGElement element) {
-        CompoundStatement statement = makeCompoundStatement();
-        List<Pair<String, Type>> parameters = this.transformer.drgElementTypeSignature(element, transformer::nativeName);
-
-        // Create arguments from Request Message
-        statement.add(makeCommentStatement("Create arguments from Request Message"));
-        for (Pair<String, Type> p: parameters) {
-            String variableName = p.getLeft();
-            String nativeType = this.typeFactory.nullableType(this.transformer.toNativeType(p.getRight()));
-            statement.add(makeAssignmentStatement(nativeType, variableName, extractParameterFromRequestMessage(element, p), p.getRight()));
-        }
-        statement.add(makeNopStatement());
-
-        // Invoke apply method
-        statement.add(makeCommentStatement("Invoke apply method"));
-        Type outputType = this.transformer.drgElementOutputFEELType(element);
-        String outputNativeType = this.transformer.drgElementOutputType(element);
-        String outputVariable = "output_";
-        String outputExpression = String.format("apply(%s)", this.transformer.drgElementArgumentListExtraCache(element));
-        statement.add(makeAssignmentStatement(outputNativeType, outputVariable, outputExpression, outputType));
-        statement.add(makeNopStatement());
-
-        // Convert output to Response Message
-        statement.add(makeCommentStatement("Convert output to Response Message"));
-        // Create Message Builder
-        String responseMessageName = this.protoFactory.qualifiedResponseMessageName(element);
-        String responseMessageBuilderName = responseMessageName + ".Builder";
-        String builderVariable = "builder_";
-        String builderValue = String.format("%s.newBuilder()", responseMessageName);
-        statement.add(makeAssignmentStatement(responseMessageBuilderName, builderVariable, builderValue, null));
-        // Set value
-        String setter = this.protoFactory.protoSetter(this.transformer.namedElementVariableName(element), outputType);
-        statement.add(makeExpressionStatement(String.format("%s.%s(%s)", builderVariable, setter, convertValueToProtoNativeType(outputVariable, outputType)), null));
-
-        // Return response
-        statement.add(makeReturnStatement(String.format("%s.build()", builderVariable), null));
-        return statement;
-    }
-
-    @Override
-    protected String extractMemberFromProtoValue(String protoValue, Type type) {
+    public String extractMemberFromProtoValue(String protoValue, Type type, boolean staticContext) {
         if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
             if (type == NumberType.NUMBER) {
                 String qNativeType = this.transformer.getNativeTypeFactory().toQualifiedNativeType(((DataType) type).getName());
@@ -372,8 +330,8 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
                 return protoValue;
             } else {
                 // Date time types
-                String conversionMethod = FEELTypes.FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.get(type);
-                String stringValue = String.format("%s?.toString())", protoValue);
+                String stringValue = String.format("%s", protoValue);
+                String conversionMethod = getConversionMethod(type, staticContext);
                 if (conversionMethod != null) {
                     return String.format("%s(%s)", conversionMethod, stringValue);
                 }
@@ -392,7 +350,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
                     mapFunction =  "e -> e";
                 } else {
                     // Date time types
-                    String conversionMethod = FEELTypes.FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.get(elementType);
+                    String conversionMethod = getConversionMethod(type, staticContext);
                     if (conversionMethod != null) {
                         mapFunction = String.format("e -> %s(e)", conversionMethod);
                     } else {
@@ -417,7 +375,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String convertValueToProtoNativeType(String value, Type type) {
+    public String convertValueToProtoNativeType(String value, Type type, boolean staticContext) {
         if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
             if (type == NumberType.NUMBER) {
                 return toProtoNumber(value);
@@ -426,8 +384,9 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
             } else if (type == StringType.STRING) {
                 return toProtoString(value);
             } else {
-                // Return string
-                return String.format("string(%s)", value);
+                // DATE TIME: Return string
+                String conversionMethod = getConversionMethod("string", staticContext);
+                return String.format("%s(%s)", conversionMethod, value);
             }
         } else if (type instanceof ListType) {
             Type elementType = ((ListType) type).getElementType();
@@ -440,8 +399,9 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
                 } else if (elementType == StringType.STRING) {
                     mapFunction = String.format("e -> %s", toProtoString("e"));
                 } else {
-                    // Return string
-                    mapFunction = "e -> string(e)";
+                    // DATE TIME: Return string
+                    String conversionMethod = getConversionMethod("string", staticContext);
+                    mapFunction = String.format("e -> %s(e)", conversionMethod);
                 }
             } else if (elementType instanceof ItemDefinitionType) {
                 String nativeType = this.transformer.toNativeType(elementType);
@@ -459,34 +419,21 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
 
     @Override
     protected String toProtoNumber(String value) {
-        return String.format("(if (%s == null) 0.0 else %s!!.toDouble())", value, value);
+        return String.format("(if (%s == null) %s else %s!!.toDouble())", value, DEFAULT_PROTO_NUMBER, value);
     }
 
     @Override
     protected String toProtoBoolean(String value) {
-        return String.format("(if (%s == null) false else %s!!)", value, value);
+        return String.format("(if (%s == null) %s else %s!!)", value, DEFAULT_PROTO_BOOLEAN, value);
     }
 
     @Override
     protected String toProtoString(String value) {
-        return String.format("(if (%s == null) null else %s!!)", value, value);
+        return String.format("(if (%s == null) %s else %s!!)", value, DEFAULT_PROTO_STRING, value);
     }
 
     @Override
     protected String cast(String type, String value) {
         return String.format("(%s as %s)", value, type);
-    }
-
-    //
-    // Simple statements
-    //
-    @Override
-    public ExpressionStatement makeAssignmentStatement(String nativeType, String variableName, String expression, Type type) {
-        return new AssignmentStatement(String.format("var %s: %s = %s", variableName, nativeType, expression), type);
-    }
-
-    @Override
-    public Statement makeReturnStatement(String expression, Type type) {
-        return new ReturnStatement(String.format("return %s", expression), type);
     }
 }

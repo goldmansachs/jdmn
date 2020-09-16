@@ -22,6 +22,7 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
         com.gs.dmn.runtime.annotation.HitPolicy.ANY,
         1
     );
+
     private final Pick pick;
     private final Sum sum;
 

@@ -40,7 +40,7 @@ class RequiredMonthlyInstallment() : com.gs.dmn.runtime.DefaultDMNBaseDecision()
             // Start decision 'RequiredMonthlyInstallment'
             val requiredMonthlyInstallmentStartTime_ = System.currentTimeMillis()
             val requiredMonthlyInstallmentArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            requiredMonthlyInstallmentArguments_.put("RequestedProduct", requestedProduct);
+            requiredMonthlyInstallmentArguments_.put("RequestedProduct", requestedProduct)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, requiredMonthlyInstallmentArguments_)
 
             if (cache_.contains("RequiredMonthlyInstallment")) {
@@ -73,14 +73,15 @@ class RequiredMonthlyInstallment() : com.gs.dmn.runtime.DefaultDMNBaseDecision()
 
     fun apply(requiredMonthlyInstallmentRequest_: proto.RequiredMonthlyInstallmentRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.RequiredMonthlyInstallmentResponse {
         // Create arguments from Request Message
-        var requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(requiredMonthlyInstallmentRequest_.getRequestedProduct())
-        
+        val requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(requiredMonthlyInstallmentRequest_.getRequestedProduct())
+
         // Invoke apply method
-        var output_: java.math.BigDecimal? = apply(requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
-        
+        val output_: java.math.BigDecimal? = apply(requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         // Convert output to Response Message
-        var builder_: proto.RequiredMonthlyInstallmentResponse.Builder = proto.RequiredMonthlyInstallmentResponse.newBuilder()
-        builder_.setRequiredMonthlyInstallment((if (output_ == null) 0.0 else output_!!.toDouble()))
+        val builder_: proto.RequiredMonthlyInstallmentResponse.Builder = proto.RequiredMonthlyInstallmentResponse.newBuilder()
+        val outputProto_ = (if (output_ == null) 0.0 else output_!!.toDouble())
+        builder_.setRequiredMonthlyInstallment(outputProto_)
         return builder_.build()
     }
 
@@ -98,5 +99,22 @@ class RequiredMonthlyInstallment() : com.gs.dmn.runtime.DefaultDMNBaseDecision()
             com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
             -1
         )
+
+        @JvmStatic
+        fun requestToMap(requiredMonthlyInstallmentRequest_: proto.RequiredMonthlyInstallmentRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            val requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(requiredMonthlyInstallmentRequest_.getRequestedProduct())
+
+            // Create map
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("RequestedProduct", requestedProduct)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(requiredMonthlyInstallmentResponse_: proto.RequiredMonthlyInstallmentResponse): java.math.BigDecimal? {
+            // Extract and convert output
+            return java.math.BigDecimal.valueOf(requiredMonthlyInstallmentResponse_.getRequiredMonthlyInstallment())
+        }
     }
 }

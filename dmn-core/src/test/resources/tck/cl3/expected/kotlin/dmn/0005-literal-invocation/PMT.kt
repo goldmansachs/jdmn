@@ -20,9 +20,9 @@ class PMT : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start BKM 'PMT'
             val pMTStartTime_ = System.currentTimeMillis()
             val pMTArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            pMTArguments_.put("p", p);
-            pMTArguments_.put("r", r);
-            pMTArguments_.put("n", n);
+            pMTArguments_.put("p", p)
+            pMTArguments_.put("r", r)
+            pMTArguments_.put("n", n)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, pMTArguments_)
 
             // Evaluate BKM 'PMT'

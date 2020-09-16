@@ -40,8 +40,8 @@ class Strategy(val bureauCallType : BureauCallType = BureauCallType(), val eligi
             // Start decision 'Strategy'
             val strategyStartTime_ = System.currentTimeMillis()
             val strategyArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            strategyArguments_.put("ApplicantData", applicantData);
-            strategyArguments_.put("RequestedProduct", requestedProduct);
+            strategyArguments_.put("ApplicantData", applicantData)
+            strategyArguments_.put("RequestedProduct", requestedProduct)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, strategyArguments_)
 
             // Apply child decisions

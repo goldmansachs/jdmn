@@ -36,11 +36,20 @@ public interface TApplicantData extends com.gs.dmn.runtime.DMNType {
 
     static proto.TApplicantData toProto(TApplicantData other) {
         proto.TApplicantData.Builder result_ = proto.TApplicantData.newBuilder();
-        result_.setMonthly(type.Monthly.toProto(((TApplicantData) other).getMonthly()));
-        result_.setAge((((TApplicantData) other).getAge() == null ? 0 : ((TApplicantData) other).getAge().doubleValue()));
-        result_.setExistingCustomer(((TApplicantData) other).getExistingCustomer());
-        result_.setMaritalStatus(((TApplicantData) other).getMaritalStatus());
-        result_.setEmploymentStatus(((TApplicantData) other).getEmploymentStatus());
+        if (other != null) {
+            proto.Monthly monthlyProto_ = type.Monthly.toProto(((TApplicantData) other).getMonthly());
+            if (monthlyProto_ != null) {
+                result_.setMonthly(monthlyProto_);
+            }
+            Double ageProto_ = (((TApplicantData) other).getAge() == null ? 0.0 : ((TApplicantData) other).getAge().doubleValue());
+            result_.setAge(ageProto_);
+            Boolean existingCustomerProto_ = (((TApplicantData) other).getExistingCustomer() == null ? false : ((TApplicantData) other).getExistingCustomer());
+            result_.setExistingCustomer(existingCustomerProto_);
+            String maritalStatusProto_ = (((TApplicantData) other).getMaritalStatus() == null ? "" : ((TApplicantData) other).getMaritalStatus());
+            result_.setMaritalStatus(maritalStatusProto_);
+            String employmentStatusProto_ = (((TApplicantData) other).getEmploymentStatus() == null ? "" : ((TApplicantData) other).getEmploymentStatus());
+            result_.setEmploymentStatus(employmentStatusProto_);
+        }
         return result_.build();
     }
 

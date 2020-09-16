@@ -21,6 +21,11 @@ public class SignavioToKotlinProtoTransformerTest extends AbstractSignavioDMNToK
         doSingleModelTest("Example credit decision", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"));
     }
 
+    @Test
+    public void testDateTimeProto() throws Exception {
+        doSingleModelTest("date-time-proto", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"));
+    }
+
     @Override
     protected String getInputPath() {
         return "dmn2java/exported/proto/input";

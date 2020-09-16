@@ -1,0 +1,78 @@
+{
+  "source" : "StringReader",
+  "inputParameterDefinitions" : [ {
+    "id" : "9acf44f2b05343d79fc35140c493c1e0/sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
+    "modelName" : "date-time-proto",
+    "requirementName" : "InputData",
+    "shapeId" : "sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
+    "diagramId" : "9acf44f2b05343d79fc35140c493c1e0"
+  }, {
+    "id" : "9acf44f2b05343d79fc35140c493c1e0/sid-6CFB0C31-B181-4606-BE51-1960E8B86487",
+    "modelName" : "date-time-proto",
+    "requirementName" : "InputTime",
+    "shapeId" : "sid-6CFB0C31-B181-4606-BE51-1960E8B86487",
+    "diagramId" : "9acf44f2b05343d79fc35140c493c1e0"
+  }, {
+    "id" : "9acf44f2b05343d79fc35140c493c1e0/sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
+    "modelName" : "date-time-proto",
+    "requirementName" : "InputDateTime",
+    "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
+    "diagramId" : "9acf44f2b05343d79fc35140c493c1e0"
+  }, {
+    "id" : "9acf44f2b05343d79fc35140c493c1e0/sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D-1",
+    "modelName" : "date-time-proto",
+    "requirementName" : "CompositeInputDateTime",
+    "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D-1",
+    "diagramId" : "9acf44f2b05343d79fc35140c493c1e0"
+  } ],
+  "outputParameterDefinitions" : [ {
+    "id" : "9acf44f2b05343d79fc35140c493c1e0/sid-8DBE416B-B1CA-43EC-BFE6-7D5DFA296EB6-d",
+    "modelName" : "date-time-proto",
+    "requirementName" : "Date",
+    "shapeId" : "sid-8DBE416B-B1CA-43EC-BFE6-7D5DFA296EB6-d",
+    "diagramId" : "9acf44f2b05343d79fc35140c493c1e0"
+  } ],
+  "testCases" : [ {
+    "inputValues" : [ {
+      "type" : "date",
+      "value" : "2020-09-21"
+    }, {
+      "type" : "time",
+      "value" : "13:00:00+00:00"
+    }, {
+      "type" : "datetime",
+      "value" : "2015-01-01T12:00:00+00:00"
+    }, {
+      "type" : "complex",
+      "slots" : [ {
+        "name" : "Date",
+        "id" : "0",
+        "value" : {
+          "type" : "date",
+          "value" : "2020-09-21"
+        },
+        "itemComponentName" : null
+      }, {
+        "name" : "Time",
+        "id" : "1",
+        "value" : {
+          "type" : "time",
+          "value" : "13:00:00+00:00"
+        },
+        "itemComponentName" : null
+      }, {
+        "name" : "DateTime",
+        "id" : "2",
+        "value" : {
+          "type" : "datetime",
+          "value" : "2015-01-01T12:00:00+00:00"
+        },
+        "itemComponentName" : null
+      } ]
+    } ],
+    "expectedValues" : [ {
+      "type" : "date",
+      "value" : "2020-09-21"
+    } ]
+  } ]
+}

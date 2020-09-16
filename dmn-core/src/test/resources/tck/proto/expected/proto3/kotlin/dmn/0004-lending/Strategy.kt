@@ -40,8 +40,8 @@ class Strategy(val bureauCallType : BureauCallType = BureauCallType(), val eligi
             // Start decision 'Strategy'
             val strategyStartTime_ = System.currentTimeMillis()
             val strategyArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            strategyArguments_.put("ApplicantData", applicantData);
-            strategyArguments_.put("RequestedProduct", requestedProduct);
+            strategyArguments_.put("ApplicantData", applicantData)
+            strategyArguments_.put("RequestedProduct", requestedProduct)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, strategyArguments_)
 
             // Apply child decisions
@@ -67,15 +67,16 @@ class Strategy(val bureauCallType : BureauCallType = BureauCallType(), val eligi
 
     fun apply(strategyRequest_: proto.StrategyRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.StrategyResponse {
         // Create arguments from Request Message
-        var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(strategyRequest_.getApplicantData())
-        var requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(strategyRequest_.getRequestedProduct())
-        
+        val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(strategyRequest_.getApplicantData())
+        val requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(strategyRequest_.getRequestedProduct())
+
         // Invoke apply method
-        var output_: String? = apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
-        
+        val output_: String? = apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         // Convert output to Response Message
-        var builder_: proto.StrategyResponse.Builder = proto.StrategyResponse.newBuilder()
-        builder_.setStrategy((if (output_ == null) null else output_!!))
+        val builder_: proto.StrategyResponse.Builder = proto.StrategyResponse.newBuilder()
+        val outputProto_ = (if (output_ == null) "" else output_!!)
+        builder_.setStrategy(outputProto_)
         return builder_.build()
     }
 
@@ -203,5 +204,24 @@ class Strategy(val bureauCallType : BureauCallType = BureauCallType(), val eligi
             com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
             3
         )
+
+        @JvmStatic
+        fun requestToMap(strategyRequest_: proto.StrategyRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(strategyRequest_.getApplicantData())
+            val requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(strategyRequest_.getRequestedProduct())
+
+            // Create map
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("ApplicantData", applicantData)
+            map_.put("RequestedProduct", requestedProduct)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(strategyResponse_: proto.StrategyResponse): String? {
+            // Extract and convert output
+            return strategyResponse_.getStrategy()
+        }
     }
 }

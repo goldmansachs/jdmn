@@ -22,6 +22,7 @@ public class FetchForexRate extends com.gs.dmn.signavio.runtime.DefaultSignavioB
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
     private final IsForexRateRequired isForexRateRequired;
 
     public FetchForexRate() {

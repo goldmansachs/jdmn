@@ -40,9 +40,9 @@ class Approval() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             // Start decision 'Approval'
             val approvalStartTime_ = System.currentTimeMillis()
             val approvalArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            approvalArguments_.put("Age", age);
-            approvalArguments_.put("RiskCategory", riskCategory);
-            approvalArguments_.put("isAffordable", isAffordable);
+            approvalArguments_.put("Age", age)
+            approvalArguments_.put("RiskCategory", riskCategory)
+            approvalArguments_.put("isAffordable", isAffordable)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, approvalArguments_)
 
             // Evaluate decision 'Approval'

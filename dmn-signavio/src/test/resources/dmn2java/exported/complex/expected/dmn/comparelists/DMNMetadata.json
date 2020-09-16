@@ -87,7 +87,6 @@
     "javaTypeName" : "List<java.math.BigDecimal>",
     "label" : "L1",
     "name" : "l1",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "l1",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml"
@@ -99,7 +98,6 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "L1",
     "name" : "l12_iterator",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "l12",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml"
@@ -111,7 +109,6 @@
     "javaTypeName" : "List<java.math.BigDecimal>",
     "label" : "L2",
     "name" : "l23",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "l22",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml"
@@ -123,7 +120,6 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "L2",
     "name" : "l2_iterator",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "l2",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml"
@@ -143,6 +139,8 @@
     "knowledgeReferences" : [ ],
     "label" : "CompareLists",
     "name" : "compareLists",
+    "protoRequestName" : "proto.CompareListsRequest",
+    "protoResponseName" : "proto.CompareListsResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-25e971f05b702ab8597bbb1f3b75cf07",
@@ -150,7 +148,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "L1",
       "name" : "l12_iterator",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "l12",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml"
@@ -162,7 +159,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "L2",
       "name" : "l2_iterator",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "l2",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml"
@@ -191,6 +187,8 @@
     "knowledgeReferences" : [ ],
     "label" : "ProcessL1",
     "name" : "processL1",
+    "protoRequestName" : "proto.ProcessL1Request",
+    "protoResponseName" : "proto.ProcessL1Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-443c5fd59a4562199fb2274772bed1e0",
@@ -198,7 +196,6 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "L1",
       "name" : "l1",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "l1",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml"
@@ -210,7 +207,6 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "L2",
       "name" : "l23",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "l22",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml"
@@ -239,6 +235,8 @@
     "knowledgeReferences" : [ ],
     "label" : "ProcessL2",
     "name" : "processL2",
+    "protoRequestName" : "proto.ProcessL2Request",
+    "protoResponseName" : "proto.ProcessL2Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-25e971f05b702ab8597bbb1f3b75cf07",
@@ -246,7 +244,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "L1",
       "name" : "l12_iterator",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "l12",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml"
@@ -258,7 +255,6 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "L2",
       "name" : "l23",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "l22",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml"

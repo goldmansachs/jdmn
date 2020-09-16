@@ -22,6 +22,7 @@ public class Mid extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
     private final Zip zip;
 
     public Mid() {

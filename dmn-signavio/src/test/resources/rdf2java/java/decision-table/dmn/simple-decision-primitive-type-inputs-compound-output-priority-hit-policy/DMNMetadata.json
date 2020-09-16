@@ -61,7 +61,6 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "NumberInput",
     "name" : "numberInput",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "numberInput",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -73,7 +72,6 @@
     "javaTypeName" : "String",
     "label" : "TextInput",
     "name" : "textInput",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "textInput",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -93,6 +91,8 @@
     "knowledgeReferences" : [ ],
     "label" : "Decision",
     "name" : "decision",
+    "protoRequestName" : "proto.DecisionRequest",
+    "protoResponseName" : "proto.DecisionResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "sid-3F148E87-DF6E-42AF-B209-4D532421A2F9",
@@ -100,7 +100,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "NumberInput",
       "name" : "numberInput",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "numberInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -112,7 +111,6 @@
       "javaTypeName" : "String",
       "label" : "TextInput",
       "name" : "textInput",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "textInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"

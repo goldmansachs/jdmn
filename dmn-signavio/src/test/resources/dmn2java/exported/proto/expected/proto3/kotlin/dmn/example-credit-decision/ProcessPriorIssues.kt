@@ -40,7 +40,7 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             // Start decision 'processPriorIssues'
             val processPriorIssuesStartTime_ = System.currentTimeMillis()
             val processPriorIssuesArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            processPriorIssuesArguments_.put("Applicant", applicant);
+            processPriorIssuesArguments_.put("Applicant", applicant)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, processPriorIssuesArguments_)
 
             // Evaluate decision 'processPriorIssues'
@@ -62,14 +62,17 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
 
     fun apply(processPriorIssuesRequest_: proto.ProcessPriorIssuesRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.ProcessPriorIssuesResponse {
         // Create arguments from Request Message
-        var applicant: type.Applicant? = type.Applicant.toApplicant(processPriorIssuesRequest_.getApplicant())
-        
+        val applicant: type.Applicant? = type.Applicant.toApplicant(processPriorIssuesRequest_.getApplicant())
+
         // Invoke apply method
-        var output_: List<java.math.BigDecimal?>? = apply(applicant, annotationSet_, eventListener_, externalExecutor_, cache_)
-        
+        val output_: List<java.math.BigDecimal?>? = apply(applicant, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         // Convert output to Response Message
-        var builder_: proto.ProcessPriorIssuesResponse.Builder = proto.ProcessPriorIssuesResponse.newBuilder()
-        builder_.addAllProcessPriorIssues(output_?.stream()?.map({e -> (if (e == null) 0.0 else e!!.toDouble())})?.collect(java.util.stream.Collectors.toList()))
+        val builder_: proto.ProcessPriorIssuesResponse.Builder = proto.ProcessPriorIssuesResponse.newBuilder()
+        val outputProto_ = output_?.stream()?.map({e -> (if (e == null) 0.0 else e!!.toDouble())})?.collect(java.util.stream.Collectors.toList())
+        if (outputProto_ != null) {
+            builder_.addAllProcessPriorIssues(outputProto_)
+        }
         return builder_.build()
     }
 
@@ -88,7 +91,7 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             // Default value
             output_ = null
             if (output_ == null) {
-                output_ = this.asList();
+                output_ = this.asList()
             }
         } else {
             val ruleOutputs_: List<com.gs.dmn.runtime.RuleOutput> = ruleOutputList_.applyMultiple(com.gs.dmn.runtime.annotation.HitPolicy.COLLECT)
@@ -259,5 +262,22 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             com.gs.dmn.runtime.annotation.HitPolicy.COLLECT,
             5
         )
+
+        @JvmStatic
+        fun requestToMap(processPriorIssuesRequest_: proto.ProcessPriorIssuesRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            val applicant: type.Applicant? = type.Applicant.toApplicant(processPriorIssuesRequest_.getApplicant())
+
+            // Create map
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("Applicant", applicant)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(processPriorIssuesResponse_: proto.ProcessPriorIssuesResponse): List<java.math.BigDecimal?>? {
+            // Extract and convert output
+            return (processPriorIssuesResponse_.getProcessPriorIssuesList()?.stream()?.map({e -> java.math.BigDecimal.valueOf(e)})?.collect(java.util.stream.Collectors.toList()) as List<java.math.BigDecimal?>?)
+        }
     }
 }

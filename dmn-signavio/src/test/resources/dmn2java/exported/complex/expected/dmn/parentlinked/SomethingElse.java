@@ -22,6 +22,7 @@ public class SomethingElse extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
         com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
         1
     );
+
     private final ChildObject childObject;
 
     public SomethingElse() {

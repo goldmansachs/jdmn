@@ -22,6 +22,7 @@ public class Appendall extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
     private final Append append;
     private final Remove remove;
     private final Removeall2 removeall2;

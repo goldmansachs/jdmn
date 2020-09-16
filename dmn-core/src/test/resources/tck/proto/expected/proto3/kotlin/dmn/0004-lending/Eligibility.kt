@@ -40,8 +40,8 @@ class Eligibility(val preBureauAffordability : PreBureauAffordability = PreBurea
             // Start decision 'Eligibility'
             val eligibilityStartTime_ = System.currentTimeMillis()
             val eligibilityArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            eligibilityArguments_.put("ApplicantData", applicantData);
-            eligibilityArguments_.put("RequestedProduct", requestedProduct);
+            eligibilityArguments_.put("ApplicantData", applicantData)
+            eligibilityArguments_.put("RequestedProduct", requestedProduct)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, eligibilityArguments_)
 
             // Apply child decisions
@@ -67,15 +67,16 @@ class Eligibility(val preBureauAffordability : PreBureauAffordability = PreBurea
 
     fun apply(eligibilityRequest_: proto.EligibilityRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.EligibilityResponse {
         // Create arguments from Request Message
-        var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(eligibilityRequest_.getApplicantData())
-        var requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(eligibilityRequest_.getRequestedProduct())
-        
+        val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(eligibilityRequest_.getApplicantData())
+        val requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(eligibilityRequest_.getRequestedProduct())
+
         // Invoke apply method
-        var output_: String? = apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
-        
+        val output_: String? = apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         // Convert output to Response Message
-        var builder_: proto.EligibilityResponse.Builder = proto.EligibilityResponse.newBuilder()
-        builder_.setEligibility((if (output_ == null) null else output_!!))
+        val builder_: proto.EligibilityResponse.Builder = proto.EligibilityResponse.newBuilder()
+        val outputProto_ = (if (output_ == null) "" else output_!!)
+        builder_.setEligibility(outputProto_)
         return builder_.build()
     }
 
@@ -93,5 +94,24 @@ class Eligibility(val preBureauAffordability : PreBureauAffordability = PreBurea
             com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
             -1
         )
+
+        @JvmStatic
+        fun requestToMap(eligibilityRequest_: proto.EligibilityRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(eligibilityRequest_.getApplicantData())
+            val requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(eligibilityRequest_.getRequestedProduct())
+
+            // Create map
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("ApplicantData", applicantData)
+            map_.put("RequestedProduct", requestedProduct)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(eligibilityResponse_: proto.EligibilityResponse): String? {
+            // Extract and convert output
+            return eligibilityResponse_.getEligibility()
+        }
     }
 }

@@ -20,10 +20,10 @@ class RoutingRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start BKM 'RoutingRules'
             val routingRulesStartTime_ = System.currentTimeMillis()
             val routingRulesArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            routingRulesArguments_.put("PostBureauRiskCategory", postBureauRiskCategory);
-            routingRulesArguments_.put("PostBureauAffordability", postBureauAffordability);
-            routingRulesArguments_.put("Bankrupt", bankrupt);
-            routingRulesArguments_.put("CreditScore", creditScore);
+            routingRulesArguments_.put("PostBureauRiskCategory", postBureauRiskCategory)
+            routingRulesArguments_.put("PostBureauAffordability", postBureauAffordability)
+            routingRulesArguments_.put("Bankrupt", bankrupt)
+            routingRulesArguments_.put("CreditScore", creditScore)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, routingRulesArguments_)
 
             // Evaluate BKM 'RoutingRules'

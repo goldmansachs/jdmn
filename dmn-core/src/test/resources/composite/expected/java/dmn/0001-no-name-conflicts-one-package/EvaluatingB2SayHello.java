@@ -22,6 +22,7 @@ public class EvaluatingB2SayHello extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
     private final GreetThePerson greetThePerson;
 
     public EvaluatingB2SayHello() {

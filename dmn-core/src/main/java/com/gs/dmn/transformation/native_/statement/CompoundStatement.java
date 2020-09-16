@@ -22,10 +22,10 @@ public class CompoundStatement extends Statement {
     }
 
     public List<Statement> getStatements() {
-        return statements;
+        return this.statements;
     }
 
     public void add(Statement statement) {
-        statements.add(statement);
+        this.statements.add(statement);
     }
 }

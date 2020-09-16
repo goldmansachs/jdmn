@@ -20,11 +20,11 @@ class AffordabilityCalculation : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start BKM 'AffordabilityCalculation'
             val affordabilityCalculationStartTime_ = System.currentTimeMillis()
             val affordabilityCalculationArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            affordabilityCalculationArguments_.put("MonthlyIncome", monthlyIncome);
-            affordabilityCalculationArguments_.put("MonthlyRepayments", monthlyRepayments);
-            affordabilityCalculationArguments_.put("MonthlyExpenses", monthlyExpenses);
-            affordabilityCalculationArguments_.put("RiskCategory", riskCategory);
-            affordabilityCalculationArguments_.put("RequiredMonthlyInstallment", requiredMonthlyInstallment);
+            affordabilityCalculationArguments_.put("MonthlyIncome", monthlyIncome)
+            affordabilityCalculationArguments_.put("MonthlyRepayments", monthlyRepayments)
+            affordabilityCalculationArguments_.put("MonthlyExpenses", monthlyExpenses)
+            affordabilityCalculationArguments_.put("RiskCategory", riskCategory)
+            affordabilityCalculationArguments_.put("RequiredMonthlyInstallment", requiredMonthlyInstallment)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, affordabilityCalculationArguments_)
 
             // Evaluate BKM 'AffordabilityCalculation'

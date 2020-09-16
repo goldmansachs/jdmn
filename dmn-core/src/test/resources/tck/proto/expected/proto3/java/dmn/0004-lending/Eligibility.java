@@ -22,6 +22,24 @@ public class Eligibility extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
+    public static java.util.Map<String, Object> requestToMap(proto.EligibilityRequest eligibilityRequest_) {
+        // Create arguments from Request Message
+        type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(eligibilityRequest_.getApplicantData());
+        type.TRequestedProduct requestedProduct = type.TRequestedProduct.toTRequestedProduct(eligibilityRequest_.getRequestedProduct());
+
+        // Create map
+        java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
+        map_.put("ApplicantData", applicantData);
+        map_.put("RequestedProduct", requestedProduct);
+        return map_;
+    }
+
+    public static String responseToOutput(proto.EligibilityResponse eligibilityResponse_) {
+        // Extract and convert output
+        return eligibilityResponse_.getEligibility();
+    }
+
     private final PreBureauAffordability preBureauAffordability;
     private final PreBureauRiskCategory preBureauRiskCategory;
 
@@ -90,13 +108,14 @@ public class Eligibility extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Create arguments from Request Message
         type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(eligibilityRequest_.getApplicantData());
         type.TRequestedProduct requestedProduct = type.TRequestedProduct.toTRequestedProduct(eligibilityRequest_.getRequestedProduct());
-        
+
         // Invoke apply method
         String output_ = apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
-        
+
         // Convert output to Response Message
         proto.EligibilityResponse.Builder builder_ = proto.EligibilityResponse.newBuilder();
-        builder_.setEligibility(output_);
+        String outputProto_ = (output_ == null ? "" : output_);
+        builder_.setEligibility(outputProto_);
         return builder_.build();
     }
 

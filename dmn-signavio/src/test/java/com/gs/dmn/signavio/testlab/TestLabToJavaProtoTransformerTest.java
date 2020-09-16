@@ -22,9 +22,14 @@ public class TestLabToJavaProtoTransformerTest extends AbstractTestLabToJavaJUni
         doTest("Example credit decision");
     }
 
+    @Test
+    public void testDateTime() throws Exception {
+        doTest("date-time-proto");
+    }
+
     @Override
     protected String getInputPath() {
-        return "dmn2java/exported/complex/input";
+        return "dmn2java/exported/proto/input";
     }
 
     @Override

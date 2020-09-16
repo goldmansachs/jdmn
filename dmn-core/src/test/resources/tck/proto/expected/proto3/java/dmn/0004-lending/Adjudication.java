@@ -23,6 +23,25 @@ public class Adjudication extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         -1
     );
 
+    public static java.util.Map<String, Object> requestToMap(proto.AdjudicationRequest adjudicationRequest_) {
+        // Create arguments from Request Message
+        type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(adjudicationRequest_.getApplicantData());
+        type.TBureauData bureauData = type.TBureauData.toTBureauData(adjudicationRequest_.getBureauData());
+        String supportingDocuments = adjudicationRequest_.getSupportingDocuments();
+
+        // Create map
+        java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
+        map_.put("ApplicantData", applicantData);
+        map_.put("BureauData", bureauData);
+        map_.put("SupportingDocuments", supportingDocuments);
+        return map_;
+    }
+
+    public static String responseToOutput(proto.AdjudicationResponse adjudicationResponse_) {
+        // Extract and convert output
+        return adjudicationResponse_.getAdjudication();
+    }
+
     public Adjudication() {
     }
 
@@ -80,13 +99,14 @@ public class Adjudication extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(adjudicationRequest_.getApplicantData());
         type.TBureauData bureauData = type.TBureauData.toTBureauData(adjudicationRequest_.getBureauData());
         String supportingDocuments = adjudicationRequest_.getSupportingDocuments();
-        
+
         // Invoke apply method
         String output_ = apply(applicantData, bureauData, supportingDocuments, annotationSet_, eventListener_, externalExecutor_, cache_);
-        
+
         // Convert output to Response Message
         proto.AdjudicationResponse.Builder builder_ = proto.AdjudicationResponse.newBuilder();
-        builder_.setAdjudication(output_);
+        String outputProto_ = (output_ == null ? "" : output_);
+        builder_.setAdjudication(outputProto_);
         return builder_.build();
     }
 

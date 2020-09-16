@@ -15,6 +15,7 @@ package com.gs.dmn.transformation.basic;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementFilter;
 import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.Type;
@@ -40,6 +41,8 @@ import java.util.Map;
 import java.util.function.Function;
 
 public interface BasicDMNToNativeTransformer {
+    DMNDialectDefinition<?, ?, ?, ?, ?, ?> getDialect();
+
     DMNModelRepository getDMNModelRepository();
 
     EnvironmentFactory getEnvironmentFactory();
@@ -86,7 +89,11 @@ public interface BasicDMNToNativeTransformer {
 
     String protoGetter(TItemDefinition itemDefinition);
 
+    String protoGetter(TDRGElement drgElement);
+
     String protoSetter(TItemDefinition itemDefinition);
+
+    String protoSetter(TDRGElement drgElement);
 
     //
     // TInformationItem related functions
@@ -123,6 +130,8 @@ public interface BasicDMNToNativeTransformer {
     List<Pair<String, Type>> drgElementTypeSignature(TDRGElement element, Function<Object, String> nameProducer);
 
     List<Pair<String, Type>> drgElementTypeSignature(DRGElementReference<? extends TDRGElement> reference, Function<Object, String> nameProducer);
+
+    List<Pair<String, Type>> drgElementTypeSignature(TDRGElement element);
 
     String drgElementSignature(TDRGElement element);
 
@@ -441,6 +450,8 @@ public interface BasicDMNToNativeTransformer {
     //
     boolean isComplexType(Type type);
 
+    boolean isDateTimeType(Type type);
+
     Type toFEELType(TDefinitions model, String typeName);
 
     Type toFEELType(TDefinitions model, QualifiedName typeRef);
@@ -544,17 +555,35 @@ public interface BasicDMNToNativeTransformer {
 
     String drgElementDefaultArgumentListExtraCacheProto(TDRGElement element);
 
-    Statement drgElementSignatureProtoBody(TDRGElement element);
+    String convertProtoMember(String source, TItemDefinition parent, TItemDefinition child, boolean staticContext);
 
-    String convertProtoMember(String source, TItemDefinition parent, TItemDefinition child);
-
-    String convertMemberToProto(String source, String sourceType, TItemDefinition child);
+    String convertMemberToProto(String source, String sourceType, TItemDefinition child, boolean staticContext);
 
     String qualifiedProtoMessageName(TItemDefinition itemDefinition);
 
+    String qualifiedRequestMessageName(TDRGElement element);
+
     String qualifiedResponseMessageName(TDRGElement element);
+
+    String requestVariableName(TDRGElement element);
+
+    String responseVariableName(TDRGElement element);
+
+    String namedElementVariableNameProto(TNamedElement element);
 
     String drgElementOutputTypeProto(TDRGElement element);
 
+    String qualifiedNativeProtoType(TItemDefinition itemDefinition);
+
+    boolean isProtoReference(TItemDefinition itemDefinition);
+
+    boolean isProtoReference(Type type);
+
     String protoFieldName(TNamedElement element);
+
+    String extractParameterFromRequestMessage(TDRGElement element, Pair<String, Type> parameter, boolean staticContext);
+
+    String convertValueToProtoNativeType(String value, Type type, boolean staticContext);
+
+    String extractMemberFromProtoValue(String protoValue, Type type, boolean staticContext);
 }

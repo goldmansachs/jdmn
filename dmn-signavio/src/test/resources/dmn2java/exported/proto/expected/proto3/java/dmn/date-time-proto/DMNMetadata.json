@@ -1,0 +1,404 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "types" : [ {
+    "@kind" : "compositeType",
+    "id" : null,
+    "isCollection" : false,
+    "label" : null,
+    "name" : "tCompositeDateTime",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : null,
+      "isCollection" : false,
+      "label" : "Date",
+      "name" : "Date",
+      "typeRef" : {
+        "localName" : "tDate",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : null,
+      "isCollection" : false,
+      "label" : "DateTime",
+      "name" : "DateTime",
+      "typeRef" : {
+        "localName" : "tDateTime",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : null,
+      "isCollection" : false,
+      "label" : "Time",
+      "name" : "Time",
+      "typeRef" : {
+        "localName" : "tTime",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    } ]
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : null,
+    "isCollection" : false,
+    "label" : null,
+    "name" : "tDate",
+    "typeRef" : {
+      "localName" : "date",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : null,
+    "isCollection" : false,
+    "label" : null,
+    "name" : "tDateTime",
+    "typeRef" : {
+      "localName" : "date and time",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : null,
+    "isCollection" : false,
+    "label" : null,
+    "name" : "tTime",
+    "typeRef" : {
+      "localName" : "time",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "c-date-time",
+    "javaParameterName" : "compositeInputDateTime",
+    "javaTypeName" : "type.TCompositeDateTime",
+    "label" : null,
+    "name" : "CompositeInputDateTime",
+    "typeRef" : {
+      "localName" : "tCompositeDateTime",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "i-date",
+    "javaParameterName" : "inputDate",
+    "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+    "label" : null,
+    "name" : "InputDate",
+    "typeRef" : {
+      "localName" : "tDate",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "i-date-time",
+    "javaParameterName" : "inputDateTime",
+    "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+    "label" : null,
+    "name" : "InputDateTime",
+    "typeRef" : {
+      "localName" : "tDateTime",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "i-time",
+    "javaParameterName" : "inputTime",
+    "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+    "label" : null,
+    "name" : "InputTime",
+    "typeRef" : {
+      "localName" : "tTime",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "c-DateTime",
+    "informationReferences" : [ {
+      "reference" : "i-date"
+    }, {
+      "reference" : "i-time"
+    }, {
+      "reference" : "i-date-time"
+    }, {
+      "reference" : "c-date-time"
+    } ],
+    "javaOutputTypeName" : "type.TCompositeDateTime",
+    "javaParameterName" : "compositeDateTime",
+    "javaTypeName" : "CompositeDateTime",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "CompositeDateTime",
+    "protoRequestName" : "proto.CompositeDateTimeRequest",
+    "protoResponseName" : "proto.CompositeDateTimeResponse",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "c-date-time",
+      "javaParameterName" : "compositeInputDateTime",
+      "javaTypeName" : "type.TCompositeDateTime",
+      "label" : null,
+      "name" : "CompositeInputDateTime",
+      "typeRef" : {
+        "localName" : "tCompositeDateTime",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "i-date",
+      "javaParameterName" : "inputDate",
+      "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+      "label" : null,
+      "name" : "InputDate",
+      "typeRef" : {
+        "localName" : "tDate",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "i-date-time",
+      "javaParameterName" : "inputDateTime",
+      "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+      "label" : null,
+      "name" : "InputDateTime",
+      "typeRef" : {
+        "localName" : "tDateTime",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "i-time",
+      "javaParameterName" : "inputTime",
+      "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+      "label" : null,
+      "name" : "InputTime",
+      "typeRef" : {
+        "localName" : "tTime",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "tCompositeDateTime",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "d-Date",
+    "informationReferences" : [ {
+      "reference" : "i-date"
+    }, {
+      "reference" : "i-time"
+    }, {
+      "reference" : "i-date-time"
+    }, {
+      "reference" : "c-date-time"
+    } ],
+    "javaOutputTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+    "javaParameterName" : "date",
+    "javaTypeName" : "Date",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "Date",
+    "protoRequestName" : "proto.DateRequest",
+    "protoResponseName" : "proto.DateResponse",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "c-date-time",
+      "javaParameterName" : "compositeInputDateTime",
+      "javaTypeName" : "type.TCompositeDateTime",
+      "label" : null,
+      "name" : "CompositeInputDateTime",
+      "typeRef" : {
+        "localName" : "tCompositeDateTime",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "i-date",
+      "javaParameterName" : "inputDate",
+      "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+      "label" : null,
+      "name" : "InputDate",
+      "typeRef" : {
+        "localName" : "tDate",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "i-date-time",
+      "javaParameterName" : "inputDateTime",
+      "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+      "label" : null,
+      "name" : "InputDateTime",
+      "typeRef" : {
+        "localName" : "tDateTime",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "i-time",
+      "javaParameterName" : "inputTime",
+      "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+      "label" : null,
+      "name" : "InputTime",
+      "typeRef" : {
+        "localName" : "tTime",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "date",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "d-DateTime",
+    "informationReferences" : [ {
+      "reference" : "i-date"
+    }, {
+      "reference" : "i-time"
+    }, {
+      "reference" : "i-date-time"
+    }, {
+      "reference" : "c-date-time"
+    } ],
+    "javaOutputTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+    "javaParameterName" : "dateTime",
+    "javaTypeName" : "DateTime",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "DateTime",
+    "protoRequestName" : "proto.DateTimeRequest",
+    "protoResponseName" : "proto.DateTimeResponse",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "c-date-time",
+      "javaParameterName" : "compositeInputDateTime",
+      "javaTypeName" : "type.TCompositeDateTime",
+      "label" : null,
+      "name" : "CompositeInputDateTime",
+      "typeRef" : {
+        "localName" : "tCompositeDateTime",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "i-date",
+      "javaParameterName" : "inputDate",
+      "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+      "label" : null,
+      "name" : "InputDate",
+      "typeRef" : {
+        "localName" : "tDate",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "i-date-time",
+      "javaParameterName" : "inputDateTime",
+      "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+      "label" : null,
+      "name" : "InputDateTime",
+      "typeRef" : {
+        "localName" : "tDateTime",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "i-time",
+      "javaParameterName" : "inputTime",
+      "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+      "label" : null,
+      "name" : "InputTime",
+      "typeRef" : {
+        "localName" : "tTime",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "date and time",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "extensions" : [ ],
+    "id" : "d-Time",
+    "informationReferences" : [ {
+      "reference" : "i-date"
+    }, {
+      "reference" : "i-time"
+    }, {
+      "reference" : "i-date-time"
+    }, {
+      "reference" : "c-date-time"
+    } ],
+    "javaOutputTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+    "javaParameterName" : "time",
+    "javaTypeName" : "Time",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "Time",
+    "protoRequestName" : "proto.TimeRequest",
+    "protoResponseName" : "proto.TimeResponse",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "c-date-time",
+      "javaParameterName" : "compositeInputDateTime",
+      "javaTypeName" : "type.TCompositeDateTime",
+      "label" : null,
+      "name" : "CompositeInputDateTime",
+      "typeRef" : {
+        "localName" : "tCompositeDateTime",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "i-date",
+      "javaParameterName" : "inputDate",
+      "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+      "label" : null,
+      "name" : "InputDate",
+      "typeRef" : {
+        "localName" : "tDate",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "i-date-time",
+      "javaParameterName" : "inputDateTime",
+      "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+      "label" : null,
+      "name" : "InputDateTime",
+      "typeRef" : {
+        "localName" : "tDateTime",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "i-time",
+      "javaParameterName" : "inputTime",
+      "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
+      "label" : null,
+      "name" : "InputTime",
+      "typeRef" : {
+        "localName" : "tTime",
+        "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "time",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ]
+}

@@ -75,13 +75,19 @@ public class ${testClassName} extends ${decisionBaseClass} {
         // Check ${result.name} with proto request
         <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
         ${tckUtil.qualifiedRequestMessageName(resultInfo)}.Builder ${tckUtil.builderVariableName(resultInfo)} = ${tckUtil.qualifiedRequestMessageName(resultInfo)}.newBuilder();
-        <#list tckUtil.drgElementTypeSignature(resultInfo)>
-        <#items as pair>
-        ${tckUtil.builderVariableName(resultInfo)}.${tckUtil.protoSetter(pair)}(${tckUtil.toNativeExpressionProto(pair)});
-        </#items>
+        <#list tckUtil.drgElementTypeSignature(resultInfo) as parameter>
+        <#assign variableNameProto>${parameter.left}Proto${result?index}</#assign>
+        ${tckUtil.toNativeTypeProto(parameter.right)} ${variableNameProto} = ${tckUtil.toNativeExpressionProto(parameter)};
+        <#if tckUtil.isProtoReference(parameter.right)>
+        if (${variableNameProto} != null) {
+            ${tckUtil.builderVariableName(resultInfo)}.${tckUtil.protoSetter(parameter)}(${variableNameProto});
+        }
+        <#else>
+        ${tckUtil.builderVariableName(resultInfo)}.${tckUtil.protoSetter(parameter)}(${variableNameProto});
+        </#if>
         </#list>
         ${tckUtil.qualifiedRequestMessageName(resultInfo)} ${tckUtil.requestVariableName(resultInfo)} = ${tckUtil.builderVariableName(resultInfo)}.build();
-        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.defaultConstructor(tckUtil.qualifiedName(resultInfo))}.apply(${tckUtil.drgElementArgumentListExtraCacheProto(resultInfo)}).${tckUtil.protoGetter(resultInfo)});
+        checkValues(${tckUtil.toNativeExpressionProto(resultInfo)}, ${tckUtil.defaultConstructor(tckUtil.qualifiedName(resultInfo))}.apply(${tckUtil.drgElementArgumentListExtraCacheProto(resultInfo)}).${tckUtil.protoGetter(resultInfo)});
         </#items>
     </#list>
 </#macro>

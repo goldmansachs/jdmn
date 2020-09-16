@@ -22,6 +22,7 @@ public class FinalDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
         com.gs.dmn.runtime.annotation.HitPolicy.ANY,
         4
     );
+
     private final DecisionDate decisionDate;
     private final DecisionTime decisionTime;
 

@@ -157,7 +157,6 @@ public class TestLabUtil {
     public String toNativeExpression(TestLab testLab, Expression expression) {
         Type outputType = toFEELType(testLab.getRootOutputParameter());
         TDecision decision = (TDecision) findDRGElement(testLab.getRootOutputParameter());
-
         return toNativeExpression(outputType, expression, decision);
     }
 
@@ -278,7 +277,7 @@ public class TestLabUtil {
                 return memberType;
             }
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot find member '(name='%s' label='%s' id='%s') in ItemDefinition '%s'", name, label, id, itemDefinition.getName()), e);
+            throw new DMNRuntimeException(String.format("Cannot find member '(name='%s' label='%s' id='%s') in ItemDefinition '%s'", name, label, id, itemDefinition == null ? null : itemDefinition.getName()), e);
         }
         throw new DMNRuntimeException(String.format("Cannot find member '(name='%s' label='%s' id='%s') in ItemDefinition '%s'", name, label, id, itemDefinition.getName()));
     }
@@ -367,16 +366,36 @@ public class TestLabUtil {
         return this.dmnTransformer.isGenerateProto();
     }
 
-    // For input parameters
     public String toNativeExpressionProto(InputParameterDefinition inputParameterDefinition) {
         String inputName = inputDataVariableName(inputParameterDefinition);
         Type type = toFEELType(inputParameterDefinition);
-        return this.dmnTransformer.getNativeFactory().convertValueToProtoNativeType(inputName, type);
+        return this.dmnTransformer.getNativeFactory().convertValueToProtoNativeType(inputName, type, false);
+    }
+
+    public String toNativeExpressionProto(TestLab testLab, Expression expression) {
+        Type outputType = toFEELType(testLab.getRootOutputParameter());
+        TDecision decision = (TDecision) findDRGElement(testLab.getRootOutputParameter());
+        String value = toNativeExpression(outputType, expression, decision);
+        if (this.dmnTransformer.isDateTimeType(outputType) || this.dmnTransformer.isComplexType(outputType)) {
+            return this.dmnTransformer.getNativeFactory().convertValueToProtoNativeType(value, outputType, false);
+        } else {
+            return value;
+        }
+    }
+
+    public String toNativeTypeProto(InputParameterDefinition inputParameterDefinition) {
+        Type type = toFEELType(inputParameterDefinition);
+        return this.dmnTransformer.getProtoFactory().toNativeProtoType(type);
+    }
+
+    public boolean isProtoReference(InputParameterDefinition inputParameterDefinition) {
+        Type type = toFEELType(inputParameterDefinition);
+        return this.dmnTransformer.isProtoReference(type);
     }
 
     public String drgElementVariableNameProto(OutputParameterDefinition outputParameterDefinition) {
-        String name = drgElementVariableName(outputParameterDefinition);
-        return name + ProtoBufferFactory.PROTO_VARIABLE_SUFFIX;
+        TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
+        return dmnTransformer.getProtoFactory().namedElementVariableNameProto(decision);
     }
 
     public String drgElementArgumentListProto(OutputParameterDefinition outputParameterDefinition) {
@@ -405,7 +424,8 @@ public class TestLabUtil {
     }
 
     public String responseVariableName(OutputParameterDefinition outputParameterDefinition) {
-        return ProtoBufferFactory.RESPONSE_VARIABLE_NAME;
+        TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
+        return this.dmnTransformer.getProtoFactory().responseVariableName(decision);
     }
 
     public String protoGetter(OutputParameterDefinition outputParameterDefinition) {

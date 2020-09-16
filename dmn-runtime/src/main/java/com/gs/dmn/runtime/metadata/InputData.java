@@ -12,8 +12,6 @@
  */
 package com.gs.dmn.runtime.metadata;
 
-import java.util.Collections;
-
 public class InputData extends DRGElement {
     // Required by ObjectMapper
     InputData() {
@@ -21,6 +19,6 @@ public class InputData extends DRGElement {
     }
 
     public InputData(String id, String name, String label, String javaParameterName, String javaTypeName, QName typeRef) {
-        super(id, name, label, javaParameterName, javaTypeName, typeRef, Collections.emptyList());
+        super(id, name, label, javaParameterName, javaTypeName, typeRef);
     }
 }

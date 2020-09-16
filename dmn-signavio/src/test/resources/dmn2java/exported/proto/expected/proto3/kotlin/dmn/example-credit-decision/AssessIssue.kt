@@ -40,8 +40,8 @@ class AssessIssue() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() 
             // Start decision 'assessIssue'
             val assessIssueStartTime_ = System.currentTimeMillis()
             val assessIssueArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            assessIssueArguments_.put("Current risk appetite", currentRiskAppetite);
-            assessIssueArguments_.put("Prior issue", priorIssue_iterator);
+            assessIssueArguments_.put("Current risk appetite", currentRiskAppetite)
+            assessIssueArguments_.put("Prior issue", priorIssue_iterator)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, assessIssueArguments_)
 
             // Evaluate decision 'assessIssue'
@@ -63,15 +63,16 @@ class AssessIssue() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() 
 
     fun apply(assessIssueRequest_: proto.AssessIssueRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.AssessIssueResponse {
         // Create arguments from Request Message
-        var currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(assessIssueRequest_.getCurrentRiskAppetite())
-        var priorIssue_iterator: java.math.BigDecimal? = java.math.BigDecimal.valueOf(assessIssueRequest_.getPriorIssueIterator())
-        
+        val currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(assessIssueRequest_.getCurrentRiskAppetite())
+        val priorIssue_iterator: java.math.BigDecimal? = java.math.BigDecimal.valueOf(assessIssueRequest_.getPriorIssueIterator())
+
         // Invoke apply method
-        var output_: java.math.BigDecimal? = apply(currentRiskAppetite, priorIssue_iterator, annotationSet_, eventListener_, externalExecutor_, cache_)
-        
+        val output_: java.math.BigDecimal? = apply(currentRiskAppetite, priorIssue_iterator, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         // Convert output to Response Message
-        var builder_: proto.AssessIssueResponse.Builder = proto.AssessIssueResponse.newBuilder()
-        builder_.setAssessIssue((if (output_ == null) 0.0 else output_!!.toDouble()))
+        val builder_: proto.AssessIssueResponse.Builder = proto.AssessIssueResponse.newBuilder()
+        val outputProto_ = (if (output_ == null) 0.0 else output_!!.toDouble())
+        builder_.setAssessIssue(outputProto_)
         return builder_.build()
     }
 
@@ -89,5 +90,24 @@ class AssessIssue() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() 
             com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
             -1
         )
+
+        @JvmStatic
+        fun requestToMap(assessIssueRequest_: proto.AssessIssueRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            val currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(assessIssueRequest_.getCurrentRiskAppetite())
+            val priorIssue_iterator: java.math.BigDecimal? = java.math.BigDecimal.valueOf(assessIssueRequest_.getPriorIssueIterator())
+
+            // Create map
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("Current risk appetite", currentRiskAppetite)
+            map_.put("Prior issue", priorIssue_iterator)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(assessIssueResponse_: proto.AssessIssueResponse): java.math.BigDecimal? {
+            // Extract and convert output
+            return java.math.BigDecimal.valueOf(assessIssueResponse_.getAssessIssue())
+        }
     }
 }

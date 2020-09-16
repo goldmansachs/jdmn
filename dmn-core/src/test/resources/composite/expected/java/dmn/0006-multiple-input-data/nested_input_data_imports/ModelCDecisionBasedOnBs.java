@@ -23,6 +23,7 @@ public class ModelCDecisionBasedOnBs extends com.gs.dmn.runtime.DefaultDMNBaseDe
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
     private final model_b2.EvaluatingB2SayHello modelb2_evaluatingB2SayHello;
     private final model_b.EvaluatingSayHello modelb_evaluatingSayHello;
 

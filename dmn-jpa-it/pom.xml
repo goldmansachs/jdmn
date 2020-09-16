@@ -33,9 +33,9 @@
         <dmn.diagram.folder>${project.basedir}/src/main/resources/dmn</dmn.diagram.folder>
 
         <generated.dmn.diagram.folder>${project.build.directory}/generated-resources/dmn</generated.dmn.diagram.folder>
-        <generated.java.folder>${project.build.directory}/generated-sources/dmn</generated.java.folder>
+        <generated.source.code.folder>${project.build.directory}/generated-sources/dmn</generated.source.code.folder>
         <generated.root.package>com.gs.dmn.generated</generated.root.package>
-        <tck.java.folder>${project.build.directory}/generated-test-sources/tck</tck.java.folder>
+        <generated.test.code.folder>${project.build.directory}/generated-test-sources/tck</generated.test.code.folder>
 
         <line.coverage.minimum>0.00</line.coverage.minimum>
 
@@ -107,7 +107,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${dmn.diagram.folder}/example-credit-decision.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.java.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.example_credit_decision</javaRootPackage>
                             </inputParameters>
@@ -122,7 +122,7 @@
                         <configuration>
                             <inputTestFileDirectory>${dmn.diagram.folder}/example-credit-decision-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${dmn.diagram.folder}/example-credit-decision.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.java.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.example_credit_decision</javaRootPackage>
                             </inputParameters>
@@ -143,7 +143,7 @@
                         </goals>
                         <configuration>
                             <sources>
-                                <source>${generated.java.folder}</source>
+                                <source>${generated.source.code.folder}</source>
                             </sources>
                         </configuration>
                     </execution>
@@ -156,7 +156,7 @@
                         <configuration>
                             <resources>
                                 <resource>
-                                    <directory>${generated.java.folder}</directory>
+                                    <directory>${generated.source.code.folder}</directory>
                                     <excludes>
                                         <exclude>**/*.java</exclude>
                                     </excludes>
@@ -172,7 +172,7 @@
                         </goals>
                         <configuration>
                             <sources>
-                                <source>${tck.java.folder}</source>
+                                <source>${generated.test.code.folder}</source>
                             </sources>
                         </configuration>
                     </execution>
@@ -185,7 +185,7 @@
                         <configuration>
                             <resources>
                                 <resource>
-                                    <directory>${tck.java.folder}</directory>
+                                    <directory>${generated.test.code.folder}</directory>
                                     <excludes>
                                         <exclude>**/*.java</exclude>
                                     </excludes>

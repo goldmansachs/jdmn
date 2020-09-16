@@ -22,6 +22,7 @@ public class CompoundOutputCompoundDecision extends com.gs.dmn.signavio.runtime.
         com.gs.dmn.runtime.annotation.HitPolicy.FIRST,
         2
     );
+
     private final DependentDecision1 dependentDecision1;
     private final DependentDecision2 dependentDecision2;
 

@@ -40,7 +40,7 @@ class AssessApplicantAge() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             // Start decision 'assessApplicantAge'
             val assessApplicantAgeStartTime_ = System.currentTimeMillis()
             val assessApplicantAgeArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            assessApplicantAgeArguments_.put("Applicant", applicant);
+            assessApplicantAgeArguments_.put("Applicant", applicant)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, assessApplicantAgeArguments_)
 
             // Evaluate decision 'assessApplicantAge'
@@ -62,14 +62,15 @@ class AssessApplicantAge() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
 
     fun apply(assessApplicantAgeRequest_: proto.AssessApplicantAgeRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.AssessApplicantAgeResponse {
         // Create arguments from Request Message
-        var applicant: type.Applicant? = type.Applicant.toApplicant(assessApplicantAgeRequest_.getApplicant())
-        
+        val applicant: type.Applicant? = type.Applicant.toApplicant(assessApplicantAgeRequest_.getApplicant())
+
         // Invoke apply method
-        var output_: java.math.BigDecimal? = apply(applicant, annotationSet_, eventListener_, externalExecutor_, cache_)
-        
+        val output_: java.math.BigDecimal? = apply(applicant, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         // Convert output to Response Message
-        var builder_: proto.AssessApplicantAgeResponse.Builder = proto.AssessApplicantAgeResponse.newBuilder()
-        builder_.setAssessApplicantAge((if (output_ == null) 0.0 else output_!!.toDouble()))
+        val builder_: proto.AssessApplicantAgeResponse.Builder = proto.AssessApplicantAgeResponse.newBuilder()
+        val outputProto_ = (if (output_ == null) 0.0 else output_!!.toDouble())
+        builder_.setAssessApplicantAge(outputProto_)
         return builder_.build()
     }
 
@@ -194,5 +195,22 @@ class AssessApplicantAge() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
             3
         )
+
+        @JvmStatic
+        fun requestToMap(assessApplicantAgeRequest_: proto.AssessApplicantAgeRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            val applicant: type.Applicant? = type.Applicant.toApplicant(assessApplicantAgeRequest_.getApplicant())
+
+            // Create map
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("Applicant", applicant)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(assessApplicantAgeResponse_: proto.AssessApplicantAgeResponse): java.math.BigDecimal? {
+            // Extract and convert output
+            return java.math.BigDecimal.valueOf(assessApplicantAgeResponse_.getAssessApplicantAge())
+        }
     }
 }

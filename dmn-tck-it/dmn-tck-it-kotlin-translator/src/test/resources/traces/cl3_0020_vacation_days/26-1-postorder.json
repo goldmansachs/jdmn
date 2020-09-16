@@ -1,7 +1,7 @@
 [
   {
     "element": {
-      "namespace": "com.gs.dmn.generated.kotlin.tck.cl3_0020_vacation_days",
+      "namespace": "com.gs.dmn.generated.tck.cl3_0020_vacation_days",
       "name": "'Base Vacation Days'",
       "label": "",
       "elementKind": "DECISION",
@@ -10,12 +10,13 @@
       "rulesCount": -1
     },
     "arguments": {},
+    "output": 22,
     "ruleNodes": [],
     "children": []
   },
   {
     "element": {
-      "namespace": "com.gs.dmn.generated.kotlin.tck.cl3_0020_vacation_days",
+      "namespace": "com.gs.dmn.generated.tck.cl3_0020_vacation_days",
       "name": "'Extra days case 1'",
       "label": "",
       "elementKind": "DECISION",
@@ -27,6 +28,7 @@
       "Age": 16,
       "'Years of Service'": 1
     },
+    "output": 5,
     "ruleNodes": [
       {
         "rule": {
@@ -75,7 +77,7 @@
   },
   {
     "element": {
-      "namespace": "com.gs.dmn.generated.kotlin.tck.cl3_0020_vacation_days",
+      "namespace": "com.gs.dmn.generated.tck.cl3_0020_vacation_days",
       "name": "'Extra days case 2'",
       "label": "",
       "elementKind": "DECISION",
@@ -87,6 +89,7 @@
       "Age": 16,
       "'Years of Service'": 1
     },
+    "output": 0,
     "ruleNodes": [
       {
         "rule": {
@@ -131,7 +134,7 @@
   },
   {
     "element": {
-      "namespace": "com.gs.dmn.generated.kotlin.tck.cl3_0020_vacation_days",
+      "namespace": "com.gs.dmn.generated.tck.cl3_0020_vacation_days",
       "name": "'Extra days case 3'",
       "label": "",
       "elementKind": "DECISION",
@@ -143,6 +146,7 @@
       "Age": 16,
       "'Years of Service'": 1
     },
+    "output": 0,
     "ruleNodes": [
       {
         "rule": {
@@ -187,7 +191,7 @@
   },
   {
     "element": {
-      "namespace": "com.gs.dmn.generated.kotlin.tck.cl3_0020_vacation_days",
+      "namespace": "com.gs.dmn.generated.tck.cl3_0020_vacation_days",
       "name": "'Total Vacation Days'",
       "label": "",
       "elementKind": "DECISION",
@@ -199,6 +203,7 @@
       "Age": 16,
       "'Years of Service'": 1
     },
+    "output": 27,
     "ruleNodes": [],
     "children": []
   }

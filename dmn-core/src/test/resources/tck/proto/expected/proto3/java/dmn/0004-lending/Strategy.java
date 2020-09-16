@@ -22,6 +22,24 @@ public class Strategy extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
         3
     );
+
+    public static java.util.Map<String, Object> requestToMap(proto.StrategyRequest strategyRequest_) {
+        // Create arguments from Request Message
+        type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(strategyRequest_.getApplicantData());
+        type.TRequestedProduct requestedProduct = type.TRequestedProduct.toTRequestedProduct(strategyRequest_.getRequestedProduct());
+
+        // Create map
+        java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
+        map_.put("ApplicantData", applicantData);
+        map_.put("RequestedProduct", requestedProduct);
+        return map_;
+    }
+
+    public static String responseToOutput(proto.StrategyResponse strategyResponse_) {
+        // Extract and convert output
+        return strategyResponse_.getStrategy();
+    }
+
     private final BureauCallType bureauCallType;
     private final Eligibility eligibility;
 
@@ -90,13 +108,14 @@ public class Strategy extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Create arguments from Request Message
         type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(strategyRequest_.getApplicantData());
         type.TRequestedProduct requestedProduct = type.TRequestedProduct.toTRequestedProduct(strategyRequest_.getRequestedProduct());
-        
+
         // Invoke apply method
         String output_ = apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
-        
+
         // Convert output to Response Message
         proto.StrategyResponse.Builder builder_ = proto.StrategyResponse.newBuilder();
-        builder_.setStrategy(output_);
+        String outputProto_ = (output_ == null ? "" : output_);
+        builder_.setStrategy(outputProto_);
         return builder_.build();
     }
 

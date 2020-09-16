@@ -61,7 +61,6 @@
     "javaTypeName" : "type.Loan",
     "label" : "Loan",
     "name" : "loan",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "loan",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/701a4e318a6d4d4f823018c5feaa8f81.xml"
@@ -79,6 +78,8 @@
     "knowledgeReferences" : [ ],
     "label" : "Monthly",
     "name" : "monthly",
+    "protoRequestName" : "proto.MonthlyRequest",
+    "protoResponseName" : "proto.MonthlyResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "diagram-701a4e318a6d4d4f823018c5feaa8f81-inputdata-sid-AD811598-1741-4206-A9FC-280EF77B0B23",
@@ -86,7 +87,6 @@
       "javaTypeName" : "type.Loan",
       "label" : "Loan",
       "name" : "loan",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "loan",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/701a4e318a6d4d4f823018c5feaa8f81.xml"

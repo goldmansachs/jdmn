@@ -23,6 +23,7 @@ public class EvaluatingSayHello extends com.gs.dmn.runtime.DefaultDMNBaseDecisio
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
     private final model_b1.GreetThePerson greetThePerson;
 
     public EvaluatingSayHello() {

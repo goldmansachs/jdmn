@@ -40,9 +40,9 @@ class MakeCreditDecision(val compareAgainstLendingThreshold : CompareAgainstLend
             // Start decision 'makeCreditDecision'
             val makeCreditDecisionStartTime_ = System.currentTimeMillis()
             val makeCreditDecisionArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            makeCreditDecisionArguments_.put("Applicant", applicant);
-            makeCreditDecisionArguments_.put("Current risk appetite", currentRiskAppetite);
-            makeCreditDecisionArguments_.put("Lending threshold", lendingThreshold);
+            makeCreditDecisionArguments_.put("Applicant", applicant)
+            makeCreditDecisionArguments_.put("Current risk appetite", currentRiskAppetite)
+            makeCreditDecisionArguments_.put("Lending threshold", lendingThreshold)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, makeCreditDecisionArguments_)
 
             // Apply child decisions
@@ -67,16 +67,17 @@ class MakeCreditDecision(val compareAgainstLendingThreshold : CompareAgainstLend
 
     fun apply(makeCreditDecisionRequest_: proto.MakeCreditDecisionRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.MakeCreditDecisionResponse {
         // Create arguments from Request Message
-        var applicant: type.Applicant? = type.Applicant.toApplicant(makeCreditDecisionRequest_.getApplicant())
-        var currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getCurrentRiskAppetite())
-        var lendingThreshold: java.math.BigDecimal? = java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getLendingThreshold())
-        
+        val applicant: type.Applicant? = type.Applicant.toApplicant(makeCreditDecisionRequest_.getApplicant())
+        val currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getCurrentRiskAppetite())
+        val lendingThreshold: java.math.BigDecimal? = java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getLendingThreshold())
+
         // Invoke apply method
-        var output_: String? = apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_)
-        
+        val output_: String? = apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         // Convert output to Response Message
-        var builder_: proto.MakeCreditDecisionResponse.Builder = proto.MakeCreditDecisionResponse.newBuilder()
-        builder_.setMakeCreditDecision((if (output_ == null) null else output_!!))
+        val builder_: proto.MakeCreditDecisionResponse.Builder = proto.MakeCreditDecisionResponse.newBuilder()
+        val outputProto_ = (if (output_ == null) "" else output_!!)
+        builder_.setMakeCreditDecision(outputProto_)
         return builder_.build()
     }
 
@@ -201,5 +202,26 @@ class MakeCreditDecision(val compareAgainstLendingThreshold : CompareAgainstLend
             com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
             3
         )
+
+        @JvmStatic
+        fun requestToMap(makeCreditDecisionRequest_: proto.MakeCreditDecisionRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            val applicant: type.Applicant? = type.Applicant.toApplicant(makeCreditDecisionRequest_.getApplicant())
+            val currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getCurrentRiskAppetite())
+            val lendingThreshold: java.math.BigDecimal? = java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getLendingThreshold())
+
+            // Create map
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("Applicant", applicant)
+            map_.put("Current risk appetite", currentRiskAppetite)
+            map_.put("Lending threshold", lendingThreshold)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(makeCreditDecisionResponse_: proto.MakeCreditDecisionResponse): String? {
+            // Extract and convert output
+            return makeCreditDecisionResponse_.getMakeCreditDecision()
+        }
     }
 }

@@ -22,6 +22,7 @@ public class AllTogether extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
         com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
         1
     );
+
     private final PartA partA;
     private final PartB partB;
     private final PartC partC;

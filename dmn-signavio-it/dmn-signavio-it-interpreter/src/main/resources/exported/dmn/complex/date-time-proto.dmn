@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:sig="http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" namespace="http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml" exporterVersion="10.15.9" name="date-time-proto" id="id-08c752c5790e4e898c0a3a928edded22" sigExt:revisionId="c3a5e1d77f1643c98bbafc32e4987b91" sigExt:revisionNumber="1">
+	<itemDefinition name="tDate" isCollection="false">
+		<typeRef>feel:date</typeRef>
+	</itemDefinition>
+	<itemDefinition name="tTime" isCollection="false">
+		<typeRef>feel:time</typeRef>
+	</itemDefinition>
+	<itemDefinition name="tDateTime" isCollection="false">
+		<typeRef>feel:date and time</typeRef>
+	</itemDefinition>
+
+	<itemDefinition name="tCompositeDateTime" isCollection="false">
+		<itemComponent name="Date" isCollection="false" label="Date" sigExt:slotId="0">
+			<typeRef>sig:tDate</typeRef>
+		</itemComponent>
+		<itemComponent name="Time" isCollection="false" label="Time" sigExt:slotId="1">
+			<typeRef>sig:tTime</typeRef>
+		</itemComponent>
+		<itemComponent name="DateTime" isCollection="false" label="DateTime" sigExt:slotId="2">
+			<typeRef>sig:tDateTime</typeRef>
+		</itemComponent>
+	</itemDefinition>
+
+  	<inputData id="i-date" name="InputDate" sigExt:shapeId="sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038" sigExt:diagramId="9acf44f2b05343d79fc35140c493c1e0">
+  		<variable name="Date" typeRef="sig:tDate"/>
+  	</inputData>
+  	<inputData id="i-time" name="InputTime" sigExt:shapeId="sid-6CFB0C31-B181-4606-BE51-1960E8B86487" sigExt:diagramId="9acf44f2b05343d79fc35140c493c1e0">
+  		<variable name="Time" typeRef="sig:tTime"/>
+  	</inputData>
+  	<inputData id="i-date-time" name="InputDateTime" sigExt:shapeId="sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D" sigExt:diagramId="9acf44f2b05343d79fc35140c493c1e0">
+  		<variable name="DateTime" typeRef="sig:tDateTime"/>
+  	</inputData>
+
+	<inputData id="c-date-time" name="CompositeInputDateTime" sigExt:shapeId="sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D-1" sigExt:diagramId="9acf44f2b05343d79fc35140c493c1e0">
+		<variable name="CompositeInputDateTime" typeRef="sig:tCompositeDateTime"/>
+	</inputData>
+
+	<decision id="d-Date" name="Date" sigExt:shapeId="sid-8DBE416B-B1CA-43EC-BFE6-7D5DFA296EB6-d" sigExt:diagramId="9acf44f2b05343d79fc35140c493c1e0">
+		<variable name="Date" typeRef="feel:date"/>
+		<informationRequirement>
+			<requiredInput href="#i-date"/>
+		</informationRequirement>
+		<informationRequirement>
+			<requiredInput href="#i-time"/>
+		</informationRequirement>
+		<informationRequirement>
+			<requiredInput href="#i-date-time"/>
+		</informationRequirement>
+		<informationRequirement>
+			<requiredInput href="#c-date-time"/>
+		</informationRequirement>
+		<literalExpression>
+			<text>InputDate</text>
+		</literalExpression>
+	</decision>
+	<decision id="d-Time" name="Time" sigExt:shapeId="sid-8DBE416B-B1CA-43EC-BFE6-7D5DFA296EB6-t" sigExt:diagramId="9acf44f2b05343d79fc35140c493c1e0">
+		<variable name="Time" typeRef="feel:time"/>
+		<informationRequirement>
+			<requiredInput href="#i-date"/>
+		</informationRequirement>
+		<informationRequirement>
+			<requiredInput href="#i-time"/>
+		</informationRequirement>
+		<informationRequirement>
+			<requiredInput href="#i-date-time"/>
+		</informationRequirement>
+		<informationRequirement>
+			<requiredInput href="#c-date-time"/>
+		</informationRequirement>
+		<literalExpression>
+			<text>InputTime</text>
+		</literalExpression>
+	</decision>
+	<decision id="d-DateTime" name="DateTime" sigExt:shapeId="sid-8DBE416B-B1CA-43EC-BFE6-7D5DFA296EB6-dt" sigExt:diagramId="9acf44f2b05343d79fc35140c493c1e0">
+		<variable name="DateTime" typeRef="feel:date and time"/>
+		<informationRequirement>
+			<requiredInput href="#i-date"/>
+		</informationRequirement>
+		<informationRequirement>
+			<requiredInput href="#i-time"/>
+		</informationRequirement>
+		<informationRequirement>
+			<requiredInput href="#i-date-time"/>
+		</informationRequirement>
+		<informationRequirement>
+			<requiredInput href="#c-date-time"/>
+		</informationRequirement>
+		<literalExpression>
+			<text>InputDateTime</text>
+		</literalExpression>
+	</decision>
+
+	<decision id="c-DateTime" name="CompositeDateTime" sigExt:shapeId="sid-8DBE416B-B1CA-43EC-BFE6-7D5DFA296EB6-cdt" sigExt:diagramId="9acf44f2b05343d79fc35140c493c1e0">
+		<variable name="DateTime" typeRef="sig:tCompositeDateTime"/>
+		<informationRequirement>
+			<requiredInput href="#i-date"/>
+		</informationRequirement>
+		<informationRequirement>
+			<requiredInput href="#i-time"/>
+		</informationRequirement>
+		<informationRequirement>
+			<requiredInput href="#i-date-time"/>
+		</informationRequirement>
+		<informationRequirement>
+			<requiredInput href="#c-date-time"/>
+		</informationRequirement>
+		<literalExpression>
+			<text>CompositeInputDateTime</text>
+		</literalExpression>
+	</decision>
+</definitions>

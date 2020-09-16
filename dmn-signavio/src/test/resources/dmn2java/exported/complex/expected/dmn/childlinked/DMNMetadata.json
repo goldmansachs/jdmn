@@ -32,7 +32,6 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "num",
     "name" : "num",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "num",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/e514b8c455264f77addcb9d04c542a78.xml"
@@ -50,6 +49,8 @@
     "knowledgeReferences" : [ ],
     "label" : "abc",
     "name" : "abc",
+    "protoRequestName" : "proto.AbcRequest",
+    "protoResponseName" : "proto.AbcResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-14745a7c4578ede73ab28a1e32b8fb7e",
@@ -57,7 +58,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "num",
       "name" : "num",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "num",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/e514b8c455264f77addcb9d04c542a78.xml"

@@ -261,7 +261,7 @@
             <#assign elementNames = transformer.drgElementArgumentDisplayNameList(drgElement)/>
             <#list transformer.drgElementArgumentNameList(drgElement)>
             <#items as arg>
-            ${transformer.argumentsVariableName(drgElement)}.put("${transformer.escapeInString(elementNames[arg?index])}", ${arg});
+            ${transformer.argumentsVariableName(drgElement)}.put("${transformer.escapeInString(elementNames[arg?index])}", ${arg})
             </#items>
             </#list>
             ${transformer.eventListenerVariableName()}.startDRGElement(<@drgElementAnnotation drgElement/>, ${transformer.argumentsVariableName(drgElement)})

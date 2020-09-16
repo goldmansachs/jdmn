@@ -33,6 +33,8 @@ import java.util.List;
 import static com.gs.dmn.feel.lib.DefaultFEELLib.DATA_TYPE_FACTORY;
 
 public class DefaultSignavioLib extends BaseFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> implements SignavioLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
+    public static DefaultSignavioLib INSTANCE = new DefaultSignavioLib();
+
     private final DefaultFEELLib feelLib = new DefaultFEELLib();
 
     private final DefaultSignavioNumberLib numberLib = new DefaultSignavioNumberLib();

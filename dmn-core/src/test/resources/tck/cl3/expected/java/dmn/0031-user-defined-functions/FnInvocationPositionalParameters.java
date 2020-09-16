@@ -22,6 +22,7 @@ public class FnInvocationPositionalParameters extends com.gs.dmn.runtime.Default
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
     private final FnLibrary fnLibrary;
 
     public FnInvocationPositionalParameters() {

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.provider.com/spec/DMN/proto-date-time" id="_jEk7EPUUEeesLuP4RHs4vA" name="proto-date-time-function" namespace="http://www.provider.com/spec/DMN/proto-date-time-function">
+	<itemDefinition name="CompositeDateTime" isCollection="false">
+		<itemComponent name="Date" isCollection="false">
+			<typeRef>feel:date</typeRef>
+		</itemComponent>
+		<itemComponent name="Time" isCollection="false">
+			<typeRef>feel:time</typeRef>
+		</itemComponent>
+		<itemComponent name="DateTime" isCollection="false">
+			<typeRef>feel:date and time</typeRef>
+		</itemComponent>
+		<itemComponent name="YearMonthDuration" isCollection="false">
+			<typeRef>feel:yearMonthDuration</typeRef>
+		</itemComponent>
+		<itemComponent name="DayTimeDuration" isCollection="false">
+			<typeRef>feel:dayTimeDuration</typeRef>
+		</itemComponent>
+	</itemDefinition>
+
+  	<inputData id="i-date" name="InputDate">
+  		<variable name="Date" typeRef="feel:date"/>
+  	</inputData>
+  	<inputData id="i-time" name="InputTime">
+  		<variable name="Time" typeRef="feel:time"/>
+  	</inputData>
+  	<inputData id="i-date-time" name="InputDateTime">
+  		<variable name="DateTime" typeRef="feel:date and time"/>
+  	</inputData>
+
+	<inputData id="c-date-time" name="CompositeInputDateTime">
+		<variable name="CompositeInputDateTime" typeRef="ns1:CompositeDateTime"/>
+	</inputData>
+
+	<decision id="d-Date" name="Date">
+		<variable name="Date" typeRef="feel:date"/>
+		<informationRequirement>
+			<requiredInput href="#i-date"/>
+		</informationRequirement>
+		<literalExpression>
+			<text>InputDate</text>
+		</literalExpression>
+	</decision>
+	<decision id="d-Time" name="Time">
+		<variable name="Time" typeRef="feel:time"/>
+		<informationRequirement>
+			<requiredInput href="#i-time"/>
+		</informationRequirement>
+		<literalExpression>
+			<text>InputTime</text>
+		</literalExpression>
+	</decision>
+	<decision id="d-DateTime" name="DateTime">
+		<variable name="DateTime" typeRef="feel:date and time"/>
+		<informationRequirement>
+			<requiredInput href="#i-date-time"/>
+		</informationRequirement>
+		<literalExpression>
+			<text>InputDateTime</text>
+		</literalExpression>
+	</decision>
+
+	<decision id="c-DateTime" name="CompositeDateTime">
+		<variable name="DateTime" typeRef="ns1:CompositeDateTime"/>
+		<informationRequirement>
+			<requiredInput href="#c-date-time"/>
+		</informationRequirement>
+		<literalExpression>
+			<text>CompositeInputDateTime</text>
+		</literalExpression>
+	</decision>
+</definitions>

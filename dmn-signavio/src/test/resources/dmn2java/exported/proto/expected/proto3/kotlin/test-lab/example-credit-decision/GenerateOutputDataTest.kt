@@ -14,21 +14,26 @@ class GenerateOutputDataTest : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
         val applicant: type.Applicant? = type.ApplicantImpl(number("38"), number("100"), "Amy", asList("Late payment"))
         val generateOutputData: List<type.GenerateOutputData?>? = this.generateOutputData.apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_)
 
-        checkValues(asList(type.GenerateOutputDataImpl(number("27.5"), "Accept", numericUnaryMinus(number("7.5")))), generateOutputData);
+        checkValues(asList(type.GenerateOutputDataImpl(number("27.5"), "Accept", numericUnaryMinus(number("7.5")))), generateOutputData)
 
         // Make proto request
         var builder_: proto.GenerateOutputDataRequest.Builder = proto.GenerateOutputDataRequest.newBuilder()
-        builder_.setCurrentRiskAppetite((if (currentRiskAppetite == null) 0.0 else currentRiskAppetite!!.toDouble()))
-        builder_.setLendingThreshold((if (lendingThreshold == null) 0.0 else lendingThreshold!!.toDouble()))
-        builder_.setApplicant(type.Applicant.toProto(applicant))
+        val currentRiskAppetiteProto: Double = (if (currentRiskAppetite == null) 0.0 else currentRiskAppetite!!.toDouble());
+        builder_.setCurrentRiskAppetite(currentRiskAppetiteProto);
+        val lendingThresholdProto: Double = (if (lendingThreshold == null) 0.0 else lendingThreshold!!.toDouble());
+        builder_.setLendingThreshold(lendingThresholdProto);
+        val applicantProto: proto.Applicant = type.Applicant.toProto(applicant);
+        if (applicantProto != null) {
+            builder_.setApplicant(applicantProto);
+        }
         val generateOutputDataRequest_: proto.GenerateOutputDataRequest = builder_.build()
 
         // Invoke apply method
-        val response_: proto.GenerateOutputDataResponse = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_)
-        val generateOutputDataProto: List<proto.GenerateOutputData?>? = response_.getGenerateOutputDataList()
+        val generateOutputDataResponse_: proto.GenerateOutputDataResponse = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_)
+        val generateOutputDataProto_: List<proto.GenerateOutputData?>? = generateOutputDataResponse_.getGenerateOutputDataList()
 
         // Check results
-        checkValues(asList(type.GenerateOutputDataImpl(number("27.5"), "Accept", numericUnaryMinus(number("7.5")))), generateOutputDataProto)
+        checkValues(asList(type.GenerateOutputDataImpl(number("27.5"), "Accept", numericUnaryMinus(number("7.5"))))?.stream()?.map({e -> type.GenerateOutputData.toProto(e)})?.collect(java.util.stream.Collectors.toList()), generateOutputDataProto_)
     }
 
     @org.junit.Test
@@ -39,21 +44,26 @@ class GenerateOutputDataTest : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
         val applicant: type.Applicant? = type.ApplicantImpl(number("18"), number("65"), "Bill", asList("Card rejection", "Default on obligations"))
         val generateOutputData: List<type.GenerateOutputData?>? = this.generateOutputData.apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_)
 
-        checkValues(asList(type.GenerateOutputDataImpl(numericUnaryMinus(number("10")), "Reject", numericUnaryMinus(number("25")))), generateOutputData);
+        checkValues(asList(type.GenerateOutputDataImpl(numericUnaryMinus(number("10")), "Reject", numericUnaryMinus(number("25")))), generateOutputData)
 
         // Make proto request
         var builder_: proto.GenerateOutputDataRequest.Builder = proto.GenerateOutputDataRequest.newBuilder()
-        builder_.setCurrentRiskAppetite((if (currentRiskAppetite == null) 0.0 else currentRiskAppetite!!.toDouble()))
-        builder_.setLendingThreshold((if (lendingThreshold == null) 0.0 else lendingThreshold!!.toDouble()))
-        builder_.setApplicant(type.Applicant.toProto(applicant))
+        val currentRiskAppetiteProto: Double = (if (currentRiskAppetite == null) 0.0 else currentRiskAppetite!!.toDouble());
+        builder_.setCurrentRiskAppetite(currentRiskAppetiteProto);
+        val lendingThresholdProto: Double = (if (lendingThreshold == null) 0.0 else lendingThreshold!!.toDouble());
+        builder_.setLendingThreshold(lendingThresholdProto);
+        val applicantProto: proto.Applicant = type.Applicant.toProto(applicant);
+        if (applicantProto != null) {
+            builder_.setApplicant(applicantProto);
+        }
         val generateOutputDataRequest_: proto.GenerateOutputDataRequest = builder_.build()
 
         // Invoke apply method
-        val response_: proto.GenerateOutputDataResponse = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_)
-        val generateOutputDataProto: List<proto.GenerateOutputData?>? = response_.getGenerateOutputDataList()
+        val generateOutputDataResponse_: proto.GenerateOutputDataResponse = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_)
+        val generateOutputDataProto_: List<proto.GenerateOutputData?>? = generateOutputDataResponse_.getGenerateOutputDataList()
 
         // Check results
-        checkValues(asList(type.GenerateOutputDataImpl(numericUnaryMinus(number("10")), "Reject", numericUnaryMinus(number("25")))), generateOutputDataProto)
+        checkValues(asList(type.GenerateOutputDataImpl(numericUnaryMinus(number("10")), "Reject", numericUnaryMinus(number("25"))))?.stream()?.map({e -> type.GenerateOutputData.toProto(e)})?.collect(java.util.stream.Collectors.toList()), generateOutputDataProto_)
     }
 
     @org.junit.Test
@@ -64,21 +74,26 @@ class GenerateOutputDataTest : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
         val applicant: type.Applicant? = type.ApplicantImpl(number("65"), number("80"), "Charlie", asList("Late payment", "Default on obligations", "Bankruptcy"))
         val generateOutputData: List<type.GenerateOutputData?>? = this.generateOutputData.apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_)
 
-        checkValues(asList(type.GenerateOutputDataImpl(numericUnaryMinus(number("42.5")), "Reject", numericUnaryMinus(number("77.5")))), generateOutputData);
+        checkValues(asList(type.GenerateOutputDataImpl(numericUnaryMinus(number("42.5")), "Reject", numericUnaryMinus(number("77.5")))), generateOutputData)
 
         // Make proto request
         var builder_: proto.GenerateOutputDataRequest.Builder = proto.GenerateOutputDataRequest.newBuilder()
-        builder_.setCurrentRiskAppetite((if (currentRiskAppetite == null) 0.0 else currentRiskAppetite!!.toDouble()))
-        builder_.setLendingThreshold((if (lendingThreshold == null) 0.0 else lendingThreshold!!.toDouble()))
-        builder_.setApplicant(type.Applicant.toProto(applicant))
+        val currentRiskAppetiteProto: Double = (if (currentRiskAppetite == null) 0.0 else currentRiskAppetite!!.toDouble());
+        builder_.setCurrentRiskAppetite(currentRiskAppetiteProto);
+        val lendingThresholdProto: Double = (if (lendingThreshold == null) 0.0 else lendingThreshold!!.toDouble());
+        builder_.setLendingThreshold(lendingThresholdProto);
+        val applicantProto: proto.Applicant = type.Applicant.toProto(applicant);
+        if (applicantProto != null) {
+            builder_.setApplicant(applicantProto);
+        }
         val generateOutputDataRequest_: proto.GenerateOutputDataRequest = builder_.build()
 
         // Invoke apply method
-        val response_: proto.GenerateOutputDataResponse = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_)
-        val generateOutputDataProto: List<proto.GenerateOutputData?>? = response_.getGenerateOutputDataList()
+        val generateOutputDataResponse_: proto.GenerateOutputDataResponse = this.generateOutputData.apply(generateOutputDataRequest_, annotationSet_)
+        val generateOutputDataProto_: List<proto.GenerateOutputData?>? = generateOutputDataResponse_.getGenerateOutputDataList()
 
         // Check results
-        checkValues(asList(type.GenerateOutputDataImpl(numericUnaryMinus(number("42.5")), "Reject", numericUnaryMinus(number("77.5")))), generateOutputDataProto)
+        checkValues(asList(type.GenerateOutputDataImpl(numericUnaryMinus(number("42.5")), "Reject", numericUnaryMinus(number("77.5"))))?.stream()?.map({e -> type.GenerateOutputData.toProto(e)})?.collect(java.util.stream.Collectors.toList()), generateOutputDataProto_)
     }
 
     private fun checkValues(expected: Any?, actual: Any?) {

@@ -20,9 +20,9 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start BKM 'PostBureauRiskCategoryTable'
             val postBureauRiskCategoryTableStartTime_ = System.currentTimeMillis()
             val postBureauRiskCategoryTableArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            postBureauRiskCategoryTableArguments_.put("ExistingCustomer", existingCustomer);
-            postBureauRiskCategoryTableArguments_.put("ApplicationRiskScore", applicationRiskScore);
-            postBureauRiskCategoryTableArguments_.put("CreditScore", creditScore);
+            postBureauRiskCategoryTableArguments_.put("ExistingCustomer", existingCustomer)
+            postBureauRiskCategoryTableArguments_.put("ApplicationRiskScore", applicationRiskScore)
+            postBureauRiskCategoryTableArguments_.put("CreditScore", creditScore)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, postBureauRiskCategoryTableArguments_)
 
             // Evaluate BKM 'PostBureauRiskCategoryTable'
