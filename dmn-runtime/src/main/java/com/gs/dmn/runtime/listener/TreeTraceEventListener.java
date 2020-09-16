@@ -45,7 +45,10 @@ public class TreeTraceEventListener extends AbstractTraceEventListener implement
     @Override
     public void endDRGElement(DRGElement element, Arguments arguments, Object output, long duration) {
         if (!this.elementNodeStack.empty()) {
-            this.elementNodeStack.pop();
+            DRGElementNode top = this.elementNodeStack.pop();
+            if (top != null) {
+                top.setOutput(output);
+            }
         }
     }
 

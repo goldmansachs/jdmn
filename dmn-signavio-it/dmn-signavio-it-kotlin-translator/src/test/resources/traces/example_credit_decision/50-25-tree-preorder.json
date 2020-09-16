@@ -21,6 +21,13 @@
       "Current risk appetite": 50,
       "Lending threshold": 25
     },
+    "output": [
+      {
+        "Assessment": 27.50,
+        "Decision": "Accept",
+        "Issue": -7.50
+      }
+    ],
     "ruleNodes": [],
     "children": [
       {
@@ -45,6 +52,7 @@
           "Current risk appetite": 50,
           "Lending threshold": 25
         },
+        "output": "Accept",
         "ruleNodes": [
           {
             "rule": {
@@ -125,6 +133,7 @@
               "Current risk appetite": 50,
               "Lending threshold": 25
             },
+            "output": 27.50,
             "ruleNodes": [
               {
                 "rule": {
@@ -187,6 +196,7 @@
                   },
                   "Current risk appetite": 50
                 },
+                "output": -7.50,
                 "ruleNodes": [],
                 "children": [
                   {
@@ -209,6 +219,10 @@
                         ]
                       }
                     },
+                    "output": [
+                      -10,
+                      -5
+                    ],
                     "ruleNodes": [
                       {
                         "rule": {
@@ -312,6 +326,7 @@
                       "Current risk appetite": 50,
                       "Prior issue": -10
                     },
+                    "output": -5.00,
                     "ruleNodes": [],
                     "children": []
                   },
@@ -329,6 +344,7 @@
                       "Current risk appetite": 50,
                       "Prior issue": -5
                     },
+                    "output": -2.50,
                     "ruleNodes": [],
                     "children": []
                   }
@@ -354,6 +370,7 @@
                     ]
                   }
                 },
+                "output": 60,
                 "ruleNodes": [
                   {
                     "rule": {
@@ -435,6 +452,7 @@
           "Current risk appetite": 50,
           "Lending threshold": 25
         },
+        "output": 27.50,
         "ruleNodes": [
           {
             "rule": {
@@ -493,6 +511,7 @@
               },
               "Current risk appetite": 50
             },
+            "output": -7.50,
             "ruleNodes": [],
             "children": [
               {
@@ -515,6 +534,10 @@
                     ]
                   }
                 },
+                "output": [
+                  -10,
+                  -5
+                ],
                 "ruleNodes": [
                   {
                     "rule": {
@@ -618,6 +641,7 @@
                   "Current risk appetite": 50,
                   "Prior issue": -10
                 },
+                "output": -5.00,
                 "ruleNodes": [],
                 "children": []
               },
@@ -635,6 +659,7 @@
                   "Current risk appetite": 50,
                   "Prior issue": -5
                 },
+                "output": -2.50,
                 "ruleNodes": [],
                 "children": []
               }
@@ -660,6 +685,7 @@
                 ]
               }
             },
+            "output": 60,
             "ruleNodes": [
               {
                 "rule": {
@@ -738,6 +764,7 @@
           },
           "Current risk appetite": 50
         },
+        "output": -7.50,
         "ruleNodes": [],
         "children": [
           {
@@ -760,6 +787,10 @@
                 ]
               }
             },
+            "output": [
+              -10,
+              -5
+            ],
             "ruleNodes": [
               {
                 "rule": {
@@ -863,6 +894,7 @@
               "Current risk appetite": 50,
               "Prior issue": -10
             },
+            "output": -5.00,
             "ruleNodes": [],
             "children": []
           },
@@ -880,6 +912,7 @@
               "Current risk appetite": 50,
               "Prior issue": -5
             },
+            "output": -2.50,
             "ruleNodes": [],
             "children": []
           }
@@ -909,6 +942,7 @@
       "Current risk appetite": 50,
       "Lending threshold": 25
     },
+    "output": "Accept",
     "ruleNodes": [
       {
         "rule": {
@@ -989,6 +1023,7 @@
           "Current risk appetite": 50,
           "Lending threshold": 25
         },
+        "output": 27.50,
         "ruleNodes": [
           {
             "rule": {
@@ -1051,6 +1086,7 @@
               },
               "Current risk appetite": 50
             },
+            "output": -7.50,
             "ruleNodes": [],
             "children": [
               {
@@ -1073,6 +1109,10 @@
                     ]
                   }
                 },
+                "output": [
+                  -10,
+                  -5
+                ],
                 "ruleNodes": [
                   {
                     "rule": {
@@ -1176,6 +1216,7 @@
                   "Current risk appetite": 50,
                   "Prior issue": -10
                 },
+                "output": -5.00,
                 "ruleNodes": [],
                 "children": []
               },
@@ -1193,6 +1234,7 @@
                   "Current risk appetite": 50,
                   "Prior issue": -5
                 },
+                "output": -2.50,
                 "ruleNodes": [],
                 "children": []
               }
@@ -1218,6 +1260,7 @@
                 ]
               }
             },
+            "output": 60,
             "ruleNodes": [
               {
                 "rule": {
@@ -1299,6 +1342,7 @@
       "Current risk appetite": 50,
       "Lending threshold": 25
     },
+    "output": 27.50,
     "ruleNodes": [
       {
         "rule": {
@@ -1361,6 +1405,7 @@
           },
           "Current risk appetite": 50
         },
+        "output": -7.50,
         "ruleNodes": [],
         "children": [
           {
@@ -1383,6 +1428,10 @@
                 ]
               }
             },
+            "output": [
+              -10,
+              -5
+            ],
             "ruleNodes": [
               {
                 "rule": {
@@ -1486,6 +1535,7 @@
               "Current risk appetite": 50,
               "Prior issue": -10
             },
+            "output": -5.00,
             "ruleNodes": [],
             "children": []
           },
@@ -1503,6 +1553,7 @@
               "Current risk appetite": 50,
               "Prior issue": -5
             },
+            "output": -2.50,
             "ruleNodes": [],
             "children": []
           }
@@ -1528,6 +1579,7 @@
             ]
           }
         },
+        "output": 60,
         "ruleNodes": [
           {
             "rule": {
@@ -1606,6 +1658,7 @@
       },
       "Current risk appetite": 50
     },
+    "output": -7.50,
     "ruleNodes": [],
     "children": [
       {
@@ -1628,6 +1681,10 @@
             ]
           }
         },
+        "output": [
+          -10,
+          -5
+        ],
         "ruleNodes": [
           {
             "rule": {
@@ -1731,6 +1788,7 @@
           "Current risk appetite": 50,
           "Prior issue": -10
         },
+        "output": -5.00,
         "ruleNodes": [],
         "children": []
       },
@@ -1748,6 +1806,7 @@
           "Current risk appetite": 50,
           "Prior issue": -5
         },
+        "output": -2.50,
         "ruleNodes": [],
         "children": []
       }
@@ -1773,6 +1832,10 @@
         ]
       }
     },
+    "output": [
+      -10,
+      -5
+    ],
     "ruleNodes": [
       {
         "rule": {
@@ -1876,6 +1939,7 @@
       "Current risk appetite": 50,
       "Prior issue": -10
     },
+    "output": -5.00,
     "ruleNodes": [],
     "children": []
   },
@@ -1893,6 +1957,7 @@
       "Current risk appetite": 50,
       "Prior issue": -5
     },
+    "output": -2.50,
     "ruleNodes": [],
     "children": []
   },
@@ -1916,6 +1981,7 @@
         ]
       }
     },
+    "output": 60,
     "ruleNodes": [
       {
         "rule": {
@@ -1993,6 +2059,7 @@
       "Current risk appetite": 50,
       "Lending threshold": 25
     },
+    "output": 27.50,
     "ruleNodes": [
       {
         "rule": {
@@ -2051,6 +2118,7 @@
           },
           "Current risk appetite": 50
         },
+        "output": -7.50,
         "ruleNodes": [],
         "children": [
           {
@@ -2073,6 +2141,10 @@
                 ]
               }
             },
+            "output": [
+              -10,
+              -5
+            ],
             "ruleNodes": [
               {
                 "rule": {
@@ -2176,6 +2248,7 @@
               "Current risk appetite": 50,
               "Prior issue": -10
             },
+            "output": -5.00,
             "ruleNodes": [],
             "children": []
           },
@@ -2193,6 +2266,7 @@
               "Current risk appetite": 50,
               "Prior issue": -5
             },
+            "output": -2.50,
             "ruleNodes": [],
             "children": []
           }
@@ -2218,6 +2292,7 @@
             ]
           }
         },
+        "output": 60,
         "ruleNodes": [
           {
             "rule": {
@@ -2296,6 +2371,7 @@
       },
       "Current risk appetite": 50
     },
+    "output": -7.50,
     "ruleNodes": [],
     "children": [
       {
@@ -2318,6 +2394,10 @@
             ]
           }
         },
+        "output": [
+          -10,
+          -5
+        ],
         "ruleNodes": [
           {
             "rule": {
@@ -2421,6 +2501,7 @@
           "Current risk appetite": 50,
           "Prior issue": -10
         },
+        "output": -5.00,
         "ruleNodes": [],
         "children": []
       },
@@ -2438,6 +2519,7 @@
           "Current risk appetite": 50,
           "Prior issue": -5
         },
+        "output": -2.50,
         "ruleNodes": [],
         "children": []
       }
@@ -2463,6 +2545,10 @@
         ]
       }
     },
+    "output": [
+      -10,
+      -5
+    ],
     "ruleNodes": [
       {
         "rule": {
@@ -2566,6 +2652,7 @@
       "Current risk appetite": 50,
       "Prior issue": -10
     },
+    "output": -5.00,
     "ruleNodes": [],
     "children": []
   },
@@ -2583,6 +2670,7 @@
       "Current risk appetite": 50,
       "Prior issue": -5
     },
+    "output": -2.50,
     "ruleNodes": [],
     "children": []
   },
@@ -2606,6 +2694,7 @@
         ]
       }
     },
+    "output": 60,
     "ruleNodes": [
       {
         "rule": {
@@ -2682,6 +2771,7 @@
       },
       "Current risk appetite": 50
     },
+    "output": -7.50,
     "ruleNodes": [],
     "children": [
       {
@@ -2704,6 +2794,10 @@
             ]
           }
         },
+        "output": [
+          -10,
+          -5
+        ],
         "ruleNodes": [
           {
             "rule": {
@@ -2807,6 +2901,7 @@
           "Current risk appetite": 50,
           "Prior issue": -10
         },
+        "output": -5.00,
         "ruleNodes": [],
         "children": []
       },
@@ -2824,6 +2919,7 @@
           "Current risk appetite": 50,
           "Prior issue": -5
         },
+        "output": -2.50,
         "ruleNodes": [],
         "children": []
       }
@@ -2849,6 +2945,10 @@
         ]
       }
     },
+    "output": [
+      -10,
+      -5
+    ],
     "ruleNodes": [
       {
         "rule": {
@@ -2952,6 +3052,7 @@
       "Current risk appetite": 50,
       "Prior issue": -10
     },
+    "output": -5.00,
     "ruleNodes": [],
     "children": []
   },
@@ -2969,6 +3070,7 @@
       "Current risk appetite": 50,
       "Prior issue": -5
     },
+    "output": -2.50,
     "ruleNodes": [],
     "children": []
   }
