@@ -40,7 +40,7 @@ class Sort2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             // Start decision 'sort2'
             val sort2StartTime_ = System.currentTimeMillis()
             val sort2Arguments_ = com.gs.dmn.runtime.listener.Arguments()
-            sort2Arguments_.put("tableB", tableB);
+            sort2Arguments_.put("tableB", tableB)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, sort2Arguments_)
 
             // Evaluate decision 'sort2'

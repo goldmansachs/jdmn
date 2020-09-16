@@ -50,7 +50,7 @@ public class MixedJavaTimeSignavioDMNDialectDefinition extends AbstractSignavioD
     @Override
     public BasicDMNToJavaTransformer createBasicTransformer(DMNModelRepository repository, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
         EnvironmentFactory environmentFactory = createEnvironmentFactory();
-        return new BasicSignavioDMNToJavaTransformer(repository, environmentFactory, createNativeTypeFactory(), lazyEvaluationDetector, inputParameters);
+        return new BasicSignavioDMNToJavaTransformer(this, repository, environmentFactory, createNativeTypeFactory(), lazyEvaluationDetector, inputParameters);
     }
 
     //

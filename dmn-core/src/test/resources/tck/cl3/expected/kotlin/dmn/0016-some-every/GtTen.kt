@@ -20,7 +20,7 @@ class GtTen : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start BKM 'gtTen'
             val gtTenStartTime_ = System.currentTimeMillis()
             val gtTenArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            gtTenArguments_.put("theNumber", theNumber);
+            gtTenArguments_.put("theNumber", theNumber)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, gtTenArguments_)
 
             // Evaluate BKM 'gtTen'

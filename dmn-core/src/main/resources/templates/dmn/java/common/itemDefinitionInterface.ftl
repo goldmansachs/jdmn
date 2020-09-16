@@ -49,7 +49,7 @@ public interface ${javaClassName} extends ${transformer.dmnTypeClassName()} {
         } else if (other instanceof ${transformer.qualifiedProtoMessageName(itemDefinition)}) {
             ${transformer.itemDefinitionNativeClassName(javaClassName)} result_ = ${transformer.defaultConstructor(transformer.itemDefinitionNativeClassName(javaClassName))};
         <#list itemDefinition.itemComponent as child>
-            result_.${transformer.setter(child)}(${transformer.convertProtoMember("other", itemDefinition, child)});
+            result_.${transformer.setter(child)}(${transformer.convertProtoMember("other", itemDefinition, child, true)});
         </#list>
             return result_;
     </#if>
@@ -61,9 +61,19 @@ public interface ${javaClassName} extends ${transformer.dmnTypeClassName()} {
 
     static ${transformer.qualifiedProtoMessageName(itemDefinition)} toProto(${javaClassName} other) {
         ${transformer.qualifiedProtoMessageName(itemDefinition)}.Builder result_ = ${transformer.qualifiedProtoMessageName(itemDefinition)}.newBuilder();
-    <#list itemDefinition.itemComponent as child>
-        result_.${transformer.protoSetter(child)}(${transformer.convertMemberToProto("other", javaClassName, child)});
-    </#list>
+        if (other != null) {
+        <#list itemDefinition.itemComponent as child>
+            <#assign memberVariable = transformer.namedElementVariableNameProto(child) />
+            ${transformer.qualifiedNativeProtoType(child)} ${memberVariable} = ${transformer.convertMemberToProto("other", javaClassName, child, true)};
+            <#if transformer.isProtoReference(child)>
+            if (${memberVariable} != null) {
+                result_.${transformer.protoSetter(child)}(${memberVariable});
+            }
+            <#else>
+            result_.${transformer.protoSetter(child)}(${memberVariable});
+            </#if>
+        </#list>
+        }
         return result_.build();
     }
 

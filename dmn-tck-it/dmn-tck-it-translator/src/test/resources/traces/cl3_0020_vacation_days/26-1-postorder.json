@@ -10,6 +10,7 @@
       "rulesCount": -1
     },
     "arguments": {},
+    "output": 22,
     "ruleNodes": [],
     "children": []
   },
@@ -27,6 +28,7 @@
       "Age": 16,
       "'Years of Service'": 1
     },
+    "output": 5,
     "ruleNodes": [
       {
         "rule": {
@@ -87,6 +89,7 @@
       "Age": 16,
       "'Years of Service'": 1
     },
+    "output": 0,
     "ruleNodes": [
       {
         "rule": {
@@ -143,6 +146,7 @@
       "Age": 16,
       "'Years of Service'": 1
     },
+    "output": 0,
     "ruleNodes": [
       {
         "rule": {
@@ -199,6 +203,7 @@
       "Age": 16,
       "'Years of Service'": 1
     },
+    "output": 27,
     "ruleNodes": [],
     "children": []
   }

@@ -14,6 +14,7 @@
 <#if javaPackageName?has_content>
 package ${javaPackageName}
 </#if>
+<#assign repository = transformer.getDMNModelRepository() />
 
 import java.util.*
 import java.util.stream.Collectors
@@ -63,10 +64,7 @@ class ${javaClassName}(${transformer.decisionConstructorSignature(drgElement)}) 
     }
 
     fun apply(${transformer.drgElementSignatureExtraCacheProto(drgElement)}): ${transformer.qualifiedResponseMessageName(drgElement)} {
-        <#assign stm = transformer.drgElementSignatureProtoBody(drgElement)>
-        <#list stm.statements as child>
-        ${child.expression}
-        </#list>
+    <@applyRequest drgElement />
     }
     </#if>
     <@evaluateExpressionMethod drgElement />
@@ -81,5 +79,76 @@ class ${javaClassName}(${transformer.decisionConstructorSignature(drgElement)}) 
             ${transformer.hitPolicyAnnotationClassName()}.${transformer.hitPolicy(drgElement)},
             ${modelRepository.rulesCount(drgElement)}
         )
+    <#if transformer.isGenerateProto()>
+
+        @JvmStatic
+        fun requestToMap(${transformer.requestVariableName(drgElement)}: ${transformer.qualifiedRequestMessageName(drgElement)}): kotlin.collections.Map<String, Any?> {
+            <@convertProtoRequestToMap drgElement />
+        }
+
+        @JvmStatic
+        fun responseToOutput(${transformer.responseVariableName(drgElement)}: ${transformer.qualifiedResponseMessageName(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+            <@convertProtoResponseToOutput drgElement />
+        }
+    </#if>
     }
 }
+<#macro makeArgumentsFromRequestMessage drgElement staticContext indent>
+    <#assign parameters = transformer.drgElementTypeSignature(drgElement) />
+        ${indent}// Create arguments from Request Message
+    <#list parameters as parameter>
+        ${indent}val ${parameter.left}: ${transformer.toNativeType(parameter.right)}? = ${transformer.extractParameterFromRequestMessage(drgElement, parameter, staticContext)}
+    </#list>
+</#macro>
+
+<#macro applyRequest drgElement>
+    <@makeArgumentsFromRequestMessage drgElement false ""/>
+
+    <#assign outputVariable = "output_" />
+    <#assign outputVariableProto = "outputProto_" />
+    <#assign responseMessageName = transformer.qualifiedResponseMessageName(drgElement) />
+    <#assign outputType = transformer.drgElementOutputFEELType(drgElement) />
+        // Invoke apply method
+        <#assign outputVariable = "output_" />
+        val ${outputVariable}: ${transformer.drgElementOutputType(drgElement)} = apply(${transformer.drgElementArgumentListExtraCache(drgElement)})
+
+        // Convert output to Response Message
+        <#assign responseMessageName = transformer.qualifiedResponseMessageName(drgElement) />
+        val builder_: ${responseMessageName}.Builder = ${responseMessageName}.newBuilder()
+        <#assign outputType = transformer.drgElementOutputFEELType(drgElement) />
+        val ${outputVariableProto} = ${transformer.convertValueToProtoNativeType(outputVariable, outputType, false)}
+    <#if transformer.isProtoReference(outputType)>
+        if (${outputVariableProto} != null) {
+            builder_.${transformer.protoSetter(drgElement)}(${outputVariableProto})
+        }
+    <#else>
+        builder_.${transformer.protoSetter(drgElement)}(${outputVariableProto})
+    </#if>
+        return builder_.build()
+</#macro>
+
+<#macro convertProtoRequestToMap drgElement>
+     <@makeArgumentsFromRequestMessage drgElement true "    "/>
+
+    <#assign mapVariable = "map_" />
+    <#assign reference = repository.makeDRGElementReference(drgElement) />
+    <#assign inputDataClosure = transformer.inputDataClosure(reference) />
+            // Create map
+            val ${mapVariable}: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            <#list inputDataClosure as r >
+                <#assign inputData = r.element />
+                <#assign displayName = repository.displayName(inputData) />
+                <#assign variableName = transformer.nativeName(inputData) />
+            ${mapVariable}.put("${displayName}", ${variableName})
+            </#list>
+            return ${mapVariable}
+</#macro>
+
+<#macro convertProtoResponseToOutput drgElement>
+            // Extract and convert output
+            <#assign source = transformer.responseVariableName(drgElement) />
+            <#assign memberType = transformer.drgElementOutputFEELType(drgElement) />
+            <#assign value>${source}.${transformer.protoGetter(drgElement)}</#assign>
+            <#assign exp = transformer.extractMemberFromProtoValue(value, memberType, true) />
+            return ${exp}
+</#macro>

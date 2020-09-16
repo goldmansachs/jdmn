@@ -22,6 +22,7 @@ public class TemporalDiffs extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
         com.gs.dmn.runtime.annotation.HitPolicy.COLLECT,
         4
     );
+
     private final GenerateTemporalObjects generateTemporalObjects;
 
     public TemporalDiffs() {

@@ -40,8 +40,8 @@ class PostBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = A
             // Start decision 'PostBureauRiskCategory'
             val postBureauRiskCategoryStartTime_ = System.currentTimeMillis()
             val postBureauRiskCategoryArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            postBureauRiskCategoryArguments_.put("ApplicantData", applicantData);
-            postBureauRiskCategoryArguments_.put("BureauData", bureauData);
+            postBureauRiskCategoryArguments_.put("ApplicantData", applicantData)
+            postBureauRiskCategoryArguments_.put("BureauData", bureauData)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, postBureauRiskCategoryArguments_)
 
             if (cache_.contains("PostBureauRiskCategory")) {
@@ -77,15 +77,16 @@ class PostBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = A
 
     fun apply(postBureauRiskCategoryRequest_: proto.PostBureauRiskCategoryRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.PostBureauRiskCategoryResponse {
         // Create arguments from Request Message
-        var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(postBureauRiskCategoryRequest_.getApplicantData())
-        var bureauData: type.TBureauData? = type.TBureauData.toTBureauData(postBureauRiskCategoryRequest_.getBureauData())
-        
+        val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(postBureauRiskCategoryRequest_.getApplicantData())
+        val bureauData: type.TBureauData? = type.TBureauData.toTBureauData(postBureauRiskCategoryRequest_.getBureauData())
+
         // Invoke apply method
-        var output_: String? = apply(applicantData, bureauData, annotationSet_, eventListener_, externalExecutor_, cache_)
-        
+        val output_: String? = apply(applicantData, bureauData, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         // Convert output to Response Message
-        var builder_: proto.PostBureauRiskCategoryResponse.Builder = proto.PostBureauRiskCategoryResponse.newBuilder()
-        builder_.setPostBureauRiskCategory((if (output_ == null) null else output_!!))
+        val builder_: proto.PostBureauRiskCategoryResponse.Builder = proto.PostBureauRiskCategoryResponse.newBuilder()
+        val outputProto_ = (if (output_ == null) "" else output_!!)
+        builder_.setPostBureauRiskCategory(outputProto_)
         return builder_.build()
     }
 
@@ -103,5 +104,24 @@ class PostBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = A
             com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
             -1
         )
+
+        @JvmStatic
+        fun requestToMap(postBureauRiskCategoryRequest_: proto.PostBureauRiskCategoryRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(postBureauRiskCategoryRequest_.getApplicantData())
+            val bureauData: type.TBureauData? = type.TBureauData.toTBureauData(postBureauRiskCategoryRequest_.getBureauData())
+
+            // Create map
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("ApplicantData", applicantData)
+            map_.put("BureauData", bureauData)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(postBureauRiskCategoryResponse_: proto.PostBureauRiskCategoryResponse): String? {
+            // Extract and convert output
+            return postBureauRiskCategoryResponse_.getPostBureauRiskCategory()
+        }
     }
 }

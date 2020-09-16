@@ -22,6 +22,7 @@ public class TestNullComplexTypeAccess extends com.gs.dmn.signavio.runtime.Defau
         com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
         4
     );
+
     private final IncompleteDecisionTable incompleteDecisionTable;
 
     public TestNullComplexTypeAccess() {

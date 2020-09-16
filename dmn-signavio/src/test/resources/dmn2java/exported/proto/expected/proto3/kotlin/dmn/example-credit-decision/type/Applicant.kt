@@ -87,15 +87,25 @@ interface Applicant : com.gs.dmn.runtime.DMNType {
             }
         }
 
+        @JvmStatic
         fun toProto(other: Applicant?): proto.Applicant {
-            var result_: proto.Applicant.Builder = proto.Applicant.newBuilder();
-            result_.setName((if ((other as Applicant).name == null) null else (other as Applicant).name!!))
-            result_.setAge((if ((other as Applicant).age == null) 0.0 else (other as Applicant).age!!.toDouble()))
-            result_.setCreditScore((if ((other as Applicant).creditScore == null) 0.0 else (other as Applicant).creditScore!!.toDouble()))
-            result_.addAllPriorIssues((other as Applicant).priorIssues?.stream()?.map({e -> (if (e == null) null else e!!)})?.collect(java.util.stream.Collectors.toList()))
+            var result_: proto.Applicant.Builder = proto.Applicant.newBuilder()
+            if (other != null) {
+                var nameProto_: String = (if ((other as Applicant).name == null) "" else (other as Applicant).name!!)
+                result_.setName(nameProto_)
+                var ageProto_: Double = (if ((other as Applicant).age == null) 0.0 else (other as Applicant).age!!.toDouble())
+                result_.setAge(ageProto_)
+                var creditScoreProto_: Double = (if ((other as Applicant).creditScore == null) 0.0 else (other as Applicant).creditScore!!.toDouble())
+                result_.setCreditScore(creditScoreProto_)
+                var priorIssuesProto_: List<String?>? = (other as Applicant).priorIssues?.stream()?.map({e -> (if (e == null) "" else e!!)})?.collect(java.util.stream.Collectors.toList())
+                if (priorIssuesProto_ != null) {
+                    result_.addAllPriorIssues(priorIssuesProto_)
+                }
+            }
             return result_.build()
         }
 
+        @JvmStatic
         fun toProto(other: List<Applicant?>?): List<proto.Applicant>? {
             if (other == null) {
                 return null

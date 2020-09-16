@@ -22,6 +22,7 @@ public class PartC extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
         com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
         1
     );
+
     private final Logical logical;
     private final Temporal temporal;
     private final TemporalComparator temporalComparator;

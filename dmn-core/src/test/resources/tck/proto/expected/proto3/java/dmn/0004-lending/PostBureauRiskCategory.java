@@ -22,6 +22,24 @@ public class PostBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDec
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
+    public static java.util.Map<String, Object> requestToMap(proto.PostBureauRiskCategoryRequest postBureauRiskCategoryRequest_) {
+        // Create arguments from Request Message
+        type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(postBureauRiskCategoryRequest_.getApplicantData());
+        type.TBureauData bureauData = type.TBureauData.toTBureauData(postBureauRiskCategoryRequest_.getBureauData());
+
+        // Create map
+        java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
+        map_.put("ApplicantData", applicantData);
+        map_.put("BureauData", bureauData);
+        return map_;
+    }
+
+    public static String responseToOutput(proto.PostBureauRiskCategoryResponse postBureauRiskCategoryResponse_) {
+        // Extract and convert output
+        return postBureauRiskCategoryResponse_.getPostBureauRiskCategory();
+    }
+
     private final ApplicationRiskScore applicationRiskScore;
 
     public PostBureauRiskCategory() {
@@ -98,13 +116,14 @@ public class PostBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDec
         // Create arguments from Request Message
         type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(postBureauRiskCategoryRequest_.getApplicantData());
         type.TBureauData bureauData = type.TBureauData.toTBureauData(postBureauRiskCategoryRequest_.getBureauData());
-        
+
         // Invoke apply method
         String output_ = apply(applicantData, bureauData, annotationSet_, eventListener_, externalExecutor_, cache_);
-        
+
         // Convert output to Response Message
         proto.PostBureauRiskCategoryResponse.Builder builder_ = proto.PostBureauRiskCategoryResponse.newBuilder();
-        builder_.setPostBureauRiskCategory(output_);
+        String outputProto_ = (output_ == null ? "" : output_);
+        builder_.setPostBureauRiskCategory(outputProto_);
         return builder_.build();
     }
 

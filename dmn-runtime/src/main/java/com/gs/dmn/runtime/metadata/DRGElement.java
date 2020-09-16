@@ -14,8 +14,6 @@ package com.gs.dmn.runtime.metadata;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.List;
-
 public abstract class DRGElement extends NamedElement {
     @JsonProperty("javaParameterName")
     private String javaParameterName;
@@ -26,19 +24,15 @@ public abstract class DRGElement extends NamedElement {
     @JsonProperty("typeRef")
     private QName typeRef;
 
-    @JsonProperty("transitiveRequiredInput")
-    private List<InputData> transitiveRequiredInputs;
-
     // Required by ObjectMapper
     DRGElement() {
     }
 
-    public DRGElement(String id, String name, String label, String javaParameterName, String javaTypeName, QName typeRef, List<InputData> transitiveRequiredInputs) {
+    public DRGElement(String id, String name, String label, String javaParameterName, String javaTypeName, QName typeRef) {
         super(id, name, label);
         this.javaParameterName = javaParameterName;
         this.javaTypeName = javaTypeName;
         this.typeRef = typeRef;
-        this.transitiveRequiredInputs = transitiveRequiredInputs;
     }
 
     public QName getTypeRef() {
@@ -51,9 +45,5 @@ public abstract class DRGElement extends NamedElement {
 
     public String getJavaTypeName() {
         return javaTypeName;
-    }
-
-    public List<InputData> getTransitiveRequiredInputs() {
-        return transitiveRequiredInputs;
     }
 }

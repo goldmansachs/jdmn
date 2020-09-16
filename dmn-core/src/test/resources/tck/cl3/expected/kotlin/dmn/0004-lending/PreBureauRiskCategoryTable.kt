@@ -20,8 +20,8 @@ class PreBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start BKM 'PreBureauRiskCategoryTable'
             val preBureauRiskCategoryTableStartTime_ = System.currentTimeMillis()
             val preBureauRiskCategoryTableArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            preBureauRiskCategoryTableArguments_.put("ExistingCustomer", existingCustomer);
-            preBureauRiskCategoryTableArguments_.put("ApplicationRiskScore", applicationRiskScore);
+            preBureauRiskCategoryTableArguments_.put("ExistingCustomer", existingCustomer)
+            preBureauRiskCategoryTableArguments_.put("ApplicationRiskScore", applicationRiskScore)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, preBureauRiskCategoryTableArguments_)
 
             // Evaluate BKM 'PreBureauRiskCategoryTable'

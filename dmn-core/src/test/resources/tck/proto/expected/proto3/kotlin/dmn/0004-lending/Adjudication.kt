@@ -40,9 +40,9 @@ class Adjudication() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             // Start decision 'Adjudication'
             val adjudicationStartTime_ = System.currentTimeMillis()
             val adjudicationArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            adjudicationArguments_.put("ApplicantData", applicantData);
-            adjudicationArguments_.put("BureauData", bureauData);
-            adjudicationArguments_.put("SupportingDocuments", supportingDocuments);
+            adjudicationArguments_.put("ApplicantData", applicantData)
+            adjudicationArguments_.put("BureauData", bureauData)
+            adjudicationArguments_.put("SupportingDocuments", supportingDocuments)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, adjudicationArguments_)
 
             // Evaluate decision 'Adjudication'
@@ -64,16 +64,17 @@ class Adjudication() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
     fun apply(adjudicationRequest_: proto.AdjudicationRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.AdjudicationResponse {
         // Create arguments from Request Message
-        var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(adjudicationRequest_.getApplicantData())
-        var bureauData: type.TBureauData? = type.TBureauData.toTBureauData(adjudicationRequest_.getBureauData())
-        var supportingDocuments: String? = adjudicationRequest_.getSupportingDocuments()
-        
+        val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(adjudicationRequest_.getApplicantData())
+        val bureauData: type.TBureauData? = type.TBureauData.toTBureauData(adjudicationRequest_.getBureauData())
+        val supportingDocuments: String? = adjudicationRequest_.getSupportingDocuments()
+
         // Invoke apply method
-        var output_: String? = apply(applicantData, bureauData, supportingDocuments, annotationSet_, eventListener_, externalExecutor_, cache_)
-        
+        val output_: String? = apply(applicantData, bureauData, supportingDocuments, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         // Convert output to Response Message
-        var builder_: proto.AdjudicationResponse.Builder = proto.AdjudicationResponse.newBuilder()
-        builder_.setAdjudication((if (output_ == null) null else output_!!))
+        val builder_: proto.AdjudicationResponse.Builder = proto.AdjudicationResponse.newBuilder()
+        val outputProto_ = (if (output_ == null) "" else output_!!)
+        builder_.setAdjudication(outputProto_)
         return builder_.build()
     }
 
@@ -91,5 +92,26 @@ class Adjudication() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
             -1
         )
+
+        @JvmStatic
+        fun requestToMap(adjudicationRequest_: proto.AdjudicationRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(adjudicationRequest_.getApplicantData())
+            val bureauData: type.TBureauData? = type.TBureauData.toTBureauData(adjudicationRequest_.getBureauData())
+            val supportingDocuments: String? = adjudicationRequest_.getSupportingDocuments()
+
+            // Create map
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("ApplicantData", applicantData)
+            map_.put("BureauData", bureauData)
+            map_.put("SupportingDocuments", supportingDocuments)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(adjudicationResponse_: proto.AdjudicationResponse): String? {
+            // Extract and convert output
+            return adjudicationResponse_.getAdjudication()
+        }
     }
 }

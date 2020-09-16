@@ -40,9 +40,9 @@ class CompareAgainstLendingThreshold(val assessApplicantAge : AssessApplicantAge
             // Start decision 'compareAgainstLendingThreshold'
             val compareAgainstLendingThresholdStartTime_ = System.currentTimeMillis()
             val compareAgainstLendingThresholdArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            compareAgainstLendingThresholdArguments_.put("Applicant", applicant);
-            compareAgainstLendingThresholdArguments_.put("Current risk appetite", currentRiskAppetite);
-            compareAgainstLendingThresholdArguments_.put("Lending threshold", lendingThreshold);
+            compareAgainstLendingThresholdArguments_.put("Applicant", applicant)
+            compareAgainstLendingThresholdArguments_.put("Current risk appetite", currentRiskAppetite)
+            compareAgainstLendingThresholdArguments_.put("Lending threshold", lendingThreshold)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, compareAgainstLendingThresholdArguments_)
 
             // Apply child decisions
@@ -68,16 +68,17 @@ class CompareAgainstLendingThreshold(val assessApplicantAge : AssessApplicantAge
 
     fun apply(compareAgainstLendingThresholdRequest_: proto.CompareAgainstLendingThresholdRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.CompareAgainstLendingThresholdResponse {
         // Create arguments from Request Message
-        var applicant: type.Applicant? = type.Applicant.toApplicant(compareAgainstLendingThresholdRequest_.getApplicant())
-        var currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(compareAgainstLendingThresholdRequest_.getCurrentRiskAppetite())
-        var lendingThreshold: java.math.BigDecimal? = java.math.BigDecimal.valueOf(compareAgainstLendingThresholdRequest_.getLendingThreshold())
-        
+        val applicant: type.Applicant? = type.Applicant.toApplicant(compareAgainstLendingThresholdRequest_.getApplicant())
+        val currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(compareAgainstLendingThresholdRequest_.getCurrentRiskAppetite())
+        val lendingThreshold: java.math.BigDecimal? = java.math.BigDecimal.valueOf(compareAgainstLendingThresholdRequest_.getLendingThreshold())
+
         // Invoke apply method
-        var output_: java.math.BigDecimal? = apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_)
-        
+        val output_: java.math.BigDecimal? = apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         // Convert output to Response Message
-        var builder_: proto.CompareAgainstLendingThresholdResponse.Builder = proto.CompareAgainstLendingThresholdResponse.newBuilder()
-        builder_.setCompareAgainstLendingThreshold((if (output_ == null) 0.0 else output_!!.toDouble()))
+        val builder_: proto.CompareAgainstLendingThresholdResponse.Builder = proto.CompareAgainstLendingThresholdResponse.newBuilder()
+        val outputProto_ = (if (output_ == null) 0.0 else output_!!.toDouble())
+        builder_.setCompareAgainstLendingThreshold(outputProto_)
         return builder_.build()
     }
 
@@ -171,5 +172,26 @@ class CompareAgainstLendingThreshold(val assessApplicantAge : AssessApplicantAge
             com.gs.dmn.runtime.annotation.HitPolicy.ANY,
             2
         )
+
+        @JvmStatic
+        fun requestToMap(compareAgainstLendingThresholdRequest_: proto.CompareAgainstLendingThresholdRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            val applicant: type.Applicant? = type.Applicant.toApplicant(compareAgainstLendingThresholdRequest_.getApplicant())
+            val currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(compareAgainstLendingThresholdRequest_.getCurrentRiskAppetite())
+            val lendingThreshold: java.math.BigDecimal? = java.math.BigDecimal.valueOf(compareAgainstLendingThresholdRequest_.getLendingThreshold())
+
+            // Create map
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("Applicant", applicant)
+            map_.put("Current risk appetite", currentRiskAppetite)
+            map_.put("Lending threshold", lendingThreshold)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(compareAgainstLendingThresholdResponse_: proto.CompareAgainstLendingThresholdResponse): java.math.BigDecimal? {
+            // Extract and convert output
+            return java.math.BigDecimal.valueOf(compareAgainstLendingThresholdResponse_.getCompareAgainstLendingThreshold())
+        }
     }
 }

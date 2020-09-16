@@ -22,6 +22,7 @@ public class ChildObject extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
     private final Abc abc;
 
     public ChildObject() {

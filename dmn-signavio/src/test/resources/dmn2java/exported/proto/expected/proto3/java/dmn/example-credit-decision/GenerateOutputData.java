@@ -22,6 +22,26 @@ public class GenerateOutputData extends com.gs.dmn.signavio.runtime.DefaultSigna
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
+    public static java.util.Map<String, Object> requestToMap(proto.GenerateOutputDataRequest generateOutputDataRequest_) {
+        // Create arguments from Request Message
+        type.Applicant applicant = type.Applicant.toApplicant(generateOutputDataRequest_.getApplicant());
+        java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(generateOutputDataRequest_.getCurrentRiskAppetite());
+        java.math.BigDecimal lendingThreshold = java.math.BigDecimal.valueOf(generateOutputDataRequest_.getLendingThreshold());
+
+        // Create map
+        java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
+        map_.put("Applicant", applicant);
+        map_.put("Current risk appetite", currentRiskAppetite);
+        map_.put("Lending threshold", lendingThreshold);
+        return map_;
+    }
+
+    public static List<type.GenerateOutputData> responseToOutput(proto.GenerateOutputDataResponse generateOutputDataResponse_) {
+        // Extract and convert output
+        return ((List<type.GenerateOutputData>) (generateOutputDataResponse_.getGenerateOutputDataList() == null ? null : generateOutputDataResponse_.getGenerateOutputDataList().stream().map(type.GenerateOutputData::toGenerateOutputData).collect(java.util.stream.Collectors.toList())));
+    }
+
     private final AssessIssueRisk assessIssueRisk;
     private final CompareAgainstLendingThreshold compareAgainstLendingThreshold;
     private final MakeCreditDecision makeCreditDecision;
@@ -95,13 +115,16 @@ public class GenerateOutputData extends com.gs.dmn.signavio.runtime.DefaultSigna
         type.Applicant applicant = type.Applicant.toApplicant(generateOutputDataRequest_.getApplicant());
         java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(generateOutputDataRequest_.getCurrentRiskAppetite());
         java.math.BigDecimal lendingThreshold = java.math.BigDecimal.valueOf(generateOutputDataRequest_.getLendingThreshold());
-        
+
         // Invoke apply method
         List<type.GenerateOutputData> output_ = apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_);
-        
+
         // Convert output to Response Message
         proto.GenerateOutputDataResponse.Builder builder_ = proto.GenerateOutputDataResponse.newBuilder();
-        builder_.addAllGenerateOutputData(((List) output_.stream().map(type.GenerateOutputData::toProto).collect(java.util.stream.Collectors.toList())));
+        List<proto.GenerateOutputData> outputProto_ = ((List) (output_ == null ? null : output_.stream().map(type.GenerateOutputData::toProto).collect(java.util.stream.Collectors.toList())));
+        if (outputProto_ != null) {
+            builder_.addAllGenerateOutputData(outputProto_);
+        }
         return builder_.build();
     }
 

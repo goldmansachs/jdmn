@@ -22,6 +22,7 @@ public class RemoveValues extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
     private final AddExtraValues addExtraValues;
 
     public RemoveValues() {

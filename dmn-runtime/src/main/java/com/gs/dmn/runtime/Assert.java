@@ -132,11 +132,13 @@ public class Assert {
     }
 
     private static List<Method> getters(Class<?> cls) {
-        Method[] declaredMethods = cls.getDeclaredMethods();
         List<Method> getters = new ArrayList<>();
-        for (Method m : declaredMethods) {
-            if (m.getName().startsWith("get")) {
-                getters.add(m);
+        if (com.gs.dmn.runtime.DMNType.class.isAssignableFrom(cls)) {
+            Method[] declaredMethods = cls.getDeclaredMethods();
+            for (Method m : declaredMethods) {
+                if (m.getName().startsWith("get")) {
+                    getters.add(m);
+                }
             }
         }
         return getters;

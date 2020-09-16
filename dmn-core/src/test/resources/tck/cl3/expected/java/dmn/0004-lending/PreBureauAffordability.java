@@ -22,6 +22,7 @@ public class PreBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDec
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
     private final PreBureauRiskCategory preBureauRiskCategory;
     private final RequiredMonthlyInstallment requiredMonthlyInstallment;
 

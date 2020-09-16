@@ -22,6 +22,7 @@ public class Routing extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
     private final PostBureauAffordability postBureauAffordability;
     private final PostBureauRiskCategory postBureauRiskCategory;
 

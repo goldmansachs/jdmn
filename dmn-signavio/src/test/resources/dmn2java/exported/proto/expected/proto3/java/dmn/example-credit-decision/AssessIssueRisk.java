@@ -22,6 +22,24 @@ public class AssessIssueRisk extends com.gs.dmn.signavio.runtime.DefaultSignavio
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
+    public static java.util.Map<String, Object> requestToMap(proto.AssessIssueRiskRequest assessIssueRiskRequest_) {
+        // Create arguments from Request Message
+        type.Applicant applicant = type.Applicant.toApplicant(assessIssueRiskRequest_.getApplicant());
+        java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(assessIssueRiskRequest_.getCurrentRiskAppetite());
+
+        // Create map
+        java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
+        map_.put("Applicant", applicant);
+        map_.put("Current risk appetite", currentRiskAppetite);
+        return map_;
+    }
+
+    public static java.math.BigDecimal responseToOutput(proto.AssessIssueRiskResponse assessIssueRiskResponse_) {
+        // Extract and convert output
+        return java.math.BigDecimal.valueOf(assessIssueRiskResponse_.getAssessIssueRisk());
+    }
+
     private final ProcessPriorIssues processPriorIssues;
 
     public AssessIssueRisk() {
@@ -87,13 +105,14 @@ public class AssessIssueRisk extends com.gs.dmn.signavio.runtime.DefaultSignavio
         // Create arguments from Request Message
         type.Applicant applicant = type.Applicant.toApplicant(assessIssueRiskRequest_.getApplicant());
         java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(assessIssueRiskRequest_.getCurrentRiskAppetite());
-        
+
         // Invoke apply method
         java.math.BigDecimal output_ = apply(applicant, currentRiskAppetite, annotationSet_, eventListener_, externalExecutor_, cache_);
-        
+
         // Convert output to Response Message
         proto.AssessIssueRiskResponse.Builder builder_ = proto.AssessIssueRiskResponse.newBuilder();
-        builder_.setAssessIssueRisk((output_ == null ? 0 : output_.doubleValue()));
+        Double outputProto_ = (output_ == null ? 0.0 : output_.doubleValue());
+        builder_.setAssessIssueRisk(outputProto_);
         return builder_.build();
     }
 

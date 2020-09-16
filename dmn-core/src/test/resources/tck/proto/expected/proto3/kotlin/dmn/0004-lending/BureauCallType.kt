@@ -40,7 +40,7 @@ class BureauCallType(val preBureauRiskCategory : PreBureauRiskCategory = PreBure
             // Start decision 'BureauCallType'
             val bureauCallTypeStartTime_ = System.currentTimeMillis()
             val bureauCallTypeArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            bureauCallTypeArguments_.put("ApplicantData", applicantData);
+            bureauCallTypeArguments_.put("ApplicantData", applicantData)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bureauCallTypeArguments_)
 
             // Apply child decisions
@@ -65,14 +65,15 @@ class BureauCallType(val preBureauRiskCategory : PreBureauRiskCategory = PreBure
 
     fun apply(bureauCallTypeRequest_: proto.BureauCallTypeRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.BureauCallTypeResponse {
         // Create arguments from Request Message
-        var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(bureauCallTypeRequest_.getApplicantData())
-        
+        val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(bureauCallTypeRequest_.getApplicantData())
+
         // Invoke apply method
-        var output_: String? = apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
-        
+        val output_: String? = apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         // Convert output to Response Message
-        var builder_: proto.BureauCallTypeResponse.Builder = proto.BureauCallTypeResponse.newBuilder()
-        builder_.setBureauCallType((if (output_ == null) null else output_!!))
+        val builder_: proto.BureauCallTypeResponse.Builder = proto.BureauCallTypeResponse.newBuilder()
+        val outputProto_ = (if (output_ == null) "" else output_!!)
+        builder_.setBureauCallType(outputProto_)
         return builder_.build()
     }
 
@@ -90,5 +91,22 @@ class BureauCallType(val preBureauRiskCategory : PreBureauRiskCategory = PreBure
             com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
             -1
         )
+
+        @JvmStatic
+        fun requestToMap(bureauCallTypeRequest_: proto.BureauCallTypeRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(bureauCallTypeRequest_.getApplicantData())
+
+            // Create map
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("ApplicantData", applicantData)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(bureauCallTypeResponse_: proto.BureauCallTypeResponse): String? {
+            // Extract and convert output
+            return bureauCallTypeResponse_.getBureauCallType()
+        }
     }
 }

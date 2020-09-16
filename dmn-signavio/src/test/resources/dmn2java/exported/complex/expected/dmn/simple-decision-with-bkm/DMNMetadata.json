@@ -65,7 +65,6 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "A",
     "name" : "a",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "a",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml"
@@ -77,7 +76,6 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "A",
     "name" : "a2",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "a2",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml"
@@ -89,7 +87,6 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "B",
     "name" : "b",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "b",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml"
@@ -101,7 +98,6 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "B",
     "name" : "b3",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "b2",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml"
@@ -115,7 +111,6 @@
     "knowledgeReferences" : [ ],
     "label" : null,
     "name" : "bKM",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "sUM",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml"
@@ -135,6 +130,8 @@
     "knowledgeReferences" : [ ],
     "label" : "SUM",
     "name" : "sUM",
+    "protoRequestName" : "proto.SUMRequest",
+    "protoResponseName" : "proto.SUMResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-6941daac7dedcf760459bef259f2b83c",
@@ -142,7 +139,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "A",
       "name" : "a",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "a",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml"
@@ -154,7 +150,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "B",
       "name" : "b",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "b",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml"
@@ -183,6 +178,8 @@
     } ],
     "label" : "Sign",
     "name" : "sign",
+    "protoRequestName" : "proto.SignRequest",
+    "protoResponseName" : "proto.SignResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-f1336e666ce4588d576ac630e3a0935c",
@@ -190,7 +187,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "A",
       "name" : "a2",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "a2",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml"
@@ -202,7 +198,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "B",
       "name" : "b3",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "b2",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml"

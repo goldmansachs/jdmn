@@ -45,6 +45,7 @@ public class PostorderTraceEventListener extends AbstractTraceEventListener impl
         if (!this.elementNodeStack.empty()) {
             DRGElementNode top = this.elementNodeStack.pop();
             if (top != null) {
+                top.setOutput(output);
                 this.elementNodes.add(top);
             }
         }

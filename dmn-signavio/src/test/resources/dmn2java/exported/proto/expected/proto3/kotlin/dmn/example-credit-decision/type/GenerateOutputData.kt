@@ -78,14 +78,21 @@ interface GenerateOutputData : com.gs.dmn.runtime.DMNType {
             }
         }
 
+        @JvmStatic
         fun toProto(other: GenerateOutputData?): proto.GenerateOutputData {
-            var result_: proto.GenerateOutputData.Builder = proto.GenerateOutputData.newBuilder();
-            result_.setDecision((if ((other as GenerateOutputData).decision == null) null else (other as GenerateOutputData).decision!!))
-            result_.setAssessment((if ((other as GenerateOutputData).assessment == null) 0.0 else (other as GenerateOutputData).assessment!!.toDouble()))
-            result_.setIssue((if ((other as GenerateOutputData).issue == null) 0.0 else (other as GenerateOutputData).issue!!.toDouble()))
+            var result_: proto.GenerateOutputData.Builder = proto.GenerateOutputData.newBuilder()
+            if (other != null) {
+                var decisionProto_: String = (if ((other as GenerateOutputData).decision == null) "" else (other as GenerateOutputData).decision!!)
+                result_.setDecision(decisionProto_)
+                var assessmentProto_: Double = (if ((other as GenerateOutputData).assessment == null) 0.0 else (other as GenerateOutputData).assessment!!.toDouble())
+                result_.setAssessment(assessmentProto_)
+                var issueProto_: Double = (if ((other as GenerateOutputData).issue == null) 0.0 else (other as GenerateOutputData).issue!!.toDouble())
+                result_.setIssue(issueProto_)
+            }
             return result_.build()
         }
 
+        @JvmStatic
         fun toProto(other: List<GenerateOutputData?>?): List<proto.GenerateOutputData>? {
             if (other == null) {
                 return null

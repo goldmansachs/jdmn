@@ -40,9 +40,9 @@ class GenerateOutputData(val assessIssueRisk : AssessIssueRisk = AssessIssueRisk
             // Start decision 'generateOutputData'
             val generateOutputDataStartTime_ = System.currentTimeMillis()
             val generateOutputDataArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            generateOutputDataArguments_.put("Applicant", applicant);
-            generateOutputDataArguments_.put("Current risk appetite", currentRiskAppetite);
-            generateOutputDataArguments_.put("Lending threshold", lendingThreshold);
+            generateOutputDataArguments_.put("Applicant", applicant)
+            generateOutputDataArguments_.put("Current risk appetite", currentRiskAppetite)
+            generateOutputDataArguments_.put("Lending threshold", lendingThreshold)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, generateOutputDataArguments_)
 
             // Apply child decisions
@@ -69,16 +69,19 @@ class GenerateOutputData(val assessIssueRisk : AssessIssueRisk = AssessIssueRisk
 
     fun apply(generateOutputDataRequest_: proto.GenerateOutputDataRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.GenerateOutputDataResponse {
         // Create arguments from Request Message
-        var applicant: type.Applicant? = type.Applicant.toApplicant(generateOutputDataRequest_.getApplicant())
-        var currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(generateOutputDataRequest_.getCurrentRiskAppetite())
-        var lendingThreshold: java.math.BigDecimal? = java.math.BigDecimal.valueOf(generateOutputDataRequest_.getLendingThreshold())
-        
+        val applicant: type.Applicant? = type.Applicant.toApplicant(generateOutputDataRequest_.getApplicant())
+        val currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(generateOutputDataRequest_.getCurrentRiskAppetite())
+        val lendingThreshold: java.math.BigDecimal? = java.math.BigDecimal.valueOf(generateOutputDataRequest_.getLendingThreshold())
+
         // Invoke apply method
-        var output_: List<type.GenerateOutputData?>? = apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_)
-        
+        val output_: List<type.GenerateOutputData?>? = apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         // Convert output to Response Message
-        var builder_: proto.GenerateOutputDataResponse.Builder = proto.GenerateOutputDataResponse.newBuilder()
-        builder_.addAllGenerateOutputData(output_?.stream()?.map({e -> type.GenerateOutputData.toProto(e)})?.collect(java.util.stream.Collectors.toList()))
+        val builder_: proto.GenerateOutputDataResponse.Builder = proto.GenerateOutputDataResponse.newBuilder()
+        val outputProto_ = output_?.stream()?.map({e -> type.GenerateOutputData.toProto(e)})?.collect(java.util.stream.Collectors.toList())
+        if (outputProto_ != null) {
+            builder_.addAllGenerateOutputData(outputProto_)
+        }
         return builder_.build()
     }
 
@@ -96,5 +99,26 @@ class GenerateOutputData(val assessIssueRisk : AssessIssueRisk = AssessIssueRisk
             com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
             -1
         )
+
+        @JvmStatic
+        fun requestToMap(generateOutputDataRequest_: proto.GenerateOutputDataRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            val applicant: type.Applicant? = type.Applicant.toApplicant(generateOutputDataRequest_.getApplicant())
+            val currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(generateOutputDataRequest_.getCurrentRiskAppetite())
+            val lendingThreshold: java.math.BigDecimal? = java.math.BigDecimal.valueOf(generateOutputDataRequest_.getLendingThreshold())
+
+            // Create map
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("Applicant", applicant)
+            map_.put("Current risk appetite", currentRiskAppetite)
+            map_.put("Lending threshold", lendingThreshold)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(generateOutputDataResponse_: proto.GenerateOutputDataResponse): List<type.GenerateOutputData?>? {
+            // Extract and convert output
+            return (generateOutputDataResponse_.getGenerateOutputDataList()?.stream()?.map({e -> type.GenerateOutputData.toGenerateOutputData(e)})?.collect(java.util.stream.Collectors.toList()) as List<type.GenerateOutputData?>?)
+        }
     }
 }

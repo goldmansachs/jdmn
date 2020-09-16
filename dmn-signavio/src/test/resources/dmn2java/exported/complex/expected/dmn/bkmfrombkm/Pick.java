@@ -22,6 +22,7 @@ public class Pick extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
         com.gs.dmn.runtime.annotation.HitPolicy.ANY,
         3
     );
+
     private final DateOperators dateOperators;
     private final DatetimeOperators datetimeOperators;
     private final TimeOperators timeOperators;

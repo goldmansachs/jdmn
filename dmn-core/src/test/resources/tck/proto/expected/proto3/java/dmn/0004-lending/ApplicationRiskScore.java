@@ -23,6 +23,21 @@ public class ApplicationRiskScore extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         -1
     );
 
+    public static java.util.Map<String, Object> requestToMap(proto.ApplicationRiskScoreRequest applicationRiskScoreRequest_) {
+        // Create arguments from Request Message
+        type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(applicationRiskScoreRequest_.getApplicantData());
+
+        // Create map
+        java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
+        map_.put("ApplicantData", applicantData);
+        return map_;
+    }
+
+    public static java.math.BigDecimal responseToOutput(proto.ApplicationRiskScoreResponse applicationRiskScoreResponse_) {
+        // Extract and convert output
+        return java.math.BigDecimal.valueOf(applicationRiskScoreResponse_.getApplicationRiskScore());
+    }
+
     public ApplicationRiskScore() {
     }
 
@@ -87,13 +102,14 @@ public class ApplicationRiskScore extends com.gs.dmn.runtime.DefaultDMNBaseDecis
     public proto.ApplicationRiskScoreResponse apply(proto.ApplicationRiskScoreRequest applicationRiskScoreRequest_, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
         // Create arguments from Request Message
         type.TApplicantData applicantData = type.TApplicantData.toTApplicantData(applicationRiskScoreRequest_.getApplicantData());
-        
+
         // Invoke apply method
         java.math.BigDecimal output_ = apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
-        
+
         // Convert output to Response Message
         proto.ApplicationRiskScoreResponse.Builder builder_ = proto.ApplicationRiskScoreResponse.newBuilder();
-        builder_.setApplicationRiskScore((output_ == null ? 0 : output_.doubleValue()));
+        Double outputProto_ = (output_ == null ? 0.0 : output_.doubleValue());
+        builder_.setApplicationRiskScore(outputProto_);
         return builder_.build();
     }
 

@@ -22,6 +22,26 @@ public class MakeCreditDecision extends com.gs.dmn.signavio.runtime.DefaultSigna
         com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
         3
     );
+
+    public static java.util.Map<String, Object> requestToMap(proto.MakeCreditDecisionRequest makeCreditDecisionRequest_) {
+        // Create arguments from Request Message
+        type.Applicant applicant = type.Applicant.toApplicant(makeCreditDecisionRequest_.getApplicant());
+        java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getCurrentRiskAppetite());
+        java.math.BigDecimal lendingThreshold = java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getLendingThreshold());
+
+        // Create map
+        java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
+        map_.put("Applicant", applicant);
+        map_.put("Current risk appetite", currentRiskAppetite);
+        map_.put("Lending threshold", lendingThreshold);
+        return map_;
+    }
+
+    public static String responseToOutput(proto.MakeCreditDecisionResponse makeCreditDecisionResponse_) {
+        // Extract and convert output
+        return makeCreditDecisionResponse_.getMakeCreditDecision();
+    }
+
     private final CompareAgainstLendingThreshold compareAgainstLendingThreshold;
 
     public MakeCreditDecision() {
@@ -89,13 +109,14 @@ public class MakeCreditDecision extends com.gs.dmn.signavio.runtime.DefaultSigna
         type.Applicant applicant = type.Applicant.toApplicant(makeCreditDecisionRequest_.getApplicant());
         java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getCurrentRiskAppetite());
         java.math.BigDecimal lendingThreshold = java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getLendingThreshold());
-        
+
         // Invoke apply method
         String output_ = apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_);
-        
+
         // Convert output to Response Message
         proto.MakeCreditDecisionResponse.Builder builder_ = proto.MakeCreditDecisionResponse.newBuilder();
-        builder_.setMakeCreditDecision(output_);
+        String outputProto_ = (output_ == null ? "" : output_);
+        builder_.setMakeCreditDecision(outputProto_);
         return builder_.build();
     }
 

@@ -96,16 +96,27 @@ interface TApplicantData : com.gs.dmn.runtime.DMNType {
             }
         }
 
+        @JvmStatic
         fun toProto(other: TApplicantData?): proto.TApplicantData {
-            var result_: proto.TApplicantData.Builder = proto.TApplicantData.newBuilder();
-            result_.setMonthly(type.Monthly.toProto((other as TApplicantData).monthly))
-            result_.setAge((if ((other as TApplicantData).age == null) 0.0 else (other as TApplicantData).age!!.toDouble()))
-            result_.setExistingCustomer((if ((other as TApplicantData).existingCustomer == null) false else (other as TApplicantData).existingCustomer!!))
-            result_.setMaritalStatus((if ((other as TApplicantData).maritalStatus == null) null else (other as TApplicantData).maritalStatus!!))
-            result_.setEmploymentStatus((if ((other as TApplicantData).employmentStatus == null) null else (other as TApplicantData).employmentStatus!!))
+            var result_: proto.TApplicantData.Builder = proto.TApplicantData.newBuilder()
+            if (other != null) {
+                var monthlyProto_: proto.Monthly = type.Monthly.toProto((other as TApplicantData).monthly)
+                if (monthlyProto_ != null) {
+                    result_.setMonthly(monthlyProto_)
+                }
+                var ageProto_: Double = (if ((other as TApplicantData).age == null) 0.0 else (other as TApplicantData).age!!.toDouble())
+                result_.setAge(ageProto_)
+                var existingCustomerProto_: Boolean = (if ((other as TApplicantData).existingCustomer == null) false else (other as TApplicantData).existingCustomer!!)
+                result_.setExistingCustomer(existingCustomerProto_)
+                var maritalStatusProto_: String = (if ((other as TApplicantData).maritalStatus == null) "" else (other as TApplicantData).maritalStatus!!)
+                result_.setMaritalStatus(maritalStatusProto_)
+                var employmentStatusProto_: String = (if ((other as TApplicantData).employmentStatus == null) "" else (other as TApplicantData).employmentStatus!!)
+                result_.setEmploymentStatus(employmentStatusProto_)
+            }
             return result_.build()
         }
 
+        @JvmStatic
         fun toProto(other: List<TApplicantData?>?): List<proto.TApplicantData>? {
             if (other == null) {
                 return null

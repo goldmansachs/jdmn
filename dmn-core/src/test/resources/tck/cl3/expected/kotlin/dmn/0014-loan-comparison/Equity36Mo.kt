@@ -20,10 +20,10 @@ class Equity36Mo : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Start BKM 'equity36Mo'
             val equity36MoStartTime_ = System.currentTimeMillis()
             val equity36MoArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            equity36MoArguments_.put("p", p);
-            equity36MoArguments_.put("r", r);
-            equity36MoArguments_.put("n", n);
-            equity36MoArguments_.put("pmt", pmt);
+            equity36MoArguments_.put("p", p)
+            equity36MoArguments_.put("r", r)
+            equity36MoArguments_.put("n", n)
+            equity36MoArguments_.put("pmt", pmt)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, equity36MoArguments_)
 
             // Evaluate BKM 'equity36Mo'

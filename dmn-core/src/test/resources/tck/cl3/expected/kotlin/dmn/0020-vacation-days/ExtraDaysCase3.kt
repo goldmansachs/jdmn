@@ -40,8 +40,8 @@ class ExtraDaysCase3() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             // Start decision 'ExtraDaysCase3'
             val extraDaysCase3StartTime_ = System.currentTimeMillis()
             val extraDaysCase3Arguments_ = com.gs.dmn.runtime.listener.Arguments()
-            extraDaysCase3Arguments_.put("Age", age);
-            extraDaysCase3Arguments_.put("YearsOfService", yearsOfService);
+            extraDaysCase3Arguments_.put("Age", age)
+            extraDaysCase3Arguments_.put("YearsOfService", yearsOfService)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, extraDaysCase3Arguments_)
 
             // Evaluate decision 'ExtraDaysCase3'

@@ -40,8 +40,8 @@ class FnInvocationPositionalParameters(val fnLibrary : FnLibrary = FnLibrary()) 
             // Start decision 'fnInvocationPositionalParameters'
             val fnInvocationPositionalParametersStartTime_ = System.currentTimeMillis()
             val fnInvocationPositionalParametersArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            fnInvocationPositionalParametersArguments_.put("inputA", inputA);
-            fnInvocationPositionalParametersArguments_.put("inputB", inputB);
+            fnInvocationPositionalParametersArguments_.put("inputA", inputA)
+            fnInvocationPositionalParametersArguments_.put("inputB", inputB)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnInvocationPositionalParametersArguments_)
 
             // Apply child decisions

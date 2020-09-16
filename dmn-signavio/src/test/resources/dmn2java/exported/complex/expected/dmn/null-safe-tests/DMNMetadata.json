@@ -395,7 +395,6 @@
     "javaTypeName" : "Boolean",
     "label" : "booleanA",
     "name" : "booleanA",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "booleanA",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -407,7 +406,6 @@
     "javaTypeName" : "Boolean",
     "label" : "booleanAllFalse",
     "name" : "booleanAllFalse_iterator",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "booleanAllFalse",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -419,7 +417,6 @@
     "javaTypeName" : "Boolean",
     "label" : "booleanAllTrue",
     "name" : "booleanAllTrue_iterator",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "booleanAllTrue",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -431,7 +428,6 @@
     "javaTypeName" : "Boolean",
     "label" : "booleanAnyTrue",
     "name" : "booleanAnyTrue_iterator",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "booleanAnyTrue",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -443,7 +439,6 @@
     "javaTypeName" : "Boolean",
     "label" : "booleanB ",
     "name" : "booleanB",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "booleanB",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -455,7 +450,6 @@
     "javaTypeName" : "List<Boolean>",
     "label" : "booleanList",
     "name" : "booleanList",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "booleanList",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -467,7 +461,6 @@
     "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
     "label" : "date ",
     "name" : "date",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "date",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -479,7 +472,6 @@
     "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
     "label" : "dateTime",
     "name" : "dateTime",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "dateTime",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -491,7 +483,6 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "numberA",
     "name" : "numberA",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "numberA",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -503,7 +494,6 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "numberB",
     "name" : "numberB",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "numberB",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -515,7 +505,6 @@
     "javaTypeName" : "List<java.math.BigDecimal>",
     "label" : "numberList",
     "name" : "numberList",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "numberList",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -527,7 +516,6 @@
     "javaTypeName" : "String",
     "label" : "string",
     "name" : "string",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -539,7 +527,6 @@
     "javaTypeName" : "List<String>",
     "label" : "stringList",
     "name" : "stringList",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "stringList",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -551,7 +538,6 @@
     "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
     "label" : "time ",
     "name" : "time",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "time",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -575,6 +561,8 @@
     "knowledgeReferences" : [ ],
     "label" : "allFalseAggregation",
     "name" : "allFalseAggregation",
+    "protoRequestName" : "proto.AllFalseAggregationRequest",
+    "protoResponseName" : "proto.AllFalseAggregationResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-963dd1faff03c460abb0bb16855be442",
@@ -582,7 +570,6 @@
       "javaTypeName" : "List<Boolean>",
       "label" : "booleanList",
       "name" : "booleanList",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "booleanList",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -609,6 +596,8 @@
     "knowledgeReferences" : [ ],
     "label" : "allTogether",
     "name" : "allTogether",
+    "protoRequestName" : "proto.AllTogetherRequest",
+    "protoResponseName" : "proto.AllTogetherResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-1058e602798d798780d99866788586c8",
@@ -616,7 +605,6 @@
       "javaTypeName" : "Boolean",
       "label" : "booleanA",
       "name" : "booleanA",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "booleanA",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -628,7 +616,6 @@
       "javaTypeName" : "Boolean",
       "label" : "booleanB ",
       "name" : "booleanB",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "booleanB",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -640,7 +627,6 @@
       "javaTypeName" : "List<Boolean>",
       "label" : "booleanList",
       "name" : "booleanList",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "booleanList",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -652,7 +638,6 @@
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "label" : "date ",
       "name" : "date",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "date",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -664,7 +649,6 @@
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "label" : "dateTime",
       "name" : "dateTime",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "dateTime",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -676,7 +660,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "numberA",
       "name" : "numberA",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "numberA",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -688,7 +671,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "numberB",
       "name" : "numberB",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "numberB",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -700,7 +682,6 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "numberList",
       "name" : "numberList",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "numberList",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -712,7 +693,6 @@
       "javaTypeName" : "String",
       "label" : "string",
       "name" : "string",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -724,7 +704,6 @@
       "javaTypeName" : "List<String>",
       "label" : "stringList",
       "name" : "stringList",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "stringList",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -736,7 +715,6 @@
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "label" : "time ",
       "name" : "time",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "time",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -765,6 +743,8 @@
     "knowledgeReferences" : [ ],
     "label" : "allTrueAggregation",
     "name" : "allTrueAggregation",
+    "protoRequestName" : "proto.AllTrueAggregationRequest",
+    "protoResponseName" : "proto.AllTrueAggregationResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-963dd1faff03c460abb0bb16855be442",
@@ -772,7 +752,6 @@
       "javaTypeName" : "List<Boolean>",
       "label" : "booleanList",
       "name" : "booleanList",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "booleanList",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -801,6 +780,8 @@
     "knowledgeReferences" : [ ],
     "label" : "anyTrueAggregation",
     "name" : "anyTrueAggregation",
+    "protoRequestName" : "proto.AnyTrueAggregationRequest",
+    "protoResponseName" : "proto.AnyTrueAggregationResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-963dd1faff03c460abb0bb16855be442",
@@ -808,7 +789,6 @@
       "javaTypeName" : "List<Boolean>",
       "label" : "booleanList",
       "name" : "booleanList",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "booleanList",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -835,6 +815,8 @@
     "knowledgeReferences" : [ ],
     "label" : "arithmetic",
     "name" : "arithmetic",
+    "protoRequestName" : "proto.ArithmeticRequest",
+    "protoResponseName" : "proto.ArithmeticResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-c736af77b66969d175933720059dec48",
@@ -842,7 +824,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "numberA",
       "name" : "numberA",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "numberA",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -854,7 +835,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "numberB",
       "name" : "numberB",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "numberB",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -866,7 +846,6 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "numberList",
       "name" : "numberList",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "numberList",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -889,6 +868,8 @@
     "knowledgeReferences" : [ ],
     "label" : "comparator ",
     "name" : "comparator",
+    "protoRequestName" : "proto.ComparatorRequest",
+    "protoResponseName" : "proto.ComparatorResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-c736af77b66969d175933720059dec48",
@@ -896,7 +877,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "numberA",
       "name" : "numberA",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "numberA",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -921,6 +901,8 @@
     "knowledgeReferences" : [ ],
     "label" : "formattingAndCoercing",
     "name" : "formattingAndCoercing",
+    "protoRequestName" : "proto.FormattingAndCoercingRequest",
+    "protoResponseName" : "proto.FormattingAndCoercingResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-0bcd1fe0bdaa3c42ee1600d6de30e350",
@@ -928,7 +910,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "numberB",
       "name" : "numberB",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "numberB",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -940,7 +921,6 @@
       "javaTypeName" : "String",
       "label" : "string",
       "name" : "string",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -963,6 +943,8 @@
     "knowledgeReferences" : [ ],
     "label" : "keepInput_allFalse",
     "name" : "keepInputallFalse",
+    "protoRequestName" : "proto.KeepInputallFalseRequest",
+    "protoResponseName" : "proto.KeepInputallFalseResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-79ac9fb1afa596bbb0db5c6a5257a8b6",
@@ -970,7 +952,6 @@
       "javaTypeName" : "Boolean",
       "label" : "booleanAllFalse",
       "name" : "booleanAllFalse_iterator",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "booleanAllFalse",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -993,6 +974,8 @@
     "knowledgeReferences" : [ ],
     "label" : "keepInput_allTrue",
     "name" : "keepInputallTrue",
+    "protoRequestName" : "proto.KeepInputallTrueRequest",
+    "protoResponseName" : "proto.KeepInputallTrueResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-0999a54b4e2887b6404fe10e4639a1d6",
@@ -1000,7 +983,6 @@
       "javaTypeName" : "Boolean",
       "label" : "booleanAllTrue",
       "name" : "booleanAllTrue_iterator",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "booleanAllTrue",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1023,6 +1005,8 @@
     "knowledgeReferences" : [ ],
     "label" : "keepInput_anyTrue",
     "name" : "keepInputanyTrue",
+    "protoRequestName" : "proto.KeepInputanyTrueRequest",
+    "protoResponseName" : "proto.KeepInputanyTrueResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-4b393744e05965a1928ecb455ab42308",
@@ -1030,7 +1014,6 @@
       "javaTypeName" : "Boolean",
       "label" : "booleanAnyTrue",
       "name" : "booleanAnyTrue_iterator",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "booleanAnyTrue",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1055,6 +1038,8 @@
     "knowledgeReferences" : [ ],
     "label" : "listHandling",
     "name" : "listHandling",
+    "protoRequestName" : "proto.ListHandlingRequest",
+    "protoResponseName" : "proto.ListHandlingResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-0bcd1fe0bdaa3c42ee1600d6de30e350",
@@ -1062,7 +1047,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "numberB",
       "name" : "numberB",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "numberB",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1074,7 +1058,6 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "numberList",
       "name" : "numberList",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "numberList",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1099,6 +1082,8 @@
     "knowledgeReferences" : [ ],
     "label" : "logical ",
     "name" : "logical",
+    "protoRequestName" : "proto.LogicalRequest",
+    "protoResponseName" : "proto.LogicalResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-1058e602798d798780d99866788586c8",
@@ -1106,7 +1091,6 @@
       "javaTypeName" : "Boolean",
       "label" : "booleanA",
       "name" : "booleanA",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "booleanA",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1118,7 +1102,6 @@
       "javaTypeName" : "Boolean",
       "label" : "booleanB ",
       "name" : "booleanB",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "booleanB",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1145,6 +1128,8 @@
     "knowledgeReferences" : [ ],
     "label" : "partA",
     "name" : "partA",
+    "protoRequestName" : "proto.PartARequest",
+    "protoResponseName" : "proto.PartAResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-963dd1faff03c460abb0bb16855be442",
@@ -1152,7 +1137,6 @@
       "javaTypeName" : "List<Boolean>",
       "label" : "booleanList",
       "name" : "booleanList",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "booleanList",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1185,6 +1169,8 @@
     "knowledgeReferences" : [ ],
     "label" : "partB",
     "name" : "partB",
+    "protoRequestName" : "proto.PartBRequest",
+    "protoResponseName" : "proto.PartBResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-c736af77b66969d175933720059dec48",
@@ -1192,7 +1178,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "numberA",
       "name" : "numberA",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "numberA",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1204,7 +1189,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "numberB",
       "name" : "numberB",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "numberB",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1216,7 +1200,6 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "numberList",
       "name" : "numberList",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "numberList",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1228,7 +1211,6 @@
       "javaTypeName" : "String",
       "label" : "string",
       "name" : "string",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1240,7 +1222,6 @@
       "javaTypeName" : "List<String>",
       "label" : "stringList",
       "name" : "stringList",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "stringList",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1269,6 +1250,8 @@
     "knowledgeReferences" : [ ],
     "label" : "partC",
     "name" : "partC",
+    "protoRequestName" : "proto.PartCRequest",
+    "protoResponseName" : "proto.PartCResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-1058e602798d798780d99866788586c8",
@@ -1276,7 +1259,6 @@
       "javaTypeName" : "Boolean",
       "label" : "booleanA",
       "name" : "booleanA",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "booleanA",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1288,7 +1270,6 @@
       "javaTypeName" : "Boolean",
       "label" : "booleanB ",
       "name" : "booleanB",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "booleanB",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1300,7 +1281,6 @@
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "label" : "date ",
       "name" : "date",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "date",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1312,7 +1292,6 @@
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "label" : "dateTime",
       "name" : "dateTime",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "dateTime",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1324,7 +1303,6 @@
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "label" : "time ",
       "name" : "time",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "time",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1347,6 +1325,8 @@
     "knowledgeReferences" : [ ],
     "label" : "statistical",
     "name" : "statistical",
+    "protoRequestName" : "proto.StatisticalRequest",
+    "protoResponseName" : "proto.StatisticalResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-f444fe9b45d132962058826c7ce0e254",
@@ -1354,7 +1334,6 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "numberList",
       "name" : "numberList",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "numberList",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1381,6 +1360,8 @@
     "knowledgeReferences" : [ ],
     "label" : "stringHandling",
     "name" : "stringHandling",
+    "protoRequestName" : "proto.StringHandlingRequest",
+    "protoResponseName" : "proto.StringHandlingResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-c736af77b66969d175933720059dec48",
@@ -1388,7 +1369,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "numberA",
       "name" : "numberA",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "numberA",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1400,7 +1380,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "numberB",
       "name" : "numberB",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "numberB",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1412,7 +1391,6 @@
       "javaTypeName" : "List<String>",
       "label" : "stringList",
       "name" : "stringList",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "stringList",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1435,6 +1413,8 @@
     "knowledgeReferences" : [ ],
     "label" : "stringHandlingComparator",
     "name" : "stringHandlingComparator",
+    "protoRequestName" : "proto.StringHandlingComparatorRequest",
+    "protoResponseName" : "proto.StringHandlingComparatorResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-c736af77b66969d175933720059dec48",
@@ -1442,7 +1422,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "numberA",
       "name" : "numberA",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "numberA",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1454,7 +1433,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "numberB",
       "name" : "numberB",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "numberB",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1466,7 +1444,6 @@
       "javaTypeName" : "List<String>",
       "label" : "stringList",
       "name" : "stringList",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "stringList",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1489,6 +1466,8 @@
     "knowledgeReferences" : [ ],
     "label" : "temporal",
     "name" : "temporal",
+    "protoRequestName" : "proto.TemporalRequest",
+    "protoResponseName" : "proto.TemporalResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-de95e2868799a862ed04920c276bffa1",
@@ -1496,7 +1475,6 @@
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "label" : "dateTime",
       "name" : "dateTime",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "dateTime",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1519,6 +1497,8 @@
     "knowledgeReferences" : [ ],
     "label" : "temporalComparator ",
     "name" : "temporalComparator",
+    "protoRequestName" : "proto.TemporalComparatorRequest",
+    "protoResponseName" : "proto.TemporalComparatorResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-de95e2868799a862ed04920c276bffa1",
@@ -1526,7 +1506,6 @@
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "label" : "dateTime",
       "name" : "dateTime",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "dateTime",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1553,6 +1532,8 @@
     "knowledgeReferences" : [ ],
     "label" : "temporalDiff",
     "name" : "temporalDiff",
+    "protoRequestName" : "proto.TemporalDiffRequest",
+    "protoResponseName" : "proto.TemporalDiffResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-5d1954e864444e9ebb079558da384758",
@@ -1560,7 +1541,6 @@
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "label" : "date ",
       "name" : "date",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "date",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1572,7 +1552,6 @@
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "label" : "dateTime",
       "name" : "dateTime",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "dateTime",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"
@@ -1584,7 +1563,6 @@
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "label" : "time ",
       "name" : "time",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "time",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml"

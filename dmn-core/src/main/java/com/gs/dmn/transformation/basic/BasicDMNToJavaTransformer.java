@@ -15,6 +15,7 @@ package com.gs.dmn.transformation.basic;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementFilter;
 import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.analysis.semantics.environment.Environment;
 import com.gs.dmn.feel.analysis.semantics.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.*;
@@ -67,6 +68,7 @@ import java.util.stream.Collectors;
 public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     protected static final Logger LOGGER = LoggerFactory.getLogger(BasicDMNToJavaTransformer.class);
 
+    private DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect;
     protected final DMNModelRepository dmnModelRepository;
     protected final EnvironmentFactory environmentFactory;
     protected final NativeTypeFactory nativeTypeFactory;
@@ -93,7 +95,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     protected final DRGElementFilter drgElementFilter;
     protected final JavaTypeMemoizer nativeTypeMemoizer;
 
-    public BasicDMNToJavaTransformer(DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory nativeTypeFactory, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
+    public BasicDMNToJavaTransformer(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect, DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory nativeTypeFactory, LazyEvaluationDetector lazyEvaluationDetector, Map<String, String> inputParameters) {
+        this.dialect = dialect;
         this.dmnModelRepository = dmnModelRepository;
         this.environmentFactory = environmentFactory;
         this.nativeTypeFactory = nativeTypeFactory;
@@ -145,6 +148,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
 
     private void setFEELTranslator(BasicDMNToNativeTransformer transformer) {
         this.feelTranslator = new FEELTranslatorImpl(transformer);
+    }
+
+    @Override
+    public DMNDialectDefinition<?, ?, ?, ?, ?, ?> getDialect() {
+        return this.dialect;
     }
 
     @Override
@@ -211,8 +219,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     @Override
     public boolean isComplexType(TItemDefinition itemDefinition) {
         Type type = toFEELType(itemDefinition);
-        return type instanceof ItemDefinitionType
-                || type instanceof ListType && ((ListType) type).getElementType() instanceof ItemDefinitionType;
+        return isComplexType(type);
     }
 
     @Override
@@ -272,8 +279,26 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
+    public String protoGetter(TDRGElement drgElement) {
+        return this.protoGetter(drgElement, drgElementOutputFEELType(drgElement));
+    }
+
+    private String protoGetter(TNamedElement element, Type type) {
+        return this.protoFactory.protoGetter(namedElementVariableName(element), type);
+    }
+
+    @Override
     public String protoSetter(TItemDefinition itemDefinition) {
-        return this.protoFactory.protoSetter(namedElementVariableName(itemDefinition), toFEELType(itemDefinition));
+        return this.protoSetter(itemDefinition, toFEELType(itemDefinition));
+    }
+
+    @Override
+    public String protoSetter(TDRGElement drgElement) {
+        return this.protoSetter(drgElement, drgElementOutputFEELType(drgElement));
+    }
+
+    private String protoSetter(TNamedElement namedElement, Type type) {
+        return this.protoFactory.protoSetter(namedElementVariableName(namedElement), type);
     }
 
     //
@@ -401,6 +426,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     public List<Pair<String, Type>> drgElementTypeSignature(TDRGElement element, Function<Object, String> nameProducer) {
         DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
         return drgElementTypeSignature(reference, nameProducer);
+    }
+
+    @Override
+    public List<Pair<String, Type>> drgElementTypeSignature(TDRGElement element) {
+        return drgElementTypeSignature(element, this::nativeName);
     }
 
     @Override
@@ -1563,6 +1593,31 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
+    public boolean isDateTimeType(Type type) {
+        return isSimpleDateTimeType(type) || (type instanceof ListType && isSimpleDateTimeType(((ListType) type).getElementType()));
+    }
+
+    private boolean isSimpleDateTimeType(Type type) {
+        return isDate(type) || isTime(type) || isDateTime(type) || isDurationTime(type);
+    }
+
+    private boolean isDate(Type type) {
+        return type instanceof DateType;
+    }
+
+    private boolean isTime(Type type) {
+        return type instanceof TimeType;
+    }
+
+    private boolean isDateTime(Type type) {
+        return type instanceof DateTimeType;
+    }
+
+    private boolean isDurationTime(Type type) {
+        return type instanceof DurationType;
+    }
+
+    @Override
     public Type toFEELType(TDefinitions model, String typeName) {
         return this.dmnEnvironmentFactory.toFEELType(model, typeName);
     }
@@ -2009,18 +2064,13 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
-    public Statement drgElementSignatureProtoBody(TDRGElement element) {
-        return this.nativeFactory.drgElementSignatureProtoBody(element);
+    public String convertProtoMember(String source, TItemDefinition parent, TItemDefinition child, boolean staticContext) {
+        return this.nativeFactory.convertProtoMember(source, parent, child, staticContext);
     }
 
     @Override
-    public String convertProtoMember(String source, TItemDefinition parent, TItemDefinition child) {
-        return this.nativeFactory.convertProtoMember(source, parent, child);
-    }
-
-    @Override
-    public String convertMemberToProto(String source, String sourceType, TItemDefinition child) {
-        return this.nativeFactory.convertMemberToProto(source, sourceType, child);
+    public String convertMemberToProto(String source, String sourceType, TItemDefinition child, boolean staticContext) {
+        return this.nativeFactory.convertMemberToProto(source, sourceType, child, staticContext);
     }
 
     @Override
@@ -2029,8 +2079,28 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
+    public String qualifiedRequestMessageName(TDRGElement element) {
+        return this.protoFactory.qualifiedRequestMessageName(element);
+    }
+
+    @Override
     public String qualifiedResponseMessageName(TDRGElement element) {
         return this.protoFactory.qualifiedResponseMessageName(element);
+    }
+
+    @Override
+    public String requestVariableName(TDRGElement element) {
+        return this.protoFactory.requestVariableName(element);
+    }
+
+    @Override
+    public String responseVariableName(TDRGElement element) {
+        return this.protoFactory.responseVariableName(element);
+    }
+
+    @Override
+    public String namedElementVariableNameProto(TNamedElement element) {
+        return this.protoFactory.namedElementVariableNameProto(element);
     }
 
     @Override
@@ -2040,8 +2110,39 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
     }
 
     @Override
+    public String qualifiedNativeProtoType(TItemDefinition itemDefinition) {
+        Type type = toFEELType(itemDefinition);
+        return this.protoFactory.toNativeProtoType(type);
+    }
+
+    @Override
+    public boolean isProtoReference(TItemDefinition itemDefinition) {
+        Type type = toFEELType(itemDefinition);
+        return isProtoReference(type);
+    }
+
+    @Override
+    public boolean isProtoReference(Type type) {
+        return isComplexType(type) || type instanceof ListType;
+    }
+
+    @Override
     public String protoFieldName(TNamedElement element) {
         return this.protoFactory.protoFieldName(element);
     }
 
+    @Override
+    public String extractParameterFromRequestMessage(TDRGElement element, Pair<String, Type> parameter, boolean staticContext) {
+        return this.nativeFactory.extractParameterFromRequestMessage(element, parameter, staticContext);
+    }
+
+    @Override
+    public String convertValueToProtoNativeType(String value, Type type, boolean staticContext) {
+        return this.nativeFactory.convertValueToProtoNativeType(value, type, staticContext);
+    }
+
+    @Override
+    public String extractMemberFromProtoValue(String protoValue, Type type, boolean staticContext) {
+        return this.nativeFactory.extractMemberFromProtoValue(protoValue, type, staticContext);
+    }
 }

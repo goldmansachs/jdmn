@@ -22,6 +22,7 @@ public class PartA extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
         com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
         1
     );
+
     private final AllFalseAggregation allFalseAggregation;
     private final AllTrueAggregation allTrueAggregation;
     private final AnyTrueAggregation anyTrueAggregation;

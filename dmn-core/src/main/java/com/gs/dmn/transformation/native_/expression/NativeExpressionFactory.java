@@ -149,11 +149,9 @@ public interface NativeExpressionFactory {
     //
     // Proto conversions
     //
-    String convertProtoMember(String source, TItemDefinition parent, TItemDefinition member);
+    String convertProtoMember(String source, TItemDefinition parent, TItemDefinition member, boolean staticContext);
 
-    String convertMemberToProto(String source, String sourceType, TItemDefinition member);
+    String convertMemberToProto(String source, String sourceType, TItemDefinition member, boolean staticContext);
 
-    Statement drgElementSignatureProtoBody(TDRGElement element);
-
-    String convertValueToProtoNativeType(String value, Type type);
+    String convertValueToProtoNativeType(String value, Type type, boolean staticContext);
 }

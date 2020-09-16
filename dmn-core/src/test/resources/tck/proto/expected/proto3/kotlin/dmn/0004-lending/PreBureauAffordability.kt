@@ -40,8 +40,8 @@ class PreBureauAffordability(val preBureauRiskCategory : PreBureauRiskCategory =
             // Start decision 'PreBureauAffordability'
             val preBureauAffordabilityStartTime_ = System.currentTimeMillis()
             val preBureauAffordabilityArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            preBureauAffordabilityArguments_.put("ApplicantData", applicantData);
-            preBureauAffordabilityArguments_.put("RequestedProduct", requestedProduct);
+            preBureauAffordabilityArguments_.put("ApplicantData", applicantData)
+            preBureauAffordabilityArguments_.put("RequestedProduct", requestedProduct)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, preBureauAffordabilityArguments_)
 
             // Apply child decisions
@@ -67,15 +67,16 @@ class PreBureauAffordability(val preBureauRiskCategory : PreBureauRiskCategory =
 
     fun apply(preBureauAffordabilityRequest_: proto.PreBureauAffordabilityRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.PreBureauAffordabilityResponse {
         // Create arguments from Request Message
-        var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(preBureauAffordabilityRequest_.getApplicantData())
-        var requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(preBureauAffordabilityRequest_.getRequestedProduct())
-        
+        val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(preBureauAffordabilityRequest_.getApplicantData())
+        val requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(preBureauAffordabilityRequest_.getRequestedProduct())
+
         // Invoke apply method
-        var output_: Boolean? = apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
-        
+        val output_: Boolean? = apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         // Convert output to Response Message
-        var builder_: proto.PreBureauAffordabilityResponse.Builder = proto.PreBureauAffordabilityResponse.newBuilder()
-        builder_.setPreBureauAffordability((if (output_ == null) false else output_!!))
+        val builder_: proto.PreBureauAffordabilityResponse.Builder = proto.PreBureauAffordabilityResponse.newBuilder()
+        val outputProto_ = (if (output_ == null) false else output_!!)
+        builder_.setPreBureauAffordability(outputProto_)
         return builder_.build()
     }
 
@@ -93,5 +94,24 @@ class PreBureauAffordability(val preBureauRiskCategory : PreBureauRiskCategory =
             com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
             -1
         )
+
+        @JvmStatic
+        fun requestToMap(preBureauAffordabilityRequest_: proto.PreBureauAffordabilityRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(preBureauAffordabilityRequest_.getApplicantData())
+            val requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(preBureauAffordabilityRequest_.getRequestedProduct())
+
+            // Create map
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("ApplicantData", applicantData)
+            map_.put("RequestedProduct", requestedProduct)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(preBureauAffordabilityResponse_: proto.PreBureauAffordabilityResponse): Boolean? {
+            // Extract and convert output
+            return preBureauAffordabilityResponse_.getPreBureauAffordability()
+        }
     }
 }

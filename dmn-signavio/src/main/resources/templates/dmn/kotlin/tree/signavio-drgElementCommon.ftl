@@ -154,25 +154,6 @@ import static ${transformer.qualifiedName(subBKM)}.${transformer.bkmFunctionName
 </#macro>
 
 <#--
-    Sub decisions fields
--->
-<#macro addSubDecisionFields drgElement>
-    <#list modelRepository.directSubDecisions(drgElement)>
-        <#items as subDecision>
-    private val ${transformer.qualifiedName(subDecision)} ${transformer.drgElementReferenceVariableName(subDecision)}
-        </#items>
-    </#list>
-</#macro>
-
-<#macro setSubDecisionFields drgElement>
-    <#list modelRepository.directSubDecisions(drgElement)>
-        <#items as subDecision>
-        this.${transformer.drgElementReferenceVariableName(subDecision)} = ${transformer.drgElementReferenceVariableName(subDecision)}
-        </#items>
-    </#list>
-</#macro>
-
-<#--
     Decision table
 -->
 <#macro addEvaluateDecisionTableMethod drgElement>
@@ -202,7 +183,7 @@ import static ${transformer.qualifiedName(subBKM)}.${transformer.bkmFunctionName
             output_ = ${transformer.defaultValue(drgElement)}
             <#if !modelRepository.hasAggregator(expression)>
             if (output_ == null) {
-                output_ = this.asList();
+                output_ = this.asList()
             }
             </#if>
         } else {
@@ -301,7 +282,7 @@ import static ${transformer.qualifiedName(subBKM)}.${transformer.bkmFunctionName
         <#list expression.output as output>
         result_.${transformer.outputClauseVariableName(drgElement, output)} = ruleOutput_.let({ it.${transformer.outputClauseVariableName(drgElement, output)} })
         </#list>
-        return result_;
+        return result_
     }
     </#if>
 </#macro>
@@ -381,7 +362,7 @@ import static ${transformer.qualifiedName(subBKM)}.${transformer.bkmFunctionName
             <#assign elementNames = transformer.drgElementArgumentDisplayNameList(drgElement)/>
             <#list transformer.drgElementArgumentNameList(drgElement)>
             <#items as arg>
-            ${transformer.argumentsVariableName(drgElement)}.put("${transformer.escapeInString(elementNames[arg?index])}", ${arg});
+            ${transformer.argumentsVariableName(drgElement)}.put("${transformer.escapeInString(elementNames[arg?index])}", ${arg})
             </#items>
             </#list>
             ${transformer.eventListenerVariableName()}.startDRGElement(<@drgElementAnnotation drgElement/>, ${transformer.argumentsVariableName(drgElement)})

@@ -22,6 +22,7 @@ public class Loop extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
     private final Zip1 zip1;
 
     public Loop() {

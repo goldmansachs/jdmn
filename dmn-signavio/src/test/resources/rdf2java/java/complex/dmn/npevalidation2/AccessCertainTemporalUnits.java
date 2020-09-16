@@ -22,6 +22,7 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
         com.gs.dmn.runtime.annotation.HitPolicy.COLLECT,
         5
     );
+
     private final GenerateTemporalObjects generateTemporalObjects;
 
     public AccessCertainTemporalUnits() {

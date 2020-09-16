@@ -112,7 +112,6 @@
     "javaTypeName" : "List<String>",
     "label" : "inputA",
     "name" : "inputA",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "inputA",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml"
@@ -124,7 +123,6 @@
     "javaTypeName" : "List<java.math.BigDecimal>",
     "label" : "inputB",
     "name" : "inputB",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "inputB",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml"
@@ -136,7 +134,6 @@
     "javaTypeName" : "type.Zip3",
     "label" : "zip",
     "name" : "zip4_iterator",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "zip3",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml"
@@ -154,6 +151,8 @@
     "knowledgeReferences" : [ ],
     "label" : "do something",
     "name" : "doSomething",
+    "protoRequestName" : "proto.DoSomethingRequest",
+    "protoResponseName" : "proto.DoSomethingResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-d4987419a2b1fc654221251bbec3102e",
@@ -161,7 +160,6 @@
       "javaTypeName" : "type.Zip3",
       "label" : "zip",
       "name" : "zip4_iterator",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "zip3",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml"
@@ -190,6 +188,8 @@
     "knowledgeReferences" : [ ],
     "label" : "mid",
     "name" : "mid",
+    "protoRequestName" : "proto.MidRequest",
+    "protoResponseName" : "proto.MidResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-58adb0c8c137e2f5cdd9c6b8672cde12",
@@ -197,7 +197,6 @@
       "javaTypeName" : "List<String>",
       "label" : "inputA",
       "name" : "inputA",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "inputA",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml"
@@ -209,7 +208,6 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "inputB",
       "name" : "inputB",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "inputB",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml"
@@ -234,6 +232,8 @@
     "knowledgeReferences" : [ ],
     "label" : "zip",
     "name" : "zip",
+    "protoRequestName" : "proto.ZipRequest",
+    "protoResponseName" : "proto.ZipResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-58adb0c8c137e2f5cdd9c6b8672cde12",
@@ -241,7 +241,6 @@
       "javaTypeName" : "List<String>",
       "label" : "inputA",
       "name" : "inputA",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "inputA",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml"
@@ -253,7 +252,6 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "inputB",
       "name" : "inputB",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "inputB",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml"

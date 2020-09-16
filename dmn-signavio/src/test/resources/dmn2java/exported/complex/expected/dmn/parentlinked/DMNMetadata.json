@@ -43,7 +43,6 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "num",
     "name" : "num",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "num",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml"
@@ -61,6 +60,8 @@
     "knowledgeReferences" : [ ],
     "label" : "abc",
     "name" : "abc",
+    "protoRequestName" : "proto.AbcRequest",
+    "protoResponseName" : "proto.AbcResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-633e1930a1ad44cae56744496cd663d3",
@@ -68,7 +69,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "num",
       "name" : "num",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "num",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml"
@@ -91,6 +91,8 @@
     "knowledgeReferences" : [ ],
     "label" : "ChildObject",
     "name" : "childObject",
+    "protoRequestName" : "proto.ChildObjectRequest",
+    "protoResponseName" : "proto.ChildObjectResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-633e1930a1ad44cae56744496cd663d3",
@@ -98,7 +100,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "num",
       "name" : "num",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "num",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml"
@@ -121,6 +122,8 @@
     "knowledgeReferences" : [ ],
     "label" : "SomethingElse",
     "name" : "somethingElse",
+    "protoRequestName" : "proto.SomethingElseRequest",
+    "protoResponseName" : "proto.SomethingElseResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-633e1930a1ad44cae56744496cd663d3",
@@ -128,7 +131,6 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "num",
       "name" : "num",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "num",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml"

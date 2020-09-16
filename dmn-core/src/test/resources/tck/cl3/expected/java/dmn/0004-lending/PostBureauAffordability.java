@@ -22,6 +22,7 @@ public class PostBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDe
         com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
         -1
     );
+
     private final PostBureauRiskCategory postBureauRiskCategory;
     private final RequiredMonthlyInstallment requiredMonthlyInstallment;
 

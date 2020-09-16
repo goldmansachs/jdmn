@@ -40,9 +40,9 @@ class Routing(val postBureauAffordability : PostBureauAffordability = PostBureau
             // Start decision 'Routing'
             val routingStartTime_ = System.currentTimeMillis()
             val routingArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            routingArguments_.put("ApplicantData", applicantData);
-            routingArguments_.put("BureauData", bureauData);
-            routingArguments_.put("RequestedProduct", requestedProduct);
+            routingArguments_.put("ApplicantData", applicantData)
+            routingArguments_.put("BureauData", bureauData)
+            routingArguments_.put("RequestedProduct", requestedProduct)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, routingArguments_)
 
             // Apply child decisions
@@ -68,16 +68,17 @@ class Routing(val postBureauAffordability : PostBureauAffordability = PostBureau
 
     fun apply(routingRequest_: proto.RoutingRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.RoutingResponse {
         // Create arguments from Request Message
-        var applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(routingRequest_.getApplicantData())
-        var bureauData: type.TBureauData? = type.TBureauData.toTBureauData(routingRequest_.getBureauData())
-        var requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(routingRequest_.getRequestedProduct())
-        
+        val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(routingRequest_.getApplicantData())
+        val bureauData: type.TBureauData? = type.TBureauData.toTBureauData(routingRequest_.getBureauData())
+        val requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(routingRequest_.getRequestedProduct())
+
         // Invoke apply method
-        var output_: String? = apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
-        
+        val output_: String? = apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         // Convert output to Response Message
-        var builder_: proto.RoutingResponse.Builder = proto.RoutingResponse.newBuilder()
-        builder_.setRouting((if (output_ == null) null else output_!!))
+        val builder_: proto.RoutingResponse.Builder = proto.RoutingResponse.newBuilder()
+        val outputProto_ = (if (output_ == null) "" else output_!!)
+        builder_.setRouting(outputProto_)
         return builder_.build()
     }
 
@@ -95,5 +96,26 @@ class Routing(val postBureauAffordability : PostBureauAffordability = PostBureau
             com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
             -1
         )
+
+        @JvmStatic
+        fun requestToMap(routingRequest_: proto.RoutingRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(routingRequest_.getApplicantData())
+            val bureauData: type.TBureauData? = type.TBureauData.toTBureauData(routingRequest_.getBureauData())
+            val requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(routingRequest_.getRequestedProduct())
+
+            // Create map
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("ApplicantData", applicantData)
+            map_.put("BureauData", bureauData)
+            map_.put("RequestedProduct", requestedProduct)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(routingResponse_: proto.RoutingResponse): String? {
+            // Extract and convert output
+            return routingResponse_.getRouting()
+        }
     }
 }

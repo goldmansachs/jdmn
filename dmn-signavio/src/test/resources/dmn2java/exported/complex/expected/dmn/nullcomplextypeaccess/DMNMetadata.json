@@ -94,7 +94,6 @@
     "javaTypeName" : "String",
     "label" : "InputString",
     "name" : "inputString",
-    "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "inputString",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml"
@@ -112,6 +111,8 @@
     "knowledgeReferences" : [ ],
     "label" : "IncompleteDecisionTable",
     "name" : "incompleteDecisionTable",
+    "protoRequestName" : "proto.IncompleteDecisionTableRequest",
+    "protoResponseName" : "proto.IncompleteDecisionTableResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-0ff9eb79f707e780099161b4b4c56746",
@@ -119,7 +120,6 @@
       "javaTypeName" : "String",
       "label" : "InputString",
       "name" : "inputString",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "inputString",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml"
@@ -142,6 +142,8 @@
     "knowledgeReferences" : [ ],
     "label" : "TestNullComplexTypeAccess",
     "name" : "testNullComplexTypeAccess",
+    "protoRequestName" : "proto.TestNullComplexTypeAccessRequest",
+    "protoResponseName" : "proto.TestNullComplexTypeAccessResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-0ff9eb79f707e780099161b4b4c56746",
@@ -149,7 +151,6 @@
       "javaTypeName" : "String",
       "label" : "InputString",
       "name" : "inputString",
-      "transitiveRequiredInput" : [ ],
       "typeRef" : {
         "localName" : "inputString",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml"

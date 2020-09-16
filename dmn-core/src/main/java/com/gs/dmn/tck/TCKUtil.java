@@ -52,15 +52,15 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     private final DMNModelRepository dmnModelRepository;
 
-    private final BasicDMNToNativeTransformer dmnTransformer;
+    private final BasicDMNToNativeTransformer transformer;
     private final StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib;
     private final NativeTypeFactory typeFactory;
 
-    public TCKUtil(BasicDMNToNativeTransformer dmnTransformer, StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib) {
-        this.dmnTransformer = dmnTransformer;
+    public TCKUtil(BasicDMNToNativeTransformer transformer, StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib) {
+        this.transformer = transformer;
         this.feelLib = feelLib;
-        this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
-        this.typeFactory = dmnTransformer.getNativeTypeFactory();
+        this.dmnModelRepository = transformer.getDMNModelRepository();
+        this.typeFactory = transformer.getNativeTypeFactory();
     }
 
     //
@@ -68,7 +68,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     //
     public InputNodeInfo extractInputNodeInfo(TestCases testCases, TestCase testCase, InputNode inputNode) {
         TDefinitions definitions = getRootModel(testCases);
-        if (this.dmnTransformer.isSingletonInputData()) {
+        if (this.transformer.isSingletonInputData()) {
             String namespace = getNamespace(testCases, testCase, inputNode);
             DRGElementReference<? extends TDRGElement> reference = extractInfoFromModel(definitions, namespace, inputNode.getName());
             if (reference == null) {
@@ -179,7 +179,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     public String toNativeType(InputNodeInfo info) {
         Type feelType = toFEELType(info);
-        return this.typeFactory.nullableType(this.dmnTransformer.toNativeType(feelType));
+        return this.typeFactory.nullableType(this.transformer.toNativeType(feelType));
     }
 
     public String inputDataVariableName(InputNodeInfo info) {
@@ -187,7 +187,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         if (element == null) {
             throw new DMNRuntimeException(String.format("Cannot find element '%s'", info.getNodeName()));
         } else {
-            return this.dmnTransformer.drgElementReferenceVariableName(info.getReference());
+            return this.transformer.drgElementReferenceVariableName(info.getReference());
         }
     }
 
@@ -199,7 +199,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     private Type toFEELType(InputNodeInfo info) {
         try {
             TDRGElement element = info.getReference().getElement();
-            return this.dmnTransformer.drgElementOutputFEELType(element);
+            return this.transformer.drgElementOutputFEELType(element);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot resolve FEEL type for node '%s'", info.getNodeName()), e);
         }
@@ -237,29 +237,40 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return toNativeExpression(info.getExpectedValue(), outputType);
     }
 
+    public String toNativeExpressionProto(ResultNodeInfo info) {
+        Type resultType = toFEELType(info);
+        ValueType expectedValue = info.getExpectedValue();
+        String value = toNativeExpression(expectedValue, resultType);
+        if (this.transformer.isDateTimeType(resultType) || this.transformer.isComplexType(resultType)) {
+            return transformer.getNativeFactory().convertValueToProtoNativeType(value, resultType, false);
+        } else {
+            return value;
+        }
+    }
+
     public String qualifiedName(ResultNodeInfo info) {
-        String pkg = this.dmnTransformer.nativeModelPackageName(info.getRootModelName());
-        String cls = this.dmnTransformer.drgElementClassName(info.getReference().getElement());
-        return this.dmnTransformer.qualifiedName(pkg, cls);
+        String pkg = this.transformer.nativeModelPackageName(info.getRootModelName());
+        String cls = this.transformer.drgElementClassName(info.getReference().getElement());
+        return this.transformer.qualifiedName(pkg, cls);
     }
 
     public String drgElementArgumentListExtraCache(String arguments) {
-        return this.dmnTransformer.drgElementArgumentListExtraCache(arguments);
+        return this.transformer.drgElementArgumentListExtraCache(arguments);
     }
 
     public String drgElementArgumentListExtra(String arguments) {
-        return this.dmnTransformer.drgElementArgumentListExtra(arguments);
+        return this.transformer.drgElementArgumentListExtra(arguments);
     }
 
     public String drgElementArgumentList(ResultNodeInfo info) {
         TDecision decision = (TDecision) info.getReference().getElement();
-        return this.dmnTransformer.drgElementArgumentList(this.dmnModelRepository.makeDRGElementReference(decision));
+        return this.transformer.drgElementArgumentList(this.dmnModelRepository.makeDRGElementReference(decision));
     }
 
     private Type toFEELType(ResultNodeInfo resultNode) {
         try {
             TDRGElement element = resultNode.getReference().getElement();
-            return this.dmnTransformer.drgElementOutputFEELType(element);
+            return this.transformer.drgElementOutputFEELType(element);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot resolve FEEL type for node '%s'", resultNode.getNodeName()), e);
         }
@@ -283,59 +294,59 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     // Translator - helper delegated methods
     //
     public String assertClassName() {
-        return this.dmnTransformer.assertClassName();
+        return this.transformer.assertClassName();
     }
 
     public String annotationSetClassName() {
-        return this.dmnTransformer.annotationSetClassName();
+        return this.transformer.annotationSetClassName();
     }
 
     public String annotationSetVariableName() {
-        return this.dmnTransformer.annotationSetVariableName();
+        return this.transformer.annotationSetVariableName();
     }
 
     public String eventListenerClassName() {
-        return this.dmnTransformer.eventListenerClassName();
+        return this.transformer.eventListenerClassName();
     }
 
     public String defaultEventListenerClassName() {
-        return this.dmnTransformer.defaultEventListenerClassName();
+        return this.transformer.defaultEventListenerClassName();
     }
 
     public String eventListenerVariableName() {
-        return this.dmnTransformer.eventListenerVariableName();
+        return this.transformer.eventListenerVariableName();
     }
 
     public String externalExecutorClassName() {
-        return this.dmnTransformer.externalExecutorClassName();
+        return this.transformer.externalExecutorClassName();
     }
 
     public String externalExecutorVariableName() {
-        return this.dmnTransformer.externalExecutorVariableName();
+        return this.transformer.externalExecutorVariableName();
     }
 
     public String defaultExternalExecutorClassName() {
-        return this.dmnTransformer.defaultExternalExecutorClassName();
+        return this.transformer.defaultExternalExecutorClassName();
     }
 
     public String cacheInterfaceName() {
-        return this.dmnTransformer.cacheInterfaceName();
+        return this.transformer.cacheInterfaceName();
     }
 
     public String cacheVariableName() {
-        return this.dmnTransformer.cacheVariableName();
+        return this.transformer.cacheVariableName();
     }
 
     public String defaultCacheClassName() {
-        return this.dmnTransformer.defaultCacheClassName();
+        return this.transformer.defaultCacheClassName();
     }
 
     public String defaultConstructor(String className) {
-        return this.dmnTransformer.defaultConstructor(className);
+        return this.transformer.defaultConstructor(className);
     }
 
     public boolean isCached(InputNodeInfo info) {
-        return this.dmnTransformer.isCached(info.getReference().getElementName());
+        return this.transformer.isCached(info.getReference().getElementName());
     }
 
     //
@@ -359,9 +370,9 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         for (int i = 0; i < inputNode.size(); i++) {
             InputNode input = inputNode.get(i);
             try {
-                if (this.dmnTransformer.isSingletonInputData()) {
+                if (this.transformer.isSingletonInputData()) {
                     InputNodeInfo info = extractInputNodeInfo(testCases, testCase, input);
-                    String name = this.dmnTransformer.bindingName(info.getReference());
+                    String name = this.transformer.bindingName(info.getReference());
                     Object value = makeValue(info.getValue());
                     runtimeEnvironment.bind(name, value);
                 } else {
@@ -381,7 +392,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         List<Object> args = new ArrayList<>();
         if (drgElement instanceof TInvocable) {
             // Preserve de order in the call
-            List<FormalParameter> formalParameters = this.dmnTransformer.invocableFEELParameters(drgElement);
+            List<FormalParameter> formalParameters = this.transformer.invocableFEELParameters(drgElement);
             Map<String, Object> map = new LinkedHashMap<>();
             List<InputNode> inputNode = testCase.getInputNode();
             for (int i = 0; i < inputNode.size(); i++) {
@@ -551,9 +562,9 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             }
         }
         sortParameters(argumentList);
-        String interfaceName = this.dmnTransformer.toNativeType(type);
+        String interfaceName = this.transformer.toNativeType(type);
         String arguments = argumentList.stream().map(Pair::getRight).collect(Collectors.joining(", "));
-        return this.dmnTransformer.constructor(this.dmnTransformer.itemDefinitionNativeClassName(interfaceName), arguments);
+        return this.transformer.constructor(this.transformer.itemDefinitionNativeClassName(interfaceName), arguments);
     }
 
     public Object makeValue(ValueType valueType) {
@@ -833,49 +844,56 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     // Proto section
     //
     public boolean isGenerateProto() {
-        return this.dmnTransformer.isGenerateProto();
+        return this.transformer.isGenerateProto();
     }
 
     public String qualifiedRequestMessageName(ResultNodeInfo info) {
         TDecision decision = (TDecision) info.getReference().getElement();
-        return dmnTransformer.getProtoFactory().qualifiedRequestMessageName(decision);
+        return transformer.getProtoFactory().qualifiedRequestMessageName(decision);
     }
 
     public String requestVariableName(ResultNodeInfo info) {
         TDRGElement element = info.getReference().getElement();
-        return dmnTransformer.namedElementVariableName(element) + "Request_";
+        return transformer.getProtoFactory().requestVariableName(element);
     }
 
     public String builderVariableName(ResultNodeInfo info) {
         TDRGElement element = info.getReference().getElement();
-        return dmnTransformer.namedElementVariableName(element) + "Builder_";
+        return transformer.namedElementVariableName(element) + "Builder_";
     }
 
     public List<Pair<String, Type>> drgElementTypeSignature(ResultNodeInfo info) {
         TDRGElement element = info.getReference().getElement();
-        List<Pair<String, Type>> pairs = this.dmnTransformer.drgElementTypeSignature(element, this.dmnTransformer::nativeName);
-        return pairs;
+        return this.transformer.drgElementTypeSignature(element, this.transformer::nativeName);
     }
 
-    public String protoSetter(Pair<String, Type> pair) {
-        return this.dmnTransformer.getProtoFactory().protoSetter(pair.getLeft(), pair.getRight());
+    public String protoSetter(Pair<String, Type> parameter) {
+        return this.transformer.getProtoFactory().protoSetter(parameter.getLeft(), parameter.getRight());
     }
 
     public String drgElementArgumentListExtraCacheProto(ResultNodeInfo info) {
         TDRGElement element = info.getReference().getElement();
-        return this.dmnTransformer.drgElementArgumentListExtraCacheProto(element);
+        return this.transformer.drgElementArgumentListExtraCacheProto(element);
     }
 
     public String toNativeExpressionProto(Pair<String, Type> pair) {
         String inputName = pair.getLeft();
         Type type = pair.getRight();
-        return this.dmnTransformer.getNativeFactory().convertValueToProtoNativeType(inputName, type);
+        return this.transformer.getNativeFactory().convertValueToProtoNativeType(inputName, type, false);
+    }
+
+    public String toNativeTypeProto(Type type) {
+        return this.transformer.getProtoFactory().toNativeProtoType(type);
+    }
+
+    public boolean isProtoReference(Type type) {
+        return this.transformer.isProtoReference(type);
     }
 
     public String protoGetter(ResultNodeInfo info) {
         TDRGElement element = info.getReference().getElement();
-        Type type = this.dmnTransformer.drgElementOutputFEELType(element);
-        String name = this.dmnTransformer.namedElementVariableName(element);
-        return this.dmnTransformer.getProtoFactory().protoGetter(name, type);
+        Type type = this.transformer.drgElementOutputFEELType(element);
+        String name = this.transformer.namedElementVariableName(element);
+        return this.transformer.getProtoFactory().protoGetter(name, type);
     }
 }

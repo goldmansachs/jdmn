@@ -40,8 +40,8 @@ class AssessIssueRisk(val processPriorIssues : ProcessPriorIssues = ProcessPrior
             // Start decision 'assessIssueRisk'
             val assessIssueRiskStartTime_ = System.currentTimeMillis()
             val assessIssueRiskArguments_ = com.gs.dmn.runtime.listener.Arguments()
-            assessIssueRiskArguments_.put("Applicant", applicant);
-            assessIssueRiskArguments_.put("Current risk appetite", currentRiskAppetite);
+            assessIssueRiskArguments_.put("Applicant", applicant)
+            assessIssueRiskArguments_.put("Current risk appetite", currentRiskAppetite)
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, assessIssueRiskArguments_)
 
             // Apply child decisions
@@ -66,15 +66,16 @@ class AssessIssueRisk(val processPriorIssues : ProcessPriorIssues = ProcessPrior
 
     fun apply(assessIssueRiskRequest_: proto.AssessIssueRiskRequest, annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet, eventListener_: com.gs.dmn.runtime.listener.EventListener, externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor, cache_: com.gs.dmn.runtime.cache.Cache): proto.AssessIssueRiskResponse {
         // Create arguments from Request Message
-        var applicant: type.Applicant? = type.Applicant.toApplicant(assessIssueRiskRequest_.getApplicant())
-        var currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(assessIssueRiskRequest_.getCurrentRiskAppetite())
-        
+        val applicant: type.Applicant? = type.Applicant.toApplicant(assessIssueRiskRequest_.getApplicant())
+        val currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(assessIssueRiskRequest_.getCurrentRiskAppetite())
+
         // Invoke apply method
-        var output_: java.math.BigDecimal? = apply(applicant, currentRiskAppetite, annotationSet_, eventListener_, externalExecutor_, cache_)
-        
+        val output_: java.math.BigDecimal? = apply(applicant, currentRiskAppetite, annotationSet_, eventListener_, externalExecutor_, cache_)
+
         // Convert output to Response Message
-        var builder_: proto.AssessIssueRiskResponse.Builder = proto.AssessIssueRiskResponse.newBuilder()
-        builder_.setAssessIssueRisk((if (output_ == null) 0.0 else output_!!.toDouble()))
+        val builder_: proto.AssessIssueRiskResponse.Builder = proto.AssessIssueRiskResponse.newBuilder()
+        val outputProto_ = (if (output_ == null) 0.0 else output_!!.toDouble())
+        builder_.setAssessIssueRisk(outputProto_)
         return builder_.build()
     }
 
@@ -93,5 +94,24 @@ class AssessIssueRisk(val processPriorIssues : ProcessPriorIssues = ProcessPrior
             com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
             -1
         )
+
+        @JvmStatic
+        fun requestToMap(assessIssueRiskRequest_: proto.AssessIssueRiskRequest): kotlin.collections.Map<String, Any?> {
+            // Create arguments from Request Message
+            val applicant: type.Applicant? = type.Applicant.toApplicant(assessIssueRiskRequest_.getApplicant())
+            val currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(assessIssueRiskRequest_.getCurrentRiskAppetite())
+
+            // Create map
+            val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
+            map_.put("Applicant", applicant)
+            map_.put("Current risk appetite", currentRiskAppetite)
+            return map_
+        }
+
+        @JvmStatic
+        fun responseToOutput(assessIssueRiskResponse_: proto.AssessIssueRiskResponse): java.math.BigDecimal? {
+            // Extract and convert output
+            return java.math.BigDecimal.valueOf(assessIssueRiskResponse_.getAssessIssueRisk())
+        }
     }
 }
