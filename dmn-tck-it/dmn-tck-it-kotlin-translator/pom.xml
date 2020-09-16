@@ -33,11 +33,11 @@
         <composite.diagram.folder>${project.basedir}/../dmn-tck-it-interpreter/src/main/resources/composite</composite.diagram.folder>
         <proto.diagram.folder>${project.basedir}/../dmn-tck-it-interpreter/src/main/resources/proto</proto.diagram.folder>
 
-        <generated.kotlin.folder>${project.build.directory}/generated-sources/dmn</generated.kotlin.folder>
+        <generated.source.code.folder>${project.build.directory}/generated-sources/dmn</generated.source.code.folder>
         <generated.root.package>com.gs.dmn.generated</generated.root.package>
-        <tck.kotlin.folder>${project.build.directory}/generated-test-sources/tck</tck.kotlin.folder>
-        <generated.java.grpc>${project.build.directory}/generated-sources/protobuf/grpc-java</generated.java.grpc>
-        <generated.java.protobuf>${project.build.directory}/generated-sources/protobuf/java</generated.java.protobuf>
+        <generated.test.code.folder>${project.build.directory}/generated-test-sources/tck</generated.test.code.folder>
+        <generated.grpc.folder>${project.build.directory}/generated-sources/protobuf/grpc-java</generated.grpc.folder>
+        <generated.protobuf.folder>${project.build.directory}/generated-sources/protobuf/java</generated.protobuf.folder>
 
         <kotlin.version>1.3.71</kotlin.version>
         <kotlin.code.style>official</kotlin.code.style>
@@ -157,7 +157,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0001-input-data-string.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0001_input_data_string</javaRootPackage>
                             </inputParameters>
@@ -172,7 +172,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0001-input-data-string-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0001-input-data-string.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0001_input_data_string</javaRootPackage>
                             </inputParameters>
@@ -187,7 +187,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0002-input-data-number.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0002_input_data_number</javaRootPackage>
                             </inputParameters>
@@ -202,7 +202,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0002-input-data-number-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0002-input-data-number.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0002_input_data_number</javaRootPackage>
                             </inputParameters>
@@ -217,7 +217,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0003-input-data-string-allowed-values.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0003_input_data_string_allowed_values</javaRootPackage>
                             </inputParameters>
@@ -232,7 +232,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0003-input-data-string-allowed-values-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0003-input-data-string-allowed-values.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0003_input_data_string_allowed_values</javaRootPackage>
                             </inputParameters>
@@ -247,7 +247,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0004-simpletable-U.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0004_simpletable_U</javaRootPackage>
                             </inputParameters>
@@ -262,7 +262,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0004-simpletable-U-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0004-simpletable-U.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0004_simpletable_U</javaRootPackage>
                             </inputParameters>
@@ -277,7 +277,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0005-simpletable-A.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0005_simpletable_A</javaRootPackage>
                             </inputParameters>
@@ -292,7 +292,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0005-simpletable-A-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0005-simpletable-A.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0005_simpletable_A</javaRootPackage>
                             </inputParameters>
@@ -307,7 +307,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0006-simpletable-P1.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0006_simpletable_P1</javaRootPackage>
                             </inputParameters>
@@ -322,7 +322,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0006-simpletable-P1-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0006-simpletable-P1.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0006_simpletable_P1</javaRootPackage>
                             </inputParameters>
@@ -337,7 +337,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0007-simpletable-P2.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0007_simpletable_P2</javaRootPackage>
                             </inputParameters>
@@ -352,7 +352,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0007-simpletable-P2-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0007-simpletable-P2.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0007_simpletable_P2</javaRootPackage>
                             </inputParameters>
@@ -367,7 +367,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0008-LX-arithmetic.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0008_LX_arithmetic</javaRootPackage>
                             </inputParameters>
@@ -382,7 +382,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0008-LX-arithmetic-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0008-LX-arithmetic.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0008_LX_arithmetic</javaRootPackage>
                             </inputParameters>
@@ -397,7 +397,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0009-invocation-arithmetic.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0009_invocation_arithmetic</javaRootPackage>
                             </inputParameters>
@@ -412,7 +412,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0009-invocation-arithmetic-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0009-invocation-arithmetic.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0009_invocation_arithmetic</javaRootPackage>
                             </inputParameters>
@@ -427,7 +427,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0010-multi-output-U.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0010_multi_output_U</javaRootPackage>
                             </inputParameters>
@@ -442,7 +442,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0010-multi-output-U-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0010-multi-output-U.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0010_multi_output_U</javaRootPackage>
                             </inputParameters>
@@ -457,7 +457,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0100-feel-constants.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0100_feel_constants</javaRootPackage>
                             </inputParameters>
@@ -472,7 +472,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0100-feel-constants-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0100-feel-constants.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0100_feel_constants</javaRootPackage>
                             </inputParameters>
@@ -487,7 +487,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0101-feel-constants.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0101_feel_constants</javaRootPackage>
                             </inputParameters>
@@ -502,7 +502,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0101-feel-constants-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0101-feel-constants.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0101_feel_constants</javaRootPackage>
                             </inputParameters>
@@ -517,7 +517,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0102-feel-constants.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0102_feel_constants</javaRootPackage>
                             </inputParameters>
@@ -532,7 +532,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0102-feel-constants-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0102-feel-constants.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0102_feel_constants</javaRootPackage>
                             </inputParameters>
@@ -547,7 +547,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0105-feel-math.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0105_feel_math</javaRootPackage>
                             </inputParameters>
@@ -562,7 +562,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0105-feel-math-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0105-feel-math.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0105_feel_math</javaRootPackage>
                             </inputParameters>
@@ -577,7 +577,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0106-feel-ternary-logic.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0106_feel_ternary_logic</javaRootPackage>
                             </inputParameters>
@@ -592,7 +592,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0106-feel-ternary-logic-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0106-feel-ternary-logic.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0106_feel_ternary_logic</javaRootPackage>
                             </inputParameters>
@@ -607,7 +607,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl2/0107-feel-ternary-logic-not.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0107_feel_ternary_logic_not</javaRootPackage>
                             </inputParameters>
@@ -622,7 +622,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl2/0107-feel-ternary-logic-not-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl2/0107-feel-ternary-logic-not.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl2_0107_feel_ternary_logic_not</javaRootPackage>
                             </inputParameters>
@@ -638,7 +638,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0001-filter.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0001_filter</javaRootPackage>
                             </inputParameters>
@@ -653,7 +653,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/0001-filter-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0001-filter.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0001_filter</javaRootPackage>
                             </inputParameters>
@@ -668,7 +668,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0002-string-functions.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0002_string_functions</javaRootPackage>
                             </inputParameters>
@@ -683,7 +683,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/0002-string-functions-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0002-string-functions.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0002_string_functions</javaRootPackage>
                             </inputParameters>
@@ -698,7 +698,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0003-iteration.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0003_iteration</javaRootPackage>
                             </inputParameters>
@@ -713,7 +713,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/0003-iteration-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0003-iteration.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0003_iteration</javaRootPackage>
                             </inputParameters>
@@ -731,7 +731,7 @@
                                 <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
                             </lazyEvaluationDetectors>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending</javaRootPackage>
                             </inputParameters>
@@ -746,7 +746,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/0004-lending-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0004_lending</javaRootPackage>
                             </inputParameters>
@@ -761,7 +761,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0005-literal-invocation.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0005_literal_invocation</javaRootPackage>
                             </inputParameters>
@@ -776,7 +776,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/0005-literal-invocation-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0005-literal-invocation.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0005_literal_invocation</javaRootPackage>
                             </inputParameters>
@@ -791,7 +791,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0006-join.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0006_join</javaRootPackage>
                             </inputParameters>
@@ -806,7 +806,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/0006-join-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0006-join.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0006_join</javaRootPackage>
                             </inputParameters>
@@ -821,7 +821,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0007-date-time.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0007_date_time</javaRootPackage>
                             </inputParameters>
@@ -836,7 +836,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/0007-date-time-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0007-date-time.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0007_date_time</javaRootPackage>
                             </inputParameters>
@@ -851,7 +851,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0008-listGen.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0008_listGen</javaRootPackage>
                             </inputParameters>
@@ -866,7 +866,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/0008-listGen-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0008-listGen.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0008_listGen</javaRootPackage>
                             </inputParameters>
@@ -881,7 +881,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0009-append-flatten.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0009_append_flatten</javaRootPackage>
                             </inputParameters>
@@ -896,7 +896,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/0009-append-flatten-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0009-append-flatten.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0009_append_flatten</javaRootPackage>
                             </inputParameters>
@@ -911,7 +911,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0010-concatenate.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0010_concatenate</javaRootPackage>
                             </inputParameters>
@@ -926,7 +926,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/0010-concatenate-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0010-concatenate.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0010_concatenate</javaRootPackage>
                             </inputParameters>
@@ -941,7 +941,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0011-insert-remove.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0011_insert_remove</javaRootPackage>
                             </inputParameters>
@@ -956,7 +956,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/0011-insert-remove-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0011-insert-remove.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0011_insert_remove</javaRootPackage>
                             </inputParameters>
@@ -971,7 +971,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0012-list-functions.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0012_list_functions</javaRootPackage>
                             </inputParameters>
@@ -986,7 +986,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/0012-list-functions-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0012-list-functions.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0012_list_functions</javaRootPackage>
                             </inputParameters>
@@ -1001,7 +1001,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0013-sort.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0013_sort</javaRootPackage>
                             </inputParameters>
@@ -1016,7 +1016,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/0013-sort-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0013-sort.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0013_sort</javaRootPackage>
                             </inputParameters>
@@ -1031,7 +1031,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0014-loan-comparison.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0014_loan_comparison</javaRootPackage>
                             </inputParameters>
@@ -1046,7 +1046,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/0014-loan-comparison-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0014-loan-comparison.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0014_loan_comparison</javaRootPackage>
                             </inputParameters>
@@ -1061,7 +1061,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0016-some-every.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0016_some_every</javaRootPackage>
                             </inputParameters>
@@ -1076,7 +1076,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/0016-some-every-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0016-some-every.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0016_some_every</javaRootPackage>
                             </inputParameters>
@@ -1091,7 +1091,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0017-tableTests.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0017_tableTests</javaRootPackage>
                             </inputParameters>
@@ -1106,7 +1106,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/0017-tableTests-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0017-tableTests.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0017_tableTests</javaRootPackage>
                             </inputParameters>
@@ -1121,7 +1121,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0020-vacation-days.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0020_vacation_days</javaRootPackage>
                             </inputParameters>
@@ -1136,7 +1136,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/0020-vacation-days-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0020-vacation-days.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0020_vacation_days</javaRootPackage>
                             </inputParameters>
@@ -1151,7 +1151,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0021-singleton-list.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0021_singleton_list</javaRootPackage>
                             </inputParameters>
@@ -1166,7 +1166,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/0021-singleton-list-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0021-singleton-list.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0021_singleton_list</javaRootPackage>
                             </inputParameters>
@@ -1181,7 +1181,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0030-static-user-defined-functions.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0030_static_user_defined_functions</javaRootPackage>
                             </inputParameters>
@@ -1196,7 +1196,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/0030-static-user-defined-functions-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0030-static-user-defined-functions.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0030_static_user_defined_functions</javaRootPackage>
                             </inputParameters>
@@ -1211,7 +1211,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0031-static-user-defined-functions.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_static_0031_user_defined_functions</javaRootPackage>
                             </inputParameters>
@@ -1226,7 +1226,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/0031-static-user-defined-functions-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0031-static-user-defined-functions.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_static_0031_user_defined_functions</javaRootPackage>
                             </inputParameters>
@@ -1241,7 +1241,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0032-conditionals.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0032_conditionals</javaRootPackage>
                             </inputParameters>
@@ -1256,7 +1256,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/0032-conditionals-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0032-conditionals.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0032_conditionals</javaRootPackage>
                             </inputParameters>
@@ -1271,7 +1271,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0033-for-loops.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0033_for_loops</javaRootPackage>
                             </inputParameters>
@@ -1286,7 +1286,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/0033-for-loops-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0033-for-loops.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0033_for_loops</javaRootPackage>
                             </inputParameters>
@@ -1301,7 +1301,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0076-feel-external-java.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0076_feel_external_java</javaRootPackage>
                             </inputParameters>
@@ -1316,7 +1316,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/0076-feel-external-java-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0076-feel-external-java.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_0076_feel_external_java</javaRootPackage>
                             </inputParameters>
@@ -1331,7 +1331,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1100-feel-decimal-function.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1100_feel_decimal_function</javaRootPackage>
                             </inputParameters>
@@ -1346,7 +1346,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/1100-feel-decimal-function-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1100-feel-decimal-function.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1100_feel_decimal_function</javaRootPackage>
                             </inputParameters>
@@ -1361,7 +1361,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1101-feel-floor-function.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1101_feel_floor_function</javaRootPackage>
                             </inputParameters>
@@ -1376,7 +1376,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/1101-feel-floor-function-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1101-feel-floor-function.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1101_feel_floor_function</javaRootPackage>
                             </inputParameters>
@@ -1391,7 +1391,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1102-feel-ceiling-function.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1102_feel_ceiling_function</javaRootPackage>
                             </inputParameters>
@@ -1406,7 +1406,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/1102-feel-ceiling-function-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1102-feel-ceiling-function.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1102_feel_ceiling_function</javaRootPackage>
                             </inputParameters>
@@ -1421,7 +1421,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1103-feel-substring-function.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1103_feel_substring_function</javaRootPackage>
                             </inputParameters>
@@ -1436,7 +1436,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/1103-feel-substring-function-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1103-feel-substring-function.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1103_feel_substring_function</javaRootPackage>
                             </inputParameters>
@@ -1451,7 +1451,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1104-feel-string-length-function.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1104_feel_string_length_function</javaRootPackage>
                             </inputParameters>
@@ -1466,7 +1466,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/1104-feel-string-length-function-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1104-feel-string-length-function.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1104_feel_string_length_function</javaRootPackage>
                             </inputParameters>
@@ -1481,7 +1481,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1105-feel-upper-case-function.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1105_feel_upper_case_function</javaRootPackage>
                             </inputParameters>
@@ -1496,7 +1496,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/1105-feel-upper-case-function-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1105-feel-upper-case-function.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1105_feel_upper_case_function</javaRootPackage>
                             </inputParameters>
@@ -1511,7 +1511,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1106-feel-lower-case-function.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1106_feel_lower_case_function</javaRootPackage>
                             </inputParameters>
@@ -1526,7 +1526,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/1106-feel-lower-case-function-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1106-feel-lower-case-function.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1106_feel_lower_case_function</javaRootPackage>
                             </inputParameters>
@@ -1541,7 +1541,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1107-feel-substring-before-function.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1107_feel_substring_before_function</javaRootPackage>
                             </inputParameters>
@@ -1556,7 +1556,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/1107-feel-substring-before-function-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1107-feel-substring-before-function.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1107_feel_substring_before_function</javaRootPackage>
                             </inputParameters>
@@ -1571,7 +1571,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1108-feel-substring-after-function.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1108_feel_substring_after_function</javaRootPackage>
                             </inputParameters>
@@ -1586,7 +1586,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/1108-feel-substring-after-function-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1108-feel-substring-after-function.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1108_feel_substring_after_function</javaRootPackage>
                             </inputParameters>
@@ -1601,7 +1601,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1109-feel-replace-function.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1109_feel_replace_function</javaRootPackage>
                             </inputParameters>
@@ -1616,7 +1616,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/1109-feel-replace-function-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1109-feel-replace-function.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1109_feel_replace_function</javaRootPackage>
                             </inputParameters>
@@ -1631,7 +1631,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1110-feel-contains-function.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1110_feel_contains_function</javaRootPackage>
                             </inputParameters>
@@ -1646,7 +1646,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/1110-feel-contains-function-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1110-feel-contains-function.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1110_feel_contains_function</javaRootPackage>
                             </inputParameters>
@@ -1661,7 +1661,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1115-feel-date-function.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1115_feel_date_function</javaRootPackage>
                             </inputParameters>
@@ -1676,7 +1676,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/1115-feel-date-function-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1115-feel-date-function.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1115_feel_date_function</javaRootPackage>
                             </inputParameters>
@@ -1691,7 +1691,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1116-feel-time-function.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1116_feel_time_function</javaRootPackage>
                             </inputParameters>
@@ -1706,7 +1706,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/1116-feel-time-function-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1116-feel-time-function.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1116_feel_time_function</javaRootPackage>
                             </inputParameters>
@@ -1721,7 +1721,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1117-feel-date-and-time-function.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1117_feel_date_and_time_function</javaRootPackage>
                             </inputParameters>
@@ -1736,7 +1736,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/1117-feel-date-and-time-function-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1117-feel-date-and-time-function.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1117_feel_date_and_time_function</javaRootPackage>
                             </inputParameters>
@@ -1751,7 +1751,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1120-feel-duration-function.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1120_feel_duration_function</javaRootPackage>
                             </inputParameters>
@@ -1766,7 +1766,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/1120-feel-duration-function-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1120-feel-duration-function.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1120_feel_duration_function</javaRootPackage>
                             </inputParameters>
@@ -1781,7 +1781,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/1121-feel-years-and-months-duration-function.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1121_feel_years_and_months_duration_function</javaRootPackage>
                             </inputParameters>
@@ -1796,7 +1796,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/1121-feel-years-and-months-duration-function-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/1121-feel-years-and-months-duration-function.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1121_feel_years_and_months_duration_function</javaRootPackage>
                             </inputParameters>
@@ -1811,7 +1811,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/9001-recursive-function.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_9001_recursive_function</javaRootPackage>
                             </inputParameters>
@@ -1826,7 +1826,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/9001-recursive-function-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/9001-recursive-function.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_9001_recursive_function</javaRootPackage>
                             </inputParameters>
@@ -1842,7 +1842,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${composite.diagram.folder}/0001-no-name-conflicts-one-package</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0001_no_name_conflicts_one_package</javaRootPackage>
                                 <onePackage>true</onePackage>
@@ -1858,7 +1858,7 @@
                         <configuration>
                             <inputTestFileDirectory>${composite.diagram.folder}/0001-no-name-conflicts-one-package</inputTestFileDirectory>
                             <inputModelFileDirectory>${composite.diagram.folder}/0001-no-name-conflicts-one-package</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0001_no_name_conflicts_one_package</javaRootPackage>
                                 <onePackage>true</onePackage>
@@ -1874,7 +1874,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${composite.diagram.folder}/0002-no-name-conflicts</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0002_no_name_conflicts</javaRootPackage>
                             </inputParameters>
@@ -1889,7 +1889,7 @@
                         <configuration>
                             <inputTestFileDirectory>${composite.diagram.folder}/0002-no-name-conflicts</inputTestFileDirectory>
                             <inputModelFileDirectory>${composite.diagram.folder}/0002-no-name-conflicts</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0002_no_name_conflicts</javaRootPackage>
                             </inputParameters>
@@ -1904,7 +1904,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${composite.diagram.folder}/0003-name-conflicts</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0003_name_conflicts</javaRootPackage>
                             </inputParameters>
@@ -1919,7 +1919,7 @@
                         <configuration>
                             <inputTestFileDirectory>${composite.diagram.folder}/0003-name-conflicts</inputTestFileDirectory>
                             <inputModelFileDirectory>${composite.diagram.folder}/0003-name-conflicts</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0003_name_conflicts</javaRootPackage>
                             </inputParameters>
@@ -1934,7 +1934,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${composite.diagram.folder}/0004-decision-tables</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0004_decision_tables_one_package</javaRootPackage>
                                 <onePackage>true</onePackage>
@@ -1950,7 +1950,7 @@
                         <configuration>
                             <inputTestFileDirectory>${composite.diagram.folder}/0004-decision-tables</inputTestFileDirectory>
                             <inputModelFileDirectory>${composite.diagram.folder}/0004-decision-tables</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0004_decision_tables_one_package</javaRootPackage>
                                 <onePackage>true</onePackage>
@@ -1966,7 +1966,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${composite.diagram.folder}/0004-decision-tables</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0004_decision_tables</javaRootPackage>
                             </inputParameters>
@@ -1981,7 +1981,7 @@
                         <configuration>
                             <inputTestFileDirectory>${composite.diagram.folder}/0004-decision-tables</inputTestFileDirectory>
                             <inputModelFileDirectory>${composite.diagram.folder}/0004-decision-tables</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0004_decision_tables</javaRootPackage>
                             </inputParameters>
@@ -1996,7 +1996,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${composite.diagram.folder}/0005-decision-tables-name-conflicts</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0005_decision_tables_name_conflicts</javaRootPackage>
                             </inputParameters>
@@ -2011,7 +2011,7 @@
                         <configuration>
                             <inputTestFileDirectory>${composite.diagram.folder}/0005-decision-tables-name-conflicts</inputTestFileDirectory>
                             <inputModelFileDirectory>${composite.diagram.folder}/0005-decision-tables-name-conflicts</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0005_decision_tables_name_conflicts</javaRootPackage>
                             </inputParameters>
@@ -2026,7 +2026,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${composite.diagram.folder}/0006-multiple-input-data</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0006_multiple_input_data</javaRootPackage>
                                 <singletonInputData>false</singletonInputData>
@@ -2043,7 +2043,7 @@
                         <configuration>
                             <inputTestFileDirectory>${composite.diagram.folder}/0006-multiple-input-data</inputTestFileDirectory>
                             <inputModelFileDirectory>${composite.diagram.folder}/0006-multiple-input-data</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0006_multiple_input_data</javaRootPackage>
                                 <singletonInputData>false</singletonInputData>
@@ -2060,7 +2060,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${composite.diagram.folder}/0007-name-conflicts-same-decision-singleton</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0007_name_conflicts_same_decision_singleton</javaRootPackage>
                                 <caching>false</caching>
@@ -2076,7 +2076,7 @@
                         <configuration>
                             <inputTestFileDirectory>${composite.diagram.folder}/0007-name-conflicts-same-decision-singleton</inputTestFileDirectory>
                             <inputModelFileDirectory>${composite.diagram.folder}/0007-name-conflicts-same-decision-singleton</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0007_name_conflicts_same_decision_singleton</javaRootPackage>
                                 <caching>false</caching>
@@ -2092,7 +2092,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${composite.diagram.folder}/0008-name-conflicts-same-decision-no-singleton</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0008_name_conflicts_same_decision_no_singleton</javaRootPackage>
                                 <singletonInputData>false</singletonInputData>
@@ -2109,7 +2109,7 @@
                         <configuration>
                             <inputTestFileDirectory>${composite.diagram.folder}/0008-name-conflicts-same-decision-no-singleton</inputTestFileDirectory>
                             <inputModelFileDirectory>${composite.diagram.folder}/0008-name-conflicts-same-decision-no-singleton</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0008_name_conflicts_same_decision_no_singleton</javaRootPackage>
                                 <singletonInputData>false</singletonInputData>
@@ -2126,7 +2126,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${composite.diagram.folder}/0008-name-conflicts-same-decision-no-singleton</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <lazyEvaluationDetectors>
                                 <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
                             </lazyEvaluationDetectors>
@@ -2146,7 +2146,7 @@
                         <configuration>
                             <inputTestFileDirectory>${composite.diagram.folder}/0008-name-conflicts-same-decision-no-singleton</inputTestFileDirectory>
                             <inputModelFileDirectory>${composite.diagram.folder}/0008-name-conflicts-same-decision-no-singleton</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <lazyEvaluationDetectors>
                                 <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
                             </lazyEvaluationDetectors>
@@ -2166,7 +2166,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${composite.diagram.folder}/0009-type-name-conflicts</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0009_type_name_conflicts</javaRootPackage>
                             </inputParameters>
@@ -2181,7 +2181,7 @@
                         <configuration>
                             <inputTestFileDirectory>${composite.diagram.folder}/0009-type-name-conflicts</inputTestFileDirectory>
                             <inputModelFileDirectory>${composite.diagram.folder}/0009-type-name-conflicts</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0009_type_name_conflicts</javaRootPackage>
                             </inputParameters>
@@ -2196,7 +2196,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${composite.diagram.folder}/0010-bkm-name-conflicts</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0010_bkm_name_conflicts</javaRootPackage>
                             </inputParameters>
@@ -2211,7 +2211,7 @@
                         <configuration>
                             <inputTestFileDirectory>${composite.diagram.folder}/0010-bkm-name-conflicts</inputTestFileDirectory>
                             <inputModelFileDirectory>${composite.diagram.folder}/0010-bkm-name-conflicts</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.composite_0010_bkm_name_conflicts</javaRootPackage>
                             </inputParameters>
@@ -2230,7 +2230,7 @@
                                 <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
                             </lazyEvaluationDetectors>
                             <inputFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.proto.cl3_0004_lending_proto_cache</javaRootPackage>
                                 <generateProtoMessages>true</generateProtoMessages>
@@ -2249,7 +2249,7 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.diagram.folder}/cl3/0004-lending-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.diagram.folder}/cl3/0004-lending.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.proto.cl3_0004_lending_proto_cache</javaRootPackage>
                                 <generateProtoMessages>true</generateProtoMessages>
@@ -2268,7 +2268,7 @@
                         </goals>
                         <configuration>
                             <inputFileDirectory>${proto.diagram.folder}/date-time-proto/date-time-proto.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.proto.date_time_proto</javaRootPackage>
                                 <generateProtoMessages>true</generateProtoMessages>
@@ -2287,7 +2287,7 @@
                         <configuration>
                             <inputTestFileDirectory>${proto.diagram.folder}/date-time-proto/date-time-proto-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${proto.diagram.folder}/date-time-proto/date-time-proto.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${tck.kotlin.folder}</outputFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.proto.date_time_proto</javaRootPackage>
                                 <generateProtoMessages>true</generateProtoMessages>
@@ -2309,7 +2309,7 @@
                     <protocArtifact>com.google.protobuf:protoc:${google.protobuf.version}:exe:${os.detected.classifier}</protocArtifact>
                     <pluginId>grpc-java</pluginId>
                     <pluginArtifact>io.grpc:protoc-gen-grpc-java:${io.grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
-                    <protoSourceRoot>${generated.kotlin.folder}/com/gs/dmn/generated/</protoSourceRoot>
+                    <protoSourceRoot>${generated.source.code.folder}/com/gs/dmn/generated/</protoSourceRoot>
                 </configuration>
                 <executions>
                     <execution>
@@ -2333,9 +2333,9 @@
                         </goals>
                         <configuration>
                             <sources>
-                                <source>${generated.kotlin.folder}</source>
-                                <source>${generated.java.protobuf}</source>
-                                <source>${generated.java.grpc}</source>
+                                <source>${generated.source.code.folder}</source>
+                                <source>${generated.protobuf.folder}</source>
+                                <source>${generated.grpc.folder}</source>
                             </sources>
                         </configuration>
                     </execution>
@@ -2348,7 +2348,7 @@
                         <configuration>
                             <resources>
                                 <resource>
-                                    <directory>${generated.kotlin.folder}</directory>
+                                    <directory>${generated.source.code.folder}</directory>
                                     <excludes>
                                         <exclude>**/*.kt</exclude>
                                     </excludes>
@@ -2364,7 +2364,7 @@
                         </goals>
                         <configuration>
                             <sources>
-                                <source>${tck.kotlin.folder}</source>
+                                <source>${generated.test.code.folder}</source>
                             </sources>
                         </configuration>
                     </execution>
@@ -2377,7 +2377,7 @@
                         <configuration>
                             <resources>
                                 <resource>
-                                    <directory>${tck.kotlin.folder}</directory>
+                                    <directory>${generated.test.code.folder}</directory>
                                     <excludes>
                                         <exclude>**/*.java</exclude>
                                     </excludes>
