@@ -34,7 +34,7 @@
         <proto.diagram.folder>${project.basedir}/../dmn-tck-it-interpreter/src/main/resources/proto</proto.diagram.folder>
 
         <generated.kotlin.folder>${project.build.directory}/generated-sources/dmn</generated.kotlin.folder>
-        <generated.root.package>com.gs.dmn.generated.kotlin</generated.root.package>
+        <generated.root.package>com.gs.dmn.generated</generated.root.package>
         <tck.kotlin.folder>${project.build.directory}/generated-test-sources/tck</tck.kotlin.folder>
         <generated.java.grpc>${project.build.directory}/generated-sources/protobuf/grpc-java</generated.java.grpc>
         <generated.java.protobuf>${project.build.directory}/generated-sources/protobuf/java</generated.java.protobuf>
@@ -2309,7 +2309,7 @@
                     <protocArtifact>com.google.protobuf:protoc:${google.protobuf.version}:exe:${os.detected.classifier}</protocArtifact>
                     <pluginId>grpc-java</pluginId>
                     <pluginArtifact>io.grpc:protoc-gen-grpc-java:${io.grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
-                    <protoSourceRoot>${generated.kotlin.folder}/com/gs/dmn/generated/kotlin/</protoSourceRoot>
+                    <protoSourceRoot>${generated.kotlin.folder}/com/gs/dmn/generated/</protoSourceRoot>
                 </configuration>
                 <executions>
                     <execution>
