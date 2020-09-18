@@ -82,7 +82,9 @@ public class SignavioDMNToJavaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATIO
 
         try {
             DMNToManifestTransformer dmnToManifestTransformer = new DMNToManifestTransformer(dmnTransformer);
-            DMNMetadata manifest = dmnToManifestTransformer.toManifest(dmnVersion, modelVersion, platformVersion);
+            String dmnNamespace = dmnTransformer.getDMNModelRepository().getRootDefinitions().getNamespace();
+            String nativeNamespace = dmnTransformer.nativeRootPackageName();
+            DMNMetadata manifest = dmnToManifestTransformer.toManifest(dmnNamespace, nativeNamespace, dmnVersion, modelVersion, platformVersion);
             File resultFile = makeOutputFile(outputPath, filePath, jsonFileName, fileExtension);
             JsonSerializer.OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValue(resultFile, manifest);
         } catch (Exception e) {

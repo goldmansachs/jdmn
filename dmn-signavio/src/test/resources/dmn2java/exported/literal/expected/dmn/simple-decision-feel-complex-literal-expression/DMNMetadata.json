@@ -2,6 +2,8 @@
   "dmnVersion" : "1.1",
   "modelVersion" : "2.0",
   "platformVersion" : "1.0",
+  "dmnNamespace" : "http://www.provider.com/dmn/1.1/diagram/364e3a8fdb6f4466977ac99ee9564f12.xml",
+  "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "compositeType",
     "id" : "diagram-364e3a8fdb6f4466977ac99ee9564f12-itemDefinition-sid-AD811598-1741-4206-A9FC-280EF77B0B23",

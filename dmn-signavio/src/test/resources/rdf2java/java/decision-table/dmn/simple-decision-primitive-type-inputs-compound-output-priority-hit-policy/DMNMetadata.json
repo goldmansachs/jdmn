@@ -2,6 +2,8 @@
   "dmnVersion" : "1.1",
   "modelVersion" : "2.0",
   "platformVersion" : "1.0",
+  "dmnNamespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
+  "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "compositeType",
     "id" : "item-definition-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D",
