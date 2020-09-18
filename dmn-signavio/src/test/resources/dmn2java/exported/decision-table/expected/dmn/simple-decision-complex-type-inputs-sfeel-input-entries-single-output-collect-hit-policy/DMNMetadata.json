@@ -135,28 +135,33 @@
   } ],
   "elements" : [ {
     "@kind" : "inputData",
+    "diagramId" : null,
     "id" : "diagram-2798baf8f6de4bd3b984e599fa9ff016-inputdata-sid-B180B170-4226-4CB8-B6EE-51D4307DCA61",
     "javaParameterName" : "employed",
     "javaTypeName" : "Boolean",
     "label" : "Employed",
     "name" : "employed",
+    "shapeId" : null,
     "typeRef" : {
       "localName" : "employed",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : null,
     "id" : "diagram-2798baf8f6de4bd3b984e599fa9ff016-inputdata-sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264",
     "javaParameterName" : "person",
     "javaTypeName" : "type.Person",
     "label" : "Person",
     "name" : "person",
+    "shapeId" : null,
     "typeRef" : {
       "localName" : "person",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml"
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : null,
     "extensions" : [ ],
     "id" : "diagram-2798baf8f6de4bd3b984e599fa9ff016-decision-sid-C52224F3-4EC1-4AAC-88AE-F5F51F285ED0",
     "informationReferences" : [ {
@@ -172,24 +177,29 @@
     "name" : "decision",
     "protoRequestName" : "proto.DecisionRequest",
     "protoResponseName" : "proto.DecisionResponse",
+    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : null,
       "id" : "diagram-2798baf8f6de4bd3b984e599fa9ff016-inputdata-sid-B180B170-4226-4CB8-B6EE-51D4307DCA61",
       "javaParameterName" : "employed",
       "javaTypeName" : "Boolean",
       "label" : "Employed",
       "name" : "employed",
+      "shapeId" : null,
       "typeRef" : {
         "localName" : "employed",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : null,
       "id" : "diagram-2798baf8f6de4bd3b984e599fa9ff016-inputdata-sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264",
       "javaParameterName" : "person",
       "javaTypeName" : "type.Person",
       "label" : "Person",
       "name" : "person",
+      "shapeId" : null,
       "typeRef" : {
         "localName" : "person",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml"

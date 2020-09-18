@@ -91,17 +91,20 @@
   } ],
   "elements" : [ {
     "@kind" : "inputData",
+    "diagramId" : "7f0dd69d49504172be8e6e3c23d8ed63",
     "id" : "id-0ff9eb79f707e780099161b4b4c56746",
     "javaParameterName" : "inputString",
     "javaTypeName" : "String",
     "label" : "InputString",
     "name" : "inputString",
+    "shapeId" : "sid-18C7D99D-F0A7-4228-8615-F9FF27604213",
     "typeRef" : {
       "localName" : "inputString",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml"
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "7f0dd69d49504172be8e6e3c23d8ed63",
     "extensions" : [ ],
     "id" : "id-a396af58800e8f6a8de6c4d8ba8f4236",
     "informationReferences" : [ {
@@ -115,13 +118,16 @@
     "name" : "incompleteDecisionTable",
     "protoRequestName" : "proto.IncompleteDecisionTableRequest",
     "protoResponseName" : "proto.IncompleteDecisionTableResponse",
+    "shapeId" : "sid-1243D7F1-7725-481C-9417-6F55A9FCDF50",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "7f0dd69d49504172be8e6e3c23d8ed63",
       "id" : "id-0ff9eb79f707e780099161b4b4c56746",
       "javaParameterName" : "inputString",
       "javaTypeName" : "String",
       "label" : "InputString",
       "name" : "inputString",
+      "shapeId" : "sid-18C7D99D-F0A7-4228-8615-F9FF27604213",
       "typeRef" : {
         "localName" : "inputString",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml"
@@ -133,6 +139,7 @@
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "7f0dd69d49504172be8e6e3c23d8ed63",
     "extensions" : [ ],
     "id" : "id-00afd29eedb73034d4c3726f1f77ad54",
     "informationReferences" : [ {
@@ -146,13 +153,16 @@
     "name" : "testNullComplexTypeAccess",
     "protoRequestName" : "proto.TestNullComplexTypeAccessRequest",
     "protoResponseName" : "proto.TestNullComplexTypeAccessResponse",
+    "shapeId" : "sid-9AFA723A-58D5-44B3-AD54-4197AF705A18",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "7f0dd69d49504172be8e6e3c23d8ed63",
       "id" : "id-0ff9eb79f707e780099161b4b4c56746",
       "javaParameterName" : "inputString",
       "javaTypeName" : "String",
       "label" : "InputString",
       "name" : "inputString",
+      "shapeId" : "sid-18C7D99D-F0A7-4228-8615-F9FF27604213",
       "typeRef" : {
         "localName" : "inputString",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml"

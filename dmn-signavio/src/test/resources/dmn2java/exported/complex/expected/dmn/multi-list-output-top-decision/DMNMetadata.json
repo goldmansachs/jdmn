@@ -80,39 +80,46 @@
   } ],
   "elements" : [ {
     "@kind" : "inputData",
+    "diagramId" : "6776bb215482477ba041c80c9c559985",
     "id" : "id-9ccd4200c3b95ffce6699c8de1fe952a",
     "javaParameterName" : "name",
     "javaTypeName" : "String",
     "label" : "name",
     "name" : "name",
+    "shapeId" : "sid-835AC898-5202-4F75-AD04-7DC509955A8C",
     "typeRef" : {
       "localName" : "name",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "6776bb215482477ba041c80c9c559985",
     "id" : "id-eda9a62921689bf55854716017ad1d80",
     "javaParameterName" : "numbers",
     "javaTypeName" : "List<java.math.BigDecimal>",
     "label" : "numbers",
     "name" : "numbers",
+    "shapeId" : "sid-289BA841-2717-49EE-9B8F-89837BC2C517",
     "typeRef" : {
       "localName" : "numbers",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "6776bb215482477ba041c80c9c559985",
     "id" : "id-c0237273c0ebfd8069dc25efc55db05a",
     "javaParameterName" : "trafficLight",
     "javaTypeName" : "List<String>",
     "label" : "Traffic Light",
     "name" : "trafficLight",
+    "shapeId" : "sid-9A57F002-6DD5-4B6F-9A6E-C83BFB3E33D4",
     "typeRef" : {
       "localName" : "trafficLight",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml"
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "6776bb215482477ba041c80c9c559985",
     "extensions" : [ ],
     "id" : "id-c234d0eaf09115adcd0ae840adeb1055",
     "informationReferences" : [ {
@@ -130,35 +137,42 @@
     "name" : "compile",
     "protoRequestName" : "proto.CompileRequest",
     "protoResponseName" : "proto.CompileResponse",
+    "shapeId" : "sid-78F19456-59E2-4ED8-BD1C-869E58B6D288",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "6776bb215482477ba041c80c9c559985",
       "id" : "id-9ccd4200c3b95ffce6699c8de1fe952a",
       "javaParameterName" : "name",
       "javaTypeName" : "String",
       "label" : "name",
       "name" : "name",
+      "shapeId" : "sid-835AC898-5202-4F75-AD04-7DC509955A8C",
       "typeRef" : {
         "localName" : "name",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "6776bb215482477ba041c80c9c559985",
       "id" : "id-eda9a62921689bf55854716017ad1d80",
       "javaParameterName" : "numbers",
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "numbers",
       "name" : "numbers",
+      "shapeId" : "sid-289BA841-2717-49EE-9B8F-89837BC2C517",
       "typeRef" : {
         "localName" : "numbers",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "6776bb215482477ba041c80c9c559985",
       "id" : "id-c0237273c0ebfd8069dc25efc55db05a",
       "javaParameterName" : "trafficLight",
       "javaTypeName" : "List<String>",
       "label" : "Traffic Light",
       "name" : "trafficLight",
+      "shapeId" : "sid-9A57F002-6DD5-4B6F-9A6E-C83BFB3E33D4",
       "typeRef" : {
         "localName" : "trafficLight",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml"
