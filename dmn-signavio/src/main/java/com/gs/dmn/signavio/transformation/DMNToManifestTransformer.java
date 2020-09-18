@@ -35,8 +35,8 @@ public class DMNToManifestTransformer {
         this.dmnTransformer = dmnTransformer;
     }
 
-    public DMNMetadata toManifest(String dmnVersion, String modelVersion, String platformVersion) {
-        DMNMetadata manifest = new DMNMetadata(dmnVersion, modelVersion, platformVersion);
+    public DMNMetadata toManifest(String dmnNamespace, String nativeNamespace, String dmnVersion, String modelVersion, String platformVersion) {
+        DMNMetadata manifest = new DMNMetadata(dmnNamespace, nativeNamespace, dmnVersion, modelVersion, platformVersion);
         for (TDefinitions definitions: this.dmnModelRepository.getAllDefinitions()) {
             // Add types
             for (TItemDefinition itemDefinition : this.dmnModelRepository.findItemDefinitions(definitions)) {

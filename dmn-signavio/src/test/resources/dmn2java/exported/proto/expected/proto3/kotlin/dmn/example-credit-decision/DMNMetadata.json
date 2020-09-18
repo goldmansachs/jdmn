@@ -2,6 +2,8 @@
   "dmnVersion" : "1.1",
   "modelVersion" : "2.0",
   "platformVersion" : "1.0",
+  "dmnNamespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+  "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "compositeType",
     "id" : "id-5bf135bcd0f2d1d6dabfb49f463ee763",
