@@ -35,8 +35,8 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
             "signavio", "sigExt"
     };
 
-    private QName diagramId = new QName(this.schemaNamespace, "diagramId");
-    private QName shapeId = new QName(this.schemaNamespace, "shapeId");
+    private QName diagramIdQName = new QName(this.schemaNamespace, "diagramId");
+    private QName shapeIdQName = new QName(this.schemaNamespace, "shapeId");
 
     public final SignavioExtension extension = new SignavioExtension(this);
 
@@ -57,8 +57,8 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
     public SignavioDMNModelRepository(Pair<TDefinitions, PrefixNamespaceMappings> pair, String schemaNamespace) {
         this(pair);
         this.schemaNamespace = schemaNamespace;
-        this.diagramId = new QName(schemaNamespace, "diagramId");
-        this.shapeId = new QName(schemaNamespace, "shapeId");
+        this.diagramIdQName = new QName(schemaNamespace, "diagramId");
+        this.shapeIdQName = new QName(schemaNamespace, "shapeId");
     }
 
     public SignavioDMNModelRepository(List<Pair<TDefinitions, PrefixNamespaceMappings>> pairs) {
@@ -87,12 +87,22 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         return this.schemaPrefixes;
     }
 
-    public QName getDiagramIdQName() {
-        return this.diagramId;
+    private QName getDiagramIdQName() {
+        return this.diagramIdQName;
     }
 
-    public QName getShapeIdQName() {
-        return this.shapeId;
+    private QName getShapeIdQName() {
+        return this.shapeIdQName;
+    }
+
+    public String getDiagramId(TDRGElement element) {
+        javax.xml.namespace.QName diagramIdQName = getDiagramIdQName();
+        return element.getOtherAttributes().get(diagramIdQName);
+    }
+
+    public String getShapeId(TDRGElement element) {
+        javax.xml.namespace.QName shapeIdQName = getShapeIdQName();
+        return element.getOtherAttributes().get(shapeIdQName);
     }
 
     public SignavioExtension getExtension() {

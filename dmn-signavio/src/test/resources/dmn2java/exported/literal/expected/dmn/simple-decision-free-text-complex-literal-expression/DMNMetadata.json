@@ -58,17 +58,20 @@
   } ],
   "elements" : [ {
     "@kind" : "inputData",
+    "diagramId" : null,
     "id" : "diagram-701a4e318a6d4d4f823018c5feaa8f81-inputdata-sid-AD811598-1741-4206-A9FC-280EF77B0B23",
     "javaParameterName" : "loan",
     "javaTypeName" : "type.Loan",
     "label" : "Loan",
     "name" : "loan",
+    "shapeId" : null,
     "typeRef" : {
       "localName" : "loan",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/701a4e318a6d4d4f823018c5feaa8f81.xml"
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : null,
     "extensions" : [ ],
     "id" : "diagram-701a4e318a6d4d4f823018c5feaa8f81-decision-sid-60E9B6E8-6251-4E45-86C4-4E46A3D9F64E",
     "informationReferences" : [ {
@@ -82,13 +85,16 @@
     "name" : "monthly",
     "protoRequestName" : "proto.MonthlyRequest",
     "protoResponseName" : "proto.MonthlyResponse",
+    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : null,
       "id" : "diagram-701a4e318a6d4d4f823018c5feaa8f81-inputdata-sid-AD811598-1741-4206-A9FC-280EF77B0B23",
       "javaParameterName" : "loan",
       "javaTypeName" : "type.Loan",
       "label" : "Loan",
       "name" : "loan",
+      "shapeId" : null,
       "typeRef" : {
         "localName" : "loan",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/701a4e318a6d4d4f823018c5feaa8f81.xml"

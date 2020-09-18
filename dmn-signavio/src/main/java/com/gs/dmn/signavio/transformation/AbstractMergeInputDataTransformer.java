@@ -120,10 +120,8 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
                     throw new DMNRuntimeException(String.format("Cannot find InputData for input parameter with requirementName='%s'", requirementName));
                 }
                 TInputData representative = pair.getLeft();
-                QName diagramIdQName = repository.getDiagramIdQName();
-                String representativeDiagramId = representative.getOtherAttributes().get(diagramIdQName);
-                QName shapeIdQName = repository.getShapeIdQName();
-                String representativeShapeId = representative.getOtherAttributes().get(shapeIdQName);
+                String representativeDiagramId = repository.getDiagramId(representative);
+                String representativeShapeId = repository.getShapeId(representative);
                 ipd.setDiagramId(representativeDiagramId);
                 ipd.setShapeId(representativeShapeId);
             }

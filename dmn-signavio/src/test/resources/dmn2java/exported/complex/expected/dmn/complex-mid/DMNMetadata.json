@@ -131,39 +131,46 @@
   } ],
   "elements" : [ {
     "@kind" : "inputData",
+    "diagramId" : "3652588c6383423c9774f4dfd4393cb1",
     "id" : "id-66be7cc5d14947682f8a060a30da5fa0",
     "javaParameterName" : "properties_iterator",
     "javaTypeName" : "String",
     "label" : "Properties",
     "name" : "properties_iterator",
+    "shapeId" : "sid-BBF80264-5235-438F-8233-8ADCD4E8E1C3",
     "typeRef" : {
       "localName" : "testPersonProperties",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "3652588c6383423c9774f4dfd4393cb1",
     "id" : "id-76acfc10261ddc2fe0ac3081483133ad",
     "javaParameterName" : "testPeopleType",
     "javaTypeName" : "type.TestPeopleType",
     "label" : "TestPeopleType",
     "name" : "testPeopleType",
+    "shapeId" : "sid-1F9E0628-0D5B-46B9-8E5E-90B3BC8255E8",
     "typeRef" : {
       "localName" : "testPeopleType",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "3652588c6383423c9774f4dfd4393cb1",
     "id" : "id-e801f20a6a898682c3b5e22db82de47b",
     "javaParameterName" : "testPersonType6_iterator",
     "javaTypeName" : "type.TestPersonType",
     "label" : "TestPersonType",
     "name" : "testPersonType6_iterator",
+    "shapeId" : "sid-B1629015-BFF6-45BB-A86E-65573FA58D92",
     "typeRef" : {
       "localName" : "testPersonType",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "3652588c6383423c9774f4dfd4393cb1",
     "extensions" : [ {
       "@kind" : "multiInstanceDecisionLogic",
       "aggregationFunction" : "COLLECT",
@@ -183,13 +190,16 @@
     "name" : "bigMid",
     "protoRequestName" : "proto.BigMidRequest",
     "protoResponseName" : "proto.BigMidResponse",
+    "shapeId" : "sid-074482BF-264A-48BD-976A-707710B53881",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "3652588c6383423c9774f4dfd4393cb1",
       "id" : "id-76acfc10261ddc2fe0ac3081483133ad",
       "javaParameterName" : "testPeopleType",
       "javaTypeName" : "type.TestPeopleType",
       "label" : "TestPeopleType",
       "name" : "testPeopleType",
+      "shapeId" : "sid-1F9E0628-0D5B-46B9-8E5E-90B3BC8255E8",
       "typeRef" : {
         "localName" : "testPeopleType",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
@@ -201,6 +211,7 @@
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "3652588c6383423c9774f4dfd4393cb1",
     "extensions" : [ ],
     "id" : "id-54e777f1b3e48362bf9e79c6d305e91d",
     "informationReferences" : [ {
@@ -214,13 +225,16 @@
     "name" : "decide",
     "protoRequestName" : "proto.DecideRequest",
     "protoResponseName" : "proto.DecideResponse",
+    "shapeId" : "sid-FF023BBF-7D02-4ADE-AACE-AD23A3197B21",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "3652588c6383423c9774f4dfd4393cb1",
       "id" : "id-66be7cc5d14947682f8a060a30da5fa0",
       "javaParameterName" : "properties_iterator",
       "javaTypeName" : "String",
       "label" : "Properties",
       "name" : "properties_iterator",
+      "shapeId" : "sid-BBF80264-5235-438F-8233-8ADCD4E8E1C3",
       "typeRef" : {
         "localName" : "testPersonProperties",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
@@ -232,6 +246,7 @@
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "3652588c6383423c9774f4dfd4393cb1",
     "extensions" : [ ],
     "id" : "id-db8a303073ca6775c192503c81230235",
     "informationReferences" : [ {
@@ -245,13 +260,16 @@
     "name" : "decision",
     "protoRequestName" : "proto.DecisionRequest",
     "protoResponseName" : "proto.DecisionResponse",
+    "shapeId" : "sid-0316D03A-BE86-4BED-BB39-0DAF237F743D",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "3652588c6383423c9774f4dfd4393cb1",
       "id" : "id-e801f20a6a898682c3b5e22db82de47b",
       "javaParameterName" : "testPersonType6_iterator",
       "javaTypeName" : "type.TestPersonType",
       "label" : "TestPersonType",
       "name" : "testPersonType6_iterator",
+      "shapeId" : "sid-B1629015-BFF6-45BB-A86E-65573FA58D92",
       "typeRef" : {
         "localName" : "testPersonType",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
@@ -263,6 +281,7 @@
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "3652588c6383423c9774f4dfd4393cb1",
     "extensions" : [ {
       "@kind" : "multiInstanceDecisionLogic",
       "aggregationFunction" : "COLLECT",
@@ -282,13 +301,16 @@
     "name" : "smallMid",
     "protoRequestName" : "proto.SmallMidRequest",
     "protoResponseName" : "proto.SmallMidResponse",
+    "shapeId" : "sid-882369ED-7C1E-4966-9D43-FA127486ABB8",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "3652588c6383423c9774f4dfd4393cb1",
       "id" : "id-e801f20a6a898682c3b5e22db82de47b",
       "javaParameterName" : "testPersonType6_iterator",
       "javaTypeName" : "type.TestPersonType",
       "label" : "TestPersonType",
       "name" : "testPersonType6_iterator",
+      "shapeId" : "sid-B1629015-BFF6-45BB-A86E-65573FA58D92",
       "typeRef" : {
         "localName" : "testPersonType",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
@@ -300,6 +322,7 @@
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "3652588c6383423c9774f4dfd4393cb1",
     "extensions" : [ ],
     "id" : "id-b4717b9aa316e3d6266365a4ae6cf873",
     "informationReferences" : [ {
@@ -315,13 +338,16 @@
     "name" : "topDecision",
     "protoRequestName" : "proto.TopDecisionRequest",
     "protoResponseName" : "proto.TopDecisionResponse",
+    "shapeId" : "sid-4B2EDB65-9657-4445-9CBE-2A41C6E8ECE1",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "3652588c6383423c9774f4dfd4393cb1",
       "id" : "id-e801f20a6a898682c3b5e22db82de47b",
       "javaParameterName" : "testPersonType6_iterator",
       "javaTypeName" : "type.TestPersonType",
       "label" : "TestPersonType",
       "name" : "testPersonType6_iterator",
+      "shapeId" : "sid-B1629015-BFF6-45BB-A86E-65573FA58D92",
       "typeRef" : {
         "localName" : "testPersonType",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"

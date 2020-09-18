@@ -109,39 +109,46 @@
   } ],
   "elements" : [ {
     "@kind" : "inputData",
+    "diagramId" : "2798610dcc0f4068861fcb0f4af25ac7",
     "id" : "id-5e7bce77b4fa0aecb00fa9c3be3f225a",
     "javaParameterName" : "a4",
     "javaTypeName" : "List<java.math.BigDecimal>",
     "label" : "A",
     "name" : "a4",
+    "shapeId" : "sid-A3AEA547-6139-449D-BF0B-C04032EB802B",
     "typeRef" : {
       "localName" : "a2",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798610dcc0f4068861fcb0f4af25ac7.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "2798610dcc0f4068861fcb0f4af25ac7",
     "id" : "id-2573b665f7d599fb9d1b8972ba3bab3a",
     "javaParameterName" : "b",
     "javaTypeName" : "List<java.math.BigDecimal>",
     "label" : "B",
     "name" : "b",
+    "shapeId" : "sid-1846DE0F-7977-4400-AE7B-F8E19E222A8D",
     "typeRef" : {
       "localName" : "b",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798610dcc0f4068861fcb0f4af25ac7.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "2798610dcc0f4068861fcb0f4af25ac7",
     "id" : "id-ea0f03d48ef57b8e0b3fb41cf8d3212e",
     "javaParameterName" : "it_iterator",
     "javaTypeName" : "type.It",
     "label" : "it",
     "name" : "it_iterator",
+    "shapeId" : "sid-2F849168-4BDB-4F7E-B1EA-EF2B16FEE9DE",
     "typeRef" : {
       "localName" : "it",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798610dcc0f4068861fcb0f4af25ac7.xml"
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "2798610dcc0f4068861fcb0f4af25ac7",
     "extensions" : [ ],
     "id" : "id-ccb759d71c2477dd17e26c3a2c1c68ce",
     "informationReferences" : [ {
@@ -155,13 +162,16 @@
     "name" : "body",
     "protoRequestName" : "proto.BodyRequest",
     "protoResponseName" : "proto.BodyResponse",
+    "shapeId" : "sid-9BB87681-1B5A-42D0-A099-AD49A6FA5F5C",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "2798610dcc0f4068861fcb0f4af25ac7",
       "id" : "id-ea0f03d48ef57b8e0b3fb41cf8d3212e",
       "javaParameterName" : "it_iterator",
       "javaTypeName" : "type.It",
       "label" : "it",
       "name" : "it_iterator",
+      "shapeId" : "sid-2F849168-4BDB-4F7E-B1EA-EF2B16FEE9DE",
       "typeRef" : {
         "localName" : "it",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798610dcc0f4068861fcb0f4af25ac7.xml"
@@ -173,6 +183,7 @@
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "2798610dcc0f4068861fcb0f4af25ac7",
     "extensions" : [ {
       "@kind" : "multiInstanceDecisionLogic",
       "aggregationFunction" : "COLLECT",
@@ -192,24 +203,29 @@
     "name" : "loop",
     "protoRequestName" : "proto.LoopRequest",
     "protoResponseName" : "proto.LoopResponse",
+    "shapeId" : "sid-A8D9456C-6536-4DD9-AA29-5354F8FF96F6",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "2798610dcc0f4068861fcb0f4af25ac7",
       "id" : "id-5e7bce77b4fa0aecb00fa9c3be3f225a",
       "javaParameterName" : "a4",
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "A",
       "name" : "a4",
+      "shapeId" : "sid-A3AEA547-6139-449D-BF0B-C04032EB802B",
       "typeRef" : {
         "localName" : "a2",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798610dcc0f4068861fcb0f4af25ac7.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "2798610dcc0f4068861fcb0f4af25ac7",
       "id" : "id-2573b665f7d599fb9d1b8972ba3bab3a",
       "javaParameterName" : "b",
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "B",
       "name" : "b",
+      "shapeId" : "sid-1846DE0F-7977-4400-AE7B-F8E19E222A8D",
       "typeRef" : {
         "localName" : "b",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798610dcc0f4068861fcb0f4af25ac7.xml"
@@ -221,6 +237,7 @@
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "2798610dcc0f4068861fcb0f4af25ac7",
     "extensions" : [ ],
     "id" : "id-fada51ce664c63874c99e6e7cf630c33",
     "informationReferences" : [ {
@@ -236,24 +253,29 @@
     "name" : "zip1",
     "protoRequestName" : "proto.Zip1Request",
     "protoResponseName" : "proto.Zip1Response",
+    "shapeId" : "sid-C2D7E836-74E5-4BA8-801D-F6CBAA950677",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "2798610dcc0f4068861fcb0f4af25ac7",
       "id" : "id-5e7bce77b4fa0aecb00fa9c3be3f225a",
       "javaParameterName" : "a4",
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "A",
       "name" : "a4",
+      "shapeId" : "sid-A3AEA547-6139-449D-BF0B-C04032EB802B",
       "typeRef" : {
         "localName" : "a2",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798610dcc0f4068861fcb0f4af25ac7.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "2798610dcc0f4068861fcb0f4af25ac7",
       "id" : "id-2573b665f7d599fb9d1b8972ba3bab3a",
       "javaParameterName" : "b",
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "B",
       "name" : "b",
+      "shapeId" : "sid-1846DE0F-7977-4400-AE7B-F8E19E222A8D",
       "typeRef" : {
         "localName" : "b",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798610dcc0f4068861fcb0f4af25ac7.xml"

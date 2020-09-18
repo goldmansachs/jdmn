@@ -29,17 +29,20 @@
   } ],
   "elements" : [ {
     "@kind" : "inputData",
+    "diagramId" : "de7a0645edac43999154e9b141c9d66a",
     "id" : "id-8b2dfaff5fd0522dcd630c363d26c907",
     "javaParameterName" : "age",
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "Age",
     "name" : "age",
+    "shapeId" : "sid-4EE2B3E8-5D89-446D-9CE5-9E91D12D364D",
     "typeRef" : {
       "localName" : "age",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/de7a0645edac43999154e9b141c9d66a.xml"
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "de7a0645edac43999154e9b141c9d66a",
     "extensions" : [ ],
     "id" : "id-bbddb8a0fd9791e12ae899b179c6eeb3",
     "informationReferences" : [ {
@@ -53,13 +56,16 @@
     "name" : "decision",
     "protoRequestName" : "proto.DecisionRequest",
     "protoResponseName" : "proto.DecisionResponse",
+    "shapeId" : "sid-E13159A8-0434-44F5-A145-860DAA19D7FC",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "de7a0645edac43999154e9b141c9d66a",
       "id" : "id-8b2dfaff5fd0522dcd630c363d26c907",
       "javaParameterName" : "age",
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "Age",
       "name" : "age",
+      "shapeId" : "sid-4EE2B3E8-5D89-446D-9CE5-9E91D12D364D",
       "typeRef" : {
         "localName" : "age",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/de7a0645edac43999154e9b141c9d66a.xml"

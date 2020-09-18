@@ -29,17 +29,20 @@
   } ],
   "elements" : [ {
     "@kind" : "inputData",
+    "diagramId" : "e514b8c455264f77addcb9d04c542a78",
     "id" : "id-14745a7c4578ede73ab28a1e32b8fb7e",
     "javaParameterName" : "num",
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "num",
     "name" : "num",
+    "shapeId" : "sid-5839E07F-9439-46C5-B92F-7588F17E0A7C",
     "typeRef" : {
       "localName" : "num",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/e514b8c455264f77addcb9d04c542a78.xml"
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "e514b8c455264f77addcb9d04c542a78",
     "extensions" : [ ],
     "id" : "id-8aa9e01f79dfa6faf953cbccb36e9ead",
     "informationReferences" : [ {
@@ -53,13 +56,16 @@
     "name" : "abc",
     "protoRequestName" : "proto.AbcRequest",
     "protoResponseName" : "proto.AbcResponse",
+    "shapeId" : "sid-A551A6AD-049D-440F-9277-A5292F4BB5ED",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "e514b8c455264f77addcb9d04c542a78",
       "id" : "id-14745a7c4578ede73ab28a1e32b8fb7e",
       "javaParameterName" : "num",
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "num",
       "name" : "num",
+      "shapeId" : "sid-5839E07F-9439-46C5-B92F-7588F17E0A7C",
       "typeRef" : {
         "localName" : "num",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/e514b8c455264f77addcb9d04c542a78.xml"

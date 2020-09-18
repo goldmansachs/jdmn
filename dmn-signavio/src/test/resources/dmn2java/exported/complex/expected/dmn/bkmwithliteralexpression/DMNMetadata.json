@@ -245,160 +245,189 @@
   } ],
   "elements" : [ {
     "@kind" : "inputData",
+    "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
     "id" : "id-f3e6c25ca841af737ce5aae0c99e4a18",
     "javaParameterName" : "blacklist",
     "javaTypeName" : "List<String>",
     "label" : "blacklist",
     "name" : "blacklist",
+    "shapeId" : "sid-F02C3D61-E3E1-4BE5-9380-5005122E7146",
     "typeRef" : {
       "localName" : "blacklist",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "ec84b81482a64a2fbfcec8b1c831507a",
     "id" : "id-3c7a037ef88b841b839912e30e0b88db",
     "javaParameterName" : "censored",
     "javaTypeName" : "List<String>",
     "label" : "censored",
     "name" : "censored",
+    "shapeId" : "sid-CF4C9BF1-F27E-41DA-A70F-AE6E55AC3252",
     "typeRef" : {
       "localName" : "censored",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "ec84b81482a64a2fbfcec8b1c831507a",
     "id" : "id-56b1a6a297cc92034538927584917a9d",
     "javaParameterName" : "labels",
     "javaTypeName" : "List<String>",
     "label" : "labels",
     "name" : "labels",
+    "shapeId" : "sid-CEF25BC6-8772-4DB3-8EC8-8E75826E8480",
     "typeRef" : {
       "localName" : "labels",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
     "id" : "id-49a0b1514526cc5c351725952b97cf88",
     "javaParameterName" : "listOfNumbers",
     "javaTypeName" : "List<java.math.BigDecimal>",
     "label" : "ListOfNumbers ",
     "name" : "listOfNumbers",
+    "shapeId" : "sid-94BAA9D0-B047-48CE-B8D3-47528075D99D",
     "typeRef" : {
       "localName" : "listOfNumbers",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
     "id" : "id-407d01264274ff56720d727ceaa37a58",
     "javaParameterName" : "names",
     "javaTypeName" : "List<String>",
     "label" : "names",
     "name" : "names",
+    "shapeId" : "sid-48310779-49A7-474D-86CD-90595CAF391B",
     "typeRef" : {
       "localName" : "names",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "ec84b81482a64a2fbfcec8b1c831507a",
     "id" : "id-9d0294a387dcdb1422df828374bb99a4",
     "javaParameterName" : "numz",
     "javaTypeName" : "List<java.math.BigDecimal>",
     "label" : "numz",
     "name" : "numz",
+    "shapeId" : "sid-06C5E989-669F-4D03-AA47-85380F83A9DC",
     "typeRef" : {
       "localName" : "numz",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "ec84b81482a64a2fbfcec8b1c831507a",
     "id" : "id-1abc24c257ae1c27045107f7f1e9abaa",
     "javaParameterName" : "redgreenblue1",
     "javaTypeName" : "String",
     "label" : "redgreenblue1",
     "name" : "redgreenblue1",
+    "shapeId" : "sid-A44A6872-FAF8-4E49-85A5-E051E9562285",
     "typeRef" : {
       "localName" : "rGB",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "ec84b81482a64a2fbfcec8b1c831507a",
     "id" : "id-7fb8cb4f45c3afc5215b67ea566a1195",
     "javaParameterName" : "redgreenblue2",
     "javaTypeName" : "String",
     "label" : "redgreenblue2",
     "name" : "redgreenblue2",
+    "shapeId" : "sid-76BCA960-63C0-42C0-B1DF-0C74A732B00A",
     "typeRef" : {
       "localName" : "rGB",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "ec84b81482a64a2fbfcec8b1c831507a",
     "id" : "id-523c68b3cfbc5e136ee5ea4759aeece5",
     "javaParameterName" : "redgreenbluelist1",
     "javaTypeName" : "List<String>",
     "label" : "redgreenbluelist1",
     "name" : "redgreenbluelist1",
+    "shapeId" : "sid-9857D82E-7960-4D35-99D3-6B8AEA001837",
     "typeRef" : {
       "localName" : "rGB5",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "ec84b81482a64a2fbfcec8b1c831507a",
     "id" : "id-060541c312a88a854f952f95a9ad391f",
     "javaParameterName" : "redgreenbluelist2",
     "javaTypeName" : "List<String>",
     "label" : "redgreenbluelist2",
     "name" : "redgreenbluelist2",
+    "shapeId" : "sid-31B50BC6-1E7C-4697-917B-0420905A8C94",
     "typeRef" : {
       "localName" : "rGB4",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
     "id" : "id-4235e531a37ca0c26448f1ca856b2bcb",
     "javaParameterName" : "rgb1",
     "javaTypeName" : "String",
     "label" : "rgb1",
     "name" : "rgb1",
+    "shapeId" : "sid-39852B51-711C-491D-9843-D6649F3B3155",
     "typeRef" : {
       "localName" : "rGB",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
     "id" : "id-4b4f366aa8841be4c01b4d148feb88bb",
     "javaParameterName" : "rgb1List",
     "javaTypeName" : "List<String>",
     "label" : "rgb1 list",
     "name" : "rgb1List",
+    "shapeId" : "sid-3E916F83-95C2-4A4B-870A-2FEF448C6484",
     "typeRef" : {
       "localName" : "rGB2",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
     "id" : "id-5625da51edf477244d62662a1ded6503",
     "javaParameterName" : "rgb2",
     "javaTypeName" : "String",
     "label" : "rgb2",
     "name" : "rgb2",
+    "shapeId" : "sid-81DC3653-292B-4DE8-99CC-6206DB3C8C0F",
     "typeRef" : {
       "localName" : "rGB",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
     }
   }, {
     "@kind" : "inputData",
+    "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
     "id" : "id-5aee1aa56098e702d77defcfaf0a657b",
     "javaParameterName" : "rgb2List",
     "javaTypeName" : "List<String>",
     "label" : "rgb2 list",
     "name" : "rgb2List",
+    "shapeId" : "sid-DE0F0DB7-6F5F-4166-9A9A-2799D5B39BB3",
     "typeRef" : {
       "localName" : "rGB3",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
     }
   }, {
     "@kind" : "bkm",
+    "diagramId" : null,
     "id" : "id-4ecc9fcbcbc3e186853a8eda0fcc6152",
     "javaOutputTypeName" : "List<type.Zip>",
     "javaParameterName" : "litexpLogic",
@@ -406,12 +435,14 @@
     "knowledgeReferences" : [ ],
     "label" : null,
     "name" : "litexpLogic",
+    "shapeId" : null,
     "typeRef" : {
       "localName" : "zip",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
     "extensions" : [ ],
     "id" : "id-152912036c3a6ec96d94e14df468121d",
     "informationReferences" : [ {
@@ -425,13 +456,16 @@
     "name" : "addExtraValues",
     "protoRequestName" : "proto.AddExtraValuesRequest",
     "protoResponseName" : "proto.AddExtraValuesResponse",
+    "shapeId" : "sid-22304D50-7F9C-451A-8B1F-95FCFD4ECDA3",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
       "id" : "id-49a0b1514526cc5c351725952b97cf88",
       "javaParameterName" : "listOfNumbers",
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "ListOfNumbers ",
       "name" : "listOfNumbers",
+      "shapeId" : "sid-94BAA9D0-B047-48CE-B8D3-47528075D99D",
       "typeRef" : {
         "localName" : "listOfNumbers",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -443,6 +477,7 @@
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
     "extensions" : [ ],
     "id" : "id-eaf5b49a5e2c1d7de51e8ae6511e7208",
     "informationReferences" : [ {
@@ -458,24 +493,29 @@
     "name" : "append",
     "protoRequestName" : "proto.AppendRequest",
     "protoResponseName" : "proto.AppendResponse",
+    "shapeId" : "sid-9534F0BD-9506-4E0B-9DE3-3EB2F8D9299B",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
       "id" : "id-4235e531a37ca0c26448f1ca856b2bcb",
       "javaParameterName" : "rgb1",
       "javaTypeName" : "String",
       "label" : "rgb1",
       "name" : "rgb1",
+      "shapeId" : "sid-39852B51-711C-491D-9843-D6649F3B3155",
       "typeRef" : {
         "localName" : "rGB",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
       "id" : "id-5625da51edf477244d62662a1ded6503",
       "javaParameterName" : "rgb2",
       "javaTypeName" : "String",
       "label" : "rgb2",
       "name" : "rgb2",
+      "shapeId" : "sid-81DC3653-292B-4DE8-99CC-6206DB3C8C0F",
       "typeRef" : {
         "localName" : "rGB",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -487,6 +527,7 @@
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
     "extensions" : [ ],
     "id" : "id-e4404fa72a2b8c4b8769b37da79907d1",
     "informationReferences" : [ {
@@ -504,46 +545,55 @@
     "name" : "appendall",
     "protoRequestName" : "proto.AppendallRequest",
     "protoResponseName" : "proto.AppendallResponse",
+    "shapeId" : "sid-ACA0BA53-2FFE-45F6-ACDD-17D2B3A4522F",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
       "id" : "id-4235e531a37ca0c26448f1ca856b2bcb",
       "javaParameterName" : "rgb1",
       "javaTypeName" : "String",
       "label" : "rgb1",
       "name" : "rgb1",
+      "shapeId" : "sid-39852B51-711C-491D-9843-D6649F3B3155",
       "typeRef" : {
         "localName" : "rGB",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
       "id" : "id-4b4f366aa8841be4c01b4d148feb88bb",
       "javaParameterName" : "rgb1List",
       "javaTypeName" : "List<String>",
       "label" : "rgb1 list",
       "name" : "rgb1List",
+      "shapeId" : "sid-3E916F83-95C2-4A4B-870A-2FEF448C6484",
       "typeRef" : {
         "localName" : "rGB2",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
       "id" : "id-5625da51edf477244d62662a1ded6503",
       "javaParameterName" : "rgb2",
       "javaTypeName" : "String",
       "label" : "rgb2",
       "name" : "rgb2",
+      "shapeId" : "sid-81DC3653-292B-4DE8-99CC-6206DB3C8C0F",
       "typeRef" : {
         "localName" : "rGB",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
       "id" : "id-5aee1aa56098e702d77defcfaf0a657b",
       "javaParameterName" : "rgb2List",
       "javaTypeName" : "List<String>",
       "label" : "rgb2 list",
       "name" : "rgb2List",
+      "shapeId" : "sid-DE0F0DB7-6F5F-4166-9A9A-2799D5B39BB3",
       "typeRef" : {
         "localName" : "rGB3",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -555,6 +605,7 @@
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "ec84b81482a64a2fbfcec8b1c831507a",
     "extensions" : [ ],
     "id" : "id-31f4b9e68dbee2c424d8ce3be8bd9a26",
     "informationReferences" : [ {
@@ -584,79 +635,94 @@
     "name" : "decisionLitexp",
     "protoRequestName" : "proto.DecisionLitexpRequest",
     "protoResponseName" : "proto.DecisionLitexpResponse",
+    "shapeId" : "sid-C13631AF-EEAB-44EE-BB39-63D825570B60",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "ec84b81482a64a2fbfcec8b1c831507a",
       "id" : "id-3c7a037ef88b841b839912e30e0b88db",
       "javaParameterName" : "censored",
       "javaTypeName" : "List<String>",
       "label" : "censored",
       "name" : "censored",
+      "shapeId" : "sid-CF4C9BF1-F27E-41DA-A70F-AE6E55AC3252",
       "typeRef" : {
         "localName" : "censored",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "ec84b81482a64a2fbfcec8b1c831507a",
       "id" : "id-56b1a6a297cc92034538927584917a9d",
       "javaParameterName" : "labels",
       "javaTypeName" : "List<String>",
       "label" : "labels",
       "name" : "labels",
+      "shapeId" : "sid-CEF25BC6-8772-4DB3-8EC8-8E75826E8480",
       "typeRef" : {
         "localName" : "labels",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "ec84b81482a64a2fbfcec8b1c831507a",
       "id" : "id-9d0294a387dcdb1422df828374bb99a4",
       "javaParameterName" : "numz",
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "numz",
       "name" : "numz",
+      "shapeId" : "sid-06C5E989-669F-4D03-AA47-85380F83A9DC",
       "typeRef" : {
         "localName" : "numz",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "ec84b81482a64a2fbfcec8b1c831507a",
       "id" : "id-1abc24c257ae1c27045107f7f1e9abaa",
       "javaParameterName" : "redgreenblue1",
       "javaTypeName" : "String",
       "label" : "redgreenblue1",
       "name" : "redgreenblue1",
+      "shapeId" : "sid-A44A6872-FAF8-4E49-85A5-E051E9562285",
       "typeRef" : {
         "localName" : "rGB",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "ec84b81482a64a2fbfcec8b1c831507a",
       "id" : "id-7fb8cb4f45c3afc5215b67ea566a1195",
       "javaParameterName" : "redgreenblue2",
       "javaTypeName" : "String",
       "label" : "redgreenblue2",
       "name" : "redgreenblue2",
+      "shapeId" : "sid-76BCA960-63C0-42C0-B1DF-0C74A732B00A",
       "typeRef" : {
         "localName" : "rGB",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "ec84b81482a64a2fbfcec8b1c831507a",
       "id" : "id-523c68b3cfbc5e136ee5ea4759aeece5",
       "javaParameterName" : "redgreenbluelist1",
       "javaTypeName" : "List<String>",
       "label" : "redgreenbluelist1",
       "name" : "redgreenbluelist1",
+      "shapeId" : "sid-9857D82E-7960-4D35-99D3-6B8AEA001837",
       "typeRef" : {
         "localName" : "rGB5",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "ec84b81482a64a2fbfcec8b1c831507a",
       "id" : "id-060541c312a88a854f952f95a9ad391f",
       "javaParameterName" : "redgreenbluelist2",
       "javaTypeName" : "List<String>",
       "label" : "redgreenbluelist2",
       "name" : "redgreenbluelist2",
+      "shapeId" : "sid-31B50BC6-1E7C-4697-917B-0420905A8C94",
       "typeRef" : {
         "localName" : "rGB4",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -668,6 +734,7 @@
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
     "extensions" : [ ],
     "id" : "id-13ff0a6716e4b5fc477d1ea94c1610ba",
     "informationReferences" : [ {
@@ -683,24 +750,29 @@
     "name" : "remove",
     "protoRequestName" : "proto.RemoveRequest",
     "protoResponseName" : "proto.RemoveResponse",
+    "shapeId" : "sid-1C5E8027-C7E6-4B3E-92DD-1D1E50CE6BA1",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
       "id" : "id-5625da51edf477244d62662a1ded6503",
       "javaParameterName" : "rgb2",
       "javaTypeName" : "String",
       "label" : "rgb2",
       "name" : "rgb2",
+      "shapeId" : "sid-81DC3653-292B-4DE8-99CC-6206DB3C8C0F",
       "typeRef" : {
         "localName" : "rGB",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
       "id" : "id-5aee1aa56098e702d77defcfaf0a657b",
       "javaParameterName" : "rgb2List",
       "javaTypeName" : "List<String>",
       "label" : "rgb2 list",
       "name" : "rgb2List",
+      "shapeId" : "sid-DE0F0DB7-6F5F-4166-9A9A-2799D5B39BB3",
       "typeRef" : {
         "localName" : "rGB3",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -712,6 +784,7 @@
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
     "extensions" : [ ],
     "id" : "id-1e5f881bbedf7e9d52113f4e8c0cacbd",
     "informationReferences" : [ {
@@ -725,13 +798,16 @@
     "name" : "removeValues",
     "protoRequestName" : "proto.RemoveValuesRequest",
     "protoResponseName" : "proto.RemoveValuesResponse",
+    "shapeId" : "sid-094E4782-D868-446C-BA8A-A78036EF5FF5",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
       "id" : "id-49a0b1514526cc5c351725952b97cf88",
       "javaParameterName" : "listOfNumbers",
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "ListOfNumbers ",
       "name" : "listOfNumbers",
+      "shapeId" : "sid-94BAA9D0-B047-48CE-B8D3-47528075D99D",
       "typeRef" : {
         "localName" : "listOfNumbers",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -743,6 +819,7 @@
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
     "extensions" : [ ],
     "id" : "id-83c46ce653e47a796a6ab6e02fcc60c6",
     "informationReferences" : [ {
@@ -758,24 +835,29 @@
     "name" : "removeall",
     "protoRequestName" : "proto.RemoveallRequest",
     "protoResponseName" : "proto.RemoveallResponse",
+    "shapeId" : "sid-0EA00DFE-CB99-4E0C-98EC-2A1CFC7C529D",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
       "id" : "id-f3e6c25ca841af737ce5aae0c99e4a18",
       "javaParameterName" : "blacklist",
       "javaTypeName" : "List<String>",
       "label" : "blacklist",
       "name" : "blacklist",
+      "shapeId" : "sid-F02C3D61-E3E1-4BE5-9380-5005122E7146",
       "typeRef" : {
         "localName" : "blacklist",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
       "id" : "id-407d01264274ff56720d727ceaa37a58",
       "javaParameterName" : "names",
       "javaTypeName" : "List<String>",
       "label" : "names",
       "name" : "names",
+      "shapeId" : "sid-48310779-49A7-474D-86CD-90595CAF391B",
       "typeRef" : {
         "localName" : "names",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -787,6 +869,7 @@
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
     "extensions" : [ ],
     "id" : "id-fac22fa67c8f3f94341bdb53501e3d24",
     "informationReferences" : [ {
@@ -802,24 +885,29 @@
     "name" : "removeall2",
     "protoRequestName" : "proto.Removeall2Request",
     "protoResponseName" : "proto.Removeall2Response",
+    "shapeId" : "sid-982E7746-F258-4A1E-86CF-2128ECAB4034",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
       "id" : "id-4235e531a37ca0c26448f1ca856b2bcb",
       "javaParameterName" : "rgb1",
       "javaTypeName" : "String",
       "label" : "rgb1",
       "name" : "rgb1",
+      "shapeId" : "sid-39852B51-711C-491D-9843-D6649F3B3155",
       "typeRef" : {
         "localName" : "rGB",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
       "id" : "id-4b4f366aa8841be4c01b4d148feb88bb",
       "javaParameterName" : "rgb1List",
       "javaTypeName" : "List<String>",
       "label" : "rgb1 list",
       "name" : "rgb1List",
+      "shapeId" : "sid-3E916F83-95C2-4A4B-870A-2FEF448C6484",
       "typeRef" : {
         "localName" : "rGB2",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
@@ -831,6 +919,7 @@
     }
   }, {
     "@kind" : "decision",
+    "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
     "extensions" : [ ],
     "id" : "id-902bd3c70ca2f8cc65dc57c27d3fe133",
     "informationReferences" : [ {
@@ -848,79 +937,94 @@
     "name" : "zip",
     "protoRequestName" : "proto.ZipRequest",
     "protoResponseName" : "proto.ZipResponse",
+    "shapeId" : "sid-2BCD8573-629A-4330-B3C8-AD6B51DCE210",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
+      "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
       "id" : "id-f3e6c25ca841af737ce5aae0c99e4a18",
       "javaParameterName" : "blacklist",
       "javaTypeName" : "List<String>",
       "label" : "blacklist",
       "name" : "blacklist",
+      "shapeId" : "sid-F02C3D61-E3E1-4BE5-9380-5005122E7146",
       "typeRef" : {
         "localName" : "blacklist",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
       "id" : "id-49a0b1514526cc5c351725952b97cf88",
       "javaParameterName" : "listOfNumbers",
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "ListOfNumbers ",
       "name" : "listOfNumbers",
+      "shapeId" : "sid-94BAA9D0-B047-48CE-B8D3-47528075D99D",
       "typeRef" : {
         "localName" : "listOfNumbers",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
       "id" : "id-407d01264274ff56720d727ceaa37a58",
       "javaParameterName" : "names",
       "javaTypeName" : "List<String>",
       "label" : "names",
       "name" : "names",
+      "shapeId" : "sid-48310779-49A7-474D-86CD-90595CAF391B",
       "typeRef" : {
         "localName" : "names",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
       "id" : "id-4235e531a37ca0c26448f1ca856b2bcb",
       "javaParameterName" : "rgb1",
       "javaTypeName" : "String",
       "label" : "rgb1",
       "name" : "rgb1",
+      "shapeId" : "sid-39852B51-711C-491D-9843-D6649F3B3155",
       "typeRef" : {
         "localName" : "rGB",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
       "id" : "id-4b4f366aa8841be4c01b4d148feb88bb",
       "javaParameterName" : "rgb1List",
       "javaTypeName" : "List<String>",
       "label" : "rgb1 list",
       "name" : "rgb1List",
+      "shapeId" : "sid-3E916F83-95C2-4A4B-870A-2FEF448C6484",
       "typeRef" : {
         "localName" : "rGB2",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
       "id" : "id-5625da51edf477244d62662a1ded6503",
       "javaParameterName" : "rgb2",
       "javaTypeName" : "String",
       "label" : "rgb2",
       "name" : "rgb2",
+      "shapeId" : "sid-81DC3653-292B-4DE8-99CC-6206DB3C8C0F",
       "typeRef" : {
         "localName" : "rGB",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
       }
     }, {
       "@kind" : "inputData",
+      "diagramId" : "c1089e2d60624540a6c2f0ca255b5a30",
       "id" : "id-5aee1aa56098e702d77defcfaf0a657b",
       "javaParameterName" : "rgb2List",
       "javaTypeName" : "List<String>",
       "label" : "rgb2 list",
       "name" : "rgb2List",
+      "shapeId" : "sid-DE0F0DB7-6F5F-4166-9A9A-2799D5B39BB3",
       "typeRef" : {
         "localName" : "rGB3",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml"
