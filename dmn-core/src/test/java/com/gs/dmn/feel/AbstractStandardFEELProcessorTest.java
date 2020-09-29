@@ -294,8 +294,8 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 null,
                 null);
         doExpressionTest(entries, "", "function (x , y) x + y",
-                "FunctionDefinition(FormalParameter(x, Any),FormalParameter(y, Any), Addition(+,Name(x),Name(y)), false)",
-                "FEELFunctionType(FormalParameter(x, Any), FormalParameter(y, Any), Any, false)",
+                "FunctionDefinition(FormalParameter(x, null),FormalParameter(y, null), Addition(+,Name(x),Name(y)), false)",
+                "FEELFunctionType(FormalParameter(x, null), FormalParameter(y, null), Any, false)",
                 null,
                 null,
                 null);
@@ -303,14 +303,14 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
         doExpressionTest(entries, "", "function (x : feel.string, y : feel.string) external { " +
                         "java: {class : \"name\", methodSignature: \"signature\" } }",
                 "FunctionDefinition(FormalParameter(x, string),FormalParameter(y, string), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"name\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"signature\"))))), true)",
-                "FEELFunctionType(FormalParameter(x, string), FormalParameter(y, string), ContextType(java = ContextType(class = string, methodSignature = string)), true)",
+                "FEELFunctionType(FormalParameter(x, string), FormalParameter(y, string), Any, true)",
                 null,
                 null,
                 null);
         doExpressionTest(entries, "", "function (x , y) external { " +
                         "java: {class : \"name\", methodSignature: \"signature\" } }",
-                "FunctionDefinition(FormalParameter(x, Any),FormalParameter(y, Any), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"name\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"signature\"))))), true)",
-                "FEELFunctionType(FormalParameter(x, Any), FormalParameter(y, Any), Any, true)",
+                "FunctionDefinition(FormalParameter(x, null),FormalParameter(y, null), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"name\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"signature\"))))), true)",
+                "FEELFunctionType(FormalParameter(x, null), FormalParameter(y, null), Any, true)",
                 null,
                 null,
                 null);
@@ -318,7 +318,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                         "java: {class: \"com.gs.dmn.simple_decision_with_user_function.Sum\", methodSignature: \"add(a, b)\", returnType : \"number\"}" +
                         "}",
                 "FunctionDefinition(FormalParameter(a, number),FormalParameter(b, number), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"com.gs.dmn.simple_decision_with_user_function.Sum\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"add(a, b)\")),ContextEntry(ContextEntryKey(returnType) = StringLiteral(\"number\"))))), true)",
-                "FEELFunctionType(FormalParameter(a, number), FormalParameter(b, number), ContextType(java = ContextType(class = string, methodSignature = string, returnType = string)), true)",
+                "FEELFunctionType(FormalParameter(a, number), FormalParameter(b, number), Any, true)",
                 null,
                 null,
                 null
