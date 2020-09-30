@@ -24,7 +24,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.FEELContext;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.feel.interpreter.FEELInterpreter;
-import com.gs.dmn.feel.lib.StandardFEELLib;
+import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.Result;
@@ -50,10 +50,10 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     private final RuntimeEnvironmentFactory runtimeEnvironmentFactory = RuntimeEnvironmentFactory.instance();
 
-    protected final DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter = this.dialectDefinition.createDMNInterpreter(new DMNModelRepository(), new LinkedHashMap<>());
+    protected final DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter = this.dialectDefinition.createDMNInterpreter(makeRepository(), new LinkedHashMap<>());
     protected final BasicDMNToNativeTransformer dmnTransformer = this.dmnInterpreter.getBasicDMNTransformer();
     protected final EnvironmentFactory environmentFactory = this.dmnTransformer.getEnvironmentFactory();
-    protected final StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib = (StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) this.dmnInterpreter.getFeelLib();
+    private final FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib = this.dmnInterpreter.getFeelLib();
 
     protected FEELTranslator feelTranslator;
     protected FEELInterpreter feelInterpreter;
@@ -1311,6 +1311,8 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     protected TNamedElement getElement() {
         return null;
     }
+
+    protected abstract DMNModelRepository makeRepository();
 
     protected abstract DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> makeDialect();
 }
