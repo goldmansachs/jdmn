@@ -55,6 +55,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 false);
     }
 
+    @Override
     @Test
     public void testInExpression() {
         super.testInExpression();
@@ -103,6 +104,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 null);
     }
 
+    @Override
     @Test
     public void testPathExpression() {
         super.testPathExpression();

@@ -87,6 +87,7 @@ public class MixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal
         assertEqualsDateTime("99999-12-31T11:22:33Z@UTC", getLib().dateAndTime("99999-12-31T11:22:33"));
     }
 
+   @Override
    @Test
     public void testDuration() {
         super.testDuration();

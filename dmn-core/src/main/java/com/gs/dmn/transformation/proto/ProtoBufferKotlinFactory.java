@@ -54,10 +54,12 @@ public class ProtoBufferKotlinFactory extends ProtoBufferFactory {
         return String.format("%s: %s", requestVariableName(element), qualifiedRequestMessageName(element));
     }
 
+    @Override
     public String drgElementArgumentListProto(TDRGElement element) {
         return requestVariableName(element);
     }
 
+    @Override
     protected String toNativeProtoType(String feelType) {
         return FEEL_TYPE_TO_NATIVE_PROTO_TYPE.get(feelType);
     }

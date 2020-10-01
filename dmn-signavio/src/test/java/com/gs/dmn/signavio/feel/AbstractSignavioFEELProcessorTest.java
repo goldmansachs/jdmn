@@ -44,6 +44,7 @@ public abstract class AbstractSignavioFEELProcessorTest<NUMBER, DATE, TIME, DATE
         return new SignavioDMNModelRepository();
     }
 
+    @Override
     @Test
     public void testBetweenExpression() {
         super.testBetweenExpression();
@@ -59,6 +60,7 @@ public abstract class AbstractSignavioFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 null);
     }
 
+    @Override
     @Test
     public void testInExpression() {
         super.testInExpression();
@@ -108,6 +110,7 @@ public abstract class AbstractSignavioFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 true);
     }
 
+    @Override
     @Test
     public void testPathExpression() {
         super.testPathExpression();

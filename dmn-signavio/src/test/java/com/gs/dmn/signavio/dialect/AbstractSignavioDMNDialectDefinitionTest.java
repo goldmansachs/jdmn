@@ -21,10 +21,12 @@ import com.gs.dmn.transformation.template.TemplateProvider;
 
 public abstract class AbstractSignavioDMNDialectDefinitionTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNDialectDefinitionTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> {
 
+    @Override
     protected DMNModelRepository makeRepository() {
         return new SignavioDMNModelRepository();
     }
 
+    @Override
     protected TemplateProvider makeTemplateProvider() {
         return new SignavioTreeTemplateProvider();
     }

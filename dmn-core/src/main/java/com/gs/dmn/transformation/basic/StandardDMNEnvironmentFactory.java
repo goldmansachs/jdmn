@@ -262,6 +262,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         return outputEntries;
     }
 
+    @Override
     public Type toFEELType(TDRGElement element, TOutputClause outputClause, int index) {
         TExpression expression = this.dmnModelRepository.expression(element);
         if (!(expression instanceof TDecisionTable)) {
@@ -716,6 +717,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         return new Pair<>(contextEnvironment, literalExpressionMap);
     }
 
+    @Override
     public Type entryType(TDRGElement element, TContextEntry entry, TExpression expression, Expression feelExpression) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         TInformationItem variable = entry.getVariable();
