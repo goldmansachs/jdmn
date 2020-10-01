@@ -26,6 +26,7 @@ import java.util.List;
 
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
+import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 
 public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
     protected final StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib = (StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) this.dmnInterpreter.getFeelLib();
@@ -41,6 +42,48 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
         return new DMNModelRepository();
     }
 
+    @Override
+    @Test
+    public void testUnaryTests() {
+        super.testUnaryTests();
+
+        DATE date = lib.date("2015-01-01");
+        List<EnvironmentEntry> entries = Arrays.asList(
+                new EnvironmentEntry("date", DATE, date));
+
+//        doUnaryTestsTest(entries, "date", "<= date(date(\"2020-01-01\") - duration(\"P5Y\"))",
+//                "PositiveUnaryTests(ExpressionTest(Relational(<=,Name(?),FunctionInvocation(Name(date) -> PositionalParameters(Addition(-,DateTimeLiteral(date, \"2020-01-01\"),DateTimeLiteral(duration, \"P5Y\")))))))",
+//                "TupleType(boolean)",
+//                "(dateLessEqualThan(date, date(dateSubtractDuration(date(\"2020-01-01\"), duration(\"P5Y\")))))",
+//                (lib.dateLessEqualThan(date, lib.date((DATE_TIME) lib.dateSubtractDuration(lib.date("2020-01-01"), lib.duration("P5Y"))))),
+//                true);
+//        doUnaryTestsTest(entries, "date", "<= date(\"2020-01-01\") - duration(\"P5Y\")",
+//                "PositiveUnaryTests(ExpressionTest(Relational(<=,Name(?),FunctionInvocation(Name(date) -> PositionalParameters(Addition(-,DateTimeLiteral(date, \"2020-01-01\"),DateTimeLiteral(duration, \"P5Y\")))))))",
+//                "TupleType(boolean)",
+//                "(dateLessEqualThan(date, date(dateSubtractDuration(date(\"2020-01-01\"), duration(\"P5Y\")))))",
+//                (lib.dateLessEqualThan(date, lib.date((DATE_TIME) lib.dateSubtractDuration(lib.date("2020-01-01"), lib.duration("P5Y"))))),
+//                true);
+        doUnaryTestsTest(entries, "date", "? <= date(date(\"2020-01-01\") - duration(\"P5Y\"))",
+                "PositiveUnaryTests(ExpressionTest(Relational(<=,Name(?),FunctionInvocation(Name(date) -> PositionalParameters(Addition(-,DateTimeLiteral(date, \"2020-01-01\"),DateTimeLiteral(duration, \"P5Y\")))))))",
+                "TupleType(boolean)",
+                "(dateLessEqualThan(date, date(dateSubtractDuration(date(\"2020-01-01\"), duration(\"P5Y\")))))",
+                (lib.dateLessEqualThan(date, lib.date((DATE_TIME) lib.dateSubtractDuration(lib.date("2020-01-01"), lib.duration("P5Y"))))),
+                true);
+        doUnaryTestsTest(entries, "date", "? <= date(\"2020-01-01\") - duration(\"P5Y\")",
+                "PositiveUnaryTests(ExpressionTest(Relational(<=,Name(?),Addition(-,DateTimeLiteral(date, \"2020-01-01\"),DateTimeLiteral(duration, \"P5Y\")))))",
+                "TupleType(boolean)",
+                "(dateLessEqualThan(date, dateSubtractDuration(date(\"2020-01-01\"), duration(\"P5Y\"))))",
+                (lib.dateLessEqualThan(date, lib.dateSubtractDuration(lib.date("2020-01-01"), lib.duration("P5Y")))),
+                true);
+        doUnaryTestsTest(entries, "date", "<= date(\"2020-01-01\")",
+                "PositiveUnaryTests(OperatorTest(<=,DateTimeLiteral(date, \"2020-01-01\")))",
+                "TupleType(boolean)",
+                "(dateLessEqualThan(date, date(\"2020-01-01\")))",
+                (lib.dateLessEqualThan(date, lib.date("2020-01-01"))),
+                true);
+    }
+
+    @Override
     @Test
     public void testBetweenExpression() {
         super.testBetweenExpression();
