@@ -54,6 +54,7 @@ public class ProtoBufferJavaFactory extends ProtoBufferFactory {
         return String.format("%s %s", qualifiedRequestMessageName(element), requestVariableName(element));
     }
 
+    @Override
     protected String toNativeProtoType(String feelType) {
         return FEEL_TYPE_TO_NATIVE_PROTO_TYPE.get(feelType);
     }

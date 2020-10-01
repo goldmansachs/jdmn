@@ -1965,6 +1965,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer {
         return this.dmnEnvironmentFactory.makeRelationEnvironment(element, relation, environment);
     }
 
+    @Override
     public Environment makeFunctionDefinitionEnvironment(TNamedElement element, TFunctionDefinition functionDefinition, Environment parentEnvironment) {
         return this.dmnEnvironmentFactory.makeFunctionDefinitionEnvironment(element, functionDefinition, parentEnvironment);
     }
