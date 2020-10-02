@@ -475,21 +475,23 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testForExpression() {
-        testForExpressionTest("for i in 0..4 return if i = 0 then 1 else i * partial[-1]",
+        List<EnvironmentEntry> entries = Arrays.asList();
+
+        doExpressionTest(entries, "", "for i in 0..4 return if i = 0 then 1 else i * partial[-1]",
                 "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(0), NumericLiteral(4))) -> IfExpression(Relational(=,Name(i),NumericLiteral(0)), NumericLiteral(1), Multiplication(*,Name(i),FilterExpression(Name(partial), ArithmeticNegation(NumericLiteral(1))))))",
                 "ListType(number)",
                 "rangeToList(number(\"0\"), number(\"4\")).stream().map(i -> (booleanEqual(numericEqual(i, number(\"0\")), Boolean.TRUE)) ? number(\"1\") : numericMultiply(i, (java.math.BigDecimal)(elementAt(partial, numericUnaryMinus(number(\"1\")))))).collect(Collectors.toList())",
                 null,
                 null
         );
-        testForExpressionTest("for i in 4..2 return i",
+        doExpressionTest(entries, "", "for i in 4..2 return i",
                 "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(4), NumericLiteral(2))) -> Name(i))",
                 "ListType(number)",
                 "rangeToList(number(\"4\"), number(\"2\")).stream().map(i -> i).collect(Collectors.toList())",
                 lib.rangeToList(lib.number("4"), lib.number("2")).stream().map(i -> i).collect(Collectors.toList()),
                 lib.asList(lib.number("4"), lib.number("3"), lib.number("2"))
         );
-        testForExpressionTest("for i in 1..-1 return i",
+        doExpressionTest(entries, "", "for i in 1..-1 return i",
                 "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(1), ArithmeticNegation(NumericLiteral(1)))) -> Name(i))",
                 "ListType(number)",
                 "rangeToList(number(\"1\"), numericUnaryMinus(number(\"1\"))).stream().map(i -> i).collect(Collectors.toList())",
@@ -497,19 +499,19 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 lib.asList(lib.number("1"), lib.number("0"), lib.number("-1"))
         );
 
-        testForExpressionTest("for i in 1..2 return for j in [2, 3] return i+j",
+        doExpressionTest(entries, "", "for i in 1..2 return for j in [2, 3] return i+j",
                 "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(1), NumericLiteral(2))) -> ForExpression(Iterator(j in ExpressionIteratorDomain(ListLiteral(NumericLiteral(2),NumericLiteral(3)))) -> Addition(+,Name(i),Name(j))))",
                 "ListType(ListType(number))",
                 "rangeToList(number(\"1\"), number(\"2\")).stream().map(i -> asList(number(\"2\"), number(\"3\")).stream().map(j -> numericAdd(i, j)).collect(Collectors.toList())).collect(Collectors.toList())",
                 lib.rangeToList(lib.number("1"), lib.number("2")).stream().map(i -> lib.asList(lib.number("2"), lib.number("3")).stream().map(j -> lib.numericAdd(i, j)).collect(Collectors.toList())).collect(Collectors.toList()),
                 Arrays.asList(Arrays.asList(lib.number("3"), lib.number("4")), Arrays.asList(lib.number("4"), lib.number("5"))));
-        testForExpressionTest("for i in [1..2] return i",
+        doExpressionTest(entries, "", "for i in [1..2] return i",
                 "ForExpression(Iterator(i in ExpressionIteratorDomain(IntervalTest(false,NumericLiteral(1),false,NumericLiteral(2)))) -> Name(i))",
                 "ListType(number)",
                 "rangeToList(false, number(\"1\"), false, number(\"2\")).stream().map(i -> i).collect(Collectors.toList())",
                 lib.rangeToList(false, lib.number("1"), false, lib.number("2")).stream().map(i -> i).collect(Collectors.toList()),
                 Arrays.asList(lib.number("1"), lib.number("2")));
-        testForExpressionTest("for i in [1..2], j in [2..3] return i+j",
+        doExpressionTest(entries, "", "for i in [1..2], j in [2..3] return i+j",
                 "ForExpression(Iterator(i in ExpressionIteratorDomain(IntervalTest(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(IntervalTest(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Addition(+,Name(i),Name(j)))",
                 "ListType(number)",
                 "rangeToList(false, number(\"1\"), false, number(\"2\")).stream().map(i -> rangeToList(false, number(\"2\"), false, number(\"3\")).stream().map(j -> numericAdd(i, j))).flatMap(x -> x).collect(Collectors.toList())",
@@ -519,20 +521,20 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                         .flatMap(x -> x)
                         .collect(Collectors.toList()),
                 Arrays.asList(lib.number("3"), lib.number("4"), lib.number("4"), lib.number("5")));
-        testForExpressionTest("for i in [1..2] return for j in [2..3] return i+j",
+        doExpressionTest(entries, "", "for i in [1..2] return for j in [2..3] return i+j",
                 "ForExpression(Iterator(i in ExpressionIteratorDomain(IntervalTest(false,NumericLiteral(1),false,NumericLiteral(2)))) -> ForExpression(Iterator(j in ExpressionIteratorDomain(IntervalTest(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Addition(+,Name(i),Name(j))))",
                 "ListType(ListType(number))",
                 "rangeToList(false, number(\"1\"), false, number(\"2\")).stream().map(i -> rangeToList(false, number(\"2\"), false, number(\"3\")).stream().map(j -> numericAdd(i, j)).collect(Collectors.toList())).collect(Collectors.toList())",
                 Arrays.asList(Arrays.asList(lib.number("3"), lib.number("4")), Arrays.asList(lib.number("4"), lib.number("5"))),
                 Arrays.asList(Arrays.asList(lib.number("3"), lib.number("4")), Arrays.asList(lib.number("4"), lib.number("5"))));
 
-        testForExpressionTest("for i in [1, 2] return i",
+        doExpressionTest(entries, "", "for i in [1, 2] return i",
                 "ForExpression(Iterator(i in ExpressionIteratorDomain(ListLiteral(NumericLiteral(1),NumericLiteral(2)))) -> Name(i))",
                 "ListType(number)",
                 "asList(number(\"1\"), number(\"2\")).stream().map(i -> i).collect(Collectors.toList())",
                 Arrays.asList(lib.number("1"), lib.number("2")).stream().map(i -> i).collect(Collectors.toList()),
                 Arrays.asList(lib.number("1"), lib.number("2")));
-        testForExpressionTest("for i in [1, 2], j in [2, 3] return i+j",
+        doExpressionTest(entries, "", "for i in [1, 2], j in [2, 3] return i+j",
                 "ForExpression(Iterator(i in ExpressionIteratorDomain(ListLiteral(NumericLiteral(1),NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(ListLiteral(NumericLiteral(2),NumericLiteral(3)))) -> Addition(+,Name(i),Name(j)))",
                 "ListType(number)",
                 "asList(number(\"1\"), number(\"2\")).stream().map(i -> asList(number(\"2\"), number(\"3\")).stream().map(j -> numericAdd(i, j))).flatMap(x -> x).collect(Collectors.toList())",
@@ -542,7 +544,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                         .flatMap(x -> x)
                         .collect(Collectors.toList()),
                 Arrays.asList(lib.number("3"), lib.number("4"), lib.number("4"), lib.number("5")));
-        testForExpressionTest("for i in [1, 2] return for j in [2, 3] return i+j",
+        doExpressionTest(entries, "", "for i in [1, 2] return for j in [2, 3] return i+j",
                 "ForExpression(Iterator(i in ExpressionIteratorDomain(ListLiteral(NumericLiteral(1),NumericLiteral(2)))) -> ForExpression(Iterator(j in ExpressionIteratorDomain(ListLiteral(NumericLiteral(2),NumericLiteral(3)))) -> Addition(+,Name(i),Name(j))))",
                 "ListType(ListType(number))",
                 "asList(number(\"1\"), number(\"2\")).stream().map(i -> asList(number(\"2\"), number(\"3\")).stream().map(j -> numericAdd(i, j)).collect(Collectors.toList())).collect(Collectors.toList())",
@@ -552,447 +554,6 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                                 .collect(Collectors.toList()))
                         .collect(Collectors.toList()),
                 Arrays.asList(Arrays.asList(lib.number("3"), lib.number("4")), Arrays.asList(lib.number("4"), lib.number("5"))));
-    }
-
-    private void testForExpressionTest(String expressionText, String expectedAST, String expectedType, String expectedGeneratedCode, Object generatedCodeValue, Object expectedValue) {
-        List<EnvironmentEntry> entries = Arrays.asList();
-        doExpressionTest(entries, "", expressionText, expectedAST, expectedType, expectedGeneratedCode, generatedCodeValue, expectedValue);
-        assertEquals("Value computed with generated code doesn't match the expected one", expectedValue, generatedCodeValue);
-    }
-
-    @Test
-    public void testFunctionDefinition() {
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", NUMBER, lib.number("1")));
-
-        doExpressionTest(entries, "", "function (x : feel.string, y : feel.string) x + y",
-                "FunctionDefinition(FormalParameter(x, string),FormalParameter(y, string), Addition(+,Name(x),Name(y)), false)",
-                "FEELFunctionType(FormalParameter(x, string), FormalParameter(y, string), string, false)",
-                null,
-                null,
-                null);
-        doExpressionTest(entries, "", "function (x , y) x + y",
-                "FunctionDefinition(FormalParameter(x, null),FormalParameter(y, null), Addition(+,Name(x),Name(y)), false)",
-                "FEELFunctionType(FormalParameter(x, null), FormalParameter(y, null), Any, false)",
-                null,
-                null,
-                null);
-
-        doExpressionTest(entries, "", "function (x : feel.string, y : feel.string) external { " +
-                        "java: {class : \"name\", methodSignature: \"signature\" } }",
-                "FunctionDefinition(FormalParameter(x, string),FormalParameter(y, string), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"name\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"signature\"))))), true)",
-                "FEELFunctionType(FormalParameter(x, string), FormalParameter(y, string), Any, true)",
-                null,
-                null,
-                null);
-        doExpressionTest(entries, "", "function (x , y) external { " +
-                        "java: {class : \"name\", methodSignature: \"signature\" } }",
-                "FunctionDefinition(FormalParameter(x, null),FormalParameter(y, null), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"name\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"signature\"))))), true)",
-                "FEELFunctionType(FormalParameter(x, null), FormalParameter(y, null), Any, true)",
-                null,
-                null,
-                null);
-        doExpressionTest(entries, "", "function(a: feel.number, b: feel.number) external {" +
-                        "java: {class: \"com.gs.dmn.simple_decision_with_user_function.Sum\", methodSignature: \"add(a, b)\", returnType : \"number\"}" +
-                        "}",
-                "FunctionDefinition(FormalParameter(a, number),FormalParameter(b, number), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"com.gs.dmn.simple_decision_with_user_function.Sum\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"add(a, b)\")),ContextEntry(ContextEntryKey(returnType) = StringLiteral(\"number\"))))), true)",
-                "FEELFunctionType(FormalParameter(a, number), FormalParameter(b, number), Any, true)",
-                null,
-                null,
-                null
-        );
-    }
-
-    @Test
-    public void testBetweenExpression() {
-        NUMBER i = lib.number("1");
-        NUMBER a = lib.number("1");
-        NUMBER b = lib.number("1");
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("i", NUMBER, i),
-                new EnvironmentEntry("a", NUMBER, a),
-                new EnvironmentEntry("b", NUMBER, b));
-
-        doExpressionTest(entries, "", "3 between 1 and 4",
-                "BetweenExpression(NumericLiteral(3), NumericLiteral(1), NumericLiteral(4))",
-                "boolean",
-                "booleanAnd(numericLessEqualThan(number(\"1\"), number(\"3\")), numericLessEqualThan(number(\"3\"), number(\"4\")))",
-                lib.booleanAnd(lib.numericLessEqualThan(lib.number("1"), lib.number("3")), lib.numericLessEqualThan(lib.number("3"), lib.number("4"))),
-                true);
-        doExpressionTest(entries, "", "(i) between (a) and (b)",
-                "BetweenExpression(Name(i), Name(a), Name(b))",
-                "boolean",
-                "booleanAnd(numericLessEqualThan(a, i), numericLessEqualThan(i, b))",
-                lib.booleanAnd(lib.numericLessEqualThan(a, i), lib.numericLessEqualThan(i, b)),
-                true);
-        doExpressionTest(entries, "", "(i) between 1 and 2",
-                "BetweenExpression(Name(i), NumericLiteral(1), NumericLiteral(2))",
-                "boolean",
-                "booleanAnd(numericLessEqualThan(number(\"1\"), i), numericLessEqualThan(i, number(\"2\")))",
-                lib.booleanAnd(lib.numericLessEqualThan(lib.number("1"), i), lib.numericLessEqualThan(i, lib.number("2"))),
-                true);
-
-        doExpressionTest(entries, "", "date(\"2018-12-01\") between date(\"2018-12-02\") and date(\"2018-12-04\")",
-                "BetweenExpression(DateTimeLiteral(date, \"2018-12-01\"), DateTimeLiteral(date, \"2018-12-02\"), DateTimeLiteral(date, \"2018-12-04\"))",
-                "boolean",
-                "booleanAnd(dateLessEqualThan(date(\"2018-12-02\"), date(\"2018-12-01\")), dateLessEqualThan(date(\"2018-12-01\"), date(\"2018-12-04\")))",
-                lib.booleanAnd(lib.dateLessEqualThan(lib.date("2018-12-02"), lib.date("2018-12-01")), lib.dateLessEqualThan(lib.date("2018-12-01"), lib.date("2018-12-04"))),
-                false);
-        doExpressionTest(entries, "", "time(\"10:31:00\") between time(\"10:32:00\") and time(\"10:34:00\")",
-                "BetweenExpression(DateTimeLiteral(time, \"10:31:00\"), DateTimeLiteral(time, \"10:32:00\"), DateTimeLiteral(time, \"10:34:00\"))",
-                "boolean",
-                "booleanAnd(timeLessEqualThan(time(\"10:32:00\"), time(\"10:31:00\")), timeLessEqualThan(time(\"10:31:00\"), time(\"10:34:00\")))",
-                lib.booleanAnd(lib.timeLessEqualThan(lib.time("10:32:00"), lib.time("10:31:00")), lib.timeLessEqualThan(lib.time("10:31:00"), lib.time("10:34:00"))),
-                false);
-        doExpressionTest(entries, "", "date and time(\"2018-12-01T10:30:00\") between date and time(\"2018-12-02T10:30:00\") and date and time(\"2018-12-04T10:30:00\")",
-                "BetweenExpression(DateTimeLiteral(date and time, \"2018-12-01T10:30:00\"), DateTimeLiteral(date and time, \"2018-12-02T10:30:00\"), DateTimeLiteral(date and time, \"2018-12-04T10:30:00\"))",
-                "boolean",
-                "booleanAnd(dateTimeLessEqualThan(dateAndTime(\"2018-12-02T10:30:00\"), dateAndTime(\"2018-12-01T10:30:00\")), dateTimeLessEqualThan(dateAndTime(\"2018-12-01T10:30:00\"), dateAndTime(\"2018-12-04T10:30:00\")))",
-                lib.booleanAnd(lib.dateTimeLessEqualThan(lib.dateAndTime("2018-12-02T10:30:00"), lib.dateAndTime("2018-12-01T10:30:00")), lib.dateTimeLessEqualThan(lib.dateAndTime("2018-12-01T10:30:00"), lib.dateAndTime("2018-12-04T10:30:00"))),
-                false);
-        doExpressionTest(entries, "", "duration(\"P1Y\") between duration(\"P2Y\") and duration(\"P4Y\")",
-                "BetweenExpression(DateTimeLiteral(duration, \"P1Y\"), DateTimeLiteral(duration, \"P2Y\"), DateTimeLiteral(duration, \"P4Y\"))",
-                "boolean",
-                "booleanAnd(durationLessEqualThan(duration(\"P2Y\"), duration(\"P1Y\")), durationLessEqualThan(duration(\"P1Y\"), duration(\"P4Y\")))",
-                lib.booleanAnd(lib.durationLessEqualThan(lib.duration("P2Y"), lib.duration("P1Y")), lib.durationLessEqualThan(lib.duration("P1Y"), lib.duration("P4Y"))),
-                false);
-        doExpressionTest(entries, "", "duration(\"P1D\") between duration(\"P2D\") and duration(\"P4D\")",
-                "BetweenExpression(DateTimeLiteral(duration, \"P1D\"), DateTimeLiteral(duration, \"P2D\"), DateTimeLiteral(duration, \"P4D\"))",
-                "boolean",
-                "booleanAnd(durationLessEqualThan(duration(\"P2D\"), duration(\"P1D\")), durationLessEqualThan(duration(\"P1D\"), duration(\"P4D\")))",
-                lib.booleanAnd(lib.durationLessEqualThan(lib.duration("P2D"), lib.duration("P1D")), lib.durationLessEqualThan(lib.duration("P1D"), lib.duration("P4D"))),
-                false);
-    }
-
-    @Test
-    public void testInExpression() {
-        // operator test
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", NUMBER, lib.number("1")));
-
-        doExpressionTest(entries, "", "1 in 1",
-                "InExpression(NumericLiteral(1), OperatorTest(null,NumericLiteral(1)))",
-                "boolean",
-                "(numericEqual(number(\"1\"), number(\"1\")))",
-                (lib.numericEqual(lib.number("1"), lib.number("1"))),
-                true);
-        doExpressionTest(entries, "", "1 in <1",
-                "InExpression(NumericLiteral(1), OperatorTest(<,NumericLiteral(1)))",
-                "boolean",
-                "(numericLessThan(number(\"1\"), number(\"1\")))",
-                (lib.numericLessThan(lib.number("1"), lib.number("1"))),
-                false);
-        doExpressionTest(entries, "", "1 in <=1",
-                "InExpression(NumericLiteral(1), OperatorTest(<=,NumericLiteral(1)))",
-                "boolean",
-                "(numericLessEqualThan(number(\"1\"), number(\"1\")))",
-                (lib.numericLessEqualThan(lib.number("1"), lib.number("1"))),
-                true);
-        doExpressionTest(entries, "", "1 in >1",
-                "InExpression(NumericLiteral(1), OperatorTest(>,NumericLiteral(1)))",
-                "boolean",
-                "(numericGreaterThan(number(\"1\"), number(\"1\")))",
-                (lib.numericGreaterThan(lib.number("1"), lib.number("1"))),
-                false);
-        doExpressionTest(entries, "", "1 in >=1",
-                "InExpression(NumericLiteral(1), OperatorTest(>=,NumericLiteral(1)))",
-                "boolean",
-                "(numericGreaterEqualThan(number(\"1\"), number(\"1\")))",
-                (lib.numericGreaterEqualThan(lib.number("1"), lib.number("1"))),
-                true);
-
-        // interval test
-        doExpressionTest(entries, "", "1 in (1..2)",
-                "InExpression(NumericLiteral(1), IntervalTest(true,NumericLiteral(1),true,NumericLiteral(2)))",
-                "boolean",
-                "(booleanAnd(numericGreaterThan(number(\"1\"), number(\"1\")), numericLessThan(number(\"1\"), number(\"2\"))))",
-                (lib.booleanAnd(lib.numericGreaterThan(lib.number("1"), lib.number("1")), lib.numericLessThan(lib.number("1"), lib.number("2")))),
-                false);
-        doExpressionTest(entries, "", "1 in (1..2]",
-                "InExpression(NumericLiteral(1), IntervalTest(true,NumericLiteral(1),false,NumericLiteral(2)))",
-                "boolean",
-                "(booleanAnd(numericGreaterThan(number(\"1\"), number(\"1\")), numericLessEqualThan(number(\"1\"), number(\"2\"))))",
-                (lib.booleanAnd(lib.numericGreaterThan(lib.number("1"), lib.number("1")), lib.numericLessEqualThan(lib.number("1"), lib.number("2")))),
-                false);
-        doExpressionTest(entries, "", "1 in [1..2)",
-                "InExpression(NumericLiteral(1), IntervalTest(false,NumericLiteral(1),true,NumericLiteral(2)))",
-                "boolean",
-                "(booleanAnd(numericGreaterEqualThan(number(\"1\"), number(\"1\")), numericLessThan(number(\"1\"), number(\"2\"))))",
-                (lib.booleanAnd(lib.numericGreaterEqualThan(lib.number("1"), lib.number("1")), lib.numericLessThan(lib.number("1"), lib.number("2")))),
-                true);
-        doExpressionTest(entries, "", "1 in [1..2]",
-                "InExpression(NumericLiteral(1), IntervalTest(false,NumericLiteral(1),false,NumericLiteral(2)))",
-                "boolean",
-                "(booleanAnd(numericGreaterEqualThan(number(\"1\"), number(\"1\")), numericLessEqualThan(number(\"1\"), number(\"2\"))))",
-                (lib.booleanAnd(lib.numericGreaterEqualThan(lib.number("1"), lib.number("1")), lib.numericLessEqualThan(lib.number("1"), lib.number("2")))),
-                true);
-
-        // list test
-        doExpressionTest(entries, "", "1 in [1, 2]",
-                "InExpression(NumericLiteral(1), ListTest(ListLiteral(NumericLiteral(1),NumericLiteral(2))))",
-                "boolean",
-                "(listContains(asList(number(\"1\"), number(\"2\")), number(\"1\")))",
-                (lib.listContains(Arrays.asList(lib.number("1"), lib.number("2")), lib.number("1"))),
-                true);
-        doExpressionTest(entries, "", "[1, 2, 3] in [1, 2, 3]",
-                "InExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListTest(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))",
-                "boolean",
-                "(listEqual(asList(number(\"1\"), number(\"2\"), number(\"3\")), asList(number(\"1\"), number(\"2\"), number(\"3\"))))",
-                (lib.listEqual(lib.asList(lib.number("1"), lib.number("2"), lib.number("3")), lib.asList(lib.number("1"), lib.number("2"), lib.number("3")))),
-                true);
-        doExpressionTest(entries, "", "[1,2,3] in ([1,2,3,4], [1,2,3])",
-                "InExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListTest(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3),NumericLiteral(4))), ListTest(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))",
-                "boolean",
-                "booleanOr(listEqual(asList(number(\"1\"), number(\"2\"), number(\"3\")), asList(number(\"1\"), number(\"2\"), number(\"3\"), number(\"4\"))), listEqual(asList(number(\"1\"), number(\"2\"), number(\"3\")), asList(number(\"1\"), number(\"2\"), number(\"3\"))))",
-                lib.booleanOr(lib.listEqual(lib.asList(lib.number("1"), lib.number("2"), lib.number("3")), lib.asList(lib.number("1"), lib.number("2"), lib.number("3"), lib.number("4"))), lib.listEqual(lib.asList(lib.number("1"), lib.number("2"), lib.number("3")), lib.asList(lib.number("1"), lib.number("2"), lib.number("3")))),
-                true);
-        doExpressionTest(entries, "", "[1,2,3] in ([[1,2,3,4]], [[1,2,3]])",
-                "InExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListTest(ListLiteral(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3),NumericLiteral(4)))), ListTest(ListLiteral(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)))))",
-                "boolean",
-                "booleanOr(listContains(asList(asList(number(\"1\"), number(\"2\"), number(\"3\"), number(\"4\"))), asList(number(\"1\"), number(\"2\"), number(\"3\"))), listContains(asList(asList(number(\"1\"), number(\"2\"), number(\"3\"))), asList(number(\"1\"), number(\"2\"), number(\"3\"))))",
-                lib.booleanOr(lib.listContains(lib.asList(lib.asList(lib.number("1"), lib.number("2"), lib.number("3"), lib.number("4"))), lib.asList(lib.number("1"), lib.number("2"), lib.number("3"))), lib.listContains(lib.asList(lib.asList(lib.number("1"), lib.number("2"), lib.number("3"))), lib.asList(lib.number("1"), lib.number("2"), lib.number("3")))),
-                true);
-        doExpressionTest(entries, "", "[1,2,3] in ([[1,2,3,4]], [[1,2,3]])",
-                "InExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListTest(ListLiteral(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3),NumericLiteral(4)))), ListTest(ListLiteral(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)))))",
-                "boolean",
-                "booleanOr(listContains(asList(asList(number(\"1\"), number(\"2\"), number(\"3\"), number(\"4\"))), asList(number(\"1\"), number(\"2\"), number(\"3\"))), listContains(asList(asList(number(\"1\"), number(\"2\"), number(\"3\"))), asList(number(\"1\"), number(\"2\"), number(\"3\"))))",
-                lib.booleanOr(lib.listContains(lib.asList(lib.asList(lib.number("1"), lib.number("2"), lib.number("3"), lib.number("4"))), lib.asList(lib.number("1"), lib.number("2"), lib.number("3"))), lib.listContains(lib.asList(lib.asList(lib.number("1"), lib.number("2"), lib.number("3"))), lib.asList(lib.number("1"), lib.number("2"), lib.number("3")))),
-                true);
-        doExpressionTest(entries, "", "[1,2,3] in [[1,2,3,4], [1,2,3]]",
-                "InExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListTest(ListLiteral(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3),NumericLiteral(4)),ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)))))",
-                "boolean",
-                "(listContains(asList(asList(number(\"1\"), number(\"2\"), number(\"3\"), number(\"4\")), asList(number(\"1\"), number(\"2\"), number(\"3\"))), asList(number(\"1\"), number(\"2\"), number(\"3\"))))",
-                (lib.listContains(lib.asList(lib.asList(lib.number("1"), lib.number("2"), lib.number("3"), lib.number("4")), lib.asList(lib.number("1"), lib.number("2"), lib.number("3"))), lib.asList(lib.number("1"), lib.number("2"), lib.number("3")))),
-                true);
-
-        // list test containing IntervalTest
-        doExpressionTest(entries, "", "1 in [[2..4], [1..3]]",
-                "InExpression(NumericLiteral(1), ListTest(ListLiteral(IntervalTest(false,NumericLiteral(2),false,NumericLiteral(4)),IntervalTest(false,NumericLiteral(1),false,NumericLiteral(3)))))",
-                "boolean",
-                "(listContains(asList(booleanAnd(numericGreaterEqualThan(number(\"1\"), number(\"2\")), numericLessEqualThan(number(\"1\"), number(\"4\"))), booleanAnd(numericGreaterEqualThan(number(\"1\"), number(\"1\")), numericLessEqualThan(number(\"1\"), number(\"3\")))), true))",
-                (lib.listContains(lib.asList(lib.booleanAnd(lib.numericGreaterEqualThan(lib.number("1"), lib.number("2")), lib.numericLessEqualThan(lib.number("1"), lib.number("4"))), lib.booleanAnd(lib.numericGreaterEqualThan(lib.number("1"), lib.number("1")), lib.numericLessEqualThan(lib.number("1"), lib.number("3")))), true)),
-                true);
-        doExpressionTest(entries, "", "date(\"2018-12-11\") in [[date(\"2018-12-05\") .. date(\"2018-12-07\")], [date(\"2018-12-10\") .. date(\"2018-12-12\")]]",
-                "InExpression(DateTimeLiteral(date, \"2018-12-11\"), ListTest(ListLiteral(IntervalTest(false,DateTimeLiteral(date, \"2018-12-05\"),false,DateTimeLiteral(date, \"2018-12-07\")),IntervalTest(false,DateTimeLiteral(date, \"2018-12-10\"),false,DateTimeLiteral(date, \"2018-12-12\")))))",
-                "boolean",
-                "(listContains(asList(booleanAnd(dateGreaterEqualThan(date(\"2018-12-11\"), date(\"2018-12-05\")), dateLessEqualThan(date(\"2018-12-11\"), date(\"2018-12-07\"))), booleanAnd(dateGreaterEqualThan(date(\"2018-12-11\"), date(\"2018-12-10\")), dateLessEqualThan(date(\"2018-12-11\"), date(\"2018-12-12\")))), true))",
-                (lib.listContains(lib.asList(lib.booleanAnd(lib.dateGreaterEqualThan(lib.date("2018-12-11"), lib.date("2018-12-05")), lib.dateLessEqualThan(lib.date("2018-12-11"), lib.date("2018-12-07"))), lib.booleanAnd(lib.dateGreaterEqualThan(lib.date("2018-12-11"), lib.date("2018-12-10")), lib.dateLessEqualThan(lib.date("2018-12-11"), lib.date("2018-12-12")))), true)),
-                true);
-        doExpressionTest(entries, "", "time(\"10:30:11\") in [[time(\"10:30:05\") .. time(\"10:30:07\")], [time(\"10:30:10\") .. time(\"10:30:12\")]]",
-                "InExpression(DateTimeLiteral(time, \"10:30:11\"), ListTest(ListLiteral(IntervalTest(false,DateTimeLiteral(time, \"10:30:05\"),false,DateTimeLiteral(time, \"10:30:07\")),IntervalTest(false,DateTimeLiteral(time, \"10:30:10\"),false,DateTimeLiteral(time, \"10:30:12\")))))",
-                "boolean",
-                "(listContains(asList(booleanAnd(timeGreaterEqualThan(time(\"10:30:11\"), time(\"10:30:05\")), timeLessEqualThan(time(\"10:30:11\"), time(\"10:30:07\"))), booleanAnd(timeGreaterEqualThan(time(\"10:30:11\"), time(\"10:30:10\")), timeLessEqualThan(time(\"10:30:11\"), time(\"10:30:12\")))), true))",
-                (lib.listContains(lib.asList(lib.booleanAnd(lib.timeGreaterEqualThan(lib.time("10:30:11"), lib.time("10:30:05")), lib.timeLessEqualThan(lib.time("10:30:11"), lib.time("10:30:07"))), lib.booleanAnd(lib.timeGreaterEqualThan(lib.time("10:30:11"), lib.time("10:30:10")), lib.timeLessEqualThan(lib.time("10:30:11"), lib.time("10:30:12")))), true)),
-                true);
-        doExpressionTest(entries, "", "date and time(\"2018-12-08T10:30:11\") in [[date and time(\"2018-12-08T10:30:05\") .. date and time(\"2018-12-08T10:30:07\")], [date and time(\"2018-12-08T10:30:10\") .. date and time(\"2018-12-08T10:30:12\")]]",
-                "InExpression(DateTimeLiteral(date and time, \"2018-12-08T10:30:11\"), ListTest(ListLiteral(IntervalTest(false,DateTimeLiteral(date and time, \"2018-12-08T10:30:05\"),false,DateTimeLiteral(date and time, \"2018-12-08T10:30:07\")),IntervalTest(false,DateTimeLiteral(date and time, \"2018-12-08T10:30:10\"),false,DateTimeLiteral(date and time, \"2018-12-08T10:30:12\")))))",
-                "boolean",
-                "(listContains(asList(booleanAnd(dateTimeGreaterEqualThan(dateAndTime(\"2018-12-08T10:30:11\"), dateAndTime(\"2018-12-08T10:30:05\")), dateTimeLessEqualThan(dateAndTime(\"2018-12-08T10:30:11\"), dateAndTime(\"2018-12-08T10:30:07\"))), booleanAnd(dateTimeGreaterEqualThan(dateAndTime(\"2018-12-08T10:30:11\"), dateAndTime(\"2018-12-08T10:30:10\")), dateTimeLessEqualThan(dateAndTime(\"2018-12-08T10:30:11\"), dateAndTime(\"2018-12-08T10:30:12\")))), true))",
-                (lib.listContains(lib.asList(lib.booleanAnd(lib.dateTimeGreaterEqualThan(lib.dateAndTime("2018-12-08T10:30:11"), lib.dateAndTime("2018-12-08T10:30:05")), lib.dateTimeLessEqualThan(lib.dateAndTime("2018-12-08T10:30:11"), lib.dateAndTime("2018-12-08T10:30:07"))), lib.booleanAnd(lib.dateTimeGreaterEqualThan(lib.dateAndTime("2018-12-08T10:30:11"), lib.dateAndTime("2018-12-08T10:30:10")), lib.dateTimeLessEqualThan(lib.dateAndTime("2018-12-08T10:30:11"), lib.dateAndTime("2018-12-08T10:30:12")))), true)),
-                true);
-        doExpressionTest(entries, "", "{a: \"foo\"} in [{b: \"bar\"}, {a: \"foo\"}]",
-                "InExpression(Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\"))), ListTest(ListLiteral(Context(ContextEntry(ContextEntryKey(b) = StringLiteral(\"bar\"))),Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\"))))))",
-                "boolean",
-                "(listContains(asList(new com.gs.dmn.runtime.Context().add(\"b\", \"bar\"), new com.gs.dmn.runtime.Context().add(\"a\", \"foo\")), new com.gs.dmn.runtime.Context().add(\"a\", \"foo\")))",
-                (lib.listContains(lib.asList(new com.gs.dmn.runtime.Context().add("b", "bar"), new com.gs.dmn.runtime.Context().add("a", "foo")), new com.gs.dmn.runtime.Context().add("a", "foo"))),
-                true);
-
-        doExpressionTest(entries, "", "{a: \"foo\"} in ({a: \"bar\"}, {a: \"foo\"})",
-                "InExpression(Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\"))), OperatorTest(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"bar\")))), OperatorTest(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\")))))",
-                "boolean",
-                "booleanOr(contextEqual(new com.gs.dmn.runtime.Context().add(\"a\", \"foo\"), new com.gs.dmn.runtime.Context().add(\"a\", \"bar\")), contextEqual(new com.gs.dmn.runtime.Context().add(\"a\", \"foo\"), new com.gs.dmn.runtime.Context().add(\"a\", \"foo\")))",
-                lib.booleanOr(lib.contextEqual(new com.gs.dmn.runtime.Context().add("a", "foo"), new com.gs.dmn.runtime.Context().add("a", "bar")), lib.contextEqual(new com.gs.dmn.runtime.Context().add("a", "foo"), new com.gs.dmn.runtime.Context().add("a", "foo"))),
-                true);
-        doExpressionTest(entries, "", "{a: \"foo\"} in ({a: \"bar\"}, {a: \"baz\"})",
-                "InExpression(Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\"))), OperatorTest(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"bar\")))), OperatorTest(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"baz\")))))",
-                "boolean",
-                "booleanOr(contextEqual(new com.gs.dmn.runtime.Context().add(\"a\", \"foo\"), new com.gs.dmn.runtime.Context().add(\"a\", \"bar\")), contextEqual(new com.gs.dmn.runtime.Context().add(\"a\", \"foo\"), new com.gs.dmn.runtime.Context().add(\"a\", \"baz\")))",
-                lib.booleanOr(lib.contextEqual(new com.gs.dmn.runtime.Context().add("a", "foo"), new com.gs.dmn.runtime.Context().add("a", "bar")), lib.contextEqual(new com.gs.dmn.runtime.Context().add("a", "foo"), new com.gs.dmn.runtime.Context().add("a", "baz"))),
-                false);
-
-        // compound test
-        doExpressionTest(entries, "", "1 in (1)",
-                "InExpression(NumericLiteral(1), OperatorTest(null,NumericLiteral(1)))",
-                "boolean",
-                "(numericEqual(number(\"1\"), number(\"1\")))",
-                (lib.numericEqual(lib.number("1"), lib.number("1"))),
-                true);
-        doExpressionTest(entries, "", "1 in (1, 2)",
-                "InExpression(NumericLiteral(1), OperatorTest(null,NumericLiteral(1)), OperatorTest(null,NumericLiteral(2)))",
-                "boolean",
-                "booleanOr(numericEqual(number(\"1\"), number(\"1\")), numericEqual(number(\"1\"), number(\"2\")))",
-                lib.booleanOr(lib.numericEqual(lib.number("1"), lib.number("1")), lib.numericEqual(lib.number("1"), lib.number("2"))),
-                true);
-        doExpressionTest(entries, "", "1 in (<1, [1..2], [1, 2])",
-                "InExpression(NumericLiteral(1), OperatorTest(<,NumericLiteral(1)), IntervalTest(false,NumericLiteral(1),false,NumericLiteral(2)), ListTest(ListLiteral(NumericLiteral(1),NumericLiteral(2))))",
-                "boolean",
-                "booleanOr(numericLessThan(number(\"1\"), number(\"1\")), booleanAnd(numericGreaterEqualThan(number(\"1\"), number(\"1\")), numericLessEqualThan(number(\"1\"), number(\"2\"))), listContains(asList(number(\"1\"), number(\"2\")), number(\"1\")))",
-                lib.booleanOr(lib.numericLessThan(lib.number("1"), lib.number("1")), lib.booleanAnd(lib.numericGreaterEqualThan(lib.number("1"), lib.number("1")), lib.numericLessEqualThan(lib.number("1"), lib.number("2"))), lib.listContains(lib.asList(lib.number("1"), lib.number("2")), lib.number("1"))),
-                true);
-        doExpressionTest(entries, "", "1 in (<1, [1..2], 3)",
-                "InExpression(NumericLiteral(1), OperatorTest(<,NumericLiteral(1)), IntervalTest(false,NumericLiteral(1),false,NumericLiteral(2)), OperatorTest(null,NumericLiteral(3)))",
-                "boolean",
-                "booleanOr(numericLessThan(number(\"1\"), number(\"1\")), booleanAnd(numericGreaterEqualThan(number(\"1\"), number(\"1\")), numericLessEqualThan(number(\"1\"), number(\"2\"))), numericEqual(number(\"1\"), number(\"3\")))",
-                lib.booleanOr(lib.numericLessThan(lib.number("1"), lib.number("1")), lib.booleanAnd(lib.numericGreaterEqualThan(lib.number("1"), lib.number("1")), lib.numericLessEqualThan(lib.number("1"), lib.number("2"))), lib.numericEqual(lib.number("1"), lib.number("3"))),
-                true);
-    }
-
-    @Test(expected = SemanticError.class)
-    public void testInExpressionWhenOperatorTestAndTypeMismatch() {
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", NUMBER, lib.number("1")));
-
-        doExpressionTest(entries, "", "1 in (true)",
-                "",
-                "boolean",
-                "",
-                "",
-                "");
-    }
-
-    @Test
-    public void testNull() {
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", NUMBER, lib.number("1")));
-
-        doExpressionTest(entries, "", "null",
-                "NullLiteral()",
-                "NullType",
-                "null",
-                null,
-                null);
-    }
-
-    @Test
-    public void testPostfixExpression() {
-        ItemDefinitionType employeeTableType = new ItemDefinitionType("tEmployeeTable")
-                .addMember("id", Arrays.asList(), STRING)
-                .addMember("name", Arrays.asList(), STRING)
-                .addMember("deptNum", Arrays.asList(), NUMBER)
-                ;
-        ItemDefinitionType deptTableType = new ItemDefinitionType("tDeptTable")
-                .addMember("number", Arrays.asList(), NUMBER)
-                .addMember("name", Arrays.asList(), STRING)
-                .addMember("manager", Arrays.asList(), STRING)
-                ;
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("EmployeeTable", new ListType(employeeTableType), null),
-                new EnvironmentEntry("DeptTable", new ListType(deptTableType), null),
-                new EnvironmentEntry("LastName", STRING, null)
-        );
-        doExpressionTest(entries, "", "DeptTable[number = EmployeeTable[name=LastName].deptNum[1]].manager[1]",
-                "FilterExpression(PathExpression(FilterExpression(Name(DeptTable), Relational(=,PathExpression(Name(item), number),FilterExpression(PathExpression(FilterExpression(Name(EmployeeTable), Relational(=,PathExpression(Name(item), name),Name(LastName))), deptNum), NumericLiteral(1)))), manager), NumericLiteral(1))",
-                "string",
-                "(String)(elementAt(deptTable.stream().filter(item -> numericEqual(((java.math.BigDecimal)(item != null ? item.getNumber() : null)), " +
-                        "(java.math.BigDecimal)(elementAt(employeeTable.stream().filter(item_1_ -> stringEqual(((String)(item_1_ != null ? item_1_.getName() : null)), lastName)).collect(Collectors.toList()).stream().map(x -> ((java.math.BigDecimal)(x != null ? x.getDeptNum() : null))).collect(Collectors.toList()), number(\"1\"))))).collect(Collectors.toList()).stream()" +
-                        ".map(x -> ((String)(x != null ? x.getManager() : null))).collect(Collectors.toList()), number(\"1\")))",
-                null,
-                null
-        );
-    }
-
-    @Test
-    public void testFilterExpression() {
-        List<NUMBER> source = Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3"));
-        ContextType employeeType = new ContextType();
-        employeeType.addMember("id", Arrays.asList(), NumberType.NUMBER);
-        employeeType.addMember("dept", Arrays.asList(), NumberType.NUMBER);
-        employeeType.addMember("name", Arrays.asList(), StringType.STRING);
-
-        Type employeeListType = new ListType(employeeType);
-        List<Context> employeeValue = Arrays.asList(
-                new Context().add("id", lib.number("7792")).add("dept", lib.number("10")).add("name", "Clark"),
-                new Context().add("id", lib.number("7973")).add("dept", lib.number("20")).add("name", "Adams"),
-                new Context().add("id", lib.number("7973")).add("dept", lib.number("20")).add("name", "Ford")
-        );
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("source", ListType.NUMBER_LIST, source),
-                new EnvironmentEntry("employee", employeeListType, employeeValue)
-        );
-
-        // boolean filter
-        doExpressionTest(entries, "", "[{item: 1}, {item: 2}, {item: 3}][item >= 2]",
-                "FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(item) = NumericLiteral(1))),Context(ContextEntry(ContextEntryKey(item) = NumericLiteral(2))),Context(ContextEntry(ContextEntryKey(item) = NumericLiteral(3)))), Relational(>=,PathExpression(Name(item), item),NumericLiteral(2)))",
-                "ListType(ContextType(item = number))",
-                "asList(new com.gs.dmn.runtime.Context().add(\"item\", number(\"1\")), new com.gs.dmn.runtime.Context().add(\"item\", number(\"2\")), new com.gs.dmn.runtime.Context().add(\"item\", number(\"3\"))).stream().filter(item -> numericGreaterEqualThan(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"item\")), number(\"2\"))).collect(Collectors.toList())",
-                lib.asList(new com.gs.dmn.runtime.Context().add("item", lib.number("1")), new com.gs.dmn.runtime.Context().add("item", lib.number("2")), new com.gs.dmn.runtime.Context().add("item", lib.number("3"))).stream().filter(item -> lib.numericGreaterEqualThan((NUMBER)((Context)item).get("item"), lib.number("2"))).collect(Collectors.toList()),
-                lib.asList(new Context().add("item", lib.number("2")), new Context().add("item", lib.number("3"))));
-        doExpressionTest(entries, "", "source[true]",
-                "FilterExpression(Name(source), BooleanLiteral(true))",
-                "ListType(number)",
-                "source.stream().filter(item -> Boolean.TRUE).collect(Collectors.toList())",
-                source.stream().filter(item -> Boolean.TRUE).collect(Collectors.toList()),
-                source);
-        doExpressionTest(entries, "", "[1, 2][true]",
-                "FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2)), BooleanLiteral(true))",
-                "ListType(number)",
-                "asList(number(\"1\"), number(\"2\")).stream().filter(item -> Boolean.TRUE).collect(Collectors.toList())",
-                Arrays.asList(lib.number("1"), lib.number("2")).stream().filter(item -> true).collect(Collectors.toList()),
-                Arrays.asList(lib.number("1"), lib.number("2")));
-        doExpressionTest(entries, "", "1[true]",
-                "FilterExpression(NumericLiteral(1), BooleanLiteral(true))",
-                "ListType(number)",
-                "asList(number(\"1\")).stream().filter(item -> Boolean.TRUE).collect(Collectors.toList())",
-                Arrays.asList(lib.number("1")).stream().filter(item -> true).collect(Collectors.toList()),
-                Arrays.asList(lib.number("1")));
-        doExpressionTest(entries, "", "[1, 2, 3, 4][item > 2]",
-                "FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3),NumericLiteral(4)), Relational(>,Name(item),NumericLiteral(2)))",
-                "ListType(number)",
-                "asList(number(\"1\"), number(\"2\"), number(\"3\"), number(\"4\")).stream().filter(item -> numericGreaterThan(item, number(\"2\"))).collect(Collectors.toList())",
-                Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3"), lib.number("4")).stream().filter(item -> lib.numericGreaterThan(item, lib.number("2"))).collect(Collectors.toList()),
-                Arrays.asList(lib.number("3"), lib.number("4")));
-        doExpressionTest(entries, "", "employee[item.dept = 20]",
-                "FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20)))",
-                "ListType(ContextType(id = number, dept = number, name = string))",
-                "employee.stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\"))).collect(Collectors.toList())",
-                employeeValue.stream().filter(item -> lib.numericEqual((NUMBER)((Context)item).get("dept"), lib.number("20"))).collect(Collectors.toList()),
-                Arrays.asList(employeeValue.get(1), employeeValue.get(2)));
-        doExpressionTest(entries, "", "employee[item.dept = 20].name",
-                "PathExpression(FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20))), name)",
-                "ListType(string)",
-                "employee.stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\"))).collect(Collectors.toList()).stream().map(x -> ((String)((com.gs.dmn.runtime.Context)x).get(\"name\"))).collect(Collectors.toList())",
-                employeeValue.stream().filter(item -> lib.numericEqual((NUMBER)((Context)item).get("dept"), lib.number("20"))).collect(Collectors.toList()).stream().map(x -> x.get("name")).collect(Collectors.toList()),
-                Arrays.asList(employeeValue.get(1).get("name"), employeeValue.get(2).get("name")));
-        doExpressionTest(entries, "", "employee[dept = 20].name",
-                "PathExpression(FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20))), name)",
-                "ListType(string)",
-                "employee.stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\"))).collect(Collectors.toList()).stream().map(x -> ((String)((com.gs.dmn.runtime.Context)x).get(\"name\"))).collect(Collectors.toList())",
-                employeeValue.stream().filter(item -> lib.numericEqual((NUMBER)((Context)item).get("dept"), lib.number("20"))).collect(Collectors.toList()).stream().map(x -> (String) x.get("name")).collect(Collectors.toList()),
-                Arrays.asList(employeeValue.get(1).get("name"), employeeValue.get(2).get("name")));
-
-        // numeric filter
-        doExpressionTest(entries, "", "[1, 2][0]",
-                "FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2)), NumericLiteral(0))",
-                "number",
-                "(java.math.BigDecimal)(elementAt(asList(number(\"1\"), number(\"2\")), number(\"0\")))",
-                lib.elementAt(lib.asList(lib.number("1"), lib.number("2")), lib.number("0")),
-                null);
-        doExpressionTest(entries, "", "[1, 2][-1]",
-                "FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2)), ArithmeticNegation(NumericLiteral(1)))",
-                "number",
-                "(java.math.BigDecimal)(elementAt(asList(number(\"1\"), number(\"2\")), numericUnaryMinus(number(\"1\"))))",
-                lib.elementAt(lib.asList(lib.number("1"), lib.number("2")), lib.numericUnaryMinus(lib.number("1"))),
-                lib.number("2"));
-        doExpressionTest(entries, "", "[1, 2][-2]",
-                "FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2)), ArithmeticNegation(NumericLiteral(2)))",
-                "number",
-                "(java.math.BigDecimal)(elementAt(asList(number(\"1\"), number(\"2\")), numericUnaryMinus(number(\"2\"))))",
-                lib.elementAt(lib.asList(lib.number("1"), lib.number("2")), lib.numericUnaryMinus(lib.number("2"))),
-                lib.number("1"));
-        doExpressionTest(entries, "", "1[1]",
-                "FilterExpression(NumericLiteral(1), NumericLiteral(1))",
-                "number",
-                "(java.math.BigDecimal)(elementAt(asList(number(\"1\")), number(\"1\")))",
-                lib.elementAt(lib.asList(lib.number("1")), lib.number("1")),
-                lib.number("1"));
-
-        // context filter
-        doExpressionTest(entries, "", "[{x:1, y:2}, {x:2, y:3}] [item.x = 1]",
-                "FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(1)),ContextEntry(ContextEntryKey(y) = NumericLiteral(2))),Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(2)),ContextEntry(ContextEntryKey(y) = NumericLiteral(3)))), Relational(=,PathExpression(Name(item), x),NumericLiteral(1)))",
-                "ListType(ContextType(x = number, y = number))",
-                "asList(new com.gs.dmn.runtime.Context().add(\"x\", number(\"1\")).add(\"y\", number(\"2\")), new com.gs.dmn.runtime.Context().add(\"x\", number(\"2\")).add(\"y\", number(\"3\"))).stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"x\")), number(\"1\"))).collect(Collectors.toList())",
-                Arrays.asList(new com.gs.dmn.runtime.Context().add("x", lib.number("1")).add("y", lib.number("2")), new com.gs.dmn.runtime.Context().add("x", lib.number("2")).add("y", lib.number("3"))).stream().filter(item -> lib.numericEqual((NUMBER)((Context)item).get("x"), lib.number("1"))).collect(Collectors.toList()),
-                Arrays.asList(new com.gs.dmn.runtime.Context().add("x", lib.number("1")).add("y", lib.number("2"))));
     }
 
     @Test
@@ -1053,67 +614,6 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     }
 
     @Test
-    public void testInstanceOfExpression() {
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", NUMBER, lib.number("1")));
-
-        doExpressionTest(entries, "", "3 instance of number",
-                "InstanceOfExpression(NumericLiteral(3), NamedTypeExpression(number))",
-                "boolean",
-                "number(\"3\") instanceof java.math.BigDecimal",
-                lib.number("3") instanceof java.math.BigDecimal,
-                true);
-        doExpressionTest(entries, "", "\"abc\" instance of string",
-                "InstanceOfExpression(StringLiteral(\"abc\"), NamedTypeExpression(string))",
-                "boolean",
-                "\"abc\" instanceof String",
-                "abc" instanceof String,
-                true);
-        doExpressionTest(entries, "", "true instance of boolean",
-                "InstanceOfExpression(BooleanLiteral(true), NamedTypeExpression(boolean))",
-                "boolean",
-                "Boolean.TRUE instanceof Boolean",
-                Boolean.TRUE instanceof Boolean,
-                true);
-        doExpressionTest(entries, "", "date(\"2011-01-03\") instance of date",
-                "InstanceOfExpression(DateTimeLiteral(date, \"2011-01-03\"), NamedTypeExpression(date))",
-                "boolean",
-                "date(\"2011-01-03\") instanceof javax.xml.datatype.XMLGregorianCalendar",
-                lib.date("2011-01-03") instanceof javax.xml.datatype.XMLGregorianCalendar,
-                true);
-        doExpressionTest(entries, "", "time(\"12:00:00Z\") instance of time",
-                "InstanceOfExpression(DateTimeLiteral(time, \"12:00:00Z\"), NamedTypeExpression(time))",
-                "boolean",
-                "time(\"12:00:00Z\") instanceof javax.xml.datatype.XMLGregorianCalendar",
-                lib.time("12:00:00Z") instanceof javax.xml.datatype.XMLGregorianCalendar,
-                true);
-        doExpressionTest(entries, "", "date and time(\"2016-03-01T12:00:00Z\") instance of date and time",
-                "InstanceOfExpression(DateTimeLiteral(date and time, \"2016-03-01T12:00:00Z\"), NamedTypeExpression(date and time))",
-                "boolean",
-                "dateAndTime(\"2016-03-01T12:00:00Z\") instanceof javax.xml.datatype.XMLGregorianCalendar",
-                lib.dateAndTime("2016-03-01T12:00:00Z") instanceof javax.xml.datatype.XMLGregorianCalendar,
-                true);
-        doExpressionTest(entries, "", "duration(\"P1Y1M\") instance of years and months duration",
-                "InstanceOfExpression(DateTimeLiteral(duration, \"P1Y1M\"), NamedTypeExpression(years and months duration))",
-                "boolean",
-                "duration(\"P1Y1M\") instanceof javax.xml.datatype.Duration",
-                lib.duration("P1Y1M") instanceof javax.xml.datatype.Duration,
-                true);
-        doExpressionTest(entries, "", "duration(\"P1DT1H\") instance of days and time duration",
-                "InstanceOfExpression(DateTimeLiteral(duration, \"P1DT1H\"), NamedTypeExpression(days and time duration))",
-                "boolean",
-                "duration(\"P1DT1H\") instanceof javax.xml.datatype.Duration",
-                lib.duration("P1Y1M") instanceof javax.xml.datatype.Duration,
-                true);
-        doExpressionTest(entries, "", "(function () 4) instance of function <> -> number",
-                "InstanceOfExpression(FunctionDefinition(, NumericLiteral(4), false), FunctionTypeExpression( -> NamedTypeExpression(number)))",
-                "boolean",
-                null,
-                null,
-                null);
-    }
-
-    @Test
     public void testQuantifiedExpression() {
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", NUMBER, lib.number("1")));
@@ -1164,95 +664,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     }
 
     @Test
-    public void testLogicExpression() {
-        Boolean booleanA = true;
-        Boolean booleanB = false;
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", NUMBER, lib.number("1")),
-                new EnvironmentEntry("booleanA", BOOLEAN, booleanA),
-                new EnvironmentEntry("booleanB", BOOLEAN, booleanB));
-
-        doExpressionTest(entries, "", "(true) or (true)",
-                "Disjunction(BooleanLiteral(true),BooleanLiteral(true))",
-                "boolean",
-                "booleanOr(Boolean.TRUE, Boolean.TRUE)",
-                lib.booleanOr(Boolean.TRUE, Boolean.TRUE),
-                true);
-        doExpressionTest(entries, "", "true or true",
-                "Disjunction(BooleanLiteral(true),BooleanLiteral(true))",
-                "boolean",
-                "booleanOr(Boolean.TRUE, Boolean.TRUE)",
-                lib.booleanOr(Boolean.TRUE, Boolean.TRUE),
-                true);
-        doExpressionTest(entries, "", "true or 123",
-                "Disjunction(BooleanLiteral(true),NumericLiteral(123))",
-                "boolean",
-                "booleanOr(Boolean.TRUE, number(\"123\"))",
-                lib.booleanOr(Boolean.TRUE, lib.number("123")),
-                true);
-        doExpressionTest(entries, "", "false or 123",
-                "Disjunction(BooleanLiteral(false),NumericLiteral(123))",
-                "boolean",
-                "booleanOr(Boolean.FALSE, number(\"123\"))",
-                lib.booleanOr(Boolean.FALSE, lib.number("123")),
-                null);
-
-        doExpressionTest(entries, "", "(true) and (true)",
-                "Conjunction(BooleanLiteral(true),BooleanLiteral(true))",
-                "boolean",
-                "booleanAnd(Boolean.TRUE, Boolean.TRUE)",
-                lib.booleanAnd(Boolean.TRUE, Boolean.TRUE),
-                true);
-        doExpressionTest(entries, "", "true and true",
-                "Conjunction(BooleanLiteral(true),BooleanLiteral(true))",
-                "boolean",
-                "booleanAnd(Boolean.TRUE, Boolean.TRUE)",
-                lib.booleanAnd(Boolean.TRUE, Boolean.TRUE),
-                true);
-        doExpressionTest(entries, "", "false and 123",
-                "Conjunction(BooleanLiteral(false),NumericLiteral(123))",
-                "boolean",
-                "booleanAnd(Boolean.FALSE, number(\"123\"))",
-                lib.booleanAnd(Boolean.FALSE, lib.number("123")),
-                false);
-        doExpressionTest(entries, "", "true and 123",
-                "Conjunction(BooleanLiteral(true),NumericLiteral(123))",
-                "boolean",
-                "booleanAnd(Boolean.TRUE, number(\"123\"))",
-                lib.booleanAnd(Boolean.TRUE, lib.number("123")),
-                null);
-
-        doExpressionTest(entries, "", "not (true)",
-                "LogicNegation(BooleanLiteral(true))",
-                "boolean",
-                "booleanNot(Boolean.TRUE)",
-                lib.booleanNot(Boolean.TRUE),
-                false);
-
-        doExpressionTest(entries, "", "not not true",
-                "BooleanLiteral(true)",
-                "boolean",
-                "Boolean.TRUE",
-                Boolean.TRUE,
-                true);
-
-        doExpressionTest(entries, "", "not not not true",
-                "LogicNegation(BooleanLiteral(true))",
-                "boolean",
-                "booleanNot(Boolean.TRUE)",
-                lib.booleanNot(Boolean.TRUE),
-                false);
-
-        doExpressionTest(entries, "", "booleanA and booleanB or booleanA",
-                "Disjunction(Conjunction(Name(booleanA),Name(booleanB)),Name(booleanA))",
-                "boolean",
-                "booleanOr(booleanAnd(booleanA, booleanB), booleanA)",
-                lib.booleanOr(lib.booleanAnd(booleanA, booleanB), booleanA),
-                true);
-    }
-
-    @Test
-    public void testComparisonExpression() {
+    public void testRelationalExpression() {
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
@@ -1478,7 +890,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     }
 
     @Test
-    public void testNullComparisonExpression() {
+    public void testNullRelationalExpression() {
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", NUMBER, lib.number("1")));
 
@@ -1741,6 +1153,341 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 lib.listEqual(lib.asList(lib.number("1"), lib.number("2"), new com.gs.dmn.runtime.Context().add("a", lib.asList(lib.number("3"), lib.number("4")))), lib.asList(lib.number("1"), lib.number("2"), new com.gs.dmn.runtime.Context().add("a", lib.asList(lib.number("3"), lib.number("4"))).add("b", "foo"))),
                 false);
 
+    }
+
+    @Test
+    public void testBetweenExpression() {
+        NUMBER i = lib.number("1");
+        NUMBER a = lib.number("1");
+        NUMBER b = lib.number("1");
+        List<EnvironmentEntry> entries = Arrays.asList(
+                new EnvironmentEntry("i", NUMBER, i),
+                new EnvironmentEntry("a", NUMBER, a),
+                new EnvironmentEntry("b", NUMBER, b));
+
+        doExpressionTest(entries, "", "3 between 1 and 4",
+                "BetweenExpression(NumericLiteral(3), NumericLiteral(1), NumericLiteral(4))",
+                "boolean",
+                "booleanAnd(numericLessEqualThan(number(\"1\"), number(\"3\")), numericLessEqualThan(number(\"3\"), number(\"4\")))",
+                lib.booleanAnd(lib.numericLessEqualThan(lib.number("1"), lib.number("3")), lib.numericLessEqualThan(lib.number("3"), lib.number("4"))),
+                true);
+        doExpressionTest(entries, "", "(i) between (a) and (b)",
+                "BetweenExpression(Name(i), Name(a), Name(b))",
+                "boolean",
+                "booleanAnd(numericLessEqualThan(a, i), numericLessEqualThan(i, b))",
+                lib.booleanAnd(lib.numericLessEqualThan(a, i), lib.numericLessEqualThan(i, b)),
+                true);
+        doExpressionTest(entries, "", "(i) between 1 and 2",
+                "BetweenExpression(Name(i), NumericLiteral(1), NumericLiteral(2))",
+                "boolean",
+                "booleanAnd(numericLessEqualThan(number(\"1\"), i), numericLessEqualThan(i, number(\"2\")))",
+                lib.booleanAnd(lib.numericLessEqualThan(lib.number("1"), i), lib.numericLessEqualThan(i, lib.number("2"))),
+                true);
+
+        doExpressionTest(entries, "", "date(\"2018-12-01\") between date(\"2018-12-02\") and date(\"2018-12-04\")",
+                "BetweenExpression(DateTimeLiteral(date, \"2018-12-01\"), DateTimeLiteral(date, \"2018-12-02\"), DateTimeLiteral(date, \"2018-12-04\"))",
+                "boolean",
+                "booleanAnd(dateLessEqualThan(date(\"2018-12-02\"), date(\"2018-12-01\")), dateLessEqualThan(date(\"2018-12-01\"), date(\"2018-12-04\")))",
+                lib.booleanAnd(lib.dateLessEqualThan(lib.date("2018-12-02"), lib.date("2018-12-01")), lib.dateLessEqualThan(lib.date("2018-12-01"), lib.date("2018-12-04"))),
+                false);
+        doExpressionTest(entries, "", "time(\"10:31:00\") between time(\"10:32:00\") and time(\"10:34:00\")",
+                "BetweenExpression(DateTimeLiteral(time, \"10:31:00\"), DateTimeLiteral(time, \"10:32:00\"), DateTimeLiteral(time, \"10:34:00\"))",
+                "boolean",
+                "booleanAnd(timeLessEqualThan(time(\"10:32:00\"), time(\"10:31:00\")), timeLessEqualThan(time(\"10:31:00\"), time(\"10:34:00\")))",
+                lib.booleanAnd(lib.timeLessEqualThan(lib.time("10:32:00"), lib.time("10:31:00")), lib.timeLessEqualThan(lib.time("10:31:00"), lib.time("10:34:00"))),
+                false);
+        doExpressionTest(entries, "", "date and time(\"2018-12-01T10:30:00\") between date and time(\"2018-12-02T10:30:00\") and date and time(\"2018-12-04T10:30:00\")",
+                "BetweenExpression(DateTimeLiteral(date and time, \"2018-12-01T10:30:00\"), DateTimeLiteral(date and time, \"2018-12-02T10:30:00\"), DateTimeLiteral(date and time, \"2018-12-04T10:30:00\"))",
+                "boolean",
+                "booleanAnd(dateTimeLessEqualThan(dateAndTime(\"2018-12-02T10:30:00\"), dateAndTime(\"2018-12-01T10:30:00\")), dateTimeLessEqualThan(dateAndTime(\"2018-12-01T10:30:00\"), dateAndTime(\"2018-12-04T10:30:00\")))",
+                lib.booleanAnd(lib.dateTimeLessEqualThan(lib.dateAndTime("2018-12-02T10:30:00"), lib.dateAndTime("2018-12-01T10:30:00")), lib.dateTimeLessEqualThan(lib.dateAndTime("2018-12-01T10:30:00"), lib.dateAndTime("2018-12-04T10:30:00"))),
+                false);
+        doExpressionTest(entries, "", "duration(\"P1Y\") between duration(\"P2Y\") and duration(\"P4Y\")",
+                "BetweenExpression(DateTimeLiteral(duration, \"P1Y\"), DateTimeLiteral(duration, \"P2Y\"), DateTimeLiteral(duration, \"P4Y\"))",
+                "boolean",
+                "booleanAnd(durationLessEqualThan(duration(\"P2Y\"), duration(\"P1Y\")), durationLessEqualThan(duration(\"P1Y\"), duration(\"P4Y\")))",
+                lib.booleanAnd(lib.durationLessEqualThan(lib.duration("P2Y"), lib.duration("P1Y")), lib.durationLessEqualThan(lib.duration("P1Y"), lib.duration("P4Y"))),
+                false);
+        doExpressionTest(entries, "", "duration(\"P1D\") between duration(\"P2D\") and duration(\"P4D\")",
+                "BetweenExpression(DateTimeLiteral(duration, \"P1D\"), DateTimeLiteral(duration, \"P2D\"), DateTimeLiteral(duration, \"P4D\"))",
+                "boolean",
+                "booleanAnd(durationLessEqualThan(duration(\"P2D\"), duration(\"P1D\")), durationLessEqualThan(duration(\"P1D\"), duration(\"P4D\")))",
+                lib.booleanAnd(lib.durationLessEqualThan(lib.duration("P2D"), lib.duration("P1D")), lib.durationLessEqualThan(lib.duration("P1D"), lib.duration("P4D"))),
+                false);
+    }
+
+    @Test
+    public void testInExpression() {
+        // operator test
+        List<EnvironmentEntry> entries = Arrays.asList(
+                new EnvironmentEntry("input", NUMBER, lib.number("1")));
+
+        doExpressionTest(entries, "", "1 in 1",
+                "InExpression(NumericLiteral(1), OperatorTest(null,NumericLiteral(1)))",
+                "boolean",
+                "(numericEqual(number(\"1\"), number(\"1\")))",
+                (lib.numericEqual(lib.number("1"), lib.number("1"))),
+                true);
+        doExpressionTest(entries, "", "1 in <1",
+                "InExpression(NumericLiteral(1), OperatorTest(<,NumericLiteral(1)))",
+                "boolean",
+                "(numericLessThan(number(\"1\"), number(\"1\")))",
+                (lib.numericLessThan(lib.number("1"), lib.number("1"))),
+                false);
+        doExpressionTest(entries, "", "1 in <=1",
+                "InExpression(NumericLiteral(1), OperatorTest(<=,NumericLiteral(1)))",
+                "boolean",
+                "(numericLessEqualThan(number(\"1\"), number(\"1\")))",
+                (lib.numericLessEqualThan(lib.number("1"), lib.number("1"))),
+                true);
+        doExpressionTest(entries, "", "1 in >1",
+                "InExpression(NumericLiteral(1), OperatorTest(>,NumericLiteral(1)))",
+                "boolean",
+                "(numericGreaterThan(number(\"1\"), number(\"1\")))",
+                (lib.numericGreaterThan(lib.number("1"), lib.number("1"))),
+                false);
+        doExpressionTest(entries, "", "1 in >=1",
+                "InExpression(NumericLiteral(1), OperatorTest(>=,NumericLiteral(1)))",
+                "boolean",
+                "(numericGreaterEqualThan(number(\"1\"), number(\"1\")))",
+                (lib.numericGreaterEqualThan(lib.number("1"), lib.number("1"))),
+                true);
+
+        // interval test
+        doExpressionTest(entries, "", "1 in (1..2)",
+                "InExpression(NumericLiteral(1), IntervalTest(true,NumericLiteral(1),true,NumericLiteral(2)))",
+                "boolean",
+                "(booleanAnd(numericGreaterThan(number(\"1\"), number(\"1\")), numericLessThan(number(\"1\"), number(\"2\"))))",
+                (lib.booleanAnd(lib.numericGreaterThan(lib.number("1"), lib.number("1")), lib.numericLessThan(lib.number("1"), lib.number("2")))),
+                false);
+        doExpressionTest(entries, "", "1 in (1..2]",
+                "InExpression(NumericLiteral(1), IntervalTest(true,NumericLiteral(1),false,NumericLiteral(2)))",
+                "boolean",
+                "(booleanAnd(numericGreaterThan(number(\"1\"), number(\"1\")), numericLessEqualThan(number(\"1\"), number(\"2\"))))",
+                (lib.booleanAnd(lib.numericGreaterThan(lib.number("1"), lib.number("1")), lib.numericLessEqualThan(lib.number("1"), lib.number("2")))),
+                false);
+        doExpressionTest(entries, "", "1 in [1..2)",
+                "InExpression(NumericLiteral(1), IntervalTest(false,NumericLiteral(1),true,NumericLiteral(2)))",
+                "boolean",
+                "(booleanAnd(numericGreaterEqualThan(number(\"1\"), number(\"1\")), numericLessThan(number(\"1\"), number(\"2\"))))",
+                (lib.booleanAnd(lib.numericGreaterEqualThan(lib.number("1"), lib.number("1")), lib.numericLessThan(lib.number("1"), lib.number("2")))),
+                true);
+        doExpressionTest(entries, "", "1 in [1..2]",
+                "InExpression(NumericLiteral(1), IntervalTest(false,NumericLiteral(1),false,NumericLiteral(2)))",
+                "boolean",
+                "(booleanAnd(numericGreaterEqualThan(number(\"1\"), number(\"1\")), numericLessEqualThan(number(\"1\"), number(\"2\"))))",
+                (lib.booleanAnd(lib.numericGreaterEqualThan(lib.number("1"), lib.number("1")), lib.numericLessEqualThan(lib.number("1"), lib.number("2")))),
+                true);
+
+        // list test
+        doExpressionTest(entries, "", "1 in [1, 2]",
+                "InExpression(NumericLiteral(1), ListTest(ListLiteral(NumericLiteral(1),NumericLiteral(2))))",
+                "boolean",
+                "(listContains(asList(number(\"1\"), number(\"2\")), number(\"1\")))",
+                (lib.listContains(Arrays.asList(lib.number("1"), lib.number("2")), lib.number("1"))),
+                true);
+        doExpressionTest(entries, "", "[1, 2, 3] in [1, 2, 3]",
+                "InExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListTest(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))",
+                "boolean",
+                "(listEqual(asList(number(\"1\"), number(\"2\"), number(\"3\")), asList(number(\"1\"), number(\"2\"), number(\"3\"))))",
+                (lib.listEqual(lib.asList(lib.number("1"), lib.number("2"), lib.number("3")), lib.asList(lib.number("1"), lib.number("2"), lib.number("3")))),
+                true);
+        doExpressionTest(entries, "", "[1,2,3] in ([1,2,3,4], [1,2,3])",
+                "InExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListTest(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3),NumericLiteral(4))), ListTest(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))",
+                "boolean",
+                "booleanOr(listEqual(asList(number(\"1\"), number(\"2\"), number(\"3\")), asList(number(\"1\"), number(\"2\"), number(\"3\"), number(\"4\"))), listEqual(asList(number(\"1\"), number(\"2\"), number(\"3\")), asList(number(\"1\"), number(\"2\"), number(\"3\"))))",
+                lib.booleanOr(lib.listEqual(lib.asList(lib.number("1"), lib.number("2"), lib.number("3")), lib.asList(lib.number("1"), lib.number("2"), lib.number("3"), lib.number("4"))), lib.listEqual(lib.asList(lib.number("1"), lib.number("2"), lib.number("3")), lib.asList(lib.number("1"), lib.number("2"), lib.number("3")))),
+                true);
+        doExpressionTest(entries, "", "[1,2,3] in ([[1,2,3,4]], [[1,2,3]])",
+                "InExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListTest(ListLiteral(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3),NumericLiteral(4)))), ListTest(ListLiteral(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)))))",
+                "boolean",
+                "booleanOr(listContains(asList(asList(number(\"1\"), number(\"2\"), number(\"3\"), number(\"4\"))), asList(number(\"1\"), number(\"2\"), number(\"3\"))), listContains(asList(asList(number(\"1\"), number(\"2\"), number(\"3\"))), asList(number(\"1\"), number(\"2\"), number(\"3\"))))",
+                lib.booleanOr(lib.listContains(lib.asList(lib.asList(lib.number("1"), lib.number("2"), lib.number("3"), lib.number("4"))), lib.asList(lib.number("1"), lib.number("2"), lib.number("3"))), lib.listContains(lib.asList(lib.asList(lib.number("1"), lib.number("2"), lib.number("3"))), lib.asList(lib.number("1"), lib.number("2"), lib.number("3")))),
+                true);
+        doExpressionTest(entries, "", "[1,2,3] in ([[1,2,3,4]], [[1,2,3]])",
+                "InExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListTest(ListLiteral(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3),NumericLiteral(4)))), ListTest(ListLiteral(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)))))",
+                "boolean",
+                "booleanOr(listContains(asList(asList(number(\"1\"), number(\"2\"), number(\"3\"), number(\"4\"))), asList(number(\"1\"), number(\"2\"), number(\"3\"))), listContains(asList(asList(number(\"1\"), number(\"2\"), number(\"3\"))), asList(number(\"1\"), number(\"2\"), number(\"3\"))))",
+                lib.booleanOr(lib.listContains(lib.asList(lib.asList(lib.number("1"), lib.number("2"), lib.number("3"), lib.number("4"))), lib.asList(lib.number("1"), lib.number("2"), lib.number("3"))), lib.listContains(lib.asList(lib.asList(lib.number("1"), lib.number("2"), lib.number("3"))), lib.asList(lib.number("1"), lib.number("2"), lib.number("3")))),
+                true);
+        doExpressionTest(entries, "", "[1,2,3] in [[1,2,3,4], [1,2,3]]",
+                "InExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListTest(ListLiteral(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3),NumericLiteral(4)),ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)))))",
+                "boolean",
+                "(listContains(asList(asList(number(\"1\"), number(\"2\"), number(\"3\"), number(\"4\")), asList(number(\"1\"), number(\"2\"), number(\"3\"))), asList(number(\"1\"), number(\"2\"), number(\"3\"))))",
+                (lib.listContains(lib.asList(lib.asList(lib.number("1"), lib.number("2"), lib.number("3"), lib.number("4")), lib.asList(lib.number("1"), lib.number("2"), lib.number("3"))), lib.asList(lib.number("1"), lib.number("2"), lib.number("3")))),
+                true);
+
+        // list test containing IntervalTest
+        doExpressionTest(entries, "", "1 in [[2..4], [1..3]]",
+                "InExpression(NumericLiteral(1), ListTest(ListLiteral(IntervalTest(false,NumericLiteral(2),false,NumericLiteral(4)),IntervalTest(false,NumericLiteral(1),false,NumericLiteral(3)))))",
+                "boolean",
+                "(listContains(asList(booleanAnd(numericGreaterEqualThan(number(\"1\"), number(\"2\")), numericLessEqualThan(number(\"1\"), number(\"4\"))), booleanAnd(numericGreaterEqualThan(number(\"1\"), number(\"1\")), numericLessEqualThan(number(\"1\"), number(\"3\")))), true))",
+                (lib.listContains(lib.asList(lib.booleanAnd(lib.numericGreaterEqualThan(lib.number("1"), lib.number("2")), lib.numericLessEqualThan(lib.number("1"), lib.number("4"))), lib.booleanAnd(lib.numericGreaterEqualThan(lib.number("1"), lib.number("1")), lib.numericLessEqualThan(lib.number("1"), lib.number("3")))), true)),
+                true);
+        doExpressionTest(entries, "", "date(\"2018-12-11\") in [[date(\"2018-12-05\") .. date(\"2018-12-07\")], [date(\"2018-12-10\") .. date(\"2018-12-12\")]]",
+                "InExpression(DateTimeLiteral(date, \"2018-12-11\"), ListTest(ListLiteral(IntervalTest(false,DateTimeLiteral(date, \"2018-12-05\"),false,DateTimeLiteral(date, \"2018-12-07\")),IntervalTest(false,DateTimeLiteral(date, \"2018-12-10\"),false,DateTimeLiteral(date, \"2018-12-12\")))))",
+                "boolean",
+                "(listContains(asList(booleanAnd(dateGreaterEqualThan(date(\"2018-12-11\"), date(\"2018-12-05\")), dateLessEqualThan(date(\"2018-12-11\"), date(\"2018-12-07\"))), booleanAnd(dateGreaterEqualThan(date(\"2018-12-11\"), date(\"2018-12-10\")), dateLessEqualThan(date(\"2018-12-11\"), date(\"2018-12-12\")))), true))",
+                (lib.listContains(lib.asList(lib.booleanAnd(lib.dateGreaterEqualThan(lib.date("2018-12-11"), lib.date("2018-12-05")), lib.dateLessEqualThan(lib.date("2018-12-11"), lib.date("2018-12-07"))), lib.booleanAnd(lib.dateGreaterEqualThan(lib.date("2018-12-11"), lib.date("2018-12-10")), lib.dateLessEqualThan(lib.date("2018-12-11"), lib.date("2018-12-12")))), true)),
+                true);
+        doExpressionTest(entries, "", "time(\"10:30:11\") in [[time(\"10:30:05\") .. time(\"10:30:07\")], [time(\"10:30:10\") .. time(\"10:30:12\")]]",
+                "InExpression(DateTimeLiteral(time, \"10:30:11\"), ListTest(ListLiteral(IntervalTest(false,DateTimeLiteral(time, \"10:30:05\"),false,DateTimeLiteral(time, \"10:30:07\")),IntervalTest(false,DateTimeLiteral(time, \"10:30:10\"),false,DateTimeLiteral(time, \"10:30:12\")))))",
+                "boolean",
+                "(listContains(asList(booleanAnd(timeGreaterEqualThan(time(\"10:30:11\"), time(\"10:30:05\")), timeLessEqualThan(time(\"10:30:11\"), time(\"10:30:07\"))), booleanAnd(timeGreaterEqualThan(time(\"10:30:11\"), time(\"10:30:10\")), timeLessEqualThan(time(\"10:30:11\"), time(\"10:30:12\")))), true))",
+                (lib.listContains(lib.asList(lib.booleanAnd(lib.timeGreaterEqualThan(lib.time("10:30:11"), lib.time("10:30:05")), lib.timeLessEqualThan(lib.time("10:30:11"), lib.time("10:30:07"))), lib.booleanAnd(lib.timeGreaterEqualThan(lib.time("10:30:11"), lib.time("10:30:10")), lib.timeLessEqualThan(lib.time("10:30:11"), lib.time("10:30:12")))), true)),
+                true);
+        doExpressionTest(entries, "", "date and time(\"2018-12-08T10:30:11\") in [[date and time(\"2018-12-08T10:30:05\") .. date and time(\"2018-12-08T10:30:07\")], [date and time(\"2018-12-08T10:30:10\") .. date and time(\"2018-12-08T10:30:12\")]]",
+                "InExpression(DateTimeLiteral(date and time, \"2018-12-08T10:30:11\"), ListTest(ListLiteral(IntervalTest(false,DateTimeLiteral(date and time, \"2018-12-08T10:30:05\"),false,DateTimeLiteral(date and time, \"2018-12-08T10:30:07\")),IntervalTest(false,DateTimeLiteral(date and time, \"2018-12-08T10:30:10\"),false,DateTimeLiteral(date and time, \"2018-12-08T10:30:12\")))))",
+                "boolean",
+                "(listContains(asList(booleanAnd(dateTimeGreaterEqualThan(dateAndTime(\"2018-12-08T10:30:11\"), dateAndTime(\"2018-12-08T10:30:05\")), dateTimeLessEqualThan(dateAndTime(\"2018-12-08T10:30:11\"), dateAndTime(\"2018-12-08T10:30:07\"))), booleanAnd(dateTimeGreaterEqualThan(dateAndTime(\"2018-12-08T10:30:11\"), dateAndTime(\"2018-12-08T10:30:10\")), dateTimeLessEqualThan(dateAndTime(\"2018-12-08T10:30:11\"), dateAndTime(\"2018-12-08T10:30:12\")))), true))",
+                (lib.listContains(lib.asList(lib.booleanAnd(lib.dateTimeGreaterEqualThan(lib.dateAndTime("2018-12-08T10:30:11"), lib.dateAndTime("2018-12-08T10:30:05")), lib.dateTimeLessEqualThan(lib.dateAndTime("2018-12-08T10:30:11"), lib.dateAndTime("2018-12-08T10:30:07"))), lib.booleanAnd(lib.dateTimeGreaterEqualThan(lib.dateAndTime("2018-12-08T10:30:11"), lib.dateAndTime("2018-12-08T10:30:10")), lib.dateTimeLessEqualThan(lib.dateAndTime("2018-12-08T10:30:11"), lib.dateAndTime("2018-12-08T10:30:12")))), true)),
+                true);
+        doExpressionTest(entries, "", "{a: \"foo\"} in [{b: \"bar\"}, {a: \"foo\"}]",
+                "InExpression(Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\"))), ListTest(ListLiteral(Context(ContextEntry(ContextEntryKey(b) = StringLiteral(\"bar\"))),Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\"))))))",
+                "boolean",
+                "(listContains(asList(new com.gs.dmn.runtime.Context().add(\"b\", \"bar\"), new com.gs.dmn.runtime.Context().add(\"a\", \"foo\")), new com.gs.dmn.runtime.Context().add(\"a\", \"foo\")))",
+                (lib.listContains(lib.asList(new com.gs.dmn.runtime.Context().add("b", "bar"), new com.gs.dmn.runtime.Context().add("a", "foo")), new com.gs.dmn.runtime.Context().add("a", "foo"))),
+                true);
+
+        doExpressionTest(entries, "", "{a: \"foo\"} in ({a: \"bar\"}, {a: \"foo\"})",
+                "InExpression(Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\"))), OperatorTest(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"bar\")))), OperatorTest(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\")))))",
+                "boolean",
+                "booleanOr(contextEqual(new com.gs.dmn.runtime.Context().add(\"a\", \"foo\"), new com.gs.dmn.runtime.Context().add(\"a\", \"bar\")), contextEqual(new com.gs.dmn.runtime.Context().add(\"a\", \"foo\"), new com.gs.dmn.runtime.Context().add(\"a\", \"foo\")))",
+                lib.booleanOr(lib.contextEqual(new com.gs.dmn.runtime.Context().add("a", "foo"), new com.gs.dmn.runtime.Context().add("a", "bar")), lib.contextEqual(new com.gs.dmn.runtime.Context().add("a", "foo"), new com.gs.dmn.runtime.Context().add("a", "foo"))),
+                true);
+        doExpressionTest(entries, "", "{a: \"foo\"} in ({a: \"bar\"}, {a: \"baz\"})",
+                "InExpression(Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\"))), OperatorTest(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"bar\")))), OperatorTest(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"baz\")))))",
+                "boolean",
+                "booleanOr(contextEqual(new com.gs.dmn.runtime.Context().add(\"a\", \"foo\"), new com.gs.dmn.runtime.Context().add(\"a\", \"bar\")), contextEqual(new com.gs.dmn.runtime.Context().add(\"a\", \"foo\"), new com.gs.dmn.runtime.Context().add(\"a\", \"baz\")))",
+                lib.booleanOr(lib.contextEqual(new com.gs.dmn.runtime.Context().add("a", "foo"), new com.gs.dmn.runtime.Context().add("a", "bar")), lib.contextEqual(new com.gs.dmn.runtime.Context().add("a", "foo"), new com.gs.dmn.runtime.Context().add("a", "baz"))),
+                false);
+
+        // compound test
+        doExpressionTest(entries, "", "1 in (1)",
+                "InExpression(NumericLiteral(1), OperatorTest(null,NumericLiteral(1)))",
+                "boolean",
+                "(numericEqual(number(\"1\"), number(\"1\")))",
+                (lib.numericEqual(lib.number("1"), lib.number("1"))),
+                true);
+        doExpressionTest(entries, "", "1 in (1, 2)",
+                "InExpression(NumericLiteral(1), OperatorTest(null,NumericLiteral(1)), OperatorTest(null,NumericLiteral(2)))",
+                "boolean",
+                "booleanOr(numericEqual(number(\"1\"), number(\"1\")), numericEqual(number(\"1\"), number(\"2\")))",
+                lib.booleanOr(lib.numericEqual(lib.number("1"), lib.number("1")), lib.numericEqual(lib.number("1"), lib.number("2"))),
+                true);
+        doExpressionTest(entries, "", "1 in (<1, [1..2], [1, 2])",
+                "InExpression(NumericLiteral(1), OperatorTest(<,NumericLiteral(1)), IntervalTest(false,NumericLiteral(1),false,NumericLiteral(2)), ListTest(ListLiteral(NumericLiteral(1),NumericLiteral(2))))",
+                "boolean",
+                "booleanOr(numericLessThan(number(\"1\"), number(\"1\")), booleanAnd(numericGreaterEqualThan(number(\"1\"), number(\"1\")), numericLessEqualThan(number(\"1\"), number(\"2\"))), listContains(asList(number(\"1\"), number(\"2\")), number(\"1\")))",
+                lib.booleanOr(lib.numericLessThan(lib.number("1"), lib.number("1")), lib.booleanAnd(lib.numericGreaterEqualThan(lib.number("1"), lib.number("1")), lib.numericLessEqualThan(lib.number("1"), lib.number("2"))), lib.listContains(lib.asList(lib.number("1"), lib.number("2")), lib.number("1"))),
+                true);
+        doExpressionTest(entries, "", "1 in (<1, [1..2], 3)",
+                "InExpression(NumericLiteral(1), OperatorTest(<,NumericLiteral(1)), IntervalTest(false,NumericLiteral(1),false,NumericLiteral(2)), OperatorTest(null,NumericLiteral(3)))",
+                "boolean",
+                "booleanOr(numericLessThan(number(\"1\"), number(\"1\")), booleanAnd(numericGreaterEqualThan(number(\"1\"), number(\"1\")), numericLessEqualThan(number(\"1\"), number(\"2\"))), numericEqual(number(\"1\"), number(\"3\")))",
+                lib.booleanOr(lib.numericLessThan(lib.number("1"), lib.number("1")), lib.booleanAnd(lib.numericGreaterEqualThan(lib.number("1"), lib.number("1")), lib.numericLessEqualThan(lib.number("1"), lib.number("2"))), lib.numericEqual(lib.number("1"), lib.number("3"))),
+                true);
+    }
+
+    @Test(expected = SemanticError.class)
+    public void testInExpressionWhenOperatorTestAndTypeMismatch() {
+        List<EnvironmentEntry> entries = Arrays.asList(
+                new EnvironmentEntry("input", NUMBER, lib.number("1")));
+
+        doExpressionTest(entries, "", "1 in (true)",
+                "",
+                "boolean",
+                "",
+                "",
+                "");
+    }
+
+    @Test
+    public void testLogicExpression() {
+        Boolean booleanA = true;
+        Boolean booleanB = false;
+        List<EnvironmentEntry> entries = Arrays.asList(
+                new EnvironmentEntry("input", NUMBER, lib.number("1")),
+                new EnvironmentEntry("booleanA", BOOLEAN, booleanA),
+                new EnvironmentEntry("booleanB", BOOLEAN, booleanB));
+
+        doExpressionTest(entries, "", "(true) or (true)",
+                "Disjunction(BooleanLiteral(true),BooleanLiteral(true))",
+                "boolean",
+                "booleanOr(Boolean.TRUE, Boolean.TRUE)",
+                lib.booleanOr(Boolean.TRUE, Boolean.TRUE),
+                true);
+        doExpressionTest(entries, "", "true or true",
+                "Disjunction(BooleanLiteral(true),BooleanLiteral(true))",
+                "boolean",
+                "booleanOr(Boolean.TRUE, Boolean.TRUE)",
+                lib.booleanOr(Boolean.TRUE, Boolean.TRUE),
+                true);
+        doExpressionTest(entries, "", "true or 123",
+                "Disjunction(BooleanLiteral(true),NumericLiteral(123))",
+                "boolean",
+                "booleanOr(Boolean.TRUE, number(\"123\"))",
+                lib.booleanOr(Boolean.TRUE, lib.number("123")),
+                true);
+        doExpressionTest(entries, "", "false or 123",
+                "Disjunction(BooleanLiteral(false),NumericLiteral(123))",
+                "boolean",
+                "booleanOr(Boolean.FALSE, number(\"123\"))",
+                lib.booleanOr(Boolean.FALSE, lib.number("123")),
+                null);
+
+        doExpressionTest(entries, "", "(true) and (true)",
+                "Conjunction(BooleanLiteral(true),BooleanLiteral(true))",
+                "boolean",
+                "booleanAnd(Boolean.TRUE, Boolean.TRUE)",
+                lib.booleanAnd(Boolean.TRUE, Boolean.TRUE),
+                true);
+        doExpressionTest(entries, "", "true and true",
+                "Conjunction(BooleanLiteral(true),BooleanLiteral(true))",
+                "boolean",
+                "booleanAnd(Boolean.TRUE, Boolean.TRUE)",
+                lib.booleanAnd(Boolean.TRUE, Boolean.TRUE),
+                true);
+        doExpressionTest(entries, "", "false and 123",
+                "Conjunction(BooleanLiteral(false),NumericLiteral(123))",
+                "boolean",
+                "booleanAnd(Boolean.FALSE, number(\"123\"))",
+                lib.booleanAnd(Boolean.FALSE, lib.number("123")),
+                false);
+        doExpressionTest(entries, "", "true and 123",
+                "Conjunction(BooleanLiteral(true),NumericLiteral(123))",
+                "boolean",
+                "booleanAnd(Boolean.TRUE, number(\"123\"))",
+                lib.booleanAnd(Boolean.TRUE, lib.number("123")),
+                null);
+
+        doExpressionTest(entries, "", "not (true)",
+                "LogicNegation(BooleanLiteral(true))",
+                "boolean",
+                "booleanNot(Boolean.TRUE)",
+                lib.booleanNot(Boolean.TRUE),
+                false);
+
+        doExpressionTest(entries, "", "not not true",
+                "BooleanLiteral(true)",
+                "boolean",
+                "Boolean.TRUE",
+                Boolean.TRUE,
+                true);
+
+        doExpressionTest(entries, "", "not not not true",
+                "LogicNegation(BooleanLiteral(true))",
+                "boolean",
+                "booleanNot(Boolean.TRUE)",
+                lib.booleanNot(Boolean.TRUE),
+                false);
+
+        doExpressionTest(entries, "", "booleanA and booleanB or booleanA",
+                "Disjunction(Conjunction(Name(booleanA),Name(booleanB)),Name(booleanA))",
+                "boolean",
+                "booleanOr(booleanAnd(booleanA, booleanB), booleanA)",
+                lib.booleanOr(lib.booleanAnd(booleanA, booleanB), booleanA),
+                true);
     }
 
     @Test
@@ -2122,6 +1869,366 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     }
 
     @Test
+    public void testInstanceOfExpression() {
+        List<EnvironmentEntry> entries = Arrays.asList(
+                new EnvironmentEntry("input", NUMBER, lib.number("1")));
+
+        doExpressionTest(entries, "", "3 instance of number",
+                "InstanceOfExpression(NumericLiteral(3), NamedTypeExpression(number))",
+                "boolean",
+                "number(\"3\") instanceof java.math.BigDecimal",
+                lib.number("3") instanceof java.math.BigDecimal,
+                true);
+        doExpressionTest(entries, "", "\"abc\" instance of string",
+                "InstanceOfExpression(StringLiteral(\"abc\"), NamedTypeExpression(string))",
+                "boolean",
+                "\"abc\" instanceof String",
+                "abc" instanceof String,
+                true);
+        doExpressionTest(entries, "", "true instance of boolean",
+                "InstanceOfExpression(BooleanLiteral(true), NamedTypeExpression(boolean))",
+                "boolean",
+                "Boolean.TRUE instanceof Boolean",
+                Boolean.TRUE instanceof Boolean,
+                true);
+        doExpressionTest(entries, "", "date(\"2011-01-03\") instance of date",
+                "InstanceOfExpression(DateTimeLiteral(date, \"2011-01-03\"), NamedTypeExpression(date))",
+                "boolean",
+                "date(\"2011-01-03\") instanceof javax.xml.datatype.XMLGregorianCalendar",
+                lib.date("2011-01-03") instanceof javax.xml.datatype.XMLGregorianCalendar,
+                true);
+        doExpressionTest(entries, "", "time(\"12:00:00Z\") instance of time",
+                "InstanceOfExpression(DateTimeLiteral(time, \"12:00:00Z\"), NamedTypeExpression(time))",
+                "boolean",
+                "time(\"12:00:00Z\") instanceof javax.xml.datatype.XMLGregorianCalendar",
+                lib.time("12:00:00Z") instanceof javax.xml.datatype.XMLGregorianCalendar,
+                true);
+        doExpressionTest(entries, "", "date and time(\"2016-03-01T12:00:00Z\") instance of date and time",
+                "InstanceOfExpression(DateTimeLiteral(date and time, \"2016-03-01T12:00:00Z\"), NamedTypeExpression(date and time))",
+                "boolean",
+                "dateAndTime(\"2016-03-01T12:00:00Z\") instanceof javax.xml.datatype.XMLGregorianCalendar",
+                lib.dateAndTime("2016-03-01T12:00:00Z") instanceof javax.xml.datatype.XMLGregorianCalendar,
+                true);
+        doExpressionTest(entries, "", "duration(\"P1Y1M\") instance of years and months duration",
+                "InstanceOfExpression(DateTimeLiteral(duration, \"P1Y1M\"), NamedTypeExpression(years and months duration))",
+                "boolean",
+                "duration(\"P1Y1M\") instanceof javax.xml.datatype.Duration",
+                lib.duration("P1Y1M") instanceof javax.xml.datatype.Duration,
+                true);
+        doExpressionTest(entries, "", "duration(\"P1DT1H\") instance of days and time duration",
+                "InstanceOfExpression(DateTimeLiteral(duration, \"P1DT1H\"), NamedTypeExpression(days and time duration))",
+                "boolean",
+                "duration(\"P1DT1H\") instanceof javax.xml.datatype.Duration",
+                lib.duration("P1Y1M") instanceof javax.xml.datatype.Duration,
+                true);
+        doExpressionTest(entries, "", "(function () 4) instance of function <> -> number",
+                "InstanceOfExpression(FunctionDefinition(, NumericLiteral(4), false), FunctionTypeExpression( -> NamedTypeExpression(number)))",
+                "boolean",
+                null,
+                null,
+                null);
+    }
+
+    @Test
+    public void testPostfixExpression() {
+        ItemDefinitionType employeeTableType = new ItemDefinitionType("tEmployeeTable")
+                .addMember("id", Arrays.asList(), STRING)
+                .addMember("name", Arrays.asList(), STRING)
+                .addMember("deptNum", Arrays.asList(), NUMBER)
+                ;
+        ItemDefinitionType deptTableType = new ItemDefinitionType("tDeptTable")
+                .addMember("number", Arrays.asList(), NUMBER)
+                .addMember("name", Arrays.asList(), STRING)
+                .addMember("manager", Arrays.asList(), STRING)
+                ;
+        List<EnvironmentEntry> entries = Arrays.asList(
+                new EnvironmentEntry("EmployeeTable", new ListType(employeeTableType), null),
+                new EnvironmentEntry("DeptTable", new ListType(deptTableType), null),
+                new EnvironmentEntry("LastName", STRING, null)
+        );
+        doExpressionTest(entries, "", "DeptTable[number = EmployeeTable[name=LastName].deptNum[1]].manager[1]",
+                "FilterExpression(PathExpression(FilterExpression(Name(DeptTable), Relational(=,PathExpression(Name(item), number),FilterExpression(PathExpression(FilterExpression(Name(EmployeeTable), Relational(=,PathExpression(Name(item), name),Name(LastName))), deptNum), NumericLiteral(1)))), manager), NumericLiteral(1))",
+                "string",
+                "(String)(elementAt(deptTable.stream().filter(item -> numericEqual(((java.math.BigDecimal)(item != null ? item.getNumber() : null)), " +
+                        "(java.math.BigDecimal)(elementAt(employeeTable.stream().filter(item_1_ -> stringEqual(((String)(item_1_ != null ? item_1_.getName() : null)), lastName)).collect(Collectors.toList()).stream().map(x -> ((java.math.BigDecimal)(x != null ? x.getDeptNum() : null))).collect(Collectors.toList()), number(\"1\"))))).collect(Collectors.toList()).stream()" +
+                        ".map(x -> ((String)(x != null ? x.getManager() : null))).collect(Collectors.toList()), number(\"1\")))",
+                null,
+                null
+        );
+    }
+
+    @Test
+    public void testFilterExpression() {
+        List<NUMBER> source = Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3"));
+        ContextType employeeType = new ContextType();
+        employeeType.addMember("id", Arrays.asList(), NumberType.NUMBER);
+        employeeType.addMember("dept", Arrays.asList(), NumberType.NUMBER);
+        employeeType.addMember("name", Arrays.asList(), StringType.STRING);
+
+        Type employeeListType = new ListType(employeeType);
+        List<Context> employeeValue = Arrays.asList(
+                new Context().add("id", lib.number("7792")).add("dept", lib.number("10")).add("name", "Clark"),
+                new Context().add("id", lib.number("7973")).add("dept", lib.number("20")).add("name", "Adams"),
+                new Context().add("id", lib.number("7973")).add("dept", lib.number("20")).add("name", "Ford")
+        );
+        List<EnvironmentEntry> entries = Arrays.asList(
+                new EnvironmentEntry("source", ListType.NUMBER_LIST, source),
+                new EnvironmentEntry("employee", employeeListType, employeeValue)
+        );
+
+        // boolean filter
+        doExpressionTest(entries, "", "[{item: 1}, {item: 2}, {item: 3}][item >= 2]",
+                "FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(item) = NumericLiteral(1))),Context(ContextEntry(ContextEntryKey(item) = NumericLiteral(2))),Context(ContextEntry(ContextEntryKey(item) = NumericLiteral(3)))), Relational(>=,PathExpression(Name(item), item),NumericLiteral(2)))",
+                "ListType(ContextType(item = number))",
+                "asList(new com.gs.dmn.runtime.Context().add(\"item\", number(\"1\")), new com.gs.dmn.runtime.Context().add(\"item\", number(\"2\")), new com.gs.dmn.runtime.Context().add(\"item\", number(\"3\"))).stream().filter(item -> numericGreaterEqualThan(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"item\")), number(\"2\"))).collect(Collectors.toList())",
+                lib.asList(new com.gs.dmn.runtime.Context().add("item", lib.number("1")), new com.gs.dmn.runtime.Context().add("item", lib.number("2")), new com.gs.dmn.runtime.Context().add("item", lib.number("3"))).stream().filter(item -> lib.numericGreaterEqualThan((NUMBER)((Context)item).get("item"), lib.number("2"))).collect(Collectors.toList()),
+                lib.asList(new Context().add("item", lib.number("2")), new Context().add("item", lib.number("3"))));
+        doExpressionTest(entries, "", "source[true]",
+                "FilterExpression(Name(source), BooleanLiteral(true))",
+                "ListType(number)",
+                "source.stream().filter(item -> Boolean.TRUE).collect(Collectors.toList())",
+                source.stream().filter(item -> Boolean.TRUE).collect(Collectors.toList()),
+                source);
+        doExpressionTest(entries, "", "[1, 2][true]",
+                "FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2)), BooleanLiteral(true))",
+                "ListType(number)",
+                "asList(number(\"1\"), number(\"2\")).stream().filter(item -> Boolean.TRUE).collect(Collectors.toList())",
+                Arrays.asList(lib.number("1"), lib.number("2")).stream().filter(item -> true).collect(Collectors.toList()),
+                Arrays.asList(lib.number("1"), lib.number("2")));
+        doExpressionTest(entries, "", "1[true]",
+                "FilterExpression(NumericLiteral(1), BooleanLiteral(true))",
+                "ListType(number)",
+                "asList(number(\"1\")).stream().filter(item -> Boolean.TRUE).collect(Collectors.toList())",
+                Arrays.asList(lib.number("1")).stream().filter(item -> true).collect(Collectors.toList()),
+                Arrays.asList(lib.number("1")));
+        doExpressionTest(entries, "", "[1, 2, 3, 4][item > 2]",
+                "FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3),NumericLiteral(4)), Relational(>,Name(item),NumericLiteral(2)))",
+                "ListType(number)",
+                "asList(number(\"1\"), number(\"2\"), number(\"3\"), number(\"4\")).stream().filter(item -> numericGreaterThan(item, number(\"2\"))).collect(Collectors.toList())",
+                Arrays.asList(lib.number("1"), lib.number("2"), lib.number("3"), lib.number("4")).stream().filter(item -> lib.numericGreaterThan(item, lib.number("2"))).collect(Collectors.toList()),
+                Arrays.asList(lib.number("3"), lib.number("4")));
+        doExpressionTest(entries, "", "employee[item.dept = 20]",
+                "FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20)))",
+                "ListType(ContextType(id = number, dept = number, name = string))",
+                "employee.stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\"))).collect(Collectors.toList())",
+                employeeValue.stream().filter(item -> lib.numericEqual((NUMBER)((Context)item).get("dept"), lib.number("20"))).collect(Collectors.toList()),
+                Arrays.asList(employeeValue.get(1), employeeValue.get(2)));
+        doExpressionTest(entries, "", "employee[item.dept = 20].name",
+                "PathExpression(FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20))), name)",
+                "ListType(string)",
+                "employee.stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\"))).collect(Collectors.toList()).stream().map(x -> ((String)((com.gs.dmn.runtime.Context)x).get(\"name\"))).collect(Collectors.toList())",
+                employeeValue.stream().filter(item -> lib.numericEqual((NUMBER)((Context)item).get("dept"), lib.number("20"))).collect(Collectors.toList()).stream().map(x -> x.get("name")).collect(Collectors.toList()),
+                Arrays.asList(employeeValue.get(1).get("name"), employeeValue.get(2).get("name")));
+        doExpressionTest(entries, "", "employee[dept = 20].name",
+                "PathExpression(FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20))), name)",
+                "ListType(string)",
+                "employee.stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\"))).collect(Collectors.toList()).stream().map(x -> ((String)((com.gs.dmn.runtime.Context)x).get(\"name\"))).collect(Collectors.toList())",
+                employeeValue.stream().filter(item -> lib.numericEqual((NUMBER)((Context)item).get("dept"), lib.number("20"))).collect(Collectors.toList()).stream().map(x -> (String) x.get("name")).collect(Collectors.toList()),
+                Arrays.asList(employeeValue.get(1).get("name"), employeeValue.get(2).get("name")));
+
+        // numeric filter
+        doExpressionTest(entries, "", "[1, 2][0]",
+                "FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2)), NumericLiteral(0))",
+                "number",
+                "(java.math.BigDecimal)(elementAt(asList(number(\"1\"), number(\"2\")), number(\"0\")))",
+                lib.elementAt(lib.asList(lib.number("1"), lib.number("2")), lib.number("0")),
+                null);
+        doExpressionTest(entries, "", "[1, 2][-1]",
+                "FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2)), ArithmeticNegation(NumericLiteral(1)))",
+                "number",
+                "(java.math.BigDecimal)(elementAt(asList(number(\"1\"), number(\"2\")), numericUnaryMinus(number(\"1\"))))",
+                lib.elementAt(lib.asList(lib.number("1"), lib.number("2")), lib.numericUnaryMinus(lib.number("1"))),
+                lib.number("2"));
+        doExpressionTest(entries, "", "[1, 2][-2]",
+                "FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2)), ArithmeticNegation(NumericLiteral(2)))",
+                "number",
+                "(java.math.BigDecimal)(elementAt(asList(number(\"1\"), number(\"2\")), numericUnaryMinus(number(\"2\"))))",
+                lib.elementAt(lib.asList(lib.number("1"), lib.number("2")), lib.numericUnaryMinus(lib.number("2"))),
+                lib.number("1"));
+        doExpressionTest(entries, "", "1[1]",
+                "FilterExpression(NumericLiteral(1), NumericLiteral(1))",
+                "number",
+                "(java.math.BigDecimal)(elementAt(asList(number(\"1\")), number(\"1\")))",
+                lib.elementAt(lib.asList(lib.number("1")), lib.number("1")),
+                lib.number("1"));
+
+        // context filter
+        doExpressionTest(entries, "", "[{x:1, y:2}, {x:2, y:3}] [item.x = 1]",
+                "FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(1)),ContextEntry(ContextEntryKey(y) = NumericLiteral(2))),Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(2)),ContextEntry(ContextEntryKey(y) = NumericLiteral(3)))), Relational(=,PathExpression(Name(item), x),NumericLiteral(1)))",
+                "ListType(ContextType(x = number, y = number))",
+                "asList(new com.gs.dmn.runtime.Context().add(\"x\", number(\"1\")).add(\"y\", number(\"2\")), new com.gs.dmn.runtime.Context().add(\"x\", number(\"2\")).add(\"y\", number(\"3\"))).stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"x\")), number(\"1\"))).collect(Collectors.toList())",
+                Arrays.asList(new com.gs.dmn.runtime.Context().add("x", lib.number("1")).add("y", lib.number("2")), new com.gs.dmn.runtime.Context().add("x", lib.number("2")).add("y", lib.number("3"))).stream().filter(item -> lib.numericEqual((NUMBER)((Context)item).get("x"), lib.number("1"))).collect(Collectors.toList()),
+                Arrays.asList(new com.gs.dmn.runtime.Context().add("x", lib.number("1")).add("y", lib.number("2"))));
+    }
+
+    @Test
+    public void testConversionFunctions() {
+        List<EnvironmentEntry> entries = Arrays.asList(
+                new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
+
+        doExpressionTest(entries, "", "date(\"2016-03-01\")",
+                "DateTimeLiteral(date, \"2016-03-01\")",
+                "date",
+                "date(\"2016-03-01\")",
+                this.lib.date("2016-03-01"),
+                this.lib.date("2016-03-01"));
+        doExpressionTest(entries, "", "date(\"2016-03-01T12:00:00Z\")",
+                "DateTimeLiteral(date, \"2016-03-01T12:00:00Z\")",
+                "date",
+                "date(\"2016-03-01T12:00:00Z\")",
+                this.lib.date("2016-03-01T12:00:00Z"),
+                null);
+        doExpressionTest(entries, "", "time(\"12:00:00Z\")",
+                "DateTimeLiteral(time, \"12:00:00Z\")",
+                "time",
+                "time(\"12:00:00Z\")",
+                this.lib.time("12:00:00Z"),
+                this.lib.time("12:00:00Z"));
+        doExpressionTest(entries, "", "time(\"2016-03-01T12:00:00Z\")",
+                "DateTimeLiteral(time, \"2016-03-01T12:00:00Z\")",
+                "time",
+                "time(\"2016-03-01T12:00:00Z\")",
+                this.lib.time("2016-03-01T12:00:00Z"),
+                null);
+        doExpressionTest(entries, "", "date and time(\"2016-03-01T12:00:00Z\")",
+                "DateTimeLiteral(date and time, \"2016-03-01T12:00:00Z\")",
+                "date and time",
+                "dateAndTime(\"2016-03-01T12:00:00Z\")",
+                this.lib.dateAndTime("2016-03-01T12:00:00Z"),
+                this.lib.dateAndTime("2016-03-01T12:00:00Z"));
+        doExpressionTest(entries, "", "duration(\"P1Y1M\")",
+                "DateTimeLiteral(duration, \"P1Y1M\")",
+                "years and months duration",
+                "duration(\"P1Y1M\")",
+                this.lib.duration("P1Y1M"),
+                this.lib.duration("P1Y1M"));
+        doExpressionTest(entries, "", "duration(\"P1DT1H\")",
+                "DateTimeLiteral(duration, \"P1DT1H\")",
+                "days and time duration",
+                "duration(\"P1DT1H\")",
+                this.lib.duration("P1DT1H"),
+                this.lib.duration("P1DT1H"));
+    }
+
+    @Ignore
+    @Test(expected = DMNRuntimeException.class)
+    public void testFunctionInvocationWhenMultipleMatch() {
+        List<EnvironmentEntry> entries = Arrays.asList();
+
+        // Multiple matches for date(null)
+        doExpressionTest(entries, "", "date(null)",
+                "FunctionInvocation(Name(date) -> PositionalParameters(NullLiteral()))",
+                "date",
+                "contains(null)",
+                lib.date((DATE_TIME) null),
+                true);
+    }
+
+    @Test
+    public void testPathExpression() {
+        ItemDefinitionType type = new ItemDefinitionType("PrivateFundRequirements").addMember("HierarchyNode", Arrays.asList(), STRING);
+        List<EnvironmentEntry> entries = Arrays.asList(
+                new EnvironmentEntry("PrivateFundRequirements", type, null));
+
+        doExpressionTest(entries, "", "[{b: 1}, {b: [2.1, 2.2]}, {b: 3}, {b: 4}, {b: 5}].b = [1, [2.1, 2.2], 3, 4, 5]",
+                "Relational(=,PathExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(b) = NumericLiteral(1))),Context(ContextEntry(ContextEntryKey(b) = ListLiteral(NumericLiteral(2.1),NumericLiteral(2.2)))),Context(ContextEntry(ContextEntryKey(b) = NumericLiteral(3))),Context(ContextEntry(ContextEntryKey(b) = NumericLiteral(4))),Context(ContextEntry(ContextEntryKey(b) = NumericLiteral(5)))), b),ListLiteral(NumericLiteral(1),ListLiteral(NumericLiteral(2.1),NumericLiteral(2.2)),NumericLiteral(3),NumericLiteral(4),NumericLiteral(5)))",
+                "boolean",
+                "listEqual(asList(new com.gs.dmn.runtime.Context().add(\"b\", number(\"1\")), new com.gs.dmn.runtime.Context().add(\"b\", asList(number(\"2.1\"), number(\"2.2\"))), new com.gs.dmn.runtime.Context().add(\"b\", number(\"3\")), new com.gs.dmn.runtime.Context().add(\"b\", number(\"4\")), new com.gs.dmn.runtime.Context().add(\"b\", number(\"5\"))).stream().map(x -> ((com.gs.dmn.runtime.Context)(x)).get(\"b\", asList())).collect(Collectors.toList()), asList(number(\"1\"), asList(number(\"2.1\"), number(\"2.2\")), number(\"3\"), number(\"4\"), number(\"5\")))",
+                null,
+                null);
+
+        doExpressionTest(entries, "", "date(\"2018-12-10\").weekday",
+                "PathExpression(DateTimeLiteral(date, \"2018-12-10\"), weekday)",
+                "number",
+                "weekday(date(\"2018-12-10\"))",
+                lib.weekday(lib.date("2018-12-10")),
+                lib.number("1"));
+        doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:01\").weekday",
+                "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:01\"), weekday)",
+                "number",
+                "weekday(dateAndTime(\"2018-12-10T10:30:01\"))",
+                lib.weekday((DATE) lib.dateAndTime("2018-12-10T10:30:01")),
+                lib.number("1"));
+
+        doExpressionTest(entries, "", "time(\"10:30:01\").hour",
+                "PathExpression(DateTimeLiteral(time, \"10:30:01\"), hour)",
+                "number",
+                "hour(time(\"10:30:01\"))",
+                lib.hour(lib.time("10:30:01")),
+                lib.number("10"));
+        doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:01\").hour",
+                "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:01\"), hour)",
+                "number",
+                "hour(dateAndTime(\"2018-12-10T10:30:01\"))",
+                lib.hour((TIME) lib.dateAndTime("2018-12-10T10:30:01")),
+                lib.number("10"));
+    }
+
+    @Test
+    public void testQualifiedName() {
+        Type bType = new ItemDefinitionType("b").addMember("c", Arrays.asList("C"), STRING);
+        Type aType = new ItemDefinitionType("a").addMember("b", Arrays.asList("B"), bType);
+        List<EnvironmentEntry> entries = Arrays.asList(
+                new EnvironmentEntry("a", aType, null));
+
+        doSimpleExpressionsTest(entries, "a.b.c",
+                "PathExpression(PathExpression(Name(a), b), c)",
+                "string",
+                "((String)(((type.B)(a != null ? a.getB() : null)) != null ? ((type.B)(a != null ? a.getB() : null)).getC() : null))",
+                null,
+                null);
+    }
+
+    @Test
+    public void testDateAndTimeProperties() {
+        List<EnvironmentEntry> entries = Arrays.asList(
+        );
+
+        doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:00\").time offset",
+                "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:00\"), time offset)",
+                "days and time duration",
+                "timeOffset(dateAndTime(\"2018-12-10T10:30:00\"))",
+                lib.timeOffset((TIME) lib.dateAndTime("2018-12-10T10:30:00")),
+                null
+        );
+        doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:00@Etc/UTC\").timezone",
+                "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:00@Etc/UTC\"), timezone)",
+                "string",
+                "timezone(dateAndTime(\"2018-12-10T10:30:00@Etc/UTC\"))",
+                lib.timezone((TIME) lib.dateAndTime("2018-12-10T10:30:00@Etc/UTC")),
+                "Etc/UTC"
+        );
+        doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:00\").timezone",
+                "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:00\"), timezone)",
+                "string",
+                "timezone(dateAndTime(\"2018-12-10T10:30:00\"))",
+                lib.timezone((TIME) lib.dateAndTime("2018-12-10T10:30:00")),
+                null
+        );
+        doExpressionTest(entries, "", "time(\"10:30:00\").time offset",
+                "PathExpression(DateTimeLiteral(time, \"10:30:00\"), time offset)",
+                "days and time duration",
+                "timeOffset(time(\"10:30:00\"))",
+                lib.timeOffset(lib.time("10:30:00")),
+                null
+        );
+        doExpressionTest(entries, "", "time(\"10:30:00@Etc/UTC\").timezone",
+                "PathExpression(DateTimeLiteral(time, \"10:30:00@Etc/UTC\"), timezone)",
+                "string",
+                "timezone(time(\"10:30:00@Etc/UTC\"))",
+                lib.timezone(lib.time("10:30:00@Etc/UTC")),
+                "Etc/UTC"
+        );
+        doExpressionTest(entries, "", "time(\"10:30:00\").timezone",
+                "PathExpression(DateTimeLiteral(time, \"10:30:00\"), timezone)",
+                "string",
+                "timezone(time(\"10:30:00\"))",
+                lib.timezone(lib.time("10:30:00")),
+                null
+        );
+    }
+
+    @Test
     public void testPrimaryExpression() {
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
@@ -2138,6 +2245,62 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "numericAdd(number(\"1\"), number(\"2\"))",
                 this.lib.numericAdd(this.lib.number("1"), this.lib.number("2")),
                 this.lib.number("3"));
+    }
+
+    @Test
+    public void testNull() {
+        List<EnvironmentEntry> entries = Arrays.asList(
+                new EnvironmentEntry("input", NUMBER, lib.number("1")));
+
+        doExpressionTest(entries, "", "null",
+                "NullLiteral()",
+                "NullType",
+                "null",
+                null,
+                null);
+    }
+
+    @Test
+    public void testFunctionDefinition() {
+        List<EnvironmentEntry> entries = Arrays.asList(
+                new EnvironmentEntry("input", NUMBER, lib.number("1")));
+
+        doExpressionTest(entries, "", "function (x : feel.string, y : feel.string) x + y",
+                "FunctionDefinition(FormalParameter(x, string),FormalParameter(y, string), Addition(+,Name(x),Name(y)), false)",
+                "FEELFunctionType(FormalParameter(x, string), FormalParameter(y, string), string, false)",
+                null,
+                null,
+                null);
+        doExpressionTest(entries, "", "function (x , y) x + y",
+                "FunctionDefinition(FormalParameter(x, null),FormalParameter(y, null), Addition(+,Name(x),Name(y)), false)",
+                "FEELFunctionType(FormalParameter(x, null), FormalParameter(y, null), Any, false)",
+                null,
+                null,
+                null);
+
+        doExpressionTest(entries, "", "function (x : feel.string, y : feel.string) external { " +
+                        "java: {class : \"name\", methodSignature: \"signature\" } }",
+                "FunctionDefinition(FormalParameter(x, string),FormalParameter(y, string), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"name\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"signature\"))))), true)",
+                "FEELFunctionType(FormalParameter(x, string), FormalParameter(y, string), Any, true)",
+                null,
+                null,
+                null);
+        doExpressionTest(entries, "", "function (x , y) external { " +
+                        "java: {class : \"name\", methodSignature: \"signature\" } }",
+                "FunctionDefinition(FormalParameter(x, null),FormalParameter(y, null), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"name\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"signature\"))))), true)",
+                "FEELFunctionType(FormalParameter(x, null), FormalParameter(y, null), Any, true)",
+                null,
+                null,
+                null);
+        doExpressionTest(entries, "", "function(a: feel.number, b: feel.number) external {" +
+                        "java: {class: \"com.gs.dmn.simple_decision_with_user_function.Sum\", methodSignature: \"add(a, b)\", returnType : \"number\"}" +
+                        "}",
+                "FunctionDefinition(FormalParameter(a, number),FormalParameter(b, number), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"com.gs.dmn.simple_decision_with_user_function.Sum\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"add(a, b)\")),ContextEntry(ContextEntryKey(returnType) = StringLiteral(\"number\"))))), true)",
+                "FEELFunctionType(FormalParameter(a, number), FormalParameter(b, number), Any, true)",
+                null,
+                null,
+                null
+        );
     }
 
     @Test
@@ -2359,174 +2522,6 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "duration(\"P1DT1H\")",
                 this.lib.duration("P1DT1H"),
                 this.lib.duration("P1DT1H"));
-    }
-
-    @Test
-    public void testConversionFunctions() {
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
-
-        doExpressionTest(entries, "", "date(\"2016-03-01\")",
-                "DateTimeLiteral(date, \"2016-03-01\")",
-                "date",
-                "date(\"2016-03-01\")",
-                this.lib.date("2016-03-01"),
-                this.lib.date("2016-03-01"));
-        doExpressionTest(entries, "", "date(\"2016-03-01T12:00:00Z\")",
-                "DateTimeLiteral(date, \"2016-03-01T12:00:00Z\")",
-                "date",
-                "date(\"2016-03-01T12:00:00Z\")",
-                this.lib.date("2016-03-01T12:00:00Z"),
-                null);
-        doExpressionTest(entries, "", "time(\"12:00:00Z\")",
-                "DateTimeLiteral(time, \"12:00:00Z\")",
-                "time",
-                "time(\"12:00:00Z\")",
-                this.lib.time("12:00:00Z"),
-                this.lib.time("12:00:00Z"));
-        doExpressionTest(entries, "", "time(\"2016-03-01T12:00:00Z\")",
-                "DateTimeLiteral(time, \"2016-03-01T12:00:00Z\")",
-                "time",
-                "time(\"2016-03-01T12:00:00Z\")",
-                this.lib.time("2016-03-01T12:00:00Z"),
-                null);
-        doExpressionTest(entries, "", "date and time(\"2016-03-01T12:00:00Z\")",
-                "DateTimeLiteral(date and time, \"2016-03-01T12:00:00Z\")",
-                "date and time",
-                "dateAndTime(\"2016-03-01T12:00:00Z\")",
-                this.lib.dateAndTime("2016-03-01T12:00:00Z"),
-                this.lib.dateAndTime("2016-03-01T12:00:00Z"));
-        doExpressionTest(entries, "", "duration(\"P1Y1M\")",
-                "DateTimeLiteral(duration, \"P1Y1M\")",
-                "years and months duration",
-                "duration(\"P1Y1M\")",
-                this.lib.duration("P1Y1M"),
-                this.lib.duration("P1Y1M"));
-        doExpressionTest(entries, "", "duration(\"P1DT1H\")",
-                "DateTimeLiteral(duration, \"P1DT1H\")",
-                "days and time duration",
-                "duration(\"P1DT1H\")",
-                this.lib.duration("P1DT1H"),
-                this.lib.duration("P1DT1H"));
-    }
-
-    @Ignore
-    @Test(expected = DMNRuntimeException.class)
-    public void testFunctionInvocationWhenMultipleMatch() {
-        List<EnvironmentEntry> entries = Arrays.asList();
-
-        // Multiple matches for date(null)
-        doExpressionTest(entries, "", "date(null)",
-                "FunctionInvocation(Name(date) -> PositionalParameters(NullLiteral()))",
-                "date",
-                "contains(null)",
-                lib.date((DATE_TIME) null),
-                true);
-    }
-
-    @Test
-    public void testDateAndTimeProperties() {
-        List<EnvironmentEntry> entries = Arrays.asList(
-        );
-
-        doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:00\").time offset",
-                "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:00\"), time offset)",
-                "days and time duration",
-                "timeOffset(dateAndTime(\"2018-12-10T10:30:00\"))",
-                lib.timeOffset((TIME) lib.dateAndTime("2018-12-10T10:30:00")),
-                null
-        );
-        doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:00@Etc/UTC\").timezone",
-                "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:00@Etc/UTC\"), timezone)",
-                "string",
-                "timezone(dateAndTime(\"2018-12-10T10:30:00@Etc/UTC\"))",
-                lib.timezone((TIME) lib.dateAndTime("2018-12-10T10:30:00@Etc/UTC")),
-                "Etc/UTC"
-        );
-        doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:00\").timezone",
-                "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:00\"), timezone)",
-                "string",
-                "timezone(dateAndTime(\"2018-12-10T10:30:00\"))",
-                lib.timezone((TIME) lib.dateAndTime("2018-12-10T10:30:00")),
-                null
-        );
-        doExpressionTest(entries, "", "time(\"10:30:00\").time offset",
-                "PathExpression(DateTimeLiteral(time, \"10:30:00\"), time offset)",
-                "days and time duration",
-                "timeOffset(time(\"10:30:00\"))",
-                lib.timeOffset(lib.time("10:30:00")),
-                null
-        );
-        doExpressionTest(entries, "", "time(\"10:30:00@Etc/UTC\").timezone",
-                "PathExpression(DateTimeLiteral(time, \"10:30:00@Etc/UTC\"), timezone)",
-                "string",
-                "timezone(time(\"10:30:00@Etc/UTC\"))",
-                lib.timezone(lib.time("10:30:00@Etc/UTC")),
-                "Etc/UTC"
-        );
-        doExpressionTest(entries, "", "time(\"10:30:00\").timezone",
-                "PathExpression(DateTimeLiteral(time, \"10:30:00\"), timezone)",
-                "string",
-                "timezone(time(\"10:30:00\"))",
-                lib.timezone(lib.time("10:30:00")),
-                null
-        );
-    }
-
-    @Test
-    public void testPathExpression() {
-        ItemDefinitionType type = new ItemDefinitionType("PrivateFundRequirements").addMember("HierarchyNode", Arrays.asList(), STRING);
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("PrivateFundRequirements", type, null));
-
-        doExpressionTest(entries, "", "[{b: 1}, {b: [2.1, 2.2]}, {b: 3}, {b: 4}, {b: 5}].b = [1, [2.1, 2.2], 3, 4, 5]",
-                "Relational(=,PathExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(b) = NumericLiteral(1))),Context(ContextEntry(ContextEntryKey(b) = ListLiteral(NumericLiteral(2.1),NumericLiteral(2.2)))),Context(ContextEntry(ContextEntryKey(b) = NumericLiteral(3))),Context(ContextEntry(ContextEntryKey(b) = NumericLiteral(4))),Context(ContextEntry(ContextEntryKey(b) = NumericLiteral(5)))), b),ListLiteral(NumericLiteral(1),ListLiteral(NumericLiteral(2.1),NumericLiteral(2.2)),NumericLiteral(3),NumericLiteral(4),NumericLiteral(5)))",
-                "boolean",
-                "listEqual(asList(new com.gs.dmn.runtime.Context().add(\"b\", number(\"1\")), new com.gs.dmn.runtime.Context().add(\"b\", asList(number(\"2.1\"), number(\"2.2\"))), new com.gs.dmn.runtime.Context().add(\"b\", number(\"3\")), new com.gs.dmn.runtime.Context().add(\"b\", number(\"4\")), new com.gs.dmn.runtime.Context().add(\"b\", number(\"5\"))).stream().map(x -> ((com.gs.dmn.runtime.Context)(x)).get(\"b\", asList())).collect(Collectors.toList()), asList(number(\"1\"), asList(number(\"2.1\"), number(\"2.2\")), number(\"3\"), number(\"4\"), number(\"5\")))",
-                null,
-                null);
-
-        doExpressionTest(entries, "", "date(\"2018-12-10\").weekday",
-                "PathExpression(DateTimeLiteral(date, \"2018-12-10\"), weekday)",
-                "number",
-                "weekday(date(\"2018-12-10\"))",
-                lib.weekday(lib.date("2018-12-10")),
-                lib.number("1"));
-        doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:01\").weekday",
-                "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:01\"), weekday)",
-                "number",
-                "weekday(dateAndTime(\"2018-12-10T10:30:01\"))",
-                lib.weekday((DATE) lib.dateAndTime("2018-12-10T10:30:01")),
-                lib.number("1"));
-
-        doExpressionTest(entries, "", "time(\"10:30:01\").hour",
-                "PathExpression(DateTimeLiteral(time, \"10:30:01\"), hour)",
-                "number",
-                "hour(time(\"10:30:01\"))",
-                lib.hour(lib.time("10:30:01")),
-                lib.number("10"));
-        doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:01\").hour",
-                "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:01\"), hour)",
-                "number",
-                "hour(dateAndTime(\"2018-12-10T10:30:01\"))",
-                lib.hour((TIME) lib.dateAndTime("2018-12-10T10:30:01")),
-                lib.number("10"));
-    }
-
-
-    @Test
-    public void testQualifiedName() {
-        Type bType = new ItemDefinitionType("b").addMember("c", Arrays.asList("C"), STRING);
-        Type aType = new ItemDefinitionType("a").addMember("b", Arrays.asList("B"), bType);
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("a", aType, null));
-
-        doSimpleExpressionsTest(entries, "a.b.c",
-                "PathExpression(PathExpression(Name(a), b), c)",
-                "string",
-                "((String)(((type.B)(a != null ? a.getB() : null)) != null ? ((type.B)(a != null ? a.getB() : null)).getC() : null))",
-                null,
-                null);
     }
 
     protected void doUnaryTestsTest(List<EnvironmentEntry> entries, String inputExpressionText, String inputEntryText,
