@@ -48,6 +48,11 @@ public class AddMissingImportPrefixInDTTransformer extends SimpleDMNTransformer<
 
     @Override
     public DMNModelRepository transform(DMNModelRepository repository) {
+        if (isEmpty(repository)) {
+            logger.warn("DMN repository is empty; transformer will not run");
+            return repository;
+        }
+
         for (TDefinitions definitions: repository.getAllDefinitions()) {
             for (TDecision decision: repository.findDecisions(definitions)) {
                 TExpression expression = repository.expression(decision);
@@ -62,11 +67,18 @@ public class AddMissingImportPrefixInDTTransformer extends SimpleDMNTransformer<
     }
 
     @Override
-    public Pair<DMNModelRepository, List<TestCases>> transform(DMNModelRepository repository, List<TestCases> testCases) {
+    public Pair<DMNModelRepository, List<TestCases>> transform(DMNModelRepository repository, List<TestCases> testCasesList) {
+        if (isEmpty(repository, testCasesList)) {
+            logger.warn("DMN repository or test cases list is empty; transformer will not run");
+            return new Pair<>(repository, testCasesList);
+        }
+
+        // Transform model
         if (transformRepository) {
             transform(repository);
         }
-        return new Pair<>(repository, testCases);
+
+        return new Pair<>(repository, testCasesList);
     }
 
     private void transform(DMNModelRepository repository, TDecision decision, TDecisionTable decisionTable) {
