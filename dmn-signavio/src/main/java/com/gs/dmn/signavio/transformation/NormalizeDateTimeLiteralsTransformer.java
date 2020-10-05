@@ -52,6 +52,11 @@ public class NormalizeDateTimeLiteralsTransformer extends SimpleDMNTransformer<T
 
     @Override
     public DMNModelRepository transform(DMNModelRepository repository) {
+        if (isEmpty(repository)) {
+            logger.warn("DMN repository is empty; transformer will not run");
+            return repository;
+        }
+
         for (TDefinitions definitions: repository.getAllDefinitions()) {
             for (TDecision decision: repository.findDecisions(definitions)) {
                 TExpression expression = repository.expression(decision);
@@ -69,12 +74,19 @@ public class NormalizeDateTimeLiteralsTransformer extends SimpleDMNTransformer<T
     }
 
     @Override
-    public Pair<DMNModelRepository, List<TestLab>> transform(DMNModelRepository repository, List<TestLab> testCases) {
+    public Pair<DMNModelRepository, List<TestLab>> transform(DMNModelRepository repository, List<TestLab> testCasesList) {
+        if (isEmpty(repository, testCasesList)) {
+            logger.warn("DMN repository or test cases list is empty; transformer will not run");
+            return new Pair<>(repository, testCasesList);
+        }
+
+        // Transform model
         if (transformRepository) {
             transform(repository);
         }
+
         // Signavio export of TestLab seems to produce normalized date and time / time literals
-        return new Pair<>(repository, testCases);
+        return new Pair<>(repository, testCasesList);
     }
 
     private void transform(TLiteralExpression literalExpression) {

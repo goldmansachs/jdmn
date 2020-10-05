@@ -46,6 +46,11 @@ public class GenerateMissingItemDefinitionsTransformer extends AbstractMissingIt
 
     @Override
     public DMNModelRepository transform(DMNModelRepository repository) {
+        if (isEmpty(repository)) {
+            logger.warn("Repository is empty; transformer will not run");
+            return repository;
+        }
+
         if (this.definitions == null || this.definitions.isEmpty()) {
             logger.warn("No definitions provided; transformer will not run");
             return repository;

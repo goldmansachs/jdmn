@@ -28,7 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
 import java.util.*;
 
 public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransformer<TestLab> {
@@ -61,22 +60,33 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
 
     @Override
     public DMNModelRepository transform(DMNModelRepository repository) {
-        this.inputDataClasses = new LinkedHashMap<>();
+        if (isEmpty(repository)) {
+            logger.warn("DMN repository is empty; transformer will not run");
+            return repository;
+        }
 
+        this.inputDataClasses = new LinkedHashMap<>();
         return mergeInputData(repository, logger);
     }
 
     @Override
-    public Pair<DMNModelRepository, List<TestLab>> transform(DMNModelRepository repository, List<TestLab> testLabList) {
+    public Pair<DMNModelRepository, List<TestLab>> transform(DMNModelRepository repository, List<TestLab> testCasesList) {
+        if (isEmpty(repository, testCasesList)) {
+            logger.warn("DMN repository or test cases list is empty; transformer will not run");
+            return new Pair<>(repository, testCasesList);
+        }
+
+        // Transform model
         if (inputDataClasses == null) {
             transform(repository);
         }
 
-        for (TestLab testLab: testLabList) {
+        // Transform test cases
+        for (TestLab testLab: testCasesList) {
             transform(testLab, (SignavioDMNModelRepository) repository);
         }
 
-        return new Pair<>(repository.copy(), testLabList);
+        return new Pair<>(repository.copy(), testCasesList);
     }
 
     private void transform(TestLab testLab, SignavioDMNModelRepository repository) {

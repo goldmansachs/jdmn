@@ -53,18 +53,28 @@ public class RuleDescriptionTransformer extends SimpleDMNTransformer<TestLab> {
 
     @Override
     public DMNModelRepository transform(DMNModelRepository repository) {
-        this.inputDataClasses = new LinkedHashMap<>();
+        if (isEmpty(repository)) {
+            logger.warn("DMN repository is empty; transformer will not run");
+            return repository;
+        }
 
+        this.inputDataClasses = new LinkedHashMap<>();
         return cleanRuleDescription(repository, logger);
     }
 
     @Override
-    public Pair<DMNModelRepository, List<TestLab>> transform(DMNModelRepository repository, List<TestLab> testLabList) {
+    public Pair<DMNModelRepository, List<TestLab>> transform(DMNModelRepository repository, List<TestLab> testCasesList) {
+        if (isEmpty(repository, testCasesList)) {
+            logger.warn("DMN repository or test cases list is empty; transformer will not run");
+            return new Pair<>(repository, testCasesList);
+        }
+
+        // Transform model
         if (inputDataClasses == null) {
             transform(repository);
         }
 
-        return new Pair<>(repository, testLabList);
+        return new Pair<>(repository, testCasesList);
     }
 
     private DMNModelRepository cleanRuleDescription(DMNModelRepository repository, BuildLogger logger) {

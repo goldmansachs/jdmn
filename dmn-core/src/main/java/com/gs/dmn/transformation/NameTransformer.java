@@ -16,11 +16,9 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.analysis.scanner.LexicalContext;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.reflect.FieldUtils;
 import org.omg.dmn.tck.marshaller._20160719.TestCases;
 import org.omg.dmn.tck.marshaller._20160719.ValueType;
 import org.omg.spec.dmn._20180521.model.*;
@@ -28,7 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBElement;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -74,6 +71,11 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
 
     @Override
     public DMNModelRepository transform(DMNModelRepository repository) {
+        if (isEmpty(repository)) {
+            logger.warn("DMN repository is empty; transformer will not run");
+            return repository;
+        }
+
         this.repository = repository;
         transformDefinitions(repository);
         this.transformDefinition = false;
@@ -82,11 +84,17 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
 
     @Override
     public Pair<DMNModelRepository, List<TestCases>> transform(DMNModelRepository repository, List<TestCases> testCasesList) {
+        if (isEmpty(repository, testCasesList)) {
+            logger.warn("DMN repository or test cases list is empty; transformer will not run");
+            return new Pair<>(repository, testCasesList);
+        }
+
+        // Transform model
         if (transformDefinition) {
             transform(repository);
         }
 
-        // Clean each TestCase
+        // Transform test cases
         for (TestCases testCases: testCasesList) {
             if (testCases != null) {
                 for (TestCases.TestCase testCase : testCases.getTestCase()) {
