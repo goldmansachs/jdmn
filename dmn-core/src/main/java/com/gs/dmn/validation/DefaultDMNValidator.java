@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.validation;
 
-import com.google.common.base.Function;
+import java.util.function.Function;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
