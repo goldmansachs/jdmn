@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
+
 public class UniqueNameValidatorTest extends AbstractValidatorTest {
     private final UniqueNameValidator validator = new UniqueNameValidator();
 
@@ -36,8 +38,9 @@ public class UniqueNameValidatorTest extends AbstractValidatorTest {
         validate(validator, "dmn/input/test-dmn-with-duplicates.dmn", expectedErrors);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testValidateDefinitionsWhenNull() {
-        validator.validate(null);
+        List<String> actualErrors = validator.validate(null);
+        assertTrue(actualErrors.isEmpty());
     }
 }
